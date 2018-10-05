@@ -1,6 +1,6 @@
 #TAG - Tiltaksgjennomføring
 ===========================
-
+[![Build Status](https://api.travis-ci.com/navikt/tiltaksgjennomforing.png)](https://travis-ci.com/navikt/tiltaksgjennomforing)
 
 Bygg image
 `docker build -t tiltaksgjennomforing .`
