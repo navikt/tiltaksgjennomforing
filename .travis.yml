@@ -5,7 +5,7 @@ services: docker
 
 env:
   global:
-  - RELEASE_VERSION="$(git fetch --unshallow || true && git rev-list --count $TRAVIS_COMMIT)"
+  - RELEASE_VERSION="$(git rev-list --count $TRAVIS_COMMIT)"
   - DOCKER_IMAGE_FULL_NAME="$TRAVIS_REPO_SLUG:$RELEASE_VERSION"
 
 script:
