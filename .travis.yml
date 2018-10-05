@@ -1,6 +1,20 @@
 language: node_js
 node_js: "10"
 
+services: docker
+
+env:
+  global:
+  - RELEASE_VERSION="$(git fetch --unshallow || true && git rev-list --count $TRAVIS_COMMIT)"
+  - DOCKER_IMAGE_FULL_NAME="$TRAVIS_REPO_SLUG:$RELEASE_VERSION"
+
 script:
-- "npm ci"
-- "npm run build"
+- npm ci
+- npm run build
+- docker build -t "$DOCKER_IMAGE_FULL_NAME" .
+
+deploy:
+  provider: script
+  script: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" && docker push "$DOCKER_IMAGE_FULL_NAME"
+  on:
+    branch: master
