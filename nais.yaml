@@ -1,2 +1,10 @@
 image: navikt/tiltaksgjennomforing
+port: 8080
 team: tag
+healthcheck:
+  liveness:
+    path: /isAlive
+    initialDelay: 20
+  readiness:
+    path: /isReady
+    initialDelay: 20
