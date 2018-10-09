@@ -10,7 +10,7 @@ jobs:
       - setup_remote_docker
       - run: |
           RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"
-          DOCKER_IMAGE_FULL_NAME="$CIRCLE_PROJECT_REPONAME:$RELEASE_VERSION"
+          DOCKER_IMAGE_FULL_NAME="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$RELEASE_VERSION"
           docker build -t "$DOCKER_IMAGE_FULL_NAME" .
       - run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASS
