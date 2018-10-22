@@ -8,6 +8,7 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">HELLO #TAG!</h1>
+          <p>Tiltaksgjennomføring</p>
         </header>
       </div>
     );
