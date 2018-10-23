@@ -10,7 +10,7 @@ class App extends React.Component {
           <h1 className="App-title">HELLO #TAG!</h1>
         </header>
         <section>
-          <p>Tiltaksgjennomføring :)</p>
+          <p>Tiltaksgjennomføring ;)</p>
         </section>
       </div>
     );
