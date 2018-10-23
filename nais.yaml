@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   image: navikt/tiltaksgjennomforing:latest
-  team: tag
+  team: teamtag
   port: 80
   healthcheck:
     liveness:
