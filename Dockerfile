@@ -1,6 +1,4 @@
-# gjør det mulig å bytte base-image slik at vi får bygd både innenfor og utenfor NAV
-ARG BASE_IMAGE_PREFIX=""
-FROM ${BASE_IMAGE_PREFIX}node as node-builder
+FROM node as node-builder
 
 ADD / /source
 ENV CI=true
