@@ -1,20 +1,22 @@
+import { Sidetittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import './App.css';
-
+import AvtaleWizard from './AvtaleWizard';
 
 class App extends React.Component {
-  public render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">HELLO #TAG!</h1>
-        </header>
-        <section>
-          <p>Tiltaksgjennomføring ;)</p>
-        </section>
-      </div>
-    );
-  }
+    public render() {
+        // tslint:disable jsx-no-lambda
+        // tslint:disable no-empty
+        return (
+            <div>
+                <header>
+                    <Sidetittel>Avtale om arbeidstrening</Sidetittel>
+                </header>
+                <section>
+                    <AvtaleWizard />
+                </section>
+            </div>
+        );
+    }
 }
 
 export default App;

@@ -1,24 +1,47 @@
 {
   "name": "tiltaksgjennomforing",
-  "homepage": "/tiltaksgjennomforing",
+  "homepage": "/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts-ts": "3.1.0"
+    "@navikt/create-react-app-typescript-less": "^1.0.0-beta.14",
+    "classnames": "^2.2.6",
+    "lodash.throttle": "^4.1.1",
+    "nav-frontend-core": "^4.0.5",
+    "nav-frontend-js-utils": "^1.0.6",
+    "nav-frontend-knapper": "^1.0.21",
+    "nav-frontend-knapper-style": "^0.3.19",
+    "nav-frontend-paneler": "^1.0.10",
+    "nav-frontend-paneler-style": "^0.3.11",
+    "nav-frontend-skjema": "^1.0.40",
+    "nav-frontend-skjema-style": "^1.0.21",
+    "nav-frontend-stegindikator": "0.0.27",
+    "nav-frontend-stegindikator-style": "^1.0.13",
+    "nav-frontend-typografi": "^2.0.6",
+    "nav-frontend-typografi-style": "^1.0.10",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.5.2"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start:less": "less-watch-compiler",
+    "start:ts": "react-scripts-ts start",
+    "start": "npm-run-all -p start:*",
+    "build:less": "less-watch-compiler --run-once",
+    "build:ts": "react-scripts-ts build",
+    "build": "npm-run-all -p build:*",
+    "test": "react-scripts-ts test --env=jsdom"
   },
   "devDependencies": {
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.3",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.8",
+    "less": "^3.8.1",
+    "less-plugin-npm-import": "^2.1.0",
+    "less-watch-compiler": "^1.12.1",
+    "npm-run-all": "^4.1.3",
+    "prettier": "^1.14.3",
     "typescript": "^3.1.1"
   }
 }
