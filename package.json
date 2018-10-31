@@ -6,6 +6,7 @@
   "dependencies": {
     "@navikt/create-react-app-typescript-less": "^1.0.0-beta.14",
     "classnames": "^2.2.6",
+    "lodash": "latest",
     "lodash.throttle": "^4.1.1",
     "nav-frontend-core": "^4.0.5",
     "nav-frontend-js-utils": "^1.0.6",

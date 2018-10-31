@@ -1,6 +1,6 @@
 import { Sidetittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import AvtaleWizard from './AvtaleWizard';
+import Avtale from './avtale/Avtale';
 
 class App extends React.Component {
     public render() {
@@ -12,7 +12,7 @@ class App extends React.Component {
                     <Sidetittel>Avtale om arbeidstrening</Sidetittel>
                 </header>
                 <section>
-                    <AvtaleWizard />
+                    <Avtale />
                 </section>
             </div>
         );
