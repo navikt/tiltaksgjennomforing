@@ -8,31 +8,31 @@ const Arbeidsgiver = (props: AvtaleStegProps) => (
         <SkjemaGruppe title={'Opplysninger om arbeidsgiver'}>
             <Input
                 label={'Organisasjonsnummer'}
-                id={'orgnr'}
                 bredde={'M'}
-                defaultValue={props.form.orgnr}
+                id={'arbeidsgiverorgnr'}
+                defaultValue={props.form.arbeidsgiverorgnr}
                 onChange={props.handleChange}
             />
             <Input
                 label={'Bedriftens navn'}
-                id={'bedriftsnavn'}
                 bredde={'XL'}
-                defaultValue={props.form.bedriftsnavn}
+                id={'arbeidsgivernavn'}
+                defaultValue={props.form.arbeidsgivernavn}
                 onChange={props.handleChange}
             />
             <Input
                 label={'Kontaktperson'}
-                id={'kontaktperson'}
                 bredde={'XL'}
-                defaultValue={props.form.kontaktperson}
+                id={'arbeidsgiverkontaktperson'}
+                defaultValue={props.form.arbeidsgiverkontaktperson}
                 onChange={props.handleChange}
             />
             <Input
                 label={'Telefon'}
-                id={'bedriftstlf'}
                 bredde={'M'}
                 type={'tel'}
-                defaultValue={props.form.bedriftstlf}
+                id={'arbeidsgivertlf'}
+                defaultValue={props.form.arbeidsgivertlf}
                 onChange={props.handleChange}
             />
         </SkjemaGruppe>

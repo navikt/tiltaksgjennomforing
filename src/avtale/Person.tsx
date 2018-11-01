@@ -8,9 +8,9 @@ const Person = (props: AvtaleStegProps) => (
         <SkjemaGruppe title={'Opplysninger om person'}>
             <Input
                 label={'Fødselsnummer'}
-                id={'fnr'}
+                id={'personfnr'}
                 bredde={'M'}
-                defaultValue={props.form.fnr}
+                defaultValue={props.form.personfnr}
                 onChange={props.handleChange}
             />
             <Input
