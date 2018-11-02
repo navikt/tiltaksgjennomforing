@@ -36,7 +36,7 @@ const Bekreftelse = (props: AvtaleStegProps) => (
         <PanelBase>
             <SkjemaGruppe
                 className={'bekreft'}
-                title={'Bekreft innhold i avtalen'}
+                title={'Bekreft innhold i avtalen (ikke implementert)'}
             >
                 <KnappBase type="standard" disabled={false}>
                     Bekreft som bruker

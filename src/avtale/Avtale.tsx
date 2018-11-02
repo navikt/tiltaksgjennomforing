@@ -1,21 +1,30 @@
-/*
 import KnappBase from 'nav-frontend-knapper';
+import Lenke from 'nav-frontend-lenker';
 import PanelBase from 'nav-frontend-paneler';
-*/
 import * as React from 'react';
 import Stegvelger from '../Stegvelger';
 import Arbeidsgiver from './Arbeidsgiver';
-import AvtaleForm from './AvtaleForm';
+import AvtaleModell from './AvtaleModell';
 import Bekreftelse from './Bekreftelse';
 import Malsetning from './Malsetning';
 import Person from './Person';
 
-class Avtale extends React.Component<{}, AvtaleForm> {
-    constructor(props: {}) {
+interface Props {
+    firebase: any;
+    avtaleId: string;
+}
+
+class Avtale extends React.Component<Props, { avtale: AvtaleModell }> {
+    constructor(props: Props) {
         super(props);
-        this.state = {};
+        this.state = {
+            avtale: {
+                id: props.avtaleId,
+            },
+        };
+        this.hent();
         this.handleChange = this.handleChange.bind(this);
-        this.lagreForm = this.lagreForm.bind(this);
+        this.lagre = this.lagre.bind(this);
     }
 
     public render() {
@@ -25,39 +34,66 @@ class Avtale extends React.Component<{}, AvtaleForm> {
                     <Person
                         label={'Person'}
                         handleChange={this.handleChange}
-                        form={this.state}
+                        form={this.state.avtale}
                     />
                     <Arbeidsgiver
                         label={'Arbeidsgiver'}
                         handleChange={this.handleChange}
-                        form={this.state}
+                        form={this.state.avtale}
                     />
                     <Malsetning
                         label={'Målsetninger'}
                         handleChange={this.handleChange}
-                        form={this.state}
+                        form={this.state.avtale}
                     />
                     <Bekreftelse
                         label={'Bekreftelse'}
                         handleChange={this.handleChange}
-                        form={this.state}
+                        form={this.state.avtale}
                     />
                 </Stegvelger>
-                {/*<PanelBase>
-                    <KnappBase type="standard" disabled={false} onSubmit={this.lagreForm}>
+                <PanelBase>
+                    <Lenke href={'/'}>Til oversiktssiden</Lenke>
+                    &nbsp; &nbsp;
+                    <KnappBase
+                        type="hoved"
+                        disabled={false}
+                        onClick={this.lagre}
+                    >
                         Lagre
                     </KnappBase>
-                </PanelBase>*/}
+                </PanelBase>
             </>
         );
     }
 
-    private handleChange(event: any) {
-        this.setState({ [event.target.id]: event.target.value });
+    private hent() {
+        const self = this;
+        this.avtaleRef()
+            .once('value')
+            .then((snapshot: any) => {
+                self.setState({ avtale: snapshot.val() });
+            });
     }
 
-    private lagreForm() {
-        // todo
+    private handleChange(event: any) {
+        const avtale = this.state.avtale;
+        avtale[event.target.id] = event.target.value;
+        this.setState({ avtale });
+    }
+
+    private lagre() {
+        this.avtaleRef()
+            .set(this.state.avtale)
+            .then((param: any) => {
+                console.log(param); // tslint:disable-line no-console
+            });
+    }
+
+    private avtaleRef() {
+        return this.props.firebase
+            .database()
+            .ref('avtale/' + this.props.avtaleId);
     }
 }
 

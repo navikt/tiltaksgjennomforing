@@ -1,5 +1,6 @@
-export default interface AvtaleForm {
+export default interface AvtaleModell {
     id?: string;
+    opprettetTidspunkt?: string;
 
     personfnr?: string;
     personnavn?: string;

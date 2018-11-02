@@ -8,14 +8,14 @@ interface Props {
 }
 
 interface State {
-    aktivtSteg: Steg;
+    aktivtSteg: number;
 }
 
 class Stegvelger extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            aktivtSteg: this.props.children[0],
+            aktivtSteg: 0,
         };
         this.oppdaterAktivtSteg = this.oppdaterAktivtSteg.bind(this);
     }
@@ -31,13 +31,13 @@ class Stegvelger extends React.Component<Props, State> {
                     }))}
                     visLabel={true}
                 />
-                <div>{this.state.aktivtSteg}</div>
+                <div>{this.props.children[this.state.aktivtSteg]}</div>
             </>
         );
     }
 
     private oppdaterAktivtSteg(index: number) {
-        this.setState({ aktivtSteg: this.props.children[index] });
+        this.setState({ aktivtSteg: index });
     }
 }
 
