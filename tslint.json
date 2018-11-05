@@ -12,6 +12,8 @@
         "object-literal-sort-keys": false,
         "interface-name": [true, "never-prefix"],
         "max-classes-per-file": false,
-        "jsx-no-lambda": false
+        "jsx-no-lambda": false,
+        "member-access": false,
+        "ordered-imports": false
     }
 }
