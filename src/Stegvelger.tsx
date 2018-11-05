@@ -12,15 +12,15 @@ interface State {
 }
 
 class Stegvelger extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            aktivtSteg: 0,
-        };
-        this.oppdaterAktivtSteg = this.oppdaterAktivtSteg.bind(this);
-    }
+    state = {
+        aktivtSteg: 0,
+    };
 
-    public render() {
+    oppdaterAktivtSteg = (index: number) => {
+        this.setState({ aktivtSteg: index });
+    };
+
+    render() {
         return (
             <>
                 <Stegindikator
@@ -34,10 +34,6 @@ class Stegvelger extends React.Component<Props, State> {
                 <div>{this.props.children[this.state.aktivtSteg]}</div>
             </>
         );
-    }
-
-    private oppdaterAktivtSteg(index: number) {
-        this.setState({ aktivtSteg: index });
     }
 }
 

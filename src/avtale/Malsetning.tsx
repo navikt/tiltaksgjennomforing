@@ -5,12 +5,12 @@ import AvtaleStegProps from './AvtaleStegProps';
 
 class Malsetning extends React.Component<AvtaleStegProps, { text: string }> {
     state = {
-        text: this.props.form.maal || ''
+        text: this.props.form.maal,
     };
 
-    onChange = (event:any) => {
-      this.setState({text: event.target.value});
-      this.props.handleChange(event);
+    onChange = (event: any) => {
+        this.setState({ text: event.target.value });
+        this.props.handleChange(event);
     };
 
     render() {

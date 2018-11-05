@@ -1,55 +1,84 @@
-import KnappBase from 'nav-frontend-knapper';
-import Lenke from 'nav-frontend-lenker';
-import PanelBase from 'nav-frontend-paneler';
-import * as React from 'react';
-import Stegvelger from '../Stegvelger';
-import Arbeidsgiver from './Arbeidsgiver';
-import AvtaleModell from './AvtaleModell';
-import Bekreftelse from './Bekreftelse';
-import Malsetning from './Malsetning';
-import Person from './Person';
+import * as React from "react";
+import Arbeidsgiver from "./Arbeidsgiver";
+import AvtaleModell, { tomAvtale } from "./AvtaleModell";
+import Bekreftelse from "./Bekreftelse";
+import KnappBase from "nav-frontend-knapper";
+import Lenke from "nav-frontend-lenker";
+import Malsetning from "./Malsetning";
+import PanelBase from "nav-frontend-paneler";
+import Person from "./Person";
+import Stegvelger from "../Stegvelger";
+import { RouteComponentProps } from "react-router";
+import firebase from "../firebase";
 
-interface Props {
-    firebase: any;
+interface MatchProps {
     avtaleId: string;
 }
 
-class Avtale extends React.Component<Props, { avtale: AvtaleModell }> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            avtale: {
-                id: props.avtaleId,
-            },
-        };
+class Avtale extends React.Component<
+    RouteComponentProps<MatchProps>,
+    AvtaleModell
+> {
+    state = {
+        ...tomAvtale,
+        id: this.props.match.params.avtaleId,
+    };
+
+    componentDidMount() {
         this.hent();
-        this.handleChange = this.handleChange.bind(this);
-        this.lagre = this.lagre.bind(this);
     }
 
-    public render() {
+    hent = () => {
+        this.avtaleRef()
+            .once('value')
+            .then((snapshot: any) => {
+                this.setState(snapshot.val());
+            });
+    };
+
+    handleChange = (event: any) => {
+        const avtale = this.state;
+        avtale[event.target.id] = event.target.value;
+        this.setState(avtale);
+    };
+
+    lagre = () => {
+        this.avtaleRef()
+            .set(this.state)
+            .then((param: any) => {
+                console.log(param); // tslint:disable-line no-console
+            });
+    };
+
+    avtaleRef = () => {
+        return firebase
+            .database()
+            .ref('avtale/' + this.props.match.params.avtaleId);
+    };
+
+    render() {
         return (
             <>
                 <Stegvelger>
                     <Person
                         label={'Person'}
                         handleChange={this.handleChange}
-                        form={this.state.avtale}
+                        form={this.state}
                     />
                     <Arbeidsgiver
                         label={'Arbeidsgiver'}
                         handleChange={this.handleChange}
-                        form={this.state.avtale}
+                        form={this.state}
                     />
                     <Malsetning
                         label={'Målsetninger'}
                         handleChange={this.handleChange}
-                        form={this.state.avtale}
+                        form={this.state}
                     />
                     <Bekreftelse
                         label={'Bekreftelse'}
                         handleChange={this.handleChange}
-                        form={this.state.avtale}
+                        form={this.state}
                     />
                 </Stegvelger>
                 <PanelBase>
@@ -65,35 +94,6 @@ class Avtale extends React.Component<Props, { avtale: AvtaleModell }> {
                 </PanelBase>
             </>
         );
-    }
-
-    private hent() {
-        const self = this;
-        this.avtaleRef()
-            .once('value')
-            .then((snapshot: any) => {
-                self.setState({ avtale: snapshot.val() });
-            });
-    }
-
-    private handleChange(event: any) {
-        const avtale = this.state.avtale;
-        avtale[event.target.id] = event.target.value;
-        this.setState({ avtale });
-    }
-
-    private lagre() {
-        this.avtaleRef()
-            .set(this.state.avtale)
-            .then((param: any) => {
-                console.log(param); // tslint:disable-line no-console
-            });
-    }
-
-    private avtaleRef() {
-        return this.props.firebase
-            .database()
-            .ref('avtale/' + this.props.avtaleId);
     }
 }
 
