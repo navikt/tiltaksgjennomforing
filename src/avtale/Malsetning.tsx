@@ -4,15 +4,16 @@ import * as React from 'react';
 import AvtaleStegProps from './AvtaleStegProps';
 
 class Malsetning extends React.Component<AvtaleStegProps, { text: string }> {
-    constructor(props: AvtaleStegProps) {
-        super(props);
-        this.state = {
-            text: this.props.form.maal || ''
-        };
-        this.onChange = this.onChange.bind(this);
-    }
+    state = {
+        text: this.props.form.maal || ''
+    };
 
-    public render() {
+    onChange = (event:any) => {
+      this.setState({text: event.target.value});
+      this.props.handleChange(event);
+    };
+
+    render() {
         return (
             <PanelBase>
                 <Textarea
@@ -23,11 +24,6 @@ class Malsetning extends React.Component<AvtaleStegProps, { text: string }> {
                 />
             </PanelBase>
         );
-    }
-
-    private onChange(event:any) {
-        this.setState({text: event.target.value});
-        this.props.handleChange(event);
     }
 }
 
