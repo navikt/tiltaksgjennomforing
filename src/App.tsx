@@ -1,9 +1,9 @@
 import { Sidetittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Avtale from './avtale/Avtale';
-import AvtaleOversikt from './avtale/AvtaleOversikt';
+import { Route } from 'react-router-dom';
+import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
 import './firebase';
+import AvtaleSide from './AvtaleSide/AvtaleSide';
 
 class App extends React.Component {
     render() {
@@ -13,19 +13,8 @@ class App extends React.Component {
                     <Sidetittel>Avtale om arbeidstrening</Sidetittel>
                 </header>
                 <section>
-                    <BrowserRouter>
-                        <Switch>
-                            <Route
-                                path={'/'}
-                                exact={true}
-                                component={AvtaleOversikt}
-                            />
-                            <Route
-                                path={'/avtale/:avtaleId'}
-                                component={Avtale}
-                            />
-                        </Switch>
-                    </BrowserRouter>
+                    <Route path={'/'} exact={true} component={AvtaleOversikt} />
+                    <Route path={'/avtale/:avtaleId'} component={AvtaleSide} />
                 </section>
             </div>
         );

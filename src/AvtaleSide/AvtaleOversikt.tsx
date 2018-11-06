@@ -1,16 +1,17 @@
 import * as moment from 'moment';
-import KnappBase from 'nav-frontend-knapper';
+import { Knapp } from 'nav-frontend-knapper';
 import PanelBase from 'nav-frontend-paneler';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import firebase from '../firebase';
 import { RouterProps } from 'react-router';
 import AvtaleModell, { tomAvtale } from './AvtaleModell';
+import { pathTilKontaktinformasjon } from '../paths';
 
 const Avtaler = (props: { avtaler: AvtaleModell[] }) => {
     const avtaleLinker = props.avtaler.map((avtale: AvtaleModell) => (
         <li key={avtale.id}>
-            <Link to={'/avtale/' + avtale.id}>
+            <Link to={'/avtale/' + avtale.id + '/kontaktinformasjon'}>
                 Avtale (opprettet: {avtale.opprettetTidspunkt})
             </Link>
         </li>
@@ -27,7 +28,7 @@ class AvtaleOversikt extends React.Component<
         avtaler: [],
     };
 
-    componentWillMount() {
+    componentDidMount() {
         this.hentAvtaler();
     }
 
@@ -44,7 +45,7 @@ class AvtaleOversikt extends React.Component<
             opprettetTidspunkt: moment().format('DD.MM.YYYY HH:mm:ss'),
         };
         avtaleRef.set(avtale).then(() => {
-            this.props.history.push('/avtale/' + avtaleId);
+            this.props.history.push(pathTilKontaktinformasjon(avtaleId));
         });
     };
 
@@ -56,28 +57,28 @@ class AvtaleOversikt extends React.Component<
                 const respons = snapshot.val();
                 if (respons) {
                     this.setState({
-                        avtaler: Object.keys(respons).map(id => {
-                            return {
-                                ...tomAvtale,
-                                ...respons[id],
-                            };
-                        }),
+                        avtaler: this.mapFirebaseResponsTilAvtaler(respons),
                     });
                 }
             });
+    };
+
+    mapFirebaseResponsTilAvtaler = (
+        respons: Map<string, AvtaleModell>
+    ): AvtaleModell[] => {
+        return Object.keys(respons).map(id => ({
+            ...tomAvtale,
+            ...respons[id],
+        }));
     };
 
     render() {
         return (
             <PanelBase>
                 <Avtaler avtaler={this.state.avtaler} />
-                <KnappBase
-                    type="standard"
-                    disabled={false}
-                    onClick={this.opprettAvtale}
-                >
+                <Knapp disabled={false} onClick={this.opprettAvtale}>
                     Opprett avtale
-                </KnappBase>
+                </Knapp>
             </PanelBase>
         );
     }
