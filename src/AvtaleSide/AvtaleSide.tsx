@@ -5,8 +5,9 @@ import firebase from '../firebase';
 import Kontaktinformasjon from './Kontaktinformasjon/Kontaktinformasjon';
 import Avtale from './Avtale/Avtale';
 import PanelBase from 'nav-frontend-paneler';
-import KnappBase from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Link } from 'react-router-dom';
+import { pathTilAvtale, pathTilKontaktinformasjon } from '../paths';
 
 interface MatchProps {
     avtaleId: string;
@@ -54,20 +55,18 @@ class AvtaleSide extends React.Component<
     };
 
     render() {
-        // TODO: Bli enige om URL paths
+        const avtaleId = this.props.match.params.avtaleId;
         const knappeRekke = () => (
             <>
                 <Link
                     className="knapp"
-                    to={`/avtale/${
-                        this.props.match.params.avtaleId
-                    }/kontaktinformasjon`}
+                    to={pathTilKontaktinformasjon(avtaleId)}
                 >
                     Kontaktinformasjon
                 </Link>
                 <Link
                     className="knapp"
-                    to={`/avtale/${this.props.match.params.avtaleId}/avtale`}
+                    to={pathTilAvtale(avtaleId)}
                 >
                     Avtale
                 </Link>
@@ -78,7 +77,7 @@ class AvtaleSide extends React.Component<
             <>
                 {knappeRekke()}
                 <Route
-                    path={'/avtale/:avtaleId/kontaktinformasjon'}
+                    path={pathTilKontaktinformasjon(':avtaleId')}
                     exact={true}
                     render={() => (
                         <Kontaktinformasjon
@@ -88,7 +87,7 @@ class AvtaleSide extends React.Component<
                     )}
                 />
                 <Route
-                    path={'/avtale/:avtaleId/avtale'}
+                    path={pathTilAvtale(':avtaleId')}
                     exact={true}
                     render={() => (
                         <Avtale
@@ -102,13 +101,9 @@ class AvtaleSide extends React.Component<
                         Til oversiktssiden
                     </Link>
                     &nbsp; &nbsp;
-                    <KnappBase
-                        type="hoved"
-                        disabled={false}
-                        onClick={this.lagre}
-                    >
+                    <Hovedknapp onClick={this.lagre}>
                         Lagre
-                    </KnappBase>
+                    </Hovedknapp>
                 </PanelBase>
             </>
         );

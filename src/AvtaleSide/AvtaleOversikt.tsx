@@ -58,15 +58,17 @@ class AvtaleOversikt extends React.Component<
                 const respons = snapshot.val();
                 if (respons) {
                     this.setState({
-                        avtaler: Object.keys(respons).map(id => {
-                            return {
-                                ...tomAvtale,
-                                ...respons[id],
-                            };
-                        }),
+                        avtaler: this.mapFirebaseResponsTilAvtaler(respons),
                     });
                 }
             });
+    };
+
+    mapFirebaseResponsTilAvtaler = (respons: Map<string, AvtaleModell>): AvtaleModell[] => {
+        return Object.keys(respons).map(id => ({
+                ...tomAvtale,
+                ...respons[id],
+            }));
     };
 
     render() {
