@@ -64,10 +64,7 @@ class AvtaleSide extends React.Component<
                 >
                     Kontaktinformasjon
                 </Link>
-                <Link
-                    className="knapp"
-                    to={pathTilAvtale(avtaleId)}
-                >
+                <Link className="knapp" to={pathTilAvtale(avtaleId)}>
                     Avtale
                 </Link>
             </>
@@ -101,9 +98,7 @@ class AvtaleSide extends React.Component<
                         Til oversiktssiden
                     </Link>
                     &nbsp; &nbsp;
-                    <Hovedknapp onClick={this.lagre}>
-                        Lagre
-                    </Hovedknapp>
+                    <Hovedknapp onClick={this.lagre}>Lagre</Hovedknapp>
                 </PanelBase>
             </>
         );

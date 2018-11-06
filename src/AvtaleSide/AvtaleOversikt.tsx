@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import firebase from '../firebase';
 import { RouterProps } from 'react-router';
 import AvtaleModell, { tomAvtale } from './AvtaleModell';
+import { pathTilKontaktinformasjon } from '../paths';
 
 const Avtaler = (props: { avtaler: AvtaleModell[] }) => {
     const avtaleLinker = props.avtaler.map((avtale: AvtaleModell) => (
@@ -44,9 +45,7 @@ class AvtaleOversikt extends React.Component<
             opprettetTidspunkt: moment().format('DD.MM.YYYY HH:mm:ss'),
         };
         avtaleRef.set(avtale).then(() => {
-            this.props.history.push(
-                '/avtale/' + avtaleId + '/kontaktinformasjon'
-            );
+            this.props.history.push(pathTilKontaktinformasjon(avtaleId));
         });
     };
 
@@ -64,11 +63,13 @@ class AvtaleOversikt extends React.Component<
             });
     };
 
-    mapFirebaseResponsTilAvtaler = (respons: Map<string, AvtaleModell>): AvtaleModell[] => {
+    mapFirebaseResponsTilAvtaler = (
+        respons: Map<string, AvtaleModell>
+    ): AvtaleModell[] => {
         return Object.keys(respons).map(id => ({
-                ...tomAvtale,
-                ...respons[id],
-            }));
+            ...tomAvtale,
+            ...respons[id],
+        }));
     };
 
     render() {
