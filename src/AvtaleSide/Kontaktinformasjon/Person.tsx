@@ -1,7 +1,7 @@
 import PanelBase from 'nav-frontend-paneler';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import * as React from 'react';
-import AvtaleStegProps from './AvtaleStegProps';
+import AvtaleStegProps from '../AvtaleStegProps';
 
 const Person = (props: AvtaleStegProps) => (
     <PanelBase>
@@ -11,14 +11,14 @@ const Person = (props: AvtaleStegProps) => (
                 id={'personfnr'}
                 bredde={'M'}
                 defaultValue={props.form.personfnr}
-                onChange={props.handleChange}
+                onChange={props.oppdaterAvtale}
             />
             <Input
                 label={'Navn'}
                 id={'personnavn'}
                 bredde={'XL'}
                 defaultValue={props.form.personnavn}
-                onChange={props.handleChange}
+                onChange={props.oppdaterAvtale}
             />
             <Input
                 label={'Telefon'}
@@ -26,7 +26,7 @@ const Person = (props: AvtaleStegProps) => (
                 bredde={'M'}
                 type={'tel'}
                 defaultValue={props.form.persontlf}
-                onChange={props.handleChange}
+                onChange={props.oppdaterAvtale}
             />
         </SkjemaGruppe>
     </PanelBase>

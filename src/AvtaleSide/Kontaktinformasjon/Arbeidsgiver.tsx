@@ -1,7 +1,7 @@
 import PanelBase from 'nav-frontend-paneler';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import * as React from 'react';
-import AvtaleStegProps from './AvtaleStegProps';
+import AvtaleStegProps from '../AvtaleStegProps';
 
 const Arbeidsgiver = (props: AvtaleStegProps) => (
     <PanelBase>
@@ -11,21 +11,21 @@ const Arbeidsgiver = (props: AvtaleStegProps) => (
                 bredde={'M'}
                 id={'arbeidsgiverorgnr'}
                 defaultValue={props.form.arbeidsgiverorgnr}
-                onChange={props.handleChange}
+                onChange={props.oppdaterAvtale}
             />
             <Input
                 label={'Bedriftens navn'}
                 bredde={'XL'}
                 id={'arbeidsgivernavn'}
                 defaultValue={props.form.arbeidsgivernavn}
-                onChange={props.handleChange}
+                onChange={props.oppdaterAvtale}
             />
             <Input
                 label={'Kontaktperson'}
                 bredde={'XL'}
                 id={'arbeidsgiverkontaktperson'}
                 defaultValue={props.form.arbeidsgiverkontaktperson}
-                onChange={props.handleChange}
+                onChange={props.oppdaterAvtale}
             />
             <Input
                 label={'Telefon'}
@@ -33,7 +33,7 @@ const Arbeidsgiver = (props: AvtaleStegProps) => (
                 type={'tel'}
                 id={'arbeidsgivertlf'}
                 defaultValue={props.form.arbeidsgivertlf}
-                onChange={props.handleChange}
+                onChange={props.oppdaterAvtale}
             />
         </SkjemaGruppe>
     </PanelBase>

@@ -3,7 +3,7 @@ import PanelBase from 'nav-frontend-paneler';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import AvtaleStegProps from './AvtaleStegProps';
+import AvtaleStegProps from '../AvtaleStegProps';
 
 const Bekreftelse = (props: AvtaleStegProps) => (
     <PanelBase>

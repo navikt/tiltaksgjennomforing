@@ -1,7 +1,7 @@
 import PanelBase from 'nav-frontend-paneler';
 import { Textarea } from 'nav-frontend-skjema';
 import * as React from 'react';
-import AvtaleStegProps from './AvtaleStegProps';
+import AvtaleStegProps from '../AvtaleStegProps';
 
 class Malsetning extends React.Component<AvtaleStegProps, { text: string }> {
     state = {
@@ -10,7 +10,7 @@ class Malsetning extends React.Component<AvtaleStegProps, { text: string }> {
 
     onChange = (event: any) => {
         this.setState({ text: event.target.value });
-        this.props.handleChange(event);
+        this.props.oppdaterAvtale(event);
     };
 
     render() {
