@@ -3,7 +3,7 @@ import { Knapp } from 'nav-frontend-knapper';
 import PanelBase from 'nav-frontend-paneler';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import firebase from '../firebase';
+import firebase from '../services/firebase';
 import { RouterProps } from 'react-router';
 import AvtaleModell, { tomAvtale } from './AvtaleModell';
 import { pathTilKontaktinformasjon } from '../paths';
