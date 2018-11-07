@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AvtaleModell, { tomAvtale } from './AvtaleModell';
 import { Route, RouteComponentProps } from 'react-router';
-import firebase from '../firebase';
+import { hentAvtale, lagreAvtale } from '../services/firebase';
 import Kontaktinformasjon from './Kontaktinformasjon/Kontaktinformasjon';
 import Avtale from './Avtale/Avtale';
 import PanelBase from 'nav-frontend-paneler';
@@ -23,35 +23,16 @@ class AvtaleSide extends React.Component<
     };
 
     componentDidMount() {
-        this.hentAvtale();
+        const avtaleId = this.props.match.params.avtaleId;
+        hentAvtale(avtaleId).then((snapshot: any) => {
+            this.setState(snapshot.val());
+        });
     }
-
-    hentAvtale = () => {
-        this.avtaleRef()
-            .once('value')
-            .then((snapshot: any) => {
-                this.setState(snapshot.val());
-            });
-    };
 
     oppdaterAvtale = (event: any) => {
         const avtale = this.state;
         avtale[event.target.id] = event.target.value;
         this.setState(avtale);
-    };
-
-    lagre = () => {
-        this.avtaleRef()
-            .set(this.state)
-            .then((param: any) => {
-                console.log(param); // tslint:disable-line no-console
-            });
-    };
-
-    avtaleRef = () => {
-        return firebase
-            .database()
-            .ref('avtale/' + this.props.match.params.avtaleId);
     };
 
     render() {
@@ -98,7 +79,9 @@ class AvtaleSide extends React.Component<
                         Til oversiktssiden
                     </Link>
                     &nbsp; &nbsp;
-                    <Hovedknapp onClick={this.lagre}>Lagre</Hovedknapp>
+                    <Hovedknapp onClick={() => lagreAvtale(this.state)}>
+                        Lagre
+                    </Hovedknapp>
                 </PanelBase>
             </>
         );
