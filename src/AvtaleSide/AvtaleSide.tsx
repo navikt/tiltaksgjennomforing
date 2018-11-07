@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import { pathTilAvtale, pathTilKontaktinformasjon } from '../paths';
 import { hentAvtale, lagreAvtale } from '../services/firebase';
 import Avtale, { tomAvtale } from './Avtale';
-import AvtaleSeksjon from './Avtale/AvtaleSeksjon';
-import KontaktinformasjonSeksjon from './Kontaktinformasjon/KontaktinformasjonSeksjon';
+import AvtaleSeksjon from './AvtaleSeksjon/AvtaleSeksjon';
+import KontaktinformasjonSeksjon from './KontaktinformasjonSeksjon/KontaktinformasjonSeksjon';
 
 interface MatchProps {
     avtaleId: string;
