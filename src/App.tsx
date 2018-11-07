@@ -2,8 +2,8 @@ import { Sidetittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
-import './firebase';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
+import { pathTilArbeidstrening } from './paths';
 
 class App extends React.Component {
     render() {
@@ -14,7 +14,10 @@ class App extends React.Component {
                 </header>
                 <section>
                     <Route path={'/'} exact={true} component={AvtaleOversikt} />
-                    <Route path={'/avtale/:avtaleId'} component={AvtaleSide} />
+                    <Route
+                        path={pathTilArbeidstrening(':avtaleId')}
+                        component={AvtaleSide}
+                    />
                 </section>
             </div>
         );

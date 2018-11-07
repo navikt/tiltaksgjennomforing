@@ -2,7 +2,7 @@ export const ARBEIDSTRENING_PATH = '/arbeidstrening';
 
 export type URLString = string;
 
-const pathTilArbeidstrening = (avtaleId: string): URLString => {
+export const pathTilArbeidstrening = (avtaleId: string): URLString => {
     return `${ARBEIDSTRENING_PATH}/${avtaleId}`;
 };
 
