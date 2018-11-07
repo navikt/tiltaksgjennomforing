@@ -5,9 +5,9 @@ import { Route, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { pathTilAvtale, pathTilKontaktinformasjon } from '../paths';
 import { hentAvtale, lagreAvtale } from '../services/firebase';
-import Avtale from './Avtale/Avtale';
-import AvtaleModell, { tomAvtale } from './AvtaleModell';
-import Kontaktinformasjon from './Kontaktinformasjon/Kontaktinformasjon';
+import Avtale, { tomAvtale } from './Avtale';
+import AvtaleSeksjon from './Avtale/AvtaleSeksjon';
+import KontaktinformasjonSeksjon from './Kontaktinformasjon/KontaktinformasjonSeksjon';
 
 interface MatchProps {
     avtaleId: string;
@@ -15,7 +15,7 @@ interface MatchProps {
 
 class AvtaleSide extends React.Component<
     RouteComponentProps<MatchProps>,
-    AvtaleModell
+    Avtale
 > {
     state = {
         ...tomAvtale,
@@ -58,7 +58,7 @@ class AvtaleSide extends React.Component<
                     path={pathTilKontaktinformasjon(':avtaleId')}
                     exact={true}
                     render={() => (
-                        <Kontaktinformasjon
+                        <KontaktinformasjonSeksjon
                             endreVerdi={this.endreVerdi}
                             form={this.state}
                         />
@@ -68,7 +68,7 @@ class AvtaleSide extends React.Component<
                     path={pathTilAvtale(':avtaleId')}
                     exact={true}
                     render={() => (
-                        <Avtale
+                        <AvtaleSeksjon
                             endreVerdi={this.endreVerdi}
                             form={this.state}
                         />

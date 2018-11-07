@@ -4,7 +4,7 @@ import * as React from 'react';
 import AvtaleProps from '../AvtaleProps';
 import StegProps from '../StegProps';
 
-const Arbeidsgiver = (props: AvtaleProps & StegProps) => (
+const ArbeidsgiverSteg = (props: AvtaleProps & StegProps) => (
     <PanelBase>
         <SkjemaGruppe title={'Opplysninger om arbeidsgiver'}>
             <Input
@@ -47,4 +47,4 @@ const Arbeidsgiver = (props: AvtaleProps & StegProps) => (
     </PanelBase>
 );
 
-export default Arbeidsgiver;
+export default ArbeidsgiverSteg;

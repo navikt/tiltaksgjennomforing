@@ -1,14 +1,14 @@
 import { Knapp } from 'nav-frontend-knapper';
 import PanelBase from 'nav-frontend-paneler';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { hentAvtaler, opprettAvtale } from '../services/firebase';
 import { RouterProps } from 'react-router';
-import AvtaleModell from './AvtaleModell';
+import { Link } from 'react-router-dom';
 import { pathTilKontaktinformasjon } from '../paths';
+import { hentAvtaler, opprettAvtale } from '../services/firebase';
+import Avtale from './Avtale';
 
-const Avtaler = (props: { avtaler: AvtaleModell[] }) => {
-    const avtaleLinker = props.avtaler.map((avtale: AvtaleModell) => (
+const Avtaler = (props: { avtaler: Avtale[] }) => {
+    const avtaleLinker = props.avtaler.map((avtale: Avtale) => (
         <li key={avtale.id}>
             <Link to={pathTilKontaktinformasjon(avtale.id)}>
                 Avtale (opprettet: {avtale.opprettetTidspunkt})
@@ -21,7 +21,7 @@ const Avtaler = (props: { avtaler: AvtaleModell[] }) => {
 
 class AvtaleOversikt extends React.Component<
     RouterProps,
-    { avtaler: AvtaleModell[] }
+    { avtaler: Avtale[] }
 > {
     state = {
         avtaler: [],

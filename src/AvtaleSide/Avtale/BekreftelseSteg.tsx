@@ -6,7 +6,7 @@ import * as React from 'react';
 import AvtaleProps from '../AvtaleProps';
 import StegProps from '../StegProps';
 
-const Bekreftelse = (props: AvtaleProps & StegProps) => (
+const BekreftelseSteg = (props: AvtaleProps & StegProps) => (
     <PanelBase>
         <PanelBase>
             <Systemtittel>Innhold i avtalen</Systemtittel>
@@ -57,4 +57,4 @@ const Bekreftelse = (props: AvtaleProps & StegProps) => (
     </PanelBase>
 );
 
-export default Bekreftelse;
+export default BekreftelseSteg;

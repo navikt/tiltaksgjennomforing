@@ -1,6 +1,6 @@
-import AvtaleModell from './AvtaleModell';
+import Avtale from './Avtale';
 
 export default interface AvtaleProps {
     endreVerdi: (felt: string, verdi: any) => void;
-    form: AvtaleModell;
+    form: Avtale;
 }

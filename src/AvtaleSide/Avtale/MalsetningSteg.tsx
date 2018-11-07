@@ -4,7 +4,7 @@ import PanelBase from 'nav-frontend-paneler';
 import { Input } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Malkategori, Malsetning } from '../AvtaleModell';
+import { Malkategori, Malsetning } from '../Avtale';
 import AvtaleProps from '../AvtaleProps';
 import StegProps from '../StegProps';
 
@@ -46,7 +46,7 @@ const MalsetningBeskrivelsePanel = (props: {
     </div>
 );
 
-const MalsetningPanel = (props: AvtaleProps & StegProps) => {
+const MalsetningSteg = (props: AvtaleProps & StegProps) => {
     const leggTilKategori = (kategori: Malkategori) => {
         const malsetninger = props.form.malsetninger;
         if (!malsetninger.find((m: Malsetning) => m.kategori === kategori)) {
@@ -106,4 +106,4 @@ const MalsetningPanel = (props: AvtaleProps & StegProps) => {
     );
 };
 
-export default MalsetningPanel;
+export default MalsetningSteg;
