@@ -24,8 +24,8 @@ class AvtaleSide extends React.Component<
 
     componentDidMount() {
         const avtaleId = this.props.match.params.avtaleId;
-        hentAvtale(avtaleId).then((snapshot: any) => {
-            this.setState(snapshot.val());
+        hentAvtale(avtaleId).then(avtale => {
+            this.setState({ ...avtale });
         });
     }
 

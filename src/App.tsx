@@ -2,7 +2,6 @@ import { Sidetittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
-import './services/firebase';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { pathTilArbeidstrening } from './paths';
 
