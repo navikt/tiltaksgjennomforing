@@ -1,39 +1,47 @@
 import PanelBase from 'nav-frontend-paneler';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import * as React from 'react';
-import AvtaleStegProps from '../AvtaleStegProps';
+import AvtaleProps from '../AvtaleProps';
+import StegProps from '../StegProps';
 
-const Arbeidsgiver = (props: AvtaleStegProps) => (
+const Arbeidsgiver = (props: AvtaleProps & StegProps) => (
     <PanelBase>
         <SkjemaGruppe title={'Opplysninger om arbeidsgiver'}>
             <Input
                 label={'Organisasjonsnummer'}
                 bredde={'M'}
-                id={'arbeidsgiverorgnr'}
                 defaultValue={props.form.arbeidsgiverorgnr}
-                onChange={props.oppdaterAvtale}
+                onChange={(event: any) =>
+                    props.endreVerdi('arbeidsgiverorgnr', event.target.value)
+                }
             />
             <Input
                 label={'Bedriftens navn'}
                 bredde={'XL'}
-                id={'arbeidsgivernavn'}
                 defaultValue={props.form.arbeidsgivernavn}
-                onChange={props.oppdaterAvtale}
+                onChange={(event: any) =>
+                    props.endreVerdi('arbeidsgivernavn', event.target.value)
+                }
             />
             <Input
                 label={'Kontaktperson'}
                 bredde={'XL'}
-                id={'arbeidsgiverkontaktperson'}
                 defaultValue={props.form.arbeidsgiverkontaktperson}
-                onChange={props.oppdaterAvtale}
+                onChange={(event: any) =>
+                    props.endreVerdi(
+                        'arbeidsgiverkontaktperson',
+                        event.target.value
+                    )
+                }
             />
             <Input
                 label={'Telefon'}
                 bredde={'M'}
                 type={'tel'}
-                id={'arbeidsgivertlf'}
                 defaultValue={props.form.arbeidsgivertlf}
-                onChange={props.oppdaterAvtale}
+                onChange={(event: any) =>
+                    props.endreVerdi('arbeidsgivertlf', event.target.value)
+                }
             />
         </SkjemaGruppe>
     </PanelBase>

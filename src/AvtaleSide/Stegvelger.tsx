@@ -1,17 +1,17 @@
 import Stegindikator from 'nav-frontend-stegindikator';
 import * as React from 'react';
+import StegProps from './StegProps';
 
-type Steg = React.ReactElement<{ label: string }>;
-
-interface Props {
-    children: Steg[];
-}
+type Steg = React.ReactElement<StegProps>;
 
 interface State {
     aktivtSteg: number;
 }
 
-class Stegvelger extends React.Component<Props, State> {
+class Stegvelger<P extends Steg> extends React.Component<
+    { children: P[] },
+    State
+> {
     state = {
         aktivtSteg: 0,
     };

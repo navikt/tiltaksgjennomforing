@@ -1,26 +1,14 @@
 import * as React from 'react';
-import AvtaleModell from '../AvtaleModell';
+import AvtaleProps from '../AvtaleProps';
+import Stegvelger from '../Stegvelger';
 import Bekreftelse from './Bekreftelse';
 import Malsetning from './Malsetning';
-import Stegvelger from '../Stegvelger';
 
-interface Props {
-    oppdaterAvtale: (event: any) => void;
-    form: AvtaleModell;
-}
 
-const Avtale = (props: Props) => (
+const Avtale = (props: AvtaleProps) => (
     <Stegvelger>
-        <Malsetning
-            label={'Målsetninger'}
-            oppdaterAvtale={props.oppdaterAvtale}
-            form={props.form}
-        />
-        <Bekreftelse
-            label={'Bekreftelse'}
-            oppdaterAvtale={props.oppdaterAvtale}
-            form={props.form}
-        />
+        <Malsetning label={'Målsetninger'} {...props} />
+        <Bekreftelse label={'Bekreftelse'} {...props} />
     </Stegvelger>
 );
 
