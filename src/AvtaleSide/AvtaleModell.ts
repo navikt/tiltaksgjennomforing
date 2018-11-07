@@ -1,3 +1,6 @@
+import { Moment } from 'moment';
+import * as moment from 'moment';
+
 export default interface AvtaleModell {
     id: string;
     opprettetTidspunkt: string;
@@ -12,6 +15,9 @@ export default interface AvtaleModell {
     arbeidsgiverkontaktperson: string;
 
     maal: string;
+
+    startDato: Moment;
+    sluttDato: Moment;
 }
 
 export const tomAvtale: AvtaleModell = {
@@ -28,4 +34,7 @@ export const tomAvtale: AvtaleModell = {
     arbeidsgiverkontaktperson: '',
 
     maal: '',
+
+    startDato: moment(),
+    sluttDato: moment(),
 };
