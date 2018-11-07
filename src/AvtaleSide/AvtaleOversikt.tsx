@@ -7,23 +7,12 @@ import { pathTilKontaktinformasjon } from '../paths';
 import { hentAvtaler, opprettAvtale } from '../services/firebase';
 import Avtale from './Avtale';
 
-const Avtaler = (props: { avtaler: Avtale[] }) => {
-    const avtaleLinker = props.avtaler.map((avtale: Avtale) => (
-        <li key={avtale.id}>
-            <Link to={pathTilKontaktinformasjon(avtale.id)}>
-                Avtale (opprettet: {avtale.opprettetTidspunkt})
-            </Link>
-        </li>
-    ));
+interface State {
+    avtaler: Avtale[];
+}
 
-    return <ul>{avtaleLinker}</ul>;
-};
-
-class AvtaleOversikt extends React.Component<
-    RouterProps,
-    { avtaler: Avtale[] }
-> {
-    state = {
+class AvtaleOversikt extends React.Component<RouterProps, State> {
+    state: State = {
         avtaler: [],
     };
 
@@ -40,9 +29,17 @@ class AvtaleOversikt extends React.Component<
     };
 
     render() {
+        const avtaleLinker = this.state.avtaler.map((avtale: Avtale) => (
+            <li key={avtale.id}>
+                <Link to={pathTilKontaktinformasjon(avtale.id)}>
+                    Avtale (opprettet: {avtale.opprettetTidspunkt})
+                </Link>
+            </li>
+        ));
+
         return (
             <PanelBase>
-                <Avtaler avtaler={this.state.avtaler} />
+                <ul>{avtaleLinker}</ul>
                 <Knapp disabled={false} onClick={this.opprettAvtaleKlikk}>
                     Opprett avtale
                 </Knapp>
