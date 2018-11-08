@@ -1,4 +1,4 @@
-import KnappBase, { Knapp } from 'nav-frontend-knapper';
+import { Knapp } from 'nav-frontend-knapper';
 import PanelBase from 'nav-frontend-paneler';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
