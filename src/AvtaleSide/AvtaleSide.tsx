@@ -1,13 +1,13 @@
-import * as React from 'react';
-import AvtaleModell, { tomAvtale } from './AvtaleModell';
-import { Route, RouteComponentProps } from 'react-router';
-import { hentAvtale, lagreAvtale } from '../services/firebase';
-import Kontaktinformasjon from './Kontaktinformasjon/Kontaktinformasjon';
-import Avtale from './Avtale/Avtale';
-import PanelBase from 'nav-frontend-paneler';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import PanelBase from 'nav-frontend-paneler';
+import * as React from 'react';
+import { Route, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { pathTilAvtale, pathTilKontaktinformasjon } from '../paths';
+import { hentAvtale, lagreAvtale } from '../services/firebase';
+import Avtale, { tomAvtale } from './Avtale';
+import AvtaleSeksjon from './AvtaleSeksjon/AvtaleSeksjon';
+import KontaktinformasjonSeksjon from './KontaktinformasjonSeksjon/KontaktinformasjonSeksjon';
 
 interface MatchProps {
     avtaleId: string;
@@ -15,7 +15,7 @@ interface MatchProps {
 
 class AvtaleSide extends React.Component<
     RouteComponentProps<MatchProps>,
-    AvtaleModell
+    Avtale
 > {
     state = {
         ...tomAvtale,
@@ -29,9 +29,9 @@ class AvtaleSide extends React.Component<
         });
     }
 
-    oppdaterAvtale = (event: any) => {
+    endreVerdi = (felt: string, verdi: any) => {
         const avtale = this.state;
-        avtale[event.target.id] = event.target.value;
+        avtale[felt] = verdi;
         this.setState(avtale);
     };
 
@@ -58,8 +58,8 @@ class AvtaleSide extends React.Component<
                     path={pathTilKontaktinformasjon(':avtaleId')}
                     exact={true}
                     render={() => (
-                        <Kontaktinformasjon
-                            oppdaterAvtale={this.oppdaterAvtale}
+                        <KontaktinformasjonSeksjon
+                            endreVerdi={this.endreVerdi}
                             form={this.state}
                         />
                     )}
@@ -68,8 +68,8 @@ class AvtaleSide extends React.Component<
                     path={pathTilAvtale(':avtaleId')}
                     exact={true}
                     render={() => (
-                        <Avtale
-                            oppdaterAvtale={this.oppdaterAvtale}
+                        <AvtaleSeksjon
+                            endreVerdi={this.endreVerdi}
                             form={this.state}
                         />
                     )}

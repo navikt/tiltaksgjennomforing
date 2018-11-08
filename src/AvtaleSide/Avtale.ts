@@ -1,7 +1,17 @@
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-export default interface AvtaleModell {
+export type Malkategori =
+    | 'Avklaring'
+    | 'Arbeidserfaring'
+    | 'Oppnå fagbrev/kompetansebevis';
+
+export interface Malsetning {
+    kategori: Malkategori;
+    beskrivelse: string;
+}
+
+export default interface Avtale {
     id: string;
     opprettetTidspunkt: string;
 
@@ -14,13 +24,12 @@ export default interface AvtaleModell {
     arbeidsgivertlf: string;
     arbeidsgiverkontaktperson: string;
 
-    maal: string;
-
     startDato: Moment;
     sluttDato: Moment;
+    malsetninger: Malsetning[];
 }
 
-export const tomAvtale: AvtaleModell = {
+export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
 
@@ -33,8 +42,7 @@ export const tomAvtale: AvtaleModell = {
     arbeidsgivertlf: '',
     arbeidsgiverkontaktperson: '',
 
-    maal: '',
-
     startDato: moment(),
     sluttDato: moment(),
+    malsetninger: [],
 };

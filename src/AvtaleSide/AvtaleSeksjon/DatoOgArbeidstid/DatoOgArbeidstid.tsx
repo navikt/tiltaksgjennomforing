@@ -1,7 +1,8 @@
 import * as React from 'react';
-import AvtaleStegProps from '../../AvtaleStegProps';
 import Datovelger from './Datovelger/datovelger';
 import { Moment } from 'moment';
+import AvtaleProps from '../../AvtaleProps';
+import StegProps from '../../StegProps';
 
 interface State {
     startDato: Moment;
@@ -10,7 +11,7 @@ interface State {
     sluttDatoRiktigFormatert: boolean;
 }
 
-class DatoOgArbeidstid extends React.Component<AvtaleStegProps, State> {
+class DatoOgArbeidstid extends React.Component<AvtaleProps & StegProps, State> {
     state: State = {
         startDato: this.props.form.startDato,
         sluttDato: this.props.form.sluttDato,
