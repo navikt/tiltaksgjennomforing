@@ -88,6 +88,8 @@ const MalsetningSteg = (props: AvtaleProps & StegProps) => {
         'Avklaring',
         'Arbeidserfaring',
         'Oppnå fagbrev/kompetansebevis',
+        'Språkopplæring',
+        'Få jobb på arbeidstreningsplass',
     ];
 
     const kategoriKnapper = kategorier.map((kategori: Malkategori) => (

@@ -1,7 +1,9 @@
 export type Malkategori =
     | 'Avklaring'
     | 'Arbeidserfaring'
-    | 'Oppnå fagbrev/kompetansebevis';
+    | 'Oppnå fagbrev/kompetansebevis'
+    | 'Språkopplæring'
+    | 'Få jobb på arbeidstreningsplass';
 
 export interface Malsetning {
     kategori: Malkategori;
