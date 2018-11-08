@@ -42,11 +42,32 @@ const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
             <PanelBase>
                 <SkjemaGruppe
                     className={'bekreft'}
-                    title={'Bekreft innhold i avtalen (ikke implementert)'}
+                    title={'Bekreft innhold i avtalen'}
                 >
-                    <Knapp>Bekreft som bruker</Knapp>
-                    <Knapp>Bekreft som arbeidsgiver</Knapp>
-                    <Knapp>Bekreft som NAV-veileder</Knapp>
+                    <Knapp
+                        disabled={props.form.bekreftetAvBruker}
+                        onClick={() =>
+                            props.endreVerdi('bekreftetAvBruker', true)
+                        }
+                    >
+                        Bekreft som bruker
+                    </Knapp>
+                    <Knapp
+                        disabled={props.form.bekreftetAvArbeidsgiver}
+                        onClick={() =>
+                            props.endreVerdi('bekreftetAvArbeidsgiver', true)
+                        }
+                    >
+                        Bekreft som arbeidsgiver
+                    </Knapp>
+                    <Knapp
+                        disabled={props.form.bekreftetAvVeileder}
+                        onClick={() =>
+                            props.endreVerdi('bekreftetAvVeileder', true)
+                        }
+                    >
+                        Bekreft som NAV-veileder
+                    </Knapp>
                 </SkjemaGruppe>
             </PanelBase>
         </PanelBase>

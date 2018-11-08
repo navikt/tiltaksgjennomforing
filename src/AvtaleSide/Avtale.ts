@@ -24,6 +24,10 @@ export default interface Avtale {
     arbeidsgiverkontaktperson: string;
 
     malsetninger: Malsetning[];
+
+    bekreftetAvBruker: boolean;
+    bekreftetAvArbeidsgiver: boolean;
+    bekreftetAvVeileder: boolean;
 }
 
 export const tomAvtale: Avtale = {
@@ -40,4 +44,8 @@ export const tomAvtale: Avtale = {
     arbeidsgiverkontaktperson: '',
 
     malsetninger: [],
+
+    bekreftetAvBruker: false,
+    bekreftetAvArbeidsgiver: false,
+    bekreftetAvVeileder: false,
 };
