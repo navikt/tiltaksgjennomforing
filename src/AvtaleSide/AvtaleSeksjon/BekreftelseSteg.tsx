@@ -52,11 +52,47 @@ const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
             <PanelBase>
                 <SkjemaGruppe
                     className={'bekreft'}
-                    title={'Bekreft innhold i avtalen (ikke implementert)'}
+                    title={'Bekreft innhold i avtalen'}
                 >
-                    <Knapp>Bekreft som bruker</Knapp>
-                    <Knapp>Bekreft som arbeidsgiver</Knapp>
-                    <Knapp>Bekreft som NAV-veileder</Knapp>
+                    <div>
+                        <Knapp
+                            disabled={props.form.bekreftetAvBruker}
+                            onClick={() =>
+                                props.endreVerdi('bekreftetAvBruker', true)
+                            }
+                        >
+                            Bekreft som bruker
+                        </Knapp>
+                        {props.form.bekreftetAvBruker &&
+                            'Avtalen er bekreftet av bruker'}
+                    </div>
+                    <div>
+                        <Knapp
+                            disabled={props.form.bekreftetAvArbeidsgiver}
+                            onClick={() =>
+                                props.endreVerdi(
+                                    'bekreftetAvArbeidsgiver',
+                                    true
+                                )
+                            }
+                        >
+                            Bekreft som arbeidsgiver
+                        </Knapp>
+                        {props.form.bekreftetAvArbeidsgiver &&
+                            'Avtalen er bekreftet av arbeidsgiver'}
+                    </div>
+                    <div>
+                        <Knapp
+                            disabled={props.form.bekreftetAvVeileder}
+                            onClick={() =>
+                                props.endreVerdi('bekreftetAvVeileder', true)
+                            }
+                        >
+                            Bekreft som NAV-veileder
+                        </Knapp>
+                        {props.form.bekreftetAvVeileder &&
+                            'Avtalen er bekreftet av NAV-veileder'}
+                    </div>
                 </SkjemaGruppe>
             </PanelBase>
         </PanelBase>

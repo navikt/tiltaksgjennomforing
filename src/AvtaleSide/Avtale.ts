@@ -28,6 +28,10 @@ export default interface Avtale {
     startDatoTimestamp: number;
     sluttDatoTimestamp: number;
     malsetninger: Malsetning[];
+
+    bekreftetAvBruker: boolean;
+    bekreftetAvArbeidsgiver: boolean;
+    bekreftetAvVeileder: boolean;
 }
 
 export const tomAvtale: Avtale = {
@@ -46,4 +50,8 @@ export const tomAvtale: Avtale = {
     startDatoTimestamp: moment().valueOf(),
     sluttDatoTimestamp: moment().valueOf(),
     malsetninger: [],
+
+    bekreftetAvBruker: false,
+    bekreftetAvArbeidsgiver: false,
+    bekreftetAvVeileder: false,
 };
