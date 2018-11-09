@@ -3,12 +3,12 @@ import AvtaleProps from '../AvtaleProps';
 import Stegvelger from '../Stegvelger';
 import BekreftelseSteg from './BekreftelseSteg';
 import MalsetningSteg from './MalsetningSteg';
-import DatoOgArbeidstid from './DatoOgArbeidstid/DatoOgArbeidstid';
+import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 
 const AvtaleSeksjon = (props: AvtaleProps) => (
     <Stegvelger>
         <MalsetningSteg label={'Målsetninger'} {...props} />
-        <DatoOgArbeidstid label={'Dato og arbeidstid'} {...props} />
+        <ArbeidstidSteg label={'Dato og arbeidstid'} {...props} />
         <BekreftelseSteg label={'Bekreftelse'} {...props} />
     </Stegvelger>
 );

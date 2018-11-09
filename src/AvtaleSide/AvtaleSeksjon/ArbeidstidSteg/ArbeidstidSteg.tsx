@@ -3,32 +3,37 @@ import Datovelger from './Datovelger/datovelger';
 import { Moment } from 'moment';
 import AvtaleProps from '../../AvtaleProps';
 import StegProps from '../../StegProps';
+import * as moment from 'moment';
 
 interface State {
-    startDato: Moment;
-    sluttDato: Moment;
+    startDatoTimestamp: number;
+    sluttDatoTimestamp: number;
     startDatoRiktigFormatert: boolean;
     sluttDatoRiktigFormatert: boolean;
 }
 
-class DatoOgArbeidstid extends React.Component<AvtaleProps & StegProps, State> {
+class ArbeidstidSteg extends React.Component<AvtaleProps & StegProps, State> {
     state: State = {
-        startDato: this.props.form.startDato,
-        sluttDato: this.props.form.sluttDato,
+        startDatoTimestamp: this.props.form.startDatoTimestamp,
+        sluttDatoTimestamp: this.props.form.sluttDatoTimestamp,
         startDatoRiktigFormatert: true,
         sluttDatoRiktigFormatert: true,
     };
 
     velgStartDato = (dato: Moment) => {
-        this.setState({ startDato: dato, startDatoRiktigFormatert: true });
-        // TODO: Blokkert. Løses av Mats sin branch.
-        // this.props.oppdaterAvtale('startDato', dato);
+        this.setState({
+            startDatoTimestamp: dato.valueOf(),
+            startDatoRiktigFormatert: true,
+        });
+        this.props.endreVerdi('startDatoTimestamp', dato.valueOf());
     };
 
     velgSluttDato = (dato: Moment) => {
-        this.setState({ sluttDato: dato, sluttDatoRiktigFormatert: true });
-        // TODO: Blokkert. Løses av Mats sin branch.
-        // this.props.oppdaterAvtale('sluttDato', dato);
+        this.setState({
+            sluttDatoTimestamp: dato.valueOf(),
+            sluttDatoRiktigFormatert: true,
+        });
+        this.props.endreVerdi('sluttDatoTimestamp', dato.valueOf());
     };
 
     settStartDatoRiktigFormatert = (riktigFormatert: boolean) => {
@@ -45,13 +50,13 @@ class DatoOgArbeidstid extends React.Component<AvtaleProps & StegProps, State> {
                 <h1>Start- og sluttdato</h1>
                 <Datovelger
                     velgDato={this.velgStartDato}
-                    dato={this.state.startDato}
+                    dato={moment(this.state.startDatoTimestamp)}
                     settRiktigFormatert={this.settStartDatoRiktigFormatert}
                     inputRiktigFormatert={this.state.startDatoRiktigFormatert}
                 />
                 <Datovelger
                     velgDato={this.velgSluttDato}
-                    dato={this.state.sluttDato}
+                    dato={moment(this.state.sluttDatoTimestamp)}
                     settRiktigFormatert={this.settSluttDatoRiktigFormatert}
                     inputRiktigFormatert={this.state.sluttDatoRiktigFormatert}
                 />
@@ -60,4 +65,4 @@ class DatoOgArbeidstid extends React.Component<AvtaleProps & StegProps, State> {
     }
 }
 
-export default DatoOgArbeidstid;
+export default ArbeidstidSteg;

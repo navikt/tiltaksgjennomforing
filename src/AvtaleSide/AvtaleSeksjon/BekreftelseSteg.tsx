@@ -5,8 +5,20 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import AvtaleProps from '../AvtaleProps';
 import StegProps from '../StegProps';
+import * as moment from 'moment';
 
 const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
+    const datoer = (
+        <ul>
+            <li>
+                {moment(props.form.startDatoTimestamp).format('DD.MM.YYYY')}
+            </li>
+            <li>
+                {moment(props.form.sluttDatoTimestamp).format('DD.MM.YYYY')}
+            </li>
+        </ul>
+    );
+
     const malsetninger = props.form.malsetninger.map(malsetning => (
         <li key={malsetning.kategori}>
             {malsetning.kategori} {malsetning.beskrivelse}
@@ -33,6 +45,9 @@ const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
                         <li>{props.form.arbeidsgiverkontaktperson}</li>
                         <li>{props.form.arbeidsgivertlf}</li>
                     </ul>
+                </SkjemaGruppe>
+                <SkjemaGruppe title={'Dato- og arbeidstid'}>
+                    {datoer}
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Målsetninger'}>
                     <ul>{malsetninger}</ul>

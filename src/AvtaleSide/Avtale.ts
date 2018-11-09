@@ -1,4 +1,3 @@
-import { Moment } from 'moment';
 import * as moment from 'moment';
 
 export type Malkategori =
@@ -24,8 +23,8 @@ export default interface Avtale {
     arbeidsgivertlf: string;
     arbeidsgiverkontaktperson: string;
 
-    startDato: Moment;
-    sluttDato: Moment;
+    startDatoTimestamp: number;
+    sluttDatoTimestamp: number;
     malsetninger: Malsetning[];
 }
 
@@ -42,7 +41,7 @@ export const tomAvtale: Avtale = {
     arbeidsgivertlf: '',
     arbeidsgiverkontaktperson: '',
 
-    startDato: moment(),
-    sluttDato: moment(),
+    startDatoTimestamp: moment().valueOf(),
+    sluttDatoTimestamp: moment().valueOf(),
     malsetninger: [],
 };
