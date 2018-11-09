@@ -4,6 +4,7 @@ import { Moment } from 'moment';
 import AvtaleProps from '../../AvtaleProps';
 import StegProps from '../../StegProps';
 import * as moment from 'moment';
+import { Innholdstittel } from 'nav-frontend-typografi';
 
 interface State {
     startDatoTimestamp: number;
@@ -47,7 +48,7 @@ class ArbeidstidSteg extends React.Component<AvtaleProps & StegProps, State> {
     render() {
         return (
             <>
-                <h1>Start- og sluttdato</h1>
+                <Innholdstittel tag='h2'>Start- og sluttdato</Innholdstittel>
                 <Datovelger
                     velgDato={this.velgStartDato}
                     dato={moment(this.state.startDatoTimestamp)}

@@ -8,16 +8,8 @@ import StegProps from '../StegProps';
 import * as moment from 'moment';
 
 const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
-    const datoer = (
-        <ul>
-            <li>
-                {moment(props.form.startDatoTimestamp).format('DD.MM.YYYY')}
-            </li>
-            <li>
-                {moment(props.form.sluttDatoTimestamp).format('DD.MM.YYYY')}
-            </li>
-        </ul>
-    );
+    const startdato = moment(props.form.startDatoTimestamp).format('DD.MM.YYYY');
+    const sluttdato = moment(props.form.sluttDatoTimestamp).format('DD.MM.YYYY');
 
     const malsetninger = props.form.malsetninger.map(malsetning => (
         <li key={malsetning.kategori}>
@@ -47,7 +39,10 @@ const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Dato- og arbeidstid'}>
-                    {datoer}
+                    <ul>
+                        <li>{startdato}</li>
+                        <li>{sluttdato}</li>
+                    </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Målsetninger'}>
                     <ul>{malsetninger}</ul>
