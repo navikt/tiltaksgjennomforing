@@ -8,8 +8,12 @@ import StegProps from '../StegProps';
 import * as moment from 'moment';
 
 const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
-    const startdato = moment(props.form.startDatoTimestamp).format('DD.MM.YYYY');
-    const sluttdato = moment(props.form.sluttDatoTimestamp).format('DD.MM.YYYY');
+    const startdato = moment(props.form.startDatoTimestamp).format(
+        'DD.MM.YYYY'
+    );
+    const sluttdato = moment(props.form.sluttDatoTimestamp).format(
+        'DD.MM.YYYY'
+    );
 
     const malsetninger = props.form.malsetninger.map(malsetning => (
         <li key={malsetning.kategori}>

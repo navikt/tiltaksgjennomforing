@@ -48,7 +48,7 @@ class ArbeidstidSteg extends React.Component<AvtaleProps & StegProps, State> {
     render() {
         return (
             <>
-                <Innholdstittel tag='h2'>Start- og sluttdato</Innholdstittel>
+                <Innholdstittel tag="h2">Start- og sluttdato</Innholdstittel>
                 <Datovelger
                     velgDato={this.velgStartDato}
                     dato={moment(this.state.startDatoTimestamp)}
