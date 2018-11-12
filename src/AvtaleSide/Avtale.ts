@@ -1,5 +1,45 @@
 import * as moment from 'moment';
 
+export type Avtale = AvtaleMetadata &
+    Deltakerinfo &
+    Arbeidsgiverinfo &
+    Arbeidstid &
+    Maalsetninger &
+    Bekreftelser;
+
+export interface AvtaleMetadata {
+    id: string;
+    opprettetTidspunkt: string;
+}
+
+export interface Deltakerinfo {
+    deltakerFornavn: string;
+    deltakerEtternavn: string;
+    deltakerAdresse: string;
+    deltakerPostnummer: string;
+    deltakerPoststed: string;
+}
+
+export interface Arbeidsgiverinfo {
+    arbeidsgiverorgnr: string;
+    arbeidsgivernavn: string;
+    arbeidsgivertlf: string;
+    arbeidsgiverkontaktperson: string;
+}
+
+// export interface Veilederinfo { }
+
+export interface Arbeidstid {
+    startDatoTimestamp: number;
+    sluttDatoTimestamp: number;
+}
+
+export interface Maalsetninger {
+    // TODO: Endre navn til Maalsetning
+    malsetninger: Malsetning[];
+}
+
+// TODO: Flytt ut i egen fil
 export type Malkategori =
     | 'Avklaring'
     | 'Arbeidserfaring'
@@ -7,30 +47,13 @@ export type Malkategori =
     | 'Språkopplæring'
     | 'Få jobb på arbeidstreningsplass';
 
+// TODO: Flytt ut i egen fil
 export interface Malsetning {
     kategori: Malkategori;
     beskrivelse: string;
 }
 
-export default interface Avtale {
-    id: string;
-    opprettetTidspunkt: string;
-
-    deltakerFornavn: string;
-    deltakerEtternavn: string;
-    deltakerAdresse: string;
-    deltakerPostnummer: string;
-    deltakerPoststed: string;
-
-    arbeidsgiverorgnr: string;
-    arbeidsgivernavn: string;
-    arbeidsgivertlf: string;
-    arbeidsgiverkontaktperson: string;
-
-    startDatoTimestamp: number;
-    sluttDatoTimestamp: number;
-    malsetninger: Malsetning[];
-
+export interface Bekreftelser {
     bekreftetAvBruker: boolean;
     bekreftetAvArbeidsgiver: boolean;
     bekreftetAvVeileder: boolean;

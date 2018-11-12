@@ -1,9 +1,9 @@
 import * as React from 'react';
-import AvtaleProps from '../AvtaleProps';
-import StegProps from '../StegProps';
+import { EndreAvtale } from '../EndreAvtale';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
+import StegProps from '../StegProps';
 
-const ArbeidsoppgaverSteg = (props: AvtaleProps & StegProps) => (
+const ArbeidsoppgaverSteg = (props: EndreAvtale & StegProps) => (
     <>
         <Innholdstittel tag="h2">
             Beskriv arbeidsoppgavene som skal utføres

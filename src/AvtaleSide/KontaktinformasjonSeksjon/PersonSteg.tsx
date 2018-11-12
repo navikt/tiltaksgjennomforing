@@ -1,10 +1,10 @@
 import PanelBase from 'nav-frontend-paneler';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import * as React from 'react';
-import AvtaleProps from '../AvtaleProps';
 import StegProps from '../StegProps';
+import { EndreAvtale } from '../EndreAvtale';
 
-const PersonSteg = (props: AvtaleProps & StegProps) => (
+const PersonSteg = (props: EndreAvtale & StegProps) => (
     <PanelBase>
         <SkjemaGruppe title={'Opplysninger om person'}>
             <Input

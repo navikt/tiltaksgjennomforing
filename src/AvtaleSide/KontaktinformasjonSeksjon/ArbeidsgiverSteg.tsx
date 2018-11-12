@@ -1,16 +1,19 @@
 import PanelBase from 'nav-frontend-paneler';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import * as React from 'react';
-import AvtaleProps from '../AvtaleProps';
+import { EndreAvtale } from '../EndreAvtale';
+import { Arbeidsgiverinfo } from '../Avtale';
 import StegProps from '../StegProps';
 
-const ArbeidsgiverSteg = (props: AvtaleProps & StegProps) => (
+const ArbeidsgiverSteg = (
+    props: Arbeidsgiverinfo & EndreAvtale & StegProps
+) => (
     <PanelBase>
         <SkjemaGruppe title={'Opplysninger om arbeidsgiver'}>
             <Input
                 label={'Organisasjonsnummer'}
                 bredde={'M'}
-                defaultValue={props.form.arbeidsgiverorgnr}
+                defaultValue={props.arbeidsgiverorgnr}
                 onChange={(event: any) =>
                     props.endreVerdi('arbeidsgiverorgnr', event.target.value)
                 }
@@ -18,7 +21,7 @@ const ArbeidsgiverSteg = (props: AvtaleProps & StegProps) => (
             <Input
                 label={'Bedriftens navn'}
                 bredde={'XL'}
-                defaultValue={props.form.arbeidsgivernavn}
+                defaultValue={props.arbeidsgivernavn}
                 onChange={(event: any) =>
                     props.endreVerdi('arbeidsgivernavn', event.target.value)
                 }
@@ -26,7 +29,7 @@ const ArbeidsgiverSteg = (props: AvtaleProps & StegProps) => (
             <Input
                 label={'Kontaktperson'}
                 bredde={'XL'}
-                defaultValue={props.form.arbeidsgiverkontaktperson}
+                defaultValue={props.arbeidsgiverkontaktperson}
                 onChange={(event: any) =>
                     props.endreVerdi(
                         'arbeidsgiverkontaktperson',
@@ -38,7 +41,7 @@ const ArbeidsgiverSteg = (props: AvtaleProps & StegProps) => (
                 label={'Telefon'}
                 bredde={'M'}
                 type={'tel'}
-                defaultValue={props.form.arbeidsgivertlf}
+                defaultValue={props.arbeidsgivertlf}
                 onChange={(event: any) =>
                     props.endreVerdi('arbeidsgivertlf', event.target.value)
                 }

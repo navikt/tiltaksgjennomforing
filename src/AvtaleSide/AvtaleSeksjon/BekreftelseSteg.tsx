@@ -3,19 +3,16 @@ import PanelBase from 'nav-frontend-paneler';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import AvtaleProps from '../AvtaleProps';
+import { EndreAvtale } from '../EndreAvtale';
 import StegProps from '../StegProps';
 import * as moment from 'moment';
+import { Avtale } from '../Avtale';
 
-const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
-    const startdato = moment(props.form.startDatoTimestamp).format(
-        'DD.MM.YYYY'
-    );
-    const sluttdato = moment(props.form.sluttDatoTimestamp).format(
-        'DD.MM.YYYY'
-    );
+const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
+    const startdato = moment(props.startDatoTimestamp).format('DD.MM.YYYY');
+    const sluttdato = moment(props.sluttDatoTimestamp).format('DD.MM.YYYY');
 
-    const malsetninger = props.form.malsetninger.map(malsetning => (
+    const malsetninger = props.malsetninger.map(malsetning => (
         <li key={malsetning.kategori}>
             {malsetning.kategori} {malsetning.beskrivelse}
         </li>
@@ -29,19 +26,19 @@ const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
             <PanelBase>
                 <SkjemaGruppe title={'Person'}>
                     <ul>
-                        <li>{props.form.deltakerFornavn}</li>
-                        <li>{props.form.deltakerEtternavn}</li>
-                        <li>{props.form.deltakerAdresse}</li>
-                        <li>{props.form.deltakerPostnummer}</li>
-                        <li>{props.form.deltakerPoststed}</li>
+                        <li>{props.deltakerFornavn}</li>
+                        <li>{props.deltakerEtternavn}</li>
+                        <li>{props.deltakerAdresse}</li>
+                        <li>{props.deltakerPostnummer}</li>
+                        <li>{props.deltakerPoststed}</li>
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Arbeidsgiver'}>
                     <ul>
-                        <li>{props.form.arbeidsgiverorgnr}</li>
-                        <li>{props.form.arbeidsgivernavn}</li>
-                        <li>{props.form.arbeidsgiverkontaktperson}</li>
-                        <li>{props.form.arbeidsgivertlf}</li>
+                        <li>{props.arbeidsgiverorgnr}</li>
+                        <li>{props.arbeidsgivernavn}</li>
+                        <li>{props.arbeidsgiverkontaktperson}</li>
+                        <li>{props.arbeidsgivertlf}</li>
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Dato- og arbeidstid'}>
@@ -62,19 +59,19 @@ const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
                 >
                     <div>
                         <Knapp
-                            disabled={props.form.bekreftetAvBruker}
+                            disabled={props.bekreftetAvBruker}
                             onClick={() =>
                                 props.endreVerdi('bekreftetAvBruker', true)
                             }
                         >
                             Bekreft som bruker
                         </Knapp>
-                        {props.form.bekreftetAvBruker &&
+                        {props.bekreftetAvBruker &&
                             'Avtalen er bekreftet av bruker'}
                     </div>
                     <div>
                         <Knapp
-                            disabled={props.form.bekreftetAvArbeidsgiver}
+                            disabled={props.bekreftetAvArbeidsgiver}
                             onClick={() =>
                                 props.endreVerdi(
                                     'bekreftetAvArbeidsgiver',
@@ -84,19 +81,19 @@ const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
                         >
                             Bekreft som arbeidsgiver
                         </Knapp>
-                        {props.form.bekreftetAvArbeidsgiver &&
+                        {props.bekreftetAvArbeidsgiver &&
                             'Avtalen er bekreftet av arbeidsgiver'}
                     </div>
                     <div>
                         <Knapp
-                            disabled={props.form.bekreftetAvVeileder}
+                            disabled={props.bekreftetAvVeileder}
                             onClick={() =>
                                 props.endreVerdi('bekreftetAvVeileder', true)
                             }
                         >
                             Bekreft som NAV-veileder
                         </Knapp>
-                        {props.form.bekreftetAvVeileder &&
+                        {props.bekreftetAvVeileder &&
                             'Avtalen er bekreftet av NAV-veileder'}
                     </div>
                 </SkjemaGruppe>

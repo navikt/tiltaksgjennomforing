@@ -4,8 +4,8 @@ import PanelBase from 'nav-frontend-paneler';
 import { Input } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Malkategori, Malsetning } from '../Avtale';
-import AvtaleProps from '../AvtaleProps';
+import { Maalsetninger, Malkategori, Malsetning } from '../Avtale';
+import { EndreAvtale } from '../EndreAvtale';
 import StegProps from '../StegProps';
 
 const MalsetningKnapp = (props: {
@@ -46,9 +46,9 @@ const MalsetningBeskrivelsePanel = (props: {
     </div>
 );
 
-const MalsetningSteg = (props: AvtaleProps & StegProps) => {
+const MalsetningSteg = (props: Maalsetninger & EndreAvtale & StegProps) => {
     const leggTilKategori = (kategori: Malkategori) => {
-        const malsetninger = props.form.malsetninger;
+        const malsetninger = props.malsetninger;
         if (!malsetninger.find((m: Malsetning) => m.kategori === kategori)) {
             malsetninger.push({ kategori, beskrivelse: '' });
             props.endreVerdi('malsetninger', malsetninger);
@@ -58,14 +58,14 @@ const MalsetningSteg = (props: AvtaleProps & StegProps) => {
     const fjernKategori = (malsetning: Malsetning) => {
         props.endreVerdi(
             'malsetninger',
-            props.form.malsetninger.filter(
+            props.malsetninger.filter(
                 (m: Malsetning) => m.kategori !== malsetning.kategori
             )
         );
     };
 
     const endreBeskrivelse = (malsetning: Malsetning) => {
-        const malsetninger = props.form.malsetninger;
+        const malsetninger = props.malsetninger;
         const index = malsetninger.findIndex(
             (m: Malsetning) => m.kategori === malsetning.kategori
         );
@@ -73,7 +73,7 @@ const MalsetningSteg = (props: AvtaleProps & StegProps) => {
         props.endreVerdi('malsetninger', malsetninger);
     };
 
-    const beskrivelsesPaneler = props.form.malsetninger.map(
+    const beskrivelsesPaneler = props.malsetninger.map(
         (malsetning: Malsetning) => (
             <MalsetningBeskrivelsePanel
                 key={malsetning.kategori}
