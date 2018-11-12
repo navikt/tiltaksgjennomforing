@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import { EndreAvtale } from '../EndreAvtale';
-import { Deltakerinfo } from '../Avtale';
+import { EndreAvtale } from '../../EndreAvtale';
+import { Deltakerinfo } from '../../Avtale';
+import './DeltakerinfoDel.less';
 
 const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
-    <SkjemaGruppe title="Informasjon om deltaker">
-        <div className="kontaktinformasjon__deltakernavn">
+    <SkjemaGruppe title="Informasjon om deltaker" className="deltakerinfo">
+        <div className="deltakerinfo__deltakernavn">
             <Input
-                className="kontaktinformasjon__deltakernavn__fornavn"
+                className="deltakerinfo__deltakernavn__fornavn"
                 label="Fornavn"
                 defaultValue={props.deltakerFornavn}
                 onChange={event =>
@@ -15,7 +16,7 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
                 }
             />
             <Input
-                className="kontaktinformasjon__deltakernavn__etternavn"
+                className="deltakerinfo__deltakernavn__etternavn"
                 label="Etternavn"
                 defaultValue={props.deltakerEtternavn}
                 onChange={event =>
@@ -24,16 +25,16 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
             />
         </div>
         <Input
-            className="kontaktinformasjon__adresse"
+            className="deltakerinfo__adresse"
             label="Adresse"
             defaultValue={props.deltakerAdresse}
             onChange={event =>
                 props.endreVerdi('deltakerAdresse', event.target.value)
             }
         />
-        <div className="kontaktinformasjon__postwrapper">
+        <div className="deltakerinfo__postwrapper">
             <Input
-                className="kontaktinformasjon__postwrapper__postnummer"
+                className="deltakerinfo__postwrapper__postnummer"
                 label="Postnummer"
                 defaultValue={props.deltakerPostnummer}
                 onChange={event =>
@@ -41,7 +42,7 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
                 }
             />
             <Input
-                className="kontaktinformasjon__postwrapper__poststed"
+                className="deltakerinfo__postwrapper__poststed"
                 label="Poststed"
                 defaultValue={props.deltakerPoststed}
                 onChange={event =>
