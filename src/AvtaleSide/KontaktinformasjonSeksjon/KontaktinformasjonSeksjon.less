@@ -1,3 +1,45 @@
+@import '~nav-frontend-core/less/_variabler';
+
 .kontaktinformasjon {
   padding: 1.25rem;
+}
+
+@media (min-width: @screen-sm-min) {
+  .kontaktinformasjon {
+    padding: 2rem;
+
+    &__deltakernavn {
+      display: flex;
+      flex-direction: row;
+
+      &__fornavn {
+        width: 100%;
+        margin-right: 0.5rem;
+      }
+
+      &__etternavn {
+        width: 100%;
+        margin-left: 0.5rem;
+      }
+    }
+
+    &__adresse {
+      width: 50%;
+      padding-right: 0.5rem;
+    }
+
+    &__postwrapper {
+      display: flex;
+      flex-direction: row;
+
+      &__postnummer {
+        width: 8rem;
+      }
+
+      &__poststed {
+        width: 18rem;
+        margin-left: 1rem;
+      }
+    }
+  }
 }

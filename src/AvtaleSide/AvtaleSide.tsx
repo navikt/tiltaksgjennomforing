@@ -8,6 +8,7 @@ import { hentAvtale, lagreAvtale } from '../services/firebase';
 import Avtale, { tomAvtale } from './Avtale';
 import AvtaleSeksjon from './AvtaleSeksjon/AvtaleSeksjon';
 import KontaktinformasjonSeksjon from './KontaktinformasjonSeksjon/KontaktinformasjonSeksjon';
+import './avtaleside.less';
 
 interface MatchProps {
     avtaleId: string;
@@ -52,38 +53,40 @@ class AvtaleSide extends React.Component<
         );
 
         return (
-            <>
+            <div className={'avtaleside'}>
                 {knappeRekke()}
-                <Route
-                    path={pathTilKontaktinformasjon(':avtaleId')}
-                    exact={true}
-                    render={() => (
-                        <KontaktinformasjonSeksjon
-                            endreVerdi={this.endreVerdi}
-                            form={this.state}
-                        />
-                    )}
-                />
-                <Route
-                    path={pathTilAvtale(':avtaleId')}
-                    exact={true}
-                    render={() => (
-                        <AvtaleSeksjon
-                            endreVerdi={this.endreVerdi}
-                            form={this.state}
-                        />
-                    )}
-                />
-                <PanelBase>
-                    <Link to={'/'} className="lenke">
-                        Til oversiktssiden
-                    </Link>
-                    &nbsp; &nbsp;
-                    <Hovedknapp onClick={() => lagreAvtale(this.state)}>
-                        Lagre
-                    </Hovedknapp>
-                </PanelBase>
-            </>
+                <div className={'avtaleside__steginnhold'}>
+                    <Route
+                        path={pathTilKontaktinformasjon(':avtaleId')}
+                        exact={true}
+                        render={() => (
+                            <KontaktinformasjonSeksjon
+                                endreVerdi={this.endreVerdi}
+                                form={this.state}
+                            />
+                        )}
+                    />
+                    <Route
+                        path={pathTilAvtale(':avtaleId')}
+                        exact={true}
+                        render={() => (
+                            <AvtaleSeksjon
+                                endreVerdi={this.endreVerdi}
+                                form={this.state}
+                            />
+                        )}
+                    />
+                    <PanelBase>
+                        <Link to={'/'} className="lenke">
+                            Til oversiktssiden
+                        </Link>
+                        &nbsp; &nbsp;
+                        <Hovedknapp onClick={() => lagreAvtale(this.state)}>
+                            Lagre
+                        </Hovedknapp>
+                    </PanelBase>
+                </div>
+            </div>
         );
     }
 }
