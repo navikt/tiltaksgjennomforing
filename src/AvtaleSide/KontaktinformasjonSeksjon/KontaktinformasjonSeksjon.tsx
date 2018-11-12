@@ -1,6 +1,7 @@
 import * as React from 'react';
 import AvtaleProps from '../AvtaleProps';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import './KontaktinformasjonSeksjon.less';
 
 const KontaktinformasjonSeksjon = (props: AvtaleProps) => {
     const deltakerInformasjon = (
@@ -43,7 +44,7 @@ const KontaktinformasjonSeksjon = (props: AvtaleProps) => {
         </SkjemaGruppe>
     );
 
-    return <>{deltakerInformasjon}</>;
+    return <div className={'kontaktinformasjon'}>{deltakerInformasjon}</div>;
 };
 
 export default KontaktinformasjonSeksjon;
