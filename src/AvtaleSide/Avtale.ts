@@ -16,9 +16,11 @@ export default interface Avtale {
     id: string;
     opprettetTidspunkt: string;
 
-    personfnr: string;
-    personnavn: string;
-    persontlf: string;
+    deltakerFornavn: string;
+    deltakerEtternavn: string;
+    deltakerAdresse: string;
+    deltakerPostnummer: string;
+    deltakerPoststed: string;
 
     arbeidsgiverorgnr: string;
     arbeidsgivernavn: string;
@@ -38,9 +40,11 @@ export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
 
-    personfnr: '',
-    personnavn: '',
-    persontlf: '',
+    deltakerFornavn: '',
+    deltakerEtternavn: '',
+    deltakerAdresse: '',
+    deltakerPostnummer: '',
+    deltakerPoststed: '',
 
     arbeidsgiverorgnr: '',
     arbeidsgivernavn: '',

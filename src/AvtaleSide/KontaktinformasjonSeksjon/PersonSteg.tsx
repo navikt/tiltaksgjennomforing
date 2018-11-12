@@ -10,7 +10,6 @@ const PersonSteg = (props: AvtaleProps & StegProps) => (
             <Input
                 label={'Fødselsnummer'}
                 bredde={'M'}
-                defaultValue={props.form.personfnr}
                 onChange={(event: any) =>
                     props.endreVerdi('personfnr', event.target.value)
                 }
@@ -18,7 +17,6 @@ const PersonSteg = (props: AvtaleProps & StegProps) => (
             <Input
                 label={'Navn'}
                 bredde={'XL'}
-                defaultValue={props.form.personnavn}
                 onChange={(event: any) =>
                     props.endreVerdi('personnavn', event.target.value)
                 }
@@ -27,7 +25,6 @@ const PersonSteg = (props: AvtaleProps & StegProps) => (
                 label={'Telefon'}
                 bredde={'M'}
                 type={'tel'}
-                defaultValue={props.form.persontlf}
                 onChange={(event: any) =>
                     props.endreVerdi('persontlf', event.target.value)
                 }

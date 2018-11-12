@@ -29,9 +29,11 @@ const BekreftelseSteg = (props: AvtaleProps & StegProps) => {
             <PanelBase>
                 <SkjemaGruppe title={'Person'}>
                     <ul>
-                        <li>{props.form.personfnr}</li>
-                        <li>{props.form.persontlf}</li>
-                        <li>{props.form.personnavn}</li>
+                        <li>{props.form.deltakerFornavn}</li>
+                        <li>{props.form.deltakerEtternavn}</li>
+                        <li>{props.form.deltakerAdresse}</li>
+                        <li>{props.form.deltakerPostnummer}</li>
+                        <li>{props.form.deltakerPoststed}</li>
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Arbeidsgiver'}>
