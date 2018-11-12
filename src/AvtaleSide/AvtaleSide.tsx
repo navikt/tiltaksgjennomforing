@@ -7,7 +7,7 @@ import { pathTilAvtale, pathTilKontaktinformasjon } from '../paths';
 import { hentAvtale, lagreAvtale } from '../services/firebase';
 import Avtale, { tomAvtale } from './Avtale';
 import AvtaleSeksjon from './AvtaleSeksjon/AvtaleSeksjon';
-import KontaktinformasjonSeksjon from './KontaktinformasjonSeksjon/KontaktinformasjonSeksjon';
+import KontaktinformasjonSteg from './KontaktInformasjonSteg/KontaktinformasjonSteg';
 import './avtaleside.less';
 
 interface MatchProps {
@@ -60,7 +60,7 @@ class AvtaleSide extends React.Component<
                         path={pathTilKontaktinformasjon(':avtaleId')}
                         exact={true}
                         render={() => (
-                            <KontaktinformasjonSeksjon
+                            <KontaktinformasjonSteg
                                 endreVerdi={this.endreVerdi}
                                 form={this.state}
                             />

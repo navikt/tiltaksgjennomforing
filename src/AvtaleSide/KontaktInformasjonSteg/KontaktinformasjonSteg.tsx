@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AvtaleProps from '../AvtaleProps';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import './KontaktinformasjonSeksjon.less';
+import './KontaktinformasjonSteg.less';
 
 const KontaktinformasjonSeksjon = (props: AvtaleProps) => {
     const deltakerInformasjon = (
