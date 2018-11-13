@@ -1,5 +1,4 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
-import PanelBase from 'nav-frontend-paneler';
 import * as React from 'react';
 import { Route, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -76,15 +75,12 @@ class AvtaleSide extends React.Component<
                             />
                         )}
                     />
-                    <PanelBase>
-                        <Link to={'/'} className="lenke">
-                            Til oversiktssiden
-                        </Link>
-                        &nbsp; &nbsp;
-                        <Hovedknapp onClick={() => lagreAvtale(this.state)}>
-                            Lagre
-                        </Hovedknapp>
-                    </PanelBase>
+                    <Link to={'/'} className="lenke">
+                        Til oversiktssiden
+                    </Link>
+                    <Hovedknapp onClick={() => lagreAvtale(this.state)}>
+                        Lagre
+                    </Hovedknapp>
                 </div>
             </div>
         );

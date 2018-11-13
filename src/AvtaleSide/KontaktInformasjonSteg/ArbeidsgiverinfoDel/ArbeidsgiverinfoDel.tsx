@@ -13,7 +13,7 @@ const ArbeidsgiverinfoDel = (
     };
 
     const bedriftInfo = (
-        <SkjemaGruppe title="Om bedriften" className="bedriftinfo">
+        <SkjemaGruppe title="Om bedriften">
             <Input
                 className="bedriftinfo__navn"
                 label="Bedriftens navn"

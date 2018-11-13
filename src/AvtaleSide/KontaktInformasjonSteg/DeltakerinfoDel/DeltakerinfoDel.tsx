@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input } from 'nav-frontend-skjema';
 import { EndreAvtale } from '../../EndreAvtale';
 import { Deltakerinfo } from '../../avtale';
 import './DeltakerinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 
 const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
-    <SkjemaGruppe className="deltakerinfo">
+    <>
         <Systemtittel className="deltakerinfo__tittel">
             Informasjon om deltaker
         </Systemtittel>
@@ -54,7 +54,7 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
                 }
             />
         </div>
-    </SkjemaGruppe>
+    </>
 );
 
 export default DeltakerinfoDel;
