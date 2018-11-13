@@ -1,0 +1,60 @@
+@import '~nav-frontend-core/less/_variabler';
+
+@media (min-width: @screen-sm-min) {
+  .arbeidsgiver-tittel {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .bedriftinfo {
+    &__navn {
+      width: 50%;
+      padding-right: 0.5rem;
+    }
+
+    &__adresse {
+      width: 50%;
+      padding-right: 0.5rem;
+    }
+
+    &__postwrapper {
+      display: flex;
+      flex-direction: row;
+
+      &__postnummer {
+        width: 8rem;
+        margin-bottom: 2.5rem;
+      }
+
+      &__poststed {
+        width: 18rem;
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  .arbeidsgiverkontaktpersonrad {
+    display: flex;
+    flex-direction: row;
+
+    &__fornavn {
+      width: 50%;
+      margin-right: 0.5rem;
+    }
+
+    &__etternavn {
+      width: 50%;
+      margin-left: 0.5rem;
+    }
+
+    &__epost {
+      width: 50%;
+      margin-right: 0.5rem;
+    }
+
+    &__tlf {
+      width: 50%;
+      margin-left: 0.5rem;
+    }
+  }
+}

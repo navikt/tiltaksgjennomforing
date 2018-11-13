@@ -2,6 +2,7 @@ import * as moment from 'moment';
 
 export type Avtale = AvtaleMetadata &
     Deltakerinfo &
+    Bedriftinfo &
     Arbeidsgiverinfo &
     Arbeidstid &
     Maalsetninger &
@@ -20,11 +21,18 @@ export interface Deltakerinfo {
     deltakerPoststed: string;
 }
 
+export interface Bedriftinfo {
+    bedriftNavn: string;
+    bedriftAdresse: string;
+    bedriftPostnummer: string;
+    bedriftPoststed: string;
+}
+
 export interface Arbeidsgiverinfo {
-    arbeidsgiverorgnr: string;
-    arbeidsgivernavn: string;
-    arbeidsgivertlf: string;
-    arbeidsgiverkontaktperson: string;
+    arbeidsgiverFornavn: string;
+    arbeidsgiverEtternavn: string;
+    arbeidsgiverEpost: string;
+    arbeidsgiverTlf: string;
 }
 
 // export interface Veilederinfo { }
@@ -69,10 +77,15 @@ export const tomAvtale: Avtale = {
     deltakerPostnummer: '',
     deltakerPoststed: '',
 
-    arbeidsgiverorgnr: '',
-    arbeidsgivernavn: '',
-    arbeidsgivertlf: '',
-    arbeidsgiverkontaktperson: '',
+    bedriftNavn: '',
+    bedriftAdresse: '',
+    bedriftPostnummer: '',
+    bedriftPoststed: '',
+
+    arbeidsgiverFornavn: '',
+    arbeidsgiverEtternavn: '',
+    arbeidsgiverEpost: '',
+    arbeidsgiverTlf: '',
 
     startDatoTimestamp: moment().valueOf(),
     sluttDatoTimestamp: moment().valueOf(),
