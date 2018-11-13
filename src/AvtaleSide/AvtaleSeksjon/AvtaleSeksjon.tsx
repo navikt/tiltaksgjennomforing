@@ -1,15 +1,16 @@
 import * as React from 'react';
-import AvtaleProps from '../AvtaleProps';
+import { EndreAvtale } from '../EndreAvtale';
 import Stegvelger from '../Stegvelger';
 import BekreftelseSteg from './BekreftelseSteg';
-import MalsetningSteg from './MalsetningSteg';
+import MaalsetningSteg from './MaalsetningSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg';
 import OppfolgingSteg from './OppfolgingSteg';
+import { Avtale } from '../avtale';
 
-const AvtaleSeksjon = (props: AvtaleProps) => (
+const AvtaleSeksjon = (props: Avtale & EndreAvtale) => (
     <Stegvelger>
-        <MalsetningSteg label={'Målsetninger'} {...props} />
+        <MaalsetningSteg label={'Målsetninger'} {...props} />
         <ArbeidsoppgaverSteg label={'Arbeidsoppgaver'} {...props} />
         <ArbeidstidSteg label={'Dato og arbeidstid'} {...props} />
         <OppfolgingSteg label={'Oppfølging'} {...props} />
