@@ -13,3 +13,10 @@ export const pathTilAvtale = (avtaleId: string): URLString => {
 export const pathTilKontaktinformasjon = (avtaleId: string): URLString => {
     return `${pathTilArbeidstrening(avtaleId)}/kontaktinformasjon`;
 };
+
+export const pathTilKontaktinformasjonSteg = 'kontaktinformasjon';
+export const pathTilMaalSteg = 'maal';
+export const pathTilArbeidsoppgaverSteg = 'arbeidsoppgaver';
+export const pathTilArbeidstidSteg = 'arbeidstid';
+export const pathTilOppfolgingSteg = 'oppfolging';
+export const pathTilSigneringSteg = 'signering';
