@@ -3,9 +3,13 @@ import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { EndreAvtale } from '../../EndreAvtale';
 import { Deltakerinfo } from '../../Avtale';
 import './DeltakerinfoDel.less';
+import { Systemtittel } from 'nav-frontend-typografi';
 
 const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
-    <SkjemaGruppe title="Informasjon om deltaker" className="deltakerinfo">
+    <SkjemaGruppe className="deltakerinfo">
+        <Systemtittel className="deltakerinfo__tittel">
+            Informasjon om deltaker
+        </Systemtittel>
         <div className="deltakerinfo__deltakernavn">
             <Input
                 className="deltakerinfo__deltakernavn__fornavn"

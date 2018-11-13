@@ -4,6 +4,7 @@ export type Avtale = AvtaleMetadata &
     Deltakerinfo &
     Bedriftinfo &
     Arbeidsgiverinfo &
+    Veilederinfo &
     Arbeidstid &
     Maalsetninger &
     Bekreftelser;
@@ -35,7 +36,12 @@ export interface Arbeidsgiverinfo {
     arbeidsgiverTlf: string;
 }
 
-// export interface Veilederinfo { }
+export interface Veilederinfo {
+    veilederFornavn: string;
+    veilederEtternavn: string;
+    veilederEpost: string;
+    veilederTlf: string;
+}
 
 export interface Arbeidstid {
     startDatoTimestamp: number;
@@ -86,6 +92,11 @@ export const tomAvtale: Avtale = {
     arbeidsgiverEtternavn: '',
     arbeidsgiverEpost: '',
     arbeidsgiverTlf: '',
+
+    veilederFornavn: '',
+    veilederEtternavn: '',
+    veilederEpost: '',
+    veilederTlf: '',
 
     startDatoTimestamp: moment().valueOf(),
     sluttDatoTimestamp: moment().valueOf(),

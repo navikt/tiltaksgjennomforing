@@ -43,6 +43,10 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
                         <li>{props.arbeidsgiverEtternavn}</li>
                         <li>{props.arbeidsgiverEpost}</li>
                         <li>{props.arbeidsgiverTlf}</li>
+                        <li>{props.veilederFornavn}</li>
+                        <li>{props.veilederEtternavn}</li>
+                        <li>{props.veilederEpost}</li>
+                        <li>{props.veilederTlf}</li>
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Dato- og arbeidstid'}>
