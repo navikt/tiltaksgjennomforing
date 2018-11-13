@@ -4,7 +4,7 @@ import PanelBase from 'nav-frontend-paneler';
 import { Input } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Maalsetninger, Malkategori, Malsetning } from '../Avtale';
+import { Maalsetninger, Malkategori, Malsetning } from '../avtale';
 import { EndreAvtale } from '../EndreAvtale';
 import StegProps from '../StegProps';
 

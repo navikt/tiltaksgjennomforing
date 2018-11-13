@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { EndreAvtale } from '../../EndreAvtale';
-import { Arbeidsgiverinfo, Bedriftinfo } from '../../Avtale';
+import { Arbeidsgiverinfo, Bedriftinfo } from '../../avtale';
 import './ArbeidsgiverinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 

@@ -6,7 +6,7 @@ import * as React from 'react';
 import { EndreAvtale } from '../EndreAvtale';
 import StegProps from '../StegProps';
 import * as moment from 'moment';
-import { Avtale } from '../Avtale';
+import { Avtale } from '../avtale';
 
 const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
     const startdato = moment(props.startDatoTimestamp).format('DD.MM.YYYY');

@@ -4,7 +4,7 @@ import { Moment } from 'moment';
 import { EndreAvtale } from '../../EndreAvtale';
 import * as moment from 'moment';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { Arbeidstid } from '../../Avtale';
+import { Arbeidstid } from '../../avtale';
 import StegProps from '../../StegProps';
 
 interface State {

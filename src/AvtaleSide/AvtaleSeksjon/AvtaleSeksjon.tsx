@@ -6,7 +6,7 @@ import MalsetningSteg from './MalsetningSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg';
 import OppfolgingSteg from './OppfolgingSteg';
-import { Avtale } from '../Avtale';
+import { Avtale } from '../avtale';
 
 const AvtaleSeksjon = (props: Avtale & EndreAvtale) => (
     <Stegvelger>

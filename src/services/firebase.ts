@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import * as moment from 'moment';
-import { Avtale, tomAvtale } from '../AvtaleSide/Avtale';
+import { Avtale, tomAvtale } from '../AvtaleSide/avtale';
 import DataSnapshot = firebase.database.DataSnapshot;
 
 firebase.initializeApp({

@@ -5,7 +5,7 @@ import { RouterProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { pathTilKontaktinformasjon } from '../paths';
 import { hentAvtaler, opprettAvtale } from '../services/firebase';
-import { Avtale } from './Avtale';
+import { Avtale } from './avtale';
 
 interface State {
     avtaler: Avtale[];

@@ -5,7 +5,7 @@ import { Route, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { pathTilAvtale, pathTilKontaktinformasjon } from '../paths';
 import { hentAvtale, lagreAvtale } from '../services/firebase';
-import { Avtale, tomAvtale } from './Avtale';
+import { Avtale, tomAvtale } from './avtale';
 import AvtaleSeksjon from './AvtaleSeksjon/AvtaleSeksjon';
 import KontaktinformasjonSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import './avtaleside.less';

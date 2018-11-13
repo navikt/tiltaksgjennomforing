@@ -6,7 +6,7 @@ import {
     Bedriftinfo,
     Deltakerinfo,
     Veilederinfo,
-} from '../Avtale';
+} from '../avtale';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
