@@ -12,9 +12,9 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
     const startdato = moment(props.startDatoTimestamp).format('DD.MM.YYYY');
     const sluttdato = moment(props.sluttDatoTimestamp).format('DD.MM.YYYY');
 
-    const malsetninger = props.malsetninger.map(malsetning => (
-        <li key={malsetning.kategori}>
-            {malsetning.kategori} {malsetning.beskrivelse}
+    const maalsetninger = props.maalsetninger.map(maalsetning => (
+        <li key={maalsetning.kategori}>
+            {maalsetning.kategori} {maalsetning.beskrivelse}
         </li>
     ));
 
@@ -56,7 +56,7 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Målsetninger'}>
-                    <ul>{malsetninger}</ul>
+                    <ul>{maalsetninger}</ul>
                 </SkjemaGruppe>
             </PanelBase>
 

@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { Maalkategori } from './maalkategorier';
 
 export type Avtale = AvtaleMetadata &
     Deltakerinfo &
@@ -49,21 +50,11 @@ export interface Arbeidstid {
 }
 
 export interface Maalsetninger {
-    // TODO: Endre navn til Maalsetning
-    malsetninger: Malsetning[];
+    maalsetninger: Maalsetning[];
 }
 
-// TODO: Flytt ut i egen fil
-export type Malkategori =
-    | 'Avklaring'
-    | 'Arbeidserfaring'
-    | 'Oppnå fagbrev/kompetansebevis'
-    | 'Språkopplæring'
-    | 'Få jobb på arbeidstreningsplass';
-
-// TODO: Flytt ut i egen fil
-export interface Malsetning {
-    kategori: Malkategori;
+export interface Maalsetning {
+    kategori: Maalkategori;
     beskrivelse: string;
 }
 
@@ -100,7 +91,7 @@ export const tomAvtale: Avtale = {
 
     startDatoTimestamp: moment().valueOf(),
     sluttDatoTimestamp: moment().valueOf(),
-    malsetninger: [],
+    maalsetninger: [],
 
     bekreftetAvBruker: false,
     bekreftetAvArbeidsgiver: false,
