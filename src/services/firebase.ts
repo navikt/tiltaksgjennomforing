@@ -1,7 +1,8 @@
 import * as firebase from 'firebase';
 import * as moment from 'moment';
-import { Avtale, tomAvtale } from '../AvtaleSide/avtale';
+import { Avtale } from '../AvtaleSide/avtale';
 import DataSnapshot = firebase.database.DataSnapshot;
+import { tomAvtale } from '../AvtaleSide/avtaleContext';
 
 firebase.initializeApp({
     apiKey: 'AIzaSyC0lxgrU_SleTgL72TtFUO7yEyrN2ihjI4',

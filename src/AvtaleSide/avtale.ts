@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import { Maalkategori } from './maalkategorier';
 
 export type Avtale = AvtaleMetadata &
@@ -63,37 +62,3 @@ export interface Bekreftelser {
     bekreftetAvArbeidsgiver: boolean;
     bekreftetAvVeileder: boolean;
 }
-
-export const tomAvtale: Avtale = {
-    id: '',
-    opprettetTidspunkt: '',
-
-    deltakerFornavn: '',
-    deltakerEtternavn: '',
-    deltakerAdresse: '',
-    deltakerPostnummer: '',
-    deltakerPoststed: '',
-
-    bedriftNavn: '',
-    bedriftAdresse: '',
-    bedriftPostnummer: '',
-    bedriftPoststed: '',
-
-    arbeidsgiverFornavn: '',
-    arbeidsgiverEtternavn: '',
-    arbeidsgiverEpost: '',
-    arbeidsgiverTlf: '',
-
-    veilederFornavn: '',
-    veilederEtternavn: '',
-    veilederEpost: '',
-    veilederTlf: '',
-
-    startDatoTimestamp: moment().valueOf(),
-    sluttDatoTimestamp: moment().valueOf(),
-    maalsetninger: [],
-
-    bekreftetAvBruker: false,
-    bekreftetAvArbeidsgiver: false,
-    bekreftetAvVeileder: false,
-};
