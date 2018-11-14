@@ -4,6 +4,7 @@ import { EndreAvtale } from '../../EndreAvtale';
 import { Veilederinfo } from '../../avtale';
 import './VeilederinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
+import { medContext } from '../../../avtaleContext';
 
 const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
     <>
@@ -49,4 +50,4 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
     </>
 );
 
-export default VeilederinfoDel;
+export default medContext(VeilederinfoDel);

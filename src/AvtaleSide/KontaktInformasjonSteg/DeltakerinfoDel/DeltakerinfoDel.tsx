@@ -4,6 +4,7 @@ import { EndreAvtale } from '../../EndreAvtale';
 import { Deltakerinfo } from '../../avtale';
 import './DeltakerinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
+import { medContext } from '../../../avtaleContext';
 
 const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
     <>
@@ -56,5 +57,4 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
         </div>
     </>
 );
-
-export default DeltakerinfoDel;
+export default medContext(DeltakerinfoDel);

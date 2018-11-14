@@ -1,17 +1,17 @@
 import { Knapp } from 'nav-frontend-knapper';
 import PanelBase from 'nav-frontend-paneler';
 import * as React from 'react';
-import { RouterProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import { pathTilKontaktinformasjon } from '../paths';
 import { hentAvtaler, opprettAvtale } from '../services/firebase';
 import { Avtale } from './avtale';
+import { medContext } from '../avtaleContext';
 
 interface State {
     avtaler: Avtale[];
 }
 
-class AvtaleOversikt extends React.Component<RouterProps, State> {
+class AvtaleOversikt extends React.Component<any, State> {
     state: State = {
         avtaler: [],
     };
@@ -48,4 +48,4 @@ class AvtaleOversikt extends React.Component<RouterProps, State> {
     }
 }
 
-export default AvtaleOversikt;
+export default medContext(AvtaleOversikt);

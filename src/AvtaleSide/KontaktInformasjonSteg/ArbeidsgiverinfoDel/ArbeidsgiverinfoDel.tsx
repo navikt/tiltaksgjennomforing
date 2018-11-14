@@ -4,6 +4,7 @@ import { EndreAvtale } from '../../EndreAvtale';
 import { Arbeidsgiverinfo, Bedriftinfo } from '../../avtale';
 import './ArbeidsgiverinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
+import { medContext } from '../../../avtaleContext';
 
 const ArbeidsgiverinfoDel = (
     props: Bedriftinfo & Arbeidsgiverinfo & EndreAvtale
@@ -86,4 +87,5 @@ const ArbeidsgiverinfoDel = (
         </>
     );
 };
-export default ArbeidsgiverinfoDel;
+
+export default medContext(ArbeidsgiverinfoDel);
