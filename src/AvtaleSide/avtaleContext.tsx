@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { Avtale } from './avtale';
-import * as moment from 'moment';
 import { hentAvtale } from '../services/firebase';
-
-interface AvtaleContext {
-    avtale: Avtale;
-    endreAvtale: (felt: string, verdi: any) => void;
-}
+import * as moment from 'moment';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -42,50 +37,57 @@ export const tomAvtale: Avtale = {
     bekreftetAvVeileder: false,
 };
 
-export const defaultAvtaleContext: AvtaleContext = {
+interface Context {
+    avtale: Avtale;
+    endreAvtale: (felt: string, verdi: any) => void;
+}
+
+const AvtaleContext = React.createContext<Context>({
     avtale: tomAvtale,
-    endreAvtale: (felt: string, verdi: any) => {}, // tslint:disable-line no-empty
-};
+    endreAvtale: () => {}, // tslint:disable-line
+});
 
-export const avtaleContext = React.createContext<AvtaleContext>(
-    defaultAvtaleContext
-);
+export const AvtaleConsumer = AvtaleContext.Consumer;
 
-export const AvtaleConsumer = avtaleContext.Consumer;
-
-export class AvtaleProvider extends React.Component<any, AvtaleContext> {
-    private endreVerdi: (felt: string, verdi: any) => void;
-
-    constructor(props: any) {
+export class AvtaleProvider extends React.Component<{}, Avtale> {
+    constructor(props: {}) {
         super(props);
-
-        this.endreVerdi = (felt: string, verdi: any) => {
-            const avtale = { ...this.state.avtale };
-            avtale[felt] = verdi;
-            this.setState({ avtale });
-        };
-
-        this.state = {
-            avtale: tomAvtale,
-            endreAvtale: this.endreVerdi,
-        };
+        this.state = tomAvtale;
+        this.endreAvtale = this.endreAvtale.bind(this);
     }
 
-    componentDidMount() {
-        const avtaleId =
-            prompt('Skriv inn avtaleid: ') || '-LQIc8uXV0lEGTRPNwuG';
-        hentAvtale(avtaleId).then(avtale => {
-            // console.log(avtaleId); // tslint:disable-line no-console
-            console.log(avtale); // tslint:disable-line no-console
-            this.setState({ avtale });
+    componentWillMount() {
+        hentAvtale('-LQIc8uXV0lEGTRPNwuG').then(avtale => {
+            this.setState(avtale);
         });
     }
 
+    endreAvtale(felt: string, verdi: any) {
+        const avtale = this.state;
+        avtale[felt] = verdi;
+        this.setState(avtale);
+    }
+
     render() {
+        const context: Context = {
+            avtale: this.state,
+            endreAvtale: this.endreAvtale,
+        };
+
         return (
-            <avtaleContext.Provider value={this.state}>
+            <AvtaleContext.Provider value={context}>
                 {this.props.children}
-            </avtaleContext.Provider>
+            </AvtaleContext.Provider>
         );
     }
 }
+
+export const medContext = (Component: any) => {
+    return (props: any) => (
+        <AvtaleConsumer>
+            {context => {
+                return <Component {...props} {...context.avtale} />;
+            }}
+        </AvtaleConsumer>
+    );
+};

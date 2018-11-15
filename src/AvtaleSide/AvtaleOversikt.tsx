@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { pathTilKontaktinformasjon } from '../paths';
 import { hentAvtaler, opprettAvtale } from '../services/firebase';
 import { Avtale } from './avtale';
-import { medContext } from '../avtaleContext';
 
 interface State {
     avtaler: Avtale[];
@@ -48,4 +47,4 @@ class AvtaleOversikt extends React.Component<any, State> {
     }
 }
 
-export default medContext(AvtaleOversikt);
+export default AvtaleOversikt;

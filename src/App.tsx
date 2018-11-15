@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AvtaleProvider } from './avtaleContext';
+import { AvtaleProvider } from './AvtaleSide/avtaleContext';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import KontaktinfoSteg from './AvtaleSide/KontaktInformasjonSteg/KontaktinfoSteg';
 
