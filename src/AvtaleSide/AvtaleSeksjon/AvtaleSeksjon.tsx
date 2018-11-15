@@ -5,40 +5,15 @@ import MaalsetningSteg from './MaalsetningSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg';
 import OppfolgingSteg from './OppfolgingSteg';
-import { AvtaleConsumer } from '../avtaleContext';
 
 const AvtaleSeksjon = () => (
-    <AvtaleConsumer>
-        {({ avtale, endreAvtale }) => (
-            <Stegvelger>
-                <MaalsetningSteg
-                    label={'Målsetninger'}
-                    {...avtale}
-                    endreVerdi={endreAvtale}
-                />
-                <ArbeidsoppgaverSteg
-                    label={'Arbeidsoppgaver'}
-                    {...avtale}
-                    endreVerdi={endreAvtale}
-                />
-                <ArbeidstidSteg
-                    label={'Dato og arbeidstid'}
-                    {...avtale}
-                    endreVerdi={endreAvtale}
-                />
-                <OppfolgingSteg
-                    label={'Oppfølging'}
-                    {...avtale}
-                    endreVerdi={endreAvtale}
-                />
-                <BekreftelseSteg
-                    label={'Bekreftelse'}
-                    {...avtale}
-                    endreVerdi={endreAvtale}
-                />
-            </Stegvelger>
-        )}
-    </AvtaleConsumer>
+    <Stegvelger>
+        <MaalsetningSteg label={'Målsetninger'} />
+        <ArbeidsoppgaverSteg label={'Arbeidsoppgaver'} />
+        <ArbeidstidSteg label={'Dato og arbeidstid'} />
+        <OppfolgingSteg label={'Oppfølging'} />
+        <BekreftelseSteg label={'Bekreftelse'} />
+    </Stegvelger>
 );
 
 export default AvtaleSeksjon;

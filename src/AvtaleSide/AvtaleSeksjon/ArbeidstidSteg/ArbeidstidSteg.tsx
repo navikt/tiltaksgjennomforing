@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import { Arbeidstid } from '../../avtale';
 import StegProps from '../../StegProps';
+import { medContext } from '../../avtaleContext';
 
 interface State {
     startDatoTimestamp: number;
@@ -70,4 +71,4 @@ class ArbeidstidSteg extends React.Component<
     }
 }
 
-export default ArbeidstidSteg;
+export default medContext(ArbeidstidSteg);

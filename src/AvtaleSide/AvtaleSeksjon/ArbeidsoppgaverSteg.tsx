@@ -2,6 +2,7 @@ import * as React from 'react';
 import { EndreAvtale } from '../EndreAvtale';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
 import StegProps from '../StegProps';
+import { medContext } from '../avtaleContext';
 
 const ArbeidsoppgaverSteg = (props: EndreAvtale & StegProps) => (
     <>
@@ -15,4 +16,4 @@ const ArbeidsoppgaverSteg = (props: EndreAvtale & StegProps) => (
     </>
 );
 
-export default ArbeidsoppgaverSteg;
+export default medContext(ArbeidsoppgaverSteg);

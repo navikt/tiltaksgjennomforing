@@ -2,6 +2,7 @@ import * as React from 'react';
 import { EndreAvtale } from '../EndreAvtale';
 import StegProps from '../StegProps';
 import { Innholdstittel } from 'nav-frontend-typografi';
+import { medContext } from '../avtaleContext';
 
 const OppfolgingSteg = (props: EndreAvtale & StegProps) => (
     <>
@@ -11,4 +12,4 @@ const OppfolgingSteg = (props: EndreAvtale & StegProps) => (
     </>
 );
 
-export default OppfolgingSteg;
+export default medContext(OppfolgingSteg);
