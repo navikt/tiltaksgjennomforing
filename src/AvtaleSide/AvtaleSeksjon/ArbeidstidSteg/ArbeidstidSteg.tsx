@@ -30,7 +30,7 @@ class ArbeidstidSteg extends React.Component<
             startDatoTimestamp: dato.valueOf(),
             startDatoRiktigFormatert: true,
         });
-        this.props.endreVerdi('startDatoTimestamp', dato.valueOf());
+        this.props.settAvtaleVerdi('startDatoTimestamp', dato.valueOf());
     };
 
     velgSluttDato = (dato: Moment) => {
@@ -38,7 +38,7 @@ class ArbeidstidSteg extends React.Component<
             sluttDatoTimestamp: dato.valueOf(),
             sluttDatoRiktigFormatert: true,
         });
-        this.props.endreVerdi('sluttDatoTimestamp', dato.valueOf());
+        this.props.settAvtaleVerdi('sluttDatoTimestamp', dato.valueOf());
     };
 
     settStartDatoRiktigFormatert = (riktigFormatert: boolean) => {

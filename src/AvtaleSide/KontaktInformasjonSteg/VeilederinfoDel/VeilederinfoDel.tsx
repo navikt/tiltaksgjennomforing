@@ -17,7 +17,7 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
                 label="Fornavn"
                 defaultValue={props.veilederFornavn}
                 onChange={event =>
-                    props.endreVerdi('veilederFornavn', event.target.value)
+                    props.settAvtaleVerdi('veilederFornavn', event.target.value)
                 }
             />
             <Input
@@ -25,7 +25,10 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
                 label="Etternavn"
                 defaultValue={props.veilederEtternavn}
                 onChange={event =>
-                    props.endreVerdi('veilederEtternavn', event.target.value)
+                    props.settAvtaleVerdi(
+                        'veilederEtternavn',
+                        event.target.value
+                    )
                 }
             />
         </div>
@@ -35,7 +38,7 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
                 label="Epost"
                 defaultValue={props.veilederEpost}
                 onChange={event =>
-                    props.endreVerdi('veilederEpost', event.target.value)
+                    props.settAvtaleVerdi('veilederEpost', event.target.value)
                 }
             />
             <Input
@@ -43,7 +46,7 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
                 label="Telefonnummer"
                 defaultValue={props.veilederTlf}
                 onChange={event =>
-                    props.endreVerdi('veilederTlf', event.target.value)
+                    props.settAvtaleVerdi('veilederTlf', event.target.value)
                 }
             />
         </div>

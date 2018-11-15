@@ -10,7 +10,7 @@ const ArbeidsgiverinfoDel = (
     props: Bedriftinfo & Arbeidsgiverinfo & EndreAvtale
 ) => {
     const onChange = (label: string) => {
-        return (event: any) => props.endreVerdi(label, event.target.value);
+        return (event: any) => props.settAvtaleVerdi(label, event.target.value);
     };
 
     const bedriftInfo = (

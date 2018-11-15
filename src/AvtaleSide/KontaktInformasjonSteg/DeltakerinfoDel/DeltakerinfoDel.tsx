@@ -16,16 +16,23 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
                 className="deltakerinfo__deltakernavn__fornavn"
                 label="Fornavn"
                 defaultValue={props.deltakerFornavn}
-                onChange={event =>
-                    props.endreVerdi('deltakerFornavn', event.target.value)
-                }
+                onChange={event => {
+                    console.log(props); // tslint:disable-line no-console
+                    return props.settAvtaleVerdi(
+                        'deltakerFornavn',
+                        event.target.value
+                    );
+                }}
             />
             <Input
                 className="deltakerinfo__deltakernavn__etternavn"
                 label="Etternavn"
                 defaultValue={props.deltakerEtternavn}
                 onChange={event =>
-                    props.endreVerdi('deltakerEtternavn', event.target.value)
+                    props.settAvtaleVerdi(
+                        'deltakerEtternavn',
+                        event.target.value
+                    )
                 }
             />
         </div>
@@ -34,7 +41,7 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
             label="Adresse"
             defaultValue={props.deltakerAdresse}
             onChange={event =>
-                props.endreVerdi('deltakerAdresse', event.target.value)
+                props.settAvtaleVerdi('deltakerAdresse', event.target.value)
             }
         />
         <div className="deltakerinfo__postwrapper">
@@ -43,7 +50,10 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
                 label="Postnummer"
                 defaultValue={props.deltakerPostnummer}
                 onChange={event =>
-                    props.endreVerdi('deltakerPostnummer', event.target.value)
+                    props.settAvtaleVerdi(
+                        'deltakerPostnummer',
+                        event.target.value
+                    )
                 }
             />
             <Input
@@ -51,7 +61,10 @@ const DeltakerinfoDel = (props: Deltakerinfo & EndreAvtale) => (
                 label="Poststed"
                 defaultValue={props.deltakerPoststed}
                 onChange={event =>
-                    props.endreVerdi('deltakerPoststed', event.target.value)
+                    props.settAvtaleVerdi(
+                        'deltakerPoststed',
+                        event.target.value
+                    )
                 }
             />
         </div>

@@ -1,3 +1,3 @@
 export interface EndreAvtale {
-    endreVerdi: (felt: string, verdi: any) => void;
+    settAvtaleVerdi: (felt: string, verdi: any) => void;
 }

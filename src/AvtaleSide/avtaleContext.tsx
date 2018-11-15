@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Avtale } from './avtale';
 import { hentAvtale } from '../services/firebase';
 import * as moment from 'moment';
+import { EndreAvtale } from './EndreAvtale';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -37,14 +38,11 @@ export const tomAvtale: Avtale = {
     bekreftetAvVeileder: false,
 };
 
-interface Context {
-    avtale: Avtale;
-    endreAvtale: (felt: string, verdi: any) => void;
-}
+type Context = Avtale & EndreAvtale;
 
 const AvtaleContext = React.createContext<Context>({
-    avtale: tomAvtale,
-    endreAvtale: () => {}, // tslint:disable-line
+    ...tomAvtale,
+    settAvtaleVerdi: () => {}, // tslint:disable-line
 });
 
 export const AvtaleConsumer = AvtaleContext.Consumer;
@@ -53,7 +51,7 @@ export class AvtaleProvider extends React.Component<{}, Avtale> {
     constructor(props: {}) {
         super(props);
         this.state = tomAvtale;
-        this.endreAvtale = this.endreAvtale.bind(this);
+        this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
     }
 
     componentWillMount() {
@@ -62,16 +60,16 @@ export class AvtaleProvider extends React.Component<{}, Avtale> {
         });
     }
 
-    endreAvtale(felt: string, verdi: any) {
+    settAvtaleVerdi(felt: string, verdi: any) {
         const avtale = this.state;
         avtale[felt] = verdi;
         this.setState(avtale);
     }
 
     render() {
-        const context: Context = {
-            avtale: this.state,
-            endreAvtale: this.endreAvtale,
+        const context = {
+            ...this.state,
+            settAvtaleVerdi: this.settAvtaleVerdi,
         };
 
         return (
@@ -86,7 +84,7 @@ export const medContext = (Component: any) => {
     return (props: any) => (
         <AvtaleConsumer>
             {context => {
-                return <Component {...props} {...context.avtale} />;
+                return <Component {...props} {...context} />;
             }}
         </AvtaleConsumer>
     );

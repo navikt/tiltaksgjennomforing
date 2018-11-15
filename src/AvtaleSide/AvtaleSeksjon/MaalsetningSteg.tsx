@@ -8,6 +8,7 @@ import { Maalsetninger, Maalsetning } from '../avtale';
 import { EndreAvtale } from '../EndreAvtale';
 import StegProps from '../StegProps';
 import { Maalkategori } from '../maalkategorier';
+import { medContext } from '../avtaleContext';
 
 const MaalsetningKnapp = (props: {
     kategori: Maalkategori;
@@ -52,12 +53,12 @@ const MaalsetningSteg = (props: Maalsetninger & EndreAvtale & StegProps) => {
         const maalsetninger = props.maalsetninger;
         if (!maalsetninger.find((m: Maalsetning) => m.kategori === kategori)) {
             maalsetninger.push({ kategori, beskrivelse: '' });
-            props.endreVerdi('maalsetninger', maalsetninger);
+            props.settAvtaleVerdi('maalsetninger', maalsetninger);
         }
     };
 
     const fjernKategori = (maalsetning: Maalsetning) => {
-        props.endreVerdi(
+        props.settAvtaleVerdi(
             'maalsetninger',
             props.maalsetninger.filter(
                 (m: Maalsetning) => m.kategori !== maalsetning.kategori
@@ -71,7 +72,7 @@ const MaalsetningSteg = (props: Maalsetninger & EndreAvtale & StegProps) => {
             (m: Maalsetning) => m.kategori === maalsetning.kategori
         );
         maalsetninger[index] = maalsetning;
-        props.endreVerdi('maalsetninger', maalsetninger);
+        props.settAvtaleVerdi('maalsetninger', maalsetninger);
     };
 
     const beskrivelsesPaneler = props.maalsetninger.map(
@@ -109,4 +110,4 @@ const MaalsetningSteg = (props: Maalsetninger & EndreAvtale & StegProps) => {
     );
 };
 
-export default MaalsetningSteg;
+export default medContext(MaalsetningSteg);

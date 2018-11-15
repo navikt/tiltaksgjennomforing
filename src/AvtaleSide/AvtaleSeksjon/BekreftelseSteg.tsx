@@ -7,6 +7,7 @@ import { EndreAvtale } from '../EndreAvtale';
 import StegProps from '../StegProps';
 import * as moment from 'moment';
 import { Avtale } from '../avtale';
+import { medContext } from '../avtaleContext';
 
 const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
     const startdato = moment(props.startDatoTimestamp).format('DD.MM.YYYY');
@@ -69,7 +70,7 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
                         <Knapp
                             disabled={props.bekreftetAvBruker}
                             onClick={() =>
-                                props.endreVerdi('bekreftetAvBruker', true)
+                                props.settAvtaleVerdi('bekreftetAvBruker', true)
                             }
                         >
                             Bekreft som bruker
@@ -81,7 +82,7 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
                         <Knapp
                             disabled={props.bekreftetAvArbeidsgiver}
                             onClick={() =>
-                                props.endreVerdi(
+                                props.settAvtaleVerdi(
                                     'bekreftetAvArbeidsgiver',
                                     true
                                 )
@@ -96,7 +97,10 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
                         <Knapp
                             disabled={props.bekreftetAvVeileder}
                             onClick={() =>
-                                props.endreVerdi('bekreftetAvVeileder', true)
+                                props.settAvtaleVerdi(
+                                    'bekreftetAvVeileder',
+                                    true
+                                )
                             }
                         >
                             Bekreft som NAV-veileder
@@ -110,4 +114,4 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
     );
 };
 
-export default BekreftelseSteg;
+export default medContext(BekreftelseSteg);
