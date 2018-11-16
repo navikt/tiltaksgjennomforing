@@ -6,7 +6,7 @@ import { pathTilAvtale, pathTilKontaktinformasjon } from '../paths';
 import AvtaleSeksjon from './AvtaleSeksjon/AvtaleSeksjon';
 import KontaktinformasjonSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import './avtaleside.less';
-import { AvtaleProvider } from './avtaleContext';
+
 class AvtaleSide extends React.Component {
     render() {
         const avtaleId = '';
@@ -25,27 +25,25 @@ class AvtaleSide extends React.Component {
         );
 
         return (
-            <AvtaleProvider>
-                <div className={'avtaleside'}>
-                    {knappeRekke()}
-                    <div className={'avtaleside__steginnhold'}>
-                        <Route
-                            path={pathTilKontaktinformasjon(':avtaleId')}
-                            exact={true}
-                            component={KontaktinformasjonSteg}
-                        />
-                        <Route
-                            path={pathTilAvtale(':avtaleId')}
-                            exact={true}
-                            component={AvtaleSeksjon}
-                        />
-                        <Link to={'/'} className="lenke">
-                            Til oversiktssiden
-                        </Link>
-                        <Hovedknapp>Lagre</Hovedknapp>
-                    </div>
+            <div className={'avtaleside'}>
+                {knappeRekke()}
+                <div className={'avtaleside__steginnhold'}>
+                    <Route
+                        path={pathTilKontaktinformasjon(':avtaleId')}
+                        exact={true}
+                        component={KontaktinformasjonSteg}
+                    />
+                    <Route
+                        path={pathTilAvtale(':avtaleId')}
+                        exact={true}
+                        component={AvtaleSeksjon}
+                    />
+                    <Link to={'/'} className="lenke">
+                        Til oversiktssiden
+                    </Link>
+                    <Hovedknapp>Lagre</Hovedknapp>
                 </div>
-            </AvtaleProvider>
+            </div>
         );
     }
 }

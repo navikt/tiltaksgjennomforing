@@ -1,17 +1,16 @@
 import * as React from 'react';
 import './KontaktinfoSteg.less';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
-import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
-import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
+import { medContext } from '../avtaleContext';
 
 const KontaktinfoSteg = () => {
     return (
         <div className="kontaktinformasjon">
             <DeltakerinfoDel />
-            <ArbeidsgiverinfoDel />
-            <VeilederinfoDel />
+            {/*            <ArbeidsgiverinfoDel />
+            <VeilederinfoDel />*/}
         </div>
     );
 };
 
-export default KontaktinfoSteg;
+export default medContext(KontaktinfoSteg);
