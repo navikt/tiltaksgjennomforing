@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { hentAvtaler } from '../services/firebase';
 import { Avtale } from './avtale';
-import { Redirect, Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import { Knapp } from 'nav-frontend-knapper';
 
 const AvtaleContext = React.createContext({
@@ -15,7 +15,7 @@ interface State {
     valgtAvtaleId: string;
 }
 
-export class AlleAvtalerProvider extends React.Component<any, State> {
+export class AlleAvtalerProviderr extends React.Component<any, State> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -38,6 +38,9 @@ export class AlleAvtalerProvider extends React.Component<any, State> {
                         this.setState({
                             valgtAvtaleId: avtale.id,
                         });
+                        this.props.history.push(
+                            '/' + avtale.id + '/kontaktinfo'
+                        );
                     }}
                 >
                     {avtale.id}
@@ -56,19 +59,13 @@ export class AlleAvtalerProvider extends React.Component<any, State> {
                     exact={true}
                     render={() => <ul>{avtaleLenker}</ul>}
                 />
-                {this.state.valgtAvtaleId.length !== 0 && (
-                    <Redirect
-                        from="/"
-                        to={'/' + this.state.valgtAvtaleId + '/kontaktinfo'}
-                        push={true}
-                        exact={true}
-                    />
-                )}
                 {this.props.children}
             </AvtaleContext.Provider>
         );
     }
 }
+
+export const AlleAvtalerProvider = withRouter(AlleAvtalerProviderr);
 
 export const medAlleAvtalerContext = (Component: any) => {
     return (props: any) => (
