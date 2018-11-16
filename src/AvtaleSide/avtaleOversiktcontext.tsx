@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { hentAvtaler } from '../services/firebase';
+import { hentAvtaler, lagreAvtale } from '../services/firebase';
 import { Avtale } from './avtale';
 import { Route, withRouter } from 'react-router-dom';
 import { Knapp } from 'nav-frontend-knapper';
+import { Context, tomAvtale } from './avtaleContext';
 
 const AvtaleContext = React.createContext({
     valgtAvtaleId: '',
+    avtale: tomAvtale,
 });
 
 export const AvtaleConsumer = AvtaleContext.Consumer;
@@ -13,6 +15,7 @@ export const AvtaleConsumer = AvtaleContext.Consumer;
 interface State {
     avtaler: Avtale[];
     valgtAvtaleId: string;
+    avtale: Avtale;
 }
 
 export class AlleAvtalerProviderr extends React.Component<any, State> {
@@ -21,13 +24,26 @@ export class AlleAvtalerProviderr extends React.Component<any, State> {
         this.state = {
             avtaler: [],
             valgtAvtaleId: '',
+            avtale: tomAvtale,
         };
+        this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
+        this.lagreAvtale = this.lagreAvtale.bind(this);
     }
 
     componentDidMount() {
         hentAvtaler().then(avtaler => {
             this.setState({ avtaler });
         });
+    }
+
+    settAvtaleVerdi(felt: string, verdi: any) {
+        const avtale = { ...this.state.avtale };
+        avtale[felt] = verdi;
+        this.setState({ avtale });
+    }
+
+    lagreAvtale() {
+        lagreAvtale(this.state.avtale);
     }
 
     render() {
@@ -37,6 +53,7 @@ export class AlleAvtalerProviderr extends React.Component<any, State> {
                     onClick={() => {
                         this.setState({
                             valgtAvtaleId: avtale.id,
+                            avtale,
                         });
                         this.props.history.push(
                             '/' + avtale.id + '/kontaktinfo'
@@ -48,12 +65,15 @@ export class AlleAvtalerProviderr extends React.Component<any, State> {
             </li>
         ));
 
+        const context: Context = {
+            avtale: this.state.avtale,
+            settAvtaleVerdi: this.settAvtaleVerdi,
+            lagreAvtale: this.lagreAvtale,
+            valgtAvtaleId: this.state.valgtAvtaleId,
+        };
+
         return (
-            <AvtaleContext.Provider
-                value={{
-                    valgtAvtaleId: this.state.valgtAvtaleId,
-                }}
-            >
+            <AvtaleContext.Provider value={context}>
                 <Route
                     path="/"
                     exact={true}
@@ -67,7 +87,8 @@ export class AlleAvtalerProviderr extends React.Component<any, State> {
 
 export const AlleAvtalerProvider = withRouter(AlleAvtalerProviderr);
 
-export const medAlleAvtalerContext = (Component: any) => {
+// medAlleAvtalerContext
+export const medContext = (Component: any) => {
     return (props: any) => (
         <AvtaleConsumer>
             {context => {

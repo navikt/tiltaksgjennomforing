@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { AvtaleProvider } from './AvtaleSide/avtaleContext';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import KontaktinfoSteg from './AvtaleSide/KontaktInformasjonSteg/KontaktinfoSteg';
 import BekreftelseSteg from './AvtaleSide/AvtaleSeksjon/BekreftelseSteg';
@@ -10,20 +9,18 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <AlleAvtalerProvider>
-                    <AvtaleProvider>
-                        <Switch>
-                            <Route
-                                path="/:avtaleId/kontaktinfo"
-                                exact={false}
-                                component={KontaktinfoSteg}
-                            />
-                            <Route
-                                path="/bekreftelse"
-                                exact={true}
-                                component={BekreftelseSteg}
-                            />
-                        </Switch>
-                    </AvtaleProvider>
+                    <Switch>
+                        <Route
+                            path="/:avtaleId/kontaktinfo"
+                            exact={false}
+                            component={KontaktinfoSteg}
+                        />
+                        <Route
+                            path="/bekreftelse"
+                            exact={true}
+                            component={BekreftelseSteg}
+                        />
+                    </Switch>
                 </AlleAvtalerProvider>
             </BrowserRouter>
         );

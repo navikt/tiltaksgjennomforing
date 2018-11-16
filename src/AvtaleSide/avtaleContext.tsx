@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Avtale } from './avtale';
 import { hentAvtale, lagreAvtale } from '../services/firebase';
 import * as moment from 'moment';
-import { medAlleAvtalerContext } from './avtaleOversiktcontext';
+// import { medAlleAvtalerContext } from './avtaleOversiktcontext';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -77,7 +77,7 @@ class AvtaleProviderr extends React.Component<Props, State> {
             this.props.valgtAvtaleId !== prevProps.valgtAvtaleId
         ) {
             hentAvtale(this.props.valgtAvtaleId).then(avtale => {
-                console.log('Oppdaterer!', this.props.valgtAvtaleId); // tslint:disable-line no-console
+                console.log('Oppdaterer!', avtale); // tslint:disable-line no-console
                 this.setState({ avtale });
             });
         }
@@ -109,7 +109,8 @@ class AvtaleProviderr extends React.Component<Props, State> {
     }
 }
 
-export const AvtaleProvider = medAlleAvtalerContext(AvtaleProviderr);
+export const AvtaleProvider = AvtaleProviderr;
+// export const AvtaleProvider = medAlleAvtalerContext(AvtaleProviderr);
 
 export const medContext = (Component: any) => {
     return (props: any) => (
