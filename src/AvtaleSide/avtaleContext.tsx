@@ -70,18 +70,17 @@ class AvtaleProviderr extends React.Component<Props, State> {
         this.lagreAvtale = this.lagreAvtale.bind(this);
     }
 
-    // Metoden blir bare kjørt en gang når komponenten rendres for første gang.
-    // Da er this.props.valgtAvtaleId ikke satt enda.
-    // hentAvtale() må kjøres når this.props.valgtAvtaleId endres.
-    componentDidMount() {
-        if (this.props.valgtAvtaleId === '') {
-            console.log('valgtAvtaleId er undefined, oppdaterer ikke.'); // tslint:disable-line no-console
-            return;
+    componentDidUpdate(prevProps: Props) {
+        // Skal bare hente avtale hvis IDen er satt og den er ny
+        if (
+            this.props.valgtAvtaleId !== '' &&
+            this.props.valgtAvtaleId !== prevProps.valgtAvtaleId
+        ) {
+            hentAvtale(this.props.valgtAvtaleId).then(avtale => {
+                console.log('Oppdaterer!', this.props.valgtAvtaleId); // tslint:disable-line no-console
+                this.setState({ avtale });
+            });
         }
-        console.log('Oppdaterer!'); // tslint:disable-line no-console
-        hentAvtale(this.props.valgtAvtaleId).then(avtale => {
-            this.setState({ avtale });
-        });
     }
 
     settAvtaleVerdi(felt: string, verdi: any) {
@@ -110,7 +109,6 @@ class AvtaleProviderr extends React.Component<Props, State> {
     }
 }
 
-// export const AvtaleProvider = AvtaleProviderr;
 export const AvtaleProvider = medAlleAvtalerContext(AvtaleProviderr);
 
 export const medContext = (Component: any) => {

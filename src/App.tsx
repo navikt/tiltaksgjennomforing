@@ -14,7 +14,7 @@ class App extends React.Component {
                         <Switch>
                             <Route
                                 path="/:avtaleId/kontaktinfo"
-                                exact={true}
+                                exact={false}
                                 component={KontaktinfoSteg}
                             />
                             <Route

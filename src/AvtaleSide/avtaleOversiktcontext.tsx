@@ -58,8 +58,10 @@ export class AlleAvtalerProvider extends React.Component<any, State> {
                 />
                 {this.state.valgtAvtaleId.length !== 0 && (
                     <Redirect
+                        from="/"
                         to={'/' + this.state.valgtAvtaleId + '/kontaktinfo'}
                         push={true}
+                        exact={true}
                     />
                 )}
                 {this.props.children}
