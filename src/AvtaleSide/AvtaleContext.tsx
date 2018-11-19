@@ -3,7 +3,7 @@ import { hentAvtaler, lagreAvtale, opprettAvtale } from '../services/firebase';
 import { Avtale } from './avtale';
 import { Route, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
-import { pathTilKontaktinformasjon, pathTilOversikt } from '../paths';
+import { pathTilKontaktinformasjonSteg, pathTilOversikt } from '../paths';
 import AvtaleOversikt from './AvtaleOversikt';
 
 export const tomAvtale: Avtale = {
@@ -103,7 +103,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     avtaleKlikk(avtaleId: string) {
         this.setState({ valgtAvtaleId: avtaleId });
-        this.props.history.push(pathTilKontaktinformasjon(avtaleId));
+        this.props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
     }
 
     opprettAvtaleKlikk() {
@@ -115,7 +115,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 },
                 valgtAvtaleId: avtale.id,
             });
-            this.props.history.push(pathTilKontaktinformasjon(avtale.id));
+            this.props.history.push(pathTilKontaktinformasjonSteg(avtale.id));
         });
     }
 
@@ -126,6 +126,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             lagreAvtale: this.lagreAvtale,
         };
 
+        const erPaHovedmenyen = this.props.location.pathname === '/';
         return (
             <AvtaleContext.Provider value={context}>
                 <Route
@@ -139,7 +140,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                         />
                     )}
                 />
-                {this.props.children}
+                {!erPaHovedmenyen && this.props.children}
             </AvtaleContext.Provider>
         );
     }
