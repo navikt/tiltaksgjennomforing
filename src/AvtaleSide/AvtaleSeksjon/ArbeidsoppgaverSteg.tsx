@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { EndreAvtale } from '../EndreAvtale';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
-import StegProps from '../StegProps';
+import { Context, medContext } from '../AvtaleContext';
 
-const ArbeidsoppgaverSteg = (props: EndreAvtale & StegProps) => (
+const ArbeidsoppgaverSteg = (props: Context) => (
     <>
         <Innholdstittel tag="h2">
             Beskriv arbeidsoppgavene som skal utføres
@@ -15,4 +14,4 @@ const ArbeidsoppgaverSteg = (props: EndreAvtale & StegProps) => (
     </>
 );
 
-export default ArbeidsoppgaverSteg;
+export default medContext(ArbeidsoppgaverSteg);

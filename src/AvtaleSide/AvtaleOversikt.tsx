@@ -1,49 +1,37 @@
-import { Knapp } from 'nav-frontend-knapper';
-import PanelBase from 'nav-frontend-paneler';
 import * as React from 'react';
-import { RouterProps } from 'react-router';
-import { Link } from 'react-router-dom';
-import { pathTilKontaktinformasjon } from '../paths';
-import { hentAvtaler, opprettAvtale } from '../services/firebase';
-import { Avtale } from './avtale';
+import { Knapp } from 'nav-frontend-knapper';
+import { tomAvtale } from './AvtaleContext';
 
-interface State {
-    avtaler: Avtale[];
+interface Props {
+    avtaler: any;
+    avtaleKlikk: (avtaleId: string) => void;
+    opprettAvtaleKlikk: () => void;
 }
 
-class AvtaleOversikt extends React.Component<RouterProps, State> {
-    state: State = {
-        avtaler: [],
-    };
-
-    componentDidMount() {
-        hentAvtaler().then(avtaler => {
-            this.setState({ avtaler });
-        });
-    }
-
-    opprettAvtaleKlikk = () => {
-        opprettAvtale().then(avtaleId => {
-            this.props.history.push(pathTilKontaktinformasjon(avtaleId));
-        });
-    };
-
+class AvtaleOversikt extends React.Component<Props, {}> {
     render() {
-        const avtaleLinker = this.state.avtaler.map((avtale: Avtale) => (
-            <li key={avtale.id}>
-                <Link to={pathTilKontaktinformasjon(avtale.id)}>
-                    Avtale (opprettet: {avtale.opprettetTidspunkt})
-                </Link>
-            </li>
-        ));
+        const avtaleLenker = Object.keys(this.props.avtaler).map(id => {
+            const avtale = this.props.avtaler[id] || tomAvtale;
+            return (
+                <li key={avtale.id}>
+                    <Knapp onClick={() => this.props.avtaleKlikk(avtale.id)}>
+                        {avtale.id}: Opprettet {avtale.opprettetTidspunkt}
+                    </Knapp>
+                </li>
+            );
+        });
+
+        const opprettAvtaleKnapp = (
+            <Knapp onClick={this.props.opprettAvtaleKlikk}>
+                Opprett avtale
+            </Knapp>
+        );
 
         return (
-            <PanelBase>
-                <ul>{avtaleLinker}</ul>
-                <Knapp disabled={false} onClick={this.opprettAvtaleKlikk}>
-                    Opprett avtale
-                </Knapp>
-            </PanelBase>
+            <>
+                <ul>{avtaleLenker}</ul>
+                {opprettAvtaleKnapp}
+            </>
         );
     }
 }
