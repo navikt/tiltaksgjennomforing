@@ -1,28 +1,15 @@
 import * as React from 'react';
 import './KontaktinfoSteg.less';
-import { EndreAvtale } from '../EndreAvtale';
-import {
-    Arbeidsgiverinfo,
-    Bedriftinfo,
-    Deltakerinfo,
-    Veilederinfo,
-} from '../avtale';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 
-type Kontaktinformasjon = Deltakerinfo &
-    Bedriftinfo &
-    Arbeidsgiverinfo &
-    Veilederinfo &
-    EndreAvtale;
-
-const KontaktinfoSteg = (props: Kontaktinformasjon) => {
+const KontaktinfoSteg = () => {
     return (
         <div className="kontaktinformasjon">
-            <DeltakerinfoDel {...props} />
-            <ArbeidsgiverinfoDel {...props} />
-            <VeilederinfoDel {...props} />
+            <DeltakerinfoDel />
+            <ArbeidsgiverinfoDel />
+            <VeilederinfoDel />
         </div>
     );
 };

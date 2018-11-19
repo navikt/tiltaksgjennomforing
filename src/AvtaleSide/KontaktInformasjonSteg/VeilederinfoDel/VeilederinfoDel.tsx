@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
-import { EndreAvtale } from '../../EndreAvtale';
-import { Veilederinfo } from '../../avtale';
 import './VeilederinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
+import { Context, medContext } from '../../AvtaleContext';
 
-const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
+const VeilederinfoDel = (props: Context) => (
     <>
         <Systemtittel className="veilederinfo__tittel">
             Kontaktperson i NAV
@@ -14,17 +13,20 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
             <Input
                 className="veilederinfo__fornavn"
                 label="Fornavn"
-                defaultValue={props.veilederFornavn}
+                defaultValue={props.avtale.veilederFornavn}
                 onChange={event =>
-                    props.endreVerdi('veilederFornavn', event.target.value)
+                    props.settAvtaleVerdi('veilederFornavn', event.target.value)
                 }
             />
             <Input
                 className="veilederinfo__etternavn"
                 label="Etternavn"
-                defaultValue={props.veilederEtternavn}
+                defaultValue={props.avtale.veilederEtternavn}
                 onChange={event =>
-                    props.endreVerdi('veilederEtternavn', event.target.value)
+                    props.settAvtaleVerdi(
+                        'veilederEtternavn',
+                        event.target.value
+                    )
                 }
             />
         </div>
@@ -32,21 +34,21 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
             <Input
                 className="veilederinfo__epost"
                 label="Epost"
-                defaultValue={props.veilederEpost}
+                defaultValue={props.avtale.veilederEpost}
                 onChange={event =>
-                    props.endreVerdi('veilederEpost', event.target.value)
+                    props.settAvtaleVerdi('veilederEpost', event.target.value)
                 }
             />
             <Input
                 className="veilederinfo__tlf"
                 label="Telefonnummer"
-                defaultValue={props.veilederTlf}
+                defaultValue={props.avtale.veilederTlf}
                 onChange={event =>
-                    props.endreVerdi('veilederTlf', event.target.value)
+                    props.settAvtaleVerdi('veilederTlf', event.target.value)
                 }
             />
         </div>
     </>
 );
 
-export default VeilederinfoDel;
+export default medContext(VeilederinfoDel);

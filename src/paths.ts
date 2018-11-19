@@ -1,17 +1,13 @@
-export const ARBEIDSTRENING_PATH = '/arbeidstrening';
-
 export type URLString = string;
 
-export const pathTilArbeidstrening = (avtaleId: string): URLString => {
-    return `${ARBEIDSTRENING_PATH}/${avtaleId}`;
-};
+export const pathTilOversikt: URLString = '/';
 
 export const pathTilAvtale = (avtaleId: string): URLString => {
-    return `${pathTilArbeidstrening(avtaleId)}/avtale`;
+    return `/avtale/${avtaleId}`;
 };
 
 export const pathTilKontaktinformasjon = (avtaleId: string): URLString => {
-    return `${pathTilArbeidstrening(avtaleId)}/kontaktinformasjon`;
+    return `${pathTilAvtale(avtaleId)}/kontaktinformasjon`;
 };
 
 export const pathTilKontaktinformasjonSteg = 'kontaktinformasjon';

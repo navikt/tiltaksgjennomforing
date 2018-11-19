@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { EndreAvtale } from '../EndreAvtale';
-import StegProps from '../StegProps';
 import { Innholdstittel } from 'nav-frontend-typografi';
+import { Context, medContext } from '../AvtaleContext';
 
-const OppfolgingSteg = (props: EndreAvtale & StegProps) => (
+const OppfolgingSteg = (props: Context) => (
     <>
         <Innholdstittel tag="h2">
             Oppfølging, opplæring og tilrettelegging
@@ -11,4 +10,4 @@ const OppfolgingSteg = (props: EndreAvtale & StegProps) => (
     </>
 );
 
-export default OppfolgingSteg;
+export default medContext(OppfolgingSteg);

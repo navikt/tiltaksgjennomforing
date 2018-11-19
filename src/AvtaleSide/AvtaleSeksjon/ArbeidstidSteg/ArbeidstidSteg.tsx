@@ -1,11 +1,9 @@
 import * as React from 'react';
 import Datovelger from './Datovelger/datovelger';
 import { Moment } from 'moment';
-import { EndreAvtale } from '../../EndreAvtale';
 import * as moment from 'moment';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { Arbeidstid } from '../../avtale';
-import StegProps from '../../StegProps';
+import { Context, medContext } from '../../AvtaleContext';
 
 interface State {
     startDatoTimestamp: number;
@@ -14,13 +12,10 @@ interface State {
     sluttDatoRiktigFormatert: boolean;
 }
 
-class ArbeidstidSteg extends React.Component<
-    Arbeidstid & EndreAvtale & StegProps,
-    State
-> {
+class ArbeidstidSteg extends React.Component<Context, State> {
     state: State = {
-        startDatoTimestamp: this.props.startDatoTimestamp,
-        sluttDatoTimestamp: this.props.sluttDatoTimestamp,
+        startDatoTimestamp: this.props.avtale.startDatoTimestamp,
+        sluttDatoTimestamp: this.props.avtale.sluttDatoTimestamp,
         startDatoRiktigFormatert: true,
         sluttDatoRiktigFormatert: true,
     };
@@ -30,7 +25,7 @@ class ArbeidstidSteg extends React.Component<
             startDatoTimestamp: dato.valueOf(),
             startDatoRiktigFormatert: true,
         });
-        this.props.endreVerdi('startDatoTimestamp', dato.valueOf());
+        this.props.settAvtaleVerdi('startDatoTimestamp', dato.valueOf());
     };
 
     velgSluttDato = (dato: Moment) => {
@@ -38,7 +33,7 @@ class ArbeidstidSteg extends React.Component<
             sluttDatoTimestamp: dato.valueOf(),
             sluttDatoRiktigFormatert: true,
         });
-        this.props.endreVerdi('sluttDatoTimestamp', dato.valueOf());
+        this.props.settAvtaleVerdi('sluttDatoTimestamp', dato.valueOf());
     };
 
     settStartDatoRiktigFormatert = (riktigFormatert: boolean) => {
@@ -70,4 +65,4 @@ class ArbeidstidSteg extends React.Component<
     }
 }
 
-export default ArbeidstidSteg;
+export default medContext(ArbeidstidSteg);
