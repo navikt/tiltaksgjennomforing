@@ -2,7 +2,7 @@ import * as firebase from 'firebase';
 import * as moment from 'moment';
 import { Avtale } from '../AvtaleSide/avtale';
 import DataSnapshot = firebase.database.DataSnapshot;
-import { tomAvtale } from '../AvtaleSide/avtaleContext';
+import { tomAvtale } from '../AvtaleSide/AvtaleContext';
 
 firebase.initializeApp({
     apiKey: 'AIzaSyC0lxgrU_SleTgL72TtFUO7yEyrN2ihjI4',
@@ -25,7 +25,7 @@ export const hentAvtale = (avtaleId: string) => {
 export const hentAvtaler = () => {
     return firebase
         .database()
-        .ref('avtale')
+        .ref('avtaler')
         .once('value')
         .then(
             (snapshot: DataSnapshot) =>
@@ -52,23 +52,24 @@ export const lagreAvtale = (avtale: Avtale) => {
 };
 
 export const opprettAvtale = () => {
-    const nyAvtaleRef = firebase
+    return firebase
         .database()
-        .ref('avtale')
-        .push();
+        .ref('avtaler')
+        .push()
+        .then(nyAvtaleRef => {
+            const avtaleId: string = nyAvtaleRef.key || '';
+            const avtale: Avtale = {
+                ...tomAvtale,
+                id: avtaleId,
+                opprettetTidspunkt: moment().format('DD.MM.YYYY HH:mm:ss'),
+            };
 
-    const avtaleId: string = nyAvtaleRef.key || '';
-    const avtale: Avtale = {
-        ...tomAvtale,
-        id: avtaleId,
-        opprettetTidspunkt: moment().format('DD.MM.YYYY HH:mm:ss'),
-    };
-
-    return nyAvtaleRef
-        .set(avtale)
-        .then(() => new Promise<string>(success => success(avtaleId)));
+            return nyAvtaleRef
+                .set(avtale)
+                .then(() => new Promise<Avtale>(success => success(avtale)));
+        });
 };
 
 const avtaleRef = (avtaleId: string) => {
-    return firebase.database().ref(`avtale/${avtaleId}`);
+    return firebase.database().ref(`avtaler/${avtaleId}`);
 };

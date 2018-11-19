@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { hentAvtaler, lagreAvtale } from '../services/firebase';
+import { hentAvtaler, lagreAvtale, opprettAvtale } from '../services/firebase';
 import { Avtale } from './avtale';
 import { Route, withRouter } from 'react-router-dom';
 import { Knapp } from 'nav-frontend-knapper';
@@ -111,11 +111,32 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                             );
                         }}
                     >
-                        {avtale.id}
+                        {avtale.id}: Opprettet {avtale.opprettetTidspunkt}
                     </Knapp>
                 </li>
             );
         });
+
+        const opprettAvtaleKnapp = (
+            <Knapp
+                onClick={() => {
+                    opprettAvtale().then(avtale => {
+                        this.setState({
+                            avtaler: {
+                                ...this.state.avtaler,
+                                [avtale.id]: avtale,
+                            },
+                            valgtAvtaleId: avtale.id,
+                        });
+                        this.props.history.push(
+                            pathTilKontaktinformasjon(avtale.id)
+                        );
+                    });
+                }}
+            >
+                Opprett avtale
+            </Knapp>
+        );
 
         const context: Context = {
             avtale: this.state.avtaler[this.state.valgtAvtaleId] || tomAvtale,
@@ -128,7 +149,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 <Route
                     path={pathTilOversikt}
                     exact={true}
-                    render={() => <ul>{avtaleLenker}</ul>}
+                    render={() => (
+                        <>
+                            <ul>{avtaleLenker}</ul>
+                            {opprettAvtaleKnapp}
+                        </>
+                    )}
                 />
                 {this.props.children}
             </AvtaleContext.Provider>
