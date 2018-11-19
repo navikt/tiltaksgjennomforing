@@ -2,9 +2,9 @@ import * as React from 'react';
 import { hentAvtaler, lagreAvtale, opprettAvtale } from '../services/firebase';
 import { Avtale } from './avtale';
 import { Route, withRouter } from 'react-router-dom';
-import { Knapp } from 'nav-frontend-knapper';
 import * as moment from 'moment';
 import { pathTilKontaktinformasjon, pathTilOversikt } from '../paths';
+import AvtaleOversikt from './AvtaleOversikt';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -67,8 +67,11 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtaler: {},
             valgtAvtaleId: props.location.pathname.split('/')[2],
         };
+
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
         this.lagreAvtale = this.lagreAvtale.bind(this);
+        this.avtaleKlikk = this.avtaleKlikk.bind(this);
+        this.opprettAvtaleKlikk = this.opprettAvtaleKlikk.bind(this);
     }
 
     componentDidMount() {
@@ -98,46 +101,25 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
-    render() {
-        const avtaleLenker = Object.keys(this.state.avtaler).map(id => {
-            const avtale = this.state.avtaler[id] || tomAvtale;
-            return (
-                <li key={avtale.id}>
-                    <Knapp
-                        onClick={() => {
-                            this.setState({ valgtAvtaleId: avtale.id });
-                            this.props.history.push(
-                                pathTilKontaktinformasjon(avtale.id)
-                            );
-                        }}
-                    >
-                        {avtale.id}: Opprettet {avtale.opprettetTidspunkt}
-                    </Knapp>
-                </li>
-            );
+    avtaleKlikk(avtaleId: string) {
+        this.setState({ valgtAvtaleId: avtaleId });
+        this.props.history.push(pathTilKontaktinformasjon(avtaleId));
+    }
+
+    opprettAvtaleKlikk() {
+        opprettAvtale().then(avtale => {
+            this.setState({
+                avtaler: {
+                    ...this.state.avtaler,
+                    [avtale.id]: avtale,
+                },
+                valgtAvtaleId: avtale.id,
+            });
+            this.props.history.push(pathTilKontaktinformasjon(avtale.id));
         });
+    }
 
-        const opprettAvtaleKnapp = (
-            <Knapp
-                onClick={() => {
-                    opprettAvtale().then(avtale => {
-                        this.setState({
-                            avtaler: {
-                                ...this.state.avtaler,
-                                [avtale.id]: avtale,
-                            },
-                            valgtAvtaleId: avtale.id,
-                        });
-                        this.props.history.push(
-                            pathTilKontaktinformasjon(avtale.id)
-                        );
-                    });
-                }}
-            >
-                Opprett avtale
-            </Knapp>
-        );
-
+    render() {
         const context: Context = {
             avtale: this.state.avtaler[this.state.valgtAvtaleId] || tomAvtale,
             settAvtaleVerdi: this.settAvtaleVerdi,
@@ -150,10 +132,11 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                     path={pathTilOversikt}
                     exact={true}
                     render={() => (
-                        <>
-                            <ul>{avtaleLenker}</ul>
-                            {opprettAvtaleKnapp}
-                        </>
+                        <AvtaleOversikt
+                            avtaler={this.state.avtaler}
+                            avtaleKlikk={this.avtaleKlikk}
+                            opprettAvtaleKlikk={this.opprettAvtaleKlikk}
+                        />
                     )}
                 />
                 {this.props.children}
