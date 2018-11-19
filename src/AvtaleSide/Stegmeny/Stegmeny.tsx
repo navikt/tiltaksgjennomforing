@@ -9,17 +9,27 @@ import {
     pathTilOppfolgingSteg,
     pathTilSigneringSteg,
 } from '../../paths';
+import { Context, medContext } from '../AvtaleContext';
 
-const menySteg = [
-    { label: 'Kontaktinformasjon', url: pathTilKontaktinformasjonSteg },
-    { label: 'Mål', url: pathTilMaalSteg },
-    { label: 'Arbeidsoppgaver', url: pathTilArbeidsoppgaverSteg },
-    { label: 'Dato og arbeidstid', url: pathTilArbeidstidSteg },
-    { label: 'Oppfølging', url: pathTilOppfolgingSteg },
-    { label: 'Signering', url: pathTilSigneringSteg },
-];
+const Stegmeny = (props: Context) => {
+    const menySteg = [
+        {
+            label: 'Kontaktinformasjon',
+            url: pathTilKontaktinformasjonSteg(props.avtale.id),
+        },
+        { label: 'Mål', url: pathTilMaalSteg(props.avtale.id) },
+        {
+            label: 'Arbeidsoppgaver',
+            url: pathTilArbeidsoppgaverSteg(props.avtale.id),
+        },
+        {
+            label: 'Dato og arbeidstid',
+            url: pathTilArbeidstidSteg(props.avtale.id),
+        },
+        { label: 'Oppfølging', url: pathTilOppfolgingSteg(props.avtale.id) },
+        { label: 'Signering', url: pathTilSigneringSteg(props.avtale.id) },
+    ];
 
-const Stegmeny = () => {
     const stegLenker = menySteg.map(steg => (
         <StegmenyLenke
             label={steg.label}
@@ -32,4 +42,4 @@ const Stegmeny = () => {
     return <div className="stegmeny">{stegLenker}</div>;
 };
 
-export default Stegmeny;
+export default medContext(Stegmeny);
