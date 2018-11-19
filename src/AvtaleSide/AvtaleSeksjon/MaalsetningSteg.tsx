@@ -4,11 +4,9 @@ import PanelBase from 'nav-frontend-paneler';
 import { Input } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Maalsetninger, Maalsetning } from '../avtale';
-import { EndreAvtale } from '../EndreAvtale';
-import StegProps from '../StegProps';
+import { Maalsetning } from '../avtale';
 import { Maalkategori } from '../maalkategorier';
-import { medContext } from '../avtaleContext';
+import { Context, medContext } from '../avtaleContext';
 
 const MaalsetningKnapp = (props: {
     kategori: Maalkategori;
@@ -48,9 +46,9 @@ const MaalsetningBeskrivelsePanel = (props: {
     </div>
 );
 
-const MaalsetningSteg = (props: Maalsetninger & EndreAvtale & StegProps) => {
+const MaalsetningSteg = (props: Context) => {
     const leggTilKategori = (kategori: Maalkategori) => {
-        const maalsetninger = props.maalsetninger;
+        const maalsetninger = props.avtale.maalsetninger;
         if (!maalsetninger.find((m: Maalsetning) => m.kategori === kategori)) {
             maalsetninger.push({ kategori, beskrivelse: '' });
             props.settAvtaleVerdi('maalsetninger', maalsetninger);
@@ -60,14 +58,14 @@ const MaalsetningSteg = (props: Maalsetninger & EndreAvtale & StegProps) => {
     const fjernKategori = (maalsetning: Maalsetning) => {
         props.settAvtaleVerdi(
             'maalsetninger',
-            props.maalsetninger.filter(
+            props.avtale.maalsetninger.filter(
                 (m: Maalsetning) => m.kategori !== maalsetning.kategori
             )
         );
     };
 
     const endreBeskrivelse = (maalsetning: Maalsetning) => {
-        const maalsetninger = props.maalsetninger;
+        const maalsetninger = props.avtale.maalsetninger;
         const index = maalsetninger.findIndex(
             (m: Maalsetning) => m.kategori === maalsetning.kategori
         );
@@ -75,7 +73,7 @@ const MaalsetningSteg = (props: Maalsetninger & EndreAvtale & StegProps) => {
         props.settAvtaleVerdi('maalsetninger', maalsetninger);
     };
 
-    const beskrivelsesPaneler = props.maalsetninger.map(
+    const beskrivelsesPaneler = props.avtale.maalsetninger.map(
         (maalsetning: Maalsetning) => (
             <MaalsetningBeskrivelsePanel
                 key={maalsetning.kategori}

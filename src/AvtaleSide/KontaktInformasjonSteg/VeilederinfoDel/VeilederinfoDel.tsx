@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
-import { EndreAvtale } from '../../EndreAvtale';
-import { Veilederinfo } from '../../avtale';
 import './VeilederinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { medContext } from '../../avtaleContext';
+import { Context, medContext } from '../../avtaleContext';
 
-const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
+const VeilederinfoDel = (props: Context) => (
     <>
         <Systemtittel className="veilederinfo__tittel">
             Kontaktperson i NAV
@@ -15,7 +13,7 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
             <Input
                 className="veilederinfo__fornavn"
                 label="Fornavn"
-                defaultValue={props.veilederFornavn}
+                defaultValue={props.avtale.veilederFornavn}
                 onChange={event =>
                     props.settAvtaleVerdi('veilederFornavn', event.target.value)
                 }
@@ -23,7 +21,7 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
             <Input
                 className="veilederinfo__etternavn"
                 label="Etternavn"
-                defaultValue={props.veilederEtternavn}
+                defaultValue={props.avtale.veilederEtternavn}
                 onChange={event =>
                     props.settAvtaleVerdi(
                         'veilederEtternavn',
@@ -36,7 +34,7 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
             <Input
                 className="veilederinfo__epost"
                 label="Epost"
-                defaultValue={props.veilederEpost}
+                defaultValue={props.avtale.veilederEpost}
                 onChange={event =>
                     props.settAvtaleVerdi('veilederEpost', event.target.value)
                 }
@@ -44,7 +42,7 @@ const VeilederinfoDel = (props: Veilederinfo & EndreAvtale) => (
             <Input
                 className="veilederinfo__tlf"
                 label="Telefonnummer"
-                defaultValue={props.veilederTlf}
+                defaultValue={props.avtale.veilederTlf}
                 onChange={event =>
                     props.settAvtaleVerdi('veilederTlf', event.target.value)
                 }

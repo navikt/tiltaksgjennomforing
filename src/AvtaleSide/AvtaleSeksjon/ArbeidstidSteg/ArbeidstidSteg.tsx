@@ -1,12 +1,9 @@
 import * as React from 'react';
 import Datovelger from './Datovelger/datovelger';
 import { Moment } from 'moment';
-import { EndreAvtale } from '../../EndreAvtale';
 import * as moment from 'moment';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { Arbeidstid } from '../../avtale';
-import StegProps from '../../StegProps';
-import { medContext } from '../../avtaleContext';
+import { Context, medContext } from '../../avtaleContext';
 
 interface State {
     startDatoTimestamp: number;
@@ -15,13 +12,10 @@ interface State {
     sluttDatoRiktigFormatert: boolean;
 }
 
-class ArbeidstidSteg extends React.Component<
-    Arbeidstid & EndreAvtale & StegProps,
-    State
-> {
+class ArbeidstidSteg extends React.Component<Context, State> {
     state: State = {
-        startDatoTimestamp: this.props.startDatoTimestamp,
-        sluttDatoTimestamp: this.props.sluttDatoTimestamp,
+        startDatoTimestamp: this.props.avtale.startDatoTimestamp,
+        sluttDatoTimestamp: this.props.avtale.sluttDatoTimestamp,
         startDatoRiktigFormatert: true,
         sluttDatoRiktigFormatert: true,
     };

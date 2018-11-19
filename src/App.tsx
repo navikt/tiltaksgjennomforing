@@ -1,27 +1,28 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import KontaktinfoSteg from './AvtaleSide/KontaktInformasjonSteg/KontaktinfoSteg';
-import BekreftelseSteg from './AvtaleSide/AvtaleSeksjon/BekreftelseSteg';
-import { AlleAvtalerProvider } from './AvtaleSide/avtaleOversiktcontext';
+import { AvtaleProvider } from './AvtaleSide/avtaleContext';
+import { pathTilAvtale, pathTilKontaktinformasjon } from './paths';
+import AvtaleSeksjon from './AvtaleSide/AvtaleSeksjon/AvtaleSeksjon';
 
 class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
-                <AlleAvtalerProvider>
+                <AvtaleProvider>
                     <Switch>
                         <Route
-                            path="/:avtaleId/kontaktinfo"
+                            path={pathTilAvtale(':avtaleId')}
+                            exact={true}
+                            component={AvtaleSeksjon}
+                        />
+                        <Route
+                            path={pathTilKontaktinformasjon(':avtaleId')}
                             exact={false}
                             component={KontaktinfoSteg}
                         />
-                        <Route
-                            path="/bekreftelse"
-                            exact={true}
-                            component={BekreftelseSteg}
-                        />
                     </Switch>
-                </AlleAvtalerProvider>
+                </AvtaleProvider>
             </BrowserRouter>
         );
     }

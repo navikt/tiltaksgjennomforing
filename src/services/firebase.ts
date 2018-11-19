@@ -29,19 +29,22 @@ export const hentAvtaler = () => {
         .once('value')
         .then(
             (snapshot: DataSnapshot) =>
-                new Promise<Avtale[]>(success =>
+                new Promise<any>(success =>
                     success(mapFirebaseResponsTilAvtaler(snapshot.val()))
                 )
         );
 };
 
-const mapFirebaseResponsTilAvtaler = (
-    respons: Map<string, Avtale>
-): Avtale[] => {
-    return Object.keys(respons).map(id => ({
-        ...tomAvtale,
-        ...respons[id],
-    }));
+const mapFirebaseResponsTilAvtaler = (respons: Map<string, Avtale>): any => {
+    return Object.keys(respons)
+        .map(id => ({
+            ...tomAvtale,
+            ...respons[id],
+        }))
+        .reduce((map, avtale) => {
+            map[avtale.id] = avtale;
+            return map;
+        }, {});
 };
 
 export const lagreAvtale = (avtale: Avtale) => {

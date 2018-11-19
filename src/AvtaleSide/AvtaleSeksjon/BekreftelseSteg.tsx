@@ -3,17 +3,18 @@ import PanelBase from 'nav-frontend-paneler';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { EndreAvtale } from '../EndreAvtale';
-import StegProps from '../StegProps';
 import * as moment from 'moment';
-import { Avtale } from '../avtale';
-import { medContext } from '../avtaleContext';
+import { Context, medContext } from '../avtaleContext';
 
-const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
-    const startdato = moment(props.startDatoTimestamp).format('DD.MM.YYYY');
-    const sluttdato = moment(props.sluttDatoTimestamp).format('DD.MM.YYYY');
+const BekreftelseSteg = (props: Context) => {
+    const startdato = moment(props.avtale.startDatoTimestamp).format(
+        'DD.MM.YYYY'
+    );
+    const sluttdato = moment(props.avtale.sluttDatoTimestamp).format(
+        'DD.MM.YYYY'
+    );
 
-    const maalsetninger = props.maalsetninger.map(maalsetning => (
+    const maalsetninger = props.avtale.maalsetninger.map(maalsetning => (
         <li key={maalsetning.kategori}>
             {maalsetning.kategori} {maalsetning.beskrivelse}
         </li>
@@ -27,27 +28,27 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
             <PanelBase>
                 <SkjemaGruppe title={'Person'}>
                     <ul>
-                        <li>{props.deltakerFornavn}</li>
-                        <li>{props.deltakerEtternavn}</li>
-                        <li>{props.deltakerAdresse}</li>
-                        <li>{props.deltakerPostnummer}</li>
-                        <li>{props.deltakerPoststed}</li>
+                        <li>{props.avtale.deltakerFornavn}</li>
+                        <li>{props.avtale.deltakerEtternavn}</li>
+                        <li>{props.avtale.deltakerAdresse}</li>
+                        <li>{props.avtale.deltakerPostnummer}</li>
+                        <li>{props.avtale.deltakerPoststed}</li>
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Arbeidsgiver'}>
                     <ul>
-                        <li>{props.bedriftNavn}</li>
-                        <li>{props.bedriftAdresse}</li>
-                        <li>{props.bedriftPostnummer}</li>
-                        <li>{props.bedriftPoststed}</li>
-                        <li>{props.arbeidsgiverFornavn}</li>
-                        <li>{props.arbeidsgiverEtternavn}</li>
-                        <li>{props.arbeidsgiverEpost}</li>
-                        <li>{props.arbeidsgiverTlf}</li>
-                        <li>{props.veilederFornavn}</li>
-                        <li>{props.veilederEtternavn}</li>
-                        <li>{props.veilederEpost}</li>
-                        <li>{props.veilederTlf}</li>
+                        <li>{props.avtale.bedriftNavn}</li>
+                        <li>{props.avtale.bedriftAdresse}</li>
+                        <li>{props.avtale.bedriftPostnummer}</li>
+                        <li>{props.avtale.bedriftPoststed}</li>
+                        <li>{props.avtale.arbeidsgiverFornavn}</li>
+                        <li>{props.avtale.arbeidsgiverEtternavn}</li>
+                        <li>{props.avtale.arbeidsgiverEpost}</li>
+                        <li>{props.avtale.arbeidsgiverTlf}</li>
+                        <li>{props.avtale.veilederFornavn}</li>
+                        <li>{props.avtale.veilederEtternavn}</li>
+                        <li>{props.avtale.veilederEpost}</li>
+                        <li>{props.avtale.veilederTlf}</li>
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Dato- og arbeidstid'}>
@@ -68,19 +69,19 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
                 >
                     <div>
                         <Knapp
-                            disabled={props.bekreftetAvBruker}
+                            disabled={props.avtale.bekreftetAvBruker}
                             onClick={() =>
                                 props.settAvtaleVerdi('bekreftetAvBruker', true)
                             }
                         >
                             Bekreft som bruker
                         </Knapp>
-                        {props.bekreftetAvBruker &&
+                        {props.avtale.bekreftetAvBruker &&
                             'Avtalen er bekreftet av bruker'}
                     </div>
                     <div>
                         <Knapp
-                            disabled={props.bekreftetAvArbeidsgiver}
+                            disabled={props.avtale.bekreftetAvArbeidsgiver}
                             onClick={() =>
                                 props.settAvtaleVerdi(
                                     'bekreftetAvArbeidsgiver',
@@ -90,12 +91,12 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
                         >
                             Bekreft som arbeidsgiver
                         </Knapp>
-                        {props.bekreftetAvArbeidsgiver &&
+                        {props.avtale.bekreftetAvArbeidsgiver &&
                             'Avtalen er bekreftet av arbeidsgiver'}
                     </div>
                     <div>
                         <Knapp
-                            disabled={props.bekreftetAvVeileder}
+                            disabled={props.avtale.bekreftetAvVeileder}
                             onClick={() =>
                                 props.settAvtaleVerdi(
                                     'bekreftetAvVeileder',
@@ -105,7 +106,7 @@ const BekreftelseSteg = (props: Avtale & EndreAvtale & StegProps) => {
                         >
                             Bekreft som NAV-veileder
                         </Knapp>
-                        {props.bekreftetAvVeileder &&
+                        {props.avtale.bekreftetAvVeileder &&
                             'Avtalen er bekreftet av NAV-veileder'}
                     </div>
                 </SkjemaGruppe>

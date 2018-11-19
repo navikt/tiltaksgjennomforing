@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { EndreAvtale } from '../EndreAvtale';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
-import StegProps from '../StegProps';
-import { medContext } from '../avtaleContext';
+import { Context, medContext } from '../avtaleContext';
 
-const ArbeidsoppgaverSteg = (props: EndreAvtale & StegProps) => (
+const ArbeidsoppgaverSteg = (props: Context) => (
     <>
         <Innholdstittel tag="h2">
             Beskriv arbeidsoppgavene som skal utføres

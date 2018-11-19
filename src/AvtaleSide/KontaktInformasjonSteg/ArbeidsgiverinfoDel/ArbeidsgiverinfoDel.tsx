@@ -1,14 +1,10 @@
 import * as React from 'react';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import { EndreAvtale } from '../../EndreAvtale';
-import { Arbeidsgiverinfo, Bedriftinfo } from '../../avtale';
 import './ArbeidsgiverinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { medContext } from '../../avtaleContext';
+import { Context, medContext } from '../../avtaleContext';
 
-const ArbeidsgiverinfoDel = (
-    props: Bedriftinfo & Arbeidsgiverinfo & EndreAvtale
-) => {
+const ArbeidsgiverinfoDel = (props: Context) => {
     const onChange = (label: string) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
     };
@@ -18,26 +14,26 @@ const ArbeidsgiverinfoDel = (
             <Input
                 className="bedriftinfo__navn"
                 label="Bedriftens navn"
-                defaultValue={props.bedriftNavn}
+                defaultValue={props.avtale.bedriftNavn}
                 onChange={onChange('bedriftNavn')}
             />
             <Input
                 className="bedriftinfo__adresse"
                 label="Adresse"
-                defaultValue={props.bedriftAdresse}
+                defaultValue={props.avtale.bedriftAdresse}
                 onChange={onChange('bedriftAdresse')}
             />
             <div className="bedriftinfo__postwrapper">
                 <Input
                     className="bedriftinfo__postwrapper__postnummer"
                     label="Postnummer"
-                    defaultValue={props.bedriftPostnummer}
+                    defaultValue={props.avtale.bedriftPostnummer}
                     onChange={onChange('bedriftPostnummer')}
                 />
                 <Input
                     className="bedriftinfo__postwrapper__poststed"
                     label="Poststed"
-                    defaultValue={props.bedriftPoststed}
+                    defaultValue={props.avtale.bedriftPoststed}
                     onChange={onChange('bedriftPoststed')}
                 />
             </div>
@@ -50,13 +46,13 @@ const ArbeidsgiverinfoDel = (
                 <Input
                     className="arbeidsgiverkontaktpersonrad__fornavn"
                     label="Fornavn"
-                    defaultValue={props.arbeidsgiverFornavn}
+                    defaultValue={props.avtale.arbeidsgiverFornavn}
                     onChange={onChange('arbeidsgiverFornavn')}
                 />
                 <Input
                     className="arbeidsgiverkontaktpersonrad__etternavn"
                     label="Etternavn"
-                    defaultValue={props.arbeidsgiverEtternavn}
+                    defaultValue={props.avtale.arbeidsgiverEtternavn}
                     onChange={onChange('arbeidsgiverEtternavn')}
                 />
             </div>
@@ -64,13 +60,13 @@ const ArbeidsgiverinfoDel = (
                 <Input
                     className="arbeidsgiverkontaktpersonrad__epost"
                     label="Epost"
-                    defaultValue={props.arbeidsgiverEpost}
+                    defaultValue={props.avtale.arbeidsgiverEpost}
                     onChange={onChange('arbeidsgiverEpost')}
                 />
                 <Input
                     className="arbeidsgiverkontaktpersonrad__tlf"
                     label="Telefonnummer"
-                    defaultValue={props.arbeidsgiverTlf}
+                    defaultValue={props.avtale.arbeidsgiverTlf}
                     onChange={onChange('arbeidsgiverTlf')}
                 />
             </div>
