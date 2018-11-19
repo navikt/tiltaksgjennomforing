@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import './DeltakerinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { medContext } from '../../avtaleContext';
+import { medContext } from '../../AvtaleContext';
 import { Knapp } from 'nav-frontend-knapper';
-import { Context } from '../../avtaleContext';
+import { Context } from '../../AvtaleContext';
 
 const DeltakerinfoDel = (props: Context) => {
     return (

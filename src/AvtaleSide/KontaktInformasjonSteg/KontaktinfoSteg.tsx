@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './KontaktinfoSteg.less';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
-import { medContext } from '../avtaleContext';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 
@@ -15,4 +14,4 @@ const KontaktinfoSteg = () => {
     );
 };
 
-export default medContext(KontaktinfoSteg);
+export default KontaktinfoSteg;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '../avtaleContext';
+import { Context, medContext } from '../AvtaleContext';
 
 const OppfolgingSteg = (props: Context) => (
     <>

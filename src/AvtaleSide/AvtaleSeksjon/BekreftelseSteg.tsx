@@ -4,7 +4,7 @@ import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import * as moment from 'moment';
-import { Context, medContext } from '../avtaleContext';
+import { Context, medContext } from '../AvtaleContext';
 
 const BekreftelseSteg = (props: Context) => {
     const startdato = moment(props.avtale.startDatoTimestamp).format(

@@ -3,7 +3,7 @@ import Datovelger from './Datovelger/datovelger';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '../../avtaleContext';
+import { Context, medContext } from '../../AvtaleContext';
 
 interface State {
     startDatoTimestamp: number;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import KontaktinfoSteg from './AvtaleSide/KontaktInformasjonSteg/KontaktinfoSteg';
-import { AvtaleProvider } from './AvtaleSide/avtaleContext';
+import { AvtaleProvider } from './AvtaleSide/AvtaleContext';
 import { pathTilAvtale, pathTilKontaktinformasjon } from './paths';
 import AvtaleSeksjon from './AvtaleSide/AvtaleSeksjon/AvtaleSeksjon';
 

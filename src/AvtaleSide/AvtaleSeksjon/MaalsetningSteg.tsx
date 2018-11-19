@@ -6,7 +6,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Maalsetning } from '../avtale';
 import { Maalkategori } from '../maalkategorier';
-import { Context, medContext } from '../avtaleContext';
+import { Context, medContext } from '../AvtaleContext';
 
 const MaalsetningKnapp = (props: {
     kategori: Maalkategori;

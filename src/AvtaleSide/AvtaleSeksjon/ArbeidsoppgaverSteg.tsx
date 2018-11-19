@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '../avtaleContext';
+import { Context, medContext } from '../AvtaleContext';
 
 const ArbeidsoppgaverSteg = (props: Context) => (
     <>
