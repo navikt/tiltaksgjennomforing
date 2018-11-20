@@ -10,6 +10,7 @@ import ArbeidstidSteg from './AvtaleSeksjon/ArbeidstidSteg/ArbeidstidSteg';
 import OppfolgingSteg from './AvtaleSeksjon/OppfolgingSteg';
 import GodkjenningSteg from './AvtaleSeksjon/GodkjenningSteg';
 import './Stegside.less';
+import { Knapp } from 'nav-frontend-knapper';
 
 interface State {
     windowSize: number;
@@ -87,6 +88,12 @@ class Stegside extends React.Component<Props, State> {
                 <Stegmeny steg={this.avtaleSteg} aktivtSteg={aktivtSteg} />
                 <div className="stegside__innhold-desktop">
                     {this.avtaleSteg[aktivtSteg].komponent}
+                    <Knapp
+                        onClick={this.props.lagreAvtale}
+                        className="stegside__lagre-knapp"
+                    >
+                        Lagre
+                    </Knapp>
                 </div>
             </>
         );
@@ -99,6 +106,12 @@ class Stegside extends React.Component<Props, State> {
                             tittel={this.avtaleSteg[steg].label}
                         >
                             {this.avtaleSteg[steg].komponent}
+                            <Knapp
+                                onClick={this.props.lagreAvtale}
+                                className="stegside__lagre-knapp"
+                            >
+                                Lagre
+                            </Knapp>
                         </Ekspanderbartpanel>
                     </div>
                 ))}
