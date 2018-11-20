@@ -21,7 +21,7 @@ const Stegmeny = (props: Context & Props) => {
         />
     ));
 
-    return <div className="stegmeny">{stegLenker}</div>;
+    return <nav className="stegmeny">{stegLenker}</nav>;
 };
 
 export default medContext(Stegmeny);

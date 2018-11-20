@@ -86,7 +86,7 @@ class Stegside extends React.Component<Props, State> {
         const desktopSide = (
             <>
                 <Stegmeny steg={this.avtaleSteg} aktivtSteg={aktivtSteg} />
-                <div className="stegside__innhold-desktop">
+                <form className="stegside__innhold-desktop">
                     {this.avtaleSteg[aktivtSteg].komponent}
                     <Knapp
                         onClick={this.props.lagreAvtale}
@@ -94,12 +94,12 @@ class Stegside extends React.Component<Props, State> {
                     >
                         Lagre
                     </Knapp>
-                </div>
+                </form>
             </>
         );
 
         const mobilSide = (
-            <>
+            <form>
                 {Object.keys(this.avtaleSteg).map(steg => (
                     <div className="stegside__ekspanderbart-panel" key={steg}>
                         <Ekspanderbartpanel
@@ -115,7 +115,7 @@ class Stegside extends React.Component<Props, State> {
                         </Ekspanderbartpanel>
                     </div>
                 ))}
-            </>
+            </form>
         );
 
         return (
