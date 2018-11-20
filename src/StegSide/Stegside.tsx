@@ -8,7 +8,7 @@ import { RouteComponentProps } from 'react-router';
 import ArbeidsoppgaverSteg from './AvtaleSeksjon/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './AvtaleSeksjon/ArbeidstidSteg/ArbeidstidSteg';
 import OppfolgingSteg from './AvtaleSeksjon/OppfolgingSteg';
-import BekreftelseSteg from './AvtaleSeksjon/BekreftelseSteg';
+import GodkjenningSteg from './AvtaleSeksjon/GodkjenningSteg';
 import './Stegside.less';
 
 interface State {
@@ -58,7 +58,7 @@ class Stegside extends React.Component<Props, State> {
             label: 'Oppfølging',
         },
         godkjenning: {
-            komponent: <BekreftelseSteg />,
+            komponent: <GodkjenningSteg />,
             label: 'Godkjenning',
         },
     };
@@ -94,9 +94,13 @@ class Stegside extends React.Component<Props, State> {
         const mobilSide = (
             <>
                 {Object.keys(this.avtaleSteg).map(steg => (
-                    <Ekspanderbartpanel tittel={this.avtaleSteg[steg].label}>
-                        {this.avtaleSteg[steg].komponent}
-                    </Ekspanderbartpanel>
+                    <div className="stegside__ekspanderbart-panel">
+                        <Ekspanderbartpanel
+                            tittel={this.avtaleSteg[steg].label}
+                        >
+                            {this.avtaleSteg[steg].komponent}
+                        </Ekspanderbartpanel>
+                    </div>
                 ))}
             </>
         );

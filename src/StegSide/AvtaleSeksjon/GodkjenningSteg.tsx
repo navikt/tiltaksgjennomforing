@@ -6,7 +6,7 @@ import * as React from 'react';
 import * as moment from 'moment';
 import { Context, medContext } from '../AvtaleContext';
 
-const BekreftelseSteg = (props: Context) => {
+const GodkjenningSteg = (props: Context) => {
     const startdato = moment(props.avtale.startDatoTimestamp).format(
         'DD.MM.YYYY'
     );
@@ -115,4 +115,4 @@ const BekreftelseSteg = (props: Context) => {
     );
 };
 
-export default medContext(BekreftelseSteg);
+export default medContext(GodkjenningSteg);
