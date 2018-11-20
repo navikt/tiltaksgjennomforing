@@ -3,12 +3,12 @@ import Stegmeny from './Stegmeny/Stegmeny';
 import { Context, medContext } from './AvtaleContext';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
-import MaalsetningSteg from './AvtaleSeksjon/MaalsetningSteg';
+import MaalsetningSteg from './MaalSteg/MaalSteg';
 import { RouteComponentProps } from 'react-router';
-import ArbeidsoppgaverSteg from './AvtaleSeksjon/ArbeidsoppgaverSteg';
-import ArbeidstidSteg from './AvtaleSeksjon/ArbeidstidSteg/ArbeidstidSteg';
-import OppfolgingSteg from './AvtaleSeksjon/OppfolgingSteg';
-import GodkjenningSteg from './AvtaleSeksjon/GodkjenningSteg';
+import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
+import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
+import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
+import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import './Stegside.less';
 import { Knapp } from 'nav-frontend-knapper';
 
