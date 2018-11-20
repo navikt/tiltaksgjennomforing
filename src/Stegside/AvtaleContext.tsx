@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { hentAvtaler, lagreAvtale, opprettAvtale } from '../services/firebase';
 import { Avtale } from './avtale';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
-import { pathTilKontaktinformasjon, pathTilOversikt } from '../paths';
+import { pathTilKontaktinformasjonSteg, pathTilOversikt } from '../paths';
 import AvtaleOversikt from './AvtaleOversikt';
 
 export const tomAvtale: Avtale = {
@@ -103,7 +103,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     avtaleKlikk(avtaleId: string) {
         this.setState({ valgtAvtaleId: avtaleId });
-        this.props.history.push(pathTilKontaktinformasjon(avtaleId));
+        this.props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
     }
 
     opprettAvtaleKlikk() {
@@ -115,7 +115,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 },
                 valgtAvtaleId: avtale.id,
             });
-            this.props.history.push(pathTilKontaktinformasjon(avtale.id));
+            this.props.history.push(pathTilKontaktinformasjonSteg(avtale.id));
         });
     }
 
@@ -128,18 +128,20 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
         return (
             <AvtaleContext.Provider value={context}>
-                <Route
-                    path={pathTilOversikt}
-                    exact={true}
-                    render={() => (
-                        <AvtaleOversikt
-                            avtaler={this.state.avtaler}
-                            avtaleKlikk={this.avtaleKlikk}
-                            opprettAvtaleKlikk={this.opprettAvtaleKlikk}
-                        />
-                    )}
-                />
-                {this.props.children}
+                <Switch>
+                    <Route
+                        path={pathTilOversikt}
+                        exact={true}
+                        render={() => (
+                            <AvtaleOversikt
+                                avtaler={this.state.avtaler}
+                                avtaleKlikk={this.avtaleKlikk}
+                                opprettAvtaleKlikk={this.opprettAvtaleKlikk}
+                            />
+                        )}
+                    />
+                    {this.props.children}
+                </Switch>
             </AvtaleContext.Provider>
         );
     }

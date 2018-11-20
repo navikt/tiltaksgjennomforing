@@ -1,0 +1,27 @@
+@import '~nav-frontend-core/less/_variabler';
+@import '~nav-frontend-paneler-style';
+
+.stegmenylenke {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  width: 18rem;
+  margin: 0.25rem;
+  padding-left: 1rem;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+
+  .panel-focus-mixin();
+
+  &__label {
+    padding-left: 1rem;
+  }
+
+  &.aktiv {
+    background-color: @navDypBla;
+    color: white;
+  }
+}

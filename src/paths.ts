@@ -1,11 +1,35 @@
-export type URLString = string;
+export const pathTilOversikt: string = '/';
 
-export const pathTilOversikt: URLString = '/';
+export const avtaleBase = '/avtale';
 
-export const pathTilAvtale = (avtaleId: string): URLString => {
-    return `/avtale/${avtaleId}`;
+export const pathTilAvtale = (avtaleId: string): string => {
+    return `${avtaleBase}/${avtaleId}`;
 };
 
-export const pathTilKontaktinformasjon = (avtaleId: string): URLString => {
+export const pathTilKontaktinformasjonSteg = (avtaleId: string): string => {
     return `${pathTilAvtale(avtaleId)}/kontaktinformasjon`;
+};
+
+export const pathTilMaalSteg = (avtaleId: string): string => {
+    return `${pathTilAvtale(avtaleId)}/maal`;
+};
+
+export const pathTilArbeidsoppgaverSteg = (avtaleId: string): string => {
+    return `${pathTilAvtale(avtaleId)}/arbeidsoppgaver`;
+};
+
+export const pathTilArbeidstidSteg = (avtaleId: string): string => {
+    return `${pathTilAvtale(avtaleId)}/arbeidstid`;
+};
+
+export const pathTilOppfolgingSteg = (avtaleId: string): string => {
+    return `${pathTilAvtale(avtaleId)}/oppfolging`;
+};
+
+export const pathTilSigneringSteg = (avtaleId: string): string => {
+    return `${pathTilAvtale(avtaleId)}/signering`;
+};
+
+export const lagStegUrl = (avtaleId: string, steg: string) => {
+    return `${pathTilAvtale(avtaleId)}/${steg}`;
 };
