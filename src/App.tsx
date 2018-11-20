@@ -1,29 +1,20 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import KontaktinfoSteg from './AvtaleSide/KontaktInformasjonSteg/KontaktinfoSteg';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleSide/AvtaleContext';
-import {
-    pathTilArbeidsoppgaverSteg,
-    pathTilArbeidstidSteg,
-    pathTilKontaktinformasjonSteg,
-    pathTilMaalSteg,
-    pathTilOppfolgingSteg,
-    pathTilSigneringSteg,
-} from './paths';
-import Stegmeny from './AvtaleSide/Stegmeny/Stegmeny';
-import MaalsetningSteg from './AvtaleSide/AvtaleSeksjon/MaalsetningSteg';
-import ArbeidsoppgaverSteg from './AvtaleSide/AvtaleSeksjon/ArbeidsoppgaverSteg';
-import ArbeidstidSteg from './AvtaleSide/AvtaleSeksjon/ArbeidstidSteg/ArbeidstidSteg';
-import OppfolgingSteg from './AvtaleSide/AvtaleSeksjon/OppfolgingSteg';
-import BekreftelseSteg from './AvtaleSide/AvtaleSeksjon/BekreftelseSteg';
+import Stegside from './Stegside';
 
 class App extends React.Component {
     render() {
         return (
             <BrowserRouter>
                 <AvtaleProvider>
-                    <Stegmeny />
-                    <Switch>
+                    {/* <Stegmeny />*/}
+                    <Route
+                        path="/avtale/:avtaleId/:stegPath"
+                        exact={true}
+                        component={Stegside}
+                    />
+                    {/*                    <Switch>
                         <Route
                             path={pathTilKontaktinformasjonSteg(':avtaleId')}
                             exact={false}
@@ -54,7 +45,7 @@ class App extends React.Component {
                             exact={false}
                             component={BekreftelseSteg}
                         />
-                    </Switch>
+                    </Switch>*/}
                 </AvtaleProvider>
             </BrowserRouter>
         );
