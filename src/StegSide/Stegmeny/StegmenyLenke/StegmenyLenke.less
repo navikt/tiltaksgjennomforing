@@ -1,4 +1,5 @@
 @import '~nav-frontend-core/less/_variabler';
+@import '~nav-frontend-paneler-style';
 
 .stegmenylenke {
   display: flex;
@@ -13,6 +14,8 @@
   font-weight: bold;
   text-decoration: none;
 
+  .panel-focus-mixin();
+
   &__label {
     padding-left: 1rem;
   }
@@ -20,6 +23,5 @@
   &.aktiv {
     background-color: @navDypBla;
     color: white;
-    border: 2px solid @navOransje;
   }
 }
