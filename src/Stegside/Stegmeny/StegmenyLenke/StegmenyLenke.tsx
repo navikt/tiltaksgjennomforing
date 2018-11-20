@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import './StegmenyLenke.less';
-import stegFullfortIkon from '../../../assets/steg-fullfort.svg';
-import stegIkkeFullfortIkon from '../../../assets/steg-ikke-fullfort.svg';
+import stegFullfortIkon from './steg-fullfort.svg';
+import stegIkkeFullfortIkon from './steg-ikke-fullfort.svg';
 
 interface Props {
     label: string;
