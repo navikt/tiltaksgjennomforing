@@ -1,4 +1,5 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/database';
 import * as moment from 'moment';
 import { Avtale } from '../Stegside/avtale';
 import DataSnapshot = firebase.database.DataSnapshot;
