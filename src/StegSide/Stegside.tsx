@@ -36,6 +36,33 @@ class Stegside extends React.Component<Props, State> {
         windowSize: window.innerWidth,
     };
 
+    avtaleSteg: AvtaleStegType = {
+        kontaktinformasjon: {
+            komponent: <KontaktinfoSteg />,
+            label: 'Kontaktinformasjon',
+        },
+        maal: {
+            komponent: <MaalsetningSteg />,
+            label: 'Mål',
+        },
+        arbeidsoppgaver: {
+            komponent: <ArbeidsoppgaverSteg />,
+            label: 'Arbeidsoppgaver',
+        },
+        arbeidstid: {
+            komponent: <ArbeidstidSteg />,
+            label: 'Arbeidstid',
+        },
+        oppfolging: {
+            komponent: <OppfolgingSteg />,
+            label: 'Oppfølging',
+        },
+        godkjenning: {
+            komponent: <BekreftelseSteg />,
+            label: 'Godkjenning',
+        },
+    };
+
     handleWindowSize = () => {
         this.setState({
             windowSize: window.innerWidth,
@@ -55,48 +82,20 @@ class Stegside extends React.Component<Props, State> {
         const erMobil = !erDesktop;
         const aktivtSteg = this.props.match.params.stegPath;
 
-        // TODO: Flytt til constr
-        const avtaleSteg: AvtaleStegType = {
-            kontaktinformasjon: {
-                komponent: <KontaktinfoSteg />,
-                label: 'Kontaktinformasjon',
-            },
-            maal: {
-                komponent: <MaalsetningSteg />,
-                label: 'Mål',
-            },
-            arbeidsoppgaver: {
-                komponent: <ArbeidsoppgaverSteg />,
-                label: 'Arbeidsoppgaver',
-            },
-            arbeidstid: {
-                komponent: <ArbeidstidSteg />,
-                label: 'Arbeidstid',
-            },
-            oppfolging: {
-                komponent: <OppfolgingSteg />,
-                label: 'Oppfølging',
-            },
-            godkjenning: {
-                komponent: <BekreftelseSteg />,
-                label: 'Godkjenning',
-            },
-        };
-
         const desktopSide = (
             <>
-                <Stegmeny steg={avtaleSteg} aktivtSteg={aktivtSteg} />
+                <Stegmeny steg={this.avtaleSteg} aktivtSteg={aktivtSteg} />
                 <div className="stegside__innhold-desktop">
-                    {avtaleSteg[aktivtSteg].komponent}
+                    {this.avtaleSteg[aktivtSteg].komponent}
                 </div>
             </>
         );
 
         const mobilSide = (
             <>
-                {Object.keys(avtaleSteg).map(steg => (
-                    <Ekspanderbartpanel tittel={avtaleSteg[steg].label}>
-                        {avtaleSteg[steg].komponent}
+                {Object.keys(this.avtaleSteg).map(steg => (
+                    <Ekspanderbartpanel tittel={this.avtaleSteg[steg].label}>
+                        {this.avtaleSteg[steg].komponent}
                     </Ekspanderbartpanel>
                 ))}
             </>
