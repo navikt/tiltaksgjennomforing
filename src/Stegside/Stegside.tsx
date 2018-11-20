@@ -101,7 +101,7 @@ class Stegside extends React.Component<Props, State> {
         const mobilSide = (
             <>
                 {Object.keys(this.avtaleSteg).map(steg => (
-                    <div className="stegside__ekspanderbart-panel">
+                    <div className="stegside__ekspanderbart-panel" key={steg}>
                         <Ekspanderbartpanel
                             tittel={this.avtaleSteg[steg].label}
                         >

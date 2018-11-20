@@ -17,6 +17,7 @@ const Stegmeny = (props: Context & Props) => {
             aktiv={props.aktivtSteg === key}
             ferdig={false}
             url={lagStegUrl(props.avtale.id, key)}
+            key={key}
         />
     ));
 
