@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/ feedback/ check circle 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Menypunkt/desktop/aktiv" transform="translate(-17.000000, -18.000000)">
+            <g id="Menypunkt-Copy-3">
+                <g id="Group" transform="translate(17.000000, 18.000000)">
+                    <g id="icon/-feedback/-check-circle-2">
+                        <g id="check-circle-2">
+                            <path d="M12,0 C5.383,0 0,5.384 0,12 C0,18.616 5.383,24 12,24 C18.616,24 24,18.616 24,12 C24,5.384 18.616,0 12,0 Z M17.341,8.866 L9.841,15.866 C9.745,15.955 9.622,16 9.5,16 C9.371,16 9.244,15.951 9.146,15.854 L6.646,13.354 C6.451,13.159 6.451,12.842 6.646,12.647 C6.841,12.452 7.158,12.452 7.353,12.647 L9.511,14.805 L16.658,8.135 C16.859,7.947 17.176,7.956 17.365,8.158 C17.554,8.36 17.543,8.677 17.341,8.866 Z" id="Shape" fill="#9BD0B0" fill-rule="nonzero"></path>
+                            <path d="M17.341,8.866 L9.841,15.866 C9.745,15.955 9.622,16 9.5,16 C9.371,16 9.244,15.951 9.146,15.854 L6.646,13.354 C6.451,13.159 6.451,12.842 6.646,12.647 C6.841,12.452 7.158,12.452 7.353,12.647 L9.511,14.805 L16.658,8.135 C16.859,7.947 17.176,7.956 17.365,8.158 C17.554,8.36 17.543,8.677 17.341,8.866 Z" id="Path" fill="#3E3832"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

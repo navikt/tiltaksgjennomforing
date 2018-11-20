@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import './StegmenyLenke.less';
+import stegFullfortIkon from '../../../assets/steg-fullfort.svg';
+import stegIkkeFullfortIkon from '../../../assets/steg-ikke-fullfort.svg';
 
 interface Props {
     label: string;
@@ -10,11 +12,21 @@ interface Props {
 }
 
 const StegmenyLenke = (props: Props) => {
-    const statusIkon = props.ferdig ? 'ja' : 'nei';
+    const statusIkon = props.ferdig ? (
+        <img src={stegFullfortIkon} />
+    ) : (
+        <img src={stegIkkeFullfortIkon} />
+    );
+
+    let className = 'stegmenylenke';
+    if (props.aktiv) {
+        className += ' aktiv';
+    }
+
     return (
-        <Link to={props.url} className="stegmenylenke">
+        <Link to={props.url} className={className}>
             {statusIkon}
-            {props.label}
+            <span className="stegmenylenke__label">{props.label}</span>
         </Link>
     );
 };

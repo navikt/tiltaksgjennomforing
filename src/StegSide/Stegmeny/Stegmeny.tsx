@@ -1,41 +1,22 @@
 import * as React from 'react';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
 import './Stegmeny.less';
-import {
-    pathTilArbeidsoppgaverSteg,
-    pathTilArbeidstidSteg,
-    pathTilKontaktinformasjonSteg,
-    pathTilMaalSteg,
-    pathTilOppfolgingSteg,
-    pathTilSigneringSteg,
-} from '../../paths';
 import { Context, medContext } from '../AvtaleContext';
+import { AvtaleStegType } from '../Stegside';
+import { lagStegUrl } from '../../paths';
 
-const Stegmeny = (props: Context) => {
-    const menySteg = [
-        {
-            label: 'Kontaktinformasjon',
-            url: pathTilKontaktinformasjonSteg(props.avtale.id),
-        },
-        { label: 'Mål', url: pathTilMaalSteg(props.avtale.id) },
-        {
-            label: 'Arbeidsoppgaver',
-            url: pathTilArbeidsoppgaverSteg(props.avtale.id),
-        },
-        {
-            label: 'Dato og arbeidstid',
-            url: pathTilArbeidstidSteg(props.avtale.id),
-        },
-        { label: 'Oppfølging', url: pathTilOppfolgingSteg(props.avtale.id) },
-        { label: 'Signering', url: pathTilSigneringSteg(props.avtale.id) },
-    ];
+interface Props {
+    steg: AvtaleStegType;
+    aktivtSteg: string;
+}
 
-    const stegLenker = menySteg.map(steg => (
+const Stegmeny = (props: Context & Props) => {
+    const stegLenker = Object.keys(props.steg).map(key => (
         <StegmenyLenke
-            label={steg.label}
-            aktiv={false}
+            label={props.steg[key].label}
+            aktiv={props.aktivtSteg === key}
             ferdig={false}
-            url={steg.url}
+            url={lagStegUrl(props.avtale.id, key)}
         />
     ));
 

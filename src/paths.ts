@@ -29,3 +29,7 @@ export const pathTilOppfolgingSteg = (avtaleId: string): string => {
 export const pathTilSigneringSteg = (avtaleId: string): string => {
     return `${pathTilAvtale(avtaleId)}/signering`;
 };
+
+export const lagStegUrl = (avtaleId: string, steg: string) => {
+    return `${pathTilAvtale(avtaleId)}/${steg}`;
+};
