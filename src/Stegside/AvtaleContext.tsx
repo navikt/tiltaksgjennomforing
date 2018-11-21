@@ -31,6 +31,9 @@ export const tomAvtale: Avtale = {
     veilederEpost: '',
     veilederTlf: '',
 
+    oppfolging: '',
+    tilrettelegging: '',
+
     startDatoTimestamp: moment().valueOf(),
     sluttDatoTimestamp: moment().valueOf(),
     maalsetninger: [],

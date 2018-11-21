@@ -1,0 +1,33 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.oppfolgingsteg {
+  &__tittel {
+    display: none;
+  }
+
+  &__oppfolging-undertittel {
+    margin-bottom: 1rem;
+  }
+
+  &__tilrettelegging-undertittel {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .oppfolgingsteg {
+    &__tittel {
+      margin-bottom: 3rem;
+    }
+
+    &__oppfolging-undertittel {
+      margin-bottom: 2rem;
+    }
+
+    &__tilrettelegging-undertittel {
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
