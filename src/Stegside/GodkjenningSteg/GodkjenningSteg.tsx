@@ -5,6 +5,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import * as moment from 'moment';
 import { Context, medContext } from '../AvtaleContext';
+import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 
 const GodkjenningSteg = (props: Context) => {
     const startdato = moment(props.avtale.startDatoTimestamp).format(
@@ -21,7 +22,7 @@ const GodkjenningSteg = (props: Context) => {
     ));
 
     return (
-        <PanelBase>
+        <Innholdsboks>
             <PanelBase>
                 <Systemtittel>Innhold i avtalen</Systemtittel>
             </PanelBase>
@@ -111,7 +112,7 @@ const GodkjenningSteg = (props: Context) => {
                     </div>
                 </SkjemaGruppe>
             </PanelBase>
-        </PanelBase>
+        </Innholdsboks>
     );
 };
 

@@ -4,6 +4,7 @@ import { Moment } from 'moment';
 import * as moment from 'moment';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../AvtaleContext';
+import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 
 interface State {
     startDatoTimestamp: number;
@@ -46,7 +47,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
 
     render() {
         return (
-            <>
+            <Innholdsboks>
                 <Innholdstittel tag="h2">Start- og sluttdato</Innholdstittel>
                 <Datovelger
                     velgDato={this.velgStartDato}
@@ -60,7 +61,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                     settRiktigFormatert={this.settSluttDatoRiktigFormatert}
                     inputRiktigFormatert={this.state.sluttDatoRiktigFormatert}
                 />
-            </>
+            </Innholdsboks>
         );
     }
 }
