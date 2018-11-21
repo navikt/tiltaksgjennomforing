@@ -7,6 +7,7 @@ export type Avtale = AvtaleMetadata &
     Veilederinfo &
     Arbeidstid &
     Maalsetninger &
+    Oppfolging &
     Bekreftelser;
 
 export interface AvtaleMetadata {
@@ -55,6 +56,11 @@ export interface Maalsetninger {
 export interface Maalsetning {
     kategori: Maalkategori;
     beskrivelse: string;
+}
+
+export interface Oppfolging {
+    oppfolging: string;
+    tilrettelegging: string;
 }
 
 export interface Bekreftelser {
