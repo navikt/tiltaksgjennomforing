@@ -1,16 +1,16 @@
 import * as React from 'react';
-import './KontaktinfoSteg.less';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
+import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 
 const KontaktinfoSteg = () => {
     return (
-        <div className="kontaktinformasjon">
+        <Innholdsboks>
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
             <VeilederinfoDel />
-        </div>
+        </Innholdsboks>
     );
 };
 

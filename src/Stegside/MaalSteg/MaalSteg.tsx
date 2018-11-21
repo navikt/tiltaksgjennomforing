@@ -1,12 +1,12 @@
 import KnappBase from 'nav-frontend-knapper';
 import Lukknapp from 'nav-frontend-lukknapp';
-import PanelBase from 'nav-frontend-paneler';
 import { Input } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Maalsetning } from '../avtale';
 import { Maalkategori } from '../maalkategorier';
 import { Context, medContext } from '../AvtaleContext';
+import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 
 const MaalsetningKnapp = (props: {
     kategori: Maalkategori;
@@ -101,10 +101,10 @@ const MaalsetningSteg = (props: Context) => {
     ));
 
     return (
-        <PanelBase>
+        <Innholdsboks>
             {kategoriKnapper}
             {beskrivelsesPaneler}
-        </PanelBase>
+        </Innholdsboks>
     );
 };
 
