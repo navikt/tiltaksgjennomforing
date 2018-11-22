@@ -5,7 +5,8 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import './MaalSteg.less';
 import NyttMaal from './NyttMaal/NyttMaal';
 import { Knapp } from 'nav-frontend-knapper';
-import Maal from './MaalKort/MaalKort';
+import MaalKort from './MaalKort/MaalKort';
+import { Maal } from '../avtale';
 
 interface State {
     visNyttMaalForm: boolean;
@@ -28,9 +29,25 @@ class MaalSteg extends React.Component<Context, State> {
         this.visNyttMaalForm();
     };
 
+    endreMaal = (maal: Maal) => {
+        console.log('Endre', maal); // tslint:disable-line no-console
+    };
+
+    slettMaal = (maalTilSletting: Maal) => {
+        const nyeMaal = this.props.avtale.maal.filter(
+            maal => maal.id !== maalTilSletting.id
+        );
+        this.props.settAvtaleVerdi('maal', nyeMaal);
+    };
+
     render() {
         const maalListe = this.props.avtale.maal.map(maal => (
-            <Maal maal={maal} key={maal.id} />
+            <MaalKort
+                maal={maal}
+                key={maal.id}
+                endreMaal={this.endreMaal}
+                slettMaal={this.slettMaal}
+            />
         ));
 
         return (
