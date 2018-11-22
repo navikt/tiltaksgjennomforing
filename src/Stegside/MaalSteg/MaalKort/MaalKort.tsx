@@ -1,46 +1,60 @@
 import * as React from 'react';
 import { Maal } from '../../avtale';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
 import './MaalKort.less';
-import { Knapp } from 'nav-frontend-knapper';
+import RedigerMaal from '../RedigerMaal/RedigerMaal';
+import LagretMaal from './LagretMaal';
 
 interface Props {
     maal: Maal;
-    endreMaal: (maal: Maal) => void;
     slettMaal: (maal: Maal) => void;
+    lagreMaal: (maal: Maal) => void;
 }
 
-const strek = <div className="maalkort__strek" />;
+interface State {
+    iEndreModus: boolean;
+}
 
-const MaalKort = (props: Props) => (
-    <Innholdsboks>
-        <Undertittel className="maalkort__tittel">
-            {props.maal.kategori}
-        </Undertittel>
-        <Normaltekst className="maalkort__label">
-            Beskrivelse av mål
-        </Normaltekst>
-        <Normaltekst className="maalkort__beskrivelse">
-            {props.maal.beskrivelse}
-        </Normaltekst>
-        {strek}
-        <div className="maalkort__knapper-wrapper">
-            <Knapp
-                className="maalkort__endreknapp"
-                onClick={() => props.endreMaal(props.maal)}
-                htmlType="button"
-            >
-                Endre
-            </Knapp>
-            <Knapp
-                onClick={() => props.slettMaal(props.maal)}
-                htmlType="button"
-            >
-                Slett
-            </Knapp>
-        </div>
-    </Innholdsboks>
-);
+class MaalKort extends React.Component<Props, State> {
+    state = {
+        iEndreModus: false,
+    };
+
+    settEndreModus = (modus: boolean) => {
+        this.setState({ iEndreModus: modus });
+    };
+
+    lagreMaal = () => {
+        this.settEndreModus(false);
+        this.props.lagreMaal(this.props.maal);
+    };
+
+    endreMaal = () => {
+        this.settEndreModus(true);
+    };
+
+    slettMaal = () => {
+        this.props.slettMaal(this.props.maal);
+    };
+
+    render() {
+        return (
+            <Innholdsboks>
+                {this.state.iEndreModus ? (
+                    <RedigerMaal
+                        defaultMaal={this.props.maal}
+                        lagreMaal={this.lagreMaal}
+                    />
+                ) : (
+                    <LagretMaal
+                        maal={this.props.maal}
+                        endreOnClick={this.endreMaal}
+                        slettOnClick={this.slettMaal}
+                    />
+                )}
+            </Innholdsboks>
+        );
+    }
+}
 
 export default MaalKort;

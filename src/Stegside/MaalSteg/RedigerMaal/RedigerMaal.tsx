@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { Context, medContext } from '../../AvtaleContext';
 import { Select, Textarea } from 'nav-frontend-skjema';
 import { Maalkategori } from '../../maalkategorier';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import { Maal } from '../../avtale';
 import { guid } from 'nav-frontend-js-utils';
 
 interface Props {
-    skjulNyttMaalForm: () => {};
+    lagreMaal: (maal: Maal) => void;
+    defaultMaal?: Maal;
 }
 
 interface State {
@@ -14,7 +15,7 @@ interface State {
     beskrivelse: string;
 }
 
-class NyttMaal extends React.Component<Context & Props, State> {
+class RedigerMaal extends React.Component<Props, State> {
     maalListe: Maalkategori[] = [
         'Utprøving',
         'Arbeidserfaring',
@@ -25,8 +26,12 @@ class NyttMaal extends React.Component<Context & Props, State> {
     ];
 
     state = {
-        valgtKategori: this.maalListe[0],
-        beskrivelse: '',
+        valgtKategori:
+            (this.props.defaultMaal && this.props.defaultMaal.kategori) ||
+            this.maalListe[0],
+        beskrivelse:
+            (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) ||
+            '',
     };
 
     velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
@@ -39,21 +44,6 @@ class NyttMaal extends React.Component<Context & Props, State> {
         this.setState({
             beskrivelse: event.currentTarget.value,
         });
-    };
-
-    lagreMaal = () => {
-        const maal = this.props.avtale.maal;
-        this.props.avtale.maal.push({
-            id: guid(),
-            kategori: this.state.valgtKategori,
-            beskrivelse: this.state.beskrivelse,
-        });
-        this.props.settAvtaleVerdi('maal', maal);
-        this.setState({
-            valgtKategori: this.maalListe[0],
-            beskrivelse: '',
-        });
-        this.props.skjulNyttMaalForm();
     };
 
     lagTellerTekst = (antallTegn: number, maxLength: number) => {
@@ -87,7 +77,16 @@ class NyttMaal extends React.Component<Context & Props, State> {
                 <Hovedknapp
                     className="nytt-maal__lagre-knapp"
                     htmlType="button"
-                    onClick={this.lagreMaal}
+                    onClick={() =>
+                        this.props.lagreMaal({
+                            id:
+                                (this.props.defaultMaal &&
+                                    this.props.defaultMaal.id) ||
+                                guid(),
+                            kategori: this.state.valgtKategori,
+                            beskrivelse: this.state.beskrivelse,
+                        })
+                    }
                 >
                     Lagre mål
                 </Hovedknapp>
@@ -96,4 +95,4 @@ class NyttMaal extends React.Component<Context & Props, State> {
     }
 }
 
-export default medContext(NyttMaal);
+export default RedigerMaal;
