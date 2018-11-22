@@ -36,7 +36,7 @@ export const tomAvtale: Avtale = {
 
     startDatoTimestamp: moment().valueOf(),
     sluttDatoTimestamp: moment().valueOf(),
-    maalsetninger: [],
+    maal: [],
 
     bekreftetAvBruker: false,
     bekreftetAvArbeidsgiver: false,

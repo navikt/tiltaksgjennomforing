@@ -6,7 +6,7 @@ export type Avtale = AvtaleMetadata &
     Arbeidsgiverinfo &
     Veilederinfo &
     Arbeidstid &
-    Maalsetninger &
+    MaalListe &
     Oppfolging &
     Bekreftelser;
 
@@ -49,11 +49,12 @@ export interface Arbeidstid {
     sluttDatoTimestamp: number;
 }
 
-export interface Maalsetninger {
-    maalsetninger: Maalsetning[];
+export interface MaalListe {
+    maal: Maal[];
 }
 
-export interface Maalsetning {
+export interface Maal {
+    id: string;
     kategori: Maalkategori;
     beskrivelse: string;
 }

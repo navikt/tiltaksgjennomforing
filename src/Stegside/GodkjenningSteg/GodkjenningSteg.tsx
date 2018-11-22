@@ -15,9 +15,9 @@ const GodkjenningSteg = (props: Context) => {
         'DD.MM.YYYY'
     );
 
-    const maalsetninger = props.avtale.maalsetninger.map(maalsetning => (
-        <li key={maalsetning.kategori}>
-            {maalsetning.kategori} {maalsetning.beskrivelse}
+    const maalsetninger = props.avtale.maal.map(maal => (
+        <li key={maal.kategori}>
+            {maal.kategori} {maal.beskrivelse}
         </li>
     ));
 
