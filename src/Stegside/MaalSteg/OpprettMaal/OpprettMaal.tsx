@@ -3,8 +3,8 @@ import { Knapp } from 'nav-frontend-knapper';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import { Systemtittel } from 'nav-frontend-typografi';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
-import '../MaalSteg.less';
 import { Maal } from '../../avtale';
+import './OpprettMaal.less';
 
 interface Props {
     lagreMaal: (maal: Maal) => void;
@@ -31,14 +31,14 @@ class OpprettMaal extends React.Component<Props> {
     render() {
         return (
             <Innholdsboks>
-                <Systemtittel tag="h1" className="maalsteg__nytt-maal-tittel">
+                <Systemtittel tag="h1" className="opprett-maal__tittel">
                     Opprett mål
                 </Systemtittel>
                 {this.state.visRedigerMaal ? (
                     <RedigerMaal lagreMaal={this.lagreMaal} />
                 ) : (
                     <Knapp
-                        className="maalsteg__nytt-maal-knapp"
+                        className="opprett-maal__knapp"
                         htmlType="button"
                         onClick={this.nyttMaalOnClick}
                     >
