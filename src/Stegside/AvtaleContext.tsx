@@ -89,7 +89,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         });
     }
 
-    settAvtaleVerdi(felt: string, verdi: any) {
+    settAvtaleVerdi(felt: string, verdi: any, callback?: () => void) {
         const avtale = this.state.avtaler[this.state.valgtAvtaleId];
         if (avtale) {
             avtale[felt] = verdi;
@@ -99,7 +99,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 [this.state.valgtAvtaleId]: avtale,
             };
 
-            this.setState({ avtaler });
+            this.setState({ avtaler }, callback);
         }
     }
 
@@ -119,7 +119,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         nyeMaal.sort(
             (a: Maal, b: Maal) => b.opprettetTimestamp - a.opprettetTimestamp
         );
-        this.settAvtaleVerdi('maal', nyeMaal);
+        this.settAvtaleVerdi('maal', nyeMaal, this.lagreAvtale);
     }
 
     slettMaal(maalTilSletting: Maal) {
@@ -127,7 +127,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         const nyeMaal = avtale.maal.filter(
             (maal: Maal) => maal.id !== maalTilSletting.id
         );
-        this.settAvtaleVerdi('maal', nyeMaal);
+        this.settAvtaleVerdi('maal', nyeMaal, this.lagreAvtale);
+        this.lagreAvtale();
     }
 
     avtaleKlikk(avtaleId: string) {
