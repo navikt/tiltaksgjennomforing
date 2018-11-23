@@ -116,6 +116,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             (maal: Maal) => maal.id !== maalTilLagring.id
         );
         nyeMaal.push(maalTilLagring);
+        nyeMaal.sort(
+            (a: Maal, b: Maal) => b.opprettetTimestamp - a.opprettetTimestamp
+        );
         this.settAvtaleVerdi('maal', nyeMaal);
     }
 
