@@ -3,7 +3,7 @@ import { Maal } from '../../avtale';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
 import './MaalKort.less';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
-import LagretMaal from './LagretMaal';
+import LagretMaal from './LagretMaal/LagretMaal';
 
 interface Props {
     maal: Maal;
