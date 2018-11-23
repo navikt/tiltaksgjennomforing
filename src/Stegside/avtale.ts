@@ -55,6 +55,7 @@ export interface MaalListe {
 
 export interface Maal {
     id: string;
+    opprettetTimestamp: number;
     kategori: Maalkategori;
     beskrivelse: string;
 }

@@ -4,6 +4,7 @@ import { Maalkategori } from '../../maalkategorier';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Maal } from '../../avtale';
 import { guid } from 'nav-frontend-js-utils';
+import * as moment from 'moment';
 
 interface Props {
     lagreMaal: (maal: Maal) => void;
@@ -49,6 +50,10 @@ class RedigerMaal extends React.Component<Props, State> {
     lagreKnappOnClick = () => {
         this.props.lagreMaal({
             id: (this.props.defaultMaal && this.props.defaultMaal.id) || guid(),
+            opprettetTimestamp:
+                (this.props.defaultMaal &&
+                    this.props.defaultMaal.opprettetTimestamp) ||
+                moment().valueOf(),
             kategori: this.state.valgtKategori,
             beskrivelse: this.state.beskrivelse,
         });
