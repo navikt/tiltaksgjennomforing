@@ -49,7 +49,7 @@
     "test": "react-scripts-ts test --env=jsdom"
   },
   "devDependencies": {
-    "@navikt/create-react-app-typescript-less": "^1.0.0-beta.14",
+    "@navikt/create-react-app-typescript-less": "^1.0.0-beta.16",
     "@types/jest": "^23.3.2",
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.3",

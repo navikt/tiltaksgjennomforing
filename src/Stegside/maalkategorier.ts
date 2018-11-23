@@ -1,6 +1,7 @@
 export type Maalkategori =
-    | 'Avklaring'
+    | 'Utprøving'
     | 'Arbeidserfaring'
-    | 'Oppnå fagbrev/kompetansebevis'
     | 'Språkopplæring'
-    | 'Få jobb på arbeidstreningsplass';
+    | 'Oppnå fagbrev/kompetansebevis'
+    | 'Få jobb i bedriften'
+    | 'Annet';

@@ -89,6 +89,7 @@ class Stegside extends React.Component<Props, State> {
                 <form className="stegside__innhold-desktop">
                     {this.avtaleSteg[aktivtSteg].komponent}
                     <Knapp
+                        htmlType="button"
                         onClick={this.props.lagreAvtale}
                         className="stegside__lagre-knapp"
                     >
@@ -107,6 +108,7 @@ class Stegside extends React.Component<Props, State> {
                         >
                             {this.avtaleSteg[steg].komponent}
                             <Knapp
+                                htmlType="button"
                                 onClick={this.props.lagreAvtale}
                                 className="stegside__lagre-knapp"
                             >

@@ -1,2 +1,10 @@
-@import '~nav-frontend-core/less/core.less';
-@import '~nav-frontend-typografi-style/src/index.less';
+// Importerer spesifikke less filer som inneholder CSS regler som har lavere prioritet enn NAVs frontendbibliotek.
+// Gjør man ikke dette vil våres egne CSS regler bli overskrevet av NAVs frontendbibliotek.
+// Trenger ikke importere less filer som ikke blir overskrevet.
+@import './Stegside/KontaktInformasjonSteg/DeltakerinfoDel/DeltakerinfoDel.less';
+@import './Stegside/KontaktInformasjonSteg/ArbeidsgiverinfoDel/ArbeidsgiverinfoDel.less';
+@import './Stegside/KontaktInformasjonSteg/VeilederinfoDel/VeilederinfoDel.less';
+@import './Stegside/MaalSteg/OpprettMaal/OpprettMaal.less';
+@import './Stegside/MaalSteg/MaalKort/MaalKort.less';
+@import './Stegside/MaalSteg/RedigerMaal/RedigerMaal.less';
+@import './Stegside/MaalSteg/MaalKort/LagretMaal/KnappMedIkon/KnappMedIkon.less';
