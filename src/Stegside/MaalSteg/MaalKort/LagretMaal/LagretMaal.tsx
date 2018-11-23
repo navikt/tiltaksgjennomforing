@@ -11,8 +11,6 @@ interface Props {
     slettOnClick: () => void;
 }
 
-const strek = <div className="maalkort__strek" />;
-
 const LagretMaal = (props: Props) => (
     <>
         <Undertittel className="maalkort__tittel">
@@ -24,7 +22,6 @@ const LagretMaal = (props: Props) => (
         <Normaltekst className="maalkort__beskrivelse">
             {props.maal.beskrivelse}
         </Normaltekst>
-        {strek}
         <div className="maalkort__knapper-wrapper">
             <KnappMedIkon
                 ikon={redigerIkon}

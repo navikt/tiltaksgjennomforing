@@ -24,9 +24,9 @@ class MaalKort extends React.Component<Props, State> {
         this.setState({ iEndreModus: modus });
     };
 
-    lagreMaal = () => {
+    lagreMaal = (maal: Maal) => {
         this.settEndreModus(false);
-        this.props.lagreMaal(this.props.maal);
+        this.props.lagreMaal(maal);
     };
 
     endreMaal = () => {
