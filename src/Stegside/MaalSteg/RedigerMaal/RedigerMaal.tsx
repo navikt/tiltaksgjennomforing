@@ -46,6 +46,14 @@ class RedigerMaal extends React.Component<Props, State> {
         });
     };
 
+    lagreKnappOnClick = () => {
+        this.props.lagreMaal({
+            id: (this.props.defaultMaal && this.props.defaultMaal.id) || guid(),
+            kategori: this.state.valgtKategori,
+            beskrivelse: this.state.beskrivelse,
+        });
+    };
+
     lagTellerTekst = (antallTegn: number, maxLength: number) => {
         return maxLength - antallTegn;
     };
@@ -77,16 +85,7 @@ class RedigerMaal extends React.Component<Props, State> {
                 <Hovedknapp
                     className="nytt-maal__lagre-knapp"
                     htmlType="button"
-                    onClick={() =>
-                        this.props.lagreMaal({
-                            id:
-                                (this.props.defaultMaal &&
-                                    this.props.defaultMaal.id) ||
-                                guid(),
-                            kategori: this.state.valgtKategori,
-                            beskrivelse: this.state.beskrivelse,
-                        })
-                    }
+                    onClick={this.lagreKnappOnClick}
                 >
                     Lagre mål
                 </Hovedknapp>
