@@ -46,7 +46,6 @@ export interface Veilederinfo {
 
 export interface Arbeidstid {
     startDatoTimestamp: number;
-    sluttDatoTimestamp: number;
 }
 
 export interface MaalListe {
