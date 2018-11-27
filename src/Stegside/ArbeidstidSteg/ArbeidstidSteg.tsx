@@ -6,24 +6,19 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import Ukevelger from './Ukevelger/Ukevelger';
+import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 
 interface State {
-    startDatoTimestamp: number;
     startDatoRiktigFormatert: boolean;
-    lengde: number;
 }
 
 class ArbeidstidSteg extends React.Component<Context, State> {
-    // TODO: default lengde
     state: State = {
-        startDatoTimestamp: this.props.avtale.startDatoTimestamp,
         startDatoRiktigFormatert: true,
-        lengde: 1,
     };
 
     velgStartDato = (dato: Moment) => {
         this.setState({
-            startDatoTimestamp: dato.valueOf(),
             startDatoRiktigFormatert: true,
         });
         this.props.settAvtaleVerdi('startDatoTimestamp', dato.valueOf());
@@ -33,8 +28,12 @@ class ArbeidstidSteg extends React.Component<Context, State> {
         this.setState({ startDatoRiktigFormatert: riktigFormatert });
     };
 
-    onChange = (verdi: number) => {
-        this.setState({ lengde: verdi });
+    settArbeidstreningLengde = (verdi: number) => {
+        this.props.settAvtaleVerdi('arbeidstreningLengde', verdi);
+    };
+
+    settStillingsprosent = (verdi: number) => {
+        this.props.settAvtaleVerdi('arbeidstreningStillingprosent', verdi);
     };
 
     render() {
@@ -43,16 +42,21 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                 <Innholdstittel tag="h2">Arbeidstid og oppstart</Innholdstittel>
                 <Datovelger
                     velgDato={this.velgStartDato}
-                    dato={moment(this.state.startDatoTimestamp)}
+                    dato={moment(this.props.avtale.startDatoTimestamp)}
                     settRiktigFormatert={this.settStartDatoRiktigFormatert}
                     inputRiktigFormatert={this.state.startDatoRiktigFormatert}
                 />
                 <Ukevelger
                     label="Hvor lenge skal arbeidstreningen vare?"
-                    verdi={this.state.lengde}
-                    onChange={this.onChange}
+                    verdi={this.props.avtale.arbeidstreningLengde}
+                    onChange={this.settArbeidstreningLengde}
                     min={1}
                     max={12}
+                />
+                <StillingsprosentInput
+                    label="Hvilken stilling skal deltakeren ha?"
+                    verdi={this.props.avtale.arbeidstreningStillingprosent}
+                    onChange={this.settStillingsprosent}
                 />
             </Innholdsboks>
         );

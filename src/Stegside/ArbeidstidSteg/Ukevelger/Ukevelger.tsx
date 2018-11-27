@@ -15,9 +15,9 @@ const Ukevelger = (props: Props) => {
         uker.push(i);
     }
 
-    const ukeValg = uker.map(maal => (
-        <option value={maal} key={maal}>
-            {maal} uker
+    const ukeValg = uker.map(uke => (
+        <option value={uke} key={uke}>
+            {uke} uker
         </option>
     ));
 
@@ -25,7 +25,7 @@ const Ukevelger = (props: Props) => {
         <>
             <Select
                 label={props.label}
-                selected={props.verdi}
+                value={props.verdi}
                 onChange={event =>
                     props.onChange(Number(event.currentTarget.value))
                 }
