@@ -22,17 +22,15 @@ const Ukevelger = (props: Props) => {
     ));
 
     return (
-        <>
-            <Select
-                label={props.label}
-                value={props.verdi}
-                onChange={event =>
-                    props.onChange(Number(event.currentTarget.value))
-                }
-            >
-                {ukeValg}
-            </Select>
-        </>
+        <Select
+            label={props.label}
+            value={props.verdi}
+            onChange={event =>
+                props.onChange(Number(event.currentTarget.value))
+            }
+        >
+            {ukeValg}
+        </Select>
     );
 };
 

@@ -8,15 +8,13 @@ interface Props {
 }
 
 const StillingsprosentInput = (props: Props) => (
-    <>
-        <Input
-            label={props.label}
-            value={props.verdi}
-            onChange={(event: React.FormEvent<HTMLInputElement>) =>
-                props.onChange(Number(event.currentTarget.value))
-            }
-        />
-    </>
+    <Input
+        label={props.label}
+        value={props.verdi}
+        onChange={(event: React.FormEvent<HTMLInputElement>) =>
+            props.onChange(Number(event.currentTarget.value))
+        }
+    />
 );
 
 export default StillingsprosentInput;

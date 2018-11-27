@@ -7,6 +7,7 @@ import { Context, medContext } from '../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import Ukevelger from './Ukevelger/Ukevelger';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
+import InfoBoks from './InfoBoks/InfoBoks';
 
 interface State {
     startDatoRiktigFormatert: boolean;
@@ -37,6 +38,10 @@ class ArbeidstidSteg extends React.Component<Context, State> {
     };
 
     render() {
+        const timerIUka =
+            (37.5 * this.props.avtale.arbeidstreningStillingprosent) / 100;
+        const dagerIUka = (timerIUka / 37.5) * 5;
+
         return (
             <Innholdsboks>
                 <Innholdstittel tag="h2">Arbeidstid og oppstart</Innholdstittel>
@@ -54,10 +59,11 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                     max={12}
                 />
                 <StillingsprosentInput
-                    label="Hvilken stilling skal deltakeren ha?"
+                    label="Hvilken stillingsprosent skal deltakeren ha?"
                     verdi={this.props.avtale.arbeidstreningStillingprosent}
                     onChange={this.settStillingsprosent}
                 />
+                <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
             </Innholdsboks>
         );
     }
