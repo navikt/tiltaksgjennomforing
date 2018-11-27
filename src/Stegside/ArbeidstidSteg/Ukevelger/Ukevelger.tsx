@@ -17,17 +17,19 @@ const Ukevelger = (props: Props) => {
 
     const ukeValg = uker.map(uke => (
         <option value={uke} key={uke}>
-            {uke} uker
+            {uke === 1 ? `${uke} uke` : `${uke} uker`}
         </option>
     ));
 
     return (
         <Select
+            className="ukevelger"
             label={props.label}
             value={props.verdi}
             onChange={event =>
                 props.onChange(Number(event.currentTarget.value))
             }
+            bredde={'s'}
         >
             {ukeValg}
         </Select>

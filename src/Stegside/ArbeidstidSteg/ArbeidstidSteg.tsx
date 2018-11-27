@@ -2,12 +2,13 @@ import * as React from 'react';
 import Datovelger from './Datovelger/datovelger';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Context, medContext } from '../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import Ukevelger from './Ukevelger/Ukevelger';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';
+import './ArbeidstidSteg.less';
 
 interface State {
     startDatoRiktigFormatert: boolean;
@@ -44,8 +45,14 @@ class ArbeidstidSteg extends React.Component<Context, State> {
 
         return (
             <Innholdsboks>
-                <Innholdstittel tag="h2">Arbeidstid og oppstart</Innholdstittel>
+                <Innholdstittel className="arbeidstidsteg__tittel" tag="h2">
+                    Arbeidstid og oppstart
+                </Innholdstittel>
+                <Normaltekst className="arbeidstidsteg__startdato-label">
+                    Startdato
+                </Normaltekst>
                 <Datovelger
+                    className="arbeidstidsteg__datovelger"
                     velgDato={this.velgStartDato}
                     dato={moment(this.props.avtale.startDatoTimestamp)}
                     settRiktigFormatert={this.settStartDatoRiktigFormatert}
