@@ -5,16 +5,20 @@ import * as moment from 'moment';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
+import Ukevelger from './Ukevelger/Ukevelger';
 
 interface State {
     startDatoTimestamp: number;
     startDatoRiktigFormatert: boolean;
+    lengde: number;
 }
 
 class ArbeidstidSteg extends React.Component<Context, State> {
+    // TODO: default lengde
     state: State = {
         startDatoTimestamp: this.props.avtale.startDatoTimestamp,
         startDatoRiktigFormatert: true,
+        lengde: 1,
     };
 
     velgStartDato = (dato: Moment) => {
@@ -29,6 +33,10 @@ class ArbeidstidSteg extends React.Component<Context, State> {
         this.setState({ startDatoRiktigFormatert: riktigFormatert });
     };
 
+    onChange = (verdi: number) => {
+        this.setState({ lengde: verdi });
+    };
+
     render() {
         return (
             <Innholdsboks>
@@ -38,6 +46,13 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                     dato={moment(this.state.startDatoTimestamp)}
                     settRiktigFormatert={this.settStartDatoRiktigFormatert}
                     inputRiktigFormatert={this.state.startDatoRiktigFormatert}
+                />
+                <Ukevelger
+                    label="Hvor lenge skal arbeidstreningen vare?"
+                    verdi={this.state.lengde}
+                    onChange={this.onChange}
+                    min={1}
+                    max={12}
                 />
             </Innholdsboks>
         );
