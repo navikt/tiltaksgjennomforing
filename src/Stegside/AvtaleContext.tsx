@@ -52,19 +52,21 @@ export interface Context {
     lagreAvtale: () => void;
     lagreMaal: (maal: Maal) => void;
     slettMaal: (maal: Maal) => void;
-    lagreOppgave: (oppgave: Oppgave) => void; // tslint:disable-line
-    slettOppgave: (oppgave: Oppgave) => void; // tslint:disable-line
+    lagreOppgave: (oppgave: Oppgave) => void;
+    slettOppgave: (oppgave: Oppgave) => void;
 }
 
+// tslint:disable no-empty
 const AvtaleContext = React.createContext<Context>({
     avtale: tomAvtale,
-    settAvtaleVerdi: () => {}, // tslint:disable-line
-    lagreAvtale: () => {}, // tslint:disable-line
-    lagreMaal: () => {}, // tslint:disable-line
-    slettMaal: () => {}, // tslint:disable-line
-    lagreOppgave: () => {}, // tslint:disable-line
-    slettOppgave: () => {}, // tslint:disable-line
+    settAvtaleVerdi: () => {},
+    lagreAvtale: () => {},
+    lagreMaal: () => {},
+    slettMaal: () => {},
+    lagreOppgave: () => {},
+    slettOppgave: () => {},
 });
+// tslint:enable
 
 export const AvtaleConsumer = AvtaleContext.Consumer;
 
