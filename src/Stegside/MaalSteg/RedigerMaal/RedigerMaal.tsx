@@ -73,7 +73,7 @@ class RedigerMaal extends React.Component<Props, State> {
         return (
             <>
                 <Select
-                    className="nytt-maal__kategori-dropdown"
+                    className="rediger-maal__kategori-dropdown"
                     label="Hva er målet med arbeidstreningen?"
                     value={this.state.valgtKategori}
                     onChange={this.velgKategori}
@@ -88,7 +88,7 @@ class RedigerMaal extends React.Component<Props, State> {
                     tellerTekst={this.lagTellerTekst}
                 />
                 <Hovedknapp
-                    className="nytt-maal__lagre-knapp"
+                    className="rediger-maal__lagre-knapp"
                     htmlType="button"
                     onClick={this.lagreKnappOnClick}
                 >
