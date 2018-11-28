@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Maal } from '../../../avtale';
-import KnappMedIkon from './KnappMedIkon/KnappMedIkon';
-import redigerIkon from './rediger-penn.svg';
-import slettIkon from './soppeldunk.svg';
+import KnappMedIkon from '../../../../komponenter/KnappMedIkon/KnappMedIkon';
 
 interface Props {
     maal: Maal;
@@ -24,12 +22,12 @@ const LagretMaal = (props: Props) => (
         </Normaltekst>
         <div className="maalkort__knapper-wrapper">
             <KnappMedIkon
-                ikon={redigerIkon}
+                ikonType="blyant"
                 label="Endre"
                 onClick={props.endreOnClick}
             />
             <KnappMedIkon
-                ikon={slettIkon}
+                ikonType="soppelkasse"
                 label="Slett"
                 onClick={props.slettOnClick}
             />
