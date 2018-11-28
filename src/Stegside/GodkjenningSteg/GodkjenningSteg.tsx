@@ -11,10 +11,6 @@ const GodkjenningSteg = (props: Context) => {
     const startdato = moment(props.avtale.startDatoTimestamp).format(
         'DD.MM.YYYY'
     );
-    const sluttdato = moment(props.avtale.sluttDatoTimestamp).format(
-        'DD.MM.YYYY'
-    );
-
     const maalsetninger = props.avtale.maal.map(maal => (
         <li key={maal.kategori}>
             {maal.kategori} {maal.beskrivelse}
@@ -55,7 +51,6 @@ const GodkjenningSteg = (props: Context) => {
                 <SkjemaGruppe title={'Dato- og arbeidstid'}>
                     <ul>
                         <li>{startdato}</li>
-                        <li>{sluttdato}</li>
                     </ul>
                 </SkjemaGruppe>
                 <SkjemaGruppe title={'Målsetninger'}>

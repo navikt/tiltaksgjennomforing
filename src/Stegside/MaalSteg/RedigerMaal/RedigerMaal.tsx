@@ -75,7 +75,7 @@ class RedigerMaal extends React.Component<Props, State> {
                 <Select
                     className="nytt-maal__kategori-dropdown"
                     label="Hva er målet med arbeidstreningen?"
-                    selected={this.state.valgtKategori}
+                    value={this.state.valgtKategori}
                     onChange={this.velgKategori}
                 >
                     {maalKategorier}

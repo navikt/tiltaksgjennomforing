@@ -35,7 +35,9 @@ export const tomAvtale: Avtale = {
     tilrettelegging: '',
 
     startDatoTimestamp: moment().valueOf(),
-    sluttDatoTimestamp: moment().valueOf(),
+    arbeidstreningLengde: 1,
+    arbeidstreningStillingprosent: 0,
+
     maal: [],
 
     bekreftetAvBruker: false,
