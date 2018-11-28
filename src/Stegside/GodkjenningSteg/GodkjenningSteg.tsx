@@ -1,113 +1,142 @@
 import { Knapp } from 'nav-frontend-knapper';
 import PanelBase from 'nav-frontend-paneler';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import * as moment from 'moment';
 import { Context, medContext } from '../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
+import Stegoppsummering from './Stegoppsummering/Stegoppsummering';
 
 const GodkjenningSteg = (props: Context) => {
-    const startdato = moment(props.avtale.startDatoTimestamp).format(
-        'DD.MM.YYYY'
+    // tslint:disable
+    const {
+        startDatoTimestamp,
+        deltakerFornavn,
+        deltakerEtternavn,
+        bedriftNavn,
+        arbeidsgiverFornavn,
+        arbeidsgiverEtternavn,
+        veilederFornavn,
+        veilederEtternavn,
+        arbeidstreningLengde,
+        arbeidstreningStillingprosent,
+        bekreftetAvArbeidsgiver,
+        bekreftetAvBruker,
+        bekreftetAvVeileder,
+    } = props.avtale;
+    // tslint:enable
+    const startdato = moment(startDatoTimestamp).format('DD.MM.YYYY');
+
+    const kontaktInfo = (
+        <>
+            <Systemtittel>Godkjenning av avtale</Systemtittel>
+            <Normaltekst>
+                Dette er en avtale inngått av følgende parter:
+            </Normaltekst>
+            <Normaltekst>Deltaker</Normaltekst>
+            <Normaltekst
+            >{`${deltakerFornavn} ${deltakerEtternavn}`}</Normaltekst>
+            <Normaltekst>Arbeidsgiver</Normaltekst>
+            <Normaltekst
+            >{`${bedriftNavn} v/${arbeidsgiverFornavn} ${arbeidsgiverEtternavn}`}</Normaltekst>
+            <Normaltekst>NAV</Normaltekst>
+            <Normaltekst
+            >{`${veilederFornavn} ${veilederEtternavn}`}</Normaltekst>
+        </>
     );
-    const maalsetninger = props.avtale.maal.map(maal => (
-        <li key={maal.kategori}>
-            {maal.kategori} {maal.beskrivelse}
-        </li>
+
+    const maalListe = props.avtale.maal.map(maal => (
+        <>
+            <Normaltekst>{maal.kategori}</Normaltekst>
+            <Normaltekst>{maal.beskrivelse}</Normaltekst>
+        </>
+    ));
+
+    const arbeidsoppgaver = props.avtale.oppgaver.map(oppgave => (
+        <>
+            <Ingress>{oppgave.tittel}</Ingress>
+            <Normaltekst>Hva går arbeidsoppgaven ut på?</Normaltekst>
+            <Normaltekst>{oppgave.beskrivelse}</Normaltekst>
+            <Normaltekst>Hvilken opplæring skal deltakeren få?</Normaltekst>
+            <Normaltekst>{oppgave.opplaering}</Normaltekst>
+        </>
     ));
 
     return (
-        <Innholdsboks>
-            <PanelBase>
-                <Systemtittel>Innhold i avtalen</Systemtittel>
-            </PanelBase>
-            <PanelBase>
-                <SkjemaGruppe title={'Person'}>
-                    <ul>
-                        <li>{props.avtale.deltakerFornavn}</li>
-                        <li>{props.avtale.deltakerEtternavn}</li>
-                        <li>{props.avtale.deltakerAdresse}</li>
-                        <li>{props.avtale.deltakerPostnummer}</li>
-                        <li>{props.avtale.deltakerPoststed}</li>
-                    </ul>
-                </SkjemaGruppe>
-                <SkjemaGruppe title={'Arbeidsgiver'}>
-                    <ul>
-                        <li>{props.avtale.bedriftNavn}</li>
-                        <li>{props.avtale.bedriftAdresse}</li>
-                        <li>{props.avtale.bedriftPostnummer}</li>
-                        <li>{props.avtale.bedriftPoststed}</li>
-                        <li>{props.avtale.arbeidsgiverFornavn}</li>
-                        <li>{props.avtale.arbeidsgiverEtternavn}</li>
-                        <li>{props.avtale.arbeidsgiverEpost}</li>
-                        <li>{props.avtale.arbeidsgiverTlf}</li>
-                        <li>{props.avtale.veilederFornavn}</li>
-                        <li>{props.avtale.veilederEtternavn}</li>
-                        <li>{props.avtale.veilederEpost}</li>
-                        <li>{props.avtale.veilederTlf}</li>
-                    </ul>
-                </SkjemaGruppe>
-                <SkjemaGruppe title={'Dato- og arbeidstid'}>
-                    <ul>
-                        <li>{startdato}</li>
-                    </ul>
-                </SkjemaGruppe>
-                <SkjemaGruppe title={'Målsetninger'}>
-                    <ul>{maalsetninger}</ul>
-                </SkjemaGruppe>
-            </PanelBase>
+        <>
+            <Innholdsboks>
+                {kontaktInfo}
+                <Stegoppsummering tittel="Varighet">
+                    <Normaltekst>Tidsperiode</Normaltekst>
+                    <Normaltekst>
+                        {arbeidstreningStillingprosent}% stillingsprosent i{' '}
+                        {arbeidstreningLengde} uker fra {startdato}.
+                    </Normaltekst>
+                </Stegoppsummering>
 
-            <PanelBase>
-                <SkjemaGruppe
-                    className={'bekreft'}
-                    title={'Bekreft innhold i avtalen'}
-                >
-                    <div>
-                        <Knapp
-                            disabled={props.avtale.bekreftetAvBruker}
-                            onClick={() =>
-                                props.settAvtaleVerdi('bekreftetAvBruker', true)
-                            }
-                        >
-                            Bekreft som bruker
-                        </Knapp>
-                        {props.avtale.bekreftetAvBruker &&
-                            'Avtalen er bekreftet av bruker'}
-                    </div>
-                    <div>
-                        <Knapp
-                            disabled={props.avtale.bekreftetAvArbeidsgiver}
-                            onClick={() =>
-                                props.settAvtaleVerdi(
-                                    'bekreftetAvArbeidsgiver',
-                                    true
-                                )
-                            }
-                        >
-                            Bekreft som arbeidsgiver
-                        </Knapp>
-                        {props.avtale.bekreftetAvArbeidsgiver &&
-                            'Avtalen er bekreftet av arbeidsgiver'}
-                    </div>
-                    <div>
-                        <Knapp
-                            disabled={props.avtale.bekreftetAvVeileder}
-                            onClick={() =>
-                                props.settAvtaleVerdi(
-                                    'bekreftetAvVeileder',
-                                    true
-                                )
-                            }
-                        >
-                            Bekreft som NAV-veileder
-                        </Knapp>
-                        {props.avtale.bekreftetAvVeileder &&
-                            'Avtalen er bekreftet av NAV-veileder'}
-                    </div>
-                </SkjemaGruppe>
-            </PanelBase>
-        </Innholdsboks>
+                <Stegoppsummering tittel="Mål">{maalListe}</Stegoppsummering>
+
+                <Stegoppsummering tittel="Arbeidsoppgaver">
+                    {arbeidsoppgaver}
+                </Stegoppsummering>
+            </Innholdsboks>
+
+            <Innholdsboks>
+                <PanelBase>
+                    <SkjemaGruppe
+                        className={'bekreft'}
+                        title={'Bekreft innhold i avtalen'}
+                    >
+                        <div>
+                            <Knapp
+                                disabled={bekreftetAvBruker}
+                                onClick={() =>
+                                    props.settAvtaleVerdi(
+                                        'bekreftetAvBruker',
+                                        true
+                                    )
+                                }
+                            >
+                                Bekreft som bruker
+                            </Knapp>
+                            {props.avtale.bekreftetAvBruker &&
+                                'Avtalen er bekreftet av bruker'}
+                        </div>
+                        <div>
+                            <Knapp
+                                disabled={bekreftetAvArbeidsgiver}
+                                onClick={() =>
+                                    props.settAvtaleVerdi(
+                                        'bekreftetAvArbeidsgiver',
+                                        true
+                                    )
+                                }
+                            >
+                                Bekreft som arbeidsgiver
+                            </Knapp>
+                            {props.avtale.bekreftetAvArbeidsgiver &&
+                                'Avtalen er bekreftet av arbeidsgiver'}
+                        </div>
+                        <div>
+                            <Knapp
+                                disabled={bekreftetAvVeileder}
+                                onClick={() =>
+                                    props.settAvtaleVerdi(
+                                        'bekreftetAvVeileder',
+                                        true
+                                    )
+                                }
+                            >
+                                Bekreft som NAV-veileder
+                            </Knapp>
+                            {bekreftetAvVeileder &&
+                                'Avtalen er bekreftet av NAV-veileder'}
+                        </div>
+                    </SkjemaGruppe>
+                </PanelBase>
+            </Innholdsboks>
+        </>
     );
 };
 
