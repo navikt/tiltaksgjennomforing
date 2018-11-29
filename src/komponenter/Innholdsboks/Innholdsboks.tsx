@@ -1,8 +1,15 @@
 import * as React from 'react';
 import './Innholdsboks.less';
+import * as classnames from 'classnames';
 
-const Innholdsboks: React.SFC = props => (
-    <div className="innholdsboks">{props.children}</div>
+interface Props {
+    className?: string;
+}
+
+const Innholdsboks: React.FunctionComponent<Props> = props => (
+    <div className={classnames('innholdsboks', props.className)}>
+        {props.children}
+    </div>
 );
 
 export default Innholdsboks;
