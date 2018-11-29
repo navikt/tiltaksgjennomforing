@@ -81,7 +81,7 @@ class RedigerMaal extends React.Component<Props, State> {
                     {maalKategorier}
                 </Select>
                 <Textarea
-                    label="Besktiv målet"
+                    label="Beskriv målet"
                     value={this.state.beskrivelse}
                     onChange={this.settBeskrivelse}
                     maxLength={1000}

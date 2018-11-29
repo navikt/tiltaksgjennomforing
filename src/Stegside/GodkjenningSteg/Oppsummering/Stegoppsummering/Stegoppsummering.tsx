@@ -3,16 +3,15 @@ import { Undertittel } from 'nav-frontend-typografi';
 
 interface Props {
     tittel: string;
-    children: React.ReactNode;
 }
 
-const Stegoppsummering = (props: Props) => (
-    <>
+const Stegoppsummering: React.FunctionComponent<Props> = props => (
+    <div className="stegoppsummering">
         <Undertittel className="stegoppsummering__tittel">
             {props.tittel}
         </Undertittel>
         {props.children}
-    </>
+    </div>
 );
 
 export default Stegoppsummering;

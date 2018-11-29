@@ -18,18 +18,32 @@ const Oppsummering = (props: Props) => {
 
     const maalListe = props.avtale.maal.map(maal => (
         <>
-            <Normaltekst>{maal.kategori}</Normaltekst>
-            <Normaltekst>{maal.beskrivelse}</Normaltekst>
+            <Normaltekst className="oppsummering__label">
+                {maal.kategori}
+            </Normaltekst>
+            <Normaltekst className="oppsummering__beskrivelse">
+                {maal.beskrivelse}
+            </Normaltekst>
         </>
     ));
 
     const arbeidsoppgaver = props.avtale.oppgaver.map(oppgave => (
         <>
-            <Ingress>{oppgave.tittel}</Ingress>
-            <Normaltekst>Hva går arbeidsoppgaven ut på?</Normaltekst>
-            <Normaltekst>{oppgave.beskrivelse}</Normaltekst>
-            <Normaltekst>Hvilken opplæring skal deltakeren få?</Normaltekst>
-            <Normaltekst>{oppgave.opplaering}</Normaltekst>
+            <Ingress className="oppsummering__oppgave-tittel">
+                {oppgave.tittel}
+            </Ingress>
+            <Normaltekst className="oppsummering__label">
+                Hva går arbeidsoppgaven ut på?
+            </Normaltekst>
+            <Normaltekst className="oppsummering__beskrivelse">
+                {oppgave.beskrivelse}
+            </Normaltekst>
+            <Normaltekst className="oppsummering__label">
+                Hvilken opplæring skal deltakeren få?
+            </Normaltekst>
+            <Normaltekst className="oppsummering__beskrivelse">
+                {oppgave.opplaering}
+            </Normaltekst>
         </>
     ));
 
@@ -44,11 +58,12 @@ const Oppsummering = (props: Props) => {
             </Stegoppsummering>
 
             <Stegoppsummering tittel="Varighet">
-                <Normaltekst>Tidsperiode</Normaltekst>
-                <Normaltekst>
-                    {props.avtale.arbeidstreningStillingprosent}%
-                    stillingsprosent i {props.avtale.arbeidstreningLengde} uker
-                    fra {startdato}.
+                <Normaltekst className="oppsummering__label">
+                    Tidsperiode
+                </Normaltekst>
+                <Normaltekst className="oppsummering__beskrivelse">
+                    {props.avtale.arbeidstreningStillingprosent}% stilling i{' '}
+                    {props.avtale.arbeidstreningLengde} uker fra {startdato}.
                 </Normaltekst>
             </Stegoppsummering>
 
