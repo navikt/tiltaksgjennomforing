@@ -20,17 +20,17 @@ const GodkjenningKnapper = (props: Props) => {
             </Systemtittel>
             <KnappOgEtikett
                 godkjent={props.avtale.bekreftetAvBruker}
-                rolle="Bruker"
+                knappTekst="Bruker"
                 onClick={props.bekreftBrukerOnClick}
             />
             <KnappOgEtikett
                 godkjent={props.avtale.bekreftetAvArbeidsgiver}
-                rolle="Arbeidsgiver"
+                knappTekst="Arbeidsgiver"
                 onClick={props.bekreftArbeidsgiverOnClick}
             />
             <KnappOgEtikett
                 godkjent={props.avtale.bekreftetAvVeileder}
-                rolle="NAV"
+                knappTekst="NAV"
                 onClick={props.bekreftVeilederOnClick}
             />
         </Innholdsboks>

@@ -5,26 +5,29 @@ import './KnappOgEtikett.less';
 
 interface Props {
     godkjent: boolean;
-    rolle: string;
+    knappTekst: string;
     onClick: () => void;
 }
 
 const KnappOgEtikett = (props: Props) => {
-    const knappTekst = props.godkjent
-        ? `${props.rolle}: godkjent`
-        : `${props.rolle}: godkjenn`;
     const etikettType = props.godkjent ? 'suksess' : 'fokus';
     const etikettTekst = props.godkjent ? 'Godkjent' : 'Venter på godkjenning';
     return (
         <div className="knapp-og-etikett">
             <Knapp
+                className="knapp-og-etikett__knapp"
                 disabled={props.godkjent}
                 onClick={props.onClick}
                 htmlType="button"
             >
-                {knappTekst}
+                {props.knappTekst}
             </Knapp>
-            <EtikettBase type={etikettType}>{etikettTekst}</EtikettBase>
+            <EtikettBase
+                type={etikettType}
+                className="knapp-og-etikett__etikett"
+            >
+                {etikettTekst}
+            </EtikettBase>
         </div>
     );
 };
