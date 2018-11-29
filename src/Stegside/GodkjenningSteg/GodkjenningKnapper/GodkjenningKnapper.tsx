@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
-import { Knapp } from 'nav-frontend-knapper';
 import { Avtale } from '../../avtale';
+import KnappOgEtikett from './KnappOgEtikett';
 
 interface Props {
     avtale: Avtale;
@@ -10,32 +10,26 @@ interface Props {
     bekreftVeilederOnClick: () => void;
 }
 
-const GodkjenningKnapper = (props: Props) => (
-    <Innholdsboks>
-        <Knapp
-            disabled={props.avtale.bekreftetAvBruker}
-            onClick={props.bekreftBrukerOnClick}
-        >
-            Bekreft som bruker
-        </Knapp>
-        {props.avtale.bekreftetAvBruker && 'Avtalen er bekreftet av bruker'}
-        <Knapp
-            disabled={props.avtale.bekreftetAvArbeidsgiver}
-            onClick={props.bekreftArbeidsgiverOnClick}
-        >
-            Bekreft som arbeidsgiver
-        </Knapp>
-        {props.avtale.bekreftetAvArbeidsgiver &&
-            'Avtalen er bekreftet av arbeidsgiver'}
-        <Knapp
-            disabled={props.avtale.bekreftetAvVeileder}
-            onClick={props.bekreftVeilederOnClick}
-        >
-            Bekreft som NAV-veileder
-        </Knapp>
-        {props.avtale.bekreftetAvVeileder &&
-            'Avtalen er bekreftet av NAV-veileder'}
-    </Innholdsboks>
-);
+const GodkjenningKnapper = (props: Props) => {
+    return (
+        <Innholdsboks>
+            <KnappOgEtikett
+                godkjent={props.avtale.bekreftetAvBruker}
+                rolle="Bruker"
+                onClick={props.bekreftBrukerOnClick}
+            />
+            <KnappOgEtikett
+                godkjent={props.avtale.bekreftetAvArbeidsgiver}
+                rolle="Arbeidsgiver"
+                onClick={props.bekreftArbeidsgiverOnClick}
+            />
+            <KnappOgEtikett
+                godkjent={props.avtale.bekreftetAvVeileder}
+                rolle="NAV"
+                onClick={props.bekreftVeilederOnClick}
+            />
+        </Innholdsboks>
+    );
+};
 
 export default GodkjenningKnapper;
