@@ -9,7 +9,7 @@ interface Props {
 
 const OppgaverOppsummering = (props: Props) => {
     const arbeidsoppgaver = props.avtale.oppgaver.map(oppgave => (
-        <>
+        <div key={oppgave.id}>
             <Ingress className="oppsummering__oppgave-tittel">
                 {oppgave.tittel}
             </Ingress>
@@ -25,7 +25,7 @@ const OppgaverOppsummering = (props: Props) => {
             <Normaltekst className="oppsummering__beskrivelse">
                 {oppgave.opplaering}
             </Normaltekst>
-        </>
+        </div>
     ));
 
     return (
