@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { Avtale } from '../../../avtale';
+import './Avtaleparter.less';
 
 interface Props {
     avtale: Avtale;
@@ -8,22 +9,20 @@ interface Props {
 
 const Avtaleparter = (props: Props) => (
     <>
-        <Systemtittel>Godkjenning av avtale</Systemtittel>
-        <Normaltekst>
-            Dette er en avtale inngått av følgende parter:
-        </Normaltekst>
-        <Normaltekst>Deltaker</Normaltekst>
-        <Normaltekst>{`${props.avtale.deltakerFornavn} ${
-            props.avtale.deltakerEtternavn
+        <Normaltekst className="avtaleparter__label">Deltaker</Normaltekst>
+        <Normaltekst className="avtaleparter__navn">{`${
+            props.avtale.deltakerFornavn
+        } ${props.avtale.deltakerEtternavn}`}</Normaltekst>
+        <Normaltekst className="avtaleparter__label">Arbeidsgiver</Normaltekst>
+        <Normaltekst className="avtaleparter__navn">{`${
+            props.avtale.bedriftNavn
+        } v/${props.avtale.arbeidsgiverFornavn} ${
+            props.avtale.arbeidsgiverEtternavn
         }`}</Normaltekst>
-        <Normaltekst>Arbeidsgiver</Normaltekst>
-        <Normaltekst>{`${props.avtale.bedriftNavn} v/${
-            props.avtale.arbeidsgiverFornavn
-        } ${props.avtale.arbeidsgiverEtternavn}`}</Normaltekst>
-        <Normaltekst>NAV</Normaltekst>
-        <Normaltekst>{`${props.avtale.veilederFornavn} ${
-            props.avtale.veilederEtternavn
-        }`}</Normaltekst>
+        <Normaltekst className="avtaleparter__label">NAV</Normaltekst>
+        <Normaltekst className="avtaleparter__navn">{`${
+            props.avtale.veilederFornavn
+        } ${props.avtale.veilederEtternavn}`}</Normaltekst>
     </>
 );
 

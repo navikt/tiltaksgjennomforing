@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Ingress, Normaltekst } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Avtale } from '../../avtale';
 import * as moment from 'moment';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
 import Avtaleparter from './Avtaleparter/Avtaleparter';
 import Stegoppsummering from './Stegoppsummering/Stegoppsummering';
+import './Oppsummering.less';
 
 interface Props {
     avtale: Avtale;
@@ -34,7 +35,13 @@ const Oppsummering = (props: Props) => {
 
     return (
         <Innholdsboks>
-            <Avtaleparter avtale={props.avtale} />
+            <Systemtittel className="oppsummering__tittel">
+                Godkjenning av avtale
+            </Systemtittel>
+
+            <Stegoppsummering tittel="Avtalens parter">
+                <Avtaleparter avtale={props.avtale} />
+            </Stegoppsummering>
 
             <Stegoppsummering tittel="Varighet">
                 <Normaltekst>Tidsperiode</Normaltekst>
@@ -54,4 +61,5 @@ const Oppsummering = (props: Props) => {
     );
 };
 
+// TODO: medContext?
 export default Oppsummering;
