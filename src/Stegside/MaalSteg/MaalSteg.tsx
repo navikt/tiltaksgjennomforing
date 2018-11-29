@@ -15,10 +15,10 @@ class MaalSteg extends React.Component<Context> {
         ));
 
         return (
-            <div className="maalsteg">
+            <>
                 <OpprettMaal lagreMaal={this.props.lagreMaal} />
                 {maalListe}
-            </div>
+            </>
         );
     }
 }

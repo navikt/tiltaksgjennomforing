@@ -1,18 +1,24 @@
 import * as React from 'react';
-import { Ingress, Innholdstittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../AvtaleContext';
-import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
+import OpprettOppgave from './OpprettOppgave/OpprettOppgave';
+import OppgaveKort from './OppgaveKort/OppgaveKort';
 
-const ArbeidsoppgaverSteg = (props: Context) => (
-    <Innholdsboks>
-        <Innholdstittel tag="h2">
-            Beskriv arbeidsoppgavene som skal utføres
-        </Innholdstittel>
-        <Ingress>
-            Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal
-            utføre hos dere under arbeidstreningen.
-        </Ingress>
-    </Innholdsboks>
-);
+const ArbeidsoppgaverSteg = (props: Context) => {
+    const oppgaver = props.avtale.oppgaver.map(oppgave => (
+        <OppgaveKort
+            oppgave={oppgave}
+            key={oppgave.id}
+            lagreOppgave={props.lagreOppgave}
+            slettOppgave={props.slettOppgave}
+        />
+    ));
+
+    return (
+        <>
+            <OpprettOppgave lagreOppgave={props.lagreOppgave} />
+            {oppgaver}
+        </>
+    );
+};
 
 export default medContext(ArbeidsoppgaverSteg);

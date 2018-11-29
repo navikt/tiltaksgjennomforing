@@ -7,6 +7,7 @@ export type Avtale = AvtaleMetadata &
     Veilederinfo &
     Arbeidstid &
     MaalListe &
+    Oppgaver &
     Oppfolging &
     Bekreftelser;
 
@@ -46,7 +47,8 @@ export interface Veilederinfo {
 
 export interface Arbeidstid {
     startDatoTimestamp: number;
-    sluttDatoTimestamp: number;
+    arbeidstreningLengde: number;
+    arbeidstreningStillingprosent: number;
 }
 
 export interface MaalListe {
@@ -58,6 +60,18 @@ export interface Maal {
     opprettetTimestamp: number;
     kategori: Maalkategori;
     beskrivelse: string;
+}
+
+export interface Oppgaver {
+    oppgaver: Oppgave[];
+}
+
+export interface Oppgave {
+    id: string;
+    opprettetTimestamp: number;
+    tittel: string;
+    beskrivelse: string;
+    opplaering: string;
 }
 
 export interface Oppfolging {

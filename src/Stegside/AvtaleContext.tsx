@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { hentAvtaler, lagreAvtale, opprettAvtale } from '../services/firebase';
-import { Avtale, Maal } from './avtale';
+import { Avtale, Maal, Oppgave } from './avtale';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import * as moment from 'moment';
 import { pathTilKontaktinformasjonSteg, pathTilOversikt } from '../paths';
@@ -35,8 +35,11 @@ export const tomAvtale: Avtale = {
     tilrettelegging: '',
 
     startDatoTimestamp: moment().valueOf(),
-    sluttDatoTimestamp: moment().valueOf(),
+    arbeidstreningLengde: 1,
+    arbeidstreningStillingprosent: 0,
+
     maal: [],
+    oppgaver: [],
 
     bekreftetAvBruker: false,
     bekreftetAvArbeidsgiver: false,
@@ -49,15 +52,21 @@ export interface Context {
     lagreAvtale: () => void;
     lagreMaal: (maal: Maal) => void;
     slettMaal: (maal: Maal) => void;
+    lagreOppgave: (oppgave: Oppgave) => void;
+    slettOppgave: (oppgave: Oppgave) => void;
 }
 
+// tslint:disable no-empty
 const AvtaleContext = React.createContext<Context>({
     avtale: tomAvtale,
-    settAvtaleVerdi: () => {}, // tslint:disable-line
-    lagreAvtale: () => {}, // tslint:disable-line
-    lagreMaal: () => {}, // tslint:disable-line
-    slettMaal: () => {}, // tslint:disable-line
+    settAvtaleVerdi: () => {},
+    lagreAvtale: () => {},
+    lagreMaal: () => {},
+    slettMaal: () => {},
+    lagreOppgave: () => {},
+    slettOppgave: () => {},
 });
+// tslint:enable
 
 export const AvtaleConsumer = AvtaleContext.Consumer;
 
@@ -81,6 +90,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.opprettAvtaleKlikk = this.opprettAvtaleKlikk.bind(this);
         this.lagreMaal = this.lagreMaal.bind(this);
         this.slettMaal = this.slettMaal.bind(this);
+        this.lagreOppgave = this.lagreOppgave.bind(this);
+        this.slettOppgave = this.slettOppgave.bind(this);
     }
 
     componentDidMount() {
@@ -131,6 +142,28 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.lagreAvtale();
     }
 
+    lagreOppgave(oppgaveTilLagring: Oppgave) {
+        const avtale: Avtale = this.state.avtaler[this.state.valgtAvtaleId];
+        const nyeOppgaver = avtale.oppgaver.filter(
+            (oppgave: Oppgave) => oppgave.id !== oppgaveTilLagring.id
+        );
+        nyeOppgaver.push(oppgaveTilLagring);
+        nyeOppgaver.sort(
+            (a: Oppgave, b: Oppgave) =>
+                b.opprettetTimestamp - a.opprettetTimestamp
+        );
+        this.settAvtaleVerdi('oppgaver', nyeOppgaver, this.lagreAvtale);
+    }
+
+    slettOppgave(oppgaveTilSletting: Oppgave) {
+        const avtale: Avtale = this.state.avtaler[this.state.valgtAvtaleId];
+        const nyeOppgaver = avtale.oppgaver.filter(
+            (oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id
+        );
+        this.settAvtaleVerdi('oppgaver', nyeOppgaver, this.lagreAvtale);
+        this.lagreAvtale();
+    }
+
     avtaleKlikk(avtaleId: string) {
         this.setState({ valgtAvtaleId: avtaleId });
         this.props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
@@ -156,6 +189,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             lagreAvtale: this.lagreAvtale,
             lagreMaal: this.lagreMaal,
             slettMaal: this.slettMaal,
+            lagreOppgave: this.lagreOppgave,
+            slettOppgave: this.slettOppgave,
         };
 
         return (

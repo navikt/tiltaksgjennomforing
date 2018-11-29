@@ -73,22 +73,22 @@ class RedigerMaal extends React.Component<Props, State> {
         return (
             <>
                 <Select
-                    className="nytt-maal__kategori-dropdown"
+                    className="rediger-maal__kategori-dropdown"
                     label="Hva er målet med arbeidstreningen?"
-                    selected={this.state.valgtKategori}
+                    value={this.state.valgtKategori}
                     onChange={this.velgKategori}
                 >
                     {maalKategorier}
                 </Select>
                 <Textarea
-                    label="Besktiv målet"
+                    label="Beskriv målet"
                     value={this.state.beskrivelse}
                     onChange={this.settBeskrivelse}
                     maxLength={1000}
                     tellerTekst={this.lagTellerTekst}
                 />
                 <Hovedknapp
-                    className="nytt-maal__lagre-knapp"
+                    className="rediger-maal__lagre-knapp"
                     htmlType="button"
                     onClick={this.lagreKnappOnClick}
                 >
