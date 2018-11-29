@@ -1,0 +1,25 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.knapp-og-etikett {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  white-space: unset;
+
+  &__knapp {
+    width: 15rem;
+  }
+
+  &__etikett {
+    width: 12rem;
+    text-align: center;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .knapp-og-etikett {
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+}
