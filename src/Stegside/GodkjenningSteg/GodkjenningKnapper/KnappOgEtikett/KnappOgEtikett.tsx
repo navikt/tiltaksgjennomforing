@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Knapp } from 'nav-frontend-knapper';
 import EtikettBase from 'nav-frontend-etiketter';
+import './KnappOgEtikett.less';
 
 interface Props {
     godkjent: boolean;
@@ -15,7 +16,7 @@ const KnappOgEtikett = (props: Props) => {
     const etikettType = props.godkjent ? 'suksess' : 'fokus';
     const etikettTekst = props.godkjent ? 'Godkjent' : 'Venter på godkjenning';
     return (
-        <>
+        <div className="knapp-og-etikett">
             <Knapp
                 disabled={props.godkjent}
                 onClick={props.onClick}
@@ -24,7 +25,7 @@ const KnappOgEtikett = (props: Props) => {
                 {knappTekst}
             </Knapp>
             <EtikettBase type={etikettType}>{etikettTekst}</EtikettBase>
-        </>
+        </div>
     );
 };
 

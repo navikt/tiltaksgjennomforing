@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '../../avtale';
-import KnappOgEtikett from './KnappOgEtikett';
+import KnappOgEtikett from './KnappOgEtikett/KnappOgEtikett';
 
 interface Props {
     avtale: Avtale;
