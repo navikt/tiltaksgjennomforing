@@ -39,7 +39,7 @@ class MaalKort extends React.Component<Props, State> {
 
     render() {
         return (
-            <Innholdsboks>
+            <Innholdsboks className="maalkort">
                 {this.state.iEndreModus ? (
                     <RedigerMaal
                         defaultMaal={this.props.maal}

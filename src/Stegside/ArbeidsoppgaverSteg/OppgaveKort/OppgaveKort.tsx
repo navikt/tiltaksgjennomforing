@@ -39,7 +39,7 @@ class OppgaveKort extends React.Component<Props, State> {
 
     render() {
         return (
-            <Innholdsboks>
+            <Innholdsboks className="oppgavekort">
                 {this.state.iEndreModus ? (
                     <RedigerOppgave
                         defaultOppgave={this.props.oppgave}

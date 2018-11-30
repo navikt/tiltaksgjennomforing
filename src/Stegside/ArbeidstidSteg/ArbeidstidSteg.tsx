@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Datovelger from './Datovelger/datovelger';
-import { Moment } from 'moment';
 import * as moment from 'moment';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Moment } from 'moment';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import Ukevelger from './Ukevelger/Ukevelger';
@@ -45,9 +45,9 @@ class ArbeidstidSteg extends React.Component<Context, State> {
 
         return (
             <Innholdsboks>
-                <Innholdstittel className="arbeidstidsteg__tittel" tag="h2">
+                <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
                     Arbeidstid og oppstart
-                </Innholdstittel>
+                </Systemtittel>
                 <Normaltekst className="arbeidstidsteg__startdato-label">
                     Startdato
                 </Normaltekst>
