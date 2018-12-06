@@ -4,6 +4,7 @@ import { Context, medContext } from '../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import { Textarea } from 'nav-frontend-skjema';
 import './OppfolgingSteg.less';
+import HjelpetekstBase from 'nav-frontend-hjelpetekst';
 
 const OppfolgingSteg = (props: Context) => {
     const onChange = (label: string) => {
@@ -19,9 +20,15 @@ const OppfolgingSteg = (props: Context) => {
             <Systemtittel className="oppfolgingsteg__tittel">
                 Oppfølging og tilrettelegging
             </Systemtittel>
-            <Undertittel className="oppfolgingsteg__oppfolging-undertittel">
-                Oppfølging
-            </Undertittel>
+            <div className="oppfolgingsteg__undertittel-wrapper">
+                <Undertittel className="oppfolgingsteg__oppfolging-undertittel">
+                    Oppfølging
+                </Undertittel>
+                <HjelpetekstBase id="hjelpetekst">
+                    Beskriv hvor ofte og i hvilken form det er ønskelig at dere
+                    skal få oppfølging fra NAV.
+                </HjelpetekstBase>
+            </div>
             <Textarea
                 label="Hvordan skal oppfølgingen fra NAV være?"
                 value={props.avtale.oppfolging}
@@ -29,9 +36,16 @@ const OppfolgingSteg = (props: Context) => {
                 maxLength={1000}
                 tellerTekst={lagTellerTekst}
             />
-            <Undertittel className="oppfolgingsteg__tilrettelegging-undertittel">
-                Tilrettelegging
-            </Undertittel>
+            <div className="oppfolgingsteg__undertittel-wrapper">
+                <Undertittel className="oppfolgingsteg__tilrettelegging-undertittel">
+                    Tilrettelegging
+                </Undertittel>
+                <HjelpetekstBase id="hjelpetekst">
+                    Beskriv avtalt tilrettelegging av arbeidssituasjonen (for
+                    eksempel tilpasning i arbeidstid, hjelpemidler, unngå
+                    enkelte typer arbeidsoppgaver mv.)
+                </HjelpetekstBase>
+            </div>
             <Textarea
                 label="Beskriv hvilken tilrettelegging det er behov for"
                 value={props.avtale.tilrettelegging}
