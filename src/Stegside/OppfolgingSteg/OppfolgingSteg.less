@@ -5,29 +5,32 @@
     display: none;
   }
 
-  &__oppfolging-undertittel {
+  &__undertittel-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+
+  &__oppfolging-undertittel {
+    margin-bottom: 0.3rem;
   }
 
   &__tilrettelegging-undertittel {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.3rem;
   }
 }
 
 @media (min-width: @screen-sm-min) {
   .oppfolgingsteg {
     &__tittel {
+      display: block;
       margin-bottom: 3rem;
     }
 
-    &__oppfolging-undertittel {
-      margin-bottom: 1rem;
-    }
-
-    &__tilrettelegging-undertittel {
+    &__undertittel-wrapper {
       margin-top: 3rem;
-      margin-bottom: 1rem;
     }
   }
 }
