@@ -5,9 +5,10 @@ const apiUrl = '/tiltaksgjennomforing/api';
 
 export default class RestService extends Service {
     async hentAvtale(id: string): Promise<Avtale> {
-        return fetch(`${apiUrl}/avtaler/${id}`).then((response: Response) =>
+        const avtale = await fetch(`${apiUrl}/avtaler/${id}`).then((response: Response) =>
             response.json()
         );
+        return {...avtale, id: `${avtale.id}`};
     }
 
     async hentAvtaler(): Promise<Map<string, Avtale>> {
@@ -28,12 +29,13 @@ export default class RestService extends Service {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then((putResponse: Response) => {
+        }).then(async (putResponse: Response) => {
             const location = putResponse.headers.get('Location');
             if (location) {
-                return fetch(`${apiUrl}/${location}`).then(
+                const avtale = await fetch(`${apiUrl}/${location}`).then(
                     (getResponse: Response) => getResponse.json()
                 );
+                return {...avtale, id: `${avtale.id}`};
             }
             return Promise.reject('Kunne ikke endre avtale');
         });
