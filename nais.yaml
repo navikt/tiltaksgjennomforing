@@ -6,11 +6,17 @@ metadata:
 spec:
   image: navikt/tiltaksgjennomforing:latest
   team: teamtag
-  port: 80
-  healthcheck:
-    liveness:
-      path: /isAlive
-      initialDelay: 20
-    readiness:
-      path: /isReady
-      initialDelay: 20
+  port: 3000
+  ingresses:
+  - https://tiltaksgjennomforing.nais.preprod.local/tiltaksgjennomforing
+  liveness:
+    path: /tiltaksgjennomforing/internal/isAlive
+    initialDelay: 20
+  readiness:
+    path: /tiltaksgjennomforing/internal/isReady
+    initialDelay: 20
+  env:
+  - name: HTTP_PROXY
+    value: http://webproxy-nais.nav.no:8088
+  - name: API_GATEWAY
+    value: https://tiltaksgjennomforing-backend

@@ -1,12 +1,15 @@
-FROM node as node-builder
-
-ADD / /source
-ENV CI=true
-WORKDIR /source
-RUN npm ci && npm run build
+FROM node as builder
 
 
-FROM nginx
-ENV APPLICATION_NAME=tiltaksgjennomforing
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=node-builder /source/build /usr/share/nginx/html/tiltaksgjennomforing
+FROM node
+
+WORKDIR /usr/src/app
+
+COPY public/ ./public
+COPY build/ ./build
+COPY server.js ./
+COPY node_modules/ ./node_modules
+COPY package.json ./
+
+EXPOSE 3000
+CMD ["npm", "run", "start:server"]
