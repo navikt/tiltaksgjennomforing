@@ -22,3 +22,6 @@ spec:
     value: http://webproxy-nais.nav.no:8088
   - name: API_GATEWAY
     value: https://tiltaksgjennomforing-backend
+  # Midlertidig disabling NODE_TLS_REJECT_UNAUTHORIZED inntil sertifikat er installert
+  - name: NODE_TLS_REJECT_UNAUTHORIZED
+    value: '0'
