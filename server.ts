@@ -66,14 +66,15 @@ server.use(
     '/tiltaksgjennomforing/api',
     proxy(backendHost(), {
         https: true,
-        proxyReqOptDecorator: (proxyReqOpts: any, srcReq: any) => ({
+        /*proxyReqOptDecorator: (proxyReqOpts: any, srcReq: any) => ({
             ...proxyReqOpts,
             cookie: srcReq.headers.cookie,
             headers: {
+                ...srcReq.headers,
                 ...proxyReqOpts.headers,
                 //'x-nav-apiKey': envProperties.PROXY_API_KEY
             },
-        }),
+        }),*/
         proxyReqPathResolver: (req: any) => {
             const convertedPath = `/${gatewayPrefix()}/${req.originalUrl
                 .split('/tiltaksgjennomforing/api/')
