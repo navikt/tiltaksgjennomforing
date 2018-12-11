@@ -18,10 +18,8 @@ spec:
     path: /tiltaksgjennomforing/internal/isReady
     initialDelay: 20
   env:
-  - name: HTTP_PROXY
-    value: http://webproxy-nais.nav.no:8088
   - name: API_GATEWAY
-    value: https://tiltaksgjennomforing-backend
+    value: https://tiltaksgjennomforing.nais.preprod.local/tiltaksgjennomforing-api
   # Midlertidig disabling NODE_TLS_REJECT_UNAUTHORIZED inntil sertifikat er installert
   - name: NODE_TLS_REJECT_UNAUTHORIZED
     value: '0'
