@@ -17,7 +17,7 @@ export default class RestService extends Service {
         );
         return avtaler.reduce(
             (map: Map<string, Avtale>, avtale: Avtale) =>
-                map.set(`${avtale.id}`, avtale),
+                map.set(`${avtale.id}`, { ...avtale, id: `${avtale.id}` }),
             new Map<string, Avtale>()
         );
     }
@@ -48,12 +48,13 @@ export default class RestService extends Service {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then((postResponse: Response) => {
+        }).then(async (postResponse: Response) => {
             const location = postResponse.headers.get('Location');
             if (location) {
-                return fetch(`${apiUrl}/${location}`).then(
+                const avtale = await fetch(`${apiUrl}/${location}`).then(
                     (getResponse: Response) => getResponse.json()
                 );
+                return { ...avtale, id: `${avtale.id}` };
             }
             return Promise.reject('Kunne ikke opprette ny avtale');
         });
