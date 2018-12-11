@@ -1,6 +1,3 @@
-FROM node as builder
-
-
 FROM node
 
 WORKDIR /usr/src/app
