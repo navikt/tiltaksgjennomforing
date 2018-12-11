@@ -2,6 +2,7 @@ FROM node
 
 WORKDIR /usr/src/app
 
+RUN npm install -g express
 COPY public/ ./public
 COPY build/ ./build
 COPY server.js ./
