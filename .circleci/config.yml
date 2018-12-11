@@ -9,6 +9,7 @@ jobs:
     - run:
         name: Bygg React app
         command: |
+          npm ci
           npm run build
 
     - setup_remote_docker
