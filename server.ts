@@ -51,11 +51,13 @@ const gatewayPrefix = (): string => {
 };
 
 // health checks
-server.get('/tiltaksgjennomforing/internal/isAlive', (req: express.Request, res: express.Response) =>
-    res.sendStatus(200)
+server.get(
+    '/tiltaksgjennomforing/internal/isAlive',
+    (req: express.Request, res: express.Response) => res.sendStatus(200)
 );
-server.get('/tiltaksgjennomforing/internal/isReady', (req: express.Request, res: express.Response) =>
-    res.sendStatus(200)
+server.get(
+    '/tiltaksgjennomforing/internal/isReady',
+    (req: express.Request, res: express.Response) => res.sendStatus(200)
 );
 
 // proxy til backend
@@ -86,19 +88,12 @@ server.use(
 );
 
 server.use(
-    '/tiltaksgjennomforing/static',
-    express.static(path.resolve(__dirname, 'build', 'static'))
+    '/tiltaksgjennomforing',
+    express.static(path.join(__dirname, 'build'))
 );
-server.use(
-    '/tiltaksgjennomforing/index.css',
-    express.static(path.resolve(__dirname, 'build', 'index.css'))
-);
+
 server.use(
     '/tiltaksgjennomforing',
-    express.static(path.resolve(__dirname, 'build'))
-);
-server.use(
-    '/tiltaksgjennomforing*',
     (req: express.Request, res: express.Response) => {
         res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
     }
