@@ -10,7 +10,7 @@ spec:
   team: teamtag
   port: 3000
   ingresses:
-  - https://tiltaksgjennomforing.nais.preprod.local/tiltaksgjennomforing
+  - https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
   liveness:
     path: /tiltaksgjennomforing/internal/isAlive
     initialDelay: 20
@@ -19,7 +19,7 @@ spec:
     initialDelay: 20
   env:
   - name: API_GATEWAY
-    value: https://tiltaksgjennomforing.nais.preprod.local/tiltaksgjennomforing-api
+    value: https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing-api
   # Midlertidig disabling NODE_TLS_REJECT_UNAUTHORIZED inntil sertifikat er installert
   - name: NODE_TLS_REJECT_UNAUTHORIZED
     value: '0'
