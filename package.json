@@ -58,7 +58,7 @@
   },
   "scripts": {
     "start": "react-scripts-ts start",
-    "start:server": "node server.js"
+    "start:server": "node server.js",
     "build": "react-scripts-ts build",
     "build:server": "tsc -p tsconfig.server.json",
     "test": "react-scripts-ts test --env=jsdom",
