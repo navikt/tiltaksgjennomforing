@@ -1,4 +1,4 @@
-FROM node
+FROM node:11-slim
 ENV NODE_PATH=/usr/local/lib/node_modules
 
 WORKDIR /usr/src/app
