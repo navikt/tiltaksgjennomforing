@@ -58,12 +58,11 @@
   },
   "scripts": {
     "start": "react-scripts-ts start",
-    "build:ts": "react-scripts-ts build",
+    "start:server": "node server.js"
+    "build": "react-scripts-ts build",
     "build:server": "tsc -p tsconfig.server.json",
-    "build": "npm-run-all -p build:*",
     "test": "react-scripts-ts test --env=jsdom",
     "server": "npm run build:server && npm run start:server",
-    "start:server": "node server.js"
   },
   "devDependencies": {
     "@navikt/create-react-app-typescript-less": "^1.0.0-beta.16",
