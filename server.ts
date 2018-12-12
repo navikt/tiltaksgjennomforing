@@ -90,6 +90,10 @@ server.use(
     express.static(path.resolve(__dirname, 'build', 'static'))
 );
 server.use(
+    '/tiltaksgjennomforing/index.css',
+    express.static(path.resolve(__dirname, 'build', 'index.css'))
+);
+server.use(
     '/tiltaksgjennomforing',
     express.static(path.resolve(__dirname, 'build'))
 );
