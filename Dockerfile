@@ -7,7 +7,6 @@ RUN npm install -g express
 RUN npm install -g helmet
 RUN npm install -g express-http-proxy
 
-COPY public/ ./public
 COPY build/ ./build
 COPY server.js ./
 COPY package.json ./
