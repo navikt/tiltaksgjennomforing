@@ -1,4 +1,5 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/database';
 import { Avtale } from '../Stegside/avtale';
 import { tomAvtale } from '../Stegside/AvtaleContext';
 import Service from './service';
@@ -53,7 +54,7 @@ export default class FirebaseService extends Service {
             );
     }
 
-    lagreAvtale(avtale: Avtale): Promise<Avtale> {
+    lagreAvtale(avtale: Avtale): Promise<void> {
         return avtaleRef(avtale.id).set(avtale);
     }
 

@@ -20,6 +20,10 @@ spec:
   env:
   - name: API_GATEWAY
     value: https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing-api
+  - name: LOGIN_URL
+    value: https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
+  - name: LOGOUT_URL
+    value: https://loginservice.nais.preprod.local/slo
   # Midlertidig disabling NODE_TLS_REJECT_UNAUTHORIZED inntil sertifikat er installert
   - name: NODE_TLS_REJECT_UNAUTHORIZED
     value: '0'

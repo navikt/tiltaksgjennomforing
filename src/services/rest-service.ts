@@ -1,19 +1,31 @@
 import { Avtale } from '../Stegside/avtale';
 import Service from './service';
 
-const apiUrl = '/tiltaksgjennomforing/api';
+const API_URL = '/tiltaksgjennomforing/api';
+const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
+const HTTP_UNAUTHORIZED = 401;
+
+const handleAuthorizedResponse = (response: Response, callback?: () => any) => {
+    if (response.status === HTTP_UNAUTHORIZED) {
+        window.location.href = LOGIN_REDIRECT;
+        return;
+    }
+    return callback && callback();
+};
 
 export default class RestService extends Service {
     async hentAvtale(id: string): Promise<Avtale> {
-        const avtale = await fetch(`${apiUrl}/avtaler/${id}`).then(
-            (response: Response) => response.json()
+        const avtale = await fetch(`${API_URL}/avtaler/${id}`).then(
+            (response: Response) =>
+                handleAuthorizedResponse(response, () => response.json())
         );
         return { ...avtale, id: `${avtale.id}` };
     }
 
     async hentAvtaler(): Promise<Map<string, Avtale>> {
-        const avtaler: Avtale[] = await fetch(`${apiUrl}/avtaler`).then(
-            (response: Response) => response.json()
+        const avtaler: Avtale[] = await fetch(`${API_URL}/avtaler`).then(
+            (response: Response) =>
+                handleAuthorizedResponse(response, () => response.json())
         );
         return avtaler.reduce(
             (map: Map<string, Avtale>, avtale: Avtale) =>
@@ -22,27 +34,18 @@ export default class RestService extends Service {
         );
     }
 
-    async lagreAvtale(avtale: Avtale): Promise<Avtale> {
-        return fetch(`${apiUrl}/avtaler/${avtale.id}`, {
+    lagreAvtale(avtale: Avtale): Promise<void> {
+        return fetch(`${API_URL}/avtaler/${avtale.id}`, {
             method: 'PUT',
             body: JSON.stringify(avtale),
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then(async (putResponse: Response) => {
-            const location = putResponse.headers.get('Location');
-            if (location) {
-                const lagretAvtale = await fetch(`${apiUrl}/${location}`).then(
-                    (getResponse: Response) => getResponse.json()
-                );
-                return { ...lagretAvtale, id: `${lagretAvtale.id}` };
-            }
-            return Promise.reject('Kunne ikke endre avtale');
-        });
+        }).then(handleAuthorizedResponse);
     }
 
-    async opprettAvtale(): Promise<Avtale> {
-        return fetch(`${apiUrl}/avtaler`, {
+    opprettAvtale(): Promise<Avtale> {
+        return fetch(`${API_URL}/avtaler`, {
             method: 'POST',
             body: JSON.stringify({}),
             headers: {
@@ -51,8 +54,11 @@ export default class RestService extends Service {
         }).then(async (postResponse: Response) => {
             const location = postResponse.headers.get('Location');
             if (location) {
-                const avtale = await fetch(`${apiUrl}/${location}`).then(
-                    (getResponse: Response) => getResponse.json()
+                const avtale = await fetch(`${API_URL}/${location}`).then(
+                    (response: Response) =>
+                        handleAuthorizedResponse(response, () =>
+                            response.json()
+                        )
                 );
                 return { ...avtale, id: `${avtale.id}` };
             }

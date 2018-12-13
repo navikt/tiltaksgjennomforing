@@ -63,7 +63,7 @@
     "build": "npm-run-all -p build:*",
     "test": "react-scripts-ts test --env=jsdom",
     "server": "npm run build:server && npm run start:server",
-    "start:server": "node server.js"
+    "start:server": "node %NODE_DEBUG_OPTION% server.js"
   },
   "devDependencies": {
     "@navikt/create-react-app-typescript-less": "^1.0.0-beta.16",

@@ -4,6 +4,9 @@ import * as express from 'express';
 import * as helmet from 'helmet';
 import * as path from 'path';
 
+const HTTP_OK = 200;
+const HTTP_NOT_FOUND = 404;
+
 const server = express();
 
 // tslint:disable-next-line
@@ -15,8 +18,8 @@ server.use(helmet());
 
 const envProperties = {
     API_GATEWAY: process.env.API_GATEWAY,
-    LOGIN_URL: process.env.LOGINSERVICE_URL,
-    LOGOUT_URL: process.env.LOGOUTSERVICE_URL,
+    LOGIN_URL: process.env.LOGIN_URL,
+    LOGOUT_URL: process.env.LOGOUT_URL,
     PROXY_API_KEY: process.env.API_PROXY_API_APIKEY,
 };
 
@@ -53,11 +56,33 @@ const gatewayPrefix = (): string => {
 // health checks
 server.get(
     '/tiltaksgjennomforing/internal/isAlive',
-    (req: express.Request, res: express.Response) => res.sendStatus(200)
+    (req: express.Request, res: express.Response) => res.sendStatus(HTTP_OK)
 );
 server.get(
     '/tiltaksgjennomforing/internal/isReady',
-    (req: express.Request, res: express.Response) => res.sendStatus(200)
+    (req: express.Request, res: express.Response) => res.sendStatus(HTTP_OK)
+);
+
+server.get(
+    '/tiltaksgjennomforing/login',
+    (req: express.Request, res: express.Response) => {
+        if (envProperties.LOGIN_URL) {
+            res.redirect(envProperties.LOGIN_URL);
+        } else {
+            res.sendStatus(HTTP_NOT_FOUND);
+        }
+    }
+);
+
+server.get(
+    '/tiltaksgjennomforing/logout',
+    (req: express.Request, res: express.Response) => {
+        if (envProperties.LOGOUT_URL) {
+            res.redirect(envProperties.LOGOUT_URL);
+        } else {
+            res.sendStatus(HTTP_NOT_FOUND);
+        }
+    }
 );
 
 // proxy til backend
@@ -67,8 +92,8 @@ console.log('proxy prefix: ' + gatewayPrefix());
 server.use(
     '/tiltaksgjennomforing/api',
     proxy(backendHost(), {
-        https: true,
-        /*proxyReqOptDecorator: (proxyReqOpts: any, srcReq: any) => ({
+        //https: true,
+        proxyReqOptDecorator: (proxyReqOpts: any, srcReq: any) => ({
             ...proxyReqOpts,
             cookie: srcReq.headers.cookie,
             headers: {
@@ -76,7 +101,7 @@ server.use(
                 ...proxyReqOpts.headers,
                 //'x-nav-apiKey': envProperties.PROXY_API_KEY
             },
-        }),*/
+        }),
         proxyReqPathResolver: (req: any) => {
             const convertedPath = `/${gatewayPrefix()}/${req.originalUrl
                 .split('/tiltaksgjennomforing/api/')
