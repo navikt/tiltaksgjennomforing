@@ -9,6 +9,7 @@ import * as moment from 'moment';
 interface Props {
     lagreMaal: (maal: Maal) => void;
     defaultMaal?: Maal;
+    ledigeMaalkategorier: Maalkategori[];
 }
 
 interface State {
@@ -17,19 +18,10 @@ interface State {
 }
 
 class RedigerMaal extends React.Component<Props, State> {
-    maalListe: Maalkategori[] = [
-        'Utprøving',
-        'Arbeidserfaring',
-        'Språkopplæring',
-        'Oppnå fagbrev/kompetansebevis',
-        'Få jobb i bedriften',
-        'Annet',
-    ];
-
     state = {
         valgtKategori:
             (this.props.defaultMaal && this.props.defaultMaal.kategori) ||
-            this.maalListe[0],
+            this.props.ledigeMaalkategorier[0],
         beskrivelse:
             (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) ||
             '',
@@ -64,7 +56,7 @@ class RedigerMaal extends React.Component<Props, State> {
     };
 
     render() {
-        const maalKategorier = this.maalListe.map(maal => (
+        const maalKategorier = this.props.ledigeMaalkategorier.map(maal => (
             <option value={maal} key={maal}>
                 {maal}
             </option>

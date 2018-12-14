@@ -4,11 +4,13 @@ import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
 import './MaalKort.less';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import LagretMaal from './LagretMaal/LagretMaal';
+import { Maalkategori } from '../../maalkategorier';
 
 interface Props {
     maal: Maal;
     slettMaal: (maal: Maal) => void;
     lagreMaal: (maal: Maal) => void;
+    ledigeMaalkategorier: Maalkategori[];
 }
 
 interface State {
@@ -43,6 +45,7 @@ class MaalKort extends React.Component<Props, State> {
                 {this.state.iEndreModus ? (
                     <RedigerMaal
                         defaultMaal={this.props.maal}
+                        ledigeMaalkategorier={this.props.ledigeMaalkategorier}
                         lagreMaal={this.lagreMaal}
                     />
                 ) : (
