@@ -5,9 +5,11 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
 import { Maal } from '../../avtale';
 import './OpprettMaal.less';
+import { Maalkategori } from '../../maalkategorier';
 
 interface Props {
     lagreMaal: (maal: Maal) => void;
+    ledigeMaalkategorier: Maalkategori[];
 }
 
 class OpprettMaal extends React.Component<Props> {
@@ -35,7 +37,10 @@ class OpprettMaal extends React.Component<Props> {
                     Opprett mål
                 </Systemtittel>
                 {this.state.visRedigerMaal ? (
-                    <RedigerMaal lagreMaal={this.lagreMaal} />
+                    <RedigerMaal
+                        ledigeMaalkategorier={this.props.ledigeMaalkategorier}
+                        lagreMaal={this.lagreMaal}
+                    />
                 ) : (
                     <Knapp
                         className="opprett-maal__knapp"
