@@ -14,7 +14,7 @@ class App extends React.Component {
                 <BrowserRouter>
                     <AvtaleProvider>
                         <Route
-                            path="/avtale/:avtaleId/:stegPath"
+                            path="/tiltaksgjennomforing/avtale/:avtaleId/:stegPath"
                             exact={true}
                             component={Stegside}
                         />

@@ -1,6 +1,6 @@
-export const pathTilOversikt: string = '/';
+export const pathTilOversikt: string = '/tiltaksgjennomforing';
 
-export const avtaleBase = '/avtale';
+const avtaleBase = '/tiltaksgjennomforing/avtale';
 
 export const pathTilAvtale = (avtaleId: string): string => {
     return `${avtaleBase}/${avtaleId}`;

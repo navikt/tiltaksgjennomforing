@@ -1,18 +1,19 @@
-import * as React from 'react';
 import { Knapp } from 'nav-frontend-knapper';
-import { tomAvtale } from './AvtaleContext';
+import * as React from 'react';
+import { Avtale } from './avtale';
 
 interface Props {
-    avtaler: any;
+    avtaler: Map<string, Avtale>;
     avtaleKlikk: (avtaleId: string) => void;
     opprettAvtaleKlikk: () => void;
 }
 
 class AvtaleOversikt extends React.Component<Props, {}> {
     render() {
-        const avtaleLenker = Object.keys(this.props.avtaler).map(id => {
-            const avtale = this.props.avtaler[id] || tomAvtale;
-            return (
+        const avtaleLenker: JSX.Element[] = [];
+
+        this.props.avtaler.forEach((avtale: Avtale) => {
+            avtaleLenker.push(
                 <li key={avtale.id}>
                     <Knapp onClick={() => this.props.avtaleKlikk(avtale.id)}>
                         {avtale.id}: Opprettet {avtale.opprettetTidspunkt}
