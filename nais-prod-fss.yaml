@@ -10,7 +10,7 @@ spec:
   team: teamtag
   port: 3000
   ingresses:
-  - https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
+  - https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing
   liveness:
     path: /tiltaksgjennomforing/internal/isAlive
     initialDelay: 20
