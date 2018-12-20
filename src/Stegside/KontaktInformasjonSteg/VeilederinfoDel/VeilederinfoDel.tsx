@@ -9,6 +9,12 @@ const VeilederinfoDel = (props: Context) => (
         <Systemtittel className="veilederinfo__tittel">
             Kontaktperson i NAV
         </Systemtittel>
+        <Input
+            className="veilederinfo__navident"
+            label="NAV-ident"
+            value={props.avtale.veilederNavIdent}
+            disabled={true}
+        />
         <div className="veilederinfo__rad">
             <Input
                 className="veilederinfo__fornavn"

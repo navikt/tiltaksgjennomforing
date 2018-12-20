@@ -11,6 +11,12 @@ const DeltakerinfoDel = (props: Context) => {
             <Systemtittel className="deltakerinfo__tittel">
                 Informasjon om deltaker
             </Systemtittel>
+            <Input
+                className="deltakerinfo__fnr"
+                label="Fødselsnummer"
+                value={props.avtale.deltakerFnr}
+                disabled={true}
+            />
             <div className="deltakerinfo__deltakernavn">
                 <Input
                     className="deltakerinfo__deltakernavn__fornavn"

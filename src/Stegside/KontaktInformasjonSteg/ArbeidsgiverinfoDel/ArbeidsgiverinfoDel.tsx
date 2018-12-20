@@ -44,16 +44,10 @@ const ArbeidsgiverinfoDel = (props: Context) => {
         <SkjemaGruppe title="Kontaktperson for avtalen">
             <div className="arbeidsgiverkontaktpersonrad">
                 <Input
-                    className="arbeidsgiverkontaktpersonrad__fornavn"
-                    label="Fornavn"
-                    defaultValue={props.avtale.arbeidsgiverFornavn}
-                    onChange={onChange('arbeidsgiverFornavn')}
-                />
-                <Input
-                    className="arbeidsgiverkontaktpersonrad__etternavn"
-                    label="Etternavn"
-                    defaultValue={props.avtale.arbeidsgiverEtternavn}
-                    onChange={onChange('arbeidsgiverEtternavn')}
+                    className="arbeidsgiverkontaktpersonrad__fnr"
+                    label="Fødselsnummer"
+                    defaultValue={props.avtale.arbeidsgiverFnr}
+                    onChange={onChange('arbeidsgiverFnr')}
                 />
             </div>
             <div className="arbeidsgiverkontaktpersonrad">
