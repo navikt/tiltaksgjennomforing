@@ -11,6 +11,7 @@ export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
 
+    deltakerFnr: '',
     deltakerFornavn: '',
     deltakerEtternavn: '',
     deltakerAdresse: '',
@@ -22,11 +23,13 @@ export const tomAvtale: Avtale = {
     bedriftPostnummer: '',
     bedriftPoststed: '',
 
+    arbeidsgiverFnr: '',
     arbeidsgiverFornavn: '',
     arbeidsgiverEtternavn: '',
     arbeidsgiverEpost: '',
     arbeidsgiverTlf: '',
 
+    veilederNavIdent: '',
     veilederFornavn: '',
     veilederEtternavn: '',
     veilederEpost: '',
@@ -134,10 +137,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             nyeMaal.push(maalTilLagring);
             nyeMaal.sort(
                 (a: Maal, b: Maal) =>
-                    b.opprettetTimestamp - a.opprettetTimestamp
+                    (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
             );
-            this.settAvtaleVerdi('maal', nyeMaal, this.lagreAvtale);
+            this.settAvtaleVerdi('maal', nyeMaal);
+            return this.lagreAvtale();
         }
+        return Promise.reject();
     }
 
     slettMaal(maalTilSletting: Maal) {
@@ -146,7 +151,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             const nyeMaal = avtale.maal.filter(
                 (maal: Maal) => maal.id !== maalTilSletting.id
             );
-            this.settAvtaleVerdi('maal', nyeMaal, this.lagreAvtale);
+            this.settAvtaleVerdi('maal', nyeMaal)
             return this.lagreAvtale();
         }
         return Promise.reject();
@@ -161,9 +166,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             nyeOppgaver.push(oppgaveTilLagring);
             nyeOppgaver.sort(
                 (a: Oppgave, b: Oppgave) =>
-                    b.opprettetTimestamp - a.opprettetTimestamp
+                    (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
             );
-            this.settAvtaleVerdi('oppgaver', nyeOppgaver, this.lagreAvtale);
+            this.settAvtaleVerdi('oppgaver', nyeOppgaver);
+            return this.lagreAvtale();
         }
         return Promise.reject();
     }
@@ -174,7 +180,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             const nyeOppgaver = avtale.oppgaver.filter(
                 (oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id
             );
-            this.settAvtaleVerdi('oppgaver', nyeOppgaver, this.lagreAvtale);
+            this.settAvtaleVerdi('oppgaver', nyeOppgaver);
             return this.lagreAvtale();
         }
         return Promise.reject();

@@ -22,6 +22,7 @@ export interface Deltakerinfo {
     deltakerAdresse: string;
     deltakerPostnummer: string;
     deltakerPoststed: string;
+    deltakerFnr: string;
 }
 
 export interface Bedriftinfo {
@@ -32,6 +33,7 @@ export interface Bedriftinfo {
 }
 
 export interface Arbeidsgiverinfo {
+    arbeidsgiverFnr: string;
     arbeidsgiverFornavn: string;
     arbeidsgiverEtternavn: string;
     arbeidsgiverEpost: string;
@@ -39,6 +41,7 @@ export interface Arbeidsgiverinfo {
 }
 
 export interface Veilederinfo {
+    veilederNavIdent: string;
     veilederFornavn: string;
     veilederEtternavn: string;
     veilederEpost: string;
@@ -56,8 +59,8 @@ export interface MaalListe {
 }
 
 export interface Maal {
-    id: string;
-    opprettetTimestamp: number;
+    id?: number;
+    opprettetTimestamp?: number;
     kategori: Maalkategori;
     beskrivelse: string;
 }
@@ -67,8 +70,8 @@ export interface Oppgaver {
 }
 
 export interface Oppgave {
-    id: string;
-    opprettetTimestamp: number;
+    id?: number;
+    opprettetTimestamp?: number;
     tittel: string;
     beskrivelse: string;
     opplaering: string;

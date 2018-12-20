@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Oppgave } from '../../avtale';
-import { guid } from 'nav-frontend-js-utils';
-import * as moment from 'moment';
 
 interface Props {
     lagreOppgave: (oppgave: Oppgave) => void;
@@ -51,13 +49,9 @@ class RedigerOppgave extends React.Component<Props, State> {
 
     lagreKnappOnClick = () => {
         this.props.lagreOppgave({
-            id:
-                (this.props.defaultOppgave && this.props.defaultOppgave.id) ||
-                guid(),
-            opprettetTimestamp:
-                (this.props.defaultOppgave &&
-                    this.props.defaultOppgave.opprettetTimestamp) ||
-                moment().valueOf(),
+            id: this.props.defaultOppgave && this.props.defaultOppgave.id,
+            opprettetTimestamp: this.props.defaultOppgave &&
+                    this.props.defaultOppgave.opprettetTimestamp,
             tittel: this.state.tittel,
             beskrivelse: this.state.beskrivelse,
             opplaering: this.state.opplaering,

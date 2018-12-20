@@ -47,7 +47,7 @@ export default class RestService extends Service {
     opprettAvtale(): Promise<Avtale> {
         return fetch(`${API_URL}/avtaler`, {
             method: 'POST',
-            body: JSON.stringify({}),
+            body: JSON.stringify({deltakerFnr: '01234567890', veilederNavIdent: 'X123456'}),
             headers: {
                 'Content-Type': 'application/json',
             },
