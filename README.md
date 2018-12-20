@@ -1,25 +1,23 @@
-#TAG - Tiltaksgjennomføring
+TAG - Tiltaksgjennomføring
 ===========================
 [![CircleCI](https://circleci.com/gh/navikt/tiltaksgjennomforing.svg?style=svg)](https://circleci.com/gh/navikt/tiltaksgjennomforing)
+
+Starte via NPM med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-backend også kjører lokalt).
+`npm start`
+
+Starte via NPM med Firebase
+`REACT_APP_FIREBASE=true npm start` 
 
 Bygg image
 `docker build -t tiltaksgjennomforing .`
 
 Kjør container
-`docker run -d -p 8080:80 tiltaksgjennomforing`
+`docker run -d -p 3000:3000 tiltaksgjennomforing`
 
-Åpnes i browser: [http://localhost:8080/](http://localhost:8080/)
+Åpnes i browser: [http://localhost:3000/](http://localhost:3000/)
 
-### Deploy
-Deploy i firebase: Se under
-
-Last opp nais.yaml i Nexus
-`nais upload --app tiltaksgjennomforing --version <versjon>`
-
-Deploy
-
-`curl -s -S -k -d '{"application": "tiltaksgjennomforing", "version": "<versjon>", "zone": "sbs", "skipFasit": true, "fasitEnvironment": "q0"}' https://daemon.nais.oera-q.local/deploy`
-
+### Deploy på NAIS
+CircleCI bygger og pusher Docker image. For å deploye må man sette opp Kubernetes/kubectl konfigurasjon lokalt (se: https://github.com/navikt/kubeconfigs/), finne versjonsnummer på image i Docker hub, og så kjøre kommandoen: `kubectl apply -f nais-[miljø].yaml` 
 
 ### Firebase
 
