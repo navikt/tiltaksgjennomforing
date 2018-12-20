@@ -92,7 +92,7 @@ console.log('proxy prefix: ' + gatewayPrefix());
 server.use(
     '/tiltaksgjennomforing/api',
     proxy(backendHost(), {
-        https: true,
+        https: envProperties.API_GATEWAY && envProperties.API_GATEWAY.split('://').shift() === 'https',
         // proxyReqOptDecorator: (proxyReqOpts: any, srcReq: any) => ({
         //     ...proxyReqOpts,
         //     cookie: srcReq.headers.cookie,
