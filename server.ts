@@ -10,7 +10,7 @@ const HTTP_NOT_FOUND = 404;
 const server = express();
 
 // tslint:disable-next-line
-const proxy = require('express-http-proxy');
+const proxy = require('http-proxy-middleware');
 
 // security
 server.disable('x-powered-by');
@@ -23,35 +23,7 @@ const envProperties = {
     PROXY_API_KEY: process.env.API_PROXY_API_APIKEY,
 };
 
-const backendHost = (): string => {
-    if (envProperties.API_GATEWAY) {
-        const hostAndPath = envProperties.API_GATEWAY.split('://').pop();
-        if (!hostAndPath) {
-            throw Error(
-                'Error: Kunne ikke hente host fra envProperties.API_GATEWAY (' +
-                    envProperties.API_GATEWAY +
-                    ')'
-            );
-        }
-        const host = hostAndPath.split('/').shift();
-        if (!host) {
-            throw Error('Error: Kunne ikke hente host fra path');
-        }
-        return host;
-    }
-    throw Error('Error: process.env.API_GATEWAY mangler');
-};
-
-const gatewayPrefix = (): string => {
-    if (envProperties.API_GATEWAY) {
-        const pathUnchecked = envProperties.API_GATEWAY.split(
-            backendHost()
-        ).pop();
-        const pathFinal = pathUnchecked && pathUnchecked.replace(/\//g, ''); // replace all / with ''
-        return pathFinal || '';
-    }
-    throw new Error('Error: error getting gateway prefix');
-};
+console.log('Relevante miljøvariable: ', envProperties);
 
 // health checks
 server.get(
@@ -85,29 +57,14 @@ server.get(
     }
 );
 
-// proxy til backend
-console.log('proxy host: ' + backendHost());
-console.log('proxy prefix: ' + gatewayPrefix());
-
 server.use(
     '/tiltaksgjennomforing/api',
-    proxy(backendHost(), {
-        https: envProperties.API_GATEWAY && envProperties.API_GATEWAY.split('://').shift() === 'https',
-        // proxyReqOptDecorator: (proxyReqOpts: any, srcReq: any) => ({
-        //     ...proxyReqOpts,
-        //     cookie: srcReq.headers.cookie,
-        //     headers: {
-        //         ...srcReq.headers,
-        //         ...proxyReqOpts.headers,
-        //         //'x-nav-apiKey': envProperties.PROXY_API_KEY
-        //     },
-        // }),
-        proxyReqPathResolver: (req: any) => {
-            const convertedPath = `/${gatewayPrefix()}/${req.originalUrl
-                .split('/tiltaksgjennomforing/api/')
-                .pop()}`;
-            console.log(convertedPath);
-            return convertedPath;
+    proxy({
+        target: envProperties.API_GATEWAY,
+        changeOrigin: true,
+        xfwd: true,
+        pathRewrite: {
+            '^/tiltaksgjennomforing/api': '/',
         },
     })
 );
