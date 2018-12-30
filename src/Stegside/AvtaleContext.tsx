@@ -10,6 +10,7 @@ import AvtaleOversikt from './AvtaleOversikt';
 export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
+    versjon: '',
 
     deltakerFnr: '',
     deltakerFornavn: '',
@@ -123,7 +124,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     lagreAvtale() {
         const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
         if (avtale) {
-            return service.lagreAvtale(avtale);
+            return service.lagreAvtale(avtale).then((respons: {versjon: string}) => {
+                this.settAvtaleVerdi('versjon', respons.versjon);
+            });
         }
         return Promise.reject();
     }

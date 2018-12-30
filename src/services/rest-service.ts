@@ -5,27 +5,25 @@ const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 const HTTP_UNAUTHORIZED = 401;
 
-const handleAuthorizedResponse = (response: Response, callback?: () => any) => {
+const handleAuthorizedResponse = (response: Response) => {
     if (response.status === HTTP_UNAUTHORIZED) {
         window.location.href = LOGIN_REDIRECT;
         return;
     }
-    return callback && callback();
+    return response.json();
 };
 
 export default class RestService extends Service {
     async hentAvtale(id: string): Promise<Avtale> {
         const avtale = await fetch(`${API_URL}/avtaler/${id}`).then(
-            (response: Response) =>
-                handleAuthorizedResponse(response, () => response.json())
+            handleAuthorizedResponse
         );
         return { ...avtale, id: `${avtale.id}` };
     }
 
     async hentAvtaler(): Promise<Map<string, Avtale>> {
         const avtaler: Avtale[] = await fetch(`${API_URL}/avtaler`).then(
-            (response: Response) =>
-                handleAuthorizedResponse(response, () => response.json())
+            handleAuthorizedResponse
         );
         return avtaler.reduce(
             (map: Map<string, Avtale>, avtale: Avtale) =>
@@ -34,35 +32,42 @@ export default class RestService extends Service {
         );
     }
 
-    lagreAvtale(avtale: Avtale): Promise<void> {
-        return fetch(`${API_URL}/avtaler/${avtale.id}`, {
+    async lagreAvtale(avtale: Avtale): Promise<{versjon: string}> {
+        const response = await fetch(`${API_URL}/avtaler/${avtale.id}`, {
             method: 'PUT',
             body: JSON.stringify(avtale),
             headers: {
                 'Content-Type': 'application/json',
+                'If-Match': avtale.versjon,
             },
-        }).then(handleAuthorizedResponse);
+        });
+        handleAuthorizedResponse(response);
+        const eTag = response.headers.get('ETag');
+        if (eTag) {
+            return Promise.resolve({versjon: eTag});
+        }
+        return Promise.reject('Respons inneholder ikke ETag-header');
     }
 
-    opprettAvtale(): Promise<Avtale> {
-        return fetch(`${API_URL}/avtaler`, {
+    async opprettAvtale(): Promise<Avtale> {
+        const response = await fetch(`${API_URL}/avtaler`, {
             method: 'POST',
-            body: JSON.stringify({deltakerFnr: '01234567890', veilederNavIdent: 'X123456'}),
+            body: JSON.stringify({
+                deltakerFnr: '01234567890',
+                veilederNavIdent: 'X123456',
+            }),
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then(async (postResponse: Response) => {
-            const location = postResponse.headers.get('Location');
-            if (location) {
-                const avtale = await fetch(`${API_URL}/${location}`).then(
-                    (response: Response) =>
-                        handleAuthorizedResponse(response, () =>
-                            response.json()
-                        )
-                );
-                return { ...avtale, id: `${avtale.id}` };
-            }
-            return Promise.reject('Kunne ikke opprette ny avtale');
         });
+
+        const location = response.headers.get('Location');
+        if (location) {
+            const avtale = await fetch(`${API_URL}/${location}`).then(
+                handleAuthorizedResponse
+            );
+            return { ...avtale, id: `${avtale.id}` };
+        }
+        return Promise.reject('Kunne ikke opprette ny avtale');
     }
 }

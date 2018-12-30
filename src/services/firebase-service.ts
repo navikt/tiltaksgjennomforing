@@ -54,7 +54,7 @@ export default class FirebaseService extends Service {
             );
     }
 
-    lagreAvtale(avtale: Avtale): Promise<void> {
+    lagreAvtale(avtale: Avtale): Promise<any> {
         return avtaleRef(avtale.id).set(avtale);
     }
 
