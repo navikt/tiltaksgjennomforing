@@ -1,10 +1,7 @@
-import * as firebase from 'firebase/app';
-import 'firebase/database';
+import firebase from 'firebase';
 import { Avtale } from '../Stegside/avtale';
 import { tomAvtale } from '../Stegside/AvtaleContext';
 import Service from './service';
-import DataSnapshot = firebase.database.DataSnapshot;
-import Reference = firebase.database.Reference;
 
 firebase.initializeApp({
     apiKey: 'AIzaSyC0lxgrU_SleTgL72TtFUO7yEyrN2ihjI4',
@@ -15,15 +12,16 @@ firebase.initializeApp({
     messagingSenderId: '134856989400',
 });
 
-const avtaleRef = (avtaleId: string): Reference => {
+const avtaleRef = (avtaleId: string): firebase.database.Reference => {
     return firebase.database().ref(`avtaler/${avtaleId}`);
 };
 
-const mapFirebaseResponsTilAvtaler = (respons: Map<string, Avtale>): any => {
+const mapFirebaseResponsTilAvtaler = (response: any): any => {
+    // @ts-ignore
     return Object.keys(respons)
         .map(id => ({
             ...tomAvtale,
-            ...respons[id],
+            ...response[id],
         }))
         .reduce(
             (map, avtale) => map.set(avtale.id, avtale),
@@ -36,7 +34,7 @@ export default class FirebaseService extends Service {
         return avtaleRef(avtaleId)
             .once('value')
             .then(
-                (snapshot: DataSnapshot) =>
+                (snapshot: firebase.database.DataSnapshot) =>
                     new Promise<Avtale>(success => success(snapshot.val()))
             );
     }
@@ -47,7 +45,7 @@ export default class FirebaseService extends Service {
             .ref('avtaler')
             .once('value')
             .then(
-                (snapshot: DataSnapshot) =>
+                (snapshot: firebase.database.DataSnapshot) =>
                     new Promise<Map<string, Avtale>>(success =>
                         success(mapFirebaseResponsTilAvtaler(snapshot.val()))
                     )

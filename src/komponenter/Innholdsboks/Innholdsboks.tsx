@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './Innholdsboks.less';
-import * as classnames from 'classnames';
+import classnames from 'classnames';
 
 interface Props {
     className?: string;

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import DayPicker from 'react-day-picker';
+// @ts-ignore
 import momentLocaleUtils, { LocaleUtils } from 'react-day-picker/moment';
 import Navigasjonsbar from './navigasjonsbar';
 import DatovelgerCaption from './datovelger-caption';
