@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamtag
 spec:
-  image: navikt/tiltaksgjennomforing:latest
+  image: navikt/tiltaksgjennomforing:257
   team: teamtag
   port: 3000
   ingresses:
@@ -19,7 +19,7 @@ spec:
     initialDelay: 20
   env:
   - name: API_GATEWAY
-    value: https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing-api
+    value: https://arbeidsgiver.nais.preprod.local
   - name: LOGIN_URL
     value: https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
   - name: LOGOUT_URL
