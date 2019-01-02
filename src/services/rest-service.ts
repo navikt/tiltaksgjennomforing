@@ -1,5 +1,4 @@
 import { Avtale } from '../Stegside/avtale';
-import { tomAvtale } from '../Stegside/AvtaleContext';
 import Service from './service';
 
 const API_URL = '/tiltaksgjennomforing/api';
@@ -10,7 +9,6 @@ export default class RestService extends Service {
     handleAuthorizedResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
             window.location.href = LOGIN_REDIRECT;
-            throw new Error('Ikke pålogget');
         }
         if (!response.ok) {
             throw new Error('Feil ved kall til backend');

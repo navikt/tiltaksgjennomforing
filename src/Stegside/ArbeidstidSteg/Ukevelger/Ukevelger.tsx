@@ -10,14 +10,25 @@ interface Props {
 }
 
 const Ukevelger = (props: Props) => {
-    const uker = [];
+    const uker = [0];
     for (let i = props.min; i <= props.max; i++) {
         uker.push(i);
     }
 
+    const lagLabel = (uke: number) => {
+        switch (uke) {
+            case 0:
+                return '';
+            case 1:
+                return '1 uke';
+            default:
+                return `${uke} uker`;
+        }
+    };
+
     const ukeValg = uker.map(uke => (
         <option value={uke} key={uke}>
-            {uke === 1 ? `${uke} uke` : `${uke} uker`}
+            {lagLabel(uke)}
         </option>
     ));
 
@@ -25,7 +36,7 @@ const Ukevelger = (props: Props) => {
         <Select
             className="ukevelger"
             label={props.label}
-            value={props.verdi}
+            value={props.verdi || 0}
             onChange={event =>
                 props.onChange(Number(event.currentTarget.value))
             }

@@ -17,8 +17,7 @@ const avtaleRef = (avtaleId: string): firebase.database.Reference => {
 };
 
 const mapFirebaseResponsTilAvtaler = (response: any): any => {
-    // @ts-ignore
-    return Object.keys(respons)
+    return Object.keys(response)
         .map(id => ({
             ...tomAvtale,
             ...response[id],

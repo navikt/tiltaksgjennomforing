@@ -8,6 +8,7 @@ import Service from '../services/service';
 import { createService } from '../services/service-factory';
 import { Avtale, Maal, Oppgave } from './avtale';
 import AvtaleOversikt from './AvtaleOversikt';
+import { ApiFeil } from './ApiFeil';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -112,9 +113,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             .then((avtaler: Map<string, Avtale>) => {
                 this.setState({ avtaler });
             })
-            .catch((x: any) => {
-                if (x instanceof string) {
-                    this.visFeilmelding('' + x);
+            .catch((feilmelding: any) => {
+                const melding = JSON.stringify(feilmelding);
+                if (feilmelding instanceof string) {
+                    this.visFeilmelding('Kunne ikke h');
                 }
             });
     }

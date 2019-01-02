@@ -67,7 +67,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                 />
                 <StillingsprosentInput
                     label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={this.props.avtale.arbeidstreningStillingprosent}
+                    verdi={this.props.avtale.arbeidstreningStillingprosent || 0}
                     onChange={this.settStillingsprosent}
                 />
                 <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />

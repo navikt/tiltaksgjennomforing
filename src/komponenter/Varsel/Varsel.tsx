@@ -19,12 +19,6 @@ class Varsel extends React.Component<Props, State> {
         super(props);
     }
 
-    componentDidMount() {
-        /*window.setTimeout(() => {
-            this.setState({ toggle: false });
-        }, this.props.timeout || 10000);*/
-    }
-
     render() {
         return (
             this.state.toggle && (

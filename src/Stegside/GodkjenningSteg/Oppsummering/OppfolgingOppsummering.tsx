@@ -11,13 +11,13 @@ const OppfolgingOppsummering = (props: Props) => (
     <Stegoppsummering tittel="Oppfølging">
         <Normaltekst className="oppsummering__label">Oppfolging</Normaltekst>
         <Normaltekst className="oppsummering__beskrivelse">
-            {props.avtale.oppfolging}
+            {props.avtale.oppfolging || ''}
         </Normaltekst>
         <Normaltekst className="oppsummering__label">
             Tilrettelegging
         </Normaltekst>
         <Normaltekst className="oppsummering__beskrivelse">
-            {props.avtale.tilrettelegging}
+            {props.avtale.tilrettelegging || ''}
         </Normaltekst>
     </Stegoppsummering>
 );
