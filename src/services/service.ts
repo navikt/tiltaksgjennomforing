@@ -1,8 +1,8 @@
 import { Avtale } from '../Stegside/avtale';
 
 export default abstract class Service {
-    async abstract hentAvtale(id: string): Promise<Avtale>;
-    async abstract hentAvtaler(): Promise<Map<string, Avtale>>;
-    async abstract lagreAvtale(avtale: Avtale): Promise<void>;
-    async abstract opprettAvtale(): Promise<Avtale>;
+    abstract hentAvtale(id: string): Promise<Avtale>;
+    abstract hentAvtaler(): Promise<Map<string, Avtale>>;
+    abstract lagreAvtale(avtale: Avtale): Promise<{ versjon: string }>;
+    abstract opprettAvtale(): Promise<Avtale>;
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Avtale } from '../../avtale';
 import Stegoppsummering from './Stegoppsummering/Stegoppsummering';
 import { Normaltekst } from 'nav-frontend-typografi';
-import * as moment from 'moment';
+import moment from 'moment';
 
 interface Props {
     avtale: Avtale;

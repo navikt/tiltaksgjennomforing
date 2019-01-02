@@ -1,15 +1,19 @@
-import * as moment from 'moment';
+import moment from 'moment';
+import { string } from 'prop-types';
 import * as React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import Varsel from '../komponenter/Varsel/Varsel';
 import { pathTilKontaktinformasjonSteg, pathTilOversikt } from '../paths';
 import Service from '../services/service';
 import { createService } from '../services/service-factory';
 import { Avtale, Maal, Oppgave } from './avtale';
 import AvtaleOversikt from './AvtaleOversikt';
+import { ApiError } from './ApiError';
 
 export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
+    versjon: '',
 
     deltakerFnr: '',
     deltakerFornavn: '',
@@ -74,14 +78,15 @@ const AvtaleContext = React.createContext<Context>({
 
 export const AvtaleConsumer = AvtaleContext.Consumer;
 
-const service: Service = createService();
-
 interface State {
     avtaler: Map<string, Avtale>;
     valgtAvtaleId: string;
+    feilmelding?: string;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
+    service: Service;
+
     constructor(props: any) {
         super(props);
 
@@ -98,17 +103,35 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.slettMaal = this.slettMaal.bind(this);
         this.lagreOppgave = this.lagreOppgave.bind(this);
         this.slettOppgave = this.slettOppgave.bind(this);
+        this.visFeilmelding = this.visFeilmelding.bind(this);
+        this.service = createService();
+    }
+
+    handterApiFeil = (error: any) => {
+        if (error instanceof ApiError) {
+            this.visFeilmelding(error.message);
+        } else {
+            throw error;
+        }
     }
 
     componentDidMount() {
-        service.hentAvtaler().then((avtaler: Map<string, Avtale>) => {
-            this.setState({ avtaler });
-        });
+        this.service
+            .hentAvtaler()
+            .then((avtaler: Map<string, Avtale>) => {
+                this.setState({ avtaler });
+            })
+            .catch(this.handterApiFeil);
+    }
+
+    visFeilmelding(feilmelding: string) {
+        this.setState({ feilmelding });
     }
 
     settAvtaleVerdi(felt: string, verdi: any, callback?: () => void) {
         const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
         if (avtale) {
+            // @ts-ignore
             avtale[felt] = verdi;
 
             const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
@@ -123,7 +146,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     lagreAvtale() {
         const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
         if (avtale) {
-            return service.lagreAvtale(avtale);
+            return this.service
+                .lagreAvtale(avtale)
+                .then((respons: { versjon: string }) => {
+                    this.settAvtaleVerdi('versjon', respons.versjon);
+                })
+                .catch(this.handterApiFeil);
         }
         return Promise.reject();
     }
@@ -151,7 +179,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             const nyeMaal = avtale.maal.filter(
                 (maal: Maal) => maal.id !== maalTilSletting.id
             );
-            this.settAvtaleVerdi('maal', nyeMaal)
+            this.settAvtaleVerdi('maal', nyeMaal);
             return this.lagreAvtale();
         }
         return Promise.reject();
@@ -192,7 +220,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     opprettAvtaleKlikk() {
-        service.opprettAvtale().then((avtale: Avtale) => {
+        this.service.opprettAvtale().then((avtale: Avtale) => {
             const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
                 this.state.avtaler
             );
@@ -219,6 +247,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
         return (
             <AvtaleContext.Provider value={context}>
+                {this.state.feilmelding && (
+                    <Varsel>{this.state.feilmelding}</Varsel>
+                )}
                 <Switch>
                     <Route
                         path={pathTilOversikt}

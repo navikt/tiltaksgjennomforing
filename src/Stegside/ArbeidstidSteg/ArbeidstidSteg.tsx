@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Datovelger from './Datovelger/datovelger';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Moment } from 'moment';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../AvtaleContext';
@@ -67,7 +67,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                 />
                 <StillingsprosentInput
                     label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={this.props.avtale.arbeidstreningStillingprosent}
+                    verdi={this.props.avtale.arbeidstreningStillingprosent || 0}
                     onChange={this.settStillingsprosent}
                 />
                 <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />

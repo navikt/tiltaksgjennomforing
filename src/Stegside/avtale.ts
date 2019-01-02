@@ -14,6 +14,7 @@ export type Avtale = AvtaleMetadata &
 export interface AvtaleMetadata {
     id: string;
     opprettetTidspunkt: string;
+    versjon: string;
 }
 
 export interface Deltakerinfo {
