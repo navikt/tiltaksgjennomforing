@@ -31,7 +31,7 @@ const OppfolgingSteg = (props: Context) => {
             </div>
             <Textarea
                 label="Hvordan skal oppfølgingen fra NAV være?"
-                value={props.avtale.oppfolging}
+                value={props.avtale.oppfolging || ''}
                 onChange={onChange('oppfolging')}
                 maxLength={1000}
                 tellerTekst={lagTellerTekst}
@@ -48,7 +48,7 @@ const OppfolgingSteg = (props: Context) => {
             </div>
             <Textarea
                 label="Beskriv hvilken tilrettelegging det er behov for"
-                value={props.avtale.tilrettelegging}
+                value={props.avtale.tilrettelegging || ''}
                 onChange={onChange('tilrettelegging')}
                 maxLength={1000}
                 tellerTekst={lagTellerTekst}

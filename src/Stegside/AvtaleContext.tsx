@@ -114,7 +114,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             })
             .catch((x: any) => {
                 if (x instanceof string) {
-                    this.visFeilmelding("" + x);
+                    this.visFeilmelding('' + x);
                 }
             });
     }

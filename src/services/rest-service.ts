@@ -10,7 +10,7 @@ export default class RestService extends Service {
     handleAuthorizedResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
             window.location.href = LOGIN_REDIRECT;
-            throw new Error("Ikke pålogget");
+            throw new Error('Ikke pålogget');
         }
         if (!response.ok) {
             throw new Error('Feil ved kall til backend');
@@ -65,12 +65,12 @@ export default class RestService extends Service {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then(() => tomAvtale)
-            /*.then(this.handleAuthorizedResponse)
+        })
+            .then(this.handleAuthorizedResponse)
             .then(response => response.headers.get('Location'))
             .then(location => fetch(`${API_URL}/${location}`))
             .then(this.handleAuthorizedResponse)
             .then(response => response.json())
-            .then((avtale: Avtale) => ({ ...avtale, id: `${avtale.id}` }));*/
+            .then((avtale: Avtale) => ({ ...avtale, id: `${avtale.id}` }));
     }
 }
