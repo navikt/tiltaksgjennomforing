@@ -21,5 +21,9 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "server.js",
+    "src/setupProxy.js"
   ]
 }

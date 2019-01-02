@@ -5,11 +5,12 @@ WORKDIR /usr/src/app
 
 RUN npm install -g express
 RUN npm install -g helmet
-RUN npm install -g express-http-proxy
+RUN npm install -g http-proxy-middleware
 
 COPY build/ ./build
+COPY ./src/setupProxy.js ./src/setupProxy.js
 COPY server.js ./
 COPY package.json ./
 
 EXPOSE 3000
-CMD ["npm", "run", "start:server"]
+CMD ["npm", "run", "server"]
