@@ -1,5 +1,6 @@
 import { Avtale } from '../Stegside/avtale';
 import Service from './service';
+import { ApiError } from '../Stegside/ApiError';
 
 const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
@@ -11,7 +12,7 @@ export default class RestService extends Service {
             window.location.href = LOGIN_REDIRECT;
         }
         if (!response.ok) {
-            throw new Error('Feil ved kall til backend');
+            throw new ApiError('Feil ved kall til backend');
         }
         return response;
     }

@@ -8,7 +8,7 @@ import Service from '../services/service';
 import { createService } from '../services/service-factory';
 import { Avtale, Maal, Oppgave } from './avtale';
 import AvtaleOversikt from './AvtaleOversikt';
-import { ApiFeil } from './ApiFeil';
+import { ApiError } from './ApiError';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -107,18 +107,21 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.service = createService();
     }
 
+    handterApiFeil = (error: any) => {
+        if (error instanceof ApiError) {
+            this.visFeilmelding(error.message);
+        } else {
+            throw error;
+        }
+    }
+
     componentDidMount() {
         this.service
             .hentAvtaler()
             .then((avtaler: Map<string, Avtale>) => {
                 this.setState({ avtaler });
             })
-            .catch((feilmelding: any) => {
-                const melding = JSON.stringify(feilmelding);
-                if (feilmelding instanceof string) {
-                    this.visFeilmelding('Kunne ikke h');
-                }
-            });
+            .catch(this.handterApiFeil);
     }
 
     visFeilmelding(feilmelding: string) {
@@ -148,7 +151,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 .then((respons: { versjon: string }) => {
                     this.settAvtaleVerdi('versjon', respons.versjon);
                 })
-                .catch(this.visFeilmelding);
+                .catch(this.handterApiFeil);
         }
         return Promise.reject();
     }
