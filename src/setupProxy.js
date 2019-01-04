@@ -30,6 +30,7 @@ module.exports = function(app) {
                 '^/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api',
             },
             target: envProperties.API_GATEWAY,
+            secure: true,
             xfwd: true,
         })
     );
