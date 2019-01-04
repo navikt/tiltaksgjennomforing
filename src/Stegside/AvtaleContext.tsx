@@ -140,18 +140,19 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.setState({ feilmelding });
     }
 
-    settAvtaleVerdi(felt: string, verdi: any, callback?: () => void) {
+    settAvtaleVerdi(
+        felt: string,
+        verdi: any,
+        skalOppdatereView: boolean = true
+    ) {
         const avtale = this.state.avtale;
         if (avtale) {
             // @ts-ignore
             avtale[felt] = verdi;
 
-            const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
-                this.state.avtaler
-            );
-            nyeAvtaler.set(this.state.valgtAvtaleId, avtale);
-
-            this.setState({ avtaler: nyeAvtaler, avtale }, callback);
+            if (skalOppdatereView) {
+                this.setState({ avtale });
+            }
         }
     }
 
@@ -179,7 +180,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 (a: Maal, b: Maal) =>
                     (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
             );
-            this.settAvtaleVerdi('maal', nyeMaal);
+            this.settAvtaleVerdi('maal', nyeMaal, false);
             return this.lagreAvtale();
         }
         return Promise.reject();
@@ -214,7 +215,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 (a: Oppgave, b: Oppgave) =>
                     (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
             );
-            this.settAvtaleVerdi('oppgaver', nyeOppgaver);
+            this.settAvtaleVerdi('oppgaver', nyeOppgaver, false);
             return this.lagreAvtale();
         }
         return Promise.reject();
