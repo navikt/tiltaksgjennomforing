@@ -80,6 +80,7 @@ export const AvtaleConsumer = AvtaleContext.Consumer;
 
 interface State {
     avtaler: Map<string, Avtale>;
+    avtale: Avtale;
     valgtAvtaleId: string;
     feilmelding?: string;
 }
@@ -92,7 +93,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
         this.state = {
             avtaler: new Map<string, Avtale>(),
-            valgtAvtaleId: '' + props.location.pathname.split('/')[3],
+            avtale: tomAvtale,
+            valgtAvtaleId: props.location.pathname.split('/')[3],
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -113,7 +115,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         } else {
             throw error;
         }
-    }
+    };
 
     componentDidMount() {
         this.service
@@ -122,6 +124,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 this.setState({ avtaler });
             })
             .catch(this.handterApiFeil);
+
+        const paaAvtaleSide = this.state.valgtAvtaleId !== undefined;
+        if (paaAvtaleSide) {
+            this.service
+                .hentAvtale(this.state.valgtAvtaleId)
+                .then(avtale => this.setState({ avtale }));
+        }
     }
 
     visFeilmelding(feilmelding: string) {
@@ -129,7 +138,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     settAvtaleVerdi(felt: string, verdi: any, callback?: () => void) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             // @ts-ignore
             avtale[felt] = verdi;
@@ -139,12 +148,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             );
             nyeAvtaler.set(this.state.valgtAvtaleId, avtale);
 
-            this.setState({ avtaler: nyeAvtaler }, callback);
+            this.setState({ avtaler: nyeAvtaler, avtale }, callback);
         }
     }
 
     lagreAvtale() {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             return this.service
                 .lagreAvtale(avtale)
@@ -157,7 +166,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     lagreMaal(maalTilLagring: Maal) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             const nyeMaal = avtale.maal.filter(
                 (maal: Maal) => maal.id !== maalTilLagring.id
@@ -174,7 +183,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     slettMaal(maalTilSletting: Maal) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             const nyeMaal = avtale.maal.filter(
                 (maal: Maal) => maal.id !== maalTilSletting.id
@@ -186,7 +195,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     lagreOppgave(oppgaveTilLagring: Oppgave) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             const nyeOppgaver = avtale.oppgaver.filter(
                 (oppgave: Oppgave) => oppgave.id !== oppgaveTilLagring.id
@@ -203,7 +212,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     slettOppgave(oppgaveTilSletting: Oppgave) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             const nyeOppgaver = avtale.oppgaver.filter(
                 (oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id
@@ -215,8 +224,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     avtaleKlikk(avtaleId: string) {
-        this.setState({ valgtAvtaleId: avtaleId });
-        this.props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
+        this.service.hentAvtale(avtaleId).then(avtale => {
+            this.setState({ avtale }, () => {
+                // Pusher på history ETTER at state er satt, hvis ikke blir den forrige avtalens innhold vist.
+                this.props.history.push(
+                    pathTilKontaktinformasjonSteg(avtaleId)
+                );
+            });
+        });
     }
 
     opprettAvtaleKlikk() {
@@ -225,18 +240,25 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 this.state.avtaler
             );
             nyeAvtaler.set(avtale.id, avtale);
-            this.setState({
-                avtaler: nyeAvtaler,
-                valgtAvtaleId: avtale.id,
-            });
-            this.props.history.push(pathTilKontaktinformasjonSteg(avtale.id));
+            this.setState(
+                {
+                    avtaler: nyeAvtaler,
+                    valgtAvtaleId: avtale.id,
+                    avtale,
+                },
+                () => {
+                    // Pusher på history ETTER at state er satt, hvis ikke blir den forrige avtalens innhold vist.
+                    this.props.history.push(
+                        pathTilKontaktinformasjonSteg(avtale.id)
+                    );
+                }
+            );
         });
     }
 
     render() {
         const context: Context = {
-            avtale:
-                this.state.avtaler.get(this.state.valgtAvtaleId) || tomAvtale,
+            avtale: this.state.avtale,
             settAvtaleVerdi: this.settAvtaleVerdi,
             lagreAvtale: this.lagreAvtale,
             lagreMaal: this.lagreMaal,
