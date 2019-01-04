@@ -26,18 +26,18 @@ module.exports = function(app) {
             '^/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api',
         },
         target: envProperties.API_GATEWAY,
-        secure: true,
+        secure: false,
         xfwd: true,
     };
 
-    const SSL_CA_PATH = '/etc/ssl/certs/ca-certificates.crt';
+    /*const SSL_CA_PATH = '/etc/ssl/certs/ca-certificates.crt';
 
     if (fs.existsSync(SSL_CA_PATH)) {
         proxyConfig.ssl = {
             ca: fs.readFileSync(SSL_CA_PATH, 'utf8'),
         };
         proxyConfig.secure = true;
-    }
+    }*/
 
     app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
 };
