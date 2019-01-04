@@ -62,6 +62,7 @@ export interface Context {
     slettMaal: (maal: Maal) => void;
     lagreOppgave: (oppgave: Oppgave) => void;
     slettOppgave: (oppgave: Oppgave) => void;
+    hentAvtale: (avtaleId: string) => void;
 }
 
 // tslint:disable no-empty
@@ -73,6 +74,7 @@ const AvtaleContext = React.createContext<Context>({
     slettMaal: () => {},
     lagreOppgave: () => {},
     slettOppgave: () => {},
+    hentAvtale: () => {},
 });
 // tslint:enable
 
@@ -98,6 +100,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
+        this.hentAvtale = this.hentAvtale.bind(this);
         this.lagreAvtale = this.lagreAvtale.bind(this);
         this.avtaleKlikk = this.avtaleKlikk.bind(this);
         this.opprettAvtaleKlikk = this.opprettAvtaleKlikk.bind(this);
@@ -157,8 +160,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         if (avtale) {
             return this.service
                 .lagreAvtale(avtale)
-                .then((respons: { versjon: string }) => {
-                    this.settAvtaleVerdi('versjon', respons.versjon);
+                .then(() => {
+                    this.hentAvtale(avtale.id);
                 })
                 .catch(this.handterApiFeil);
         }
@@ -180,6 +183,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             return this.lagreAvtale();
         }
         return Promise.reject();
+    }
+
+    hentAvtale(avtaleId: string) {
+        this.service.hentAvtale(avtaleId).then(avtale => {
+            this.setState({ avtale });
+        });
     }
 
     slettMaal(maalTilSletting: Maal) {
@@ -265,6 +274,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             slettMaal: this.slettMaal,
             lagreOppgave: this.lagreOppgave,
             slettOppgave: this.slettOppgave,
+            hentAvtale: this.hentAvtale,
         };
 
         return (
