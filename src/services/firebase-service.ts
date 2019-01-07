@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { Avtale } from '../Stegside/avtale';
-import { tomAvtale } from '../Stegside/AvtaleContext';
+import { tomAvtale } from '../AvtaleContext';
 import Service from './service';
 
 firebase.initializeApp({

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '../AvtaleContext';
+import { Context, medContext } from '../../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import { Textarea } from 'nav-frontend-skjema';
 import './OppfolgingSteg.less';

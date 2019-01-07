@@ -3,7 +3,7 @@ import Datovelger from './Datovelger/datovelger';
 import moment from 'moment';
 import { Moment } from 'moment';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '../AvtaleContext';
+import { Context, medContext } from '../../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import Ukevelger from './Ukevelger/Ukevelger';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';

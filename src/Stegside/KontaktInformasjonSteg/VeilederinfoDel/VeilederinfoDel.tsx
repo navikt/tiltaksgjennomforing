@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import './VeilederinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '../../AvtaleContext';
+import { Context, medContext } from '../../../AvtaleContext';
 
 const VeilederinfoDel = (props: Context) => (
     <>

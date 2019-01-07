@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Context, medContext } from '../AvtaleContext';
+import { Context, medContext } from '../../AvtaleContext';
 import OpprettOppgave from './OpprettOppgave/OpprettOppgave';
 import OppgaveKort from './OppgaveKort/OppgaveKort';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Stegmeny from './Stegmeny/Stegmeny';
-import { Context, medContext } from './AvtaleContext';
+import { Context, medContext } from '../AvtaleContext';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalsetningSteg from './MaalSteg/MaalSteg';

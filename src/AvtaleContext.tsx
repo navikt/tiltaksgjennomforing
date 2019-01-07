@@ -1,14 +1,13 @@
 import moment from 'moment';
-import { string } from 'prop-types';
 import * as React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import Varsel from '../komponenter/Varsel/Varsel';
-import { pathTilKontaktinformasjonSteg, pathTilOversikt } from '../paths';
-import Service from '../services/service';
-import { createService } from '../services/service-factory';
-import { Avtale, Maal, Oppgave } from './avtale';
-import AvtaleOversikt from './AvtaleOversikt';
-import { ApiError } from './ApiError';
+import Varsel from './komponenter/Varsel/Varsel';
+import { pathTilKontaktinformasjonSteg, pathTilOversikt } from './paths';
+import Service from './services/service';
+import { createService } from './services/service-factory';
+import { Avtale, Maal, Oppgave } from './Stegside/avtale';
+import AvtaleOversikt from './Stegside/AvtaleOversikt';
+import { ApiError } from './Stegside/ApiError';
 
 export const tomAvtale: Avtale = {
     id: '',

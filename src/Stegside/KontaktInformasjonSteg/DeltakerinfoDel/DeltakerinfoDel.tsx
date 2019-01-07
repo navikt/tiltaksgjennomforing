@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import './DeltakerinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { medContext } from '../../AvtaleContext';
-import { Context } from '../../AvtaleContext';
+import { medContext } from '../../../AvtaleContext';
+import { Context } from '../../../AvtaleContext';
 
 const DeltakerinfoDel = (props: Context) => {
     return (

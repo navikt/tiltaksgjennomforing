@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import './ArbeidsgiverinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '../../AvtaleContext';
+import { Context, medContext } from '../../../AvtaleContext';
 
 const ArbeidsgiverinfoDel = (props: Context) => {
     const onChange = (label: string) => {

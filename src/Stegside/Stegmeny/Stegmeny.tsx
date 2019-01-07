@@ -1,7 +1,7 @@
 import * as React from 'react';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
 import './Stegmeny.less';
-import { Context, medContext } from '../AvtaleContext';
+import { Context, medContext } from '../../AvtaleContext';
 import { AvtaleStegType } from '../Stegside';
 import { lagStegUrl } from '../../paths';
 

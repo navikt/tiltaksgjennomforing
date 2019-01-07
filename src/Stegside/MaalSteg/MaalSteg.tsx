@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Context, medContext } from '../AvtaleContext';
+import { Context, medContext } from '../../AvtaleContext';
 import MaalKort from './MaalKort/MaalKort';
 import OpprettMaal from './OpprettMaal/OpprettMaal';
 import { finnLedigeMaalkategorier } from './maal-utils';
