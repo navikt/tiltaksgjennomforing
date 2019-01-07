@@ -1,29 +1,17 @@
 import AlertStripe from 'nav-frontend-alertstriper';
+import Lukknapp from 'nav-frontend-lukknapp';
 import * as React from 'react';
 import './Varsel.less';
 
 interface Props {
-    timeout?: number;
+    lukkVarsel: () => void;
 }
 
-interface State {
-    toggle: boolean;
-}
-
-class Varsel extends React.Component<Props, State> {
-    state = {
-        toggle: true,
-    };
-
-    render() {
-        return (
-            this.state.toggle && (
-                <AlertStripe type={'advarsel'} solid={true} className="varsel">
-                    {this.props.children}
-                </AlertStripe>
-            )
-        );
-    }
-}
+const Varsel: React.FunctionComponent<Props> = props => (
+    <AlertStripe type={'advarsel'} solid={true} className="varsel">
+        {props.children}
+        <Lukknapp hvit={true} overstHjorne={true} onClick={props.lukkVarsel} />
+    </AlertStripe>
+);
 
 export default Varsel;

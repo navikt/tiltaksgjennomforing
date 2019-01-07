@@ -84,7 +84,7 @@ interface State {
     avtaler: Map<string, Avtale>;
     avtale: Avtale;
     valgtAvtaleId: string;
-    feilmelding?: string;
+    feilmelding: string;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -97,6 +97,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtaler: new Map<string, Avtale>(),
             avtale: tomAvtale,
             valgtAvtaleId: props.location.pathname.split('/')[3],
+            feilmelding: '',
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -109,6 +110,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.lagreOppgave = this.lagreOppgave.bind(this);
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
+        this.skjulFeilmelding = this.skjulFeilmelding.bind(this);
         this.service = createService();
     }
 
@@ -261,6 +263,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         });
     }
 
+    skjulFeilmelding() {
+        this.setState({ feilmelding: '' });
+    }
+
     render() {
         const context: Context = {
             avtale: this.state.avtale,
@@ -276,7 +282,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return (
             <AvtaleContext.Provider value={context}>
                 {this.state.feilmelding && (
-                    <Varsel>{this.state.feilmelding}</Varsel>
+                    <Varsel lukkVarsel={this.skjulFeilmelding}>
+                        {this.state.feilmelding}
+                    </Varsel>
                 )}
                 <Switch>
                     <Route
