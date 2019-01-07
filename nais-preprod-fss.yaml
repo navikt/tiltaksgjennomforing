@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamtag
 spec:
-  image: navikt/tiltaksgjennomforing:257
+  image: navikt/tiltaksgjennomforing:TAG-177-ssl-cert_260
   team: teamtag
   port: 3000
   ingresses:
@@ -24,6 +24,3 @@ spec:
     value: https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
   - name: LOGOUT_URL
     value: https://loginservice.nais.preprod.local/slo
-  # Midlertidig disabling NODE_TLS_REJECT_UNAUTHORIZED inntil sertifikat er installert
-  - name: NODE_TLS_REJECT_UNAUTHORIZED
-    value: '0'
