@@ -1,4 +1,4 @@
-import { Avtale } from '../Stegside/avtale';
+import { Avtale } from '../AvtaleSide/avtale';
 
 export default abstract class Service {
     abstract hentAvtale(id: string): Promise<Avtale>;

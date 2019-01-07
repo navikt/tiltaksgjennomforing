@@ -1,6 +1,6 @@
-import { Avtale } from '../Stegside/avtale';
+import { Avtale } from '../AvtaleSide/avtale';
 import Service from './service';
-import { ApiError } from '../Stegside/ApiError';
+import { ApiError } from '../AvtaleSide/ApiError';
 
 const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';

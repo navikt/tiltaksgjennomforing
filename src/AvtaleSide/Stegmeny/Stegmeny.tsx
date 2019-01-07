@@ -2,7 +2,7 @@ import * as React from 'react';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
 import './Stegmeny.less';
 import { Context, medContext } from '../../AvtaleContext';
-import { AvtaleStegType } from '../Stegside';
+import { AvtaleStegType } from '../AvtaleSide';
 import { lagStegUrl } from '../../paths';
 
 interface Props {

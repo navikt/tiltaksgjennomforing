@@ -5,9 +5,9 @@ import Varsel from './komponenter/Varsel/Varsel';
 import { pathTilKontaktinformasjonSteg, pathTilOversikt } from './paths';
 import Service from './services/service';
 import { createService } from './services/service-factory';
-import { Avtale, Maal, Oppgave } from './Stegside/avtale';
-import AvtaleOversikt from './Stegside/AvtaleOversikt';
-import { ApiError } from './Stegside/ApiError';
+import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
+import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
+import { ApiError } from './AvtaleSide/ApiError';
 
 export const tomAvtale: Avtale = {
     id: '',

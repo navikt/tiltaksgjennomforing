@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleContext';
-import Stegside from './Stegside/Stegside';
+import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 
@@ -16,7 +16,7 @@ class App extends React.Component {
                         <Route
                             path="/tiltaksgjennomforing/avtale/:avtaleId/:stegPath"
                             exact={true}
-                            component={Stegside}
+                            component={AvtaleSide}
                         />
                     </AvtaleProvider>
                 </BrowserRouter>

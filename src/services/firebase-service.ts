@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { Avtale } from '../Stegside/avtale';
+import { Avtale } from '../AvtaleSide/avtale';
 import { tomAvtale } from '../AvtaleContext';
 import Service from './service';
 

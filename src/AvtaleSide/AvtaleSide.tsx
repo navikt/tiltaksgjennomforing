@@ -9,7 +9,7 @@ import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
-import './Stegside.less';
+import './AvtaleSide.less';
 import { Knapp } from 'nav-frontend-knapper';
 
 interface State {
@@ -32,7 +32,7 @@ export interface AvtaleStegType {
     [key: string]: StegInfo;
 }
 
-class Stegside extends React.Component<Props, State> {
+class AvtaleSide extends React.Component<Props, State> {
     state = {
         windowSize: window.innerWidth,
     };
@@ -86,12 +86,12 @@ class Stegside extends React.Component<Props, State> {
         const desktopSide = (
             <>
                 <Stegmeny steg={this.avtaleSteg} aktivtSteg={aktivtSteg} />
-                <form className="stegside__innhold-desktop">
+                <form className="avtaleside__innhold-desktop">
                     {this.avtaleSteg[aktivtSteg].komponent}
                     <Knapp
                         htmlType="button"
                         onClick={this.props.lagreAvtale}
-                        className="stegside__lagre-knapp"
+                        className="avtaleside__lagre-knapp"
                     >
                         Lagre
                     </Knapp>
@@ -102,7 +102,7 @@ class Stegside extends React.Component<Props, State> {
         const mobilSide = (
             <form>
                 {Object.keys(this.avtaleSteg).map(steg => (
-                    <div className="stegside__ekspanderbart-panel" key={steg}>
+                    <div className="avtaleside__ekspanderbart-panel" key={steg}>
                         <Ekspanderbartpanel
                             tittel={this.avtaleSteg[steg].label}
                         >
@@ -110,7 +110,7 @@ class Stegside extends React.Component<Props, State> {
                             <Knapp
                                 htmlType="button"
                                 onClick={this.props.lagreAvtale}
-                                className="stegside__lagre-knapp"
+                                className="avtaleside__lagre-knapp"
                             >
                                 Lagre
                             </Knapp>
@@ -121,7 +121,7 @@ class Stegside extends React.Component<Props, State> {
         );
 
         return (
-            <div className="stegside">
+            <div className="avtaleside">
                 {erDesktop && desktopSide}
                 {erMobil && mobilSide}
             </div>
@@ -129,4 +129,4 @@ class Stegside extends React.Component<Props, State> {
     }
 }
 
-export default medContext(Stegside);
+export default medContext(AvtaleSide);
