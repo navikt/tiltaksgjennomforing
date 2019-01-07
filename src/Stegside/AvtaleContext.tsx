@@ -62,6 +62,7 @@ export interface Context {
     slettMaal: (maal: Maal) => void;
     lagreOppgave: (oppgave: Oppgave) => void;
     slettOppgave: (oppgave: Oppgave) => void;
+    hentAvtale: (avtaleId: string) => void;
 }
 
 // tslint:disable no-empty
@@ -73,6 +74,7 @@ const AvtaleContext = React.createContext<Context>({
     slettMaal: () => {},
     lagreOppgave: () => {},
     slettOppgave: () => {},
+    hentAvtale: () => {},
 });
 // tslint:enable
 
@@ -80,6 +82,7 @@ export const AvtaleConsumer = AvtaleContext.Consumer;
 
 interface State {
     avtaler: Map<string, Avtale>;
+    avtale: Avtale;
     valgtAvtaleId: string;
     feilmelding?: string;
 }
@@ -92,10 +95,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
         this.state = {
             avtaler: new Map<string, Avtale>(),
-            valgtAvtaleId: '' + props.location.pathname.split('/')[3],
+            avtale: tomAvtale,
+            valgtAvtaleId: props.location.pathname.split('/')[3],
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
+        this.hentAvtale = this.hentAvtale.bind(this);
         this.lagreAvtale = this.lagreAvtale.bind(this);
         this.avtaleKlikk = this.avtaleKlikk.bind(this);
         this.opprettAvtaleKlikk = this.opprettAvtaleKlikk.bind(this);
@@ -113,6 +118,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         } else {
             throw error;
         }
+    };
+
+    shouldComponentUpdate(nextProps: any, nextState: State): boolean {
+        return nextState.avtale.maal.every(maal => maal.id !== undefined);
     }
 
     componentDidMount() {
@@ -122,34 +131,35 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 this.setState({ avtaler });
             })
             .catch(this.handterApiFeil);
+
+        const paaAvtaleSide = this.state.valgtAvtaleId !== undefined;
+        if (paaAvtaleSide) {
+            this.service
+                .hentAvtale(this.state.valgtAvtaleId)
+                .then(avtale => this.setState({ avtale }));
+        }
     }
 
     visFeilmelding(feilmelding: string) {
         this.setState({ feilmelding });
     }
 
-    settAvtaleVerdi(felt: string, verdi: any, callback?: () => void) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+    settAvtaleVerdi(felt: string, verdi: any) {
+        const avtale = this.state.avtale;
         if (avtale) {
             // @ts-ignore
             avtale[felt] = verdi;
-
-            const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
-                this.state.avtaler
-            );
-            nyeAvtaler.set(this.state.valgtAvtaleId, avtale);
-
-            this.setState({ avtaler: nyeAvtaler }, callback);
+            this.setState({ avtale });
         }
     }
 
     lagreAvtale() {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             return this.service
                 .lagreAvtale(avtale)
-                .then((respons: { versjon: string }) => {
-                    this.settAvtaleVerdi('versjon', respons.versjon);
+                .then(() => {
+                    this.hentAvtale(avtale.id);
                 })
                 .catch(this.handterApiFeil);
         }
@@ -157,7 +167,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     lagreMaal(maalTilLagring: Maal) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             const nyeMaal = avtale.maal.filter(
                 (maal: Maal) => maal.id !== maalTilLagring.id
@@ -173,8 +183,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return Promise.reject();
     }
 
+    hentAvtale(avtaleId: string) {
+        this.service.hentAvtale(avtaleId).then(avtale => {
+            this.setState({ avtale });
+        });
+    }
+
     slettMaal(maalTilSletting: Maal) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             const nyeMaal = avtale.maal.filter(
                 (maal: Maal) => maal.id !== maalTilSletting.id
@@ -186,7 +202,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     lagreOppgave(oppgaveTilLagring: Oppgave) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             const nyeOppgaver = avtale.oppgaver.filter(
                 (oppgave: Oppgave) => oppgave.id !== oppgaveTilLagring.id
@@ -203,7 +219,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     slettOppgave(oppgaveTilSletting: Oppgave) {
-        const avtale = this.state.avtaler.get(this.state.valgtAvtaleId);
+        const avtale = this.state.avtale;
         if (avtale) {
             const nyeOppgaver = avtale.oppgaver.filter(
                 (oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id
@@ -215,8 +231,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     avtaleKlikk(avtaleId: string) {
-        this.setState({ valgtAvtaleId: avtaleId });
-        this.props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
+        this.service.hentAvtale(avtaleId).then(avtale => {
+            this.setState({ avtale }, () => {
+                this.props.history.push(
+                    pathTilKontaktinformasjonSteg(avtaleId)
+                );
+            });
+        });
     }
 
     opprettAvtaleKlikk() {
@@ -225,24 +246,31 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 this.state.avtaler
             );
             nyeAvtaler.set(avtale.id, avtale);
-            this.setState({
-                avtaler: nyeAvtaler,
-                valgtAvtaleId: avtale.id,
-            });
-            this.props.history.push(pathTilKontaktinformasjonSteg(avtale.id));
+            this.setState(
+                {
+                    avtaler: nyeAvtaler,
+                    valgtAvtaleId: avtale.id,
+                    avtale,
+                },
+                () => {
+                    this.props.history.push(
+                        pathTilKontaktinformasjonSteg(avtale.id)
+                    );
+                }
+            );
         });
     }
 
     render() {
         const context: Context = {
-            avtale:
-                this.state.avtaler.get(this.state.valgtAvtaleId) || tomAvtale,
+            avtale: this.state.avtale,
             settAvtaleVerdi: this.settAvtaleVerdi,
             lagreAvtale: this.lagreAvtale,
             lagreMaal: this.lagreMaal,
             slettMaal: this.slettMaal,
             lagreOppgave: this.lagreOppgave,
             slettOppgave: this.slettOppgave,
+            hentAvtale: this.hentAvtale,
         };
 
         return (

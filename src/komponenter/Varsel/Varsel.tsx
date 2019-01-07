@@ -15,10 +15,6 @@ class Varsel extends React.Component<Props, State> {
         toggle: true,
     };
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     render() {
         return (
             this.state.toggle && (
