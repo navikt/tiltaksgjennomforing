@@ -6,8 +6,12 @@ import { finnLedigeMaalkategorier } from './maal-utils';
 
 class MaalSteg extends React.Component<Context> {
     render() {
-        const valgteMaalkategorier = this.props.avtale.maal.map(maal => maal.kategori);
-        const ledigeMaalkategorier = finnLedigeMaalkategorier(valgteMaalkategorier);
+        const valgteMaalkategorier = this.props.avtale.maal.map(
+            maal => maal.kategori
+        );
+        const ledigeMaalkategorier = finnLedigeMaalkategorier(
+            valgteMaalkategorier
+        );
 
         const maalListe = this.props.avtale.maal.map(maal => (
             <MaalKort

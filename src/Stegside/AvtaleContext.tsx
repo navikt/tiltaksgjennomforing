@@ -236,7 +236,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     avtaleKlikk(avtaleId: string) {
         this.service.hentAvtale(avtaleId).then(avtale => {
             this.setState({ avtale }, () => {
-                // Pusher på history ETTER at state er satt, hvis ikke blir den forrige avtalens innhold vist.
                 this.props.history.push(
                     pathTilKontaktinformasjonSteg(avtaleId)
                 );
@@ -257,7 +256,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                     avtale,
                 },
                 () => {
-                    // Pusher på history ETTER at state er satt, hvis ikke blir den forrige avtalens innhold vist.
                     this.props.history.push(
                         pathTilKontaktinformasjonSteg(avtale.id)
                     );
