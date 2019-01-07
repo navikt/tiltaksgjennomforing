@@ -121,7 +121,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     };
 
     shouldComponentUpdate(nextProps: any, nextState: State): boolean {
-        return nextState.avtale.maal.every(maal => maal.id !== undefined);
+        return (
+            nextState.avtale.maal.every(maal => maal.id !== undefined) &&
+            nextState.avtale.oppgaver.every(maal => maal.id !== undefined)
+        );
     }
 
     componentDidMount() {
