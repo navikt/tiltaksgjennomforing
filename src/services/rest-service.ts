@@ -1,6 +1,7 @@
 import { Avtale } from '../AvtaleSide/avtale';
 import Service from './service';
 import { ApiError } from '../AvtaleSide/ApiError';
+import { renderIntoDocument } from 'react-dom/test-utils';
 
 const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
@@ -54,12 +55,17 @@ export default class RestService extends Service {
             });
     }
 
-    async opprettAvtale(): Promise<Avtale> {
+    async opprettAvtale(
+        deltakerFnr: string,
+        arbeidsgiverFnr: string,
+        veilederNavIdent: string
+    ): Promise<Avtale> {
         return fetch(`${API_URL}/avtaler`, {
             method: 'POST',
             body: JSON.stringify({
-                deltakerFnr: '01234567890',
-                veilederNavIdent: 'X123456',
+                deltakerFnr,
+                arbeidsgiverFnr,
+                veilederNavIdent,
             }),
             headers: {
                 'Content-Type': 'application/json',

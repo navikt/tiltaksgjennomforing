@@ -1,12 +1,11 @@
 import moment from 'moment';
 import * as React from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Varsel from './komponenter/Varsel/Varsel';
-import { pathTilKontaktinformasjonSteg, pathTilOversikt } from './paths';
+import { pathTilKontaktinformasjonSteg } from './paths';
 import Service from './services/service';
 import { createService } from './services/service-factory';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
-import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
 import { ApiError } from './AvtaleSide/ApiError';
 
 export const tomAvtale: Avtale = {
@@ -62,7 +61,11 @@ export interface Context {
     lagreOppgave: (oppgave: Oppgave) => void;
     slettOppgave: (oppgave: Oppgave) => void;
     hentAvtale: (avtaleId: string) => void;
-    opprettAvtale: () => void;
+    opprettAvtale: (
+        deltakerFnr: string,
+        arbeidsgiverFnr: string,
+        veilederNavIdent: string
+    ) => Promise<Avtale>;
 }
 
 // tslint:disable no-empty
@@ -75,7 +78,7 @@ const AvtaleContext = React.createContext<Context>({
     lagreOppgave: () => {},
     slettOppgave: () => {},
     hentAvtale: () => {},
-    opprettAvtale: () => {},
+    opprettAvtale: () => Promise.resolve(tomAvtale),
 });
 // tslint:enable
 
@@ -103,8 +106,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
         this.hentAvtale = this.hentAvtale.bind(this);
         this.lagreAvtale = this.lagreAvtale.bind(this);
-        this.avtaleKlikk = this.avtaleKlikk.bind(this);
-        this.opprettAvtaleKlikk = this.opprettAvtaleKlikk.bind(this);
+        this.opprettAvtale = this.opprettAvtale.bind(this);
         this.lagreMaal = this.lagreMaal.bind(this);
         this.slettMaal = this.slettMaal.bind(this);
         this.lagreOppgave = this.lagreOppgave.bind(this);
@@ -140,7 +142,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         if (paaAvtaleSide) {
             this.service
                 .hentAvtale(this.state.valgtAvtaleId)
-                .then(avtale => this.setState({ avtale }));
+                .then(avtale => this.setState({ avtale }))
+                .catch(this.handterApiFeil);
         }
     }
 
@@ -234,35 +237,29 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return Promise.reject();
     }
 
-    avtaleKlikk(avtaleId: string) {
-        this.service.hentAvtale(avtaleId).then(avtale => {
-            this.setState({ avtale }, () => {
-                this.props.history.push(
-                    pathTilKontaktinformasjonSteg(avtaleId)
+    opprettAvtale(
+        deltakerFnr: string,
+        arbeidsgiverFnr: string,
+        veilederNavIdent: string
+    ): Promise<Avtale> {
+        return this.service
+            .opprettAvtale(deltakerFnr, arbeidsgiverFnr, veilederNavIdent)
+            .then((avtale: Avtale) => {
+                const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
+                    this.state.avtaler
                 );
-            });
-        });
-    }
-
-    opprettAvtaleKlikk() {
-        this.service.opprettAvtale().then((avtale: Avtale) => {
-            const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
-                this.state.avtaler
-            );
-            nyeAvtaler.set(avtale.id, avtale);
-            this.setState(
-                {
+                nyeAvtaler.set(avtale.id, avtale);
+                this.setState({
                     avtaler: nyeAvtaler,
                     valgtAvtaleId: avtale.id,
                     avtale,
-                },
-                () => {
-                    this.props.history.push(
-                        pathTilKontaktinformasjonSteg(avtale.id)
-                    );
-                }
-            );
-        });
+                });
+                return Promise.resolve(avtale);
+            })
+            .catch(() => {
+                this.visFeilmelding('Kunne ikke opprette avtale');
+                return Promise.reject(tomAvtale);
+            });
     }
 
     render() {
@@ -275,7 +272,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             lagreOppgave: this.lagreOppgave,
             slettOppgave: this.slettOppgave,
             hentAvtale: this.hentAvtale,
-            opprettAvtale: this.opprettAvtaleKlikk,
+            opprettAvtale: this.opprettAvtale,
         };
 
         return (
@@ -283,20 +280,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 {this.state.feilmelding && (
                     <Varsel>{this.state.feilmelding}</Varsel>
                 )}
-                <Switch>
-                    <Route
-                        path={pathTilOversikt}
-                        exact={true}
-                        render={() => (
-                            <AvtaleOversikt
-                                avtaler={this.state.avtaler}
-                                avtaleKlikk={this.avtaleKlikk}
-                                opprettAvtaleKlikk={this.opprettAvtaleKlikk}
-                            />
-                        )}
-                    />
-                    {this.props.children}
-                </Switch>
+                {this.props.children}
             </AvtaleContext.Provider>
         );
     }
