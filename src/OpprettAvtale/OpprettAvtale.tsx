@@ -6,18 +6,18 @@ import './OpprettAvtale.less';
 import { Context, medContext } from '../AvtaleContext';
 
 interface State {
-    kandidatFnr: string;
+    deltakerFnr: string;
     arbeidsgiverFnr: string;
 }
 
 class OpprettAvtale extends React.Component<Context, State> {
     state = {
-        kandidatFnr: '',
+        deltakerFnr: '',
         arbeidsgiverFnr: '',
     };
 
-    endreKandidatFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ kandidatFnr: event.target.value });
+    endredeltakerFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({ deltakerFnr: event.target.value });
     };
 
     endreArbeidsgiverFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +36,8 @@ class OpprettAvtale extends React.Component<Context, State> {
                 </Innholdstittel>
                 <Input
                     label="Kandidatens fødselsnummer"
-                    value={this.state.kandidatFnr}
-                    onChange={this.endreKandidatFnr}
+                    value={this.state.deltakerFnr}
+                    onChange={this.endredeltakerFnr}
                 />
                 <Input
                     label="Arbeidsgivers fødselsnummer"
