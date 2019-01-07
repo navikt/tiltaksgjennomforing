@@ -62,6 +62,7 @@ export interface Context {
     lagreOppgave: (oppgave: Oppgave) => void;
     slettOppgave: (oppgave: Oppgave) => void;
     hentAvtale: (avtaleId: string) => void;
+    opprettAvtale: () => void;
 }
 
 // tslint:disable no-empty
@@ -74,6 +75,7 @@ const AvtaleContext = React.createContext<Context>({
     lagreOppgave: () => {},
     slettOppgave: () => {},
     hentAvtale: () => {},
+    opprettAvtale: () => {},
 });
 // tslint:enable
 
@@ -273,6 +275,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             lagreOppgave: this.lagreOppgave,
             slettOppgave: this.slettOppgave,
             hentAvtale: this.hentAvtale,
+            opprettAvtale: this.opprettAvtaleKlikk,
         };
 
         return (

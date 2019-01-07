@@ -3,13 +3,14 @@ import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import './OpprettAvtale.less';
+import { Context, medContext } from '../AvtaleContext';
 
 interface State {
     kandidatFnr: string;
     arbeidsgiverFnr: string;
 }
 
-class OpprettAvtale extends React.Component<{}, State> {
+class OpprettAvtale extends React.Component<Context, State> {
     state = {
         kandidatFnr: '',
         arbeidsgiverFnr: '',
@@ -23,7 +24,9 @@ class OpprettAvtale extends React.Component<{}, State> {
         this.setState({ arbeidsgiverFnr: event.target.value });
     };
 
-    opprettAvtaleKlikk = () => {};
+    opprettAvtaleKlikk = () => {
+        this.props.opprettAvtale();
+    };
 
     render() {
         return (
@@ -49,4 +52,4 @@ class OpprettAvtale extends React.Component<{}, State> {
     }
 }
 
-export default OpprettAvtale;
+export default medContext(OpprettAvtale);
