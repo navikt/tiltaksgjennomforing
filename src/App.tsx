@@ -4,6 +4,7 @@ import { AvtaleProvider } from './AvtaleContext';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
+import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 
 addLocaleData(nb);
 
@@ -17,6 +18,11 @@ class App extends React.Component {
                             path="/tiltaksgjennomforing/avtale/:avtaleId/:stegPath"
                             exact={true}
                             component={AvtaleSide}
+                        />
+                        <Route
+                            path="/tiltaksgjennomforing/opprett-avtale"
+                            exact={true}
+                            component={OpprettAvtale}
                         />
                     </AvtaleProvider>
                 </BrowserRouter>
