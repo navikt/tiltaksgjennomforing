@@ -63,6 +63,7 @@ export default class RestService extends Service {
             body: JSON.stringify({
                 deltakerFnr,
                 arbeidsgiverFnr,
+                // TODO: Fjerne
                 veilederNavIdent: 'X123456',
             }),
             headers: {

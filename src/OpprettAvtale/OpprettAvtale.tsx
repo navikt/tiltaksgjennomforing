@@ -4,8 +4,8 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import './OpprettAvtale.less';
 import { Context, medContext } from '../AvtaleContext';
-import { pathTilKontaktinformasjonSteg } from '../paths';
 import { RouterProps } from 'react-router';
+import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
 
 interface State {
     deltakerFnr: string;
@@ -27,18 +27,10 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     };
 
     opprettAvtaleKlikk = () => {
-        // TODO: Endre til å kalle backend med /api/innlogget-bruker for å få navIdent
-        const veilederNavIdent = 'X123456';
         this.props
-            .opprettAvtale(
-                this.state.deltakerFnr,
-                this.state.arbeidsgiverFnr,
-                veilederNavIdent
-            )
-            .then(avtale => {
-                this.props.history.push(
-                    pathTilKontaktinformasjonSteg(avtale.id)
-                );
+            .opprettAvtale(this.state.deltakerFnr, this.state.arbeidsgiverFnr)
+            .then(() => {
+                this.props.history.push(pathTilOpprettetAvtaleBekreftelse);
             });
     };
 
