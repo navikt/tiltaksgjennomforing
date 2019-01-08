@@ -85,7 +85,7 @@ export const AvtaleConsumer = AvtaleContext.Consumer;
 interface State {
     avtaler: Map<string, Avtale>;
     avtale: Avtale;
-    feilmelding?: string;
+    feilmelding: string;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -97,6 +97,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.state = {
             avtaler: new Map<string, Avtale>(),
             avtale: tomAvtale,
+            feilmelding: '',
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -108,6 +109,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.lagreOppgave = this.lagreOppgave.bind(this);
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
+        this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.service = createService();
     }
 
@@ -180,9 +182,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     hentAvtale(avtaleId: string) {
-        this.service.hentAvtale(avtaleId).then(avtale => {
-            this.setState({ avtale });
-        });
+        this.service
+            .hentAvtale(avtaleId)
+            .then(avtale => {
+                this.setState({ avtale });
+            })
+            .catch(this.handterApiFeil);
     }
 
     slettMaal(maalTilSletting: Maal) {
@@ -249,6 +254,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             });
     }
 
+    fjernFeilmelding() {
+        this.setState({ feilmelding: '' });
+    }
+
     render() {
         const context: Context = {
             avtale: this.state.avtale,
@@ -265,7 +274,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return (
             <AvtaleContext.Provider value={context}>
                 {this.state.feilmelding && (
-                    <Varsel>{this.state.feilmelding}</Varsel>
+                    <Varsel lukkVarsel={this.fjernFeilmelding}>
+                        {this.state.feilmelding}
+                    </Varsel>
                 )}
                 {this.props.children}
             </AvtaleContext.Provider>
