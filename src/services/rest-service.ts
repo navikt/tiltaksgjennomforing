@@ -5,11 +5,16 @@ import { ApiError } from '../Stegside/ApiError';
 const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 const HTTP_UNAUTHORIZED = 401;
+const HTTP_CONFLICT = 409;
 
 export default class RestService extends Service {
-    handleAuthorizedResponse(response: Response) {
+    async handleResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
             window.location.href = LOGIN_REDIRECT;
+        }
+        if (response.status === HTTP_CONFLICT) {
+            const responseJson:any = await response.json();
+            throw new ApiError(responseJson.message);
         }
         if (!response.ok) {
             throw new ApiError('Feil ved kall til backend');
@@ -19,14 +24,14 @@ export default class RestService extends Service {
 
     async hentAvtale(id: string): Promise<Avtale> {
         const avtale = await fetch(`${API_URL}/avtaler/${id}`)
-            .then(this.handleAuthorizedResponse)
+            .then(this.handleResponse)
             .then(response => response.json());
         return { ...avtale, id: `${avtale.id}` };
     }
 
     async hentAvtaler(): Promise<Map<string, Avtale>> {
         const avtaler: Avtale[] = await fetch(`${API_URL}/avtaler`)
-            .then(this.handleAuthorizedResponse)
+            .then(this.handleResponse)
             .then(response => response.json());
         return avtaler.reduce(
             (map: Map<string, Avtale>, avtale: Avtale) =>
@@ -44,7 +49,7 @@ export default class RestService extends Service {
                 'If-Match': avtale.versjon,
             },
         })
-            .then(this.handleAuthorizedResponse)
+            .then(this.handleResponse)
             .then((response: Response) => {
                 const eTag = response.headers.get('ETag');
                 if (eTag) {
@@ -65,10 +70,10 @@ export default class RestService extends Service {
                 'Content-Type': 'application/json',
             },
         })
-            .then(this.handleAuthorizedResponse)
+            .then(this.handleResponse)
             .then(response => response.headers.get('Location'))
             .then(location => fetch(`${API_URL}/${location}`))
-            .then(this.handleAuthorizedResponse)
+            .then(this.handleResponse)
             .then(response => response.json())
             .then((avtale: Avtale) => ({ ...avtale, id: `${avtale.id}` }));
     }

@@ -84,7 +84,7 @@ interface State {
     avtaler: Map<string, Avtale>;
     avtale: Avtale;
     valgtAvtaleId: string;
-    feilmelding?: string;
+    feilmelding: string;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -97,6 +97,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtaler: new Map<string, Avtale>(),
             avtale: tomAvtale,
             valgtAvtaleId: props.location.pathname.split('/')[3],
+            feilmelding: '',
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -109,6 +110,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.lagreOppgave = this.lagreOppgave.bind(this);
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
+        this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.service = createService();
     }
 
@@ -139,7 +141,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         if (paaAvtaleSide) {
             this.service
                 .hentAvtale(this.state.valgtAvtaleId)
-                .then(avtale => this.setState({ avtale }));
+                .then(avtale => this.setState({ avtale }))
+                .catch(this.handterApiFeil);
         }
     }
 
@@ -187,9 +190,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     hentAvtale(avtaleId: string) {
-        this.service.hentAvtale(avtaleId).then(avtale => {
-            this.setState({ avtale });
-        });
+        this.service
+            .hentAvtale(avtaleId)
+            .then(avtale => {
+                this.setState({ avtale });
+            })
+            .catch(this.handterApiFeil);
     }
 
     slettMaal(maalTilSletting: Maal) {
@@ -234,34 +240,44 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     avtaleKlikk(avtaleId: string) {
-        this.service.hentAvtale(avtaleId).then(avtale => {
-            this.setState({ avtale }, () => {
-                this.props.history.push(
-                    pathTilKontaktinformasjonSteg(avtaleId)
-                );
-            });
-        });
+        this.service
+            .hentAvtale(avtaleId)
+            .then(avtale => {
+                this.setState({ avtale }, () => {
+                    this.props.history.push(
+                        pathTilKontaktinformasjonSteg(avtaleId)
+                    );
+                });
+            })
+            .catch(this.handterApiFeil);
     }
 
     opprettAvtaleKlikk() {
-        this.service.opprettAvtale().then((avtale: Avtale) => {
-            const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
-                this.state.avtaler
-            );
-            nyeAvtaler.set(avtale.id, avtale);
-            this.setState(
-                {
-                    avtaler: nyeAvtaler,
-                    valgtAvtaleId: avtale.id,
-                    avtale,
-                },
-                () => {
-                    this.props.history.push(
-                        pathTilKontaktinformasjonSteg(avtale.id)
-                    );
-                }
-            );
-        });
+        this.service
+            .opprettAvtale()
+            .then((avtale: Avtale) => {
+                const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
+                    this.state.avtaler
+                );
+                nyeAvtaler.set(avtale.id, avtale);
+                this.setState(
+                    {
+                        avtaler: nyeAvtaler,
+                        valgtAvtaleId: avtale.id,
+                        avtale,
+                    },
+                    () => {
+                        this.props.history.push(
+                            pathTilKontaktinformasjonSteg(avtale.id)
+                        );
+                    }
+                );
+            })
+            .catch(this.handterApiFeil);
+    }
+
+    fjernFeilmelding() {
+        this.setState({ feilmelding: '' });
     }
 
     render() {
@@ -279,7 +295,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return (
             <AvtaleContext.Provider value={context}>
                 {this.state.feilmelding && (
-                    <Varsel>{this.state.feilmelding}</Varsel>
+                    <Varsel lukkVarsel={this.fjernFeilmelding}>
+                        {this.state.feilmelding}
+                    </Varsel>
                 )}
                 <Switch>
                     <Route
