@@ -2,7 +2,6 @@ import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import Varsel from './komponenter/Varsel/Varsel';
-import { pathTilKontaktinformasjonSteg } from './paths';
 import Service from './services/service';
 import { createService } from './services/service-factory';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
@@ -87,7 +86,6 @@ export const AvtaleConsumer = AvtaleContext.Consumer;
 interface State {
     avtaler: Map<string, Avtale>;
     avtale: Avtale;
-    valgtAvtaleId: string;
     feilmelding?: string;
 }
 
@@ -100,7 +98,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.state = {
             avtaler: new Map<string, Avtale>(),
             avtale: tomAvtale,
-            valgtAvtaleId: props.location.pathname.split('/')[3],
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -131,20 +128,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     componentDidMount() {
+        // TODO: Flytt til AvtaleOversikt
         this.service
             .hentAvtaler()
             .then((avtaler: Map<string, Avtale>) => {
                 this.setState({ avtaler });
             })
             .catch(this.handterApiFeil);
-
-        const paaAvtaleSide = this.state.valgtAvtaleId !== undefined;
-        if (paaAvtaleSide) {
-            this.service
-                .hentAvtale(this.state.valgtAvtaleId)
-                .then(avtale => this.setState({ avtale }))
-                .catch(this.handterApiFeil);
-        }
     }
 
     visFeilmelding(feilmelding: string) {
@@ -251,7 +241,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 nyeAvtaler.set(avtale.id, avtale);
                 this.setState({
                     avtaler: nyeAvtaler,
-                    valgtAvtaleId: avtale.id,
                     avtale,
                 });
                 return Promise.resolve(avtale);
