@@ -1,14 +1,15 @@
 import React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst, Element } from 'nav-frontend-typografi';
 import './OpprettAvtale.less';
 import { Context, medContext } from '../AvtaleContext';
 import { RouterProps } from 'react-router';
 import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import stegFullfortIkon from '../komponenter/KnappMedIkon/rediger-penn.svg';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+
+import utklippstavleIkon from './utklippstavle.svg';
 
 interface State {
     deltakerFnr: string;
@@ -39,17 +40,19 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
 
     render() {
         return (
-            <>
-                <Innholdstittel>
+            <div className="opprett-avtale">
+                <Innholdstittel className="opprett-avtale__tittel">
                     Opprett avtale om arbeidstrening
                 </Innholdstittel>
                 <Veilederpanel
                     // TODO: Bytt ut med riktig ikon
-                    svg={stegFullfortIkon}
+                    svg={<img src={utklippstavleIkon} />}
                     kompakt={true}
                     type="plakat"
                 >
-                    <Normaltekst>Du trenger:</Normaltekst>
+                    <Normaltekst className="opprett-avtale__du-trenger-tekst">
+                        Du trenger:
+                    </Normaltekst>
                     <ul>
                         <li>
                             <Normaltekst>kandidatens fødselsnummer</Normaltekst>
@@ -70,20 +73,24 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     TODO: Her kommer det noe forklarender tekst med ikoner på
                     siden.
                 </Ekspanderbartpanel>
+
                 <Input
-                    label="Kandidatens fødselsnummer"
+                    label={<Element>Kandidatens fødselsnummer</Element>}
                     value={this.state.deltakerFnr}
                     onChange={this.endredeltakerFnr}
                 />
                 <Input
-                    label="Arbeidsgivers fødselsnummer"
+                    label={<Element>Arbeidsgivers fødselsnummer</Element>}
                     value={this.state.arbeidsgiverFnr}
                     onChange={this.endreArbeidsgiverFnr}
                 />
-                <Hovedknapp onClick={this.opprettAvtaleKlikk}>
+                <Hovedknapp
+                    onClick={this.opprettAvtaleKlikk}
+                    className="opprett-avtale__knapp"
+                >
                     OPPRETT AVTALE
                 </Hovedknapp>
-            </>
+            </div>
         );
     }
 }

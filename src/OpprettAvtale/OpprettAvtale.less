@@ -1,0 +1,36 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.opprett-avtale {
+  background-color: @grayBackground;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+
+  &__tittel {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .nav-veilederpanel {
+    margin-bottom: 1rem;
+    border-color: @navBlaLighten60;
+
+    .nav-veileder__frame img, .nav-veileder__frame svg {
+      height: 100%;
+    }
+  }
+
+  &__du-trenger-tekst {
+    font-weight: bold;
+  }
+
+  .ekspanderbartPanel {
+    margin-bottom: 1rem;
+  }
+
+  &__knapp {
+    width: 14rem;
+    margin-top: 1rem;
+    align-self: center;
+  }
+}
