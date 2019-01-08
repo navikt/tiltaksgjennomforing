@@ -110,7 +110,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.lagreOppgave = this.lagreOppgave.bind(this);
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
-        this.skjulFeilmelding = this.skjulFeilmelding.bind(this);
+        this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.service = createService();
     }
 
@@ -263,7 +263,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         });
     }
 
-    skjulFeilmelding() {
+    fjernFeilmelding() {
         this.setState({ feilmelding: '' });
     }
 
@@ -282,7 +282,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return (
             <AvtaleContext.Provider value={context}>
                 {this.state.feilmelding && (
-                    <Varsel lukkVarsel={this.skjulFeilmelding}>
+                    <Varsel lukkVarsel={this.fjernFeilmelding}>
                         {this.state.feilmelding}
                     </Varsel>
                 )}
