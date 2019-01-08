@@ -74,16 +74,20 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     siden.
                 </Ekspanderbartpanel>
 
-                <Input
-                    label={<Element>Kandidatens fødselsnummer</Element>}
-                    value={this.state.deltakerFnr}
-                    onChange={this.endredeltakerFnr}
-                />
-                <Input
-                    label={<Element>Arbeidsgivers fødselsnummer</Element>}
-                    value={this.state.arbeidsgiverFnr}
-                    onChange={this.endreArbeidsgiverFnr}
-                />
+                <div className="opprett-avtale__input-wrapper">
+                    <Input
+                        label={<Element>Kandidatens fødselsnummer</Element>}
+                        value={this.state.deltakerFnr}
+                        onChange={this.endredeltakerFnr}
+                        className="opprett-avtale__kandidat-fnr"
+                    />
+                    <Input
+                        label={<Element>Arbeidsgivers fødselsnummer</Element>}
+                        value={this.state.arbeidsgiverFnr}
+                        onChange={this.endreArbeidsgiverFnr}
+                        className="opprett-avtale__arbeidsgiver-fnr"
+                    />
+                </div>
                 <Hovedknapp
                     onClick={this.opprettAvtaleKlikk}
                     className="opprett-avtale__knapp"

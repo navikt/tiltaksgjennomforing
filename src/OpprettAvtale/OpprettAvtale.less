@@ -34,3 +34,33 @@
     align-self: center;
   }
 }
+
+@media (min-width: @screen-sm-min) {
+  .opprett-avtale {
+    margin: 0 auto;
+    max-width: @screen-sm-min;
+
+    .ekspanderbartPanel {
+      margin-bottom: 2rem;
+    }
+
+    &__input-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__kandidat-fnr {
+      width: 100%;
+      margin-right: 0.5rem;
+    }
+
+    &__arbeidsgiver-fnr {
+      width: 100%;
+      margin-left: 0.5rem;
+    }
+
+    &__knapp {
+      margin-top: 2rem;
+    }
+  }
+}
