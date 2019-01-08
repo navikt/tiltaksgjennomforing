@@ -138,7 +138,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         if (paaAvtaleSide) {
             this.service
                 .hentAvtale(this.state.valgtAvtaleId)
-                .then(avtale => this.setState({ avtale }));
+                .then(avtale => this.setState({ avtale }))
+                .catch(this.handterApiFeil);
         }
     }
 
@@ -186,9 +187,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     hentAvtale(avtaleId: string) {
-        this.service.hentAvtale(avtaleId).then(avtale => {
-            this.setState({ avtale });
-        });
+        this.service
+            .hentAvtale(avtaleId)
+            .then(avtale => {
+                this.setState({ avtale });
+            })
+            .catch(this.handterApiFeil);
     }
 
     slettMaal(maalTilSletting: Maal) {
@@ -233,34 +237,40 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     avtaleKlikk(avtaleId: string) {
-        this.service.hentAvtale(avtaleId).then(avtale => {
-            this.setState({ avtale }, () => {
-                this.props.history.push(
-                    pathTilKontaktinformasjonSteg(avtaleId)
-                );
-            });
-        });
+        this.service
+            .hentAvtale(avtaleId)
+            .then(avtale => {
+                this.setState({ avtale }, () => {
+                    this.props.history.push(
+                        pathTilKontaktinformasjonSteg(avtaleId)
+                    );
+                });
+            })
+            .catch(this.handterApiFeil);
     }
 
     opprettAvtaleKlikk() {
-        this.service.opprettAvtale().then((avtale: Avtale) => {
-            const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
-                this.state.avtaler
-            );
-            nyeAvtaler.set(avtale.id, avtale);
-            this.setState(
-                {
-                    avtaler: nyeAvtaler,
-                    valgtAvtaleId: avtale.id,
-                    avtale,
-                },
-                () => {
-                    this.props.history.push(
-                        pathTilKontaktinformasjonSteg(avtale.id)
-                    );
-                }
-            );
-        });
+        this.service
+            .opprettAvtale()
+            .then((avtale: Avtale) => {
+                const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
+                    this.state.avtaler
+                );
+                nyeAvtaler.set(avtale.id, avtale);
+                this.setState(
+                    {
+                        avtaler: nyeAvtaler,
+                        valgtAvtaleId: avtale.id,
+                        avtale,
+                    },
+                    () => {
+                        this.props.history.push(
+                            pathTilKontaktinformasjonSteg(avtale.id)
+                        );
+                    }
+                );
+            })
+            .catch(this.handterApiFeil);
     }
 
     fjernFeilmelding() {
