@@ -45,7 +45,6 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     Opprett avtale om arbeidstrening
                 </Innholdstittel>
                 <Veilederpanel
-                    // TODO: Bytt ut med riktig ikon
                     svg={<img src={utklippstavleIkon} />}
                     kompakt={true}
                     type="plakat"
