@@ -6,7 +6,6 @@ export default abstract class Service {
     abstract lagreAvtale(avtale: Avtale): Promise<{ versjon: string }>;
     abstract opprettAvtale(
         deltakerFnr: string,
-        arbeidsgiverFnr: string,
-        veilederNavIdent: string
+        arbeidsgiverFnr: string
     ): Promise<Avtale>;
 }

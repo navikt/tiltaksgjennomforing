@@ -1,7 +1,6 @@
 import { Avtale } from '../AvtaleSide/avtale';
 import Service from './service';
 import { ApiError } from '../AvtaleSide/ApiError';
-import { renderIntoDocument } from 'react-dom/test-utils';
 
 const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
@@ -57,15 +56,14 @@ export default class RestService extends Service {
 
     async opprettAvtale(
         deltakerFnr: string,
-        arbeidsgiverFnr: string,
-        veilederNavIdent: string
+        arbeidsgiverFnr: string
     ): Promise<Avtale> {
         return fetch(`${API_URL}/avtaler`, {
             method: 'POST',
             body: JSON.stringify({
                 deltakerFnr,
                 arbeidsgiverFnr,
-                veilederNavIdent,
+                veilederNavIdent: 'X123456',
             }),
             headers: {
                 'Content-Type': 'application/json',

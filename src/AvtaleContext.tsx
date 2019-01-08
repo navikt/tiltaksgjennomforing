@@ -62,8 +62,7 @@ export interface Context {
     hentAvtale: (avtaleId: string) => void;
     opprettAvtale: (
         deltakerFnr: string,
-        arbeidsgiverFnr: string,
-        veilederNavIdent: string
+        arbeidsgiverFnr: string
     ) => Promise<Avtale>;
 }
 
@@ -229,11 +228,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     opprettAvtale(
         deltakerFnr: string,
-        arbeidsgiverFnr: string,
-        veilederNavIdent: string
+        arbeidsgiverFnr: string
     ): Promise<Avtale> {
         return this.service
-            .opprettAvtale(deltakerFnr, arbeidsgiverFnr, veilederNavIdent)
+            .opprettAvtale(deltakerFnr, arbeidsgiverFnr)
             .then((avtale: Avtale) => {
                 const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
                     this.state.avtaler
