@@ -1,11 +1,14 @@
 import React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import './OpprettAvtale.less';
 import { Context, medContext } from '../AvtaleContext';
 import { RouterProps } from 'react-router';
 import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
+import Veilederpanel from 'nav-frontend-veilederpanel';
+import stegFullfortIkon from '../komponenter/KnappMedIkon/rediger-penn.svg';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
 interface State {
     deltakerFnr: string;
@@ -40,6 +43,33 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 <Innholdstittel>
                     Opprett avtale om arbeidstrening
                 </Innholdstittel>
+                <Veilederpanel
+                    // TODO: Bytt ut med riktig ikon
+                    svg={stegFullfortIkon}
+                    kompakt={true}
+                    type="plakat"
+                >
+                    <Normaltekst>Du trenger:</Normaltekst>
+                    <ul>
+                        <li>
+                            <Normaltekst>kandidatens fødselsnummer</Normaltekst>
+                        </li>
+                        <li>
+                            <Normaltekst>
+                                fødselsnummeret til personen hos bedriften som
+                                skal fylle ut avtalen
+                            </Normaltekst>
+                        </li>
+                    </ul>
+                </Veilederpanel>
+                <Ekspanderbartpanel
+                    tittel="Sånn fungerer det"
+                    tittelProps="element"
+                    border={true}
+                >
+                    TODO: Her kommer det noe forklarender tekst med ikoner på
+                    siden.
+                </Ekspanderbartpanel>
                 <Input
                     label="Kandidatens fødselsnummer"
                     value={this.state.deltakerFnr}
