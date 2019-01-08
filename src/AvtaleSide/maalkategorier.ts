@@ -12,5 +12,5 @@ export const maalkategorier: Maalkategori[] = [
     'Språkopplæring',
     'Oppnå fagbrev/kompetansebevis',
     'Få jobb i bedriften',
-    'Annet'
+    'Annet',
 ];

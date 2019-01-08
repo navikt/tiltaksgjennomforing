@@ -8,7 +8,7 @@ describe('Test av maal-utils', () => {
     it('Skal fjerne brukte målkategorier', () => {
         const brukteKategorier: Maalkategori[] = [
             'Utprøving',
-            'Arbeidserfaring'
+            'Arbeidserfaring',
         ];
         const ledigeMaalkategorier = finnLedigeMaalkategorier(brukteKategorier);
         expect(ledigeMaalkategorier).to.not.include('Utprøving');

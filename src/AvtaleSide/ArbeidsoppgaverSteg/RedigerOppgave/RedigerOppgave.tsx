@@ -50,8 +50,9 @@ class RedigerOppgave extends React.Component<Props, State> {
     lagreKnappOnClick = () => {
         this.props.lagreOppgave({
             id: this.props.defaultOppgave && this.props.defaultOppgave.id,
-            opprettetTimestamp: this.props.defaultOppgave &&
-                    this.props.defaultOppgave.opprettetTimestamp,
+            opprettetTimestamp:
+                this.props.defaultOppgave &&
+                this.props.defaultOppgave.opprettetTimestamp,
             tittel: this.state.tittel,
             beskrivelse: this.state.beskrivelse,
             opplaering: this.state.opplaering,

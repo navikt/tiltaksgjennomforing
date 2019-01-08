@@ -42,7 +42,7 @@ class RedigerMaal extends React.Component<Props, State> {
             id: this.props.defaultMaal && this.props.defaultMaal.id,
             opprettetTimestamp:
                 this.props.defaultMaal &&
-                    this.props.defaultMaal.opprettetTimestamp,
+                this.props.defaultMaal.opprettetTimestamp,
             kategori: this.state.valgtKategori,
             beskrivelse: this.state.beskrivelse,
         });
