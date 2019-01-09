@@ -2,9 +2,10 @@ const proxy = require('http-proxy-middleware');
 
 const envProperties = {
     API_GATEWAY: process.env.API_GATEWAY || 'http://localhost:8080',
+    // Bruk .../local/selvbetjening-cookie?... for login som bruker
     LOGIN_URL:
         process.env.LOGIN_URL ||
-        'http://localhost:8080/tiltaksgjennomforing-api/local/cookie?redirect=http://localhost:3000/tiltaksgjennomforing',
+        'http://localhost:8080/tiltaksgjennomforing-api/local/isso-cookie?redirect=http://localhost:3000/tiltaksgjennomforing',
     LOGOUT_URL: process.env.LOGOUT_URL,
 };
 
