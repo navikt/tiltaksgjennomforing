@@ -60,7 +60,7 @@ export interface MaalListe {
 }
 
 export interface Maal {
-    id?: number;
+    id?: string;
     opprettetTimestamp?: number;
     kategori: Maalkategori;
     beskrivelse: string;
@@ -71,7 +71,7 @@ export interface Oppgaver {
 }
 
 export interface Oppgave {
-    id?: number;
+    id?: string;
     opprettetTimestamp?: number;
     tittel: string;
     beskrivelse: string;
