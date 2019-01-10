@@ -8,40 +8,71 @@ import { RouterProps } from 'react-router';
 import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-
 import utklippstavleIkon from './utklippstavle.svg';
 
 interface State {
     deltakerFnr: string;
     arbeidsgiverFnr: string;
+    deltakerFeilmelding: string;
+    arbeidsgiverFeilmelding: string;
 }
 
+const FNR_FEILMELDING = 'Det kreves 11 siffer i et fødselsnummer';
+
 class OpprettAvtale extends React.Component<Context & RouterProps, State> {
-    state = {
+    state: State = {
         deltakerFnr: '',
         arbeidsgiverFnr: '',
+        deltakerFeilmelding: '',
+        arbeidsgiverFeilmelding: '',
     };
 
     endredeltakerFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fnr = event.target.value;
-        if (fnr.length <= 11) {
+        const inneholderBareTall = fnr.match(/^[0-9]+$/);
+        if (fnr.length <= 11 && inneholderBareTall) {
             this.setState({ deltakerFnr: fnr });
         }
     };
 
     endreArbeidsgiverFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fnr = event.target.value;
-        if (fnr.length <= 11) {
+        const inneholderBareTall = fnr.match(/^[0-9]+$/);
+        if (fnr.length <= 11 && inneholderBareTall) {
             this.setState({ arbeidsgiverFnr: fnr });
         }
     };
 
+    onKlikkUtAvDeltakerInput = () => {
+        if (this.state.deltakerFnr.length !== 11) {
+            this.setState({ deltakerFeilmelding: FNR_FEILMELDING });
+        } else {
+            this.setState({ deltakerFeilmelding: '' });
+        }
+    };
+
+    onKlikkUtAvArbeidsgiverInput = () => {
+        if (this.state.arbeidsgiverFnr.length !== 11) {
+            this.setState({ arbeidsgiverFeilmelding: FNR_FEILMELDING });
+        } else {
+            this.setState({ arbeidsgiverFeilmelding: '' });
+        }
+    };
+
     opprettAvtaleKlikk = () => {
-        this.props
-            .opprettAvtale(this.state.deltakerFnr, this.state.arbeidsgiverFnr)
-            .then(() => {
-                this.props.history.push(pathTilOpprettetAvtaleBekreftelse);
-            });
+        if (
+            this.state.deltakerFnr.length === 11 &&
+            this.state.arbeidsgiverFnr.length === 11
+        ) {
+            this.props
+                .opprettAvtale(
+                    this.state.deltakerFnr,
+                    this.state.arbeidsgiverFnr
+                )
+                .then(() => {
+                    this.props.history.push(pathTilOpprettetAvtaleBekreftelse);
+                });
+        }
     };
 
     render() {
@@ -85,12 +116,30 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         value={this.state.deltakerFnr}
                         onChange={this.endredeltakerFnr}
                         className="opprett-avtale__kandidat-fnr"
+                        feil={
+                            this.state.deltakerFeilmelding.length > 0
+                                ? {
+                                      feilmelding: this.state
+                                          .deltakerFeilmelding,
+                                  }
+                                : undefined
+                        }
+                        onBlur={this.onKlikkUtAvDeltakerInput}
                     />
                     <Input
                         label={<Element>Arbeidsgivers fødselsnummer</Element>}
                         value={this.state.arbeidsgiverFnr}
                         onChange={this.endreArbeidsgiverFnr}
                         className="opprett-avtale__arbeidsgiver-fnr"
+                        feil={
+                            this.state.arbeidsgiverFeilmelding.length > 0
+                                ? {
+                                      feilmelding: this.state
+                                          .arbeidsgiverFeilmelding,
+                                  }
+                                : undefined
+                        }
+                        onBlur={this.onKlikkUtAvArbeidsgiverInput}
                     />
                 </div>
                 <Hovedknapp
