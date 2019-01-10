@@ -9,60 +9,64 @@ import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import utklippstavleIkon from './utklippstavle.svg';
+import { erGyldigFnr, midlertidigGyldigFnr } from '../utils/fnrUtils';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
 interface State {
     deltakerFnr: string;
     arbeidsgiverFnr: string;
-    deltakerFeilmelding: string;
-    arbeidsgiverFeilmelding: string;
+    deltakerFnrFeil: SkjemaelementFeil | undefined;
+    arbeidsgiverFnrFeil: SkjemaelementFeil | undefined;
 }
 
-const FNR_FEILMELDING = 'Det kreves 11 siffer i et fødselsnummer';
+const FNR_FEILMELDING = 'Ugyldig fødselsnummer';
 
 class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     state: State = {
         deltakerFnr: '',
         arbeidsgiverFnr: '',
-        deltakerFeilmelding: '',
-        arbeidsgiverFeilmelding: '',
+        deltakerFnrFeil: undefined,
+        arbeidsgiverFnrFeil: undefined,
     };
 
     endredeltakerFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fnr = event.target.value;
-        const inneholderBareTall = fnr.match(/^[0-9]+$/);
-        if (fnr.length <= 11 && inneholderBareTall) {
+        if (midlertidigGyldigFnr(fnr)) {
             this.setState({ deltakerFnr: fnr });
         }
     };
 
     endreArbeidsgiverFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fnr = event.target.value;
-        const inneholderBareTall = fnr.match(/^[0-9]+$/);
-        if (fnr.length <= 11 && inneholderBareTall) {
+        if (midlertidigGyldigFnr(fnr)) {
             this.setState({ arbeidsgiverFnr: fnr });
         }
     };
 
     onKlikkUtAvDeltakerInput = () => {
-        if (this.state.deltakerFnr.length !== 11) {
-            this.setState({ deltakerFeilmelding: FNR_FEILMELDING });
+        if (erGyldigFnr(this.state.deltakerFnr)) {
+            this.setState({ deltakerFnrFeil: undefined });
         } else {
-            this.setState({ deltakerFeilmelding: '' });
+            this.setState({
+                deltakerFnrFeil: { feilmelding: FNR_FEILMELDING },
+            });
         }
     };
 
     onKlikkUtAvArbeidsgiverInput = () => {
-        if (this.state.arbeidsgiverFnr.length !== 11) {
-            this.setState({ arbeidsgiverFeilmelding: FNR_FEILMELDING });
+        if (erGyldigFnr(this.state.arbeidsgiverFnr)) {
+            this.setState({ arbeidsgiverFnrFeil: undefined });
         } else {
-            this.setState({ arbeidsgiverFeilmelding: '' });
+            this.setState({
+                arbeidsgiverFnrFeil: { feilmelding: FNR_FEILMELDING },
+            });
         }
     };
 
     opprettAvtaleKlikk = () => {
         if (
-            this.state.deltakerFnr.length === 11 &&
-            this.state.arbeidsgiverFnr.length === 11
+            erGyldigFnr(this.state.deltakerFnr) &&
+            erGyldigFnr(this.state.arbeidsgiverFnr)
         ) {
             this.props
                 .opprettAvtale(
@@ -116,14 +120,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         value={this.state.deltakerFnr}
                         onChange={this.endredeltakerFnr}
                         className="opprett-avtale__kandidat-fnr"
-                        feil={
-                            this.state.deltakerFeilmelding.length > 0
-                                ? {
-                                      feilmelding: this.state
-                                          .deltakerFeilmelding,
-                                  }
-                                : undefined
-                        }
+                        feil={this.state.deltakerFnrFeil}
                         onBlur={this.onKlikkUtAvDeltakerInput}
                     />
                     <Input
@@ -131,14 +128,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         value={this.state.arbeidsgiverFnr}
                         onChange={this.endreArbeidsgiverFnr}
                         className="opprett-avtale__arbeidsgiver-fnr"
-                        feil={
-                            this.state.arbeidsgiverFeilmelding.length > 0
-                                ? {
-                                      feilmelding: this.state
-                                          .arbeidsgiverFeilmelding,
-                                  }
-                                : undefined
-                        }
+                        feil={this.state.arbeidsgiverFnrFeil}
                         onBlur={this.onKlikkUtAvArbeidsgiverInput}
                     />
                 </div>
