@@ -1,5 +1,4 @@
 import React from 'react';
-import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Innholdstittel, Normaltekst, Element } from 'nav-frontend-typografi';
 import './OpprettAvtale.less';
@@ -9,8 +8,9 @@ import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import utklippstavleIkon from './utklippstavle.svg';
-import { erGyldigFnr, midlertidigGyldigFnr } from '../utils/fnrUtils';
+import { erGyldigFnr } from '../utils/fnrUtils';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import FnrInput from '../komponenter/FnrInput/FnrInput';
 
 interface State {
     deltakerFnr: string;
@@ -25,42 +25,14 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     state: State = {
         deltakerFnr: '',
         arbeidsgiverFnr: '',
-        deltakerFnrFeil: undefined,
-        arbeidsgiverFnrFeil: undefined,
     };
 
-    endredeltakerFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const fnr = event.target.value;
-        if (midlertidigGyldigFnr(fnr)) {
-            this.setState({ deltakerFnr: fnr });
-        }
+    endreDeltakerFnr = (fnr: string) => {
+        this.setState({ deltakerFnr: fnr });
     };
 
-    endreArbeidsgiverFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const fnr = event.target.value;
-        if (midlertidigGyldigFnr(fnr)) {
-            this.setState({ arbeidsgiverFnr: fnr });
-        }
-    };
-
-    onKlikkUtAvDeltakerInput = () => {
-        if (erGyldigFnr(this.state.deltakerFnr)) {
-            this.setState({ deltakerFnrFeil: undefined });
-        } else {
-            this.setState({
-                deltakerFnrFeil: { feilmelding: FNR_FEILMELDING },
-            });
-        }
-    };
-
-    onKlikkUtAvArbeidsgiverInput = () => {
-        if (erGyldigFnr(this.state.arbeidsgiverFnr)) {
-            this.setState({ arbeidsgiverFnrFeil: undefined });
-        } else {
-            this.setState({
-                arbeidsgiverFnrFeil: { feilmelding: FNR_FEILMELDING },
-            });
-        }
+    endreArbeidsgiverFnr = (fnr: string) => {
+        this.setState({ arbeidsgiverFnr: fnr });
     };
 
     opprettAvtaleKlikk = () => {
@@ -115,21 +87,19 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 </Ekspanderbartpanel>
 
                 <div className="opprett-avtale__input-wrapper">
-                    <Input
-                        label={<Element>Kandidatens fødselsnummer</Element>}
-                        value={this.state.deltakerFnr}
-                        onChange={this.endredeltakerFnr}
+                    <FnrInput
                         className="opprett-avtale__kandidat-fnr"
-                        feil={this.state.deltakerFnrFeil}
-                        onBlur={this.onKlikkUtAvDeltakerInput}
+                        label={<Element>Kandidatens fødselsnummer</Element>}
+                        verdi={this.state.deltakerFnr}
+                        feilmelding={FNR_FEILMELDING}
+                        onChange={this.endreDeltakerFnr}
                     />
-                    <Input
-                        label={<Element>Arbeidsgivers fødselsnummer</Element>}
-                        value={this.state.arbeidsgiverFnr}
-                        onChange={this.endreArbeidsgiverFnr}
+                    <FnrInput
                         className="opprett-avtale__arbeidsgiver-fnr"
-                        feil={this.state.arbeidsgiverFnrFeil}
-                        onBlur={this.onKlikkUtAvArbeidsgiverInput}
+                        label={<Element>Arbeidsgivers fødselsnummer</Element>}
+                        verdi={this.state.arbeidsgiverFnr}
+                        feilmelding={FNR_FEILMELDING}
+                        onChange={this.endreArbeidsgiverFnr}
                     />
                 </div>
                 <Hovedknapp
