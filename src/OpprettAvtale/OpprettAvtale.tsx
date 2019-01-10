@@ -15,8 +15,8 @@ import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmel
 interface State {
     deltakerFnr: string;
     arbeidsgiverFnr: string;
-    deltakerFnrFeil: SkjemaelementFeil | undefined;
-    arbeidsgiverFnrFeil: SkjemaelementFeil | undefined;
+    deltakerFnrFeil?: SkjemaelementFeil;
+    arbeidsgiverFnrFeil?: SkjemaelementFeil;
 }
 
 const FNR_FEILMELDING = 'Ugyldig fødselsnummer';
