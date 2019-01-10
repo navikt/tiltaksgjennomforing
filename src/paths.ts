@@ -33,3 +33,5 @@ export const pathTilSigneringSteg = (avtaleId: string): string => {
 export const lagStegUrl = (avtaleId: string, steg: string) => {
     return `${pathTilAvtale(avtaleId)}/${steg}`;
 };
+
+export const pathTilOpprettetAvtaleBekreftelse = `${pathTilOversikt}/opprett-avtale/fullfort`;

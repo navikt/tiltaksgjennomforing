@@ -1,8 +1,11 @@
-import { Avtale } from '../Stegside/avtale';
+import { Avtale } from '../AvtaleSide/avtale';
 
 export default abstract class Service {
     abstract hentAvtale(id: string): Promise<Avtale>;
     abstract hentAvtaler(): Promise<Map<string, Avtale>>;
     abstract lagreAvtale(avtale: Avtale): Promise<{ versjon: string }>;
-    abstract opprettAvtale(): Promise<Avtale>;
+    abstract opprettAvtale(
+        deltakerFnr: string,
+        arbeidsgiverFnr: string
+    ): Promise<Avtale>;
 }
