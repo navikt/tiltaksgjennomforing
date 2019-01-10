@@ -129,7 +129,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     componentDidMount() {
-        // TODO: Flytt til AvtaleOversikt
         this.service
             .hentAvtaler()
             .then((avtaler: Map<string, Avtale>) => {
