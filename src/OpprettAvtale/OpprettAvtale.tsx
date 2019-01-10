@@ -52,56 +52,66 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     };
 
     render() {
+        const veilederpanel = (
+            <Veilederpanel
+                svg={<img src={utklippstavleIkon} />}
+                kompakt={true}
+                type="plakat"
+            >
+                <Normaltekst className="opprett-avtale__du-trenger-tekst">
+                    Du trenger:
+                </Normaltekst>
+                <ul>
+                    <li>
+                        <Normaltekst>kandidatens fødselsnummer</Normaltekst>
+                    </li>
+                    <li>
+                        <Normaltekst>
+                            fødselsnummeret til personen hos bedriften som skal
+                            fylle ut avtalen
+                        </Normaltekst>
+                    </li>
+                </ul>
+            </Veilederpanel>
+        );
+
+        const ekspanderbartpanel = (
+            <Ekspanderbartpanel
+                tittel="Sånn fungerer det"
+                tittelProps="element"
+                border={true}
+            >
+                TODO: Her kommer det noe forklarender tekst med ikoner på siden.
+            </Ekspanderbartpanel>
+        );
+
+        const inputFelter = (
+            <div className="opprett-avtale__input-wrapper">
+                <FnrInput
+                    className="opprett-avtale__kandidat-fnr"
+                    label={<Element>Kandidatens fødselsnummer</Element>}
+                    verdi={this.state.deltakerFnr}
+                    feilmelding={FNR_FEILMELDING}
+                    onChange={this.endreDeltakerFnr}
+                />
+                <FnrInput
+                    className="opprett-avtale__arbeidsgiver-fnr"
+                    label={<Element>Arbeidsgivers fødselsnummer</Element>}
+                    verdi={this.state.arbeidsgiverFnr}
+                    feilmelding={FNR_FEILMELDING}
+                    onChange={this.endreArbeidsgiverFnr}
+                />
+            </div>
+        );
+
         return (
             <div className="opprett-avtale">
                 <Innholdstittel className="opprett-avtale__tittel">
                     Opprett avtale om arbeidstrening
                 </Innholdstittel>
-                <Veilederpanel
-                    svg={<img src={utklippstavleIkon} />}
-                    kompakt={true}
-                    type="plakat"
-                >
-                    <Normaltekst className="opprett-avtale__du-trenger-tekst">
-                        Du trenger:
-                    </Normaltekst>
-                    <ul>
-                        <li>
-                            <Normaltekst>kandidatens fødselsnummer</Normaltekst>
-                        </li>
-                        <li>
-                            <Normaltekst>
-                                fødselsnummeret til personen hos bedriften som
-                                skal fylle ut avtalen
-                            </Normaltekst>
-                        </li>
-                    </ul>
-                </Veilederpanel>
-                <Ekspanderbartpanel
-                    tittel="Sånn fungerer det"
-                    tittelProps="element"
-                    border={true}
-                >
-                    TODO: Her kommer det noe forklarender tekst med ikoner på
-                    siden.
-                </Ekspanderbartpanel>
-
-                <div className="opprett-avtale__input-wrapper">
-                    <FnrInput
-                        className="opprett-avtale__kandidat-fnr"
-                        label={<Element>Kandidatens fødselsnummer</Element>}
-                        verdi={this.state.deltakerFnr}
-                        feilmelding={FNR_FEILMELDING}
-                        onChange={this.endreDeltakerFnr}
-                    />
-                    <FnrInput
-                        className="opprett-avtale__arbeidsgiver-fnr"
-                        label={<Element>Arbeidsgivers fødselsnummer</Element>}
-                        verdi={this.state.arbeidsgiverFnr}
-                        feilmelding={FNR_FEILMELDING}
-                        onChange={this.endreArbeidsgiverFnr}
-                    />
-                </div>
+                {veilederpanel}
+                {ekspanderbartpanel}
+                {inputFelter}
                 <Hovedknapp
                     onClick={this.opprettAvtaleKlikk}
                     className="opprett-avtale__knapp"
