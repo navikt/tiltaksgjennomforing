@@ -5,24 +5,18 @@ import { RouterProps } from 'react-router';
 import { pathTilKontaktinformasjonSteg } from '../../paths';
 import { Context, medContext } from '../../AvtaleContext';
 
-class Bekreftelse extends React.Component<Context & RouterProps, {}> {
-    tilAvtalenKlikk = () => {
-        this.props.history.push(
-            pathTilKontaktinformasjonSteg(this.props.avtale.id)
-        );
+const Bekreftelse: React.FunctionComponent<Context & RouterProps> = props => {
+    const tilAvtalenKlikk = () => {
+        props.history.push(pathTilKontaktinformasjonSteg(props.avtale.id));
     };
 
-    render() {
-        return (
-            <>
-                <Innholdstittel>Avtalen ble opprettet</Innholdstittel>
-                id: {this.props.avtale.id}
-                <Hovedknapp onClick={this.tilAvtalenKlikk}>
-                    GÅ TIL AVTALEN
-                </Hovedknapp>
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <Innholdstittel>Avtalen ble opprettet</Innholdstittel>
+            id: {props.avtale.id}
+            <Hovedknapp onClick={tilAvtalenKlikk}>GÅ TIL AVTALEN</Hovedknapp>
+        </>
+    );
+};
 
 export default medContext(Bekreftelse);
