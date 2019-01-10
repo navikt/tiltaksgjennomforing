@@ -23,11 +23,17 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     };
 
     endredeltakerFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ deltakerFnr: event.target.value });
+        const fnr = event.target.value;
+        if (fnr.length <= 11) {
+            this.setState({ deltakerFnr: fnr });
+        }
     };
 
     endreArbeidsgiverFnr = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ arbeidsgiverFnr: event.target.value });
+        const fnr = event.target.value;
+        if (fnr.length <= 11) {
+            this.setState({ arbeidsgiverFnr: fnr });
+        }
     };
 
     opprettAvtaleKlikk = () => {
