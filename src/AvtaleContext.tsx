@@ -6,6 +6,7 @@ import Service from './services/service';
 import { createService } from './services/service-factory';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import { ApiError } from './AvtaleSide/ApiError';
+import { Knapp } from 'nav-frontend-knapper';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -53,6 +54,7 @@ export const tomAvtale: Avtale = {
 
 export interface Context {
     avtale: Avtale;
+    rolle: Rolle;
     settAvtaleVerdi: (felt: string, verdi: any) => void;
     lagreAvtale: () => void;
     lagreMaal: (maal: Maal) => void;
@@ -64,11 +66,15 @@ export interface Context {
         deltakerFnr: string,
         arbeidsgiverFnr: string
     ) => Promise<Avtale>;
+    hentRolle: (avtaleId: string) => void;
 }
+
+export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER';
 
 // tslint:disable no-empty
 const AvtaleContext = React.createContext<Context>({
     avtale: tomAvtale,
+    rolle: 'DELTAKER',
     settAvtaleVerdi: () => {},
     lagreAvtale: () => {},
     lagreMaal: () => {},
@@ -77,6 +83,7 @@ const AvtaleContext = React.createContext<Context>({
     slettOppgave: () => {},
     hentAvtale: () => {},
     opprettAvtale: () => Promise.resolve(tomAvtale),
+    hentRolle: () => {},
 });
 // tslint:enable
 
@@ -86,6 +93,7 @@ interface State {
     avtaler: Map<string, Avtale>;
     avtale: Avtale;
     feilmelding: string;
+    rolle: Rolle;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -98,6 +106,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtaler: new Map<string, Avtale>(),
             avtale: tomAvtale,
             feilmelding: '',
+            rolle: 'DELTAKER',
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -110,6 +119,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
+        this.hentRolle = this.hentRolle.bind(this);
+        // TODO: Bytt ut med RestService() eller eksporter funksjonene direkte
         this.service = createService();
     }
 
@@ -189,6 +200,16 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             .catch(this.handterApiFeil);
     }
 
+    hentRolle(avtaleId: string) {
+        this.service
+            .hentRolle(avtaleId)
+            .then(rolle => {
+                // TODO: Sett riktig
+                this.setState({ rolle: 'DELTAKER' });
+            })
+            .catch(this.handterApiFeil);
+    }
+
     slettMaal(maalTilSletting: Maal) {
         const avtale = this.state.avtale;
         if (avtale) {
@@ -260,6 +281,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     render() {
         const context: Context = {
             avtale: this.state.avtale,
+            rolle: this.state.rolle,
             settAvtaleVerdi: this.settAvtaleVerdi,
             lagreAvtale: this.lagreAvtale,
             lagreMaal: this.lagreMaal,
@@ -268,6 +290,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             slettOppgave: this.slettOppgave,
             hentAvtale: this.hentAvtale,
             opprettAvtale: this.opprettAvtale,
+            hentRolle: this.hentRolle,
         };
 
         return (
@@ -277,6 +300,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                         {this.state.feilmelding}
                     </Varsel>
                 )}
+                {/* TODO: Fjern */}
+                <Knapp onClick={() => this.setState({ rolle: 'DELTAKER' })}>
+                    BLI DELTAKER
+                </Knapp>
+                <Knapp onClick={() => this.setState({ rolle: 'VEILEDER' })}>
+                    BLI VEILEDER
+                </Knapp>
                 {this.props.children}
             </AvtaleContext.Provider>
         );

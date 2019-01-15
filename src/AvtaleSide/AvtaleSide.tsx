@@ -72,7 +72,9 @@ class AvtaleSide extends React.Component<Props, State> {
 
     componentDidMount() {
         window.addEventListener('resize', this.handleWindowSize);
-        this.props.hentAvtale(this.props.match.params.avtaleId);
+        const avtaleId = this.props.match.params.avtaleId;
+        this.props.hentAvtale(avtaleId);
+        this.props.hentRolle(avtaleId);
     }
 
     componentWillUnmount() {
