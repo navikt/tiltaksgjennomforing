@@ -2,11 +2,10 @@ import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import Varsel from './komponenter/Varsel/Varsel';
-import Service from './services/service';
-import { createService } from './services/service-factory';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import { ApiError } from './AvtaleSide/ApiError';
 import { Knapp } from 'nav-frontend-knapper';
+import RestService from './services/rest-service';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -97,7 +96,7 @@ interface State {
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
-    service: Service;
+    service: RestService;
 
     constructor(props: any) {
         super(props);
@@ -120,8 +119,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
-        // TODO: Bytt ut med RestService() eller eksporter funksjonene direkte
-        this.service = createService();
+        this.service = new RestService();
     }
 
     handterApiFeil = (error: any) => {

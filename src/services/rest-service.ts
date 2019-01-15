@@ -1,5 +1,4 @@
 import { Avtale } from '../AvtaleSide/avtale';
-import Service from './service';
 import { ApiError } from '../AvtaleSide/ApiError';
 import { Rolle } from '../AvtaleContext';
 
@@ -8,7 +7,7 @@ const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 const HTTP_UNAUTHORIZED = 401;
 const HTTP_CONFLICT = 409;
 
-export default class RestService extends Service {
+export default class RestService {
     async handleResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
             window.location.href = LOGIN_REDIRECT;
