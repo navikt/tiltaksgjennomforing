@@ -81,6 +81,24 @@ class AvtaleSide extends React.Component<Props, State> {
         window.removeEventListener('resize', this.handleWindowSize);
     }
 
+    componentDidUpdate() {
+        this.redirectTilGodkjenningssideHvisDeltaker();
+    }
+
+    redirectTilGodkjenningssideHvisDeltaker = () => {
+        const skalKunSeGodkjenningsside =
+            this.props.match.params.stegPath !== 'godkjenning' &&
+            this.props.rolle === 'DELTAKER';
+
+        if (skalKunSeGodkjenningsside) {
+            this.props.history.push(
+                `/tiltaksgjennomforing/avtale/${
+                    this.props.match.params.avtaleId
+                }/godkjenning`
+            );
+        }
+    };
+
     render() {
         const erDesktop = this.state.windowSize > 767;
         const erMobil = !erDesktop;
