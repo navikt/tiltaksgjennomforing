@@ -4,7 +4,6 @@ import './DeltakerinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { medContext } from '../../../AvtaleContext';
 import { Context } from '../../../AvtaleContext';
-import LaasbartInput from '../../../komponenter/LaasbartInput/LaasbartInput';
 
 const DeltakerinfoDel = (props: Context) => {
     return (
@@ -19,10 +18,10 @@ const DeltakerinfoDel = (props: Context) => {
                 disabled={true}
             />
             <div className="deltakerinfo__deltakernavn">
-                <LaasbartInput
+                <Input
                     label="Fornavn"
                     className="deltakerinfo__deltakernavn__fornavn"
-                    verdi={props.avtale.deltakerFornavn}
+                    defaultValue={props.avtale.deltakerFornavn}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         props.settAvtaleVerdi(
                             'deltakerFornavn',
@@ -78,4 +77,4 @@ const DeltakerinfoDel = (props: Context) => {
     );
 };
 
-export default medContext(DeltakerinfoDel);
+export default medContext<{}>(DeltakerinfoDel);
