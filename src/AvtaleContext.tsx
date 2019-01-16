@@ -202,8 +202,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.service
             .hentRolle(avtaleId)
             .then(rolle => {
-                // TODO: Sett riktig
-                this.setState({ rolle: 'DELTAKER' });
+                this.setState({ rolle });
             })
             .catch(this.handterApiFeil);
     }
