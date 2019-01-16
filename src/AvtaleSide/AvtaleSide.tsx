@@ -82,10 +82,10 @@ class AvtaleSide extends React.Component<Props, State> {
     }
 
     componentDidUpdate() {
-        this.redirectTilGodkjenningssideHvisDeltaker();
+        this.redirectTilGodkjenningsStegHvisDeltaker();
     }
 
-    redirectTilGodkjenningssideHvisDeltaker = () => {
+    redirectTilGodkjenningsStegHvisDeltaker = () => {
         const skalKunSeGodkjenningsside =
             this.props.match.params.stegPath !== 'godkjenning' &&
             this.props.rolle === 'DELTAKER';
