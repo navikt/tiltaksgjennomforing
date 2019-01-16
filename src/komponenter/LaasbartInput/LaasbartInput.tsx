@@ -9,6 +9,7 @@ interface Props {
     rolle: Rolle;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
+    disabled?: boolean;
 }
 
 class LaasbartInput extends React.Component<Props & Context, {}> {
@@ -27,6 +28,7 @@ class LaasbartInput extends React.Component<Props & Context, {}> {
                         label={this.props.label}
                         defaultValue={this.props.verdi}
                         onChange={this.props.onChange}
+                        disabled={this.props.disabled}
                     />
                 )}
             </>
