@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './ArbeidsgiverinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../../../AvtaleContext';
+import LaasbartInput from '../../../komponenter/LaasbartInput/LaasbartInput';
 
 const ArbeidsgiverinfoDel = (props: Context) => {
     const onChange = (label: string) => {
@@ -11,29 +12,29 @@ const ArbeidsgiverinfoDel = (props: Context) => {
 
     const bedriftInfo = (
         <SkjemaGruppe title="Om bedriften">
-            <Input
+            <LaasbartInput
                 className="bedriftinfo__navn"
                 label="Bedriftens navn"
-                defaultValue={props.avtale.bedriftNavn}
+                verdi={props.avtale.bedriftNavn}
                 onChange={onChange('bedriftNavn')}
             />
-            <Input
+            <LaasbartInput
                 className="bedriftinfo__adresse"
                 label="Adresse"
-                defaultValue={props.avtale.bedriftAdresse}
+                verdi={props.avtale.bedriftAdresse}
                 onChange={onChange('bedriftAdresse')}
             />
             <div className="bedriftinfo__postwrapper">
-                <Input
+                <LaasbartInput
                     className="bedriftinfo__postwrapper__postnummer"
                     label="Postnummer"
-                    defaultValue={props.avtale.bedriftPostnummer}
+                    verdi={props.avtale.bedriftPostnummer}
                     onChange={onChange('bedriftPostnummer')}
                 />
-                <Input
+                <LaasbartInput
                     className="bedriftinfo__postwrapper__poststed"
                     label="Poststed"
-                    defaultValue={props.avtale.bedriftPoststed}
+                    verdi={props.avtale.bedriftPoststed}
                     onChange={onChange('bedriftPoststed')}
                 />
             </div>
@@ -43,24 +44,24 @@ const ArbeidsgiverinfoDel = (props: Context) => {
     const arbeidsgiverInfo = (
         <SkjemaGruppe title="Kontaktperson for avtalen">
             <div className="arbeidsgiverkontaktpersonrad">
-                <Input
+                <LaasbartInput
                     className="arbeidsgiverkontaktpersonrad__fnr"
                     label="Fødselsnummer"
-                    defaultValue={props.avtale.arbeidsgiverFnr}
+                    verdi={props.avtale.arbeidsgiverFnr}
                     onChange={onChange('arbeidsgiverFnr')}
                 />
             </div>
             <div className="arbeidsgiverkontaktpersonrad">
-                <Input
+                <LaasbartInput
                     className="arbeidsgiverkontaktpersonrad__epost"
                     label="Epost"
-                    defaultValue={props.avtale.arbeidsgiverEpost}
+                    verdi={props.avtale.arbeidsgiverEpost}
                     onChange={onChange('arbeidsgiverEpost')}
                 />
-                <Input
+                <LaasbartInput
                     className="arbeidsgiverkontaktpersonrad__tlf"
                     label="Telefonnummer"
-                    defaultValue={props.avtale.arbeidsgiverTlf}
+                    verdi={props.avtale.arbeidsgiverTlf}
                     onChange={onChange('arbeidsgiverTlf')}
                 />
             </div>
@@ -78,4 +79,4 @@ const ArbeidsgiverinfoDel = (props: Context) => {
     );
 };
 
-export default medContext(ArbeidsgiverinfoDel);
+export default medContext<{}>(ArbeidsgiverinfoDel);
