@@ -10,6 +10,7 @@ import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import './AvtaleSide.less';
 import DesktopVersjon from './DesktopVersjon/DesktopVersjon';
 import MobilVersjon from './MobilVersjon/MobilVersjon';
+import { pathTilGodkjenningsSteg } from '../paths';
 
 interface State {
     windowSize: number;
@@ -90,11 +91,8 @@ class AvtaleSide extends React.Component<Props, State> {
             this.props.rolle === 'DELTAKER';
 
         if (skalKunSeGodkjenningsside) {
-            this.props.history.push(
-                `/tiltaksgjennomforing/avtale/${
-                    this.props.match.params.avtaleId
-                }/godkjenning`
-            );
+            const avtaleId = this.props.match.params.avtaleId;
+            this.props.history.push(pathTilGodkjenningsSteg(avtaleId));
         }
     };
 

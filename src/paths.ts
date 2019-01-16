@@ -10,6 +10,10 @@ export const pathTilKontaktinformasjonSteg = (avtaleId: string): string => {
     return `${pathTilAvtale(avtaleId)}/kontaktinformasjon`;
 };
 
+export const pathTilGodkjenningsSteg = (avtaleId: string): string => {
+    return `${pathTilAvtale(avtaleId)}/godkjenning`;
+};
+
 export const pathTilMaalSteg = (avtaleId: string): string => {
     return `${pathTilAvtale(avtaleId)}/maal`;
 };
