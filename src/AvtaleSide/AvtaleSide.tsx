@@ -85,10 +85,15 @@ class AvtaleSide extends React.Component<Props, State> {
         const erDesktop = this.state.windowSize > 767;
         const erMobil = !erDesktop;
         const aktivtSteg = this.props.match.params.stegPath;
+        const skalViseStegmeny =
+            this.props.rolle === 'ARBEIDSGIVER' ||
+            this.props.rolle === 'VEILEDER';
 
         const desktopSide = (
             <>
-                <Stegmeny steg={this.avtaleSteg} aktivtSteg={aktivtSteg} />
+                {skalViseStegmeny && (
+                    <Stegmeny steg={this.avtaleSteg} aktivtSteg={aktivtSteg} />
+                )}
                 <form className="avtaleside__innhold-desktop">
                     {this.avtaleSteg[aktivtSteg].komponent}
                     <Knapp
@@ -104,22 +109,27 @@ class AvtaleSide extends React.Component<Props, State> {
 
         const mobilSide = (
             <form>
-                {Object.keys(this.avtaleSteg).map(steg => (
-                    <div className="avtaleside__ekspanderbart-panel" key={steg}>
-                        <Ekspanderbartpanel
-                            tittel={this.avtaleSteg[steg].label}
-                        >
-                            {this.avtaleSteg[steg].komponent}
-                            <Knapp
-                                htmlType="button"
-                                onClick={this.props.lagreAvtale}
-                                className="avtaleside__lagre-knapp"
-                            >
-                                Lagre
-                            </Knapp>
-                        </Ekspanderbartpanel>
-                    </div>
-                ))}
+                {skalViseStegmeny
+                    ? Object.keys(this.avtaleSteg).map(steg => (
+                          <div
+                              className="avtaleside__ekspanderbart-panel"
+                              key={steg}
+                          >
+                              <Ekspanderbartpanel
+                                  tittel={this.avtaleSteg[steg].label}
+                              >
+                                  {this.avtaleSteg[steg].komponent}
+                                  <Knapp
+                                      htmlType="button"
+                                      onClick={this.props.lagreAvtale}
+                                      className="avtaleside__lagre-knapp"
+                                  >
+                                      Lagre
+                                  </Knapp>
+                              </Ekspanderbartpanel>
+                          </div>
+                      ))
+                    : this.avtaleSteg.godkjenning.komponent}
             </form>
         );
 
