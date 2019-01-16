@@ -57,4 +57,4 @@ const OppfolgingSteg = (props: Context) => {
     );
 };
 
-export default medContext(OppfolgingSteg);
+export default medContext<{}>(OppfolgingSteg);

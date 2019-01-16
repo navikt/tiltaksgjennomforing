@@ -3,7 +3,7 @@ import Stegmeny from './Stegmeny/Stegmeny';
 import { Context, medContext } from '../AvtaleContext';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
-import MaalsetningSteg from './MaalSteg/MaalSteg';
+import MaalSteg from './MaalSteg/MaalSteg';
 import { RouteComponentProps } from 'react-router';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
@@ -43,7 +43,7 @@ class AvtaleSide extends React.Component<Props, State> {
             label: 'Kontaktinformasjon',
         },
         maal: {
-            komponent: <MaalsetningSteg />,
+            komponent: <MaalSteg />,
             label: 'Mål',
         },
         arbeidsoppgaver: {

@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
-import { medContext, Rolle } from '../../AvtaleContext';
+import { Context, medContext, Rolle } from '../../AvtaleContext';
 import ReadOnlyFelt from './ReadOnlyFelt/ReadOnlyFelt';
 
 interface Props {
     label: React.ReactNode;
     verdi: string;
-    rolle: Rolle;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
     disabled?: boolean;
 }
 
-const LaasbartInput: React.FunctionComponent<Props & Rolle> = props => {
+const LaasbartInput: React.FunctionComponent<Props & Context> = props => {
     const skalKunneEndresAv = (rolle: Rolle) => {
         return rolle === 'ARBEIDSGIVER' || rolle === 'VEILEDER';
     };
@@ -38,4 +37,4 @@ const LaasbartInput: React.FunctionComponent<Props & Rolle> = props => {
     );
 };
 
-export default medContext(LaasbartInput);
+export default medContext<Props>(LaasbartInput);
