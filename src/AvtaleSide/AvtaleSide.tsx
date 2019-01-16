@@ -98,7 +98,6 @@ class AvtaleSide extends React.Component<Props, State> {
 
     render() {
         const erDesktop = this.state.windowSize > 767;
-        const erMobil = !erDesktop;
         const aktivtSteg = this.props.match.params.stegPath;
         const skalViseStegmeny =
             this.props.rolle === 'ARBEIDSGIVER' ||
@@ -106,14 +105,13 @@ class AvtaleSide extends React.Component<Props, State> {
 
         return (
             <div className="avtaleside">
-                {erDesktop && (
+                {erDesktop ? (
                     <DesktopVersjon
                         avtaleSteg={this.avtaleSteg}
                         aktivtSteg={aktivtSteg}
                         skalViseStegmeny={skalViseStegmeny}
                     />
-                )}
-                {erMobil && (
+                ) : (
                     <MobilVersjon
                         avtaleSteg={this.avtaleSteg}
                         skalViseStegmeny={skalViseStegmeny}
