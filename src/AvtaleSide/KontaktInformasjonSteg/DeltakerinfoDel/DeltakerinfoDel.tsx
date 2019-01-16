@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Input } from 'nav-frontend-skjema';
 import './DeltakerinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { medContext } from '../../../AvtaleContext';
@@ -11,10 +12,10 @@ const DeltakerinfoDel = (props: Context) => {
             <Systemtittel className="deltakerinfo__tittel">
                 Informasjon om deltaker
             </Systemtittel>
-            <LaasbartInput
+            <Input
                 className="deltakerinfo__fnr"
                 label="Fødselsnummer"
-                verdi={props.avtale.deltakerFnr}
+                value={props.avtale.deltakerFnr}
                 disabled={true}
             />
             <div className="deltakerinfo__deltakernavn">
@@ -22,18 +23,18 @@ const DeltakerinfoDel = (props: Context) => {
                     label="Fornavn"
                     className="deltakerinfo__deltakernavn__fornavn"
                     verdi={props.avtale.deltakerFornavn}
-                    onChange={(event: any) => {
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         props.settAvtaleVerdi(
                             'deltakerFornavn',
                             event.target.value
                         );
                     }}
                 />
-                <LaasbartInput
+                <Input
                     className="deltakerinfo__deltakernavn__etternavn"
                     label="Etternavn"
-                    verdi={props.avtale.deltakerEtternavn}
-                    onChange={(event: any) =>
+                    defaultValue={props.avtale.deltakerEtternavn}
+                    onChange={event =>
                         props.settAvtaleVerdi(
                             'deltakerEtternavn',
                             event.target.value
@@ -41,31 +42,31 @@ const DeltakerinfoDel = (props: Context) => {
                     }
                 />
             </div>
-            <LaasbartInput
+            <Input
                 className="deltakerinfo__adresse"
                 label="Adresse"
-                verdi={props.avtale.deltakerAdresse}
-                onChange={(event: any) =>
+                defaultValue={props.avtale.deltakerAdresse}
+                onChange={event =>
                     props.settAvtaleVerdi('deltakerAdresse', event.target.value)
                 }
             />
             <div className="deltakerinfo__postwrapper">
-                <LaasbartInput
+                <Input
                     className="deltakerinfo__postwrapper__postnummer"
                     label="Postnummer"
-                    verdi={props.avtale.deltakerPostnummer}
-                    onChange={(event: any) =>
+                    defaultValue={props.avtale.deltakerPostnummer}
+                    onChange={event =>
                         props.settAvtaleVerdi(
                             'deltakerPostnummer',
                             event.target.value
                         )
                     }
                 />
-                <LaasbartInput
+                <Input
                     className="deltakerinfo__postwrapper__poststed"
                     label="Poststed"
-                    verdi={props.avtale.deltakerPoststed}
-                    onChange={(event: any) =>
+                    defaultValue={props.avtale.deltakerPoststed}
+                    onChange={event =>
                         props.settAvtaleVerdi(
                             'deltakerPoststed',
                             event.target.value
@@ -77,4 +78,4 @@ const DeltakerinfoDel = (props: Context) => {
     );
 };
 
-export default medContext<{}>(DeltakerinfoDel);
+export default medContext(DeltakerinfoDel);

@@ -1,33 +1,33 @@
 import * as React from 'react';
+import { Input } from 'nav-frontend-skjema';
 import './VeilederinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../../../AvtaleContext';
-import LaasbartInput from '../../../komponenter/LaasbartInput/LaasbartInput';
 
 const VeilederinfoDel = (props: Context) => (
     <>
         <Systemtittel className="veilederinfo__tittel">
             Kontaktperson i NAV
         </Systemtittel>
-        <LaasbartInput
+        <Input
             className="veilederinfo__navident"
             label="NAV-ident"
-            verdi={props.avtale.veilederNavIdent}
+            value={props.avtale.veilederNavIdent}
             disabled={true}
         />
         <div className="veilederinfo__rad">
-            <LaasbartInput
+            <Input
                 className="veilederinfo__fornavn"
                 label="Fornavn"
-                verdi={props.avtale.veilederFornavn}
+                defaultValue={props.avtale.veilederFornavn}
                 onChange={event =>
                     props.settAvtaleVerdi('veilederFornavn', event.target.value)
                 }
             />
-            <LaasbartInput
+            <Input
                 className="veilederinfo__etternavn"
                 label="Etternavn"
-                verdi={props.avtale.veilederEtternavn}
+                defaultValue={props.avtale.veilederEtternavn}
                 onChange={event =>
                     props.settAvtaleVerdi(
                         'veilederEtternavn',
@@ -37,18 +37,18 @@ const VeilederinfoDel = (props: Context) => (
             />
         </div>
         <div className="veilederinfo__rad">
-            <LaasbartInput
+            <Input
                 className="veilederinfo__epost"
                 label="Epost"
-                verdi={props.avtale.veilederEpost}
+                defaultValue={props.avtale.veilederEpost}
                 onChange={event =>
                     props.settAvtaleVerdi('veilederEpost', event.target.value)
                 }
             />
-            <LaasbartInput
+            <Input
                 className="veilederinfo__tlf"
                 label="Telefonnummer"
-                verdi={props.avtale.veilederTlf}
+                defaultValue={props.avtale.veilederTlf}
                 onChange={event =>
                     props.settAvtaleVerdi('veilederTlf', event.target.value)
                 }
