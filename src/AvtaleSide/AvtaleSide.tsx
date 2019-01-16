@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Context, medContext } from '../AvtaleContext';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from './MaalSteg/MaalSteg';
 import { RouteComponentProps } from 'react-router';
@@ -9,8 +8,8 @@ import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import './AvtaleSide.less';
-import { Knapp } from 'nav-frontend-knapper';
 import DesktopVersjon from './DesktopVersjon/DesktopVersjon';
+import MobilVersjon from './MobilVersjon/MobilVersjon';
 
 interface State {
     windowSize: number;
@@ -107,32 +106,6 @@ class AvtaleSide extends React.Component<Props, State> {
             this.props.rolle === 'ARBEIDSGIVER' ||
             this.props.rolle === 'VEILEDER';
 
-        const mobilSide = (
-            <form>
-                {skalViseStegmeny
-                    ? Object.keys(this.avtaleSteg).map(steg => (
-                          <div
-                              className="avtaleside__ekspanderbart-panel"
-                              key={steg}
-                          >
-                              <Ekspanderbartpanel
-                                  tittel={this.avtaleSteg[steg].label}
-                              >
-                                  {this.avtaleSteg[steg].komponent}
-                                  <Knapp
-                                      htmlType="button"
-                                      onClick={this.props.lagreAvtale}
-                                      className="avtaleside__lagre-knapp"
-                                  >
-                                      Lagre
-                                  </Knapp>
-                              </Ekspanderbartpanel>
-                          </div>
-                      ))
-                    : this.avtaleSteg.godkjenning.komponent}
-            </form>
-        );
-
         return (
             <div className="avtaleside">
                 {erDesktop && (
@@ -142,7 +115,12 @@ class AvtaleSide extends React.Component<Props, State> {
                         skalViseStegmeny={skalViseStegmeny}
                     />
                 )}
-                {erMobil && mobilSide}
+                {erMobil && (
+                    <MobilVersjon
+                        avtaleSteg={this.avtaleSteg}
+                        skalViseStegmeny={skalViseStegmeny}
+                    />
+                )}
             </div>
         );
     }
