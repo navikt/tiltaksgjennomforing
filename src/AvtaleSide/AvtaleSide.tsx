@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Stegmeny from './Stegmeny/Stegmeny';
 import { Context, medContext } from '../AvtaleContext';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
@@ -11,6 +10,7 @@ import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import './AvtaleSide.less';
 import { Knapp } from 'nav-frontend-knapper';
+import DesktopVersjon from './DesktopVersjon/DesktopVersjon';
 
 interface State {
     windowSize: number;
@@ -107,24 +107,6 @@ class AvtaleSide extends React.Component<Props, State> {
             this.props.rolle === 'ARBEIDSGIVER' ||
             this.props.rolle === 'VEILEDER';
 
-        const desktopSide = (
-            <>
-                {skalViseStegmeny && (
-                    <Stegmeny steg={this.avtaleSteg} aktivtSteg={aktivtSteg} />
-                )}
-                <form className="avtaleside__innhold-desktop">
-                    {this.avtaleSteg[aktivtSteg].komponent}
-                    <Knapp
-                        htmlType="button"
-                        onClick={this.props.lagreAvtale}
-                        className="avtaleside__lagre-knapp"
-                    >
-                        Lagre
-                    </Knapp>
-                </form>
-            </>
-        );
-
         const mobilSide = (
             <form>
                 {skalViseStegmeny
@@ -153,11 +135,17 @@ class AvtaleSide extends React.Component<Props, State> {
 
         return (
             <div className="avtaleside">
-                {erDesktop && desktopSide}
+                {erDesktop && (
+                    <DesktopVersjon
+                        avtaleSteg={this.avtaleSteg}
+                        aktivtSteg={aktivtSteg}
+                        skalViseStegmeny={skalViseStegmeny}
+                    />
+                )}
                 {erMobil && mobilSide}
             </div>
         );
     }
 }
 
-export default medContext(AvtaleSide);
+export default medContext<Props>(AvtaleSide);

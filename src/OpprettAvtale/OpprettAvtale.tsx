@@ -123,4 +123,4 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     }
 }
 
-export default medContext(OpprettAvtale);
+export default medContext<RouterProps>(OpprettAvtale);
