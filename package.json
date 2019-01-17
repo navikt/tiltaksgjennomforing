@@ -4,7 +4,6 @@
   "homepage": "/tiltaksgjennomforing",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^3.2.3",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "chai": "^4.2.0",
@@ -37,8 +36,8 @@
     "nav-frontend-lukknapp-style": "^0.2.16",
     "nav-frontend-paneler": "^1.0.10",
     "nav-frontend-paneler-style": "^0.3.11",
-    "nav-frontend-skjema": "^1.0.46",
-    "nav-frontend-skjema-style": "^1.0.27",
+    "nav-frontend-skjema": "^1.0.52",
+    "nav-frontend-skjema-style": "^1.0.33",
     "nav-frontend-stegindikator": "0.0.27",
     "nav-frontend-stegindikator-style": "^1.0.13",
     "nav-frontend-typografi": "^2.0.6",
@@ -50,6 +49,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-collapse": "^4.0.3",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-day-picker": "^7.2.4",
     "react-dom": "^16.6.3",
     "react-intl": "^2.7.2",
@@ -67,6 +67,8 @@
     "server": "node server.js"
   },
   "devDependencies": {
+    "@craco/craco": "^3.2.3",
+    "@types/react-copy-to-clipboard": "^4.2.6",
     "@types/chai": "^4.1.7",
     "@types/classnames": "^2.2.6",
     "@types/jest": "^23.3.11",
