@@ -114,7 +114,7 @@ class AvtaleSide extends React.Component<Props, State> {
                 ) : (
                     <MobilVersjon
                         avtaleSteg={this.avtaleSteg}
-                        skalViseStegmeny={skalViseStegmeny}
+                        skalViseEkspanderbartPanel={skalViseStegmeny}
                     />
                 )}
             </div>

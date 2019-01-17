@@ -6,32 +6,29 @@ import { AvtaleStegType } from '../AvtaleSide';
 
 interface Props {
     avtaleSteg: AvtaleStegType;
-    skalViseStegmeny: boolean;
+    skalViseEkspanderbartPanel: boolean;
 }
 
 const MobilVersjon: React.FunctionComponent<Props & Context> = props => {
+    const ekspanderbartPanel = Object.keys(props.avtaleSteg).map(steg => (
+        <div className="avtaleside__ekspanderbart-panel" key={steg}>
+            <Ekspanderbartpanel tittel={props.avtaleSteg[steg].label}>
+                {props.avtaleSteg[steg].komponent}
+                <Knapp
+                    htmlType="button"
+                    onClick={props.lagreAvtale}
+                    className="avtaleside__lagre-knapp"
+                >
+                    Lagre
+                </Knapp>
+            </Ekspanderbartpanel>
+        </div>
+    ));
+
     return (
         <form>
-            {props.skalViseStegmeny
-                ? Object.keys(props.avtaleSteg).map(steg => (
-                      <div
-                          className="avtaleside__ekspanderbart-panel"
-                          key={steg}
-                      >
-                          <Ekspanderbartpanel
-                              tittel={props.avtaleSteg[steg].label}
-                          >
-                              {props.avtaleSteg[steg].komponent}
-                              <Knapp
-                                  htmlType="button"
-                                  onClick={props.lagreAvtale}
-                                  className="avtaleside__lagre-knapp"
-                              >
-                                  Lagre
-                              </Knapp>
-                          </Ekspanderbartpanel>
-                      </div>
-                  ))
+            {props.skalViseEkspanderbartPanel
+                ? ekspanderbartPanel
                 : props.avtaleSteg.godkjenning.komponent}
         </form>
     );
