@@ -1,16 +1,16 @@
 import * as React from 'react';
-import Stegmeny from './Stegmeny/Stegmeny';
 import { Context, medContext } from '../AvtaleContext';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
-import MaalsetningSteg from './MaalSteg/MaalSteg';
+import MaalSteg from './MaalSteg/MaalSteg';
 import { RouteComponentProps } from 'react-router';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import './AvtaleSide.less';
-import { Knapp } from 'nav-frontend-knapper';
+import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
+import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
+import { pathTilGodkjenningsSteg } from '../paths';
 
 interface State {
     windowSize: number;
@@ -43,7 +43,7 @@ class AvtaleSide extends React.Component<Props, State> {
             label: 'Kontaktinformasjon',
         },
         maal: {
-            komponent: <MaalsetningSteg />,
+            komponent: <MaalSteg />,
             label: 'Mål',
         },
         arbeidsoppgaver: {
@@ -72,62 +72,54 @@ class AvtaleSide extends React.Component<Props, State> {
 
     componentDidMount() {
         window.addEventListener('resize', this.handleWindowSize);
-        this.props.hentAvtale(this.props.match.params.avtaleId);
+        const avtaleId = this.props.match.params.avtaleId;
+        this.props.hentAvtale(avtaleId);
+        this.props.hentRolle(avtaleId);
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowSize);
     }
 
+    componentDidUpdate() {
+        this.redirectTilGodkjenningsStegHvisDeltaker();
+    }
+
+    redirectTilGodkjenningsStegHvisDeltaker = () => {
+        const skalKunSeGodkjenningsside =
+            this.props.match.params.stegPath !== 'godkjenning' &&
+            this.props.rolle === 'DELTAKER';
+
+        if (skalKunSeGodkjenningsside) {
+            const avtaleId = this.props.match.params.avtaleId;
+            this.props.history.push(pathTilGodkjenningsSteg(avtaleId));
+        }
+    };
+
     render() {
         const erDesktop = this.state.windowSize > 767;
-        const erMobil = !erDesktop;
         const aktivtSteg = this.props.match.params.stegPath;
-
-        const desktopSide = (
-            <>
-                <Stegmeny steg={this.avtaleSteg} aktivtSteg={aktivtSteg} />
-                <form className="avtaleside__innhold-desktop">
-                    {this.avtaleSteg[aktivtSteg].komponent}
-                    <Knapp
-                        htmlType="button"
-                        onClick={this.props.lagreAvtale}
-                        className="avtaleside__lagre-knapp"
-                    >
-                        Lagre
-                    </Knapp>
-                </form>
-            </>
-        );
-
-        const mobilSide = (
-            <form>
-                {Object.keys(this.avtaleSteg).map(steg => (
-                    <div className="avtaleside__ekspanderbart-panel" key={steg}>
-                        <Ekspanderbartpanel
-                            tittel={this.avtaleSteg[steg].label}
-                        >
-                            {this.avtaleSteg[steg].komponent}
-                            <Knapp
-                                htmlType="button"
-                                onClick={this.props.lagreAvtale}
-                                className="avtaleside__lagre-knapp"
-                            >
-                                Lagre
-                            </Knapp>
-                        </Ekspanderbartpanel>
-                    </div>
-                ))}
-            </form>
-        );
+        const skalViseStegmeny =
+            this.props.rolle === 'ARBEIDSGIVER' ||
+            this.props.rolle === 'VEILEDER';
 
         return (
             <div className="avtaleside">
-                {erDesktop && desktopSide}
-                {erMobil && mobilSide}
+                {erDesktop ? (
+                    <DesktopAvtaleSide
+                        avtaleSteg={this.avtaleSteg}
+                        aktivtSteg={aktivtSteg}
+                        skalViseStegmeny={skalViseStegmeny}
+                    />
+                ) : (
+                    <MobilAvtaleSide
+                        avtaleSteg={this.avtaleSteg}
+                        skalViseEkspanderbartPanel={skalViseStegmeny}
+                    />
+                )}
             </div>
         );
     }
 }
 
-export default medContext(AvtaleSide);
+export default medContext<Props>(AvtaleSide);
