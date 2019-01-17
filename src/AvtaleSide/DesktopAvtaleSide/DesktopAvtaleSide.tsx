@@ -10,7 +10,7 @@ interface Props {
     skalViseStegmeny: boolean;
 }
 
-const DesktopVersjon: React.FunctionComponent<Props & Context> = props => {
+const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
     return (
         <>
             {props.skalViseStegmeny && (
@@ -33,4 +33,4 @@ const DesktopVersjon: React.FunctionComponent<Props & Context> = props => {
     );
 };
 
-export default medContext<Props>(DesktopVersjon);
+export default medContext<Props>(DesktopAvtaleSide);

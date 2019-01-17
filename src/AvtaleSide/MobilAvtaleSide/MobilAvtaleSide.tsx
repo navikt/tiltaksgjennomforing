@@ -9,7 +9,7 @@ interface Props {
     skalViseEkspanderbartPanel: boolean;
 }
 
-const MobilVersjon: React.FunctionComponent<Props & Context> = props => {
+const MobilAvtaleSide: React.FunctionComponent<Props & Context> = props => {
     const ekspanderbartPanel = Object.keys(props.avtaleSteg).map(steg => (
         <div className="avtaleside__ekspanderbart-panel" key={steg}>
             <Ekspanderbartpanel tittel={props.avtaleSteg[steg].label}>
@@ -34,4 +34,4 @@ const MobilVersjon: React.FunctionComponent<Props & Context> = props => {
     );
 };
 
-export default medContext<Props>(MobilVersjon);
+export default medContext<Props>(MobilAvtaleSide);
