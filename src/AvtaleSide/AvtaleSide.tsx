@@ -8,8 +8,8 @@ import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import './AvtaleSide.less';
-import DesktopVersjon from './DesktopVersjon/DesktopVersjon';
-import MobilVersjon from './MobilVersjon/MobilVersjon';
+import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
+import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import { pathTilGodkjenningsSteg } from '../paths';
 
 interface State {
@@ -106,13 +106,13 @@ class AvtaleSide extends React.Component<Props, State> {
         return (
             <div className="avtaleside">
                 {erDesktop ? (
-                    <DesktopVersjon
+                    <DesktopAvtaleSide
                         avtaleSteg={this.avtaleSteg}
                         aktivtSteg={aktivtSteg}
                         skalViseStegmeny={skalViseStegmeny}
                     />
                 ) : (
-                    <MobilVersjon
+                    <MobilAvtaleSide
                         avtaleSteg={this.avtaleSteg}
                         skalViseEkspanderbartPanel={skalViseStegmeny}
                     />
