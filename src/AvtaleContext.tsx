@@ -68,7 +68,7 @@ export interface Context {
     hentRolle: (avtaleId: string) => void;
 }
 
-export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER';
+export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
 
 const AvtaleContext = React.createContext<Context>({} as Context);
 
@@ -91,7 +91,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtaler: new Map<string, Avtale>(),
             avtale: tomAvtale,
             feilmelding: '',
-            rolle: 'DELTAKER',
+            rolle: 'INGEN_ROLLE',
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
