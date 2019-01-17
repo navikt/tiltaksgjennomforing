@@ -283,13 +283,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                         {this.state.feilmelding}
                     </Varsel>
                 )}
-                {/* TODO: Fjern */}
-                <Knapp onClick={() => this.setState({ rolle: 'DELTAKER' })}>
-                    BLI DELTAKER
-                </Knapp>
-                <Knapp onClick={() => this.setState({ rolle: 'VEILEDER' })}>
-                    BLI VEILEDER
-                </Knapp>
                 {this.props.children}
             </AvtaleContext.Provider>
         );
