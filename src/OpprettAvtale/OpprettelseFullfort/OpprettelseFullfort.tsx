@@ -2,8 +2,8 @@ import React from 'react';
 import {
     Innholdstittel,
     Normaltekst,
-    Sidetittel,
     Element,
+    Systemtittel,
 } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { RouterProps } from 'react-router';
@@ -46,9 +46,9 @@ const OpprettelseFullfort: React.FunctionComponent<
             kompakt={true}
             type="plakat"
         >
-            <Innholdstittel className="opprettelseFullfort__innholdstittel">
+            <Systemtittel className="opprettelseFullfort__innholdstittel">
                 Dette må du gjøre videre
-            </Innholdstittel>
+            </Systemtittel>
             <Normaltekst>
                 For at arbeidsgiver og kandidat skal kunne logge seg inn og
                 fylle ut avtalen må du sende dem lenken vist nedenfor. De kan da
@@ -78,7 +78,7 @@ const OpprettelseFullfort: React.FunctionComponent<
                     className="opprettelseFullfort__sidetittel-ikon"
                     alt="avsjekk-ikon"
                 />
-                <Sidetittel>Avtalen ble opprettet</Sidetittel>
+                <Innholdstittel>Avtalen ble opprettet</Innholdstittel>
             </div>
             {veilederpanel}
             <Hovedknapp
