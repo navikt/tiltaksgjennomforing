@@ -11,14 +11,13 @@ interface Props {
 }
 
 const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
+    const stegmeny = (
+        <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
+    );
+
     return (
         <>
-            {props.skalViseStegmeny && (
-                <Stegmeny
-                    steg={props.avtaleSteg}
-                    aktivtSteg={props.aktivtSteg}
-                />
-            )}
+            {props.skalViseStegmeny && stegmeny}
             <form className="avtaleside__innhold-desktop">
                 {props.avtaleSteg[props.aktivtSteg].komponent}
                 <Knapp
