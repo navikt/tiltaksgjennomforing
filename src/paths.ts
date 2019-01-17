@@ -10,24 +10,8 @@ export const pathTilKontaktinformasjonSteg = (avtaleId: string): string => {
     return `${pathTilAvtale(avtaleId)}/kontaktinformasjon`;
 };
 
-export const pathTilMaalSteg = (avtaleId: string): string => {
-    return `${pathTilAvtale(avtaleId)}/maal`;
-};
-
-export const pathTilArbeidsoppgaverSteg = (avtaleId: string): string => {
-    return `${pathTilAvtale(avtaleId)}/arbeidsoppgaver`;
-};
-
-export const pathTilArbeidstidSteg = (avtaleId: string): string => {
-    return `${pathTilAvtale(avtaleId)}/arbeidstid`;
-};
-
-export const pathTilOppfolgingSteg = (avtaleId: string): string => {
-    return `${pathTilAvtale(avtaleId)}/oppfolging`;
-};
-
-export const pathTilSigneringSteg = (avtaleId: string): string => {
-    return `${pathTilAvtale(avtaleId)}/signering`;
+export const pathTilGodkjenningsSteg = (avtaleId: string): string => {
+    return `${pathTilAvtale(avtaleId)}/godkjenning`;
 };
 
 export const lagStegUrl = (avtaleId: string, steg: string) => {

@@ -2,10 +2,10 @@ import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import Varsel from './komponenter/Varsel/Varsel';
-import Service from './services/service';
-import { createService } from './services/service-factory';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import { ApiError } from './AvtaleSide/ApiError';
+import { Knapp } from 'nav-frontend-knapper';
+import RestService from './services/rest-service';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -53,6 +53,7 @@ export const tomAvtale: Avtale = {
 
 export interface Context {
     avtale: Avtale;
+    rolle: Rolle;
     settAvtaleVerdi: (felt: string, verdi: any) => void;
     lagreAvtale: () => void;
     lagreMaal: (maal: Maal) => void;
@@ -64,21 +65,12 @@ export interface Context {
         deltakerFnr: string,
         arbeidsgiverFnr: string
     ) => Promise<Avtale>;
+    hentRolle: (avtaleId: string) => void;
 }
 
-// tslint:disable no-empty
-const AvtaleContext = React.createContext<Context>({
-    avtale: tomAvtale,
-    settAvtaleVerdi: () => {},
-    lagreAvtale: () => {},
-    lagreMaal: () => {},
-    slettMaal: () => {},
-    lagreOppgave: () => {},
-    slettOppgave: () => {},
-    hentAvtale: () => {},
-    opprettAvtale: () => Promise.resolve(tomAvtale),
-});
-// tslint:enable
+export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
+
+const AvtaleContext = React.createContext<Context>({} as Context);
 
 export const AvtaleConsumer = AvtaleContext.Consumer;
 
@@ -86,10 +78,11 @@ interface State {
     avtaler: Map<string, Avtale>;
     avtale: Avtale;
     feilmelding: string;
+    rolle: Rolle;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
-    service: Service;
+    service: RestService;
 
     constructor(props: any) {
         super(props);
@@ -98,6 +91,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtaler: new Map<string, Avtale>(),
             avtale: tomAvtale,
             feilmelding: '',
+            rolle: 'INGEN_ROLLE',
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -110,7 +104,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
-        this.service = createService();
+        this.hentRolle = this.hentRolle.bind(this);
+        this.service = new RestService();
     }
 
     handterApiFeil = (error: any) => {
@@ -189,6 +184,15 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             .catch(this.handterApiFeil);
     }
 
+    hentRolle(avtaleId: string) {
+        this.service
+            .hentRolle(avtaleId)
+            .then(rolle => {
+                this.setState({ rolle });
+            })
+            .catch(this.handterApiFeil);
+    }
+
     slettMaal(maalTilSletting: Maal) {
         const avtale = this.state.avtale;
         if (avtale) {
@@ -260,6 +264,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     render() {
         const context: Context = {
             avtale: this.state.avtale,
+            rolle: this.state.rolle,
             settAvtaleVerdi: this.settAvtaleVerdi,
             lagreAvtale: this.lagreAvtale,
             lagreMaal: this.lagreMaal,
@@ -268,6 +273,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             slettOppgave: this.slettOppgave,
             hentAvtale: this.hentAvtale,
             opprettAvtale: this.opprettAvtale,
+            hentRolle: this.hentRolle,
         };
 
         return (
@@ -285,12 +291,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
 export const AvtaleProvider = withRouter(TempAvtaleProvider);
 
-export const medContext = (Component: any) => {
-    return (props: any) => (
+export function medContext<PROPS>(
+    Component: React.ComponentType<Context & PROPS>
+): React.ComponentType<PROPS> {
+    return (props: PROPS) => (
         <AvtaleConsumer>
-            {context => {
+            {(context: Context) => {
                 return <Component {...props} {...context} />;
             }}
         </AvtaleConsumer>
     );
-};
+}

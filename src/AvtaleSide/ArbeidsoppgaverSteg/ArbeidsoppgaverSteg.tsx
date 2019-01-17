@@ -21,4 +21,4 @@ const ArbeidsoppgaverSteg = (props: Context) => {
     );
 };
 
-export default medContext(ArbeidsoppgaverSteg);
+export default medContext<{}>(ArbeidsoppgaverSteg);

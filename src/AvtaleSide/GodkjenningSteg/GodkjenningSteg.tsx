@@ -29,4 +29,4 @@ const GodkjenningSteg = (props: Context) => {
     );
 };
 
-export default medContext(GodkjenningSteg);
+export default medContext<{}>(GodkjenningSteg);

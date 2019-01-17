@@ -57,4 +57,4 @@ const VeilederinfoDel = (props: Context) => (
     </>
 );
 
-export default medContext(VeilederinfoDel);
+export default medContext<{}>(VeilederinfoDel);

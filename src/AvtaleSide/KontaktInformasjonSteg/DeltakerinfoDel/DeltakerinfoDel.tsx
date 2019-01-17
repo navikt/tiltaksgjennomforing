@@ -19,10 +19,10 @@ const DeltakerinfoDel = (props: Context) => {
             />
             <div className="deltakerinfo__deltakernavn">
                 <Input
-                    className="deltakerinfo__deltakernavn__fornavn"
                     label="Fornavn"
+                    className="deltakerinfo__deltakernavn__fornavn"
                     defaultValue={props.avtale.deltakerFornavn}
-                    onChange={event => {
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         props.settAvtaleVerdi(
                             'deltakerFornavn',
                             event.target.value
@@ -77,4 +77,4 @@ const DeltakerinfoDel = (props: Context) => {
     );
 };
 
-export default medContext(DeltakerinfoDel);
+export default medContext<{}>(DeltakerinfoDel);
