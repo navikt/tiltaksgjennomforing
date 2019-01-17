@@ -70,21 +70,7 @@ export interface Context {
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER';
 
-// tslint:disable no-empty
-const AvtaleContext = React.createContext<Context>({
-    avtale: tomAvtale,
-    rolle: 'DELTAKER',
-    settAvtaleVerdi: () => {},
-    lagreAvtale: () => {},
-    lagreMaal: () => {},
-    slettMaal: () => {},
-    lagreOppgave: () => {},
-    slettOppgave: () => {},
-    hentAvtale: () => {},
-    opprettAvtale: () => Promise.resolve(tomAvtale),
-    hentRolle: () => {},
-});
-// tslint:enable
+const AvtaleContext = React.createContext<Context>({} as Context);
 
 export const AvtaleConsumer = AvtaleContext.Consumer;
 
