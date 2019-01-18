@@ -7,6 +7,7 @@ const envProperties = {
         process.env.LOGIN_URL ||
         'http://localhost:8080/tiltaksgjennomforing-api/local/isso-cookie?redirect=http://localhost:3000/tiltaksgjennomforing',
     LOGOUT_URL: process.env.LOGOUT_URL,
+    API_GW_HEADER: process.env.API_GW_HEADER,
 };
 
 console.log('Relevante miljøvariable: ', envProperties);
@@ -28,6 +29,9 @@ module.exports = function(app) {
         target: envProperties.API_GATEWAY,
         secure: false,
         xfwd: true,
+        headers: {
+            'x-nav-apiKey': envProperties.API_GW_HEADER
+        }
     };
 
     app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
