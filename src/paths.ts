@@ -18,4 +18,8 @@ export const lagStegUrl = (avtaleId: string, steg: string) => {
     return `${pathTilAvtale(avtaleId)}/${steg}`;
 };
 
+export const absoluttPathTilAvtaleForBrukerOgAG = (avtaleId: string) => {
+    return `https://arbeidsgiver.nav.no${pathTilAvtale(avtaleId)}`;
+};
+
 export const pathTilOpprettetAvtaleBekreftelse = `${pathTilOversikt}/opprett-avtale/fullfort`;
