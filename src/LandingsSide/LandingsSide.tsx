@@ -15,25 +15,30 @@ interface MatchProps {
 type Props = RouteComponentProps<MatchProps> & Context;
 
 const LandingsSide: React.FunctionComponent<Props> = props => {
+    const veileder = (
+        <Veileder
+            className="landingsside__veileder"
+            center={true}
+            tekst={
+                <div className="landingsside__snakkeboble">
+                    <div className="landingsside__snakkeboble__tittel">Hei</div>
+                    Dette er en avtale mellom arbeidsgiver, kandidaten på
+                    arbeidstrening og NAV.
+                </div>
+            }
+        >
+            <img src={veilederIkon} />
+        </Veileder>
+    );
+
     const avtaleId = props.match.params.avtaleId;
+    const gaTilAvtaleKlikk = () =>
+        props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
+
     return (
         <div className="landingsside">
             <div className="landingsside__banner" />
-            <Veileder
-                className="landingsside__veileder"
-                center={true}
-                tekst={
-                    <div className="landingsside__snakkeboble">
-                        <div className="landingsside__snakkeboble__tittel">
-                            Hei
-                        </div>
-                        Dette er en avtale mellom arbeidsgiver, kandidaten på
-                        arbeidstrening og NAV.
-                    </div>
-                }
-            >
-                <img src={veilederIkon} />
-            </Veileder>
+            {veileder}
             <Innholdstittel className="landingsside__tittel">
                 Avtale om arbeidstrening
             </Innholdstittel>
@@ -43,9 +48,7 @@ const LandingsSide: React.FunctionComponent<Props> = props => {
             </Normaltekst>
             <Hovedknapp
                 className="landingsside__knapp"
-                onClick={() =>
-                    props.history.push(pathTilKontaktinformasjonSteg(avtaleId))
-                }
+                onClick={gaTilAvtaleKlikk}
             >
                 GÅ TIL AVTALEN
             </Hovedknapp>
