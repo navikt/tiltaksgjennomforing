@@ -2,7 +2,7 @@ import { Avtale } from '../AvtaleSide/avtale';
 import { ApiError } from '../AvtaleSide/ApiError';
 import { Rolle } from '../AvtaleContext';
 
-const API_URL = '/tiltaksgjennomforing/api';
+export const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 const HTTP_UNAUTHORIZED = 401;
 const HTTP_CONFLICT = 409;
@@ -26,6 +26,8 @@ export default class RestService {
         const avtale = await fetch(`${API_URL}/avtaler/${id}`)
             .then(this.handleResponse)
             .then(response => response.json());
+        // TODO fjern
+        console.log('avtale', avtale);
         return { ...avtale, id: `${avtale.id}` };
     }
 
@@ -33,6 +35,8 @@ export default class RestService {
         const avtaler: Avtale[] = await fetch(`${API_URL}/avtaler`)
             .then(this.handleResponse)
             .then(response => response.json());
+        // TODO fjern
+        console.log('avtaler', avtaler);
         return avtaler.reduce(
             (map: Map<string, Avtale>, avtale: Avtale) =>
                 map.set(`${avtale.id}`, { ...avtale, id: `${avtale.id}` }),
@@ -78,7 +82,10 @@ export default class RestService {
             .then(location => fetch(`${API_URL}/${location}`))
             .then(this.handleResponse)
             .then(response => response.json())
-            .then((avtale: Avtale) => ({ ...avtale, id: `${avtale.id}` }));
+            .then((avtale: Avtale) => {
+                console.log("oppretta");
+                return { ...avtale, id: `${avtale.id}` };
+        });
     }
 
     async hentRolle(avtaleId: string): Promise<Rolle> {
