@@ -1,18 +1,20 @@
 import { Avtale } from '../AvtaleSide/avtale';
 import { ApiError } from '../AvtaleSide/ApiError';
 import { Rolle } from '../AvtaleContext';
+import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
 
 const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 const HTTP_UNAUTHORIZED = 401;
 const HTTP_CONFLICT = 409;
 
-const SIDE_FØR_INNLOGGING = 'side-før-innlogging';
-
 export default class RestService {
     async handleResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
-            sessionStorage.setItem(SIDE_FØR_INNLOGGING, window.location.href);
+            sessionStorage.setItem(
+                SIDE_FOER_INNLOGGING,
+                window.location.pathname
+            );
             window.location.href = LOGIN_REDIRECT;
         }
         if (response.status === HTTP_CONFLICT) {
@@ -21,12 +23,6 @@ export default class RestService {
         }
         if (!response.ok) {
             throw new ApiError('Feil ved kall til backend');
-        }
-
-        const sideFørInnogging = sessionStorage.getItem(SIDE_FØR_INNLOGGING);
-        if (sideFørInnogging) {
-            sessionStorage.removeItem(SIDE_FØR_INNLOGGING);
-            window.location.href = sideFørInnogging;
         }
 
         return response;
