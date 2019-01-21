@@ -1,19 +1,19 @@
-import { Avtale } from '../Stegside/avtale';
-import Service from './service';
-import { ApiError } from '../Stegside/ApiError';
+import { Avtale } from '../AvtaleSide/avtale';
+import { ApiError } from '../AvtaleSide/ApiError';
+import { Rolle } from '../AvtaleContext';
 
 const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 const HTTP_UNAUTHORIZED = 401;
 const HTTP_CONFLICT = 409;
 
-export default class RestService extends Service {
+export default class RestService {
     async handleResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
             window.location.href = LOGIN_REDIRECT;
         }
         if (response.status === HTTP_CONFLICT) {
-            const responseJson:any = await response.json();
+            const responseJson: any = await response.json();
             throw new ApiError(responseJson.message);
         }
         if (!response.ok) {
@@ -59,12 +59,15 @@ export default class RestService extends Service {
             });
     }
 
-    async opprettAvtale(): Promise<Avtale> {
+    async opprettAvtale(
+        deltakerFnr: string,
+        arbeidsgiverFnr: string
+    ): Promise<Avtale> {
         return fetch(`${API_URL}/avtaler`, {
             method: 'POST',
             body: JSON.stringify({
-                deltakerFnr: '01234567890',
-                veilederNavIdent: 'X123456',
+                deltakerFnr,
+                arbeidsgiverFnr,
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -76,5 +79,11 @@ export default class RestService extends Service {
             .then(this.handleResponse)
             .then(response => response.json())
             .then((avtale: Avtale) => ({ ...avtale, id: `${avtale.id}` }));
+    }
+
+    async hentRolle(avtaleId: string): Promise<Rolle> {
+        return await fetch(`${API_URL}/avtaler/${avtaleId}/rolle`)
+            .then(this.handleResponse)
+            .then(response => response.json());
     }
 }

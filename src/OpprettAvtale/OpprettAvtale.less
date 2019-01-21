@@ -1,0 +1,66 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.opprett-avtale {
+  background-color: @grayBackground;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+
+  &__tittel {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .nav-veilederpanel {
+    margin-bottom: 1rem;
+    border-color: @navBlaLighten60;
+
+    .nav-veileder__frame img, .nav-veileder__frame svg {
+      height: 100%;
+    }
+  }
+
+  &__du-trenger-tekst {
+    font-weight: bold;
+  }
+
+  .ekspanderbartPanel {
+    margin-bottom: 1rem;
+  }
+
+  &__knapp {
+    width: 14rem;
+    margin-top: 1rem;
+    align-self: center;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .opprett-avtale {
+    margin: 0 auto;
+    max-width: @screen-sm-min;
+
+    .ekspanderbartPanel {
+      margin-bottom: 2rem;
+    }
+
+    &__input-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__kandidat-fnr {
+      width: 100%;
+      margin-right: 0.5rem;
+    }
+
+    &__arbeidsgiver-fnr {
+      width: 100%;
+      margin-left: 0.5rem;
+    }
+
+    &__knapp {
+      margin-top: 2rem;
+    }
+  }
+}

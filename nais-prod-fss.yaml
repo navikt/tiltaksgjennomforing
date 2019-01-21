@@ -19,7 +19,7 @@ spec:
     initialDelay: 20
   env:
   - name: API_GATEWAY
-    value: https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing-api
+    value: https://arbeidsgiver.nais.adeo.no
   - name: LOGIN_URL
     value: https://loginservice.nais.adeo.no/login?redirect=https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing
   - name: LOGOUT_URL

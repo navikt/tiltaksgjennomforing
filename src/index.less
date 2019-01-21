@@ -1,23 +1,26 @@
+@import '~nav-frontend-lenker-style';
+
 // Importerer spesifikke less filer som inneholder CSS regler som har lavere prioritet enn NAVs frontendbibliotek.
 // Gjør man ikke dette vil våres egne CSS regler bli overskrevet av NAVs frontendbibliotek.
 // Trenger ikke importere less filer som ikke blir overskrevet.
-@import './Stegside/KontaktInformasjonSteg/DeltakerinfoDel/DeltakerinfoDel.less';
-@import './Stegside/KontaktInformasjonSteg/ArbeidsgiverinfoDel/ArbeidsgiverinfoDel.less';
-@import './Stegside/KontaktInformasjonSteg/VeilederinfoDel/VeilederinfoDel.less';
-@import './Stegside/MaalSteg/OpprettMaal/OpprettMaal.less';
-@import './Stegside/MaalSteg/MaalKort/MaalKort.less';
-@import './Stegside/MaalSteg/RedigerMaal/RedigerMaal.less';
-@import './Stegside/ArbeidstidSteg/Ukevelger/Ukevelger.less';
-@import './Stegside/ArbeidstidSteg/StillingsprosentInput/StillingsprosentInput.less';
+@import 'AvtaleSide/KontaktInformasjonSteg/DeltakerinfoDel/DeltakerinfoDel.less';
+@import 'AvtaleSide/KontaktInformasjonSteg/ArbeidsgiverinfoDel/ArbeidsgiverinfoDel.less';
+@import 'AvtaleSide/KontaktInformasjonSteg/VeilederinfoDel/VeilederinfoDel.less';
+@import 'AvtaleSide/MaalSteg/OpprettMaal/OpprettMaal.less';
+@import 'AvtaleSide/MaalSteg/MaalKort/MaalKort.less';
+@import 'AvtaleSide/MaalSteg/RedigerMaal/RedigerMaal.less';
+@import 'AvtaleSide/ArbeidstidSteg/Ukevelger/Ukevelger.less';
+@import 'AvtaleSide/ArbeidstidSteg/StillingsprosentInput/StillingsprosentInput.less';
 @import './komponenter/KnappMedIkon/KnappMedIkon.less';
-@import './Stegside/ArbeidsoppgaverSteg/OpprettOppgave/OpprettOppgave.less';
-@import './Stegside/ArbeidsoppgaverSteg/OppgaveKort/OppgaveKort.less';
-@import './Stegside/ArbeidsoppgaverSteg/RedigerOppgave/RedigerOppgave.less';
-@import './Stegside/GodkjenningSteg/Oppsummering/Stegoppsummering/Stegoppsummering.less';
-@import './Stegside/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter.less';
-@import './Stegside/GodkjenningSteg/Oppsummering/Oppsummering.less';
+@import 'AvtaleSide/ArbeidsoppgaverSteg/OpprettOppgave/OpprettOppgave.less';
+@import 'AvtaleSide/ArbeidsoppgaverSteg/OppgaveKort/OppgaveKort.less';
+@import 'AvtaleSide/ArbeidsoppgaverSteg/RedigerOppgave/RedigerOppgave.less';
+@import 'AvtaleSide/GodkjenningSteg/Oppsummering/Stegoppsummering/Stegoppsummering.less';
+@import 'AvtaleSide/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter.less';
+@import 'AvtaleSide/GodkjenningSteg/Oppsummering/Oppsummering.less';
 
 
 .tiltaksgjennomforing {
   height: 100vh;
+  background-color: @grayBackground;
 }
