@@ -1,0 +1,38 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.landingsside {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  text-align: center;
+  padding-bottom: 5rem;
+
+  &__banner {
+    background-color: @navBlaLighten80;
+    height: 12rem;
+    margin-bottom: -3.125rem; // Veilederikon er 6.25rem
+  }
+
+  .nav-veileder__snakkeboble {
+    background-color: white;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    max-width: 25rem;
+  }
+
+  &__tittel {
+    margin-top: 2rem;
+  }
+
+  &__beskrivelse {
+    max-width: 25rem;
+    margin-top: 1rem;
+    align-self: center;
+  }
+
+  &__knapp {
+    margin-top: 2rem;
+    align-self: center;
+    max-width: 13rem;
+  }
+}

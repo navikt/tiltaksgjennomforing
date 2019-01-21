@@ -8,7 +8,11 @@ import {
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { RouterProps } from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { absoluttPathTilAvtaleForBrukerOgAG, pathTilAvtale, pathTilKontaktinformasjonSteg } from '../../paths';
+import {
+    absoluttPathTilAvtaleForBrukerOgAG,
+    pathTilAvtale,
+    pathTilKontaktinformasjonSteg,
+} from '../../paths';
 import { Context, medContext } from '../../AvtaleContext';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import utklippstavleIkon from '../utklippstavle.svg';
@@ -24,7 +28,9 @@ const OpprettelseFullfort: React.FunctionComponent<
         props.history.push(pathTilKontaktinformasjonSteg(props.avtale.id));
     };
 
-    const hrefTilAvtaleForBrukerOgAG = absoluttPathTilAvtaleForBrukerOgAG(props.avtale.id);
+    const hrefTilAvtaleForBrukerOgAG = absoluttPathTilAvtaleForBrukerOgAG(
+        props.avtale.id
+    );
 
     const inputLabel = (
         <Element className="opprettelseFullfort__undertittel">
