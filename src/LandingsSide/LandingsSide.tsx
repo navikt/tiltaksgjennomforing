@@ -52,7 +52,7 @@ const LandingsSide: React.FunctionComponent<Props> = props => {
                 className="landingsside__knapp"
                 onClick={gaTilAvtaleKlikk}
             >
-                GÅ TIL AVTALEN
+                Gå til avtalen
             </Hovedknapp>
         </div>
     );
