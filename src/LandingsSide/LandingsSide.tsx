@@ -3,7 +3,7 @@ import { Context, medContext } from '../AvtaleContext';
 import { RouteComponentProps } from 'react-router';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { pathTilKontaktinformasjonSteg } from '../paths';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst, Element } from 'nav-frontend-typografi';
 import Veileder from 'nav-frontend-veileder';
 import veilederIkon from './veileder.svg';
 import './LandingsSide.less';
@@ -20,11 +20,13 @@ const LandingsSide: React.FunctionComponent<Props> = props => {
             className="landingsside__veileder"
             center={true}
             tekst={
-                <div className="landingsside__snakkeboble">
-                    <div className="landingsside__snakkeboble__tittel">Hei</div>
-                    Dette er en avtale mellom arbeidsgiver, kandidaten på
-                    arbeidstrening og NAV.
-                </div>
+                <>
+                    <Element>Hei</Element>
+                    <Normaltekst>
+                        Dette er en avtale mellom arbeidsgiver, kandidaten på
+                        arbeidstrening og NAV.
+                    </Normaltekst>
+                </>
             }
         >
             <img src={veilederIkon} />
