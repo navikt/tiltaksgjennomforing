@@ -11,6 +11,7 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import { pathTilGodkjenningsSteg } from '../paths';
+import Banner from '../komponenter/Banner/Banner';
 
 interface State {
     windowSize: number;
@@ -104,20 +105,23 @@ class AvtaleSide extends React.Component<Props, State> {
             this.props.rolle === 'VEILEDER';
 
         return (
-            <div className="avtaleside">
-                {erDesktop ? (
-                    <DesktopAvtaleSide
-                        avtaleSteg={this.avtaleSteg}
-                        aktivtSteg={aktivtSteg}
-                        skalViseStegmeny={skalViseStegmeny}
-                    />
-                ) : (
-                    <MobilAvtaleSide
-                        avtaleSteg={this.avtaleSteg}
-                        skalViseEkspanderbartPanel={skalViseStegmeny}
-                    />
-                )}
-            </div>
+            <>
+                <Banner tekst="Avtale om arbeidstrening" />
+                <div className="avtaleside">
+                    {erDesktop ? (
+                        <DesktopAvtaleSide
+                            avtaleSteg={this.avtaleSteg}
+                            aktivtSteg={aktivtSteg}
+                            skalViseStegmeny={skalViseStegmeny}
+                        />
+                    ) : (
+                        <MobilAvtaleSide
+                            avtaleSteg={this.avtaleSteg}
+                            skalViseEkspanderbartPanel={skalViseStegmeny}
+                        />
+                    )}
+                </div>
+            </>
         );
     }
 }
