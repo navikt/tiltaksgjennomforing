@@ -9,7 +9,8 @@ spec:
   image: navikt/tiltaksgjennomforing:latest
   team: teamtag
   port: 3000
-  secrets: true
+  vault:
+    enabled: true
   ingresses:
   - https://arbeidsgiver-q.nav.no/tiltaksgjennomforing
   liveness:
