@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamtag
 spec:
-  image: navikt/tiltaksgjennomforing:TAG-177-ssl-cert_260
+  image: navikt/tiltaksgjennomforing:latest
   team: teamtag
   port: 3000
   ingresses:
