@@ -29,10 +29,13 @@ module.exports = function(app) {
         target: envProperties.API_GATEWAY,
         secure: false,
         xfwd: true,
-        headers: {
+    };
+
+    if (envProperties.APIGW_HEADER) {
+        proxyConfig.headers = {
             'x-nav-apiKey': envProperties.APIGW_HEADER
         }
-    };
+    }
 
     app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
 };
