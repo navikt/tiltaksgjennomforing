@@ -7,6 +7,7 @@ import * as nb from 'react-intl/locale-data/nb';
 import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import LandingsSide from './LandingsSide/LandingsSide';
+import { basename } from './paths';
 
 addLocaleData(nb);
 
@@ -14,25 +15,25 @@ class App extends React.Component {
     render() {
         return (
             <IntlProvider locale="nb">
-                <BrowserRouter>
+                <BrowserRouter basename={basename}>
                     <AvtaleProvider>
                         <Route
-                            path="/tiltaksgjennomforing/avtale/:avtaleId"
+                            path="/avtale/:avtaleId"
                             exact={true}
                             component={LandingsSide}
                         />
                         <Route
-                            path="/tiltaksgjennomforing/avtale/:avtaleId/:stegPath"
+                            path="/avtale/:avtaleId/:stegPath"
                             exact={true}
                             component={AvtaleSide}
                         />
                         <Route
-                            path="/tiltaksgjennomforing/opprett-avtale"
+                            path="/opprett-avtale"
                             exact={true}
                             component={OpprettAvtale}
                         />
                         <Route
-                            path="/tiltaksgjennomforing/opprett-avtale/fullfort"
+                            path="/opprett-avtale/fullfort"
                             exact={true}
                             component={OpprettelseFullfort}
                         />

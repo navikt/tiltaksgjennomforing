@@ -27,4 +27,4 @@ Logg inn med Google-konto: `firebase login`
 Re-run installeringskommandoen for å få siste versjon: `npm i -g firebase-tools`
 
 ## Deploy
-`firebase deploy`
+`npm run build && firebase deploy`

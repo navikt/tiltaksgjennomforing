@@ -1,7 +1,31 @@
-import { Avtale } from '../AvtaleSide/avtale';
+import { Avtale, Maal, Oppgave } from '../AvtaleSide/avtale';
+
+const maalListe: Maal[] = [
+    {
+        id: 'asdas',
+        opprettetTimestamp: 1353253214,
+        kategori: 'Arbeidserfaring',
+        beskrivelse: 'Trenger arbeidserfaring',
+    },
+    {
+        id: 'kkj',
+        opprettetTimestamp: 1353253214,
+        kategori: 'Annet',
+        beskrivelse: 'Hadde vært fint med noe annet også',
+    },
+];
+
+const oppgaveListe: Oppgave[] = [
+    {
+        id: 'kkj',
+        opprettetTimestamp: 1353253214,
+        tittel: 'Flytte varer',
+        beskrivelse: 'skal flytte varer',
+        opplaering: 'for å flytte varer',
+    },
+];
 
 const avtaleMock: Avtale = {
-
     id: '9565e74d-66f3-44a1-8a3c-91fae6b450d3',
     opprettetTidspunkt: '4 uker siden',
     versjon: '34',
@@ -41,8 +65,8 @@ const avtaleMock: Avtale = {
     arbeidsgiverEpost: 'arbeidsgiver.arbeidsgiversen@arbeid.no',
     arbeidsgiverTlf: '77777777',
 
-    maal: [],
-    oppgaver: [],
+    maal: maalListe,
+    oppgaver: oppgaveListe,
 };
 
 export default avtaleMock;

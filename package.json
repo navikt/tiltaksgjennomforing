@@ -1,8 +1,8 @@
 {
   "name": "tiltaksgjennomforing",
   "version": "0.1.0",
-  "homepage": "/tiltaksgjennomforing",
   "private": true,
+  "homepage": "/tiltaksgjennomforing",
   "dependencies": {
     "@types/fetch-mock": "^7.2.1",
     "babel-polyfill": "^6.26.0",
