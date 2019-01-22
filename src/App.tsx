@@ -7,6 +7,7 @@ import * as nb from 'react-intl/locale-data/nb';
 import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import LandingsSide from './LandingsSide/LandingsSide';
+import RedirectEtterLogin from './RedirectEtterLogin';
 
 addLocaleData(nb);
 
@@ -15,28 +16,30 @@ class App extends React.Component {
         return (
             <IntlProvider locale="nb">
                 <BrowserRouter>
-                    <AvtaleProvider>
-                        <Route
-                            path="/tiltaksgjennomforing/avtale/:avtaleId"
-                            exact={true}
-                            component={LandingsSide}
-                        />
-                        <Route
-                            path="/tiltaksgjennomforing/avtale/:avtaleId/:stegPath"
-                            exact={true}
-                            component={AvtaleSide}
-                        />
-                        <Route
-                            path="/tiltaksgjennomforing/opprett-avtale"
-                            exact={true}
-                            component={OpprettAvtale}
-                        />
-                        <Route
-                            path="/tiltaksgjennomforing/opprett-avtale/fullfort"
-                            exact={true}
-                            component={OpprettelseFullfort}
-                        />
-                    </AvtaleProvider>
+                    <RedirectEtterLogin>
+                        <AvtaleProvider>
+                            <Route
+                                path="/tiltaksgjennomforing/avtale/:avtaleId"
+                                exact={true}
+                                component={LandingsSide}
+                            />
+                            <Route
+                                path="/tiltaksgjennomforing/avtale/:avtaleId/:stegPath"
+                                exact={true}
+                                component={AvtaleSide}
+                            />
+                            <Route
+                                path="/tiltaksgjennomforing/opprett-avtale"
+                                exact={true}
+                                component={OpprettAvtale}
+                            />
+                            <Route
+                                path="/tiltaksgjennomforing/opprett-avtale/fullfort"
+                                exact={true}
+                                component={OpprettelseFullfort}
+                            />
+                        </AvtaleProvider>
+                    </RedirectEtterLogin>
                 </BrowserRouter>
             </IntlProvider>
         );

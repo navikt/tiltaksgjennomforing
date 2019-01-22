@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import Varsel from './komponenter/Varsel/Varsel';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import { ApiError } from './AvtaleSide/ApiError';
-import { Knapp } from 'nav-frontend-knapper';
 import RestService from './services/rest-service';
 
 export const tomAvtale: Avtale = {
