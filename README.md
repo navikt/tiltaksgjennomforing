@@ -5,6 +5,9 @@ TAG - Tiltaksgjennomføring
 Starte via NPM med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-backend også kjører lokalt).
 `npm start`
 
+Starte med mocket backend 
+`npm run mock`
+
 Starte via NPM med Firebase
 `REACT_APP_FIREBASE=true npm start` 
 

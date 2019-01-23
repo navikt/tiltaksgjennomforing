@@ -63,6 +63,7 @@
   },
   "scripts": {
     "start": "craco start",
+    "mock": "REACT_APP_MOCK=true npm start",
     "build": "craco build",
     "test": "craco test",
     "server": "node server.js"
