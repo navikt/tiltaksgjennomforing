@@ -26,8 +26,6 @@ export default class RestService {
         const avtale = await fetch(`${API_URL}/avtaler/${id}`)
             .then(this.handleResponse)
             .then(response => response.json());
-        // TODO fjern
-        console.log('avtale', avtale);
         return { ...avtale, id: `${avtale.id}` };
     }
 
@@ -35,8 +33,6 @@ export default class RestService {
         const avtaler: Avtale[] = await fetch(`${API_URL}/avtaler`)
             .then(this.handleResponse)
             .then(response => response.json());
-        // TODO fjern
-        console.log('avtaler', avtaler);
         return avtaler.reduce(
             (map: Map<string, Avtale>, avtale: Avtale) =>
                 map.set(`${avtale.id}`, { ...avtale, id: `${avtale.id}` }),
