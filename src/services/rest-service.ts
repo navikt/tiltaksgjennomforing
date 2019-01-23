@@ -3,7 +3,7 @@ import { ApiError } from '../AvtaleSide/ApiError';
 import { Rolle } from '../AvtaleContext';
 import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
 
-const API_URL = '/tiltaksgjennomforing/api';
+export const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 const HTTP_UNAUTHORIZED = 401;
 const HTTP_CONFLICT = 409;
