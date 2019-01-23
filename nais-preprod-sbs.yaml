@@ -21,8 +21,8 @@ spec:
     initialDelay: 20
   env:
   - name: API_GATEWAY
-    value: https://arbeidsgiver.nais.preprod.local
+    value: https://api-gw-q0.oera.no
   - name: LOGIN_URL
     value: https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing
   - name: LOGOUT_URL
-    value:  https://loginservice-q.nav.no/slo
+    value: https://loginservice-q.nav.no/slo
