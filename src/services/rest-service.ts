@@ -2,6 +2,7 @@ import { Avtale } from '../AvtaleSide/avtale';
 import { ApiError } from '../AvtaleSide/ApiError';
 import { Rolle } from '../AvtaleContext';
 import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
+import { basename } from '../paths';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
@@ -13,7 +14,7 @@ export default class RestService {
         if (response.status === HTTP_UNAUTHORIZED) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
-                window.location.pathname
+                window.location.pathname.replace(basename, '')
             );
             window.location.href = LOGIN_REDIRECT;
         }
