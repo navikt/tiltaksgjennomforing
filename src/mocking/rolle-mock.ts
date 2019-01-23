@@ -1,2 +1,2 @@
-const rolleMock = 'VEILEDER';
+const rolleMock = 'UTVIKLER';
 export default rolleMock;

@@ -84,10 +84,7 @@ export default class RestService {
             .then(location => fetch(`${API_URL}/${location}`))
             .then(this.handleResponse)
             .then(response => response.json())
-            .then((avtale: Avtale) => {
-                console.log("oppretta");
-                return { ...avtale, id: `${avtale.id}` };
-        });
+            .then((avtale: Avtale) => ({ ...avtale, id: `${avtale.id}` }));
     }
 
     async hentRolle(avtaleId: string): Promise<Rolle> {
