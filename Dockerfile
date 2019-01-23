@@ -14,4 +14,4 @@ COPY package.json ./
 COPY start.sh ./
 
 EXPOSE 3000
-ENTRYPOINT["/bin/sh", "start.sh"]
+ENTRYPOINT ["/bin/sh", "start.sh"]
