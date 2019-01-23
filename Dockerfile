@@ -11,6 +11,7 @@ COPY build/ ./build
 COPY ./src/setupProxy.js ./src/setupProxy.js
 COPY server.js ./
 COPY package.json ./
+COPY start.sh ./
 
 EXPOSE 3000
-CMD ["npm", "run", "server"]
+ENTRYPOINT ./start.sh
