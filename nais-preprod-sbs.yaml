@@ -9,8 +9,10 @@ spec:
   image: navikt/tiltaksgjennomforing:latest
   team: teamtag
   port: 3000
+  vault:
+    enabled: true
   ingresses:
-  - https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing
+  - https://arbeidsgiver-q.nav.no/tiltaksgjennomforing
   liveness:
     path: /tiltaksgjennomforing/internal/isAlive
     initialDelay: 20
@@ -19,8 +21,8 @@ spec:
     initialDelay: 20
   env:
   - name: API_GATEWAY
-    value: https://arbeidsgiver.nais.adeo.no
+    value: https://arbeidsgiver.nais.preprod.local
   - name: LOGIN_URL
-    value: https://loginservice.nais.adeo.no/login?redirect=https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing
+    value: https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing
   - name: LOGOUT_URL
-    value: https://loginservice.nais.adeo.no/slo
+    value:  https://loginservice-q.nav.no/slo

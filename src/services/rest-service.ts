@@ -1,6 +1,7 @@
 import { Avtale } from '../AvtaleSide/avtale';
 import { ApiError } from '../AvtaleSide/ApiError';
 import { Rolle } from '../AvtaleContext';
+import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
@@ -10,6 +11,10 @@ const HTTP_CONFLICT = 409;
 export default class RestService {
     async handleResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
+            sessionStorage.setItem(
+                SIDE_FOER_INNLOGGING,
+                window.location.pathname
+            );
             window.location.href = LOGIN_REDIRECT;
         }
         if (response.status === HTTP_CONFLICT) {
@@ -19,6 +24,7 @@ export default class RestService {
         if (!response.ok) {
             throw new ApiError('Feil ved kall til backend');
         }
+
         return response;
     }
 
