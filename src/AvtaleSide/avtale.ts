@@ -84,7 +84,7 @@ export interface Oppfolging {
 }
 
 export interface Bekreftelser {
-    bekreftetAvBruker: boolean;
-    bekreftetAvArbeidsgiver: boolean;
-    bekreftetAvVeileder: boolean;
+    godkjentAvDeltaker: boolean;
+    godkjentAvArbeidsgiver: boolean;
+    godkjentAvVeileder: boolean;
 }

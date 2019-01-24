@@ -45,9 +45,9 @@ export const tomAvtale: Avtale = {
     maal: [],
     oppgaver: [],
 
-    bekreftetAvBruker: false,
-    bekreftetAvArbeidsgiver: false,
-    bekreftetAvVeileder: false,
+    godkjentAvDeltaker: false,
+    godkjentAvArbeidsgiver: false,
+    godkjentAvVeileder: false,
 };
 
 export interface Context {

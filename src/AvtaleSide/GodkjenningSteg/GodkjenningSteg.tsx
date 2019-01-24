@@ -5,15 +5,15 @@ import Oppsummering from './Oppsummering/Oppsummering';
 
 const GodkjenningSteg = (props: Context) => {
     const bekreftBrukerOnClick = () => {
-        props.settAvtaleVerdi('bekreftetAvBruker', true);
+        props.settAvtaleVerdi('godkjentAvDeltaker', true);
     };
 
     const bekreftArbeidsgiverOnClick = () => {
-        props.settAvtaleVerdi('bekreftetAvArbeidsgiver', true);
+        props.settAvtaleVerdi('godkjentAvArbeidsgiver', true);
     };
 
     const bekreftVeilederOnClick = () => {
-        props.settAvtaleVerdi('bekreftetAvVeileder', true);
+        props.settAvtaleVerdi('godkjentAvVeileder', true);
     };
 
     return (
