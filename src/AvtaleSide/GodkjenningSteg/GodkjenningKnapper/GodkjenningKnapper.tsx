@@ -19,16 +19,6 @@ const GodkjenningKnapper = (props: Props) => {
                 Godkjenning av avtale
             </Systemtittel>
             <KnappOgEtikett
-                godkjent={props.avtale.godkjentAvDeltaker}
-                knappTekst="Bruker"
-                onClick={props.bekreftBrukerOnClick}
-            />
-            <KnappOgEtikett
-                godkjent={props.avtale.godkjentAvArbeidsgiver}
-                knappTekst="Arbeidsgiver"
-                onClick={props.bekreftArbeidsgiverOnClick}
-            />
-            <KnappOgEtikett
                 godkjent={props.avtale.godkjentAvVeileder}
                 knappTekst="NAV"
                 onClick={props.bekreftVeilederOnClick}

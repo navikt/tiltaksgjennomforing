@@ -93,4 +93,16 @@ export default class RestService {
             .then(this.handleResponse)
             .then(response => response.json());
     }
+
+    async endreGodkjenning(avtaleId: string, godkjent: boolean) {
+        const uri = `/tiltaksgjennomforing/api/avtaler/${avtaleId}/godkjent`;
+        const body = JSON.stringify({ godkjent });
+        return await fetch(uri, {
+            method: 'POST',
+            body,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then(this.handleResponse);
+    }
 }
