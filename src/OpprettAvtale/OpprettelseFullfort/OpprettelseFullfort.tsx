@@ -64,6 +64,7 @@ const OpprettelseFullfort: React.FunctionComponent<
                     label={inputLabel}
                     className="opprettelseFullfort__inputfelt"
                     value={hrefTilAvtaleForBrukerOgAG}
+                    readOnly={true}
                 />
                 <CopyToClipboard text={hrefTilAvtaleForBrukerOgAG}>
                     <Hovedknapp className="opprettelseFullfort__kopier-knapp">

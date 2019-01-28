@@ -30,9 +30,9 @@ const avtaleMock: Avtale = {
     opprettetTidspunkt: '4 uker siden',
     versjon: '34',
 
-    bekreftetAvBruker: false,
-    bekreftetAvArbeidsgiver: false,
-    bekreftetAvVeileder: false,
+    godkjentAvDeltaker: false,
+    godkjentAvArbeidsgiver: false,
+    godkjentAvVeileder: false,
 
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',

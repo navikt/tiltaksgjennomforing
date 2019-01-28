@@ -45,9 +45,9 @@ export const tomAvtale: Avtale = {
     maal: [],
     oppgaver: [],
 
-    bekreftetAvBruker: false,
-    bekreftetAvArbeidsgiver: false,
-    bekreftetAvVeileder: false,
+    godkjentAvDeltaker: false,
+    godkjentAvArbeidsgiver: false,
+    godkjentAvVeileder: false,
 };
 
 export interface Context {
@@ -65,6 +65,7 @@ export interface Context {
         arbeidsgiverFnr: string
     ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => void;
+    endreGodkjenning: (godkjent: boolean) => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -104,6 +105,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
+        this.endreGodkjenning = this.endreGodkjenning.bind(this);
         this.service = new RestService();
     }
 
@@ -260,6 +262,16 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.setState({ feilmelding: '' });
     }
 
+    endreGodkjenning(godkjent: boolean) {
+        const avtaleId = this.state.avtale.id;
+        this.service
+            .endreGodkjenning(avtaleId, godkjent)
+            .then(() => {
+                this.hentAvtale(avtaleId);
+            })
+            .catch(this.handterApiFeil);
+    }
+
     render() {
         const context: Context = {
             avtale: this.state.avtale,
@@ -273,6 +285,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             hentAvtale: this.hentAvtale,
             opprettAvtale: this.opprettAvtale,
             hentRolle: this.hentRolle,
+            endreGodkjenning: this.endreGodkjenning,
         };
 
         return (

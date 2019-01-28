@@ -4,16 +4,8 @@ import GodkjenningKnapper from './GodkjenningKnapper/GodkjenningKnapper';
 import Oppsummering from './Oppsummering/Oppsummering';
 
 const GodkjenningSteg = (props: Context) => {
-    const bekreftBrukerOnClick = () => {
-        props.settAvtaleVerdi('bekreftetAvBruker', true);
-    };
-
-    const bekreftArbeidsgiverOnClick = () => {
-        props.settAvtaleVerdi('bekreftetAvArbeidsgiver', true);
-    };
-
-    const bekreftVeilederOnClick = () => {
-        props.settAvtaleVerdi('bekreftetAvVeileder', true);
+    const onGodkjenningKlikk = () => {
+        props.endreGodkjenning(true);
     };
 
     return (
@@ -21,9 +13,9 @@ const GodkjenningSteg = (props: Context) => {
             <Oppsummering avtale={props.avtale} />
             <GodkjenningKnapper
                 avtale={props.avtale}
-                bekreftBrukerOnClick={bekreftBrukerOnClick}
-                bekreftArbeidsgiverOnClick={bekreftArbeidsgiverOnClick}
-                bekreftVeilederOnClick={bekreftVeilederOnClick}
+                bekreftBrukerOnClick={onGodkjenningKlikk}
+                bekreftArbeidsgiverOnClick={onGodkjenningKlikk}
+                bekreftVeilederOnClick={onGodkjenningKlikk}
             />
         </>
     );
