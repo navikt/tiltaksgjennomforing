@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamtag
 spec:
-  image: navikt/tiltaksgjennomforing:latest
+  image: navikt/tiltaksgjennomforing:367
   team: teamtag
   port: 3000
   vault:

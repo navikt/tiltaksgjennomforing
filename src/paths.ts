@@ -1,6 +1,8 @@
-export const pathTilOversikt: string = '/tiltaksgjennomforing';
+export const basename = '/tiltaksgjennomforing';
 
-const avtaleBase = '/tiltaksgjennomforing/avtale';
+export const pathTilOversikt: string = '';
+
+const avtaleBase = '/avtale';
 
 export const pathTilAvtale = (avtaleId: string): string => {
     return `${avtaleBase}/${avtaleId}`;
