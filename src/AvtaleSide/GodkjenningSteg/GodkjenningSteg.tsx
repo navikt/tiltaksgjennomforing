@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Context, medContext } from '../../AvtaleContext';
 import GodkjenningKnapper from './GodkjenningKnapper/GodkjenningKnapper';
 import Oppsummering from './Oppsummering/Oppsummering';
+import GodkjenningStatus from './GodkjenningStatus/GodkjenningStatus';
 
 const GodkjenningSteg = (props: Context) => {
     const onGodkjenningKlikk = () => {
@@ -17,6 +18,7 @@ const GodkjenningSteg = (props: Context) => {
                 bekreftArbeidsgiverOnClick={onGodkjenningKlikk}
                 bekreftVeilederOnClick={onGodkjenningKlikk}
             />
+            <GodkjenningStatus avtale={props.avtale} />
         </>
     );
 };
