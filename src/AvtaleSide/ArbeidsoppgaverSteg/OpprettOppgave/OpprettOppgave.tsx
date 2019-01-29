@@ -23,8 +23,8 @@ class OpprettOppgave extends React.Component<Props> {
         this.visOppgave(true);
     };
 
-    lagreOppgave = (oppgave: Oppgave) => {
-        this.props.lagreOppgave(oppgave);
+    lagreOppgave = async (oppgave: Oppgave) => {
+        await this.props.lagreOppgave(oppgave);
         this.visOppgave(false);
     };
 

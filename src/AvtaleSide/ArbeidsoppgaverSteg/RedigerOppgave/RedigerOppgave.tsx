@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { Input, Textarea } from 'nav-frontend-skjema';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import * as React from 'react';
+import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
 import { Oppgave } from '../../avtale';
 
 interface Props {
-    lagreOppgave: (oppgave: Oppgave) => void;
+    lagreOppgave: (oppgave: Oppgave) => Promise<any>;
     defaultOppgave?: Oppgave;
 }
 
@@ -47,8 +47,8 @@ class RedigerOppgave extends React.Component<Props, State> {
         });
     };
 
-    lagreKnappOnClick = () => {
-        this.props.lagreOppgave({
+    lagreOppgave = () => {
+        return this.props.lagreOppgave({
             id: this.props.defaultOppgave && this.props.defaultOppgave.id,
             opprettetTimestamp:
                 this.props.defaultOppgave &&
@@ -86,13 +86,11 @@ class RedigerOppgave extends React.Component<Props, State> {
                     maxLength={1000}
                     tellerTekst={this.lagTellerTekst}
                 />
-                <Hovedknapp
-                    className="rediger-oppgave__lagre-knapp"
-                    htmlType="button"
-                    onClick={this.lagreKnappOnClick}
-                >
-                    Lagre arbeidsoppgave
-                </Hovedknapp>
+                <LagreKnapp
+                    lagre={this.lagreOppgave}
+                    label="Lagre arbeidsoppgave"
+                    className="rediger-maal__lagre-knapp"
+                />
             </>
         );
     }

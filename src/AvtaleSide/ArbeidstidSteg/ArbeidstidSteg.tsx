@@ -1,4 +1,5 @@
 import * as React from 'react';
+import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
 import Datovelger from './Datovelger/datovelger';
 import moment from 'moment';
 import { Moment } from 'moment';
@@ -44,34 +45,45 @@ class ArbeidstidSteg extends React.Component<Context, State> {
         const dagerIUka = (timerIUka / 37.5) * 5;
 
         return (
-            <Innholdsboks>
-                <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
-                    Arbeidstid og oppstart
-                </Systemtittel>
-                <Normaltekst className="arbeidstidsteg__startdato-label">
-                    Startdato
-                </Normaltekst>
-                <Datovelger
-                    className="arbeidstidsteg__datovelger"
-                    velgDato={this.velgStartDato}
-                    dato={moment(this.props.avtale.startDatoTimestamp)}
-                    settRiktigFormatert={this.settStartDatoRiktigFormatert}
-                    inputRiktigFormatert={this.state.startDatoRiktigFormatert}
+            <>
+                <Innholdsboks>
+                    <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
+                        Arbeidstid og oppstart
+                    </Systemtittel>
+                    <Normaltekst className="arbeidstidsteg__startdato-label">
+                        Startdato
+                    </Normaltekst>
+                    <Datovelger
+                        className="arbeidstidsteg__datovelger"
+                        velgDato={this.velgStartDato}
+                        dato={moment(this.props.avtale.startDatoTimestamp)}
+                        settRiktigFormatert={this.settStartDatoRiktigFormatert}
+                        inputRiktigFormatert={
+                            this.state.startDatoRiktigFormatert
+                        }
+                    />
+                    <Ukevelger
+                        label="Hvor lenge skal arbeidstreningen vare?"
+                        verdi={this.props.avtale.arbeidstreningLengde}
+                        onChange={this.settArbeidstreningLengde}
+                        min={1}
+                        max={12}
+                    />
+                    <StillingsprosentInput
+                        label="Hvilken stillingsprosent skal deltakeren ha?"
+                        verdi={
+                            this.props.avtale.arbeidstreningStillingprosent || 0
+                        }
+                        onChange={this.settStillingsprosent}
+                    />
+                    <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
+                </Innholdsboks>
+                <LagreKnapp
+                    label={'Lagre avtale'}
+                    lagre={this.props.lagreAvtale}
+                    suksessmelding={'Avtale lagret'}
                 />
-                <Ukevelger
-                    label="Hvor lenge skal arbeidstreningen vare?"
-                    verdi={this.props.avtale.arbeidstreningLengde}
-                    onChange={this.settArbeidstreningLengde}
-                    min={1}
-                    max={12}
-                />
-                <StillingsprosentInput
-                    label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={this.props.avtale.arbeidstreningStillingprosent || 0}
-                    onChange={this.settStillingsprosent}
-                />
-                <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
-            </Innholdsboks>
+            </>
         );
     }
 }
