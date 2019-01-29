@@ -1,17 +1,18 @@
 import * as React from 'react';
-import { Context, medContext } from '../AvtaleContext';
-import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
-import MaalSteg from './MaalSteg/MaalSteg';
 import { RouteComponentProps } from 'react-router';
+import { Context, medContext } from '../AvtaleContext';
+import Banner from '../komponenter/Banner/Banner';
+import { pathTilGodkjenningsSteg } from '../paths';
+import { ApiError } from './ApiError';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
-import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
-import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
+import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
+import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
+import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
-import { pathTilGodkjenningsSteg } from '../paths';
-import Banner from '../komponenter/Banner/Banner';
+import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 
 interface State {
     windowSize: number;
@@ -40,7 +41,7 @@ class AvtaleSide extends React.Component<Props, State> {
 
     avtaleSteg: AvtaleStegType = {
         kontaktinformasjon: {
-            komponent: <KontaktinfoSteg />,
+            komponent: <KontaktinfoSteg {...this.props} />,
             label: 'Kontaktinformasjon',
         },
         maal: {
@@ -71,11 +72,19 @@ class AvtaleSide extends React.Component<Props, State> {
         });
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         window.addEventListener('resize', this.handleWindowSize);
         const avtaleId = this.props.match.params.avtaleId;
-        this.props.hentAvtale(avtaleId);
-        this.props.hentRolle(avtaleId);
+        try {
+            await Promise.all([
+                this.props.hentAvtale(avtaleId),
+                this.props.hentRolle(avtaleId),
+            ]);
+        } catch (error) {
+            if (error instanceof ApiError) {
+                this.props.visFeilmelding(error.message);
+            }
+        }
     }
 
     componentWillUnmount() {

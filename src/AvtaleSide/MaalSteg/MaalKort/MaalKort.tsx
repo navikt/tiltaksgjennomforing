@@ -8,8 +8,8 @@ import { Maalkategori } from '../../maalkategorier';
 
 interface Props {
     maal: Maal;
-    slettMaal: (maal: Maal) => void;
-    lagreMaal: (maal: Maal) => void;
+    slettMaal: (maal: Maal) => Promise<any>;
+    lagreMaal: (maal: Maal) => Promise<any>;
     ledigeMaalkategorier: Maalkategori[];
 }
 
@@ -26,18 +26,22 @@ class MaalKort extends React.Component<Props, State> {
         this.setState({ iEndreModus: modus });
     };
 
-    lagreMaal = (maal: Maal) => {
+    lagreMaal = async (maal: Maal) => {
+        await this.props.lagreMaal(maal);
         this.settEndreModus(false);
-        this.props.lagreMaal(maal);
     };
 
     endreMaal = () => {
         this.settEndreModus(true);
     };
 
+    avbrytEndreMaal = () => {
+        this.settEndreModus(false);
+    };
+
     slettMaal = () => {
-        if (window.confirm("Er du sikker på at du vil slette dette målet?")) {
-            this.props.slettMaal(this.props.maal);
+        if (window.confirm('Er du sikker på at du vil slette dette målet?')) {
+            return this.props.slettMaal(this.props.maal);
         }
     };
 
@@ -49,6 +53,7 @@ class MaalKort extends React.Component<Props, State> {
                         defaultMaal={this.props.maal}
                         ledigeMaalkategorier={this.props.ledigeMaalkategorier}
                         lagreMaal={this.lagreMaal}
+                        avbrytRedigering={this.avbrytEndreMaal}
                     />
                 ) : (
                     <LagretMaal

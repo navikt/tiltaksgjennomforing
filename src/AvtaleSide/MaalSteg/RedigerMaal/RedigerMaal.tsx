@@ -1,11 +1,13 @@
-import * as React from 'react';
+import { Flatknapp } from 'nav-frontend-knapper';
 import { Select, Textarea } from 'nav-frontend-skjema';
-import { Maalkategori } from '../../maalkategorier';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import * as React from 'react';
+import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
 import { Maal } from '../../avtale';
+import { Maalkategori } from '../../maalkategorier';
 
 interface Props {
-    lagreMaal: (maal: Maal) => void;
+    lagreMaal: (maal: Maal) => Promise<any>;
+    avbrytRedigering: () => void;
     defaultMaal?: Maal;
     ledigeMaalkategorier: Maalkategori[];
 }
@@ -37,8 +39,8 @@ class RedigerMaal extends React.Component<Props, State> {
         });
     };
 
-    lagreKnappOnClick = () => {
-        this.props.lagreMaal({
+    lagre = () => {
+        return this.props.lagreMaal({
             id: this.props.defaultMaal && this.props.defaultMaal.id,
             opprettetTimestamp:
                 this.props.defaultMaal &&
@@ -46,6 +48,10 @@ class RedigerMaal extends React.Component<Props, State> {
             kategori: this.state.valgtKategori,
             beskrivelse: this.state.beskrivelse,
         });
+    };
+
+    avbrytKnappOnClick = () => {
+        this.props.avbrytRedigering();
     };
 
     lagTellerTekst = (antallTegn: number, maxLength: number) => {
@@ -76,13 +82,12 @@ class RedigerMaal extends React.Component<Props, State> {
                     maxLength={1000}
                     tellerTekst={this.lagTellerTekst}
                 />
-                <Hovedknapp
-                    className="rediger-maal__lagre-knapp"
-                    htmlType="button"
-                    onClick={this.lagreKnappOnClick}
-                >
-                    Lagre mål
-                </Hovedknapp>
+                <LagreKnapp
+                    lagre={this.lagre}
+                    label={'Lagre mål'}
+                    className={'rediger-maal__lagre-knapp'}
+                />
+                <Flatknapp onClick={this.avbrytKnappOnClick}>Avbryt</Flatknapp>
             </>
         );
     }

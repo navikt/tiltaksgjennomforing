@@ -1,8 +1,8 @@
-import { Avtale } from '../AvtaleSide/avtale';
-import { ApiError } from '../AvtaleSide/ApiError';
-import { Rolle } from '../AvtaleContext';
-import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
 import { basename } from '../paths';
+import { Rolle } from '../AvtaleContext';
+import { ApiError } from '../AvtaleSide/ApiError';
+import { Avtale } from '../AvtaleSide/avtale';
+import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
@@ -10,7 +10,7 @@ const HTTP_UNAUTHORIZED = 401;
 const HTTP_CONFLICT = 409;
 
 export default class RestService {
-    async handleResponse(response: Response) {
+    handleResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
@@ -19,27 +19,26 @@ export default class RestService {
             window.location.href = LOGIN_REDIRECT;
         }
         if (response.status === HTTP_CONFLICT) {
-            const responseJson: any = await response.json();
-            throw new ApiError(responseJson.message);
+            throw new ApiError(
+                'Noen andre har lagret avtalen. Forsøk å oppfrisk siden.'
+            );
         }
         if (!response.ok) {
-            throw new ApiError('Feil ved kall til backend');
+            throw new ApiError('Feil ved kontakt mot baksystem.');
         }
-
-        return response;
     }
 
     async hentAvtale(id: string): Promise<Avtale> {
-        const avtale = await fetch(`${API_URL}/avtaler/${id}`)
-            .then(this.handleResponse)
-            .then(response => response.json());
+        const response = await fetch(`${API_URL}/avtaler/${id}`);
+        this.handleResponse(response);
+        const avtale = await response.json();
         return { ...avtale, id: `${avtale.id}` };
     }
 
     async hentAvtaler(): Promise<Map<string, Avtale>> {
-        const avtaler: Avtale[] = await fetch(`${API_URL}/avtaler`)
-            .then(this.handleResponse)
-            .then(response => response.json());
+        const response: Response = await fetch(`${API_URL}/avtaler`);
+        this.handleResponse(response);
+        const avtaler: Avtale[] = await response.json();
         return avtaler.reduce(
             (map: Map<string, Avtale>, avtale: Avtale) =>
                 map.set(`${avtale.id}`, { ...avtale, id: `${avtale.id}` }),
@@ -47,30 +46,29 @@ export default class RestService {
         );
     }
 
-    async lagreAvtale(avtale: Avtale): Promise<{ versjon: string }> {
-        return fetch(`${API_URL}/avtaler/${avtale.id}`, {
+    async lagreAvtale(avtale: Avtale): Promise<Avtale> {
+        const response = await fetch(`${API_URL}/avtaler/${avtale.id}`, {
             method: 'PUT',
             body: JSON.stringify(avtale),
             headers: {
                 'Content-Type': 'application/json',
                 'If-Match': avtale.versjon,
             },
-        })
-            .then(this.handleResponse)
-            .then((response: Response) => {
-                const eTag = response.headers.get('ETag');
-                if (eTag) {
-                    return Promise.resolve({ versjon: eTag });
-                }
-                return Promise.reject('Respons inneholder ikke ETag-header');
-            });
+        });
+        this.handleResponse(response);
+        const versjon = response.headers.get('ETag');
+        if (versjon !== avtale.versjon) {
+            return await this.hentAvtale(avtale.id);
+        } else {
+            return avtale;
+        }
     }
 
     async opprettAvtale(
         deltakerFnr: string,
         arbeidsgiverFnr: string
     ): Promise<Avtale> {
-        return fetch(`${API_URL}/avtaler`, {
+        const postResponse = await fetch(`${API_URL}/avtaler`, {
             method: 'POST',
             body: JSON.stringify({
                 deltakerFnr,
@@ -79,30 +77,32 @@ export default class RestService {
             headers: {
                 'Content-Type': 'application/json',
             },
-        })
-            .then(this.handleResponse)
-            .then(response => response.headers.get('Location'))
-            .then(location => fetch(`${API_URL}/${location}`))
-            .then(this.handleResponse)
-            .then(response => response.json())
-            .then((avtale: Avtale) => ({ ...avtale, id: `${avtale.id}` }));
+        });
+        this.handleResponse(postResponse);
+        const getResponse = await fetch(
+            `${API_URL}/${postResponse.headers.get('Location')}`
+        );
+        this.handleResponse(getResponse);
+        const avtale: Avtale = await getResponse.json();
+        return { ...avtale, id: `${avtale.id}` };
     }
 
     async hentRolle(avtaleId: string): Promise<Rolle> {
-        return await fetch(`${API_URL}/avtaler/${avtaleId}/rolle`)
-            .then(this.handleResponse)
-            .then(response => response.json());
+        const response = await fetch(`${API_URL}/avtaler/${avtaleId}/rolle`);
+        this.handleResponse(response);
+        return response.json();
     }
 
     async endreGodkjenning(avtaleId: string, godkjent: boolean) {
         const uri = `/tiltaksgjennomforing/api/avtaler/${avtaleId}/godkjent`;
         const body = JSON.stringify({ godkjent });
-        return await fetch(uri, {
+        const response = await fetch(uri, {
             method: 'POST',
             body,
             headers: {
                 'Content-Type': 'application/json',
             },
-        }).then(this.handleResponse);
+        });
+        this.handleResponse(response);
     }
 }
