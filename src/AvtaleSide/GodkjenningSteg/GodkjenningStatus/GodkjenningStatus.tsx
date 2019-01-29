@@ -9,31 +9,28 @@ interface Props {
     avtale: Avtale;
 }
 
-const GodkjenningStatus: React.FunctionComponent<Props> = props => {
+const GodkjenningStatus: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <Innholdsboks className="godkjenningstatus">
             <Systemtittel>Hvem har godkjent?</Systemtittel>
-            <div className="godkjenningstatus__tittel">
+            <div className="godkjenningstatus__rader">
                 <GodkjenningRad
                     godkjentAvtale={props.avtale.bekreftetAvBruker}
-                    personFornavn={props.avtale.deltakerFornavn}
-                    personEtternavn={props.avtale.deltakerEtternavn}
+                    fornavn={props.avtale.deltakerFornavn}
+                    etternavn={props.avtale.deltakerEtternavn}
                     placeholderName="Deltaker"
-                    class="godkjenningsrad__rad"
                 />
                 <GodkjenningRad
                     godkjentAvtale={props.avtale.bekreftetAvArbeidsgiver}
-                    personFornavn={props.avtale.arbeidsgiverFornavn}
-                    personEtternavn={props.avtale.arbeidsgiverEtternavn}
+                    fornavn={props.avtale.arbeidsgiverFornavn}
+                    etternavn={props.avtale.arbeidsgiverEtternavn}
                     placeholderName="Arbeidsgiver"
-                    class="godkjenningsrad__rad"
                 />
                 <GodkjenningRad
                     godkjentAvtale={props.avtale.bekreftetAvVeileder}
-                    personFornavn={props.avtale.veilederFornavn}
-                    personEtternavn={props.avtale.veilederEtternavn}
+                    fornavn={props.avtale.veilederFornavn}
+                    etternavn={props.avtale.veilederEtternavn}
                     placeholderName="Veileder i NAV"
-                    class="godkjenningsrad__sisteRad"
                 />
             </div>
         </Innholdsboks>

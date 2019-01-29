@@ -6,38 +6,28 @@ import './GodkjenningRad.less';
 
 interface Props {
     godkjentAvtale: boolean;
-    personFornavn: string;
-    personEtternavn: string;
+    fornavn: string;
+    etternavn: string;
     placeholderName: string;
-    class: string;
 }
 
-const GodkjenningRad: React.FunctionComponent<Props> = props => {
+const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
     const godkjentStatus: string = props.godkjentAvtale
         ? 'Avtale godkjent'
         : 'Venter på godkjenning';
 
-    const fullName = () => {
-        if (props.personFornavn && props.personEtternavn) {
-            return props.personFornavn + ' ' + props.personEtternavn;
-        } else if (props.personFornavn && !props.personEtternavn) {
-            return props.personFornavn;
-        } else if (props.personEtternavn && !props.personFornavn) {
-            return props.personEtternavn;
-        } else if (!props.personFornavn && !props.personEtternavn) {
-            return props.placeholderName;
-        }
+    const fulltNavn = () => {
+        return (
+            [props.fornavn, props.etternavn].filter(Boolean).join(' ') ||
+            props.placeholderName
+        );
     };
 
     return (
-        <div className={props.class}>
-            <Normaltekst className="godkjenningsrad__inline">
-                {fullName()}
-            </Normaltekst>
+        <div>
+            <Normaltekst tag={'span'}>{fulltNavn()}</Normaltekst>
             <span className="godkjenningsrad__status">
-                <Element className="godkjenningsrad__inline">
-                    {godkjentStatus}
-                </Element>{' '}
+                <Element tag={'span'}>{godkjentStatus}</Element>
                 <img
                     className="godkjenningsrad__godkjenningIkon"
                     src={props.godkjentAvtale ? checkIkon : problemIkon}
