@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleContext';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -8,6 +8,7 @@ import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import LandingsSide from './LandingsSide/LandingsSide';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import { basename } from './paths';
 
 addLocaleData(nb);
 
@@ -15,29 +16,32 @@ class App extends React.Component {
     render() {
         return (
             <IntlProvider locale="nb">
-                <BrowserRouter>
+                <BrowserRouter basename={basename}>
                     <RedirectEtterLogin>
                         <AvtaleProvider>
-                            <Route
-                                path="/tiltaksgjennomforing/avtale/:avtaleId"
-                                exact={true}
-                                component={LandingsSide}
-                            />
-                            <Route
-                                path="/tiltaksgjennomforing/avtale/:avtaleId/:stegPath"
-                                exact={true}
-                                component={AvtaleSide}
-                            />
-                            <Route
-                                path="/tiltaksgjennomforing/opprett-avtale"
-                                exact={true}
-                                component={OpprettAvtale}
-                            />
-                            <Route
-                                path="/tiltaksgjennomforing/opprett-avtale/fullfort"
-                                exact={true}
-                                component={OpprettelseFullfort}
-                            />
+                            <Switch>
+                                <Route
+                                    path="/avtale/:avtaleId"
+                                    exact={true}
+                                    component={LandingsSide}
+                                />
+                                <Route
+                                    path="/avtale/:avtaleId/:stegPath"
+                                    exact={true}
+                                    component={AvtaleSide}
+                                />
+                                <Route
+                                    path="/opprett-avtale"
+                                    exact={true}
+                                    component={OpprettAvtale}
+                                />
+                                <Route
+                                    path="/opprett-avtale/fullfort"
+                                    exact={true}
+                                    component={OpprettelseFullfort}
+                                />
+                                <Redirect to="/opprett-avtale" />
+                            </Switch>
                         </AvtaleProvider>
                     </RedirectEtterLogin>
                 </BrowserRouter>
