@@ -36,7 +36,9 @@ class MaalKort extends React.Component<Props, State> {
     };
 
     slettMaal = () => {
-        this.props.slettMaal(this.props.maal);
+        if (window.confirm("Er du sikker på at du vil slette dette målet?")) {
+            this.props.slettMaal(this.props.maal);
+        }
     };
 
     render() {

@@ -34,7 +34,9 @@ class OppgaveKort extends React.Component<Props, State> {
     };
 
     slettOppgave = () => {
-        this.props.slettOppgave(this.props.oppgave);
+        if (window.confirm("Er du sikker på at du vil slette denne oppgaven?")) {
+            this.props.slettOppgave(this.props.oppgave);
+        }
     };
 
     render() {
