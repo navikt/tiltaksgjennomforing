@@ -7,6 +7,11 @@ interface Props {
     verdi: number;
     onChange: (verdi: number) => void;
 }
+const stillingsProsent = (prosent: string) => {
+    let kunTall = prosent.replace(/\D/g, '');
+    Number(kunTall) > 100 ? (kunTall = '100') : null;
+    return kunTall;
+};
 
 const StillingsprosentInput = (props: Props) => (
     <Input
@@ -14,7 +19,7 @@ const StillingsprosentInput = (props: Props) => (
         label={props.label}
         value={props.verdi}
         onChange={(event: React.FormEvent<HTMLInputElement>) =>
-            props.onChange(Number(event.currentTarget.value))
+            props.onChange(Number(stillingsProsent(event.currentTarget.value)))
         }
         bredde={'S'}
     />
