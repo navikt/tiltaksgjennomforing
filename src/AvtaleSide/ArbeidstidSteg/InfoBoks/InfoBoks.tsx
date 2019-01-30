@@ -15,11 +15,12 @@ const InfoBoks = (props: Props) => (
         <Normaltekst>
             <span className="infoboks__bold">
                 {props.timerIUka ? props.timerIUka : 0}
-            </span>{' '}
-            timer eller{' '}
+            </span>
+            &nbsp; timer eller &nbsp;
             <span className="infoboks__bold">
                 {props.dagerIUka ? props.dagerIUka : 0}
-            </span>{' '}
+            </span>
+            &nbsp;
             {props.dagerIUka <= 1 ? 'dag' : 'dager'} i uka
         </Normaltekst>
     </div>
