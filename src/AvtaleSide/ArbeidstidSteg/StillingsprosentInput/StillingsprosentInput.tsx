@@ -7,6 +7,10 @@ interface Props {
     verdi: number;
     onChange: (verdi: number) => void;
 }
+const oversettTilTall = (prosent: string) => {
+    const kunTall = prosent.replace(/\D/g, '');
+    return Number(kunTall) > 100 ? 100 : Number(kunTall);
+};
 
 const StillingsprosentInput = (props: Props) => (
     <Input
@@ -14,7 +18,7 @@ const StillingsprosentInput = (props: Props) => (
         label={props.label}
         value={props.verdi}
         onChange={(event: React.FormEvent<HTMLInputElement>) =>
-            props.onChange(Number(event.currentTarget.value))
+            props.onChange(oversettTilTall(event.currentTarget.value))
         }
         bredde={'S'}
     />
