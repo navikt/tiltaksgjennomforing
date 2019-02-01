@@ -36,7 +36,7 @@ class OpprettMaal extends React.Component<Props> {
 
     render() {
         return (
-            <Innholdsboks>
+            <Innholdsboks utfyller="veileder">
                 <Systemtittel tag="h1" className="opprett-maal__tittel">
                     Opprett mål
                 </Systemtittel>

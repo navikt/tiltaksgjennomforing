@@ -1,24 +1,27 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .innholdsboks {
-  padding: 1.25rem;
-  margin-bottom: 1.25rem;
-  background-color: white;
-  border-radius: 4px;
+    margin-bottom: 0.25rem;
+    background-color: white;
+    border-radius: 4px;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+    &__innhold {
+        padding: 1.25rem;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 // Overskriver styling fra NAVs Ekspanderbartpanel for å kunne ha grå padding mellom innholdsboksene.
 .avtaleside__ekspanderbart-panel .ekspanderbartPanel__innhold {
-  background-color: @grayBackground;
-  padding: 0;
+    background-color: @grayBackground;
+    padding: 0;
 }
 
 @media (min-width: @screen-sm-min) {
-  .innholdsboks {
-    padding: 2rem;
-  }
+    .innholdsboks__innhold {
+        padding: 2rem;
+    }
 }

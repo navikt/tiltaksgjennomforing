@@ -30,7 +30,7 @@ class OpprettOppgave extends React.Component<Props> {
 
     render() {
         return (
-            <Innholdsboks>
+            <Innholdsboks utfyller="arbeidsgiver">
                 <Systemtittel tag="h1" className="opprett-oppgave__tittel">
                     Hvilke arbeidsoppgaver skal utføres?
                 </Systemtittel>

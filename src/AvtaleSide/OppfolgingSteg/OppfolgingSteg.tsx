@@ -18,7 +18,7 @@ const OppfolgingSteg = (props: Context) => {
 
     return (
         <>
-            <Innholdsboks>
+            <Innholdsboks utfyller="arbeidsgiver">
                 <Systemtittel className="oppfolgingsteg__tittel">
                     Oppfølging og tilrettelegging
                 </Systemtittel>

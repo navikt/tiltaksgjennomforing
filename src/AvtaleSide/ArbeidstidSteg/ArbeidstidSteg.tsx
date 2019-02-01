@@ -46,7 +46,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
 
         return (
             <>
-                <Innholdsboks>
+                <Innholdsboks utfyller="arbeidsgiver">
                     <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
                         Arbeidstid og oppstart
                     </Systemtittel>
