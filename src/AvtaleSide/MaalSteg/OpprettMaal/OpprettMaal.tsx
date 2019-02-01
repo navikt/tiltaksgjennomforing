@@ -1,14 +1,14 @@
-import * as React from 'react';
 import { Knapp } from 'nav-frontend-knapper';
-import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import { Systemtittel } from 'nav-frontend-typografi';
+import * as React from 'react';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
 import { Maal } from '../../avtale';
-import './OpprettMaal.less';
 import { Maalkategori } from '../../maalkategorier';
+import RedigerMaal from '../RedigerMaal/RedigerMaal';
+import './OpprettMaal.less';
 
 interface Props {
-    lagreMaal: (maal: Maal) => void;
+    lagreMaal: (maal: Maal) => Promise<any>;
     ledigeMaalkategorier: Maalkategori[];
 }
 
@@ -17,17 +17,21 @@ class OpprettMaal extends React.Component<Props> {
         visRedigerMaal: false,
     };
 
-    visMaal = (skalVises: boolean) => {
+    visRedigerMaal = (skalVises: boolean) => {
         this.setState({ visRedigerMaal: skalVises });
     };
 
     nyttMaalOnClick = () => {
-        this.visMaal(true);
+        this.visRedigerMaal(true);
     };
 
-    lagreMaal = (maal: Maal) => {
-        this.props.lagreMaal(maal);
-        this.visMaal(false);
+    avbrytRedigering = () => {
+        this.visRedigerMaal(false);
+    };
+
+    lagreMaal = async (maal: Maal) => {
+        await this.props.lagreMaal(maal);
+        this.avbrytRedigering();
     };
 
     render() {
@@ -40,6 +44,7 @@ class OpprettMaal extends React.Component<Props> {
                     <RedigerMaal
                         ledigeMaalkategorier={this.props.ledigeMaalkategorier}
                         lagreMaal={this.lagreMaal}
+                        avbrytRedigering={this.avbrytRedigering}
                     />
                 ) : (
                     <Knapp

@@ -1,9 +1,9 @@
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import Varsel from './komponenter/Varsel/Varsel';
-import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import { ApiError } from './AvtaleSide/ApiError';
+import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
+import Varsel from './komponenter/Varsel/Varsel';
 import RestService from './services/rest-service';
 
 export const tomAvtale: Avtale = {
@@ -54,17 +54,18 @@ export interface Context {
     avtale: Avtale;
     rolle: Rolle;
     settAvtaleVerdi: (felt: string, verdi: any) => void;
-    lagreAvtale: () => void;
-    lagreMaal: (maal: Maal) => void;
-    slettMaal: (maal: Maal) => void;
-    lagreOppgave: (oppgave: Oppgave) => void;
-    slettOppgave: (oppgave: Oppgave) => void;
-    hentAvtale: (avtaleId: string) => void;
+    lagreAvtale: () => Promise<any>;
+    lagreMaal: (maal: Maal) => Promise<any>;
+    slettMaal: (maal: Maal) => Promise<any>;
+    lagreOppgave: (oppgave: Oppgave) => Promise<any>;
+    slettOppgave: (oppgave: Oppgave) => Promise<any>;
+    hentAvtale: (avtaleId: string) => Promise<any>;
     opprettAvtale: (
         deltakerFnr: string,
         arbeidsgiverFnr: string
     ) => Promise<Avtale>;
-    hentRolle: (avtaleId: string) => void;
+    hentRolle: (avtaleId: string) => Promise<any>;
+    visFeilmelding: (feilmelding: string) => void;
     endreGodkjenning: (godkjent: boolean) => void;
 }
 
@@ -109,14 +110,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.service = new RestService();
     }
 
-    handterApiFeil = (error: any) => {
-        if (error instanceof ApiError) {
-            this.visFeilmelding(error.message);
-        } else {
-            throw error;
-        }
-    };
-
     shouldComponentUpdate(nextProps: any, nextState: State): boolean {
         return (
             nextState.avtale.maal.every(maal => maal.id !== undefined) &&
@@ -124,17 +117,17 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
     }
 
-    componentDidMount() {
-        this.service
-            .hentAvtaler()
-            .then((avtaler: Map<string, Avtale>) => {
-                this.setState({ avtaler });
-            })
-            .catch(this.handterApiFeil);
-    }
-
-    visFeilmelding(feilmelding: string) {
-        this.setState({ feilmelding });
+    async componentDidMount() {
+        try {
+            const avtaler = await this.service.hentAvtaler();
+            this.setState({ avtaler });
+        } catch (error) {
+            if (error instanceof ApiError) {
+                this.visFeilmelding(error.message);
+            } else {
+                throw error;
+            }
+        }
     }
 
     settAvtaleVerdi(felt: string, verdi: any) {
@@ -146,130 +139,95 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
-    lagreAvtale() {
-        const avtale = this.state.avtale;
-        if (avtale) {
-            return this.service
-                .lagreAvtale(avtale)
-                .then(() => {
-                    this.hentAvtale(avtale.id);
-                })
-                .catch(this.handterApiFeil);
-        }
-        return Promise.reject();
+    async lagreAvtale() {
+        const nyAvtale = await this.service.lagreAvtale(this.state.avtale);
+        this.setState({ avtale: nyAvtale });
     }
 
     lagreMaal(maalTilLagring: Maal) {
-        const avtale = this.state.avtale;
-        if (avtale) {
-            const nyeMaal = avtale.maal.filter(
-                (maal: Maal) => maal.id !== maalTilLagring.id
-            );
-            nyeMaal.push(maalTilLagring);
-            nyeMaal.sort(
-                (a: Maal, b: Maal) =>
-                    (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
-            );
-            this.settAvtaleVerdi('maal', nyeMaal);
-            return this.lagreAvtale();
-        }
-        return Promise.reject();
+        const nyeMaal = this.state.avtale.maal.filter(
+            (maal: Maal) => maal.id !== maalTilLagring.id
+        );
+        nyeMaal.push(maalTilLagring);
+        nyeMaal.sort(
+            (a: Maal, b: Maal) =>
+                (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
+        );
+        this.settAvtaleVerdi('maal', nyeMaal);
+        return this.lagreAvtale();
     }
 
-    hentAvtale(avtaleId: string) {
-        this.service
-            .hentAvtale(avtaleId)
-            .then(avtale => {
-                this.setState({ avtale });
-            })
-            .catch(this.handterApiFeil);
+    visFeilmelding = (feilmelding: string): void => {
+        this.setState({ feilmelding });
+    };
+
+    fjernFeilmelding = (): void => {
+        this.setState({ feilmelding: '' });
+    };
+
+    async hentAvtale(avtaleId: string) {
+        const avtale = await this.service.hentAvtale(avtaleId);
+        this.setState({ avtale });
     }
 
-    hentRolle(avtaleId: string) {
-        this.service
-            .hentRolle(avtaleId)
-            .then(rolle => {
-                this.setState({ rolle });
-            })
-            .catch(this.handterApiFeil);
+    async hentRolle(avtaleId: string) {
+        const rolle = await this.service.hentRolle(avtaleId);
+        this.setState({ rolle });
     }
 
     slettMaal(maalTilSletting: Maal) {
-        const avtale = this.state.avtale;
-        if (avtale) {
-            const nyeMaal = avtale.maal.filter(
-                (maal: Maal) => maal.id !== maalTilSletting.id
-            );
-            this.settAvtaleVerdi('maal', nyeMaal);
-            return this.lagreAvtale();
-        }
-        return Promise.reject();
+        const nyeMaal = this.state.avtale.maal.filter(
+            (maal: Maal) => maal.id !== maalTilSletting.id
+        );
+        this.settAvtaleVerdi('maal', nyeMaal);
+        return this.lagreAvtale();
     }
 
     lagreOppgave(oppgaveTilLagring: Oppgave) {
-        const avtale = this.state.avtale;
-        if (avtale) {
-            const nyeOppgaver = avtale.oppgaver.filter(
-                (oppgave: Oppgave) => oppgave.id !== oppgaveTilLagring.id
-            );
-            nyeOppgaver.push(oppgaveTilLagring);
-            nyeOppgaver.sort(
-                (a: Oppgave, b: Oppgave) =>
-                    (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
-            );
-            this.settAvtaleVerdi('oppgaver', nyeOppgaver);
-            return this.lagreAvtale();
-        }
-        return Promise.reject();
+        const nyeOppgaver = this.state.avtale.oppgaver.filter(
+            (oppgave: Oppgave) => oppgave.id !== oppgaveTilLagring.id
+        );
+        nyeOppgaver.push(oppgaveTilLagring);
+        nyeOppgaver.sort(
+            (a: Oppgave, b: Oppgave) =>
+                (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
+        );
+        this.settAvtaleVerdi('oppgaver', nyeOppgaver);
+        return this.lagreAvtale();
     }
 
     slettOppgave(oppgaveTilSletting: Oppgave) {
         const avtale = this.state.avtale;
-        if (avtale) {
-            const nyeOppgaver = avtale.oppgaver.filter(
-                (oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id
-            );
-            this.settAvtaleVerdi('oppgaver', nyeOppgaver);
-            return this.lagreAvtale();
-        }
-        return Promise.reject();
+        const nyeOppgaver = avtale.oppgaver.filter(
+            (oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id
+        );
+        this.settAvtaleVerdi('oppgaver', nyeOppgaver);
+        return this.lagreAvtale();
     }
 
-    opprettAvtale(
+    async opprettAvtale(
         deltakerFnr: string,
         arbeidsgiverFnr: string
     ): Promise<Avtale> {
-        return this.service
-            .opprettAvtale(deltakerFnr, arbeidsgiverFnr)
-            .then((avtale: Avtale) => {
-                const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
-                    this.state.avtaler
-                );
-                nyeAvtaler.set(avtale.id, avtale);
-                this.setState({
-                    avtaler: nyeAvtaler,
-                    avtale,
-                });
-                return Promise.resolve(avtale);
-            })
-            .catch(() => {
-                this.visFeilmelding('Kunne ikke opprette avtale');
-                return Promise.reject(tomAvtale);
-            });
+        const avtale = await this.service.opprettAvtale(
+            deltakerFnr,
+            arbeidsgiverFnr
+        );
+        const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
+            this.state.avtaler
+        );
+        this.state.avtaler.set(avtale.id, avtale);
+        this.setState({
+            avtaler: nyeAvtaler,
+            avtale,
+        });
+        return avtale;
     }
 
-    fjernFeilmelding() {
-        this.setState({ feilmelding: '' });
-    }
-
-    endreGodkjenning(godkjent: boolean) {
+    async endreGodkjenning(godkjent: boolean) {
         const avtaleId = this.state.avtale.id;
-        this.service
-            .endreGodkjenning(avtaleId, godkjent)
-            .then(() => {
-                this.hentAvtale(avtaleId);
-            })
-            .catch(this.handterApiFeil);
+        await this.service.endreGodkjenning(avtaleId, godkjent);
+        await this.hentAvtale(avtaleId);
     }
 
     render() {
@@ -286,17 +244,24 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             opprettAvtale: this.opprettAvtale,
             hentRolle: this.hentRolle,
             endreGodkjenning: this.endreGodkjenning,
+            visFeilmelding: this.visFeilmelding,
         };
 
         return (
-            <AvtaleContext.Provider value={context}>
+            <>
                 {this.state.feilmelding && (
-                    <Varsel lukkVarsel={this.fjernFeilmelding}>
+                    <Varsel
+                        kanLukkes={true}
+                        onLukkVarsel={this.fjernFeilmelding}
+                        type={'info'}
+                    >
                         {this.state.feilmelding}
                     </Varsel>
                 )}
-                {this.props.children}
-            </AvtaleContext.Provider>
+                <AvtaleContext.Provider value={context}>
+                    {this.props.children}
+                </AvtaleContext.Provider>
+            </>
         );
     }
 }

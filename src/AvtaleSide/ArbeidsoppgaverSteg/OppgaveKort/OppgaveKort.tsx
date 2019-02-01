@@ -7,8 +7,8 @@ import LagretOppgave from './LagretOppgave/LagretOppgave';
 
 interface Props {
     oppgave: Oppgave;
-    lagreOppgave: (oppgave: Oppgave) => void;
-    slettOppgave: (oppgave: Oppgave) => void;
+    lagreOppgave: (oppgave: Oppgave) => Promise<any>;
+    slettOppgave: (oppgave: Oppgave) => Promise<any>;
 }
 
 interface State {
@@ -24,9 +24,9 @@ class OppgaveKort extends React.Component<Props, State> {
         this.setState({ iEndreModus: modus });
     };
 
-    lagreOppgave = (oppgave: Oppgave) => {
+    lagreOppgave = async (oppgave: Oppgave) => {
+        await this.props.lagreOppgave(oppgave);
         this.settEndreModus(false);
-        this.props.lagreOppgave(oppgave);
     };
 
     endreOppgave = () => {
@@ -34,8 +34,10 @@ class OppgaveKort extends React.Component<Props, State> {
     };
 
     slettOppgave = () => {
-        if (window.confirm("Er du sikker på at du vil slette denne oppgaven?")) {
-            this.props.slettOppgave(this.props.oppgave);
+        if (
+            window.confirm('Er du sikker på at du vil slette denne oppgaven?')
+        ) {
+            return this.props.slettOppgave(this.props.oppgave);
         }
     };
 

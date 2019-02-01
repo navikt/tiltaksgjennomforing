@@ -1,38 +1,46 @@
 import * as React from 'react';
 import { Context, medContext } from '../../AvtaleContext';
+import { ApiError } from '../ApiError';
+import { Maal } from '../avtale';
+import { finnLedigeMaalkategorier } from './maal-utils';
 import MaalKort from './MaalKort/MaalKort';
 import OpprettMaal from './OpprettMaal/OpprettMaal';
-import { finnLedigeMaalkategorier } from './maal-utils';
 
-class MaalSteg extends React.Component<Context> {
-    render() {
-        const valgteMaalkategorier = this.props.avtale.maal.map(
-            maal => maal.kategori
-        );
-        const ledigeMaalkategorier = finnLedigeMaalkategorier(
-            valgteMaalkategorier
-        );
+const MaalSteg: React.FunctionComponent<Context> = (props: Context) => {
+    const slettMaal = async (maal: Maal) => {
+        try {
+            await props.slettMaal(maal);
+        } catch (error) {
+            if (error instanceof ApiError) {
+                props.visFeilmelding(error.message);
+            } else {
+                throw error;
+            }
+        }
+    };
 
-        const maalListe = this.props.avtale.maal.map(maal => (
-            <MaalKort
+    const valgteMaalkategorier = props.avtale.maal.map(maal => maal.kategori);
+    const ledigeMaalkategorier = finnLedigeMaalkategorier(valgteMaalkategorier);
+
+    const maalListe = props.avtale.maal.map(maal => (
+        <MaalKort
+            ledigeMaalkategorier={ledigeMaalkategorier}
+            maal={maal}
+            key={maal.id}
+            lagreMaal={props.lagreMaal}
+            slettMaal={slettMaal}
+        />
+    ));
+
+    return (
+        <>
+            <OpprettMaal
                 ledigeMaalkategorier={ledigeMaalkategorier}
-                maal={maal}
-                key={maal.id}
-                lagreMaal={this.props.lagreMaal}
-                slettMaal={this.props.slettMaal}
+                lagreMaal={props.lagreMaal}
             />
-        ));
-
-        return (
-            <>
-                <OpprettMaal
-                    ledigeMaalkategorier={ledigeMaalkategorier}
-                    lagreMaal={this.props.lagreMaal}
-                />
-                {maalListe}
-            </>
-        );
-    }
-}
+            {maalListe}
+        </>
+    );
+};
 
 export default medContext<{}>(MaalSteg);

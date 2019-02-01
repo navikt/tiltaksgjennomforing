@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
+import * as React from 'react';
 import './KnappMedIkon.less';
 import redigerIkon from './rediger-penn.svg';
 import slettIkon from './soppeldunk.svg';
