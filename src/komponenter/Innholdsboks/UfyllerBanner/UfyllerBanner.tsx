@@ -2,6 +2,7 @@ import React from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import utfyllingsIkon from './pencil-fill.svg';
 import './UtfyllerBanner.less';
+import classnames from 'classnames';
 
 type Utfyller = 'arbeidsgiver' | 'veileder' | undefined;
 
@@ -24,7 +25,7 @@ const UfyllerBanner: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     return (
-        <div className={wrapperClass}>
+        <div className={classnames('utfyllerBanner', wrapperClass)}>
             <img
                 className="utfyllerBanner__utfyllingsIkon"
                 src={utfyllingsIkon}
