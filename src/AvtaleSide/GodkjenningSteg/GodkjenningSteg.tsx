@@ -1,12 +1,21 @@
 import * as React from 'react';
+import ApiError from '../../api-error';
 import { Context, medContext } from '../../AvtaleContext';
 import GodkjenningKnapper from './GodkjenningKnapper/GodkjenningKnapper';
-import Oppsummering from './Oppsummering/Oppsummering';
 import GodkjenningStatus from './GodkjenningStatus/GodkjenningStatus';
+import Oppsummering from './Oppsummering/Oppsummering';
 
 const GodkjenningSteg = (props: Context) => {
-    const onGodkjenningKlikk = () => {
-        props.endreGodkjenning(true);
+    const onGodkjenningKlikk = async () => {
+        try {
+            await props.endreGodkjenning(true);
+        } catch (error) {
+            if (error instanceof ApiError) {
+                window.alert(error.message);
+            } else {
+                throw error;
+            }
+        }
     };
 
     return (

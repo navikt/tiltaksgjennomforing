@@ -31,7 +31,7 @@ const fetchGet: (url: string) => Promise<Response> = url => {
     return fetch(url, { headers: { Pragma: 'no-cache' } });
 };
 
-const handleResponse = (response: Response) => {
+const handleResponse = async (response: Response) => {
     if (response.status === HTTP_UNAUTHORIZED) {
         sessionStorage.setItem(
             SIDE_FOER_INNLOGGING,
@@ -39,10 +39,9 @@ const handleResponse = (response: Response) => {
         );
         throw new AutentiseringError('Er ikke logget inn.');
     }
-    if (response.status === HTTP_CONFLICT) {
-        throw new ApiError(
-            'Noen andre har lagret avtalen. Forsøk å oppfrisk siden.'
-        );
+    if (response.status >= 400 && response.status < 500) {
+        const error = await response.json();
+        throw new ApiError(error.message);
     }
     if (!response.ok) {
         throw new ApiError('Feil ved kontakt mot baksystem.');
@@ -51,7 +50,7 @@ const handleResponse = (response: Response) => {
 
 const hentAvtale = async (id: string): Promise<Avtale> => {
     const response = await fetchGet(`${API_URL}/avtaler/${id}`);
-    handleResponse(response);
+    await handleResponse(response);
     const avtale = await response.json();
     return { ...avtale, id: `${avtale.id}` };
 };
@@ -65,7 +64,7 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
             'If-Match': avtale.versjon,
         },
     });
-    handleResponse(response);
+    await handleResponse(response);
     const versjon = response.headers.get('ETag');
     if (versjon !== avtale.versjon) {
         return await hentAvtale(avtale.id);
@@ -88,18 +87,18 @@ const opprettAvtale = async (
             'Content-Type': 'application/json',
         },
     });
-    handleResponse(postResponse);
+    await handleResponse(postResponse);
     const getResponse = await fetch(
         `${API_URL}/${postResponse.headers.get('Location')}`
     );
-    handleResponse(getResponse);
+    await handleResponse(getResponse);
     const avtale: Avtale = await getResponse.json();
     return { ...avtale, id: `${avtale.id}` };
 };
 
 const hentRolle = async (avtaleId: string): Promise<Rolle> => {
     const response = await fetch(`${API_URL}/avtaler/${avtaleId}/rolle`);
-    handleResponse(response);
+    await handleResponse(response);
     return response.json();
 };
 
@@ -113,19 +112,19 @@ const endreGodkjenning = async (avtaleId: string, godkjent: boolean) => {
             'Content-Type': 'application/json',
         },
     });
-    handleResponse(response);
+    await handleResponse(response);
     return hentAvtale(avtaleId);
 };
 
 const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     const response = await fetchGet(`${API_URL}/innlogget-bruker`);
-    handleResponse(response);
+    await handleResponse(response);
     return response.json();
 };
 
 const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
     const response = await fetchGet('/tiltaksgjennomforing/innloggingskilder');
-    handleResponse(response);
+    await handleResponse(response);
     return await response.json();
 };
 
