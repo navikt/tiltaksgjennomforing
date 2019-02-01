@@ -44,7 +44,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
         const dagerIUka = (timerIUka / 37.5) * 5;
 
         return (
-            <Innholdsboks>
+            <Innholdsboks utfyller="arbeidsgiver">
                 <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
                     Arbeidstid og oppstart
                 </Systemtittel>
