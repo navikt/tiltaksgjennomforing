@@ -24,7 +24,10 @@ class ArbeidstidSteg extends React.Component<Context, State> {
         this.setState({
             startDatoRiktigFormatert: true,
         });
-        this.props.settAvtaleVerdi('startDatoTimestamp', dato.valueOf());
+        this.props.settAvtaleVerdi(
+            'startDatoTidspunkt',
+            dato.toISOString(true).split('+')[0]
+        );
     };
 
     settStartDatoRiktigFormatert = (riktigFormatert: boolean) => {
@@ -46,7 +49,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
 
         return (
             <>
-                <Innholdsboks utfyller="arbeidsgiver">
+                <Innholdsboks>
                     <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
                         Arbeidstid og oppstart
                     </Systemtittel>
@@ -56,7 +59,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                     <Datovelger
                         className="arbeidstidsteg__datovelger"
                         velgDato={this.velgStartDato}
-                        dato={moment(this.props.avtale.startDatoTimestamp)}
+                        dato={moment(this.props.avtale.startDatoTidspunkt)}
                         settRiktigFormatert={this.settStartDatoRiktigFormatert}
                         inputRiktigFormatert={
                             this.state.startDatoRiktigFormatert
