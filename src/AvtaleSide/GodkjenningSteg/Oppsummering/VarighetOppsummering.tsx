@@ -9,9 +9,7 @@ interface Props {
 }
 
 const VarighetOppsummering = (props: Props) => {
-    const startdato = moment(props.avtale.startDatoTimestamp).format(
-        'DD.MM.YYYY'
-    );
+    const startdato = moment(props.avtale.startDato).format('DD.MM.YYYY');
 
     return (
         <Stegoppsummering tittel="Varighet">

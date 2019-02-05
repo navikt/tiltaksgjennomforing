@@ -38,7 +38,7 @@ const avtaleMock: Avtale = {
     tilrettelegging: 'AG skal tilrettelegge',
 
     startDatoTimestamp: 99,
-    startDatoTidspunkt: 99,
+    startDato: 99,
     arbeidstreningLengde: 8,
     arbeidstreningStillingprosent: 99,
 

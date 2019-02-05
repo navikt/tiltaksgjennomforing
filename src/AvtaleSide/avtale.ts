@@ -51,7 +51,7 @@ export interface Veilederinfo {
 
 export interface Arbeidstid {
     startDatoTimestamp: number;
-    startDatoTidspunkt: number;
+    startDato: number;
     arbeidstreningLengde: number;
     arbeidstreningStillingprosent: number;
 }
