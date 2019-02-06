@@ -1,8 +1,10 @@
 @import '~nav-frontend-core/less/_variabler';
 
-.oppfolgingsteg {
-  &__tittel {
+.oppfolgingsteg__tittel {
     display: none;
+    :first-child {
+      // hjelpetekst ikon
+      top: 0.25rem;
   }
 
   &__undertittel-wrapper {
@@ -19,6 +21,10 @@
 
   &__tilrettelegging-undertittel {
     margin-bottom: 0.3rem;
+  }
+
+  &__hjelpetekst {
+    top: 0.25rem;
   }
 }
 
