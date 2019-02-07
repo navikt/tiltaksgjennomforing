@@ -13,6 +13,7 @@ import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
+import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
 
 interface State {
     windowSize: number;
@@ -59,6 +60,10 @@ class AvtaleSide extends React.Component<Props, State> {
         oppfolging: {
             komponent: <OppfolgingSteg />,
             label: 'Oppfølging',
+        },
+        tilrettelegging: {
+            komponent: <TilretteleggingSteg />,
+            label: 'Tilrettelegging',
         },
         godkjenning: {
             komponent: <GodkjenningSteg />,
