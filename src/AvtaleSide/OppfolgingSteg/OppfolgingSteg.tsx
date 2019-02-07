@@ -27,7 +27,7 @@ const OppfolgingSteg = (props: Context) => {
                     </HjelpetekstBase>
                 </Systemtittel>
                 <Textarea
-                    label="Hvordan skal oppfølgingen fra NAV være?"
+                    label="Beskriv hvor ofte og i hvilken form dere ønsker å få oppfølging fra NAV"
                     value={props.avtale.oppfolging || ''}
                     onChange={onChange('oppfolging')}
                     maxLength={1000}
