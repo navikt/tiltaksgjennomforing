@@ -25,7 +25,7 @@ const StegmenyLenke = (props: Props) => {
 
     return (
         <Link to={props.url} className={className}>
-            {statusIkon}
+            {/* {statusIkon} */}
             <span className="stegmenylenke__label">{props.label}</span>
         </Link>
     );
