@@ -14,31 +14,24 @@ export const tomAvtale: Avtale = {
     deltakerFnr: '',
     deltakerFornavn: '',
     deltakerEtternavn: '',
-    deltakerAdresse: '',
-    deltakerPostnummer: '',
-    deltakerPoststed: '',
 
     bedriftNavn: '',
-    bedriftAdresse: '',
-    bedriftPostnummer: '',
-    bedriftPoststed: '',
+    orgNr: '',
+    bedriftNr: '',
 
     arbeidsgiverFnr: '',
     arbeidsgiverFornavn: '',
     arbeidsgiverEtternavn: '',
-    arbeidsgiverEpost: '',
     arbeidsgiverTlf: '',
 
     veilederNavIdent: '',
     veilederFornavn: '',
     veilederEtternavn: '',
-    veilederEpost: '',
     veilederTlf: '',
 
     oppfolging: '',
     tilrettelegging: '',
 
-    startDatoTimestamp: moment().valueOf(),
     startDato: moment().valueOf(),
     arbeidstreningLengde: 1,
     arbeidstreningStillingprosent: 0,

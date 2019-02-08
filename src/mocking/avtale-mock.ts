@@ -37,7 +37,6 @@ const avtaleMock: Avtale = {
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',
 
-    startDatoTimestamp: 99,
     startDato: 99,
     arbeidstreningLengde: 8,
     arbeidstreningStillingprosent: 99,
@@ -45,25 +44,19 @@ const avtaleMock: Avtale = {
     veilederNavIdent: 'Z123456',
     veilederFornavn: 'Nav',
     veilederEtternavn: 'Navesen',
-    veilederEpost: 'nav.navesen@nav.no',
     veilederTlf: '88888888',
 
     bedriftNavn: 'Arbeid AS',
-    bedriftAdresse: 'Arbeidsveien 24',
-    bedriftPostnummer: '1234',
-    bedriftPoststed: 'Oslo',
+    orgNr: '123456789',
+    bedriftNr: '12345678',
 
     deltakerFornavn: 'Deltaker',
     deltakerEtternavn: 'Deltakersen',
-    deltakerAdresse: 'Deltakerveien 55',
-    deltakerPostnummer: '4321',
-    deltakerPoststed: 'Oslo',
     deltakerFnr: '00000000000',
 
     arbeidsgiverFnr: '00000000000',
     arbeidsgiverFornavn: 'Arbeidsgiver',
     arbeidsgiverEtternavn: 'Arbeidsgiversen',
-    arbeidsgiverEpost: 'arbeidsgiver.arbeidsgiversen@arbeid.no',
     arbeidsgiverTlf: '77777777',
 
     maal: maalListe,

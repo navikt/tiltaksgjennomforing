@@ -6,8 +6,8 @@
 }
 
 .bedriftinfo {
-  &__postwrapper {
-    &__poststed {
+  &__orgwrapper {
+    &__bedriftnr {
       margin-bottom: 2rem;
     }
   }
@@ -22,26 +22,20 @@
   .bedriftinfo {
     &__navn {
       width: 50%;
-      padding-right: 0.5rem;
+      padding-right: 1rem;
     }
 
-    &__adresse {
-      width: 50%;
-      padding-right: 0.5rem;
-    }
-
-    &__postwrapper {
+    &__orgwrapper {
       display: flex;
       flex-direction: row;
 
-      &__postnummer {
-        width: 8rem;
-        margin-bottom: 2.5rem;
+      &__orgnr {
+        width: 50%;
+        padding-right: 1rem;
       }
 
-      &__poststed {
-        width: 18rem;
-        margin-left: 1rem;
+      &__bedriftnr {
+        width: 50%;
       }
     }
   }
@@ -50,29 +44,18 @@
     display: flex;
     flex-direction: row;
 
-    &__fnr {
-      width: 50%;
-      margin-right: 0.5rem;
-    }
-
     &__fornavn {
       width: 50%;
-      margin-right: 0.5rem;
+      padding-right: 1rem;
     }
 
     &__etternavn {
       width: 50%;
-      margin-left: 0.5rem;
-    }
-
-    &__epost {
-      width: 50%;
-      margin-right: 0.5rem;
     }
 
     &__tlf {
       width: 50%;
-      margin-left: 0.5rem;
+      padding-right: 1rem;
     }
   }
 }
