@@ -1,9 +1,8 @@
-import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
-import './DeltakerinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { medContext } from '../../../AvtaleContext';
-import { Context } from '../../../AvtaleContext';
+import * as React from 'react';
+import { Context, medContext } from '../../../AvtaleContext';
+import './DeltakerinfoDel.less';
 
 const DeltakerinfoDel = (props: Context) => {
     return (
@@ -36,38 +35,6 @@ const DeltakerinfoDel = (props: Context) => {
                     onChange={event =>
                         props.settAvtaleVerdi(
                             'deltakerEtternavn',
-                            event.target.value
-                        )
-                    }
-                />
-            </div>
-            <Input
-                className="deltakerinfo__adresse"
-                label="Adresse"
-                defaultValue={props.avtale.deltakerAdresse}
-                onChange={event =>
-                    props.settAvtaleVerdi('deltakerAdresse', event.target.value)
-                }
-            />
-            <div className="deltakerinfo__postwrapper">
-                <Input
-                    className="deltakerinfo__postwrapper__postnummer"
-                    label="Postnummer"
-                    defaultValue={props.avtale.deltakerPostnummer}
-                    onChange={event =>
-                        props.settAvtaleVerdi(
-                            'deltakerPostnummer',
-                            event.target.value
-                        )
-                    }
-                />
-                <Input
-                    className="deltakerinfo__postwrapper__poststed"
-                    label="Poststed"
-                    defaultValue={props.avtale.deltakerPoststed}
-                    onChange={event =>
-                        props.settAvtaleVerdi(
-                            'deltakerPoststed',
                             event.target.value
                         )
                     }

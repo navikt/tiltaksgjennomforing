@@ -20,24 +20,19 @@ export interface AvtaleMetadata {
 export interface Deltakerinfo {
     deltakerFornavn: string;
     deltakerEtternavn: string;
-    deltakerAdresse: string;
-    deltakerPostnummer: string;
-    deltakerPoststed: string;
     deltakerFnr: string;
 }
 
 export interface Bedriftinfo {
     bedriftNavn: string;
-    bedriftAdresse: string;
-    bedriftPostnummer: string;
-    bedriftPoststed: string;
+    orgNr: string;
+    bedriftNr: string;
 }
 
 export interface Arbeidsgiverinfo {
     arbeidsgiverFnr: string;
     arbeidsgiverFornavn: string;
     arbeidsgiverEtternavn: string;
-    arbeidsgiverEpost: string;
     arbeidsgiverTlf: string;
 }
 
@@ -45,12 +40,10 @@ export interface Veilederinfo {
     veilederNavIdent: string;
     veilederFornavn: string;
     veilederEtternavn: string;
-    veilederEpost: string;
     veilederTlf: string;
 }
 
 export interface Arbeidstid {
-    startDatoTimestamp: number;
     startDato: number;
     arbeidstreningLengde: number;
     arbeidstreningStillingprosent: number;

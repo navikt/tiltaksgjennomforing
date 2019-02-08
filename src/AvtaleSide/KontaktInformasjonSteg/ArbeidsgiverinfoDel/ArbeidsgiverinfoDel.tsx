@@ -17,24 +17,18 @@ const ArbeidsgiverinfoDel = (props: Context) => {
                 defaultValue={props.avtale.bedriftNavn}
                 onChange={onChange('bedriftNavn')}
             />
-            <Input
-                className="bedriftinfo__adresse"
-                label="Adresse"
-                defaultValue={props.avtale.bedriftAdresse}
-                onChange={onChange('bedriftAdresse')}
-            />
-            <div className="bedriftinfo__postwrapper">
+            <div className="bedriftinfo__orgwrapper">
                 <Input
-                    className="bedriftinfo__postwrapper__postnummer"
-                    label="Postnummer"
-                    defaultValue={props.avtale.bedriftPostnummer}
-                    onChange={onChange('bedriftPostnummer')}
+                    className="bedriftinfo__orgwrapper__orgnr"
+                    label="Organisasjonsnummer"
+                    defaultValue={props.avtale.orgNr}
+                    onChange={onChange('orgNr')}
                 />
                 <Input
-                    className="bedriftinfo__postwrapper__poststed"
-                    label="Poststed"
-                    defaultValue={props.avtale.bedriftPoststed}
-                    onChange={onChange('bedriftPoststed')}
+                    className="bedriftinfo__orgwrapper__bedriftnr"
+                    label="Bedriftsnummer"
+                    defaultValue={props.avtale.bedriftNr}
+                    onChange={onChange('bedriftNr')}
                 />
             </div>
         </SkjemaGruppe>
@@ -44,19 +38,19 @@ const ArbeidsgiverinfoDel = (props: Context) => {
         <SkjemaGruppe title="Kontaktperson for avtalen">
             <div className="arbeidsgiverkontaktpersonrad">
                 <Input
-                    className="arbeidsgiverkontaktpersonrad__fnr"
-                    label="Fødselsnummer"
-                    defaultValue={props.avtale.arbeidsgiverFnr}
-                    onChange={onChange('arbeidsgiverFnr')}
+                    className="arbeidsgiverkontaktpersonrad__fornavn"
+                    label="Fornavn"
+                    defaultValue={props.avtale.arbeidsgiverFornavn}
+                    onChange={onChange('arbeidsgiverFornavn')}
+                />
+                <Input
+                    className="arbeidsgiverkontaktpersonrad__etternavn"
+                    label="Etternavn"
+                    defaultValue={props.avtale.arbeidsgiverEtternavn}
+                    onChange={onChange('arbeidsgiverEtternavn')}
                 />
             </div>
             <div className="arbeidsgiverkontaktpersonrad">
-                <Input
-                    className="arbeidsgiverkontaktpersonrad__epost"
-                    label="Epost"
-                    defaultValue={props.avtale.arbeidsgiverEpost}
-                    onChange={onChange('arbeidsgiverEpost')}
-                />
                 <Input
                     className="arbeidsgiverkontaktpersonrad__tlf"
                     label="Telefonnummer"
