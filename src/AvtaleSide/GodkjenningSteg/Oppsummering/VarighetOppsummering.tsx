@@ -10,6 +10,7 @@ interface Props {
 
 const VarighetOppsummering = (props: Props) => {
     const startdato = moment(props.avtale.startDato).format('DD.MM.YYYY');
+    const ukeUker = props.avtale.arbeidstreningLengde > 1 ? 'uker' : 'uke';
 
     return (
         <Stegoppsummering tittel="Varighet">
@@ -18,7 +19,7 @@ const VarighetOppsummering = (props: Props) => {
             </Normaltekst>
             <Normaltekst className="oppsummering__beskrivelse">
                 {props.avtale.arbeidstreningStillingprosent}% stilling i{' '}
-                {props.avtale.arbeidstreningLengde} uker fra {startdato}.
+                {props.avtale.arbeidstreningLengde} {ukeUker} fra {startdato}.
             </Normaltekst>
         </Stegoppsummering>
     );
