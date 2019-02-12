@@ -10,28 +10,34 @@ const envProperties = {
         process.env.SELVBETJENING_LOGIN_URL ||
         '/tiltaksgjennomforing/api/local/selvbetjening-login?redirect=http://localhost:3000/tiltaksgjennomforing',
     LOGOUT_URL:
-        process.env.ISSO_LOGOUT_URL ||
+        process.env.LOGOUT_URL ||
         '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing',
 };
 
 console.log('Relevante miljøvariable: ', envProperties);
 
 module.exports = function(app) {
-    app.get('/tiltaksgjennomforing/innlogging-metadata', (req, res) => {
-        const metadata = {
-            login: [
-                {
-                    title: 'ID-porten',
-                    login: envProperties.SELVBETJENING_LOGIN_URL,
-                },
-                {
-                    title: 'NAV',
-                    login: envProperties.ISSO_LOGIN_URL,
-                },
-            ],
-            logout: envProperties.LOGOUT_URL,
-        };
-        res.send(JSON.stringify(metadata));
+    app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
+        const innloggingskilder = [];
+
+        if (envProperties.SELVBETJENING_LOGIN_URL) {
+            innloggingskilder.push({
+                tittel: 'ID-porten',
+                url: envProperties.SELVBETJENING_LOGIN_URL,
+            });
+        }
+        if (envProperties.ISSO_LOGIN_URL) {
+            innloggingskilder.push({
+                tittel: 'NAV',
+                url: envProperties.ISSO_LOGIN_URL,
+            })
+        }
+
+        res.send(JSON.stringify(innloggingskilder));
+    });
+
+    app.get('/tiltaksgjennomforing/logout', (req, res) => {
+        res.redirect(envProperties.LOGOUT_URL);
     });
 
     const proxyConfig = {

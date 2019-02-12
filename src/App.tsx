@@ -4,7 +4,8 @@ import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleContext';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
-import Innloggingslinje from './Innloggingslinje/Innloggingslinje';
+import Innloggingslinje from './InnloggingBoundary/Innloggingslinje';
+import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import LandingsSide from './LandingsSide/LandingsSide';
 import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
@@ -19,7 +20,7 @@ class App extends React.Component {
             <IntlProvider locale="nb">
                 <BrowserRouter basename={basename}>
                     <RedirectEtterLogin>
-                        <Innloggingslinje>
+                        <InnloggingBoundary>
                             <AvtaleProvider>
                                 <Switch>
                                     <Route
@@ -45,7 +46,7 @@ class App extends React.Component {
                                     <Redirect to="/opprett-avtale" />
                                 </Switch>
                             </AvtaleProvider>
-                        </Innloggingslinje>
+                        </InnloggingBoundary>
                     </RedirectEtterLogin>
                 </BrowserRouter>
             </IntlProvider>

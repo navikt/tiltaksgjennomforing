@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
 import AutentiseringError from '../autentisering-error';
 import RestService from '../services/rest-service';
-import InnloggetBruker from './innlogget-bruker';
 
 export interface Innloggingskilde {
-    title: string;
-    login: string;
+    tittel: string;
+    url: string;
 }
 
-export interface InnloggingMetadata {
-    login: Innloggingskilde[];
-    logout: string;
+export interface InnloggetBruker {
+    identifikator: string;
 }
 
 export interface Innlogget {
     innloggetBruker: InnloggetBruker | null;
     uinnlogget: boolean | null;
-    innloggingMetadata: InnloggingMetadata | null;
+    innloggingskilder: Innloggingskilde[];
 }
 
 const useInnlogget = (): Innlogget => {
@@ -25,10 +23,9 @@ const useInnlogget = (): Innlogget => {
         setInnloggetBruker,
     ] = useState<InnloggetBruker | null>(null);
 
-    const [
-        innloggingMetadata,
-        setInnloggingMetadata,
-    ] = useState<InnloggingMetadata | null>(null);
+    const [innloggingskilder, setInnloggingskilder] = useState<
+        Innloggingskilde[]
+    >([]);
 
     const [uinnlogget, setUinnlogget] = useState<boolean | null>(null);
 
@@ -42,10 +39,10 @@ const useInnlogget = (): Innlogget => {
                     throw error;
                 }
             });
-        RestService.hentInnloggingMetadata().then(setInnloggingMetadata);
+        RestService.hentInnloggingskilder().then(setInnloggingskilder);
     }, []);
 
-    return { innloggetBruker, uinnlogget, innloggingMetadata };
+    return { innloggetBruker, uinnlogget, innloggingskilder };
 };
 
 export default useInnlogget;

@@ -2,8 +2,7 @@ import ApiError from '../api-error';
 import AutentiseringError from '../autentisering-error';
 import { Rolle } from '../AvtaleContext';
 import { Avtale } from '../AvtaleSide/avtale';
-import InnloggetBruker from '../Innloggingslinje/innlogget-bruker';
-import { InnloggingMetadata } from '../Innloggingslinje/useInnlogget';
+import { InnloggetBruker, Innloggingskilde } from '../InnloggingBoundary/useInnlogget';
 import { basename } from '../paths';
 import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
 
@@ -115,10 +114,8 @@ export default class RestService {
         return response.json();
     }
 
-    static async hentInnloggingMetadata(): Promise<InnloggingMetadata> {
-        const response = await fetch(
-            '/tiltaksgjennomforing/innlogging-metadata'
-        );
+    static async hentInnloggingskilder(): Promise<Innloggingskilde[]> {
+        const response = await fetch('/tiltaksgjennomforing/innloggingskilder');
         this.handleResponse(response);
         return response.json();
     }
