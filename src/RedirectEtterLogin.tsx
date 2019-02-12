@@ -12,7 +12,7 @@ class RedirectEtterLogin extends Component<RouteComponentProps> {
         const sideFoerInnlogging = sessionStorage.getItem(SIDE_FOER_INNLOGGING);
         if (sideFoerInnlogging) {
             sessionStorage.removeItem(SIDE_FOER_INNLOGGING);
-            this.props.history.push(sideFoerInnlogging);
+            this.props.history.replace(sideFoerInnlogging);
         }
     };
 

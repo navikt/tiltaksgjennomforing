@@ -18,9 +18,9 @@ spec:
     path: /tiltaksgjennomforing/internal/isReady
     initialDelay: 20
   env:
-  - name: API_GATEWAY
+  - name: APIGW_URL
     value: https://arbeidsgiver.nais.preprod.local
-  - name: LOGIN_URL
+  - name: ISSO_LOGIN_URL
     value: https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
   - name: LOGOUT_URL
     value: https://loginservice.nais.preprod.local/slo

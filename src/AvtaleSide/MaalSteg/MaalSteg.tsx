@@ -1,6 +1,6 @@
 import * as React from 'react';
+import ApiError from '../../api-error';
 import { Context, medContext } from '../../AvtaleContext';
-import { ApiError } from '../ApiError';
 import { Maal } from '../avtale';
 import { finnLedigeMaalkategorier } from './maal-utils';
 import MaalKort from './MaalKort/MaalKort';

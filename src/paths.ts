@@ -21,7 +21,9 @@ export const lagStegUrl = (avtaleId: string, steg: string) => {
 };
 
 export const absoluttPathTilAvtaleForBrukerOgAG = (avtaleId: string) => {
-    return `https://arbeidsgiver.nav.no/tiltaksgjennomforing${pathTilAvtale(avtaleId)}`;
+    return `https://arbeidsgiver.nav.no/tiltaksgjennomforing${pathTilAvtale(
+        avtaleId
+    )}`;
 };
 
 export const pathTilOpprettetAvtaleBekreftelse = `${pathTilOversikt}/opprett-avtale/fullfort`;

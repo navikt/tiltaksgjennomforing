@@ -1,7 +1,7 @@
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { ApiError } from './AvtaleSide/ApiError';
+import ApiError from './api-error';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import Varsel from './komponenter/Varsel/Varsel';
 import RestService from './services/rest-service';
@@ -113,7 +113,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async componentDidMount() {
         try {
-            const avtaler = await this.service.hentAvtaler();
+            const avtaler = await RestService.hentAvtaler();
             this.setState({ avtaler });
         } catch (error) {
             if (error instanceof ApiError) {
@@ -134,7 +134,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async lagreAvtale() {
-        const nyAvtale = await this.service.lagreAvtale(this.state.avtale);
+        const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
         this.setState({ avtale: nyAvtale });
     }
 
@@ -160,12 +160,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     };
 
     async hentAvtale(avtaleId: string) {
-        const avtale = await this.service.hentAvtale(avtaleId);
+        const avtale = await RestService.hentAvtale(avtaleId);
         this.setState({ avtale });
     }
 
     async hentRolle(avtaleId: string) {
-        const rolle = await this.service.hentRolle(avtaleId);
+        const rolle = await RestService.hentRolle(avtaleId);
         this.setState({ rolle });
     }
 
@@ -203,7 +203,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         deltakerFnr: string,
         arbeidsgiverFnr: string
     ): Promise<Avtale> {
-        const avtale = await this.service.opprettAvtale(
+        const avtale = await RestService.opprettAvtale(
             deltakerFnr,
             arbeidsgiverFnr
         );
@@ -220,7 +220,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async endreGodkjenning(godkjent: boolean) {
         const avtaleId = this.state.avtale.id;
-        await this.service.endreGodkjenning(avtaleId, godkjent);
+        await RestService.endreGodkjenning(avtaleId, godkjent);
         await this.hentAvtale(avtaleId);
     }
 
