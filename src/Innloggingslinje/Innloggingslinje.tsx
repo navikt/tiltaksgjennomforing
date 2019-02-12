@@ -6,15 +6,15 @@ import './Innloggingslinje.less';
 import useInnlogget, { Innloggingskilde } from './useInnlogget';
 
 function Innloggingslinje(props: { children?: ReactNode }) {
-    const innlogget = useInnlogget();
+    const { innloggetBruker, uinnlogget, innloggingMetadata } = useInnlogget();
 
-    if (innlogget.innloggetBruker) {
-        const loggutKnapp = innlogget.innloggingMetadata && (
+    if (innloggetBruker) {
+        const loggutKnapp = innloggingMetadata && (
             <Knapp
                 className="innloggingslinje__boks__loggutknapp"
                 mini={true}
                 onClick={() => {
-                    window.location.href = innlogget.innloggingMetadata!.logout;
+                    window.location.href = innloggingMetadata!.logout;
                 }}
             >
                 Logg ut
@@ -23,18 +23,16 @@ function Innloggingslinje(props: { children?: ReactNode }) {
         return (
             <>
                 <div className="innloggingslinje__boks">
-                    <Normaltekst>
-                        {innlogget.innloggetBruker.identifikator}
-                    </Normaltekst>
+                    <Normaltekst>{innloggetBruker.identifikator}</Normaltekst>
                     {loggutKnapp}
                 </div>
                 {props.children}
             </>
         );
-    } else if (innlogget.uinnlogget) {
+    } else if (uinnlogget) {
         const logginnKnapp =
-            innlogget.innloggingMetadata &&
-            innlogget.innloggingMetadata.login.map(
+            innloggingMetadata &&
+            innloggingMetadata.login.map(
                 (innlogginskilde: Innloggingskilde) => (
                     <Knapp
                         className="innloggingslinje__boks__logginnknapp"
