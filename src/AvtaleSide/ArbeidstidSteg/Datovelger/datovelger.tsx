@@ -7,7 +7,7 @@ import DatoInputfelt from './dato-inputfelt';
 import { Normaltekst } from 'nav-frontend-typografi';
 
 import './datovelger.less';
-import { momentAsISO } from './moment-utils';
+import { momentAsISO, momentIDag } from './moment-utils';
 
 interface OwnProps {
     velgDato: (dato: Moment) => void;
@@ -44,6 +44,10 @@ class Datovelger extends React.Component<Props, State> {
     }
 
     toggleKalender() {
+        if (!this.props.dato.isValid()) {
+            this.props.velgDato(momentIDag());
+        }
+
         this.setState({
             ...this.state,
             visKalender: !this.state.visKalender,

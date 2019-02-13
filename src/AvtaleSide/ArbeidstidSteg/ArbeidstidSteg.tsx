@@ -59,9 +59,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                     <Datovelger
                         className="arbeidstidsteg__datovelger"
                         velgDato={this.velgStartDato}
-                        dato={moment(
-                            this.props.avtale.startDato || moment().valueOf()
-                        )}
+                        dato={moment(this.props.avtale.startDato)}
                         settRiktigFormatert={this.settStartDatoRiktigFormatert}
                         inputRiktigFormatert={
                             this.state.startDatoRiktigFormatert
