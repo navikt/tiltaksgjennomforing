@@ -6,6 +6,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const logginnknapper = props.innloggingskilder.map(
         (innlogginskilde: Innloggingskilde) => (
             <Knapp
+                key={innlogginskilde.url}
                 className="innloggingslinje__boks__logginnknapp"
                 onClick={() => {
                     window.location.href = innlogginskilde.url;
