@@ -43,9 +43,13 @@ class ArbeidstidSteg extends React.Component<Context, State> {
     };
 
     render() {
-        const timerIUka =
-            (37.5 * this.props.avtale.arbeidstreningStillingprosent) / 100;
-        const dagerIUka = (timerIUka / 37.5) * 5;
+        const timerIUka = Number(
+            (
+                (37.5 * this.props.avtale.arbeidstreningStillingprosent) /
+                100
+            ).toFixed(2)
+        );
+        const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
         return (
             <>

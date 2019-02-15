@@ -10,7 +10,7 @@ interface Props {
 const InfoBoks = (props: Props) => (
     <div className="infoboks">
         <Element className="infoboks__dette-tilsvarer">
-            Dette tilsvarer:
+            Dette tilsvarer ca:
         </Element>
         <Normaltekst>
             <span className="infoboks__bold">
@@ -21,7 +21,7 @@ const InfoBoks = (props: Props) => (
                 {props.dagerIUka ? props.dagerIUka : 0}
             </span>
             &nbsp;
-            {props.dagerIUka <= 1 ? 'dag' : 'dager'} i uka
+            {props.dagerIUka <= 1 ? 'arbeidsdag' : 'arbeidsdager'} i uka
         </Normaltekst>
     </div>
 );
