@@ -2,8 +2,10 @@ import React from 'react';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Innholdstittel, Normaltekst, Element } from 'nav-frontend-typografi';
 import './OpprettAvtale.less';
+import ApiError from '../api-error';
 import { Context, medContext } from '../AvtaleContext';
 import { RouterProps } from 'react-router';
+import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
 import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -40,7 +42,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
             erGyldigFnr(this.state.deltakerFnr) &&
             erGyldigFnr(this.state.arbeidsgiverFnr)
         ) {
-            this.props
+            return this.props
                 .opprettAvtale(
                     this.state.deltakerFnr,
                     this.state.arbeidsgiverFnr
@@ -48,6 +50,10 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 .then(() => {
                     this.props.history.push(pathTilOpprettetAvtaleBekreftelse);
                 });
+        } else {
+            throw new ApiError(
+                'Må oppgi gyldig fødselsnummer for deltaker og arbeidsgiver'
+            );
         }
     };
 
@@ -63,11 +69,11 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 </Normaltekst>
                 <ul>
                     <li>
-                        <Normaltekst>kandidatens fødselsnummer</Normaltekst>
+                        <Normaltekst>Deltakers fødselsnummer</Normaltekst>
                     </li>
                     <li>
                         <Normaltekst>
-                            fødselsnummeret til personen hos bedriften som skal
+                            Fødselsnummeret til personen hos bedriften som skal
                             fylle ut avtalen
                         </Normaltekst>
                     </li>
@@ -89,7 +95,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
             <div className="opprett-avtale__input-wrapper">
                 <FnrInput
                     className="opprett-avtale__kandidat-fnr"
-                    label={<Element>Kandidatens fødselsnummer</Element>}
+                    label={<Element>Deltakers fødselsnummer</Element>}
                     verdi={this.state.deltakerFnr}
                     feilmelding={FNR_FEILMELDING}
                     onChange={this.endreDeltakerFnr}
@@ -112,12 +118,11 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 {veilederpanel}
                 {ekspanderbartpanel}
                 {inputFelter}
-                <Hovedknapp
-                    onClick={this.opprettAvtaleKlikk}
+                <LagreKnapp
+                    lagre={this.opprettAvtaleKlikk}
+                    label={'Opprett avtale'}
                     className="opprett-avtale__knapp"
-                >
-                    OPPRETT AVTALE
-                </Hovedknapp>
+                />
             </div>
         );
     }
