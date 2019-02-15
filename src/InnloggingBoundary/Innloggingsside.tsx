@@ -12,7 +12,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     window.location.href = innlogginskilde.url;
                 }}
             >
-                Logg inn via {innlogginskilde.tittel}
+                {innlogginskilde.tittel}
             </Knapp>
         )
     );

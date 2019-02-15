@@ -1,7 +1,6 @@
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import ApiError from './api-error';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import Varsel from './komponenter/Varsel/Varsel';
 import RestService from './services/rest-service';
@@ -70,20 +69,16 @@ const AvtaleContext = React.createContext<Context>({} as Context);
 export const AvtaleConsumer = AvtaleContext.Consumer;
 
 interface State {
-    avtaler: Map<string, Avtale>;
     avtale: Avtale;
     feilmelding: string;
     rolle: Rolle;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
-    service: RestService;
-
     constructor(props: any) {
         super(props);
 
         this.state = {
-            avtaler: new Map<string, Avtale>(),
             avtale: tomAvtale,
             feilmelding: '',
             rolle: 'INGEN_ROLLE',
@@ -101,7 +96,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
         this.endreGodkjenning = this.endreGodkjenning.bind(this);
-        this.service = new RestService();
     }
 
     shouldComponentUpdate(nextProps: any, nextState: State): boolean {
@@ -109,19 +103,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             nextState.avtale.maal.every(maal => maal.id !== undefined) &&
             nextState.avtale.oppgaver.every(maal => maal.id !== undefined)
         );
-    }
-
-    async componentDidMount() {
-        try {
-            const avtaler = await RestService.hentAvtaler();
-            this.setState({ avtaler });
-        } catch (error) {
-            if (error instanceof ApiError) {
-                this.visFeilmelding(error.message);
-            } else {
-                throw error;
-            }
-        }
     }
 
     settAvtaleVerdi(felt: string, verdi: any) {
@@ -207,12 +188,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             deltakerFnr,
             arbeidsgiverFnr
         );
-        const nyeAvtaler: Map<string, Avtale> = new Map<string, Avtale>(
-            this.state.avtaler
-        );
-        this.state.avtaler.set(avtale.id, avtale);
         this.setState({
-            avtaler: nyeAvtaler,
             avtale,
         });
         return avtale;
