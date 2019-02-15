@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import ApiError from '../api-error';
 import { Context, medContext } from '../AvtaleContext';
 import Banner from '../komponenter/Banner/Banner';
 import { pathTilGodkjenningsSteg } from '../paths';
-import { ApiError } from './ApiError';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import './AvtaleSide.less';

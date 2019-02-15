@@ -1,7 +1,9 @@
-import { basename } from '../paths';
+import ApiError from '../api-error';
+import AutentiseringError from '../autentisering-error';
 import { Rolle } from '../AvtaleContext';
-import { ApiError } from '../AvtaleSide/ApiError';
 import { Avtale } from '../AvtaleSide/avtale';
+import { InnloggetBruker, Innloggingskilde } from '../InnloggingBoundary/useInnlogget';
+import { basename } from '../paths';
 import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
 
 export const API_URL = '/tiltaksgjennomforing/api';
@@ -10,13 +12,13 @@ const HTTP_UNAUTHORIZED = 401;
 const HTTP_CONFLICT = 409;
 
 export default class RestService {
-    handleResponse(response: Response) {
+    static handleResponse(response: Response) {
         if (response.status === HTTP_UNAUTHORIZED) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
                 window.location.pathname.replace(basename, '')
             );
-            window.location.href = LOGIN_REDIRECT;
+            throw new AutentiseringError('Er ikke logget inn.');
         }
         if (response.status === HTTP_CONFLICT) {
             throw new ApiError(
@@ -28,14 +30,14 @@ export default class RestService {
         }
     }
 
-    async hentAvtale(id: string): Promise<Avtale> {
+    static async hentAvtale(id: string): Promise<Avtale> {
         const response = await fetch(`${API_URL}/avtaler/${id}`);
         this.handleResponse(response);
         const avtale = await response.json();
         return { ...avtale, id: `${avtale.id}` };
     }
 
-    async hentAvtaler(): Promise<Map<string, Avtale>> {
+    static async hentAvtaler(): Promise<Map<string, Avtale>> {
         const response: Response = await fetch(`${API_URL}/avtaler`);
         this.handleResponse(response);
         const avtaler: Avtale[] = await response.json();
@@ -46,7 +48,7 @@ export default class RestService {
         );
     }
 
-    async lagreAvtale(avtale: Avtale): Promise<Avtale> {
+    static async lagreAvtale(avtale: Avtale): Promise<Avtale> {
         const response = await fetch(`${API_URL}/avtaler/${avtale.id}`, {
             method: 'PUT',
             body: JSON.stringify(avtale),
@@ -64,7 +66,7 @@ export default class RestService {
         }
     }
 
-    async opprettAvtale(
+    static async opprettAvtale(
         deltakerFnr: string,
         arbeidsgiverFnr: string
     ): Promise<Avtale> {
@@ -87,14 +89,14 @@ export default class RestService {
         return { ...avtale, id: `${avtale.id}` };
     }
 
-    async hentRolle(avtaleId: string): Promise<Rolle> {
+    static async hentRolle(avtaleId: string): Promise<Rolle> {
         const response = await fetch(`${API_URL}/avtaler/${avtaleId}/rolle`);
         this.handleResponse(response);
         return response.json();
     }
 
-    async endreGodkjenning(avtaleId: string, godkjent: boolean) {
-        const uri = `/tiltaksgjennomforing/api/avtaler/${avtaleId}/godkjent`;
+    static async endreGodkjenning(avtaleId: string, godkjent: boolean) {
+        const uri = `${API_URL}/avtaler/${avtaleId}/godkjent`;
         const body = JSON.stringify({ godkjent });
         const response = await fetch(uri, {
             method: 'POST',
@@ -104,5 +106,17 @@ export default class RestService {
             },
         });
         this.handleResponse(response);
+    }
+
+    static async hentInnloggetBruker(): Promise<InnloggetBruker> {
+        const response = await fetch(`${API_URL}/innlogget-bruker`);
+        this.handleResponse(response);
+        return response.json();
+    }
+
+    static async hentInnloggingskilder(): Promise<Innloggingskilde[]> {
+        const response = await fetch('/tiltaksgjennomforing/innloggingskilder');
+        this.handleResponse(response);
+        return response.json();
     }
 }

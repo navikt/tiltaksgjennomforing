@@ -18,9 +18,9 @@ spec:
     path: /tiltaksgjennomforing/internal/isReady
     initialDelay: 20
   env:
-  - name: API_GATEWAY
+  - name: APIGW_URL
     value: https://arbeidsgiver.nais.adeo.no
-  - name: LOGIN_URL
+  - name: ISSO_LOGIN_URL
     value: https://loginservice.nais.adeo.no/login?redirect=https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing
   - name: LOGOUT_URL
     value: https://loginservice.nais.adeo.no/slo

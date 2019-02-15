@@ -20,9 +20,9 @@ spec:
     path: /tiltaksgjennomforing/internal/isReady
     initialDelay: 20
   env:
-  - name: API_GATEWAY
+  - name: APIGW_URL
     value: https://api-gw.oera.no
-  - name: LOGIN_URL
+  - name: SELVBETJENING_LOGIN_URL
     value: https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/tiltaksgjennomforing
   - name: LOGOUT_URL
     value: https://loginservice.nav.no/slo

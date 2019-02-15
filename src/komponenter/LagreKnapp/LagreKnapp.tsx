@@ -1,6 +1,6 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import React, { Component } from 'react';
-import { ApiError } from '../../AvtaleSide/ApiError';
+import ApiError from '../../api-error';
 import Varsel from '../Varsel/Varsel';
 import './LagreKnapp.less';
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
+import ApiError from '../../api-error';
 import { Context, medContext } from '../../AvtaleContext';
-import { ApiError } from '../ApiError';
 import { Oppgave } from '../avtale';
-import OpprettOppgave from './OpprettOppgave/OpprettOppgave';
 import OppgaveKort from './OppgaveKort/OppgaveKort';
+import OpprettOppgave from './OpprettOppgave/OpprettOppgave';
 
 const ArbeidsoppgaverSteg = (props: Context) => {
     const slettOppgave = async (oppgave: Oppgave) => {
