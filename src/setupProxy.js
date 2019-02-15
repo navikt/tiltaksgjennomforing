@@ -22,13 +22,13 @@ module.exports = function(app) {
 
         if (envProperties.SELVBETJENING_LOGIN_URL) {
             innloggingskilder.push({
-                tittel: 'ID-porten',
+                tittel: 'Logg inn via ID-porten',
                 url: envProperties.SELVBETJENING_LOGIN_URL,
             });
         }
         if (envProperties.ISSO_LOGIN_URL) {
             innloggingskilder.push({
-                tittel: 'NAV',
+                tittel: 'Logg inn som NAV-veileder',
                 url: envProperties.ISSO_LOGIN_URL,
             })
         }
