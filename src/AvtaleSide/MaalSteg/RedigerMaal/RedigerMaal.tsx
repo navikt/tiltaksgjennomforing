@@ -4,6 +4,8 @@ import * as React from 'react';
 import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
 import { Maal } from '../../avtale';
 import { Maalkategori } from '../../maalkategorier';
+import ApiError from '../../../api-error';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -13,41 +15,77 @@ interface Props {
 }
 
 interface State {
-    valgtKategori: Maalkategori;
+    valgtKategori?: Maalkategori;
     beskrivelse: string;
+    beskrivelseFeil?: SkjemaelementFeil;
+    valgtKategoriFeil?: SkjemaelementFeil;
 }
 
 class RedigerMaal extends React.Component<Props, State> {
     state = {
         valgtKategori:
             (this.props.defaultMaal && this.props.defaultMaal.kategori) ||
-            this.props.ledigeMaalkategorier[0],
+            undefined,
         beskrivelse:
             (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) ||
             '',
+        beskrivelseFeil: undefined,
+        valgtKategoriFeil: undefined,
     };
 
     velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
         this.setState({
             valgtKategori: event.currentTarget.value as Maalkategori,
         });
+
+        event.currentTarget.value
+            ? this.setState({ valgtKategoriFeil: undefined })
+            : this.setState({
+                  valgtKategoriFeil: {
+                      feilmelding: 'En kategori må være valgt',
+                  },
+              });
     };
 
     settBeskrivelse = (event: any) => {
         this.setState({
             beskrivelse: event.currentTarget.value,
         });
+
+        event.currentTarget.value
+            ? this.setState({ beskrivelseFeil: undefined })
+            : this.setState({
+                  beskrivelseFeil: { feilmelding: 'Feltet kan ikke være tomt' },
+              });
     };
 
     lagre = () => {
-        return this.props.lagreMaal({
-            id: this.props.defaultMaal && this.props.defaultMaal.id,
-            opprettetTimestamp:
-                this.props.defaultMaal &&
-                this.props.defaultMaal.opprettetTimestamp,
-            kategori: this.state.valgtKategori,
-            beskrivelse: this.state.beskrivelse,
-        });
+        if (this.state.beskrivelse && this.state.valgtKategori) {
+            return this.props.lagreMaal({
+                id: this.props.defaultMaal && this.props.defaultMaal.id,
+                opprettetTimestamp:
+                    this.props.defaultMaal &&
+                    this.props.defaultMaal.opprettetTimestamp,
+                kategori: this.state.valgtKategori,
+                beskrivelse: this.state.beskrivelse,
+            });
+        } else {
+            if (!this.state.beskrivelse) {
+                this.setState({
+                    beskrivelseFeil: {
+                        feilmelding: 'Feltet kan ikke være tomt',
+                    },
+                });
+            }
+            if (!this.state.valgtKategori) {
+                this.setState({
+                    valgtKategoriFeil: {
+                        feilmelding: 'En kategori må være valgt',
+                    },
+                });
+            }
+            throw new ApiError('');
+        }
     };
 
     avbrytKnappOnClick = () => {
@@ -72,7 +110,12 @@ class RedigerMaal extends React.Component<Props, State> {
                     label="Hva er målet med arbeidstreningen?"
                     value={this.state.valgtKategori}
                     onChange={this.velgKategori}
+                    feil={this.state.valgtKategoriFeil}
+                    onBlur={this.velgKategori}
                 >
+                    <option value="" key="-">
+                        -
+                    </option>
                     {maalKategorier}
                 </Select>
                 <Textarea
@@ -81,6 +124,8 @@ class RedigerMaal extends React.Component<Props, State> {
                     onChange={this.settBeskrivelse}
                     maxLength={1000}
                     tellerTekst={this.lagTellerTekst}
+                    feil={this.state.beskrivelseFeil}
+                    onBlur={this.settBeskrivelse}
                 />
                 <LagreKnapp
                     lagre={this.lagre}
