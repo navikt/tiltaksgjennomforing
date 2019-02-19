@@ -15,7 +15,7 @@ interface Props {
 }
 
 interface State {
-    valgtKategori: Maalkategori;
+    valgtKategori?: Maalkategori;
     beskrivelse: string;
     beskrivelseFeil?: SkjemaelementFeil;
     valgtKategoriFeil?: SkjemaelementFeil;
@@ -25,7 +25,7 @@ class RedigerMaal extends React.Component<Props, State> {
     state = {
         valgtKategori:
             (this.props.defaultMaal && this.props.defaultMaal.kategori) ||
-            this.props.ledigeMaalkategorier[0],
+            undefined,
         beskrivelse:
             (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) ||
             '',
@@ -113,6 +113,9 @@ class RedigerMaal extends React.Component<Props, State> {
                     feil={this.state.valgtKategoriFeil}
                     onBlur={this.velgKategori}
                 >
+                    <option value="" key="-">
+                        -
+                    </option>
                     {maalKategorier}
                 </Select>
                 <Textarea
