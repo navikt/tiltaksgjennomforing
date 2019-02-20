@@ -10,25 +10,18 @@ const DeltakerInstruks = () => (
             <ul>
                 <li>
                     <Normaltekst>
-                        Når du deltar på arbeidstrening regnes du som
-                        arbeidstaker i forhold til de fleste av
-                        arbeidsmiljølovens regler. Det vil blant annet si at du
-                        er omfattet av arbeidsgivers forsikringsplikt og at
-                        arbeidsgiver har et arbeidsgiveransvar ved yrkesskade.
+                        Vite at arbeidsgiver må forsikre deg og har ansvar for
+                        deg hvis du blir skadet på jobb. Dette er fordi
+                        arbeidsgiver må følge arbeidsmiljølovens regler.
                     </Normaltekst>
                 </li>
                 <li>
                     <Normaltekst>
-                        Du må melde fra til arbeidsgiver ved fravær. Ved egen
-                        eller barns sykdom gjelder ordinære regler for bruk av
-                        egenmelding også for deg som er på arbeidstrening.
+                        Gi beskjed til arbeidsgiver hvis du er borte fra jobb.
                     </Normaltekst>
                 </li>
                 <li>
-                    <Normaltekst>
-                        Hvis du sender meldekort, må du fortsatt sende meldekort
-                        hver 14. dag mens du er i arbeidstrening
-                    </Normaltekst>
+                    <Normaltekst>Sende inn meldekort hver 14. dag.</Normaltekst>
                 </li>
             </ul>
         </VeilederpanelMedUtklippstavleIkon>
