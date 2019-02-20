@@ -58,8 +58,8 @@ export interface Context {
         arbeidsgiverFnr: string
     ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<any>;
+    endreGodkjenning: (godkjent: boolean) => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
-    endreGodkjenning: (godkjent: boolean) => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';

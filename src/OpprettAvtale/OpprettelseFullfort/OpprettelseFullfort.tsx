@@ -8,6 +8,7 @@ import {
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { RouterProps } from 'react-router';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import VeilederpanelMedUtklippstavle from '../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import {
     absoluttPathTilAvtaleForBrukerOgAG,
     pathTilAvtale,
@@ -15,7 +16,6 @@ import {
 } from '../../paths';
 import { Context, medContext } from '../../AvtaleContext';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import utklippstavleIkon from '../utklippstavle.svg';
 import avsjekkSirkelIkon from './avsjekk-sirkel.svg';
 
 import './OpprettelseFullfort.less';
@@ -39,24 +39,14 @@ const OpprettelseFullfort: React.FunctionComponent<
     );
 
     const veilederpanel = (
-        <Veilederpanel
-            svg={
-                <img
-                    className="opprettelseFullfort__ikon"
-                    src={utklippstavleIkon}
-                    alt=""
-                />
-            }
-            kompakt={true}
-            type="plakat"
-        >
+        <VeilederpanelMedUtklippstavle>
             <Systemtittel className="opprettelseFullfort__innholdstittel">
                 Dette må du gjøre videre
             </Systemtittel>
             <Normaltekst>
-                For at arbeidsgiver og kandidat skal kunne logge seg inn og
+                For at arbeidsgiver og deltaker skal kunne logge seg inn og
                 fylle ut avtalen må du sende dem lenken vist nedenfor. De kan da
-                kunne logge seg inn i avtalen med Min ID.
+                logge seg inn i avtalen med ID-porten.
             </Normaltekst>
 
             <div className="opprettelseFullfort__lenkedeling">
@@ -72,7 +62,7 @@ const OpprettelseFullfort: React.FunctionComponent<
                     </Hovedknapp>
                 </CopyToClipboard>
             </div>
-        </Veilederpanel>
+        </VeilederpanelMedUtklippstavle>
     );
 
     return (
