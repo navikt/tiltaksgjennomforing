@@ -1,18 +1,16 @@
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React from 'react';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Innholdstittel, Normaltekst, Element } from 'nav-frontend-typografi';
-import './OpprettAvtale.less';
+import { RouterProps } from 'react-router';
 import ApiError from '../api-error';
 import { Context, medContext } from '../AvtaleContext';
-import { RouterProps } from 'react-router';
-import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
-import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
-import Veilederpanel from 'nav-frontend-veilederpanel';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import utklippstavleIkon from './utklippstavle.svg';
-import { erGyldigFnr } from '../utils/fnrUtils';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import FnrInput from '../komponenter/FnrInput/FnrInput';
+import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
+import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
+import { erGyldigFnr } from '../utils/fnrUtils';
+import './OpprettAvtale.less';
 
 interface State {
     deltakerFnr: string;
@@ -59,11 +57,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
 
     render() {
         const veilederpanel = (
-            <Veilederpanel
-                svg={<img src={utklippstavleIkon} />}
-                kompakt={true}
-                type="plakat"
-            >
+            <VeilederpanelMedUtklippstavleIkon>
                 <Normaltekst className="opprett-avtale__du-trenger-tekst">
                     Du trenger:
                 </Normaltekst>
@@ -78,7 +72,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         </Normaltekst>
                     </li>
                 </ul>
-            </Veilederpanel>
+            </VeilederpanelMedUtklippstavleIkon>
         );
 
         const ekspanderbartpanel = (
