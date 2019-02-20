@@ -2,6 +2,8 @@ import { Input, Textarea } from 'nav-frontend-skjema';
 import * as React from 'react';
 import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
 import { Oppgave } from '../../avtale';
+import ApiError from '../../../api-error';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
 interface Props {
     lagreOppgave: (oppgave: Oppgave) => Promise<any>;
@@ -12,6 +14,9 @@ interface State {
     tittel: string;
     beskrivelse: string;
     opplaering: string;
+    tittelFeil?: SkjemaelementFeil;
+    beskrivelseFeil?: SkjemaelementFeil;
+    opplaeringFeil?: SkjemaelementFeil;
 }
 
 class RedigerOppgave extends React.Component<Props, State> {
@@ -27,36 +32,84 @@ class RedigerOppgave extends React.Component<Props, State> {
             (this.props.defaultOppgave &&
                 this.props.defaultOppgave.opplaering) ||
             '',
+        tittelFeil: undefined,
+        beskrivelseFeil: undefined,
+        opplaeringFeil: undefined,
     };
 
     settTittel = (event: any) => {
         this.setState({
             tittel: event.currentTarget.value,
         });
+
+        event.currentTarget.value
+            ? this.setState({ tittelFeil: undefined })
+            : this.setState({
+                  tittelFeil: { feilmelding: 'Feltet kan ikke være tomt' },
+              });
     };
 
     settBeskrivelse = (event: any) => {
         this.setState({
             beskrivelse: event.currentTarget.value,
         });
+
+        event.currentTarget.value
+            ? this.setState({ beskrivelseFeil: undefined })
+            : this.setState({
+                  beskrivelseFeil: { feilmelding: 'Feltet kan ikke være tomt' },
+              });
     };
 
     settOpplaering = (event: any) => {
         this.setState({
             opplaering: event.currentTarget.value,
         });
+
+        event.currentTarget.value
+            ? this.setState({ opplaeringFeil: undefined })
+            : this.setState({
+                  opplaeringFeil: { feilmelding: 'Feltet kan ikke være tomt' },
+              });
     };
 
     lagreOppgave = () => {
-        return this.props.lagreOppgave({
-            id: this.props.defaultOppgave && this.props.defaultOppgave.id,
-            opprettetTimestamp:
-                this.props.defaultOppgave &&
-                this.props.defaultOppgave.opprettetTimestamp,
-            tittel: this.state.tittel,
-            beskrivelse: this.state.beskrivelse,
-            opplaering: this.state.opplaering,
-        });
+        if (
+            this.state.tittel &&
+            this.state.beskrivelse &&
+            this.state.opplaering
+        ) {
+            return this.props.lagreOppgave({
+                id: this.props.defaultOppgave && this.props.defaultOppgave.id,
+                opprettetTimestamp:
+                    this.props.defaultOppgave &&
+                    this.props.defaultOppgave.opprettetTimestamp,
+                tittel: this.state.tittel,
+                beskrivelse: this.state.beskrivelse,
+                opplaering: this.state.opplaering,
+            });
+        } else {
+            if (!this.state.tittel) {
+                this.setState({
+                    tittelFeil: { feilmelding: 'Feltet kan ikke være tomt' },
+                });
+            }
+            if (!this.state.beskrivelse) {
+                this.setState({
+                    beskrivelseFeil: {
+                        feilmelding: 'Feltet kan ikke være tomt',
+                    },
+                });
+            }
+            if (!this.state.opplaering) {
+                this.setState({
+                    opplaeringFeil: {
+                        feilmelding: 'Feltet kan ikke være tomt',
+                    },
+                });
+            }
+            throw new ApiError('');
+        }
     };
 
     lagTellerTekst = (antallTegn: number, maxLength: number) => {
@@ -71,6 +124,7 @@ class RedigerOppgave extends React.Component<Props, State> {
                     value={this.state.tittel}
                     onChange={this.settTittel}
                     className="rediger-oppgave__tittel-input"
+                    feil={this.state.tittelFeil}
                 />
                 <Textarea
                     label="Hva går arbeidsoppgaven ut på?"
@@ -78,6 +132,7 @@ class RedigerOppgave extends React.Component<Props, State> {
                     onChange={this.settBeskrivelse}
                     maxLength={1000}
                     tellerTekst={this.lagTellerTekst}
+                    feil={this.state.beskrivelseFeil}
                 />
                 <Textarea
                     label="Hvilken opplæring vil deltakeren få?"
@@ -85,6 +140,7 @@ class RedigerOppgave extends React.Component<Props, State> {
                     onChange={this.settOpplaering}
                     maxLength={1000}
                     tellerTekst={this.lagTellerTekst}
+                    feil={this.state.opplaeringFeil}
                 />
                 <LagreKnapp
                     lagre={this.lagreOppgave}
