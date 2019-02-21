@@ -22,7 +22,6 @@ const DeltakerinfoDel = (props: Context) => {
                     label="Fornavn"
                     className="deltakerinfo__deltakernavn__fornavn"
                     verdi={props.avtale.deltakerFornavn}
-                    feilmelding="Fornavn er påkrevd"
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         props.settAvtaleVerdi(
                             'deltakerFornavn',
@@ -30,21 +29,10 @@ const DeltakerinfoDel = (props: Context) => {
                         );
                     }}
                 />
-                {/* <Input
-                    label="Fornavn"
-                    className="deltakerinfo__deltakernavn__fornavn"
-                    defaultValue={props.avtale.deltakerFornavn}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        props.settAvtaleVerdi(
-                            'deltakerFornavn',
-                            event.target.value
-                        );
-                    }}
-                /> */}
-                <Input
+                <PakrevdInput
                     className="deltakerinfo__deltakernavn__etternavn"
                     label="Etternavn"
-                    defaultValue={props.avtale.deltakerEtternavn}
+                    verdi={props.avtale.deltakerEtternavn}
                     onChange={event =>
                         props.settAvtaleVerdi(
                             'deltakerEtternavn',
