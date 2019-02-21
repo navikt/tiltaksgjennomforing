@@ -15,12 +15,14 @@ import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmel
 interface State {
     startDatoRiktigFormatert: boolean;
     stillingsprosentFeil?: SkjemaelementFeil;
+    arbTreningLengdeFeil?: SkjemaelementFeil;
 }
 
 class ArbeidstidSteg extends React.Component<Context, State> {
     state: State = {
         startDatoRiktigFormatert: true,
         stillingsprosentFeil: undefined,
+        arbTreningLengdeFeil: undefined,
     };
 
     velgStartDato = (dato: Moment) => {
@@ -39,6 +41,14 @@ class ArbeidstidSteg extends React.Component<Context, State> {
 
     settArbeidstreningLengde = (verdi: number) => {
         this.props.settAvtaleVerdi('arbeidstreningLengde', verdi);
+
+        verdi === 0
+            ? this.setState({
+                  arbTreningLengdeFeil: {
+                      feilmelding: 'Lengde på arbeidstreningen er påkrevd',
+                  },
+              })
+            : this.setState({ arbTreningLengdeFeil: undefined });
     };
 
     settStillingsprosent = (verdi: number) => {
@@ -81,6 +91,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                         }
                     />
                     <Ukevelger
+                        feilmelding={this.state.arbTreningLengdeFeil}
                         label="Hvor lenge skal arbeidstreningen vare?"
                         verdi={this.props.avtale.arbeidstreningLengde}
                         onChange={this.settArbeidstreningLengde}
