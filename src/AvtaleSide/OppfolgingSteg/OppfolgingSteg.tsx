@@ -2,18 +2,14 @@ import * as React from 'react';
 import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
-import { Textarea } from 'nav-frontend-skjema';
 import './OppfolgingSteg.less';
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
 import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
+import PakrevdTextarea from '../../komponenter/PakrevdTextarea/PakrevdTextarea';
 
 const OppfolgingSteg = (props: Context) => {
     const onChange = (label: string) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
-    };
-
-    const lagTellerTekst = (antallTegn: number, maxLength: number) => {
-        return maxLength - antallTegn;
     };
 
     return (
@@ -26,12 +22,12 @@ const OppfolgingSteg = (props: Context) => {
                         dere skal få oppfølging fra NAV.
                     </HjelpetekstBase>
                 </Systemtittel>
-                <Textarea
+                <PakrevdTextarea
                     label="Beskriv hvor ofte og i hvilken form dere ønsker å få oppfølging fra NAV"
-                    value={props.avtale.oppfolging || ''}
+                    verdi={props.avtale.oppfolging || ''}
                     onChange={onChange('oppfolging')}
-                    maxLength={1000}
-                    tellerTekst={lagTellerTekst}
+                    maxLengde={1000}
+                    feilmelding="Beskrivelse av oppfølgingen er påkrevd"
                 />
             </Innholdsboks>
             <LagreKnapp

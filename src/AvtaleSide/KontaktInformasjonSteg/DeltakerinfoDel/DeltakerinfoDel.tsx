@@ -3,6 +3,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Context, medContext } from '../../../AvtaleContext';
 import './DeltakerinfoDel.less';
+import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
 
 const DeltakerinfoDel = (props: Context) => {
     return (
@@ -17,21 +18,21 @@ const DeltakerinfoDel = (props: Context) => {
                 disabled={true}
             />
             <div className="deltakerinfo__deltakernavn">
-                <Input
+                <PakrevdInput
                     label="Fornavn"
                     className="deltakerinfo__deltakernavn__fornavn"
-                    defaultValue={props.avtale.deltakerFornavn}
+                    verdi={props.avtale.deltakerFornavn}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         props.settAvtaleVerdi(
                             'deltakerFornavn',
-                            event.target.value
+                            event.currentTarget.value
                         );
                     }}
                 />
-                <Input
+                <PakrevdInput
                     className="deltakerinfo__deltakernavn__etternavn"
                     label="Etternavn"
-                    defaultValue={props.avtale.deltakerEtternavn}
+                    verdi={props.avtale.deltakerEtternavn}
                     onChange={event =>
                         props.settAvtaleVerdi(
                             'deltakerEtternavn',
