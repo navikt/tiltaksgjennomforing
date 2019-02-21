@@ -24,8 +24,7 @@ interface State {
 class RedigerMaal extends React.Component<Props, State> {
     state = {
         valgtKategori:
-            (this.props.defaultMaal && this.props.defaultMaal.kategori) ||
-            undefined,
+            this.props.defaultMaal && this.props.defaultMaal.kategori,
         beskrivelse:
             (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) ||
             '',
