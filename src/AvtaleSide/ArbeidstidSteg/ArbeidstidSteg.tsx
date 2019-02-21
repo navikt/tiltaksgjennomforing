@@ -10,14 +10,17 @@ import Ukevelger from './Ukevelger/Ukevelger';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';
 import './ArbeidstidSteg.less';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
 interface State {
     startDatoRiktigFormatert: boolean;
+    stillingsprosentFeil?: SkjemaelementFeil;
 }
 
 class ArbeidstidSteg extends React.Component<Context, State> {
     state: State = {
         startDatoRiktigFormatert: true,
+        stillingsprosentFeil: undefined,
     };
 
     velgStartDato = (dato: Moment) => {
@@ -40,6 +43,14 @@ class ArbeidstidSteg extends React.Component<Context, State> {
 
     settStillingsprosent = (verdi: number) => {
         this.props.settAvtaleVerdi('arbeidstreningStillingprosent', verdi);
+
+        verdi === 0
+            ? this.setState({
+                  stillingsprosentFeil: {
+                      feilmelding: 'Stillingsprosent kan ikke være 0',
+                  },
+              })
+            : this.setState({ stillingsprosentFeil: undefined });
     };
 
     render() {
@@ -77,6 +88,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                         max={12}
                     />
                     <StillingsprosentInput
+                        feilmelding={this.state.stillingsprosentFeil}
                         label="Hvilken stillingsprosent skal deltakeren ha?"
                         verdi={
                             this.props.avtale.arbeidstreningStillingprosent || 0
