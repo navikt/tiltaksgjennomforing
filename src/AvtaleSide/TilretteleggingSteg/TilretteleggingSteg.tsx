@@ -2,18 +2,14 @@ import React from 'react';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
-import { Textarea } from 'nav-frontend-skjema';
 import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
 import { Context, medContext } from '../../AvtaleContext';
 import './TilretteleggingSteg.less';
+import PakrevdTextarea from '../../komponenter/PakrevdTextarea/PakrevdTextarea';
 
 const TilretteleggingSteg = (props: Context) => {
     const onChange = (label: string) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
-    };
-
-    const lagTellerTekst = (antallTegn: number, maxLength: number) => {
-        return maxLength - antallTegn;
     };
 
     return (
@@ -28,12 +24,12 @@ const TilretteleggingSteg = (props: Context) => {
                     </HjelpetekstBase>
                 </Systemtittel>
 
-                <Textarea
+                <PakrevdTextarea
                     label="Beskriv hvilken tilrettelegging det er behov for"
-                    value={props.avtale.tilrettelegging || ''}
+                    verdi={props.avtale.tilrettelegging}
                     onChange={onChange('tilrettelegging')}
-                    maxLength={1000}
-                    tellerTekst={lagTellerTekst}
+                    maxLengde={1000}
+                    feilmelding="Beskrivelse av tilrettelegging er påkrevd"
                 />
             </Innholdsboks>
             <LagreKnapp
