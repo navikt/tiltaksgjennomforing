@@ -125,6 +125,7 @@ class RedigerOppgave extends React.Component<Props, State> {
                     onChange={this.settTittel}
                     className="rediger-oppgave__tittel-input"
                     feil={this.state.tittelFeil}
+                    onBlur={this.settTittel}
                 />
                 <Textarea
                     label="Hva går arbeidsoppgaven ut på?"
@@ -133,6 +134,7 @@ class RedigerOppgave extends React.Component<Props, State> {
                     maxLength={1000}
                     tellerTekst={this.lagTellerTekst}
                     feil={this.state.beskrivelseFeil}
+                    onBlur={this.settBeskrivelse}
                 />
                 <Textarea
                     label="Hvilken opplæring vil deltakeren få?"
@@ -141,6 +143,7 @@ class RedigerOppgave extends React.Component<Props, State> {
                     maxLength={1000}
                     tellerTekst={this.lagTellerTekst}
                     feil={this.state.opplaeringFeil}
+                    onBlur={this.settOpplaering}
                 />
                 <LagreKnapp
                     lagre={this.lagreOppgave}
