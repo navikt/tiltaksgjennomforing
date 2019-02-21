@@ -42,25 +42,29 @@ class ArbeidstidSteg extends React.Component<Context, State> {
     settArbeidstreningLengde = (verdi: number) => {
         this.props.settAvtaleVerdi('arbeidstreningLengde', verdi);
 
-        verdi === 0
-            ? this.setState({
-                  arbTreningLengdeFeil: {
-                      feilmelding: 'Lengde på arbeidstreningen er påkrevd',
-                  },
-              })
-            : this.setState({ arbTreningLengdeFeil: undefined });
+        if (verdi === 0) {
+            this.setState({
+                arbTreningLengdeFeil: {
+                    feilmelding: 'Lengde på arbeidstreningen er påkrevd',
+                },
+            });
+        } else {
+            this.setState({ arbTreningLengdeFeil: undefined });
+        }
     };
 
     settStillingsprosent = (verdi: number) => {
         this.props.settAvtaleVerdi('arbeidstreningStillingprosent', verdi);
 
-        verdi === 0
-            ? this.setState({
-                  stillingsprosentFeil: {
-                      feilmelding: 'Stillingsprosent kan ikke være 0',
-                  },
-              })
-            : this.setState({ stillingsprosentFeil: undefined });
+        if (verdi === 0) {
+            this.setState({
+                stillingsprosentFeil: {
+                    feilmelding: 'Stillingsprosent kan ikke være 0',
+                },
+            });
+        } else {
+            this.setState({ stillingsprosentFeil: undefined });
+        }
     };
 
     render() {
