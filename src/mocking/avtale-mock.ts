@@ -47,7 +47,6 @@ const avtaleMock: Avtale = {
     veilederTlf: '88888888',
 
     bedriftNavn: 'Arbeid AS',
-    orgNr: '123456789',
     bedriftNr: '12345678',
 
     deltakerFornavn: 'Deltaker',
