@@ -5,40 +5,12 @@
   margin-bottom: 1rem;
 }
 
-.bedriftinfo {
-  &__orgwrapper {
-    &__bedriftnr {
-      margin-bottom: 2rem;
-    }
-  }
-}
-
 @media (min-width: @screen-sm-min) {
   .arbeidsgiver-tittel {
     margin-top: 3rem;
     margin-bottom: 2rem;
   }
 
-  .bedriftinfo {
-    &__navn {
-      width: 50%;
-      padding-right: 1rem;
-    }
-
-    &__orgwrapper {
-      display: flex;
-      flex-direction: row;
-
-      &__orgnr {
-        width: 50%;
-        padding-right: 1rem;
-      }
-
-      &__bedriftnr {
-        width: 50%;
-      }
-    }
-  }
 
   .arbeidsgiverkontaktpersonrad {
     display: flex;
@@ -57,5 +29,20 @@
       width: 50%;
       padding-right: 1rem;
     }
+  }
+
+  .arbeidsgiverbedriftrad {
+    display: flex;
+    flex-direction: row;
+
+    &__fornavn {
+      width: 50%;
+      padding-right: 1rem;
+    }
+
+    &__bedriftnr {
+      width: 50%;
+    }
+    
   }
 }

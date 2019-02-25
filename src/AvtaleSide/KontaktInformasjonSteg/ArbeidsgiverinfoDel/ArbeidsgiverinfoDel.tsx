@@ -12,21 +12,16 @@ const ArbeidsgiverinfoDel = (props: Context) => {
 
     const bedriftInfo = (
         <SkjemaGruppe title="Om bedriften">
-            <PakrevdInput
-                className="bedriftinfo__navn"
-                label="Bedriftens navn"
-                verdi={props.avtale.bedriftNavn}
-                onChange={onChange('bedriftNavn')}
-            />
-            <div className="bedriftinfo__orgwrapper">
+            <div className="arbeidsgiverbedriftrad">
                 <PakrevdInput
-                    className="bedriftinfo__orgwrapper__orgnr"
-                    label="Organisasjonsnummer"
-                    verdi={props.avtale.orgNr}
-                    onChange={onChange('orgNr')}
+                    className="arbeidsgiverbedriftrad__fornavn"
+                    label="Bedriftens navn"
+                    verdi={props.avtale.bedriftNavn}
+                    onChange={onChange('bedriftNavn')}
                 />
+
                 <PakrevdInput
-                    className="bedriftinfo__orgwrapper__bedriftnr"
+                    className="arbeidsgiverbedriftrad__bedriftnr"
                     label="Bedriftsnummer"
                     verdi={props.avtale.bedriftNr}
                     onChange={onChange('bedriftNr')}
