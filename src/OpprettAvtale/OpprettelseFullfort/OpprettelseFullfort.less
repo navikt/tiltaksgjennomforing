@@ -1,12 +1,10 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .opprettelseFullfort {
-  padding: 0 1.25rem;
-  margin: 0 auto;
+  background-color: @grayBackground;
+  padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 37.5rem;
 
   &__innholdstittel {
     margin: 1rem 0 2rem 0;
@@ -20,6 +18,8 @@
   &__knapp {
     margin-top: 2.5rem;
     margin-bottom: 1.5rem;
+    width: 14rem;
+    align-self: center;
   }
 
   &__sidetittel {
@@ -55,12 +55,16 @@
       height: 100%;
     }
   }
+
+  .lenke {
+    align-self: center;
+  }
 }
 
 @media (min-width: @screen-sm-min) {
   .opprettelseFullfort {
     margin: 0 auto;
-    display: flex;
+    max-width: @screen-sm-min;
 
     &__sidetittel {
       &-wrapper {
