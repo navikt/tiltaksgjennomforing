@@ -25,7 +25,6 @@ export interface Deltakerinfo {
 
 export interface Bedriftinfo {
     bedriftNavn: string;
-    orgNr: string;
     bedriftNr: string;
 }
 

@@ -15,7 +15,6 @@ export const tomAvtale: Avtale = {
     deltakerEtternavn: '',
 
     bedriftNavn: '',
-    orgNr: '',
     bedriftNr: '',
 
     arbeidsgiverFnr: '',
