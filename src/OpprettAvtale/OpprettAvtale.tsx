@@ -119,7 +119,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         );
 
         const inputFelter = (
-            <div>
+            <>
                 <div className="opprett-avtale__input-wrapper">
                     <FnrInput
                         className="opprett-avtale__kandidat-fnr"
@@ -147,7 +147,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         }
                     />
                 </div>
-            </div>
+            </>
         );
 
         return (
