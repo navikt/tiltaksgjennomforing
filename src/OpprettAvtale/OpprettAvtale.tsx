@@ -38,7 +38,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         this.setState({ arbeidsgiverFnr: fnr });
     };
 
-    endreBedriftsnr = (bedriftNavn: string) => {
+    endreBedriftNavn = (bedriftNavn: string) => {
         this.setState({ bedriftNavn });
     };
 
@@ -143,7 +143,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         label="Bedriftens navn"
                         verdi={this.state.bedriftNavn}
                         onChange={event =>
-                            this.endreBedriftsnr(event.currentTarget.value)
+                            this.endreBedriftNavn(event.currentTarget.value)
                         }
                     />
                 </div>
