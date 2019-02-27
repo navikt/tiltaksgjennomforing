@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import ApiError from '../api-error';
-import { Context, medContext } from '../AvtaleContext';
+import { Context, medContext, Rolle } from '../AvtaleContext';
 import Banner from '../komponenter/Banner/Banner';
 import { pathTilGodkjenningsSteg } from '../paths';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import './AvtaleSide.less';
+import { Avtale } from './avtale';
+import AvtaleFetcher from './AvtaleFetcher';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
@@ -79,17 +81,6 @@ class AvtaleSide extends React.Component<Props, State> {
 
     async componentDidMount() {
         window.addEventListener('resize', this.handleWindowSize);
-        const avtaleId = this.props.match.params.avtaleId;
-        try {
-            await Promise.all([
-                this.props.hentAvtale(avtaleId),
-                this.props.hentRolle(avtaleId),
-            ]);
-        } catch (error) {
-            if (error instanceof ApiError) {
-                this.props.visFeilmelding(error.message);
-            }
-        }
     }
 
     componentWillUnmount() {
@@ -119,23 +110,30 @@ class AvtaleSide extends React.Component<Props, State> {
             this.props.rolle === 'VEILEDER';
 
         return (
-            <>
-                <Banner tekst="Avtale om arbeidstrening" />
-                <div className="avtaleside">
-                    {erDesktop ? (
-                        <DesktopAvtaleSide
-                            avtaleSteg={this.avtaleSteg}
-                            aktivtSteg={aktivtSteg}
-                            skalViseStegmeny={skalViseStegmeny}
-                        />
-                    ) : (
-                        <MobilAvtaleSide
-                            avtaleSteg={this.avtaleSteg}
-                            skalViseEkspanderbartPanel={skalViseStegmeny}
-                        />
-                    )}
-                </div>
-            </>
+            <AvtaleFetcher
+                {...this.props}
+                render={() => (
+                    <>
+                        <Banner tekst="Avtale om arbeidstrening" />
+                        <div className="avtaleside">
+                            {erDesktop ? (
+                                <DesktopAvtaleSide
+                                    avtaleSteg={this.avtaleSteg}
+                                    aktivtSteg={aktivtSteg}
+                                    skalViseStegmeny={skalViseStegmeny}
+                                />
+                            ) : (
+                                <MobilAvtaleSide
+                                    avtaleSteg={this.avtaleSteg}
+                                    skalViseEkspanderbartPanel={
+                                        skalViseStegmeny
+                                    }
+                                />
+                            )}
+                        </div>
+                    </>
+                )}
+            />
         );
     }
 }
