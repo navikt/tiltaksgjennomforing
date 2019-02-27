@@ -54,7 +54,8 @@ export interface Context {
     hentAvtale: (avtaleId: string) => Promise<any>;
     opprettAvtale: (
         deltakerFnr: string,
-        arbeidsgiverFnr: string
+        arbeidsgiverFnr: string,
+        bedriftNavn: string
     ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<any>;
     endreGodkjenning: (godkjent: boolean) => Promise<any>;
@@ -181,11 +182,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async opprettAvtale(
         deltakerFnr: string,
-        arbeidsgiverFnr: string
+        arbeidsgiverFnr: string,
+        bedriftNavn: string
     ): Promise<Avtale> {
         const avtale = await RestService.opprettAvtale(
             deltakerFnr,
-            arbeidsgiverFnr
+            arbeidsgiverFnr,
+            bedriftNavn
         );
         this.setState({
             avtale,
