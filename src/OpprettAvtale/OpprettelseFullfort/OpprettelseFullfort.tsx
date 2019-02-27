@@ -50,16 +50,12 @@ const OpprettelseFullfort: React.FunctionComponent<
                 </CopyToClipboard>
             </div>
 
-            <p>
-                <Normaltekst>
-                    For at arbeidsgiver og deltaker skal kunne logge seg inn og
-                    fylle ut avtalen må du sende dem lenken vist nedenfor. De
-                    kan da logge seg inn i avtalen med ID-porten.
-                </Normaltekst>
-            </p>
-            <p>
-                <Normaltekst>PS! Du kan dele avtalen senere også.</Normaltekst>
-            </p>
+            <Normaltekst>
+                For at arbeidsgiver og deltaker skal kunne logge seg inn og
+                fylle ut avtalen må du sende dem lenken vist nedenfor. De kan da
+                logge seg inn i avtalen med ID-porten.
+            </Normaltekst>
+            <Normaltekst>PS! Du kan dele avtalen senere også.</Normaltekst>
         </VeilederpanelMedAvsjekkIkon>
     );
 
