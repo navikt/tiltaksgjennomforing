@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 export const SIDE_FOER_INNLOGGING = 'side-foer-innlogging';
 
-class RedirectEtterLogin extends Component<RouteComponentProps> {
-    componentDidMount() {
-        this.redirectTilSideFoerInnlogging();
-    }
-
-    redirectTilSideFoerInnlogging = () => {
+const RedirectEtterLogin: FunctionComponent<RouteComponentProps> = props => {
+    const redirectTilSideFoerInnlogging = () => {
         const sideFoerInnlogging = sessionStorage.getItem(SIDE_FOER_INNLOGGING);
         if (sideFoerInnlogging) {
             sessionStorage.removeItem(SIDE_FOER_INNLOGGING);
-            this.props.history.replace(sideFoerInnlogging);
+            props.history.replace(sideFoerInnlogging);
         }
     };
 
-    render() {
-        return this.props.children;
-    }
-}
+    useEffect(redirectTilSideFoerInnlogging, []);
+
+    return <>{props.children}</>;
+};
 
 export default withRouter(RedirectEtterLogin);

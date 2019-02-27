@@ -4,7 +4,6 @@ import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleContext';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
-import Innloggingslinje from './InnloggingBoundary/Innloggingslinje';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import LandingsSide from './LandingsSide/LandingsSide';
 import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
