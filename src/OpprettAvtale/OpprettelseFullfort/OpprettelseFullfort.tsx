@@ -1,25 +1,17 @@
-import React from 'react';
-import {
-    Innholdstittel,
-    Normaltekst,
-    Element,
-    Systemtittel,
-} from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { RouterProps } from 'react-router';
+import { Input } from 'nav-frontend-skjema';
+import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import VeilederpanelMedUtklippstavle from '../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import { RouterProps } from 'react-router';
+import { Context, medContext } from '../../AvtaleContext';
+import VeilederpanelMedAvsjekkIkon from '../../komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import {
     absoluttPathTilAvtaleForBrukerOgAG,
-    pathTilAvtale,
     pathTilKontaktinformasjonSteg,
 } from '../../paths';
-import { Context, medContext } from '../../AvtaleContext';
-import Veilederpanel from 'nav-frontend-veilederpanel';
-import avsjekkSirkelIkon from './avsjekk-sirkel.svg';
 
 import './OpprettelseFullfort.less';
-import { Input } from 'nav-frontend-skjema';
 
 const OpprettelseFullfort: React.FunctionComponent<
     Context & RouterProps
@@ -39,15 +31,10 @@ const OpprettelseFullfort: React.FunctionComponent<
     );
 
     const veilederpanel = (
-        <VeilederpanelMedUtklippstavle>
+        <VeilederpanelMedAvsjekkIkon>
             <Systemtittel className="opprettelseFullfort__innholdstittel">
-                Dette må du gjøre videre
+                Avtalen er opprettet
             </Systemtittel>
-            <Normaltekst>
-                For at arbeidsgiver og deltaker skal kunne logge seg inn og
-                fylle ut avtalen må du sende dem lenken vist nedenfor. De kan da
-                logge seg inn i avtalen med ID-porten.
-            </Normaltekst>
 
             <div className="opprettelseFullfort__lenkedeling">
                 <Input
@@ -62,19 +49,18 @@ const OpprettelseFullfort: React.FunctionComponent<
                     </Hovedknapp>
                 </CopyToClipboard>
             </div>
-        </VeilederpanelMedUtklippstavle>
+
+            <Normaltekst>
+                For at arbeidsgiver og deltaker skal kunne logge seg inn og
+                fylle ut avtalen må du sende dem lenken vist nedenfor. De kan da
+                logge seg inn i avtalen med ID-porten.
+            </Normaltekst>
+            <Normaltekst>PS! Du kan dele avtalen senere også.</Normaltekst>
+        </VeilederpanelMedAvsjekkIkon>
     );
 
     return (
         <div className="opprettelseFullfort">
-            <div className="opprettelseFullfort__sidetittel-wrapper">
-                <img
-                    src={avsjekkSirkelIkon}
-                    className="opprettelseFullfort__sidetittel-ikon"
-                    alt="avsjekk-ikon"
-                />
-                <Innholdstittel>Avtalen ble opprettet</Innholdstittel>
-            </div>
             {veilederpanel}
             <Hovedknapp
                 onClick={tilAvtalenKlikk}
