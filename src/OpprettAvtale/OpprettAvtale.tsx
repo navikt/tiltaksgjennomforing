@@ -81,7 +81,9 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     this.state.bedriftNavn
                 )
                 .then(() => {
-                    this.props.history.push(pathTilOpprettetAvtaleBekreftelse);
+                    this.props.history.push(
+                        pathTilOpprettetAvtaleBekreftelse(this.props.avtale.id)
+                    );
                 });
         } else {
             throw new ApiError(this.hvaMangler());
