@@ -19,7 +19,8 @@ export interface RestService {
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (
         deltakerFnr: string,
-        arbeidsgiverFnr: string
+        arbeidsgiverFnr: string,
+        bedriftNavn: string
     ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     endreGodkjenning: (avtaleId: string, godkjent: boolean) => Promise<Avtale>;
@@ -75,13 +76,15 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 
 const opprettAvtale = async (
     deltakerFnr: string,
-    arbeidsgiverFnr: string
+    arbeidsgiverFnr: string,
+    bedriftNavn: string
 ): Promise<Avtale> => {
     const postResponse = await fetch(`${API_URL}/avtaler`, {
         method: 'POST',
         body: JSON.stringify({
             deltakerFnr,
             arbeidsgiverFnr,
+            bedriftNavn,
         }),
         headers: {
             'Content-Type': 'application/json',
