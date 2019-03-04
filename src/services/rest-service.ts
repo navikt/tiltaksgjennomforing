@@ -16,6 +16,7 @@ const HTTP_CONFLICT = 409;
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
+    hentAvtalerForInnloggetBruker: () => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (
         deltakerFnr: string,
@@ -54,6 +55,12 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     await handleResponse(response);
     const avtale = await response.json();
     return { ...avtale, id: `${avtale.id}` };
+};
+
+const hentAvtalerForInnloggetBruker = async (): Promise<Avtale[]> => {
+    const response = await fetchGet(`${API_URL}/avtaler`);
+    await handleResponse(response);
+    return await response.json();
 };
 
 const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
@@ -133,6 +140,7 @@ const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
 
 const restService: RestService = {
     hentAvtale,
+    hentAvtalerForInnloggetBruker,
     lagreAvtale,
     opprettAvtale,
     hentRolle,

@@ -3,6 +3,7 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleContext';
+import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import LandingsSide from './LandingsSide/LandingsSide';
@@ -18,8 +19,8 @@ class App extends React.Component {
         return (
             <IntlProvider locale="nb">
                 <BrowserRouter basename={basename}>
-                    <RedirectEtterLogin>
-                        <InnloggingBoundary>
+                    <InnloggingBoundary>
+                        <RedirectEtterLogin>
                             <AvtaleProvider>
                                 <Switch>
                                     <Route
@@ -38,15 +39,19 @@ class App extends React.Component {
                                         component={OpprettAvtale}
                                     />
                                     <Route
-                                        path="/opprett-avtale/fullfort"
+                                        path="/opprett-avtale-fullfort/:avtaleId"
                                         exact={true}
                                         component={OpprettelseFullfort}
                                     />
-                                    <Redirect to="/opprett-avtale" />
+                                    <Route
+                                        path=""
+                                        exact={true}
+                                        component={AvtaleOversikt}
+                                    />
                                 </Switch>
                             </AvtaleProvider>
-                        </InnloggingBoundary>
-                    </RedirectEtterLogin>
+                        </RedirectEtterLogin>
+                    </InnloggingBoundary>
                 </BrowserRouter>
             </IntlProvider>
         );

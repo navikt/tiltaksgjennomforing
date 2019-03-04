@@ -98,7 +98,7 @@ class AvtaleSide extends React.Component<Props, State> {
 
         if (skalKunSeGodkjenningsside) {
             const avtaleId = this.props.match.params.avtaleId;
-            this.props.history.push(pathTilGodkjenningsSteg(avtaleId));
+            this.props.history.replace(pathTilGodkjenningsSteg(avtaleId));
         }
     };
 

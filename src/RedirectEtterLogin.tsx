@@ -8,7 +8,7 @@ const RedirectEtterLogin: FunctionComponent<RouteComponentProps> = props => {
         const sideFoerInnlogging = sessionStorage.getItem(SIDE_FOER_INNLOGGING);
         if (sideFoerInnlogging) {
             sessionStorage.removeItem(SIDE_FOER_INNLOGGING);
-            props.history.replace(sideFoerInnlogging);
+            props.history.push(sideFoerInnlogging);
         }
     };
 
