@@ -50,7 +50,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
             ) &&
             !this.state.bedriftNavn
         ) {
-            return 'Må oppgi gylding fødselsnummer for deltaker og arbeidsgiver og navn på bedriften';
+            return 'Må oppgi gyldig fødselsnummer for deltaker og arbeidsgiver og navn på bedriften';
         } else if (
             !(
                 erGyldigFnr(this.state.deltakerFnr) &&
