@@ -13,29 +13,28 @@ const OppfolgingSteg = (props: Context) => {
     };
 
     return (
-        <>
-            <Innholdsboks utfyller="arbeidsgiver">
-                <Systemtittel className="oppfolgingsteg__tittel">
-                    Oppfølging
-                    <HjelpetekstBase id="hjelpetekst">
-                        Beskriv hvor ofte og i hvilken form det er ønskelig at
-                        dere skal få oppfølging fra NAV.
-                    </HjelpetekstBase>
-                </Systemtittel>
-                <PakrevdTextarea
-                    label="Beskriv hvor ofte og i hvilken form dere ønsker å få oppfølging fra NAV"
-                    verdi={props.avtale.oppfolging || ''}
-                    onChange={onChange('oppfolging')}
-                    maxLengde={1000}
-                    feilmelding="Beskrivelse av oppfølgingen er påkrevd"
-                />
-            </Innholdsboks>
+        <Innholdsboks utfyller="arbeidsgiver">
+            <Systemtittel className="oppfolgingsteg__tittel">
+                Oppfølging
+                <HjelpetekstBase id="hjelpetekst">
+                    Beskriv hvor ofte og i hvilken form det er ønskelig at dere
+                    skal få oppfølging fra NAV.
+                </HjelpetekstBase>
+            </Systemtittel>
+            <PakrevdTextarea
+                label="Beskriv hvor ofte og i hvilken form dere ønsker å få oppfølging fra NAV"
+                verdi={props.avtale.oppfolging || ''}
+                onChange={onChange('oppfolging')}
+                maxLengde={1000}
+                feilmelding="Beskrivelse av oppfølgingen er påkrevd"
+            />
             <LagreKnapp
+                className="oppfolgingsteg__lagre-knapp"
                 lagre={props.lagreAvtale}
                 label={'Lagre avtale'}
                 suksessmelding={'Avtale lagret'}
             />
-        </>
+        </Innholdsboks>
     );
 };
 

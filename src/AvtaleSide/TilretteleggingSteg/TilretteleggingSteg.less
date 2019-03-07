@@ -1,11 +1,16 @@
 @import '~nav-frontend-core/less/_variabler';
 
-.tilretteleggingsteg__tittel {
+.tilretteleggingsteg {
+  &__tittel {
     display: none;
     :first-child {
         // hjelpetekst ikon
         top: 0.25rem;
       }
+    }
+  &__lagre-knapp {
+    margin-top: 1rem;
+  }
 }
 
 @media (min-width: @screen-sm-min) {

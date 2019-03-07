@@ -77,47 +77,43 @@ class ArbeidstidSteg extends React.Component<Context, State> {
         const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
         return (
-            <>
-                <Innholdsboks utfyller="arbeidsgiver">
-                    <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
-                        Arbeidstid og oppstart
-                    </Systemtittel>
-                    <Normaltekst className="arbeidstidsteg__startdato-label">
-                        Startdato
-                    </Normaltekst>
-                    <Datovelger
-                        className="arbeidstidsteg__datovelger"
-                        velgDato={this.velgStartDato}
-                        dato={moment(this.props.avtale.startDato)}
-                        settRiktigFormatert={this.settStartDatoRiktigFormatert}
-                        inputRiktigFormatert={
-                            this.state.startDatoRiktigFormatert
-                        }
-                    />
-                    <Ukevelger
-                        feilmelding={this.state.arbTreningLengdeFeil}
-                        label="Hvor lenge skal arbeidstreningen vare?"
-                        verdi={this.props.avtale.arbeidstreningLengde}
-                        onChange={this.settArbeidstreningLengde}
-                        min={1}
-                        max={12}
-                    />
-                    <StillingsprosentInput
-                        feilmelding={this.state.stillingsprosentFeil}
-                        label="Hvilken stillingsprosent skal deltakeren ha?"
-                        verdi={
-                            this.props.avtale.arbeidstreningStillingprosent || 0
-                        }
-                        onChange={this.settStillingsprosent}
-                    />
-                    <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
-                </Innholdsboks>
+            <Innholdsboks utfyller="arbeidsgiver">
+                <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
+                    Arbeidstid og oppstart
+                </Systemtittel>
+                <Normaltekst className="arbeidstidsteg__startdato-label">
+                    Startdato
+                </Normaltekst>
+                <Datovelger
+                    className="arbeidstidsteg__datovelger"
+                    velgDato={this.velgStartDato}
+                    dato={moment(this.props.avtale.startDato)}
+                    settRiktigFormatert={this.settStartDatoRiktigFormatert}
+                    inputRiktigFormatert={this.state.startDatoRiktigFormatert}
+                />
+                <Ukevelger
+                    feilmelding={this.state.arbTreningLengdeFeil}
+                    label="Hvor lenge skal arbeidstreningen vare?"
+                    verdi={this.props.avtale.arbeidstreningLengde}
+                    onChange={this.settArbeidstreningLengde}
+                    min={1}
+                    max={12}
+                />
+                <StillingsprosentInput
+                    feilmelding={this.state.stillingsprosentFeil}
+                    label="Hvilken stillingsprosent skal deltakeren ha?"
+                    verdi={this.props.avtale.arbeidstreningStillingprosent || 0}
+                    onChange={this.settStillingsprosent}
+                />
+                <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
+
                 <LagreKnapp
+                    className="arbeidstidsteg__lagre-knapp"
                     label={'Lagre avtale'}
                     lagre={this.props.lagreAvtale}
                     suksessmelding={'Avtale lagret'}
                 />
-            </>
+            </Innholdsboks>
         );
     }
 }
