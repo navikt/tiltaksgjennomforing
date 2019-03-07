@@ -24,11 +24,6 @@ class LagreKnapp extends Component<Props, State> {
         spinner: false,
     };
 
-    componentWillUnmount(): void {
-        // Kan vurdere å her kansellere promise til lagre-funksjonen og clearTimeout på varsler,
-        // siden disse kan føre til at setState kalles etter at komponent er mountet.
-    }
-
     lagreKnappOnClick = async () => {
         this.setState({ spinner: true });
         try {

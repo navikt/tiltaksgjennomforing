@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Avtale } from '../../avtale';
-import Stegoppsummering from './Stegoppsummering/Stegoppsummering';
+import { Avtale } from '../../../avtale';
+import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { Normaltekst } from 'nav-frontend-typografi';
 import moment from 'moment';
+import VarighetIkon from "./VarighetIkon";
 
 interface Props {
     avtale: Avtale;
@@ -13,7 +14,7 @@ const VarighetOppsummering = (props: Props) => {
     const ukeUker = props.avtale.arbeidstreningLengde > 1 ? 'uker' : 'uke';
 
     return (
-        <Stegoppsummering tittel="Varighet">
+        <Stegoppsummering ikon={<VarighetIkon/>} tittel="Varighet">
             <Normaltekst className="oppsummering__label">
                 Tidsperiode
             </Normaltekst>

@@ -1,10 +1,64 @@
-.avtaleparter {
-  &__label {
-    font-weight: bold;
-  }
+@mobile-breakpoint: 576px;
 
-  &__navn {
-    margin-bottom: 1rem;
-    font-style: italic;
-  }
+.avtaleparter {
+    &__content {
+    padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    &__radtittel {
+        padding-top: 2rem;
+
+        &--first {
+            padding-top: 0.5rem;
+        }
+    }
+
+    &__rad {
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        flex-grow: 1;
+
+        &--fortsettelse {
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            flex-grow: 1;
+        }
+    }
+
+    &__element {
+        width: 100%;
+    }
+
+    &__label {
+        padding-bottom: 0.1rem;
+    }
+
+    &__navn {
+        margin-bottom: 1rem;
+        font-style: italic;
+
+        &--ikkeFyltUt {
+            background-color: #ffe5c2;
+            width: 37%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+    }
+
+    @media (min-width: @mobile-breakpoint) {
+        &__rad {
+            flex-direction: row;
+            justify-content: space-between;
+
+            &--fortsettelse {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+    }
 }

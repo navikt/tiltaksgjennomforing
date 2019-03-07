@@ -9,6 +9,7 @@ export type Avtale = AvtaleMetadata &
     MaalListe &
     Oppgaver &
     Oppfolging &
+    Tilrettelegging &
     Bekreftelser;
 
 export interface AvtaleMetadata {
@@ -73,6 +74,9 @@ export interface Oppgave {
 
 export interface Oppfolging {
     oppfolging: string;
+}
+
+export interface Tilrettelegging {
     tilrettelegging: string;
 }
 
