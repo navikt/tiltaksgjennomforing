@@ -3,25 +3,27 @@ import { Input } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { RouterProps } from 'react-router';
+import { RouteComponentProps, RouterProps } from 'react-router';
 import { Context, medContext } from '../../AvtaleContext';
 import VeilederpanelMedAvsjekkIkon from '../../komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import {
-    absoluttPathTilAvtaleForBrukerOgAG,
+    absoluttPathTilAvtaleSelvbetjening,
     pathTilKontaktinformasjonSteg,
 } from '../../paths';
 
 import './OpprettelseFullfort.less';
 
 const OpprettelseFullfort: React.FunctionComponent<
-    Context & RouterProps
+    RouteComponentProps<{ avtaleId: string }>
 > = props => {
+    const avtaleId = props.match.params.avtaleId;
+
     const tilAvtalenKlikk = () => {
-        props.history.push(pathTilKontaktinformasjonSteg(props.avtale.id));
+        props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
     };
 
-    const hrefTilAvtaleForBrukerOgAG = absoluttPathTilAvtaleForBrukerOgAG(
-        props.avtale.id
+    const hrefTilAvtaleSelvbetjening = absoluttPathTilAvtaleSelvbetjening(
+        avtaleId
     );
 
     const inputLabel = (
@@ -40,10 +42,10 @@ const OpprettelseFullfort: React.FunctionComponent<
                 <Input
                     label={inputLabel}
                     className="opprettelseFullfort__inputfelt"
-                    value={hrefTilAvtaleForBrukerOgAG}
+                    value={hrefTilAvtaleSelvbetjening}
                     readOnly={true}
                 />
-                <CopyToClipboard text={hrefTilAvtaleForBrukerOgAG}>
+                <CopyToClipboard text={hrefTilAvtaleSelvbetjening}>
                     <Hovedknapp className="opprettelseFullfort__kopier-knapp">
                         Kopier lenke
                     </Hovedknapp>
@@ -75,4 +77,4 @@ const OpprettelseFullfort: React.FunctionComponent<
     );
 };
 
-export default medContext(OpprettelseFullfort);
+export default OpprettelseFullfort;

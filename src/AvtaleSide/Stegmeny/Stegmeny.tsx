@@ -1,9 +1,9 @@
 import * as React from 'react';
-import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
-import './Stegmeny.less';
 import { Context, medContext } from '../../AvtaleContext';
+import { pathTilStegIAvtale } from '../../paths';
 import { AvtaleStegType } from '../AvtaleSide';
-import { lagStegUrl } from '../../paths';
+import './Stegmeny.less';
+import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
 
 interface Props {
     steg: AvtaleStegType;
@@ -16,7 +16,7 @@ const Stegmeny = (props: Context & Props) => {
             label={props.steg[key].label}
             aktiv={props.aktivtSteg === key}
             ferdig={false}
-            url={lagStegUrl(props.avtale.id, key)}
+            url={pathTilStegIAvtale(props.avtale.id, key)}
             key={key}
         />
     ));

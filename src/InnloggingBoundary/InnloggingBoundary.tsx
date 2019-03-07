@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
 import * as React from 'react';
+import { FunctionComponent } from 'react';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
 
-const InnloggingBoundary = (props: { children?: ReactNode }) => {
+const InnloggingBoundary: FunctionComponent = props => {
     const { innloggetBruker, uinnlogget, innloggingskilder } = useInnlogget();
 
     if (uinnlogget) {

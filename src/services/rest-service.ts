@@ -16,10 +16,12 @@ const HTTP_CONFLICT = 409;
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
+    hentAvtalerForInnloggetBruker: () => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (
         deltakerFnr: string,
-        arbeidsgiverFnr: string
+        arbeidsgiverFnr: string,
+        bedriftNavn: string
     ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     endreGodkjenning: (avtaleId: string, godkjent: boolean) => Promise<Avtale>;
@@ -55,6 +57,12 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     return { ...avtale, id: `${avtale.id}` };
 };
 
+const hentAvtalerForInnloggetBruker = async (): Promise<Avtale[]> => {
+    const response = await fetchGet(`${API_URL}/avtaler`);
+    await handleResponse(response);
+    return await response.json();
+};
+
 const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     const response = await fetch(`${API_URL}/avtaler/${avtale.id}`, {
         method: 'PUT',
@@ -75,13 +83,15 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 
 const opprettAvtale = async (
     deltakerFnr: string,
-    arbeidsgiverFnr: string
+    arbeidsgiverFnr: string,
+    bedriftNavn: string
 ): Promise<Avtale> => {
     const postResponse = await fetch(`${API_URL}/avtaler`, {
         method: 'POST',
         body: JSON.stringify({
             deltakerFnr,
             arbeidsgiverFnr,
+            bedriftNavn,
         }),
         headers: {
             'Content-Type': 'application/json',
@@ -130,6 +140,7 @@ const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
 
 const restService: RestService = {
     hentAvtale,
+    hentAvtalerForInnloggetBruker,
     lagreAvtale,
     opprettAvtale,
     hentRolle,

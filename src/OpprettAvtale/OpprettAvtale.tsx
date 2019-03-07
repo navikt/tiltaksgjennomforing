@@ -11,10 +11,12 @@ import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/Veil
 import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
 import { erGyldigFnr } from '../utils/fnrUtils';
 import './OpprettAvtale.less';
+import PakrevdInput from '../komponenter/PakrevdInput/PakrevdInput';
 
 interface State {
     deltakerFnr: string;
     arbeidsgiverFnr: string;
+    bedriftNavn: string;
     deltakerFnrFeil?: SkjemaelementFeil;
     arbeidsgiverFnrFeil?: SkjemaelementFeil;
 }
@@ -25,6 +27,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     state: State = {
         deltakerFnr: '',
         arbeidsgiverFnr: '',
+        bedriftNavn: '',
     };
 
     endreDeltakerFnr = (fnr: string) => {
@@ -35,23 +38,55 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         this.setState({ arbeidsgiverFnr: fnr });
     };
 
+    endreBedriftNavn = (bedriftNavn: string) => {
+        this.setState({ bedriftNavn });
+    };
+
+    hvaMangler = () => {
+        if (
+            !(
+                erGyldigFnr(this.state.deltakerFnr) &&
+                erGyldigFnr(this.state.arbeidsgiverFnr)
+            ) &&
+            !this.state.bedriftNavn
+        ) {
+            return 'Må oppgi gyldig fødselsnummer for deltaker og arbeidsgiver og navn på bedriften';
+        } else if (
+            !(
+                erGyldigFnr(this.state.deltakerFnr) &&
+                erGyldigFnr(this.state.arbeidsgiverFnr)
+            ) &&
+            this.state.bedriftNavn
+        ) {
+            return 'Må oppgi gyldig fødselsnummer for deltaker og arbeidsgiver';
+        } else if (
+            erGyldigFnr(this.state.deltakerFnr) &&
+            erGyldigFnr(this.state.arbeidsgiverFnr) &&
+            !this.state.bedriftNavn
+        ) {
+            return 'Må oppgi navn på bedriften';
+        }
+    };
+
     opprettAvtaleKlikk = () => {
         if (
             erGyldigFnr(this.state.deltakerFnr) &&
-            erGyldigFnr(this.state.arbeidsgiverFnr)
+            erGyldigFnr(this.state.arbeidsgiverFnr) &&
+            this.state.bedriftNavn
         ) {
             return this.props
                 .opprettAvtale(
                     this.state.deltakerFnr,
-                    this.state.arbeidsgiverFnr
+                    this.state.arbeidsgiverFnr,
+                    this.state.bedriftNavn
                 )
                 .then(() => {
-                    this.props.history.push(pathTilOpprettetAvtaleBekreftelse);
+                    this.props.history.push(
+                        pathTilOpprettetAvtaleBekreftelse(this.props.avtale.id)
+                    );
                 });
         } else {
-            throw new ApiError(
-                'Må oppgi gyldig fødselsnummer for deltaker og arbeidsgiver'
-            );
+            throw new ApiError(this.hvaMangler());
         }
     };
 
@@ -86,22 +121,35 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         );
 
         const inputFelter = (
-            <div className="opprett-avtale__input-wrapper">
-                <FnrInput
-                    className="opprett-avtale__kandidat-fnr"
-                    label={<Element>Deltakers fødselsnummer</Element>}
-                    verdi={this.state.deltakerFnr}
-                    feilmelding={FNR_FEILMELDING}
-                    onChange={this.endreDeltakerFnr}
-                />
-                <FnrInput
-                    className="opprett-avtale__arbeidsgiver-fnr"
-                    label={<Element>Arbeidsgivers fødselsnummer</Element>}
-                    verdi={this.state.arbeidsgiverFnr}
-                    feilmelding={FNR_FEILMELDING}
-                    onChange={this.endreArbeidsgiverFnr}
-                />
-            </div>
+            <>
+                <div className="opprett-avtale__input-wrapper">
+                    <FnrInput
+                        className="opprett-avtale__kandidat-fnr"
+                        label={<Element>Deltakers fødselsnummer</Element>}
+                        verdi={this.state.deltakerFnr}
+                        feilmelding={FNR_FEILMELDING}
+                        onChange={this.endreDeltakerFnr}
+                    />
+                    <FnrInput
+                        className="opprett-avtale__arbeidsgiver-fnr"
+                        label={<Element>Arbeidsgivers fødselsnummer</Element>}
+                        verdi={this.state.arbeidsgiverFnr}
+                        feilmelding={FNR_FEILMELDING}
+                        onChange={this.endreArbeidsgiverFnr}
+                    />
+                </div>
+
+                <div className="opprett-avtale__input-wrapper-rad2">
+                    <PakrevdInput
+                        className="opprett-avtale__arbeidsgiver-bedriftNavn"
+                        label="Bedriftens navn"
+                        verdi={this.state.bedriftNavn}
+                        onChange={event =>
+                            this.endreBedriftNavn(event.currentTarget.value)
+                        }
+                    />
+                </div>
+            </>
         );
 
         return (

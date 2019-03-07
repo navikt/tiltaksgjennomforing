@@ -1,29 +1,22 @@
 export const basename = '/tiltaksgjennomforing';
 
-export const pathTilOversikt: string = '';
+export const pathTilOversikt = '';
 
 const avtaleBase = '/avtale';
 
-export const pathTilAvtale = (avtaleId: string): string => {
-    return `${avtaleBase}/${avtaleId}`;
-};
+export const pathTilOpprettAvtale = '/opprett-avtale';
 
-export const pathTilKontaktinformasjonSteg = (avtaleId: string): string => {
-    return `${pathTilAvtale(avtaleId)}/kontaktinformasjon`;
-};
+export const pathTilOpprettetAvtaleBekreftelse = (avtaleId: string) => `/opprett-avtale-fullfort/${avtaleId}`;
 
-export const pathTilGodkjenningsSteg = (avtaleId: string): string => {
-    return `${pathTilAvtale(avtaleId)}/godkjenning`;
-};
-
-export const lagStegUrl = (avtaleId: string, steg: string) => {
-    return `${pathTilAvtale(avtaleId)}/${steg}`;
-};
-
-export const absoluttPathTilAvtaleForBrukerOgAG = (avtaleId: string) => {
-    return `https://arbeidsgiver.nav.no/tiltaksgjennomforing${pathTilAvtale(
+export const absoluttPathTilAvtaleSelvbetjening = (avtaleId: string) =>
+    `https://arbeidsgiver.nav.no/tiltaksgjennomforing${pathTilAvtale(
         avtaleId
     )}`;
-};
 
-export const pathTilOpprettetAvtaleBekreftelse = `${pathTilOversikt}/opprett-avtale/fullfort`;
+export const pathTilAvtale = (avtaleId: string): string => `${avtaleBase}/${avtaleId}`;
+
+export const pathTilStegIAvtale = (avtaleId: string, steg: string) => `${pathTilAvtale(avtaleId)}/${steg}`;
+
+export const pathTilKontaktinformasjonSteg = (avtaleId: string): string => pathTilStegIAvtale(avtaleId, 'kontaktinformasjon');
+
+export const pathTilGodkjenningsSteg = (avtaleId: string): string => pathTilStegIAvtale(avtaleId, 'godkjenning');
