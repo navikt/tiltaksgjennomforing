@@ -1,21 +1,14 @@
 import * as React from 'react';
 import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router';
 import ApiError from '../api-error';
 import { Context, medContext } from '../AvtaleContext';
 
-interface MatchProps {
-    avtaleId: string;
-    stegPath: string;
-}
-
-type Props = RouteComponentProps<MatchProps> &
-    Context & { render: () => ReactElement<any> };
+type Props = { avtaleId: string; render: () => ReactElement<any> } & Context;
 
 const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
     useEffect(() => {
-        const avtaleId = props.match.params.avtaleId;
+        const avtaleId = props.avtaleId;
         Promise.all([props.hentAvtale(avtaleId), props.hentRolle(avtaleId)])
             .then(() => setLastetOk(true))
             .catch(error => {
@@ -33,4 +26,4 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
     return props.render();
 };
 
-export default medContext<Props>(AvtaleFetcher);
+export default medContext(AvtaleFetcher);
