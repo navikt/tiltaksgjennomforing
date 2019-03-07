@@ -12,6 +12,11 @@ import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
 import { erGyldigFnr } from '../utils/fnrUtils';
 import './OpprettAvtale.less';
 import PakrevdInput from '../komponenter/PakrevdInput/PakrevdInput';
+import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import keyIkon from './key.svg';
+import accountGrpIkon from './account-group.svg';
+import checkCircleIkon from './check-circle.svg';
+import handKindleIkon from './hand-kindle.svg';
 
 interface State {
     deltakerFnr: string;
@@ -116,7 +121,29 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 tittelProps="element"
                 border={true}
             >
-                TODO: Her kommer det noe forklarender tekst med ikoner på siden.
+                <EkstbanderbartPanelRad svgPath={handKindleIkon}>
+                    Dette er en digital avtale for arbeidstrening som skal
+                    brukes av deltaker, arbeidsgiver og NAV sin veileder.
+                </EkstbanderbartPanelRad>
+
+                <EkstbanderbartPanelRad svgPath={keyIkon}>
+                    For at avtalen skal kunne opprettes, må avtalens parter bli
+                    knyttet sammen med gyldige, unike identifikasjoner:
+                    fødselsnummer. På sikt kan alle bruke Altinn til å logge
+                    inn, men enn så lenge må partene i avtalen utveksle sitt
+                    fødselsnummer.
+                </EkstbanderbartPanelRad>
+
+                <EkstbanderbartPanelRad svgPath={accountGrpIkon}>
+                    Deltaker, arbeidsgiver og veileder skal sammen fylle ut
+                    avtalen og blant annet bli enige om mål, arbeidsoppgaver og
+                    oppfølging.
+                </EkstbanderbartPanelRad>
+
+                <EkstbanderbartPanelRad svgPath={checkCircleIkon}>
+                    Til slutt skal både deltaker, arbeidsgiver og veileder
+                    godkjenne avtalen slik at arbeidstreningen kan starte.
+                </EkstbanderbartPanelRad>
             </Ekspanderbartpanel>
         );
 
