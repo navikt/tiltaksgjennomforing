@@ -11,8 +11,6 @@ import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
-const HTTP_UNAUTHORIZED = 401;
-const HTTP_CONFLICT = 409;
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
@@ -24,7 +22,8 @@ export interface RestService {
         bedriftNavn: string
     ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
-    endreGodkjenning: (avtaleId: string, godkjent: boolean) => Promise<Avtale>;
+    godkjennAvtale: (avtaleId: string) => Promise<Avtale>;
+    opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
 }
@@ -34,7 +33,7 @@ const fetchGet: (url: string) => Promise<Response> = url => {
 };
 
 const handleResponse = async (response: Response) => {
-    if (response.status === HTTP_UNAUTHORIZED) {
+    if (response.status === 401) {
         sessionStorage.setItem(
             SIDE_FOER_INNLOGGING,
             window.location.pathname.replace(basename, '')
@@ -64,6 +63,22 @@ const hentAvtalerForInnloggetBruker = async (): Promise<Avtale[]> => {
 };
 
 const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
+    if (
+        avtale.godkjentAvDeltaker ||
+        avtale.godkjentAvArbeidsgiver ||
+        avtale.godkjentAvVeileder
+    ) {
+        if (
+            window.confirm(
+                'En av partene i avtalen har godkjent. Ved å lagre endringer oppheves godkjenningene. Ønsker du å fortsette?'
+            )
+        ) {
+            await opphevGodkjenninger(avtale.id);
+        } else {
+            return Promise.reject();
+        }
+    }
+
     const response = await fetch(`${API_URL}/avtaler/${avtale.id}`, {
         method: 'PUT',
         body: JSON.stringify(avtale),
@@ -112,15 +127,19 @@ const hentRolle = async (avtaleId: string): Promise<Rolle> => {
     return response.json();
 };
 
-const endreGodkjenning = async (avtaleId: string, godkjent: boolean) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/godkjent`;
-    const body = JSON.stringify({ godkjent });
+const godkjennAvtale = async (avtaleId: string) => {
+    const uri = `${API_URL}/avtaler/${avtaleId}/godkjenn`;
     const response = await fetch(uri, {
         method: 'POST',
-        body,
-        headers: {
-            'Content-Type': 'application/json',
-        },
+    });
+    await handleResponse(response);
+    return hentAvtale(avtaleId);
+};
+
+const opphevGodkjenninger = async (avtaleId: string) => {
+    const uri = `${API_URL}/avtaler/${avtaleId}/opphev-godkjenninger`;
+    const response = await fetch(uri, {
+        method: 'POST',
     });
     await handleResponse(response);
     return hentAvtale(avtaleId);
@@ -144,7 +163,8 @@ const restService: RestService = {
     lagreAvtale,
     opprettAvtale,
     hentRolle,
-    endreGodkjenning,
+    godkjennAvtale: godkjennAvtale,
+    opphevGodkjenninger: opphevGodkjenninger,
     hentInnloggetBruker,
     hentInnloggingskilder,
 };

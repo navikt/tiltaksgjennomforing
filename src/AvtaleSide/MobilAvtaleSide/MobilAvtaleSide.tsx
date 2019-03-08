@@ -4,7 +4,6 @@ import { AvtaleStegType } from '../AvtaleSide';
 
 interface Props {
     avtaleSteg: AvtaleStegType;
-    skalViseEkspanderbartPanel: boolean;
 }
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
@@ -16,13 +15,7 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
         </div>
     ));
 
-    return (
-        <form>
-            {props.skalViseEkspanderbartPanel
-                ? ekspanderbartPanel
-                : props.avtaleSteg.godkjenning.komponent}
-        </form>
-    );
+    return <form>{ekspanderbartPanel}</form>;
 };
 
 export default MobilAvtaleSide;

@@ -1,25 +1,20 @@
 import * as React from 'react';
+import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import ApiError from '../api-error';
-import { Context, medContext, Rolle } from '../AvtaleContext';
+import { Context, medContext } from '../AvtaleContext';
 import Banner from '../komponenter/Banner/Banner';
-import { pathTilGodkjenningsSteg } from '../paths';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
-import './AvtaleSide.less';
-import { Avtale } from './avtale';
 import AvtaleFetcher from './AvtaleFetcher';
+import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
+import Oppsummering from './GodkjenningSteg/Oppsummering/Oppsummering';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
-
-interface State {
-    windowSize: number;
-}
 
 interface MatchProps {
     avtaleId: string;
@@ -37,14 +32,21 @@ export interface AvtaleStegType {
     [key: string]: StegInfo;
 }
 
-class AvtaleSide extends React.Component<Props, State> {
-    state = {
-        windowSize: window.innerWidth,
+const AvtaleSide: FunctionComponent<Props> = props => {
+    const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+    const handleWindowSize = () => {
+        setWindowSize(window.innerWidth);
     };
 
-    avtaleSteg: AvtaleStegType = {
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSize);
+        return () => window.removeEventListener('resize', handleWindowSize);
+    });
+
+    const avtaleSteg: AvtaleStegType = {
         kontaktinformasjon: {
-            komponent: <KontaktinfoSteg {...this.props} />,
+            komponent: <KontaktinfoSteg {...props} />,
             label: 'Kontaktinformasjon',
         },
         maal: {
@@ -73,69 +75,46 @@ class AvtaleSide extends React.Component<Props, State> {
         },
     };
 
-    handleWindowSize = () => {
-        this.setState({
-            windowSize: window.innerWidth,
-        });
-    };
+    const erDesktop = windowSize > 767;
+    const aktivtSteg = props.match.params.stegPath;
 
-    async componentDidMount() {
-        window.addEventListener('resize', this.handleWindowSize);
-    }
+    return (
+        <AvtaleFetcher
+            avtaleId={props.match.params.avtaleId}
+            render={() => {
+                let innhold: ReactNode;
+                if (props.avtale.erLaast) {
+                    innhold = (
+                        <div className="avtaleside__innhold">
+                            <Oppsummering avtale={props.avtale} />
+                        </div>
+                    );
+                } else if (props.rolle === 'DELTAKER') {
+                    innhold = (
+                        <div className="avtaleside__innhold">
+                            <GodkjenningSteg />
+                        </div>
+                    );
+                } else if (erDesktop) {
+                    innhold = (
+                        <DesktopAvtaleSide
+                            avtaleSteg={avtaleSteg}
+                            aktivtSteg={aktivtSteg}
+                        />
+                    );
+                } else {
+                    innhold = <MobilAvtaleSide avtaleSteg={avtaleSteg} />;
+                }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowSize);
-    }
-
-    componentDidUpdate() {
-        this.redirectTilGodkjenningsStegHvisDeltaker();
-    }
-
-    redirectTilGodkjenningsStegHvisDeltaker = () => {
-        const skalKunSeGodkjenningsside =
-            this.props.match.params.stegPath !== 'godkjenning' &&
-            this.props.rolle === 'DELTAKER';
-
-        if (skalKunSeGodkjenningsside) {
-            const avtaleId = this.props.match.params.avtaleId;
-            this.props.history.replace(pathTilGodkjenningsSteg(avtaleId));
-        }
-    };
-
-    render() {
-        const erDesktop = this.state.windowSize > 767;
-        const aktivtSteg = this.props.match.params.stegPath;
-        const skalViseStegmeny =
-            this.props.rolle === 'ARBEIDSGIVER' ||
-            this.props.rolle === 'VEILEDER';
-
-        return (
-            <AvtaleFetcher
-                {...this.props}
-                render={() => (
+                return (
                     <>
                         <Banner tekst="Avtale om arbeidstrening" />
-                        <div className="avtaleside">
-                            {erDesktop ? (
-                                <DesktopAvtaleSide
-                                    avtaleSteg={this.avtaleSteg}
-                                    aktivtSteg={aktivtSteg}
-                                    skalViseStegmeny={skalViseStegmeny}
-                                />
-                            ) : (
-                                <MobilAvtaleSide
-                                    avtaleSteg={this.avtaleSteg}
-                                    skalViseEkspanderbartPanel={
-                                        skalViseStegmeny
-                                    }
-                                />
-                            )}
-                        </div>
+                        <div className="avtaleside">{innhold}</div>
                     </>
-                )}
-            />
-        );
-    }
-}
+                );
+            }}
+        />
+    );
+};
 
 export default medContext<Props>(AvtaleSide);

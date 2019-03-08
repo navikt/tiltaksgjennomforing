@@ -9,7 +9,7 @@ export type Avtale = AvtaleMetadata &
     MaalListe &
     Oppgaver &
     Oppfolging &
-    Bekreftelser;
+    Godkjenninger;
 
 export interface AvtaleMetadata {
     id: string;
@@ -76,8 +76,9 @@ export interface Oppfolging {
     tilrettelegging: string;
 }
 
-export interface Bekreftelser {
+export interface Godkjenninger {
     godkjentAvDeltaker: boolean;
     godkjentAvArbeidsgiver: boolean;
     godkjentAvVeileder: boolean;
+    erLaast: boolean;
 }
