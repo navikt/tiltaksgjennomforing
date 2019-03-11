@@ -40,6 +40,7 @@ export const tomAvtale: Avtale = {
     godkjentAvDeltaker: false,
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
+    erLaast: false,
 };
 
 export interface Context {
@@ -58,7 +59,7 @@ export interface Context {
         bedriftNavn: string
     ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<any>;
-    endreGodkjenning: (godkjent: boolean) => Promise<any>;
+    godkjenn: (godkjent: boolean) => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
 }
 
@@ -95,7 +96,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
-        this.endreGodkjenning = this.endreGodkjenning.bind(this);
+        this.godkjennAvtale = this.godkjennAvtale.bind(this);
     }
 
     shouldComponentUpdate(nextProps: any, nextState: State): boolean {
@@ -196,9 +197,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return avtale;
     }
 
-    async endreGodkjenning(godkjent: boolean) {
+    async godkjennAvtale() {
         const avtaleId = this.state.avtale.id;
-        await RestService.endreGodkjenning(avtaleId, godkjent);
+        await RestService.godkjennAvtale(avtaleId);
         await this.hentAvtale(avtaleId);
     }
 
@@ -215,7 +216,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             hentAvtale: this.hentAvtale,
             opprettAvtale: this.opprettAvtale,
             hentRolle: this.hentRolle,
-            endreGodkjenning: this.endreGodkjenning,
+            godkjenn: this.godkjennAvtale,
             visFeilmelding: this.visFeilmelding,
         };
 
