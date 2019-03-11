@@ -1,0 +1,37 @@
+@mobile-breakpoint: 576px;
+
+.varighetOppsummering {
+    &__rad {
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        flex-grow: 1;
+
+        &--fortsettelse {
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            flex-grow: 1;
+        }
+    }
+
+    &__element {
+        width: 100%;
+    }
+
+    &__label {
+        padding-top: 1rem;
+    }
+
+    @media (min-width: @mobile-breakpoint) {
+        &__rad {
+            flex-direction: row;
+            justify-content: space-between;
+
+            &--fortsettelse {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+    }
+}

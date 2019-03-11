@@ -3,24 +3,45 @@ import { Avtale } from '../../../avtale';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { Normaltekst } from 'nav-frontend-typografi';
 import moment from 'moment';
-import VarighetIkon from "./VarighetIkon";
+import VarighetIkon from './VarighetIkon';
+import { AvtaleRad } from '../Avtaleparter/Avtaleparter';
+import BEMHelper from '../../../../utils/bem';
+import './varighet.less';
+
+const cls = BEMHelper('varighetOppsummering');
 
 interface Props {
     avtale: Avtale;
 }
 
-const VarighetOppsummering = (props: Props) => {
-    const startdato = moment(props.avtale.startDato).format('DD.MM.YYYY');
-    const ukeUker = props.avtale.arbeidstreningLengde > 1 ? 'uker' : 'uke';
+/*
+* startDato: number;
+    arbeidstreningLengde: number;
+    arbeidstreningStillingprosent: number;
+* */
+
+const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
+    const {startDato, arbeidstreningLengde, arbeidstreningStillingprosent } = avtale;
+
+    const startdato = moment(startDato).format('DD.MM.YYYY');
+    const ukeUker = arbeidstreningLengde > 1 ? 'uker' : 'uke';
 
     return (
-        <Stegoppsummering ikon={<VarighetIkon/>} tittel="Varighet">
+        <Stegoppsummering ikon={<VarighetIkon />} tittel="Dato og arbeidstid">
+            <AvtaleRad
+                clsName="varighetOppsummering"
+                labelKolEn="Startdato"
+                navnKolEn={startdato}
+                labelKolTo="Varighet"
+                navnKolTo={`${arbeidstreningLengde ? arbeidstreningLengde.toString() : ''} ${ukeUker}`}
+            />
+
             <Normaltekst className="oppsummering__label">
                 Tidsperiode
             </Normaltekst>
             <Normaltekst className="oppsummering__beskrivelse">
-                {props.avtale.arbeidstreningStillingprosent}% stilling i{' '}
-                {props.avtale.arbeidstreningLengde} {ukeUker} fra {startdato}.
+                {arbeidstreningStillingprosent}% stilling i{' '}
+                {arbeidstreningLengde} {ukeUker} fra {startdato}.
             </Normaltekst>
         </Stegoppsummering>
     );

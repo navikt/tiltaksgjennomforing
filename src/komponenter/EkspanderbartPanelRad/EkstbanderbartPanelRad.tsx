@@ -3,13 +3,14 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import './EksbanderbartPanelRad.less';
 
 interface Props {
-    svgPath: string;
+    svgPath: React.ReactNode;
 }
 
 const EkstbanderbartPanelRad: React.FunctionComponent<Props> = props => {
+
     return (
         <div className="howto__element">
-            <img src={props.svgPath} />
+            {props.svgPath}
             <Normaltekst className="howto__tekst">{props.children}</Normaltekst>
         </div>
     );

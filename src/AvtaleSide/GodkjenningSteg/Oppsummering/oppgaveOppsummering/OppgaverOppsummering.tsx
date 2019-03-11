@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import { Ingress, Normaltekst, Element } from 'nav-frontend-typografi';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
 import { Avtale } from '../../../avtale';
 import BEMHelper from '../../../../utils/bem';
 import './oppgaveOppsummering.less';
@@ -15,18 +15,15 @@ interface Props {
 const OppgaverOppsummering = (props: Props) => {
     const arbeidsoppgaver = props.avtale.oppgaver.map(oppgave => (
         <div key={oppgave.id} className={cls.className}>
-            <Ingress className={cls.element('oppgave-tittel')}>
+            <Element className={cls.element('label')}>Arbeidsoppgave</Element>
+            <Normaltekst className={cls.element('beskrivelse')}>
                 {oppgave.tittel}
-            </Ingress>
-            <Element className={cls.element('label')}>
-                Hva går arbeidsoppgaven ut på?
-            </Element>
+            </Normaltekst>
+            <Element className={cls.element('label')}>Beskrivelse</Element>
             <Normaltekst className={cls.element('beskrivelse')}>
                 {oppgave.beskrivelse}
             </Normaltekst>
-            <Element className={cls.element('label')}>
-                Hvilken opplæring skal deltakeren få?
-            </Element>
+            <Element className={cls.element('label')}>Opplæring</Element>
             <Normaltekst className={cls.element('beskrivelse')}>
                 {oppgave.opplaering}
             </Normaltekst>

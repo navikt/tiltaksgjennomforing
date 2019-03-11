@@ -18,6 +18,7 @@ interface Props {
 }
 
 const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
+    console.log(rolle);
     switch (rolle) {
         case 'DELTAKER':
             return avtale.godkjentAvDeltaker;

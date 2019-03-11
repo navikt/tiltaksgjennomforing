@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { Normaltekst, Element, Undertittel } from 'nav-frontend-typografi';
 import { Avtale } from '../../../avtale';
 import './Avtaleparter.less';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
@@ -53,36 +53,41 @@ const Avtaleparter = (props: Props) => {
             ikon={<AvtalepartnerHeaderIkon />}
         >
             <RadTittel radTittel="Deltaker" clsName="radtittel--first" />
-            <AvtaleRad
-                labelKolEn="navn"
-                navnKolEn={deltakerNavn}
-                labelKolTo="Fødselsnummer"
-                navnKolTo={deltakerFnr}
-            />
+            <div className={cls.element('boxwrapper')}>
+                <AvtaleRad
+                    labelKolEn="navn"
+                    navnKolEn={deltakerNavn}
+                    labelKolTo="Fødselsnummer"
+                    navnKolTo={deltakerFnr}
+                />
+            </div>
             <RadTittel radTittel="Arbeidsgiver" clsName="radtittel " />
-            <AvtaleRad
-                labelKolEn="Bedriftens navn"
-                navnKolEn={bedriftNavn}
-                labelKolTo="bedriftsnummer"
-                navnKolTo={bedriftNr}
-            />
-            <AvtaleRad
-                labelKolEn="Kontaktperson for avtalen"
-                navnKolEn={kontaktperson}
-                labelKolTo="Telefonnummer"
-                navnKolTo={bedriftNr}
-            />
-
+            <div className={cls.element('boxwrapper')}>
+                <AvtaleRad
+                    labelKolEn="Bedriftens navn"
+                    navnKolEn={bedriftNavn}
+                    labelKolTo="bedriftsnummer"
+                    navnKolTo={bedriftNr}
+                />
+                <AvtaleRad
+                    labelKolEn="Kontaktperson for avtalen"
+                    navnKolEn={kontaktperson}
+                    labelKolTo="Telefonnummer"
+                    navnKolTo={bedriftNr}
+                />
+            </div>
             <RadTittel
                 radTittel="kontaktperson for avtalen"
                 clsName="radtittel"
             />
-            <AvtaleRad
-                labelKolEn="Kontaktperson"
-                navnKolEn={veilederNavn}
-                labelKolTo="Telefonnummer"
-                navnKolTo={veilederTlf}
-            />
+            <div className={cls.element('boxwrapper')}>
+                <AvtaleRad
+                    labelKolEn="Kontaktperson"
+                    navnKolEn={veilederNavn}
+                    labelKolTo="Telefonnummer"
+                    navnKolTo={veilederTlf}
+                />
+            </div>
         </Stegoppsummering>
     );
 };
@@ -95,34 +100,37 @@ const RadTittel = ({
     clsName: string;
 }) => (
     <div className={cls.element(clsName)}>
-        <Element>{radTittel}</Element>
+        <Undertittel>{radTittel}</Undertittel>
     </div>
 );
 
-const AvtaleRad = ({
+export const AvtaleRad = ({
+    clsName,
     labelKolEn,
     navnKolEn,
     labelKolTo,
     navnKolTo,
 }: {
+    clsName?: string;
     labelKolEn: string;
     navnKolEn: string;
     labelKolTo: string;
     navnKolTo: string;
 }) => {
+    const avtaleRadCls = BEMHelper(clsName ? clsName : 'avtaleparter');
     return (
-        <div className={cls.element('content')}>
-            <div className={cls.element('rad')}>
-                <div className={cls.element('element')}>
-                    <Normaltekst className={cls.element('label')}>
+        <div className={avtaleRadCls.element('content')}>
+            <div className={avtaleRadCls.element('rad')}>
+                <div className={avtaleRadCls.element('element')}>
+                    <Element className={avtaleRadCls.element('label')}>
                         {labelKolEn}
-                    </Normaltekst>
+                    </Element>
                     {HarData(navnKolEn)}
                 </div>
-                <div className={cls.element('element')}>
-                    <Normaltekst className={cls.element('label')}>
+                <div className={avtaleRadCls.element('element')}>
+                    <Element className={avtaleRadCls.element('label')}>
                         {labelKolTo}
-                    </Normaltekst>
+                    </Element>
                     {HarData(navnKolTo)}
                 </div>
             </div>

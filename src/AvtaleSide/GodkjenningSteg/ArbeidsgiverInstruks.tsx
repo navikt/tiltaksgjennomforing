@@ -1,6 +1,10 @@
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import VeilederpanelMedUtklippstavle from '../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import EkstbanderbartPanelRad from "../../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad";
+import { ReactComponent as RettighetsHammerIkon } from '../../assets/ikoner/law.svg';
+
 
 const ArbeidsgiverInstruks = () => (
     <>
@@ -31,6 +35,14 @@ const ArbeidsgiverInstruks = () => (
                 </li>
             </ul>
         </VeilederpanelMedUtklippstavle>
+        <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
+            <EkstbanderbartPanelRad svgPath={<RettighetsHammerIkon/>}>
+                Arbeidsmiljøloven:
+                En arbeidssøker som deltar på arbeidstrening blir i de fleste situasjoner regnet som en ordinær arbeidstaker etter arbeidsmiljøloven.
+
+                Det betyr at arbeidsgivers og deltaker plikter til arbeidsmiljø og krav til kontrolltiltak også gjelder når arbeidssøkeren er på arbeidstrening.  Det inkluderer blant annet arbeidstid, vern mot diskriminering og straff ved overtredelse av lovens bestemmelser.
+            </EkstbanderbartPanelRad>
+        </Ekspanderbartpanel>
     </>
 );
 
