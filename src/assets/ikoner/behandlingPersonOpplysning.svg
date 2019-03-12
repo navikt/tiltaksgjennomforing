@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="100%" viewBox="0 0 24 24">
+    <defs>
+        <path id="behandlingPersonOpplysning_a" d="M20.5 9a.5.5 0 0 1 .5.5v14a.5.5 0 0 1-.5.5h-17a.5.5 0 0 1-.5-.5v-14a.5.5 0 0 1 .5-.5H6V6c0-3.309 2.691-6 6-6s6 2.691 6 6v3h2.5zM7 6v3h10V6c0-2.757-2.243-5-5-5S7 3.243 7 6zm13 17V10H4v13h16zm-8-9a1 1 0 0 1 1 1 .99.99 0 0 1-.5.847V18.5a.5.5 0 0 1-1 0v-2.653A.99.99 0 0 1 11 15a1 1 0 0 1 1-1z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <mask id="behandlingPersonOpplysning_b" fill="#fff">
+            <use xlink:href="#behandlingPersonOpplysning_a"/>
+        </mask>
+        <use fill="#3E3832" xlink:href="#behandlingPersonOpplysning_a"/>
+        <g fill="#3E3832" mask="url(#behandlingPersonOpplysning_b)">
+            <path d="M0 24h24V0H0z"/>
+        </g>
+    </g>
+</svg>

@@ -5,6 +5,7 @@ import {Avtale} from "../../../avtale";
 import { Normaltekst, Element } from 'nav-frontend-typografi';
 import './tilrettelegging.less';
 import TilretteleggingIkon from "./TilretteleggingIkon";
+import {HarData} from "../Avtaleparter/Avtaleparter";
 
 const cls = BEMHelper('tilrettelegging');
 
@@ -20,9 +21,7 @@ const Tilrettelegging = ({avtale}: {avtale: Avtale}) => {
           <Element className={cls.element('label')}>
               Tilretteleggingsbehov
           </Element>
-          <Normaltekst className={cls.element('content')}>
-              {tilrettelegging}
-          </Normaltekst>
+          {HarData(tilrettelegging)}
       </div>
       </Stegoppsummering>
   )

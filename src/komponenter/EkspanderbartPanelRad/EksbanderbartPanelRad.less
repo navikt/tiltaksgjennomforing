@@ -1,34 +1,42 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .howto {
-  & svg {
-    width: 100%;
-  }
+    &__icon {
+        flex-grow: 1;
+    }
 
     &__element {
-      display: flex;
-      margin-bottom: 1.5rem;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-      margin-top: 1rem;
-      align-items: flex-start;
+        display: flex;
+        margin-bottom: 1.5rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        margin-top: 1rem;
+        align-items: flex-start;
+
+        &:nth-child(0) {
+            flex-grow: 1;
+        }
+        &:nth-child(1) {
+            flex-grow: 5;
+        }
     }
     &__tekst {
-      margin-left: 1rem;
+        margin-left: 1rem;
+        flex-grow: 5;
     }
-  }
+}
 
 @media (min-width: @screen-sm-min) {
     .howto {
         &__element {
-          display: flex;
-          margin-bottom: 2.5rem;
-          margin-left: 3rem;
-          margin-right: 3rem;
-          margin-top: 1rem;
+            display: flex;
+            margin-bottom: 2.5rem;
+            margin-left: 3rem;
+            margin-right: 3rem;
+            margin-top: 1rem;
         }
         &__tekst {
-          margin-left: 1rem;
+            margin-left: 1rem;
         }
-      }
     }
+}

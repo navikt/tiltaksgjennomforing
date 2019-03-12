@@ -1,11 +1,11 @@
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import VeilederpanelMedUtklippstavleIkon from '../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import EkstbanderbartPanelRad from "../../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad";
-import rettighetsHammerIkon from '../../assets/ikoner/law.svg';
-import vekkFraJobben from '../../assets/ikoner/medical-box.svg';
-import meldekort from '../../assets/ikoner/email-send-3.svg';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import EkstbanderbartPanelRad from '../../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import { ReactComponent as RettighetsHammerIkon } from '../../assets/ikoner/law.svg';
+import { ReactComponent as GiBeskjedOmBorteFraJobb } from '../../assets/ikoner/giBeskjedOmBorteFraJobb.svg';
+import { ReactComponent as EmailSend } from '../../assets/ikoner/email-send-3.svg';
 
 const DeltakerInstruks = () => (
     <>
@@ -32,18 +32,27 @@ const DeltakerInstruks = () => (
         </VeilederpanelMedUtklippstavleIkon>
 
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
-            <EkstbanderbartPanelRad svgPath={rettighetsHammerIkon}>
-                Ditt forhold til arbeidsmiljøloven
-                Når du deltar på arbeidstrening regnes du som en vanlig ansatt, som vil si at din arbeidsgiver må følge de fleste av arbeidsmiljølovens regler.
-
-                Arbeidsgiver må også forsikre deg og arbeidsgiver har et ansvar for deg hvis du blir skadet på jobb.
+            <EkstbanderbartPanelRad
+                svgPath={<RettighetsHammerIkon />}
+                headerTekst="Ditt forhold til arbeidsmiljøloven"
+            >
+                Når du deltar på arbeidstrening regnes du som en vanlig ansatt,
+                som vil si at din arbeidsgiver må følge de fleste av
+                arbeidsmiljølovens regler. Arbeidsgiver må også forsikre deg og
+                arbeidsgiver har et ansvar for deg hvis du blir skadet på jobb.
             </EkstbanderbartPanelRad>
-            <EkstbanderbartPanelRad svgPath={vekkFraJobben}>
-                Gi beskjed hvis du er borte fra jobb
-                Du må melde fra til arbeidsgiver ved fravær. Ved egen eller barns sykdom gjelder ordinære regler for bruk av egenmelding også for deg som er på arbeidstrening.
+            <EkstbanderbartPanelRad
+                svgPath={<GiBeskjedOmBorteFraJobb />}
+                headerTekst="Gi beskjed hvis du er borte fra jobb"
+            >
+                Du må melde fra til arbeidsgiver ved fravær. Ved egen eller
+                barns sykdom gjelder ordinære regler for bruk av egenmelding
+                også for deg som er på arbeidstrening.
             </EkstbanderbartPanelRad>
-            <EkstbanderbartPanelRad svgPath={meldekort}>
-                Meldekort
+            <EkstbanderbartPanelRad
+                svgPath={<EmailSend />}
+                headerTekst="Meldekort"
+            >
                 Du må sende meldekort hver 14. dag når du er på arbeidstrening.
             </EkstbanderbartPanelRad>
         </Ekspanderbartpanel>

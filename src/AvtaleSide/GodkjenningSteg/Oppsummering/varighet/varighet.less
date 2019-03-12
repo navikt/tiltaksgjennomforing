@@ -1,18 +1,16 @@
 @mobile-breakpoint: 576px;
 
 .varighetOppsummering {
+    &__content {
+        padding-top: 0.5rem;
+        padding-bottom: 0.25rem;
+    }
+
     &__rad {
         display: flex;
         flex-direction: column;
         justify-content: left;
         flex-grow: 1;
-
-        &--fortsettelse {
-            display: flex;
-            flex-direction: column;
-            justify-content: left;
-            flex-grow: 1;
-        }
     }
 
     &__element {
@@ -21,6 +19,19 @@
 
     &__label {
         padding-top: 1rem;
+    }
+
+    &__navn {
+        margin-bottom: 1rem;
+
+        &--ikkeFyltUt {
+            background-color: #ffe5c2;
+            width: fit-content;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
     }
 
     @media (min-width: @mobile-breakpoint) {

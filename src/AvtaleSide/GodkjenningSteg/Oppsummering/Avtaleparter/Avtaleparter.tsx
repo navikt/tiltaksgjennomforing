@@ -12,9 +12,9 @@ interface Props {
 
 const cls = BEMHelper('avtaleparter');
 
-const HarData = (input: string): React.ReactNode => {
+export const HarData = (input: string): React.ReactNode => {
     if (input) {
-        if (input.length > 0 && input !== 'null null' && input !== null) {
+        if (input.length > 0 && input.search('null') && input !== null) {
             return (
                 <Normaltekst className={cls.element('navn')}>
                     {input}
@@ -53,41 +53,37 @@ const Avtaleparter = (props: Props) => {
             ikon={<AvtalepartnerHeaderIkon />}
         >
             <RadTittel radTittel="Deltaker" clsName="radtittel--first" />
-            <div className={cls.element('boxwrapper')}>
-                <AvtaleRad
-                    labelKolEn="navn"
-                    navnKolEn={deltakerNavn}
-                    labelKolTo="Fødselsnummer"
-                    navnKolTo={deltakerFnr}
-                />
-            </div>
+
+            <AvtaleRad
+                labelKolEn="navn"
+                navnKolEn={deltakerNavn}
+                labelKolTo="Fødselsnummer"
+                navnKolTo={deltakerFnr}
+            />
+
             <RadTittel radTittel="Arbeidsgiver" clsName="radtittel " />
-            <div className={cls.element('boxwrapper')}>
-                <AvtaleRad
-                    labelKolEn="Bedriftens navn"
-                    navnKolEn={bedriftNavn}
-                    labelKolTo="bedriftsnummer"
-                    navnKolTo={bedriftNr}
-                />
-                <AvtaleRad
-                    labelKolEn="Kontaktperson for avtalen"
-                    navnKolEn={kontaktperson}
-                    labelKolTo="Telefonnummer"
-                    navnKolTo={bedriftNr}
-                />
-            </div>
+            <AvtaleRad
+                labelKolEn="Bedriftens navn"
+                navnKolEn={bedriftNavn}
+                labelKolTo="bedriftsnummer"
+                navnKolTo={bedriftNr}
+            />
+            <AvtaleRad
+                labelKolEn="Kontaktperson for avtalen"
+                navnKolEn={kontaktperson}
+                labelKolTo="Telefonnummer"
+                navnKolTo={bedriftNr}
+            />
             <RadTittel
                 radTittel="kontaktperson for avtalen"
                 clsName="radtittel"
             />
-            <div className={cls.element('boxwrapper')}>
-                <AvtaleRad
-                    labelKolEn="Kontaktperson"
-                    navnKolEn={veilederNavn}
-                    labelKolTo="Telefonnummer"
-                    navnKolTo={veilederTlf}
-                />
-            </div>
+            <AvtaleRad
+                labelKolEn="Kontaktperson"
+                navnKolEn={veilederNavn}
+                labelKolTo="Telefonnummer"
+                navnKolTo={veilederTlf}
+            />
         </Stegoppsummering>
     );
 };
