@@ -79,12 +79,6 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
         arbeidstreningLengde,
         arbeidstreningStillingprosent,
     } = avtale;
-    console.log(startDato, arbeidstreningLengde, arbeidstreningStillingprosent);
-    console.log(sjekkOmVerdiErSatt(startDato));
-    console.log(sjekkOmVerdiErSatt(arbeidstreningLengde));
-    console.log(sjekkOmVerdiErSatt(arbeidstreningStillingprosent));
-    console.log(typeof startDato);
-
     return (
         <Stegoppsummering ikon={<VarighetIkon />} tittel="Dato og arbeidstid">
             <div className={cls.element('content')}>
@@ -101,8 +95,10 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
                         </Element>
                         {settInnRadStatus(
                             sjekkOmVerdiErSatt(arbeidstreningLengde),
-                            arbeidstreningLengde.toString() +
-                                ukeSulfix(arbeidstreningLengde)
+                            arbeidstreningLengde
+                                ? arbeidstreningLengde.toString() +
+                                      ukeSulfix(arbeidstreningLengde)
+                                : ''
                         )}
                     </div>
                 </div>
