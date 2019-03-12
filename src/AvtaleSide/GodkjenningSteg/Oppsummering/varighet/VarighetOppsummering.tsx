@@ -31,7 +31,7 @@ const settInnTidsperiode = (
     if (
         sjekkOmVerdiErSatt(stillingProsent) &&
         sjekkOmVerdiErSatt(arbLengde) &&
-        sjekkOmVerdiErSatt(dato)
+        HarData(harDato(dato))
     ) {
         return (
             <Normaltekst className="oppsummering__beskrivelse">
@@ -45,7 +45,7 @@ const settInnTidsperiode = (
 };
 
 const ukeSulfix = (antall: number): string => {
-    return antall > 1 ? 'uker' : 'uke';
+    return antall > 1 ? ' uker' : ' uke';
 };
 
 const sjekkOmVerdiErSatt = (input: number): boolean => {
@@ -59,6 +59,10 @@ const sjekkOmVerdiErSatt = (input: number): boolean => {
 
 const formaterDato = (dato: number): string => {
     return moment(dato).format('DD.MM.YYYY');
+};
+
+const harDato = (dato: number): string => {
+    return dato ? formaterDato(dato).toString() : '';
 };
 
 const standardTomBlokk = (): React.ReactNode => {
@@ -75,6 +79,11 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
         arbeidstreningLengde,
         arbeidstreningStillingprosent,
     } = avtale;
+    console.log(startDato, arbeidstreningLengde, arbeidstreningStillingprosent);
+    console.log(sjekkOmVerdiErSatt(startDato));
+    console.log(sjekkOmVerdiErSatt(arbeidstreningLengde));
+    console.log(sjekkOmVerdiErSatt(arbeidstreningStillingprosent));
+    console.log(typeof startDato);
 
     return (
         <Stegoppsummering ikon={<VarighetIkon />} tittel="Dato og arbeidstid">
@@ -84,9 +93,7 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
                         <Element className={cls.element('label')}>
                             Startdato
                         </Element>
-                        {HarData(
-                            startDato ? formaterDato(startDato).toString() : ''
-                        )}
+                        {HarData(harDato(startDato))}
                     </div>
                     <div className={cls.element('element')}>
                         <Element className={cls.element('label')}>
@@ -94,9 +101,9 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
                         </Element>
                         {settInnRadStatus(
                             sjekkOmVerdiErSatt(arbeidstreningLengde),
-                            arbeidstreningLengde
+                            arbeidstreningLengde.toString() +
+                                ukeSulfix(arbeidstreningLengde)
                         )}
-                        {arbeidstreningLengde ? formaterDato(startDato) : null}
                     </div>
                 </div>
             </div>
