@@ -28,15 +28,11 @@ const settInnTidsperiode = (
     arbLengde: number,
     dato: number
 ): React.ReactNode => {
-    if (
-        sjekkOmVerdiErSatt(stillingProsent) &&
-        sjekkOmVerdiErSatt(arbLengde) &&
-        HarData(harDato(dato))
-    ) {
+    if (sjekkOmVerdiErSatt(stillingProsent) && sjekkOmVerdiErSatt(arbLengde)) {
         return (
             <Normaltekst className="oppsummering__beskrivelse">
                 {stillingProsent}% stilling i {arbLengde} {ukeSulfix(arbLengde)}{' '}
-                fra {dato}.
+                {harDato(dato).length > 1 ? `fra ${dato}.` : ''}
             </Normaltekst>
         );
     }
