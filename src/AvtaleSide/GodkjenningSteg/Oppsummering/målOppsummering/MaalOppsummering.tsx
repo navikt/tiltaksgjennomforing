@@ -25,7 +25,7 @@ const MaalOppsummering = (props: Props) => {
         <Stegoppsummering ikon={<MålIkon/>} tittel="Mål">{maalListe}</Stegoppsummering>
     ) : (
         <Stegoppsummering ikon={<MålIkon/>} tittel="Mål">
-            <div className={cls.element('ikkeSatt')}>Ikke fylt ut</div>
+            <Normaltekst className={cls.element('ikkeSatt')}>Ikke fylt ut</Normaltekst>
         </Stegoppsummering>
     );
 };

@@ -13,20 +13,38 @@ interface Props {
 const cls = BEMHelper('avtaleparter');
 
 export const HarData = (input: string): React.ReactNode => {
-    if (input) {
-        if (input.length > 0 && input.search('null') && input !== null) {
+    if (sjekkStrengVerdi(input)) {
             return (
                 <Normaltekst className={cls.element('navn')}>
                     {input}
                 </Normaltekst>
             );
-        }
     }
     return (
         <Normaltekst className={cls.element('navn--ikkeFyltUt')}>
             Ikke fylt ut
         </Normaltekst>
     );
+};
+
+const sjekkNavnForConCatOmBeggeEksisterer = (
+    navn: string,
+    etternavn: string
+): string => {
+    if (sjekkStrengVerdi(navn) && sjekkStrengVerdi(etternavn)) {
+        const deltakerNavn = `${navn} ${etternavn}`;
+        return deltakerNavn;
+    }
+    return '';
+};
+
+const sjekkStrengVerdi = (streng: string): boolean => {
+    if (streng) {
+        if (streng.length > 0 && streng.search('null') && streng !== null) {
+            return true;
+        }
+    }
+    return false;
 };
 
 const Avtaleparter = (props: Props) => {
@@ -41,11 +59,8 @@ const Avtaleparter = (props: Props) => {
         deltakerFnr,
         bedriftNr,
         veilederTlf,
+        arbeidsgiverTlf,
     } = props.avtale;
-
-    const deltakerNavn = `${deltakerFornavn} ${deltakerEtternavn}`;
-    const kontaktperson = `${arbeidsgiverFornavn} ${arbeidsgiverEtternavn}`;
-    const veilederNavn = `${veilederFornavn} ${veilederEtternavn}`;
 
     return (
         <Stegoppsummering
@@ -55,8 +70,11 @@ const Avtaleparter = (props: Props) => {
             <RadTittel radTittel="Deltaker" clsName="radtittel--first" />
 
             <AvtaleRad
-                labelKolEn="navn"
-                navnKolEn={deltakerNavn}
+                labelKolEn="Navn"
+                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
+                    deltakerFornavn,
+                    deltakerEtternavn
+                )}
                 labelKolTo="Fødselsnummer"
                 navnKolTo={deltakerFnr}
             />
@@ -65,22 +83,28 @@ const Avtaleparter = (props: Props) => {
             <AvtaleRad
                 labelKolEn="Bedriftens navn"
                 navnKolEn={bedriftNavn}
-                labelKolTo="bedriftsnummer"
+                labelKolTo="Bedriftsnummer"
                 navnKolTo={bedriftNr}
             />
             <AvtaleRad
                 labelKolEn="Kontaktperson for avtalen"
-                navnKolEn={kontaktperson}
+                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
+                    arbeidsgiverFornavn,
+                    arbeidsgiverEtternavn
+                )}
                 labelKolTo="Telefonnummer"
-                navnKolTo={bedriftNr}
+                navnKolTo={arbeidsgiverTlf}
             />
             <RadTittel
-                radTittel="kontaktperson for avtalen"
+                radTittel="Kontaktperson for avtalen"
                 clsName="radtittel"
             />
             <AvtaleRad
                 labelKolEn="Kontaktperson"
-                navnKolEn={veilederNavn}
+                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
+                    veilederFornavn,
+                    veilederEtternavn
+                )}
                 labelKolTo="Telefonnummer"
                 navnKolTo={veilederTlf}
             />
@@ -113,7 +137,6 @@ export const AvtaleRad = ({
     labelKolTo: string;
     navnKolTo: string;
 }) => {
-
     const avtaleRadCls = BEMHelper(clsName ? clsName : 'avtaleparter');
     return (
         <div className={avtaleRadCls.element('content')}>
