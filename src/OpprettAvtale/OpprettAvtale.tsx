@@ -121,12 +121,12 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 tittelProps="element"
                 border={true}
             >
-                <EkstbanderbartPanelRad svgPath={<AvtaleSignering />}>
+                <EkstbanderbartPanelRad svgIkon={<AvtaleSignering />}>
                     Dette er en digital avtale for arbeidstrening som skal
                     brukes av deltaker, arbeidsgiver og NAV sin veileder.
                 </EkstbanderbartPanelRad>
 
-                <EkstbanderbartPanelRad svgPath={<NokkelPunktForAvtale />}>
+                <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
                     For at avtalen skal kunne opprettes, må avtalens parter bli
                     knyttet sammen med gyldige, unike identifikasjoner:
                     fødselsnummer. På sikt kan alle bruke Altinn til å logge
@@ -134,14 +134,14 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     fødselsnummer.
                 </EkstbanderbartPanelRad>
                 <EkstbanderbartPanelRad
-                    svgPath={<DrofteMedAnsattePersonOpplysning />}
+                    svgIkon={<DrofteMedAnsattePersonOpplysning />}
                 >
                     Deltaker, arbeidsgiver og veileder skal sammen fylle ut
                     avtalen og blant annet bli enige om mål, arbeidsoppgaver og
                     oppfølging.
                 </EkstbanderbartPanelRad>
 
-                <EkstbanderbartPanelRad svgPath={<CheckCircleIkon />}>
+                <EkstbanderbartPanelRad svgIkon={<CheckCircleIkon />}>
                     Til slutt skal både deltaker, arbeidsgiver og veileder
                     godkjenne avtalen slik at arbeidstreningen kan starte.
                 </EkstbanderbartPanelRad>

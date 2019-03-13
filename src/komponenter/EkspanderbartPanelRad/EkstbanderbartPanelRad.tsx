@@ -4,18 +4,18 @@ import './EksbanderbartPanelRad.less';
 import BEMHelper from '../../utils/bem';
 
 interface Props {
-    svgPath: React.ReactNode;
+    svgIkon: React.ReactNode;
     headerTekst?: string;
 }
 
 const cls = BEMHelper('howto');
 
 const EkstbanderbartPanelRad: React.FunctionComponent<Props> = props => {
-    const { svgPath, headerTekst, children } = props;
+    const { svgIkon, headerTekst, children } = props;
     const header = headerTekst ? <Element>{headerTekst}</Element> : null;
     return (
         <div className={cls.element('element')}>
-            <div className={cls.element('icon')}>{svgPath}</div>
+            <div className={cls.element('icon')}>{svgIkon}</div>
             <div className={cls.element('tekst')}>
                 {header}
                 <Normaltekst>{children}</Normaltekst>

@@ -39,7 +39,7 @@ const ArbeidsgiverInstruks = () => (
         </VeilederpanelMedUtklippstavle>
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
             <EkstbanderbartPanelRad
-                svgPath={<RettighetsHammerIkon />}
+                svgIkon={<RettighetsHammerIkon />}
                 headerTekst="Arbeidsmiljøloven"
             >
                 En arbeidssøker som deltar på arbeidstrening blir i de fleste
@@ -51,7 +51,7 @@ const ArbeidsgiverInstruks = () => (
                 overtredelse av lovens bestemmelser.
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
-                svgPath={<SkadeErstatning />}
+                svgIkon={<SkadeErstatning />}
                 headerTekst="Yrkesskadeforsikring og skadeerstatning"
             >
                 Den som er i arbeidstrening er omfattet av arbeidsgiverens
@@ -61,7 +61,7 @@ const ArbeidsgiverInstruks = () => (
                 kostnader i forbindelse med forsikringsansvaret.
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
-                svgPath={<DrofteMedAnsattePersonOpplysning />}
+                svgIkon={<DrofteMedAnsattePersonOpplysning />}
                 headerTekst="Drøft med representanter for de ansatte"
             >
                 Du må drøfte inngåelse av avtale om arbeidstrening med
@@ -72,7 +72,7 @@ const ArbeidsgiverInstruks = () => (
             </EkstbanderbartPanelRad>
 
             <EkstbanderbartPanelRad
-                svgPath={<BehandlingPersonOpplysning />}
+                svgIkon={<BehandlingPersonOpplysning />}
                 headerTekst="Behandling av personopplysninger"
             >
                 Som arbeidsgiver må du sikre at all behandling av

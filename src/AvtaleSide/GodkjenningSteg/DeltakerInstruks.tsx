@@ -33,7 +33,7 @@ const DeltakerInstruks = () => (
 
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
             <EkstbanderbartPanelRad
-                svgPath={<RettighetsHammerIkon />}
+                svgIkon={<RettighetsHammerIkon />}
                 headerTekst="Ditt forhold til arbeidsmiljøloven"
             >
                 Når du deltar på arbeidstrening regnes du som en vanlig ansatt,
@@ -42,7 +42,7 @@ const DeltakerInstruks = () => (
                 arbeidsgiver har et ansvar for deg hvis du blir skadet på jobb.
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
-                svgPath={<GiBeskjedOmBorteFraJobb />}
+                svgIkon={<GiBeskjedOmBorteFraJobb />}
                 headerTekst="Gi beskjed hvis du er borte fra jobb"
             >
                 Du må melde fra til arbeidsgiver ved fravær. Ved egen eller
@@ -50,7 +50,7 @@ const DeltakerInstruks = () => (
                 også for deg som er på arbeidstrening.
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
-                svgPath={<EmailSend />}
+                svgIkon={<EmailSend />}
                 headerTekst="Meldekort"
             >
                 Du må sende meldekort hver 14. dag når du er på arbeidstrening.
