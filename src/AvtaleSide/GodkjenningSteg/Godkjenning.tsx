@@ -41,28 +41,28 @@ const instruks = (rolle: Rolle) => {
     }
 };
 
+
 const Godkjenning = (props: Props) => {
     const [bekreftet, setBekreftet] = useState(false);
 
     if (harGodkjentSelv(props.avtale, props.rolle)) {
         return null;
     }
-
     return (
         <Innholdsboks className="godkjenning">
             <Systemtittel className="godkjenning__tittel">
                 Godkjenn avtalen
             </Systemtittel>
             {instruks(props.rolle)}
-            <BekreftCheckboksPanel
+            {props.rolle !== 'VEILEDER' && <BekreftCheckboksPanel
                 label="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"
                 checked={bekreftet}
                 onChange={() => setBekreftet(!bekreftet)}
-            />
+            />}
             <div>
                 <LagreKnapp
                     lagre={() => {
-                        if (bekreftet) {
+                        if (bekreftet || props.rolle === 'VEILEDER') {
                             return props.endreGodkjenning(true);
                         } else {
                             throw new ApiError(
