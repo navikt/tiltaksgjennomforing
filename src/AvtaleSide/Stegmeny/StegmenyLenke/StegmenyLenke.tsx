@@ -5,6 +5,7 @@ import stegFullfortIkon from './steg-fullfort.svg';
 import stegIkkeFullfortIkon from './steg-ikke-fullfort.svg';
 import ApiError from '../../../api-error';
 import { Context, medContext } from '../../../AvtaleContext';
+import { FunctionComponent } from 'react';
 
 interface Props {
     label: string;
@@ -13,7 +14,7 @@ interface Props {
     url: string;
 }
 
-const StegmenyLenke = (props: Context & Props) => {
+const StegmenyLenke: FunctionComponent<Context & Props> = props => {
     const statusIkon = props.ferdig ? (
         <img src={stegFullfortIkon} />
     ) : (
@@ -45,4 +46,4 @@ const StegmenyLenke = (props: Context & Props) => {
     );
 };
 
-export default medContext<Props>(StegmenyLenke);
+export default medContext(StegmenyLenke);
