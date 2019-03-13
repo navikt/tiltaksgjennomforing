@@ -168,7 +168,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
 
                 <div className="opprett-avtale__input-wrapper-rad2">
                     <PakrevdInput
-                        className="opprett-avtale__arbeidsgiver-bedriftNavn"
+                        className="opprett-avtale__arbeidsgiver-bedriftNavn typo-element"
                         label="Bedriftens navn"
                         verdi={this.state.bedriftNavn}
                         onChange={event =>
