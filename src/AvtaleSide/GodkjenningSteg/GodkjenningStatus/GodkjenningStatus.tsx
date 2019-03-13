@@ -24,6 +24,7 @@ const GodkjenningStatus: React.FunctionComponent<Props> = (props: Props) => {
                     godkjentAvtale={props.avtale.godkjentAvArbeidsgiver}
                     fornavn={props.avtale.arbeidsgiverFornavn}
                     etternavn={props.avtale.arbeidsgiverEtternavn}
+                    bedriftNavn={props.avtale.bedriftNavn}
                     placeholderName="Arbeidsgiver"
                 />
                 <GodkjenningRad

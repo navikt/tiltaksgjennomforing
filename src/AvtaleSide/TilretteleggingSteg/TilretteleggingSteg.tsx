@@ -13,31 +13,30 @@ const TilretteleggingSteg = (props: Context) => {
     };
 
     return (
-        <>
-            <Innholdsboks utfyller="veileder">
-                <Systemtittel className="tilretteleggingsteg__tittel">
-                    Tilrettelegging
-                    <HjelpetekstBase id="hjelpetekst">
-                        Beskriv avtalt tilrettelegging av arbeidssituasjonen
-                        (for eksempel tilpasning i arbeidstid, hjelpemidler,
-                        unngå enkelte typer arbeidsoppgaver mv.)
-                    </HjelpetekstBase>
-                </Systemtittel>
+        <Innholdsboks utfyller="veileder">
+            <Systemtittel className="tilretteleggingsteg__tittel">
+                Tilrettelegging
+                <HjelpetekstBase id="hjelpetekst">
+                    Beskriv avtalt tilrettelegging av arbeidssituasjonen (for
+                    eksempel tilpasning i arbeidstid, hjelpemidler, unngå
+                    enkelte typer arbeidsoppgaver mv.)
+                </HjelpetekstBase>
+            </Systemtittel>
 
-                <PakrevdTextarea
-                    label="Beskriv hvilken tilrettelegging det er behov for"
-                    verdi={props.avtale.tilrettelegging}
-                    onChange={onChange('tilrettelegging')}
-                    maxLengde={1000}
-                    feilmelding="Beskrivelse av tilrettelegging er påkrevd"
-                />
-            </Innholdsboks>
+            <PakrevdTextarea
+                label="Beskriv hvilken tilrettelegging det er behov for"
+                verdi={props.avtale.tilrettelegging}
+                onChange={onChange('tilrettelegging')}
+                maxLengde={1000}
+                feilmelding="Beskrivelse av tilrettelegging er påkrevd"
+            />
             <LagreKnapp
+                className="tilretteleggingsteg__lagre-knapp"
                 lagre={props.lagreAvtale}
                 label={'Lagre avtale'}
                 suksessmelding={'Avtale lagret'}
             />
-        </>
+        </Innholdsboks>
     );
 };
 

@@ -9,6 +9,7 @@ interface Props {
     fornavn: string;
     etternavn: string;
     placeholderName: string;
+    bedriftNavn?: string;
 }
 
 const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
@@ -17,10 +18,21 @@ const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
         : 'Venter på godkjenning';
 
     const fulltNavn = () => {
-        return (
-            [props.fornavn, props.etternavn].filter(Boolean).join(' ') ||
-            props.placeholderName
-        );
+        const fulltNavn = [props.fornavn, props.etternavn]
+            .filter(Boolean)
+            .join(' ');
+
+        if (fulltNavn) {
+            if (props.placeholderName === 'Veileder i NAV') {
+                return 'NAV v/ ' + fulltNavn;
+            } else if (props.placeholderName === 'Arbeidsgiver') {
+                return props.bedriftNavn + ' v/ ' + fulltNavn;
+            } else {
+                return fulltNavn;
+            }
+        } else {
+            return props.placeholderName;
+        }
     };
 
     return (
