@@ -113,6 +113,7 @@ export const AvtaleRad = ({
     labelKolTo: string;
     navnKolTo: string;
 }) => {
+
     const avtaleRadCls = BEMHelper(clsName ? clsName : 'avtaleparter');
     return (
         <div className={avtaleRadCls.element('content')}>
@@ -123,7 +124,7 @@ export const AvtaleRad = ({
                     </Element>
                     {HarData(navnKolEn)}
                 </div>
-                <div className={avtaleRadCls.element('element')}>
+                <div className={avtaleRadCls.element('element', 'ytterrad')}>
                     <Element className={avtaleRadCls.element('label')}>
                         {labelKolTo}
                     </Element>
