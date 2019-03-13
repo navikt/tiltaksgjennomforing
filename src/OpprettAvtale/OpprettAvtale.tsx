@@ -13,10 +13,10 @@ import { erGyldigFnr } from '../utils/fnrUtils';
 import './OpprettAvtale.less';
 import PakrevdInput from '../komponenter/PakrevdInput/PakrevdInput';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import keyIkon from './key.svg';
-import accountGrpIkon from './account-group.svg';
-import checkCircleIkon from './check-circle.svg';
-import handKindleIkon from './hand-kindle.svg';
+import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelPunktForAvtale.svg';
+import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
+import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle.svg';
+import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
 
 interface State {
     deltakerFnr: string;
@@ -98,9 +98,9 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     render() {
         const veilederpanel = (
             <VeilederpanelMedUtklippstavleIkon>
-                <Normaltekst className="opprett-avtale__du-trenger-tekst">
+                <Element className="opprett-avtale__du-trenger-tekst">
                     Du trenger:
-                </Normaltekst>
+                </Element>
                 <ul>
                     <li>
                         <Normaltekst>Deltakers fødselsnummer</Normaltekst>
@@ -121,26 +121,27 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 tittelProps="element"
                 border={true}
             >
-                <EkstbanderbartPanelRad svgPath={handKindleIkon}>
+                <EkstbanderbartPanelRad svgIkon={<AvtaleSignering />}>
                     Dette er en digital avtale for arbeidstrening som skal
                     brukes av deltaker, arbeidsgiver og NAV sin veileder.
                 </EkstbanderbartPanelRad>
 
-                <EkstbanderbartPanelRad svgPath={keyIkon}>
+                <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
                     For at avtalen skal kunne opprettes, må avtalens parter bli
                     knyttet sammen med gyldige, unike identifikasjoner:
                     fødselsnummer. På sikt kan alle bruke Altinn til å logge
                     inn, men enn så lenge må partene i avtalen utveksle sitt
                     fødselsnummer.
                 </EkstbanderbartPanelRad>
-
-                <EkstbanderbartPanelRad svgPath={accountGrpIkon}>
+                <EkstbanderbartPanelRad
+                    svgIkon={<DrofteMedAnsattePersonOpplysning />}
+                >
                     Deltaker, arbeidsgiver og veileder skal sammen fylle ut
                     avtalen og blant annet bli enige om mål, arbeidsoppgaver og
                     oppfølging.
                 </EkstbanderbartPanelRad>
 
-                <EkstbanderbartPanelRad svgPath={checkCircleIkon}>
+                <EkstbanderbartPanelRad svgIkon={<CheckCircleIkon />}>
                     Til slutt skal både deltaker, arbeidsgiver og veileder
                     godkjenne avtalen slik at arbeidstreningen kan starte.
                 </EkstbanderbartPanelRad>

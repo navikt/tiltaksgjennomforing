@@ -1,16 +1,25 @@
 import React from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
 import './EksbanderbartPanelRad.less';
+import BEMHelper from '../../utils/bem';
 
 interface Props {
-    svgPath: string;
+    svgIkon: React.ReactNode;
+    headerTekst?: string;
 }
 
+const cls = BEMHelper('howto');
+
 const EkstbanderbartPanelRad: React.FunctionComponent<Props> = props => {
+    const { svgIkon, headerTekst, children } = props;
+    const header = headerTekst ? <Element>{headerTekst}</Element> : null;
     return (
-        <div className="howto__element">
-            <img src={props.svgPath} />
-            <Normaltekst className="howto__tekst">{props.children}</Normaltekst>
+        <div className={cls.element('element')}>
+            <div className={cls.element('icon')}>{svgIkon}</div>
+            <div className={cls.element('tekst')}>
+                {header}
+                <Normaltekst>{children}</Normaltekst>
+            </div>
         </div>
     );
 };
