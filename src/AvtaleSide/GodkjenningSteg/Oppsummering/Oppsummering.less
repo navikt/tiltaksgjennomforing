@@ -16,4 +16,26 @@
         margin-bottom: 1rem;
         font-style: italic;
     }
+    &__header {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__print-knapp {
+        width: 12rem;
+        height: 2.5rem;
+        display: flex;
+        justify-content: space-evenly;
+        &:hover {
+            #printer {
+                fill: white;
+            }
+        }
+        &__ikon {
+            margin-left: 0.5rem;
+        }
+        @media print {
+            display: none;
+        }
+        
+    }
 }
