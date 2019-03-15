@@ -26,20 +26,12 @@ const StegmenyLenke: FunctionComponent<Context & Props> = props => {
         className += ' aktiv';
     }
 
-    const lagreAvtale = async () => {
-        try {
-            await props.lagreAvtale();
-        } catch (error) {
-            if (error instanceof ApiError) {
-                props.visFeilmelding(error.message);
-            } else {
-                throw error;
-            }
-        }
-    };
-
     return (
-        <Link to={props.url} className={className} onClick={lagreAvtale}>
+        <Link
+            to={props.url}
+            className={className}
+            onClick={props.lagreEllerHentAvtale}
+        >
             {/* {statusIkon} */}
             <span className="stegmenylenke__label">{props.label}</span>
         </Link>
