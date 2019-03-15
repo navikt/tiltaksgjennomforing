@@ -4,7 +4,7 @@ import { Normaltekst, Element } from 'nav-frontend-typografi';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import BEMHelper from '../../../../utils/bem';
 import './målOppsummering.less';
-import MålIkon from "./MålIkon";
+import MålIkon from './MålIkon';
 
 const cls = BEMHelper('mål');
 
@@ -22,10 +22,14 @@ const MaalOppsummering = (props: Props) => {
         </div>
     ));
     return maalListe.length > 0 ? (
-        <Stegoppsummering ikon={<MålIkon/>} tittel="Mål">{maalListe}</Stegoppsummering>
+        <Stegoppsummering ikon={<MålIkon />} tittel="Mål">
+            {maalListe}
+        </Stegoppsummering>
     ) : (
-        <Stegoppsummering ikon={<MålIkon/>} tittel="Mål">
-            <Normaltekst className={cls.element('ikkeSatt')}>Ikke fylt ut</Normaltekst>
+        <Stegoppsummering ikon={<MålIkon />} tittel="Mål">
+            <Normaltekst className={cls.element('ikkeSatt')}>
+                Ikke fylt ut
+            </Normaltekst>
         </Stegoppsummering>
     );
 };

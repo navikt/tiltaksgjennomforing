@@ -14,11 +14,9 @@ const cls = BEMHelper('avtaleparter');
 
 export const HarData = (input: string): React.ReactNode => {
     if (sjekkStrengVerdi(input)) {
-            return (
-                <Normaltekst className={cls.element('navn')}>
-                    {input}
-                </Normaltekst>
-            );
+        return (
+            <Normaltekst className={cls.element('navn')}>{input}</Normaltekst>
+        );
     }
     return (
         <Normaltekst className={cls.element('navn--ikkeFyltUt')}>

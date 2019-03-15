@@ -18,7 +18,11 @@ const OppfølgingIkon = () => (
             <mask id="oppfølgingIkon_b" fill="#fff">
                 <use xlinkHref="#oppfølgingIkon" />
             </mask>
-            <use fill="#3E3832" fillRule="nonzero" xlinkHref="#oppfølgingIkon" />
+            <use
+                fill="#3E3832"
+                fillRule="nonzero"
+                xlinkHref="#oppfølgingIkon"
+            />
             <g fill="#3E3832" mask="url(#oppfølgingIkon_b)">
                 <path d="M0 24h24V0H0z" />
             </g>
