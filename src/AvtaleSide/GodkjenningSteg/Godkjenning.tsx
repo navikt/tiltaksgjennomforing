@@ -41,7 +41,6 @@ const instruks = (rolle: Rolle) => {
     }
 };
 
-
 const Godkjenning = (props: Props) => {
     const [bekreftet, setBekreftet] = useState(false);
 
@@ -54,11 +53,13 @@ const Godkjenning = (props: Props) => {
                 Godkjenn avtalen
             </Systemtittel>
             {instruks(props.rolle)}
-            {props.rolle !== 'VEILEDER' && <BekreftCheckboksPanel
-                label="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"
-                checked={bekreftet}
-                onChange={() => setBekreftet(!bekreftet)}
-            />}
+            {props.rolle !== 'VEILEDER' && (
+                <BekreftCheckboksPanel
+                    label="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"
+                    checked={bekreftet}
+                    onChange={() => setBekreftet(!bekreftet)}
+                />
+            )}
             <div>
                 <LagreKnapp
                     lagre={() => {

@@ -15,7 +15,7 @@ interface Props {
 const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
     const godkjentStatus: string = props.godkjentAvtale
         ? 'Avtale godkjent'
-        : 'Venter på godkjenning';
+        : 'Må godkjenne';
 
     const fulltNavn = () => {
         const fulltNavn = [props.fornavn, props.etternavn]
