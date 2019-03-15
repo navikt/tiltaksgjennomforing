@@ -94,7 +94,7 @@ const Avtaleparter = (props: Props) => {
                 navnKolTo={arbeidsgiverTlf}
             />
             <RadTittel
-                radTittel="Kontaktperson for avtalen"
+                radTittel="Kontaktperson i NAV"
                 clsName="radtittel"
             />
             <AvtaleRad
