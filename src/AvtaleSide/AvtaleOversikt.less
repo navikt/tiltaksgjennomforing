@@ -1,63 +1,66 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .avtaleoversikt {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-  &__ingen_avtaler {
-    text-align: center;
-    font-style: italic;
-  }
-
-  &__topp {
-    text-align: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-
-    &__tittel {
-      margin-bottom: 1rem;
+    &__ingen_avtaler {
+        text-align: center;
+        font-style: italic;
     }
 
-    &__knapp {
-      margin-top: 2rem;
+    &__topp {
+        text-align: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+
+        &__tittel {
+            margin-bottom: 1rem;
+        }
+
+        &__knapp {
+            margin-top: 2rem;
+        }
     }
 
-  }
+    &__lenker {
+        &__header {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            width: 95%;
+            padding: 1rem;
+            font-weight: bold;
+        }
 
-  &__lenker {
-    &__header {
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: nowrap;
-      width: 100%;
-      padding: 1rem;
-      font-weight: bold;
-    }
+        &__rad {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            width: 95%;
+        }
 
-    &__rad {
-      display: flex;
-      justify-content: flex-start;
-      flex-wrap: nowrap;
-      width: 100%;
-    }
+        &__deltaker {
+            width: 17rem;
+        }
 
-    &__deltaker {
-      width: 17rem;
-    }
+        &__bedrift {
+            width: 17rem;
+        }
 
-    &__bedrift {
-      width: 17rem;
+        &__opprettet {
+            width: 7rem;
+        }
     }
-
-    &__opprettet {
-      width: 7rem;
-    }
-  }
 }
 
 @media (min-width: @screen-sm-min) {
-  .avtaleoversikt {
-    margin: 0 auto;
-    max-width: @screen-sm-min;
-  }
+    .avtaleoversikt {
+        margin: 0 auto;
+        max-width: @screen-sm-min;
+    }
+
+    .lenkepanel {
+        margin: 0 0.25rem 0 0.25rem;
+    }
 }

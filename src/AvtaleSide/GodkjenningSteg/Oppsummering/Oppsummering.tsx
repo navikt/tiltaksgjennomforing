@@ -9,7 +9,7 @@ import MaalOppsummering from './målOppsummering/MaalOppsummering';
 import OppgaverOppsummering from './oppgaveOppsummering/OppgaverOppsummering';
 import VarighetOppsummering from './varighet/VarighetOppsummering';
 import OppfolgingOppsummering from './oppfølging/OppfolgingOppsummering';
-import Tilrettelegging from "./tilrettelegging/Tilrettelegging";
+import Tilrettelegging from './tilrettelegging/Tilrettelegging';
 
 interface Props {
     avtale: Avtale;
@@ -27,7 +27,7 @@ const Oppsummering: FunctionComponent<Props> = props => (
         <OppgaverOppsummering avtale={props.avtale} />
         <VarighetOppsummering avtale={props.avtale} />
         <OppfolgingOppsummering avtale={props.avtale} />
-        <Tilrettelegging avtale={props.avtale}/>
+        <Tilrettelegging avtale={props.avtale} />
     </Innholdsboks>
 );
 

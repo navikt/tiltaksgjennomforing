@@ -6,11 +6,46 @@
     padding: 0.5rem;
     display: flex;
     align-items: center;
+    flex-direction: row;
     justify-content: space-between;
+
+    &__tilbake {
+        margin-right: 1rem;
+        a {
+            text-decoration: none;
+        }
+    }
+
+    .knapp--standard {
+        border-radius: 8px;
+    }
 
     &__identifikator {
         color: white;
         text-decoration: none;
+    }
+
+    &__tilbakeknapp {
+        background-color: @navLysGra;
+
+        &--tilbake {
+            display: flex;
+            align-items: center;
+        }
+
+        &--tilbake .chevronboks {
+            padding-right: 0.25rem;
+        }
+
+        &:hover {
+            .nav-frontend-chevron {
+                right: 6px;
+            }
+        }
+    }
+
+    &__identitet {
+        padding-right: 4rem;
     }
 
     &__loggutknapp {
@@ -19,5 +54,30 @@
 
     @media print {
         display: none;
+    }
+
+    .ekspanderbartPanel {
+        background-color: #3e3832;
+        width: 100%;
+
+        &__hode {
+            background-color: #3e3832;
+            color: white;
+        }
+
+        &__heading {
+            color: white;
+        }
+    }
+
+    p.typo-ingress.innloggingslinje__lenkeknapp {
+        color: white;
+        &:hover {
+            color: #0067c5;
+        }
+    }
+
+    @media (min-width: 576px) {
+        justify-content: space-between;
     }
 }
