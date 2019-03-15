@@ -62,7 +62,7 @@ export interface Context {
     hentRolle: (avtaleId: string) => Promise<any>;
     godkjenn: (godkjent: boolean) => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
-    lagreEllerHentAvtale: () => void;
+    endretSteg: () => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -101,7 +101,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
         this.godkjennAvtale = this.godkjennAvtale.bind(this);
-        this.lagreEllerHentAvtale = this.lagreEllerHentAvtale.bind(this);
+        this.endretSteg = this.endretSteg.bind(this);
     }
 
     shouldComponentUpdate(nextProps: any, nextState: State): boolean {
@@ -111,7 +111,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
     }
 
-    async lagreEllerHentAvtale() {
+    async endretSteg() {
         if (this.state.ulagredeEndringer) {
             try {
                 await this.lagreAvtale();
@@ -249,7 +249,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             hentRolle: this.hentRolle,
             godkjenn: this.godkjennAvtale,
             visFeilmelding: this.visFeilmelding,
-            lagreEllerHentAvtale: this.lagreEllerHentAvtale,
+            endretSteg: this.endretSteg,
         };
 
         return (

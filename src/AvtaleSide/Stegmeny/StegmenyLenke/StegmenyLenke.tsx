@@ -27,11 +27,7 @@ const StegmenyLenke: FunctionComponent<Context & Props> = props => {
     }
 
     return (
-        <Link
-            to={props.url}
-            className={className}
-            onClick={props.lagreEllerHentAvtale}
-        >
+        <Link to={props.url} className={className} onClick={props.endretSteg}>
             {/* {statusIkon} */}
             <span className="stegmenylenke__label">{props.label}</span>
         </Link>
