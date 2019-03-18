@@ -1,7 +1,12 @@
 import React from 'react';
 
-
-const VarselTegnForModal = ({width, height}: {width: string, height: string}) => {
+const VarselTegnForModal = ({
+    width,
+    height,
+}: {
+    width: string;
+    height: string;
+}) => {
     return (
         <svg
             width={width}

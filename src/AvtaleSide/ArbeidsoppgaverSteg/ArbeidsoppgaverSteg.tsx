@@ -1,38 +1,68 @@
 import * as React from 'react';
 import ApiError from '../../api-error';
 import { Context, medContext } from '../../AvtaleContext';
-import { Oppgave } from '../avtale';
+import { Maal, Oppgave } from '../avtale';
 import OppgaveKort from './OppgaveKort/OppgaveKort';
 import OpprettOppgave from './OpprettOppgave/OpprettOppgave';
+import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
 
-const ArbeidsoppgaverSteg = (props: Context) => {
-    const slettOppgave = async (oppgave: Oppgave) => {
+class ArbeidsoppgaverSteg extends React.Component<Context> {
+    state: {
+        modalIsOpen: false;
+        oppgaveRad: Oppgave;
+    };
+
+    constructor(props: Context) {
+        super(props);
+
+        this.state = {
+            modalIsOpen: false,
+            oppgaveRad: this.props.avtale.oppgaver[0],
+        };
+    }
+
+    slettOppgave = async (oppgave: Oppgave) => {
         try {
-            await props.slettOppgave(oppgave);
+            await this.props.slettOppgave(oppgave);
+            this.lukkModal();
         } catch (error) {
             if (error instanceof ApiError) {
-                props.visFeilmelding(error.message);
+                this.props.visFeilmelding(error.message);
             } else {
                 throw error;
             }
         }
     };
 
-    const oppgaver = props.avtale.oppgaver.map(oppgave => (
-        <OppgaveKort
-            oppgave={oppgave}
-            key={oppgave.id}
-            lagreOppgave={props.lagreOppgave}
-            slettOppgave={slettOppgave}
-        />
-    ));
+    bekrefelsePaSlettRad = (oppgave: Oppgave) => {
+        this.setState({ oppgaveRad: oppgave }, () =>
+            this.setState({ modalIsOpen: true })
+        );
+    };
 
-    return (
+    lukkModal = () => {
+        this.setState({ modalIsOpen: false });
+    };
+
+    render = () => (
         <>
-            <OpprettOppgave lagreOppgave={props.lagreOppgave} />
-            {oppgaver}
+            <OpprettOppgave lagreOppgave={this.props.lagreOppgave} />
+            {this.props.avtale.oppgaver.map(oppgave => (
+                <OppgaveKort
+                    oppgave={oppgave}
+                    key={oppgave.id}
+                    lagreOppgave={this.props.lagreOppgave}
+                    slettOppgave={this.bekrefelsePaSlettRad}
+                />
+            ))}
+            <BekreftelseModal
+                modalIsOpen={this.state.modalIsOpen}
+                radTilSletting={this.state.oppgaveRad}
+                slettOnClick={this.slettOppgave}
+                lukkModal={this.lukkModal}
+            />
         </>
     );
-};
+}
 
 export default medContext<{}>(ArbeidsoppgaverSteg);

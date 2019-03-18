@@ -69,7 +69,6 @@ class MaalSteg extends React.Component<Context> {
                     slettMaal={this.bekrefelsePaSlettRad}
                 />
             ))}
-            {console.log(this.state.maalRad)}
             <BekreftelseModal
                 modalIsOpen={this.state.modalIsOpen}
                 radTilSletting={this.state.maalRad}
