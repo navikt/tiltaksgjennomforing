@@ -1,6 +1,11 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import {
+    Element,
+    Innholdstittel,
+    Normaltekst,
+    Ingress,
+} from 'nav-frontend-typografi';
 import React from 'react';
 import { RouterProps } from 'react-router';
 import ApiError from '../api-error';
@@ -17,6 +22,10 @@ import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelP
 import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
 import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle.svg';
 import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
+import Lenke from 'nav-frontend-lenker';
+import BEMHelper from '../utils/bem';
+
+const cls = BEMHelper('opprett-avtale');
 
 interface State {
     deltakerFnr: string;
@@ -193,6 +202,12 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     label={'Opprett avtale'}
                     className="opprett-avtale__knapp"
                 />
+                <Lenke
+                    href={'/tiltaksgjennomforing/logout'}
+                    className={cls.element('avbryt')}
+                >
+                    <Ingress>avbryt</Ingress>
+                </Lenke>
             </div>
         );
     }

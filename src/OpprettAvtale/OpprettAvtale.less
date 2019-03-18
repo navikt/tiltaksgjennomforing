@@ -1,73 +1,78 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .opprett-avtale {
-  background-color: @grayBackground;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
+    background-color: @grayBackground;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
 
-  &__tittel {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
+    &__tittel {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
 
-  .nav-veilederpanel {
-    margin-bottom: 1rem;
-  }
+    .nav-veilederpanel {
+        margin-bottom: 1rem;
+    }
 
-  &__du-trenger-tekst {
-    padding-left: 1.5rem;
-  }
-
-  .ekspanderbartPanel {
-    margin-bottom: 1rem;
-  }
-
-  &__knapp {
-    width: 14rem;
-    margin-top: 1rem;
-    align-self: center;
-  }
-  &__arbeidsgiver-bedriftNavn {
-    margin-bottom: 1rem;
-  }
-}
-
-@media (min-width: @screen-sm-min) {
-  .opprett-avtale {
-    margin: 0 auto;
-    max-width: @screen-sm-min;
+    &__du-trenger-tekst {
+        padding-left: 1.5rem;
+    }
 
     .ekspanderbartPanel {
-      margin-bottom: 2rem;
-    }
-
-    &__input-wrapper {
-      display: flex;
-      flex-direction: row;
-    }
-    &__input-wrapper-rad2 {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    &__kandidat-fnr {
-      width: 100%;
-      margin-right: 0.5rem;
-    }
-
-    &__arbeidsgiver-fnr {
-      width: 100%;
-      margin-left: 0.5rem;
-    }
-
-    &__arbeidsgiver-bedriftNavn {
-      width: 50% - 1rem;
-      margin-bottom: 1rem;
+        margin-bottom: 1rem;
     }
 
     &__knapp {
-      margin-top: 2rem;
+        width: 14rem;
+        margin-top: 1rem;
+        align-self: center;
     }
-  }
+    &__arbeidsgiver-bedriftNavn {
+        margin-bottom: 1rem;
+    }
+
+    &__avbryt {
+        text-align: center;
+        padding: 1rem 0;
+    }
+}
+
+@media (min-width: @screen-sm-min) {
+    .opprett-avtale {
+        margin: 0 auto;
+        max-width: @screen-sm-min;
+
+        .ekspanderbartPanel {
+            margin-bottom: 2rem;
+        }
+
+        &__input-wrapper {
+            display: flex;
+            flex-direction: row;
+        }
+        &__input-wrapper-rad2 {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        &__kandidat-fnr {
+            width: 100%;
+            margin-right: 0.5rem;
+        }
+
+        &__arbeidsgiver-fnr {
+            width: 100%;
+            margin-left: 0.5rem;
+        }
+
+        &__arbeidsgiver-bedriftNavn {
+            width: 50% - 1rem;
+            margin-bottom: 1rem;
+        }
+
+        &__knapp {
+            margin-top: 2rem;
+        }
+    }
 }
