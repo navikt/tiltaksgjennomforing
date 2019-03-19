@@ -1,18 +1,23 @@
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
 import * as React from 'react';
-import VeilederpanelMedUtklippstavle from '../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import VeilederpanelMedUtklippstavle from '../../../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import EkstbanderbartPanelRad from '../../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import { ReactComponent as RettighetsHammerIkon } from '../../assets/ikoner/law.svg';
-import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
-import { ReactComponent as SkadeErstatning } from '../../assets/ikoner/skadeErstatning.svg';
-import { ReactComponent as BehandlingPersonOpplysning } from '../../assets/ikoner/behandlingPersonOpplysning.svg';
+import EkstbanderbartPanelRad from '../../../../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import { ReactComponent as RettighetsHammerIkon } from '../../../../assets/ikoner/law.svg';
+import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../../../../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
+import { ReactComponent as SkadeErstatning } from '../../../../assets/ikoner/skadeErstatning.svg';
+import { ReactComponent as BehandlingPersonOpplysning } from '../../../../assets/ikoner/behandlingPersonOpplysning.svg';
+import BEMHelper from '../../../../utils/bem';
+
+const cls = BEMHelper('instruks');
 
 const ArbeidsgiverInstruks = () => (
     <>
         <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>
         <VeilederpanelMedUtklippstavle>
-            <Normaltekst>Som arbeidsgiver må du:</Normaltekst>
+            <div className={cls.element('subheader', 'arbeidsgiver')}>
+                <Element>Som arbeidsgiver må du:</Element>
+            </div>
             <ul>
                 <li>
                     <Normaltekst>Følge arbeidsmiljøloven</Normaltekst>

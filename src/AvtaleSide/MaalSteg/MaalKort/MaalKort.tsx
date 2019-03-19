@@ -8,7 +8,7 @@ import { Maalkategori } from '../../maalkategorier';
 
 interface Props {
     maal: Maal;
-    slettMaal: (maal: Maal) => Promise<any>;
+    slettMaal: (maal: Maal) => void;
     lagreMaal: (maal: Maal) => Promise<any>;
     ledigeMaalkategorier: Maalkategori[];
 }
@@ -40,9 +40,7 @@ class MaalKort extends React.Component<Props, State> {
     };
 
     slettMaal = () => {
-        if (window.confirm('Er du sikker på at du vil slette dette målet?')) {
-            return this.props.slettMaal(this.props.maal);
-        }
+        return this.props.slettMaal(this.props.maal);
     };
 
     render() {

@@ -1,5 +1,11 @@
 @mobile-breakpoint: 576px;
 
+@media print {
+    #_hj_feedback_container {
+        display: none !important;
+    }
+}
+
 .avtaleparter {
     &__content {
         padding-top: 0.5rem;
@@ -11,7 +17,7 @@
 
         &--first {
             padding-top: 1rem;
-            padding-left: 0.5rem
+            padding-left: 0.5rem;
         }
     }
 
@@ -21,6 +27,11 @@
         justify-content: left;
         flex-grow: 1;
         padding-left: 0.5rem;
+
+        @media print {
+            display: flex;
+            flex-direction: row;
+        }
 
         &--fortsettelse {
             display: flex;
@@ -40,7 +51,7 @@
     }
 
     &__label {
-        padding-bottom: 0.1rem;
+        margin-bottom: 0.1rem;
     }
 
     &__navn {
@@ -69,7 +80,7 @@
         }
 
         &__radtittel {
-            padding-top: 1rem;
+            padding-top: 2.5rem;
             padding-left: 0;
 
             &--first {

@@ -17,8 +17,8 @@ const OppfolgingSteg = (props: Context) => {
             <Systemtittel className="oppfolgingsteg__tittel">
                 Oppfølging
                 <HjelpetekstBase id="hjelpetekst">
-                    Beskriv hvor ofte og i hvilken form det er ønskelig at dere
-                    skal få oppfølging fra NAV.
+                    Eksempelvis: oppfølgingssamtale etter første uke, møter hver
+                    måned eller avtalt dato for møte.
                 </HjelpetekstBase>
             </Systemtittel>
             <PakrevdTextarea

@@ -9,7 +9,7 @@ import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
-import Oppsummering from './GodkjenningSteg/Oppsummering/Oppsummering';
+import Oppsummering from './GodkjenningSteg/Oppsummering/oppsummering/Oppsummering';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
