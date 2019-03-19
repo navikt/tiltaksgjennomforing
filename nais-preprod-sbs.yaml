@@ -15,10 +15,10 @@ spec:
   - https://arbeidsgiver-q.nav.no/tiltaksgjennomforing
   liveness:
     path: /tiltaksgjennomforing/internal/isAlive
-    initialDelay: 20
+    initialDelay: 5
   readiness:
     path: /tiltaksgjennomforing/internal/isReady
-    initialDelay: 20
+    initialDelay: 5
   env:
   - name: APIGW_URL
     value: https://api-gw-q0.oera.no
