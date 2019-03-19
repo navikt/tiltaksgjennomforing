@@ -11,7 +11,7 @@ import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import { Knapp } from 'nav-frontend-knapper';
-import PrinterSvg from "./PrinterSvg";
+import PrinterSvg from './PrinterSvg';
 
 interface Props {
     avtale: Avtale;
@@ -20,7 +20,6 @@ interface Props {
 const printAvtale = () => {
     window.print();
 };
-
 
 const Oppsummering: FunctionComponent<Props> = props => (
     <Innholdsboks>
@@ -38,7 +37,7 @@ const Oppsummering: FunctionComponent<Props> = props => (
                 >
                     PRINT AVTALE
                     <div className="oppsummering__print-knapp__ikon">
-                        <PrinterSvg/>
+                        <PrinterSvg />
                     </div>
                 </Knapp>
             )}

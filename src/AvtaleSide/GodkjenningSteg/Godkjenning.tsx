@@ -10,7 +10,7 @@ import { Avtale } from '../avtale';
 import ArbeidsgiverInstruks from './Oppsummering/instruks/ArbeidsgiverInstruks';
 import DeltakerInstruks from './Oppsummering/instruks/DeltakerInstruks';
 import './Godkjenning.less';
-import VeilederInstruks from "./Oppsummering/instruks/VeilederInstruks";
+import VeilederInstruks from './Oppsummering/instruks/VeilederInstruks';
 
 interface Props {
     avtale: Avtale;
@@ -38,7 +38,7 @@ const instruks = (rolle: Rolle) => {
         case 'ARBEIDSGIVER':
             return <ArbeidsgiverInstruks />;
         case 'VEILEDER':
-            return <VeilederInstruks/>;
+            return <VeilederInstruks />;
     }
 };
 
