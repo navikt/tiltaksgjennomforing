@@ -113,7 +113,9 @@ class RedigerMaal extends React.Component<Props, State> {
                     onBlur={this.velgKategori}
                 >
                     <option value="" key="current-target">
-                        {this.state.valgtKategori}
+                        {this.state.valgtKategori
+                            ? this.state.valgtKategori
+                            : ' Velg mål '}
                     </option>
                     {maalKategorier}
                 </Select>
