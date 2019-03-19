@@ -17,6 +17,10 @@ import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelP
 import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
 import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle.svg';
 import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
+import BEMHelper from '../utils/bem';
+import KnappBase from 'nav-frontend-knapper';
+
+const cls = BEMHelper('opprett-avtale');
 
 interface State {
     deltakerFnr: string;
@@ -188,11 +192,24 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 {veilederpanel}
                 {ekspanderbartpanel}
                 {inputFelter}
-                <LagreKnapp
-                    lagre={this.opprettAvtaleKlikk}
-                    label={'Opprett avtale'}
-                    className="opprett-avtale__knapp"
-                />
+                <div className={cls.element('knappRad')}>
+                    <LagreKnapp
+                        lagre={this.opprettAvtaleKlikk}
+                        label={'Opprett avtale'}
+                        className="opprett-avtale__knapp"
+                    />
+
+                    <KnappBase
+                        type={'flat'}
+                        className={cls.element('avbryt')}
+                        onClick={() => {
+                            window.location.href =
+                                '/tiltaksgjennomforing/logout';
+                        }}
+                    >
+                        avbryt
+                    </KnappBase>
+                </div>
             </div>
         );
     }
