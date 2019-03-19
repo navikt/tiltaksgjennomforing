@@ -8,7 +8,7 @@ import LagretOppgave from './LagretOppgave/LagretOppgave';
 interface Props {
     oppgave: Oppgave;
     lagreOppgave: (oppgave: Oppgave) => Promise<any>;
-    slettOppgave: (oppgave: Oppgave) => Promise<any>;
+    slettOppgave: (oppgave: Oppgave) => void;
 }
 
 interface State {
@@ -34,11 +34,7 @@ class OppgaveKort extends React.Component<Props, State> {
     };
 
     slettOppgave = () => {
-        if (
-            window.confirm('Er du sikker på at du vil slette denne oppgaven?')
-        ) {
-            return this.props.slettOppgave(this.props.oppgave);
-        }
+        return this.props.slettOppgave(this.props.oppgave);
     };
 
     render() {

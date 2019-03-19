@@ -5,42 +5,80 @@ import { Maal } from '../avtale';
 import { finnLedigeMaalkategorier } from './maal-utils';
 import MaalKort from './MaalKort/MaalKort';
 import OpprettMaal from './OpprettMaal/OpprettMaal';
+import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
 
-const MaalSteg: React.FunctionComponent<Context> = (props: Context) => {
-    const slettMaal = async (maal: Maal) => {
+class MaalSteg extends React.Component<Context> {
+    state: {
+        modalIsOpen: boolean;
+        maalRad: Maal;
+    };
+
+    constructor(props: Context) {
+        super(props);
+
+        this.state = {
+            modalIsOpen: false,
+            maalRad: this.props.avtale.maal[0],
+        };
+    }
+
+    // sikre at mål blir satt først, derfor setState på modal i callback
+    bekrefelsePaSlettRad = (maal: Maal) => {
+        this.setState({ maalRad: maal }, () =>
+            this.setState({ modalIsOpen: true })
+        );
+    };
+
+    slettMaal = async (maal: Maal) => {
         try {
-            await props.slettMaal(maal);
+            await this.props.slettMaal(maal);
+            this.lukkModal();
         } catch (error) {
             if (error instanceof ApiError) {
-                props.visFeilmelding(error.message);
+                this.props.visFeilmelding(error.message);
             } else {
                 throw error;
             }
         }
     };
 
-    const valgteMaalkategorier = props.avtale.maal.map(maal => maal.kategori);
-    const ledigeMaalkategorier = finnLedigeMaalkategorier(valgteMaalkategorier);
+    valgteMaalkategorier = (): any => {
+        return this.props.avtale.maal.map(maal => maal.kategori);
+    };
 
-    const maalListe = props.avtale.maal.map(maal => (
-        <MaalKort
-            ledigeMaalkategorier={ledigeMaalkategorier}
-            maal={maal}
-            key={maal.id}
-            lagreMaal={props.lagreMaal}
-            slettMaal={slettMaal}
-        />
-    ));
+    lukkModal = () => {
+        this.setState({ modalIsOpen: false });
+    };
 
-    return (
+    render = () => (
         <>
             <OpprettMaal
-                ledigeMaalkategorier={ledigeMaalkategorier}
-                lagreMaal={props.lagreMaal}
+                ledigeMaalkategorier={finnLedigeMaalkategorier(
+                    this.valgteMaalkategorier()
+                )}
+                lagreMaal={this.props.lagreMaal}
             />
-            {maalListe}
+            {this.props.avtale.maal.map(maal => (
+                <MaalKort
+                    ledigeMaalkategorier={finnLedigeMaalkategorier(
+                        this.valgteMaalkategorier()
+                    )}
+                    maal={maal}
+                    key={maal.id}
+                    lagreMaal={this.props.lagreMaal}
+                    slettMaal={this.bekrefelsePaSlettRad}
+                />
+            ))}
+            <BekreftelseModal
+                modalIsOpen={this.state.modalIsOpen}
+                radTilSletting={this.state.maalRad}
+                slettOnClick={this.slettMaal}
+                lukkModal={this.lukkModal}
+                navn="mål"
+                varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
+            />
         </>
     );
-};
+}
 
 export default medContext<{}>(MaalSteg);
