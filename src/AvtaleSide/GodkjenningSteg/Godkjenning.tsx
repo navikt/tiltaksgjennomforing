@@ -7,9 +7,10 @@ import { Rolle } from '../../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
 import { Avtale } from '../avtale';
-import ArbeidsgiverInstruks from './ArbeidsgiverInstruks';
-import DeltakerInstruks from './DeltakerInstruks';
+import ArbeidsgiverInstruks from './Oppsummering/instruks/ArbeidsgiverInstruks';
+import DeltakerInstruks from './Oppsummering/instruks/DeltakerInstruks';
 import './Godkjenning.less';
+import VeilederInstruks from './Oppsummering/instruks/VeilederInstruks';
 
 interface Props {
     avtale: Avtale;
@@ -37,7 +38,7 @@ const instruks = (rolle: Rolle) => {
         case 'ARBEIDSGIVER':
             return <ArbeidsgiverInstruks />;
         case 'VEILEDER':
-            return <div />;
+            return <VeilederInstruks />;
     }
 };
 
