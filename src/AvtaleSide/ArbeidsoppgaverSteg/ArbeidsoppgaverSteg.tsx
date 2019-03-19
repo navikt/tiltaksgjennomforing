@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ApiError from '../../api-error';
 import { Context, medContext } from '../../AvtaleContext';
-import { Maal, Oppgave } from '../avtale';
+import { Oppgave } from '../avtale';
 import OppgaveKort from './OppgaveKort/OppgaveKort';
 import OpprettOppgave from './OpprettOppgave/OpprettOppgave';
 import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
