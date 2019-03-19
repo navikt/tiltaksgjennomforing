@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import Varsel from './komponenter/Varsel/Varsel';
 import RestService from './services/rest-service';
+import ApiError from './api-error';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -61,6 +62,7 @@ export interface Context {
     hentRolle: (avtaleId: string) => Promise<any>;
     godkjenn: (godkjent: boolean) => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
+    endretSteg: () => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -73,6 +75,7 @@ interface State {
     avtale: Avtale;
     feilmelding: string;
     rolle: Rolle;
+    ulagredeEndringer: boolean;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -83,6 +86,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtale: tomAvtale,
             feilmelding: '',
             rolle: 'INGEN_ROLLE',
+            ulagredeEndringer: false,
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -97,6 +101,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
         this.godkjennAvtale = this.godkjennAvtale.bind(this);
+        this.endretSteg = this.endretSteg.bind(this);
     }
 
     shouldComponentUpdate(nextProps: any, nextState: State): boolean {
@@ -106,18 +111,44 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
     }
 
+    async endretSteg() {
+        if (this.state.ulagredeEndringer) {
+            try {
+                await this.lagreAvtale();
+            } catch (error) {
+                if (error instanceof ApiError) {
+                    this.visFeilmelding(error.message);
+                } else {
+                    throw error;
+                }
+            }
+        } else {
+            try {
+                await this.hentAvtale(this.state.avtale.id);
+            } catch (error) {
+                if (error instanceof ApiError) {
+                    this.visFeilmelding(error.message);
+                } else {
+                    throw error;
+                }
+            }
+        }
+    }
+
     settAvtaleVerdi(felt: string, verdi: any) {
         const avtale = this.state.avtale;
         if (avtale) {
             // @ts-ignore
             avtale[felt] = verdi;
             this.setState({ avtale });
+            this.setState({ ulagredeEndringer: true });
         }
     }
 
     async lagreAvtale() {
         const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
         this.setState({ avtale: nyAvtale });
+        this.setState({ ulagredeEndringer: false });
     }
 
     lagreMaal(maalTilLagring: Maal) {
@@ -218,6 +249,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             hentRolle: this.hentRolle,
             godkjenn: this.godkjennAvtale,
             visFeilmelding: this.visFeilmelding,
+            endretSteg: this.endretSteg,
         };
 
         return (
