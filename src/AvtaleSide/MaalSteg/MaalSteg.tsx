@@ -74,6 +74,8 @@ class MaalSteg extends React.Component<Context> {
                 radTilSletting={this.state.maalRad}
                 slettOnClick={this.slettMaal}
                 lukkModal={this.lukkModal}
+                navn="mål"
+                varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
             />
         </>
     );

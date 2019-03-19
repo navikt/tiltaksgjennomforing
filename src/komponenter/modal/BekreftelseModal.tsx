@@ -3,9 +3,8 @@ import Modal from 'nav-frontend-modal';
 import BEMHelper from '../../utils/bem';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
-import Lukknapp from 'nav-frontend-lukknapp';
 import KnappBase from 'nav-frontend-knapper';
-import Ingress from 'nav-frontend-typografi/lib/ingress';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 
 const cls = BEMHelper('bekreftelseModal');
 
@@ -14,6 +13,8 @@ interface Props {
     radTilSletting: any;
     slettOnClick: (rad: any) => Promise<any>;
     lukkModal: () => void;
+    navn: string;
+    varselTekst: string;
 }
 
 const BekreftelseModal = ({
@@ -21,6 +22,8 @@ const BekreftelseModal = ({
     slettOnClick,
     radTilSletting,
     lukkModal,
+    navn,
+    varselTekst,
 }: Props) => {
     if (typeof window !== 'undefined') {
         Modal.setAppElement('body');
@@ -43,25 +46,25 @@ const BekreftelseModal = ({
                     <VarselTegnForModal width={'80px'} height={'80px'} />
                 </div>
                 <div className={cls.element('body')}>
-                    <div className={cls.element('knappRad')}>
-                        <Lukknapp onClick={lukkModal} />
-                    </div>
+                    <div className={cls.element('knappRad')} />
                     <div className={cls.element('innhold')}>
-                        <Ingress>
-                            Du er i ferd med å slette innholdet i raden. Er du
-                            sikker på at du vil fortsette?
-                        </Ingress>
+                        <div className={cls.element('tittel')}>
+                            <Systemtittel>Slette {navn}</Systemtittel>
+                        </div>
+                        <Normaltekst className={cls.element('varselTekst')}>
+                            {varselTekst}
+                        </Normaltekst>
                     </div>
                     <div className={cls.element('knapper')}>
                         <KnappBase
-                            type={'fare'}
+                            type={'hoved'}
                             className={cls.element('knapp lenkeknapp')}
                             onClick={slettRad}
                         >
-                            slett innholdet
+                            ja, slett {navn}
                         </KnappBase>
                         <KnappBase
-                            type={'hoved'}
+                            type={'flat'}
                             className={cls.element('knapp lenkeknapp')}
                             onClick={lukkModal}
                         >
