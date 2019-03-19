@@ -1,4 +1,4 @@
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import VeilederpanelMedUtklippstavle from '../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -12,7 +12,7 @@ const ArbeidsgiverInstruks = () => (
     <>
         <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>
         <VeilederpanelMedUtklippstavle>
-            <Normaltekst>Som arbeidsgiver må du:</Normaltekst>
+            <Element>Som arbeidsgiver må du:</Element>
             <ul>
                 <li>
                     <Normaltekst>Følge arbeidsmiljøloven</Normaltekst>

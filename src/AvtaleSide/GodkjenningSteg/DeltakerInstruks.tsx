@@ -1,4 +1,4 @@
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import VeilederpanelMedUtklippstavleIkon from '../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -11,7 +11,7 @@ const DeltakerInstruks = () => (
     <>
         <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>
         <VeilederpanelMedUtklippstavleIkon>
-            <Normaltekst>Som deltaker må du:</Normaltekst>
+            <Element>Som deltaker må du:</Element>
             <ul>
                 <li>
                     <Normaltekst>
