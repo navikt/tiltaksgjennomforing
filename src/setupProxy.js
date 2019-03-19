@@ -53,7 +53,6 @@ module.exports = function(app) {
             '^/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api',
         },
         target: envProperties.APIGW_URL,
-        secure: false,
         xfwd: true,
     };
 

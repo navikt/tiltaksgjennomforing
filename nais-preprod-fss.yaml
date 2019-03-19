@@ -13,10 +13,10 @@ spec:
   - https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
   liveness:
     path: /tiltaksgjennomforing/internal/isAlive
-    initialDelay: 20
+    initialDelay: 5
   readiness:
     path: /tiltaksgjennomforing/internal/isReady
-    initialDelay: 20
+    initialDelay: 5
   env:
   - name: APIGW_URL
     value: https://arbeidsgiver.nais.preprod.local
@@ -24,3 +24,5 @@ spec:
     value: https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
   - name: LOGOUT_URL
     value: https://loginservice.nais.preprod.local/slo
+  - name: NODE_EXTRA_CA_CERTS
+    value: /etc/ssl/ca-bundle.pem
