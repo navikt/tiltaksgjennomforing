@@ -6,14 +6,62 @@
     padding: 0.5rem;
     display: flex;
     align-items: center;
+    flex-direction: row;
     justify-content: space-between;
+
+    &__tilbake {
+        margin-right: 1rem;
+        a {
+            text-decoration: none;
+        }
+    }
+
+    .knapp--standard {
+        border-radius: 4px;
+    }
 
     &__identifikator {
         color: black;
         text-decoration: none;
     }
 
+    &__tilbakeknapp {
+        &--tilbake {
+            display: flex;
+            align-items: center;
+        }
+
+        &--tilbake .chevronboks {
+            padding-right: 0.25rem;
+        }
+
+        &:hover {
+            .nav-frontend-chevron {
+                right: 6px;
+            }
+        }
+    }
+
+    &__identitet {
+        padding-right: 4rem;
+        color: black;
+    }
+
     @media print {
         display: none;
+    }
+
+    .ekspanderbartPanel {
+        width: 100%;
+
+        &__hode {
+        }
+
+        &__heading {
+        }
+    }
+
+    @media (min-width: 576px) {
+        justify-content: space-between;
     }
 }
