@@ -5,6 +5,12 @@
     }
 
     &__ikkeSatt {
+        /* blir kun rendret av IE. erstattning for fit-content som ikke støttes */
+        @media screen and (-ms-high-contrast: active),
+            (-ms-high-contrast: none) {
+            display: inline-block;
+        }
+
         background-color: #ffe5c2;
         width: fit-content;
         padding-left: 1rem;
