@@ -15,11 +15,15 @@ import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
+import AlertStripe from 'nav-frontend-alertstriper';
+import BEMHelper from '../utils/bem';
 
 interface MatchProps {
     avtaleId: string;
     stegPath: string;
 }
+
+const cls = BEMHelper('avtaleside');
 
 type Props = RouteComponentProps<MatchProps> & Context;
 
@@ -86,6 +90,13 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 if (props.avtale.erLaast) {
                     innhold = (
                         <div className="avtaleside__innhold">
+                            <AlertStripe
+                                className={cls.element('banner')}
+                                solid={true}
+                                type="suksess"
+                            >
+                                Avtalen er godkjent av alle parter og låst.
+                            </AlertStripe>
                             <Oppsummering avtale={props.avtale} />
                         </div>
                     );
