@@ -12,7 +12,6 @@ import OppfolgingOppsummering from './oppfølging/OppfolgingOppsummering';
 import Tilrettelegging from './tilrettelegging/Tilrettelegging';
 import { Knapp } from 'nav-frontend-knapper';
 
-
 interface Props {
     avtale: Avtale;
 }
