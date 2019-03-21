@@ -1,12 +1,14 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { bool } from 'prop-types';
 
 interface Props {
     className?: string;
     label: React.ReactNode;
     verdi: string;
     feilmelding?: string;
+    ekstraValidering?: boolean;
     // * onChange bør oppdatere verdi feltet på props
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -16,10 +18,14 @@ const PakrevdInput: React.FunctionComponent<Props> = props => {
     const visFeilmelding = props.feilmelding || props.label + ' er påkrevd';
 
     const onBlur = () => {
-        if (!props.verdi) {
-            setFeil({ feilmelding: visFeilmelding });
+        if (props.ekstraValidering && props.feilmelding) {
+            setFeil({ feilmelding: props.feilmelding });
         } else {
-            setFeil(undefined);
+            if (!props.verdi) {
+                setFeil({ feilmelding: visFeilmelding });
+            } else {
+                setFeil(undefined);
+            }
         }
     };
 

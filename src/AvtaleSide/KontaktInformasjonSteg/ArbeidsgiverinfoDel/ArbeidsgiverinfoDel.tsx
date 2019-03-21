@@ -1,13 +1,31 @@
 import * as React from 'react';
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './ArbeidsgiverinfoDel.less';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '../../../AvtaleContext';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
+import { validerOrgnr } from '../../../utils/orgnrUtils';
+import { useState } from 'react';
 
 const ArbeidsgiverinfoDel = (props: Context) => {
     const onChange = (label: string) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
+    };
+
+    const [feil, setFeil] = useState<string | undefined>(undefined);
+
+    const orgnrOnChange = (label: string) => {
+        return (event: any) => {
+            if (
+                event.target.value &&
+                !validerOrgnr(event.target.value.replace(/\s/g, ''))
+            ) {
+                setFeil('Ugyldig bedriftsnummer');
+            } else {
+                setFeil(undefined);
+            }
+            props.settAvtaleVerdi(label, event.target.value);
+        };
     };
 
     const bedriftInfo = (
@@ -24,7 +42,9 @@ const ArbeidsgiverinfoDel = (props: Context) => {
                     className="arbeidsgiverbedriftrad__bedriftnr"
                     label="Bedriftsnummer"
                     verdi={props.avtale.bedriftNr}
-                    onChange={onChange('bedriftNr')}
+                    onChange={orgnrOnChange('bedriftNr')}
+                    feilmelding={feil}
+                    ekstraValidering={true}
                 />
             </div>
         </SkjemaGruppe>
