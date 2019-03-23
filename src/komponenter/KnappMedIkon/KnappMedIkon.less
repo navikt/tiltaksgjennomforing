@@ -2,28 +2,27 @@
 @import '~nav-frontend-paneler-style';
 
 .knapp-med-ikon {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: unset;
-  padding: 0.5rem 1rem;
-  // Default usynlig border for at elementene ikke skal forskyve seg på hover
-  border: 1px solid transparent;
-  .panel-focus-mixin();
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: unset;
+    padding: 0.5rem 1rem;
+    // Default usynlig border for at elementene ikke skal forskyve seg på hover
+    border: 1px solid transparent;
+    .panel-focus-mixin();
 
-  &__label {
-    color: @navBla;
-    margin-left: 5px;
-  }
+    &__label {
+        color: @navBla;
+        margin-left: 5px;
+    }
 
-  &:hover {
-    cursor: pointer;
-    border: solid 1px @navBla;
-  }
+    &:hover {
+        cursor: pointer;
+        border: solid 1px @navBla;
+    }
 
-  &:focus {
-    border: solid 1px @navBla;
-  }
+    &:focus {
+        border: solid 1px @navBla;
+    }
 }
-

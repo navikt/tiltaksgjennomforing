@@ -59,13 +59,18 @@ class RedigerMaal extends React.Component<Props, State> {
     };
 
     lagre = () => {
-        if (this.state.beskrivelse && this.state.valgtKategori) {
+        if (
+            this.state.beskrivelse &&
+            this.props.ledigeMaalkategorier.length > 0
+        ) {
             return this.props.lagreMaal({
                 id: this.props.defaultMaal && this.props.defaultMaal.id,
                 opprettetTimestamp:
                     this.props.defaultMaal &&
                     this.props.defaultMaal.opprettetTimestamp,
-                kategori: this.state.valgtKategori,
+                kategori: this.state.valgtKategori
+                    ? this.state.valgtKategori
+                    : this.props.ledigeMaalkategorier[0],
                 beskrivelse: this.state.beskrivelse,
             });
         } else {
@@ -95,13 +100,29 @@ class RedigerMaal extends React.Component<Props, State> {
         return maxLength - antallTegn;
     };
 
-    render() {
-        const maalKategorier = this.props.ledigeMaalkategorier.map(maal => (
-            <option value={maal} key={maal}>
-                {maal}
+    genererKategoriListe = () => {
+        const redigerComponentListe = [];
+        if (this.state.valgtKategori) {
+            redigerComponentListe.push(
+                <option
+                    value={this.state.valgtKategori}
+                    key={this.state.valgtKategori}
+                >
+                    {this.state.valgtKategori}
+                </option>
+            );
+        }
+        const liste = this.props.ledigeMaalkategorier.map((mal, index) => (
+            <option value={mal} key={index}>
+                {mal}
             </option>
         ));
 
+        redigerComponentListe.push(...liste);
+        return redigerComponentListe;
+    };
+
+    render() {
         return (
             <>
                 <Select
@@ -112,12 +133,7 @@ class RedigerMaal extends React.Component<Props, State> {
                     feil={this.state.valgtKategoriFeil}
                     onBlur={this.velgKategori}
                 >
-                    <option value="" key="current-target">
-                        {this.state.valgtKategori
-                            ? this.state.valgtKategori
-                            : ' Velg mål '}
-                    </option>
-                    {maalKategorier}
+                    {this.genererKategoriListe()}
                 </Select>
                 <Textarea
                     label="Beskriv målet"
