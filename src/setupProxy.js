@@ -62,6 +62,7 @@ module.exports = function(app) {
         },
         target: envProperties.APIGW_URL,
         xfwd: true,
+        secure: envProperties.APIGW_URL.startsWith('https'),
     };
 
     if (envProperties.APIGW_HEADER) {
