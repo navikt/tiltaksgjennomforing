@@ -24,5 +24,3 @@ spec:
     value: https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing
   - name: LOGOUT_URL
     value: https://loginservice.nais.preprod.local/slo
-  - name: NODE_EXTRA_CA_CERTS
-    value: /etc/ssl/ca-bundle.pem

@@ -61,8 +61,8 @@ module.exports = function(app) {
             '^/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api',
         },
         target: envProperties.APIGW_URL,
+        secure: false,
         xfwd: true,
-        secure: envProperties.APIGW_URL.startsWith('https'),
     };
 
     if (envProperties.APIGW_HEADER) {
