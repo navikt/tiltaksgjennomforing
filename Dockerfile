@@ -13,5 +13,7 @@ COPY server.js ./
 COPY package.json ./
 COPY start.sh ./
 
+ENV NODE_EXTRA_CA_CERTS /etc/ssl/ca-bundle.pem
+
 EXPOSE 3000
 ENTRYPOINT ["/bin/sh", "start.sh"]
