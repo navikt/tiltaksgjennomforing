@@ -13,7 +13,7 @@ const TilretteleggingSteg = (props: Context) => {
     };
 
     return (
-        <Innholdsboks utfyller="veileder">
+        <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <Systemtittel className="tilretteleggingsteg__tittel">
                 Tilrettelegging
                 <HjelpetekstBase id="hjelpetekst">

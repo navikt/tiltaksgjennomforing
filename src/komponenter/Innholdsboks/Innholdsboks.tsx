@@ -3,7 +3,11 @@ import './Innholdsboks.less';
 import classnames from 'classnames';
 import UtfyllerBanner from './UfyllerBanner/UfyllerBanner';
 
-type Utfyller = 'arbeidsgiver' | 'veileder' | undefined;
+type Utfyller =
+    | 'arbeidsgiver'
+    | 'veileder'
+    | 'veileder_og_arbeidsgiver'
+    | undefined;
 interface Props {
     className?: string;
     utfyller?: Utfyller;
