@@ -6,9 +6,10 @@ import './OppfolgingSteg.less';
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
 import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
 import PakrevdTextarea from '../../komponenter/PakrevdTextarea/PakrevdTextarea';
+import { Avtale } from '../avtale';
 
 const OppfolgingSteg = (props: Context) => {
-    const onChange = (label: string) => {
+    const onChange = (label: keyof Avtale) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
     };
 

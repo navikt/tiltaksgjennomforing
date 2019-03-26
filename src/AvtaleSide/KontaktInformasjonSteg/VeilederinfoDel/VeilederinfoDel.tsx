@@ -1,12 +1,12 @@
-import { Input } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Context, medContext } from '../../../AvtaleContext';
 import './VeilederinfoDel.less';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
+import { Avtale } from '../../avtale';
 
 const VeilederinfoDel = (props: Context) => {
-    const onChange = (label: string) => {
+    const onChange = (label: keyof Avtale) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
     };
 
@@ -35,6 +35,8 @@ const VeilederinfoDel = (props: Context) => {
                     label="Telefonnummer"
                     verdi={props.avtale.veilederTlf}
                     onChange={onChange('veilederTlf')}
+                    inputType="tel"
+                    validatePhoneNr={true}
                 />
             </div>
         </>

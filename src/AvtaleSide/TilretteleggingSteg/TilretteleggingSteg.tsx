@@ -6,9 +6,10 @@ import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
 import { Context, medContext } from '../../AvtaleContext';
 import './TilretteleggingSteg.less';
 import PakrevdTextarea from '../../komponenter/PakrevdTextarea/PakrevdTextarea';
+import { Avtale } from '../avtale';
 
 const TilretteleggingSteg = (props: Context) => {
-    const onChange = (label: string) => {
+    const onChange = (label: keyof Avtale) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
     };
 

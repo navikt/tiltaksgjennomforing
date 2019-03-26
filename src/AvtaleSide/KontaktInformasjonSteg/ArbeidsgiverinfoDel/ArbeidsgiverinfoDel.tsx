@@ -6,15 +6,16 @@ import { Context, medContext } from '../../../AvtaleContext';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
 import { validerOrgnr } from '../../../utils/orgnrUtils';
 import { useState } from 'react';
+import { Avtale } from '../../avtale';
 
 const ArbeidsgiverinfoDel = (props: Context) => {
-    const onChange = (label: string) => {
+    const onChange = (label: keyof Avtale) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
     };
 
     const [feil, setFeil] = useState<string | undefined>(undefined);
 
-    const orgnrOnChange = (label: string) => {
+    const orgnrOnChange = (label: keyof Avtale) => {
         return (event: any) => {
             if (
                 event.target.value &&
@@ -72,6 +73,8 @@ const ArbeidsgiverinfoDel = (props: Context) => {
                     label="Telefonnummer"
                     verdi={props.avtale.arbeidsgiverTlf}
                     onChange={onChange('arbeidsgiverTlf')}
+                    inputType="tel"
+                    validatePhoneNr={true}
                 />
             </div>
         </SkjemaGruppe>
