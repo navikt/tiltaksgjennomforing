@@ -140,15 +140,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         if (avtale) {
             // @ts-ignore
             avtale[felt] = verdi;
-            this.setState({ avtale });
-            this.setState({ ulagredeEndringer: true });
+            this.setState({ avtale, ulagredeEndringer: true });
         }
     }
 
     async lagreAvtale() {
         const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
-        this.setState({ avtale: nyAvtale });
-        this.setState({ ulagredeEndringer: false });
+        this.setState({ avtale: nyAvtale, ulagredeEndringer: false });
     }
 
     lagreMaal(maalTilLagring: Maal) {
