@@ -7,21 +7,27 @@ const envProperties = {
     APIGW_HEADER: process.env.APIGW_HEADER,
     ISSO_LOGIN_URL:
         process.env.ISSO_LOGIN_URL ||
-        (erDevelopmentModus && '/tiltaksgjennomforing/api/local/isso-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
+        (erDevelopmentModus &&
+            '/tiltaksgjennomforing/api/local/isso-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
     SELVBETJENING_LOGIN_URL:
         process.env.SELVBETJENING_LOGIN_URL ||
-        (erDevelopmentModus && '/tiltaksgjennomforing/api/local/selvbetjening-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
+        (erDevelopmentModus &&
+            '/tiltaksgjennomforing/api/local/selvbetjening-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
     LOGOUT_URL:
         process.env.LOGOUT_URL ||
-        (erDevelopmentModus && '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
+        (erDevelopmentModus &&
+            '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
 };
 
-if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
-    console.error('Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, SELVBETJENING_LOGIN_URL, ISSO_LOGIN_URL.');
+if (
+    !envProperties.LOGOUT_URL ||
+    !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)
+) {
+    console.error(
+        'Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, SELVBETJENING_LOGIN_URL, ISSO_LOGIN_URL.'
+    );
     process.exit(1);
 }
-
-console.log('Relevante miljøvariable: ', envProperties);
 
 module.exports = function(app) {
     app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
@@ -37,7 +43,7 @@ module.exports = function(app) {
             innloggingskilder.push({
                 tittel: 'Logg inn som NAV-veileder',
                 url: envProperties.ISSO_LOGIN_URL,
-            })
+            });
         }
 
         res.send(JSON.stringify(innloggingskilder));
