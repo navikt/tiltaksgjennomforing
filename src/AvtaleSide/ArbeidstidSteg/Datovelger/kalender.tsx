@@ -5,6 +5,8 @@ import momentLocaleUtils, { LocaleUtils } from 'react-day-picker/moment';
 import Navigasjonsbar from './navigasjonsbar';
 import DatovelgerCaption from './datovelger-caption';
 
+const today = new Date();
+
 interface Props {
     valgtDato: Date;
     velgDato: (dato: Date) => void;
@@ -63,6 +65,7 @@ class Kalender extends React.Component<Props> {
                     localeUtils={localeUtils}
                     firstDayOfWeek={1}
                     navbarElement={navigasjonsbar}
+                    disabledDays={{ before: today }}
                     captionElement={
                         <DatovelgerCaption date={this.props.valgtDato} />
                     }
