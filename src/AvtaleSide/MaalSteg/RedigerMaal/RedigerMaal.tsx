@@ -32,6 +32,12 @@ class RedigerMaal extends React.Component<Props, State> {
         valgtKategoriFeil: undefined,
     };
 
+    componentDidMount(): void {
+        this.setState({
+            valgtKategori: this.props.ledigeMaalkategorier[0],
+        });
+    }
+
     velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
         this.setState({
             valgtKategori: event.currentTarget.value as Maalkategori,
@@ -59,18 +65,13 @@ class RedigerMaal extends React.Component<Props, State> {
     };
 
     lagre = () => {
-        if (
-            this.state.beskrivelse &&
-            this.props.ledigeMaalkategorier.length > 0
-        ) {
+        if (this.state.beskrivelse && this.state.valgtKategori) {
             return this.props.lagreMaal({
                 id: this.props.defaultMaal && this.props.defaultMaal.id,
                 opprettetTimestamp:
                     this.props.defaultMaal &&
                     this.props.defaultMaal.opprettetTimestamp,
-                kategori: this.state.valgtKategori
-                    ? this.state.valgtKategori
-                    : this.props.ledigeMaalkategorier[0],
+                kategori: this.state.valgtKategori,
                 beskrivelse: this.state.beskrivelse,
             });
         } else {
