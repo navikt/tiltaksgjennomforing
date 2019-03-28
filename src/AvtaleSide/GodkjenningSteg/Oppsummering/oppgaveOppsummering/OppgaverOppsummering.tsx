@@ -5,6 +5,8 @@ import { Avtale } from '../../../avtale';
 import BEMHelper from '../../../../utils/bem';
 import './oppgaveOppsummering.less';
 import OppgaverIkon from './OppgaverIkon';
+import Undertittel from 'nav-frontend-typografi/lib/undertittel';
+import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 
 const cls = BEMHelper('oppgaveOppsummering');
 
@@ -15,11 +17,7 @@ interface Props {
 const OppgaverOppsummering = (props: Props) => {
     const arbeidsoppgaver = props.avtale.oppgaver.map(oppgave => (
         <div key={oppgave.id} className={cls.className}>
-            <Element className={cls.element('label')}>Arbeidsoppgave</Element>
-            <Normaltekst className={cls.element('beskrivelse')}>
-                {oppgave.tittel}
-            </Normaltekst>
-            <Element className={cls.element('label')}>Beskrivelse</Element>
+            <Undertittel>{oppgave.tittel}</Undertittel>
             <Normaltekst className={cls.element('beskrivelse')}>
                 {oppgave.beskrivelse}
             </Normaltekst>
@@ -36,8 +34,10 @@ const OppgaverOppsummering = (props: Props) => {
         </Stegoppsummering>
     ) : (
         <Stegoppsummering ikon={<OppgaverIkon />} tittel="Arbeidsoppgaver">
-            <div className={cls.element('ikkeFyltUt')}>
-                <Normaltekst>Ikke fylt ut</Normaltekst>
+            <div>
+                <EtikettFokus className={cls.element('etikettInfo')}>
+                    Arbeidsoppgaver er ikke fylt ut
+                </EtikettFokus>
             </div>
         </Stegoppsummering>
     );

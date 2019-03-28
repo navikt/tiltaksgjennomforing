@@ -1,10 +1,14 @@
 import * as React from 'react';
-import { Normaltekst, Element, Undertittel } from 'nav-frontend-typografi';
+import TypografiBase, {
+    Normaltekst,
+    Undertittel,
+} from 'nav-frontend-typografi';
 import { Avtale } from '../../../avtale';
 import './Avtaleparter.less';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import AvtalepartnerHeaderIkon from './AvtalepartnerHeaderIkon';
 import BEMHelper from '../../../../utils/bem';
+import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 
 interface Props {
     avtale: Avtale;
@@ -12,31 +16,29 @@ interface Props {
 
 const cls = BEMHelper('avtaleparter');
 
-export const HarData = (input: string): React.ReactNode => {
+export const SjekkOmInputEksisterer = (
+    input: string,
+    fontType: string,
+    clsName: string,
+    label?: string
+): React.ReactNode => {
+    const classN = BEMHelper(clsName);
+
     if (sjekkStrengVerdi(input)) {
         return (
-            <Normaltekst className={cls.element('navn')}>{input}</Normaltekst>
+            <TypografiBase type={fontType} className={classN.element('navn')}>
+                {label} {input}
+            </TypografiBase>
         );
     }
     return (
-        <Normaltekst className={cls.element('navn--ikkeFyltUt')}>
-            Ikke fylt ut
-        </Normaltekst>
+        <div>
+            <EtikettFokus>Ikke fylt ut</EtikettFokus>
+        </div>
     );
 };
 
-const sjekkNavnForConCatOmBeggeEksisterer = (
-    navn: string,
-    etternavn: string
-): string => {
-    if (sjekkStrengVerdi(navn) && sjekkStrengVerdi(etternavn)) {
-        const deltakerNavn = `${navn} ${etternavn}`;
-        return deltakerNavn;
-    }
-    return '';
-};
-
-const sjekkStrengVerdi = (streng: string): boolean => {
+const sjekkStrengVerdi = (streng: any) => {
     if (streng) {
         if (streng.length > 0 && streng.search('null') && streng !== null) {
             return true;
@@ -62,95 +64,166 @@ const Avtaleparter = (props: Props) => {
 
     return (
         <Stegoppsummering
-            tittel="Avtalens parter"
+            tittel="Kontaktinformasjon"
             ikon={<AvtalepartnerHeaderIkon />}
         >
-            <RadTittel radTittel="Deltaker" clsName="radtittel--first" />
-
-            <AvtaleRad
-                labelKolEn="Navn"
-                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
-                    deltakerFornavn,
-                    deltakerEtternavn
+            <div>
+                {settInnRad(
+                    [deltakerFornavn, deltakerEtternavn],
+                    ['F.nr', deltakerFnr],
+                    'Deltaker',
+                    'farge-gronn'
                 )}
-                labelKolTo="Fødselsnummer"
-                navnKolTo={deltakerFnr}
-            />
-
-            <RadTittel radTittel="Arbeidsgiver" clsName="radtittel " />
-            <AvtaleRad
-                labelKolEn="Bedriftens navn"
-                navnKolEn={bedriftNavn}
-                labelKolTo="Bedriftsnummer"
-                navnKolTo={bedriftNr}
-            />
-            <AvtaleRad
-                labelKolEn="Kontaktperson for avtalen"
-                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
-                    arbeidsgiverFornavn,
-                    arbeidsgiverEtternavn
+                {settInnRad(
+                    [bedriftNavn, arbeidsgiverFornavn, arbeidsgiverEtternavn],
+                    ['Org:', bedriftNr, 'Tlf:', arbeidsgiverTlf],
+                    'Arbeidsgiver',
+                    'farge-graa'
                 )}
-                labelKolTo="Telefonnummer"
-                navnKolTo={arbeidsgiverTlf}
-            />
-            <RadTittel radTittel="Kontaktperson i NAV" clsName="radtittel" />
-            <AvtaleRad
-                labelKolEn="Kontaktperson"
-                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
-                    veilederFornavn,
-                    veilederEtternavn
+                {settInnRad(
+                    [veilederFornavn, veilederEtternavn],
+                    ['Tlf:', veilederTlf],
+                    'NAV veileder',
+                    'farge-lysblaa'
                 )}
-                labelKolTo="Telefonnummer"
-                navnKolTo={veilederTlf}
-            />
+            </div>
         </Stegoppsummering>
     );
 };
 
-const RadTittel = ({
-    radTittel,
-    clsName,
-}: {
-    radTittel: string;
-    clsName: string;
-}) => (
-    <div className={cls.element(clsName)}>
-        <Undertittel>{radTittel}</Undertittel>
-    </div>
-);
-
-export const AvtaleRad = ({
-    clsName,
-    labelKolEn,
-    navnKolEn,
-    labelKolTo,
-    navnKolTo,
-}: {
-    clsName?: string;
-    labelKolEn: string;
-    navnKolEn: string;
-    labelKolTo: string;
-    navnKolTo: string;
-}) => {
-    const avtaleRadCls = BEMHelper(clsName ? clsName : 'avtaleparter');
+const sjekkOmAlleInputfeltErFyltUt = (
+    nameRad: string[],
+    tilleggInfoVedrorendeAktorRad: string[]
+) => {
     return (
-        <div className={avtaleRadCls.element('content')}>
-            <div className={avtaleRadCls.element('rad')}>
-                <div className={avtaleRadCls.element('element')}>
-                    <Element className={avtaleRadCls.element('label')}>
-                        {labelKolEn}
-                    </Element>
-                    {HarData(navnKolEn)}
-                </div>
-                <div className={avtaleRadCls.element('element', 'ytterrad')}>
-                    <Element className={avtaleRadCls.element('label')}>
-                        {labelKolTo}
-                    </Element>
-                    {HarData(navnKolTo)}
-                </div>
-            </div>
-        </div>
+        nameRad.every(sjekkStrengVerdi) &&
+        tilleggInfoVedrorendeAktorRad.every(sjekkStrengVerdi)
     );
+};
+
+const settInnRad = (
+    nameRad: string[],
+    tilleggInfoVedrorendeAktorRad: string[],
+    headertxt: string,
+    borderFarge: string
+) => {
+    if (sjekkOmAlleInputfeltErFyltUt(nameRad, tilleggInfoVedrorendeAktorRad)) {
+        if (erDetFellesRad(nameRad)) {
+            return (
+                <div className={cls.element('content', borderFarge)}>
+                    <Normaltekst>{headertxt}</Normaltekst>
+                    <Undertittel>
+                        {nameRad.map(inputFelt => {
+                            return `${inputFelt} `;
+                        })}
+                    </Undertittel>
+                    <Normaltekst>
+                        {tilleggInfoVedrorendeAktorRad.map(inputFelt => {
+                            return `${inputFelt} `;
+                        })}
+                    </Normaltekst>
+                </div>
+            );
+        } else {
+            return (
+                <div className={cls.element('content', borderFarge)}>
+                    <Normaltekst>{headertxt}</Normaltekst>
+                    <Undertittel>
+                        {nameRad.map((inputFelt, index) => {
+                            return index === 1
+                                ? `v/ ${inputFelt}`
+                                : `${inputFelt} `;
+                        })}
+                    </Undertittel>
+                    <Normaltekst>
+                        {tilleggInfoVedrorendeAktorRad.map(
+                            (inputFelt, index) => {
+                                return index < 2 ? `${inputFelt} ` : null;
+                            }
+                        )}
+                    </Normaltekst>
+                    <Normaltekst>
+                        {tilleggInfoVedrorendeAktorRad.map(
+                            (inputFelt, index) => {
+                                return index > 1 ? `${inputFelt} ` : null;
+                            }
+                        )}
+                    </Normaltekst>
+                </div>
+            );
+        }
+    } else {
+        return FormaterFeilBeskjedPaManglendeFelt(
+            nameRad,
+            tilleggInfoVedrorendeAktorRad,
+            headertxt,
+            borderFarge
+        );
+    }
+};
+
+const FormaterFeilBeskjedPaManglendeFelt = (
+    nameRad: string[],
+    tilleggInfoVedrorendeAktorRad: string[],
+    headertxt: string,
+    borderFarge: string
+) => {
+    const hvaMangler = [];
+    if (erDetFellesRad(nameRad)) {
+        if (!(sjekkStrengVerdi(nameRad[0]) || sjekkStrengVerdi(nameRad[1]))) {
+            hvaMangler.push('navn');
+        }
+        if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[1])) {
+            hvaMangler.push('tlfnr');
+        }
+    } else {
+        if (!sjekkStrengVerdi(nameRad[0])) {
+            hvaMangler.push('bedriftnavn');
+        }
+        if (!(sjekkStrengVerdi(nameRad[1]) || sjekkStrengVerdi(nameRad[2]))) {
+            hvaMangler.push('navn');
+        }
+        if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[1])) {
+            hvaMangler.push('orgnr');
+        }
+        if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[3])) {
+            hvaMangler.push('tlfnr');
+        }
+    }
+
+    if (hvaMangler.length > 1) {
+        return (
+            <div className={cls.element('content', borderFarge)}>
+                <Normaltekst>{headertxt}</Normaltekst>
+                <EtikettFokus className={cls.element('etikettInfo')}>
+                    {hvaMangler.map((element, index) => {
+                        if (index === 0) {
+                            return `${element}`;
+                        } else if (index === hvaMangler.length - 1) {
+                            return ` og ${element}`;
+                        } else {
+                            return `, ${element}`;
+                        }
+                    })}
+                    {' er ikke fylt ut'}
+                </EtikettFokus>
+            </div>
+        );
+    } else {
+        return (
+            <div className={cls.element('content', borderFarge)}>
+                <Normaltekst>{headertxt}</Normaltekst>
+                <nav />
+                <EtikettFokus
+                    className={cls.element('etikettInfo')}
+                >{`${hvaMangler} er ikke fylt ut`}</EtikettFokus>
+            </div>
+        );
+    }
+};
+
+const erDetFellesRad = (nameRad: string[]) => {
+    return nameRad.length < 3;
 };
 
 export default Avtaleparter;

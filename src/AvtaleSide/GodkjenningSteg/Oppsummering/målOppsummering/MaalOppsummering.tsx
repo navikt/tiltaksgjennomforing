@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Avtale } from '../../../avtale';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import BEMHelper from '../../../../utils/bem';
 import './målOppsummering.less';
 import MålIkon from './MålIkon';
+import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 
 const cls = BEMHelper('mål');
 
@@ -15,7 +16,9 @@ interface Props {
 const MaalOppsummering = (props: Props) => {
     const maalListe = props.avtale.maal.map(maal => (
         <div key={maal.id} className={cls.className}>
-            <Element className={cls.element('label')}>{maal.kategori}</Element>
+            <Undertittel className={cls.element('label')}>
+                {maal.kategori}
+            </Undertittel>
             <Normaltekst className={cls.element('beskrivelse')}>
                 {maal.beskrivelse}
             </Normaltekst>
@@ -27,9 +30,9 @@ const MaalOppsummering = (props: Props) => {
         </Stegoppsummering>
     ) : (
         <Stegoppsummering ikon={<MålIkon />} tittel="Mål">
-            <Normaltekst className={cls.element('ikkeSatt')}>
-                Ikke fylt ut
-            </Normaltekst>
+            <EtikettFokus className={cls.element('etikettInfo')}>
+                Målpunkt er Ikke fylt ut
+            </EtikettFokus>
         </Stegoppsummering>
     );
 };

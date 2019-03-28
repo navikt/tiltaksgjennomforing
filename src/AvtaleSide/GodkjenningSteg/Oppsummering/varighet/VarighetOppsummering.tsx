@@ -4,9 +4,10 @@ import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import moment from 'moment';
 import VarighetIkon from './VarighetIkon';
-import { HarData } from '../Avtaleparter/Avtaleparter';
+import { SjekkOmInputEksisterer } from '../Avtaleparter/Avtaleparter';
 import BEMHelper from '../../../../utils/bem';
 import './varighet.less';
+import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 
 const cls = BEMHelper('varighetOppsummering');
 
@@ -23,28 +24,11 @@ const settInnRadStatus = (status: boolean, content: any): React.ReactNode => {
     return standardTomBlokk();
 };
 
-const settInnTidsperiode = (
-    stillingProsent: number,
-    arbLengde: number,
-    dato: number
-): React.ReactNode => {
-    if (sjekkOmVerdiErSatt(stillingProsent) && sjekkOmVerdiErSatt(arbLengde)) {
-        return (
-            <Normaltekst className="oppsummering__beskrivelse">
-                {stillingProsent}% stilling i {arbLengde} {ukeSulfix(arbLengde)}{' '}
-                {harDato(dato).length > 1 ? `fra ${dato}.` : ''}
-            </Normaltekst>
-        );
-    }
-
-    return standardTomBlokk();
-};
-
 const ukeSulfix = (antall: number): string => {
     return antall > 1 ? ' uker' : ' uke';
 };
 
-const sjekkOmVerdiErSatt = (input: number): boolean => {
+export const sjekkOmVerdiErSatt = (input: number): boolean => {
     if (input) {
         if (input > 0) {
             return true;
@@ -62,11 +46,7 @@ const harDato = (dato: number): string => {
 };
 
 const standardTomBlokk = (): React.ReactNode => {
-    return (
-        <Normaltekst className={cls.element('navn--ikkeFyltUt')}>
-            Ikke fylt ut
-        </Normaltekst>
-    );
+    return <EtikettFokus>Ikke fylt ut</EtikettFokus>;
 };
 
 const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
@@ -75,6 +55,10 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
         arbeidstreningLengde,
         arbeidstreningStillingprosent,
     } = avtale;
+    const stillingProsent = arbeidstreningStillingprosent
+        ? arbeidstreningStillingprosent.toString() + '%'
+        : '';
+
     return (
         <Stegoppsummering ikon={<VarighetIkon />} tittel="Dato og arbeidstid">
             <div className={cls.element('content')}>
@@ -83,7 +67,11 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
                         <Element className={cls.element('label')}>
                             Startdato
                         </Element>
-                        {HarData(harDato(startDato))}
+                        {SjekkOmInputEksisterer(
+                            harDato(startDato),
+                            'normaltekst',
+                            'varighetOppsummering'
+                        )}
                     </div>
                     <div className={cls.element('element')}>
                         <Element className={cls.element('label')}>
@@ -97,15 +85,17 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
                                 : ''
                         )}
                     </div>
+                    <div className={cls.element('element')}>
+                        <Element className={cls.element('label')}>
+                            Stillingsprosent
+                        </Element>
+                        {SjekkOmInputEksisterer(
+                            stillingProsent,
+                            'normaltekst',
+                            'varighetOppsummering'
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className={cls.element('content')}>
-                <Element>Tidsperiode</Element>
-                {settInnTidsperiode(
-                    arbeidstreningStillingprosent,
-                    arbeidstreningLengde,
-                    startDato
-                )}
             </div>
         </Stegoppsummering>
     );
