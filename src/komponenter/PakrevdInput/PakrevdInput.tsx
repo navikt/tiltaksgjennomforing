@@ -26,7 +26,7 @@ const PakrevdInput: React.FunctionComponent<Props> = props => {
         validatePhoneNr,
     } = props;
 
-    const phoneRegex = /^\+?\d{0,12}$/;
+    const phoneRegex = /^\+?\d{0,}$/;
     const visFeilmelding = feilmelding || label + ' er påkrevd';
 
     const onBlur = () => {
