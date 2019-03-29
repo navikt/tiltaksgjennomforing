@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Avtale } from '../../../avtale';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import BEMHelper from '../../../../utils/bem';
 import './målOppsummering.less';
@@ -15,7 +15,9 @@ interface Props {
 const MaalOppsummering = (props: Props) => {
     const maalListe = props.avtale.maal.map(maal => (
         <div key={maal.id} className={cls.className}>
-            <Element className={cls.element('label')}>{maal.kategori}</Element>
+            <Undertittel className={cls.element('label')}>
+                {maal.kategori}
+            </Undertittel>
             <Normaltekst className={cls.element('beskrivelse')}>
                 {maal.beskrivelse}
             </Normaltekst>
