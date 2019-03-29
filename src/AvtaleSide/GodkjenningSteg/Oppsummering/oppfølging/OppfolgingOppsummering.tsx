@@ -5,7 +5,7 @@ import { Element } from 'nav-frontend-typografi';
 import OppfølgingIkon from './OppfølgingIkon';
 import BEMHelper from '../../../../utils/bem';
 import './oppfølging.less';
-import { HarData } from '../Avtaleparter/Avtaleparter';
+import { SjekkOmInputEksisterer } from '../Avtaleparter/Avtaleparter';
 
 const cls = BEMHelper('oppfolging');
 
@@ -21,7 +21,11 @@ const OppfolgingOppsummering = ({ avtale }: { avtale: Avtale }) => {
                 <Element className={cls.element('label')}>
                     Oppfølgingsbehov
                 </Element>
-                {HarData(oppfolging)}
+                {SjekkOmInputEksisterer(
+                    oppfolging,
+                    'Normaltekst',
+                    'oppfolging'
+                )}
             </div>
         </Stegoppsummering>
     );

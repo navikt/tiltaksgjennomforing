@@ -7,56 +7,24 @@
 }
 
 .avtaleparter {
-    &__content {
-        padding-top: 0.5rem;
-    }
+    &__content2 {
+        margin: 1rem 0;
+        padding-left: 6px;
 
-    &__radtittel {
-        padding-top: 2rem;
-        padding-left: 0.5rem;
-
-        &--first {
-            padding-top: 1rem;
-            padding-left: 0.5rem;
-        }
-    }
-
-    &__rad {
-        display: flex;
-        flex-direction: column;
-        justify-content: left;
-        flex-grow: 1;
-        padding-left: 0.5rem;
-
-        @media print {
-            display: flex;
-            flex-direction: row;
+        &--farge-gronn {
+            border-left: 3px solid #9bd0b0;
         }
 
-        &--fortsettelse {
-            display: flex;
-            flex-direction: column;
-            justify-content: left;
-            flex-grow: 1;
+        &--farge-graa {
+            border-left: 3px solid #e0dae7;
         }
-    }
 
-    &__element {
-        width: 100%;
-        padding-bottom: 0.75rem;
-
-        &--ytterraad {
-            padding-left: 5rem;
+        &--farge-lysblaa {
+            border-left: 3px solid #cce1f3;
         }
-    }
-
-    &__label {
-        margin-bottom: 0.1rem;
     }
 
     &__navn {
-        margin-bottom: 0.5rem;
-
         &--ikkeFyltUt {
             /* blir kun rendret av IE. erstattning for fit-content som ikke støttes */
             @media screen and (-ms-high-contrast: active),
@@ -65,46 +33,13 @@
             }
 
             background-color: #ffe5c2;
+            width: -moz-fit-content;
             width: fit-content;
             padding-left: 1rem;
             padding-right: 1rem;
-            border-radius: 4px;
+            border-radius: 3px;
             text-align: center;
-        }
-    }
-
-    @media (min-width: @mobile-breakpoint) {
-        &__rad {
-            flex-direction: row;
-            justify-content: space-between;
-            padding-left: 0;
-
-            &--fortsettelse {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-        }
-
-        &__radtittel {
-            padding-top: 2.5rem;
-            padding-left: 0;
-
-            &--first {
-                padding-top: 0.5rem;
-                padding-left: 0;
-            }
-        }
-
-        &__content {
-            padding-bottom: 0.25rem;
-        }
-
-        &__navn {
-            margin-bottom: 1rem;
-        }
-
-        &__element {
-            padding-bottom: 0.25rem;
+            border: 1px solid black;
         }
     }
 }
