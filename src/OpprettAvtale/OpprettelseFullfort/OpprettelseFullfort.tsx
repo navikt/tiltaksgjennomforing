@@ -1,6 +1,5 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Input } from 'nav-frontend-skjema';
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { RouteComponentProps, RouterProps } from 'react-router';
@@ -12,6 +11,7 @@ import {
 } from '../../paths';
 
 import './OpprettelseFullfort.less';
+import Lenke from 'nav-frontend-lenker';
 
 const OpprettelseFullfort: React.FunctionComponent<
     RouteComponentProps<{ avtaleId: string }>
@@ -25,11 +25,14 @@ const OpprettelseFullfort: React.FunctionComponent<
     const hrefTilAvtaleSelvbetjening = absoluttPathTilAvtaleSelvbetjening(
         avtaleId
     );
+    const hrefStatisk = 'https://arbeidsgiver.nav.no/tiltaksgjennomforing/';
 
     const inputLabel = (
-        <Element className="opprettelseFullfort__undertittel">
-            Kopier denne lenken for å dele
-        </Element>
+        <Normaltekst className="opprettelseFullfort__undertittel">
+            For at arbeidsgiver og deltaker skal kunne fylle ut og godkjenne
+            avtalen, må du kopiere og sende dem lenken under. De må da logge seg
+            inn via ID-porten.
+        </Normaltekst>
     );
 
     const veilederpanel = (
@@ -37,27 +40,16 @@ const OpprettelseFullfort: React.FunctionComponent<
             <Systemtittel className="opprettelseFullfort__innholdstittel">
                 Avtalen er opprettet
             </Systemtittel>
-
+            {inputLabel}
             <div className="opprettelseFullfort__lenkedeling">
-                <Input
-                    label={inputLabel}
-                    className="opprettelseFullfort__inputfelt"
-                    value={hrefTilAvtaleSelvbetjening}
-                    readOnly={true}
-                />
+                <div className="opprettelseFullfort__lenke">
+                    <Lenke href={hrefStatisk}>{hrefStatisk}</Lenke>
+                </div>
                 <CopyToClipboard text={hrefTilAvtaleSelvbetjening}>
                     <Hovedknapp className="opprettelseFullfort__kopier-knapp">
                         Kopier lenke
                     </Hovedknapp>
                 </CopyToClipboard>
-            </div>
-            <div className="opprettelseFullfort__tekst">
-                <Normaltekst>
-                    For at arbeidsgiver og deltaker skal kunne logge seg inn og
-                    fylle ut avtalen må du sende dem lenken vist nedenfor. De
-                    kan da logge seg inn i avtalen med ID-porten.
-                </Normaltekst>
-                <Normaltekst>PS! Du kan dele avtalen senere også.</Normaltekst>
             </div>
         </VeilederpanelMedAvsjekkIkon>
     );
