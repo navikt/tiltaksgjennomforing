@@ -2,10 +2,10 @@ import React from 'react';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import BEMHelper from '../../../../utils/bem';
 import { Avtale } from '../../../avtale';
-import { Element } from 'nav-frontend-typografi';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
 import './tilrettelegging.less';
 import TilretteleggingIkon from './TilretteleggingIkon';
-import { SjekkOmInputEksisterer } from '../Avtaleparter/Avtaleparter';
+import { HarData } from '../Avtaleparter/Avtaleparter';
 
 const cls = BEMHelper('tilrettelegging');
 
@@ -24,11 +24,7 @@ const Tilrettelegging = ({ avtale }: { avtale: Avtale }) => {
                 <Element className={cls.element('label')}>
                     Tilretteleggingsbehov
                 </Element>
-                {SjekkOmInputEksisterer(
-                    tilrettelegging,
-                    'NormalTekst',
-                    'tilrettelegging'
-                )}
+                {HarData(tilrettelegging)}
             </div>
         </Stegoppsummering>
     );

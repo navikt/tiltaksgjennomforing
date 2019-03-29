@@ -12,45 +12,14 @@ interface Props {
 
 const cls = BEMHelper('avtaleparter');
 
-export const SjekkOmInputEksisterer = (
-    input: string,
-    fontType: string,
-    clsName: string,
-    label?: string
-): React.ReactNode => {
-    const classN = BEMHelper(clsName);
-
+export const HarData = (input: string): React.ReactNode => {
     if (sjekkStrengVerdi(input)) {
-        switch (fontType) {
-            case 'UnderTittel':
-                return (
-                    <Undertittel className={classN.element('navn')}>
-                        {label} {input}
-                    </Undertittel>
-                );
-            case 'Normaltekst':
-                return (
-                    <Normaltekst className={classN.element('navn')}>
-                        {label} {input}
-                    </Normaltekst>
-                );
-            case 'Element':
-                return (
-                    <Element className={classN.element('navn')}>
-                        {label} {input}
-                    </Element>
-                );
-
-            default:
-                return (
-                    <Normaltekst className={classN.element('navn')}>
-                        {label} {input}
-                    </Normaltekst>
-                );
-        }
+        return (
+            <Normaltekst className={cls.element('navn')}>{input}</Normaltekst>
+        );
     }
     return (
-        <Normaltekst className={classN.element('navn', 'ikkeFyltUt')}>
+        <Normaltekst className={cls.element('navn--ikkeFyltUt')}>
             Ikke fylt ut
         </Normaltekst>
     );
@@ -58,12 +27,10 @@ export const SjekkOmInputEksisterer = (
 
 const sjekkNavnForConCatOmBeggeEksisterer = (
     navn: string,
-    etternavn: string,
-    concatSymbol?: string
+    etternavn: string
 ): string => {
-    const symbol = concatSymbol || '';
     if (sjekkStrengVerdi(navn) && sjekkStrengVerdi(etternavn)) {
-        const deltakerNavn = `${navn} ${symbol} ${etternavn}`;
+        const deltakerNavn = `${navn} ${etternavn}`;
         return deltakerNavn;
     }
     return '';
@@ -95,90 +62,93 @@ const Avtaleparter = (props: Props) => {
 
     return (
         <Stegoppsummering
-            tittel="Kontaktinformasjon"
+            tittel="Avtalens parter"
             ikon={<AvtalepartnerHeaderIkon />}
         >
-            <FellesRad
-                clsNameModifier="farge-gronn"
-                labelTittel="Deltaker"
-                navn={deltakerFornavn}
-                etternavn={deltakerEtternavn}
-                labelinfoTittel="F.nr:"
-                info={deltakerFnr}
+            <RadTittel radTittel="Deltaker" clsName="radtittel--first" />
+
+            <AvtaleRad
+                labelKolEn="Navn"
+                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
+                    deltakerFornavn,
+                    deltakerEtternavn
+                )}
+                labelKolTo="Fødselsnummer"
+                navnKolTo={deltakerFnr}
             />
 
-            <div className={cls.element('content2', 'farge-lysblaa')}>
-                <Normaltekst>Arbeidsgiver</Normaltekst>
-
-                {SjekkOmInputEksisterer(
-                    sjekkNavnForConCatOmBeggeEksisterer(
-                        bedriftNavn,
-                        sjekkNavnForConCatOmBeggeEksisterer(
-                            arbeidsgiverFornavn,
-                            arbeidsgiverEtternavn
-                        ),
-                        'v/'
-                    ),
-                    'UnderTittel',
-                    'avtaleparter'
+            <RadTittel radTittel="Arbeidsgiver" clsName="radtittel " />
+            <AvtaleRad
+                labelKolEn="Bedriftens navn"
+                navnKolEn={bedriftNavn}
+                labelKolTo="Bedriftsnummer"
+                navnKolTo={bedriftNr}
+            />
+            <AvtaleRad
+                labelKolEn="Kontaktperson for avtalen"
+                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
+                    arbeidsgiverFornavn,
+                    arbeidsgiverEtternavn
                 )}
-
-                {SjekkOmInputEksisterer(
-                    bedriftNr,
-                    'Normaltekst',
-                    'avtaleparter',
-                    'Org:'
+                labelKolTo="Telefonnummer"
+                navnKolTo={arbeidsgiverTlf}
+            />
+            <RadTittel radTittel="Kontaktperson i NAV" clsName="radtittel" />
+            <AvtaleRad
+                labelKolEn="Kontaktperson"
+                navnKolEn={sjekkNavnForConCatOmBeggeEksisterer(
+                    veilederFornavn,
+                    veilederEtternavn
                 )}
-                {SjekkOmInputEksisterer(
-                    arbeidsgiverTlf,
-                    'Normaltekst',
-                    'avtaleparter',
-                    'Tlf:'
-                )}
-            </div>
-
-            <FellesRad
-                clsNameModifier="farge-graa"
-                labelTittel="NAV-veileder"
-                navn={veilederFornavn}
-                etternavn={veilederEtternavn}
-                labelinfoTittel="Telefonnummer:"
-                info={veilederTlf}
+                labelKolTo="Telefonnummer"
+                navnKolTo={veilederTlf}
             />
         </Stegoppsummering>
     );
 };
 
-const FellesRad = ({
-    clsNameModifier,
-    labelTittel,
-    navn,
-    etternavn,
-    labelinfoTittel,
-    info,
+const RadTittel = ({
+    radTittel,
+    clsName,
 }: {
-    clsNameModifier?: string;
-    labelTittel: string;
-    navn: string;
-    etternavn: string;
-    labelinfoTittel: string;
-    info: string;
-}) => {
-    return (
-        <div className={cls.element('content2', clsNameModifier)}>
-            <Normaltekst>{labelTittel}</Normaltekst>
+    radTittel: string;
+    clsName: string;
+}) => (
+    <div className={cls.element(clsName)}>
+        <Undertittel>{radTittel}</Undertittel>
+    </div>
+);
 
-            {SjekkOmInputEksisterer(
-                sjekkNavnForConCatOmBeggeEksisterer(navn, etternavn),
-                'UnderTittel',
-                'avtaleparter'
-            )}
-            {SjekkOmInputEksisterer(
-                info,
-                'Normaltekst',
-                'avtaleparter',
-                labelinfoTittel
-            )}
+export const AvtaleRad = ({
+    clsName,
+    labelKolEn,
+    navnKolEn,
+    labelKolTo,
+    navnKolTo,
+}: {
+    clsName?: string;
+    labelKolEn: string;
+    navnKolEn: string;
+    labelKolTo: string;
+    navnKolTo: string;
+}) => {
+    const avtaleRadCls = BEMHelper(clsName ? clsName : 'avtaleparter');
+    return (
+        <div className={avtaleRadCls.element('content')}>
+            <div className={avtaleRadCls.element('rad')}>
+                <div className={avtaleRadCls.element('element')}>
+                    <Element className={avtaleRadCls.element('label')}>
+                        {labelKolEn}
+                    </Element>
+                    {HarData(navnKolEn)}
+                </div>
+                <div className={avtaleRadCls.element('element', 'ytterrad')}>
+                    <Element className={avtaleRadCls.element('label')}>
+                        {labelKolTo}
+                    </Element>
+                    {HarData(navnKolTo)}
+                </div>
+            </div>
         </div>
     );
 };
