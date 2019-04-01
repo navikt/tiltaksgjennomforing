@@ -24,19 +24,14 @@ interface State {
 class RedigerMaal extends React.Component<Props, State> {
     state = {
         valgtKategori:
-            this.props.defaultMaal && this.props.defaultMaal.kategori,
+            (this.props.defaultMaal && this.props.defaultMaal.kategori) ||
+            this.props.ledigeMaalkategorier[0],
         beskrivelse:
             (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) ||
             '',
         beskrivelseFeil: undefined,
         valgtKategoriFeil: undefined,
     };
-
-    componentDidMount(): void {
-        this.setState({
-            valgtKategori: this.props.ledigeMaalkategorier[0],
-        });
-    }
 
     velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
         this.setState({
