@@ -2,12 +2,11 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { RouteComponentProps, RouterProps } from 'react-router';
-import { Context, medContext } from '../../AvtaleContext';
+import { RouteComponentProps } from 'react-router';
 import VeilederpanelMedAvsjekkIkon from '../../komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import {
-    absoluttPathTilAvtaleSelvbetjening,
     pathTilKontaktinformasjonSteg,
+    pathTilAvtaleOversikt,
 } from '../../paths';
 
 import './OpprettelseFullfort.less';
@@ -21,11 +20,6 @@ const OpprettelseFullfort: React.FunctionComponent<
     const tilAvtalenKlikk = () => {
         props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
     };
-
-    const hrefTilAvtaleSelvbetjening = absoluttPathTilAvtaleSelvbetjening(
-        avtaleId
-    );
-    const hrefStatisk = 'https://arbeidsgiver.nav.no/tiltaksgjennomforing/';
 
     const inputLabel = (
         <Normaltekst className="opprettelseFullfort__undertittel">
@@ -43,9 +37,11 @@ const OpprettelseFullfort: React.FunctionComponent<
             {inputLabel}
             <div className="opprettelseFullfort__lenkedeling">
                 <div className="opprettelseFullfort__lenke">
-                    <Lenke href={hrefStatisk}>{hrefStatisk}</Lenke>
+                    <Lenke href={pathTilAvtaleOversikt}>
+                        {pathTilAvtaleOversikt}
+                    </Lenke>
                 </div>
-                <CopyToClipboard text={hrefTilAvtaleSelvbetjening}>
+                <CopyToClipboard text={pathTilAvtaleOversikt}>
                     <Hovedknapp className="opprettelseFullfort__kopier-knapp">
                         Kopier lenke
                     </Hovedknapp>
