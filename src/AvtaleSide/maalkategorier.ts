@@ -1,16 +1,16 @@
 export type Maalkategori =
+    | 'Få jobb i bedriften'
     | 'Arbeidserfaring'
     | 'Utprøving'
     | 'Språkopplæring'
     | 'Oppnå fagbrev/kompetansebevis'
-    | 'Få jobb i bedriften'
     | 'Annet';
 
 export const maalkategorier: Maalkategori[] = [
+    'Få jobb i bedriften',
     'Arbeidserfaring',
     'Utprøving',
     'Språkopplæring',
     'Oppnå fagbrev/kompetansebevis',
-    'Få jobb i bedriften',
     'Annet',
 ];

@@ -4,6 +4,7 @@ import { Context, medContext } from '../../../AvtaleContext';
 import './VeilederinfoDel.less';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
 import { Avtale } from '../../avtale';
+import { validereTelefonNrOnchange } from '../ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 
 const VeilederinfoDel = (props: Context) => {
     const onChange = (label: keyof Avtale) => {
@@ -34,9 +35,11 @@ const VeilederinfoDel = (props: Context) => {
                     className="veilederinfo__tlf"
                     label="Telefonnummer"
                     verdi={props.avtale.veilederTlf}
-                    onChange={onChange('veilederTlf')}
+                    onChange={validereTelefonNrOnchange(
+                        'veilederTlf',
+                        props.settAvtaleVerdi
+                    )}
                     inputType="tel"
-                    validatePhoneNr={true}
                 />
             </div>
         </>

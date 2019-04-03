@@ -7,43 +7,25 @@ interface Props {
     label: React.ReactNode;
     verdi: string;
     feilmelding?: string;
-    ekstraValidering?: boolean;
     inputType?: string;
-    validatePhoneNr?: boolean;
-    // * onChange bør oppdatere verdi feltet på props
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PakrevdInput: React.FunctionComponent<Props> = props => {
-    const [feil, setFeil] = useState<SkjemaelementFeil | undefined>(undefined);
-    const {
-        feilmelding,
-        label,
-        ekstraValidering,
-        verdi,
-        className,
-        inputType,
-        validatePhoneNr,
-    } = props;
+    const [feilInputFelt, setFeilInputFelt] = useState<
+        SkjemaelementFeil | undefined
+    >(undefined);
+    const { feilmelding, label, verdi, className, inputType } = props;
 
-    const phoneRegex = /^\+?\d{0,}$/;
     const visFeilmelding = feilmelding || label + ' er påkrevd';
 
-    const onBlur = () => {
-        if (ekstraValidering && feilmelding) {
-            setFeil({ feilmelding: props.feilmelding });
+    const sjekkInputfelt = () => {
+        if (feilmelding) {
+            setFeilInputFelt({ feilmelding: props.feilmelding });
+        } else if (!verdi) {
+            setFeilInputFelt({ feilmelding: visFeilmelding });
         } else {
-            if (!verdi) {
-                setFeil({ feilmelding: visFeilmelding });
-            } else {
-                setFeil(undefined);
-            }
-        }
-    };
-
-    const validatePhoneNumber = (event: ChangeEvent<HTMLInputElement>) => {
-        if (phoneRegex.test(event.target.value)) {
-            props.onChange(event);
+            setFeilInputFelt(undefined);
         }
     };
 
@@ -51,9 +33,9 @@ const PakrevdInput: React.FunctionComponent<Props> = props => {
         <Input
             label={label}
             value={verdi || ''}
-            feil={feil}
-            onChange={validatePhoneNr ? validatePhoneNumber : props.onChange}
-            onBlur={onBlur}
+            feil={feilInputFelt}
+            onChange={props.onChange}
+            onBlur={sjekkInputfelt}
             className={className}
             type={inputType ? inputType : 'text'}
         />

@@ -8,22 +8,35 @@ import { validerOrgnr } from '../../../utils/orgnrUtils';
 import { useState } from 'react';
 import { Avtale } from '../../avtale';
 
+const telefonnummerRegex = /^\+?\d{0,}$/;
+
+export const validereTelefonNrOnchange = (
+    label: keyof Avtale,
+    settAvtaleFelt: (label: keyof Avtale, data: any) => void
+) => (event: any) => {
+    if (telefonnummerRegex.test(event.target.value)) {
+        settAvtaleFelt(label, event.target.value);
+    }
+};
+
 const ArbeidsgiverinfoDel = (props: Context) => {
     const onChange = (label: keyof Avtale) => {
         return (event: any) => props.settAvtaleVerdi(label, event.target.value);
     };
 
-    const [feil, setFeil] = useState<string | undefined>(undefined);
+    const [feilmelding, setFeilmelding] = useState<string | undefined>(
+        undefined
+    );
 
-    const orgnrOnChange = (label: keyof Avtale) => {
+    const validereOrganisasjonsNrOnchange = (label: keyof Avtale) => {
         return (event: any) => {
             if (
                 event.target.value &&
                 !validerOrgnr(event.target.value.replace(/\s/g, ''))
             ) {
-                setFeil('Ugyldig bedriftsnummer');
+                setFeilmelding('Ugyldig bedriftsnummer');
             } else {
-                setFeil(undefined);
+                setFeilmelding(undefined);
             }
             props.settAvtaleVerdi(label, event.target.value);
         };
@@ -43,14 +56,14 @@ const ArbeidsgiverinfoDel = (props: Context) => {
                     className="arbeidsgiverbedriftrad__bedriftnr"
                     label="Bedriftsnummer"
                     verdi={props.avtale.bedriftNr}
-                    onChange={orgnrOnChange('bedriftNr')}
-                    feilmelding={feil}
-                    ekstraValidering={true}
+                    onChange={validereOrganisasjonsNrOnchange('bedriftNr')}
+                    feilmelding={feilmelding}
                 />
             </div>
         </SkjemaGruppe>
     );
 
+    // arbeidsgiverTlf
     const arbeidsgiverInfo = (
         <SkjemaGruppe title="Kontaktperson for avtalen">
             <div className="arbeidsgiverkontaktpersonrad">
@@ -72,9 +85,11 @@ const ArbeidsgiverinfoDel = (props: Context) => {
                     className="arbeidsgiverkontaktpersonrad__tlf"
                     label="Telefonnummer"
                     verdi={props.avtale.arbeidsgiverTlf}
-                    onChange={onChange('arbeidsgiverTlf')}
+                    onChange={validereTelefonNrOnchange(
+                        'arbeidsgiverTlf',
+                        props.settAvtaleVerdi
+                    )}
                     inputType="tel"
-                    validatePhoneNr={true}
                 />
             </div>
         </SkjemaGruppe>
