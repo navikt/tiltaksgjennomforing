@@ -16,15 +16,13 @@ const ArbeidsgiverinfoDel = (props: Context) => {
 
     const orgnrOnChange = (label: string) => {
         return (event: any) => {
-            if (
-                event.target.value &&
-                !validerOrgnr(event.target.value.replace(/\s/g, ''))
-            ) {
+            const inputUtenSpace = event.target.value.replace(/\s/g, '');
+            if (event.target.value && !validerOrgnr(inputUtenSpace)) {
                 setFeil('Ugyldig bedriftsnummer');
             } else {
                 setFeil(undefined);
             }
-            props.settAvtaleVerdi(label, event.target.value);
+            props.settAvtaleVerdi(label, inputUtenSpace);
         };
     };
 
