@@ -63,7 +63,6 @@ const ArbeidsgiverinfoDel = (props: Context) => {
         </SkjemaGruppe>
     );
 
-    // arbeidsgiverTlf
     const arbeidsgiverInfo = (
         <SkjemaGruppe title="Kontaktperson for avtalen">
             <div className="arbeidsgiverkontaktpersonrad">
