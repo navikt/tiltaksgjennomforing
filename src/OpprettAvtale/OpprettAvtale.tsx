@@ -19,15 +19,15 @@ import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle
 import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
 import BEMHelper from '../utils/bem';
 import KnappBase from 'nav-frontend-knapper';
+import { validerOrgnr } from '../utils/orgnrUtils';
 
 const cls = BEMHelper('opprett-avtale');
 
 interface State {
     deltakerFnr: string;
-    arbeidsgiverFnr: string;
-    bedriftNavn: string;
+    bedriftNr: string;
     deltakerFnrFeil?: SkjemaelementFeil;
-    arbeidsgiverFnrFeil?: SkjemaelementFeil;
+    bedriftNrFeil?: string;
 }
 
 const FNR_FEILMELDING = 'Ugyldig fødselsnummer';
@@ -35,60 +35,57 @@ const FNR_FEILMELDING = 'Ugyldig fødselsnummer';
 class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     state: State = {
         deltakerFnr: '',
-        arbeidsgiverFnr: '',
-        bedriftNavn: '',
+        bedriftNr: '',
     };
 
     endreDeltakerFnr = (fnr: string) => {
         this.setState({ deltakerFnr: fnr });
     };
 
-    endreArbeidsgiverFnr = (fnr: string) => {
-        this.setState({ arbeidsgiverFnr: fnr });
+    endreArbeidsgiverFnr = (bedriftnr: string) => {
+        this.setState({ bedriftNr: bedriftnr });
     };
 
-    endreBedriftNavn = (bedriftNavn: string) => {
-        this.setState({ bedriftNavn });
+    orgnrOnChange = () => {
+        return (event: any) => {
+            const bedriftNr = event.target.value.replace(/\s/g, '');
+            if (event.target.value && !validerOrgnr(bedriftNr)) {
+                this.setState({ bedriftNrFeil: 'Ugyldig fødselsnummer' });
+            } else {
+                this.setState({ bedriftNrFeil: undefined });
+            }
+            this.setState({ bedriftNr });
+        };
     };
 
     hvaMangler = () => {
         if (
             !(
                 erGyldigFnr(this.state.deltakerFnr) &&
-                erGyldigFnr(this.state.arbeidsgiverFnr)
-            ) &&
-            !this.state.bedriftNavn
+                validerOrgnr(this.state.bedriftNr)
+            )
         ) {
-            return 'Må oppgi gyldig fødselsnummer for deltaker og arbeidsgiver og navn på bedriften';
-        } else if (
-            !(
-                erGyldigFnr(this.state.deltakerFnr) &&
-                erGyldigFnr(this.state.arbeidsgiverFnr)
-            ) &&
-            this.state.bedriftNavn
-        ) {
-            return 'Må oppgi gyldig fødselsnummer for deltaker og arbeidsgiver';
+            return 'Må oppgi gyldig fødselsnummer for deltaker og gyldig bedriftsnummer';
         } else if (
             erGyldigFnr(this.state.deltakerFnr) &&
-            erGyldigFnr(this.state.arbeidsgiverFnr) &&
-            !this.state.bedriftNavn
+            !validerOrgnr(this.state.bedriftNr)
         ) {
-            return 'Må oppgi navn på bedriften';
+            return 'Må oppgi gyldig bedriftsnummer';
+        } else if (
+            validerOrgnr(this.state.bedriftNr) &&
+            !erGyldigFnr(this.state.deltakerFnr)
+        ) {
+            return 'Må oppgi gyldig fødselsnummer for deltaker';
         }
     };
 
     opprettAvtaleKlikk = () => {
         if (
             erGyldigFnr(this.state.deltakerFnr) &&
-            erGyldigFnr(this.state.arbeidsgiverFnr) &&
-            this.state.bedriftNavn
+            validerOrgnr(this.state.bedriftNr)
         ) {
             return this.props
-                .opprettAvtale(
-                    this.state.deltakerFnr,
-                    this.state.arbeidsgiverFnr,
-                    this.state.bedriftNavn
-                )
+                .opprettAvtale(this.state.deltakerFnr, this.state.bedriftNr)
                 .then(() => {
                     this.props.history.push(
                         pathTilOpprettetAvtaleBekreftelse(this.props.avtale.id)
@@ -154,35 +151,23 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         );
 
         const inputFelter = (
-            <>
-                <div className="opprett-avtale__input-wrapper">
-                    <FnrInput
-                        className="opprett-avtale__kandidat-fnr"
-                        label={<Element>Deltakers fødselsnummer</Element>}
-                        verdi={this.state.deltakerFnr}
-                        feilmelding={FNR_FEILMELDING}
-                        onChange={this.endreDeltakerFnr}
-                    />
-                    <FnrInput
-                        className="opprett-avtale__arbeidsgiver-fnr"
-                        label={<Element>Arbeidsgivers fødselsnummer</Element>}
-                        verdi={this.state.arbeidsgiverFnr}
-                        feilmelding={FNR_FEILMELDING}
-                        onChange={this.endreArbeidsgiverFnr}
-                    />
-                </div>
+            <div className="opprett-avtale__input-wrapper">
+                <FnrInput
+                    className="opprett-avtale__kandidat-fnr"
+                    label={<Element>Deltakers fødselsnummer</Element>}
+                    verdi={this.state.deltakerFnr}
+                    feilmelding={FNR_FEILMELDING}
+                    onChange={this.endreDeltakerFnr}
+                />
 
-                <div className="opprett-avtale__input-wrapper-rad2">
-                    <PakrevdInput
-                        className="opprett-avtale__arbeidsgiver-bedriftNavn typo-element"
-                        label="Bedriftens navn"
-                        verdi={this.state.bedriftNavn}
-                        onChange={event =>
-                            this.endreBedriftNavn(event.currentTarget.value)
-                        }
-                    />
-                </div>
-            </>
+                <PakrevdInput
+                    className="opprett-avtale__arbeidsgiver-fnr typo-element"
+                    label="Bedriftsnummer"
+                    verdi={this.state.bedriftNr}
+                    onChange={this.orgnrOnChange()}
+                    feilmelding={this.state.bedriftNrFeil}
+                />
+            </div>
         );
 
         return (

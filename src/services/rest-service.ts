@@ -16,11 +16,7 @@ export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
     hentAvtalerForInnloggetBruker: () => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
-    opprettAvtale: (
-        deltakerFnr: string,
-        arbeidsgiverFnr: string,
-        bedriftNavn: string
-    ) => Promise<Avtale>;
+    opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtaleId: string) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
@@ -98,15 +94,13 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 
 const opprettAvtale = async (
     deltakerFnr: string,
-    arbeidsgiverFnr: string,
-    bedriftNavn: string
+    bedriftNr: string
 ): Promise<Avtale> => {
     const postResponse = await fetch(`${API_URL}/avtaler`, {
         method: 'POST',
         body: JSON.stringify({
             deltakerFnr,
-            arbeidsgiverFnr,
-            bedriftNavn,
+            bedriftNr,
         }),
         headers: {
             'Content-Type': 'application/json',
