@@ -161,7 +161,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 />
 
                 <PakrevdInput
-                    className="opprett-avtale__arbeidsgiver-fnr typo-element"
+                    className="opprett-avtale__arbeidsgiver-bedriftNr typo-element"
                     label="Bedriftsnummer"
                     verdi={this.state.bedriftNr}
                     onChange={this.orgnrOnChange()}
