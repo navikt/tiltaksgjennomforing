@@ -60,10 +60,8 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
 
     hvaMangler = () => {
         if (
-            !(
-                erGyldigFnr(this.state.deltakerFnr) &&
-                validerOrgnr(this.state.bedriftNr)
-            )
+            !erGyldigFnr(this.state.deltakerFnr) &&
+            !validerOrgnr(this.state.bedriftNr)
         ) {
             return 'Må oppgi gyldig fødselsnummer for deltaker og gyldig bedriftsnummer';
         } else if (
