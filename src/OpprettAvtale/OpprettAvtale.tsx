@@ -50,7 +50,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         return (event: any) => {
             const bedriftNr = event.target.value.replace(/\s/g, '');
             if (event.target.value && !validerOrgnr(bedriftNr)) {
-                this.setState({ bedriftNrFeil: 'Ugyldig fødselsnummer' });
+                this.setState({ bedriftNrFeil: 'Ugyldig bedriftsnummer' });
             } else {
                 this.setState({ bedriftNrFeil: undefined });
             }
