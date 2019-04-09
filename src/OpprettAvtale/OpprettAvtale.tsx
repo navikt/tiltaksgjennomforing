@@ -151,8 +151,8 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         const inputFelter = (
             <div className="opprett-avtale__input-wrapper">
                 <FnrInput
-                    className="opprett-avtale__kandidat-fnr"
-                    label={<Element>Deltakers fødselsnummer</Element>}
+                    className="opprett-avtale__kandidat-fnr typo-element"
+                    label="Deltakers fødselsnummer"
                     verdi={this.state.deltakerFnr}
                     feilmelding={FNR_FEILMELDING}
                     onChange={this.endreDeltakerFnr}
