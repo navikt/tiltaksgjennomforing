@@ -105,10 +105,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         <Normaltekst>Deltakers fødselsnummer</Normaltekst>
                     </li>
                     <li>
-                        <Normaltekst>
-                            Fødselsnummeret til personen hos bedriften som skal
-                            fylle ut avtalen
-                        </Normaltekst>
+                        <Normaltekst>Arbeidsgivers bedriftsnummer</Normaltekst>
                     </li>
                 </ul>
             </VeilederpanelMedUtklippstavleIkon>
@@ -126,12 +123,12 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 </EkstbanderbartPanelRad>
 
                 <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
-                    For at avtalen skal kunne opprettes, må avtalens parter bli
-                    knyttet sammen med gyldige, unike identifikasjoner:
-                    fødselsnummer. På sikt kan alle bruke Altinn til å logge
-                    inn, men enn så lenge må partene i avtalen utveksle sitt
-                    fødselsnummer. Arbeidsgiver sitt fødselsnummer er ikke
-                    synlig i avtalen.
+                    For at deltaker og arbeidsgiver skal få tilgang til
+                    løsningen må de logge seg inn via ID-porten. Tilgang for
+                    arbeidsgiver styres gjennom Altinn. For at en arbeidsgiver
+                    kan representere en bedrift må personen ha rollen{' '}
+                    <em>Helse-, sosial- og velferdstjenester</em> eller gis
+                    tilgang til enkelttjenesten <em>Tiltaksgjennomføring</em>.
                 </EkstbanderbartPanelRad>
                 <EkstbanderbartPanelRad
                     svgIkon={<DrofteMedAnsattePersonOpplysning />}
@@ -151,7 +148,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         const inputFelter = (
             <div className="opprett-avtale__input-wrapper">
                 <FnrInput
-                    className="opprett-avtale__kandidat-fnr typo-element"
+                    className="opprett-avtale__kandidat-fnr"
                     label="Deltakers fødselsnummer"
                     verdi={this.state.deltakerFnr}
                     feilmelding={FNR_FEILMELDING}
@@ -159,7 +156,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 />
 
                 <PakrevdInput
-                    className="opprett-avtale__arbeidsgiver-bedriftNr typo-element"
+                    className="opprett-avtale__arbeidsgiver-bedriftNr"
                     label="Bedriftsnummer"
                     verdi={this.state.bedriftNr}
                     onChange={this.orgnrOnChange()}
