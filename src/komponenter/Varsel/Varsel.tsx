@@ -46,16 +46,18 @@ class Varsel extends React.Component<Props, State> {
                 <AlertStripe
                     type={this.props.type}
                     solid={true}
-                    className={classNames('varsel', this.props.className)}
+                    className={this.props.className}
                 >
-                    {this.props.children}
-                    {this.props.kanLukkes && (
-                        <Lukknapp
-                            hvit={true}
-                            onClick={this.lukkVarsel}
-                            className={'varsel__lukknapp'}
-                        />
-                    )}
+                    <div className="varsel">
+                        <div>{this.props.children}</div>
+                        {this.props.kanLukkes && (
+                            <Lukknapp
+                                hvit={true}
+                                onClick={this.lukkVarsel}
+                                className={'varsel__lukknapp'}
+                            />
+                        )}
+                    </div>
                 </AlertStripe>
             )
         );
