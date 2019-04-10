@@ -54,7 +54,7 @@ class Varsel extends React.Component<Props, State> {
                             <Lukknapp
                                 hvit={true}
                                 onClick={this.lukkVarsel}
-                                className={'varsel__innhold__lukknapp'}
+                                className="varsel__innhold__lukknapp"
                             />
                         )}
                     </div>
