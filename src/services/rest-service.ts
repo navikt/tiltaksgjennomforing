@@ -1,7 +1,7 @@
 import ApiError from '../api-error';
 import AutentiseringError from '../autentisering-error';
 import { Rolle } from '../AvtaleContext';
-import { Avtale } from '../AvtaleSide/avtale';
+import { Avtale, Bedriftinfo } from '../AvtaleSide/avtale';
 import {
     InnloggetBruker,
     Innloggingskilde,
@@ -22,6 +22,7 @@ export interface RestService {
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
+    hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -151,6 +152,12 @@ const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
     return await response.json();
 };
 
+const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
+    const response = await fetchGet(`${API_URL}/organisasjoner/${bedriftNr}`);
+    await handleResponse(response);
+    return await response.json();
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -161,6 +168,7 @@ const restService: RestService = {
     opphevGodkjenninger: opphevGodkjenninger,
     hentInnloggetBruker,
     hentInnloggingskilder,
+    hentBedriftBrreg,
 };
 
 export default restService;

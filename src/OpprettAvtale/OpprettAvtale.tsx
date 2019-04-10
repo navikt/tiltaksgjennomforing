@@ -1,25 +1,26 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import KnappBase from 'nav-frontend-knapper';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React from 'react';
 import { RouterProps } from 'react-router';
+import RestService from '.././services/rest-service';
 import ApiError from '../api-error';
+import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
+import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle.svg';
+import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
+import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelPunktForAvtale.svg';
 import { Context, medContext } from '../AvtaleContext';
+import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import FnrInput from '../komponenter/FnrInput/FnrInput';
 import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
+import PakrevdInput from '../komponenter/PakrevdInput/PakrevdInput';
 import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
-import { erGyldigFnr } from '../utils/fnrUtils';
-import './OpprettAvtale.less';
-import PakrevdInput from '../komponenter/PakrevdInput/PakrevdInput';
-import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelPunktForAvtale.svg';
-import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
-import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle.svg';
-import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
 import BEMHelper from '../utils/bem';
-import KnappBase from 'nav-frontend-knapper';
+import { erGyldigFnr } from '../utils/fnrUtils';
 import { validerOrgnr } from '../utils/orgnrUtils';
+import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -28,6 +29,7 @@ interface State {
     bedriftNr: string;
     deltakerFnrFeil?: SkjemaelementFeil;
     bedriftNrFeil?: string;
+    bedriftNavn: string;
 }
 
 const FNR_FEILMELDING = 'Ugyldig fødselsnummer';
@@ -36,6 +38,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     state: State = {
         deltakerFnr: '',
         bedriftNr: '',
+        bedriftNavn: '',
     };
 
     endreDeltakerFnr = (fnr: string) => {
@@ -46,16 +49,32 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         this.setState({ bedriftNr: bedriftnr });
     };
 
-    orgnrOnChange = () => {
-        return (event: any) => {
-            const bedriftNr = event.target.value.replace(/\s/g, '');
-            if (event.target.value && !validerOrgnr(bedriftNr)) {
-                this.setState({ bedriftNrFeil: 'Ugyldig bedriftsnummer' });
-            } else {
-                this.setState({ bedriftNrFeil: undefined });
-            }
-            this.setState({ bedriftNr });
-        };
+    orgnrOnChange = (event: any) => {
+        const bedriftNr = event.target.value.replace(/\s/g, '');
+
+        if (!bedriftNr) {
+            // Tomt
+            this.setState({ bedriftNrFeil: undefined, bedriftNavn: '' });
+        } else if (validerOrgnr(bedriftNr)) {
+            // Gyldig
+            RestService.hentBedriftBrreg(bedriftNr)
+                .then(response => {
+                    this.setState({
+                        bedriftNavn: response.bedriftNavn,
+                        bedriftNrFeil: undefined,
+                    });
+                })
+                .catch(error => {
+                    this.setState({ bedriftNrFeil: error.message });
+                });
+        } else {
+            // Ikke gyldig
+            this.setState({
+                bedriftNrFeil: 'Ugyldig bedriftsnummer',
+                bedriftNavn: '',
+            });
+        }
+        this.setState({ bedriftNr });
     };
 
     hvaMangler = () => {
@@ -128,7 +147,8 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     arbeidsgiver styres gjennom Altinn. For at en arbeidsgiver
                     kan representere en bedrift må personen ha rollen{' '}
                     <em>Helse-, sosial- og velferdstjenester</em> eller gis
-                    tilgang til enkelttjenesten <em>Tiltaksgjennomføring</em>.
+                    tilgang til enkelttjenesten{' '}
+                    <em>Avtale om arbeidstrening</em>.
                 </EkstbanderbartPanelRad>
                 <EkstbanderbartPanelRad
                     svgIkon={<DrofteMedAnsattePersonOpplysning />}
@@ -146,23 +166,34 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
         );
 
         const inputFelter = (
-            <div className="opprett-avtale__input-wrapper">
-                <FnrInput
-                    className="opprett-avtale__kandidat-fnr"
-                    label="Deltakers fødselsnummer"
-                    verdi={this.state.deltakerFnr}
-                    feilmelding={FNR_FEILMELDING}
-                    onChange={this.endreDeltakerFnr}
-                />
+            <>
+                <div className="opprett-avtale__input-wrapper">
+                    <div className="opprett-avtale__kandidat-fnr">
+                        <FnrInput
+                            className="typo-element"
+                            label="Deltakers fødselsnummer"
+                            verdi={this.state.deltakerFnr}
+                            feilmelding={FNR_FEILMELDING}
+                            onChange={this.endreDeltakerFnr}
+                        />
+                    </div>
 
-                <PakrevdInput
-                    className="opprett-avtale__arbeidsgiver-bedriftNr"
-                    label="Bedriftsnummer"
-                    verdi={this.state.bedriftNr}
-                    onChange={this.orgnrOnChange()}
-                    feilmelding={this.state.bedriftNrFeil}
-                />
-            </div>
+                    <div className="opprett-avtale__arbeidsgiver-bedriftNr">
+                        <PakrevdInput
+                            className="typo-element"
+                            label="Bedriftsnummer"
+                            verdi={this.state.bedriftNr}
+                            onChange={this.orgnrOnChange}
+                            feilmelding={this.state.bedriftNrFeil}
+                        />
+                        {this.state.bedriftNavn && (
+                            <Normaltekst className="opprett-avtale__bedriftNavnBrreg">
+                                {this.state.bedriftNavn}
+                            </Normaltekst>
+                        )}
+                    </div>
+                </div>
+            </>
         );
 
         return (
@@ -184,8 +215,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         type={'flat'}
                         className={cls.element('avbryt')}
                         onClick={() => {
-                            window.location.href =
-                                '/tiltaksgjennomforing/logout';
+                            window.location.href = '/tiltaksgjennomforing';
                         }}
                     >
                         avbryt
