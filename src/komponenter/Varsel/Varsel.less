@@ -1,9 +1,16 @@
 .varsel {
-    position: relative;
+    .alertstripe__tekst {
+        max-width: inherit;
+    }
 
-    &__lukknapp {
-        position: absolute;
-        top: 0.75rem;
-        right: 0.75rem;
+    .varsel__innhold {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__lukknapp {
+            margin-left: 1rem;
+            flex: none;
+        }
     }
 }
