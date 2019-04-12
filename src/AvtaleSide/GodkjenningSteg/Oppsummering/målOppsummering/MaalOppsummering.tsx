@@ -31,7 +31,7 @@ const MaalOppsummering = (props: Props) => {
     ) : (
         <Stegoppsummering ikon={<MålIkon />} tittel="Mål">
             <EtikettFokus className={cls.element('etikettInfo')}>
-                Målpunkt er Ikke fylt ut
+                Mål er ikke fylt ut
             </EtikettFokus>
         </Stegoppsummering>
     );

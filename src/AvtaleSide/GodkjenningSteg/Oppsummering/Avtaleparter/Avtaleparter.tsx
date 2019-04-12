@@ -174,7 +174,7 @@ const FormaterFeilBeskjedPaManglendeFelt = (
             hvaMangler.push('navn');
         }
         if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[1])) {
-            hvaMangler.push('tlfnr');
+            hvaMangler.push('telefonnummer');
         }
     } else {
         if (!sjekkStrengVerdi(nameRad[0])) {
@@ -184,10 +184,10 @@ const FormaterFeilBeskjedPaManglendeFelt = (
             hvaMangler.push('navn');
         }
         if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[1])) {
-            hvaMangler.push('orgnr');
+            hvaMangler.push('bedriftsnummer');
         }
         if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[3])) {
-            hvaMangler.push('tlfnr');
+            hvaMangler.push('telefonnummer');
         }
     }
 
