@@ -1,42 +1,43 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { bool } from 'prop-types';
 
 interface Props {
     className?: string;
     label: React.ReactNode;
     verdi: string;
     feilmelding?: string;
-    ekstraValidering?: boolean;
-    // * onChange bør oppdatere verdi feltet på props
+    inputType?: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PakrevdInput: React.FunctionComponent<Props> = props => {
-    const [feil, setFeil] = useState<SkjemaelementFeil | undefined>(undefined);
-    const visFeilmelding = props.feilmelding || props.label + ' er påkrevd';
+    const [feilInputFelt, setFeilInputFelt] = useState<
+        SkjemaelementFeil | undefined
+    >(undefined);
+    const { feilmelding, label, verdi, className, inputType } = props;
 
-    const onBlur = () => {
-        if (props.ekstraValidering && props.feilmelding) {
-            setFeil({ feilmelding: props.feilmelding });
+    const visFeilmelding = feilmelding || label + ' er påkrevd';
+
+    const sjekkInputfelt = () => {
+        if (feilmelding) {
+            setFeilInputFelt({ feilmelding: props.feilmelding });
+        } else if (!verdi) {
+            setFeilInputFelt({ feilmelding: visFeilmelding });
         } else {
-            if (!props.verdi) {
-                setFeil({ feilmelding: visFeilmelding });
-            } else {
-                setFeil(undefined);
-            }
+            setFeilInputFelt(undefined);
         }
     };
 
     return (
         <Input
-            label={props.label}
-            value={props.verdi || ''}
-            feil={feil}
+            label={label}
+            value={verdi || ''}
+            feil={feilInputFelt}
             onChange={props.onChange}
-            onBlur={onBlur}
-            className={props.className}
+            onBlur={sjekkInputfelt}
+            className={className}
+            type={inputType ? inputType : 'text'}
         />
     );
 };

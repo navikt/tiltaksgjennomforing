@@ -47,7 +47,7 @@ export const tomAvtale: Avtale = {
 export interface Context {
     avtale: Avtale;
     rolle: Rolle;
-    settAvtaleVerdi: (felt: string, verdi: any) => void;
+    settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
     lagreAvtale: () => Promise<any>;
     lagreMaal: (maal: Maal) => Promise<any>;
     slettMaal: (maal: Maal) => Promise<any>;
@@ -135,20 +135,18 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
-    settAvtaleVerdi(felt: string, verdi: any) {
+    settAvtaleVerdi(felt: keyof Avtale, verdi: any) {
         const avtale = this.state.avtale;
         if (avtale) {
             // @ts-ignore
             avtale[felt] = verdi;
-            this.setState({ avtale });
-            this.setState({ ulagredeEndringer: true });
+            this.setState({ avtale, ulagredeEndringer: true });
         }
     }
 
     async lagreAvtale() {
         const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
-        this.setState({ avtale: nyAvtale });
-        this.setState({ ulagredeEndringer: false });
+        this.setState({ avtale: nyAvtale, ulagredeEndringer: false });
     }
 
     lagreMaal(maalTilLagring: Maal) {
