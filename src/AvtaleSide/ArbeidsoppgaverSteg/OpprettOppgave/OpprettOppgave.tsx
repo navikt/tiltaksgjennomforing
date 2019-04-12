@@ -46,7 +46,7 @@ class OpprettOppgave extends React.Component<Props> {
                         htmlType="button"
                         onClick={this.nyOppgaveOnClick}
                     >
-                        + Legg til arbeidsoppgave
+                        + Legg til ny arbeidsoppgave
                     </Knapp>
                 )}
             </Innholdsboks>

@@ -24,5 +24,3 @@ spec:
     value: https://loginservice.nais.adeo.no/login?redirect=https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing
   - name: LOGOUT_URL
     value: https://loginservice.nais.adeo.no/slo
-  - name: NODE_EXTRA_CA_CERTS
-    value: /etc/ssl/ca-bundle.pem

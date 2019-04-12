@@ -30,15 +30,13 @@ const ArbeidsgiverinfoDel = (props: Context) => {
 
     const validereOrganisasjonsNrOnchange = (label: keyof Avtale) => {
         return (event: any) => {
-            if (
-                event.target.value &&
-                !validerOrgnr(event.target.value.replace(/\s/g, ''))
-            ) {
+            const inputUtenSpace = event.target.value.replace(/\s/g, '');
+            if (event.target.value && !validerOrgnr(inputUtenSpace)) {
                 setFeilmelding('Ugyldig bedriftsnummer');
             } else {
                 setFeilmelding(undefined);
             }
-            props.settAvtaleVerdi(label, event.target.value);
+            props.settAvtaleVerdi(label, inputUtenSpace);
         };
     };
 

@@ -24,7 +24,8 @@ interface State {
 class RedigerMaal extends React.Component<Props, State> {
     state = {
         valgtKategori:
-            this.props.defaultMaal && this.props.defaultMaal.kategori,
+            (this.props.defaultMaal && this.props.defaultMaal.kategori) ||
+            this.props.ledigeMaalkategorier[0],
         beskrivelse:
             (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) ||
             '',
@@ -95,13 +96,29 @@ class RedigerMaal extends React.Component<Props, State> {
         return maxLength - antallTegn;
     };
 
-    render() {
-        const maalKategorier = this.props.ledigeMaalkategorier.map(maal => (
-            <option value={maal} key={maal}>
-                {maal}
+    genererKategoriListe = () => {
+        const redigerComponentListe = [];
+        if (this.state.valgtKategori) {
+            redigerComponentListe.push(
+                <option
+                    value={this.state.valgtKategori}
+                    key={this.state.valgtKategori}
+                >
+                    {this.state.valgtKategori}
+                </option>
+            );
+        }
+        const liste = this.props.ledigeMaalkategorier.map((mal, index) => (
+            <option value={mal} key={index}>
+                {mal}
             </option>
         ));
 
+        redigerComponentListe.push(...liste);
+        return redigerComponentListe;
+    };
+
+    render() {
         return (
             <>
                 <Select
@@ -112,12 +129,7 @@ class RedigerMaal extends React.Component<Props, State> {
                     feil={this.state.valgtKategoriFeil}
                     onBlur={this.velgKategori}
                 >
-                    <option value="" key="current-target">
-                        {this.state.valgtKategori
-                            ? this.state.valgtKategori
-                            : ' Velg mål '}
-                    </option>
-                    {maalKategorier}
+                    {this.genererKategoriListe()}
                 </Select>
                 <Textarea
                     label="Beskriv målet"

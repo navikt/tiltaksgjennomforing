@@ -29,8 +29,6 @@ if (
     process.exit(1);
 }
 
-console.log('Relevante miljøvariable: ', envProperties);
-
 module.exports = function(app) {
     app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
         const innloggingskilder = [];
