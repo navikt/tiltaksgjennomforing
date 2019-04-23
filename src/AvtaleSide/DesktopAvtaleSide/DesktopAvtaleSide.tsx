@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AvtaleStegType } from '../AvtaleSide';
 import Stegmeny from '../Stegmeny/Stegmeny';
 import Lenke from 'nav-frontend-lenker';
-import shareIkon from '../../assets/ikoner/share.svg';
+import { ReactComponent as ShareIkon } from '../../assets/ikoner/share.svg';
 import KopierLenkeModal from '../../komponenter/modal/KopierLenkeModal';
 
 interface Props {
@@ -18,7 +18,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             <form className="avtaleside__innhold">
                 <div className="avtaleside__lenkedeling">
                     <Lenke onClick={() => setOpen(true)} href="#">
-                        Del lenke til avtalen <img src={shareIkon} />
+                        Del lenke til avtalen <ShareIkon />
                     </Lenke>
                 </div>
                 {props.avtaleSteg[props.aktivtSteg].komponent}
