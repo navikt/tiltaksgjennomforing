@@ -4,9 +4,9 @@ metadata:
   name: tiltaksgjennomforing
   namespace: default
   labels:
-    team: teamtag
+    team: {{team}}
 spec:
-  image: navikt/tiltaksgjennomforing:latest
+  image: navikt/tiltaksgjennomforing:{{version}}
   team: teamtag
   port: 3000
   vault:
