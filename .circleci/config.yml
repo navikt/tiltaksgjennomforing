@@ -1,42 +1,105 @@
-version: 2
+version: 2.1
+
 jobs:
-  build:
+  bygg:
     docker:
-    - image: circleci/node:10
-
+      - image: circleci/node:10
     steps:
-    - checkout
-    - restore_cache:
-        keys:
-        # when lock file changes, use increasingly general patterns to restore cache
-        - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-        - node-v1-{{ .Branch }}-
-        - node-v1-
-    - run:
-        name: Bygg React app
-        command: |
-          npm ci
-          npm run build
-    - save_cache:
-        paths:
-        - ~/usr/local/lib/node_modules  # location depends on npm version
-        key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run:
+          name: Bygg React app
+          command: |
+            npm ci
+            npm run build
+      - save_cache:
+          paths:
+            - ~/usr/local/lib/node_modules  # location depends on npm version
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
 
-    - setup_remote_docker
-    - run:
-        name: Setter miljøvariable
-        command: |
-          echo 'export RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"' >> $BASH_ENV
-          echo 'export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"' >> $BASH_ENV
-          echo 'export BRANCH_PREFIX=`[ $BRANCH_NAME == "master" ] && echo "" || echo $BRANCH_NAME\_`' >> $BASH_ENV
-          echo 'export DOCKER_IMAGE_VERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
-          echo 'export DOCKER_IMAGE_UNVERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"' >> $BASH_ENV
-    - run:
-        name: Bygger Docker image
-        command: docker build -t "$DOCKER_IMAGE_VERSIONED" -t "$DOCKER_IMAGE_UNVERSIONED" .
-    - run:
-        name: Pusher Docker image
-        command: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker push "$DOCKER_IMAGE_VERSIONED"
-          docker push "$DOCKER_IMAGE_UNVERSIONED"
+      - setup_remote_docker
+      - run:
+          name: Bygger Docker image
+          command: docker build -t "navikt/tiltaksgjennomforing:$CIRCLE_SHA1" .
+      - run:
+          name: Pusher Docker image
+          command: |
+            echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin
+            docker push "navikt/tiltaksgjennomforing:$CIRCLE_SHA1"
+
+  deploy-til-dev:
+    docker:
+      - image: "navikt/deployment-cli:v0.1.2"
+    steps:
+      - checkout
+      - deploy:
+          miljo: "dev-fss"
+      - deploy:
+          miljo: "dev-sbs"
+  deploy-til-prod:
+    docker:
+      - image: "navikt/deployment-cli:v0.1.2"
+    steps:
+      - checkout
+      - deploy:
+          miljo: "prod-fss"
+      - deploy:
+          miljo: "prod-sbs"
+
+commands:
+  deploy:
+    description: "Deploy til et gitt miljø"
+    parameters:
+      miljo:
+        type: string
+    steps:
+      - run: # Brukernavn og passord til Github ligger i miljøvariable DEPLOYMENT_USERNAME og DEPLOYMENT_PASSWORD
+          name: Deploy til << parameters.miljo >>
+          command: |
+            deployment-cli deploy create --environment=<< parameters.miljo >> --repository=navikt/tiltaksgjennomforing --team=teamtag --resource=nais-<< parameters.miljo >>.yaml --version=$CIRCLE_SHA1
+
+workflows:
+  version: 2.1
+  bygg-og-deploy:
+    jobs:
+      - bygg
+
+      # På branch kreves det approval for å deploye til dev-fss og dev-sbs
+      - godkjenn-deploy-til-dev:
+          type: approval
+          requires:
+            - bygg
+          filters:
+            branches:
+              ignore:
+                - master
+      - deploy-til-dev:
+          requires:
+            - godkjenn-deploy-til-dev
+
+      # På master deployes det automatisk til dev-fss og dev-sbs
+      - deploy-til-dev:
+          requires:
+            - bygg
+          filters:
+            branches:
+              only:
+                - master
+
+      # På master kreves det approval for å deploye til prod-fss og prod-sbs
+      - godkjenn-deploy-til-prod:
+          type: approval
+          requires:
+            - bygg
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-til-prod:
+          requires:
+            - godkjenn-deploy-til-prod
