@@ -14,15 +14,23 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const [isOpen, setOpen] = useState<boolean>(false);
     return (
         <>
-            <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
-            <form className="avtaleside__innhold">
+            <div className="avtaleside__desktop">
                 <div className="avtaleside__lenkedeling">
                     <Lenke onClick={() => setOpen(true)} href="#">
                         Del lenke til avtalen <ShareIkon />
                     </Lenke>
                 </div>
-                {props.avtaleSteg[props.aktivtSteg].komponent}
-            </form>
+
+                <div className="avtaleside__container">
+                    <Stegmeny
+                        steg={props.avtaleSteg}
+                        aktivtSteg={props.aktivtSteg}
+                    />
+                    <form className="avtaleside__innhold">
+                        {props.avtaleSteg[props.aktivtSteg].komponent}
+                    </form>
+                </div>
+            </div>
 
             <KopierLenkeModal
                 isOpen={isOpen}
