@@ -2,5 +2,6 @@
   "inngress": "https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing",
   "api-gw-url": "https://arbeidsgiver.nais.adeo.no",
   "isso-login-url": "https://loginservice.nais.adeo.no/login?redirect=https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing",
+  "selvbetjening-login-url": "",
   "logout-url": "https://loginservice.nais.adeo.no/slo"
 }
