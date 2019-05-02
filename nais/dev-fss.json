@@ -2,6 +2,5 @@
   "inngress": "https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing",
   "api-gw-url": "https://arbeidsgiver.nais.preprod.local",
   "isso-login-url": "https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing",
-  "selvbetjening-login-url": "",
   "logout-url": "https://loginservice.nais.preprod.local/slo"
 }
