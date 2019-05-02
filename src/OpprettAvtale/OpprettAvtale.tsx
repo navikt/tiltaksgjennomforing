@@ -16,7 +16,7 @@ import FnrInput from '../komponenter/FnrInput/FnrInput';
 import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
 import PakrevdInput from '../komponenter/PakrevdInput/PakrevdInput';
 import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import { pathTilOpprettetAvtaleBekreftelse } from '../paths';
+import { pathTilOpprettetAvtaleBekreftelse, pathTilOversikt } from '../paths';
 import BEMHelper from '../utils/bem';
 import { erGyldigFnr } from '../utils/fnrUtils';
 import { validerOrgnr } from '../utils/orgnrUtils';
@@ -215,7 +215,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         type={'flat'}
                         className={cls.element('avbryt')}
                         onClick={() => {
-                            window.location.href = '/tiltaksgjennomforing';
+                            this.props.history.push(pathTilOversikt);
                         }}
                     >
                         avbryt
