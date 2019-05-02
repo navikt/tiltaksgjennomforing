@@ -1,6 +1,7 @@
 {
   "inngress": "https://arbeidsgiver.nav.no/tiltaksgjennomforing",
   "api-gw-url": "https://api-gw.oera.no",
+  "isso-login-url": "",
   "selvbetjening-login-url": "https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/tiltaksgjennomforing",
   "logout-url": "https://loginservice.nav.no/slo"
 }
