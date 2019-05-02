@@ -12,7 +12,7 @@ spec:
   vault:
     enabled: true
   ingresses:
-  - {{{inngress}}}
+  - {{{ingress}}}
   liveness:
     path: /tiltaksgjennomforing/internal/isAlive
     initialDelay: 5
