@@ -19,6 +19,7 @@ interface OwnProps {
 
 interface State {
     visKalender: boolean;
+    datoTilbakeITid: boolean;
 }
 
 type Props = OwnProps;
@@ -31,6 +32,7 @@ class Datovelger extends React.Component<Props, State> {
         moment.locale('nb');
         this.state = {
             visKalender: false,
+            datoTilbakeITid: false,
         };
         this.kalenderKnapp = null;
     }
@@ -42,6 +44,10 @@ class Datovelger extends React.Component<Props, State> {
         });
         this.props.velgDato(dato);
     }
+
+    settDatoTilbakeITid = (datoTilbakeITid: boolean) => {
+        this.setState({ datoTilbakeITid });
+    };
 
     toggleKalender() {
         if (!this.props.dato.isValid()) {
@@ -77,10 +83,12 @@ class Datovelger extends React.Component<Props, State> {
                                 inputErRiktigFormatert={
                                     this.props.settRiktigFormatert
                                 }
+                                datoTilbakeITid={this.settDatoTilbakeITid}
                                 className={
-                                    this.props.inputRiktigFormatert
-                                        ? ''
-                                        : 'datovelger__input--harFeil'
+                                    !this.props.inputRiktigFormatert ||
+                                    this.state.datoTilbakeITid
+                                        ? 'datovelger__input--harFeil'
+                                        : ''
                                 }
                             />
                             <button
@@ -113,6 +121,17 @@ class Datovelger extends React.Component<Props, State> {
                         className="datovelger__feilmelding"
                     >
                         <Normaltekst>Feil dato</Normaltekst>
+                    </div>
+                )}
+                {this.state.datoTilbakeITid && (
+                    <div
+                        role="alert"
+                        aria-live="assertive"
+                        className="datovelger__feilmelding"
+                    >
+                        <Normaltekst>
+                            Dato kan ikke være tilbake i tid
+                        </Normaltekst>
                     </div>
                 )}
             </div>
