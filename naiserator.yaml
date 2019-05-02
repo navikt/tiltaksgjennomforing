@@ -4,7 +4,7 @@ metadata:
   name: tiltaksgjennomforing
   namespace: default
   labels:
-    team: {{team}}
+    team: teamtag
 spec:
   image: navikt/tiltaksgjennomforing:{{version}}
   team: teamtag
@@ -21,10 +21,10 @@ spec:
     initialDelay: 5
   env:
   - name: APIGW_URL
-    value: "{{{api-gw-url}}}"
+    value: {{{api-gw-url}}}
   - name: ISSO_LOGIN_URL
     value: "{{{isso-login-url}}}"
   - name: SELVBETJENING_LOGIN_URL
     value: "{{{selvbetjening-login-url}}}"
   - name: LOGOUT_URL
-    value: "{{{logout-url}}}"
+    value: {{{logout-url}}}
