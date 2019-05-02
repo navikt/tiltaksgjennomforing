@@ -1,0 +1,6 @@
+{
+  "inngress": "https://arbeidsgiver-q.nav.no/tiltaksgjennomforing",
+  "api-gw-url": "https://api-gw-q0.oera.no",
+  "selvbetjening-login-url": "https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing&level=Level3",
+  "logout-url": "https://loginservice-q.nav.no/slo"
+}
