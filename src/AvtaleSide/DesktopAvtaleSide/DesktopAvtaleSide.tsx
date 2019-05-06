@@ -4,10 +4,12 @@ import Stegmeny from '../Stegmeny/Stegmeny';
 import Lenke from 'nav-frontend-lenker';
 import { ReactComponent as ShareIkon } from '../../assets/ikoner/share.svg';
 import KopierLenkeModal from '../../komponenter/modal/KopierLenkeModal';
+import { Rolle } from '../../AvtaleContext';
 
 interface Props {
     avtaleSteg: AvtaleStegType;
     aktivtSteg: string;
+    rolle: Rolle;
 }
 
 const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
@@ -15,11 +17,13 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     return (
         <>
             <div className="avtaleside__desktop">
-                <div className="avtaleside__lenkedeling">
-                    <Lenke onClick={() => setOpen(true)} href="#">
-                        Del lenke til avtalen <ShareIkon />
-                    </Lenke>
-                </div>
+                {props.rolle === 'VEILEDER' && (
+                    <div className="avtaleside__lenkedeling">
+                        <Lenke onClick={() => setOpen(true)} href="#">
+                            Del lenke til avtalen <ShareIkon />
+                        </Lenke>
+                    </div>
+                )}
 
                 <div className="avtaleside__container">
                     <Stegmeny

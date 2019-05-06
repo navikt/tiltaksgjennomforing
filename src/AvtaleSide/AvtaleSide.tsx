@@ -111,10 +111,16 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <DesktopAvtaleSide
                             avtaleSteg={avtaleSteg}
                             aktivtSteg={aktivtSteg}
+                            rolle={props.rolle}
                         />
                     );
                 } else {
-                    innhold = <MobilAvtaleSide avtaleSteg={avtaleSteg} />;
+                    innhold = (
+                        <MobilAvtaleSide
+                            avtaleSteg={avtaleSteg}
+                            rolle={props.rolle}
+                        />
+                    );
                 }
 
                 return (

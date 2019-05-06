@@ -4,9 +4,11 @@ import { AvtaleStegType } from '../AvtaleSide';
 import Lenke from 'nav-frontend-lenker';
 import shareIkon from '../../assets/ikoner/share.svg';
 import KopierLenkeModal from '../../komponenter/modal/KopierLenkeModal';
+import { Rolle } from '../../AvtaleContext';
 
 interface Props {
     avtaleSteg: AvtaleStegType;
+    rolle: Rolle;
 }
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
@@ -21,11 +23,13 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            <div className="avtaleside__lenkedeling">
-                <Lenke onClick={() => setOpen(true)} href="#">
-                    Del lenke til avtalen <img src={shareIkon} />
-                </Lenke>
-            </div>
+            {props.rolle === 'VEILEDER' && (
+                <div className="avtaleside__lenkedeling">
+                    <Lenke onClick={() => setOpen(true)} href="#">
+                        Del lenke til avtalen <img src={shareIkon} />
+                    </Lenke>
+                </div>
+            )}
             <form>{ekspanderbartPanel}</form>
 
             <KopierLenkeModal
