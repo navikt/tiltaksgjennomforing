@@ -22,7 +22,6 @@ const KontaktinfoSteg = (props: Context ) => {
                 suksessmelding={'Avtale lagret'}
             />
 
-
         </Innholdsboks>
     );
 };

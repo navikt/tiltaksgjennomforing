@@ -1,6 +1,7 @@
 import React from 'react';
 import { AvtaleStegType } from '../AvtaleSide';
 import Stegmeny from '../Stegmeny/Stegmeny';
+import NesteForrige from "../NesteForrige/NesteForrige";
 
 interface Props {
     avtaleSteg: AvtaleStegType;
@@ -13,6 +14,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => (
         <form className="avtaleside__innhold">
             {props.avtaleSteg[props.aktivtSteg].komponent}
         </form>
+        <NesteForrige steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
     </>
 );
 export default DesktopAvtaleSide;
