@@ -1,5 +1,6 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import KnappBase from 'nav-frontend-knapper';
+import Lenke from 'nav-frontend-lenker';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React from 'react';
@@ -142,13 +143,18 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                 </EkstbanderbartPanelRad>
 
                 <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
-                    For at deltaker og arbeidsgiver skal få tilgang til
-                    løsningen må de logge seg inn via ID-porten. Tilgang for
-                    arbeidsgiver styres gjennom Altinn. For at en arbeidsgiver
-                    kan representere en bedrift må personen ha rollen{' '}
+                    For at deltaker og arbeidsgiver skal få tilgang til avtalen
+                    må de logge seg inn via ID-porten. Tilgang for arbeidsgiver
+                    styres gjennom Altinn. For at en arbeidsgiver kan
+                    representere en bedrift må personen ha rollen{' '}
                     <em>Helse-, sosial- og velferdstjenester</em> eller gis
                     tilgang til enkelttjenesten{' '}
-                    <em>Avtale om arbeidstrening</em>.
+                    <em>Avtale om arbeidstrening</em>. Mer informasjon om roller
+                    og rettigheter finnes hos{' '}
+                    <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                        Altinn
+                    </Lenke>
+                    .
                 </EkstbanderbartPanelRad>
                 <EkstbanderbartPanelRad
                     svgIkon={<DrofteMedAnsattePersonOpplysning />}
