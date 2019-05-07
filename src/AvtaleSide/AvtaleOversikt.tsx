@@ -15,6 +15,7 @@ import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import MediaQuery from 'react-responsive';
+import {isNull} from "util";
 
 const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
     return <Link to={props.href!}>Gå til</Link>;
@@ -52,6 +53,10 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                     </div>
                 </MediaQuery>
+                <div className="avtaleoversikt__lenker__status">
+                        {avtale.status}
+                </div>
+
             </div>
         </LenkepanelBase>
     ));
@@ -66,6 +71,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         Dato opprettet
                     </div>
                 </MediaQuery>
+                <div className="avtaleoversikt__lenker__status">Status</div>
             </div>
             {avtaleLenker}
         </div>
