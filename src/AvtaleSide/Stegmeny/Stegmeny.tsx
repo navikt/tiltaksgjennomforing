@@ -11,7 +11,10 @@ interface Props {
 }
 
 const Stegmeny = (props: Context & Props) => {
+    console.log(props.steg);
+    console.log(props.aktivtSteg);
     const stegLenker = Object.keys(props.steg).map(key => (
+
         <StegmenyLenke
             label={props.steg[key].label}
             aktiv={props.aktivtSteg === key}

@@ -4,94 +4,116 @@ import {pathTilStegIAvtale} from '../../paths';
 import AvtaleSide, {AvtaleStegType} from '../AvtaleSide';
 import './NesteForrige.less';
 import NesteForrigeLenke from './NesteForrigeLenke/NesteForrigeLenke';
-import {object} from "prop-types";
-/*
-interface Props {
-    steg: AvtaleStegType;
-    aktivtSteg: string;
-
-}
-
-/!*const NesteForrige = (props: Context & Props) => {
-    const nesteforrigeLenker = Object.keys(props.steg).map(key => (
-        <NesteForrigeLenke
-            label={props.steg[key].label}
-            aktiv={props.aktivtSteg === key}
-            ferdig={false}
-            url={pathTilStegIAvtale(props.avtale.id, key)}
-            key={key}
-
-        />
-    ));*!/
-    const NesteForrige = (props: Context & Props) => {
-        const nesteforrigeLenker = Object.keys(props.steg).map(key => (
-            <NesteForrigeLenke
-                label={props.steg[key].toString()}
-                aktiv={props.aktivtSteg === key}
-                ferdig={false}
-                url={pathTilStegIAvtale(props.avtale.id, key)}
-                key={key}
-
-            />
-        ));
-
-    return <nav className="nesteforrige">{nesteforrigeLenker}</nav>;
-};*/
-
-//export default medContext<Props>(NesteForrige);
-
+import StegmenyLenke from "../Stegmeny/StegmenyLenke/StegmenyLenke";
+import {Link} from "react-router-dom";
 
 export interface Props {
-    name: string;
-    enthusiasmLevel?: number;
-    steg?: AvtaleStegType;
-
-    aktivtSteg?: string;
-    nesteSteg?: string;
-    forrigeSteg?: string;
+    avtaleSteg: AvtaleStegType;
+    aktivtSteg: string;
 }
 
 interface State {
     currentEnthusiasm: number;
-    aktivSteg: string;
+    // aktivSteg: string;
 }
 
-class Hello extends React.Component<Props, State> {
-    constructor(props: Props) {
+// kall => props.endretSteg
+// SET window.location.href => props.url
+
+
+
+class Hello extends React.Component<Context & Props> {
+    state = {
+        currentEnthusiasm: 0
+    };
+
+    constructor(props: Props & Context) {
         super(props);
-        this.state = { currentEnthusiasm: props.enthusiasmLevel || 1, aktivSteg: props.aktivtSteg || 'maal'};
+    }
+
+    byttSteg = (nyttSteg: number) => {
+
+        if (this.state.currentEnthusiasm<6) {
+            this.setState({
+                currentEnthusiasm: nyttSteg
+            }, () => {
+                console.log(nyttSteg);
+                this.nesteSteg();
+            })
+        }
+
+    };
+
+    finnSteg = () => {
+        switch (this.state.currentEnthusiasm) {
+            case 0:
+                return 'kontaktinformasjon';
+            case 1:
+                return 'maal';
+            case 2:
+                return 'arbeidsoppgaver';
+            case 3:
+                return 'arbeidstid';
+            case 4:
+                return 'oppfolging';
+            case 5:
+                return 'tilrettelegging';
+            case 6:
+                return 'godkjenning';
+            default :
+                return 'kontaktinformasjon';
+
+        }
+    };
+
+    nesteSteg = () => {
+        // to-do oppdatere array med nytt nummer, og kalle funksjonen som oppdaterer steg komponenten.
+        // Må oppdateres hvis avtleside/steg blir endret
+
+       const steg = this.finnSteg();
+        const sideBytte = pathTilStegIAvtale(this.props.avtale.id, steg);
+        console.log(sideBytte);
+
+        // window.location.href = sideBytte;
+    };
+
+    forrigeSteg = () => {
+
+        if (this.state.currentEnthusiasm<0){
+            this.state.currentEnthusiasm--;
+        }
+
+       return this.finnSteg();
 
     }
 
-    onIncrement = () => this.updateEnthusiasm(this.state.currentEnthusiasm + 1,'arbeidsoppgaver');
-    onDecrement = () => this.updateEnthusiasm(this.state.currentEnthusiasm - 1,this.state.aktivSteg);
+
+    onIncrement = () => console.log( this.nesteSteg());
+ //   onDecrement = () => this.updateEnthusiasm(this.state.currentEnthusiasm - 1,this.state.aktivSteg);
 
     render() {
-        const { name } = this.props;
+        // const { name } = this.props;
 
-        if (this.state.currentEnthusiasm <= 0) {
+        if (false/* this.state.currentEnthusiasm <= 0*/) {
             throw new Error('You could be a little more enthusiastic. :D');
         }
 
         return (
             <div className="hello">
-                <div className="greeting">
-                    Hello {name + getExclamationMarks(this.state.currentEnthusiasm)+this.state.aktivSteg}
-                </div>
-                <button
-                        // aktiv={true}
-                        // ferdig={false}
-                        // url={pathTilStegIAvtale(props.avtale.id, 'maal')}
-                        // key={key}
-                        onClick={this.onDecrement}>Forrige</button>
 
-                <button onClick={this.onIncrement}>Neste</button>
+                <div className="greeting">
+                    Hello { /* name + getExclamationMarks(this.state.currentEnthusiasm)+this.state.aktivSteg */}
+                </div>
+                <button onClick={e => this.byttSteg(this.state.currentEnthusiasm-1) } >Forrige</button>
+
+                 {/*<button onClick={this.byttSteg(this.state.currentEnthusiasm+1) }   >Neste</button>*/}
+                 <button onClick={e => this.byttSteg(this.state.currentEnthusiasm+1) }   >Neste</button>
             </div>
         );
     }
 
-    updateEnthusiasm(currentEnthusiasm: number,aktivSteg: string) {
-        this.setState({ currentEnthusiasm, aktivSteg});
+ updateEnthusiasm(currentEnthusiasm: number,aktivSteg: string) {
+        // this.setState({ currentEnthusiasm, aktivSteg});
 
     }
     getForrigeSteg(aktivSteg: string){
@@ -101,10 +123,10 @@ class Hello extends React.Component<Props, State> {
 //         let myListSteg= myAvtaleSide.avtaleSteg<Object>
 //         return pathTilStegIAvtale(props.avtale.id,'')
     }
-    //updateAktivSteg()
+    // updateAktivSteg()
 }
 
-export default Hello;
+export default medContext<Props>(Hello);
 
 function getExclamationMarks(numChars: number) {
     return Array(numChars + 1).join('!');

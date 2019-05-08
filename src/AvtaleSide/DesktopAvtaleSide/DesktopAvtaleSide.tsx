@@ -15,7 +15,8 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => (
         <form className="avtaleside__innhold">
             {props.avtaleSteg[props.aktivtSteg].komponent}
         </form>
-        <Hello name={"myhellotest"}/>
+        <Hello avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
+
     </>
 );
 export default DesktopAvtaleSide;

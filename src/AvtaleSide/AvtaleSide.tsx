@@ -78,9 +78,15 @@ const AvtaleSide: FunctionComponent<Props> = props => {
             label: 'Godkjenning',
         },
     };
+   /* getNeste = ('key') => {
+       return ''
+    };
 
+
+    */
     const erDesktop = windowSize > 767;
     const aktivtSteg = props.match.params.stegPath;
+    console.log(aktivtSteg);
 
     return (
         <AvtaleFetcher
