@@ -151,7 +151,10 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     tilgang til enkelttjenesten{' '}
                     <em>Avtale om arbeidstrening</em>. Mer informasjon om roller
                     og rettigheter finnes hos{' '}
-                    <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                    <Lenke
+                        href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/"
+                        target="_blank"
+                    >
                         Altinn
                     </Lenke>
                     .
