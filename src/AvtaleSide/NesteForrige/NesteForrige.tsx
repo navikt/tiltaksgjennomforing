@@ -137,7 +137,7 @@ class Hello extends React.Component<Context & Props> {
                     {/*<button onClick={this.byttSteg(this.state.currentEnthusiasm+1) }   >Neste</button>*/}
                     <button onClick={e => this.byttSteg(this.state.currentEnthusiasm + 1)}>Neste</button>
 
-                    <div className="nesteforrige__lenke"><Link replace={true} to={''}> Neste </Link>
+                    <div className="nesteforrige__lenke"><Link replace={true} to={'this.getNesteSteg()'}> Neste </Link>
                     </div>
                 </div>
                 <div>.</div>
