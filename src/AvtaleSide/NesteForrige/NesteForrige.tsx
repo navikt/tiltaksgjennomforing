@@ -8,7 +8,7 @@ import StegmenyLenke from "../Stegmeny/StegmenyLenke/StegmenyLenke";
 import {Link} from "react-router-dom";
 import {number} from "prop-types";
 import Lenke from "nav-frontend-lenker";
-import { BrowserRouter as Router,withRouter } from 'react-router-dom';
+import {BrowserRouter as Router, withRouter} from 'react-router-dom';
 
 export interface Props {
     avtaleSteg: AvtaleStegType;
@@ -89,13 +89,13 @@ class Hello extends React.Component<Context & Props> {
 
 
     getNesteSteg = () => {
-
+        this.updateEnthusiasm(this.props.aktivtSteg);
         if (this.state.currentEnthusiasm < 6) {
             const tmp = this.state.currentEnthusiasm;
             // this.setState({currentEnthusiasm: tmp+1});
             this.state.currentEnthusiasm = this.state.currentEnthusiasm + 1;
         }
-        console.log(this.state.currentEnthusiasm+' inside getNesteSteg ');
+        console.log(this.state.currentEnthusiasm + ' inside getNesteSteg ');
         return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg());
 
 
@@ -104,8 +104,8 @@ class Hello extends React.Component<Context & Props> {
 
         if (this.state.currentEnthusiasm > 0) {
             const tmp = this.state.currentEnthusiasm;
-          // this.setState({currentEnthusiasm: tmp - 1});
-            this.state.currentEnthusiasm=this.state.currentEnthusiasm+1;
+            // this.setState({currentEnthusiasm: tmp - 1});
+            this.state.currentEnthusiasm = this.state.currentEnthusiasm + 1;
         }
 
         return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg());
@@ -136,25 +136,24 @@ class Hello extends React.Component<Context & Props> {
 
                     {/*<button onClick={this.byttSteg(this.state.currentEnthusiasm+1) }   >Neste</button>*/}
                     <button onClick={e => this.byttSteg(this.state.currentEnthusiasm + 1)}>Neste</button>
-                    <div className="nesteforrige__lenke"><Link replace={false} to={this.getNesteSteg()}> Neste </Link>
+
+                    <div className="nesteforrige__lenke"><Link replace={true} to={''}> Neste </Link>
                     </div>
                 </div>
                 <div>.</div>
 
-                <div>
+                {/*  <div>
                     <div className="nesteforrige__lenke"><Link replace={false}
                                                                to={this.getForrigeSteg()}> Forrige </Link></div>
-                </div>
+                </div>*/}
 
 
-
-                <button
+                {/*  <button
                     type="button"
-                    onClick={() => this.props.history.push(null,'neste',this.getNesteSteg())}
+                    onClick={() => history.replaceState(null, 'neste', this.getNesteSteg())}
                 >
                     {'neste'}
-                </button>
-
+                </button>*/}
 
 
             </div>
@@ -162,9 +161,44 @@ class Hello extends React.Component<Context & Props> {
         );
     }
 
-    updateEnthusiasm(currentEnthusiasm: number, aktivSteg: string) {
+    /**
+     * Oppdaterer 'currentEnthusiasm' til riktig steg nummer,
+     * @param aktivSteg
+     */
+    updateEnthusiasm(aktivSteg: string) {
         // this.setState({ currentEnthusiasm, aktivSteg});
+        switch (aktivSteg) {
+            case 'kontaktinformasjon': {
+                this.state.currentEnthusiasm = 0;
+                break;
+            }
+            case 'maal': {
+                this.state.currentEnthusiasm = 1;
+                break;
+            }
+            case 'arbeidsoppgaver': {
+                this.state.currentEnthusiasm = 2;
+                break;
+            }
+            case 'arbeidstid': {
+                this.state.currentEnthusiasm = 3;
+                break;
+            }
+            case 'oppfolging': {
+                this.state.currentEnthusiasm = 4;
+                break;
+            }
+            case 'tilrettelegging': {
+                this.state.currentEnthusiasm = 5;
+                break;
+            }
+            case 'godkjenning':
+                return;
+            default :
+                this.state.currentEnthusiasm = 0;
 
+        }
+// this.setState({currentEnthusiasm: })
     }
 
     // updateAktivSteg()
