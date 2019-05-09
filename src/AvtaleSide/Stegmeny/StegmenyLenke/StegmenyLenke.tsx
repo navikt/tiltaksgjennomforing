@@ -7,6 +7,7 @@ import ApiError from '../../../api-error';
 import { Context, medContext } from '../../../AvtaleContext';
 import { FunctionComponent } from 'react';
 
+
 interface Props {
     label: string;
     aktiv: boolean;

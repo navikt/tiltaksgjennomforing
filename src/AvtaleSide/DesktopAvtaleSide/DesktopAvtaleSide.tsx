@@ -14,8 +14,10 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => (
         <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
         <form className="avtaleside__innhold">
             {props.avtaleSteg[props.aktivtSteg].komponent}
+            <div><Hello avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
+            </div>
         </form>
-        <Hello avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
+
 
     </>
 );
