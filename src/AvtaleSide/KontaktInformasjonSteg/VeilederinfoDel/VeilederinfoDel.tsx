@@ -4,7 +4,17 @@ import { Context, medContext } from '../../../AvtaleContext';
 import './VeilederinfoDel.less';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
 import { Avtale } from '../../avtale';
-import { validereTelefonNrOnchange } from '../ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
+
+const telefonnummerRegex = /^\+?\d*$/;
+
+export const validereTelefonNrOnchange = (
+    label: keyof Avtale,
+    settAvtaleFelt: (label: keyof Avtale, data: any) => void
+) => (event: any) => {
+    if (telefonnummerRegex.test(event.target.value)) {
+        settAvtaleFelt(label, event.target.value);
+    }
+};
 
 const VeilederinfoDel = (props: Context) => {
     const onChange = (label: keyof Avtale) => {

@@ -1,7 +1,7 @@
 import ApiError from '../api-error';
 import AutentiseringError from '../autentisering-error';
 import { Rolle } from '../AvtaleContext';
-import { Avtale } from '../AvtaleSide/avtale';
+import { Avtale, Bedriftinfo } from '../AvtaleSide/avtale';
 import {
     InnloggetBruker,
     Innloggingskilde,
@@ -16,16 +16,13 @@ export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
     hentAvtalerForInnloggetBruker: () => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
-    opprettAvtale: (
-        deltakerFnr: string,
-        arbeidsgiverFnr: string,
-        bedriftNavn: string
-    ) => Promise<Avtale>;
+    opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtaleId: string) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
+    hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -98,15 +95,13 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 
 const opprettAvtale = async (
     deltakerFnr: string,
-    arbeidsgiverFnr: string,
-    bedriftNavn: string
+    bedriftNr: string
 ): Promise<Avtale> => {
     const postResponse = await fetch(`${API_URL}/avtaler`, {
         method: 'POST',
         body: JSON.stringify({
             deltakerFnr,
-            arbeidsgiverFnr,
-            bedriftNavn,
+            bedriftNr,
         }),
         headers: {
             'Content-Type': 'application/json',
@@ -157,6 +152,12 @@ const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
     return await response.json();
 };
 
+const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
+    const response = await fetchGet(`${API_URL}/organisasjoner?bedriftNr=${bedriftNr}`);
+    await handleResponse(response);
+    return await response.json();
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -167,6 +168,7 @@ const restService: RestService = {
     opphevGodkjenninger: opphevGodkjenninger,
     hentInnloggetBruker,
     hentInnloggingskilder,
+    hentBedriftBrreg,
 };
 
 export default restService;

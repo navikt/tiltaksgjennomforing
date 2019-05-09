@@ -28,14 +28,20 @@ class FnrInput extends React.Component<Props, State> {
     };
 
     onKlikkUtAvInput = () => {
-        if (erGyldigFnr(this.props.verdi)) {
+        if (!this.props.verdi) {
             this.setState({
-                inputFeil: undefined,
+                inputFeil: { feilmelding: this.props.label + ' er påkrevd' },
             });
         } else {
-            this.setState({
-                inputFeil: { feilmelding: this.props.feilmelding },
-            });
+            if (erGyldigFnr(this.props.verdi)) {
+                this.setState({
+                    inputFeil: undefined,
+                });
+            } else {
+                this.setState({
+                    inputFeil: { feilmelding: this.props.feilmelding },
+                });
+            }
         }
     };
 
