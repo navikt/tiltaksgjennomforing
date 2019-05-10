@@ -9,6 +9,9 @@ import {Link} from "react-router-dom";
 import {number} from "prop-types";
 import Lenke from "nav-frontend-lenker";
 import {BrowserRouter as Router, withRouter} from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
+
+const history = createBrowserHistory();
 
 export interface Props {
     avtaleSteg: AvtaleStegType;
@@ -24,7 +27,7 @@ interface State {
 // SET window.location.href => props.url
 
 
-class Hello extends React.Component<Context & Props> {
+class Hello extends React.Component<Context & Props,State> {
     state = {
         currentEnthusiasm: 0
     };
@@ -35,19 +38,22 @@ class Hello extends React.Component<Context & Props> {
 
     byttSteg = (nyttSteg: number) => {
 
-        if (this.state.currentEnthusiasm < 6) {
+        console.log(sessionStorage.getItem('currentEnthusiasm')+'sessionStorageverdi ');
+        if (parseInt( sessionStorage.getItem('currentEnthusiasm')||'0',10) < 6) {
+            sessionStorage.setItem('currentEnthusiasm',(nyttSteg).toString());
             this.setState({
                 currentEnthusiasm: nyttSteg
             }, () => {
-
+                this.state.currentEnthusiasm = nyttSteg;
                 this.nesteSteg();
             })
+            console.log(sessionStorage.getItem('currentEnthusiasm'));
         }
 
     };
 
     finnSteg = () => {
-        switch (this.state.currentEnthusiasm) {
+        switch (parseInt(sessionStorage.getItem('currentEnthusiasm')||'0',10)) {
             case 0:
                 return 'kontaktinformasjon';
             case 1:
@@ -77,6 +83,7 @@ class Hello extends React.Component<Context & Props> {
         console.log("sideBytte", sideBytte, "avtale.id: ", this.props.avtale.id, "steg:", steg);
         sessionStorage.setItem('currentEnthusiasm', this.state.currentEnthusiasm.toString());
         window.sessionStorage.setItem('currentEnthusiasm', this.state.currentEnthusiasm.toString());
+        history.push(sideBytte, this.state);
         //  window.location.replace(sideBytte);
         // window.location.pathname.replace('', sideBytte);
         // window.location.assign(sideBytte);
@@ -135,7 +142,7 @@ class Hello extends React.Component<Context & Props> {
                     {/*<button onClick={e => this.byttSteg(this.state.currentEnthusiasm-1) }   >Forrige</button>*/}
 
                     {/*<button onClick={this.byttSteg(this.state.currentEnthusiasm+1) }   >Neste</button>*/}
-                    <button onClick={e => this.byttSteg(this.state.currentEnthusiasm + 1)}>Neste</button>
+                    <button onClick={e => this.byttSteg(parseInt( sessionStorage.getItem('currentEnthusiasm')||'0',10) + 1)}>Neste</button>
 
                     <div className="nesteforrige__lenke"><Link replace={true} to={'this.getNesteSteg()'}> Neste </Link>
                     </div>
