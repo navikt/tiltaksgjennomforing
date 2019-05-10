@@ -3,57 +3,61 @@ import {Context, medContext} from '../../AvtaleContext';
 import {pathTilStegIAvtale} from '../../paths';
 import AvtaleSide, {AvtaleStegType} from '../AvtaleSide';
 import './NesteForrige.less';
-import NesteForrigeLenke from './NesteForrigeLenke/NesteForrigeLenke';
-import StegmenyLenke from "../Stegmeny/StegmenyLenke/StegmenyLenke";
 import {Link} from "react-router-dom";
-import {number} from "prop-types";
-import Lenke from "nav-frontend-lenker";
-import {BrowserRouter as Router, withRouter} from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import {Route} from 'react-router-dom';
+import {Knapp} from 'nav-frontend-knapper';
 
-const history = createBrowserHistory();
 
 export interface Props {
     avtaleSteg: AvtaleStegType;
     aktivtSteg: string;
 }
 
+/*
 interface State {
     currentEnthusiasm: number;
     // aktivSteg: string;
 }
+*/
 
 // kall => props.endretSteg
 // SET window.location.href => props.url
 
 
-class Hello extends React.Component<Context & Props,State> {
-    state = {
-        currentEnthusiasm: 0
-    };
+class Hello extends React.Component<Context & Props> {
+
 
     constructor(props: Props & Context) {
         super(props);
     }
 
-    byttSteg = (nyttSteg: number) => {
+    getNesteStegPath = () => {
+        this.props.endretSteg();
+        this.updateEnthusiasm(this.props.aktivtSteg);
+        if (this.props.aktivtSteg === 'godkjenning') {
+            return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg())
+        }
+        if (parseInt(sessionStorage.getItem('currentEnthusiasm') || '0', 10) < 7) {
+            sessionStorage.setItem('currentEnthusiasm', (parseInt(sessionStorage.getItem('currentEnthusiasm') || '0', 10) + 1).toString());
 
-        console.log(sessionStorage.getItem('currentEnthusiasm')+'sessionStorageverdi ');
-        if (parseInt( sessionStorage.getItem('currentEnthusiasm')||'0',10) < 6) {
-            sessionStorage.setItem('currentEnthusiasm',(nyttSteg).toString());
-            this.setState({
-                currentEnthusiasm: nyttSteg
-            }, () => {
-                this.state.currentEnthusiasm = nyttSteg;
-                this.nesteSteg();
-            })
-            console.log(sessionStorage.getItem('currentEnthusiasm'));
+            return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg())
         }
 
     };
+    getForrigeStegPath = () => {
+        this.props.endretSteg();
+        this.updateEnthusiasm(this.props.aktivtSteg);
+        if (this.props.aktivtSteg === 'kontaktinformasjon') {
+            return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg())
+        }
+        if (parseInt(sessionStorage.getItem('currentEnthusiasm') || '0', 10) > 0) {
+            sessionStorage.setItem('currentEnthusiasm', (parseInt(sessionStorage.getItem('currentEnthusiasm') || '0', 10) - 1).toString());
+            return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg())
+        }
+    }
 
     finnSteg = () => {
-        switch (parseInt(sessionStorage.getItem('currentEnthusiasm')||'0',10)) {
+        switch (parseInt(sessionStorage.getItem('currentEnthusiasm') || '0', 10)) {
             case 0:
                 return 'kontaktinformasjon';
             case 1:
@@ -73,96 +77,74 @@ class Hello extends React.Component<Context & Props,State> {
 
         }
     };
+    updateEnthusiasm(aktivSteg: string) {
+        // this.setState({ currentEnthusiasm, aktivSteg});
+        switch (aktivSteg) {
+            case 'kontaktinformasjon': {
+                sessionStorage.setItem('currentEnthusiasm', (0).toString());
+                break;
+            }
+            case 'maal': {
+                sessionStorage.setItem('currentEnthusiasm', (1).toString());
+                break;
+            }
+            case 'arbeidsoppgaver': {
+                sessionStorage.setItem('currentEnthusiasm', (2).toString());
+                break;
+            }
+            case 'arbeidstid': {
+                sessionStorage.setItem('currentEnthusiasm', (3).toString());
+                break;
+            }
+            case 'oppfolging': {
+                sessionStorage.setItem('currentEnthusiasm', (4).toString());
+                break;
+            }
+            case 'tilrettelegging': {
+                sessionStorage.setItem('currentEnthusiasm', (5).toString());
+                break;
+            }
+            case 'godkjenning': {
+                sessionStorage.setItem('currentEnthusiasm', (6).toString());
+                break;
+            }
+            default :
+                sessionStorage.setItem('currentEnthusiasm', (0).toString());
 
-    nesteSteg = () => {
-        // to-do oppdatere array med nytt nummer, og kalle funksjonen som oppdaterer steg komponenten.
-        // Må oppdateres hvis avtleside/steg blir endret
-
-        const steg = this.finnSteg();
-        const sideBytte = pathTilStegIAvtale(this.props.avtale.id, steg);
-        console.log("sideBytte", sideBytte, "avtale.id: ", this.props.avtale.id, "steg:", steg);
-        sessionStorage.setItem('currentEnthusiasm', this.state.currentEnthusiasm.toString());
-        window.sessionStorage.setItem('currentEnthusiasm', this.state.currentEnthusiasm.toString());
-        history.push(sideBytte, this.state);
-        //  window.location.replace(sideBytte);
-        // window.location.pathname.replace('', sideBytte);
-        // window.location.assign(sideBytte);
-        // window.location.href=sideBytte;
-        console.log(sessionStorage.getItem('currentEnthusiasm'));
-        console.log(window.sessionStorage.getItem('currentEnthusiasm'));
-        // props.history.replace(sideBytte);
-
-    };
-
-
-    getNesteSteg = () => {
-        this.updateEnthusiasm(this.props.aktivtSteg);
-        if (this.state.currentEnthusiasm < 6) {
-            const tmp = this.state.currentEnthusiasm;
-            // this.setState({currentEnthusiasm: tmp+1});
-            this.state.currentEnthusiasm = this.state.currentEnthusiasm + 1;
         }
-        console.log(this.state.currentEnthusiasm + ' inside getNesteSteg ');
-        return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg());
+// this.setState({currentEnthusiasm: })
+    }
 
-
-    };
-    getForrigeSteg = () => {
-
-        if (this.state.currentEnthusiasm > 0) {
-            const tmp = this.state.currentEnthusiasm;
-            // this.setState({currentEnthusiasm: tmp - 1});
-            this.state.currentEnthusiasm = this.state.currentEnthusiasm + 1;
-        }
-
-        return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg());
-        // console.log(this.state.currentEnthusiasm+"inside forrige");
-
-
-    };
-
-
-    onIncrement = () => console.log(this.nesteSteg());
-
-    //   onDecrement = () => this.updateEnthusiasm(this.state.currentEnthusiasm - 1,this.state.aktivSteg);
+    // updateAktivSteg()
 
     render() {
         // const { name } = this.props;
 
-        if (false/* this.state.currentEnthusiasm <= 0*/) {
-            throw new Error('You could be a little more enthusiastic. :D');
-        }
-
         return (
             <div className="hello">
 
-                <div className="greeting">
-                    Hello { /* name + getExclamationMarks(this.state.currentEnthusiasm)+this.state.aktivSteg */}
-
-                    {/*<button onClick={e => this.byttSteg(this.state.currentEnthusiasm-1) }   >Forrige</button>*/}
-
-                    {/*<button onClick={this.byttSteg(this.state.currentEnthusiasm+1) }   >Neste</button>*/}
-                    <button onClick={e => this.byttSteg(parseInt( sessionStorage.getItem('currentEnthusiasm')||'0',10) + 1)}>Neste</button>
-
-                    <div className="nesteforrige__lenke"><Link replace={true} to={'this.getNesteSteg()'}> Neste </Link>
-                    </div>
-                </div>
-                <div>.</div>
-
-                {/*  <div>
-                    <div className="nesteforrige__lenke"><Link replace={false}
-                                                               to={this.getForrigeSteg()}> Forrige </Link></div>
-                </div>*/}
-
-
-                {/*  <button
-                    type="button"
-                    onClick={() => history.replaceState(null, 'neste', this.getNesteSteg())}
-                >
-                    {'neste'}
-                </button>*/}
-
-
+                <Route render={({history}) => (
+                    <button
+                        type='button'
+                        className="knapp knapp--standard"
+                        onClick={() => {
+                            history.push(this.getForrigeStegPath() || '')
+                        }}
+                    >
+                        Forrige
+                    </button>
+                )}/>
+                <Route render={({history}) => (
+                    <button
+                        type='button'
+                        className="knapp knapp--standard nesteforrige__buttontoright"
+                        onClick={() => {
+                            history.push(this.getNesteStegPath() || '')
+                        }}
+                    >
+                        Neste
+                    </button>
+                )}/>
             </div>
 
         );
@@ -172,47 +154,7 @@ class Hello extends React.Component<Context & Props,State> {
      * Oppdaterer 'currentEnthusiasm' til riktig steg nummer,
      * @param aktivSteg
      */
-    updateEnthusiasm(aktivSteg: string) {
-        // this.setState({ currentEnthusiasm, aktivSteg});
-        switch (aktivSteg) {
-            case 'kontaktinformasjon': {
-                this.state.currentEnthusiasm = 0;
-                break;
-            }
-            case 'maal': {
-                this.state.currentEnthusiasm = 1;
-                break;
-            }
-            case 'arbeidsoppgaver': {
-                this.state.currentEnthusiasm = 2;
-                break;
-            }
-            case 'arbeidstid': {
-                this.state.currentEnthusiasm = 3;
-                break;
-            }
-            case 'oppfolging': {
-                this.state.currentEnthusiasm = 4;
-                break;
-            }
-            case 'tilrettelegging': {
-                this.state.currentEnthusiasm = 5;
-                break;
-            }
-            case 'godkjenning':
-                return;
-            default :
-                this.state.currentEnthusiasm = 0;
 
-        }
-// this.setState({currentEnthusiasm: })
-    }
-
-    // updateAktivSteg()
 }
 
 export default medContext<Props>(Hello);
-
-function getExclamationMarks(numChars: number) {
-    return Array(numChars + 1).join('!');
-}
