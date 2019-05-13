@@ -61,7 +61,7 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
                 slettOnClick={this.slettOppgave}
                 lukkModal={this.lukkModal}
                 navn="oppgave"
-                varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
+                varselTekst="Du er i ferd med å slette en arbeidsoppgave. Hvis du gjør det vil alt innholdet i arbeidsoppgaven forsvinne. Er du sikker?"
             />
         </>
     );

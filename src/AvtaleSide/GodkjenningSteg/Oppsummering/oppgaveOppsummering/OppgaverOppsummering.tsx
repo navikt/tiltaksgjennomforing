@@ -1,25 +1,20 @@
+import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import * as React from 'react';
-import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
-import { Avtale } from '../../../avtale';
+import { FunctionComponent } from 'react';
 import BEMHelper from '../../../../utils/bem';
+import { Oppgaver } from '../../../avtale';
+import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './oppgaveOppsummering.less';
 import OppgaverIkon from './OppgaverIkon';
 
 const cls = BEMHelper('oppgaveOppsummering');
 
-interface Props {
-    avtale: Avtale;
-}
-
-const OppgaverOppsummering = (props: Props) => {
-    const arbeidsoppgaver = props.avtale.oppgaver.map(oppgave => (
+const OppgaverOppsummering: FunctionComponent<Oppgaver> = props => {
+    const arbeidsoppgaver = props.oppgaver.map(oppgave => (
         <div key={oppgave.id} className={cls.className}>
-            <Element className={cls.element('label')}>Arbeidsoppgave</Element>
-            <Normaltekst className={cls.element('beskrivelse')}>
-                {oppgave.tittel}
-            </Normaltekst>
-            <Element className={cls.element('label')}>Beskrivelse</Element>
+            <Undertittel>{oppgave.tittel}</Undertittel>
             <Normaltekst className={cls.element('beskrivelse')}>
                 {oppgave.beskrivelse}
             </Normaltekst>
@@ -36,8 +31,10 @@ const OppgaverOppsummering = (props: Props) => {
         </Stegoppsummering>
     ) : (
         <Stegoppsummering ikon={<OppgaverIkon />} tittel="Arbeidsoppgaver">
-            <div className={cls.element('ikkeFyltUt')}>
-                <Normaltekst>Ikke fylt ut</Normaltekst>
+            <div>
+                <EtikettFokus className={cls.element('etikettInfo')}>
+                    Arbeidsoppgaver er ikke fylt ut
+                </EtikettFokus>
             </div>
         </Stegoppsummering>
     );
