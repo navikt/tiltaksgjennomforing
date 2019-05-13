@@ -5,7 +5,7 @@ import Innholdsboks from '../../../../komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '../../../avtale';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
 import './Oppsummering.less';
-import MaalOppsummering from '../målOppsummering/MaalOppsummering';
+import MaalOppsummering from '../maalOppsummering/MaalOppsummering';
 import OppgaverOppsummering from '../oppgaveOppsummering/OppgaverOppsummering';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
@@ -43,12 +43,12 @@ const Oppsummering: FunctionComponent<Props> = props => (
             )}
         </div>
 
-        <Avtaleparter avtale={props.avtale} />
-        <MaalOppsummering avtale={props.avtale} />
-        <OppgaverOppsummering avtale={props.avtale} />
-        <VarighetOppsummering avtale={props.avtale} />
-        <OppfolgingOppsummering avtale={props.avtale} />
-        <Tilrettelegging avtale={props.avtale} />
+        <Avtaleparter {...props.avtale} />
+        <MaalOppsummering {...props.avtale} />
+        <OppgaverOppsummering {...props.avtale} />
+        <VarighetOppsummering {...props.avtale} />
+        <OppfolgingOppsummering {...props.avtale} />
+        <Tilrettelegging {...props.avtale} />
     </Innholdsboks>
 );
 
