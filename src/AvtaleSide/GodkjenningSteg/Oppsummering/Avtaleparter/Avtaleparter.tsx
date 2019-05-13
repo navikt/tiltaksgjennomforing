@@ -1,229 +1,136 @@
-import * as React from 'react';
-import TypografiBase, {
-    Normaltekst,
-    Undertittel,
-} from 'nav-frontend-typografi';
-import { Avtale } from '../../../avtale';
-import './Avtaleparter.less';
-import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import AvtalepartnerHeaderIkon from './AvtalepartnerHeaderIkon';
-import BEMHelper from '../../../../utils/bem';
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
-
-interface Props {
-    avtale: Avtale;
-}
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
+import BEMHelper from '../../../../utils/bem';
+import {
+    Arbeidsgiverinfo,
+    Bedriftinfo,
+    Deltakerinfo,
+    Veilederinfo,
+} from '../../../avtale';
+import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import './Avtaleparter.less';
+import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
 
 const cls = BEMHelper('avtaleparter');
 
-export const SjekkOmInputEksisterer = (
-    input: string,
-    fontType: string,
-    clsName: string,
-    label?: string
-): React.ReactNode => {
-    const classN = BEMHelper(clsName);
+const storForbokstav = (streng: string) =>
+    streng.charAt(0).toUpperCase() + streng.slice(1);
 
-    if (sjekkStrengVerdi(input)) {
-        return (
-            <TypografiBase type={fontType} className={classN.element('navn')}>
-                {label} {input}
-            </TypografiBase>
+interface Felt {
+    felt: string;
+    verdi: string;
+}
+
+interface Props {
+    navnFelter: Felt[];
+    tilleggFelter: Felt[];
+    overskrift: string;
+    borderFarge: string;
+}
+
+const Avtalepart: FunctionComponent<Props> = props => {
+    const alleFelter = props.navnFelter.concat(props.tilleggFelter);
+    const hvaMangler = alleFelter
+        .filter(felt => !felt.verdi)
+        .map(felt => felt.felt);
+
+    let innhold;
+    if (hvaMangler.length > 0) {
+        innhold = (
+            <EtikettFokus className={cls.element('etikettInfo')}>
+                {storForbokstav(hvaMangler.join(', ') + ' er ikke fylt ut')}
+            </EtikettFokus>
+        );
+    } else {
+        innhold = (
+            <>
+                <Undertittel>
+                    {props.navnFelter.map(felt => felt.verdi).join(' ')}
+                </Undertittel>
+                <Normaltekst>
+                    {storForbokstav(
+                        props.tilleggFelter
+                            .map(felt => felt.felt + ': ' + felt.verdi)
+                            .join(', ')
+                    )}
+                </Normaltekst>
+            </>
         );
     }
+
     return (
-        <div>
-            <EtikettFokus>Ikke fylt ut</EtikettFokus>
+        <div className={cls.element('content', props.borderFarge)}>
+            <Normaltekst>{props.overskrift}</Normaltekst>
+            {innhold}
         </div>
     );
 };
 
-const sjekkStrengVerdi = (streng: any) => {
-    if (streng) {
-        if (streng.length > 0 && streng.search('null') && streng !== null) {
-            return true;
-        }
-    }
-    return false;
-};
-
-const Avtaleparter = (props: Props) => {
-    const {
-        deltakerFornavn,
-        deltakerEtternavn,
-        bedriftNavn,
-        arbeidsgiverFornavn,
-        arbeidsgiverEtternavn,
-        veilederFornavn,
-        veilederEtternavn,
-        deltakerFnr,
-        bedriftNr,
-        veilederTlf,
-        arbeidsgiverTlf,
-    } = props.avtale;
-
-    return (
-        <Stegoppsummering
-            tittel="Kontaktinformasjon"
-            ikon={<AvtalepartnerHeaderIkon />}
-        >
-            <div>
-                {settInnRad(
-                    [deltakerFornavn, deltakerEtternavn],
-                    ['F.nr', deltakerFnr],
-                    'Deltaker',
-                    'farge-gronn'
-                )}
-                {settInnRad(
-                    [bedriftNavn, arbeidsgiverFornavn, arbeidsgiverEtternavn],
-                    ['Org:', bedriftNr, 'Tlf:', arbeidsgiverTlf],
-                    'Arbeidsgiver',
-                    'farge-graa'
-                )}
-                {settInnRad(
-                    [veilederFornavn, veilederEtternavn],
-                    ['Tlf:', veilederTlf],
-                    'NAV veileder',
-                    'farge-lysblaa'
-                )}
-            </div>
-        </Stegoppsummering>
-    );
-};
-
-const sjekkOmAlleInputfeltErFyltUt = (
-    nameRad: string[],
-    tilleggInfoVedrorendeAktorRad: string[]
-) => {
-    return (
-        nameRad.every(sjekkStrengVerdi) &&
-        tilleggInfoVedrorendeAktorRad.every(sjekkStrengVerdi)
-    );
-};
-
-const settInnRad = (
-    nameRad: string[],
-    tilleggInfoVedrorendeAktorRad: string[],
-    headertxt: string,
-    borderFarge: string
-) => {
-    if (sjekkOmAlleInputfeltErFyltUt(nameRad, tilleggInfoVedrorendeAktorRad)) {
-        if (erDetFellesRad(nameRad)) {
-            return (
-                <div className={cls.element('content', borderFarge)}>
-                    <Normaltekst>{headertxt}</Normaltekst>
-                    <Undertittel>
-                        {nameRad.map(inputFelt => {
-                            return `${inputFelt} `;
-                        })}
-                    </Undertittel>
-                    <Normaltekst>
-                        {tilleggInfoVedrorendeAktorRad.map(inputFelt => {
-                            return `${inputFelt} `;
-                        })}
-                    </Normaltekst>
-                </div>
-            );
-        } else {
-            return (
-                <div className={cls.element('content', borderFarge)}>
-                    <Normaltekst>{headertxt}</Normaltekst>
-                    <Undertittel>
-                        {nameRad.map((inputFelt, index) => {
-                            return index === 1
-                                ? `v/ ${inputFelt}`
-                                : `${inputFelt} `;
-                        })}
-                    </Undertittel>
-                    <Normaltekst>
-                        {tilleggInfoVedrorendeAktorRad.map(
-                            (inputFelt, index) => {
-                                return index < 2 ? `${inputFelt} ` : null;
-                            }
-                        )}
-                    </Normaltekst>
-                    <Normaltekst>
-                        {tilleggInfoVedrorendeAktorRad.map(
-                            (inputFelt, index) => {
-                                return index > 1 ? `${inputFelt} ` : null;
-                            }
-                        )}
-                    </Normaltekst>
-                </div>
-            );
-        }
-    } else {
-        return FormaterFeilBeskjedPaManglendeFelt(
-            nameRad,
-            tilleggInfoVedrorendeAktorRad,
-            headertxt,
-            borderFarge
-        );
-    }
-};
-
-const FormaterFeilBeskjedPaManglendeFelt = (
-    nameRad: string[],
-    tilleggInfoVedrorendeAktorRad: string[],
-    headertxt: string,
-    borderFarge: string
-) => {
-    const hvaMangler = [];
-    if (erDetFellesRad(nameRad)) {
-        if (!(sjekkStrengVerdi(nameRad[0]) || sjekkStrengVerdi(nameRad[1]))) {
-            hvaMangler.push('navn');
-        }
-        if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[1])) {
-            hvaMangler.push('telefonnummer');
-        }
-    } else {
-        if (!sjekkStrengVerdi(nameRad[0])) {
-            hvaMangler.push('bedriftnavn');
-        }
-        if (!(sjekkStrengVerdi(nameRad[1]) || sjekkStrengVerdi(nameRad[2]))) {
-            hvaMangler.push('navn');
-        }
-        if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[1])) {
-            hvaMangler.push('bedriftsnummer');
-        }
-        if (!sjekkStrengVerdi(tilleggInfoVedrorendeAktorRad[3])) {
-            hvaMangler.push('telefonnummer');
-        }
-    }
-
-    if (hvaMangler.length > 1) {
-        return (
-            <div className={cls.element('content', borderFarge)}>
-                <Normaltekst>{headertxt}</Normaltekst>
-                <EtikettFokus className={cls.element('etikettInfo')}>
-                    {hvaMangler.map((element, index) => {
-                        if (index === 0) {
-                            return `${element}`;
-                        } else if (index === hvaMangler.length - 1) {
-                            return ` og ${element}`;
-                        } else {
-                            return `, ${element}`;
-                        }
-                    })}
-                    {' er ikke fylt ut'}
-                </EtikettFokus>
-            </div>
-        );
-    } else {
-        return (
-            <div className={cls.element('content', borderFarge)}>
-                <Normaltekst>{headertxt}</Normaltekst>
-                <nav />
-                <EtikettFokus
-                    className={cls.element('etikettInfo')}
-                >{`${hvaMangler} er ikke fylt ut`}</EtikettFokus>
-            </div>
-        );
-    }
-};
-
-const erDetFellesRad = (nameRad: string[]) => {
-    return nameRad.length < 3;
-};
+const Avtaleparter: FunctionComponent<
+    Deltakerinfo & Arbeidsgiverinfo & Veilederinfo & Bedriftinfo
+> = ({
+    deltakerFornavn,
+    deltakerEtternavn,
+    arbeidsgiverFornavn,
+    arbeidsgiverEtternavn,
+    veilederFornavn,
+    veilederEtternavn,
+    deltakerFnr,
+    veilederTlf,
+    arbeidsgiverTlf,
+    bedriftNr,
+    bedriftNavn,
+}) => (
+    <Stegoppsummering
+        tittel="Kontaktinformasjon"
+        ikon={<AvtaleparterHeaderIkon />}
+    >
+        <div>
+            <Avtalepart
+                navnFelter={[
+                    { felt: 'fornavn', verdi: deltakerFornavn },
+                    { felt: 'etternavn', verdi: deltakerEtternavn },
+                ]}
+                tilleggFelter={[{ felt: 'Fødselsnummer', verdi: deltakerFnr }]}
+                overskrift="Deltaker"
+                borderFarge="farge-gronn"
+            />
+            <Avtalepart
+                navnFelter={[
+                    {
+                        felt: 'bedriftnavn',
+                        verdi: bedriftNavn,
+                    },
+                    {
+                        felt: 'fornavn',
+                        verdi:
+                            arbeidsgiverFornavn && 'v/' + arbeidsgiverFornavn,
+                    },
+                    { felt: 'etternavn', verdi: arbeidsgiverEtternavn },
+                ]}
+                tilleggFelter={[
+                    {
+                        felt: 'bedriftsnummer',
+                        verdi: bedriftNr,
+                    },
+                    { felt: 'telefon', verdi: arbeidsgiverTlf },
+                ]}
+                overskrift="Arbeidsgiver"
+                borderFarge="farge-graa"
+            />
+            <Avtalepart
+                navnFelter={[
+                    { felt: 'fornavn', verdi: veilederFornavn },
+                    { felt: 'etternavn', verdi: veilederEtternavn },
+                ]}
+                tilleggFelter={[{ felt: 'telefon', verdi: veilederTlf }]}
+                overskrift="NAV-veileder"
+                borderFarge="farge-lysblaa"
+            />
+        </div>
+    </Stegoppsummering>
+);
 
 export default Avtaleparter;

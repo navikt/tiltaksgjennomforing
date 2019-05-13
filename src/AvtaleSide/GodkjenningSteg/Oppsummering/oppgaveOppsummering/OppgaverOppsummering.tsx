@@ -1,21 +1,18 @@
+import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import * as React from 'react';
-import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
-import { Avtale } from '../../../avtale';
+import { FunctionComponent } from 'react';
 import BEMHelper from '../../../../utils/bem';
+import { Oppgaver } from '../../../avtale';
+import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './oppgaveOppsummering.less';
 import OppgaverIkon from './OppgaverIkon';
-import Undertittel from 'nav-frontend-typografi/lib/undertittel';
-import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 
 const cls = BEMHelper('oppgaveOppsummering');
 
-interface Props {
-    avtale: Avtale;
-}
-
-const OppgaverOppsummering = (props: Props) => {
-    const arbeidsoppgaver = props.avtale.oppgaver.map(oppgave => (
+const OppgaverOppsummering: FunctionComponent<Oppgaver> = props => {
+    const arbeidsoppgaver = props.oppgaver.map(oppgave => (
         <div key={oppgave.id} className={cls.className}>
             <Undertittel>{oppgave.tittel}</Undertittel>
             <Normaltekst className={cls.element('beskrivelse')}>

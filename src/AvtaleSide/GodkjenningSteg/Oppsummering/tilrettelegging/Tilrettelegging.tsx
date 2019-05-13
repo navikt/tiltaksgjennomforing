@@ -1,33 +1,22 @@
-import React from 'react';
-import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import React, { FunctionComponent } from 'react';
 import BEMHelper from '../../../../utils/bem';
-import { Avtale } from '../../../avtale';
+import { Tilrettelegging as TilretteleggingInfo } from '../../../avtale';
+import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
+import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './tilrettelegging.less';
 import TilretteleggingIkon from './TilretteleggingIkon';
-import { SjekkOmInputEksisterer } from '../Avtaleparter/Avtaleparter';
 
 const cls = BEMHelper('tilrettelegging');
 
-interface Props {
-    avtale: Avtale;
-}
-
-const Tilrettelegging = ({ avtale }: { avtale: Avtale }) => {
-    const { tilrettelegging } = avtale;
-    return (
-        <Stegoppsummering
-            ikon={<TilretteleggingIkon />}
-            tittel="Tilrettelegging"
-        >
-            <div className={cls.className}>
-                {SjekkOmInputEksisterer(
-                    tilrettelegging,
-                    'normaltekst',
-                    'tilrettelegging'
-                )}
-            </div>
-        </Stegoppsummering>
-    );
-};
+const Tilrettelegging: FunctionComponent<TilretteleggingInfo> = props => (
+    <Stegoppsummering ikon={<TilretteleggingIkon />} tittel="Tilrettelegging">
+        <div className={cls.className}>
+            <SjekkOmVerdiEksisterer
+                verdi={props.tilrettelegging}
+                clsName="tilrettelegging"
+            />
+        </div>
+    </Stegoppsummering>
+);
 
 export default Tilrettelegging;

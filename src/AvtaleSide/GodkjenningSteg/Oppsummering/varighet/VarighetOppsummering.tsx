@@ -1,19 +1,16 @@
-import * as React from 'react';
-import { Avtale } from '../../../avtale';
-import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import moment from 'moment';
-import VarighetIkon from './VarighetIkon';
-import { SjekkOmInputEksisterer } from '../Avtaleparter/Avtaleparter';
-import BEMHelper from '../../../../utils/bem';
-import './varighet.less';
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
+import BEMHelper from '../../../../utils/bem';
+import { Arbeidstid } from '../../../avtale';
+import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
+import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import './varighet.less';
+import VarighetIkon from './VarighetIkon';
 
 const cls = BEMHelper('varighetOppsummering');
-
-interface Props {
-    avtale: Avtale;
-}
 
 const settInnRadStatus = (status: boolean, content: any): React.ReactNode => {
     if (status) {
@@ -49,12 +46,11 @@ const standardTomBlokk = (): React.ReactNode => {
     return <EtikettFokus>Ikke fylt ut</EtikettFokus>;
 };
 
-const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
-    const {
-        startDato,
-        arbeidstreningLengde,
-        arbeidstreningStillingprosent,
-    } = avtale;
+const VarighetOppsummering: FunctionComponent<Arbeidstid> = ({
+    startDato,
+    arbeidstreningLengde,
+    arbeidstreningStillingprosent,
+}) => {
     const stillingProsent = arbeidstreningStillingprosent
         ? arbeidstreningStillingprosent.toString() + '%'
         : '';
@@ -67,11 +63,10 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
                         <Element className={cls.element('label')}>
                             Startdato
                         </Element>
-                        {SjekkOmInputEksisterer(
-                            harDato(startDato),
-                            'normaltekst',
-                            'varighetOppsummering'
-                        )}
+                        <SjekkOmVerdiEksisterer
+                            verdi={harDato(startDato)}
+                            clsName="varighetOppsummering"
+                        />
                     </div>
                     <div className={cls.element('element')}>
                         <Element className={cls.element('label')}>
@@ -89,11 +84,10 @@ const VarighetOppsummering = ({ avtale }: { avtale: Avtale }) => {
                         <Element className={cls.element('label')}>
                             Stillingsprosent
                         </Element>
-                        {SjekkOmInputEksisterer(
-                            stillingProsent,
-                            'normaltekst',
-                            'varighetOppsummering'
-                        )}
+                        <SjekkOmVerdiEksisterer
+                            verdi={stillingProsent}
+                            clsName="varighetOppsummering"
+                        />
                     </div>
                 </div>
             </div>
