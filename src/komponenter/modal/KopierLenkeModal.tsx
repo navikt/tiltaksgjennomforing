@@ -36,9 +36,9 @@ const KopierLenkeModal: React.FunctionComponent<Props> = props => (
             </CopyToClipboard>
         </div>
         <Normaltekst className="kopierlenke__undertittel">
-            For at arbeidsgiver og deltaker skal kunne logge seg inn og fylle ut
-            avtalen må du sende dem lenken vist over. De kan da kunne logge seg
-            inn i avtalen via ID-porten.
+            For at arbeidsgiver og deltaker skal kunne fylle ut og godkjenne
+            avtalen må du sende dem lenken vist over. De kan da logge seg inn i
+            avtalen via ID-porten.
         </Normaltekst>
     </Modal>
 );
