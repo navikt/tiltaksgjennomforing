@@ -16,6 +16,8 @@ import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import MediaQuery from 'react-responsive';
 import {isNull} from "util";
+import checkIkon from "./GodkjenningSteg/GodkjenningStatus/check-circle.svg";
+import problemIkon from "./GodkjenningSteg/GodkjenningStatus/report-problem-circle.svg";
 
 const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
     return <Link to={props.href!}>Gå til</Link>;
@@ -56,6 +58,13 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 <div className="avtaleoversikt__lenker__status">
                         {avtale.status}
                 </div>
+                <img
+                    className="godkjenningsrad__godkjenningIkon" style={{
+                    width: 35.5,
+                    height: 23,
+                }}
+                    src={avtale.godkjentAvVeileder ? checkIkon : problemIkon}
+                />
 
             </div>
         </LenkepanelBase>
