@@ -77,6 +77,7 @@ class Hello extends React.Component<Context & Props> {
 
         }
     };
+
     updateEnthusiasm(aktivSteg: string) {
         // this.setState({ currentEnthusiasm, aktivSteg});
         switch (aktivSteg) {
@@ -122,29 +123,31 @@ class Hello extends React.Component<Context & Props> {
 
         return (
             <div className="hello">
+                <div className="row " >
+                        <Route render={({history}) => (
+                            <button
+                                type='button'
+                                className="knapp knapp--standard"
+                                onClick={() => {
+                                    history.push(this.getForrigeStegPath() || '')
+                                }}
+                            >
+                                Forrige
+                            </button>
 
-                <Route render={({history}) => (
-                    <button
-                        type='button'
-                        className="knapp knapp--standard"
-                        onClick={() => {
-                            history.push(this.getForrigeStegPath() || '')
-                        }}
-                    >
-                        Forrige
-                    </button>
-                )}/>
-                <Route render={({history}) => (
-                    <button
-                        type='button'
-                        className="knapp knapp--standard nesteforrige__buttontoright"
-                        onClick={() => {
-                            history.push(this.getNesteStegPath() || '')
-                        }}
-                    >
-                        Neste
-                    </button>
-                )}/>
+                        )}/>
+                        <Route render={({history}) => (
+                            <button
+                                type='button'
+                                className="knapp knapp--standard nesteforrige__buttontoright"
+                                onClick={() => {
+                                    history.push(this.getNesteStegPath() || '')
+                                }}
+                            >
+                                Neste
+                            </button>
+                        )}/>
+                </div>
             </div>
 
         );
