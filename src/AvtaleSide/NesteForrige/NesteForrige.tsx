@@ -127,7 +127,7 @@ class Hello extends React.Component<Context & Props> {
                         <Route render={({history}) => (
                             <button
                                 type='button'
-                                className="knapp knapp--standard"
+                                className="knapp knapp--flat"
                                 onClick={() => {
                                     history.push(this.getForrigeStegPath() || '')
                                 }}
@@ -139,7 +139,7 @@ class Hello extends React.Component<Context & Props> {
                         <Route render={({history}) => (
                             <button
                                 type='button'
-                                className="knapp knapp--standard nesteforrige__buttontoright"
+                                className="knapp knapp--flat nesteforrige__buttontoright"
                                 onClick={() => {
                                     history.push(this.getNesteStegPath() || '')
                                 }}
