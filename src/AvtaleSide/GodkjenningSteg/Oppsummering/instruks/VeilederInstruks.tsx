@@ -22,7 +22,7 @@ const VeilederInstruks: FunctionComponent = () => (
                 </Normaltekst>
             </li>
             <li>
-                <Normaltekst>sende avtalen til scanning</Normaltekst>
+                <Normaltekst>sende avtalen til skanning</Normaltekst>
             </li>
             <li>
                 <Normaltekst>
