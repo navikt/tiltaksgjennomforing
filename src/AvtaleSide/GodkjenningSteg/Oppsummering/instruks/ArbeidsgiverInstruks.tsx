@@ -1,4 +1,5 @@
 import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { FunctionComponent } from 'react';
 import * as React from 'react';
 import VeilederpanelMedUtklippstavle from '../../../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -11,31 +12,31 @@ import BEMHelper from '../../../../utils/bem';
 
 const cls = BEMHelper('instruks');
 
-const ArbeidsgiverInstruks = () => (
+const ArbeidsgiverInstruks: FunctionComponent = () => (
     <>
         <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>
         <VeilederpanelMedUtklippstavle>
-            <div className={cls.element('subheader', 'arbeidsgiver')}>
-                <Element>Som arbeidsgiver må du:</Element>
+            <div className={cls.element('subheader')}>
+                <Element>Som arbeidsgiver må du</Element>
             </div>
             <ul>
                 <li>
-                    <Normaltekst>Følge arbeidsmiljøloven</Normaltekst>
+                    <Normaltekst>følge arbeidsmiljøloven</Normaltekst>
                 </li>
                 <li>
                     <Normaltekst>
-                        Ha forsikring for deltaker på arbeidstrening
+                        ha forsikring for deltaker på arbeidstrening
                     </Normaltekst>
                 </li>
                 <li>
                     <Normaltekst>
-                        Sørge for at tiltaksplassen ikke erstatter en vanlig
+                        sørge for at tiltaksplassen ikke erstatter en vanlig
                         stilling i bedriften
                     </Normaltekst>
                 </li>
                 <li>
                     <Normaltekst>
-                        Behandle personopplysninger til kandidaten på en
+                        behandle personopplysninger til kandidaten på en
                         forsvarlig måte og slette opplysningene etter at
                         arbeidstreningen er ferdig
                     </Normaltekst>

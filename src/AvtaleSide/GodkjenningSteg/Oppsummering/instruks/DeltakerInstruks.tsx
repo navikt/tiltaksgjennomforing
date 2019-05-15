@@ -1,4 +1,5 @@
 import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { FunctionComponent } from 'react';
 import * as React from 'react';
 import VeilederpanelMedUtklippstavleIkon from '../../../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -10,28 +11,28 @@ import BEMHelper from '../../../../utils/bem';
 
 const cls = BEMHelper('instruks');
 
-const DeltakerInstruks = () => (
+const DeltakerInstruks: FunctionComponent = () => (
     <>
         <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>
         <VeilederpanelMedUtklippstavleIkon>
-            <div className={cls.element('subheader', 'deltaker')}>
-                <Element>Som deltaker må du:</Element>
+            <div className={cls.element('subheader')}>
+                <Element>Som deltaker må du</Element>
             </div>
             <ul>
                 <li>
                     <Normaltekst>
-                        Vite at arbeidsgiver må forsikre deg og har ansvar for
-                        deg hvis du blir skadet på jobb. Dette er fordi
-                        arbeidsgiver må følge arbeidsmiljølovens regler.
+                        vite at arbeidsgiver må forsikre deg og har ansvar for
+                        deg hvis du blir skadet på jobb, dette er fordi
+                        arbeidsgiver må følge arbeidsmiljølovens regler
                     </Normaltekst>
                 </li>
                 <li>
                     <Normaltekst>
-                        Gi beskjed til arbeidsgiver hvis du er borte fra jobb.
+                        gi beskjed til arbeidsgiver hvis du er borte fra jobb
                     </Normaltekst>
                 </li>
                 <li>
-                    <Normaltekst>Sende inn meldekort hver 14. dag.</Normaltekst>
+                    <Normaltekst>sende inn meldekort hver 14. dag</Normaltekst>
                 </li>
             </ul>
         </VeilederpanelMedUtklippstavleIkon>
