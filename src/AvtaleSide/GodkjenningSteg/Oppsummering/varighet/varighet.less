@@ -17,30 +17,15 @@
         width: 100%;
     }
 
-    &__label {
-        padding-top: 1rem;
-    }
-
     &__navn {
-        margin-bottom: 1rem;
-
-        &--ikkeFyltUt {
-            /* blir kun rendret av IE. erstattning for fit-content som ikke støttes */
-            @media screen and (-ms-high-contrast: active),
-                (-ms-high-contrast: none) {
-                display: inline-block;
-            }
-
-            background-color: #ffe5c2;
-            width: fit-content;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            border-radius: 4px;
-            text-align: center;
-        }
+        margin-bottom: 0.5rem;
     }
 
     @media (min-width: @mobile-breakpoint) {
+        &__navn {
+            margin-bottom: 0;
+        }
+
         &__rad {
             flex-direction: row;
             justify-content: space-between;
