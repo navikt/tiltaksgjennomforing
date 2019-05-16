@@ -12,7 +12,6 @@ export type Avtale = AvtaleMetadata &
     Godkjenninger &
     Tilrettelegging;
 
-
 export interface AvtaleMetadata {
     id: string;
     opprettetTidspunkt: string;

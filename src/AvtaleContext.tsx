@@ -42,7 +42,7 @@ export const tomAvtale: Avtale = {
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
     erLaast: false,
-    status: ''
+    status: '',
 };
 
 export interface Context {

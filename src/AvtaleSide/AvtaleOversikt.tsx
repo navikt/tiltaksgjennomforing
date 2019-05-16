@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, HTMLProps, useEffect, useState } from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -15,11 +15,11 @@ import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import MediaQuery from 'react-responsive';
-import {isNull} from "util";
-import {ReactComponent as  CheckIkon} from "../assets/ikoner/check-circle.svg";
-import {ReactComponent as ProblemIkon} from "../assets/ikoner/report-problem-circle.svg";
-import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import { ReactComponent as RettighetsHammerIkon } from '../assets/ikoner/law.svg';
+import { ReactComponent as CheckIkon } from '../assets/ikoner/check-circle-green.svg';
+import { ReactComponent as ProblemIkon } from '../assets/ikoner/report-problem-circle.svg';
+import { ReactComponent as InfoIkon } from '../assets/ikoner/infomation-circle.svg';
+
+import SmaaIkon from '../komponenter/SmaaIkon/SmaaIkon';
 
 const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
     return <Link to={props.href!}>Gå til</Link>;
@@ -58,22 +58,51 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     </div>
                 </MediaQuery>
                 <div className="avtaleoversikt__lenker__status">
-                        {avtale.status}
+                    {avtale.status}
                 </div>
-               {/* <img
-                    className="godkjenningsrad__godkjenningIkon" style={{
-                    width: 35.5,
-                    height: 23,
-                }}
-                    src={avtale.godkjentAvVeileder ? checkIkon : problemIkon}
-                />*/}
-                
-                <EkstbanderbartPanelRad
-                    svgIkon={<CheckIkon style={{width: 25, height: 25}} />}
 
-                    headerTekst=""
-                >
-                </EkstbanderbartPanelRad>
+                <SmaaIkon
+                    svgSmaaIkon={
+                        <ProblemIkon
+                            style={{
+                                display:
+                                    avtale.status === 'Mangler godkjenning'
+                                        ? ''
+                                        : 'none',
+                                width: 24,
+                                height: 24,
+                                margin: 0,
+                            }}
+                        />
+                    }
+                />
+                <SmaaIkon
+                    svgSmaaIkon={
+                        <CheckIkon
+                            style={{
+                                display: avtale.godkjentAvVeileder
+                                    ? ''
+                                    : 'none',
+                                width: 24,
+                                height: 24,
+                                margin: 0,
+                            }}
+                        />
+                    }
+                />
+                <SmaaIkon
+                    svgSmaaIkon={
+                        <InfoIkon
+                            style={{
+                                display:
+                                    avtale.status === 'Påbegynt' ? '' : 'none',
+                                width: 24,
+                                height: 24,
+                                margin: 0,
+                            }}
+                        />
+                    }
+                />
             </div>
         </LenkepanelBase>
     ));
