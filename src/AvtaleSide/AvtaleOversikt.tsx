@@ -16,8 +16,8 @@ import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import MediaQuery from 'react-responsive';
 import {isNull} from "util";
-import {ReactComponent as  checkIkon} from "../assets/ikoner/check-circle.svg";
-import {ReactComponent as problemIkon} from "../assets/ikoner/report-problem-circle.svg";
+import {ReactComponent as  CheckIkon} from "../assets/ikoner/check-circle.svg";
+import {ReactComponent as ProblemIkon} from "../assets/ikoner/report-problem-circle.svg";
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import { ReactComponent as RettighetsHammerIkon } from '../assets/ikoner/law.svg';
 
@@ -68,11 +68,12 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     src={avtale.godkjentAvVeileder ? checkIkon : problemIkon}
                 />*/}
                 
-                {/*<EkstbanderbartPanelRad
-                    svgIkon={<GodkjenningIkon />}
+                <EkstbanderbartPanelRad
+                    svgIkon={<CheckIkon style={{width: 25, height: 25}} />}
+
                     headerTekst=""
                 >
-                </EkstbanderbartPanelRad>*/}
+                </EkstbanderbartPanelRad>
             </div>
         </LenkepanelBase>
     ));
