@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, HTMLProps, useEffect, useState } from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -15,6 +15,11 @@ import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import MediaQuery from 'react-responsive';
+import { ReactComponent as CheckIkon } from '../assets/ikoner/check-circle-green.svg';
+import { ReactComponent as ProblemIkon } from '../assets/ikoner/report-problem-circle.svg';
+import { ReactComponent as InfoIkon } from '../assets/ikoner/infomation-circle.svg';
+
+import SmaaIkon from '../komponenter/SmaaIkon/SmaaIkon';
 
 const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
     return <Link to={props.href!}>Gå til</Link>;
@@ -52,6 +57,52 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                     </div>
                 </MediaQuery>
+                <div className="avtaleoversikt__lenker__status">
+                    {avtale.status}
+                </div>
+
+                <SmaaIkon
+                    svgSmaaIkon={
+                        <ProblemIkon
+                            style={{
+                                display:
+                                    avtale.status === 'Mangler godkjenning'
+                                        ? ''
+                                        : 'none',
+                                width: 24,
+                                height: 24,
+                                margin: 0,
+                            }}
+                        />
+                    }
+                />
+                <SmaaIkon
+                    svgSmaaIkon={
+                        <CheckIkon
+                            style={{
+                                display: avtale.godkjentAvVeileder
+                                    ? ''
+                                    : 'none',
+                                width: 24,
+                                height: 24,
+                                margin: 0,
+                            }}
+                        />
+                    }
+                />
+                <SmaaIkon
+                    svgSmaaIkon={
+                        <InfoIkon
+                            style={{
+                                display:
+                                    avtale.status === 'Påbegynt' ? '' : 'none',
+                                width: 24,
+                                height: 24,
+                                margin: 0,
+                            }}
+                        />
+                    }
+                />
             </div>
         </LenkepanelBase>
     ));
@@ -66,6 +117,10 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         Dato opprettet
                     </div>
                 </MediaQuery>
+                <div className="avtaleoversikt__lenker__status">
+                    {' '}
+                    &nbsp;&nbsp;Status
+                </div>
             </div>
             {avtaleLenker}
         </div>
