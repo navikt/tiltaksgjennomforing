@@ -1,5 +1,5 @@
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel, Undertekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import BEMHelper from '../../../../utils/bem';
@@ -50,11 +50,18 @@ const Avtalepart: FunctionComponent<Props> = props => {
                     {props.navnFelter.map(felt => felt.verdi).join(' ')}
                 </Undertittel>
                 <Normaltekst>
-                    {storForbokstav(
-                        props.tilleggFelter
-                            .map(felt => felt.felt + ': ' + felt.verdi)
-                            .join(', ')
-                    )}
+                    {props.tilleggFelter
+                        .map(
+                            felt =>
+                                storForbokstav(felt.felt) + ': ' + felt.verdi
+                        )
+                        .reduce(
+                            (accu: any, elem) =>
+                                accu === null
+                                    ? [elem]
+                                    : [...accu, <br />, elem],
+                            null
+                        )}
                 </Normaltekst>
             </>
         );
@@ -62,7 +69,7 @@ const Avtalepart: FunctionComponent<Props> = props => {
 
     return (
         <div className={cls.element('content', props.borderFarge)}>
-            <Normaltekst>{props.overskrift}</Normaltekst>
+            <Undertekst>{props.overskrift}</Undertekst>
             {innhold}
         </div>
     );
@@ -84,7 +91,7 @@ const Avtaleparter: FunctionComponent<
     bedriftNavn,
 }) => (
     <Stegoppsummering
-        tittel="Kontaktinformasjon"
+        tittel="Avtalens parter"
         ikon={<AvtaleparterHeaderIkon />}
     >
         <div>
@@ -93,7 +100,15 @@ const Avtaleparter: FunctionComponent<
                     { felt: 'fornavn', verdi: deltakerFornavn },
                     { felt: 'etternavn', verdi: deltakerEtternavn },
                 ]}
-                tilleggFelter={[{ felt: 'Fødselsnummer', verdi: deltakerFnr }]}
+                tilleggFelter={[
+                    {
+                        felt: 'F.nr',
+                        verdi:
+                            deltakerFnr.substring(0, 6) +
+                            ' ' +
+                            deltakerFnr.substring(6, 11),
+                    },
+                ]}
                 overskrift="Deltaker"
                 borderFarge="farge-gronn"
             />
@@ -106,16 +121,31 @@ const Avtaleparter: FunctionComponent<
                     {
                         felt: 'fornavn',
                         verdi:
-                            arbeidsgiverFornavn && 'v/' + arbeidsgiverFornavn,
+                            arbeidsgiverFornavn && 'v/ ' + arbeidsgiverFornavn,
                     },
                     { felt: 'etternavn', verdi: arbeidsgiverEtternavn },
                 ]}
                 tilleggFelter={[
                     {
-                        felt: 'bedriftsnummer',
-                        verdi: bedriftNr,
+                        felt: 'bedr.nr',
+                        verdi:
+                            bedriftNr.substring(0, 3) +
+                            ' ' +
+                            bedriftNr.substring(3, 6) +
+                            ' ' +
+                            bedriftNr.substring(6, 9),
                     },
-                    { felt: 'telefon', verdi: arbeidsgiverTlf },
+                    {
+                        felt: 'tlf',
+                        verdi:
+                            arbeidsgiverTlf.substring(0, 2) +
+                            ' ' +
+                            arbeidsgiverTlf.substring(2, 4) +
+                            ' ' +
+                            arbeidsgiverTlf.substring(4, 6) +
+                            ' ' +
+                            arbeidsgiverTlf.substring(6, 8),
+                    },
                 ]}
                 overskrift="Arbeidsgiver"
                 borderFarge="farge-graa"
@@ -125,7 +155,19 @@ const Avtaleparter: FunctionComponent<
                     { felt: 'fornavn', verdi: veilederFornavn },
                     { felt: 'etternavn', verdi: veilederEtternavn },
                 ]}
-                tilleggFelter={[{ felt: 'telefon', verdi: veilederTlf }]}
+                tilleggFelter={[
+                    {
+                        felt: 'tlf',
+                        verdi:
+                            veilederTlf.substring(0, 2) +
+                            ' ' +
+                            veilederTlf.substring(2, 4) +
+                            ' ' +
+                            veilederTlf.substring(4, 6) +
+                            ' ' +
+                            veilederTlf.substring(6, 8),
+                    },
+                ]}
                 overskrift="NAV-veileder"
                 borderFarge="farge-lysblaa"
             />
