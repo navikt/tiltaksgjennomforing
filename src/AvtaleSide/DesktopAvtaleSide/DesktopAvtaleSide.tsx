@@ -6,7 +6,6 @@ import { ReactComponent as ShareIkon } from '../../assets/ikoner/share.svg';
 import KopierLenkeModal from '../../komponenter/modal/KopierLenkeModal';
 import { Rolle } from '../../AvtaleContext';
 import NesteForrige from '../NesteForrige/NesteForrige';
-import Hello from '../NesteForrige/NesteForrige';
 
 interface Props {
     avtaleSteg: AvtaleStegType;
@@ -35,7 +34,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                     <form className="avtaleside__innhold">
                         {props.avtaleSteg[props.aktivtSteg].komponent}
                         <div>
-                            <Hello
+                            <NesteForrige
                                 avtaleSteg={props.avtaleSteg}
                                 aktivtSteg={props.aktivtSteg}
                             />

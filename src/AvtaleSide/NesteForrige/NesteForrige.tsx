@@ -10,19 +10,31 @@ export interface Props {
     aktivtSteg: string;
 }
 
-/*
 interface State {
-    currentEnthusiasm: number;
-    // aktivSteg: string;
+    currentStegNummer: number;
 }
-*/
 
-// kall => props.endretSteg
-// SET window.location.href => props.url
-
-class Hello extends React.Component<Context & Props> {
+class NesteForrige extends React.Component<Context & Props, State> {
     constructor(props: Props & Context) {
         super(props);
+
+        this.state = {
+            currentStegNummer: this.updateEnthusiasm(this.props.aktivtSteg),
+        };
+    }
+
+    shouldComponentUpdate(
+        nextProps: Readonly<Context & Props>,
+        nextState: Readonly<State>,
+        nextContext: any
+    ): boolean {
+        if (
+            this.updateEnthusiasm(nextProps.aktivtSteg) ===
+            this.updateEnthusiasm(this.props.aktivtSteg)
+        ) {
+            return true;
+        }
+        return false;
     }
 
     getNesteStegPath = () => {
@@ -32,13 +44,13 @@ class Hello extends React.Component<Context & Props> {
             return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg());
         }
         if (
-            parseInt(sessionStorage.getItem('currentEnthusiasm') || '0', 10) < 7
+            parseInt(sessionStorage.getItem('currentStegNummer') || '0', 10) < 7
         ) {
             sessionStorage.setItem(
-                'currentEnthusiasm',
+                'currentStegNummer',
                 (
                     parseInt(
-                        sessionStorage.getItem('currentEnthusiasm') || '0',
+                        sessionStorage.getItem('currentStegNummer') || '0',
                         10
                     ) + 1
                 ).toString()
@@ -54,13 +66,13 @@ class Hello extends React.Component<Context & Props> {
             return pathTilStegIAvtale(this.props.avtale.id, this.finnSteg());
         }
         if (
-            parseInt(sessionStorage.getItem('currentEnthusiasm') || '0', 10) > 0
+            parseInt(sessionStorage.getItem('currentStegNummer') || '0', 10) > 0
         ) {
             sessionStorage.setItem(
-                'currentEnthusiasm',
+                'currentStegNummer',
                 (
                     parseInt(
-                        sessionStorage.getItem('currentEnthusiasm') || '0',
+                        sessionStorage.getItem('currentStegNummer') || '0',
                         10
                     ) - 1
                 ).toString()
@@ -71,7 +83,7 @@ class Hello extends React.Component<Context & Props> {
 
     finnSteg = () => {
         switch (
-            parseInt(sessionStorage.getItem('currentEnthusiasm') || '0', 10)
+            parseInt(sessionStorage.getItem('currentStegNummer') || '0', 10)
         ) {
             case 0:
                 return 'kontaktinformasjon';
@@ -91,49 +103,58 @@ class Hello extends React.Component<Context & Props> {
                 return 'kontaktinformasjon';
         }
     };
+    /**
+     * Oppdaterer 'currentStegNummer' til riktig steg nummer,
+     * @param aktivSteg
+     */
+    updateEnthusiasm(aktivSteg: string): number {
+        let stegNummer = 0;
 
-    updateEnthusiasm(aktivSteg: string) {
-        // this.setState({ currentEnthusiasm, aktivSteg});
         switch (aktivSteg) {
             case 'kontaktinformasjon': {
-                sessionStorage.setItem('currentEnthusiasm', (0).toString());
+                sessionStorage.setItem('currentStegNummer', (0).toString());
+                stegNummer = 0;
                 break;
             }
             case 'maal': {
-                sessionStorage.setItem('currentEnthusiasm', (1).toString());
+                sessionStorage.setItem('currentStegNummer', (1).toString());
+                stegNummer = 1;
                 break;
             }
             case 'arbeidsoppgaver': {
-                sessionStorage.setItem('currentEnthusiasm', (2).toString());
+                sessionStorage.setItem('currentStegNummer', (2).toString());
+                stegNummer = 2;
                 break;
             }
             case 'arbeidstid': {
-                sessionStorage.setItem('currentEnthusiasm', (3).toString());
+                sessionStorage.setItem('currentStegNummer', (3).toString());
+                stegNummer = 3;
                 break;
             }
             case 'oppfolging': {
-                sessionStorage.setItem('currentEnthusiasm', (4).toString());
+                sessionStorage.setItem('currentStegNummer', (4).toString());
+                stegNummer = 4;
                 break;
             }
             case 'tilrettelegging': {
-                sessionStorage.setItem('currentEnthusiasm', (5).toString());
+                sessionStorage.setItem('currentStegNummer', (5).toString());
+                stegNummer = 5;
                 break;
             }
             case 'godkjenning': {
-                sessionStorage.setItem('currentEnthusiasm', (6).toString());
+                sessionStorage.setItem('currentStegNummer', (6).toString());
+                stegNummer = 6;
                 break;
             }
             default:
-                sessionStorage.setItem('currentEnthusiasm', (0).toString());
+                sessionStorage.setItem('currentStegNummer', (0).toString());
+                stegNummer = 0;
         }
-        // this.setState({currentEnthusiasm: })
+
+        return stegNummer;
     }
 
-    // updateAktivSteg()
-
     render() {
-        // const { name } = this.props;
-
         return (
             <div className="hello">
                 <div className="row ">
@@ -149,18 +170,18 @@ class Hello extends React.Component<Context & Props> {
                                 }}
                                 disabled={
                                     sessionStorage.getItem(
-                                        'currentEnthusiasm'
+                                        'currentStegNummer'
                                     ) === '0'
                                 }
                                 style={
                                     sessionStorage.getItem(
-                                        'currentEnthusiasm'
+                                        'currentStegNummer'
                                     ) !== '0'
                                         ? {}
                                         : { display: 'none' }
                                 }
                             >
-                                {sessionStorage.getItem('currentEnthusiasm') !==
+                                {sessionStorage.getItem('currentStegNummer') !==
                                 '0'
                                     ? 'Forrige'
                                     : ''}
@@ -177,18 +198,18 @@ class Hello extends React.Component<Context & Props> {
                                 }}
                                 disabled={
                                     sessionStorage.getItem(
-                                        'currentEnthusiasm'
+                                        'currentStegNummer'
                                     ) === '6'
                                 }
                                 style={
                                     sessionStorage.getItem(
-                                        'currentEnthusiasm'
+                                        'currentStegNummer'
                                     ) !== '6'
                                         ? {}
                                         : { display: 'none' }
                                 }
                             >
-                                {sessionStorage.getItem('currentEnthusiasm') !==
+                                {sessionStorage.getItem('currentStegNummer') !==
                                 '6'
                                     ? 'Neste'
                                     : ''}
@@ -199,11 +220,6 @@ class Hello extends React.Component<Context & Props> {
             </div>
         );
     }
-
-    /**
-     * Oppdaterer 'currentEnthusiasm' til riktig steg nummer,
-     * @param aktivSteg
-     */
 }
 
-export default medContext<Props>(Hello);
+export default medContext<Props>(NesteForrige);
