@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Context, medContext } from '../../AvtaleContext';
-import { pathTilStegIAvtale } from '../../paths';
-import { AvtaleStegType } from '../AvtaleSide';
+import {Context, medContext} from '../../AvtaleContext';
+import {pathTilStegIAvtale} from '../../paths';
+import {AvtaleStegType} from '../AvtaleSide';
 import './Stegmeny.less';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
 
@@ -11,7 +11,10 @@ interface Props {
 }
 
 const Stegmeny = (props: Context & Props) => {
+  //  console.log(props.steg);
+  //  console.log(props.aktivtSteg);
     const stegLenker = Object.keys(props.steg).map(key => (
+
         <StegmenyLenke
             label={props.steg[key].label}
             aktiv={props.aktivtSteg === key}

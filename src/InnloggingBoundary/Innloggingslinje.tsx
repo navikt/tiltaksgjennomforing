@@ -1,11 +1,11 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
+import {Knapp} from 'nav-frontend-knapper';
+import {Normaltekst} from 'nav-frontend-typografi';
 import * as React from 'react';
-import { FunctionComponent } from 'react';
+import {FunctionComponent} from 'react';
 import './Innloggingslinje.less';
-import { Link } from 'react-router-dom';
-import { pathTilOversikt } from '../paths';
-import { InnloggetBruker } from './useInnlogget';
+import {Link} from 'react-router-dom';
+import {pathTilOversikt} from '../paths';
+import {InnloggetBruker} from './useInnlogget';
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import BEMHelper from '../utils/bem';
 import MediaQuery from 'react-responsive';
@@ -29,11 +29,12 @@ const Innloggingslinje: FunctionComponent<{
                             aria-label="Gå tilbake til oversikten"
                         >
                             <div className={cls.element('chevron')}>
-                                <VenstreChevron />
+                                <VenstreChevron/>
                             </div>
                             <Normaltekst>Tilbake til oversikt</Normaltekst>
                         </Knapp>
                     </Link>
+
                 </div>
                 <Normaltekst className={cls.element('identitet')}>
                     {bruker}
@@ -63,7 +64,7 @@ const Innloggingslinje: FunctionComponent<{
                                     aria-label="Gå tilbake til oversikten"
                                 >
                                     <div className={cls.element('chevron')}>
-                                        <VenstreChevron />
+                                        <VenstreChevron/>
                                     </div>
                                     <Normaltekst>
                                         Tilbake til oversikt

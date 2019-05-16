@@ -5,6 +5,7 @@ import Lenke from 'nav-frontend-lenker';
 import { ReactComponent as ShareIkon } from '../../assets/ikoner/share.svg';
 import KopierLenkeModal from '../../komponenter/modal/KopierLenkeModal';
 import { Rolle } from '../../AvtaleContext';
+import NesteForrige from '../NesteForrige/NesteForrige';
 
 interface Props {
     avtaleSteg: AvtaleStegType;
@@ -32,6 +33,12 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                     />
                     <form className="avtaleside__innhold">
                         {props.avtaleSteg[props.aktivtSteg].komponent}
+                        <div>
+                            <NesteForrige
+                                avtaleSteg={props.avtaleSteg}
+                                aktivtSteg={props.aktivtSteg}
+                            />
+                        </div>
                     </form>
                 </div>
             </div>

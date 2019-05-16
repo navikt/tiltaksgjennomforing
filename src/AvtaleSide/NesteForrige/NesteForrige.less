@@ -1,0 +1,23 @@
+.nesteforrige {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+
+  &__lenke {
+    width: 100%;
+    margin-bottom: 1rem;
+    word-break: break-all;
+  }
+  &__buttontoright{
+    margin-bottom: 1rem;
+    margin-inside: 1rem;
+    white-space: unset;
+    /*align-items: stretch;*/
+    margin-left: 1rem;
+    float: right;
+  }
+  @media print {
+    display: none;
+  }
+}
