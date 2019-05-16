@@ -117,7 +117,10 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         Dato opprettet
                     </div>
                 </MediaQuery>
-                <div className="avtaleoversikt__lenker__status">Status</div>
+                <div className="avtaleoversikt__lenker__status">
+                    {' '}
+                    &nbsp;&nbsp;Status
+                </div>
             </div>
             {avtaleLenker}
         </div>
