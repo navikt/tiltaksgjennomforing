@@ -7,9 +7,7 @@ import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import './KontaktinfoSteg.less';
 
-
-
-const KontaktinfoSteg = (props: Context ) => {
+const KontaktinfoSteg = (props: Context) => {
     return (
         <Innholdsboks>
             <DeltakerinfoDel />
@@ -21,10 +19,8 @@ const KontaktinfoSteg = (props: Context ) => {
                 label={'Lagre'}
                 suksessmelding={'Avtale lagret'}
             />
-
         </Innholdsboks>
     );
 };
-
 
 export default medContext(KontaktinfoSteg);

@@ -78,7 +78,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
             label: 'Godkjenning',
         },
     };
-   /* getNeste = ('key') => {
+    /* getNeste = ('key') => {
        return ''
     };
 
