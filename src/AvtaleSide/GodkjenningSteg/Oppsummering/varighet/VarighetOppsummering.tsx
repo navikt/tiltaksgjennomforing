@@ -85,7 +85,7 @@ const VarighetOppsummering: FunctionComponent<Arbeidstid> = ({
                             Stillingsprosent
                         </Element>
                         <SjekkOmVerdiEksisterer
-                            verdi={stillingProsent.substring(0,3) + " " + stillingProsent.substring(3,4)}
+                            verdi={stillingProsent}
                             clsName="varighetOppsummering"
                         />
                     </div>

@@ -121,7 +121,7 @@ const Avtaleparter: FunctionComponent<
                 ]}
                 tilleggFelter={[
                     {
-                        felt: 'F.nr',
+                        felt: 'Fødselsnummer',
                         verdi: formaterFnr(deltakerFnr),
                     },
                 ]}
@@ -143,11 +143,11 @@ const Avtaleparter: FunctionComponent<
                 ]}
                 tilleggFelter={[
                     {
-                        felt: 'bedr.nr',
+                        felt: 'Bedriftsnummer',
                         verdi: formaterBedriftsnr(bedriftNr),
                     },
                     {
-                        felt: 'tlf',
+                        felt: 'Telefon',
                         verdi: formaterTelefonnr(arbeidsgiverTlf),
                     },
                 ]}
@@ -161,7 +161,7 @@ const Avtaleparter: FunctionComponent<
                 ]}
                 tilleggFelter={[
                     {
-                        felt: 'tlf',
+                        felt: 'Telefon',
                         verdi: formaterTelefonnr(veilederTlf),
                     },
                 ]}
