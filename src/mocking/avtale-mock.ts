@@ -34,6 +34,7 @@ const avtaleMock: Avtale = {
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
     erLaast: false,
+    status: '',
 
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',
