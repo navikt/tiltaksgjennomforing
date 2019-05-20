@@ -26,7 +26,9 @@ const Innloggingslinje: FunctionComponent<{
                     className={
                         window.location.pathname.toString() === '/' ||
                         window.location.pathname.toString() ===
-                            '/tiltaksgjennomforing/'
+                            '/tiltaksgjennomforing/' ||
+                        window.location.pathname.toString() ===
+                            '/tiltaksgjennomforing'
                             ? cls.element('hideelement')
                             : cls.element('tilbake')
                     }
