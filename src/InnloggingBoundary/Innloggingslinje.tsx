@@ -18,10 +18,19 @@ const Innloggingslinje: FunctionComponent<{
 }> = props => {
     const bruker = `Innlogget som:${' '}
                     ${props.innloggetBruker.identifikator}`;
+
     return (
         <div className={cls.className}>
             <MediaQuery minWidth={577}>
-                <div className={cls.element('tilbake')}>
+                <div
+                    className={
+                        window.location.pathname.toString() === '/' ||
+                        window.location.pathname.toString() ===
+                            '/tiltaksgjennomforing/'
+                            ? cls.element('hideelement')
+                            : cls.element('tilbake')
+                    }
+                >
                     <Link to={pathTilOversikt}>
                         <Knapp
                             className={cls.element('tilbakeknapp', 'tilbake')}
@@ -55,6 +64,7 @@ const Innloggingslinje: FunctionComponent<{
                         <div className={cls.element('tilbake')}>
                             <Link to={pathTilOversikt}>
                                 <Knapp
+                                    style={{ display: 'none !important' }}
                                     className={cls.element(
                                         'tilbakeknapp',
                                         'tilbake'
