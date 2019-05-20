@@ -18,6 +18,25 @@ const cls = BEMHelper('avtaleparter');
 const storForbokstav = (streng: string) =>
     streng.charAt(0).toUpperCase() + streng.slice(1);
 
+const formaterTelefonnr = (tlf: string) =>
+    tlf.substring(0, 2) +
+    ' ' +
+    tlf.substring(2, 4) +
+    ' ' +
+    tlf.substring(4, 6) +
+    ' ' +
+    tlf.substring(6, 8);
+
+const formaterBedriftsnr = (bedriftNr: string) =>
+    bedriftNr.substring(0, 3) +
+    ' ' +
+    bedriftNr.substring(3, 6) +
+    ' ' +
+    bedriftNr.substring(6, 9);
+
+const formaterFnr = (deltakerFnr: string) =>
+    deltakerFnr.substring(0, 6) + ' ' + deltakerFnr.substring(6, 11);
+
 interface Felt {
     felt: string;
     verdi: string;
@@ -56,10 +75,10 @@ const Avtalepart: FunctionComponent<Props> = props => {
                                 storForbokstav(felt.felt) + ': ' + felt.verdi
                         )
                         .reduce(
-                            (accu: any, elem) =>
-                                accu === null
-                                    ? [elem]
-                                    : [...accu, <br />, elem],
+                            (beholder: any, element) =>
+                                beholder === null
+                                    ? [element]
+                                    : [...beholder, <br />, element],
                             null
                         )}
                 </Normaltekst>
@@ -103,10 +122,7 @@ const Avtaleparter: FunctionComponent<
                 tilleggFelter={[
                     {
                         felt: 'F.nr',
-                        verdi:
-                            deltakerFnr.substring(0, 6) +
-                            ' ' +
-                            deltakerFnr.substring(6, 11),
+                        verdi: formaterFnr(deltakerFnr),
                     },
                 ]}
                 overskrift="Deltaker"
@@ -128,23 +144,11 @@ const Avtaleparter: FunctionComponent<
                 tilleggFelter={[
                     {
                         felt: 'bedr.nr',
-                        verdi:
-                            bedriftNr.substring(0, 3) +
-                            ' ' +
-                            bedriftNr.substring(3, 6) +
-                            ' ' +
-                            bedriftNr.substring(6, 9),
+                        verdi: formaterBedriftsnr(bedriftNr),
                     },
                     {
                         felt: 'tlf',
-                        verdi:
-                            arbeidsgiverTlf.substring(0, 2) +
-                            ' ' +
-                            arbeidsgiverTlf.substring(2, 4) +
-                            ' ' +
-                            arbeidsgiverTlf.substring(4, 6) +
-                            ' ' +
-                            arbeidsgiverTlf.substring(6, 8),
+                        verdi: formaterTelefonnr(arbeidsgiverTlf),
                     },
                 ]}
                 overskrift="Arbeidsgiver"
@@ -158,14 +162,7 @@ const Avtaleparter: FunctionComponent<
                 tilleggFelter={[
                     {
                         felt: 'tlf',
-                        verdi:
-                            veilederTlf.substring(0, 2) +
-                            ' ' +
-                            veilederTlf.substring(2, 4) +
-                            ' ' +
-                            veilederTlf.substring(4, 6) +
-                            ' ' +
-                            veilederTlf.substring(6, 8),
+                        verdi: formaterTelefonnr(veilederTlf),
                     },
                 ]}
                 overskrift="NAV-veileder"
