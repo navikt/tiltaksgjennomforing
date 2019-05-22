@@ -18,25 +18,6 @@ const cls = BEMHelper('avtaleparter');
 const storForbokstav = (streng: string) =>
     streng.charAt(0).toUpperCase() + streng.slice(1);
 
-const formaterTelefonnr = (tlf: string) =>
-    tlf.substring(0, 2) +
-    ' ' +
-    tlf.substring(2, 4) +
-    ' ' +
-    tlf.substring(4, 6) +
-    ' ' +
-    tlf.substring(6, 8);
-
-const formaterBedriftsnr = (bedriftNr: string) =>
-    bedriftNr.substring(0, 3) +
-    ' ' +
-    bedriftNr.substring(3, 6) +
-    ' ' +
-    bedriftNr.substring(6, 9);
-
-const formaterFnr = (deltakerFnr: string) =>
-    deltakerFnr.substring(0, 6) + ' ' + deltakerFnr.substring(6, 11);
-
 interface Felt {
     felt: string;
     verdi: string;
@@ -121,11 +102,11 @@ const Avtaleparter: FunctionComponent<
                 ]}
                 tilleggFelter={[
                     {
-                        felt: 'Fødselsnummer',
-                        verdi: formaterFnr(deltakerFnr),
+                        felt: 'fødselsnummer',
+                        verdi: deltakerFnr,
                     },
                 ]}
-                overskrift="Deltaker"
+                overskrift="deltaker"
                 borderFarge="farge-gronn"
             />
             <Avtalepart
@@ -143,15 +124,15 @@ const Avtaleparter: FunctionComponent<
                 ]}
                 tilleggFelter={[
                     {
-                        felt: 'Bedriftsnummer',
-                        verdi: formaterBedriftsnr(bedriftNr),
+                        felt: 'bedriftsnummer',
+                        verdi: bedriftNr,
                     },
                     {
-                        felt: 'Telefon',
-                        verdi: formaterTelefonnr(arbeidsgiverTlf),
+                        felt: 'telefon',
+                        verdi: arbeidsgiverTlf,
                     },
                 ]}
-                overskrift="Arbeidsgiver"
+                overskrift="arbeidsgiver"
                 borderFarge="farge-graa"
             />
             <Avtalepart
@@ -161,8 +142,8 @@ const Avtaleparter: FunctionComponent<
                 ]}
                 tilleggFelter={[
                     {
-                        felt: 'Telefon',
-                        verdi: formaterTelefonnr(veilederTlf),
+                        felt: 'telefon',
+                        verdi: veilederTlf,
                     },
                 ]}
                 overskrift="NAV-veileder"
