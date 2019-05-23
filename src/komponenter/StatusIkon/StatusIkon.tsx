@@ -3,7 +3,6 @@ import { FunctionComponent } from 'react';
 import { ReactComponent as CheckIkon } from '../../assets/ikoner/check-circle-green.svg';
 import { ReactComponent as InfoIkon } from '../../assets/ikoner/infomation-circle.svg';
 import { ReactComponent as ProblemIkon } from '../../assets/ikoner/report-problem-circle.svg';
-import SmaaIkon from '../SmaaIkon/SmaaIkon';
 
 const StatusIkon: FunctionComponent<{ status: string }> = ({ status }) => {
     let ikon;
