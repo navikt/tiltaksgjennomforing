@@ -1,11 +1,13 @@
 import moment from 'moment';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, HTMLProps, useEffect, useState } from 'react';
+import MediaQuery from 'react-responsive';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { InnloggetBruker } from '../InnloggingBoundary/useInnlogget';
+import StatusIkon from '../komponenter/StatusIkon/StatusIkon';
 import {
     basename,
     pathTilKontaktinformasjonSteg,
@@ -14,12 +16,6 @@ import {
 import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
-import MediaQuery from 'react-responsive';
-import { ReactComponent as CheckIkon } from '../assets/ikoner/check-circle-green.svg';
-import { ReactComponent as ProblemIkon } from '../assets/ikoner/report-problem-circle.svg';
-import { ReactComponent as InfoIkon } from '../assets/ikoner/infomation-circle.svg';
-
-import SmaaIkon from '../komponenter/SmaaIkon/SmaaIkon';
 
 const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
     return <Link to={props.href!}>Gå til</Link>;
@@ -60,56 +56,16 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 <div className="avtaleoversikt__lenker__status">
                     {avtale.status}
                 </div>
-
-                <SmaaIkon
-                    svgSmaaIkon={
-                        <ProblemIkon
-                            style={{
-                                display:
-                                    avtale.status === 'Mangler godkjenning'
-                                        ? ''
-                                        : 'none',
-                                width: 24,
-                                height: 24,
-                                margin: 0,
-                            }}
-                        />
-                    }
-                />
-                <SmaaIkon
-                    svgSmaaIkon={
-                        <CheckIkon
-                            style={{
-                                display: avtale.godkjentAvVeileder
-                                    ? ''
-                                    : 'none',
-                                width: 24,
-                                height: 24,
-                                margin: 0,
-                            }}
-                        />
-                    }
-                />
-                <SmaaIkon
-                    svgSmaaIkon={
-                        <InfoIkon
-                            style={{
-                                display:
-                                    avtale.status === 'Påbegynt' ? '' : 'none',
-                                width: 24,
-                                height: 24,
-                                margin: 0,
-                            }}
-                        />
-                    }
-                />
+                <div className="avtaleoversikt__lenker__statusikon">
+                    <StatusIkon status={avtale.status} />
+                </div>
             </div>
         </LenkepanelBase>
     ));
 
     const avtaletabell = avtaleLenker.length > 0 && (
         <div className="avtaleoversikt__lenker typo-normal">
-            <div className="avtaleoversikt__lenker__header">
+            <div className="avtaleoversikt__lenker__header avtaleoversikt__lenker__rad">
                 <div className="avtaleoversikt__lenker__bedrift">Bedrift</div>
                 <div className="avtaleoversikt__lenker__deltaker">Deltaker</div>
                 <MediaQuery minWidth={576}>
@@ -117,10 +73,8 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         Dato opprettet
                     </div>
                 </MediaQuery>
-                <div className="avtaleoversikt__lenker__status">
-                    {' '}
-                    &nbsp;&nbsp;Status
-                </div>
+                <div className="avtaleoversikt__lenker__status">Status</div>
+                <div className="avtaleoversikt__lenker__statusikon">&nbsp;</div>
             </div>
             {avtaleLenker}
         </div>
