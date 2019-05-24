@@ -153,7 +153,9 @@ const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
 };
 
 const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
-    const response = await fetchGet(`${API_URL}/organisasjoner?bedriftNr=${bedriftNr}`);
+    const response = await fetchGet(
+        `${API_URL}/organisasjoner?bedriftNr=${bedriftNr}`
+    );
     await handleResponse(response);
     return await response.json();
 };
