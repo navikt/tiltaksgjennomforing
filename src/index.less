@@ -1,5 +1,4 @@
 @import '~nav-frontend-lenker-style';
-
 // Importerer spesifikke less filer som inneholder CSS regler som har lavere prioritet enn NAVs frontendbibliotek.
 // Gjør man ikke dette vil våres egne CSS regler bli overskrevet av NAVs frontendbibliotek.
 // Trenger ikke importere less filer som ikke blir overskrevet.
@@ -23,4 +22,8 @@
 body {
     background-color: @grayBackground;
     font-family: 'Source Sans Pro', Arial, sans-serif;
+}
+
+svg {
+    display: block;
 }

@@ -4,9 +4,9 @@
     </defs>
     <g fill="none" fill-rule="evenodd">
         <mask id="check-circle_b" fill="#fff">
-            <use xlink:href="#check-circle_a"/>
+            <use xlink:href="#check-circle_a" />
         </mask>
-        <use fill="#3E3832" fill-rule="nonzero" xlink:href="#check-circle_a"/>
+        <use fill="#3E3832" fill-rule="nonzero" xlink:href="#check-circle_a" />
         <g fill="#3E3832" mask="url(#check-circle_b)">
             <path d="M0 40h40V0H0z"/>
         </g>
