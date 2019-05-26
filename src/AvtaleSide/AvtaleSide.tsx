@@ -27,13 +27,10 @@ const cls = BEMHelper('avtaleside');
 
 type Props = RouteComponentProps<MatchProps> & Context;
 
-interface StegInfo {
+export interface StegInfo {
     komponent: React.ReactNode;
     label: string;
-}
-
-export interface AvtaleStegType {
-    [key: string]: StegInfo;
+    id: string;
 }
 
 const AvtaleSide: FunctionComponent<Props> = props => {
@@ -48,36 +45,43 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         return () => window.removeEventListener('resize', handleWindowSize);
     });
 
-    const avtaleSteg: AvtaleStegType = {
-        kontaktinformasjon: {
+    const avtaleSteg: StegInfo[] = [
+        {
             komponent: <KontaktinfoSteg {...props} />,
             label: 'Kontaktinformasjon',
+            id: 'kontaktinformasjon',
         },
-        maal: {
+        {
             komponent: <MaalSteg />,
             label: 'Mål',
+            id: 'maal',
         },
-        arbeidsoppgaver: {
+        {
             komponent: <ArbeidsoppgaverSteg />,
             label: 'Arbeidsoppgaver',
+            id: 'arbeidsoppgaver',
         },
-        arbeidstid: {
+        {
             komponent: <ArbeidstidSteg />,
             label: 'Arbeidstid',
+            id: 'arbeidstid',
         },
-        oppfolging: {
+        {
             komponent: <OppfolgingSteg />,
             label: 'Oppfølging',
+            id: 'oppfolging',
         },
-        tilrettelegging: {
+        {
             komponent: <TilretteleggingSteg />,
             label: 'Tilrettelegging',
+            id: 'tilrettelegging',
         },
-        godkjenning: {
+        {
             komponent: <GodkjenningSteg />,
             label: 'Godkjenning',
+            id: 'godkjenning',
         },
-    };
+    ];
     /* getNeste = ('key') => {
        return ''
     };
@@ -85,15 +89,18 @@ const AvtaleSide: FunctionComponent<Props> = props => {
 
     */
     const erDesktop = windowSize > 767;
-    const aktivtSteg = props.match.params.stegPath;
-    console.log(aktivtSteg);
+    const aktivtSteg = avtaleSteg.find(
+        steg => steg.id === props.match.params.stegPath
+    );
 
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
             render={() => {
                 let innhold: ReactNode;
-                if (props.avtale.erLaast) {
+                if (!aktivtSteg) {
+                    props.visFeilmelding('Ugyldig url');
+                } else if (props.avtale.erLaast) {
                     innhold = (
                         <div className="avtaleside__innhold">
                             <AlertStripe

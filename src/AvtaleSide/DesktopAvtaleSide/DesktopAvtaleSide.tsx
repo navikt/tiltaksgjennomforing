@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { AvtaleStegType } from '../AvtaleSide';
 import Stegmeny from '../Stegmeny/Stegmeny';
 import Lenke from 'nav-frontend-lenker';
 import { ReactComponent as ShareIkon } from '../../assets/ikoner/share.svg';
 import KopierLenkeModal from '../../komponenter/modal/KopierLenkeModal';
 import { Rolle } from '../../AvtaleContext';
 import NesteForrige from '../NesteForrige/NesteForrige';
+import { StegInfo } from '../AvtaleSide';
 
 interface Props {
-    avtaleSteg: AvtaleStegType;
-    aktivtSteg: string;
+    avtaleSteg: StegInfo[];
+    aktivtSteg: StegInfo;
     rolle: Rolle;
 }
 
@@ -32,7 +32,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                         aktivtSteg={props.aktivtSteg}
                     />
                     <form className="avtaleside__innhold">
-                        {props.avtaleSteg[props.aktivtSteg].komponent}
+                        {props.aktivtSteg.komponent}
                         <div>
                             <NesteForrige
                                 avtaleSteg={props.avtaleSteg}
