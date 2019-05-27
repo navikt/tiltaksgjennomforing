@@ -3,6 +3,7 @@ import { Context, medContext } from '../../AvtaleContext';
 import { pathTilStegIAvtale } from '../../paths';
 import { StegInfo } from '../AvtaleSide';
 import './NesteForrige.less';
+import { Route } from 'react-router';
 
 export interface Props {
     avtaleSteg: StegInfo[];
@@ -33,12 +34,7 @@ class NesteForrige extends React.Component<Context & Props, {}> {
         nextState: Readonly<{}>,
         nextContext: any
     ): boolean {
-        // if (
-        //     this.updateStegNummer(nextProps.aktivtSteg) ===
-        //     this.updateStegNummer(this.props.aktivtSteg)
-        // ) {
         return true;
-        // }
     }
 
     render() {
@@ -54,44 +50,47 @@ class NesteForrige extends React.Component<Context & Props, {}> {
             <div className="hello">
                 <div className="row ">
                     {forrigeSteg && (
-                        <button
-                            type="button"
-                            className="knapp knapp--flat"
-                            onClick={() => {
-                                this.props.endretSteg();
-                                window.location.replace(
-                                    pathTilStegIAvtale(
-                                        this.props.avtale.id,
-                                        forrigeSteg.id
-                                    )
-                                );
-                            }}
-                        >
-                            Forrige
-                        </button>
+                        <Route
+                            render={({ history }) => (
+                                <button
+                                    type="button"
+                                    className="knapp knapp--flat"
+                                    onClick={() => {
+                                        this.props.endretSteg();
+                                        history.push(
+                                            pathTilStegIAvtale(
+                                                this.props.avtale.id,
+                                                forrigeSteg.id
+                                            )
+                                        );
+                                    }}
+                                >
+                                    Forrige
+                                </button>
+                            )}
+                        />
                     )}
+
                     {nesteSteg && (
-                        <button
-                            type="button"
-                            className="knapp knapp--flat nesteforrige__buttontoright"
-                            onClick={() => {
-                                this.props.endretSteg();
-                                window.location.replace(
-                                    pathTilStegIAvtale(
-                                        this.props.avtale.id,
-                                        nesteSteg.id
-                                    )
-                                );
-                                window.location.replace(
-                                    pathTilStegIAvtale(
-                                        this.props.avtale.id,
-                                        nesteSteg.id
-                                    )
-                                );
-                            }}
-                        >
-                            Neste
-                        </button>
+                        <Route
+                            render={({ history }) => (
+                                <button
+                                    type="button"
+                                    className="knapp knapp--flat nesteforrige__buttontoright"
+                                    onClick={() => {
+                                        this.props.endretSteg();
+                                        history.push(
+                                            pathTilStegIAvtale(
+                                                this.props.avtale.id,
+                                                nesteSteg.id
+                                            )
+                                        );
+                                    }}
+                                >
+                                    Neste
+                                </button>
+                            )}
+                        />
                     )}
                 </div>
             </div>
