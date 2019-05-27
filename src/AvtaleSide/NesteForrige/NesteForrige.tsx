@@ -1,5 +1,5 @@
-import { FunctionComponent } from 'react';
 import * as React from 'react';
+import { FunctionComponent } from 'react';
 import { Route } from 'react-router';
 import { Context, medContext } from '../../AvtaleContext';
 import { pathTilStegIAvtale } from '../../paths';
@@ -33,8 +33,8 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
     const forrigeSteg = finnForrigeSteg(props.avtaleSteg, props.aktivtSteg);
     const nesteSteg = finnNesteSteg(props.avtaleSteg, props.aktivtSteg);
     return (
-        <div className="hello">
-            <div className="row ">
+        <div className="nesteforrige">
+            <div className="nesteforrige__rowspacebetween">
                 {forrigeSteg && (
                     <Route
                         render={({ history }) => (
@@ -61,7 +61,7 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
                         render={({ history }) => (
                             <button
                                 type="button"
-                                className="knapp knapp--flat nesteforrige__buttontoright"
+                                className="knapp knapp--flat"
                                 onClick={() => {
                                     props.endretSteg();
                                     history.push(

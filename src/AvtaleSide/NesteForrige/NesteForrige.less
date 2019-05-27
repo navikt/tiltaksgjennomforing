@@ -1,20 +1,10 @@
 .nesteforrige {
     display: flex;
     flex-direction: column;
-    position: sticky;
-    top: 0;
 
-    &__lenke {
-        width: 100%;
-        margin-bottom: 1rem;
-        word-break: break-all;
-    }
-    &__buttontoright {
-        margin-bottom: 1rem;
-        margin-inside: 1rem;
-        white-space: unset;
-        margin-left: 1rem;
-        float: right;
+    &__rowspacebetween {
+        display: flex;
+        justify-content: space-between;
     }
     @media print {
         display: none;
