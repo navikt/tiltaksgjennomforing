@@ -1,23 +1,23 @@
 import * as React from 'react';
 import { Context, medContext } from '../../AvtaleContext';
 import { pathTilStegIAvtale } from '../../paths';
-import { AvtaleStegType } from '../AvtaleSide';
+import { StegInfo } from '../AvtaleSide';
 import './Stegmeny.less';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
 
 interface Props {
-    steg: AvtaleStegType;
-    aktivtSteg: string;
+    steg: StegInfo[];
+    aktivtSteg: StegInfo;
 }
 
 const Stegmeny = (props: Context & Props) => {
-    const stegLenker = Object.keys(props.steg).map(key => (
+    const stegLenker = props.steg.map(steg => (
         <StegmenyLenke
-            label={props.steg[key].label}
-            aktiv={props.aktivtSteg === key}
+            label={steg.label}
+            aktiv={props.aktivtSteg === steg}
             ferdig={false}
-            url={pathTilStegIAvtale(props.avtale.id, key)}
-            key={key}
+            url={pathTilStegIAvtale(props.avtale.id, steg.id)}
+            key={steg.id}
         />
     ));
 

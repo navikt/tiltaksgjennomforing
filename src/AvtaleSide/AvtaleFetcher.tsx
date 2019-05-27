@@ -3,7 +3,10 @@ import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
 import ApiError from '../api-error';
 import { Context, medContext } from '../AvtaleContext';
 
-type Props = { avtaleId: string; render: () => ReactElement<any> } & Context;
+type Props = {
+    avtaleId: string;
+    render: () => ReactElement<any> | null;
+} & Context;
 
 const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
