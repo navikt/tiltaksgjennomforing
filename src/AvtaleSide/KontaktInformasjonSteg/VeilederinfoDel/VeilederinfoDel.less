@@ -1,36 +1,35 @@
 @import '~nav-frontend-core/less/_variabler';
 .veilederinfo {
-  &__tittel {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
+    &__tittel {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
 }
 
 @media (min-width: @screen-sm-min) {
-  .veilederinfo {
+    .veilederinfo {
+        &__tittel {
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
 
-    &__tittel {
-      margin-top: 3rem;
-      margin-bottom: 2rem;
-    }
+        &__rad {
+            display: flex;
+            flex-direction: row;
+        }
 
-    &__rad {
-      display: flex;
-      flex-direction: row;
-    }
+        &__fornavn {
+            width: 50%;
+            padding-right: 1rem;
+        }
 
-    &__fornavn {
-      width: 50%;
-      padding-right: 1rem;
-    }
+        &__etternavn {
+            width: 50%;
+        }
 
-    &__etternavn {
-      width: 50%;
+        &__tlf {
+            width: 50%;
+            padding-right: 1rem;
+        }
     }
-
-    &__tlf {
-      width: 50%;
-      padding-right: 1rem;
-    }
-  }
 }

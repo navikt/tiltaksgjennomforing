@@ -1,48 +1,46 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .arbeidsgiver-tittel {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 @media (min-width: @screen-sm-min) {
-  .arbeidsgiver-tittel {
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-  }
-
-
-  .arbeidsgiverkontaktpersonrad {
-    display: flex;
-    flex-direction: row;
-
-    &__fornavn {
-      width: 50%;
-      padding-right: 1rem;
+    .arbeidsgiver-tittel {
+        margin-top: 3rem;
+        margin-bottom: 2rem;
     }
 
-    &__etternavn {
-      width: 50%;
+    .arbeidsgiverkontaktpersonrad {
+        display: flex;
+        flex-direction: row;
+
+        &__fornavn {
+            width: 50%;
+            padding-right: 1rem;
+        }
+
+        &__etternavn {
+            width: 50%;
+        }
+
+        &__tlf {
+            width: 50%;
+            padding-right: 1rem;
+        }
     }
 
-    &__tlf {
-      width: 50%;
-      padding-right: 1rem;
-    }
-  }
+    .arbeidsgiverbedriftrad {
+        display: flex;
+        flex-direction: row;
 
-  .arbeidsgiverbedriftrad {
-    display: flex;
-    flex-direction: row;
+        &__fornavn {
+            width: 50%;
+            padding-right: 1rem;
+        }
 
-    &__fornavn {
-      width: 50%;
-      padding-right: 1rem;
+        &__bedriftnr {
+            width: 50%;
+        }
     }
-
-    &__bedriftnr {
-      width: 50%;
-    }
-    
-  }
 }

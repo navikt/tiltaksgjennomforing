@@ -1,30 +1,30 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
 metadata:
-  name: tiltaksgjennomforing
-  namespace: default
-  labels:
-    team: teamtag
+    name: tiltaksgjennomforing
+    namespace: default
+    labels:
+        team: teamtag
 spec:
-  image: navikt/tiltaksgjennomforing:{{version}}
-  team: teamtag
-  port: 3000
-  vault:
-    enabled: true
-  ingresses:
-  - {{{ingress}}}
-  liveness:
-    path: /tiltaksgjennomforing/internal/isAlive
-    initialDelay: 5
-  readiness:
-    path: /tiltaksgjennomforing/internal/isReady
-    initialDelay: 5
-  env:
-  - name: APIGW_URL
-    value: {{{api-gw-url}}}
-  - name: ISSO_LOGIN_URL
-    value: "{{{isso-login-url}}}"
-  - name: SELVBETJENING_LOGIN_URL
-    value: "{{{selvbetjening-login-url}}}"
-  - name: LOGOUT_URL
-    value: {{{logout-url}}}
+    image: navikt/tiltaksgjennomforing:{{version}}
+    team: teamtag
+    port: 3000
+    vault:
+        enabled: true
+    ingresses:
+        - '{{{ingress}}}'
+    liveness:
+        path: /tiltaksgjennomforing/internal/isAlive
+        initialDelay: 5
+    readiness:
+        path: /tiltaksgjennomforing/internal/isReady
+        initialDelay: 5
+    env:
+        - name: APIGW_URL
+          value: '{{{api-gw-url}}}'
+        - name: ISSO_LOGIN_URL
+          value: '{{{isso-login-url}}}'
+        - name: SELVBETJENING_LOGIN_URL
+          value: '{{{selvbetjening-login-url}}}'
+        - name: LOGOUT_URL
+          value: '{{{logout-url}}}'
