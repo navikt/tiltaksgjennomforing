@@ -7,9 +7,17 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
+    &__flexendloggutknapp {
+        display: flex;
+        justify-content: flex-end;
+    }
+    &__tilbake.innloggingslinje {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between !important;
 
-    &__tilbake {
         margin-right: 1rem;
 
         a {
@@ -57,7 +65,7 @@
     }
 
     @media (min-width: 576px) {
-        justify-content: space-between;
+        // justify-content: space-between;
     }
     &__hideelement {
         display: none;

@@ -22,34 +22,30 @@ const Innloggingslinje: FunctionComponent<{
     return (
         <div className={cls.className}>
             <MediaQuery minWidth={577}>
-                <div
-                    className={
-                        window.location.pathname.toString() === '/' ||
-                        window.location.pathname.toString() ===
-                            '/tiltaksgjennomforing/' ||
-                        window.location.pathname.toString() ===
-                            '/tiltaksgjennomforing'
-                            ? cls.element('hideelement')
-                            : cls.element('tilbake')
-                    }
-                >
-                    <Link to={pathTilOversikt}>
-                        <Knapp
-                            className={cls.element('tilbakeknapp', 'tilbake')}
-                            mini={true}
-                            aria-label="Gå tilbake til oversikten"
-                        >
-                            <div className={cls.element('chevron')}>
-                                <VenstreChevron />
-                            </div>
-                            <Normaltekst>Tilbake til oversikt</Normaltekst>
-                        </Knapp>
-                    </Link>
-                </div>
+                {!window.location.pathname.match(
+                    /^\/tiltaksgjennomforing\/?$/
+                ) && (
+                    <div className={cls.element('tilbake')}>
+                        <Link to={pathTilOversikt}>
+                            <Knapp
+                                className={cls.element(
+                                    'tilbakeknapp',
+                                    'tilbake'
+                                )}
+                                mini={true}
+                                aria-label="Gå tilbake til oversikten"
+                            >
+                                <div className={cls.element('chevron')}>
+                                    <VenstreChevron />
+                                </div>
+                                <Normaltekst>Tilbake til oversikt</Normaltekst>
+                            </Knapp>
+                        </Link>
+                    </div>
+                )}
                 <Normaltekst className={cls.element('identitet')}>
                     {bruker}
                 </Normaltekst>
-
                 <Knapp
                     className="innloggingslinje__loggutknapp"
                     mini={true}
@@ -62,27 +58,38 @@ const Innloggingslinje: FunctionComponent<{
             </MediaQuery>
             <MediaQuery maxWidth={576}>
                 <Ekspanderbartpanel tittel={bruker}>
-                    <div className={cls.className}>
-                        <div className={cls.element('tilbake')}>
-                            <Link to={pathTilOversikt}>
-                                <Knapp
-                                    style={{ display: 'none !important' }}
-                                    className={cls.element(
-                                        'tilbakeknapp',
-                                        'tilbake'
-                                    )}
-                                    mini={true}
-                                    aria-label="Gå tilbake til oversikten"
-                                >
-                                    <div className={cls.element('chevron')}>
-                                        <VenstreChevron />
-                                    </div>
-                                    <Normaltekst>
-                                        Tilbake til oversikt
-                                    </Normaltekst>
-                                </Knapp>
-                            </Link>
-                        </div>
+                    <div
+                        className={
+                            window.location.pathname.match(
+                                /^\/tiltaksgjennomforing\/?$/
+                            )
+                                ? cls.className + '__flexendloggutknapp'
+                                : cls.className
+                        }
+                    >
+                        {!window.location.pathname.match(
+                            /^\/tiltaksgjennomforing\/?$/
+                        ) && (
+                            <div className={cls.element('tilbake')}>
+                                <Link to={pathTilOversikt}>
+                                    <Knapp
+                                        className={cls.element(
+                                            'tilbakeknapp',
+                                            'tilbake'
+                                        )}
+                                        mini={true}
+                                        aria-label="Gå tilbake til oversikten"
+                                    >
+                                        <div className={cls.element('chevron')}>
+                                            <VenstreChevron />
+                                        </div>
+                                        <Normaltekst>
+                                            Tilbake til oversikt
+                                        </Normaltekst>
+                                    </Knapp>
+                                </Link>
+                            </div>
+                        )}
                         <Knapp
                             className="innloggingslinje__loggutknapp"
                             mini={true}
