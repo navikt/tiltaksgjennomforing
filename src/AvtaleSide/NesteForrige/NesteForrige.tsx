@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { Route } from 'react-router';
 import { Context, medContext } from '../../AvtaleContext';
 import { pathTilStegIAvtale } from '../../paths';
 import { StegInfo } from '../AvtaleSide';
 import './NesteForrige.less';
+import { Link } from 'react-router-dom';
 
 export interface Props {
     avtaleSteg: StegInfo[];
@@ -33,51 +33,39 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
     const forrigeSteg = finnForrigeSteg(props.avtaleSteg, props.aktivtSteg);
     const nesteSteg = finnNesteSteg(props.avtaleSteg, props.aktivtSteg);
     return (
-        <div className="nesteforrige">
-            <div className="nesteforrige__rowspacebetween">
-                {forrigeSteg && (
-                    <Route
-                        render={({ history }) => (
-                            <button
-                                type="button"
-                                className="knapp knapp--flat"
-                                onClick={() => {
-                                    props.endretSteg();
-                                    history.push(
-                                        pathTilStegIAvtale(
-                                            props.avtale.id,
-                                            forrigeSteg.id
-                                        )
-                                    );
-                                }}
-                            >
-                                Forrige
-                            </button>
-                        )}
-                    />
-                )}
-                {nesteSteg && (
-                    <Route
-                        render={({ history }) => (
-                            <button
-                                type="button"
-                                className="knapp knapp--flat"
-                                onClick={() => {
-                                    props.endretSteg();
-                                    history.push(
-                                        pathTilStegIAvtale(
-                                            props.avtale.id,
-                                            nesteSteg.id
-                                        )
-                                    );
-                                }}
-                            >
-                                Neste
-                            </button>
-                        )}
-                    />
-                )}
-            </div>
+        <div
+            className={
+                forrigeSteg !== null
+                    ? 'nesteforrige'
+                    : 'nesteforrige__nestealene'
+            }
+        >
+            {forrigeSteg && (
+                <Link to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}>
+                    <button
+                        type="button"
+                        className="knapp knapp--flat"
+                        onClick={() => {
+                            props.endretSteg();
+                        }}
+                    >
+                        Forrige
+                    </button>
+                </Link>
+            )}
+            {nesteSteg && (
+                <Link to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}>
+                    <button
+                        type="button"
+                        className="knapp knapp--flat"
+                        onClick={() => {
+                            props.endretSteg();
+                        }}
+                    >
+                        Neste
+                    </button>
+                </Link>
+            )}
         </div>
     );
 };

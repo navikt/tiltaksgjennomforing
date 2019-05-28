@@ -33,12 +33,12 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                     />
                     <form className="avtaleside__innhold">
                         {props.aktivtSteg.komponent}
-                        <div>
+
                             <NesteForrige
                                 avtaleSteg={props.avtaleSteg}
                                 aktivtSteg={props.aktivtSteg}
                             />
-                        </div>
+                        
                     </form>
                 </div>
             </div>

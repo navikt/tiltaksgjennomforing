@@ -1,10 +1,11 @@
 .nesteforrige {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     top: 0;
-    &__rowspacebetween {
+    justify-content: space-between;
+    &__nestealene {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
     }
     @media print {
         display: none;
