@@ -86,7 +86,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     */
     const erDesktop = windowSize > 767;
     const aktivtSteg = props.match.params.stegPath;
-    console.log(aktivtSteg);
 
     return (
         <AvtaleFetcher

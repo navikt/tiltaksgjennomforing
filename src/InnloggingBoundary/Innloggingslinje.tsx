@@ -18,7 +18,6 @@ const Innloggingslinje: FunctionComponent<{
 }> = props => {
     const bruker = `Innlogget som:${' '}
                     ${props.innloggetBruker.identifikator}`;
-
     return (
         <div className={cls.className}>
             <MediaQuery minWidth={577}>
