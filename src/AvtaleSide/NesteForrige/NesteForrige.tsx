@@ -33,13 +33,7 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
     const forrigeSteg = finnForrigeSteg(props.avtaleSteg, props.aktivtSteg);
     const nesteSteg = finnNesteSteg(props.avtaleSteg, props.aktivtSteg);
     return (
-        <div
-            className={
-                forrigeSteg !== null
-                    ? 'nesteforrige'
-                    : 'nesteforrige__nestealene'
-            }
-        >
+        <div className="nesteforrige">
             {forrigeSteg && (
                 <Link to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}>
                     <button
@@ -54,7 +48,10 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
                 </Link>
             )}
             {nesteSteg && (
-                <Link to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}>
+                <Link
+                    to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}
+                    className="nesteforrige__nesteknapp"
+                >
                     <button
                         type="button"
                         className="knapp knapp--flat"
