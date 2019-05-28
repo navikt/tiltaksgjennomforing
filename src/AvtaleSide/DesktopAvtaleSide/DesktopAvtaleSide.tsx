@@ -34,11 +34,10 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                     <form className="avtaleside__innhold">
                         {props.aktivtSteg.komponent}
 
-                            <NesteForrige
-                                avtaleSteg={props.avtaleSteg}
-                                aktivtSteg={props.aktivtSteg}
-                            />
-                        
+                        <NesteForrige
+                            avtaleSteg={props.avtaleSteg}
+                            aktivtSteg={props.aktivtSteg}
+                        />
                     </form>
                 </div>
             </div>
