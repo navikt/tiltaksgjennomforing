@@ -56,13 +56,9 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 <div className="avtaleoversikt__lenker__status">
                     {avtale.status}
                 </div>
-<<<<<<< HEAD
-               <div className="avtaleoversikt__lenker__statusikon">
-                   <StatusIkon status={avtale.status} />
-=======
+
                 <div className="avtaleoversikt__lenker__statusikon">
                     <StatusIkon status={avtale.status} />
->>>>>>> origin/master
                 </div>
             </div>
         </LenkepanelBase>
@@ -79,10 +75,8 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     </div>
                 </MediaQuery>
                 <div className="avtaleoversikt__lenker__status">Status</div>
-<<<<<<< HEAD
-=======
-                <div className="avtaleoversikt__lenker__statusikon">&nbsp;</div>
->>>>>>> origin/master
+
+                <div className="avtaleoversikt__lenker__statusikon" />
             </div>
             {avtaleLenker}
         </div>
