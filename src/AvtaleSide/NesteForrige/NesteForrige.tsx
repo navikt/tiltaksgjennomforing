@@ -7,7 +7,7 @@ import './NesteForrige.less';
 import { Link } from 'react-router-dom';
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import BEMHelper from '../../utils/bem';
-import { HoyreChevron } from 'nav-frontend-chevron';
+import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
 
 const cls = BEMHelper('nesteforrige');
 export interface Props {
@@ -42,7 +42,7 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
                 <Link to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}>
                     <button
                         type="button"
-                        className="nesteforrige__chevron  knapp knapp--flat"
+                        className="nesteforrige__chevron nesteforrige__mypadding knapp knapp--flat"
                         onClick={() => {
                             props.endretSteg();
                         }}
@@ -61,7 +61,7 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
                 >
                     <button
                         type="button"
-                        className="nesteforrige__chevron knapp knapp--flat"
+                        className="nesteforrige__chevron nesteforrige__mypadding knapp knapp--flat"
                         onClick={() => {
                             props.endretSteg();
                         }}
