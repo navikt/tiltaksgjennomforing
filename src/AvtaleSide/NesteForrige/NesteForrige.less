@@ -3,6 +3,18 @@
     &__nesteknapp {
         margin-left: auto;
     }
+    &__chevron {
+        display: inline-block;
+        align-items: center;
+        &--forrige .chevronboks {
+            padding-right: 0.25rem;
+            margin-right: 0.5rem;
+        }
+        &--neste .chevronboks {
+            padding-left: 0.25rem;
+            margin-left: 0.5rem;
+        }
+    }
     @media print {
         display: none;
     }
