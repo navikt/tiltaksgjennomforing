@@ -1,8 +1,10 @@
+import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Context, medContext } from '../AvtaleContext';
 import Banner from '../komponenter/Banner/Banner';
+import BEMHelper from '../utils/bem';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import AvtaleFetcher from './AvtaleFetcher';
@@ -15,8 +17,6 @@ import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
-import AlertStripe from 'nav-frontend-alertstriper';
-import BEMHelper from '../utils/bem';
 
 interface MatchProps {
     avtaleId: string;
@@ -27,13 +27,10 @@ const cls = BEMHelper('avtaleside');
 
 type Props = RouteComponentProps<MatchProps> & Context;
 
-interface StegInfo {
+export interface StegInfo {
     komponent: React.ReactNode;
     label: string;
-}
-
-export interface AvtaleStegType {
-    [key: string]: StegInfo;
+    id: string;
 }
 
 const AvtaleSide: FunctionComponent<Props> = props => {
@@ -48,46 +45,57 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         return () => window.removeEventListener('resize', handleWindowSize);
     });
 
-    const avtaleSteg: AvtaleStegType = {
-        kontaktinformasjon: {
+    const avtaleSteg: StegInfo[] = [
+        {
             komponent: <KontaktinfoSteg {...props} />,
             label: 'Kontaktinformasjon',
+            id: 'kontaktinformasjon',
         },
-        maal: {
+        {
             komponent: <MaalSteg />,
             label: 'Mål',
+            id: 'maal',
         },
-        arbeidsoppgaver: {
+        {
             komponent: <ArbeidsoppgaverSteg />,
             label: 'Arbeidsoppgaver',
+            id: 'arbeidsoppgaver',
         },
-        arbeidstid: {
+        {
             komponent: <ArbeidstidSteg />,
             label: 'Arbeidstid',
+            id: 'arbeidstid',
         },
-        oppfolging: {
+        {
             komponent: <OppfolgingSteg />,
             label: 'Oppfølging',
+            id: 'oppfolging',
         },
-        tilrettelegging: {
+        {
             komponent: <TilretteleggingSteg />,
             label: 'Tilrettelegging',
+            id: 'tilrettelegging',
         },
-        godkjenning: {
+        {
             komponent: <GodkjenningSteg />,
             label: 'Godkjenning',
+            id: 'godkjenning',
         },
-    };
+    ];
 
     const erDesktop = windowSize > 767;
-    const aktivtSteg = props.match.params.stegPath;
+    const aktivtSteg = avtaleSteg.find(
+        steg => steg.id === props.match.params.stegPath
+    );
 
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
             render={() => {
                 let innhold: ReactNode;
-                if (props.avtale.erLaast) {
+                if (!aktivtSteg) {
+                    return null;
+                } else if (props.avtale.erLaast) {
                     innhold = (
                         <div className="avtaleside__innhold">
                             <AlertStripe
