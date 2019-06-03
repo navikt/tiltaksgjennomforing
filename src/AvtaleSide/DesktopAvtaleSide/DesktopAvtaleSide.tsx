@@ -20,8 +20,13 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             <div className="avtaleside__desktop">
                 {props.rolle === 'VEILEDER' && (
                     <div className="avtaleside__lenkedeling">
-                        <Lenke onClick={() => setOpen(true)} href="#">
-                            Del lenke til avtalen <ShareIkon />
+                        <Lenke
+                            className="avtaleside__lenkedelingLenke"
+                            onClick={() => setOpen(true)}
+                            href="#"
+                        >
+                            <ShareIkon />
+                            Del lenke til avtalen
                         </Lenke>
                     </div>
                 )}
