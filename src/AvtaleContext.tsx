@@ -59,11 +59,7 @@ export const tomAvtale: Avtale = {
 export interface Context {
     avtale: Avtale;
     rolle: Rolle;
-    settAvtaleVerdi: (
-        felt: keyof Avtale,
-        verdi: any,
-        ignorerUlagredeEndringer?: boolean
-    ) => void;
+    settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
     lagreAvtale: () => Promise<any>;
     lagreMaal: (maal: Maal) => Promise<any>;
     slettMaal: (maal: Maal) => Promise<any>;
