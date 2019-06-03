@@ -51,7 +51,6 @@ const GodkjennPaVegneAv = (props: Props) => {
     };
 
     const reducer = (state: Grunner, newState: Grunner) => {
-        // const paVegneState = { ...state, ...newState };
         props.moderState.setGodkjentPaVegneGrunn(newState);
         settFeilmeldingIngenGrunn();
         console.log(newState);
