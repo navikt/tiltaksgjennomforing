@@ -9,8 +9,9 @@ export type Avtale = AvtaleMetadata &
     MaalListe &
     Oppgaver &
     Oppfolging &
-    Godkjenninger &
-    Tilrettelegging;
+    Godkjenninger & {
+        godkjentPaVegneGrunn: GodkjentPaVegneGrunner;
+    } & Tilrettelegging;
 
 export interface AvtaleMetadata {
     id: string;
@@ -85,5 +86,12 @@ export interface Godkjenninger {
     godkjentAvArbeidsgiver: boolean;
     godkjentAvVeileder: boolean;
     status: string;
+    godkjentPaVegneAv: boolean;
     erLaast: boolean;
+}
+
+export interface GodkjentPaVegneGrunner {
+    ikkeMinId: boolean;
+    reservert: boolean;
+    digitalKompetanse: boolean;
 }

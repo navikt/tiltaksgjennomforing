@@ -1,7 +1,11 @@
 import ApiError from '../api-error';
 import AutentiseringError from '../autentisering-error';
 import { Rolle } from '../AvtaleContext';
-import { Avtale, Bedriftinfo } from '../AvtaleSide/avtale';
+import {
+    Avtale,
+    Bedriftinfo,
+    GodkjentPaVegneGrunner,
+} from '../AvtaleSide/avtale';
 import {
     InnloggetBruker,
     Innloggingskilde,
@@ -19,6 +23,10 @@ export interface RestService {
     opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtaleId: string) => Promise<Avtale>;
+    godkjennAvtalePaVegne: (
+        avtaleId: string,
+        paVegneGrunn: GodkjentPaVegneGrunner
+    ) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
@@ -131,6 +139,22 @@ const godkjennAvtale = async (avtaleId: string) => {
     return hentAvtale(avtaleId);
 };
 
+const godkjennAvtalePaVegne = async (
+    avtaleId: string,
+    paVegneGrunn: GodkjentPaVegneGrunner
+) => {
+    const uri = `${API_URL}/avtaler/${avtaleId}/godkjenn-paa-vegne-av`;
+    const response = await fetch(uri, {
+        method: 'POST',
+        body: JSON.stringify(paVegneGrunn),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    await handleResponse(response);
+    return hentAvtale(avtaleId);
+};
+
 const opphevGodkjenninger = async (avtaleId: string) => {
     const uri = `${API_URL}/avtaler/${avtaleId}/opphev-godkjenninger`;
     const response = await fetch(uri, {
@@ -167,6 +191,7 @@ const restService: RestService = {
     opprettAvtale,
     hentRolle,
     godkjennAvtale: godkjennAvtale,
+    godkjennAvtalePaVegne: godkjennAvtalePaVegne,
     opphevGodkjenninger: opphevGodkjenninger,
     hentInnloggetBruker,
     hentInnloggingskilder,
