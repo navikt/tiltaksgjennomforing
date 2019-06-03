@@ -1,7 +1,12 @@
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
+import {
+    Avtale,
+    Maal,
+    Oppgave,
+    GodkjentPaVegneGrunner,
+} from './AvtaleSide/avtale';
 import Varsel from './komponenter/Varsel/Varsel';
 import RestService from './services/rest-service';
 import ApiError from './api-error';
@@ -43,12 +48,22 @@ export const tomAvtale: Avtale = {
     godkjentAvVeileder: false,
     erLaast: false,
     status: '',
+    godkjentPaVegneAv: false,
+    godkjentPaVegneGrunn: {
+        ikkeMinId: false,
+        reservert: false,
+        digitalKompetanse: false,
+    },
 };
 
 export interface Context {
     avtale: Avtale;
     rolle: Rolle;
-    settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
+    settAvtaleVerdi: (
+        felt: keyof Avtale,
+        verdi: any,
+        ignorerUlagredeEndringer?: boolean
+    ) => void;
     lagreAvtale: () => Promise<any>;
     lagreMaal: (maal: Maal) => Promise<any>;
     slettMaal: (maal: Maal) => Promise<any>;
@@ -58,6 +73,7 @@ export interface Context {
     opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<any>;
     godkjenn: (godkjent: boolean) => Promise<any>;
+    godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
     endretSteg: () => void;
 }
@@ -98,6 +114,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
         this.godkjennAvtale = this.godkjennAvtale.bind(this);
+        this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
     }
 
@@ -256,6 +273,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await this.hentAvtale(avtaleId);
     }
 
+    async godkjennAvtalePaVegne(paVegneGrunn: GodkjentPaVegneGrunner) {
+        const avtaleId = this.state.avtale.id;
+        //const paVegneGrunn = this.state.avtale.godkjentPaVegneGrunn;
+
+        await RestService.godkjennAvtalePaVegne(avtaleId, paVegneGrunn);
+        await this.hentAvtale(avtaleId);
+    }
+
     render() {
         const context: Context = {
             avtale: this.state.avtale,
@@ -270,6 +295,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             opprettAvtale: this.opprettAvtale,
             hentRolle: this.hentRolle,
             godkjenn: this.godkjennAvtale,
+            godkjennPaVegne: this.godkjennAvtalePaVegne,
             visFeilmelding: this.visFeilmelding,
             endretSteg: this.endretSteg,
         };

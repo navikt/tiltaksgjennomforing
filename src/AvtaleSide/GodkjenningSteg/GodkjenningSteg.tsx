@@ -11,6 +11,7 @@ const GodkjenningSteg = (props: Context) => (
             avtale={props.avtale}
             rolle={props.rolle}
             endreGodkjenning={props.godkjenn}
+            godkjennPaVegne={props.godkjennPaVegne}
         />
         <GodkjenningStatus avtale={props.avtale} />
     </>

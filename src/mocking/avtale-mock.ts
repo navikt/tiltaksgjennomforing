@@ -35,6 +35,13 @@ const avtaleMock: Avtale = {
     godkjentAvVeileder: false,
     erLaast: false,
     status: '',
+    godkjentPaVegneAv: false,
+
+    godkjentPaVegneGrunn: {
+        ikkeMinId: false,
+        reservert: false,
+        digitalKompetanse: false,
+    },
 
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',
