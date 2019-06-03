@@ -239,8 +239,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async godkjennAvtalePaVegne(paVegneGrunn: GodkjentPaVegneGrunner) {
         const avtaleId = this.state.avtale.id;
-        //const paVegneGrunn = this.state.avtale.godkjentPaVegneGrunn;
-
         await RestService.godkjennAvtalePaVegne(avtaleId, paVegneGrunn);
         await this.hentAvtale(avtaleId);
     }
