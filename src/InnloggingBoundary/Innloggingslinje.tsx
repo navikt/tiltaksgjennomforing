@@ -10,35 +10,21 @@ import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import BEMHelper from '../utils/bem';
 import MediaQuery from 'react-responsive';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { ReactComponent as NavIkon } from '../assets/ikoner/navikon.svg';
 
 const cls = BEMHelper('innloggingslinje');
 
 const Innloggingslinje: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = props => {
-    const bruker = `Innlogget som:${' '}
-                    ${props.innloggetBruker.identifikator}`;
+    const bruker = `${props.innloggetBruker.identifikator}`;
     return (
         <div className={cls.className}>
             <MediaQuery minWidth={577}>
-                <div className={cls.element('tilbake')}>
-                    <Link to={pathTilOversikt}>
-                        <Knapp
-                            className={cls.element('tilbakeknapp', 'tilbake')}
-                            mini={true}
-                            aria-label="Gå tilbake til oversikten"
-                        >
-                            <div className={cls.element('chevron')}>
-                                <VenstreChevron />
-                            </div>
-                            <Normaltekst>Tilbake til oversikt</Normaltekst>
-                        </Knapp>
-                    </Link>
-                </div>
+                <NavIkon />
                 <Normaltekst className={cls.element('identitet')}>
                     {bruker}
                 </Normaltekst>
-
                 <Knapp
                     className="innloggingslinje__loggutknapp"
                     mini={true}
