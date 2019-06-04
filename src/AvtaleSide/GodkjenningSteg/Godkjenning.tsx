@@ -109,7 +109,9 @@ const Godkjenning = (props: Props) => {
             });
             kanLagres = false;
         }
-        return kanLagres;
+        if (!kanLagres) {
+            throw new UfullstendigError('');
+        }
     };
     return (
         <Innholdsboks className="godkjenning">
@@ -140,16 +142,14 @@ const Godkjenning = (props: Props) => {
                     lagre={() => {
                         if (bekreftet || props.rolle === 'VEILEDER') {
                             if (godkjentPaVegneAv) {
-                                if (!validerGodkjentPaVegne()) {
-                                    throw new UfullstendigError('');
-                                }
+                                validerGodkjentPaVegne();
                                 return props.godkjennPaVegne(
                                     godkjentPaVegneGrunn
                                 );
                             }
                             return props.endreGodkjenning(true);
                         } else {
-                            throw new ApiError(
+                            throw new UfullstendigError(
                                 'Må bekrefte innholdet i avtalen'
                             );
                         }
