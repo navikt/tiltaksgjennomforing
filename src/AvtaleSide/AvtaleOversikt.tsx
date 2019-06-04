@@ -53,11 +53,11 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                     </div>
                 </MediaQuery>
-                <div className="avtaleoversikt__lenker__status">
-                    {avtale.status}
-                </div>
                 <div className="avtaleoversikt__lenker__statusikon">
                     <StatusIkon status={avtale.status} />
+                </div>
+                <div className="avtaleoversikt__lenker__status">
+                    {avtale.status}
                 </div>
             </div>
         </LenkepanelBase>
