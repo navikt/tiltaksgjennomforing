@@ -95,9 +95,7 @@ const GodkjennPaVegneAv = (props: Props) => {
                             onChange={event =>
                                 dispatch({
                                     ...state,
-                                    ...{
-                                        ikkeMinId: event.currentTarget.checked,
-                                    },
+                                    ikkeMinId: event.currentTarget.checked,
                                 })
                             }
                         />
@@ -106,9 +104,7 @@ const GodkjennPaVegneAv = (props: Props) => {
                             onChange={event =>
                                 dispatch({
                                     ...state,
-                                    ...{
-                                        reservert: event.currentTarget.checked,
-                                    },
+                                    reservert: event.currentTarget.checked,
                                 })
                             }
                         />
@@ -117,10 +113,8 @@ const GodkjennPaVegneAv = (props: Props) => {
                             onChange={event =>
                                 dispatch({
                                     ...state,
-                                    ...{
-                                        digitalKompetanse:
-                                            event.currentTarget.checked,
-                                    },
+                                    digitalKompetanse:
+                                        event.currentTarget.checked,
                                 })
                             }
                         />
