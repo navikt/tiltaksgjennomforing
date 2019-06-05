@@ -109,7 +109,7 @@ const Godkjenning = (props: Props) => {
             kanLagres = false;
         }
         if (!kanLagres) {
-            throw new UfullstendigError('');
+            throw new UfullstendigError();
         }
     };
     return (
