@@ -23,7 +23,6 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
         <>
             <div className="avtaleside__desktop">
                 <div className={cls.element('lenkerlinje')}>
-                    {' '}
                     <div className={cls.element('tilbake')}>
                         <Lenke
                             href={pathTilOversikt}
@@ -34,7 +33,6 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                             />
 
                             <Normaltekst>Tilbake til oversikt</Normaltekst>
-                            {/*</Knapp>*/}
                         </Lenke>
                     </div>
                     {props.rolle === 'VEILEDER' && (

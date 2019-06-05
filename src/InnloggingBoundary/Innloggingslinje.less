@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     &__chevron {
         display: flex;
     }
@@ -20,6 +20,11 @@
     &__identitet {
         padding-right: 1rem;
         color: black;
+        font-weight: bold;
+    }
+    &__identitetogloggut {
+        display: flex;
+        align-items: center;
     }
 
     @media print {
@@ -31,6 +36,6 @@
     }
 
     @media (min-width: 576px) {
-        justify-content: space-between;
+        justify-content: space-around;
     }
 }
