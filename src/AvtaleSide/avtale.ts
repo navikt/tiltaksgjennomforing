@@ -86,7 +86,7 @@ export interface Godkjenninger {
     godkjentAvArbeidsgiver: boolean;
     godkjentAvVeileder: boolean;
     status: string;
-    godkjentPaVegneAv: boolean;
+    godkjentPaaVegneAv: boolean;
     erLaast: boolean;
 }
 
