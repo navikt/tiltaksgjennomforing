@@ -1,4 +1,4 @@
-import React, { useReducer, Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useReducer, Dispatch, SetStateAction } from 'react';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import './GodkjennPaVegneAv.less';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
