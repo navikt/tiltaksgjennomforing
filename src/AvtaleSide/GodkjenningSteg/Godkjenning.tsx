@@ -2,7 +2,6 @@ import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useState } from 'react';
-import ApiError from '../../api-error';
 import { Rolle } from '../../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
@@ -134,11 +133,6 @@ const Godkjenning = (props: Props) => {
             )}
             <div>
                 <LagreKnapp
-                    className={
-                        godkjentPaVegneAv
-                            ? 'godkjenning__lagreKnapp'
-                            : undefined
-                    }
                     lagre={() => {
                         if (bekreftet || props.rolle === 'VEILEDER') {
                             if (godkjentPaVegneAv) {

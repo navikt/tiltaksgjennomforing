@@ -1,4 +1,4 @@
-import React, { useReducer, Dispatch, SetStateAction } from 'react';
+import React, { useReducer, Dispatch, SetStateAction, useEffect } from 'react';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import './GodkjennPaVegneAv.less';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
@@ -34,26 +34,10 @@ const initialState: GodkjentPaVegneGrunner = {
 };
 
 const GodkjennPaVegneAv = (props: Props) => {
-    const settFeilmeldingIngenGrunn = () => {
-        if (
-            props.godkjentPaVegneGrunn &&
-            (props.godkjentPaVegneGrunn.ikkeMinId ||
-                props.godkjentPaVegneGrunn.reservert ||
-                props.godkjentPaVegneGrunn.digitalKompetanse)
-        ) {
-            props.moderState.setFeilIngenGrunn(undefined);
-        } else {
-            props.moderState.setFeilIngenGrunn({
-                feilmelding:
-                    'Oppgi minst én grunn for godkjenning på vegne av deltaker',
-            });
-        }
-    };
-
     const reducer = (state: Grunner, newState: Grunner) => {
         props.moderState.setGodkjentPaVegneGrunn(newState);
-        settFeilmeldingIngenGrunn();
-        console.log(newState);
+        props.moderState.setFeilIngenGrunn(undefined);
+        props.moderState.setfeilDeltakerInformert(undefined);
         return newState;
     };
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -64,13 +48,14 @@ const GodkjennPaVegneAv = (props: Props) => {
 
     const deltakerInformertChanged = (checked: boolean) => {
         props.moderState.setPaVegneDeltakerInformert(checked);
-        if (!checked) {
-            props.moderState.setfeilDeltakerInformert({
-                feilmelding:
-                    'Deltaker må være informert om kravene og godkjenne innholdet i avtalen.',
-            });
-        } else {
-            props.moderState.setfeilDeltakerInformert(undefined);
+        props.moderState.setfeilDeltakerInformert(undefined);
+    };
+
+    const nullstillValg = (event: boolean) => {
+        props.moderState.setGodkjentPaVegneAv(event);
+        if (!event) {
+            dispatch(initialState);
+            props.moderState.setPaVegneDeltakerInformert(false);
         }
     };
 
@@ -78,11 +63,10 @@ const GodkjennPaVegneAv = (props: Props) => {
         <div className="godkjennPaVegneAv">
             <Checkbox
                 label={godkjennPaVegneLabel}
-                onChange={event =>
-                    props.moderState.setGodkjentPaVegneAv(
-                        event.currentTarget.checked
-                    )
-                }
+                checked={props.moderState.godkjentPaVegneAv}
+                onChange={event => {
+                    nullstillValg(event.currentTarget.checked);
+                }}
             />
             {props.moderState.godkjentPaVegneAv && (
                 <>
@@ -92,6 +76,7 @@ const GodkjennPaVegneAv = (props: Props) => {
                     >
                         <Checkbox
                             label={'ikke har MinID'}
+                            checked={props.godkjentPaVegneGrunn.ikkeMinId}
                             onChange={event =>
                                 dispatch({
                                     ...state,
@@ -101,6 +86,7 @@ const GodkjennPaVegneAv = (props: Props) => {
                         />
                         <Checkbox
                             label={'har reservert seg mot digitale tjenester'}
+                            checked={props.godkjentPaVegneGrunn.reservert}
                             onChange={event =>
                                 dispatch({
                                     ...state,
@@ -110,6 +96,9 @@ const GodkjennPaVegneAv = (props: Props) => {
                         />
                         <Checkbox
                             label={'ikke har digital kompetanse'}
+                            checked={
+                                props.godkjentPaVegneGrunn.digitalKompetanse
+                            }
                             onChange={event =>
                                 dispatch({
                                     ...state,
