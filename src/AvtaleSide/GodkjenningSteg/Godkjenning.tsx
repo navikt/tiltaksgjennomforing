@@ -125,7 +125,7 @@ const Godkjenning = (props: Props) => {
                     onChange={() => setBekreftet(!bekreftet)}
                 />
             )}
-            {props.rolle == 'VEILEDER' && (
+            {props.rolle == 'VEILEDER' && !props.avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAv
                     godkjentPaVegneGrunn={godkjentPaVegneGrunn}
                     moderState={paVegneState}
