@@ -48,7 +48,7 @@ export const tomAvtale: Avtale = {
     godkjentAvVeileder: false,
     erLaast: false,
     status: '',
-    godkjentPaVegneAv: false,
+    godkjentPaaVegneAv: false,
     godkjentPaVegneGrunn: {
         ikkeMinId: false,
         reservert: false,
