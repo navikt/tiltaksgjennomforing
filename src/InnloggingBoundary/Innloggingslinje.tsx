@@ -1,5 +1,5 @@
 import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import './Innloggingslinje.less';
@@ -22,9 +22,9 @@ const Innloggingslinje: FunctionComponent<{
                     <NavIkon />
                 </div>
                 <div className={cls.element('identitetogloggut')}>
-                    <Normaltekst className={cls.element('identitet')}>
+                    <EtikettLiten className={cls.element('identitet')}>
                         {bruker}
-                    </Normaltekst>
+                    </EtikettLiten>
                     <Knapp
                         className="innloggingslinje__loggutknapp"
                         mini={true}
