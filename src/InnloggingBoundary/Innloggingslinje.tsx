@@ -16,7 +16,13 @@ const Innloggingslinje: FunctionComponent<{
 }> = props => {
     const bruker = `${props.innloggetBruker.identifikator}`;
     return (
-        <div className={cls.className}>
+        <div
+            className={
+                window.location.pathname.match(/^\/tiltaksgjennomforing\/?$/)
+                    ? 'innloggingslinje innloggingslinje__oversiktsiden'
+                    : 'innloggingslinje'
+            }
+        >
             <MediaQuery minWidth={577}>
                 <div>
                     <NavIkon />
