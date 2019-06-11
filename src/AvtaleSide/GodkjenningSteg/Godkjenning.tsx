@@ -47,7 +47,7 @@ const instruks = (rolle: Rolle) => {
 
 const initState: GodkjentPaVegneGrunner = {
     digitalKompetanse: false,
-    ikkeMinId: false,
+    ikkeBankId: false,
     reservert: false,
 };
 
@@ -86,7 +86,7 @@ const Godkjenning = (props: Props) => {
             return false;
         }
         return (
-            godkjentPaVegneGrunn.ikkeMinId ||
+            godkjentPaVegneGrunn.ikkeBankId ||
             godkjentPaVegneGrunn.reservert ||
             godkjentPaVegneGrunn.digitalKompetanse
         );
