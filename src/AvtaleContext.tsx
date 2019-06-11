@@ -169,8 +169,39 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async hentAvtale(avtaleId: string) {
         const avtale = await RestService.hentAvtale(avtaleId);
-        this.setState({ avtale });
+
+        const godkjenningerBool = this.konverterGodkjentTilBool(avtale);
+        const avtaleBool = { ...avtale, ...godkjenningerBool };
+
+        this.setState({ avtale: avtaleBool });
     }
+
+    konverterGodkjentTilBool = (avtale: Avtale) => {
+        let godkjenninger = {
+            godkjentAvArbeidsgiver: false,
+            godkjentAvDeltaker: false,
+            godkjentAvVeileder: false,
+        };
+        const {
+            godkjentAvArbeidsgiver,
+            godkjentAvDeltaker,
+            godkjentAvVeileder,
+        } = avtale;
+
+        if (
+            godkjentAvArbeidsgiver &&
+            typeof godkjentAvArbeidsgiver !== 'boolean'
+        ) {
+            godkjenninger.godkjentAvArbeidsgiver = true;
+        }
+        if (godkjentAvDeltaker && typeof godkjentAvDeltaker !== 'boolean') {
+            godkjenninger.godkjentAvDeltaker = true;
+        }
+        if (godkjentAvVeileder && typeof godkjentAvVeileder !== 'boolean') {
+            godkjenninger.godkjentAvVeileder = true;
+        }
+        return godkjenninger;
+    };
 
     async hentRolle(avtaleId: string) {
         const rolle = await RestService.hentRolle(avtaleId);
