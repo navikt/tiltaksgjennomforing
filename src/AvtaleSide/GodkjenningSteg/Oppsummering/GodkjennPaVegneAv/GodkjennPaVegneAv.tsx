@@ -75,7 +75,7 @@ const GodkjennPaVegneAv = (props: Props) => {
                         feil={props.moderState.feilIngenGrunn}
                     >
                         <Checkbox
-                            label={'ikke har MinID'}
+                            label={'ikke har BankID'}
                             checked={props.godkjentPaVegneGrunn.ikkeBankId}
                             onChange={event =>
                                 dispatch({
