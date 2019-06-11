@@ -1,7 +1,7 @@
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Avtale, Maal, Oppgave, Godkjenninger } from './AvtaleSide/avtale';
+import { Avtale, Maal, Oppgave } from './AvtaleSide/avtale';
 import Varsel from './komponenter/Varsel/Varsel';
 import RestService from './services/rest-service';
 import ApiError from './api-error';
