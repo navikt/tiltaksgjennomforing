@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ApiError from '../../api-error';
 import Varsel from '../Varsel/Varsel';
 import './LagreKnapp.less';
+import UfullstendigError from '../../ufullstendig-error';
 
 interface State {
     suksessmelding: string;
@@ -30,7 +31,10 @@ class LagreKnapp extends Component<Props, State> {
             await this.props.lagre();
             this.visSuksessmelding();
         } catch (error) {
-            if (error instanceof ApiError) {
+            if (
+                error instanceof ApiError ||
+                error instanceof UfullstendigError
+            ) {
                 this.visFeilmelding(error.message);
             } else {
                 throw error;
