@@ -177,16 +177,17 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     konverterGodkjentTilBool = (avtale: Avtale) => {
-        let godkjenninger = {
-            godkjentAvArbeidsgiver: false,
-            godkjentAvDeltaker: false,
-            godkjentAvVeileder: false,
-        };
         const {
             godkjentAvArbeidsgiver,
             godkjentAvDeltaker,
             godkjentAvVeileder,
         } = avtale;
+
+        let godkjenninger = {
+            godkjentAvArbeidsgiver: godkjentAvArbeidsgiver,
+            godkjentAvDeltaker: godkjentAvDeltaker,
+            godkjentAvVeileder: godkjentAvVeileder,
+        };
 
         if (
             godkjentAvArbeidsgiver &&
