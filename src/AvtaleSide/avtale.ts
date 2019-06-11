@@ -91,7 +91,7 @@ export interface Godkjenninger {
 }
 
 export interface GodkjentPaVegneGrunner {
-    ikkeMinId: boolean;
+    ikkeBankId: boolean;
     reservert: boolean;
     digitalKompetanse: boolean;
 }

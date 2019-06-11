@@ -50,7 +50,7 @@ export const tomAvtale: Avtale = {
     status: '',
     godkjentPaaVegneAv: false,
     godkjentPaVegneGrunn: {
-        ikkeMinId: false,
+        ikkeBankId: false,
         reservert: false,
         digitalKompetanse: false,
     },

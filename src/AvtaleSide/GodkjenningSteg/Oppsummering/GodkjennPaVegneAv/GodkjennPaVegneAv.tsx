@@ -28,7 +28,7 @@ type Props = {
 };
 
 const initialState: GodkjentPaVegneGrunner = {
-    ikkeMinId: false,
+    ikkeBankId: false,
     reservert: false,
     digitalKompetanse: false,
 };
@@ -76,11 +76,11 @@ const GodkjennPaVegneAv = (props: Props) => {
                     >
                         <Checkbox
                             label={'ikke har MinID'}
-                            checked={props.godkjentPaVegneGrunn.ikkeMinId}
+                            checked={props.godkjentPaVegneGrunn.ikkeBankId}
                             onChange={event =>
                                 dispatch({
                                     ...state,
-                                    ikkeMinId: event.currentTarget.checked,
+                                    ikkeBankId: event.currentTarget.checked,
                                 })
                             }
                         />
