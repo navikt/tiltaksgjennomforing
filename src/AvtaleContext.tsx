@@ -176,7 +176,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.setState({ avtale: avtaleBool });
     }
 
-    konverterGodkjentTilBool = (avtale: any) => {
+    konverterGodkjentTilBool = (avtale: Avtale) => {
         let godkjenninger: Godkjenninger = {
             status: avtale.status,
             erLaast: avtale.erLaast,
