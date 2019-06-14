@@ -17,6 +17,7 @@ import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
+import AvtaleSideLenker from './AvtaleSideLenker/AvtaleSideLenker';
 
 interface MatchProps {
     avtaleId: string;
@@ -98,6 +99,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.avtale.erLaast) {
                     innhold = (
                         <div className="avtaleside__innhold">
+                            <AvtaleSideLenker />
                             <AlertStripe
                                 className={cls.element('banner')}
                                 solid={true}

@@ -1,0 +1,27 @@
+.avtalesidelenker {
+    &__tilbake {
+        a {
+            text-decoration: underline;
+        }
+    }
+    .lenke {
+        display: flex;
+        align-items: center;
+    }
+    &__tilbakelenke {
+        &--tilbake {
+            display: flex;
+            align-items: center;
+        }
+
+        &--tilbake .chevronboks {
+            padding-right: 0.25rem;
+        }
+
+        &:hover {
+            .nav-frontend-chevron {
+                right: 6px;
+            }
+        }
+    }
+}
