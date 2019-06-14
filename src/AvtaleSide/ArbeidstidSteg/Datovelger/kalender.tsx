@@ -12,6 +12,7 @@ interface Props {
     valgtDato: Date;
     velgDato: (dato: Date) => void;
     lukk: () => void;
+    datoTilbakeITid: (tilbakeITid: boolean) => void;
 }
 
 class Kalender extends React.Component<Props> {
@@ -43,8 +44,11 @@ class Kalender extends React.Component<Props> {
     }
 
     velgDato = (dato: Date) => {
-        if (datoIkkeTilbakeITid(dato)) {
-            this.props.velgDato(dato);
+        this.props.velgDato(dato);
+        if (!datoIkkeTilbakeITid(dato)) {
+            this.props.datoTilbakeITid(true);
+        } else {
+            this.props.datoTilbakeITid(false);
         }
     };
 

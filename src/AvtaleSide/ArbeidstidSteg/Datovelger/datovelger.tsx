@@ -8,6 +8,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 
 import './datovelger.less';
 import { momentAsISO, momentIDag } from './moment-utils';
+import AlertStripe from 'nav-frontend-alertstriper';
 
 interface OwnProps {
     velgDato: (dato: Moment) => void;
@@ -38,10 +39,7 @@ class Datovelger extends React.Component<Props, State> {
     }
 
     velgDato(dato: Moment) {
-        this.setState({
-            ...this.state,
-            visKalender: false,
-        });
+        this.setState({ visKalender: false });
         this.props.velgDato(dato);
     }
 
@@ -102,6 +100,7 @@ class Datovelger extends React.Component<Props, State> {
                         </div>
                         {visKalender && (
                             <Kalender
+                                datoTilbakeITid={this.settDatoTilbakeITid}
                                 valgtDato={this.props.dato.toDate()}
                                 velgDato={(dato: Date) => {
                                     this.velgDato(momentAsISO(dato));
@@ -129,9 +128,9 @@ class Datovelger extends React.Component<Props, State> {
                         aria-live="assertive"
                         className="datovelger__feilmelding"
                     >
-                        <Normaltekst>
-                            Dato kan ikke være tilbake i tid
-                        </Normaltekst>
+                        <AlertStripe type="info">
+                            Obs! Datoen er tilbake i tid.
+                        </AlertStripe>
                     </div>
                 )}
             </div>
