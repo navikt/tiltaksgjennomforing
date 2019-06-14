@@ -14,7 +14,7 @@ const cls = BEMHelper('innloggingslinje');
 const Innloggingslinje: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = props => {
-    const bruker = `${props.innloggetBruker.identifikator}`;
+    const bruker = props.innloggetBruker.identifikator;
     return (
         <div className="innloggingslinje">
             <div className="innloggingslinje__innhold">
