@@ -113,6 +113,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.rolle === 'DELTAKER') {
                     innhold = (
                         <div className="avtaleside__innhold">
+                            <TilbakeTilOversiktLenke />
                             <GodkjenningSteg />
                         </div>
                     );
