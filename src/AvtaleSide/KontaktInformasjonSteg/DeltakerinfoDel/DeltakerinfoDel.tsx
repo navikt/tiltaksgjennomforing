@@ -41,6 +41,17 @@ const DeltakerinfoDel = (props: Context) => {
                     }
                 />
             </div>
+            <PakrevdInput
+                label="Telefonnummer"
+                className="deltakerinfo__telefonnummer"
+                verdi={props.avtale.deltakerTlf}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    props.settAvtaleVerdi(
+                        'deltakerTlf',
+                        event.currentTarget.value
+                    );
+                }}
+            />
         </>
     );
 };

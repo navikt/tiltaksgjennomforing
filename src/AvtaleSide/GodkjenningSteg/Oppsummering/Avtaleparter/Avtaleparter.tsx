@@ -89,6 +89,7 @@ const Avtaleparter: FunctionComponent<
     veilederFornavn,
     veilederEtternavn,
     deltakerFnr,
+    deltakerTlf,
     veilederTlf,
     arbeidsgiverTlf,
     bedriftNr,
@@ -109,8 +110,12 @@ const Avtaleparter: FunctionComponent<
                         felt: 'fødselsnummer',
                         verdi: deltakerFnr,
                     },
+                    {
+                        felt: 'telefon',
+                        verdi: deltakerTlf,
+                    },
                 ]}
-                overskrift="deltaker"
+                overskrift="Deltaker"
                 borderFarge="farge-gronn"
             />
             <Avtalepart
@@ -136,7 +141,7 @@ const Avtaleparter: FunctionComponent<
                         verdi: arbeidsgiverTlf,
                     },
                 ]}
-                overskrift="arbeidsgiver"
+                overskrift="Arbeidsgiver"
                 borderFarge="farge-graa"
             />
             <Avtalepart
