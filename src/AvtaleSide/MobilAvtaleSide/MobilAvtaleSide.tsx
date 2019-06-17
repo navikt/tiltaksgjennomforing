@@ -1,14 +1,11 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import Lenke from 'nav-frontend-lenker';
 import React, { useState } from 'react';
-import shareIkon from '../../assets/ikoner/share.svg';
 import { Rolle } from '../../AvtaleContext';
 import KopierLenkeModal from '../../komponenter/modal/KopierLenkeModal';
-import { StegInfo } from '../AvtaleSide';
-import { pathTilOversikt } from '../../paths';
-import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
-import { Normaltekst } from 'nav-frontend-typografi';
 import BEMHelper from '../../utils/bem';
+import { StegInfo } from '../AvtaleSide';
+import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
+import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 interface Props {
     avtaleSteg: StegInfo[];
@@ -29,23 +26,8 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
     return (
         <>
             <div className={cls.element('lenkerlinje')}>
-                <div className={cls.element('tilbake')}>
-                    <Lenke
-                        href={pathTilOversikt}
-                        className={cls.element('tilbakelenke', 'tilbake')}
-                    >
-                        <VenstreChevron className={cls.element('chevron')} />
-
-                        <Normaltekst>Tilbake til oversikt</Normaltekst>
-                    </Lenke>
-                </div>
-                {props.rolle === 'VEILEDER' && (
-                    <div className="avtaleside__lenkedeling">
-                        <Lenke onClick={() => setOpen(true)} href="#">
-                            Del lenke til avtalen <img src={shareIkon} />
-                        </Lenke>
-                    </div>
-                )}
+                <TilbakeTilOversiktLenke />
+                {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
             </div>
             <form>{ekspanderbartPanel}</form>
 
