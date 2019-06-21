@@ -22,9 +22,9 @@ export interface RestService {
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
-    godkjennAvtale: (avtaleId: string) => Promise<Avtale>;
+    godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
     godkjennAvtalePaVegne: (
-        avtaleId: string,
+        avtale: Avtale,
         paVegneGrunn: GodkjentPaVegneGrunner
     ) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
@@ -130,29 +130,33 @@ const hentRolle = async (avtaleId: string): Promise<Rolle> => {
     return response.json();
 };
 
-const godkjennAvtale = async (avtaleId: string) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/godkjenn`;
+const godkjennAvtale = async (avtale: Avtale) => {
+    const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn`;
     const response = await fetch(uri, {
         method: 'POST',
+        headers: {
+            'If-Match': avtale.versjon,
+        },
     });
     await handleResponse(response);
-    return hentAvtale(avtaleId);
+    return hentAvtale(avtale.id);
 };
 
 const godkjennAvtalePaVegne = async (
-    avtaleId: string,
+    avtale: Avtale,
     paVegneGrunn: GodkjentPaVegneGrunner
 ) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/godkjenn-paa-vegne-av`;
+    const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn-paa-vegne-av`;
     const response = await fetch(uri, {
         method: 'POST',
         body: JSON.stringify(paVegneGrunn),
         headers: {
             'Content-Type': 'application/json',
+            'If-Match': avtale.versjon,
         },
     });
     await handleResponse(response);
-    return hentAvtale(avtaleId);
+    return hentAvtale(avtale.id);
 };
 
 const opphevGodkjenninger = async (avtaleId: string) => {
