@@ -24,13 +24,8 @@ class DatoInputfelt extends React.Component<Props> {
 
         if (erGyldigFormattertDato(datostring)) {
             this.props.inputErRiktigFormatert(true);
-            if (!datoIkkeTilbakeITid(datoDate)) {
-                this.props.datoTilbakeITid(true);
-                this.props.velgDato(inputDatostringTilISODate(datostring));
-            } else {
-                this.props.velgDato(inputDatostringTilISODate(datostring));
-                this.props.datoTilbakeITid(false);
-            }
+            this.props.datoTilbakeITid(!datoIkkeTilbakeITid(datoDate));
+            this.props.velgDato(inputDatostringTilISODate(datostring));
         } else {
             this.props.inputErRiktigFormatert(false);
             this.props.datoTilbakeITid(false);
