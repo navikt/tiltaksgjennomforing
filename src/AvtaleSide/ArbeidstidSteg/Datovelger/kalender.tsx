@@ -45,11 +45,7 @@ class Kalender extends React.Component<Props> {
 
     velgDato = (dato: Date) => {
         this.props.velgDato(dato);
-        if (!datoIkkeTilbakeITid(dato)) {
-            this.props.datoTilbakeITid(true);
-        } else {
-            this.props.datoTilbakeITid(false);
-        }
+        this.props.datoTilbakeITid(!datoIkkeTilbakeITid(dato));
     };
 
     render() {
