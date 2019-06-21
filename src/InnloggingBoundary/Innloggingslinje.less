@@ -2,47 +2,31 @@
 
 .innloggingslinje {
     background-color: white;
-    color: white;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    &__oversiktsiden {
-        width: auto !important;
-    }
-    &__chevron {
-        display: flex;
-    }
 
-    &__identifikator {
-        color: black;
-        text-decoration: none;
-    }
-
-    &__identitet {
-        padding-right: 1rem;
-        color: black;
-    }
     &__identitetogloggut {
         display: flex;
         align-items: center;
+
+        &__identitet {
+            padding-right: 1rem;
+        }
     }
+
     &__innhold {
-    }
-    @media print {
-        display: none;
+        margin: 0 auto;
+        max-width: 60rem;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .ekspanderbartPanel {
         width: 100%;
     }
 
-    @media (min-width: 576px) {
-        justify-content: space-between;
-    }
-    @media (min-width: @screen-sm-min) {
-        margin: 0 auto;
-        width: 59rem;
+    @media print {
+        display: none;
     }
 }
