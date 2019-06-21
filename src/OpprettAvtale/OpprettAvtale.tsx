@@ -1,10 +1,11 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import KnappBase from 'nav-frontend-knapper';
+import KnappBase, { Flatknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React from 'react';
 import { RouterProps } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import RestService from '.././services/rest-service';
 import ApiError from '../api-error';
 import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
@@ -32,8 +33,6 @@ interface State {
     bedriftNrFeil?: string;
     bedriftNavn: string;
 }
-
-const FNR_FEILMELDING = 'Ugyldig fødselsnummer';
 
 class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     state: State = {
@@ -79,29 +78,23 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
     };
 
     hvaMangler = () => {
-        if (
-            !erGyldigFnr(this.state.deltakerFnr) &&
-            !validerOrgnr(this.state.bedriftNr)
-        ) {
-            return 'Må oppgi gyldig fødselsnummer for deltaker og gyldig bedriftsnummer';
-        } else if (
-            erGyldigFnr(this.state.deltakerFnr) &&
-            !validerOrgnr(this.state.bedriftNr)
-        ) {
-            return 'Må oppgi gyldig bedriftsnummer';
-        } else if (
-            validerOrgnr(this.state.bedriftNr) &&
-            !erGyldigFnr(this.state.deltakerFnr)
-        ) {
-            return 'Må oppgi gyldig fødselsnummer for deltaker';
+        let feil = [];
+        if (!erGyldigFnr(this.state.deltakerFnr)) {
+            feil.push('gyldig fødselsnummer for deltaker');
+        }
+        if (!validerOrgnr(this.state.bedriftNr)) {
+            feil.push('gyldig bedriftsnummer');
+        }
+        if (feil.length) {
+            return 'Må oppgi ' + feil.join(' og ');
+        } else {
+            return '';
         }
     };
 
     opprettAvtaleKlikk = () => {
-        if (
-            erGyldigFnr(this.state.deltakerFnr) &&
-            validerOrgnr(this.state.bedriftNr)
-        ) {
+        const hvaSomManglerTekst = this.hvaMangler();
+        if (!hvaSomManglerTekst) {
             return this.props
                 .opprettAvtale(this.state.deltakerFnr, this.state.bedriftNr)
                 .then(() => {
@@ -110,7 +103,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     );
                 });
         } else {
-            throw new ApiError(this.hvaMangler());
+            throw new ApiError(hvaSomManglerTekst);
         }
     };
 
@@ -182,7 +175,6 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                             className="typo-element"
                             label="Deltakers fødselsnummer"
                             verdi={this.state.deltakerFnr}
-                            feilmelding={FNR_FEILMELDING}
                             onChange={this.endreDeltakerFnr}
                         />
                     </div>
@@ -220,15 +212,14 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                         className="opprett-avtale__knapp"
                     />
 
-                    <KnappBase
-                        type={'flat'}
+                    <Flatknapp
                         className={cls.element('avbryt')}
                         onClick={() => {
                             this.props.history.push(pathTilOversikt);
                         }}
                     >
-                        avbryt
-                    </KnappBase>
+                        Avbryt
+                    </Flatknapp>
                 </div>
             </div>
         );

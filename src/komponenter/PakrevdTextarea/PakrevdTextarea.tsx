@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Textarea } from 'nav-frontend-skjema';
+import React from 'react';
+import usePaakrevd from '../usePaakrevd';
 
 interface Props {
     className?: string;
-    label: React.ReactNode;
+    label: string;
     verdi: string;
     feilmelding?: string;
     maxLengde: number;
@@ -13,16 +13,7 @@ interface Props {
 }
 
 const PakrevdTextarea: React.FunctionComponent<Props> = props => {
-    const [feil, setFeil] = useState<SkjemaelementFeil | undefined>(undefined);
-    const visFeilmelding = props.feilmelding || props.label + ' er påkrevd';
-
-    const onBlur = () => {
-        if (!props.verdi) {
-            setFeil({ feilmelding: visFeilmelding });
-        } else {
-            setFeil(undefined);
-        }
-    };
+    const [feil, sjekkInputfelt] = usePaakrevd(props.verdi, props.label);
 
     const lagTellerTekst = (antallTegn: number, maxLength: number) => {
         return maxLength - antallTegn;
@@ -36,7 +27,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
             onChange={props.onChange}
             maxLength={props.maxLengde}
             tellerTekst={lagTellerTekst}
-            onBlur={onBlur}
+            onBlur={sjekkInputfelt}
         />
     );
 };

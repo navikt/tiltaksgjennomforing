@@ -7,7 +7,6 @@ interface Props {
     className?: string;
     label: React.ReactNode;
     verdi: string;
-    feilmelding: string;
     onChange: (fnr: string) => void;
 }
 
@@ -39,7 +38,7 @@ class FnrInput extends React.Component<Props, State> {
                 });
             } else {
                 this.setState({
-                    inputFeil: { feilmelding: this.props.feilmelding },
+                    inputFeil: { feilmelding: 'Ugyldig fødselsnummer' },
                 });
             }
         }
