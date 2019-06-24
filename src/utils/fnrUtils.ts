@@ -3,7 +3,7 @@
  * @param verdi
  * @returns {boolean}
  */
-const erGyldigFnr = (verdi: string): boolean => {
+const validerFnr = (verdi: string): boolean => {
     const fodselsnr = verdi.toString();
     if (!fodselsnr || fodselsnr.length !== 11) {
         return false;
@@ -40,14 +40,4 @@ const erGyldigFnr = (verdi: string): boolean => {
     );
 };
 
-/** Beregner gyldighet for midlertidig fødselsnummer.
- *  Brukes f.eks. ved validering i onChange mens fødselsnummer ikke er ferdig utfylt.
- */
-const midlertidigGyldigFnr = (verdi: string): boolean => {
-    const inneholderBareTall = verdi.match(/^[0-9]+$/);
-    const mindreEllerLik11Tegn = verdi.length <= 11;
-    const erTom = verdi.length === 0;
-    return (inneholderBareTall && mindreEllerLik11Tegn) || erTom;
-};
-
-export { erGyldigFnr, midlertidigGyldigFnr };
+export { validerFnr };

@@ -16,6 +16,7 @@ const usePaakrevd: UsePaakrevd = (verdi, label, feilmelding) => {
         } else {
             setFeil(undefined);
         }
+        return verdi;
     };
 
     return [feil, sjekkInputfelt];
