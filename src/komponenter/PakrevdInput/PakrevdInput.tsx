@@ -1,6 +1,6 @@
 import { Input } from 'nav-frontend-skjema';
 import React, { ChangeEvent } from 'react';
-import useValidering from '../useValidering';
+import usePaakrevd from '../usePaakrevd';
 
 interface Props {
     className?: string;
@@ -8,24 +8,18 @@ interface Props {
     verdi: string;
     feilmelding?: string;
     inputType?: string;
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    settVerdi: (verdi: string) => void;
 }
 
 const PakrevdInput: React.FunctionComponent<Props> = props => {
-    const [feil, setFeil, sjekkInputfelt] = useValidering(props.verdi, [
-        verdi => {
-            if (!verdi) {
-                return { feilmelding: `${props.label} er påkrevd` };
-            }
-        },
-    ]);
+    const [feil, sjekkInputfelt] = usePaakrevd(props.verdi, props.label);
 
     return (
         <Input
             label={props.label}
             value={props.verdi || ''}
             feil={feil}
-            onChange={props.onChange}
+            onChange={event => props.settVerdi(event.target.value)}
             onBlur={sjekkInputfelt}
             className={props.className}
             type={props.inputType || 'text'}

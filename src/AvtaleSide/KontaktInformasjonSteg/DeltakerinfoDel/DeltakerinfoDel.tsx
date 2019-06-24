@@ -2,10 +2,16 @@ import { Input } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Context, medContext } from '../../../AvtaleContext';
-import './DeltakerinfoDel.less';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
+import TelefonnummerInput from '../../../komponenter/TelefonnummerInput/TelefonnummerInput';
+import { Avtale } from '../../avtale';
+import './DeltakerinfoDel.less';
 
 const DeltakerinfoDel = (props: Context) => {
+    const settAvtaleVerdi = (felt: keyof Avtale) => {
+        return (verdi: string) => props.settAvtaleVerdi(felt, verdi);
+    };
+
     return (
         <>
             <Systemtittel className="deltakerinfo__tittel">
@@ -22,35 +28,20 @@ const DeltakerinfoDel = (props: Context) => {
                     label="Fornavn"
                     className="deltakerinfo__deltakernavn__fornavn"
                     verdi={props.avtale.deltakerFornavn}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        props.settAvtaleVerdi(
-                            'deltakerFornavn',
-                            event.currentTarget.value
-                        );
-                    }}
+                    settVerdi={settAvtaleVerdi('deltakerFornavn')}
                 />
                 <PakrevdInput
                     className="deltakerinfo__deltakernavn__etternavn"
                     label="Etternavn"
                     verdi={props.avtale.deltakerEtternavn}
-                    onChange={event =>
-                        props.settAvtaleVerdi(
-                            'deltakerEtternavn',
-                            event.target.value
-                        )
-                    }
+                    settVerdi={settAvtaleVerdi('deltakerEtternavn')}
                 />
             </div>
-            <PakrevdInput
+            <TelefonnummerInput
                 label="Telefonnummer"
                 className="deltakerinfo__telefonnummer"
                 verdi={props.avtale.deltakerTlf}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    props.settAvtaleVerdi(
-                        'deltakerTlf',
-                        event.currentTarget.value
-                    );
-                }}
+                settVerdi={settAvtaleVerdi('deltakerTlf')}
             />
         </>
     );

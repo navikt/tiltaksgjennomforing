@@ -1,24 +1,14 @@
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Context, medContext } from '../../../AvtaleContext';
-import './VeilederinfoDel.less';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
+import TelefonnummerInput from '../../../komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Avtale } from '../../avtale';
-
-const telefonnummerRegex = /^\+?\d*$/;
-
-export const validereTelefonNrOnchange = (
-    label: keyof Avtale,
-    settAvtaleFelt: (label: keyof Avtale, data: any) => void
-) => (event: any) => {
-    if (telefonnummerRegex.test(event.target.value)) {
-        settAvtaleFelt(label, event.target.value);
-    }
-};
+import './VeilederinfoDel.less';
 
 const VeilederinfoDel = (props: Context) => {
-    const onChange = (label: keyof Avtale) => {
-        return (event: any) => props.settAvtaleVerdi(label, event.target.value);
+    const settAvtaleVerdi = (felt: keyof Avtale) => {
+        return (verdi: string) => props.settAvtaleVerdi(felt, verdi);
     };
 
     return (
@@ -31,25 +21,21 @@ const VeilederinfoDel = (props: Context) => {
                     className="veilederinfo__fornavn"
                     label="Fornavn"
                     verdi={props.avtale.veilederFornavn}
-                    onChange={onChange('veilederFornavn')}
+                    settVerdi={settAvtaleVerdi('veilederFornavn')}
                 />
                 <PakrevdInput
                     className="veilederinfo__etternavn"
                     label="Etternavn"
                     verdi={props.avtale.veilederEtternavn}
-                    onChange={onChange('veilederEtternavn')}
+                    settVerdi={settAvtaleVerdi('veilederEtternavn')}
                 />
             </div>
             <div className="veilederinfo__rad">
-                <PakrevdInput
+                <TelefonnummerInput
                     className="veilederinfo__tlf"
                     label="Telefonnummer"
                     verdi={props.avtale.veilederTlf}
-                    onChange={validereTelefonNrOnchange(
-                        'veilederTlf',
-                        props.settAvtaleVerdi
-                    )}
-                    inputType="tel"
+                    settVerdi={settAvtaleVerdi('veilederTlf')}
                 />
             </div>
         </>
