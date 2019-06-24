@@ -1,11 +1,15 @@
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 type UsePaakrevd = (
     verdi: string,
     label: string,
     feilmelding?: string
-) => [SkjemaelementFeil | undefined, () => void];
+) => [
+    SkjemaelementFeil | undefined,
+    Dispatch<SetStateAction<SkjemaelementFeil | undefined>>,
+    () => boolean
+];
 
 const usePaakrevd: UsePaakrevd = (verdi, label, feilmelding) => {
     const [feil, setFeil] = useState<SkjemaelementFeil | undefined>(undefined);
@@ -13,13 +17,13 @@ const usePaakrevd: UsePaakrevd = (verdi, label, feilmelding) => {
     const sjekkInputfelt = () => {
         if (!verdi) {
             setFeil({ feilmelding: feilmelding || label + ' er påkrevd' });
-        } else {
-            setFeil(undefined);
+            return false;
         }
-        return verdi;
+        setFeil(undefined);
+        return true;
     };
 
-    return [feil, sjekkInputfelt];
+    return [feil, setFeil, sjekkInputfelt];
 };
 
 export default usePaakrevd;

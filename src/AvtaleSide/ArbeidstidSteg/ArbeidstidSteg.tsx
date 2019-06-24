@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import * as React from 'react';
 import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
 import Datovelger from './Datovelger/datovelger';
@@ -53,20 +54,6 @@ class ArbeidstidSteg extends React.Component<Context, State> {
         }
     };
 
-    settStillingsprosent = (verdi: number) => {
-        this.props.settAvtaleVerdi('arbeidstreningStillingprosent', verdi);
-
-        if (verdi === 0) {
-            this.setState({
-                stillingsprosentFeil: {
-                    feilmelding: 'Stillingsprosent kan ikke være 0',
-                },
-            });
-        } else {
-            this.setState({ stillingsprosentFeil: undefined });
-        }
-    };
-
     render() {
         const timerIUka = Number(
             (
@@ -102,8 +89,11 @@ class ArbeidstidSteg extends React.Component<Context, State> {
                 <StillingsprosentInput
                     feilmelding={this.state.stillingsprosentFeil}
                     label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={this.props.avtale.arbeidstreningStillingprosent || 0}
-                    onChange={this.settStillingsprosent}
+                    verdi={this.props.avtale.arbeidstreningStillingprosent}
+                    settVerdi={_.partial(
+                        this.props.settAvtaleVerdi,
+                        'arbeidstreningStillingprosent'
+                    )}
                 />
                 <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
 

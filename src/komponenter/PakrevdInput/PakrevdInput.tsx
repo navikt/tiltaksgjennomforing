@@ -1,5 +1,5 @@
 import { Input } from 'nav-frontend-skjema';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import usePaakrevd from '../usePaakrevd';
 
 interface Props {
@@ -12,14 +12,21 @@ interface Props {
 }
 
 const PakrevdInput: React.FunctionComponent<Props> = props => {
-    const [feil, sjekkInputfelt] = usePaakrevd(props.verdi, props.label);
+    const [feil, setFeil, sjekkInputfelt] = usePaakrevd(
+        props.verdi,
+        props.label,
+        props.feilmelding
+    );
 
     return (
         <Input
             label={props.label}
             value={props.verdi || ''}
             feil={feil}
-            onChange={event => props.settVerdi(event.target.value)}
+            onChange={event => {
+                props.settVerdi(event.target.value);
+                setFeil(undefined);
+            }}
             onBlur={sjekkInputfelt}
             className={props.className}
             type={props.inputType || 'text'}

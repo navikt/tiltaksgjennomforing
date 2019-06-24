@@ -1,9 +1,9 @@
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Dispatch, SetStateAction, useState } from 'react';
 
-type UseValidering = (
-    verdi: string,
-    validatorer: ((verdi: string) => SkjemaelementFeil | undefined)[]
+type UseValidering = <T>(
+    verdi: T,
+    validatorer: ((verdi: T) => SkjemaelementFeil | undefined)[]
 ) => [
     SkjemaelementFeil | undefined,
     Dispatch<SetStateAction<SkjemaelementFeil | undefined>>,

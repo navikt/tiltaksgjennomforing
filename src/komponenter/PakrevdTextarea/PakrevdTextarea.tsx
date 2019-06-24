@@ -8,12 +8,15 @@ interface Props {
     verdi: string;
     feilmelding?: string;
     maxLengde: number;
-    // * onChange bør oppdatere verdi feltet på props
-    onChange: (event: React.SyntheticEvent<EventTarget>) => void;
+    settVerdi: (verdi: string) => void;
 }
 
 const PakrevdTextarea: React.FunctionComponent<Props> = props => {
-    const [feil, sjekkInputfelt] = usePaakrevd(props.verdi, props.label);
+    const [feil, setFeil, sjekkInputfelt] = usePaakrevd(
+        props.verdi,
+        props.label,
+        props.feilmelding
+    );
 
     const lagTellerTekst = (antallTegn: number, maxLength: number) => {
         return maxLength - antallTegn;
@@ -24,7 +27,10 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
             feil={feil}
             label={props.label}
             value={props.verdi || ''}
-            onChange={props.onChange}
+            onChange={(event: any) => {
+                props.settVerdi(event.target.value);
+                setFeil(undefined);
+            }}
             maxLength={props.maxLengde}
             tellerTekst={lagTellerTekst}
             onBlur={sjekkInputfelt}

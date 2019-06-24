@@ -1,18 +1,14 @@
-import React from 'react';
-import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
-import { Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import * as _ from 'lodash';
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
-import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
+import { Systemtittel } from 'nav-frontend-typografi';
+import React from 'react';
 import { Context, medContext } from '../../AvtaleContext';
-import './TilretteleggingSteg.less';
+import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
+import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
 import PakrevdTextarea from '../../komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Avtale } from '../avtale';
+import './TilretteleggingSteg.less';
 
 const TilretteleggingSteg = (props: Context) => {
-    const onChange = (label: keyof Avtale) => {
-        return (event: any) => props.settAvtaleVerdi(label, event.target.value);
-    };
-
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <Systemtittel className="tilretteleggingsteg__tittel">
@@ -27,7 +23,7 @@ const TilretteleggingSteg = (props: Context) => {
             <PakrevdTextarea
                 label="Beskriv hvilken tilrettelegging det er behov for"
                 verdi={props.avtale.tilrettelegging}
-                onChange={onChange('tilrettelegging')}
+                settVerdi={_.partial(props.settAvtaleVerdi, 'tilrettelegging')}
                 maxLengde={1000}
                 feilmelding="Beskrivelse av tilrettelegging er påkrevd"
             />
