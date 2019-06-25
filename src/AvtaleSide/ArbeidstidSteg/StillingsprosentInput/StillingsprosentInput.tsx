@@ -37,8 +37,9 @@ const StillingsprosentInput = (props: Props) => {
             label={props.label}
             value={props.verdi || ''}
             onChange={event => {
-                if (/^\d{0,3}$/) {
-                    props.settVerdi(Number(event.target.value));
+                const verdi = event.target.value;
+                if (/^\d{0,3}$/.test(verdi)) {
+                    props.settVerdi(Number(verdi));
                     setFeil(undefined);
                 }
             }}
