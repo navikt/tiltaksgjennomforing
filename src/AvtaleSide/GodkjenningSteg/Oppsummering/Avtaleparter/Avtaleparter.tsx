@@ -59,7 +59,11 @@ const Avtalepart: FunctionComponent<Props> = props => {
                             (beholder: any, element) =>
                                 beholder === null
                                     ? [element]
-                                    : [...beholder, <br />, element],
+                                    : [
+                                          ...beholder,
+                                          <br key={element} />,
+                                          element,
+                                      ],
                             null
                         )}
                 </Normaltekst>
