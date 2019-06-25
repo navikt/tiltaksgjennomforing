@@ -196,10 +196,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             godkjentAvVeileder,
         } = avtale;
 
-        let godkjenninger = {
-            godkjentAvArbeidsgiver: godkjentAvArbeidsgiver,
-            godkjentAvDeltaker: godkjentAvDeltaker,
-            godkjentAvVeileder: godkjentAvVeileder,
+        const godkjenninger = {
+            godkjentAvArbeidsgiver,
+            godkjentAvDeltaker,
+            godkjentAvVeileder,
         };
 
         if (

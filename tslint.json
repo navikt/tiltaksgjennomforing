@@ -14,6 +14,7 @@
         "max-classes-per-file": false,
         "jsx-no-lambda": false,
         "member-access": false,
-        "ordered-imports": false
+        "ordered-imports": false,
+        "no-var-requires": false
     }
 }
