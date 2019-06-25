@@ -7,6 +7,7 @@ import './NesteForrige.less';
 import { Link } from 'react-router-dom';
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
+import Lenke from 'nav-frontend-lenker';
 
 export interface Props {
     avtaleSteg: StegInfo[];
@@ -38,16 +39,16 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
         <div className="nesteforrige">
             {forrigeSteg && (
                 <Link to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}>
-                    <button
-                        type="button"
-                        className="nesteforrige__chevron nesteforrige__hoyrevnstrepadding knapp knapp--flat"
+                    <Lenke
+                        href="#"
+                        className="nesteforrige__chevron nesteforrige"
                         onClick={() => {
                             props.endretSteg();
                         }}
                     >
-                        <VenstreChevron className="nesteforrige__chevron nesteforrige__chevron--forrige" />
+                        <VenstreChevron className="tilbaketiloversikt__chevron" />
                         Forrige
-                    </button>
+                    </Lenke>
                 </Link>
             )}
             {nesteSteg && (
@@ -55,16 +56,16 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
                     to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}
                     className="nesteforrige__nesteknapp"
                 >
-                    <button
-                        type="button"
-                        className="nesteforrige__chevron nesteforrige__hoyrevnstrepadding knapp knapp--flat"
+                    <Lenke
+                        href="#"
+                        className="nesteforrige__chevron nesteforrige"
                         onClick={() => {
                             props.endretSteg();
                         }}
                     >
                         Neste
                         <HoyreChevron className="nesteforrige__chevron nesteforrige__chevron--neste" />
-                    </button>
+                    </Lenke>
                 </Link>
             )}
         </div>
