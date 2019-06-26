@@ -41,12 +41,12 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
                 <Link to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}>
                     <Lenke
                         href="#"
-                        className="nesteforrige__chevron nesteforrige"
+                        className="nesteforrige__chevron"
                         onClick={() => {
                             props.endretSteg();
                         }}
                     >
-                        <VenstreChevron className="tilbaketiloversikt__chevron" />
+                        <VenstreChevron />
                         Forrige
                     </Lenke>
                 </Link>
@@ -58,13 +58,13 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
                 >
                     <Lenke
                         href="#"
-                        className="nesteforrige__chevron nesteforrige"
+                        className="nesteforrige__chevron"
                         onClick={() => {
                             props.endretSteg();
                         }}
                     >
                         Neste
-                        <HoyreChevron className="nesteforrige__chevron nesteforrige__chevron--neste" />
+                        <HoyreChevron />
                     </Lenke>
                 </Link>
             )}
