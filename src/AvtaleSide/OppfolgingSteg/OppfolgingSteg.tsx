@@ -32,7 +32,7 @@ const OppfolgingSteg = (props: Context) => {
             <LagreKnapp
                 className="oppfolgingsteg__lagre-knapp"
                 lagre={props.lagreAvtale}
-                label={'Lagre avtale'}
+                label={'Lagre'}
                 suksessmelding={'Avtale lagret'}
             />
         </Innholdsboks>

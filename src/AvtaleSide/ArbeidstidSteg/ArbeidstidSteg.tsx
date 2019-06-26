@@ -109,7 +109,7 @@ class ArbeidstidSteg extends React.Component<Context, State> {
 
                 <LagreKnapp
                     className="arbeidstidsteg__lagre-knapp"
-                    label={'Lagre avtale'}
+                    label={'Lagre'}
                     lagre={this.props.lagreAvtale}
                     suksessmelding={'Avtale lagret'}
                 />
