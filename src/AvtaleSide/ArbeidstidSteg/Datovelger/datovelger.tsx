@@ -9,6 +9,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import './datovelger.less';
 import { momentAsISO, momentIDag } from './moment-utils';
 import AlertStripe from 'nav-frontend-alertstriper';
+import classnames from 'classnames';
 
 interface OwnProps {
     velgDato: (dato: Moment) => void;
@@ -70,6 +71,11 @@ class Datovelger extends React.Component<Props, State> {
         const classNameFraProps = this.props.className
             ? this.props.className
             : '';
+        const datoInputClass = classnames({
+            'datovelger__input--harFeil':
+                !this.props.inputRiktigFormatert || this.state.datoTilbakeITid,
+        });
+
         return (
             <div className={`datovelger__outer ${classNameFraProps}`}>
                 <div className="datovelger">
@@ -82,12 +88,7 @@ class Datovelger extends React.Component<Props, State> {
                                     this.props.settRiktigFormatert
                                 }
                                 datoTilbakeITid={this.settDatoTilbakeITid}
-                                className={
-                                    !this.props.inputRiktigFormatert ||
-                                    this.state.datoTilbakeITid
-                                        ? 'datovelger__input--harFeil'
-                                        : ''
-                                }
+                                className={datoInputClass}
                             />
                             <button
                                 ref={node => (this.kalenderKnapp = node)}
