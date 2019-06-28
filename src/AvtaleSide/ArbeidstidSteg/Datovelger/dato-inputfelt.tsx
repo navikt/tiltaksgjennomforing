@@ -7,6 +7,7 @@ import {
 } from './moment-utils';
 import { Moment } from 'moment';
 import { datoIkkeTilbakeITid } from '../../../utils/datoUtils';
+import moment from 'moment';
 
 interface Props {
     valgtDato: Moment;
@@ -18,13 +19,11 @@ interface Props {
 
 class DatoInputfelt extends React.Component<Props> {
     endreDatoHvisGyldigFormattert(datostring: string) {
-        const datoDate = new Date(
-            datostring.replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1')
-        );
+        const valgtDato = moment(datostring, 'DD.MM.YYYY').toDate();
 
         if (erGyldigFormattertDato(datostring)) {
             this.props.inputErRiktigFormatert(true);
-            this.props.datoTilbakeITid(!datoIkkeTilbakeITid(datoDate));
+            this.props.datoTilbakeITid(!datoIkkeTilbakeITid(valgtDato));
             this.props.velgDato(inputDatostringTilISODate(datostring));
         } else {
             this.props.inputErRiktigFormatert(false);
