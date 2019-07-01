@@ -4,6 +4,7 @@ import DayPicker from 'react-day-picker';
 import momentLocaleUtils, { LocaleUtils } from 'react-day-picker/moment';
 import Navigasjonsbar from './navigasjonsbar';
 import DatovelgerCaption from './datovelger-caption';
+import { datoIkkeTilbakeITid } from '../../../utils/datoUtils';
 
 const today = new Date();
 
@@ -11,6 +12,7 @@ interface Props {
     valgtDato: Date;
     velgDato: (dato: Date) => void;
     lukk: () => void;
+    datoTilbakeITid: (tilbakeITid: boolean) => void;
 }
 
 class Kalender extends React.Component<Props> {
@@ -40,6 +42,11 @@ class Kalender extends React.Component<Props> {
             this.props.lukk();
         }
     }
+
+    velgDato = (dato: Date) => {
+        this.props.velgDato(dato);
+        this.props.datoTilbakeITid(!datoIkkeTilbakeITid(dato));
+    };
 
     render() {
         const localeUtils: LocaleUtils = {
@@ -71,7 +78,7 @@ class Kalender extends React.Component<Props> {
                     }
                     selectedDays={this.props.valgtDato}
                     initialMonth={this.props.valgtDato}
-                    onDayClick={dato => this.props.velgDato(dato)}
+                    onDayClick={dato => this.velgDato(dato)}
                     containerProps={{ tabIndex: 0 }}
                 />
             </div>
