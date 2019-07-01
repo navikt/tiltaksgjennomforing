@@ -61,6 +61,7 @@ const avtaleMock: Avtale = {
     deltakerFornavn: 'Deltaker',
     deltakerEtternavn: 'Deltakersen',
     deltakerFnr: '00000000000',
+    deltakerTlf: '44444444',
 
     arbeidsgiverFnr: '00000000000',
     arbeidsgiverFornavn: 'Arbeidsgiver',

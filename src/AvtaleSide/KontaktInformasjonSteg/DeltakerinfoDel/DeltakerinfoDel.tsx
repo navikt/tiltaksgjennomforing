@@ -1,48 +1,47 @@
+import * as _ from 'lodash';
 import { Input } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Context, medContext } from '../../../AvtaleContext';
-import './DeltakerinfoDel.less';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
+import TelefonnummerInput from '../../../komponenter/TelefonnummerInput/TelefonnummerInput';
+import './DeltakerinfoDel.less';
 
-const DeltakerinfoDel = (props: Context) => {
-    return (
-        <>
-            <Systemtittel className="deltakerinfo__tittel">
-                Informasjon om deltaker
-            </Systemtittel>
-            <Input
-                className="deltakerinfo__fnr"
-                label="Fødselsnummer"
-                value={props.avtale.deltakerFnr}
-                disabled={true}
+const DeltakerinfoDel = (props: Context) => (
+    <>
+        <Systemtittel className="deltakerinfo__tittel">
+            Informasjon om deltaker
+        </Systemtittel>
+        <Input
+            className="deltakerinfo__fnr"
+            label="Fødselsnummer"
+            value={props.avtale.deltakerFnr}
+            disabled={true}
+        />
+        <div className="deltakerinfo__deltakernavn">
+            <PakrevdInput
+                label="Fornavn"
+                className="deltakerinfo__deltakernavn__fornavn"
+                verdi={props.avtale.deltakerFornavn}
+                settVerdi={_.partial(props.settAvtaleVerdi, 'deltakerFornavn')}
             />
-            <div className="deltakerinfo__deltakernavn">
-                <PakrevdInput
-                    label="Fornavn"
-                    className="deltakerinfo__deltakernavn__fornavn"
-                    verdi={props.avtale.deltakerFornavn}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        props.settAvtaleVerdi(
-                            'deltakerFornavn',
-                            event.currentTarget.value
-                        );
-                    }}
-                />
-                <PakrevdInput
-                    className="deltakerinfo__deltakernavn__etternavn"
-                    label="Etternavn"
-                    verdi={props.avtale.deltakerEtternavn}
-                    onChange={event =>
-                        props.settAvtaleVerdi(
-                            'deltakerEtternavn',
-                            event.target.value
-                        )
-                    }
-                />
-            </div>
-        </>
-    );
-};
+            <PakrevdInput
+                className="deltakerinfo__deltakernavn__etternavn"
+                label="Etternavn"
+                verdi={props.avtale.deltakerEtternavn}
+                settVerdi={_.partial(
+                    props.settAvtaleVerdi,
+                    'deltakerEtternavn'
+                )}
+            />
+        </div>
+        <TelefonnummerInput
+            label="Telefonnummer"
+            className="deltakerinfo__telefonnummer"
+            verdi={props.avtale.deltakerTlf}
+            settVerdi={_.partial(props.settAvtaleVerdi, 'deltakerTlf')}
+        />
+    </>
+);
 
 export default medContext<{}>(DeltakerinfoDel);

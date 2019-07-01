@@ -19,6 +19,7 @@ export const tomAvtale: Avtale = {
     deltakerFnr: '',
     deltakerFornavn: '',
     deltakerEtternavn: '',
+    deltakerTlf: '',
 
     bedriftNavn: '',
     bedriftNr: '',
