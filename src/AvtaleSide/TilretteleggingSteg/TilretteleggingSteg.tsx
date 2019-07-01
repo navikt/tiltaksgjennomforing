@@ -18,7 +18,6 @@ const TilretteleggingSteg = (props: Context) => (
                 typer arbeidsoppgaver mv.)
             </HjelpetekstBase>
         </Systemtittel>
-
         <PakrevdTextarea
             label="Beskriv hvilken tilrettelegging det er behov for"
             verdi={props.avtale.tilrettelegging}

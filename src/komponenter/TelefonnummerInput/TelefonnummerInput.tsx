@@ -31,11 +31,9 @@ const TelefonnummerInput: React.FunctionComponent<Props> = props => {
             value={props.verdi || ''}
             feil={feil}
             onChange={event => {
-                const verdi = event.target.value;
-                if (/^\d{0,8}$/.test(verdi)) {
-                    props.settVerdi(verdi);
-                    setFeil(undefined);
-                }
+                const verdi = event.target.value.replace(/\D/g, '');
+                props.settVerdi(verdi);
+                setFeil(undefined);
             }}
             onBlur={sjekkInputfelt}
             className={props.className}

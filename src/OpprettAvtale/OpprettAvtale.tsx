@@ -65,7 +65,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
     );
 
     const fnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const verdi = event.target.value;
+        const verdi = event.target.value.replace(/\D/g, '');
         if (/^\d{0,11}$/.test(verdi)) {
             setDeltakerFnr(verdi);
             setDeltakerFnrFeil(undefined);
@@ -73,10 +73,11 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
     };
 
     const orgnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const verdi = event.target.value;
+        const verdi = event.target.value.replace(/\D/g, '');
         if (/^\d{0,9}$/.test(verdi)) {
             setBedriftNr(verdi);
             setBedriftNrFeil(undefined);
+            setBedriftNavn('');
         }
     };
 
@@ -91,6 +92,8 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                     setBedriftNavn('');
                     setBedriftNrFeil({ feilmelding: error.message });
                 });
+        } else {
+            setBedriftNavn('');
         }
     };
 
