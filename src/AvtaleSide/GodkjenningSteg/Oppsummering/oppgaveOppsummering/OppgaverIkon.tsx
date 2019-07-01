@@ -3,25 +3,25 @@ import React from 'react';
 const OppgaverIkon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
         width="24"
         height="24"
         viewBox="0 0 24 24"
     >
-        <defs>
+        <g fill="none" fillRule="evenodd" transform="translate(3)">
+            <rect width="18" height="22" y="2" fill="#D8A25C" rx="1.008" />
+            <path fill="#E7E9E9" d="M2 4h14v18H2z" />
             <path
-                id="oppgaveOppsummeringIkon"
-                d="M23.5 24H.5a.5.5 0 0 1-.5-.5V.5A.5.5 0 0 1 .5 0h23a.5.5 0 0 1 .5.5v23a.5.5 0 0 1-.5.5zM1 23h22V1H1v22zm4.5-13a.502.502 0 0 1-.354-.146l-2-2a.5.5 0 0 1 .707-.707L5.5 8.793l4.646-4.646a.5.5 0 0 1 .707.707l-5 5A.498.498 0 0 1 5.5 10zm0 9a.502.502 0 0 1-.354-.146l-2-2a.5.5 0 0 1 .707-.707L5.5 17.793l4.646-4.646a.5.5 0 0 1 .707.707l-5 5A.498.498 0 0 1 5.5 19zm15-10h-8a.5.5 0 0 1 0-1h8a.5.5 0 0 1 0 1zm0 9h-8a.5.5 0 0 1 0-1h8a.5.5 0 0 1 0 1z"
+                fill="#59514B"
+                d="M13.5 9h-6a.5.5 0 0 1 0-1h6a.5.5 0 0 1 0 1"
             />
-        </defs>
-        <g fill="none" fillRule="evenodd">
-            <mask id="oppgaveOppsummeringIkon_b" fill="#fff">
-                <use xlinkHref="#oppgaveOppsummeringIkon" />
-            </mask>
-            <use fill="#3E3832" xlinkHref="#oppgaveOppsummeringIkon" />
-            <g fill="#3E3832" mask="url(#oppgaveOppsummeringIkon_b)">
-                <path d="M0 24h24V0H0z" />
-            </g>
+            <path
+                fill="#005B82"
+                d="M13.545 4h-9.09C4.204 4 4 3.82 4 3.6V2c0-.22.204-.4.455-.4h2.318C6.983.688 7.903 0 9 0s2.016.688 2.227 1.6h2.318c.251 0 .455.18.455.4v1.6c0 .22-.204.4-.455.4z"
+            />
+            <path
+                fill="#59514B"
+                d="M13.5 12h-6a.5.5 0 0 1 0-1h6a.5.5 0 0 1 0 1M13.5 15h-6a.5.5 0 0 1 0-1h6a.5.5 0 0 1 0 1M13.5 18h-6a.5.5 0 0 1 0-1h6a.5.5 0 0 1 0 1M5.333 9h-.666C4.299 9 4 8.776 4 8.5s.299-.5.667-.5h.666c.368 0 .667.224.667.5s-.299.5-.667.5M5.333 12h-.666C4.299 12 4 11.776 4 11.5s.299-.5.667-.5h.666c.368 0 .667.224.667.5s-.299.5-.667.5M5.333 15h-.666C4.299 15 4 14.776 4 14.5s.299-.5.667-.5h.666c.368 0 .667.225.667.5s-.299.5-.667.5M5.333 18h-.666C4.299 18 4 17.776 4 17.5s.299-.5.667-.5h.666c.368 0 .667.224.667.5s-.299.5-.667.5"
+            />
         </g>
     </svg>
 );

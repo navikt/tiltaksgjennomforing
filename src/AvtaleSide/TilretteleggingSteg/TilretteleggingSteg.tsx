@@ -34,7 +34,7 @@ const TilretteleggingSteg = (props: Context) => {
             <LagreKnapp
                 className="tilretteleggingsteg__lagre-knapp"
                 lagre={props.lagreAvtale}
-                label={'Lagre avtale'}
+                label={'Lagre'}
                 suksessmelding={'Avtale lagret'}
             />
         </Innholdsboks>
