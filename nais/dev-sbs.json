@@ -2,5 +2,7 @@
   "ingress": "https://arbeidsgiver-q.nav.no/tiltaksgjennomforing",
   "api-gw-url": "https://api-gw-q0.oera.no",
   "selvbetjening-login-url": "https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing",
-  "logout-url": "https://loginservice-q.nav.no/slo"
+  "logout-url": "https://loginservice-q.nav.no/slo",
+  "decorator-url": "https://app-q0.adeo.no/internarbeidsflatedecorator/js/head.min.js",
+  "er-internflate": "false"
 }

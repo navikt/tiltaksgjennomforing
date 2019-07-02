@@ -1,5 +1,4 @@
 /* tslint:disable:no-console */
-import 'babel-polyfill';
 import 'react-app-polyfill/ie9';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';

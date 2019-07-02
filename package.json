@@ -69,11 +69,13 @@
         "react-router-dom": "^4.3.1",
         "tslint": "^5.12.1",
         "tslint-config-prettier": "^1.18.0",
-        "tslint-react": "^3.6.0"
+        "tslint-react": "^3.6.0",
+        "webpack": "4.28.3"
     },
     "scripts": {
         "start": "craco start",
         "start-dec": "cross-env DECORATOR=\"true\" npm start",
+        "start-intern": "cross-env INTERNFLATE=true npm start",
         "mock": "REACT_APP_MOCK=true npm start",
         "build": "craco build",
         "test": "craco test",

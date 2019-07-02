@@ -62,6 +62,8 @@
             j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-PM9RP3');
+
+
     </script>
     <!-- End Google Tag Manager -->
 
@@ -74,7 +76,9 @@
     You need to enable JavaScript to run this app.
 </noscript>
 {{{NAV_HEADING}}}
+<div id="Tiltak"></div>
 <div id="root" className="tiltaksgjennomforing"></div>
+
 {{{NAV_FOOTER}}}
 <!--
 This HTML file is a template.
@@ -85,13 +89,43 @@ To begin the development, run `npm start` or `yarn start`.
 To create a production bundle, use `npm run build` or `yarn build`.
 -->
 
+<script>
+/*
+    (function (w, d, u, s) {
+
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s);
+            j.async = true;
+        j.src = u;
+        f.parentNode.insertBefore(j,f);
+    })(
+        window, document, 'http://localhost:63342/internarbeidsflatedecorator/build/js/head.min.js', 'script'
+    );
+    var minimaltEksempel = {
+        config: {
+            applicationName: 'Tiltaksgjennomføring',
+            toggles: {}
+        }
+    };
+
+  /*
+    var getInternDecorator = function(url) {
+        var script = document.createElement('script');
+        script.type='text/javascript';
+        script.src=url;
+        document.getElementsByTagName('body')[0].appendChild(script);
+    };
+
+    getInternDecorator('http://localhost:63342/internarbeidsflatedecorator/build/js/head.min.js');
+*/
+</script>
+
 
 <script src="/bundle.js"></script>
 <script src="/static/js/0.chunk.js"></script>
 <script src="/static/js/1.chunk.js"></script>
 <script src="/static/js/main.chunk.js"></script>
 
-<script src="/internarbeidsflatedecorator/js/head.min.js"></script>
-
 </body>
+
 </html>

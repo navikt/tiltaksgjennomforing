@@ -4,6 +4,7 @@ import Varsel from '../komponenter/Varsel/Varsel';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
+import InternDekorator from "../komponenter/interndekorator/InternDekorator";
 
 const InnloggingBoundary: FunctionComponent = props => {
     const {
@@ -18,6 +19,7 @@ const InnloggingBoundary: FunctionComponent = props => {
     } else if (innloggetBruker) {
         return (
             <>
+                <InternDekorator/>
                 <Innloggingslinje innloggetBruker={innloggetBruker} />
                 {props.children}
             </>

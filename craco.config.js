@@ -4,9 +4,7 @@ const getDecorator = require('./server/decorator');
 const path = require('path');
 const { whenDev } = require('@craco/craco');
 const NpmImportPlugin = require('less-plugin-npm-import');
-//const webpack = require('webpack');
-
-//require('dotenv').config();
+const webpack = require('webpack');
 
 const noHeaderAndFooterInject = {
     NAV_SCRIPTS: '',
@@ -30,7 +28,12 @@ module.exports = () => {
                     filename: 'bundle.js',
                     publicPath: '/',
                 }
-            }
+            },
+            plugins: [
+                new webpack.DefinePlugin({
+                    "process.env.INTERNFLATE": JSON.stringify(process.env.INTERNFLATE),
+                })
+            ]
         },
         devServer: {
 
@@ -39,7 +42,6 @@ module.exports = () => {
                 app.set('views', `${__dirname}/public`);
                 app.set('view engine', 'mustache');
                 app.get(['/', '/tiltaksgjennomforing'], (req, res) => {
-
                     process.env.DECORATOR === 'true' ? (
                     getDecorator().then(decoratorData => {
                         res.render('index.html', Object.assign(decoratorData));
@@ -76,10 +78,12 @@ module.exports = () => {
                 ...whenDev(
                     () => [
                     //    new webpack.HotModuleReplacementPlugin()
+
                     ],
                     []
                 ),
             },
+
         ],
     }
 };

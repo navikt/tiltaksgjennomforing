@@ -28,3 +28,7 @@ spec:
           value: '{{{selvbetjening-login-url}}}'
         - name: LOGOUT_URL
           value: '{{{logout-url}}}'
+        - name: INTERN_DECORATOR
+          value: '{{{decorator-url}}}'
+        - name: INTERN_FLATE
+          value: '{{{er-internflate}}}'
