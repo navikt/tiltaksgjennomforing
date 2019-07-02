@@ -1,6 +1,6 @@
 import React from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
-import utfyllingsIkon from './pencil-fill.svg';
+import utfyllingsIkon from './pen.svg';
 import './UtfyllerBanner.less';
 import classnames from 'classnames';
 import BEMHelper from '../../../utils/bem';
