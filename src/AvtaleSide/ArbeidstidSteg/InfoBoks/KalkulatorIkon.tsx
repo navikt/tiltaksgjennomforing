@@ -1,0 +1,35 @@
+import React from 'react';
+
+const KalkulatorIkon = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="64"
+            viewBox="0 0 40 64"
+        >
+            <g fill="none" fill-rule="nonzero">
+                <rect width="40" height="64" fill="#3E3832" rx="4" />
+                <path fill="#D8D8D8" d="M4 6h32v14H4z" />
+                <path fill="#3E3832" d="M24 14h4v2h-4zM30 14h4v2h-4z" />
+                <circle cx="8" cy="30" r="4" fill="#D8D8D8" />
+                <circle cx="8" cy="42" r="4" fill="#E7E9E9" />
+                <circle cx="8" cy="54" r="4" fill="#E7E9E9" />
+                <circle cx="20" cy="30" r="4" fill="#D8D8D8" />
+                <circle cx="20" cy="42" r="4" fill="#E7E9E9" />
+                <circle cx="32" cy="30" r="4" fill="#FF9100" />
+                <circle cx="32" cy="42" r="4" fill="#E7E9E9" />
+                <rect
+                    width="20"
+                    height="8"
+                    x="16"
+                    y="50"
+                    fill="#D8D8D8"
+                    rx="4"
+                />
+            </g>
+        </svg>
+    );
+};
+
+export default KalkulatorIkon;
