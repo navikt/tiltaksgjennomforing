@@ -18,7 +18,7 @@ const DeltakerinfoDel = (props: Context) => (
             value={props.avtale.deltakerFnr}
             disabled={true}
         />
-        <div className="deltakerinfo__deltakernavn">
+        <div className="deltake'rinfo__deltakernavn">
             <PakrevdInput
                 label="Fornavn"
                 className="deltakerinfo__deltakernavn__fornavn"

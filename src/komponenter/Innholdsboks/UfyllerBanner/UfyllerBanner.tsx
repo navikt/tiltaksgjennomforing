@@ -1,6 +1,6 @@
 import React from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
-import utfyllingsIkon from './pen.svg';
+import { ReactComponent as UtfyllingsIkon } from '../../../assets/ikoner/pen.svg';
 import './UtfyllerBanner.less';
 import classnames from 'classnames';
 import BEMHelper from '../../../utils/bem';
@@ -36,13 +36,12 @@ const UfyllerBanner: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <div className={classnames(cls.className, wrapperClass)}>
-            <img
-                className="utfyllerBanner__utfyllingsIkon"
-                src={utfyllingsIkon}
-            />
-            <Normaltekst className="utfyllerBanner__fyllesUtAvTekst">
-                {utfyllesAv}
-            </Normaltekst>
+            <div className="utfyllerBanner">
+                <UtfyllingsIkon className="utfyllerBanner__utfyllingsIkon" />
+                <Normaltekst className="utfyllerBanner__fyllesUtAvTekst">
+                    {utfyllesAv}
+                </Normaltekst>
+            </div>
         </div>
     );
 };
