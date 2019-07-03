@@ -8,7 +8,7 @@ interface Props {
     timeout?: number;
     kanLukkes: boolean;
     onLukkVarsel?: () => void;
-    type: 'info' | 'suksess';
+    type: 'info' | 'suksess' | 'advarsel';
     className?: string;
 }
 

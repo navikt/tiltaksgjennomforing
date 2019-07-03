@@ -83,7 +83,7 @@ class LagreKnapp extends Component<Props, State> {
                 {this.state.feilmelding && (
                     <Varsel
                         kanLukkes={true}
-                        type={'info'}
+                        type={'advarsel'}
                         onLukkVarsel={this.fjernFeilmelding}
                         className={'lagreknapp__varsel'}
                     >
