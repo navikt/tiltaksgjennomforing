@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Group 26 Copy</title>
+    <desc>Created with Sketch.</desc>
+    <g id="-----↳-Versjon-10" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Oppfølging-med-del-avtale-knapp" transform="translate(-498.000000, -284.000000)">
+            <g id="Group-26-Copy" transform="translate(498.000000, 284.000000)">
+                <path d="M0.857142857,13 L23.1428571,13 C23.6162441,13 24,13.4104056 24,13.9166667 L24,23.0833333 C24,23.5895944 23.6162441,24 23.1428571,24 L0.857142857,24 C0.383755929,24 0,23.5895944 0,23.0833333 L0,13.9166667 C0,13.4104056 0.383755929,13 0.857142857,13 Z" id="Rectangle" fill="#FFFFFF"></path>
+                <polygon id="Rectangle" fill="#C86151" points="8 11.9721146 19.9721146 4.40536496e-13 24 4.02788536 12.0278854 16"></polygon>
+                <polygon id="Triangle" fill="#FFD7A3" points="6 18 7.9752322 12 12 16.0247678"></polygon>
+                <polygon id="Triangle-Copy-2" fill="#59514B" points="6 18 6.65841073 16 8 17.3415893"></polygon>
+                <polygon id="Rectangle" fill="#D6897D" points="19.9876543 4.42756942e-13 24 4.01234568 22.0123457 6 18 1.98765432"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

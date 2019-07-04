@@ -13,12 +13,13 @@ const OppfolgingSteg = (props: Context) => (
         <Systemtittel className="oppfolgingsteg__tittel">
             Oppfølging
             <HjelpetekstBase id="hjelpetekst">
-                Eksempelvis: oppfølgingssamtale etter første uke, møter hver
-                måned eller avtalt dato for møte.
+                Eksempler på oppfølging kan være en oppfølgingssamtale etter
+                første uke, faste møter hver måned eller en avtalt dato for et
+                møte.
             </HjelpetekstBase>
         </Systemtittel>
         <PakrevdTextarea
-            label="Beskriv hvor ofte og i hvilken form dere ønsker å få oppfølging fra NAV"
+            label="Beskriv hvilken oppfølging som er avtalt"
             verdi={props.avtale.oppfolging || ''}
             settVerdi={_.partial(props.settAvtaleVerdi, 'oppfolging')}
             maxLengde={1000}
