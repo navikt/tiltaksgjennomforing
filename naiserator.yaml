@@ -30,5 +30,5 @@ spec:
           value: '{{{logout-url}}}'
         - name: INTERN_DECORATOR
           value: '{{{decorator-url}}}'
-        - name: INTERN_FLATE
+        - name: INTERNFLATE
           value: '{{{er-internflate}}}'

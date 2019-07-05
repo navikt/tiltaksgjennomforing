@@ -11,10 +11,14 @@ import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import { basename } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import {injectAll} from "./utils/appendscripts";
 
 addLocaleData(nb);
 
 class App extends React.Component {
+    componentDidMount(): void {
+        injectAll();
+    }
     render() {
         return (
             <IntlProvider locale="nb">

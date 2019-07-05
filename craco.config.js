@@ -17,22 +17,22 @@ const noHeaderAndFooterInject = {
 module.exports = () => {
     return {
         webpack: {
-            configure: {
+            configure:  {
                 target: "web",
-                mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+                mode: process.env.NODE_ENV || 'development',
                 entry:
                     path.join(__dirname, 'src/index.tsx'),
 
                 output: {
                     path: path.resolve(__dirname, './build'),
                     filename: 'bundle.js',
-                    publicPath: '/',
+                    publicPath: process.env.NODE_ENV === 'development' ? '/' : '/tiltaksgjennomforing',
                 }
             },
             plugins: [
                 new webpack.DefinePlugin({
                     "process.env.INTERNFLATE": JSON.stringify(process.env.INTERNFLATE),
-                })
+                }),
             ]
         },
         devServer: {
@@ -49,10 +49,11 @@ module.exports = () => {
                         res.render('index.html', Object.assign(noHeaderAndFooterInject))
                     )
                 });
+                app.get('/internarbeidsflatedecorator/head.min.js', (req, res) => {
+                   res.sendFile(path.resolve(__dirname, './server/head.min.js'));
+                });
             },
-
             hot: true,
-           // contentBase: './public/',
             publicPath: '/',
             watchContentBase: true,
             quiet: false,
@@ -63,8 +64,10 @@ module.exports = () => {
                 publicPath: true,
                 colors: true,
                 chunks: true,
+                dept: true,
+                outputPath: true,
+                index: true
             },
-
         },
         plugins: [
             {
@@ -75,13 +78,6 @@ module.exports = () => {
                         loader: new NpmImportPlugin({ prefix: '~' }),
                     },
                 },
-                ...whenDev(
-                    () => [
-                    //    new webpack.HotModuleReplacementPlugin()
-
-                    ],
-                    []
-                ),
             },
 
         ],

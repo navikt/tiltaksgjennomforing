@@ -1,5 +1,6 @@
 const proxy = require('http-proxy-middleware');
 
+process.env.NODE_ENV = 'development';
 const erDevelopmentModus = process.env.NODE_ENV === 'development';
 
 const envProperties = {
@@ -17,6 +18,8 @@ const envProperties = {
         process.env.LOGOUT_URL ||
         (erDevelopmentModus &&
             '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
+
+    NAVIGASJONSLINJE : process.env.INTERNFLATE || false
 };
 
 if (
@@ -47,6 +50,12 @@ module.exports = function(app) {
         }
 
         res.send(JSON.stringify(innloggingskilder));
+    });
+
+    app.get('/tiltaksgjennomforing/navigasjonslinje', (req, res) => {
+        const navigasjonslinje = {internflate : envProperties.NAVIGASJONSLINJE};
+        res.send(JSON.stringify(navigasjonslinje));
+
     });
 
     app.get('/tiltaksgjennomforing/logout', (req, res) => {
