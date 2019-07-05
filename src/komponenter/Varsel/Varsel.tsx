@@ -1,66 +1,66 @@
-import classNames from 'classnames';
-import AlertStripe from 'nav-frontend-alertstriper';
-import Lukknapp from 'nav-frontend-lukknapp';
-import * as React from 'react';
-import './Varsel.less';
+import classNames from "classnames";
+import AlertStripe, { AlertStripeType } from "nav-frontend-alertstriper";
+import Lukknapp from "nav-frontend-lukknapp";
+import * as React from "react";
+import "./Varsel.less";
 
 interface Props {
-    timeout?: number;
-    kanLukkes: boolean;
-    onLukkVarsel?: () => void;
-    type: 'info' | 'suksess' | 'advarsel';
-    className?: string;
+  timeout?: number;
+  kanLukkes: boolean;
+  onLukkVarsel?: () => void;
+  type: AlertStripeType;
+  className?: string;
 }
 
 interface State {
-    display: boolean;
+  display: boolean;
 }
 
 class Varsel extends React.Component<Props, State> {
-    private timerHandle: any;
+  private timerHandle: any;
 
-    state = {
-        display: true,
-    };
+  state = {
+    display: true
+  };
 
-    componentDidMount = (): void => {
-        if (this.props.timeout) {
-            this.timerHandle = setTimeout(() => {
-                this.lukkVarsel();
-            }, this.props.timeout);
-        }
-    };
-
-    componentWillUnmount(): void {
-        clearTimeout(this.timerHandle);
+  componentDidMount = (): void => {
+    if (this.props.timeout) {
+      this.timerHandle = setTimeout(() => {
+        this.lukkVarsel();
+      }, this.props.timeout);
     }
+  };
 
-    lukkVarsel = () => {
-        this.setState({ display: false });
-        this.props.onLukkVarsel && this.props.onLukkVarsel();
-    };
+  componentWillUnmount(): void {
+    clearTimeout(this.timerHandle);
+  }
 
-    render() {
-        return (
-            this.state.display && (
-                <AlertStripe
-                    type={this.props.type}
-                    className={classNames('varsel', this.props.className)}
-                >
-                    <div className="varsel__innhold">
-                        <div>{this.props.children}</div>
-                        {this.props.kanLukkes && (
-                            <Lukknapp
-                                hvit={true}
-                                onClick={this.lukkVarsel}
-                                className="varsel__innhold__lukknapp"
-                            />
-                        )}
-                    </div>
-                </AlertStripe>
-            )
-        );
-    }
+  lukkVarsel = () => {
+    this.setState({ display: false });
+    this.props.onLukkVarsel && this.props.onLukkVarsel();
+  };
+
+  render() {
+    return (
+      this.state.display && (
+        <AlertStripe
+          type={this.props.type}
+          className={classNames("varsel", this.props.className)}
+        >
+          <div className="varsel__innhold">
+            <div>{this.props.children}</div>
+            {this.props.kanLukkes && (
+              <Lukknapp
+                hvit={true}
+                onClick={this.lukkVarsel}
+                className="varsel__innhold__lukknapp"
+              />
+            )}
+          </div>
+        </AlertStripe>
+      )
+    );
+  }
 }
 
 export default Varsel;
