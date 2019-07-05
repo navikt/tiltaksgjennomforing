@@ -34,7 +34,6 @@ class InternDekorator extends React.Component{
     injectScript = () => {
         const script = document.createElement('script');
         script.setAttribute('id', 'internHeader');
-
         if (url) {
             script.onload = () => {
                 const newScript = document.createElement('script');
@@ -58,5 +57,4 @@ class InternDekorator extends React.Component{
         );
     }
 }
-
 export default InternDekorator;

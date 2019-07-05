@@ -11,8 +11,8 @@ export const injectAll = () => {
 
 const injectLinks = (rel: string, href: string) => {
     const link = document.createElement('link');
-    link.rel = 'manifest';
-    link.href = "%PUBLIC_URL%/manifest.json";
+    link.rel = rel;
+    link.href = href;
     document.getElementsByTagName('head')[0].appendChild(link);
 };
 
