@@ -7,20 +7,18 @@ import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import './KontaktinfoSteg.less';
 
-const KontaktinfoSteg = (props: Context) => {
-    return (
-        <Innholdsboks>
-            <DeltakerinfoDel />
-            <ArbeidsgiverinfoDel />
-            <VeilederinfoDel />
-            <LagreKnapp
-                className="kontaktinfo-steg__lagre-knapp"
-                lagre={props.lagreAvtale}
-                label={'Lagre'}
-                suksessmelding={'Avtale lagret'}
-            />
-        </Innholdsboks>
-    );
-};
+const KontaktinfoSteg = (props: Context) => (
+    <Innholdsboks>
+        <DeltakerinfoDel />
+        <ArbeidsgiverinfoDel />
+        <VeilederinfoDel />
+        <LagreKnapp
+            className="kontaktinfo-steg__lagre-knapp"
+            lagre={props.lagreAvtale}
+            label={'Lagre'}
+            suksessmelding={'Avtale lagret'}
+        />
+    </Innholdsboks>
+);
 
 export default medContext(KontaktinfoSteg);

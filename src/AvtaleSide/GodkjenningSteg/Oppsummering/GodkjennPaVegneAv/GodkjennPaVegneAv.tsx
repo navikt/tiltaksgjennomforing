@@ -95,7 +95,7 @@ const GodkjennPaVegneAv = (props: Props) => {
                             }
                         />
                         <Checkbox
-                            label={'ikke har digital kompetanse'}
+                            label={'mangler digital kompetanse'}
                             checked={
                                 props.godkjentPaVegneGrunn.digitalKompetanse
                             }

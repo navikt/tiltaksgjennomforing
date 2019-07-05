@@ -23,6 +23,7 @@ export interface Deltakerinfo {
     deltakerFornavn: string;
     deltakerEtternavn: string;
     deltakerFnr: string;
+    deltakerTlf: string;
 }
 
 export interface Bedriftinfo {
