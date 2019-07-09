@@ -1,9 +1,9 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import KnappBase from 'nav-frontend-knapper';
+import { Flatknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { Input } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { RouterProps } from 'react-router';
 import RestService from '.././services/rest-service';
 import ApiError from '../api-error';
@@ -13,109 +13,124 @@ import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ik
 import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelPunktForAvtale.svg';
 import { Context, medContext } from '../AvtaleContext';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import FnrInput from '../komponenter/FnrInput/FnrInput';
 import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
-import PakrevdInput from '../komponenter/PakrevdInput/PakrevdInput';
+import useValidering from '../komponenter/useValidering';
 import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { pathTilOpprettetAvtaleBekreftelse, pathTilOversikt } from '../paths';
 import BEMHelper from '../utils/bem';
-import { erGyldigFnr } from '../utils/fnrUtils';
+import { validerFnr } from '../utils/fnrUtils';
 import { validerOrgnr } from '../utils/orgnrUtils';
 import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
-interface State {
-    deltakerFnr: string;
-    bedriftNr: string;
-    deltakerFnrFeil?: SkjemaelementFeil;
-    bedriftNrFeil?: string;
-    bedriftNavn: string;
-}
+const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
+    const [deltakerFnr, setDeltakerFnr] = useState('');
+    const [bedriftNr, setBedriftNr] = useState('');
+    const [bedriftNavn, setBedriftNavn] = useState('');
 
-const FNR_FEILMELDING = 'Ugyldig fødselsnummer';
+    const [
+        deltakerFnrFeil,
+        setDeltakerFnrFeil,
+        validerDeltakerFnr,
+    ] = useValidering(deltakerFnr, [
+        verdi => {
+            if (!verdi) {
+                return { feilmelding: 'Fødselsnummer er påkrevd' };
+            }
+        },
+        verdi => {
+            if (!validerFnr(verdi)) {
+                return { feilmelding: 'Ugyldig fødselsnummer' };
+            }
+        },
+    ]);
 
-class OpprettAvtale extends React.Component<Context & RouterProps, State> {
-    state: State = {
-        deltakerFnr: '',
-        bedriftNr: '',
-        bedriftNavn: '',
+    const [bedriftNrFeil, setBedriftNrFeil, validerBedriftNr] = useValidering(
+        bedriftNr,
+        [
+            verdi => {
+                if (!verdi) {
+                    return { feilmelding: 'Bedriftsnummer er påkrevd' };
+                }
+            },
+            verdi => {
+                if (!validerOrgnr(verdi)) {
+                    return {
+                        feilmelding: 'Ugyldig bedriftsnummer',
+                    };
+                }
+            },
+        ]
+    );
+
+    const fnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const verdi = event.target.value.replace(/\D/g, '');
+        if (/^\d{0,11}$/.test(verdi)) {
+            setDeltakerFnr(verdi);
+            setDeltakerFnrFeil(undefined);
+        }
     };
 
-    endreDeltakerFnr = (fnr: string) => {
-        this.setState({ deltakerFnr: fnr });
+    const orgnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const verdi = event.target.value.replace(/\D/g, '');
+        if (/^\d{0,9}$/.test(verdi)) {
+            setBedriftNr(verdi);
+            setBedriftNrFeil(undefined);
+            setBedriftNavn('');
+        }
     };
 
-    endreArbeidsgiverFnr = (bedriftnr: string) => {
-        this.setState({ bedriftNr: bedriftnr });
-    };
-
-    orgnrOnChange = (event: any) => {
-        const bedriftNr = event.target.value.replace(/\s/g, '');
-
-        if (!bedriftNr) {
-            // Tomt
-            this.setState({ bedriftNrFeil: undefined, bedriftNavn: '' });
-        } else if (validerOrgnr(bedriftNr)) {
-            // Gyldig
+    const orgnrOnBlur = () => {
+        if (validerBedriftNr()) {
             RestService.hentBedriftBrreg(bedriftNr)
                 .then(response => {
-                    this.setState({
-                        bedriftNavn: response.bedriftNavn,
-                        bedriftNrFeil: undefined,
-                    });
+                    setBedriftNavn(response.bedriftNavn);
+                    setBedriftNrFeil(undefined);
                 })
                 .catch(error => {
-                    this.setState({ bedriftNrFeil: error.message });
+                    setBedriftNavn('');
+                    setBedriftNrFeil({ feilmelding: error.message });
                 });
         } else {
-            // Ikke gyldig
-            this.setState({
-                bedriftNrFeil: 'Ugyldig bedriftsnummer',
-                bedriftNavn: '',
+            setBedriftNavn('');
+        }
+    };
+
+    const hvaMangler = () => {
+        let feil = [];
+        if (!validerFnr(deltakerFnr)) {
+            feil.push('gyldig fødselsnummer for deltaker');
+        }
+        if (!validerOrgnr(bedriftNr)) {
+            feil.push('gyldig bedriftsnummer');
+        }
+        if (feil.length) {
+            return 'Må oppgi ' + feil.join(' og ');
+        } else {
+            return '';
+        }
+    };
+
+    const opprettAvtaleKlikk = () => {
+        const hvaSomManglerTekst = hvaMangler();
+        if (!hvaSomManglerTekst) {
+            return props.opprettAvtale(deltakerFnr, bedriftNr).then(() => {
+                props.history.push(
+                    pathTilOpprettetAvtaleBekreftelse(props.avtale.id)
+                );
             });
-        }
-        this.setState({ bedriftNr });
-    };
-
-    hvaMangler = () => {
-        if (
-            !erGyldigFnr(this.state.deltakerFnr) &&
-            !validerOrgnr(this.state.bedriftNr)
-        ) {
-            return 'Må oppgi gyldig fødselsnummer for deltaker og gyldig bedriftsnummer';
-        } else if (
-            erGyldigFnr(this.state.deltakerFnr) &&
-            !validerOrgnr(this.state.bedriftNr)
-        ) {
-            return 'Må oppgi gyldig bedriftsnummer';
-        } else if (
-            validerOrgnr(this.state.bedriftNr) &&
-            !erGyldigFnr(this.state.deltakerFnr)
-        ) {
-            return 'Må oppgi gyldig fødselsnummer for deltaker';
-        }
-    };
-
-    opprettAvtaleKlikk = () => {
-        if (
-            erGyldigFnr(this.state.deltakerFnr) &&
-            validerOrgnr(this.state.bedriftNr)
-        ) {
-            return this.props
-                .opprettAvtale(this.state.deltakerFnr, this.state.bedriftNr)
-                .then(() => {
-                    this.props.history.push(
-                        pathTilOpprettetAvtaleBekreftelse(this.props.avtale.id)
-                    );
-                });
         } else {
-            throw new ApiError(this.hvaMangler());
+            throw new ApiError(hvaSomManglerTekst);
         }
     };
 
-    render() {
-        const veilederpanel = (
+    return (
+        <div className="opprett-avtale">
+            <Innholdstittel className="opprett-avtale__tittel">
+                Opprett avtale om arbeidstrening
+            </Innholdstittel>
+
             <VeilederpanelMedUtklippstavleIkon>
                 <Element className="opprett-avtale__du-trenger-tekst">
                     Du trenger:
@@ -129,9 +144,7 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     </li>
                 </ul>
             </VeilederpanelMedUtklippstavleIkon>
-        );
 
-        const ekspanderbartpanel = (
             <Ekspanderbartpanel
                 tittel="Sånn fungerer det"
                 tittelProps="element"
@@ -172,67 +185,53 @@ class OpprettAvtale extends React.Component<Context & RouterProps, State> {
                     godkjenne avtalen slik at arbeidstreningen kan starte.
                 </EkstbanderbartPanelRad>
             </Ekspanderbartpanel>
-        );
 
-        const inputFelter = (
-            <>
-                <div className="opprett-avtale__input-wrapper">
-                    <div className="opprett-avtale__kandidat-fnr">
-                        <FnrInput
-                            className="typo-element"
-                            label="Deltakers fødselsnummer"
-                            verdi={this.state.deltakerFnr}
-                            feilmelding={FNR_FEILMELDING}
-                            onChange={this.endreDeltakerFnr}
-                        />
-                    </div>
-
-                    <div className="opprett-avtale__arbeidsgiver-bedriftNr">
-                        <PakrevdInput
-                            className="typo-element"
-                            label="Bedriftsnummer"
-                            verdi={this.state.bedriftNr}
-                            onChange={this.orgnrOnChange}
-                            feilmelding={this.state.bedriftNrFeil}
-                        />
-                        {this.state.bedriftNavn && (
-                            <Normaltekst className="opprett-avtale__bedriftNavnBrreg">
-                                {this.state.bedriftNavn}
-                            </Normaltekst>
-                        )}
-                    </div>
-                </div>
-            </>
-        );
-
-        return (
-            <div className="opprett-avtale">
-                <Innholdstittel className="opprett-avtale__tittel">
-                    Opprett avtale om arbeidstrening
-                </Innholdstittel>
-                {veilederpanel}
-                {ekspanderbartpanel}
-                {inputFelter}
-                <div className={cls.element('knappRad')}>
-                    <LagreKnapp
-                        lagre={this.opprettAvtaleKlikk}
-                        label={'Opprett avtale'}
-                        className="opprett-avtale__knapp"
+            <div className="opprett-avtale__input-wrapper">
+                <div className="opprett-avtale__kandidat-fnr">
+                    <Input
+                        className="typo-element"
+                        label="Deltakers fødselsnummer"
+                        value={deltakerFnr}
+                        onChange={fnrOnChange}
+                        onBlur={validerDeltakerFnr}
+                        feil={deltakerFnrFeil}
                     />
+                </div>
 
-                    <KnappBase
-                        type={'flat'}
-                        className={cls.element('avbryt')}
-                        onClick={() => {
-                            this.props.history.push(pathTilOversikt);
-                        }}
-                    >
-                        avbryt
-                    </KnappBase>
+                <div className="opprett-avtale__arbeidsgiver-bedriftNr">
+                    <Input
+                        className="typo-element"
+                        label="Bedriftsnummer"
+                        value={bedriftNr}
+                        onChange={orgnrOnChange}
+                        onBlur={orgnrOnBlur}
+                        feil={bedriftNrFeil}
+                    />
+                    {bedriftNavn && (
+                        <Normaltekst className="opprett-avtale__bedriftNavnBrreg">
+                            {bedriftNavn}
+                        </Normaltekst>
+                    )}
                 </div>
             </div>
-        );
-    }
-}
+            <div className={cls.element('knappRad')}>
+                <LagreKnapp
+                    lagre={opprettAvtaleKlikk}
+                    label={'Opprett avtale'}
+                    className="opprett-avtale__knapp"
+                />
+
+                <Flatknapp
+                    className={cls.element('avbryt')}
+                    onClick={() => {
+                        props.history.push(pathTilOversikt);
+                    }}
+                >
+                    Avbryt
+                </Flatknapp>
+            </div>
+        </div>
+    );
+};
 
 export default medContext<RouterProps>(OpprettAvtale);

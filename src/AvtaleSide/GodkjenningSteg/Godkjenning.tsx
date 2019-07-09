@@ -144,7 +144,7 @@ const Godkjenning = (props: Props) => {
                             return props.endreGodkjenning(true);
                         } else {
                             throw new UfullstendigError(
-                                'Må bekrefte innholdet i avtalen'
+                                'Du må bekrefte at du forstår kravene før du kan godkjenne.'
                             );
                         }
                     }}

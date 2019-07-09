@@ -17,6 +17,7 @@ import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
+import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 interface MatchProps {
     avtaleId: string;
@@ -98,9 +99,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.avtale.erLaast) {
                     innhold = (
                         <div className="avtaleside__innhold">
+                            <TilbakeTilOversiktLenke />
                             <AlertStripe
                                 className={cls.element('banner')}
-                                solid={true}
                                 type="suksess"
                             >
                                 Avtalen er godkjent av alle parter og låst.
@@ -111,6 +112,16 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.rolle === 'DELTAKER') {
                     innhold = (
                         <div className="avtaleside__innhold">
+                            <TilbakeTilOversiktLenke />
+                            <AlertStripe
+                                className={cls.element('banner')}
+                                type="info"
+                            >
+                                Du kan ikke redigere teksten i avtalen på grunn
+                                av hensyn til personvern. Ta kontakt med din
+                                veileder hvis du har spørsmål til innholdet i
+                                avtalen.
+                            </AlertStripe>
                             <GodkjenningSteg />
                         </div>
                     );

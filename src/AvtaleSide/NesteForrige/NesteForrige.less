@@ -1,24 +1,16 @@
 .nesteforrige {
     display: flex;
+    margin-top: 0.8rem;
+    margin-bottom: 1rem;
     &__nesteknapp {
         margin-left: auto;
     }
-    &__hoyrevnstrepadding {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+
     &__chevron {
         display: inline-block;
         align-items: center;
-        &--forrige .chevronboks {
-            padding-right: 0.25rem;
-            margin-right: 0.5rem;
-        }
-        &--neste .chevronboks {
-            padding-left: 0.25rem;
-            margin-left: 0.5rem;
-        }
     }
+
     @media print {
         display: none;
     }

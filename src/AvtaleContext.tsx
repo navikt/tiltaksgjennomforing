@@ -19,6 +19,7 @@ export const tomAvtale: Avtale = {
     deltakerFnr: '',
     deltakerFornavn: '',
     deltakerEtternavn: '',
+    deltakerTlf: '',
 
     bedriftNavn: '',
     bedriftNr: '',
@@ -264,15 +265,15 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async godkjennAvtale() {
-        const avtaleId = this.state.avtale.id;
-        await RestService.godkjennAvtale(avtaleId);
-        await this.hentAvtale(avtaleId);
+        const avtale = this.state.avtale;
+        await RestService.godkjennAvtale(avtale);
+        await this.hentAvtale(avtale.id);
     }
 
     async godkjennAvtalePaVegne(paVegneGrunn: GodkjentPaVegneGrunner) {
-        const avtaleId = this.state.avtale.id;
-        await RestService.godkjennAvtalePaVegne(avtaleId, paVegneGrunn);
-        await this.hentAvtale(avtaleId);
+        const avtale = this.state.avtale;
+        await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
+        await this.hentAvtale(avtale.id);
     }
 
     render() {
@@ -300,7 +301,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                     <Varsel
                         kanLukkes={true}
                         onLukkVarsel={this.fjernFeilmelding}
-                        type={'info'}
+                        type={'advarsel'}
                     >
                         {this.state.feilmelding}
                     </Varsel>

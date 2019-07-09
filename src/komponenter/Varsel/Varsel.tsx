@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import AlertStripe from 'nav-frontend-alertstriper';
+import AlertStripe, { AlertStripeType } from 'nav-frontend-alertstriper';
 import Lukknapp from 'nav-frontend-lukknapp';
 import * as React from 'react';
 import './Varsel.less';
@@ -8,7 +8,7 @@ interface Props {
     timeout?: number;
     kanLukkes: boolean;
     onLukkVarsel?: () => void;
-    type: 'info' | 'suksess';
+    type: AlertStripeType;
     className?: string;
 }
 
@@ -45,7 +45,6 @@ class Varsel extends React.Component<Props, State> {
             this.state.display && (
                 <AlertStripe
                     type={this.props.type}
-                    solid={true}
                     className={classNames('varsel', this.props.className)}
                 >
                     <div className="varsel__innhold">

@@ -1,14 +1,9 @@
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
-import { Normaltekst, Undertittel, Undertekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import BEMHelper from '../../../../utils/bem';
-import {
-    Arbeidsgiverinfo,
-    Bedriftinfo,
-    Deltakerinfo,
-    Veilederinfo,
-} from '../../../avtale';
+import { Avtale } from '../../../avtale';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
@@ -18,23 +13,24 @@ const cls = BEMHelper('avtaleparter');
 const storForbokstav = (streng: string) =>
     streng.charAt(0).toUpperCase() + streng.slice(1);
 
-interface Felt {
+type Felt = {
     felt: string;
     verdi: string;
-}
+};
 
 interface Props {
     navnFelter: Felt[];
     tilleggFelter: Felt[];
     overskrift: string;
     borderFarge: string;
+    skjulHvaMangler: boolean;
 }
 
 const Avtalepart: FunctionComponent<Props> = props => {
     const alleFelter = props.navnFelter.concat(props.tilleggFelter);
-    const hvaMangler = alleFelter
-        .filter(felt => !felt.verdi)
-        .map(felt => felt.felt);
+    const hvaMangler = props.skjulHvaMangler
+        ? []
+        : alleFelter.filter(felt => !felt.verdi).map(felt => felt.felt);
 
     let innhold;
     if (hvaMangler.length > 0) {
@@ -53,13 +49,19 @@ const Avtalepart: FunctionComponent<Props> = props => {
                     {props.tilleggFelter
                         .map(
                             felt =>
-                                storForbokstav(felt.felt) + ': ' + felt.verdi
+                                storForbokstav(felt.felt) +
+                                ': ' +
+                                (felt.verdi || '')
                         )
                         .reduce(
                             (beholder: any, element) =>
                                 beholder === null
                                     ? [element]
-                                    : [...beholder, <br />, element],
+                                    : [
+                                          ...beholder,
+                                          <br key={element} />,
+                                          element,
+                                      ],
                             null
                         )}
                 </Normaltekst>
@@ -75,9 +77,7 @@ const Avtalepart: FunctionComponent<Props> = props => {
     );
 };
 
-const Avtaleparter: FunctionComponent<
-    Deltakerinfo & Arbeidsgiverinfo & Veilederinfo & Bedriftinfo
-> = ({
+const Avtaleparter: FunctionComponent<Avtale> = ({
     deltakerFornavn,
     deltakerEtternavn,
     arbeidsgiverFornavn,
@@ -85,10 +85,12 @@ const Avtaleparter: FunctionComponent<
     veilederFornavn,
     veilederEtternavn,
     deltakerFnr,
+    deltakerTlf,
     veilederTlf,
     arbeidsgiverTlf,
     bedriftNr,
     bedriftNavn,
+    erLaast,
 }) => (
     <Stegoppsummering
         tittel="Avtalens parter"
@@ -105,9 +107,14 @@ const Avtaleparter: FunctionComponent<
                         felt: 'fødselsnummer',
                         verdi: deltakerFnr,
                     },
+                    {
+                        felt: 'telefon',
+                        verdi: deltakerTlf,
+                    },
                 ]}
-                overskrift="deltaker"
+                overskrift="Deltaker"
                 borderFarge="farge-gronn"
+                skjulHvaMangler={erLaast}
             />
             <Avtalepart
                 navnFelter={[
@@ -132,8 +139,9 @@ const Avtaleparter: FunctionComponent<
                         verdi: arbeidsgiverTlf,
                     },
                 ]}
-                overskrift="arbeidsgiver"
+                overskrift="Arbeidsgiver"
                 borderFarge="farge-graa"
+                skjulHvaMangler={erLaast}
             />
             <Avtalepart
                 navnFelter={[
@@ -148,6 +156,7 @@ const Avtaleparter: FunctionComponent<
                 ]}
                 overskrift="NAV-veileder"
                 borderFarge="farge-lysblaa"
+                skjulHvaMangler={erLaast}
             />
         </div>
     </Stegoppsummering>

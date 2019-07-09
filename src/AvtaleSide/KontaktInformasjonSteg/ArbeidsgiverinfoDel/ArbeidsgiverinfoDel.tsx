@@ -1,26 +1,26 @@
-import * as React from 'react';
-import { SkjemaGruppe, Input } from 'nav-frontend-skjema';
-import './ArbeidsgiverinfoDel.less';
+import * as _ from 'lodash';
+import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
+import * as React from 'react';
 import { Context, medContext } from '../../../AvtaleContext';
 import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
-import { Avtale } from '../../avtale';
+import TelefonnummerInput from '../../../komponenter/TelefonnummerInput/TelefonnummerInput';
+import './ArbeidsgiverinfoDel.less';
 
-const ArbeidsgiverinfoDel = (props: Context) => {
-    const onChange = (label: keyof Avtale) => {
-        return (event: any) => props.settAvtaleVerdi(label, event.target.value);
-    };
+const ArbeidsgiverinfoDel = (props: Context) => (
+    <>
+        <Systemtittel className="arbeidsgiver-tittel">
+            Informasjon om arbeidsgiver
+        </Systemtittel>
 
-    const bedriftInfo = (
         <SkjemaGruppe title="Om bedriften">
             <div className="arbeidsgiverbedriftrad">
                 <PakrevdInput
                     className="arbeidsgiverbedriftrad__fornavn"
                     label="Bedriftens navn"
                     verdi={props.avtale.bedriftNavn}
-                    onChange={onChange('bedriftNavn')}
+                    settVerdi={_.partial(props.settAvtaleVerdi, 'bedriftNavn')}
                 />
-
                 <Input
                     className="arbeidsgiverbedriftrad__bedriftnr"
                     label="Bedriftsnummer"
@@ -29,44 +29,41 @@ const ArbeidsgiverinfoDel = (props: Context) => {
                 />
             </div>
         </SkjemaGruppe>
-    );
 
-    const arbeidsgiverInfo = (
         <SkjemaGruppe title="Kontaktperson for avtalen">
             <div className="arbeidsgiverkontaktpersonrad">
                 <PakrevdInput
                     className="arbeidsgiverkontaktpersonrad__fornavn"
                     label="Fornavn"
                     verdi={props.avtale.arbeidsgiverFornavn}
-                    onChange={onChange('arbeidsgiverFornavn')}
+                    settVerdi={_.partial(
+                        props.settAvtaleVerdi,
+                        'arbeidsgiverFornavn'
+                    )}
                 />
                 <PakrevdInput
                     className="arbeidsgiverkontaktpersonrad__etternavn"
                     label="Etternavn"
                     verdi={props.avtale.arbeidsgiverEtternavn}
-                    onChange={onChange('arbeidsgiverEtternavn')}
+                    settVerdi={_.partial(
+                        props.settAvtaleVerdi,
+                        'arbeidsgiverEtternavn'
+                    )}
                 />
             </div>
             <div className="arbeidsgiverkontaktpersonrad">
-                <PakrevdInput
+                <TelefonnummerInput
                     className="arbeidsgiverkontaktpersonrad__tlf"
                     label="Telefonnummer"
                     verdi={props.avtale.arbeidsgiverTlf}
-                    onChange={onChange('arbeidsgiverTlf')}
+                    settVerdi={_.partial(
+                        props.settAvtaleVerdi,
+                        'arbeidsgiverTlf'
+                    )}
                 />
             </div>
         </SkjemaGruppe>
-    );
-
-    return (
-        <>
-            <Systemtittel className="arbeidsgiver-tittel">
-                Informasjon om arbeidsgiver
-            </Systemtittel>
-            {bedriftInfo}
-            {arbeidsgiverInfo}
-        </>
-    );
-};
+    </>
+);
 
 export default medContext<{}>(ArbeidsgiverinfoDel);

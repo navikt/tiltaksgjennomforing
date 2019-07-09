@@ -8,6 +8,8 @@ import { Normaltekst } from 'nav-frontend-typografi';
 
 import './datovelger.less';
 import { momentAsISO, momentIDag } from './moment-utils';
+import AlertStripe from 'nav-frontend-alertstriper';
+import classnames from 'classnames';
 
 interface OwnProps {
     velgDato: (dato: Moment) => void;
@@ -19,6 +21,7 @@ interface OwnProps {
 
 interface State {
     visKalender: boolean;
+    datoTilbakeITid: boolean;
 }
 
 type Props = OwnProps;
@@ -31,17 +34,19 @@ class Datovelger extends React.Component<Props, State> {
         moment.locale('nb');
         this.state = {
             visKalender: false,
+            datoTilbakeITid: false,
         };
         this.kalenderKnapp = null;
     }
 
     velgDato(dato: Moment) {
-        this.setState({
-            ...this.state,
-            visKalender: false,
-        });
+        this.setState({ visKalender: false });
         this.props.velgDato(dato);
     }
+
+    settDatoTilbakeITid = (datoTilbakeITid: boolean) => {
+        this.setState({ datoTilbakeITid });
+    };
 
     toggleKalender() {
         if (!this.props.dato.isValid()) {
@@ -66,6 +71,11 @@ class Datovelger extends React.Component<Props, State> {
         const classNameFraProps = this.props.className
             ? this.props.className
             : '';
+        const datoInputClass = classnames({
+            'datovelger__input--harFeil':
+                !this.props.inputRiktigFormatert || this.state.datoTilbakeITid,
+        });
+
         return (
             <div className={`datovelger__outer ${classNameFraProps}`}>
                 <div className="datovelger">
@@ -77,11 +87,8 @@ class Datovelger extends React.Component<Props, State> {
                                 inputErRiktigFormatert={
                                     this.props.settRiktigFormatert
                                 }
-                                className={
-                                    this.props.inputRiktigFormatert
-                                        ? ''
-                                        : 'datovelger__input--harFeil'
-                                }
+                                datoTilbakeITid={this.settDatoTilbakeITid}
+                                className={datoInputClass}
                             />
                             <button
                                 ref={node => (this.kalenderKnapp = node)}
@@ -94,6 +101,7 @@ class Datovelger extends React.Component<Props, State> {
                         </div>
                         {visKalender && (
                             <Kalender
+                                datoTilbakeITid={this.settDatoTilbakeITid}
                                 valgtDato={this.props.dato.toDate()}
                                 velgDato={(dato: Date) => {
                                     this.velgDato(momentAsISO(dato));
@@ -113,6 +121,17 @@ class Datovelger extends React.Component<Props, State> {
                         className="datovelger__feilmelding"
                     >
                         <Normaltekst>Feil dato</Normaltekst>
+                    </div>
+                )}
+                {this.state.datoTilbakeITid && (
+                    <div
+                        role="alert"
+                        aria-live="assertive"
+                        className="datovelger__feilmelding"
+                    >
+                        <AlertStripe type="info">
+                            Obs! Datoen er tilbake i tid.
+                        </AlertStripe>
                     </div>
                 )}
             </div>
