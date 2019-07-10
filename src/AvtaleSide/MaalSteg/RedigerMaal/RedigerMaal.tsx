@@ -97,6 +97,11 @@ class RedigerMaal extends React.Component<Props, State> {
 
     genererKategoriListe = () => {
         const redigerComponentListe = [];
+        redigerComponentListe.push(
+            <option value="" key="">
+                Velg mål{' '}
+            </option>
+        );
         if (this.state.valgtKategori) {
             redigerComponentListe.push(
                 <option
