@@ -113,7 +113,7 @@ class RedigerMaal extends React.Component<Props, State> {
             );
         }
         const liste = this.props.ledigeMaalkategorier
-            .filter(mal => mal.toString() !== this.state.valgtKategori)
+            .filter(mal => mal !== this.state.valgtKategori)
             .map((mal, index) => (
                 <option value={mal} key={index}>
                     {mal}
