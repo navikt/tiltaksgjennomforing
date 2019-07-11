@@ -32,7 +32,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     <Veilederpanel type={'plakat'} kompakt svg={<Veileder />}>
                         <p>
                             Dette er en digital avtale som skal brukes av
-                            deltaker, arbeidsgiver og NAV sin veileder.
+                            deltaker, arbeidsgiver og NAV.
                         </p>
                         <p>
                             For å se avtalene du er en del av må du først logge
