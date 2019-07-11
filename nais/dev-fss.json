@@ -1,8 +1,8 @@
 {
-  "ingress": "https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing",
-  "api-gw-url": "https://arbeidsgiver.nais.preprod.local",
-  "isso-login-url": "https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing",
-  "logout-url": "https://loginservice.nais.preprod.local/slo",
-  "decorator-url": "https://app-q0.adeo.no/internarbeidsflatedecorator/js/head.min.js",
-  "er-internflate": "true"
+    "ingress": "https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing",
+    "api-gw-url": "https://arbeidsgiver.nais.preprod.local",
+    "isso-login-url": "https://loginservice.nais.preprod.local/login?redirect=https://arbeidsgiver.nais.preprod.local/tiltaksgjennomforing",
+    "logout-url": "https://loginservice.nais.preprod.local/slo",
+    "decorator-url": "https://app-q0.adeo.no/internarbeidsflatedecorator/js/head.min.js",
+    "er-internflate": "true"
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleContext';
 import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
@@ -11,7 +11,7 @@ import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import { basename } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import {injectAll} from "./utils/appendscripts";
+import { injectAll } from './utils/appendscripts';
 
 addLocaleData(nb);
 

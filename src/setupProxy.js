@@ -19,7 +19,7 @@ const envProperties = {
         (erDevelopmentModus &&
             '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
 
-    NAVIGASJONSLINJE : process.env.INTERNFLATE || false
+    NAVIGASJONSLINJE: process.env.INTERNFLATE || false,
 };
 
 if (
@@ -53,9 +53,10 @@ module.exports = function(app) {
     });
 
     app.get('/tiltaksgjennomforing/navigasjonslinje', (req, res) => {
-        const navigasjonslinje = {internflate : envProperties.NAVIGASJONSLINJE};
+        const navigasjonslinje = {
+            internflate: envProperties.NAVIGASJONSLINJE,
+        };
         res.send(JSON.stringify(navigasjonslinje));
-
     });
 
     app.get('/tiltaksgjennomforing/logout', (req, res) => {

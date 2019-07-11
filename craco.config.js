@@ -11,47 +11,60 @@ const noHeaderAndFooterInject = {
     NAV_STYLES: '',
     NAV_HEADING: '',
     NAV_FOOTER: '',
-    NAV_MENU_RESOURCES: ''
+    NAV_MENU_RESOURCES: '',
 };
 
 module.exports = () => {
     return {
         webpack: {
-            configure:  {
-                target: "web",
+            configure: {
+                target: 'web',
                 mode: process.env.NODE_ENV || 'development',
-                entry:
-                    path.join(__dirname, 'src/index.tsx'),
+                entry: path.join(__dirname, 'src/index.tsx'),
 
                 output: {
                     path: path.resolve(__dirname, './build'),
                     filename: 'bundle.js',
-                    publicPath: process.env.NODE_ENV === 'development' ? '/' : '/tiltaksgjennomforing',
-                }
+                    publicPath:
+                        process.env.NODE_ENV === 'development'
+                            ? '/'
+                            : '/tiltaksgjennomforing',
+                },
             },
             plugins: [
                 new webpack.DefinePlugin({
-                    "process.env.INTERNFLATE": JSON.stringify(process.env.INTERNFLATE),
+                    'process.env.INTERNFLATE': JSON.stringify(
+                        process.env.INTERNFLATE
+                    ),
                 }),
-            ]
+            ],
         },
         devServer: {
-
             before: app => {
                 app.engine('html', mustacheExpress());
                 app.set('views', `${__dirname}/public`);
                 app.set('view engine', 'mustache');
                 app.get(['/', '/tiltaksgjennomforing'], (req, res) => {
-                    process.env.DECORATOR === 'true' ? (
-                    getDecorator().then(decoratorData => {
-                        res.render('index.html', Object.assign(decoratorData));
-                    })): (
-                        res.render('index.html', Object.assign(noHeaderAndFooterInject))
-                    )
+                    process.env.DECORATOR === 'true'
+                        ? getDecorator().then(decoratorData => {
+                              res.render(
+                                  'index.html',
+                                  Object.assign(decoratorData)
+                              );
+                          })
+                        : res.render(
+                              'index.html',
+                              Object.assign(noHeaderAndFooterInject)
+                          );
                 });
-                app.get('/internarbeidsflatedecorator/head.min.js', (req, res) => {
-                   res.sendFile(path.resolve(__dirname, './server/head.min.js'));
-                });
+                app.get(
+                    '/internarbeidsflatedecorator/head.min.js',
+                    (req, res) => {
+                        res.sendFile(
+                            path.resolve(__dirname, './server/head.min.js')
+                        );
+                    }
+                );
             },
             hot: true,
             publicPath: '/',
@@ -66,21 +79,18 @@ module.exports = () => {
                 chunks: true,
                 dept: true,
                 outputPath: true,
-                index: true
+                index: true,
             },
         },
         plugins: [
             {
                 plugin: CracoLessPlugin,
                 options: {
-
                     lessLoaderOptions: {
                         loader: new NpmImportPlugin({ prefix: '~' }),
                     },
                 },
             },
-
         ],
-    }
+    };
 };
-
