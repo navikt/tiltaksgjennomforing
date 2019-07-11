@@ -27,11 +27,6 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                 <Sidetittel className="landing__sidetittel">
                     Dine tiltak på ett sted
                 </Sidetittel>
-                {/* <Normaltekst className="landing__infotekst">
-                    Dette er en digital avtale for ulike tiltak som skal brukes
-                    av deltaker, arbeidsgiver og NAV sin veileder. For å se
-                    avtalene du er en del av må du først logge på.
-                </Normaltekst> */}
                 <div className="landing__infotekst">
                     <Veilederpanel
                         type={'plakat'}
