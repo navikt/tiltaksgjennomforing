@@ -11,6 +11,7 @@ import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import { basename } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import Informasjonsside from './Informajonsside/Informasjonsside';
 
 addLocaleData(nb);
 
@@ -42,6 +43,11 @@ class App extends React.Component {
                                         path="/opprett-avtale-fullfort/:avtaleId"
                                         exact={true}
                                         component={OpprettelseFullfort}
+                                    />
+                                    <Route
+                                        path="/informasjonsside"
+                                        exact={true}
+                                        component={Informasjonsside}
                                     />
                                     <Route
                                         path=""

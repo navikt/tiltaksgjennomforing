@@ -1,0 +1,54 @@
+import React from 'react';
+
+const Clipboard = ({ cls }: { cls: string }) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            width="100"
+            height="100"
+            viewBox="0 0 100 100"
+            className={cls}
+        >
+            <defs>
+                <circle id="a_minEgenIkon" cx="50" cy="50" r="50" />
+                <path
+                    id="c_minEgenIkon"
+                    d="M0 8.299v37.666c0 1.35 1.065 2.446 2.38 2.446h31.87c1.314 0 2.38-1.095 2.38-2.446V2.446C36.63 1.096 35.564 0 34.25 0H8.819L0 8.299z"
+                />
+            </defs>
+            <g fill="none" fillRule="evenodd">
+                <g>
+                    <mask id="b_minEgenIkon" fill="#fff">
+                        <use xlinkHref="#a_minEgenIkon" />
+                    </mask>
+                    <g fill="#99C2E8" mask="url(#b_minEgenIkon)">
+                        <path d="M0 100h100V0H0z" />
+                    </g>
+                </g>
+                <path
+                    fill="#515658"
+                    d="M70.01 24.096H29.988c-1.651 0-2.988 1.348-2.988 3.013v50.879a3.022 3.022 0 0 0 1.09 2.323 2.959 2.959 0 0 0 1.898.689H70.01c1.652 0 2.99-1.35 2.99-3.012v-50.88c0-1.664-1.338-3.012-2.99-3.012"
+                />
+                <g transform="translate(31.26 28.342)">
+                    <mask id="d_minEgenIkon" fill="#fff">
+                        <use xlinkHref="#c_minEgenIkon" />
+                    </mask>
+                </g>
+                <path
+                    fill="#C9C9C9"
+                    d="M40.078 28.342v5.78a2.526 2.526 0 0 1-2.534 2.52h-6.285l8.819-8.3z"
+                />
+                <g fill="#515658">
+                    <path d="M53.085 62.83V49.959H44.176v2.528h1.971V62.83h-1.971v2.527h10.88v-2.527zM49.616 47.858c2.253 0 4.08-1.88 4.08-4.2 0-2.32-1.827-4.2-4.08-4.2s-4.08 1.88-4.08 4.2c0 2.32 1.827 4.2 4.08 4.2" />
+                </g>
+                <path
+                    fill="#2F3237"
+                    d="M50.427 26.043c-.52 0-.942-.434-.942-.973 0-.538.421-.975.942-.975.518 0 .941.437.941.975 0 .539-.423.973-.94.973m5.814-3.982h-3.504v-.67c0-1.32-1.036-2.391-2.31-2.391-1.28 0-2.313 1.07-2.313 2.391v.67H44.61c-1.727 0-3.13 1.45-3.13 3.237v3.894h17.89v-3.894c0-1.787-1.402-3.237-3.129-3.237"
+                />
+            </g>
+        </svg>
+    );
+};
+
+export default Clipboard;
