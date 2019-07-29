@@ -40,7 +40,11 @@ const Innhold = () => {
                             løsningen fungerer:
                         </Normaltekst>
                     </div>
-                    <EkstbanderbartPanelRad svgIkon={<Keyboard />}>
+
+                    <EkstbanderbartPanelRad
+                        svgIkon={<Keyboard />}
+                        headerTekst="NAV oppretter en avtale"
+                    >
                         Når deltageren, arbeidsgiveren og NAV har blitt enige om
                         å starte opp en arbeidstrening, oppretter NAV en digital
                         avtale. Deltager og arbeidsgiver vil få tilsendt en
