@@ -13,6 +13,7 @@ const cls = BEMHelper('howto');
 const EkstbanderbartPanelRad: React.FunctionComponent<Props> = props => {
     const { svgIkon, headerTekst, children } = props;
     const header = headerTekst ? <Element>{headerTekst}</Element> : null;
+
     return (
         <div className={cls.element('element')}>
             <div className={cls.element('icon')}>{svgIkon}</div>
