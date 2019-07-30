@@ -1,18 +1,31 @@
 import React from 'react';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
+import TypografiBase, { Normaltekst, Element } from 'nav-frontend-typografi';
 import './EksbanderbartPanelRad.less';
 import BEMHelper from '../../utils/bem';
 
 interface Props {
     svgIkon: React.ReactNode;
-    headerTekst?: string;
+    headerTekst?: {
+        tekst: string;
+        typografiType?: string;
+    };
 }
 
 const cls = BEMHelper('howto');
 
 const EkstbanderbartPanelRad: React.FunctionComponent<Props> = props => {
     const { svgIkon, headerTekst, children } = props;
-    const header = headerTekst ? <Element>{headerTekst}</Element> : null;
+    const header = headerTekst ? (
+        <TypografiBase
+            type={
+                headerTekst.typografiType
+                    ? headerTekst.typografiType
+                    : 'undertittel'
+            }
+        >
+            {headerTekst.tekst}
+        </TypografiBase>
+    ) : null;
 
     return (
         <div className={cls.element('element')}>

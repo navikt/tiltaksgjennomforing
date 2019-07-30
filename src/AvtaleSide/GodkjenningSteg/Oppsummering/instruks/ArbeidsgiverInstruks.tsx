@@ -46,7 +46,7 @@ const ArbeidsgiverInstruks: FunctionComponent = () => (
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
             <EkstbanderbartPanelRad
                 svgIkon={<RettighetsHammerIkon />}
-                headerTekst="Arbeidsmiljøloven"
+                headerTekst={{ tekst: 'Arbeidsmiljøloven' }}
             >
                 En arbeidssøker som deltar på arbeidstrening blir i de fleste
                 situasjoner regnet som en ordinær arbeidstaker etter
@@ -58,7 +58,9 @@ const ArbeidsgiverInstruks: FunctionComponent = () => (
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
                 svgIkon={<SkadeErstatning />}
-                headerTekst="Yrkesskadeforsikring og skadeerstatning"
+                headerTekst={{
+                    tekst: 'Yrkesskadeforsikring og skadeerstatning',
+                }}
             >
                 Den som er i arbeidstrening er omfattet av arbeidsgiverens
                 yrkesskadeforsikring. Arbeidsgiveren er ansvarlig for skade som
@@ -68,7 +70,9 @@ const ArbeidsgiverInstruks: FunctionComponent = () => (
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
                 svgIkon={<DrofteMedAnsattePersonOpplysning />}
-                headerTekst="Drøft med representanter for de ansatte"
+                headerTekst={{
+                    tekst: 'Drøft med representanter for de ansatte',
+                }}
             >
                 Du må drøfte inngåelse av avtale om arbeidstrening med
                 representanter for de ansatte i din bedrift før en eventuell
@@ -79,7 +83,7 @@ const ArbeidsgiverInstruks: FunctionComponent = () => (
 
             <EkstbanderbartPanelRad
                 svgIkon={<BehandlingPersonOpplysning />}
-                headerTekst="Behandling av personopplysninger"
+                headerTekst={{ tekst: 'Behandling av personopplysninger' }}
             >
                 Som arbeidsgiver må du sikre at all behandling av
                 personopplysninger utføres etter krav til personvern,
