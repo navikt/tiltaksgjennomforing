@@ -27,11 +27,10 @@ class App extends React.Component {
                                 exact={true}
                                 component={Informasjonsside}
                             />
-                        </Switch>
-                        <InnloggingBoundary>
-                            <RedirectEtterLogin>
-                                <AvtaleProvider>
-                                    <Switch>
+
+                            <InnloggingBoundary>
+                                <RedirectEtterLogin>
+                                    <AvtaleProvider>
                                         <Route
                                             path="/avtale/:avtaleId"
                                             exact={true}
@@ -57,10 +56,10 @@ class App extends React.Component {
                                             exact={true}
                                             component={AvtaleOversikt}
                                         />
-                                    </Switch>
-                                </AvtaleProvider>
-                            </RedirectEtterLogin>
-                        </InnloggingBoundary>
+                                    </AvtaleProvider>
+                                </RedirectEtterLogin>
+                            </InnloggingBoundary>
+                        </Switch>
                     </>
                 </BrowserRouter>
             </IntlProvider>
