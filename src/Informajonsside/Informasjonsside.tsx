@@ -2,7 +2,7 @@ import React from 'react';
 import Banner from '../komponenter/Banner/Banner';
 import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import BEMHelper from '../utils/bem';
-import Clipboard from './Clipboard';
+
 import './informasjonsside.less';
 import { Normaltekst, Innholdstittel } from 'nav-frontend-typografi';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
@@ -10,6 +10,7 @@ import { ReactComponent as Keyboard } from './keyboard.svg';
 import { ReactComponent as DigitalAvtale } from './digitalAvtale.svg';
 import { ReactComponent as TilEkstern } from './external-link.svg';
 import { ReactComponent as Altinn } from './altinn.svg';
+import { ReactComponent as Clipboard } from './informationIcon.svg';
 import { ReactComponent as Historikk } from './historikk.svg';
 import { ReactComponent as DynamiskAvtale } from './dynamiskAvtale.svg';
 import Lenke from 'nav-frontend-lenker';
@@ -32,7 +33,7 @@ const Innhold = () => {
             <div className={cls.element('container')}>
                 <TilbakeTilOversiktLenke />
                 <div className={cls.element('innhold')}>
-                    <Clipboard cls="ClipBoardIkon" />
+                    <Clipboard className={cls.element('ClipboardIkon')} />
                     <div className={cls.element('innholdstittel')}>
                         <Innholdstittel>
                             Hvordan fungerer løsningen?
@@ -47,7 +48,10 @@ const Innhold = () => {
                     </div>
 
                     <EkstbanderbartPanelRad
-                        svgIkon={<Keyboard />}
+                        classname={cls.element('info')}
+                        svgIkon={
+                            <Keyboard className={cls.element('SubIkon')} />
+                        }
                         headerTekst={{
                             tekst: 'NAV oppretter en avtale',
                             typografiType: 'undertittel',
@@ -60,7 +64,8 @@ const Innhold = () => {
                     </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
-                        svgIkon={<Altinn />}
+                        classname={cls.element('info')}
+                        svgIkon={<Altinn className={cls.element('SubIkon')} />}
                         headerTekst={{
                             tekst: 'Tilgang og innlogging til avtalen',
                             typografiType: 'undertittel',
@@ -69,9 +74,9 @@ const Innhold = () => {
                         Deltaker og arbeidsgiver logger seg inn i avtalen via
                         ID-porten. Tilgang for arbeidsgiver styres gjennom
                         Altinn. For at en arbeidsgiver kan representere en
-                        bedrift må personen ha rollen{' '}
-                        <u>Helse-, sosial- og velferdstjenester</u>
-                        eller gis tilgang til enkelttjenesten{' '}
+                        bedrift må personen ha rollen{'  '}
+                        <u>Helse-, sosial- og velferdstjenester</u> eller gis
+                        tilgang til enkelttjenesten{' '}
                         <u>Avtale om arbeidstrening</u>. <br /> <br />
                         <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                             Les mer om roller og rettigheter på Altinn.no
@@ -82,7 +87,10 @@ const Innhold = () => {
                     </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
-                        svgIkon={<DigitalAvtale />}
+                        classname={cls.element('info')}
+                        svgIkon={
+                            <DigitalAvtale className={cls.element('SubIkon')} />
+                        }
                         headerTekst={{
                             tekst: 'Flere parter i samme digitale løsning',
                             typografiType: 'undertittel',
@@ -95,7 +103,12 @@ const Innhold = () => {
                     </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
-                        svgIkon={<DynamiskAvtale />}
+                        classname={cls.element('info')}
+                        svgIkon={
+                            <DynamiskAvtale
+                                className={cls.element('SubIkon')}
+                            />
+                        }
                         headerTekst={{
                             tekst: 'En dynamisk avtale',
                             typografiType: 'undertittel',
@@ -108,7 +121,10 @@ const Innhold = () => {
                     </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
-                        svgIkon={<Historikk />}
+                        classname={cls.element('info')}
+                        svgIkon={
+                            <Historikk className={cls.element('SubIkon')} />
+                        }
                         headerTekst={{
                             tekst: 'Avtalens historikk',
                             typografiType: 'undertittel',
