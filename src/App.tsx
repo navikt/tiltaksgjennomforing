@@ -23,11 +23,10 @@ class App extends React.Component {
                     <>
                         <Switch>
                             <Route
-                                path="/informasjonsside"
+                                path="/informasjonsside/uinnlogget"
                                 exact={true}
                                 component={Informasjonsside}
                             />
-
                             <InnloggingBoundary>
                                 <RedirectEtterLogin>
                                     <AvtaleProvider>
@@ -55,6 +54,11 @@ class App extends React.Component {
                                             path=""
                                             exact={true}
                                             component={AvtaleOversikt}
+                                        />
+                                        <Route
+                                            path="/informasjonsside/innlogget"
+                                            exact={true}
+                                            component={Informasjonsside}
                                         />
                                     </AvtaleProvider>
                                 </RedirectEtterLogin>
