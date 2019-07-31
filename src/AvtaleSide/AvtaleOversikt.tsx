@@ -16,6 +16,12 @@ import {
 import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
+import Banner from '../komponenter/Banner/Banner';
+import AlertStripe from 'nav-frontend-alertstriper';
+import Lenke from 'nav-frontend-lenker';
+import BEMHelper from '../utils/bem';
+
+const cls = BEMHelper('avtaleoversikt');
 
 const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
     return <Link to={props.href!}>Gå til</Link>;
@@ -93,22 +99,35 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         );
 
     return (
-        <div className="avtaleoversikt">
-            <div className="avtaleoversikt__topp">
-                <Innholdstittel className="avtaleoversikt__topp__tittel">
-                    Dine arbeidstreningsavtaler
-                </Innholdstittel>
-                <Normaltekst className="avtaleoversikt__topp__tekst">
-                    Her ser du arbeidstreningsavtaler du har tilgang til.
-                </Normaltekst>
-                {opprettAvtaleKnapp}
-            </div>
-            {avtaletabell || (
-                <div className="avtaleoversikt__ingen_avtaler typo-normal">
-                    Ingen avtaler
+        <>
+            <Banner tekst="Dine arbeidstreningsavtaler" />
+            <div className="avtaleoversikt">
+                <div className={cls.element('informasjonsBanner')}>
+                    <AlertStripe type="info">
+                        Dette er en ny digital løsning for avtale om
+                        arbeidstrening.{' '}
+                        <Lenke href="/informasjonsside">
+                            Les mer om hvordan dette fungerer her
+                        </Lenke>
+                        .
+                    </AlertStripe>
                 </div>
-            )}
-        </div>
+                <div className="avtaleoversikt__topp">
+                    <Innholdstittel className="avtaleoversikt__topp__tittel">
+                        Dine arbeidstreningsavtaler
+                    </Innholdstittel>
+                    <Normaltekst className="avtaleoversikt__topp__tekst">
+                        Her ser du arbeidstreningsavtaler du har tilgang til.
+                    </Normaltekst>
+                    {opprettAvtaleKnapp}
+                </div>
+                {avtaletabell || (
+                    <div className="avtaleoversikt__ingen_avtaler typo-normal">
+                        Ingen avtaler
+                    </div>
+                )}
+            </div>
+        </>
     );
 };
 

@@ -1,8 +1,11 @@
 @import '~nav-frontend-core/less/_variabler';
-
 .avtaleoversikt {
     display: flex;
     flex-direction: column;
+
+    .alertstripe .alertstripe__tekst {
+        max-width: 800px;
+    }
 
     &__ingen_avtaler {
         text-align: center;
@@ -20,6 +23,15 @@
 
         &__knapp {
             margin-top: 2rem;
+        }
+    }
+
+    &__informasjonsBanner {
+        margin: 2rem 0;
+
+        p {
+            // margin-top: 0.5rem;
+            // margin-bottom: 0.25rem;
         }
     }
 

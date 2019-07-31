@@ -98,7 +98,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
     };
 
     const hvaMangler = () => {
-        let feil = [];
+        const feil = [];
         if (!validerFnr(deltakerFnr)) {
             feil.push('gyldig fødselsnummer for deltaker');
         }
