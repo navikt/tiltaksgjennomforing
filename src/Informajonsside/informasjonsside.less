@@ -8,35 +8,78 @@
 
     &__eksterntLenkeikon {
         display: inline-block;
-        margin-left: 0.2rem;
+        margin-left: 0.3rem;
     }
 
     .tilbaketiloversikt {
-        margin: 4rem 0 1rem 0;
+        margin: 1rem 0 1rem 0;
     }
 
     &__innhold {
         background-color: white;
-        padding: 2rem;
-        margin-bottom: 4rem;
+        padding: 1rem 1rem 1rem 2rem;
         border-radius: 4px;
     }
 
-    .ClipBoardIkon {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        z-index: 5;
-        margin-top: -4.7rem;
+    &__ClipboardIkon {
+        display: none;
+    }
+
+    &__SubIkon {
+        display: none;
     }
 
     &__innholdstittel {
-        padding: 2rem 0;
+        padding-top: 1rem;
         display: flex;
-        justify-content: center;
+        justify-content: left;
     }
 
     &__ingress {
-        padding: 1rem 1rem 2rem 1rem;
+        padding: 1rem 0 2rem 0rem;
+    }
+
+    &__info {
+        margin: 1rem 0rem 3rem -1rem;
+    }
+
+    //  Spesielt for browser:
+    @media(min-width: 765px) {
+        .tilbaketiloversikt {
+            margin: 4rem 0 1rem 0;
+        }
+
+        &__ingress {
+            padding: 1rem 1rem 2rem 1rem;
+        }
+
+        &__ClipboardIkon {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            z-index: 5;
+            margin-top: -4.7rem;
+        }
+
+        &__SubIkon {
+            display: flex;
+        }
+
+        &__innholdstittel {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        &__innhold {
+            background-color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        &__info {
+        margin: 1rem 1rem 3rem 1rem;
+    }
     }
 }
