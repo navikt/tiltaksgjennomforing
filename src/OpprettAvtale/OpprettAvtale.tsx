@@ -94,10 +94,6 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
         }
     };
 
-    const test = () => {
-        //
-    };
-
     const orgnrOnBlur = () => {
         if (validerBedriftNr()) {
             RestService.hentBedriftBrreg(bedriftNr)
