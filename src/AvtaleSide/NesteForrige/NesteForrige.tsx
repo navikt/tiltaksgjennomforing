@@ -7,7 +7,6 @@ import './NesteForrige.less';
 import { Link } from 'react-router-dom';
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
-import Lenke from 'nav-frontend-lenker';
 
 export interface Props {
     avtaleSteg: StegInfo[];
@@ -38,34 +37,27 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
     return (
         <div className="nesteforrige">
             {forrigeSteg && (
-                <Link to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}>
-                    <Lenke
-                        href="#"
-                        className="nesteforrige__chevron"
-                        onClick={() => {
-                            props.endretSteg();
-                        }}
-                    >
-                        <VenstreChevron />
-                        Forrige
-                    </Lenke>
+                <Link
+                    to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}
+                    className="lenke"
+                    onClick={() => {
+                        props.endretSteg();
+                    }}
+                >
+                    <VenstreChevron />
+                    Forrige
                 </Link>
             )}
             {nesteSteg && (
                 <Link
                     to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}
-                    className="nesteforrige__nesteknapp"
+                    className="nesteforrige__nesteknapp lenke"
+                    onClick={() => {
+                        props.endretSteg();
+                    }}
                 >
-                    <Lenke
-                        href="#"
-                        className="nesteforrige__chevron"
-                        onClick={() => {
-                            props.endretSteg();
-                        }}
-                    >
-                        Neste
-                        <HoyreChevron />
-                    </Lenke>
+                    Neste
+                    <HoyreChevron />
                 </Link>
             )}
         </div>

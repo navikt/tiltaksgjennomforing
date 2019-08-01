@@ -17,9 +17,6 @@ import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 
-const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
-    return <Link to={props.href!}>Gå til</Link>;
-};
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const [avtaler, setAvtaler] = useState<Avtale[] | null>(null);
     const [

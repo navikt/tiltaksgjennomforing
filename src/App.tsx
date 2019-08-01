@@ -44,7 +44,7 @@ class App extends React.Component {
                                         component={OpprettelseFullfort}
                                     />
                                     <Route
-                                        path=""
+                                        path="/"
                                         exact={true}
                                         component={AvtaleOversikt}
                                     />

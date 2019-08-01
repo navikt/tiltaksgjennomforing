@@ -3,7 +3,12 @@ import { Flatknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { Input } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, {
+    ChangeEvent,
+    FunctionComponent,
+    useEffect,
+    useState,
+} from 'react';
 import { RouterProps } from 'react-router';
 import RestService from '.././services/rest-service';
 import ApiError from '../api-error';
@@ -28,6 +33,14 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
+
+    useEffect(() => {
+        if (props.avtale.id !== '') {
+            props.history.push(
+                pathTilOpprettetAvtaleBekreftelse(props.avtale.id)
+            );
+        }
+    }, [props.avtale.id]);
 
     const [
         deltakerFnrFeil,
@@ -81,6 +94,10 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
         }
     };
 
+    const test = () => {
+        //
+    };
+
     const orgnrOnBlur = () => {
         if (validerBedriftNr()) {
             RestService.hentBedriftBrreg(bedriftNr)
@@ -115,11 +132,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
     const opprettAvtaleKlikk = () => {
         const hvaSomManglerTekst = hvaMangler();
         if (!hvaSomManglerTekst) {
-            return props.opprettAvtale(deltakerFnr, bedriftNr).then(() => {
-                props.history.push(
-                    pathTilOpprettetAvtaleBekreftelse(props.avtale.id)
-                );
-            });
+            return props.opprettAvtale(deltakerFnr, bedriftNr);
         } else {
             throw new ApiError(hvaSomManglerTekst);
         }

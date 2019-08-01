@@ -9,6 +9,7 @@ interface State {
     suksessmelding: string;
     feilmelding: string;
     spinner: boolean;
+    isMounted: boolean;
 }
 
 interface Props {
@@ -23,24 +24,35 @@ class LagreKnapp extends Component<Props, State> {
         suksessmelding: '',
         feilmelding: '',
         spinner: false,
+        isMounted: false,
     };
 
-    lagreKnappOnClick = async () => {
-        this.setState({ spinner: true });
-        try {
-            await this.props.lagre();
-            this.visSuksessmelding();
-        } catch (error) {
-            if (
-                error instanceof ApiError ||
-                error instanceof UfullstendigError
-            ) {
-                this.visFeilmelding(error.message);
-            } else {
-                throw error;
+    componentDidMount(): void {
+        this.setState({ isMounted: true });
+    }
+
+    componentWillUnmount(): void {
+        this.setState({ isMounted: false });
+    }
+
+    lagreKnappOnClick = () => {
+        if (this.state.isMounted) {
+            this.setState({ spinner: true });
+            try {
+                this.props.lagre();
+                this.visSuksessmelding();
+            } catch (error) {
+                if (
+                    error instanceof ApiError ||
+                    error instanceof UfullstendigError
+                ) {
+                    this.visFeilmelding(error.message);
+                } else {
+                    throw error;
+                }
+            } finally {
+                this.fjernSpinner();
             }
-        } finally {
-            this.fjernSpinner();
         }
     };
 
@@ -49,7 +61,7 @@ class LagreKnapp extends Component<Props, State> {
     };
 
     visSuksessmelding = () => {
-        if (this.props.suksessmelding) {
+        if (this.props.suksessmelding && this.state.isMounted) {
             this.setState({ suksessmelding: this.props.suksessmelding });
         }
     };
@@ -63,7 +75,9 @@ class LagreKnapp extends Component<Props, State> {
     };
 
     fjernSpinner = () => {
-        this.setState({ spinner: false });
+        if (this.state.isMounted) {
+            this.setState({ spinner: false });
+        }
     };
 
     render() {

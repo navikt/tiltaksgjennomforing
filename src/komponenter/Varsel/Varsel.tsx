@@ -17,11 +17,10 @@ interface State {
 }
 
 class Varsel extends React.Component<Props, State> {
-    private timerHandle: any;
-
     state = {
         display: true,
     };
+    private timerHandle: any;
 
     componentDidMount = (): void => {
         if (this.props.timeout) {
