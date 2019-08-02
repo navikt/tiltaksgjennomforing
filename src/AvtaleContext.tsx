@@ -10,6 +10,7 @@ import {
 import Varsel from './komponenter/Varsel/Varsel';
 import RestService from './services/rest-service';
 import ApiError from './api-error';
+import { useState } from 'react';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -57,9 +58,23 @@ export const tomAvtale: Avtale = {
     },
 };
 
+const [maal, setMaal] = useState('');
+const [maalTkest, setMaalTekst] = useState('');
+
+interface TemporaryLagring {
+    maal: string;
+    maalTekst: string;
+}
+
+const tomTemporaryLagring: TemporaryLagring = {
+    maal: '',
+    maalTekst: '',
+};
+
 export interface Context {
     avtale: Avtale;
     rolle: Rolle;
+    mellomLagring: TemporaryLagring;
     settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
     lagreAvtale: () => Promise<any>;
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -73,6 +88,8 @@ export interface Context {
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
     endretSteg: () => void;
+    MellomLagreMaal: () => void;
+    setMellomLagreMaalTom: () => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -86,6 +103,7 @@ interface State {
     feilmelding: string;
     rolle: Rolle;
     ulagredeEndringer: boolean;
+    mellomLagring: TemporaryLagring;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -97,6 +115,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             feilmelding: '',
             rolle: 'INGEN_ROLLE',
             ulagredeEndringer: false,
+            mellomLagring: tomTemporaryLagring,
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -113,6 +132,20 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.godkjennAvtale = this.godkjennAvtale.bind(this);
         this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
+        this.mellomLagreMaal = this.mellomLagreMaal.bind(this);
+        this.setMellomLagreMaalTom = this.setMellomLagreMaalTom.bind(this);
+    }
+
+    mellomLagreMaal(maalInput: TemporaryLagring): void {
+        this.setState({
+            mellomLagring: maalInput,
+        });
+    }
+
+    setMellomLagreMaalTom(): void {
+        this.setState({
+            mellomLagring: tomTemporaryLagring,
+        });
     }
 
     shouldComponentUpdate(nextProps: any, nextState: State): boolean {
@@ -293,6 +326,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             godkjennPaVegne: this.godkjennAvtalePaVegne,
             visFeilmelding: this.visFeilmelding,
             endretSteg: this.endretSteg,
+            mellomLagreMaal: this.mellomLagreMaal,
+            setMellomLagreMaalTom: this.setMellomLagreMaalTom,
         };
 
         return (

@@ -17,6 +17,8 @@ class OpprettMaal extends React.Component<Props> {
         visRedigerMaal: false,
     };
 
+    componentWillUnmount(): void {}
+
     visRedigerMaal = (skalVises: boolean) => {
         this.setState({ visRedigerMaal: skalVises });
     };
