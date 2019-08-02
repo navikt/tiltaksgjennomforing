@@ -6,6 +6,7 @@ import Banner from '../komponenter/Banner/Banner';
 import './Innloggingsside.less';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import { ReactComponent as Veileder } from './veileder.svg';
+import Lenke from 'nav-frontend-lenker';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const logginnknapper = props.innloggingskilder.map(
@@ -29,11 +30,18 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     Dine tiltak på ett sted
                 </Sidetittel>
                 <div className="innloggingsside__infotekst">
-                    <Veilederpanel type={'plakat'} kompakt svg={<Veileder />}>
+                    <Veilederpanel
+                        type={'plakat'}
+                        kompakt={true}
+                        svg={<Veileder />}
+                    >
                         <p>
                             Dette er en digital avtale som skal brukes av
                             deltaker, arbeidsgiver og NAV.
                         </p>
+                        <Lenke href="/informasjonsside/uinnlogget">
+                            Her kan du lese mer om hvordan løsningen fungerer >
+                        </Lenke>
                         <p>
                             For å se avtalene du er en del av må du først logge
                             på.

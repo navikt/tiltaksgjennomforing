@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 
 type UseValidering = <T>(
     verdi: T,
-    validatorer: ((verdi: T) => SkjemaelementFeil | undefined)[]
+    validatorer: Array<(verdi: T) => SkjemaelementFeil | undefined>
 ) => [
     SkjemaelementFeil | undefined,
     Dispatch<SetStateAction<SkjemaelementFeil | undefined>>,
