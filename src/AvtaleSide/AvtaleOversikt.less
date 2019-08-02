@@ -15,7 +15,7 @@
         flex-direction: column;
 
         .avtaleoversikt__natur-tekst {
-            margin-top: 1.5rem;
+            margin-top: 2rem;
         }
 
         .avtaleoversikt__test {
@@ -72,9 +72,6 @@
             width: 8rem;
         }
 
-        &__status {
-        }
-
         &__statusikon {
             padding-right: 1rem;
         }
@@ -83,5 +80,16 @@
     @media (min-width: @screen-sm-min) {
         margin: 0 auto;
         max-width: @screen-sm-min;
+
+        &__natur-logo {
+            margin: 4.5rem 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+    
+            .avtaleoversikt__natur-tekst {
+                margin-top: 2rem;
+            }
+        }
     }
 }
