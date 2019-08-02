@@ -10,7 +10,6 @@ import {
 import Varsel from './komponenter/Varsel/Varsel';
 import RestService from './services/rest-service';
 import ApiError from './api-error';
-import { useState } from 'react';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -58,10 +57,7 @@ export const tomAvtale: Avtale = {
     },
 };
 
-const [maal, setMaal] = useState('');
-const [maalTkest, setMaalTekst] = useState('');
-
-interface TemporaryLagring {
+export interface TemporaryLagring {
     maal: string;
     maalTekst: string;
 }
@@ -88,7 +84,7 @@ export interface Context {
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
     endretSteg: () => void;
-    MellomLagreMaal: () => void;
+    mellomLagreMaal: (maalInput: TemporaryLagring) => void;
     setMellomLagreMaalTom: () => void;
 }
 
@@ -313,6 +309,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         const context: Context = {
             avtale: this.state.avtale,
             rolle: this.state.rolle,
+            mellomLagring: this.state.mellomLagring,
             settAvtaleVerdi: this.settAvtaleVerdi,
             lagreAvtale: this.lagreAvtale,
             lagreMaal: this.lagreMaal,

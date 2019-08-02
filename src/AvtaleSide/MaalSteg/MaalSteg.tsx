@@ -22,6 +22,10 @@ class MaalSteg extends React.Component<Context> {
         };
     }
 
+    setMellomLagretMaal = () => {
+        //
+    };
+
     // sikre at mål blir satt først, derfor setState på modal i callback
     bekrefelsePaSlettRad = (maal: Maal) => {
         this.setState({ maalRad: maal }, () =>
@@ -57,6 +61,9 @@ class MaalSteg extends React.Component<Context> {
                     this.valgteMaalkategorier()
                 )}
                 lagreMaal={this.props.lagreMaal}
+                mellomLagretMaal={this.props.mellomLagring}
+                setMellomLagring={this.props.mellomLagreMaal}
+                fjernMellomLagring={this.props.setMellomLagreMaalTom}
             />
             {this.props.avtale.maal.map(maal => (
                 <MaalKort
