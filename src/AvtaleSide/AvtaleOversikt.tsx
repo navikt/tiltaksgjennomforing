@@ -98,14 +98,12 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 <div className="avtaleoversikt__topp">{opprettAvtaleKnapp}</div>
                 {avtaletabell || (
                     <div className={cls.element('natur-logo')}>
-                        <div className={cls.element('test')}>
-                            <MediaQuery minWidth={576}>
-                                <Natur />
-                            </MediaQuery>
-                            <MediaQuery maxWidth={576}>
-                                <Natur width={'200'} height={'50'} />
-                            </MediaQuery>
-                        </div>
+                        <MediaQuery minWidth={576}>
+                            <Natur />
+                        </MediaQuery>
+                        <MediaQuery maxWidth={576}>
+                            <Natur width={'200'} height={'50'} />
+                        </MediaQuery>
                         <TypografiBase
                             type={'undertittel'}
                             className={cls.element('natur-tekst')}
