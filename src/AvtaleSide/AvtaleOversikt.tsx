@@ -16,10 +16,13 @@ import {
 import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
+import Banner from '../komponenter/Banner/Banner';
+import Natur from './natur.svg';
 
 const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
     return <Link to={props.href!}>Gå til</Link>;
 };
+
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const [avtaler, setAvtaler] = useState<Avtale[] | null>(null);
     const [
@@ -93,22 +96,27 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         );
 
     return (
-        <div className="avtaleoversikt">
-            <div className="avtaleoversikt__topp">
-                <Innholdstittel className="avtaleoversikt__topp__tittel">
-                    Dine arbeidstreningsavtaler
-                </Innholdstittel>
-                <Normaltekst className="avtaleoversikt__topp__tekst">
-                    Her ser du arbeidstreningsavtaler du har tilgang til.
-                </Normaltekst>
-                {opprettAvtaleKnapp}
-            </div>
-            {avtaletabell || (
-                <div className="avtaleoversikt__ingen_avtaler typo-normal">
-                    Ingen avtaler
+        <>
+            <Banner tekst="Dine arbeidstreningsavtaler" />
+            <div className="avtaleoversikt">
+                <div className="avtaleoversikt__topp">
+                    {/* <Normaltekst className="avtaleoversikt__topp__tekst">
+                        Her ser du arbeidstreningsavtaler du har tilgang til.
+                    </Normaltekst> */}
+                    {opprettAvtaleKnapp}
                 </div>
-            )}
-        </div>
+                {avtaletabell || (
+                    <div>
+                        <>
+                            <Natur />
+                        </>
+                        <p className="avtaleoversikt__ingen_avtaler typo-normal">
+                            Vi fant ingen avtaler du er en del av.
+                        </p>
+                    </div>
+                )}
+            </div>
+        </>
     );
 };
 
