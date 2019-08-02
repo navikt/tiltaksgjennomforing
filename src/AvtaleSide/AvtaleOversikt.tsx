@@ -1,11 +1,11 @@
 import moment from 'moment';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import TypografiBase from 'nav-frontend-typografi';
 import * as React from 'react';
-import { FunctionComponent, HTMLProps, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { InnloggetBruker } from '../InnloggingBoundary/useInnlogget';
 import StatusIkon from '../komponenter/StatusIkon/StatusIkon';
 import {
@@ -17,11 +17,10 @@ import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Banner from '../komponenter/Banner/Banner';
-import Natur from './natur.svg';
+import { ReactComponent as Natur } from './natur.svg';
+import BEMHelper from '../utils/bem';
 
-const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
-    return <Link to={props.href!}>Gå til</Link>;
-};
+const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const [avtaler, setAvtaler] = useState<Avtale[] | null>(null);
@@ -82,9 +81,6 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
             {avtaleLenker}
         </div>
     );
-
-    // innloggetBruker.identifikator.length < 11 er et triks for å sjekke om man er logget inn NAV-ansatt eller ikke,
-    // dette må endres senere.
     const opprettAvtaleKnapp = innloggetBruker &&
         innloggetBruker.identifikator.length < 11 && (
             <Hovedknapp
@@ -99,20 +95,16 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
             <div className="avtaleoversikt">
-                <div className="avtaleoversikt__topp">
-                    {/* <Normaltekst className="avtaleoversikt__topp__tekst">
-                        Her ser du arbeidstreningsavtaler du har tilgang til.
-                    </Normaltekst> */}
-                    {opprettAvtaleKnapp}
-                </div>
+                <div className="avtaleoversikt__topp">{opprettAvtaleKnapp}</div>
                 {avtaletabell || (
-                    <div>
-                        <>
-                            <Natur />
-                        </>
-                        <p className="avtaleoversikt__ingen_avtaler typo-normal">
+                    <div className={cls.element('natur-logo')}>
+                        <Natur />
+                        <TypografiBase
+                            type={'undertittel'}
+                            className={cls.element('natur-tekst')}
+                        >
                             Vi fant ingen avtaler du er en del av.
-                        </p>
+                        </TypografiBase>
                     </div>
                 )}
             </div>
