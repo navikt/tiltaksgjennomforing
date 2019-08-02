@@ -102,7 +102,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                             <Natur />
                         </MediaQuery>
                         <MediaQuery maxWidth={576}>
-                            <Natur width={'200'} height={'50'} />
+                            <Natur width={'300'} height={'100'} />
                         </MediaQuery>
                         <TypografiBase
                             type={'undertittel'}
