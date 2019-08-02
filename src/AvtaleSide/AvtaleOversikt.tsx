@@ -17,7 +17,7 @@ import RestService from '../services/rest-service';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Banner from '../komponenter/Banner/Banner';
-import { ReactComponent as Natur } from './natur.svg';
+import Natur from './natur';
 import BEMHelper from '../utils/bem';
 
 const cls = BEMHelper('avtaleoversikt');
@@ -98,7 +98,14 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 <div className="avtaleoversikt__topp">{opprettAvtaleKnapp}</div>
                 {avtaletabell || (
                     <div className={cls.element('natur-logo')}>
-                        <Natur />
+                        <div className={cls.element('test')}>
+                            <MediaQuery minWidth={576}>
+                                <Natur />
+                            </MediaQuery>
+                            <MediaQuery maxWidth={576}>
+                                <Natur width={'200'} height={'50'} />
+                            </MediaQuery>
+                        </div>
                         <TypografiBase
                             type={'undertittel'}
                             className={cls.element('natur-tekst')}
