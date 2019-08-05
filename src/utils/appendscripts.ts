@@ -78,7 +78,7 @@ const appendGoogleAnalytics = () => {
 };
 
 const removeStaticBundle = () => {
-    const bundles = ['sr1', 'sr2', 'sr3', 'sr3'];
+    const bundles = ['sr1'];
     bundles.map((bundle: string) => {
         removeScript(bundle);
     });

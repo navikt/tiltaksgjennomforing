@@ -78,15 +78,19 @@ noDecorator = () => {
         NAV_FOOTER: '',
         NAV_MENU_RESOURCES: '',
     };
-    renderApp(noHeaderAndFooterInject).then(startServer, error => console.log('Kunne ikke rendre app ', error));
-
+    renderApp(noHeaderAndFooterInject).then(startServer, error =>
+        console.log('Kunne ikke rendre app ', error)
+    );
 };
 
-if(process.env.INTERNFLATE === 'true') {
+if (process.env.INTERNFLATE === 'true') {
     noDecorator();
-}else {
+} else {
     getDecorator()
-        .then(renderApp, error => console.log('Kunne ikke hente dekorator ', error))
-        .then(startServer, error => console.log('Kunne ikke rendre app ', error));
+        .then(renderApp, error =>
+            console.log('Kunne ikke hente dekorator ', error)
+        )
+        .then(startServer, error =>
+            console.log('Kunne ikke rendre app ', error)
+        );
 }
-

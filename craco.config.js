@@ -5,6 +5,8 @@ const path = require('path');
 const { whenDev } = require('@craco/craco');
 const NpmImportPlugin = require('less-plugin-npm-import');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 const noHeaderAndFooterInject = {
     NAV_SCRIPTS: '',
@@ -37,26 +39,44 @@ module.exports = () => {
                         process.env.INTERNFLATE
                     ),
                 }),
+
+                ...whenDev(
+                    () => [
+                        new HtmlWebpackPlugin({
+                            template: 'public/index.html',
+                            inject: 'body',
+                            alwaysWriteToDisk: true,
+                        }),
+
+                        new HtmlWebpackHarddiskPlugin({
+                            outputPath: path.resolve(__dirname, './public/dev'),
+                        }),
+                    ],
+                    []
+                ),
             ],
         },
         devServer: {
             before: app => {
                 app.engine('html', mustacheExpress());
-                app.set('views', `${__dirname}/public`);
+                app.set('views', `${__dirname}/public/dev`);
                 app.set('view engine', 'mustache');
-                app.get(['/', '/tiltaksgjennomforing'], (req, res) => {
-                    process.env.DECORATOR === 'true'
-                        ? getDecorator().then(decoratorData => {
-                              res.render(
+                app.get(
+                    ['/', '/tiltaksgjennomforing', '/tiltaksgjennomforing/*'],
+                    (req, res) => {
+                        process.env.DECORATOR === 'true'
+                            ? getDecorator().then(decoratorData => {
+                                  res.render(
+                                      'index.html',
+                                      Object.assign(decoratorData)
+                                  );
+                              })
+                            : res.render(
                                   'index.html',
-                                  Object.assign(decoratorData)
+                                  Object.assign(noHeaderAndFooterInject)
                               );
-                          })
-                        : res.render(
-                              'index.html',
-                              Object.assign(noHeaderAndFooterInject)
-                          );
-                });
+                    }
+                );
                 app.get(
                     '/internarbeidsflatedecorator/head.min.js',
                     (req, res) => {
@@ -66,7 +86,7 @@ module.exports = () => {
                     }
                 );
             },
-            hot: true,
+            hot: false,
             publicPath: '/',
             watchContentBase: true,
             quiet: false,
@@ -80,6 +100,7 @@ module.exports = () => {
                 dept: true,
                 outputPath: true,
                 index: true,
+                children: true,
             },
         },
         plugins: [
