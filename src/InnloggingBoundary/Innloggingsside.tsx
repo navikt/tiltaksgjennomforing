@@ -5,6 +5,7 @@ import { Innloggingskilde } from './useInnlogget';
 import Banner from '../komponenter/Banner/Banner';
 import './Innloggingsside.less';
 import { ReactComponent as Koffert } from './koffert.svg';
+import Lenke from 'nav-frontend-lenker';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const logginnknapper = props.innloggingskilder.map(
@@ -31,8 +32,13 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                 <div className="innloggingsside__infotekst">
                     <p>
                         Dette er en digital avtale som skal brukes av deltaker,
-                        arbeidsgiver og NAV. For å se avtalene du er en del av
-                        må du først logge på.
+                        arbeidsgiver og NAV.
+                    </p>
+                    <Lenke href="/informasjonsside/uinnlogget">
+                        Her kan du lese mer om hvordan løsningen fungerer >
+                    </Lenke>
+                    <p>
+                        For å se avtalene du er en del av må du først logge på.
                     </p>
                 </div>
                 {logginnknapper}

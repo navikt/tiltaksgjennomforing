@@ -11,6 +11,7 @@ import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import { basename } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import Informasjonsside from './Informajonsside/Informasjonsside';
 
 addLocaleData(nb);
 
@@ -19,39 +20,51 @@ class App extends React.Component {
         return (
             <IntlProvider locale="nb">
                 <BrowserRouter basename={basename}>
-                    <InnloggingBoundary>
-                        <RedirectEtterLogin>
-                            <AvtaleProvider>
-                                <Switch>
-                                    <Route
-                                        path="/avtale/:avtaleId"
-                                        exact={true}
-                                        component={LandingsSide}
-                                    />
-                                    <Route
-                                        path="/avtale/:avtaleId/:stegPath"
-                                        exact={true}
-                                        component={AvtaleSide}
-                                    />
-                                    <Route
-                                        path="/opprett-avtale"
-                                        exact={true}
-                                        component={OpprettAvtale}
-                                    />
-                                    <Route
-                                        path="/opprett-avtale-fullfort/:avtaleId"
-                                        exact={true}
-                                        component={OpprettelseFullfort}
-                                    />
-                                    <Route
-                                        path=""
-                                        exact={true}
-                                        component={AvtaleOversikt}
-                                    />
-                                </Switch>
-                            </AvtaleProvider>
-                        </RedirectEtterLogin>
-                    </InnloggingBoundary>
+                    <>
+                        <Switch>
+                            <Route
+                                path="/informasjonsside/uinnlogget"
+                                exact={true}
+                                component={Informasjonsside}
+                            />
+                            <InnloggingBoundary>
+                                <RedirectEtterLogin>
+                                    <AvtaleProvider>
+                                        <Route
+                                            path="/avtale/:avtaleId"
+                                            exact={true}
+                                            component={LandingsSide}
+                                        />
+                                        <Route
+                                            path="/avtale/:avtaleId/:stegPath"
+                                            exact={true}
+                                            component={AvtaleSide}
+                                        />
+                                        <Route
+                                            path="/opprett-avtale"
+                                            exact={true}
+                                            component={OpprettAvtale}
+                                        />
+                                        <Route
+                                            path="/opprett-avtale-fullfort/:avtaleId"
+                                            exact={true}
+                                            component={OpprettelseFullfort}
+                                        />
+                                        <Route
+                                            path=""
+                                            exact={true}
+                                            component={AvtaleOversikt}
+                                        />
+                                        <Route
+                                            path="/informasjonsside/innlogget"
+                                            exact={true}
+                                            component={Informasjonsside}
+                                        />
+                                    </AvtaleProvider>
+                                </RedirectEtterLogin>
+                            </InnloggingBoundary>
+                        </Switch>
+                    </>
                 </BrowserRouter>
             </IntlProvider>
         );
