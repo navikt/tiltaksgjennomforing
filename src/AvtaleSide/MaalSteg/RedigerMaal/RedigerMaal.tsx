@@ -40,10 +40,7 @@ class RedigerMaal extends React.Component<Props, State> {
 
     componentDidMount(): void {
         if (this.props.mellomLagretData) {
-            if (
-                this.props.mellomLagretData.maal !== '' &&
-                this.props.mellomLagretData.maalTekst !== ''
-            ) {
+            if (this.props.mellomLagretData.maalTekst !== '') {
                 this.setState({
                     valgtKategori: this.mapKategoriTilMaal(
                         this.props.mellomLagretData.maal
@@ -55,17 +52,22 @@ class RedigerMaal extends React.Component<Props, State> {
     }
 
     componentWillUnmount(): void {
-        if (
-            this.state.valgtKategori &&
-            this.state.beskrivelse !== '' &&
-            !this.state.erLagret
-        ) {
+        const liste = this.props.ledigeMaalkategorier
+            .filter(mal => mal !== this.state.valgtKategori)
+            .map(mal => mal);
+        if (this.state.beskrivelse !== '' && !this.state.erLagret) {
             const tempMaal = {
-                maal: this.state.valgtKategori,
+                maal: this.state.valgtKategori
+                    ? this.state.valgtKategori
+                    : liste[0],
                 maalTekst: this.state.beskrivelse,
             };
             if (this.props.setMellomLagring) {
                 this.props.setMellomLagring(tempMaal);
+            }
+        } else if (!this.state.valgtKategori && this.state.beskrivelse === '') {
+            if (this.props.fjernMellomLagring) {
+                this.props.fjernMellomLagring();
             }
         }
     }

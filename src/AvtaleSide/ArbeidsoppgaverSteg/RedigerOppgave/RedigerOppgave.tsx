@@ -66,6 +66,7 @@ class RedigerOppgave extends React.Component<Props, State> {
             }
         }
     }
+
     componentWillUnmount(): void {
         if (
             (this.state.tittel !== '' ||
@@ -80,6 +81,14 @@ class RedigerOppgave extends React.Component<Props, State> {
             };
             if (this.props.setMellomLagringArbeidsoppgave) {
                 this.props.setMellomLagringArbeidsoppgave(tempArbeidsoppgave);
+            }
+        } else if (
+            this.state.tittel === '' &&
+            this.state.beskrivelse === '' &&
+            this.state.opplaering === ''
+        ) {
+            if (this.props.fjerneMellomLagringArbeidsoppgave) {
+                this.props.fjerneMellomLagringArbeidsoppgave();
             }
         }
     }
