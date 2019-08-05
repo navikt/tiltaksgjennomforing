@@ -1,0 +1,41 @@
+@import '../../node_modules/nav-frontend-core/less/_variabler';
+
+.innloggingsside {
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+
+    &__logginnKnapp {
+        margin: 3rem 0rem 2rem 0rem;
+        padding: 0.5rem;
+    }
+
+    &__sidetittel {
+        margin: 3rem 0rem 3rem 0rem;
+        align-content: center;
+    }
+
+    &__infotekst {
+        margin-bottom: 2rem;
+        max-width: 40rem;
+        margin: 0rem 2rem 0rem 2rem;
+    }
+
+    &__koffertikon {
+        margin-top: 4rem;
+    }
+}
+
+.wrapper {
+    min-height: 100vh;
+    background: white;
+}
+
+@media (min-width: 765px) {
+    &__infotekst {
+        margin-bottom: 2rem;
+        max-width: 40rem;
+        margin: 0rem 3rem 0rem 3rem;
+    }
+}

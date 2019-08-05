@@ -301,7 +301,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                     <Varsel
                         kanLukkes={true}
                         onLukkVarsel={this.fjernFeilmelding}
-                        type={'info'}
+                        type={'advarsel'}
                     >
                         {this.state.feilmelding}
                     </Varsel>

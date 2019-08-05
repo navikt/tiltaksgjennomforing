@@ -62,7 +62,12 @@ module.exports = () => {
                 app.set('views', `${__dirname}/public/dev`);
                 app.set('view engine', 'mustache');
                 app.get(
-                    ['/', '/tiltaksgjennomforing', '/tiltaksgjennomforing/*'],
+                    [
+                        '/',
+                        '/tiltaksgjennomforing',
+                        '/tiltaksgjennomforing/*',
+                        '/informasjonsside/*',
+                    ],
                     (req, res) => {
                         process.env.DECORATOR === 'true'
                             ? getDecorator().then(decoratorData => {

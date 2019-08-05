@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import AlertStripe from 'nav-frontend-alertstriper';
+import AlertStripe, { AlertStripeType } from 'nav-frontend-alertstriper';
 import Lukknapp from 'nav-frontend-lukknapp';
 import * as React from 'react';
 import './Varsel.less';
@@ -8,7 +8,7 @@ interface Props {
     timeout?: number;
     kanLukkes: boolean;
     onLukkVarsel?: () => void;
-    type: 'info' | 'suksess' | 'advarsel';
+    type: AlertStripeType;
     className?: string;
 }
 

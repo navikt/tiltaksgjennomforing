@@ -18,7 +18,7 @@ const VarighetIkon = () => (
             />
             <path
                 fill="#06893A"
-                fill-rule="nonzero"
+                fillRule="nonzero"
                 d="M14.5 15a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0-1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"
             />
         </g>

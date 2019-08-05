@@ -27,7 +27,7 @@ const InnloggingBoundary: FunctionComponent = props => {
         );
     } else if (feilmelding) {
         return (
-            <Varsel kanLukkes={false} type={'info'}>
+            <Varsel kanLukkes={false} type={'advarsel'}>
                 {feilmelding}
             </Varsel>
         );

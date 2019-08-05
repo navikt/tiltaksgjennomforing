@@ -24,8 +24,7 @@ interface State {
 class RedigerMaal extends React.Component<Props, State> {
     state = {
         valgtKategori:
-            (this.props.defaultMaal && this.props.defaultMaal.kategori) ||
-            this.props.ledigeMaalkategorier[0],
+            this.props.defaultMaal && this.props.defaultMaal.kategori,
         beskrivelse:
             (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) ||
             '',
@@ -98,6 +97,11 @@ class RedigerMaal extends React.Component<Props, State> {
 
     genererKategoriListe = () => {
         const redigerComponentListe = [];
+        redigerComponentListe.push(
+            <option value="" key="">
+                Velg mål{' '}
+            </option>
+        );
         if (this.state.valgtKategori) {
             redigerComponentListe.push(
                 <option
@@ -108,12 +112,13 @@ class RedigerMaal extends React.Component<Props, State> {
                 </option>
             );
         }
-        const liste = this.props.ledigeMaalkategorier.map((mal, index) => (
-            <option value={mal} key={index}>
-                {mal}
-            </option>
-        ));
-
+        const liste = this.props.ledigeMaalkategorier
+            .filter(mal => mal !== this.state.valgtKategori)
+            .map((mal, index) => (
+                <option value={mal} key={index}>
+                    {mal}
+                </option>
+            ));
         redigerComponentListe.push(...liste);
         return redigerComponentListe;
     };
