@@ -1,4 +1,5 @@
 import React from 'react';
+import RestService from '../../services/rest-service';
 
 const url =
     process.env.NODE_ENV === 'production'
@@ -13,26 +14,11 @@ const config = {
 };
 
 class InternDekorator extends React.Component {
-    componentDidMount(): void {
-        if (process.env.NODE_ENV === 'production') {
-            this.getEnvsettings('/tiltaksgjennomforing/navigasjonslinje');
-        } else if (
-            process.env.NODE_ENV === 'development' &&
-            process.env.INTERNFLATE === 'true'
-        ) {
+    async componentDidMount() {
+        if (await RestService.erInternFlate()) {
             this.injectScript();
         }
     }
-
-    getEnvsettings = async (envUrl: string): Promise<any> => {
-        fetch(envUrl).then(res => {
-            res.json().then(json => {
-                if (json.internflate === 'true') {
-                    this.injectScript();
-                }
-            });
-        });
-    };
 
     injectScript = () => {
         const script = document.createElement('script');
@@ -58,4 +44,5 @@ class InternDekorator extends React.Component {
         return <div id="Tiltak" />;
     };
 }
+
 export default InternDekorator;

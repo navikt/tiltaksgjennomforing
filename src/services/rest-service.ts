@@ -31,6 +31,7 @@ export interface RestService {
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
+    erInternFlate: () => Promise<boolean>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -188,6 +189,11 @@ const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
     return await response.json();
 };
 
+const erInternFlate = async () => {
+    const response = await fetchGet('/tiltaksgjennomforing/internflate');
+    return await response.json();
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -200,6 +206,7 @@ const restService: RestService = {
     hentInnloggetBruker,
     hentInnloggingskilder,
     hentBedriftBrreg,
+    erInternFlate,
 };
 
 export default restService;
