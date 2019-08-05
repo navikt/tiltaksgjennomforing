@@ -62,15 +62,28 @@ export interface TemporaryLagring {
     maalTekst: string;
 }
 
+export interface TemporaryLagringArbeidsoppgave {
+    oppgaveTittel: string;
+    oppgaveBeskrivelse: string;
+    oppgaveOpplaering: string;
+}
+
 const tomTemporaryLagring: TemporaryLagring = {
     maal: '',
     maalTekst: '',
+};
+
+const tomTemporaryLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave = {
+    oppgaveTittel: '',
+    oppgaveBeskrivelse: '',
+    oppgaveOpplaering: '',
 };
 
 export interface Context {
     avtale: Avtale;
     rolle: Rolle;
     mellomLagring: TemporaryLagring;
+    mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
     lagreAvtale: () => Promise<any>;
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -86,6 +99,10 @@ export interface Context {
     endretSteg: () => void;
     mellomLagreMaal: (maalInput: TemporaryLagring) => void;
     setMellomLagreMaalTom: () => void;
+    mellomLagreArbeidsoppgave: (
+        arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
+    ) => void;
+    setMellomLagreArbeidsoppgaveTom: () => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -100,6 +117,7 @@ interface State {
     rolle: Rolle;
     ulagredeEndringer: boolean;
     mellomLagring: TemporaryLagring;
+    mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -112,6 +130,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             rolle: 'INGEN_ROLLE',
             ulagredeEndringer: false,
             mellomLagring: tomTemporaryLagring,
+            mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -130,6 +149,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.endretSteg = this.endretSteg.bind(this);
         this.mellomLagreMaal = this.mellomLagreMaal.bind(this);
         this.setMellomLagreMaalTom = this.setMellomLagreMaalTom.bind(this);
+        this.mellomLagreArbeidsoppgave = this.mellomLagreArbeidsoppgave.bind(
+            this
+        );
+        this.setMellomLagreArbeidsoppgaveTom = this.setMellomLagreArbeidsoppgaveTom.bind(
+            this
+        );
     }
 
     mellomLagreMaal(maalInput: TemporaryLagring): void {
@@ -141,6 +166,18 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     setMellomLagreMaalTom(): void {
         this.setState({
             mellomLagring: tomTemporaryLagring,
+        });
+    }
+
+    mellomLagreArbeidsoppgave(
+        arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
+    ): void {
+        this.setState({ mellomLagringArbeidsoppgave: arbeidsoppgaveInput });
+    }
+
+    setMellomLagreArbeidsoppgaveTom(): void {
+        this.setState({
+            mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
         });
     }
 
@@ -310,6 +347,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtale: this.state.avtale,
             rolle: this.state.rolle,
             mellomLagring: this.state.mellomLagring,
+            mellomLagringArbeidsoppgave: this.state.mellomLagringArbeidsoppgave,
             settAvtaleVerdi: this.settAvtaleVerdi,
             lagreAvtale: this.lagreAvtale,
             lagreMaal: this.lagreMaal,
@@ -325,6 +363,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             endretSteg: this.endretSteg,
             mellomLagreMaal: this.mellomLagreMaal,
             setMellomLagreMaalTom: this.setMellomLagreMaalTom,
+            mellomLagreArbeidsoppgave: this.mellomLagreArbeidsoppgave,
+            setMellomLagreArbeidsoppgaveTom: this
+                .setMellomLagreArbeidsoppgaveTom,
         };
 
         return (

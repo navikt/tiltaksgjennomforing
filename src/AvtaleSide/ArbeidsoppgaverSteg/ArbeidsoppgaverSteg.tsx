@@ -20,6 +20,9 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
             oppgaveRad: this.props.avtale.oppgaver[0],
         };
     }
+    setMellomLagretArbeidsoppgave = () => {
+        //
+    };
 
     slettOppgave = async (oppgave: Oppgave) => {
         try {
@@ -46,7 +49,18 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
 
     render = () => (
         <>
-            <OpprettOppgave lagreOppgave={this.props.lagreOppgave} />
+            <OpprettOppgave
+                lagreOppgave={this.props.lagreOppgave}
+                mellomLagretArbeidsoppgave={
+                    this.props.mellomLagringArbeidsoppgave
+                }
+                setMellomLagringArbeidsoppgave={
+                    this.props.mellomLagreArbeidsoppgave
+                }
+                fjerneMellomLagringArbeidsoppgave={
+                    this.props.setMellomLagreArbeidsoppgaveTom
+                }
+            />
             {this.props.avtale.oppgaver.map(oppgave => (
                 <OppgaveKort
                     oppgave={oppgave}
