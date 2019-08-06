@@ -40,7 +40,7 @@ const DeltakerInstruks: FunctionComponent = () => (
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
             <EkstbanderbartPanelRad
                 svgIkon={<RettighetsHammerIkon />}
-                headerTekst="Ditt forhold til arbeidsmiljøloven"
+                headerTekst={{ tekst: 'Ditt forhold til arbeidsmiljøloven' }}
             >
                 Når du deltar på arbeidstrening regnes du som en vanlig ansatt,
                 som vil si at din arbeidsgiver må følge de fleste av
@@ -49,7 +49,7 @@ const DeltakerInstruks: FunctionComponent = () => (
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
                 svgIkon={<GiBeskjedOmBorteFraJobb />}
-                headerTekst="Gi beskjed hvis du er borte fra jobb"
+                headerTekst={{ tekst: 'Gi beskjed hvis du er borte fra jobb' }}
             >
                 Du må melde fra til arbeidsgiver ved fravær. Ved egen eller
                 barns sykdom gjelder ordinære regler for bruk av egenmelding
@@ -57,7 +57,7 @@ const DeltakerInstruks: FunctionComponent = () => (
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
                 svgIkon={<EmailSend />}
-                headerTekst="Meldekort"
+                headerTekst={{ tekst: 'Meldekort' }}
             >
                 Du må sende meldekort hver 14. dag når du er på arbeidstrening.
             </EkstbanderbartPanelRad>

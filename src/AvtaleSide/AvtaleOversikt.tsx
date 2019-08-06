@@ -18,8 +18,10 @@ import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Banner from '../komponenter/Banner/Banner';
 import Natur from './natur';
-import BEMHelper from '../utils/bem';
 import classNames from 'classnames';
+import AlertStripe from 'nav-frontend-alertstriper';
+import Lenke from 'nav-frontend-lenker';
+import BEMHelper from '../utils/bem';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -102,7 +104,18 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
+
             <div className="avtaleoversikt">
+                <div className={cls.element('informasjonsBanner')}>
+                    <AlertStripe type="info">
+                        Dette er en ny digital løsning for avtale om
+                        arbeidstrening.{' '}
+                        <Lenke href="/informasjonsside/innlogget">
+                            Les mer om hvordan dette fungerer her
+                        </Lenke>
+                        .
+                    </AlertStripe>
+                </div>
                 {avtaletabell || (
                     <div className={cls.element('natur-logo')}>
                         <MediaQuery minWidth={576}>

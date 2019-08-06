@@ -38,34 +38,23 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
     return (
         <div className="nesteforrige">
             {forrigeSteg && (
-                <Link to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}>
-                    <Lenke
-                        href="#"
-                        className="nesteforrige__chevron"
-                        onClick={() => {
-                            props.endretSteg();
-                        }}
-                    >
-                        <VenstreChevron />
-                        Forrige
-                    </Lenke>
+                <Link
+                    to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}
+                    onClick={() => props.endretSteg()}
+                    className="lenke"
+                >
+                    <VenstreChevron />
+                    Forrige
                 </Link>
             )}
             {nesteSteg && (
                 <Link
                     to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}
-                    className="nesteforrige__nesteknapp"
+                    className="nesteforrige__nesteknapp lenke"
+                    onClick={() => props.endretSteg()}
                 >
-                    <Lenke
-                        href="#"
-                        className="nesteforrige__chevron"
-                        onClick={() => {
-                            props.endretSteg();
-                        }}
-                    >
-                        Neste
-                        <HoyreChevron />
-                    </Lenke>
+                    Neste
+                    <HoyreChevron />
                 </Link>
             )}
         </div>

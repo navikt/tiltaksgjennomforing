@@ -1,5 +1,4 @@
 @import '~nav-frontend-core/less/_variabler';
-
 .avtaleoversikt {
     display: flex;
     flex-direction: column;
@@ -41,7 +40,6 @@
         }
 
         &--knapp_uten_avtaler {
-            
             margin-top: 4rem;
         }
     }
@@ -49,6 +47,15 @@
     &__header {
         padding: 1rem;
         font-weight: bold;
+    }
+
+    &__informasjonsBanner {
+        margin: 0.5rem 0;
+        justify-content: center;
+    }
+
+    .alertstripe .alertstripe__tekst {
+        max-width: 800px;
     }
 
     &__rad {
@@ -90,6 +97,11 @@
             &--knapp_uten_avtaler {
                 margin-top: 4rem;
             }
+        }
+
+        &__informasjonsBanner {
+            margin: 2rem 0;
+            justify-content: center;
         }
 
         &__natur-logo {
