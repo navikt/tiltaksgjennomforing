@@ -1,7 +1,10 @@
 import moment from 'moment';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import TypografiBase from 'nav-frontend-typografi';
+import TypografiBase, {
+    Undertittel,
+    Normaltekst,
+} from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
@@ -101,7 +104,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const tilbakemeldingHvisIngenAvtale = () => {
         return erVeileder
             ? 'Du har ikke opprettet noen avtaler enda.' // NAV
-            : 'Det har ikke blitt opprettet noen avtaler med deg enda.'; // Deltaker/AG
+            : 'Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.'; // Deltaker/AG
     };
 
     return (
@@ -110,7 +113,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
             <div className="avtaleoversikt">
                 <div className="avtaleoversikt__topp">
-                    {avtaletabell || (
+                    {false || (
                         <div className={cls.element('natur-logo')}>
                             <MediaQuery minWidth={576}>
                                 <Natur />
@@ -118,12 +121,14 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                             <MediaQuery maxWidth={576}>
                                 <Natur width={'300'} height={'100'} />
                             </MediaQuery>
-                            <TypografiBase
-                                type={'undertittel'}
-                                className={cls.element('natur-tekst')}
+                            <Undertittel
+                                className={cls.element('natur-header')}
                             >
+                                Ingen avtaler
+                            </Undertittel>
+                            <Normaltekst className={cls.element('natur-tekst')}>
                                 {tilbakemeldingHvisIngenAvtale()}
-                            </TypografiBase>
+                            </Normaltekst>
                             <div className="avtaleoversikt__topp__knapp_uten_avtaler">
                                 {opprettAvtaleKnapp}
                             </div>
