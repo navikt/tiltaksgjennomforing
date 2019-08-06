@@ -65,14 +65,30 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </LenkepanelBase>
     ));
 
+    const erVeileder =
+        innloggetBruker && innloggetBruker.identifikator.length < 11;
+
+    const opprettAvtaleKnapp = erVeileder && (
+        <div className="avtaleoversikt__topp__knapp">
+            <Hovedknapp
+                onClick={() => props.history.push(pathTilOpprettAvtale)}
+            >
+                Opprett ny avtale
+            </Hovedknapp>
+        </div>
+    );
+
     const avtaletabell = avtaleLenker.length > 0 && (
         <div className="avtaleoversikt__lenker typo-normal">
+            <div className="avtaleoversikt__topp__knapp_med_avtaler">
+                {opprettAvtaleKnapp}
+            </div>
             <div className="avtaleoversikt__lenker__header avtaleoversikt__lenker__rad">
                 <div className="avtaleoversikt__lenker__bedrift">Bedrift</div>
                 <div className="avtaleoversikt__lenker__deltaker">Deltaker</div>
                 <MediaQuery minWidth={576}>
                     <div className="avtaleoversikt__lenker__opprettet">
-                        Dato opprettet
+                        Opprettet
                     </div>
                 </MediaQuery>
                 <div className="avtaleoversikt__lenker__status">Status</div>
@@ -81,37 +97,39 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
             {avtaleLenker}
         </div>
     );
-    const opprettAvtaleKnapp = innloggetBruker &&
-        innloggetBruker.identifikator.length < 11 && (
-            <Hovedknapp
-                onClick={() => props.history.push(pathTilOpprettAvtale)}
-                className="avtaleoversikt__topp__knapp"
-            >
-                Opprett ny avtale
-            </Hovedknapp>
-        );
+
+    const tilbakemeldingHvisIngenAvtale = () => {
+        return erVeileder
+            ? 'Du har ikke opprettet noen avtaler enda.' // NAV
+            : 'Det har ikke blitt opprettet noen avtaler med deg enda.'; // Deltaker/AG
+    };
 
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
+
             <div className="avtaleoversikt">
-                <div className="avtaleoversikt__topp">{opprettAvtaleKnapp}</div>
-                {avtaletabell || (
-                    <div className={cls.element('natur-logo')}>
-                        <MediaQuery minWidth={576}>
-                            <Natur />
-                        </MediaQuery>
-                        <MediaQuery maxWidth={576}>
-                            <Natur width={'300'} height={'100'} />
-                        </MediaQuery>
-                        <TypografiBase
-                            type={'undertittel'}
-                            className={cls.element('natur-tekst')}
-                        >
-                            Vi fant ingen avtaler du er en del av.
-                        </TypografiBase>
-                    </div>
-                )}
+                <div className="avtaleoversikt__topp">
+                    {avtaletabell || (
+                        <div className={cls.element('natur-logo')}>
+                            <MediaQuery minWidth={576}>
+                                <Natur />
+                            </MediaQuery>
+                            <MediaQuery maxWidth={576}>
+                                <Natur width={'300'} height={'100'} />
+                            </MediaQuery>
+                            <TypografiBase
+                                type={'undertittel'}
+                                className={cls.element('natur-tekst')}
+                            >
+                                {tilbakemeldingHvisIngenAvtale()}
+                            </TypografiBase>
+                            <div className="avtaleoversikt__topp__knapp_uten_avtaler">
+                                {opprettAvtaleKnapp}
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     );
