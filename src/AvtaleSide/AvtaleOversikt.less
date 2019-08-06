@@ -3,6 +3,7 @@
 .avtaleoversikt {
     display: flex;
     flex-direction: column;
+    margin: 2rem 0 3rem 0;
 
     &__banner {
         width: 100%;
@@ -12,17 +13,17 @@
         margin: 2.5rem 0 1.5rem 0;
         display: flex;
         align-items: center;
-        flex-direction: column;
+        flex-direction: column;   
+    }
 
-        .avtaleoversikt__natur-header {
-            margin-top: 1rem;
-        }
+    &__natur-tekst {
+        text-align: center;
+        margin-top: 1rem;
+        width: 90%;
+    }
 
-        .avtaleoversikt__natur-tekst {
-            text-align: center;
-            margin-top: 1rem;
-            width: 90%;
-        }
+    &__natur-header{
+        margin-top: 1rem;
     }
 
     &__ingen_avtaler {
@@ -30,65 +31,69 @@
     }
 
     &__topp {
-        margin: 2rem 0 3rem 0;
+        display: flex;
+        justify-content: center;
         
-        &__knapp_med_avtaler {
-            display: flex;
-            justify-content: center;
-            margin-top: 3rem;
+        &--knapp_med_avtaler {
+            
+            margin-top: 2rem;
             margin-bottom: 3rem;
         }
 
-        &__knapp_uten_avtaler {
-            display: flex;
-            justify-content: center;
+        &--knapp_uten_avtaler {
+            
             margin-top: 4rem;
         }
     }
+        
+    &__header {
+        padding: 1rem;
+        font-weight: bold;
+    }
 
-    &__lenker {
+    &__rad {
         margin: 0 0.25rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: nowrap;
+        width: 95%;
     }
 
-    &__lenker {
-        &__header {
-            padding: 1rem;
-            font-weight: bold;
-        }
-
-        &__rad {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            flex-wrap: nowrap;
-            width: 95%;
-        }
-
-        &__deltaker {
-            width: 11rem;
-            padding-right: 1rem;
-        }
-
-        &__bedrift {
-            width: 11rem;
-            padding-right: 1rem;
-        }
-
-        &__opprettet {
-            width: 8rem;
-        }
-
-        &__statusikon {
-            padding-right: 1rem;
-        }
+    &__deltakerOgBedrift {
+        width: 11rem;
+        padding-right: 1rem;
     }
+
+    &__opprettet {
+        width: 8rem;
+    }
+
+    &__statusikon {
+        padding-right: 1rem;
+    }
+    
 
     @media (min-width: @screen-sm-min) {
         margin: 0 auto;
         max-width: @screen-sm-min;
 
+        &__topp {
+            display: flex;
+            justify-content: center;
+            
+            &--knapp_med_avtaler {
+                margin-top: 5rem;
+                margin-bottom: 3rem;
+            }
+    
+            &--knapp_uten_avtaler {
+                margin-top: 4rem;
+            }
+        }
+
         &__natur-logo {
-            margin: 2.5rem 0 1.5rem 0;
+            margin: 5rem 0 1.5rem 0;
             display: flex;
             align-items: center;
             flex-direction: column;

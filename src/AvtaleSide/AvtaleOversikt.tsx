@@ -22,6 +22,7 @@ import './AvtaleOversikt.less';
 import Banner from '../komponenter/Banner/Banner';
 import Natur from './natur';
 import BEMHelper from '../utils/bem';
+import classNames from 'classnames';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -45,25 +46,23 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
             key={avtale.id}
             href={basename + pathTilKontaktinformasjonSteg(avtale.id)}
         >
-            <div className="avtaleoversikt__lenker__rad">
-                <div className="avtaleoversikt__lenker__bedrift">
+            <div className={cls.element('rad')}>
+                <div className={cls.element('deltakerOgBedrift')}>
                     {avtale.bedriftNavn}
                 </div>
-                <div className="avtaleoversikt__lenker__deltaker">
+                <div className={cls.element('deltakerOgBedrift')}>
                     {avtale.deltakerFornavn || ''}&nbsp;
                     {avtale.deltakerEtternavn || ''}
                 </div>
                 <MediaQuery minWidth={576}>
-                    <div className="avtaleoversikt__lenker__opprettet">
+                    <div className={cls.element('opprettet')}>
                         {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                     </div>
                 </MediaQuery>
-                <div className="avtaleoversikt__lenker__statusikon">
+                <div className={cls.element('statusikon')}>
                     <StatusIkon status={avtale.status} />
                 </div>
-                <div className="avtaleoversikt__lenker__status">
-                    {avtale.status}
-                </div>
+                <div className={cls.element('status')}>{avtale.status}</div>
             </div>
         </LenkepanelBase>
     ));
@@ -72,69 +71,65 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         innloggetBruker && innloggetBruker.identifikator.length < 11;
 
     const opprettAvtaleKnapp = erVeileder && (
-        <div className="avtaleoversikt__topp__knapp">
-            <Hovedknapp
-                onClick={() => props.history.push(pathTilOpprettAvtale)}
-            >
-                Opprett ny avtale
-            </Hovedknapp>
-        </div>
+        <Hovedknapp onClick={() => props.history.push(pathTilOpprettAvtale)}>
+            Opprett ny avtale
+        </Hovedknapp>
     );
 
     const avtaletabell = avtaleLenker.length > 0 && (
         <div className="avtaleoversikt__lenker typo-normal">
-            <div className="avtaleoversikt__topp__knapp_med_avtaler">
+            <div className={cls.element('topp', 'knapp_med_avtaler')}>
                 {opprettAvtaleKnapp}
             </div>
-            <div className="avtaleoversikt__lenker__header avtaleoversikt__lenker__rad">
-                <div className="avtaleoversikt__lenker__bedrift">Bedrift</div>
-                <div className="avtaleoversikt__lenker__deltaker">Deltaker</div>
+            <div
+                className={classNames(
+                    cls.element('header'),
+                    cls.element('rad')
+                )}
+            >
+                <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
+                <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
                 <MediaQuery minWidth={576}>
-                    <div className="avtaleoversikt__lenker__opprettet">
-                        Opprettet
-                    </div>
+                    <div className={cls.element('opprettet')}>Opprettet</div>
                 </MediaQuery>
-                <div className="avtaleoversikt__lenker__status">Status</div>
-                <div className="avtaleoversikt__lenker__statusikon">&nbsp;</div>
+                <div className={cls.element('status')}>Status</div>
+                <div className={cls.element('statusikon')}>&nbsp;</div>
             </div>
             {avtaleLenker}
         </div>
     );
 
-    const tilbakemeldingHvisIngenAvtale = () => {
-        return erVeileder
-            ? 'Du har ikke opprettet noen avtaler enda.' // NAV
-            : 'Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.'; // Deltaker/AG
-    };
-
+    const tilbakemeldingHvisIngenAvtale = erVeileder
+        ? 'Du har ikke opprettet noen avtaler enda.' // NAV
+        : 'Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.'; // Deltaker/AG
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
-
             <div className="avtaleoversikt">
-                <div className="avtaleoversikt__topp">
-                    {false || (
-                        <div className={cls.element('natur-logo')}>
-                            <MediaQuery minWidth={576}>
-                                <Natur />
-                            </MediaQuery>
-                            <MediaQuery maxWidth={576}>
-                                <Natur width={'300'} height={'100'} />
-                            </MediaQuery>
-                            <Undertittel
-                                className={cls.element('natur-header')}
-                            >
-                                Ingen avtaler
-                            </Undertittel>
-                            <Normaltekst className={cls.element('natur-tekst')}>
-                                {tilbakemeldingHvisIngenAvtale()}
-                            </Normaltekst>
-                            <div className="avtaleoversikt__topp__knapp_uten_avtaler">
-                                {opprettAvtaleKnapp}
-                            </div>
+                {avtaletabell || (
+                    <div className={cls.element('natur-logo')}>
+                        <MediaQuery minWidth={576}>
+                            <Natur />
+                        </MediaQuery>
+                        <MediaQuery maxWidth={576}>
+                            <Natur width={'300'} height={'100'} />
+                        </MediaQuery>
+                        <Undertittel className={cls.element('natur-header')}>
+                            Ingen avtaler
+                        </Undertittel>
+                        <Normaltekst className={cls.element('natur-tekst')}>
+                            {tilbakemeldingHvisIngenAvtale}
+                        </Normaltekst>
+                        <div
+                            className={cls.element(
+                                'topp',
+                                'knapp_uten_avtaler'
+                            )}
+                        >
+                            {opprettAvtaleKnapp}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </>
     );
