@@ -16,7 +16,7 @@ const noHeaderAndFooterInject = {
     NAV_MENU_RESOURCES: '',
 };
 
-module.exports = () => {
+tiltakWebpackDevConfig = () => {
     return {
         webpack: {
             configure: {
@@ -120,3 +120,5 @@ module.exports = () => {
         ],
     };
 };
+
+module.exports = tiltakWebpackDevConfig;

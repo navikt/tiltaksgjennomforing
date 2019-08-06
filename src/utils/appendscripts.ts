@@ -16,9 +16,9 @@ const injectLinks = (rel: string, href: string) => {
 
 const createLinks = () => {
     const links = [
-        { rel: 'manifest', href: '%PUBLIC_URL%/manifest.json' },
-        { rel: 'shortcut icon', href: '%PUBLIC_URL%/favicon.ico' },
-        { rel: 'stylesheet', href: '%PUBLIC_URL%/index.css' },
+        { rel: 'manifest', href: '/tiltaksgjennomforing/manifest.json' },
+        { rel: 'shortcut icon', href: '/tiltaksgjennomforing/favicon.ico' },
+        { rel: 'stylesheet', href: '/tiltaksgjennomforing/index.css' },
     ];
     links.map((lenker: { rel: string; href: string }) => {
         injectLinks(lenker.rel, lenker.href);
