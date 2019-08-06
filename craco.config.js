@@ -17,7 +17,7 @@ const noHeaderAndFooterInject = {
 };
 
 tiltakWebpackDevConfig = () => {
-    return {
+    const tilTakCOnfig = {
         webpack: {
             configure: {
                 target: 'web',
@@ -33,28 +33,7 @@ tiltakWebpackDevConfig = () => {
                             : '/tiltaksgjennomforing',
                 },
             },
-            plugins: [
-                new webpack.DefinePlugin({
-                    'process.env.INTERNFLATE': JSON.stringify(
-                        process.env.INTERNFLATE
-                    ),
-                }),
-
-                ...whenDev(
-                    () => [
-                        new HtmlWebpackPlugin({
-                            template: 'public/index.html',
-                            inject: 'body',
-                            alwaysWriteToDisk: true,
-                        }),
-
-                        new HtmlWebpackHarddiskPlugin({
-                            outputPath: path.resolve(__dirname, './public/dev'),
-                        }),
-                    ],
-                    []
-                ),
-            ],
+            plugins: [],
         },
         devServer: {
             before: app => {
@@ -119,6 +98,26 @@ tiltakWebpackDevConfig = () => {
             },
         ],
     };
+
+    if (process.env.NODE_ENV === 'development') {
+        tilTakCOnfig.webpack.plugins.push(
+            ...whenDev(
+                () => [
+                    new HtmlWebpackPlugin({
+                        template: 'public/index.html',
+                        inject: 'body',
+                        alwaysWriteToDisk: true,
+                    }),
+
+                    new HtmlWebpackHarddiskPlugin({
+                        outputPath: path.resolve(__dirname, './public/dev'),
+                    }),
+                ],
+                []
+            )
+        );
+    }
+    return tilTakCOnfig;
 };
 
 module.exports = tiltakWebpackDevConfig;

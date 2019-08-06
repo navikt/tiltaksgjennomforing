@@ -81,7 +81,7 @@
         "start-dec": "cross-env DECORATOR=\"true\" npm start",
         "start-intern": "cross-env INTERNFLATE=true npm start",
         "mock": "REACT_APP_MOCK=true npm start",
-        "build": "craco build --config ./craco.build.config.js",
+        "build": "craco build",
         "test": "craco test",
         "server": "node server.js"
     },
