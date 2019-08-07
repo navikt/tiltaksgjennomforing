@@ -110,7 +110,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     <AlertStripe type="info">
                         Dette er en ny digital løsning for avtale om
                         arbeidstrening.{' '}
-                        <Lenke href="/informasjonsside/innlogget">
+                        <Lenke href="/tiltaksgjennomforing/informasjonsside/innlogget">
                             Les mer om hvordan dette fungerer her
                         </Lenke>
                         .

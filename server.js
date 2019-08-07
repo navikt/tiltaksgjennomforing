@@ -24,7 +24,7 @@ server.use(
     express.static(path.join(__dirname, 'build'))
 );
 
-server.use('/tiltaksgjennomforing', (req, res) => {
+server.get('/tiltaksgjennomforing/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
