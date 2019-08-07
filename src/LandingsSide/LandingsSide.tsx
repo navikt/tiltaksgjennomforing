@@ -28,8 +28,8 @@ const LandingsSide: React.FunctionComponent<Props> = props => {
                 <>
                     <Element>Hei</Element>
                     <Normaltekst>
-                        Dette er en avtale mellom arbeidsgiver, kandidaten på
-                        arbeidstrening og NAV.
+                        HEI Dette er en avtale mellom arbeidsgiver, kandidaten
+                        på arbeidstrening og NAV.
                     </Normaltekst>
                 </>
             }
