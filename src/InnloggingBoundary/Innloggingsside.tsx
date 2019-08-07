@@ -34,7 +34,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         Dette er en digital avtale som skal brukes av deltaker,
                         arbeidsgiver og NAV.
                     </p>
-                    <Lenke href="/informasjonsside/uinnlogget">
+                    <Lenke href="/tiltaksgjennomforing/informasjonsside/uinnlogget">
                         Her kan du lese mer om hvordan løsningen fungerer >
                     </Lenke>
                     <p>
