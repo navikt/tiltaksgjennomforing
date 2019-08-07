@@ -1,6 +1,6 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Knapp } from 'nav-frontend-knapper';
-import { EtikettLiten } from 'nav-frontend-typografi';
+import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
