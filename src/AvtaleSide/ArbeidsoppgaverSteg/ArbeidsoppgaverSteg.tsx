@@ -20,10 +20,10 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
             oppgaveRad: this.props.avtale.oppgaver[0],
         };
     }
-    setMellomLagretArbeidsoppgave = () => {
+    /* setMellomLagretArbeidsoppgave = () => {
         //
     };
-
+*/
     slettOppgave = async (oppgave: Oppgave) => {
         try {
             await this.props.slettOppgave(oppgave);

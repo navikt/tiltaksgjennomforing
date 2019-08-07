@@ -22,10 +22,6 @@ class MaalSteg extends React.Component<Context> {
         };
     }
 
-    setMellomLagretMaal = () => {
-        //
-    };
-
     // sikre at mål blir satt først, derfor setState på modal i callback
     bekrefelsePaSlettRad = (maal: Maal) => {
         this.setState({ maalRad: maal }, () =>

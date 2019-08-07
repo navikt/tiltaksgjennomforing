@@ -52,9 +52,10 @@ class RedigerMaal extends React.Component<Props, State> {
     }
 
     componentWillUnmount(): void {
-        const liste = this.props.ledigeMaalkategorier
-            .filter(mal => mal !== this.state.valgtKategori)
-            .map(mal => mal);
+        const liste = this.props.ledigeMaalkategorier.filter(
+                mal => mal !== this.state.valgtKategori
+            );
+            /* .map(mal => mal)*/
         if (this.state.beskrivelse !== '' && !this.state.erLagret) {
             const tempMaal = {
                 maal: this.state.valgtKategori

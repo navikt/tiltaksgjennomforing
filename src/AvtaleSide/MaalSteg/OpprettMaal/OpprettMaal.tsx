@@ -1,4 +1,3 @@
-/* tslint:disable:member-ordering */
 import { Knapp } from 'nav-frontend-knapper';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
@@ -28,10 +27,6 @@ class OpprettMaal extends React.Component<Props> {
     state = {
         visRedigerMaal: this.setInnMellomLagring(),
     };
-
-    componentWillUnmount(): void {
-        // lag sjekk for om component blir unmountet
-    }
 
     visRedigerMaal = (skalVises: boolean) => {
         this.setState({ visRedigerMaal: skalVises });
