@@ -90,10 +90,12 @@ if (process.env.INTERNFLATE === 'true') {
     noDecorator();
 } else {
     getDecorator()
-        .then(renderApp, error =>
-            console.log('Kunne ikke hente dekorator ', error)
-        )
-        .then(startServer, error =>
-            console.log('Kunne ikke rendre app ', error)
-        );
+        .then(renderApp, error => {
+            console.log('Kunne ikke hente dekorator ', error);
+            process.exit(1);
+        })
+        .then(startServer, error => {
+            console.log('Kunne ikke rendre app ', error);
+            process.exit(1);
+        });
 }
