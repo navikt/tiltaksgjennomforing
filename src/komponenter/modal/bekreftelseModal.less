@@ -16,7 +16,7 @@
         &__body {
             display: flex;
             flex-direction: column;
-            padding: 1rem 1rem;
+            padding: 0 0 1rem 0;
 
             .innhold {
                 margin-bottom: 1.5rem;
@@ -66,9 +66,8 @@
         &__topIconContainer {
             pointer-events: none;
             z-index: 98;
-            position: absolute;
-            left: 0;
-            right: 0;
+            display: flex;
+            justify-content: center;
             text-align: center;
             margin: -3.3rem auto 0 auto;
         }

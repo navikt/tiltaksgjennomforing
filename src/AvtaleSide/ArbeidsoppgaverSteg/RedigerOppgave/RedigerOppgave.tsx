@@ -4,10 +4,16 @@ import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
 import { Oppgave } from '../../avtale';
 import ApiError from '../../../api-error';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { TemporaryLagringArbeidsoppgave } from '../../../AvtaleContext';
 
 interface Props {
     lagreOppgave: (oppgave: Oppgave) => Promise<any>;
     defaultOppgave?: Oppgave;
+    mellomLagretDataArbeidsoppgave?: TemporaryLagringArbeidsoppgave;
+    setMellomLagringArbeidsoppgave?: (
+        arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
+    ) => void;
+    fjerneMellomLagringArbeidsoppgave?: () => void;
 }
 
 interface State {
@@ -17,6 +23,7 @@ interface State {
     tittelFeil?: SkjemaelementFeil;
     beskrivelseFeil?: SkjemaelementFeil;
     opplaeringFeil?: SkjemaelementFeil;
+    erLagret: boolean;
 }
 
 class RedigerOppgave extends React.Component<Props, State> {
@@ -35,7 +42,56 @@ class RedigerOppgave extends React.Component<Props, State> {
         tittelFeil: undefined,
         beskrivelseFeil: undefined,
         opplaeringFeil: undefined,
+        erLagret: false,
     };
+
+    componentDidMount(): void {
+        if (this.props.mellomLagretDataArbeidsoppgave) {
+            if (
+                this.props.mellomLagretDataArbeidsoppgave.oppgaveTittel !==
+                    '' ||
+                this.props.mellomLagretDataArbeidsoppgave.oppgaveBeskrivelse !==
+                    '' ||
+                this.props.mellomLagretDataArbeidsoppgave.oppgaveOpplaering !==
+                    ''
+            ) {
+                this.setState({
+                    tittel: this.props.mellomLagretDataArbeidsoppgave
+                        .oppgaveTittel,
+                    beskrivelse: this.props.mellomLagretDataArbeidsoppgave
+                        .oppgaveBeskrivelse,
+                    opplaering: this.props.mellomLagretDataArbeidsoppgave
+                        .oppgaveOpplaering,
+                });
+            }
+        }
+    }
+
+    componentWillUnmount(): void {
+        if (
+            (this.state.tittel !== '' ||
+                this.state.beskrivelse !== '' ||
+                this.state.opplaering !== '') &&
+            !this.state.erLagret
+        ) {
+            const tempArbeidsoppgave = {
+                oppgaveTittel: this.state.tittel,
+                oppgaveBeskrivelse: this.state.beskrivelse,
+                oppgaveOpplaering: this.state.opplaering,
+            };
+            if (this.props.setMellomLagringArbeidsoppgave) {
+                this.props.setMellomLagringArbeidsoppgave(tempArbeidsoppgave);
+            }
+        } else if (
+            this.state.tittel === '' &&
+            this.state.beskrivelse === '' &&
+            this.state.opplaering === ''
+        ) {
+            if (this.props.fjerneMellomLagringArbeidsoppgave) {
+                this.props.fjerneMellomLagringArbeidsoppgave();
+            }
+        }
+    }
 
     settTittel = (event: any) => {
         this.setState({
@@ -79,6 +135,10 @@ class RedigerOppgave extends React.Component<Props, State> {
             this.state.beskrivelse &&
             this.state.opplaering
         ) {
+            this.setState({ erLagret: true });
+            if (this.props.fjerneMellomLagringArbeidsoppgave) {
+                this.props.fjerneMellomLagringArbeidsoppgave();
+            }
             return this.props.lagreOppgave({
                 id: this.props.defaultOppgave && this.props.defaultOppgave.id,
                 opprettetTimestamp:
