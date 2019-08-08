@@ -6,12 +6,16 @@ import { Maal } from '../../avtale';
 import { Maalkategori } from '../../maalkategorier';
 import ApiError from '../../../api-error';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { TemporaryLagring } from '../../../AvtaleContext';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
     avbrytRedigering: () => void;
     defaultMaal?: Maal;
     ledigeMaalkategorier: Maalkategori[];
+    mellomLagretData?: TemporaryLagring;
+    setMellomLagring?: (maalInput: TemporaryLagring) => void;
+    fjernMellomLagring?: () => void;
 }
 
 interface State {
@@ -19,6 +23,7 @@ interface State {
     beskrivelse: string;
     beskrivelseFeil?: SkjemaelementFeil;
     valgtKategoriFeil?: SkjemaelementFeil;
+    erLagret: boolean;
 }
 
 class RedigerMaal extends React.Component<Props, State> {
@@ -30,6 +35,60 @@ class RedigerMaal extends React.Component<Props, State> {
             '',
         beskrivelseFeil: undefined,
         valgtKategoriFeil: undefined,
+        erLagret: false,
+    };
+
+    componentDidMount(): void {
+        if (this.props.mellomLagretData) {
+            if (this.props.mellomLagretData.maalTekst !== '') {
+                this.setState({
+                    valgtKategori: this.mapKategoriTilMaal(
+                        this.props.mellomLagretData.maal
+                    ),
+                    beskrivelse: this.props.mellomLagretData.maalTekst,
+                });
+            }
+        }
+    }
+
+    componentWillUnmount(): void {
+        const liste = this.props.ledigeMaalkategorier.filter(
+            mal => mal !== this.state.valgtKategori
+        );
+        if (this.state.beskrivelse !== '' && !this.state.erLagret) {
+            const tempMaal = {
+                maal: this.state.valgtKategori
+                    ? this.state.valgtKategori
+                    : liste[0],
+                maalTekst: this.state.beskrivelse,
+            };
+            if (this.props.setMellomLagring) {
+                this.props.setMellomLagring(tempMaal);
+            }
+        } else if (!this.state.valgtKategori && this.state.beskrivelse === '') {
+            if (this.props.fjernMellomLagring) {
+                this.props.fjernMellomLagring();
+            }
+        }
+    }
+
+    mapKategoriTilMaal = (input: string): Maalkategori => {
+        switch (input) {
+            case 'Få jobb i bedriften':
+                return 'Få jobb i bedriften';
+            case 'Arbeidserfaring':
+                return 'Arbeidserfaring';
+            case 'Utprøving':
+                return 'Utprøving';
+            case 'Språkopplæring':
+                return 'Språkopplæring';
+            case 'Oppnå fagbrev/kompetansebevis':
+                return 'Oppnå fagbrev/kompetansebevis';
+            case 'Annet':
+                return 'Annet';
+            default:
+                return 'Få jobb i bedriften';
+        }
     };
 
     velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
@@ -60,6 +119,10 @@ class RedigerMaal extends React.Component<Props, State> {
 
     lagre = () => {
         if (this.state.beskrivelse && this.state.valgtKategori) {
+            this.setState({ erLagret: true });
+            if (this.props.fjernMellomLagring) {
+                this.props.fjernMellomLagring();
+            }
             return this.props.lagreMaal({
                 id: this.props.defaultMaal && this.props.defaultMaal.id,
                 opprettetTimestamp:
@@ -88,7 +151,12 @@ class RedigerMaal extends React.Component<Props, State> {
     };
 
     avbrytKnappOnClick = () => {
-        this.props.avbrytRedigering();
+        if (this.props.fjernMellomLagring) {
+            this.props.fjernMellomLagring();
+        }
+        this.setState({ erLagret: true }, () => {
+            this.props.avbrytRedigering();
+        });
     };
 
     lagTellerTekst = (antallTegn: number, maxLength: number) => {

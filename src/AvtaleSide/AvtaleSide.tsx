@@ -53,12 +53,12 @@ const AvtaleSide: FunctionComponent<Props> = props => {
             id: 'kontaktinformasjon',
         },
         {
-            komponent: <MaalSteg />,
+            komponent: <MaalSteg {...props} />,
             label: 'Mål',
             id: 'maal',
         },
         {
-            komponent: <ArbeidsoppgaverSteg />,
+            komponent: <ArbeidsoppgaverSteg {...props} />,
             label: 'Arbeidsoppgaver',
             id: 'arbeidsoppgaver',
         },
