@@ -131,6 +131,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             avtaleSteg={avtaleSteg}
                             aktivtSteg={aktivtSteg}
                             rolle={props.rolle}
+                            avtale={props.avtale}
                         />
                     );
                 } else {

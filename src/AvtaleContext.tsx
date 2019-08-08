@@ -49,6 +49,8 @@ export const tomAvtale: Avtale = {
     godkjentAvVeileder: false,
     erLaast: false,
     status: '',
+    kanAvbrytes: true,
+    avbruttStatus: false,
     godkjentPaaVegneAv: false,
     godkjentPaVegneGrunn: {
         ikkeBankId: false,
