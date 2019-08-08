@@ -68,7 +68,7 @@ const BekreftelseModal = ({
                             className={cls.element('knapp lenkeknapp')}
                             onClick={lukkModal}
                         >
-                            angre valget
+                            avbryt
                         </KnappBase>
                     </div>
                 </div>
