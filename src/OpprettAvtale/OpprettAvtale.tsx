@@ -14,6 +14,7 @@ import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelP
 import { Context, medContext } from '../AvtaleContext';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
+import { ReactComponent as TilEkstern } from './external-link.svg';
 import useValidering from '../komponenter/useValidering';
 import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { pathTilOpprettetAvtaleBekreftelse, pathTilOversikt } from '../paths';
@@ -158,31 +159,35 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                 <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
                     For at deltaker og arbeidsgiver skal få tilgang til avtalen
                     må de logge seg inn via ID-porten. Tilgang for arbeidsgiver
-                    styres gjennom Altinn. For at en arbeidsgiver kan
-                    representere en bedrift må personen ha rollen{' '}
-                    <em>Helse-, sosial- og velferdstjenester</em> eller gis
-                    tilgang til enkelttjenesten{' '}
-                    <em>Avtale om arbeidstrening</em>. Mer informasjon om roller
-                    og rettigheter finnes hos{' '}
-                    <Lenke
-                        href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/"
-                        target="_blank"
-                    >
-                        Altinn
-                    </Lenke>
-                    .
+                    styres gjennom Altinn. En representant for arbeidsgiver må
+                    ha rollen <em>Helse-, sosial- og velferdstjenester</em>,{' '}
+                    eller gis tilgang til enkelttjenesten{' '}
+                    <em>Avtale om arbeidstrening</em> for å kunne representere
+                    bedriften.
+                    <p>
+                        <Lenke
+                            href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/"
+                            target="_blank"
+                        >
+                            Finn mer informasjon om roller og rettigheter på
+                            Altinn.no
+                            <TilEkstern
+                                className={cls.element('eksterntLenkeikon')}
+                            />
+                        </Lenke>
+                    </p>
                 </EkstbanderbartPanelRad>
                 <EkstbanderbartPanelRad
                     svgIkon={<DrofteMedAnsattePersonOpplysning />}
                 >
-                    Deltaker, arbeidsgiver og veileder skal sammen fylle ut
-                    avtalen og blant annet bli enige om mål, arbeidsoppgaver og
+                    Deltaker, arbeidsgiver og veileder skal fylle ut avtalen
+                    sammen. Der blir de enige om mål, arbeidsoppgaver og
                     oppfølging.
                 </EkstbanderbartPanelRad>
 
                 <EkstbanderbartPanelRad svgIkon={<CheckCircleIkon />}>
-                    Til slutt må både deltaker, arbeidsgiver og veileder
-                    godkjenne avtalen slik at arbeidstreningen kan starte.
+                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne
+                    avtalen slik at arbeidstreningen kan starte.
                 </EkstbanderbartPanelRad>
             </Ekspanderbartpanel>
 

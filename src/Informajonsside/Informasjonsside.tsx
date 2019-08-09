@@ -50,6 +50,22 @@ const Innhold = () => {
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
                         svgIkon={
+                            <DigitalAvtale className={cls.element('SubIkon')} />
+                        }
+                        headerTekst={{
+                            tekst: 'Flere parter i samme digitale løsning',
+                            typografiType: 'undertittel',
+                        }}
+                    >
+                        Deltaker, arbeidsgiver og NAV fyller ut, ser over og
+                        godkjenner avtalen i samme løsning i sanntid, på hver
+                        sin PC eller mobil. NAV skal alltid godkjenne avtalen
+                        til slutt, og først da kan arbeidstreningen starte.
+                    </EkstbanderbartPanelRad>
+
+                    <EkstbanderbartPanelRad
+                        classname={cls.element('info')}
+                        svgIkon={
                             <Keyboard className={cls.element('SubIkon')} />
                         }
                         headerTekst={{
@@ -84,22 +100,6 @@ const Innhold = () => {
                                 className={cls.element('eksterntLenkeikon')}
                             />
                         </Lenke>
-                    </EkstbanderbartPanelRad>
-
-                    <EkstbanderbartPanelRad
-                        classname={cls.element('info')}
-                        svgIkon={
-                            <DigitalAvtale className={cls.element('SubIkon')} />
-                        }
-                        headerTekst={{
-                            tekst: 'Flere parter i samme digitale løsning',
-                            typografiType: 'undertittel',
-                        }}
-                    >
-                        Deltaker, arbeidsgiver og NAV fyller ut, ser over og
-                        godkjenner avtalen i samme løsning i sanntid, på hver
-                        sin PC eller mobil. NAV skal alltid godkjenne avtalen
-                        til slutt, og først da kan arbeidstreningen starte.
                     </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
