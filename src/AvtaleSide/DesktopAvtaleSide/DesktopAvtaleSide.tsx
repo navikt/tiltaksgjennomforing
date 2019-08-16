@@ -32,6 +32,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             const nyAvtale = await RestService.lagreAvtale(props.avtale);
             props.avtale = nyAvtale;
             // await this.props.avtale.setAvtaleVerdi(avtale);
+            setModalIsOpen(false);
         } catch (error) {
             // this.props.visFeilmelding(error.message);}
         }
