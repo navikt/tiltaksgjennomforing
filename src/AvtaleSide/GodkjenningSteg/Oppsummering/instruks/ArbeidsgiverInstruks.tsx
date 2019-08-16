@@ -11,10 +11,16 @@ import { ReactComponent as BehandlingPersonOpplysning } from '../../../../assets
 import BEMHelper from '../../../../utils/bem';
 
 const cls = BEMHelper('instruks');
-
-const ArbeidsgiverInstruks: FunctionComponent = () => (
+interface Props {
+    erLaast: boolean;
+}
+const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
     <>
-        <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>
+        {!props.erLaast && (
+            <Normaltekst>
+                Når du godkjenner godtar du kravene fra NAV
+            </Normaltekst>
+        )}
         <VeilederpanelMedUtklippstavle>
             <div className={cls.element('subheader')}>
                 <Element>Som arbeidsgiver må du</Element>
@@ -43,6 +49,7 @@ const ArbeidsgiverInstruks: FunctionComponent = () => (
                 </li>
             </ul>
         </VeilederpanelMedUtklippstavle>
+
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
             <EkstbanderbartPanelRad
                 svgIkon={<RettighetsHammerIkon />}
