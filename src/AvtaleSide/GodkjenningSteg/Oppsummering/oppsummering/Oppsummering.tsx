@@ -12,9 +12,11 @@ import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import { Knapp } from 'nav-frontend-knapper';
 import PrinterSvg from './PrinterSvg';
+import { Rolle } from '../../../../AvtaleContext';
 
 interface Props {
     avtale: Avtale;
+    rolle: Rolle;
 }
 
 const printAvtale = () => {
