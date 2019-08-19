@@ -8,7 +8,7 @@ import { Normaltekst, Innholdstittel } from 'nav-frontend-typografi';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import { ReactComponent as Keyboard } from './keyboard.svg';
 import { ReactComponent as DigitalAvtale } from './digitalAvtale.svg';
-import { ReactComponent as TilEkstern } from './external-link.svg';
+import { ReactComponent as TilEkstern } from '../assets/ikoner/external-link.svg';
 import { ReactComponent as Altinn } from './altinn.svg';
 import { ReactComponent as Clipboard } from './informationIcon.svg';
 import { ReactComponent as Historikk } from './historikk.svg';
