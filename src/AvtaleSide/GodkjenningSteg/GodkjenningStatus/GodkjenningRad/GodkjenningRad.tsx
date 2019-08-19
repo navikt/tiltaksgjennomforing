@@ -1,7 +1,7 @@
 import React from 'react';
 import { Normaltekst, Element } from 'nav-frontend-typografi';
-import checkIkon from '../check-circle.svg';
-import problemIkon from '../report-problem-circle.svg';
+import checkIkon from '../../../../assets/ikoner/check-circle-23px.svg';
+import problemIkon from '../../../../assets/ikoner/report-problem-circle.svg';
 import './GodkjenningRad.less';
 
 interface Props {
