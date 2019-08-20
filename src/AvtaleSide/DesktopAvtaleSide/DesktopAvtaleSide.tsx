@@ -29,10 +29,12 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const avbrytAvtale = async (avtale: Avtale) => {
         try {
             props.avtale.avbruttStatus = true;
-            const nyAvtale = await RestService.lagreAvtale(props.avtale);
-            props.avtale = nyAvtale;
-            // await this.props.avtale.setAvtaleVerdi(avtale);
             setModalIsOpen(false);
+            // const nyAvtale = await RestService.lagreAvtale(props.avtale);
+            const nyAvtale = await RestService.avbrytAvtale(props.avtale);
+
+            props.avtale = nyAvtale;
+            // await props.avtale.setAvtaleVerdi(avtale);
         } catch (error) {
             // this.props.visFeilmelding(error.message);}
         }
@@ -76,7 +78,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                 slettOnClick={avbrytAvtale}
                 lukkModal={lukkModal}
                 navn="avtale"
-                varselTekst="Du er i ferd med å avbryte/slette eavtale. Hvis du gjør det vil alt innholdet i avtalen forsvinne. Er du sikker?"
+                varselTekst="Du er i ferd med å avbryte/slette avtale. Hvis du gjør det vil alt innholdet i avtalen forsvinne. Er du sikker?"
             />
         </>
     );
