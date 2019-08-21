@@ -17,14 +17,14 @@ import { ReactComponent as Keyboard } from './keyboard.svg';
 
 const cls = BEMHelper('informasjonsside');
 
-const Informasjonsside = () =>
+const Informasjonsside = () => (
     <div>
-        <Banner tekst="Avtale om arbeidstrening"/>
+        <Banner tekst="Avtale om arbeidstrening" />
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                <TilbakeTilOversiktLenke/>
+                <TilbakeTilOversiktLenke />
                 <div className={cls.element('innhold')}>
-                    <Clipboard className={cls.element('ClipboardIkon')}/>
+                    <Clipboard className={cls.element('ClipboardIkon')} />
                     <div className={cls.element('innholdstittel')}>
                         <Innholdstittel>
                             Hvordan fungerer løsningen?
@@ -41,7 +41,7 @@ const Informasjonsside = () =>
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
                         svgIkon={
-                            <Keyboard className={cls.element('SubIkon')}/>
+                            <Keyboard className={cls.element('SubIkon')} />
                         }
                         headerTekst={{
                             tekst: 'NAV oppretter en avtale',
@@ -56,7 +56,7 @@ const Informasjonsside = () =>
 
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
-                        svgIkon={<Altinn className={cls.element('SubIkon')}/>}
+                        svgIkon={<Altinn className={cls.element('SubIkon')} />}
                         headerTekst={{
                             tekst: 'Tilgang og innlogging til avtalen',
                             typografiType: 'undertittel',
@@ -68,7 +68,7 @@ const Informasjonsside = () =>
                         bedrift må personen ha rollen{'  '}
                         <u>Helse-, sosial- og velferdstjenester</u> eller gis
                         tilgang til enkelttjenesten{' '}
-                        <u>Avtale om arbeidstrening</u>. <br/> <br/>
+                        <u>Avtale om arbeidstrening</u>. <br /> <br />
                         <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                             Les mer om roller og rettigheter på Altinn.no
                             <TilEkstern
@@ -80,7 +80,7 @@ const Informasjonsside = () =>
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
                         svgIkon={
-                            <DigitalAvtale className={cls.element('SubIkon')}/>
+                            <DigitalAvtale className={cls.element('SubIkon')} />
                         }
                         headerTekst={{
                             tekst: 'Flere parter i samme digitale løsning',
@@ -114,7 +114,7 @@ const Informasjonsside = () =>
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
                         svgIkon={
-                            <Historikk className={cls.element('SubIkon')}/>
+                            <Historikk className={cls.element('SubIkon')} />
                         }
                         headerTekst={{
                             tekst: 'Avtalens historikk',
@@ -130,5 +130,6 @@ const Informasjonsside = () =>
                 </div>
             </div>
         </div>
-    </div>;
+    </div>
+);
 export default Informasjonsside;

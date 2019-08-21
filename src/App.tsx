@@ -18,7 +18,7 @@ import {
     pathTilOpprettAvtale,
     pathTilOpprettetAvtaleBekreftelse,
     pathTilOversikt,
-    pathTilStegIAvtale
+    pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
 
@@ -45,7 +45,10 @@ class App extends React.Component {
                                             component={LandingsSide}
                                         />
                                         <Route
-                                            path={pathTilStegIAvtale(':avtaleId', ':stegPath')}
+                                            path={pathTilStegIAvtale(
+                                                ':avtaleId',
+                                                ':stegPath'
+                                            )}
                                             exact={true}
                                             component={AvtaleSide}
                                         />
@@ -55,7 +58,9 @@ class App extends React.Component {
                                             component={OpprettAvtale}
                                         />
                                         <Route
-                                            path={pathTilOpprettetAvtaleBekreftelse(':avtaleId')}
+                                            path={pathTilOpprettetAvtaleBekreftelse(
+                                                ':avtaleId'
+                                            )}
                                             exact={true}
                                             component={OpprettelseFullfort}
                                         />
@@ -65,7 +70,9 @@ class App extends React.Component {
                                             component={AvtaleOversikt}
                                         />
                                         <Route
-                                            path={pathTilInformasjonssideInnlogget}
+                                            path={
+                                                pathTilInformasjonssideInnlogget
+                                            }
                                             exact={true}
                                             component={Informasjonsside}
                                         />

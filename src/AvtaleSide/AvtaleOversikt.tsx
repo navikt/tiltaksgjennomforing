@@ -1,27 +1,27 @@
+import classNames from 'classnames';
 import moment from 'moment';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { InnloggetBruker } from '../InnloggingBoundary/useInnlogget';
+import Banner from '../komponenter/Banner/Banner';
 import StatusIkon from '../komponenter/StatusIkon/StatusIkon';
 import {
-    basename, pathTilInformasjonssideInnlogget,
+    basename,
+    pathTilInformasjonssideInnlogget,
     pathTilKontaktinformasjonSteg,
     pathTilOpprettAvtale,
 } from '../paths';
 import RestService from '../services/rest-service';
+import BEMHelper from '../utils/bem';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
-import Banner from '../komponenter/Banner/Banner';
 import Natur from './natur';
-import classNames from 'classnames';
-import AlertStripe from 'nav-frontend-alertstriper';
-import Lenke from 'nav-frontend-lenker';
-import BEMHelper from '../utils/bem';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -110,7 +110,10 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     <AlertStripe type="info">
                         Dette er en ny digital løsning for avtale om
                         arbeidstrening.{' '}
-                        <Link to={pathTilInformasjonssideInnlogget} className="lenke">
+                        <Link
+                            to={pathTilInformasjonssideInnlogget}
+                            className="lenke"
+                        >
                             Les mer om hvordan dette fungerer her
                         </Link>
                         .
