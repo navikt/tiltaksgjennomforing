@@ -13,11 +13,11 @@ import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/Opprettelse
 import {
     basename,
     pathTilAvtale,
-    pathTilAvtaleOversikt,
     pathTilInformasjonssideInnlogget,
     pathTilInformasjonssideUinnlogget,
     pathTilOpprettAvtale,
     pathTilOpprettetAvtaleBekreftelse,
+    pathTilOversikt,
     pathTilStegIAvtale
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
@@ -60,7 +60,7 @@ class App extends React.Component {
                                             component={OpprettelseFullfort}
                                         />
                                         <Route
-                                            path={pathTilAvtaleOversikt}
+                                            path={pathTilOversikt}
                                             exact={true}
                                             component={AvtaleOversikt}
                                         />
