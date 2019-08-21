@@ -4,7 +4,7 @@ import { Sidetittel } from 'nav-frontend-typografi';
 import { Innloggingskilde } from './useInnlogget';
 import Banner from '../komponenter/Banner/Banner';
 import './Innloggingsside.less';
-import { ReactComponent as Koffert } from './koffert.svg';
+import { ReactComponent as Koffert } from './../assets/ikoner/koffert.svg';
 import Lenke from 'nav-frontend-lenker';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
