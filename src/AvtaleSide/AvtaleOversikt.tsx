@@ -12,7 +12,6 @@ import { InnloggetBruker } from '../InnloggingBoundary/useInnlogget';
 import Banner from '../komponenter/Banner/Banner';
 import StatusIkon from '../komponenter/StatusIkon/StatusIkon';
 import {
-    basename,
     pathTilInformasjonssideInnlogget,
     pathTilKontaktinformasjonSteg,
     pathTilOpprettAvtale,
@@ -43,7 +42,12 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const avtaleLenker = avtaler.map((avtale: Avtale) => (
         <LenkepanelBase
             key={avtale.id}
-            href={basename + pathTilKontaktinformasjonSteg(avtale.id)}
+            linkCreator={(props: any) => (
+                <Link
+                    to={pathTilKontaktinformasjonSteg(avtale.id)}
+                    {...props}
+                />
+            )}
         >
             <div className={cls.element('rad')}>
                 <div className={cls.element('deltakerOgBedrift')}>
