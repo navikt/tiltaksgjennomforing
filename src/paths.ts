@@ -1,6 +1,6 @@
 export const basename = '/tiltaksgjennomforing';
 
-export const pathTilOversikt = basename;
+export const pathTilOversikt = '/';
 
 const avtaleBase = '/avtale';
 
