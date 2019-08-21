@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import './StegmenyLenke.less';
-// import stegFullfortIkon from './../../steg-fullfort.svg';
 import stegFullfortIkon from './../../../assets/ikoner/steg-fullfort.svg';
 import stegIkkeFullfortIkon from './../../../assets/ikoner/steg-ikke-fullfort.svg';
 import ApiError from '../../../api-error';
