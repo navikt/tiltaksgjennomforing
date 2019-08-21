@@ -224,7 +224,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                 <Flatknapp
                     className={cls.element('avbryt')}
                     onClick={() => {
-                        props.history.goBack();
+                        props.history.push(pathTilOversikt);
                     }}
                 >
                     Avbryt
