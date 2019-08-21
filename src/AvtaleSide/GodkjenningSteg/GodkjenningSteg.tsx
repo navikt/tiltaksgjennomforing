@@ -6,7 +6,7 @@ import Oppsummering from './Oppsummering/oppsummering/Oppsummering';
 
 const GodkjenningSteg = (props: Context) => (
     <>
-        <Oppsummering avtale={props.avtale} />
+        <Oppsummering avtale={props.avtale} rolle={props.rolle} />
         <Godkjenning
             avtale={props.avtale}
             rolle={props.rolle}
