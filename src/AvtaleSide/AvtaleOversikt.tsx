@@ -42,12 +42,8 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const avtaleLenker = avtaler.map((avtale: Avtale) => (
         <LenkepanelBase
             key={avtale.id}
-            linkCreator={(props: any) => (
-                <Link
-                    to={pathTilKontaktinformasjonSteg(avtale.id)}
-                    {...props}
-                />
-            )}
+            href={pathTilKontaktinformasjonSteg(avtale.id)}
+            linkCreator={(props: any) => <Link to={props.href} {...props} />}
         >
             <div className={cls.element('rad')}>
                 <div className={cls.element('deltakerOgBedrift')}>
