@@ -2,17 +2,16 @@ export const basename = '/tiltaksgjennomforing';
 
 export const pathTilOversikt = '/';
 
+export const pathTilInformasjonssideUinnlogget = '/informasjonsside/uinnlogget';
+
+export const pathTilInformasjonssideInnlogget = '/informasjonsside/innlogget';
+
 const avtaleBase = '/avtale';
 
 export const pathTilOpprettAvtale = '/opprett-avtale';
 
 export const pathTilOpprettetAvtaleBekreftelse = (avtaleId: string) =>
     `/opprett-avtale-fullfort/${avtaleId}`;
-
-export const absoluttPathTilAvtaleSelvbetjening = (avtaleId: string) =>
-    `https://arbeidsgiver.nav.no/tiltaksgjennomforing${pathTilAvtale(
-        avtaleId
-    )}`;
 
 export const pathTilAvtaleOversikt = `https://arbeidsgiver.nav.no${basename}`;
 

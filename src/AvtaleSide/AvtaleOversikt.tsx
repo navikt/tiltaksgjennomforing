@@ -5,11 +5,11 @@ import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { InnloggetBruker } from '../InnloggingBoundary/useInnlogget';
 import StatusIkon from '../komponenter/StatusIkon/StatusIkon';
 import {
-    basename,
+    basename, pathTilInformasjonssideInnlogget,
     pathTilKontaktinformasjonSteg,
     pathTilOpprettAvtale,
 } from '../paths';
@@ -110,9 +110,9 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     <AlertStripe type="info">
                         Dette er en ny digital løsning for avtale om
                         arbeidstrening.{' '}
-                        <Lenke href="/tiltaksgjennomforing/informasjonsside/innlogget">
+                        <Link to={pathTilInformasjonssideInnlogget} className="lenke">
                             Les mer om hvordan dette fungerer her
-                        </Lenke>
+                        </Link>
                         .
                     </AlertStripe>
                 </div>

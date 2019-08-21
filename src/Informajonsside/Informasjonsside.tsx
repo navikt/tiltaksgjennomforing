@@ -1,39 +1,30 @@
+import Lenke from 'nav-frontend-lenker';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React from 'react';
-import Banner from '../komponenter/Banner/Banner';
 import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import Banner from '../komponenter/Banner/Banner';
+import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import BEMHelper from '../utils/bem';
+import { ReactComponent as Altinn } from './altinn.svg';
+import { ReactComponent as DigitalAvtale } from './digitalAvtale.svg';
+import { ReactComponent as DynamiskAvtale } from './dynamiskAvtale.svg';
+import { ReactComponent as TilEkstern } from './external-link.svg';
+import { ReactComponent as Historikk } from './historikk.svg';
 
 import './informasjonsside.less';
-import { Normaltekst, Innholdstittel } from 'nav-frontend-typografi';
-import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import { ReactComponent as Keyboard } from './keyboard.svg';
-import { ReactComponent as DigitalAvtale } from './digitalAvtale.svg';
-import { ReactComponent as TilEkstern } from './external-link.svg';
-import { ReactComponent as Altinn } from './altinn.svg';
 import { ReactComponent as Clipboard } from './informationIcon.svg';
-import { ReactComponent as Historikk } from './historikk.svg';
-import { ReactComponent as DynamiskAvtale } from './dynamiskAvtale.svg';
-import Lenke from 'nav-frontend-lenker';
+import { ReactComponent as Keyboard } from './keyboard.svg';
+
 const cls = BEMHelper('informasjonsside');
 
-const Informasjonsside = () => {
-    return (
-        <div>
-            <Banner tekst="Avtale om arbeidstrening" />
-            <Innhold />
-        </div>
-    );
-};
-
-export default Informasjonsside;
-
-const Innhold = () => {
-    return (
+const Informasjonsside = () =>
+    <div>
+        <Banner tekst="Avtale om arbeidstrening"/>
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                <TilbakeTilOversiktLenke />
+                <TilbakeTilOversiktLenke/>
                 <div className={cls.element('innhold')}>
-                    <Clipboard className={cls.element('ClipboardIkon')} />
+                    <Clipboard className={cls.element('ClipboardIkon')}/>
                     <div className={cls.element('innholdstittel')}>
                         <Innholdstittel>
                             Hvordan fungerer løsningen?
@@ -50,7 +41,7 @@ const Innhold = () => {
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
                         svgIkon={
-                            <Keyboard className={cls.element('SubIkon')} />
+                            <Keyboard className={cls.element('SubIkon')}/>
                         }
                         headerTekst={{
                             tekst: 'NAV oppretter en avtale',
@@ -65,7 +56,7 @@ const Innhold = () => {
 
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
-                        svgIkon={<Altinn className={cls.element('SubIkon')} />}
+                        svgIkon={<Altinn className={cls.element('SubIkon')}/>}
                         headerTekst={{
                             tekst: 'Tilgang og innlogging til avtalen',
                             typografiType: 'undertittel',
@@ -77,7 +68,7 @@ const Innhold = () => {
                         bedrift må personen ha rollen{'  '}
                         <u>Helse-, sosial- og velferdstjenester</u> eller gis
                         tilgang til enkelttjenesten{' '}
-                        <u>Avtale om arbeidstrening</u>. <br /> <br />
+                        <u>Avtale om arbeidstrening</u>. <br/> <br/>
                         <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                             Les mer om roller og rettigheter på Altinn.no
                             <TilEkstern
@@ -89,7 +80,7 @@ const Innhold = () => {
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
                         svgIkon={
-                            <DigitalAvtale className={cls.element('SubIkon')} />
+                            <DigitalAvtale className={cls.element('SubIkon')}/>
                         }
                         headerTekst={{
                             tekst: 'Flere parter i samme digitale løsning',
@@ -123,7 +114,7 @@ const Innhold = () => {
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
                         svgIkon={
-                            <Historikk className={cls.element('SubIkon')} />
+                            <Historikk className={cls.element('SubIkon')}/>
                         }
                         headerTekst={{
                             tekst: 'Avtalens historikk',
@@ -139,5 +130,5 @@ const Innhold = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    </div>;
+export default Informasjonsside;

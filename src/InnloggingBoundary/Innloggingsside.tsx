@@ -1,6 +1,8 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { Sidetittel } from 'nav-frontend-typografi';
+import { Link } from 'react-router-dom';
+import { pathTilInformasjonssideUinnlogget } from '../paths';
 import { Innloggingskilde } from './useInnlogget';
 import Banner from '../komponenter/Banner/Banner';
 import './Innloggingsside.less';
@@ -34,9 +36,9 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         Dette er en digital avtale som skal brukes av deltaker,
                         arbeidsgiver og NAV.
                     </p>
-                    <Lenke href="/tiltaksgjennomforing/informasjonsside/uinnlogget">
+                    <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
                         Her kan du lese mer om hvordan løsningen fungerer >
-                    </Lenke>
+                    </Link>
                     <p>
                         For å se avtalene du er en del av må du først logge på.
                     </p>
