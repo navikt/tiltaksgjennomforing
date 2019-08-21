@@ -13,7 +13,7 @@ const cls = BEMHelper('instruks');
 const VeilederInstruks: FunctionComponent = () => (
     <VeilederpanelMedUtklippstavle>
         <div className={cls.element('subheader')}>
-            <Element>Som veileder må du </Element>
+            <Element>Etter at avtalen er godkjent, må du som veileder</Element>
         </div>
         <div className={cls.element('instrukslist')}>
             <PrintAvtalen className={cls.element('instrukslistsvg')} />
