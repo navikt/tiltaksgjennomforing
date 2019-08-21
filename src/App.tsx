@@ -60,7 +60,7 @@ class App extends React.Component {
                                             component={OpprettelseFullfort}
                                         />
                                         <Route
-                                            path={pathTilOversikt}
+                                            path=""
                                             exact={true}
                                             component={AvtaleOversikt}
                                         />
