@@ -10,6 +10,8 @@ import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
 import { Avtale } from '../avtale';
 import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
 import RestService from '../../services/rest-service';
+import { pathTilKontaktinformasjonSteg } from '../../paths';
+import { State } from 'nav-frontend-hjelpetekst';
 
 interface Props {
     avtaleSteg: StegInfo[];
@@ -29,18 +31,19 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const avbrytAvtale = async (avtale: Avtale) => {
         try {
             props.avtale.avbrutt = true;
-            setModalIsOpen(false);
-            // const nyAvtale = await RestService.lagreAvtale(props.avtale);
+
             const nyAvtale = await RestService.avbrytAvtale(props.avtale);
+            setModalIsOpen(false);
 
             props.avtale = nyAvtale;
-
-            // await props.avtale.setAvtaleVerdi(avtale);
+            history.pushState(
+                props,
+                pathTilKontaktinformasjonSteg(props.avtale.id)
+            );
         } catch (error) {
-            // this.props.visFeilmelding(error.message);}
+            throw error;
         }
     };
-
     const lukkModal = () => {
         setModalIsOpen(false);
     };
