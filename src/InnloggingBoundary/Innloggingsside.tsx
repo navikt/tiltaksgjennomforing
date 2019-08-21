@@ -6,6 +6,7 @@ import Banner from '../komponenter/Banner/Banner';
 import './Innloggingsside.less';
 import { ReactComponent as Koffert } from './koffert.svg';
 import Lenke from 'nav-frontend-lenker';
+import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const logginnknapper = props.innloggingskilder.map(
@@ -34,11 +35,14 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         Dette er en digital avtale som skal brukes av deltaker,
                         arbeidsgiver og NAV.
                     </p>
-                    <Lenke href="/tiltaksgjennomforing/informasjonsside/uinnlogget">
-                        Her kan du lese mer om hvordan løsningen fungerer >
-                    </Lenke>
                     <p>
                         For å se avtalene du er en del av må du først logge på.
+                    </p>
+                    <p className="innloggingsside__lenke">
+                        <Lenke href="/tiltaksgjennomforing/informasjonsside/uinnlogget">
+                            Her kan du lese mer om hvordan løsningen fungerer
+                            <HoyreChevron className="tilbaketiloversikt__chevron" />
+                        </Lenke>
                     </p>
                 </div>
                 {logginnknapper}
