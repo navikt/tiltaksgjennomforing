@@ -96,7 +96,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 let innhold: ReactNode;
                 if (!aktivtSteg) {
                     return null;
-                } else if (props.avtale.erLaast) {
+                } else if (props.avtale.erLaast || props.avtale.avbruttStatus) {
                     innhold = (
                         <div className="avtaleside__innhold">
                             <TilbakeTilOversiktLenke />
@@ -104,7 +104,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 className={cls.element('banner')}
                                 type="suksess"
                             >
-                                Avtalen er godkjent av alle parter og låst.
+                                {props.avtale.erLaast &&
+                                    'Avtalen er godkjent av alle parter og låst.'}
+                                {props.avtale.avbruttStatus &&
+                                    'Avtalen er avbrutt av veileder og låst.'}
                             </AlertStripe>
                             <Oppsummering avtale={props.avtale} />
                         </div>
