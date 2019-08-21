@@ -94,7 +94,7 @@ export interface Godkjenninger {
 
 export interface Avbrytelse {
     kanAvbrytes: boolean;
-    avbruttStatus: boolean;
+    avbrutt: boolean;
 }
 export interface GodkjentPaVegneGrunner {
     ikkeBankId: boolean;

@@ -21,24 +21,26 @@ interface Props {
 const cls = BEMHelper('avtaleside');
 const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const bekreftelseAvbrytAvtalen = () => {
-        // props.avtale.avbruttStatus = true;
+        // props.avtale.avbrutt = true;
         setModalIsOpen(true);
     };
     // nå kalles avbryteAvtale men kan bli slettavtalen etter diskusjon
     // avhengig av om avtalen markeres som avbrutt eller slettes komplett med en gang (hensyn til personvern)
     const avbrytAvtale = async (avtale: Avtale) => {
         try {
-            props.avtale.avbruttStatus = true;
+            props.avtale.avbrutt = true;
             setModalIsOpen(false);
             // const nyAvtale = await RestService.lagreAvtale(props.avtale);
             const nyAvtale = await RestService.avbrytAvtale(props.avtale);
 
             props.avtale = nyAvtale;
+
             // await props.avtale.setAvtaleVerdi(avtale);
         } catch (error) {
             // this.props.visFeilmelding(error.message);}
         }
     };
+
     const lukkModal = () => {
         setModalIsOpen(false);
     };
@@ -49,7 +51,8 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke />
                     {props.avtale.kanAvbrytes &&
-                        !props.avtale.avbruttStatus && (
+                        !props.avtale.avbrutt &&
+                        props.rolle === 'VEILEDER' && (
                             <AvbryteAvtalen
                                 avtale={props.avtale}
                                 avbrytOnclick={bekreftelseAvbrytAvtalen}

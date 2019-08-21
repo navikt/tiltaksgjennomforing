@@ -65,7 +65,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 <div className="avtaleoversikt__lenker__status">
                     {avtale.status}
                 </div>
-                {console.log(avtale.avbruttStatus)}
+                {console.log(avtale.avbrutt)}
             </div>
         </LenkepanelBase>
     ));
