@@ -16,7 +16,6 @@ const StatusIkon: FunctionComponent<{ status: string }> = ({ status }) => {
             ikon = <CheckIkon />;
             break;
         case 'Mangler godkjenning':
-        case 'Avbrutt':
             ikon = <ProblemIkon />;
             break;
         case 'Avbrutt':
