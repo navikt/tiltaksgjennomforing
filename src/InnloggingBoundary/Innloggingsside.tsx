@@ -1,11 +1,14 @@
+import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import * as React from 'react';
 import { Sidetittel } from 'nav-frontend-typografi';
-import { Innloggingskilde } from './useInnlogget';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Banner from '../komponenter/Banner/Banner';
+import { pathTilInformasjonssideUinnlogget } from '../paths';
 import './Innloggingsside.less';
 import { ReactComponent as Koffert } from './../assets/ikoner/koffert.svg';
 import Lenke from 'nav-frontend-lenker';
+import { Innloggingskilde } from './useInnlogget';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const logginnknapper = props.innloggingskilder.map(
@@ -34,11 +37,17 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         Dette er en digital avtale som skal brukes av deltaker,
                         arbeidsgiver og NAV.
                     </p>
-                    <Lenke href="/tiltaksgjennomforing/informasjonsside/uinnlogget">
-                        Her kan du lese mer om hvordan løsningen fungerer >
-                    </Lenke>
                     <p>
                         For å se avtalene du er en del av må du først logge på.
+                    </p>
+                    <p className="innloggingsside__lenke">
+                        <Link
+                            to={pathTilInformasjonssideUinnlogget}
+                            className="lenke"
+                        >
+                            Her kan du lese mer om hvordan løsningen fungerer
+                            <HoyreChevron className="tilbaketiloversikt__chevron" />
+                        </Link>
                     </p>
                 </div>
                 {logginnknapper}

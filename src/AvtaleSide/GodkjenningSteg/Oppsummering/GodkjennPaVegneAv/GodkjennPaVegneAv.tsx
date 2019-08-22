@@ -112,7 +112,7 @@ const GodkjennPaVegneAv = (props: Props) => {
                         <Checkbox
                             className="godkjennPaVegneAv__deltakerInformert"
                             label={
-                                'Ja, deltaker er informert om kravene og godkjenner innholdet i avtalen.'
+                                'Deltaker er informert om kravene og godkjenner innholdet i avtalen.'
                             }
                             onChange={event =>
                                 deltakerInformertChanged(

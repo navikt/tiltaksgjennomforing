@@ -1,11 +1,11 @@
+import Lenke from 'nav-frontend-lenker';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React from 'react';
-import Banner from '../komponenter/Banner/Banner';
 import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import BEMHelper from '../utils/bem';
-
-import './informasjonsside.less';
-import { Normaltekst, Innholdstittel } from 'nav-frontend-typografi';
+import Banner from '../komponenter/Banner/Banner';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import BEMHelper from '../utils/bem';
+import './informasjonsside.less';
 import { ReactComponent as Keyboard } from './../assets/ikoner/keyboard.svg';
 import { ReactComponent as DigitalAvtale } from './../assets/ikoner/digitalAvtale.svg';
 import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
@@ -14,22 +14,11 @@ import { ReactComponent as Clipboard } from './../assets/ikoner/informationIcon.
 import { ReactComponent as Historikk } from './../assets/ikoner/historikk.svg';
 import { ReactComponent as DynamiskAvtale } from './../assets/ikoner/dynamiskAvtale.svg';
 
-import Lenke from 'nav-frontend-lenker';
 const cls = BEMHelper('informasjonsside');
 
-const Informasjonsside = () => {
-    return (
-        <div>
-            <Banner tekst="Avtale om arbeidstrening" />
-            <Innhold />
-        </div>
-    );
-};
-
-export default Informasjonsside;
-
-const Innhold = () => {
-    return (
+const Informasjonsside = () => (
+    <div>
+        <Banner tekst="Avtale om arbeidstrening" />
         <div className={cls.className}>
             <div className={cls.element('container')}>
                 <TilbakeTilOversiktLenke />
@@ -47,6 +36,22 @@ const Innhold = () => {
                             løsningen fungerer:
                         </Normaltekst>
                     </div>
+
+                    <EkstbanderbartPanelRad
+                        classname={cls.element('info')}
+                        svgIkon={
+                            <DigitalAvtale className={cls.element('SubIkon')} />
+                        }
+                        headerTekst={{
+                            tekst: 'Flere parter i samme digitale løsning',
+                            typografiType: 'undertittel',
+                        }}
+                    >
+                        Deltaker, arbeidsgiver og NAV fyller ut, ser over og
+                        godkjenner avtalen i samme løsning i sanntid, på hver
+                        sin PC eller mobil. NAV skal alltid godkjenne avtalen
+                        til slutt, og først da kan arbeidstreningen starte.
+                    </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
@@ -90,22 +95,6 @@ const Innhold = () => {
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
                         svgIkon={
-                            <DigitalAvtale className={cls.element('SubIkon')} />
-                        }
-                        headerTekst={{
-                            tekst: 'Flere parter i samme digitale løsning',
-                            typografiType: 'undertittel',
-                        }}
-                    >
-                        Deltaker, arbeidsgiver og NAV fyller ut, ser over og
-                        godkjenner avtalen i samme løsning i sanntid, på hver
-                        sin PC eller mobil. NAV skal alltid godkjenne avtalen
-                        til slutt, og først da kan arbeidstreningen starte.
-                    </EkstbanderbartPanelRad>
-
-                    <EkstbanderbartPanelRad
-                        classname={cls.element('info')}
-                        svgIkon={
                             <DynamiskAvtale
                                 className={cls.element('SubIkon')}
                             />
@@ -140,5 +129,6 @@ const Innhold = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    </div>
+);
+export default Informasjonsside;
