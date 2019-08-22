@@ -59,9 +59,33 @@ export const tomAvtale: Avtale = {
     },
 };
 
+export interface TemporaryLagring {
+    maal: string;
+    maalTekst: string;
+}
+
+export interface TemporaryLagringArbeidsoppgave {
+    oppgaveTittel: string;
+    oppgaveBeskrivelse: string;
+    oppgaveOpplaering: string;
+}
+
+const tomTemporaryLagring: TemporaryLagring = {
+    maal: '',
+    maalTekst: '',
+};
+
+const tomTemporaryLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave = {
+    oppgaveTittel: '',
+    oppgaveBeskrivelse: '',
+    oppgaveOpplaering: '',
+};
+
 export interface Context {
     avtale: Avtale;
     rolle: Rolle;
+    mellomLagring: TemporaryLagring;
+    mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
     lagreAvtale: () => Promise<any>;
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -75,6 +99,12 @@ export interface Context {
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
     endretSteg: () => void;
+    mellomLagreMaal: (maalInput: TemporaryLagring) => void;
+    setMellomLagreMaalTom: () => void;
+    mellomLagreArbeidsoppgave: (
+        arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
+    ) => void;
+    setMellomLagreArbeidsoppgaveTom: () => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -88,6 +118,8 @@ interface State {
     feilmelding: string;
     rolle: Rolle;
     ulagredeEndringer: boolean;
+    mellomLagring: TemporaryLagring;
+    mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -99,6 +131,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             feilmelding: '',
             rolle: 'INGEN_ROLLE',
             ulagredeEndringer: false,
+            mellomLagring: tomTemporaryLagring,
+            mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
@@ -115,6 +149,38 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.godkjennAvtale = this.godkjennAvtale.bind(this);
         this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
+        this.mellomLagreMaal = this.mellomLagreMaal.bind(this);
+        this.setMellomLagreMaalTom = this.setMellomLagreMaalTom.bind(this);
+        this.mellomLagreArbeidsoppgave = this.mellomLagreArbeidsoppgave.bind(
+            this
+        );
+        this.setMellomLagreArbeidsoppgaveTom = this.setMellomLagreArbeidsoppgaveTom.bind(
+            this
+        );
+    }
+
+    mellomLagreMaal(maalInput: TemporaryLagring): void {
+        this.setState({
+            mellomLagring: maalInput,
+        });
+    }
+
+    setMellomLagreMaalTom(): void {
+        this.setState({
+            mellomLagring: tomTemporaryLagring,
+        });
+    }
+
+    mellomLagreArbeidsoppgave(
+        arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
+    ): void {
+        this.setState({ mellomLagringArbeidsoppgave: arbeidsoppgaveInput });
+    }
+
+    setMellomLagreArbeidsoppgaveTom(): void {
+        this.setState({
+            mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
+        });
     }
 
     shouldComponentUpdate(nextProps: any, nextState: State): boolean {
@@ -282,6 +348,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         const context: Context = {
             avtale: this.state.avtale,
             rolle: this.state.rolle,
+            mellomLagring: this.state.mellomLagring,
+            mellomLagringArbeidsoppgave: this.state.mellomLagringArbeidsoppgave,
             settAvtaleVerdi: this.settAvtaleVerdi,
             lagreAvtale: this.lagreAvtale,
             lagreMaal: this.lagreMaal,
@@ -295,6 +363,11 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             godkjennPaVegne: this.godkjennAvtalePaVegne,
             visFeilmelding: this.visFeilmelding,
             endretSteg: this.endretSteg,
+            mellomLagreMaal: this.mellomLagreMaal,
+            setMellomLagreMaalTom: this.setMellomLagreMaalTom,
+            mellomLagreArbeidsoppgave: this.mellomLagreArbeidsoppgave,
+            setMellomLagreArbeidsoppgaveTom: this
+                .setMellomLagreArbeidsoppgaveTom,
         };
 
         return (
