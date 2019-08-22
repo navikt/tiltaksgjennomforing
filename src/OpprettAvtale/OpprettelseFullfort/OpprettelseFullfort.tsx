@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router';
 import VeilederpanelMedAvsjekkIkon from '../../komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import {
     pathTilKontaktinformasjonSteg,
-    pathTilAvtaleOversikt,
+    pathTilOversiktISelvbetjeningProd,
 } from '../../paths';
 
 import './OpprettelseFullfort.less';
@@ -37,11 +37,11 @@ const OpprettelseFullfort: React.FunctionComponent<
             {inputLabel}
             <div className="opprettelseFullfort__lenkedeling">
                 <div className="opprettelseFullfort__lenke">
-                    <Lenke href={pathTilAvtaleOversikt}>
-                        {pathTilAvtaleOversikt}
+                    <Lenke href={pathTilOversiktISelvbetjeningProd}>
+                        {pathTilOversiktISelvbetjeningProd}
                     </Lenke>
                 </div>
-                <CopyToClipboard text={pathTilAvtaleOversikt}>
+                <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
                     <Hovedknapp className="opprettelseFullfort__kopier-knapp">
                         Kopier lenke
                     </Hovedknapp>

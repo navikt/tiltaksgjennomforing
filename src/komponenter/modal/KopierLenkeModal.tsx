@@ -4,7 +4,7 @@ import Modal from 'nav-frontend-modal';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { pathTilAvtaleOversikt } from '../../paths';
+import { pathTilOversiktISelvbetjeningProd } from '../../paths';
 import './KopierLenkeModal.less';
 
 interface Props {
@@ -25,11 +25,11 @@ const KopierLenkeModal: React.FunctionComponent<Props> = props => (
         </Systemtittel>
         <div className="kopierlenke__lenkedeling">
             <div className="kopierlenke__lenke">
-                <Lenke href={pathTilAvtaleOversikt}>
-                    {pathTilAvtaleOversikt}
+                <Lenke href={pathTilOversiktISelvbetjeningProd}>
+                    {pathTilOversiktISelvbetjeningProd}
                 </Lenke>
             </div>
-            <CopyToClipboard text={pathTilAvtaleOversikt}>
+            <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
                 <Hovedknapp className="kopierlenke__kopier-knapp">
                     Kopier lenke
                 </Hovedknapp>
