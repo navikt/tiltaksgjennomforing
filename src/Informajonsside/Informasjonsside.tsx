@@ -8,12 +8,11 @@ import BEMHelper from '../utils/bem';
 import { ReactComponent as Altinn } from './altinn.svg';
 import { ReactComponent as DigitalAvtale } from './digitalAvtale.svg';
 import { ReactComponent as DynamiskAvtale } from './dynamiskAvtale.svg';
-import { ReactComponent as TilEkstern } from './external-link.svg';
+import { ReactComponent as TilEkstern } from '../assets/ikoner/external-link.svg';
 import { ReactComponent as Historikk } from './historikk.svg';
-
-import './informasjonsside.less';
 import { ReactComponent as Clipboard } from './informationIcon.svg';
 import { ReactComponent as Keyboard } from './keyboard.svg';
+import './informasjonsside.less';
 
 const cls = BEMHelper('informasjonsside');
 
@@ -37,6 +36,22 @@ const Informasjonsside = () => (
                             løsningen fungerer:
                         </Normaltekst>
                     </div>
+
+                    <EkstbanderbartPanelRad
+                        classname={cls.element('info')}
+                        svgIkon={
+                            <DigitalAvtale className={cls.element('SubIkon')} />
+                        }
+                        headerTekst={{
+                            tekst: 'Flere parter i samme digitale løsning',
+                            typografiType: 'undertittel',
+                        }}
+                    >
+                        Deltaker, arbeidsgiver og NAV fyller ut, ser over og
+                        godkjenner avtalen i samme løsning i sanntid, på hver
+                        sin PC eller mobil. NAV skal alltid godkjenne avtalen
+                        til slutt, og først da kan arbeidstreningen starte.
+                    </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
@@ -75,22 +90,6 @@ const Informasjonsside = () => (
                                 className={cls.element('eksterntLenkeikon')}
                             />
                         </Lenke>
-                    </EkstbanderbartPanelRad>
-
-                    <EkstbanderbartPanelRad
-                        classname={cls.element('info')}
-                        svgIkon={
-                            <DigitalAvtale className={cls.element('SubIkon')} />
-                        }
-                        headerTekst={{
-                            tekst: 'Flere parter i samme digitale løsning',
-                            typografiType: 'undertittel',
-                        }}
-                    >
-                        Deltaker, arbeidsgiver og NAV fyller ut, ser over og
-                        godkjenner avtalen i samme løsning i sanntid, på hver
-                        sin PC eller mobil. NAV skal alltid godkjenne avtalen
-                        til slutt, og først da kan arbeidstreningen starte.
                     </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
