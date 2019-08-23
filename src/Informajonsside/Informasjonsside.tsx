@@ -5,14 +5,14 @@ import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/Tilba
 import Banner from '../komponenter/Banner/Banner';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import BEMHelper from '../utils/bem';
-import { ReactComponent as Altinn } from './altinn.svg';
-import { ReactComponent as DigitalAvtale } from './digitalAvtale.svg';
-import { ReactComponent as DynamiskAvtale } from './dynamiskAvtale.svg';
-import { ReactComponent as TilEkstern } from '../assets/ikoner/external-link.svg';
-import { ReactComponent as Historikk } from './historikk.svg';
-import { ReactComponent as Clipboard } from './informationIcon.svg';
-import { ReactComponent as Keyboard } from './keyboard.svg';
 import './informasjonsside.less';
+import { ReactComponent as Keyboard } from './../assets/ikoner/keyboard.svg';
+import { ReactComponent as DigitalAvtale } from './../assets/ikoner/digitalAvtale.svg';
+import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
+import { ReactComponent as Altinn } from './../assets/ikoner/altinn.svg';
+import { ReactComponent as Clipboard } from './../assets/ikoner/informationIcon.svg';
+import { ReactComponent as Historikk } from './../assets/ikoner/historikk.svg';
+import { ReactComponent as DynamiskAvtale } from './../assets/ikoner/dynamiskAvtale.svg';
 
 const cls = BEMHelper('informasjonsside');
 
