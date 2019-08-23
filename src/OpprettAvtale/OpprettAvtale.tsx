@@ -23,6 +23,7 @@ import { validerFnr } from '../utils/fnrUtils';
 import { validerOrgnr } from '../utils/orgnrUtils';
 import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
+import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -224,10 +225,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                     className="opprett-avtale__knapp"
                 />
 
-                <Link to={pathTilOversikt} className="lenke">
-                    <VenstreChevron />
-                    Tilbake
-                </Link>
+                <TilbakeTilOversiktLenke />
             </div>
         </div>
     );
