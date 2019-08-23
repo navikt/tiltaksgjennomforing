@@ -1,12 +1,13 @@
+import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import * as React from 'react';
 import { Sidetittel } from 'nav-frontend-typografi';
-import { Innloggingskilde } from './useInnlogget';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Banner from '../komponenter/Banner/Banner';
+import { pathTilInformasjonssideUinnlogget } from '../paths';
 import './Innloggingsside.less';
 import { ReactComponent as Koffert } from './koffert.svg';
-import Lenke from 'nav-frontend-lenker';
-import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
+import { Innloggingskilde } from './useInnlogget';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const logginnknapper = props.innloggingskilder.map(
@@ -39,10 +40,13 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         For å se avtalene du er en del av må du først logge på.
                     </p>
                     <p className="innloggingsside__lenke">
-                        <Lenke href="/tiltaksgjennomforing/informasjonsside/uinnlogget">
+                        <Link
+                            to={pathTilInformasjonssideUinnlogget}
+                            className="lenke"
+                        >
                             Her kan du lese mer om hvordan løsningen fungerer
                             <HoyreChevron className="tilbaketiloversikt__chevron" />
-                        </Lenke>
+                        </Link>
                     </p>
                 </div>
                 {logginnknapper}

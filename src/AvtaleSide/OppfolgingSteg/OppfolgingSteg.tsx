@@ -19,7 +19,7 @@ const OppfolgingSteg = (props: Context) => (
             </HjelpetekstBase>
         </Systemtittel>
         <PakrevdTextarea
-            label="Beskriv hvilken oppfølging som er avtalt"
+            label="Beskriv hvilken oppfølging dere har avtalt"
             verdi={props.avtale.oppfolging || ''}
             settVerdi={_.partial(props.settAvtaleVerdi, 'oppfolging')}
             maxLengde={1000}
