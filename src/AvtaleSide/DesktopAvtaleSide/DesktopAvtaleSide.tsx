@@ -63,7 +63,10 @@ const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
                 slettOnClick={props.avbryt}
                 lukkModal={lukkModal}
                 navn="avtale"
-                varselTekst="Du er i ferd med å avbryte/slette avtale. Hvis du gjør det vil alt innholdet i avtalen forsvinne. Er du sikker?"
+                varselTekst="Du er i ferd med å avbryte avtale. Hvis du gjør det vil hele avtalen ikke kan tas i bruk. Er du sikker?"
+                oversiktTekst="Avbryte "
+                bekreftelseTekst="Ja, avbryt "
+                avbrytelseTekst="avbryt"
             />
         </>
     );
