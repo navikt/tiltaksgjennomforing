@@ -97,6 +97,7 @@ export interface Context {
     hentRolle: (avtaleId: string) => Promise<any>;
     godkjenn: (godkjent: boolean) => Promise<any>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
+    avbryt: () => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
     endretSteg: () => void;
     mellomLagreMaal: (maalInput: TemporaryLagring) => void;
@@ -147,6 +148,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
         this.godkjennAvtale = this.godkjennAvtale.bind(this);
+        this.avbrytAvtale = this.avbrytAvtale.bind(this);
         this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
         this.mellomLagreMaal = this.mellomLagreMaal.bind(this);
@@ -343,6 +345,11 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         await this.hentAvtale(avtale.id);
     }
+    async avbrytAvtale() {
+        const avtale = this.state.avtale;
+        await RestService.avbrytAvtale(avtale);
+        await this.hentAvtale(avtale.id);
+    }
 
     render() {
         const context: Context = {
@@ -360,6 +367,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             opprettAvtale: this.opprettAvtale,
             hentRolle: this.hentRolle,
             godkjenn: this.godkjennAvtale,
+            avbryt: this.avbrytAvtale,
             godkjennPaVegne: this.godkjennAvtalePaVegne,
             visFeilmelding: this.visFeilmelding,
             endretSteg: this.endretSteg,
@@ -391,7 +399,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
 export const AvtaleProvider = withRouter(TempAvtaleProvider);
 
-export function medContext<PROPS>(
+export function medContext<PROPS = {}>(
     Component: React.ComponentType<Context & PROPS>
 ): React.ComponentType<PROPS> {
     return (props: PROPS) => (

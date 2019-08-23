@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Rolle } from '../../AvtaleContext';
+import { Context, medContext, Rolle } from '../../AvtaleContext';
 import BEMHelper from '../../utils/bem';
 import { StegInfo } from '../AvtaleSide';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
@@ -9,9 +9,6 @@ import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversi
 import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
 import { Avtale } from '../avtale';
 import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
-import RestService from '../../services/rest-service';
-import { pathTilKontaktinformasjonSteg } from '../../paths';
-import { State } from 'nav-frontend-hjelpetekst';
 
 interface Props {
     avtaleSteg: StegInfo[];
@@ -21,28 +18,10 @@ interface Props {
 }
 
 const cls = BEMHelper('avtaleside');
-const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
+const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
     const bekreftelseAvbrytAvtalen = () => {
         // props.avtale.avbrutt = true;
         setModalIsOpen(true);
-    };
-    // nå kalles avbryteAvtale men kan bli slettavtalen etter diskusjon
-    // avhengig av om avtalen markeres som avbrutt eller slettes komplett med en gang (hensyn til personvern)
-    const avbrytAvtale = async (avtale: Avtale) => {
-        try {
-            props.avtale.avbrutt = true;
-
-            const nyAvtale = await RestService.avbrytAvtale(props.avtale);
-            setModalIsOpen(false);
-
-            props.avtale = nyAvtale;
-            history.pushState(
-                props,
-                pathTilKontaktinformasjonSteg(props.avtale.id)
-            );
-        } catch (error) {
-            throw error;
-        }
     };
     const lukkModal = () => {
         setModalIsOpen(false);
@@ -81,7 +60,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             <BekreftelseModal
                 modalIsOpen={modalIsOpen}
                 radTilSletting={props.avtale}
-                slettOnClick={avbrytAvtale}
+                slettOnClick={props.avbryt}
                 lukkModal={lukkModal}
                 navn="avtale"
                 varselTekst="Du er i ferd med å avbryte/slette avtale. Hvis du gjør det vil alt innholdet i avtalen forsvinne. Er du sikker?"
@@ -89,4 +68,4 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
         </>
     );
 };
-export default DesktopAvtaleSide;
+export default medContext(DesktopAvtaleSide);
