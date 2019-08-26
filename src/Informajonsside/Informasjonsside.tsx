@@ -23,10 +23,12 @@ const tilbakeTilOversikt = (pathName: string) => {
         return <TilbakeTilOversiktLenke />;
     } else {
         return (
-            <Link to={pathTilOversikt} className="lenke">
-                <VenstreChevron className="tilbaketiloversikt__chevron" />
-                Tilbake
-            </Link>
+            <div className="tilbaketiloversikt">
+                <Link to={pathTilOversikt} className="lenke">
+                    <VenstreChevron className="tilbaketiloversikt__chevron" />
+                    Tilbake
+                </Link>
+            </div>
         );
     }
 };
@@ -36,9 +38,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => (
         <Banner tekst="Avtale om arbeidstrening" />
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                <div className="tilbaketiloversikt">
-                    {tilbakeTilOversikt(props.location.pathname)}
-                </div>
+                {tilbakeTilOversikt(props.location.pathname)}
                 <div className={cls.element('innhold')}>
                     <Clipboard className={cls.element('ClipboardIkon')} />
                     <div className={cls.element('innholdstittel')}>

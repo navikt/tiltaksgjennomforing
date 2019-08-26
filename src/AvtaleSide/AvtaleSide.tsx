@@ -112,9 +112,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.avtale.erLaast) {
                     innhold = (
                         <div className="avtaleside__innhold">
-                            <div className="tilbaketiloversikt">
-                                <TilbakeTilOversiktLenke />
-                            </div>
+                            <TilbakeTilOversiktLenke />
 
                             <AlertStripe
                                 className={cls.element('banner')}

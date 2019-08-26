@@ -5,9 +5,11 @@ import { pathTilOversikt } from '../../paths';
 import './TilbakeTilOversiktLenke.less';
 
 const TilbakeTilOversiktLenke: FunctionComponent = () => (
-    <Link to={pathTilOversikt} className="lenke">
-        <VenstreChevron className="tilbaketiloversikt__chevron" />
-        Tilbake til oversikt
-    </Link>
+    <div className="tilbaketiloversikt">
+        <Link to={pathTilOversikt} className="lenke">
+            <VenstreChevron className="tilbaketiloversikt__chevron" />
+            Tilbake til oversikt
+        </Link>
+    </div>
 );
 export default TilbakeTilOversiktLenke;
