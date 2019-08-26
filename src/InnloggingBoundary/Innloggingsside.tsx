@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import Banner from '../komponenter/Banner/Banner';
 import { pathTilInformasjonssideUinnlogget } from '../paths';
 import './Innloggingsside.less';
-import { ReactComponent as Koffert } from './koffert.svg';
+import { ReactComponent as Koffert } from './../assets/ikoner/koffert.svg';
+import Lenke from 'nav-frontend-lenker';
 import { Innloggingskilde } from './useInnlogget';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
