@@ -10,6 +10,7 @@ interface Props {
     ikonType: IkonType;
     label: string;
     onClick: (event: React.MouseEvent<HTMLElement>) => void;
+    backgroundColor?: string;
 }
 
 const ikoner = {
@@ -18,7 +19,15 @@ const ikoner = {
 };
 
 const KnappMedIkon = (props: Props) => (
-    <button type="button" onClick={props.onClick} className="knapp-med-ikon">
+    <button
+        type="button"
+        onClick={props.onClick}
+        className={
+            props.backgroundColor === null
+                ? 'knapp-med-ikon'
+                : 'knapp-med-ikon knapp-med-ikon__backgroundColor'
+        }
+    >
         <img src={ikoner[props.ikonType]} />
         <Normaltekst className="knapp-med-ikon__label">
             {props.label}

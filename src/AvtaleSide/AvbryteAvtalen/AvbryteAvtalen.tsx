@@ -12,8 +12,6 @@ interface Props {
 }
 
 const AvbryteAvtalen = (props: Props) => {
-    // const [isOpen, setOpen] = useState<boolean>(false);
-
     return (
         <>
             <div>
@@ -21,10 +19,8 @@ const AvbryteAvtalen = (props: Props) => {
                     onClick={props.avbrytOnclick}
                     label="Avbryt avtalen"
                     ikonType="soppelkasse"
+                    backgroundColor="unset"
                 />
-                {/*<FlatKnapp type="flat" onClick={props.avbrytOnclick}>
-                    Avbryt avtalen
-                </FlatKnapp>*/}
             </div>
         </>
     );
