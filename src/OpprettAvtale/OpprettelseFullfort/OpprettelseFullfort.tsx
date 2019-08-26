@@ -1,16 +1,20 @@
+import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import Lenke from 'nav-frontend-lenker';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 import VeilederpanelMedAvsjekkIkon from '../../komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import {
     pathTilKontaktinformasjonSteg,
+    pathTilOversikt,
     pathTilOversiktISelvbetjeningProd,
 } from '../../paths';
 
 import './OpprettelseFullfort.less';
-import Lenke from 'nav-frontend-lenker';
+import TilbakeTilOversiktLenke from '../../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const OpprettelseFullfort: React.FunctionComponent<
     RouteComponentProps<{ avtaleId: string }>
@@ -59,9 +63,8 @@ const OpprettelseFullfort: React.FunctionComponent<
             >
                 Gå til avtalen
             </Hovedknapp>
-            <a className="lenke" onClick={() => props.history.goBack()}>
-                Tilbake
-            </a>
+
+            <TilbakeTilOversiktLenke />
         </div>
     );
 };

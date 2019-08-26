@@ -1,10 +1,11 @@
+import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Flatknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { Input } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { RouterProps } from 'react-router';
+import { Link } from 'react-router-dom';
 import RestService from '.././services/rest-service';
 import ApiError from '../api-error';
 import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
@@ -14,14 +15,15 @@ import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelP
 import { Context, medContext } from '../AvtaleContext';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
-import { ReactComponent as TilEkstern } from './external-link.svg';
 import useValidering from '../komponenter/useValidering';
 import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import { pathTilOpprettetAvtaleBekreftelse, pathTilOversikt } from '../paths';
+import { pathTilOpprettAvtaleFullfort, pathTilOversikt } from '../paths';
 import BEMHelper from '../utils/bem';
 import { validerFnr } from '../utils/fnrUtils';
 import { validerOrgnr } from '../utils/orgnrUtils';
+import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
+import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -113,14 +115,11 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
         }
     };
 
-    const opprettAvtaleKlikk = () => {
+    const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
         if (!hvaSomManglerTekst) {
-            return props.opprettAvtale(deltakerFnr, bedriftNr).then(() => {
-                props.history.push(
-                    pathTilOpprettetAvtaleBekreftelse(props.avtale.id)
-                );
-            });
+            const avtale = await props.opprettAvtale(deltakerFnr, bedriftNr);
+            props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {
             throw new ApiError(hvaSomManglerTekst);
         }
@@ -213,7 +212,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                         feil={bedriftNrFeil}
                     />
                     {bedriftNavn && (
-                        <Normaltekst className="opprett-avtale__bedriftNavnBrreg">
+                        <Normaltekst className="opprett-avtale__bedriftNavn">
                             {bedriftNavn}
                         </Normaltekst>
                     )}
@@ -226,14 +225,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                     className="opprett-avtale__knapp"
                 />
 
-                <Flatknapp
-                    className={cls.element('avbryt')}
-                    onClick={() => {
-                        props.history.push(pathTilOversikt);
-                    }}
-                >
-                    Avbryt
-                </Flatknapp>
+                <TilbakeTilOversiktLenke />
             </div>
         </div>
     );

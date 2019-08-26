@@ -1,11 +1,14 @@
 import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '../komponenter/Banner/Banner';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import BEMHelper from '../utils/bem';
 import './informasjonsside.less';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { pathTilOversikt, pathTilInformasjonssideInnlogget } from '../paths';
+import { VenstreChevron } from 'nav-frontend-chevron';
 import { ReactComponent as Keyboard } from './../assets/ikoner/keyboard.svg';
 import { ReactComponent as DigitalAvtale } from './../assets/ikoner/digitalAvtale.svg';
 import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
@@ -15,13 +18,30 @@ import { ReactComponent as Historikk } from './../assets/ikoner/historikk.svg';
 import { ReactComponent as DynamiskAvtale } from './../assets/ikoner/dynamiskAvtale.svg';
 
 const cls = BEMHelper('informasjonsside');
+const tilbakeTilOversikt = (pathName: string) => {
+    if (pathName == pathTilInformasjonssideInnlogget) {
+        return <TilbakeTilOversiktLenke />;
+    } else {
+        return (
+            <div className="tilbaketiloversikt">
+                <Link to={pathTilOversikt} className="lenke">
+                    <VenstreChevron className="tilbaketiloversikt__chevron" />
+                    Tilbake
+                </Link>
+            </div>
+        );
+    }
+};
 
-const Informasjonsside = () => (
+const Informasjonsside: FunctionComponent<RouteComponentProps> = props => (
     <div>
         <Banner tekst="Avtale om arbeidstrening" />
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                <TilbakeTilOversiktLenke />
+                <div className="tilbaketiloversikt">
+                    {tilbakeTilOversikt(props.location.pathname)}
+                </div>
+
                 <div className={cls.element('innhold')}>
                     <Clipboard className={cls.element('ClipboardIkon')} />
                     <div className={cls.element('innholdstittel')}>
