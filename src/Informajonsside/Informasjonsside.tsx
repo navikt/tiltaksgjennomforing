@@ -1,6 +1,6 @@
 import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { FunctionComponent, Props } from 'react';
 import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '../komponenter/Banner/Banner';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
@@ -13,15 +13,32 @@ import { ReactComponent as Historikk } from './historikk.svg';
 import { ReactComponent as Clipboard } from './informationIcon.svg';
 import { ReactComponent as Keyboard } from './keyboard.svg';
 import './informasjonsside.less';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { pathTilOversikt, pathTilInformasjonssideInnlogget } from '../paths';
+import { VenstreChevron } from 'nav-frontend-chevron';
 
 const cls = BEMHelper('informasjonsside');
+const tilbakeTilOversikt = (pathName: string) => {
+    if (pathName == pathTilInformasjonssideInnlogget) {
+        return <TilbakeTilOversiktLenke />;
+    } else {
+        return (
+            <Link to={pathTilOversikt} className="lenke">
+                <VenstreChevron className="tilbaketiloversikt__chevron" />
+                Tilbake
+            </Link>
+        );
+    }
+};
 
-const Informasjonsside = () => (
+const Informasjonsside: FunctionComponent<RouteComponentProps> = props => (
     <div>
         <Banner tekst="Avtale om arbeidstrening" />
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                <TilbakeTilOversiktLenke />
+                <div className="tilbaketiloversikt">
+                    {tilbakeTilOversikt(props.location.pathname)}
+                </div>
                 <div className={cls.element('innhold')}>
                     <Clipboard className={cls.element('ClipboardIkon')} />
                     <div className={cls.element('innholdstittel')}>

@@ -14,6 +14,7 @@ import {
 } from '../../paths';
 
 import './OpprettelseFullfort.less';
+import TilbakeTilOversiktLenke from '../../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const OpprettelseFullfort: React.FunctionComponent<
     RouteComponentProps<{ avtaleId: string }>
@@ -62,10 +63,8 @@ const OpprettelseFullfort: React.FunctionComponent<
             >
                 Gå til avtalen
             </Hovedknapp>
-            <Link className="lenke" to={pathTilOversikt}>
-                <VenstreChevron />
-                Tilbake
-            </Link>
+
+            <TilbakeTilOversiktLenke />
         </div>
     );
 };

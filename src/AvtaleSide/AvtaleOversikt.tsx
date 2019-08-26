@@ -21,6 +21,7 @@ import BEMHelper from '../utils/bem';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Natur from './natur';
+import { HoyreChevron } from 'nav-frontend-chevron';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -116,7 +117,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         >
                             Les mer om hvordan dette fungerer her
                         </Link>
-                        .
+                        <HoyreChevron />
                     </AlertStripe>
                 </div>
                 {avtaletabell || (
