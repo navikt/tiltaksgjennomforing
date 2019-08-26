@@ -16,8 +16,7 @@ import {
     pathTilInformasjonssideInnlogget,
     pathTilInformasjonssideUinnlogget,
     pathTilOpprettAvtale,
-    pathTilOpprettetAvtaleBekreftelse,
-    pathTilOversikt,
+    pathTilOpprettAvtaleFullfort,
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
@@ -58,7 +57,7 @@ class App extends React.Component {
                                             component={OpprettAvtale}
                                         />
                                         <Route
-                                            path={pathTilOpprettetAvtaleBekreftelse(
+                                            path={pathTilOpprettAvtaleFullfort(
                                                 ':avtaleId'
                                             )}
                                             exact={true}

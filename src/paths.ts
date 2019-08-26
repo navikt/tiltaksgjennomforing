@@ -10,7 +10,7 @@ const avtaleBase = '/avtale';
 
 export const pathTilOpprettAvtale = '/opprett-avtale';
 
-export const pathTilOpprettetAvtaleBekreftelse = (avtaleId: string) =>
+export const pathTilOpprettAvtaleFullfort = (avtaleId: string) =>
     `/opprett-avtale-fullfort/${avtaleId}`;
 
 export const pathTilOversiktISelvbetjeningProd = `https://arbeidsgiver.nav.no${basename}`;

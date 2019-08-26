@@ -1,28 +1,47 @@
 import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '../komponenter/Banner/Banner';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import BEMHelper from '../utils/bem';
-import { ReactComponent as Altinn } from './altinn.svg';
-import { ReactComponent as DigitalAvtale } from './digitalAvtale.svg';
-import { ReactComponent as DynamiskAvtale } from './dynamiskAvtale.svg';
-import { ReactComponent as TilEkstern } from './external-link.svg';
-import { ReactComponent as Historikk } from './historikk.svg';
-
 import './informasjonsside.less';
-import { ReactComponent as Clipboard } from './informationIcon.svg';
-import { ReactComponent as Keyboard } from './keyboard.svg';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { pathTilOversikt, pathTilInformasjonssideInnlogget } from '../paths';
+import { VenstreChevron } from 'nav-frontend-chevron';
+import { ReactComponent as Keyboard } from './../assets/ikoner/keyboard.svg';
+import { ReactComponent as DigitalAvtale } from './../assets/ikoner/digitalAvtale.svg';
+import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
+import { ReactComponent as Altinn } from './../assets/ikoner/altinn.svg';
+import { ReactComponent as Clipboard } from './../assets/ikoner/informationIcon.svg';
+import { ReactComponent as Historikk } from './../assets/ikoner/historikk.svg';
+import { ReactComponent as DynamiskAvtale } from './../assets/ikoner/dynamiskAvtale.svg';
 
 const cls = BEMHelper('informasjonsside');
+const tilbakeTilOversikt = (pathName: string) => {
+    if (pathName == pathTilInformasjonssideInnlogget) {
+        return <TilbakeTilOversiktLenke />;
+    } else {
+        return (
+            <div className="tilbaketiloversikt">
+                <Link to={pathTilOversikt} className="lenke">
+                    <VenstreChevron className="tilbaketiloversikt__chevron" />
+                    Tilbake
+                </Link>
+            </div>
+        );
+    }
+};
 
-const Informasjonsside = () => (
+const Informasjonsside: FunctionComponent<RouteComponentProps> = props => (
     <div>
         <Banner tekst="Avtale om arbeidstrening" />
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                <TilbakeTilOversiktLenke />
+                <div className="tilbaketiloversikt">
+                    {tilbakeTilOversikt(props.location.pathname)}
+                </div>
+
                 <div className={cls.element('innhold')}>
                     <Clipboard className={cls.element('ClipboardIkon')} />
                     <div className={cls.element('innholdstittel')}>
@@ -37,6 +56,22 @@ const Informasjonsside = () => (
                             løsningen fungerer:
                         </Normaltekst>
                     </div>
+
+                    <EkstbanderbartPanelRad
+                        classname={cls.element('info')}
+                        svgIkon={
+                            <DigitalAvtale className={cls.element('SubIkon')} />
+                        }
+                        headerTekst={{
+                            tekst: 'Flere parter i samme digitale løsning',
+                            typografiType: 'undertittel',
+                        }}
+                    >
+                        Deltaker, arbeidsgiver og NAV fyller ut, ser over og
+                        godkjenner avtalen i samme løsning i sanntid, på hver
+                        sin PC eller mobil. NAV skal alltid godkjenne avtalen
+                        til slutt, og først da kan arbeidstreningen starte.
+                    </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
                         classname={cls.element('info')}
@@ -75,22 +110,6 @@ const Informasjonsside = () => (
                                 className={cls.element('eksterntLenkeikon')}
                             />
                         </Lenke>
-                    </EkstbanderbartPanelRad>
-
-                    <EkstbanderbartPanelRad
-                        classname={cls.element('info')}
-                        svgIkon={
-                            <DigitalAvtale className={cls.element('SubIkon')} />
-                        }
-                        headerTekst={{
-                            tekst: 'Flere parter i samme digitale løsning',
-                            typografiType: 'undertittel',
-                        }}
-                    >
-                        Deltaker, arbeidsgiver og NAV fyller ut, ser over og
-                        godkjenner avtalen i samme løsning i sanntid, på hver
-                        sin PC eller mobil. NAV skal alltid godkjenne avtalen
-                        til slutt, og først da kan arbeidstreningen starte.
                     </EkstbanderbartPanelRad>
 
                     <EkstbanderbartPanelRad
