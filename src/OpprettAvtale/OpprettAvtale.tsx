@@ -1,10 +1,11 @@
+import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Flatknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { Input } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { RouterProps } from 'react-router';
+import { Link } from 'react-router-dom';
 import RestService from '.././services/rest-service';
 import ApiError from '../api-error';
 import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
@@ -16,11 +17,13 @@ import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/Ekstban
 import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
 import useValidering from '../komponenter/useValidering';
 import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import { pathTilOpprettetAvtaleBekreftelse, pathTilOversikt } from '../paths';
+import { pathTilOpprettAvtaleFullfort, pathTilOversikt } from '../paths';
 import BEMHelper from '../utils/bem';
 import { validerFnr } from '../utils/fnrUtils';
 import { validerOrgnr } from '../utils/orgnrUtils';
+import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
+import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -112,14 +115,11 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
         }
     };
 
-    const opprettAvtaleKlikk = () => {
+    const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
         if (!hvaSomManglerTekst) {
-            return props.opprettAvtale(deltakerFnr, bedriftNr).then(() => {
-                props.history.push(
-                    pathTilOpprettetAvtaleBekreftelse(props.avtale.id)
-                );
-            });
+            const avtale = await props.opprettAvtale(deltakerFnr, bedriftNr);
+            props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {
             throw new ApiError(hvaSomManglerTekst);
         }
@@ -158,31 +158,35 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                 <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
                     For at deltaker og arbeidsgiver skal få tilgang til avtalen
                     må de logge seg inn via ID-porten. Tilgang for arbeidsgiver
-                    styres gjennom Altinn. For at en arbeidsgiver kan
-                    representere en bedrift må personen ha rollen{' '}
-                    <em>Helse-, sosial- og velferdstjenester</em> eller gis
-                    tilgang til enkelttjenesten{' '}
-                    <em>Avtale om arbeidstrening</em>. Mer informasjon om roller
-                    og rettigheter finnes hos{' '}
-                    <Lenke
-                        href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/"
-                        target="_blank"
-                    >
-                        Altinn
-                    </Lenke>
-                    .
+                    styres gjennom Altinn. En representant for arbeidsgiver må
+                    ha rollen <em>Helse-, sosial- og velferdstjenester</em>,{' '}
+                    eller gis tilgang til enkelttjenesten{' '}
+                    <em>Avtale om arbeidstrening</em> for å kunne representere
+                    bedriften.
+                    <p>
+                        <Lenke
+                            href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/"
+                            target="_blank"
+                        >
+                            Finn mer informasjon om roller og rettigheter på
+                            Altinn.no
+                            <TilEkstern
+                                className={cls.element('eksterntLenkeikon')}
+                            />
+                        </Lenke>
+                    </p>
                 </EkstbanderbartPanelRad>
                 <EkstbanderbartPanelRad
                     svgIkon={<DrofteMedAnsattePersonOpplysning />}
                 >
-                    Deltaker, arbeidsgiver og veileder skal sammen fylle ut
-                    avtalen og blant annet bli enige om mål, arbeidsoppgaver og
+                    Deltaker, arbeidsgiver og veileder skal fylle ut avtalen
+                    sammen. Der blir de enige om mål, arbeidsoppgaver og
                     oppfølging.
                 </EkstbanderbartPanelRad>
 
                 <EkstbanderbartPanelRad svgIkon={<CheckCircleIkon />}>
-                    Til slutt må både deltaker, arbeidsgiver og veileder
-                    godkjenne avtalen slik at arbeidstreningen kan starte.
+                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne
+                    avtalen slik at arbeidstreningen kan starte.
                 </EkstbanderbartPanelRad>
             </Ekspanderbartpanel>
 
@@ -208,7 +212,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                         feil={bedriftNrFeil}
                     />
                     {bedriftNavn && (
-                        <Normaltekst className="opprett-avtale__bedriftNavnBrreg">
+                        <Normaltekst className="opprett-avtale__bedriftNavn">
                             {bedriftNavn}
                         </Normaltekst>
                     )}
@@ -221,14 +225,7 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
                     className="opprett-avtale__knapp"
                 />
 
-                <Flatknapp
-                    className={cls.element('avbryt')}
-                    onClick={() => {
-                        props.history.push(pathTilOversikt);
-                    }}
-                >
-                    Avbryt
-                </Flatknapp>
+                <TilbakeTilOversiktLenke />
             </div>
         </div>
     );
