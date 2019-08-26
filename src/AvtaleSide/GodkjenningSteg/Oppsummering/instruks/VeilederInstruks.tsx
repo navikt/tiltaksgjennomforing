@@ -6,7 +6,7 @@ import './instruks.less';
 import { ReactComponent as PrintAvtalen } from '../../../../assets/ikoner/print-text.svg';
 import { ReactComponent as FilAddGosys } from '../../../../assets/ikoner/file-add.svg';
 import { ReactComponent as EmailSend } from '../../../../assets/ikoner/email-send-3.svg';
-import { ReactComponent as RegArena } from '../../../../assets/ikoner/box-3.svg';
+import { ReactComponent as RegArena } from '../../../../assets/ikoner/arenaregestrering.svg';
 
 const cls = BEMHelper('instruks');
 
