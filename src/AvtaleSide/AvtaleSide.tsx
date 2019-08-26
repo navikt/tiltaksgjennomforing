@@ -112,7 +112,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.avtale.erLaast) {
                     innhold = (
                         <div className="avtaleside__innhold">
-                            <TilbakeTilOversiktLenke />
+                            <div className="tilbaketiloversikt">
+                                <TilbakeTilOversiktLenke />
+                            </div>
 
                             <AlertStripe
                                 className={cls.element('banner')}
@@ -132,7 +134,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.rolle === 'DELTAKER') {
                     innhold = (
                         <div className="avtaleside__innhold">
-                            <TilbakeTilOversiktLenke />
+                            <div className="tilbaketiloversikt">
+                                <TilbakeTilOversiktLenke />
+                            </div>
+
                             <AlertStripe
                                 className={cls.element('banner')}
                                 type="info"

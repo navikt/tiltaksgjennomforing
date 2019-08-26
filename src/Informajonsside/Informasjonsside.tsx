@@ -38,7 +38,10 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => (
         <Banner tekst="Avtale om arbeidstrening" />
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                {tilbakeTilOversikt(props.location.pathname)}
+                <div className="tilbaketiloversikt">
+                    {tilbakeTilOversikt(props.location.pathname)}
+                </div>
+
                 <div className={cls.element('innhold')}>
                     <Clipboard className={cls.element('ClipboardIkon')} />
                     <div className={cls.element('innholdstittel')}>
