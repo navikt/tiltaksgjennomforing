@@ -7,6 +7,7 @@ import { Maalkategori } from '../../maalkategorier';
 import ApiError from '../../../api-error';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { TemporaryLagring } from '../../../AvtaleContext';
+import { setFritekstMaksTusenTegn } from '../maal-utils';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -106,9 +107,11 @@ class RedigerMaal extends React.Component<Props, State> {
     };
 
     settBeskrivelse = (event: any) => {
-        this.setState({
-            beskrivelse: event.currentTarget.value,
-        });
+        if (event.currentTarget.value.length <= 1000) {
+            this.setState({
+                beskrivelse: event.currentTarget.value,
+            });
+        }
 
         event.currentTarget.value
             ? this.setState({ beskrivelseFeil: undefined })

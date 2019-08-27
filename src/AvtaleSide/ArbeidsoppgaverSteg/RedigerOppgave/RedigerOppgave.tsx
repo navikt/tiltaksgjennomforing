@@ -106,9 +106,11 @@ class RedigerOppgave extends React.Component<Props, State> {
     };
 
     settBeskrivelse = (event: any) => {
-        this.setState({
-            beskrivelse: event.currentTarget.value,
-        });
+        if (event.currentTarget.value.length <= 1000) {
+            this.setState({
+                beskrivelse: event.currentTarget.value,
+            });
+        }
 
         event.currentTarget.value
             ? this.setState({ beskrivelseFeil: undefined })
@@ -118,9 +120,11 @@ class RedigerOppgave extends React.Component<Props, State> {
     };
 
     settOpplaering = (event: any) => {
-        this.setState({
-            opplaering: event.currentTarget.value,
-        });
+        if (event.currentTarget.value.length <= 1000) {
+            this.setState({
+                opplaering: event.currentTarget.value,
+            });
+        }
 
         event.currentTarget.value
             ? this.setState({ opplaeringFeil: undefined })
