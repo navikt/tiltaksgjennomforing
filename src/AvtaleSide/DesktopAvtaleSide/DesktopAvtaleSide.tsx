@@ -32,15 +32,18 @@ const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
             <div className="avtaleside__desktop">
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke />
-                    {props.avtale.kanAvbrytes &&
-                        !props.avtale.avbrutt &&
-                        props.rolle === 'VEILEDER' && (
-                            <AvbryteAvtalen
-                                avtale={props.avtale}
-                                avbrytOnclick={bekreftelseAvbrytAvtalen}
-                            />
-                        )}
-                    {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
+                    <div className="avtaleside__avbrytOgDelLenk">
+                        {' '}
+                        {props.avtale.kanAvbrytes &&
+                            !props.avtale.avbrutt &&
+                            props.rolle === 'VEILEDER' && (
+                                <AvbryteAvtalen
+                                    avtale={props.avtale}
+                                    avbrytOnclick={bekreftelseAvbrytAvtalen}
+                                />
+                            )}
+                        {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
+                    </div>
                 </div>
                 <div className="avtaleside__container">
                     <Stegmeny
@@ -63,10 +66,10 @@ const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
                 slettOnClick={props.avbryt}
                 lukkModal={lukkModal}
                 navn="avtale"
-                varselTekst="Du er i ferd med å avbryte avtale. Hvis du gjør det vil hele avtalen ikke kan tas i bruk. Er du sikker?"
+                varselTekst="Du er i ferd med å avbryte denne avtalen. Det vil si at all informasjon som er lagt inn ikke er gyldig lenger. Er du sikker på at du vil avbryte avtalen?"
                 oversiktTekst="Avbryte "
-                bekreftelseTekst="Ja, avbryt "
-                avbrytelseTekst="avbryt"
+                bekreftelseTekst="JA, AVBRYT "
+                avbrytelseTekst="NEI, BEHOLD AVTALE"
             />
         </>
     );

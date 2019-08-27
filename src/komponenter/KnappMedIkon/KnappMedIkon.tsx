@@ -3,8 +3,9 @@ import * as React from 'react';
 import './KnappMedIkon.less';
 import redigerIkon from './rediger-penn.svg';
 import slettIkon from './soppeldunk.svg';
+import avbruttIkon from '../../assets/ikoner/stop.svg';
 
-type IkonType = 'blyant' | 'soppelkasse';
+type IkonType = 'blyant' | 'soppelkasse' | 'avbrutt';
 
 interface Props {
     ikonType: IkonType;
@@ -16,6 +17,7 @@ interface Props {
 const ikoner = {
     blyant: redigerIkon,
     soppelkasse: slettIkon,
+    avbrutt: avbruttIkon,
 };
 
 const KnappMedIkon = (props: Props) => (

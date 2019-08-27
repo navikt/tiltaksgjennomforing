@@ -1,5 +1,5 @@
 import * as React from 'react';
-import FlatKnapp from 'nav-frontend-knapper';
+import FlatKnapp, { Flatknapp } from 'nav-frontend-knapper';
 import './AvbryteAvtalen.less';
 import { Avtale } from '../avtale';
 import KnappMedIkon from '../../komponenter/KnappMedIkon/KnappMedIkon';
@@ -18,9 +18,12 @@ const AvbryteAvtalen = (props: Props) => {
                 <KnappMedIkon
                     onClick={props.avbrytOnclick}
                     label="Avbryt avtalen"
-                    ikonType="soppelkasse"
+                    ikonType="avbrutt"
                     backgroundColor="unset"
                 />
+                {/* <Flatknapp onClick={props.avbrytOnclick}>
+                    Avbryt avtalen
+                </Flatknapp>*/}
             </div>
         </>
     );
