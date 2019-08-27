@@ -7,11 +7,3 @@ export const finnLedigeMaalkategorier = (
         kategori => kategori === 'Annet' || !brukteKategorier.includes(kategori)
     );
 };
-
-export const setFritekstMaksTusenTegn = (tekst: string) => {
-    if (tekst.length < 1000) {
-        return tekst;
-    } else {
-        return null;
-    }
-};

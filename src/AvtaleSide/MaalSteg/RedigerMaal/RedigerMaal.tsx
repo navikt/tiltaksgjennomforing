@@ -7,7 +7,6 @@ import { Maalkategori } from '../../maalkategorier';
 import ApiError from '../../../api-error';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { TemporaryLagring } from '../../../AvtaleContext';
-import { setFritekstMaksTusenTegn } from '../maal-utils';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
