@@ -106,9 +106,11 @@ class RedigerMaal extends React.Component<Props, State> {
     };
 
     settBeskrivelse = (event: any) => {
-        this.setState({
-            beskrivelse: event.currentTarget.value,
-        });
+        if (event.currentTarget.value.length <= 1000) {
+            this.setState({
+                beskrivelse: event.currentTarget.value,
+            });
+        }
 
         event.currentTarget.value
             ? this.setState({ beskrivelseFeil: undefined })
