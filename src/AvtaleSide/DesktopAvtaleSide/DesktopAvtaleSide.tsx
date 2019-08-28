@@ -20,7 +20,6 @@ interface Props {
 const cls = BEMHelper('avtaleside');
 const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
     const bekreftelseAvbrytAvtalen = () => {
-        // props.avtale.avbrutt = true;
         setModalIsOpen(true);
     };
     const lukkModal = () => {
