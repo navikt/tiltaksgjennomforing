@@ -342,7 +342,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async settVarselTilLest(varselId: string) {
-        const varsler = await RestService.settVarselTilLest(varselId);
+        await RestService.settVarselTilLest(varselId);
         return this.hentVarsler(this.state.avtale.id);
     }
 

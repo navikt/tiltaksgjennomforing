@@ -6,6 +6,10 @@
     padding-left: 1rem;
     padding-right: 1rem;
 
+    &__desktop {
+        margin-top: 1rem;
+    }
+
     &__ekspanderbart-panel {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
@@ -19,6 +23,7 @@
         align-items: center;
         display: flex;
         justify-content: space-between;
+        margin-bottom: 1rem;
     }
 
     .tilbaketiloversikt {
@@ -30,13 +35,20 @@
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
+
     &__infoboks {
         @media print {
             display: none;
         }
     }
+
     &__varsel {
         margin-bottom: 1rem;
+    }
+
+    &__svak {
+        font-style: italic;
+        color: @navGra60;
     }
 }
 
