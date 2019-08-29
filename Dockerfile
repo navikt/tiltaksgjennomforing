@@ -6,6 +6,8 @@ WORKDIR /usr/src/app
 RUN npm install -g express
 RUN npm install -g helmet
 RUN npm install -g http-proxy-middleware
+RUN npm install -g mustache-express
+RUN npm install -g promise
 
 COPY build/ ./build
 COPY ./src/setupProxy.js ./src/setupProxy.js
