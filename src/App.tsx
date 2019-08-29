@@ -9,7 +9,15 @@ import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import LandingsSide from './LandingsSide/LandingsSide';
 import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
-import { basename } from './paths';
+import {
+    basename,
+    pathTilAvtale,
+    pathTilInformasjonssideInnlogget,
+    pathTilInformasjonssideUinnlogget,
+    pathTilOpprettAvtale,
+    pathTilOpprettAvtaleFullfort,
+    pathTilStegIAvtale,
+} from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
 import { injectAll } from './utils/appendscripts';
 import Informasjonsside from './Informajonsside/Informasjonsside';
@@ -27,7 +35,7 @@ class App extends React.Component {
                     <>
                         <Switch>
                             <Route
-                                path="/informasjonsside/uinnlogget"
+                                path={pathTilInformasjonssideUinnlogget}
                                 exact={true}
                                 component={Informasjonsside}
                             />
@@ -35,22 +43,27 @@ class App extends React.Component {
                                 <RedirectEtterLogin>
                                     <AvtaleProvider>
                                         <Route
-                                            path="/avtale/:avtaleId"
+                                            path={pathTilAvtale(':avtaleId')}
                                             exact={true}
                                             component={LandingsSide}
                                         />
                                         <Route
-                                            path="/avtale/:avtaleId/:stegPath"
+                                            path={pathTilStegIAvtale(
+                                                ':avtaleId',
+                                                ':stegPath'
+                                            )}
                                             exact={true}
                                             component={AvtaleSide}
                                         />
                                         <Route
-                                            path="/opprett-avtale"
+                                            path={pathTilOpprettAvtale}
                                             exact={true}
                                             component={OpprettAvtale}
                                         />
                                         <Route
-                                            path="/opprett-avtale-fullfort/:avtaleId"
+                                            path={pathTilOpprettAvtaleFullfort(
+                                                ':avtaleId'
+                                            )}
                                             exact={true}
                                             component={OpprettelseFullfort}
                                         />
@@ -60,7 +73,9 @@ class App extends React.Component {
                                             component={AvtaleOversikt}
                                         />
                                         <Route
-                                            path="/informasjonsside/innlogget"
+                                            path={
+                                                pathTilInformasjonssideInnlogget
+                                            }
                                             exact={true}
                                             component={Informasjonsside}
                                         />

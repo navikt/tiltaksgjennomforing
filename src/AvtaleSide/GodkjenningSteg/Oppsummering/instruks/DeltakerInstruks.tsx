@@ -1,6 +1,6 @@
-import { Normaltekst, Element } from 'nav-frontend-typografi';
-import { FunctionComponent } from 'react';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
+import { FunctionComponent } from 'react';
 import VeilederpanelMedUtklippstavleIkon from '../../../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import EkstbanderbartPanelRad from '../../../../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
@@ -8,12 +8,18 @@ import { ReactComponent as RettighetsHammerIkon } from '../../../../assets/ikone
 import { ReactComponent as GiBeskjedOmBorteFraJobb } from '../../../../assets/ikoner/giBeskjedOmBorteFraJobb.svg';
 import { ReactComponent as EmailSend } from '../../../../assets/ikoner/email-send-3.svg';
 import BEMHelper from '../../../../utils/bem';
-
+import './instruks.less';
 const cls = BEMHelper('instruks');
-
-const DeltakerInstruks: FunctionComponent = () => (
+interface Props {
+    erLaast: boolean;
+}
+const DeltakerInstruks: FunctionComponent<Props> = props => (
     <>
-        <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>
+        {!props.erLaast && (
+            <Normaltekst>
+                Når du godkjenner godtar du kravene fra NAV
+            </Normaltekst>
+        )}
         <VeilederpanelMedUtklippstavleIkon>
             <div className={cls.element('subheader')}>
                 <Element>Som deltaker må du</Element>
@@ -40,7 +46,9 @@ const DeltakerInstruks: FunctionComponent = () => (
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
             <EkstbanderbartPanelRad
                 svgIkon={<RettighetsHammerIkon />}
-                headerTekst={{ tekst: 'Ditt forhold til arbeidsmiljøloven' }}
+                headerTekst={{
+                    tekst: 'Ditt forhold til arbeidsmiljøloven',
+                }}
             >
                 Når du deltar på arbeidstrening regnes du som en vanlig ansatt,
                 som vil si at din arbeidsgiver må følge de fleste av
@@ -49,7 +57,9 @@ const DeltakerInstruks: FunctionComponent = () => (
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
                 svgIkon={<GiBeskjedOmBorteFraJobb />}
-                headerTekst={{ tekst: 'Gi beskjed hvis du er borte fra jobb' }}
+                headerTekst={{
+                    tekst: 'Gi beskjed hvis du er borte fra jobb',
+                }}
             >
                 Du må melde fra til arbeidsgiver ved fravær. Ved egen eller
                 barns sykdom gjelder ordinære regler for bruk av egenmelding

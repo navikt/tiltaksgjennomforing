@@ -11,10 +11,12 @@ import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import { Knapp } from 'nav-frontend-knapper';
-import PrinterSvg from './PrinterSvg';
+import { ReactComponent as PrinterSvg } from '../../../../assets/ikoner/printer2.svg';
+import { Rolle } from '../../../../AvtaleContext';
 
 interface Props {
     avtale: Avtale;
+    rolle: Rolle;
 }
 
 const printAvtale = () => {
@@ -35,7 +37,7 @@ const Oppsummering: FunctionComponent<Props> = props => (
                     className="oppsummering__print-knapp"
                     onClick={printAvtale}
                 >
-                    PRINT AVTALE
+                    skriv ut avtale
                     <div className="oppsummering__print-knapp__ikon">
                         <PrinterSvg />
                     </div>

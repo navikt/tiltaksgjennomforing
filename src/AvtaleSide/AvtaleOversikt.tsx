@@ -1,31 +1,30 @@
+import classNames from 'classnames';
 import moment from 'moment';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { FunctionComponent, HTMLProps, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { InnloggetBruker } from '../InnloggingBoundary/useInnlogget';
+import Banner from '../komponenter/Banner/Banner';
 import StatusIkon from '../komponenter/StatusIkon/StatusIkon';
 import {
-    basename,
+    pathTilInformasjonssideInnlogget,
     pathTilKontaktinformasjonSteg,
     pathTilOpprettAvtale,
 } from '../paths';
 import RestService from '../services/rest-service';
+import BEMHelper from '../utils/bem';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
-import Banner from '../komponenter/Banner/Banner';
-import AlertStripe from 'nav-frontend-alertstriper';
-import Lenke from 'nav-frontend-lenker';
-import BEMHelper from '../utils/bem';
+import Natur from './natur';
+import { HoyreChevron } from 'nav-frontend-chevron';
 
 const cls = BEMHelper('avtaleoversikt');
 
-const linkTilAvtale = (props: HTMLProps<HTMLElement>) => {
-    return <Link to={props.href!}>Gå til</Link>;
-};
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const [avtaler, setAvtaler] = useState<Avtale[] | null>(null);
     const [
@@ -44,86 +43,105 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const avtaleLenker = avtaler.map((avtale: Avtale) => (
         <LenkepanelBase
             key={avtale.id}
-            href={basename + pathTilKontaktinformasjonSteg(avtale.id)}
+            href={pathTilKontaktinformasjonSteg(avtale.id)}
+            linkCreator={(props: any) => <Link to={props.href} {...props} />}
         >
-            <div className="avtaleoversikt__lenker__rad">
-                <div className="avtaleoversikt__lenker__bedrift">
+            <div className={cls.element('rad')}>
+                <div className={cls.element('deltakerOgBedrift')}>
                     {avtale.bedriftNavn}
                 </div>
-                <div className="avtaleoversikt__lenker__deltaker">
+                <div className={cls.element('deltakerOgBedrift')}>
                     {avtale.deltakerFornavn || ''}&nbsp;
                     {avtale.deltakerEtternavn || ''}
                 </div>
                 <MediaQuery minWidth={576}>
-                    <div className="avtaleoversikt__lenker__opprettet">
+                    <div className={cls.element('opprettet')}>
                         {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                     </div>
                 </MediaQuery>
-                <div className="avtaleoversikt__lenker__statusikon">
+                <div className={cls.element('statusikon')}>
                     <StatusIkon status={avtale.status} />
                 </div>
-                <div className="avtaleoversikt__lenker__status">
-                    {avtale.status}
-                </div>
+                <div className={cls.element('status')}>{avtale.status}</div>
             </div>
         </LenkepanelBase>
     ));
 
+    const erVeileder =
+        innloggetBruker && innloggetBruker.identifikator.length < 11;
+
+    const opprettAvtaleKnapp = erVeileder && (
+        <Hovedknapp onClick={() => props.history.push(pathTilOpprettAvtale)}>
+            Opprett ny avtale
+        </Hovedknapp>
+    );
+
     const avtaletabell = avtaleLenker.length > 0 && (
         <div className="avtaleoversikt__lenker typo-normal">
-            <div className="avtaleoversikt__lenker__header avtaleoversikt__lenker__rad">
-                <div className="avtaleoversikt__lenker__bedrift">Bedrift</div>
-                <div className="avtaleoversikt__lenker__deltaker">Deltaker</div>
+            <div className={cls.element('topp', 'knapp_med_avtaler')}>
+                {opprettAvtaleKnapp}
+            </div>
+            <div
+                className={classNames(
+                    cls.element('header'),
+                    cls.element('rad')
+                )}
+            >
+                <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
+                <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
                 <MediaQuery minWidth={576}>
-                    <div className="avtaleoversikt__lenker__opprettet">
-                        Dato opprettet
-                    </div>
+                    <div className={cls.element('opprettet')}>Opprettet</div>
                 </MediaQuery>
-                <div className="avtaleoversikt__lenker__status">Status</div>
-                <div className="avtaleoversikt__lenker__statusikon">&nbsp;</div>
+                <div className={cls.element('status')}>Status</div>
+                <div className={cls.element('statusikon')}>&nbsp;</div>
             </div>
             {avtaleLenker}
         </div>
     );
 
-    // innloggetBruker.identifikator.length < 11 er et triks for å sjekke om man er logget inn NAV-ansatt eller ikke,
-    // dette må endres senere.
-    const opprettAvtaleKnapp = innloggetBruker &&
-        innloggetBruker.identifikator.length < 11 && (
-            <Hovedknapp
-                onClick={() => props.history.push(pathTilOpprettAvtale)}
-                className="avtaleoversikt__topp__knapp"
-            >
-                Opprett ny avtale
-            </Hovedknapp>
-        );
-
+    const tilbakemeldingHvisIngenAvtale = erVeileder
+        ? 'Du har ikke opprettet noen avtaler enda.' // NAV
+        : 'Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.'; // Deltaker/AG
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
+
             <div className="avtaleoversikt">
                 <div className={cls.element('informasjonsBanner')}>
                     <AlertStripe type="info">
                         Dette er en ny digital løsning for avtale om
                         arbeidstrening.{' '}
-                        <Lenke href="/informasjonsside/innlogget">
+                        <Link
+                            to={pathTilInformasjonssideInnlogget}
+                            className="lenke"
+                        >
                             Les mer om hvordan dette fungerer her
-                        </Lenke>
-                        .
+                        </Link>
+                        <HoyreChevron />
                     </AlertStripe>
                 </div>
-                <div className="avtaleoversikt__topp">
-                    <Innholdstittel className="avtaleoversikt__topp__tittel">
-                        Dine arbeidstreningsavtaler
-                    </Innholdstittel>
-                    <Normaltekst className="avtaleoversikt__topp__tekst">
-                        Her ser du arbeidstreningsavtaler du har tilgang til.
-                    </Normaltekst>
-                    {opprettAvtaleKnapp}
-                </div>
                 {avtaletabell || (
-                    <div className="avtaleoversikt__ingen_avtaler typo-normal">
-                        Ingen avtaler
+                    <div className={cls.element('natur-logo')}>
+                        <MediaQuery minWidth={576}>
+                            <Natur />
+                        </MediaQuery>
+                        <MediaQuery maxWidth={576}>
+                            <Natur width={'300'} height={'100'} />
+                        </MediaQuery>
+                        <Undertittel className={cls.element('natur-header')}>
+                            Ingen avtaler
+                        </Undertittel>
+                        <Normaltekst className={cls.element('natur-tekst')}>
+                            {tilbakemeldingHvisIngenAvtale}
+                        </Normaltekst>
+                        <div
+                            className={cls.element(
+                                'topp',
+                                'knapp_uten_avtaler'
+                            )}
+                        >
+                            {opprettAvtaleKnapp}
+                        </div>
                     </div>
                 )}
             </div>

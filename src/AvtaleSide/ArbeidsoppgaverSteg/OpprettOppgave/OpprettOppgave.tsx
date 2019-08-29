@@ -5,14 +5,28 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
 import { Oppgave } from '../../avtale';
 import './OpprettOppgave.less';
+import { TemporaryLagringArbeidsoppgave } from '../../../AvtaleContext';
 
 interface Props {
     lagreOppgave: (oppgave: Oppgave) => void;
+    mellomLagretArbeidsoppgave: TemporaryLagringArbeidsoppgave;
+    setMellomLagringArbeidsoppgave: (
+        arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
+    ) => void;
+    fjerneMellomLagringArbeidsoppgave: () => void;
 }
 
 class OpprettOppgave extends React.Component<Props> {
+    setInnMellomLagringArbeidsoppgave = () => {
+        return (
+            this.props.mellomLagretArbeidsoppgave.oppgaveTittel !== '' ||
+            this.props.mellomLagretArbeidsoppgave.oppgaveBeskrivelse !== '' ||
+            this.props.mellomLagretArbeidsoppgave.oppgaveOpplaering !== ''
+        );
+    };
+
     state = {
-        visRedigerOppgave: false,
+        visRedigerOppgave: this.setInnMellomLagringArbeidsoppgave(),
     };
 
     visOppgave = (skalVises: boolean) => {
@@ -39,7 +53,18 @@ class OpprettOppgave extends React.Component<Props> {
                     skal utføre hos dere under arbeidstreningen.
                 </Normaltekst>
                 {this.state.visRedigerOppgave ? (
-                    <RedigerOppgave lagreOppgave={this.lagreOppgave} />
+                    <RedigerOppgave
+                        lagreOppgave={this.lagreOppgave}
+                        mellomLagretDataArbeidsoppgave={
+                            this.props.mellomLagretArbeidsoppgave
+                        }
+                        setMellomLagringArbeidsoppgave={
+                            this.props.setMellomLagringArbeidsoppgave
+                        }
+                        fjerneMellomLagringArbeidsoppgave={
+                            this.props.fjerneMellomLagringArbeidsoppgave
+                        }
+                    />
                 ) : (
                     <Knapp
                         className="opprett-oppgave__knapp"

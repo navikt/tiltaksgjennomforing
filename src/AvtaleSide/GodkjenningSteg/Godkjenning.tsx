@@ -34,12 +34,12 @@ const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
     }
 };
 
-const instruks = (rolle: Rolle) => {
+const instruks = (rolle: Rolle, avtale: Avtale) => {
     switch (rolle) {
         case 'DELTAKER':
-            return <DeltakerInstruks />;
+            return <DeltakerInstruks erLaast={avtale.erLaast} />;
         case 'ARBEIDSGIVER':
-            return <ArbeidsgiverInstruks />;
+            return <ArbeidsgiverInstruks erLaast={avtale.erLaast} />;
         case 'VEILEDER':
             return <VeilederInstruks />;
     }
@@ -117,7 +117,7 @@ const Godkjenning = (props: Props) => {
             <Systemtittel className="godkjenning__tittel">
                 Godkjenn avtalen
             </Systemtittel>
-            {instruks(props.rolle)}
+            {instruks(props.rolle, props.avtale)}
             {props.rolle !== 'VEILEDER' && (
                 <BekreftCheckboksPanel
                     label="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"

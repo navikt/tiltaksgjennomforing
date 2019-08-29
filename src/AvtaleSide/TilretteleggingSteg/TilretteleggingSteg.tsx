@@ -19,7 +19,7 @@ const TilretteleggingSteg = (props: Context) => (
             </HjelpetekstBase>
         </Systemtittel>
         <PakrevdTextarea
-            label="Beskriv hvilken tilrettelegging som er avtalt"
+            label="Beskriv hvilken tilrettelegging dere har avtalt"
             verdi={props.avtale.tilrettelegging}
             settVerdi={_.partial(props.settAvtaleVerdi, 'tilrettelegging')}
             maxLengde={1000}

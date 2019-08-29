@@ -61,12 +61,9 @@ const startServer = html => {
         res.sendStatus(200)
     );
 
-    server.get(
-        ['/', standardUrlPathway('/*'), '/informasjonsside/*'],
-        (req, res) => {
-            res.send(html);
-        }
-    );
+    server.get(standardUrlPathway('/*'), (req, res) => {
+        res.send(html);
+    });
 
     server.listen(3000, () => {
         console.log('Server listening on port', 3000);

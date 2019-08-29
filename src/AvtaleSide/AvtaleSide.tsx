@@ -2,7 +2,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Context, medContext } from '../AvtaleContext';
+import { Context, medContext, Rolle } from '../AvtaleContext';
 import Banner from '../komponenter/Banner/Banner';
 import BEMHelper from '../utils/bem';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
@@ -18,6 +18,10 @@ import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import DeltakerInstruks from './GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
+import ArbeidsgiverInstruks from './GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
+import VeilederInstruks from './GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
+import Innholdsboks from '../komponenter/Innholdsboks/Innholdsboks';
 
 interface MatchProps {
     avtaleId: string;
@@ -53,12 +57,12 @@ const AvtaleSide: FunctionComponent<Props> = props => {
             id: 'kontaktinformasjon',
         },
         {
-            komponent: <MaalSteg />,
+            komponent: <MaalSteg {...props} />,
             label: 'Mål',
             id: 'maal',
         },
         {
-            komponent: <ArbeidsoppgaverSteg />,
+            komponent: <ArbeidsoppgaverSteg {...props} />,
             label: 'Arbeidsoppgaver',
             id: 'arbeidsoppgaver',
         },
@@ -88,7 +92,16 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const aktivtSteg = avtaleSteg.find(
         steg => steg.id === props.match.params.stegPath
     );
-
+    const instruks = (rolle: Rolle) => {
+        switch (rolle) {
+            case 'DELTAKER':
+                return <DeltakerInstruks erLaast={props.avtale.erLaast} />;
+            case 'ARBEIDSGIVER':
+                return <ArbeidsgiverInstruks erLaast={props.avtale.erLaast} />;
+            case 'VEILEDER':
+                return <VeilederInstruks />;
+        }
+    };
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
@@ -99,20 +112,32 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.avtale.erLaast) {
                     innhold = (
                         <div className="avtaleside__innhold">
-                            <TilbakeTilOversiktLenke />
+                            <div className="tilbaketiloversikt">
+                                <TilbakeTilOversiktLenke />
+                            </div>
+
                             <AlertStripe
                                 className={cls.element('banner')}
                                 type="suksess"
                             >
                                 Avtalen er godkjent av alle parter og låst.
                             </AlertStripe>
-                            <Oppsummering avtale={props.avtale} />
+                            <Oppsummering
+                                avtale={props.avtale}
+                                rolle={props.rolle}
+                            />
+                            <Innholdsboks className={cls.element('infoboks')}>
+                                {instruks(props.rolle)}
+                            </Innholdsboks>
                         </div>
                     );
                 } else if (props.rolle === 'DELTAKER') {
                     innhold = (
                         <div className="avtaleside__innhold">
-                            <TilbakeTilOversiktLenke />
+                            <div className="tilbaketiloversikt">
+                                <TilbakeTilOversiktLenke />
+                            </div>
+
                             <AlertStripe
                                 className={cls.element('banner')}
                                 type="info"
