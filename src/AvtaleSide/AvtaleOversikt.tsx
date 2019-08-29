@@ -18,6 +18,7 @@ import {
 } from '../paths';
 import RestService from '../services/rest-service';
 import BEMHelper from '../utils/bem';
+import Varsel from '../varsel';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Natur from './natur';
@@ -31,41 +32,61 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         innloggetBruker,
         setInnloggetBruker,
     ] = useState<InnloggetBruker | null>(null);
+    const [varsler, setVarsler] = useState<Varsel[]>([]);
+
     useEffect(() => {
         RestService.hentAvtalerForInnloggetBruker().then(setAvtaler);
         RestService.hentInnloggetBruker().then(setInnloggetBruker);
+        RestService.hentUlesteVarsler().then(setVarsler);
     }, []);
 
     if (avtaler === null) {
         return null;
     }
 
-    const avtaleLenker = avtaler.map((avtale: Avtale) => (
-        <LenkepanelBase
-            key={avtale.id}
-            href={pathTilKontaktinformasjonSteg(avtale.id)}
-            linkCreator={(props: any) => <Link to={props.href} {...props} />}
-        >
-            <div className={cls.element('rad')}>
-                <div className={cls.element('deltakerOgBedrift')}>
-                    {avtale.bedriftNavn}
-                </div>
-                <div className={cls.element('deltakerOgBedrift')}>
-                    {avtale.deltakerFornavn || ''}&nbsp;
-                    {avtale.deltakerEtternavn || ''}
-                </div>
-                <MediaQuery minWidth={576}>
-                    <div className={cls.element('opprettet')}>
-                        {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
+    const avtaleLenker = avtaler.map((avtale: Avtale) => {
+        const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
+        return (
+            <div className={cls.element('ytre-')}>
+                <LenkepanelBase
+                    key={avtale.id}
+                    href={pathTilKontaktinformasjonSteg(avtale.id)}
+                    linkCreator={(props: any) => (
+                        <Link to={props.href} {...props} />
+                    )}
+                    className={cls.element('ytre-rad')}
+                >
+                    {ulestVarsel && <span className="ulest-varsel-ikon" />}
+                    <div
+                        className={classNames(cls.element('rad'), {
+                            uthevet: ulestVarsel,
+                        })}
+                    >
+                        <div className={cls.element('deltakerOgBedrift')}>
+                            {avtale.bedriftNavn}
+                        </div>
+                        <div className={cls.element('deltakerOgBedrift')}>
+                            {avtale.deltakerFornavn || ''}&nbsp;
+                            {avtale.deltakerEtternavn || ''}
+                        </div>
+                        <MediaQuery minWidth={576}>
+                            <div className={cls.element('opprettet')}>
+                                {moment(avtale.opprettetTidspunkt).format(
+                                    'DD.MM.YYYY'
+                                )}
+                            </div>
+                        </MediaQuery>
+                        <div className={cls.element('statusikon')}>
+                            <StatusIkon status={avtale.status} />
+                        </div>
+                        <div className={cls.element('status')}>
+                            {avtale.status}
+                        </div>
                     </div>
-                </MediaQuery>
-                <div className={cls.element('statusikon')}>
-                    <StatusIkon status={avtale.status} />
-                </div>
-                <div className={cls.element('status')}>{avtale.status}</div>
+                </LenkepanelBase>
             </div>
-        </LenkepanelBase>
-    ));
+        );
+    });
 
     const erVeileder =
         innloggetBruker && innloggetBruker.identifikator.length < 11;

@@ -49,12 +49,39 @@
     }
 
     &__informasjonsBanner {
-        margin: 0 0.5rem 0 0.5rem;
         justify-content: center;
     }
 
     .alertstripe .alertstripe__tekst {
         max-width: 800px;
+    }
+
+    &__ytre-rad {
+        position: relative;
+    }
+
+    .ulest-varsel-ikon {
+        background-color: #006eed;
+        border: 2px solid @grayBackground;
+        border-radius: 50%;
+        color: #fff;
+        height: 16px;
+        width: 16px;
+        position: absolute;
+        left: -0.45rem;
+    }
+
+    .ulest-varsel-border {
+        display: inline-block;
+        background-clip: border-box;
+        background-image: linear-gradient(#54a3ff, #006eed);
+        border: 2px solid @grayBackground;
+        height: 55px;
+        width: 1rem;
+    }
+
+    .uthevet {
+        font-weight: bold;
     }
 
     &__rad {

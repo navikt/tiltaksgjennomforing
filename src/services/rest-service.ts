@@ -12,9 +12,9 @@ import {
 } from '../InnloggingBoundary/useInnlogget';
 import { basename } from '../paths';
 import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
+import Varsel from '../varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
-const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
@@ -32,6 +32,9 @@ export interface RestService {
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
+    hentUlesteVarsler: () => Promise<Varsel[]>;
+    hentAvtaleVarsler: (avtaleId: string) => Promise<Varsel[]>;
+    settVarselTilLest: (varselId: string) => Promise<void>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -199,6 +202,28 @@ const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
     return await response.json();
 };
 
+const hentUlesteVarsler = async (): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler?lest=false`);
+    await handleResponse(response);
+    return await response.json();
+};
+
+const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}`);
+    await handleResponse(response);
+    return await response.json();
+};
+
+const settVarselTilLest = async (varselId: string): Promise<void> => {
+    const response = await fetch(
+        `${API_URL}/varsler/${varselId}/sett-til-lest`,
+        {
+            method: 'POST',
+        }
+    );
+    await handleResponse(response);
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -212,6 +237,9 @@ const restService: RestService = {
     hentInnloggetBruker,
     hentInnloggingskilder,
     hentBedriftBrreg,
+    hentUlesteVarsler,
+    hentAvtaleVarsler,
+    settVarselTilLest,
 };
 
 export default restService;

@@ -4,6 +4,7 @@ import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Context, medContext, Rolle } from '../AvtaleContext';
 import Banner from '../komponenter/Banner/Banner';
+import VarselKomponent from '../komponenter/Varsel/VarselKomponent';
 import BEMHelper from '../utils/bem';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
@@ -102,6 +103,21 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 return <VeilederInstruks />;
         }
     };
+
+    const varsler = props.varsler
+        .filter(v => !v.lest)
+        .map(v => (
+            <VarselKomponent
+                kanLukkes={true}
+                onLukkVarsel={() => props.settVarselTilLest(v.id)}
+                type={'info'}
+                key={v.id}
+                className={cls.element('varsel')}
+            >
+                {v.varslingstekst}
+            </VarselKomponent>
+        ));
+
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
@@ -115,7 +131,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
                             </div>
-
+                            {varsler}
                             <AlertStripe
                                 className={cls.element('banner')}
                                 type={
@@ -144,7 +160,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
                             </div>
-
+                            {varsler}
                             <AlertStripe
                                 className={cls.element('banner')}
                                 type="info"
