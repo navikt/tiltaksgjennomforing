@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="23px" viewBox="0 0 24 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>FILL/hardware/ printer</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M2.49963477,7.64426589 L21.5003652,7.64426589 C22.8229072,7.64426589 23.909832,8.67828897 23.9946699,9.97986553 L24,10.1439007 L24,16.1439007 C24,17.4678451 22.9659769,18.5534796 21.6644004,18.6382121 L21.5003652,18.6435354 L19.0007305,18.6435354 L19.0007305,23.1446311 C19.0007305,23.3900657 18.8229671,23.5939453 18.5895405,23.6362218 L18.4996348,23.6442659 L5.50036523,23.6442659 C5.25493061,23.6442659 5.04989674,23.4676568 5.00736372,23.2344867 L4.99926954,23.1446311 L4.99926954,18.6435354 L2.49963477,18.6435354 C1.17709277,18.6435354 0.0901680058,17.6108587 0.00533009204,16.3080974 L0,16.1439007 L0,10.1439007 C0,8.82135866 1.03402308,7.73443389 2.33559964,7.64959598 L2.49963477,7.64426589 L21.5003652,7.64426589 Z M18,15.6442659 L6,15.6442659 L6,22.6435354 L18,22.6435354 L18,15.6442659 Z M19.7224251,1 L19.7224251,6.08400292 L5.11322133,6.11468225 L5.11322133,1 L19.7224251,1 Z" id="path-1"></path>
+    </defs>
+    <g id="-----↳-Versjon-10" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="gammel" transform="translate(-1033.000000, -267.000000)">
+            <g id="FILL/hardware/-printer" transform="translate(1033.000000, 266.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#3E3832" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <g id="printerSvg" stroke-width="1" fill-rule="evenodd" mask="url(#mask-2)" fill="#0067C5">
+                    <g transform="translate(12.000000, 12.000000) scale(1, -1) translate(-12.000000, -12.000000) " id="Rectangle-3">
+                        <rect x="0" y="0" width="24" height="24"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

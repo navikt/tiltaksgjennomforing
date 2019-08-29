@@ -26,7 +26,7 @@
         display: flex;
         justify-content: space-evenly;
         &:hover {
-            #printer {
+            #printerSvg {
                 fill: white;
             }
         }
@@ -34,6 +34,11 @@
             margin-left: 0.5rem;
         }
         @media print {
+            display: none;
+        }
+    }
+    @media (max-width: 767px) {
+        &__print-knapp {
             display: none;
         }
     }
