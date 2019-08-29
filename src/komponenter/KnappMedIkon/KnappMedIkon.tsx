@@ -4,6 +4,7 @@ import './KnappMedIkon.less';
 import redigerIkon from './rediger-penn.svg';
 import slettIkon from './soppeldunk.svg';
 import avbruttIkon from '../../assets/ikoner/stop.svg';
+import classNames from 'classnames';
 
 type IkonType = 'blyant' | 'soppelkasse' | 'avbrutt';
 
@@ -24,11 +25,9 @@ const KnappMedIkon = (props: Props) => (
     <button
         type="button"
         onClick={props.onClick}
-        className={
-            props.backgroundColor === null
-                ? 'knapp-med-ikon'
-                : 'knapp-med-ikon knapp-med-ikon__backgroundColor'
-        }
+        className={classNames('knapp-med-ikon', {
+            'knapp-med-ikon__backgroundColor': props.backgroundColor !== null,
+        })}
     >
         <img src={ikoner[props.ikonType]} />
         <Normaltekst className="knapp-med-ikon__label">
