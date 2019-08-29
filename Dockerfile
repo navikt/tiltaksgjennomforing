@@ -8,6 +8,9 @@ RUN npm install -g helmet
 RUN npm install -g http-proxy-middleware
 RUN npm install -g mustache-express
 RUN npm install -g promise
+RUN npm install -g jsdom
+RUN npm install -g request
+
 
 COPY build/ ./build
 COPY ./src/setupProxy.js ./src/setupProxy.js
