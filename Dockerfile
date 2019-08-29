@@ -14,6 +14,7 @@ COPY ./src/setupProxy.js ./src/setupProxy.js
 COPY server.js ./
 COPY package.json ./
 COPY start.sh ./
+COPY server/ ./server
 
 ENV NODE_EXTRA_CA_CERTS /etc/ssl/ca-bundle.pem
 
