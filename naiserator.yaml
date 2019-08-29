@@ -15,10 +15,10 @@ spec:
         - '{{{ingress}}}'
     liveness:
         path: /tiltaksgjennomforing/internal/isAlive
-        initialDelay: 5
+        initialDelay: 25
     readiness:
         path: /tiltaksgjennomforing/internal/isReady
-        initialDelay: 5
+        initialDelay: 25
     env:
         - name: APIGW_URL
           value: '{{{api-gw-url}}}'
