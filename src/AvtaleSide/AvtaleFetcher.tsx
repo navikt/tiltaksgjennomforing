@@ -12,11 +12,8 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
     useEffect(() => {
         const avtaleId = props.avtaleId;
-        Promise.all([
-            props.hentAvtale(avtaleId),
-            props.hentRolle(avtaleId),
-            props.hentVarsler(avtaleId),
-        ])
+        props.hentVarsler(avtaleId);
+        Promise.all([props.hentAvtale(avtaleId), props.hentRolle(avtaleId)])
             .then(() => setLastetOk(true))
             .catch(error => {
                 if (error instanceof ApiError) {

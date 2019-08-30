@@ -37,7 +37,9 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     useEffect(() => {
         RestService.hentAvtalerForInnloggetBruker().then(setAvtaler);
         RestService.hentInnloggetBruker().then(setInnloggetBruker);
-        RestService.hentUlesteVarsler().then(setVarsler);
+        RestService.hentUlesteVarsler()
+            .then(setVarsler)
+            .catch(() => setVarsler([]));
     }, []);
 
     if (avtaler === null) {
@@ -47,7 +49,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const avtaleLenker = avtaler.map((avtale: Avtale) => {
         const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
         return (
-            <div className={cls.element('ytre-')}>
+            <div className={cls.element('ytre-')} key={avtale.id}>
                 <LenkepanelBase
                     key={avtale.id}
                     href={pathTilKontaktinformasjonSteg(avtale.id)}
