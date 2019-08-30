@@ -3,7 +3,7 @@ import moment from 'moment';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
@@ -21,7 +21,9 @@ import BEMHelper from '../utils/bem';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Natur from './natur';
+import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
 import { HoyreChevron } from 'nav-frontend-chevron';
+import Lenke from 'nav-frontend-lenker';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -99,9 +101,49 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 
-    const tilbakemeldingHvisIngenAvtale = erVeileder
-        ? 'Du har ikke opprettet noen avtaler enda.' // NAV
-        : 'Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.'; // Deltaker/AG
+    const tilbakemeldingHvisIngenAvtale = erVeileder ? (
+        <div>
+            <Normaltekst>Du har ikke opprettet noen avtaler enda</Normaltekst>
+        </div> //NAV
+    ) : (
+        <div>
+            <p>
+                <Element>Hvis du er deltaker:</Element>
+                <Normaltekst>
+                    Det har ikke blitt opprettet noen avtaler hvor du er med
+                    enda. Vennligst vent på veileder i NAV.
+                </Normaltekst>
+            </p>
+            <p>
+                <Element>Hvis du er arbeidsgiver:</Element>
+                <Normaltekst>
+                    Du har ingen avtaler her enda, som kan være på grunn av
+                    følgende årsaker:
+                    <ol>
+                        <li>
+                            Du har ikke riktig tilgang i Altinn.{' '}
+                            <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                                Les mer om roller og rettigheter på Altinn.no
+                                <TilEkstern
+                                    className={cls.element('eksterntLenkeikon')}
+                                />
+                            </Lenke>
+                        </li>
+                        <li>
+                            NAV-veileder har ikke opprettet avtalen med
+                            bedriftsnummeret ditt enda
+                        </li>
+                    </ol>
+                    <p>
+                        Hvis alternativ 1 og 2 ikke er tilfelle, ta kontakt med
+                        veileder i NAV"
+                    </p>
+                </Normaltekst>
+            </p>
+        </div> //Deltaker/AG
+    );
+
+    // Deltaker/AG
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
@@ -120,7 +162,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         <HoyreChevron />
                     </AlertStripe>
                 </div>
-                {avtaletabell || (
+                {false || ( //avtaletabell
                     <div className={cls.element('natur-logo')}>
                         <MediaQuery minWidth={576}>
                             <Natur />
