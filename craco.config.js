@@ -16,8 +16,6 @@ const noHeaderAndFooterInject = {
     NAV_MENU_RESOURCES: '',
 };
 
-//Da deployer vi til preprod :D
-
 tiltakWebpackDevConfig = () => {
     const tilTakCOnfig = {
         webpack: {

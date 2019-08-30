@@ -20,7 +20,6 @@ const InnloggingBoundary: FunctionComponent = props => {
         return (
             <>
                 <InternDekorator />
-
                 <Innloggingslinje innloggetBruker={innloggetBruker} />
                 {props.children}
             </>

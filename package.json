@@ -82,7 +82,8 @@
         "mock": "REACT_APP_MOCK=true npm start",
         "build": "craco build",
         "test": "craco test",
-        "server": "node server.js"
+        "server": "node server.js",
+        "dev-server": "cross-env NODE_ENV=development npm run server"
     },
     "devDependencies": {
         "@craco/craco": "3.6.0",
