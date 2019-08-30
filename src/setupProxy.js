@@ -1,6 +1,5 @@
 const proxy = require('http-proxy-middleware');
 
-process.env.NODE_ENV = 'development';
 const erDevelopmentModus = process.env.NODE_ENV === 'development';
 
 const envProperties = {
