@@ -32,7 +32,7 @@ export interface RestService {
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
-    erInternFlate: () => Promise<boolean>;
+    erInternFlate: () => Promise<string>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {

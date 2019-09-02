@@ -15,7 +15,7 @@ const config = {
 
 class InternDekorator extends React.Component {
     async componentDidMount() {
-        if (await RestService.erInternFlate()) {
+        if ((await RestService.erInternFlate()) === 'true') {
             this.injectScript();
         }
     }
