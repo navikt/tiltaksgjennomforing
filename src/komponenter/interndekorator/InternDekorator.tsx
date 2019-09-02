@@ -16,7 +16,7 @@ const config = {
 class InternDekorator extends React.Component {
     async componentDidMount() {
         const erInternflate = await RestService.erInternFlate();
-        console.log(erInternflate, typeof erInternflate);
+        console.log(erInternflate, typeof erInternflate, 'url:::', url, ':::');
         if (erInternflate === 'true') {
             this.injectScript();
         }
