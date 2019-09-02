@@ -17,22 +17,6 @@ server.disable('x-powered-by');
 
 server.use(helmet());
 
-const allowCrossDomain = function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', true);
-    res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET,PUT,POST,DELETE,OPTIONS'
-    );
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Content-Type,X-XSRF-TOKEN,Location'
-    );
-    res.setHeader('Access-Control-Expose-Headers', 'Location');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-};
-server.use(allowCrossDomain);
-
 const setupProxy = require('./src/setupProxy');
 setupProxy(server);
 
