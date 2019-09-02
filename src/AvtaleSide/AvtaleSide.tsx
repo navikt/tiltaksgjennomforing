@@ -117,7 +117,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
             >
                 <div>
                     <div className={cls.element('varsel__tekst')}>
-                        {v.varslingstekst}{' '}
+                        {v.varslingstekst}
                     </div>
                     {v.tidspunkt && (
                         <div className={cls.element('svak')}>
