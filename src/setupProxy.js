@@ -17,7 +17,7 @@ const envProperties = {
         process.env.LOGOUT_URL ||
         (erDevelopmentModus &&
             '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
-    INTERNFLATE: process.env.INTERNFLATE || false,
+    INTERNFLATE: process.env.INTERNFLATE || 'false',
 };
 
 if (
