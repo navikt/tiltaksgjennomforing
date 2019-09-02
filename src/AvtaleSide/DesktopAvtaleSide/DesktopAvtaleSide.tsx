@@ -9,6 +9,7 @@ import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversi
 import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
 import { Avtale } from '../avtale';
 import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
+import classNames from 'classnames';
 
 interface Props {
     avtaleSteg: StegInfo[];
@@ -29,7 +30,12 @@ const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
     return (
         <>
             <div className="avtaleside__desktop">
-                <div className={cls.element('lenkerlinje')}>
+                <div
+                    className={classNames('avtaleside__lenkerlinje', {
+                        avtaleside__arbeidsgiver:
+                            props.rolle === 'ARBEIDSGIVER',
+                    })}
+                >
                     <TilbakeTilOversiktLenke />
                     <div className="avtaleside__avbrytOgDelLenk">
                         {' '}
