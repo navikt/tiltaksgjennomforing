@@ -15,6 +15,9 @@ interface Props {
     lukkModal: () => void;
     navn: string;
     varselTekst: string;
+    oversiktTekst: string;
+    bekreftelseTekst: string;
+    avbrytelseTekst: string;
 }
 
 const BekreftelseModal = ({
@@ -24,6 +27,9 @@ const BekreftelseModal = ({
     lukkModal,
     navn,
     varselTekst,
+    oversiktTekst,
+    bekreftelseTekst,
+    avbrytelseTekst,
 }: Props) => {
     if (typeof window !== 'undefined') {
         Modal.setAppElement('body');
@@ -49,7 +55,9 @@ const BekreftelseModal = ({
                     <div className={cls.element('knappRad')} />
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('tittel')}>
-                            <Systemtittel>Slette {navn}</Systemtittel>
+                            <Systemtittel>
+                                {oversiktTekst} {navn}
+                            </Systemtittel>
                         </div>
                         <Normaltekst className={cls.element('varselTekst')}>
                             {varselTekst}
@@ -61,14 +69,14 @@ const BekreftelseModal = ({
                             className={cls.element('knapp lenkeknapp')}
                             onClick={slettRad}
                         >
-                            ja, slett {navn}
+                            {bekreftelseTekst} {navn}
                         </KnappBase>
                         <KnappBase
                             type={'flat'}
                             className={cls.element('knapp lenkeknapp')}
                             onClick={lukkModal}
                         >
-                            avbryt
+                            {avbrytelseTekst}
                         </KnappBase>
                     </div>
                 </div>
