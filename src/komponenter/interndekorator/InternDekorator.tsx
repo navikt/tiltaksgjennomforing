@@ -4,7 +4,7 @@ import RestService from '../../services/rest-service';
 const url =
     process.env.NODE_ENV === 'production'
         ? process.env.INTERN_DECORATOR
-        : 'internarbeidsflatedecorator/head.min.js';
+        : '/internarbeidsflatedecorator/head.min.js';
 
 const config = {
     config: {
