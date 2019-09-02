@@ -20,18 +20,23 @@
         flex-direction: column;
     }
 
-    &__natur-tekst {
-        // text-align: center;
-        margin-top: 2rem;
-        width: 90%;
-    }
-
-    &__natur-header {
-        margin-top: 1rem;
-    }
-
-    &__ingen_avtaler {
+    &__ingen-avtaler-tekst-NAV {
         text-align: center;
+        margin-top: 2rem;
+    }
+
+    &__ingen-avtaler-tekst {
+        margin-top: 2rem;
+        padding: 1rem;
+    }
+
+    &__ingen-avtaler-header {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    &__arbeidsgiver-tekst {
+        margin-top: 2rem;
     }
 
     &__topp {
@@ -107,19 +112,22 @@
             margin-top: 2rem;
         }
 
+        &__arbeidsgiver-tekst {
+            margin-top: 2rem;
+        }
+
         &__natur-logo {
             margin: 5rem 0 1.5rem 0;
             display: flex;
             align-items: center;
             flex-direction: column;
 
-            .avtaleoversikt__natur-header {
+            .avtaleoversikt__ingen-avtaler-header {
                 margin-top: 3rem;
             }
 
-            .avtaleoversikt__natur-tekst {
-                margin-top: 2rem;
-                // text-align: center;
+            .avtaleoversikt__ingen-avtaler-tekst {
+                margin-top: 3rem;
             }
         }
     }

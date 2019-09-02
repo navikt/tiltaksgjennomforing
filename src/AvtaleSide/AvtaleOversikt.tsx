@@ -102,11 +102,11 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     );
 
     const tilbakemeldingHvisIngenAvtale = erVeileder ? (
-        <div>
+        <div className={cls.element('ingen-avtaler-tekst-NAV')}>
             <Normaltekst>Du har ikke opprettet noen avtaler enda</Normaltekst>
         </div> //NAV
     ) : (
-        <div>
+        <div className="avtaleoversikt__ingen-avtaler-tekst">
             <p>
                 <Element>Hvis du er deltaker:</Element>
                 <Normaltekst>
@@ -114,10 +114,10 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     enda. Vennligst vent på veileder i NAV.
                 </Normaltekst>
             </p>
-            <p>
+            <p className={cls.element('arbeidsgiver-tekst')}>
                 <Element>Hvis du er arbeidsgiver:</Element>
                 <Normaltekst>
-                    Du har ingen avtaler her enda, som kan være på grunn av
+                    Du har ingen avtaler her enda. Det kan være på grunn av
                     følgende årsaker:
                     <ol>
                         <li>
@@ -136,14 +136,13 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     </ol>
                     <p>
                         Hvis alternativ 1 og 2 ikke er tilfelle, ta kontakt med
-                        veileder i NAV"
+                        veileder i NAV
                     </p>
                 </Normaltekst>
             </p>
-        </div> //Deltaker/AG
+        </div>
     );
 
-    // Deltaker/AG
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
@@ -162,7 +161,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         <HoyreChevron />
                     </AlertStripe>
                 </div>
-                {false || ( //avtaletabell
+                {avtaletabell || (
                     <div className={cls.element('natur-logo')}>
                         <MediaQuery minWidth={576}>
                             <Natur />
@@ -170,10 +169,12 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         <MediaQuery maxWidth={576}>
                             <Natur width={'300'} height={'100'} />
                         </MediaQuery>
-                        <Undertittel className={cls.element('natur-header')}>
+                        <Undertittel
+                            className={cls.element('ingen-avtaler-header')}
+                        >
                             Ingen avtaler
                         </Undertittel>
-                        <Normaltekst className={cls.element('natur-tekst')}>
+                        <Normaltekst>
                             {tilbakemeldingHvisIngenAvtale}
                         </Normaltekst>
                         <div
