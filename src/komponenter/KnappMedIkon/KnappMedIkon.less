@@ -6,7 +6,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: unset;
     padding: 0.5rem 1rem;
     // Default usynlig border for at elementene ikke skal forskyve seg på hover
     border: 1px solid transparent;
@@ -16,6 +15,10 @@
     &__label {
         color: @navBla;
         margin-left: 5px;
+    }
+    &__backgroundColor {
+        background-color: unset;
+        color: @navBla;
     }
 
     &:hover {

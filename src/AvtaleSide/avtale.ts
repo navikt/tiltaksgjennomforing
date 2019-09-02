@@ -11,7 +11,8 @@ export type Avtale = AvtaleMetadata &
     Oppfolging &
     Godkjenninger & {
         godkjentPaVegneGrunn: GodkjentPaVegneGrunner;
-    } & Tilrettelegging;
+    } & Tilrettelegging &
+    Avbrytelse;
 
 export interface AvtaleMetadata {
     id: string;
@@ -91,6 +92,10 @@ export interface Godkjenninger {
     erLaast: boolean;
 }
 
+export interface Avbrytelse {
+    kanAvbrytes: boolean;
+    avbrutt: boolean;
+}
 export interface GodkjentPaVegneGrunner {
     ikkeBankId: boolean;
     reservert: boolean;
