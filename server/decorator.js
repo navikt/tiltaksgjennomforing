@@ -3,11 +3,10 @@ const request = require('request');
 
 const { JSDOM } = jsdom;
 const url =
-    process.env.NODE_ENV === 'production'
-        ? `${process.env.EKSTERN_DECORATOR}/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true`
-        : 'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
+    process.env.NODE_ENV === 'development'
+        ? 'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true'
+        : `${process.env.EKSTERN_DECORATOR}/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true`;
 const requestDecorator = callback => request(url, callback);
-
 const getDecorator = () =>
     new Promise((resolve, reject) => {
         const callback = (error, response, body) => {
