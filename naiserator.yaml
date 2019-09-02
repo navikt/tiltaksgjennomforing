@@ -32,3 +32,5 @@ spec:
           value: '{{{decorator-url}}}'
         - name: INTERNFLATE
           value: '{{{er-internflate}}}'
+        - name: EKSTERN_DECORATOR
+          value: '{{{ekstern-url}}}'

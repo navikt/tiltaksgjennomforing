@@ -4,5 +4,6 @@
     "isso-login-url": "https://loginservice.nais.adeo.no/login?redirect=https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing",
     "logout-url": "https://loginservice.nais.adeo.no/slo",
     "decorator-url": "https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/js/head.min.js",
-    "er-internflate": "true"
+    "er-internflate": "true",
+    "ekstern-url": "https://appres.nav.no"
 }
