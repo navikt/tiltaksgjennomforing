@@ -28,6 +28,7 @@ export interface RestService {
         paVegneGrunn: GodkjentPaVegneGrunner
     ) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
+    avbrytAvtale: (avtale: Avtale) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
@@ -168,7 +169,17 @@ const opphevGodkjenninger = async (avtaleId: string) => {
     await handleResponse(response);
     return hentAvtale(avtaleId);
 };
-
+const avbrytAvtale = async (avtale: Avtale) => {
+    const uri = `${API_URL}/avtaler/${avtale.id}/avbryt`;
+    const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+            'If-Match': avtale.versjon,
+        },
+    });
+    await handleResponse(response);
+    return hentAvtale(avtale.id);
+};
 const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     const response = await fetchGet(`${API_URL}/innlogget-bruker`);
     await handleResponse(response);
@@ -203,6 +214,7 @@ const restService: RestService = {
     godkjennAvtale,
     godkjennAvtalePaVegne,
     opphevGodkjenninger,
+    avbrytAvtale,
     hentInnloggetBruker,
     hentInnloggingskilder,
     hentBedriftBrreg,

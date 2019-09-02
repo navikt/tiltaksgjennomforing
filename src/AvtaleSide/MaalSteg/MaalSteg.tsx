@@ -79,6 +79,9 @@ class MaalSteg extends React.Component<Context> {
                 lukkModal={this.lukkModal}
                 navn="mål"
                 varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
+                oversiktTekst="Slette "
+                bekreftelseTekst="Ja, slett"
+                avbrytelseTekst="avbryt"
             />
         </>
     );
