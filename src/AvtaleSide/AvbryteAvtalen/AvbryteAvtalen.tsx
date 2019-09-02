@@ -11,21 +11,17 @@ interface Props {
     lagreAvtale?: Context;
 }
 
-const AvbryteAvtalen = (props: Props) => {
-    return (
-        <>
-            <div className="avbryteavtalen">
-                <Lenke
-                    onClick={props.avbrytOnclick}
-                    href="#"
-                    className="avbryteavtalen__lenke"
-                >
-                    <AvbruttIkon className="avbryteavtalen__ikon" />
-                    Avbryt avtale
-                </Lenke>
-            </div>
-        </>
-    );
-};
+const AvbryteAvtalen = (props: Props) => (
+    <div className="avbryteavtalen">
+        <Lenke
+            onClick={props.avbrytOnclick}
+            href="#"
+            className="avbryteavtalen__lenke"
+        >
+            <AvbruttIkon className="avbryteavtalen__ikon" />
+            Avbryt avtale
+        </Lenke>
+    </div>
+);
 
 export default AvbryteAvtalen;
