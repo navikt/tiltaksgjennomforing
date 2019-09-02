@@ -1,21 +1,37 @@
 const path = require('path');
+const express = require('express');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
 const helmet = require('helmet');
+const server = express();
 const buildPath = path.join(__dirname, 'build');
 const standardUrlPathway = require('./server/urlPathway');
 const getDecorator = require('./server/decorator');
-const express = require('express');
-const server = express();
 
-server.set('views', buildPath);
-server.set('view engine', 'mustache');
 server.engine('html', mustacheExpress());
+server.set('view engine', 'mustache');
+server.set('views', buildPath);
 
 // security
 server.disable('x-powered-by');
 
 server.use(helmet());
+
+const allowCrossDomain = function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', true);
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'GET,PUT,POST,DELETE,OPTIONS'
+    );
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type,X-XSRF-TOKEN,Location'
+    );
+    res.setHeader('Access-Control-Expose-Headers', 'Location');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+};
+server.use(allowCrossDomain);
 
 const setupProxy = require('./src/setupProxy');
 setupProxy(server);
@@ -33,7 +49,10 @@ const renderApp = decoratorFragments =>
     });
 
 const startServer = html => {
-    server.use(standardUrlPathway('/'), express.static(buildPath));
+    server.use(
+        standardUrlPathway('/'),
+        express.static(buildPath, { index: false })
+    );
 
     server.get(standardUrlPathway('/internal/isAlive'), (req, res) =>
         res.sendStatus(200)
