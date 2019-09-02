@@ -3,7 +3,7 @@ const request = require('request');
 
 const { JSDOM } = jsdom;
 const url =
-    'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
+    'https://appres-q1.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
 
 const requestDecorator = callback => request(url, callback);
 
