@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import AlertStripe from 'nav-frontend-alertstriper';
+import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -22,7 +23,6 @@ import Varsel from '../varsel';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Natur from './natur';
-import { HoyreChevron } from 'nav-frontend-chevron';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -49,44 +49,39 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const avtaleLenker = avtaler.map((avtale: Avtale) => {
         const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
         return (
-            <div className={cls.element('ytre-')} key={avtale.id}>
-                <LenkepanelBase
-                    key={avtale.id}
-                    href={pathTilKontaktinformasjonSteg(avtale.id)}
-                    linkCreator={(props: any) => (
-                        <Link to={props.href} {...props} />
-                    )}
-                    className={cls.element('ytre-rad')}
+            <LenkepanelBase
+                key={avtale.id}
+                href={pathTilKontaktinformasjonSteg(avtale.id)}
+                linkCreator={(props: any) => (
+                    <Link to={props.href} {...props} />
+                )}
+            >
+                {ulestVarsel && <span className="ulest-varsel-ikon" />}
+                <div
+                    className={classNames(cls.element('rad'), {
+                        uthevet: ulestVarsel,
+                    })}
                 >
-                    {ulestVarsel && <span className="ulest-varsel-ikon" />}
-                    <div
-                        className={classNames(cls.element('rad'), {
-                            uthevet: ulestVarsel,
-                        })}
-                    >
-                        <div className={cls.element('deltakerOgBedrift')}>
-                            {avtale.bedriftNavn}
-                        </div>
-                        <div className={cls.element('deltakerOgBedrift')}>
-                            {avtale.deltakerFornavn || ''}&nbsp;
-                            {avtale.deltakerEtternavn || ''}
-                        </div>
-                        <MediaQuery minWidth={576}>
-                            <div className={cls.element('opprettet')}>
-                                {moment(avtale.opprettetTidspunkt).format(
-                                    'DD.MM.YYYY'
-                                )}
-                            </div>
-                        </MediaQuery>
-                        <div className={cls.element('statusikon')}>
-                            <StatusIkon status={avtale.status} />
-                        </div>
-                        <div className={cls.element('status')}>
-                            {avtale.status}
-                        </div>
+                    <div className={cls.element('deltakerOgBedrift')}>
+                        {avtale.bedriftNavn}
                     </div>
-                </LenkepanelBase>
-            </div>
+                    <div className={cls.element('deltakerOgBedrift')}>
+                        {avtale.deltakerFornavn || ''}&nbsp;
+                        {avtale.deltakerEtternavn || ''}
+                    </div>
+                    <MediaQuery minWidth={576}>
+                        <div className={cls.element('opprettet')}>
+                            {moment(avtale.opprettetTidspunkt).format(
+                                'DD.MM.YYYY'
+                            )}
+                        </div>
+                    </MediaQuery>
+                    <div className={cls.element('statusikon')}>
+                        <StatusIkon status={avtale.status} />
+                    </div>
+                    <div className={cls.element('status')}>{avtale.status}</div>
+                </div>
+            </LenkepanelBase>
         );
     });
 
