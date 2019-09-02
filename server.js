@@ -34,7 +34,7 @@ const allowCrossDomain = function(req, res, next) {
 server.use(allowCrossDomain);
 
 const setupProxy = require('./src/setupProxy');
-//setupProxy(server);
+setupProxy(server);
 
 // health checks
 const renderApp = decoratorFragments =>
