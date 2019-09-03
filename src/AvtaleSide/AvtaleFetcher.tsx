@@ -12,6 +12,7 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
     useEffect(() => {
         const avtaleId = props.avtaleId;
+        props.hentVarsler(avtaleId);
         Promise.all([props.hentAvtale(avtaleId), props.hentRolle(avtaleId)])
             .then(() => setLastetOk(true))
             .catch(error => {

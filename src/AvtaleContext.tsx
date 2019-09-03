@@ -1,15 +1,16 @@
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import ApiError from './api-error';
 import {
     Avtale,
+    GodkjentPaVegneGrunner,
     Maal,
     Oppgave,
-    GodkjentPaVegneGrunner,
 } from './AvtaleSide/avtale';
-import Varsel from './komponenter/Varsel/Varsel';
+import VarselKomponent from './komponenter/Varsel/VarselKomponent';
 import RestService from './services/rest-service';
-import ApiError from './api-error';
+import Varsel from './varsel';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -83,6 +84,7 @@ const tomTemporaryLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave = {
 
 export interface Context {
     avtale: Avtale;
+    varsler: Varsel[];
     rolle: Rolle;
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
@@ -106,6 +108,8 @@ export interface Context {
         arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
     ) => void;
     setMellomLagreArbeidsoppgaveTom: () => void;
+    hentVarsler: (avtaleId: string) => Promise<any>;
+    settVarselTilLest: (varselId: string) => Promise<void>;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -121,6 +125,7 @@ interface State {
     ulagredeEndringer: boolean;
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
+    varsler: Varsel[];
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -134,12 +139,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             ulagredeEndringer: false,
             mellomLagring: tomTemporaryLagring,
             mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
+            varsler: [],
         };
 
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
         this.hentAvtale = this.hentAvtale.bind(this);
         this.lagreAvtale = this.lagreAvtale.bind(this);
-        this.opprettAvtale = this.opprettAvtale.bind(this);
         this.lagreMaal = this.lagreMaal.bind(this);
         this.slettMaal = this.slettMaal.bind(this);
         this.lagreOppgave = this.lagreOppgave.bind(this);
@@ -159,6 +164,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.setMellomLagreArbeidsoppgaveTom = this.setMellomLagreArbeidsoppgaveTom.bind(
             this
         );
+        this.hentVarsler = this.hentVarsler.bind(this);
+        this.settVarselTilLest = this.settVarselTilLest.bind(this);
     }
 
     mellomLagreMaal(maalInput: TemporaryLagring): void {
@@ -260,33 +267,11 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.setState({ avtale: avtaleBool });
     }
 
-    konverterGodkjentTilBool = (avtale: Avtale) => {
-        const {
-            godkjentAvArbeidsgiver,
-            godkjentAvDeltaker,
-            godkjentAvVeileder,
-        } = avtale;
-
-        let godkjenninger = {
-            godkjentAvArbeidsgiver: godkjentAvArbeidsgiver,
-            godkjentAvDeltaker: godkjentAvDeltaker,
-            godkjentAvVeileder: godkjentAvVeileder,
-        };
-
-        if (
-            godkjentAvArbeidsgiver &&
-            typeof godkjentAvArbeidsgiver !== 'boolean'
-        ) {
-            godkjenninger.godkjentAvArbeidsgiver = true;
-        }
-        if (godkjentAvDeltaker && typeof godkjentAvDeltaker !== 'boolean') {
-            godkjenninger.godkjentAvDeltaker = true;
-        }
-        if (godkjentAvVeileder && typeof godkjentAvVeileder !== 'boolean') {
-            godkjenninger.godkjentAvVeileder = true;
-        }
-        return godkjenninger;
-    };
+    konverterGodkjentTilBool = (avtale: Avtale) => ({
+        godkjentAvArbeidsgiver: Boolean(avtale.godkjentAvArbeidsgiver),
+        godkjentAvDeltaker: Boolean(avtale.godkjentAvDeltaker),
+        godkjentAvVeileder: Boolean(avtale.godkjentAvVeileder),
+    });
 
     async hentRolle(avtaleId: string) {
         const rolle = await RestService.hentRolle(avtaleId);
@@ -351,9 +336,22 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await this.hentAvtale(avtale.id);
     }
 
+    async hentVarsler(avtaleId: string) {
+        try {
+            const varsler = await RestService.hentAvtaleVarsler(avtaleId);
+            this.setState({ varsler });
+        } catch (e) {}
+    }
+
+    async settVarselTilLest(varselId: string) {
+        await RestService.settVarselTilLest(varselId);
+        return this.hentVarsler(this.state.avtale.id);
+    }
+
     render() {
         const context: Context = {
             avtale: this.state.avtale,
+            varsler: this.state.varsler,
             rolle: this.state.rolle,
             mellomLagring: this.state.mellomLagring,
             mellomLagringArbeidsoppgave: this.state.mellomLagringArbeidsoppgave,
@@ -376,18 +374,20 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             mellomLagreArbeidsoppgave: this.mellomLagreArbeidsoppgave,
             setMellomLagreArbeidsoppgaveTom: this
                 .setMellomLagreArbeidsoppgaveTom,
+            hentVarsler: this.hentVarsler,
+            settVarselTilLest: this.settVarselTilLest,
         };
 
         return (
             <>
                 {this.state.feilmelding && (
-                    <Varsel
+                    <VarselKomponent
                         kanLukkes={true}
                         onLukkVarsel={this.fjernFeilmelding}
                         type={'advarsel'}
                     >
                         {this.state.feilmelding}
-                    </Varsel>
+                    </VarselKomponent>
                 )}
                 <AvtaleContext.Provider value={context}>
                     {this.props.children}
