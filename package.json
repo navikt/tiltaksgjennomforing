@@ -83,7 +83,7 @@
         "build": "craco build",
         "test": "craco test",
         "server": "node server.js",
-        "test-prod-server": "cross-env NODE_ENV=production npm run server",
+        "prod-server": "cross-env NODE_ENV=production npm run server",
         "dev-server": "cross-env NODE_ENV=development npm run server"
     },
     "devDependencies": {

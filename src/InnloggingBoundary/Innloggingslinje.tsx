@@ -8,43 +8,28 @@ import { ReactComponent as NavIkon } from '../assets/ikoner/navikon.svg';
 import BEMHelper from '../utils/bem';
 import './Innloggingslinje.less';
 import { InnloggetBruker } from './useInnlogget';
-
+import { RestService } from '../services/rest-service';
+const erDevelopmentModus = process.env.NODE_ENV === 'development';
 const cls = BEMHelper('innloggingslinje');
 
 const Innloggingslinje: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = props => {
     const bruker = props.innloggetBruker.identifikator;
-    return (
-        <div className="innloggingslinje">
-            <div className="innloggingslinje__innhold">
-                <MediaQuery minWidth={577}>
-                    <div>
-                        <NavIkon />
-                    </div>
-                    <div className={cls.element('identitetogloggut')}>
-                        <EtikettLiten
-                            className={cls.element(
-                                'identitetogloggut__identitet'
-                            )}
-                        >
-                            {bruker}
-                        </EtikettLiten>
-                        <Knapp
-                            className="innloggingslinje__loggutknapp"
-                            mini={true}
-                            onClick={() => {
-                                window.location.href =
-                                    '/tiltaksgjennomforing/logout';
-                            }}
-                        >
-                            Logg ut
-                        </Knapp>
-                    </div>
-                </MediaQuery>
-                <MediaQuery maxWidth={576}>
-                    <Ekspanderbartpanel tittel={bruker}>
-                        <div className={cls.className}>
+    if (erDevelopmentModus || bruker.length > 10) {
+        return (
+            <div className="innloggingslinje">
+                <div className="innloggingslinje__innhold">
+                    <MediaQuery minWidth={577}>
+                        <div />
+                        <div className={cls.element('identitetogloggut')}>
+                            <EtikettLiten
+                                className={cls.element(
+                                    'identitetogloggut__identitet'
+                                )}
+                            >
+                                {bruker}
+                            </EtikettLiten>
                             <Knapp
                                 className="innloggingslinje__loggutknapp"
                                 mini={true}
@@ -56,10 +41,27 @@ const Innloggingslinje: FunctionComponent<{
                                 Logg ut
                             </Knapp>
                         </div>
-                    </Ekspanderbartpanel>
-                </MediaQuery>
+                    </MediaQuery>
+                    <MediaQuery maxWidth={576}>
+                        <Ekspanderbartpanel tittel={bruker}>
+                            <div className={cls.className}>
+                                <Knapp
+                                    className="innloggingslinje__loggutknapp"
+                                    mini={true}
+                                    onClick={() => {
+                                        window.location.href =
+                                            '/tiltaksgjennomforing/logout';
+                                    }}
+                                >
+                                    Logg ut
+                                </Knapp>
+                            </div>
+                        </Ekspanderbartpanel>
+                    </MediaQuery>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
+    return null;
 };
 export default Innloggingslinje;

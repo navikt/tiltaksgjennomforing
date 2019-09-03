@@ -1,4 +1,5 @@
 const proxy = require('http-proxy-middleware');
+const path = require('path');
 
 const erDevelopmentModus = process.env.NODE_ENV === 'development';
 
@@ -52,6 +53,12 @@ module.exports = function(app) {
 
     app.get('/tiltaksgjennomforing/internflate', (req, res) => {
         res.send(JSON.stringify(envProperties.INTERNFLATE));
+    });
+
+    app.get('/tiltaksgjennomforing/internflate/dekorator', (req, res) => {
+        !erDevelopmentModus
+            ? res.send(JSON.stringify(envProperties.INTERNDEKORATOR))
+            : res.sendFile(path.resolve(__dirname, '../server/head.min.js'));
     });
 
     app.get('/tiltaksgjennomforing/logout', (req, res) => {

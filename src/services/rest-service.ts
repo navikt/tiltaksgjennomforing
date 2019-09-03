@@ -33,10 +33,20 @@ export interface RestService {
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
     erInternFlate: () => Promise<string>;
+    hentInternFlateUri: () => Promise<string>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
     return fetch(url, { headers: { Pragma: 'no-cache' } });
+};
+
+const fetchJson: (url: string) => Promise<any> = url => {
+    return fetch(url, {
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+    });
 };
 
 const handleResponse = async (response: Response) => {
@@ -205,6 +215,13 @@ const erInternFlate = async () => {
     return await response.json();
 };
 
+const hentInternFlateUri = async () => {
+    const response = await fetchGet(
+        '/tiltaksgjennomforing/internflate/dekorator'
+    );
+    return await response.text();
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -219,6 +236,7 @@ const restService: RestService = {
     hentInnloggingskilder,
     hentBedriftBrreg,
     erInternFlate,
+    hentInternFlateUri,
 };
 
 export default restService;
