@@ -9,12 +9,10 @@ const DelLenkeTilAvtalen: FunctionComponent = () => {
 
     return (
         <>
-            <div className="lenkedeling">
-                <Lenke onClick={() => setOpen(true)} href="#">
-                    <ShareIkon className="lenkedeling__ikon" />
-                    Del lenke til avtalen
-                </Lenke>
-            </div>
+            <Lenke onClick={() => setOpen(true)} href="#">
+                <ShareIkon className="lenkedeling__ikon" />
+                Del lenke til avtalen
+            </Lenke>
             <KopierLenkeModal
                 isOpen={isOpen}
                 lukkModal={() => setOpen(false)}

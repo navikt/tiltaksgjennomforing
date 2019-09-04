@@ -1,7 +1,7 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import React, { Component } from 'react';
 import ApiError from '../../api-error';
-import Varsel from '../Varsel/Varsel';
+import VarselKomponent from '../Varsel/VarselKomponent';
 import './LagreKnapp.less';
 import UfullstendigError from '../../ufullstendig-error';
 
@@ -70,7 +70,7 @@ class LagreKnapp extends Component<Props, State> {
         return (
             <>
                 {this.state.suksessmelding && (
-                    <Varsel
+                    <VarselKomponent
                         kanLukkes={false}
                         timeout={5000}
                         type={'suksess'}
@@ -78,17 +78,17 @@ class LagreKnapp extends Component<Props, State> {
                         className={'lagreknapp__varsel'}
                     >
                         {this.state.suksessmelding}
-                    </Varsel>
+                    </VarselKomponent>
                 )}
                 {this.state.feilmelding && (
-                    <Varsel
+                    <VarselKomponent
                         kanLukkes={true}
                         type={'advarsel'}
                         onLukkVarsel={this.fjernFeilmelding}
                         className={'lagreknapp__varsel'}
                     >
                         {this.state.feilmelding}
-                    </Varsel>
+                    </VarselKomponent>
                 )}
                 <Hovedknapp
                     htmlType="button"

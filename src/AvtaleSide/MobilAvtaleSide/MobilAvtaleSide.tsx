@@ -10,6 +10,7 @@ import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversi
 interface Props {
     avtaleSteg: StegInfo[];
     rolle: Rolle;
+    varsler?: JSX.Element[];
 }
 const cls = BEMHelper('avtaleside');
 
@@ -29,6 +30,7 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
                 <TilbakeTilOversiktLenke />
                 {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
             </div>
+            {props.varsler}
             <form>{ekspanderbartPanel}</form>
 
             <KopierLenkeModal

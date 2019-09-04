@@ -12,9 +12,9 @@ import {
 } from '../InnloggingBoundary/useInnlogget';
 import { basename } from '../paths';
 import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
+import Varsel from '../varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
-const LOGIN_REDIRECT = '/tiltaksgjennomforing/login';
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
@@ -28,9 +28,13 @@ export interface RestService {
         paVegneGrunn: GodkjentPaVegneGrunner
     ) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
+    avbrytAvtale: (avtale: Avtale) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
+    hentUlesteVarsler: () => Promise<Varsel[]>;
+    hentAvtaleVarsler: (avtaleId: string) => Promise<Varsel[]>;
+    settVarselTilLest: (varselId: string) => Promise<void>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -167,7 +171,17 @@ const opphevGodkjenninger = async (avtaleId: string) => {
     await handleResponse(response);
     return hentAvtale(avtaleId);
 };
-
+const avbrytAvtale = async (avtale: Avtale) => {
+    const uri = `${API_URL}/avtaler/${avtale.id}/avbryt`;
+    const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+            'If-Match': avtale.versjon,
+        },
+    });
+    await handleResponse(response);
+    return hentAvtale(avtale.id);
+};
 const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     const response = await fetchGet(`${API_URL}/innlogget-bruker`);
     await handleResponse(response);
@@ -188,6 +202,28 @@ const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
     return await response.json();
 };
 
+const hentUlesteVarsler = async (): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler?lest=false`);
+    await handleResponse(response);
+    return await response.json();
+};
+
+const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}`);
+    await handleResponse(response);
+    return await response.json();
+};
+
+const settVarselTilLest = async (varselId: string): Promise<void> => {
+    const response = await fetch(
+        `${API_URL}/varsler/${varselId}/sett-til-lest`,
+        {
+            method: 'POST',
+        }
+    );
+    await handleResponse(response);
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -197,9 +233,13 @@ const restService: RestService = {
     godkjennAvtale: godkjennAvtale,
     godkjennAvtalePaVegne: godkjennAvtalePaVegne,
     opphevGodkjenninger: opphevGodkjenninger,
+    avbrytAvtale: avbrytAvtale,
     hentInnloggetBruker,
     hentInnloggingskilder,
     hentBedriftBrreg,
+    hentUlesteVarsler,
+    hentAvtaleVarsler,
+    settVarselTilLest,
 };
 
 export default restService;

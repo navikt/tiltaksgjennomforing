@@ -1,9 +1,12 @@
+import moment from 'moment';
 import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Context, medContext, Rolle } from '../AvtaleContext';
 import Banner from '../komponenter/Banner/Banner';
+import Innholdsboks from '../komponenter/Innholdsboks/Innholdsboks';
+import VarselKomponent from '../komponenter/Varsel/VarselKomponent';
 import BEMHelper from '../utils/bem';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
@@ -11,17 +14,16 @@ import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
+import ArbeidsgiverInstruks from './GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
+import DeltakerInstruks from './GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
+import VeilederInstruks from './GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
 import Oppsummering from './GodkjenningSteg/Oppsummering/oppsummering/Oppsummering';
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
-import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import DeltakerInstruks from './GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
-import ArbeidsgiverInstruks from './GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
-import VeilederInstruks from './GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
-import Innholdsboks from '../komponenter/Innholdsboks/Innholdsboks';
+import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
 
 interface MatchProps {
     avtaleId: string;
@@ -102,6 +104,30 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 return <VeilederInstruks />;
         }
     };
+
+    const varsler: JSX.Element[] = props.varsler
+        .filter(v => !v.lest)
+        .map(v => (
+            <VarselKomponent
+                kanLukkes={true}
+                onLukkVarsel={() => props.settVarselTilLest(v.id)}
+                type={'info'}
+                key={v.id}
+                className={cls.element('varsel')}
+            >
+                <div>
+                    <div className={cls.element('varsel__tekst')}>
+                        {v.varslingstekst}
+                    </div>
+                    {v.tidspunkt && (
+                        <div className={cls.element('svak')}>
+                            {moment(v.tidspunkt).fromNow()}
+                        </div>
+                    )}
+                </div>
+            </VarselKomponent>
+        ));
+
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
@@ -109,18 +135,25 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 let innhold: ReactNode;
                 if (!aktivtSteg) {
                     return null;
-                } else if (props.avtale.erLaast) {
+                } else if (props.avtale.erLaast || props.avtale.avbrutt) {
                     innhold = (
                         <div className="avtaleside__innhold">
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
                             </div>
-
+                            {varsler}
                             <AlertStripe
                                 className={cls.element('banner')}
-                                type="suksess"
+                                type={
+                                    props.avtale.erLaast
+                                        ? 'suksess'
+                                        : 'advarsel'
+                                }
                             >
-                                Avtalen er godkjent av alle parter og låst.
+                                {props.avtale.erLaast &&
+                                    'Avtalen er godkjent av alle parter og låst.'}
+                                {props.avtale.avbrutt &&
+                                    'Avtalen er avbrutt av veileder og låst.'}
                             </AlertStripe>
                             <Oppsummering
                                 avtale={props.avtale}
@@ -137,7 +170,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
                             </div>
-
+                            {varsler}
                             <AlertStripe
                                 className={cls.element('banner')}
                                 type="info"
@@ -156,6 +189,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             avtaleSteg={avtaleSteg}
                             aktivtSteg={aktivtSteg}
                             rolle={props.rolle}
+                            avtale={props.avtale}
+                            varsler={varsler}
+                            avbrytAvtale={props.avbryt}
                         />
                     );
                 } else {
@@ -163,6 +199,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <MobilAvtaleSide
                             avtaleSteg={avtaleSteg}
                             rolle={props.rolle}
+                            varsler={varsler}
                         />
                     );
                 }
