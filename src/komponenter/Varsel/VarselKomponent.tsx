@@ -16,7 +16,7 @@ interface State {
     display: boolean;
 }
 
-class Varsel extends React.Component<Props, State> {
+class VarselKomponent extends React.Component<Props, State> {
     private timerHandle: any;
 
     state = {
@@ -51,7 +51,7 @@ class Varsel extends React.Component<Props, State> {
                         <div>{this.props.children}</div>
                         {this.props.kanLukkes && (
                             <Lukknapp
-                                hvit={true}
+                                bla={this.props.type === 'info'}
                                 onClick={this.lukkVarsel}
                                 className="varsel__innhold__lukknapp"
                             />
@@ -63,4 +63,4 @@ class Varsel extends React.Component<Props, State> {
     }
 }
 
-export default Varsel;
+export default VarselKomponent;

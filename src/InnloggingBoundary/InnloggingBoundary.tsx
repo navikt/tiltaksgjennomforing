@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import Varsel from '../komponenter/Varsel/Varsel';
+import VarselKomponent from '../komponenter/Varsel/VarselKomponent';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
@@ -24,9 +24,9 @@ const InnloggingBoundary: FunctionComponent = props => {
         );
     } else if (feilmelding) {
         return (
-            <Varsel kanLukkes={false} type={'advarsel'}>
+            <VarselKomponent kanLukkes={false} type={'advarsel'}>
                 {feilmelding}
-            </Varsel>
+            </VarselKomponent>
         );
     } else {
         return null;

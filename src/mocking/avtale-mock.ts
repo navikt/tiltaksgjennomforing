@@ -35,6 +35,8 @@ const avtaleMock: Avtale = {
     godkjentAvVeileder: false,
     erLaast: false,
     status: '',
+    kanAvbrytes: true,
+    avbrutt: false,
     godkjentPaaVegneAv: false,
 
     godkjentPaVegneGrunn: {

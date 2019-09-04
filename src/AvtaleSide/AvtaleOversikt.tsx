@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import moment from 'moment';
 import AlertStripe from 'nav-frontend-alertstriper';
+import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -18,10 +19,10 @@ import {
 } from '../paths';
 import RestService from '../services/rest-service';
 import BEMHelper from '../utils/bem';
+import Varsel from '../varsel';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Natur from './natur';
-import { HoyreChevron } from 'nav-frontend-chevron';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -31,41 +32,58 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         innloggetBruker,
         setInnloggetBruker,
     ] = useState<InnloggetBruker | null>(null);
+    const [varsler, setVarsler] = useState<Varsel[]>([]);
+
     useEffect(() => {
         RestService.hentAvtalerForInnloggetBruker().then(setAvtaler);
         RestService.hentInnloggetBruker().then(setInnloggetBruker);
+        RestService.hentUlesteVarsler()
+            .then(setVarsler)
+            .catch(() => setVarsler([]));
     }, []);
 
     if (avtaler === null) {
         return null;
     }
 
-    const avtaleLenker = avtaler.map((avtale: Avtale) => (
-        <LenkepanelBase
-            key={avtale.id}
-            href={pathTilKontaktinformasjonSteg(avtale.id)}
-            linkCreator={(props: any) => <Link to={props.href} {...props} />}
-        >
-            <div className={cls.element('rad')}>
-                <div className={cls.element('deltakerOgBedrift')}>
-                    {avtale.bedriftNavn}
-                </div>
-                <div className={cls.element('deltakerOgBedrift')}>
-                    {avtale.deltakerFornavn || ''}&nbsp;
-                    {avtale.deltakerEtternavn || ''}
-                </div>
-                <MediaQuery minWidth={576}>
-                    <div className={cls.element('opprettet')}>
-                        {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
+    const avtaleLenker = avtaler.map((avtale: Avtale) => {
+        const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
+        return (
+            <LenkepanelBase
+                key={avtale.id}
+                href={pathTilKontaktinformasjonSteg(avtale.id)}
+                linkCreator={(props: any) => (
+                    <Link to={props.href} {...props} />
+                )}
+            >
+                {ulestVarsel && <span className="ulest-varsel-ikon" />}
+                <div
+                    className={classNames(cls.element('rad'), {
+                        uthevet: ulestVarsel,
+                    })}
+                >
+                    <div className={cls.element('deltakerOgBedrift')}>
+                        {avtale.bedriftNavn}
                     </div>
-                </MediaQuery>
-                <div className={cls.element('statusikon')}>
-                    <StatusIkon status={avtale.status} />
+                    <div className={cls.element('deltakerOgBedrift')}>
+                        {avtale.deltakerFornavn || ''}&nbsp;
+                        {avtale.deltakerEtternavn || ''}
+                    </div>
+                    <MediaQuery minWidth={576}>
+                        <div className={cls.element('opprettet')}>
+                            {moment(avtale.opprettetTidspunkt).format(
+                                'DD.MM.YYYY'
+                            )}
+                        </div>
+                    </MediaQuery>
+                    <div className={cls.element('statusikon')}>
+                        <StatusIkon status={avtale.status} />
+                    </div>
+                    <div className={cls.element('status')}>{avtale.status}</div>
                 </div>
-                <div className={cls.element('status')}>{avtale.status}</div>
-            </div>
-        </LenkepanelBase>
-    ));
+            </LenkepanelBase>
+        );
+    });
 
     const erVeileder =
         innloggetBruker && innloggetBruker.identifikator.length < 11;

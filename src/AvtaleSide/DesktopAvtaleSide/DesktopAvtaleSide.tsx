@@ -1,6 +1,9 @@
-import React from 'react';
-import { Rolle } from '../../AvtaleContext';
+import React, { useState } from 'react';
+import { Context, Rolle } from '../../AvtaleContext';
+import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
 import BEMHelper from '../../utils/bem';
+import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
+import { Avtale } from '../avtale';
 import { StegInfo } from '../AvtaleSide';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import NesteForrige from '../NesteForrige/NesteForrige';
@@ -11,15 +14,38 @@ interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
     rolle: Rolle;
+    varsler?: JSX.Element[];
+    avtale: Avtale;
+    avbrytAvtale: () => Promise<void>;
 }
+
 const cls = BEMHelper('avtaleside');
 const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
+    const bekreftelseAvbrytAvtalen = () => {
+        setModalIsOpen(true);
+    };
+    const lukkModal = () => {
+        setModalIsOpen(false);
+    };
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     return (
         <>
             <div className="avtaleside__desktop">
+                {props.varsler}
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke />
-                    {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
+                    <div className="avtaleside__avbrytOgDelLenk">
+                        {' '}
+                        {props.avtale.kanAvbrytes &&
+                            !props.avtale.avbrutt &&
+                            props.rolle === 'VEILEDER' && (
+                                <AvbryteAvtalen
+                                    avtale={props.avtale}
+                                    avbrytOnclick={bekreftelseAvbrytAvtalen}
+                                />
+                            )}
+                        {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
+                    </div>
                 </div>
                 <div className="avtaleside__container">
                     <Stegmeny
@@ -36,6 +62,19 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                     </form>
                 </div>
             </div>
+            <BekreftelseModal
+                modalIsOpen={modalIsOpen}
+                radTilSletting={props.avtale}
+                slettOnClick={props.avbrytAvtale}
+                lukkModal={lukkModal}
+                navn="avtale"
+                varselTekst={
+                    'Når du avbryter avtalen, blir innholdet låst og den blir markert som "avbrutt" i din oversikt. Du kan ikke redigere eller gjenopprette den etterpå. '
+                }
+                oversiktTekst="Avbryte "
+                bekreftelseTekst="AVBRYT "
+                avbrytelseTekst="BEHOLD AVTALE "
+            />
         </>
     );
 };
