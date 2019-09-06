@@ -13,6 +13,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import { Knapp } from 'nav-frontend-knapper';
 import { ReactComponent as PrinterSvg } from '../../../../assets/ikoner/printer2.svg';
 import { Rolle } from '../../../../AvtaleContext';
+import VersjonTabs from '../../VersjonKontroll/VersjonTabs';
 
 interface Props {
     avtale: Avtale;
@@ -51,6 +52,7 @@ const Oppsummering: FunctionComponent<Props> = props => (
         <VarighetOppsummering {...props.avtale} />
         <OppfolgingOppsummering {...props.avtale} />
         <Tilrettelegging {...props.avtale} />
+        <VersjonTabs {...props.avtale} />
     </Innholdsboks>
 );
 
