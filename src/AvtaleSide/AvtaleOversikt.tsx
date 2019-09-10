@@ -150,18 +150,17 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
             <div className="avtaleoversikt">
                 <div className={cls.element('informasjonsBanner')}>
                     <AlertStripe type="info">
-                        Dette er en ny digital løsning for avtale om
-                        arbeidstrening.{' '}
                         <Link
                             to={pathTilInformasjonssideInnlogget}
                             className="lenke"
                         >
-                            Les mer om hvordan dette fungerer her
+                            Les om hvordan den nye digitale løsningen for avtale
+                            om arbeidstrening fungerer her
                         </Link>
                         <HoyreChevron />
                     </AlertStripe>
                 </div>
-                {false || (
+                {avtaletabell || (
                     <div className={cls.element('natur-logo')}>
                         <MediaQuery minWidth={576}>
                             <Natur />
