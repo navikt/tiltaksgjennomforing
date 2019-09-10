@@ -73,16 +73,18 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         innloggetBruker && innloggetBruker.identifikator.length < 11;
 
     const opprettAvtaleKnapp = erVeileder && (
-        <Hovedknapp onClick={() => props.history.push(pathTilOpprettAvtale)}>
-            Opprett ny avtale
-        </Hovedknapp>
+        <div className={cls.element('topp', 'knapp_med_avtaler')}>
+            <Hovedknapp
+                onClick={() => props.history.push(pathTilOpprettAvtale)}
+            >
+                Opprett ny avtale
+            </Hovedknapp>
+        </div>
     );
 
     const avtaletabell = avtaleLenker.length > 0 && (
-        <div className="avtaleoversikt__lenker typo-normal">
-            <div className={cls.element('topp', 'knapp_med_avtaler')}>
-                {opprettAvtaleKnapp}
-            </div>
+        <div className="avtaleoversikt__avtaleliste typo-normal">
+            {opprettAvtaleKnapp}
             <div
                 className={classNames(
                     cls.element('header'),
