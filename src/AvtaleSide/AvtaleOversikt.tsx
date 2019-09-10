@@ -106,7 +106,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
             <Normaltekst>Du har ikke opprettet noen avtaler enda</Normaltekst>
         </div> //NAV
     ) : (
-        <div className="avtaleoversikt__ingen-avtaler-tekst">
+        <div className={cls.element('ingen-avtaler-tekst')}>
             <p>
                 <Element>Hvis du er deltaker:</Element>
                 <Normaltekst>
@@ -136,7 +136,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     </ol>
                     <p>
                         Hvis alternativ 1 og 2 ikke er tilfelle, ta kontakt med
-                        veileder i NAV
+                        veileder i NAV.
                     </p>
                 </Normaltekst>
             </p>
@@ -161,7 +161,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         <HoyreChevron />
                     </AlertStripe>
                 </div>
-                {avtaletabell || (
+                {false || (
                     <div className={cls.element('natur-logo')}>
                         <MediaQuery minWidth={576}>
                             <Natur />
