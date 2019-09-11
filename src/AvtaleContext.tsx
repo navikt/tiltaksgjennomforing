@@ -102,6 +102,7 @@ export interface Context {
     avbryt: () => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
     endretSteg: () => void;
+    tilOversiktLagring: () => void;
     mellomLagreMaal: (maalInput: TemporaryLagring) => void;
     setMellomLagreMaalTom: () => void;
     mellomLagreArbeidsoppgave: (
@@ -156,6 +157,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.avbrytAvtale = this.avbrytAvtale.bind(this);
         this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
+        this.tilOversiktLagring = this.tilOversiktLagring.bind(this);
         this.mellomLagreMaal = this.mellomLagreMaal.bind(this);
         this.setMellomLagreMaalTom = this.setMellomLagreMaalTom.bind(this);
         this.mellomLagreArbeidsoppgave = this.mellomLagreArbeidsoppgave.bind(
@@ -197,6 +199,20 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             nextState.avtale.maal.every(maal => maal.id !== undefined) &&
             nextState.avtale.oppgaver.every(maal => maal.id !== undefined)
         );
+    }
+
+    async tilOversiktLagring() {
+        if (this.state.ulagredeEndringer) {
+            try {
+                await this.lagreAvtale();
+            } catch (error) {
+                if (error instanceof ApiError) {
+                    this.visFeilmelding(error.message);
+                } else {
+                    throw error;
+                }
+            }
+        }
     }
 
     async endretSteg() {
@@ -369,6 +385,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             godkjennPaVegne: this.godkjennAvtalePaVegne,
             visFeilmelding: this.visFeilmelding,
             endretSteg: this.endretSteg,
+            tilOversiktLagring: this.tilOversiktLagring,
             mellomLagreMaal: this.mellomLagreMaal,
             setMellomLagreMaalTom: this.setMellomLagreMaalTom,
             mellomLagreArbeidsoppgave: this.mellomLagreArbeidsoppgave,
