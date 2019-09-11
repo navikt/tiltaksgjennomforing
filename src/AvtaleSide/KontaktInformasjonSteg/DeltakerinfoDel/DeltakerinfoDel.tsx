@@ -44,4 +44,4 @@ const DeltakerinfoDel = (props: Context) => (
     </>
 );
 
-export default medContext<{}>(DeltakerinfoDel);
+export default medContext(DeltakerinfoDel);

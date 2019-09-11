@@ -61,4 +61,4 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
     );
 };
 
-export default medContext<Props>(NesteForrige);
+export default medContext(NesteForrige);

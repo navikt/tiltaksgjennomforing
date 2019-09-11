@@ -66,4 +66,4 @@ const ArbeidsgiverinfoDel = (props: Context) => (
     </>
 );
 
-export default medContext<{}>(ArbeidsgiverinfoDel);
+export default medContext(ArbeidsgiverinfoDel);

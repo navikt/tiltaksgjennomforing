@@ -215,4 +215,4 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     );
 };
 
-export default medContext<Props>(AvtaleSide);
+export default medContext(AvtaleSide);
