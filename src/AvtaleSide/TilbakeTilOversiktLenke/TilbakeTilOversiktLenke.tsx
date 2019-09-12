@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { pathTilOversikt } from '../../paths';
 import './TilbakeTilOversiktLenke.less';
 import { Context, medContext } from '../../AvtaleContext';
-import { Avtale } from '../avtale';
 
 const lagreHvisIAvtale = (props: Context) => {
     if (props.avtale) {
