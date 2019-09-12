@@ -108,4 +108,4 @@ class ArbeidstidSteg extends React.Component<Context, State> {
     }
 }
 
-export default medContext<{}>(ArbeidstidSteg);
+export default medContext(ArbeidstidSteg);

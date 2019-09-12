@@ -34,4 +34,4 @@ const OppfolgingSteg = (props: Context) => (
     </Innholdsboks>
 );
 
-export default medContext<{}>(OppfolgingSteg);
+export default medContext(OppfolgingSteg);

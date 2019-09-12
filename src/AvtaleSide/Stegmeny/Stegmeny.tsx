@@ -24,4 +24,4 @@ const Stegmeny = (props: Context & Props) => {
     return <nav className="stegmeny">{stegLenker}</nav>;
 };
 
-export default medContext<Props>(Stegmeny);
+export default medContext(Stegmeny);
