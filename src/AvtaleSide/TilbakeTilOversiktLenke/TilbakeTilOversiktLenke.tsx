@@ -1,7 +1,6 @@
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { medContext } from '../../AvtaleContext';
 import { pathTilOversikt } from '../../paths';
 import './TilbakeTilOversiktLenke.less';
 
@@ -15,4 +14,4 @@ const TilbakeTilOversiktLenke: FunctionComponent<Props> = props => (
         Tilbake til oversikt
     </Link>
 );
-export default medContext(TilbakeTilOversiktLenke);
+export default TilbakeTilOversiktLenke;
