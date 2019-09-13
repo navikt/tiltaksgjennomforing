@@ -11,6 +11,7 @@ interface Props {
     avtaleSteg: StegInfo[];
     rolle: Rolle;
     varsler?: JSX.Element[];
+    tilbakeTilOversiktKlikk: () => void;
 }
 const cls = BEMHelper('avtaleside');
 
@@ -27,7 +28,9 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
     return (
         <>
             <div className={cls.element('lenkerlinje')}>
-                <TilbakeTilOversiktLenke />
+                <TilbakeTilOversiktLenke
+                    onClick={props.tilbakeTilOversiktKlikk}
+                />
                 {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
             </div>
             {props.varsler}

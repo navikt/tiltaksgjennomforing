@@ -88,6 +88,7 @@ export interface Context {
     rolle: Rolle;
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
+    ulagredeEndringer: boolean;
     settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
     lagreAvtale: () => Promise<any>;
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -102,7 +103,6 @@ export interface Context {
     avbryt: () => Promise<any>;
     visFeilmelding: (feilmelding: string) => void;
     endretSteg: () => void;
-    tilOversiktLagring: () => void;
     mellomLagreMaal: (maalInput: TemporaryLagring) => void;
     setMellomLagreMaalTom: () => void;
     mellomLagreArbeidsoppgave: (
@@ -123,7 +123,6 @@ interface State {
     avtale: Avtale;
     feilmelding: string;
     rolle: Rolle;
-    ulagredeEndringer: boolean;
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     varsler: Varsel[];
@@ -137,7 +136,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtale: tomAvtale,
             feilmelding: '',
             rolle: 'INGEN_ROLLE',
-            ulagredeEndringer: false,
             mellomLagring: tomTemporaryLagring,
             mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
             varsler: [],
@@ -157,7 +155,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.avbrytAvtale = this.avbrytAvtale.bind(this);
         this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
-        this.tilOversiktLagring = this.tilOversiktLagring.bind(this);
         this.mellomLagreMaal = this.mellomLagreMaal.bind(this);
         this.setMellomLagreMaalTom = this.setMellomLagreMaalTom.bind(this);
         this.mellomLagreArbeidsoppgave = this.mellomLagreArbeidsoppgave.bind(
@@ -169,6 +166,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.hentVarsler = this.hentVarsler.bind(this);
         this.settVarselTilLest = this.settVarselTilLest.bind(this);
     }
+
+    ulagredeEndringer = false;
 
     mellomLagreMaal(maalInput: TemporaryLagring): void {
         this.setState({
@@ -201,22 +200,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
     }
 
-    async tilOversiktLagring() {
-        if (this.state.ulagredeEndringer) {
-            try {
-                await this.lagreAvtale();
-            } catch (error) {
-                if (error instanceof ApiError) {
-                    this.visFeilmelding(error.message);
-                } else {
-                    throw error;
-                }
-            }
-        }
-    }
-
     async endretSteg() {
-        if (this.state.ulagredeEndringer) {
+        if (this.ulagredeEndringer) {
             try {
                 await this.lagreAvtale();
             } catch (error) {
@@ -244,13 +229,15 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         if (avtale) {
             // @ts-ignore
             avtale[felt] = verdi;
-            this.setState({ avtale, ulagredeEndringer: true });
+            this.ulagredeEndringer = true;
+            this.setState({ avtale });
         }
     }
 
     async lagreAvtale() {
         const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
-        this.setState({ avtale: nyAvtale, ulagredeEndringer: false });
+        this.ulagredeEndringer = false;
+        this.setState({ avtale: nyAvtale });
     }
 
     lagreMaal(maalTilLagring: Maal) {
@@ -385,7 +372,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             godkjennPaVegne: this.godkjennAvtalePaVegne,
             visFeilmelding: this.visFeilmelding,
             endretSteg: this.endretSteg,
-            tilOversiktLagring: this.tilOversiktLagring,
             mellomLagreMaal: this.mellomLagreMaal,
             setMellomLagreMaalTom: this.setMellomLagreMaalTom,
             mellomLagreArbeidsoppgave: this.mellomLagreArbeidsoppgave,
@@ -393,6 +379,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 .setMellomLagreArbeidsoppgaveTom,
             hentVarsler: this.hentVarsler,
             settVarselTilLest: this.settVarselTilLest,
+            ulagredeEndringer: this.ulagredeEndringer,
         };
 
         return (

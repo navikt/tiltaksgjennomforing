@@ -3,6 +3,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
+import ApiError from '../api-error';
 import { Context, medContext, Rolle } from '../AvtaleContext';
 import Banner from '../komponenter/Banner/Banner';
 import Innholdsboks from '../komponenter/Innholdsboks/Innholdsboks';
@@ -128,6 +129,20 @@ const AvtaleSide: FunctionComponent<Props> = props => {
             </VarselKomponent>
         ));
 
+    const tilbakeTilOversiktKlikk = async () => {
+        if (props.ulagredeEndringer) {
+            try {
+                await props.lagreAvtale();
+            } catch (error) {
+                if (error instanceof ApiError) {
+                    props.visFeilmelding(error.message);
+                } else {
+                    throw error;
+                }
+            }
+        }
+    };
+
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
@@ -192,6 +207,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             avtale={props.avtale}
                             varsler={varsler}
                             avbrytAvtale={props.avbryt}
+                            tilbakeTilOversiktKlikk={tilbakeTilOversiktKlikk}
                         />
                     );
                 } else {
@@ -200,6 +216,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             avtaleSteg={avtaleSteg}
                             rolle={props.rolle}
                             varsler={varsler}
+                            tilbakeTilOversiktKlikk={tilbakeTilOversiktKlikk}
                         />
                     );
                 }

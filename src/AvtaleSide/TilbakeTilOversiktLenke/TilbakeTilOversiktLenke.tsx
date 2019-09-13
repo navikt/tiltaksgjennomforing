@@ -1,22 +1,16 @@
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
+import { medContext } from '../../AvtaleContext';
 import { pathTilOversikt } from '../../paths';
 import './TilbakeTilOversiktLenke.less';
-import { Context, medContext } from '../../AvtaleContext';
 
-const lagreHvisIAvtale = (props: Context) => {
-    if (props.avtale) {
-        props.tilOversiktLagring();
-    }
+type Props = {
+    onClick?: () => void;
 };
 
-const TilbakeTilOversiktLenke: FunctionComponent<Context> = props => (
-    <Link
-        to={pathTilOversikt}
-        className="lenke"
-        onClick={() => lagreHvisIAvtale(props)}
-    >
+const TilbakeTilOversiktLenke: FunctionComponent<Props> = props => (
+    <Link to={pathTilOversikt} className="lenke" onClick={props.onClick}>
         <VenstreChevron className="tilbaketiloversikt__chevron" />
         Tilbake til oversikt
     </Link>
