@@ -4,7 +4,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
@@ -23,6 +23,8 @@ import Varsel from '../varsel';
 import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Natur from './natur';
+import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
+import Lenke from 'nav-frontend-lenker';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -89,16 +91,18 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         innloggetBruker && innloggetBruker.identifikator.length < 11;
 
     const opprettAvtaleKnapp = erVeileder && (
-        <Hovedknapp onClick={() => props.history.push(pathTilOpprettAvtale)}>
-            Opprett ny avtale
-        </Hovedknapp>
+        <div className={cls.element('topp', 'knapp_med_avtaler')}>
+            <Hovedknapp
+                onClick={() => props.history.push(pathTilOpprettAvtale)}
+            >
+                Opprett ny avtale
+            </Hovedknapp>
+        </div>
     );
 
     const avtaletabell = avtaleLenker.length > 0 && (
-        <div className="avtaleoversikt__lenker typo-normal">
-            <div className={cls.element('topp', 'knapp_med_avtaler')}>
-                {opprettAvtaleKnapp}
-            </div>
+        <div className="avtaleoversikt__avtaleliste typo-normal">
+            {opprettAvtaleKnapp}
             <div
                 className={classNames(
                     cls.element('header'),
@@ -117,9 +121,48 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 
-    const tilbakemeldingHvisIngenAvtale = erVeileder
-        ? 'Du har ikke opprettet noen avtaler enda.' // NAV
-        : 'Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.'; // Deltaker/AG
+    const tilbakemeldingHvisIngenAvtale = erVeileder ? (
+        <div className={cls.element('ingen-avtaler-tekst-NAV')}>
+            <Normaltekst>Du har ikke opprettet noen avtaler enda</Normaltekst>
+        </div> //NAV
+    ) : (
+        <div className={cls.element('ingen-avtaler-tekst')}>
+            <p>
+                <Element>Hvis du er deltaker:</Element>
+                <Normaltekst>
+                    Det har ikke blitt opprettet noen avtaler hvor du er med
+                    enda. Vennligst vent på veileder i NAV.
+                </Normaltekst>
+            </p>
+            <p className={cls.element('arbeidsgiver-tekst')}>
+                <Element>Hvis du er arbeidsgiver:</Element>
+                <Normaltekst>
+                    Du har ingen avtaler her enda. Det kan være på grunn av
+                    følgende årsaker:
+                    <ol>
+                        <li>
+                            Du har ikke riktig tilgang i Altinn.{' '}
+                            <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                                Les mer om roller og rettigheter på Altinn.no
+                                <TilEkstern
+                                    className={cls.element('eksterntLenkeikon')}
+                                />
+                            </Lenke>
+                        </li>
+                        <li>
+                            NAV-veileder har ikke opprettet avtalen med
+                            bedriftsnummeret ditt enda
+                        </li>
+                    </ol>
+                    <p>
+                        Hvis alternativ 1 og 2 ikke er tilfelle, ta kontakt med
+                        veileder i NAV.
+                    </p>
+                </Normaltekst>
+            </p>
+        </div>
+    );
+
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
@@ -127,13 +170,12 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
             <div className="avtaleoversikt">
                 <div className={cls.element('informasjonsBanner')}>
                     <AlertStripe type="info">
-                        Dette er en ny digital løsning for avtale om
-                        arbeidstrening.{' '}
                         <Link
                             to={pathTilInformasjonssideInnlogget}
                             className="lenke"
                         >
-                            Les mer om hvordan dette fungerer her
+                            Les om hvordan den nye digitale løsningen for avtale
+                            om arbeidstrening fungerer her
                         </Link>
                         <HoyreChevron />
                     </AlertStripe>
@@ -146,10 +188,12 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         <MediaQuery maxWidth={576}>
                             <Natur width={'300'} height={'100'} />
                         </MediaQuery>
-                        <Undertittel className={cls.element('natur-header')}>
+                        <Undertittel
+                            className={cls.element('ingen-avtaler-header')}
+                        >
                             Ingen avtaler
                         </Undertittel>
-                        <Normaltekst className={cls.element('natur-tekst')}>
+                        <Normaltekst>
                             {tilbakemeldingHvisIngenAvtale}
                         </Normaltekst>
                         <div
