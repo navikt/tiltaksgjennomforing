@@ -1,9 +1,10 @@
-import React from 'react';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
+import React from 'react';
+import MediaQuery from 'react-responsive';
 import video from '../../assets/media/roller-rettigheter.mp4';
-import './AltinnVideoModal.less';
 import BEMHelper from '../../utils/bem';
+import './AltinnVideoModal.less';
 
 interface Props {
     isOpen: boolean;
@@ -11,18 +12,6 @@ interface Props {
 }
 
 const cls = BEMHelper('videomodal');
-
-const getVideoSize = () => {
-    const videoOptions = { height: 0, width: 0 };
-    if (window.innerWidth < 768) {
-        videoOptions.height = 300;
-        videoOptions.width = 300;
-    } else {
-        videoOptions.height = 450;
-        videoOptions.width = 700;
-    }
-    return videoOptions;
-};
 
 const AltinnVideoModal: React.FunctionComponent<Props> = props => {
     return (
@@ -38,14 +27,18 @@ const AltinnVideoModal: React.FunctionComponent<Props> = props => {
                     Slik tildeler du roller og rettigheter i Altinn.
                 </Systemtittel>
             </div>
-            <video
-                width={getVideoSize().width}
-                height={getVideoSize().height}
-                controls
-            >
-                <source src={video} type="video/mp4" />
-                Your browser does not support the video tag.
-            </video>
+            <MediaQuery minWidth={576}>
+                <video width="700" height="450" controls>
+                    <source src={video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </MediaQuery>
+            <MediaQuery maxWidth={575}>
+                <video width="300" height="300" controls>
+                    <source src={video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </MediaQuery>
         </Modal>
     );
 };
