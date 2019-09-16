@@ -7,11 +7,27 @@ import Stegoppsummering from '../Oppsummering/Stegoppsummering/Stegoppsummering'
 import OppfølgingIkon from '../Oppsummering/oppfølging/OppfølgingIkon';
 import PanelBase, { Panel } from 'nav-frontend-paneler';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import RestService from '../../../services/rest-service';
+import { RouteComponentProps, RouterProps } from 'react-router';
+import { pathTilOpprettAvtaleFullfort } from '../../../paths';
+import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
 
 const cls = BEMHelper('oppfolging');
 
 const VersjonTabs: React.FunctionComponent<Avtale> = props => {
     const [index, setIndex] = useState(0);
+    const opprettNyAvtaleRevisjonklikk = async () => {
+        const nyAvtaleRevisjon = await RestService.opprettNyAvtaleRevisjon(
+            props
+        );
+        //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleRevisjon.id));
+        // this.setState({nyAvtaleRevisjon});
+        if (nyAvtaleRevisjon != null) {
+            console.log(
+                nyAvtaleRevisjon.id + 'new revisjon' + nyAvtaleRevisjon.revisjon
+            );
+        }
+    };
     return (
         <Stegoppsummering ikon={<OppfølgingIkon />} tittel="Oppfølging">
             <Tabs
@@ -33,7 +49,13 @@ const VersjonTabs: React.FunctionComponent<Avtale> = props => {
             />
             {index === 0 ? (
                 <Panel id="først">
-                    <Hovedknapp> Lås opp avtalen</Hovedknapp>
+                    <LagreKnapp
+                        label={'Lås opp avtalen/ lag ny revisjon'}
+                        lagre={opprettNyAvtaleRevisjonklikk}
+                    >
+                        {' '}
+                        Lås opp avtalen
+                    </LagreKnapp>
                 </Panel>
             ) : null}
             {index === 1 ? (

@@ -16,7 +16,7 @@ export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
     versjon: '',
-
+    revisjon: '',
     deltakerFnr: '',
     deltakerFornavn: '',
     deltakerEtternavn: '',
@@ -96,6 +96,7 @@ export interface Context {
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     hentAvtale: (avtaleId: string) => Promise<any>;
     opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
+    opprettNyAvaleRevisjon: (avtale: Avtale) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<any>;
     godkjenn: (godkjent: boolean) => Promise<any>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
@@ -319,6 +320,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return avtale;
     }
 
+    async opprettNyAvtaleRevisjon(avtale: Avtale): Promise<Avtale> {
+        avtale = await RestService.opprettNyAvtaleRevisjon(avtale);
+        this.setState({ avtale });
+        return avtale;
+    }
+
     async godkjennAvtale() {
         const avtale = this.state.avtale;
         await RestService.godkjennAvtale(avtale);
@@ -330,6 +337,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         await this.hentAvtale(avtale.id);
     }
+
     async avbrytAvtale() {
         const avtale = this.state.avtale;
         await RestService.avbrytAvtale(avtale);
@@ -363,6 +371,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             slettOppgave: this.slettOppgave,
             hentAvtale: this.hentAvtale,
             opprettAvtale: this.opprettAvtale,
+            opprettNyAvaleRevisjon: this.opprettNyAvtaleRevisjon,
             hentRolle: this.hentRolle,
             godkjenn: this.godkjennAvtale,
             avbryt: this.avbrytAvtale,

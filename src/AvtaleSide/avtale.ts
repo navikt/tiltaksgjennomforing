@@ -18,6 +18,7 @@ export interface AvtaleMetadata {
     id: string;
     opprettetTidspunkt: string;
     versjon: string;
+    revisjon: string;
 }
 
 export interface Deltakerinfo {
@@ -96,6 +97,7 @@ export interface Avbrytelse {
     kanAvbrytes: boolean;
     avbrutt: boolean;
 }
+
 export interface GodkjentPaVegneGrunner {
     ikkeBankId: boolean;
     reservert: boolean;

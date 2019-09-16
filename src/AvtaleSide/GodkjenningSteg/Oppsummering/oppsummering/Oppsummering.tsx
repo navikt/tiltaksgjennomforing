@@ -14,6 +14,7 @@ import { Knapp } from 'nav-frontend-knapper';
 import { ReactComponent as PrinterSvg } from '../../../../assets/ikoner/printer2.svg';
 import { Rolle } from '../../../../AvtaleContext';
 import VersjonTabs from '../../VersjonKontroll/VersjonTabs';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 interface Props {
     avtale: Avtale;

@@ -4,6 +4,7 @@ import { Rolle } from '../AvtaleContext';
 import {
     Avtale,
     Bedriftinfo,
+    Deltakerinfo,
     GodkjentPaVegneGrunner,
 } from '../AvtaleSide/avtale';
 import {
@@ -21,6 +22,7 @@ export interface RestService {
     hentAvtalerForInnloggetBruker: () => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
+    opprettNyAvtaleRevisjon: (avtale: Avtale) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
     godkjennAvtalePaVegne: (
@@ -118,6 +120,35 @@ const opprettAvtale = async (
         headers: {
             'Content-Type': 'application/json',
         },
+    });
+    await handleResponse(postResponse);
+    const getResponse = await fetch(
+        `${API_URL}/${postResponse.headers.get('Location')}`
+    );
+    await handleResponse(getResponse);
+    const avtale: Avtale = await getResponse.json();
+    return { ...avtale, id: `${avtale.id}` };
+};
+
+const opprettNyAvtaleRevisjon = async (
+    avtaleForRevisjon: Avtale
+): Promise<Avtale> => {
+    const uri = `${API_URL}/avtaler/opprettAvtaleRevisjon/${avtaleForRevisjon.id}`;
+    const deltakerFnr = avtaleForRevisjon.deltakerFnr;
+    const bedriftNr = avtaleForRevisjon.bedriftNr;
+    const revisjon = avtaleForRevisjon.revisjon;
+    const baseAvtaleId = avtaleForRevisjon.id;
+    console.log(baseAvtaleId);
+    const postResponse = await fetch(uri, {
+        method: 'post',
+        body: JSON.stringify({
+            deltakerFnr,
+            bedriftNr,
+
+            baseAvtaleId,
+            revisjon,
+        }),
+        headers: { 'Content-Type': 'application/json' },
     });
     await handleResponse(postResponse);
     const getResponse = await fetch(
@@ -229,6 +260,7 @@ const restService: RestService = {
     hentAvtalerForInnloggetBruker,
     lagreAvtale,
     opprettAvtale,
+    opprettNyAvtaleRevisjon,
     hentRolle,
     godkjennAvtale: godkjennAvtale,
     godkjennAvtalePaVegne: godkjennAvtalePaVegne,
