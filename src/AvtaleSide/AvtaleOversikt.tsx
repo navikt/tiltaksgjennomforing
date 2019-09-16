@@ -24,9 +24,7 @@ import { Avtale } from './avtale';
 import './AvtaleOversikt.less';
 import Natur from './natur';
 import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
-import { HoyreChevron } from 'nav-frontend-chevron';
 import Lenke from 'nav-frontend-lenker';
-
 
 const cls = BEMHelper('avtaleoversikt');
 
