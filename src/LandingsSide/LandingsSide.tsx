@@ -76,4 +76,4 @@ const LandingsSide: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default medContext<Props>(LandingsSide);
+export default medContext(LandingsSide);

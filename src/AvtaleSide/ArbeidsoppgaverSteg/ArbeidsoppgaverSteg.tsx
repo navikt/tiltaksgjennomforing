@@ -81,4 +81,4 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
     );
 }
 
-export default medContext<{}>(ArbeidsoppgaverSteg);
+export default medContext(ArbeidsoppgaverSteg);

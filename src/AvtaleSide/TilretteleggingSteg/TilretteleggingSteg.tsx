@@ -34,4 +34,4 @@ const TilretteleggingSteg = (props: Context) => (
     </Innholdsboks>
 );
 
-export default medContext<{}>(TilretteleggingSteg);
+export default medContext(TilretteleggingSteg);

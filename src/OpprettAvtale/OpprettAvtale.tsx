@@ -4,7 +4,7 @@ import Lenke from 'nav-frontend-lenker';
 import { Input } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { RouterProps } from 'react-router';
+import { RouterProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import RestService from '.././services/rest-service';
 import ApiError from '../api-error';
@@ -27,7 +27,7 @@ import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/Tilba
 
 const cls = BEMHelper('opprett-avtale');
 
-const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
+const OpprettAvtale: FunctionComponent<RouterProps> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
@@ -118,7 +118,10 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
     const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
         if (!hvaSomManglerTekst) {
-            const avtale = await props.opprettAvtale(deltakerFnr, bedriftNr);
+            const avtale = await RestService.opprettAvtale(
+                deltakerFnr,
+                bedriftNr
+            );
             props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {
             throw new ApiError(hvaSomManglerTekst);
@@ -231,4 +234,4 @@ const OpprettAvtale: FunctionComponent<Context & RouterProps> = props => {
     );
 };
 
-export default medContext<RouterProps>(OpprettAvtale);
+export default withRouter(OpprettAvtale);

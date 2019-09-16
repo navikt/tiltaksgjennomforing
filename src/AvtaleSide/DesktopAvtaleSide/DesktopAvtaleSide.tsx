@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
-import { Context, medContext, Rolle } from '../../AvtaleContext';
+import { Context, Rolle } from '../../AvtaleContext';
+import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
 import BEMHelper from '../../utils/bem';
+import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
+import { Avtale } from '../avtale';
 import { StegInfo } from '../AvtaleSide';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
-import { Avtale } from '../avtale';
-import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
 
 interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
     rolle: Rolle;
+    varsler?: JSX.Element[];
     avtale: Avtale;
+    avbrytAvtale: () => Promise<void>;
 }
 
 const cls = BEMHelper('avtaleside');
-const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
+const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const bekreftelseAvbrytAvtalen = () => {
         setModalIsOpen(true);
     };
@@ -29,6 +31,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
     return (
         <>
             <div className="avtaleside__desktop">
+                {props.varsler}
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke />
                     <div className="avtaleside__avbrytOgDelLenk">
@@ -62,7 +65,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
             <BekreftelseModal
                 modalIsOpen={modalIsOpen}
                 radTilSletting={props.avtale}
-                slettOnClick={props.avbryt}
+                slettOnClick={props.avbrytAvtale}
                 lukkModal={lukkModal}
                 navn="avtale"
                 varselTekst={
@@ -75,4 +78,4 @@ const DesktopAvtaleSide: React.FunctionComponent<Props & Context> = props => {
         </>
     );
 };
-export default medContext(DesktopAvtaleSide);
+export default DesktopAvtaleSide;
