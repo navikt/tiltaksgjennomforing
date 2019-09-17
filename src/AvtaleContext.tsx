@@ -14,6 +14,7 @@ import Varsel from './varsel';
 
 export const tomAvtale: Avtale = {
     id: '',
+    baseAvtaleId: '',
     opprettetTidspunkt: '',
     versjon: '',
     revisjon: '',

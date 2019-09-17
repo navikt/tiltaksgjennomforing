@@ -8,7 +8,7 @@ import OppfølgingIkon from '../Oppsummering/oppfølging/OppfølgingIkon';
 import PanelBase, { Panel } from 'nav-frontend-paneler';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import RestService from '../../../services/rest-service';
-import { RouteComponentProps, RouterProps } from 'react-router';
+import { RouteComponentProps, RouterProps, withRouter } from 'react-router';
 import { pathTilOpprettAvtaleFullfort } from '../../../paths';
 import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
 
@@ -25,6 +25,12 @@ const VersjonTabs: React.FunctionComponent<Avtale> = props => {
         if (nyAvtaleRevisjon != null) {
             console.log(
                 nyAvtaleRevisjon.id + 'new revisjon' + nyAvtaleRevisjon.revisjon
+            );
+            /* props.history.push(
+                pathTilOpprettAvtaleFullfort(nyAvtaleRevisjon.id)
+            );*/
+            window.location.replace(
+                pathTilOpprettAvtaleFullfort(nyAvtaleRevisjon.id)
             );
         }
     };

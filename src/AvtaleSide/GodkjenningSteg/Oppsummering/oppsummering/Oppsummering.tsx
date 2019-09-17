@@ -15,6 +15,7 @@ import { ReactComponent as PrinterSvg } from '../../../../assets/ikoner/printer2
 import { Rolle } from '../../../../AvtaleContext';
 import VersjonTabs from '../../VersjonKontroll/VersjonTabs';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { toQuery } from 'react-responsive';
 
 interface Props {
     avtale: Avtale;
@@ -53,7 +54,7 @@ const Oppsummering: FunctionComponent<Props> = props => (
         <VarighetOppsummering {...props.avtale} />
         <OppfolgingOppsummering {...props.avtale} />
         <Tilrettelegging {...props.avtale} />
-        <VersjonTabs {...props.avtale} />
+        {props.avtale.erLaast && <VersjonTabs {...props.avtale} />}
     </Innholdsboks>
 );
 
