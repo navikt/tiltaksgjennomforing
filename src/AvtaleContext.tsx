@@ -409,10 +409,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
 export const AvtaleProvider = withRouter(TempAvtaleProvider);
 
-export function medContext<PROPS = {}>(
-    Component: React.ComponentType<Context & PROPS>
-): React.ComponentType<PROPS> {
-    return (props: PROPS) => (
+export function medContext(
+    Component: React.ComponentType<any>
+): React.ComponentType<any> {
+    return props => (
         <AvtaleConsumer>
             {(context: Context) => {
                 return <Component {...props} {...context} />;

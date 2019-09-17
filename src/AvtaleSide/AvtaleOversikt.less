@@ -4,6 +4,11 @@
     flex-direction: column;
     margin: 2rem 0 3rem 0;
 
+    &__eksterntLenkeikon {
+        display: inline-block;
+        margin-left: 0.3rem;
+    }
+
     &__banner {
         width: 100%;
     }
@@ -15,18 +20,26 @@
         flex-direction: column;
     }
 
-    &__natur-tekst {
+    &__ingen-avtaler-tekst-NAV {
         text-align: center;
         margin-top: 1rem;
-        width: 90%;
     }
 
-    &__natur-header {
+    &__ingen-avtaler-tekst {
+        padding: 1rem;
+    }
+
+    &__ingen-avtaler-header {
         margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     &__ingen_avtaler {
         text-align: center;
+    }
+
+    &__arbeidsgiver-tekst {
+        margin-top: 2rem;
     }
 
     &__topp {
@@ -35,11 +48,11 @@
 
         &--knapp_med_avtaler {
             margin-top: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         &--knapp_uten_avtaler {
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
     }
 
@@ -50,10 +63,6 @@
 
     &__informasjonsBanner {
         justify-content: center;
-    }
-
-    .alertstripe .alertstripe__tekst {
-        max-width: 800px;
     }
 
     .ulest-varsel-ikon {
@@ -103,6 +112,10 @@
         padding-right: 1rem;
     }
 
+    &__avtaleliste {
+        margin-top: 1rem;
+    }
+
     @media (min-width: @screen-sm-min) {
         margin: 0 auto;
         max-width: @screen-sm-min;
@@ -112,12 +125,11 @@
             justify-content: center;
 
             &--knapp_med_avtaler {
-                margin-top: 3rem;
-                margin-bottom: 3rem;
+                margin-bottom: 2rem;
             }
 
             &--knapp_uten_avtaler {
-                margin-top: 4rem;
+                margin-top: 1rem;
             }
         }
 
@@ -126,20 +138,23 @@
             margin-top: 2rem;
         }
 
+        &__arbeidsgiver-tekst {
+            margin-top: 2rem;
+        }
+        
+        &__avtaleliste {
+            margin-top: 2rem;
+        }
+
         &__natur-logo {
             margin: 5rem 0 1.5rem 0;
             display: flex;
             align-items: center;
             flex-direction: column;
+        }
 
-            .avtaleoversikt__natur-header {
-                margin-top: 3rem;
-            }
-
-            .avtaleoversikt__natur-tekst {
-                margin-top: 1rem;
-                text-align: center;
-            }
+        &__ingen-avtaler-header {
+            margin-top: 3rem;
         }
     }
 }

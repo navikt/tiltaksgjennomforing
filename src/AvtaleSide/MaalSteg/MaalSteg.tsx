@@ -87,4 +87,4 @@ class MaalSteg extends React.Component<Context> {
     );
 }
 
-export default medContext<{}>(MaalSteg);
+export default medContext(MaalSteg);
