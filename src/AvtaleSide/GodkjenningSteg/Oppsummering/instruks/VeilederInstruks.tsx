@@ -14,22 +14,18 @@ const VeilederInstruks: FunctionComponent = () => (
         <div className={cls.element('subheader')}>
             <Element>NB! Ny rutine:</Element>
         </div>
-        {/* <div className={cls.element('subheader')}>
-            <Element>Etter at avtalen er godkjent, må du som veileder</Element>
-        </div> */}
         <div className={cls.element('instrukslist')}>
             <Arena className={cls.element('instrukslistsvg')} />
             <Normaltekst>
                 Etter at avtalen er godkjent trenger du som veileder kun å{' '}
-                <br />
                 <b> registrere tiltaksgjennomføringen i Arena.</b>
             </Normaltekst>
         </div>
         <div className={cls.element('instrukslist')}>
             <Benken className={cls.element('instrukslistsvg')} />
             <Normaltekst>
-                Oppgaven «Forbered tiltaksgjennomføring Arbeidstrening» ligger
-                nå automatisk på kontorets arbeidsbenk.
+                Etter av avtalen er godkjent, ligger oppgaven «Forbered
+                tiltaksgjennomføring Arbeidstrening» på kontorets arbeidsbenk.
             </Normaltekst>
         </div>
         <div className={cls.element('instrukslist')}>
