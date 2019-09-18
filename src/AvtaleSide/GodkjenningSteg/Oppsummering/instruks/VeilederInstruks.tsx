@@ -24,7 +24,7 @@ const VeilederInstruks: FunctionComponent = () => (
         <div className={cls.element('instrukslist')}>
             <Benken className={cls.element('instrukslistsvg')} />
             <Normaltekst>
-                Etter av avtalen er godkjent, ligger oppgaven «Forbered
+                Etter av avtalen er godkjent ligger oppgaven «Forbered
                 tiltaksgjennomføring Arbeidstrening» på kontorets arbeidsbenk.
             </Normaltekst>
         </div>
