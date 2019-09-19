@@ -30,13 +30,13 @@ const AltinnVideoModal: React.FunctionComponent<Props> = props => {
             <MediaQuery minWidth={576}>
                 <video width="700" height="450" controls>
                     <source src={video} type="video/mp4" />
-                    Your browser does not support the video tag.
+                    Nettleseren din støtter ikke denne videoen.
                 </video>
             </MediaQuery>
             <MediaQuery maxWidth={575}>
                 <video width="300" height="300" controls>
                     <source src={video} type="video/mp4" />
-                    Your browser does not support the video tag.
+                    Nettleseren din støtter ikke denne videoen.
                 </video>
             </MediaQuery>
         </Modal>
