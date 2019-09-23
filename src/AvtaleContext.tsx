@@ -110,7 +110,7 @@ export interface Context {
     setMellomLagreArbeidsoppgaveTom: () => void;
     hentVarsler: (avtaleId: string) => Promise<any>;
     settVarselTilLest: (varselId: string) => Promise<void>;
-    hentUlagredeEndringer: () => boolean;
+    harUlagredeEndringer: () => boolean;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -167,7 +167,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
         this.hentVarsler = this.hentVarsler.bind(this);
         this.settVarselTilLest = this.settVarselTilLest.bind(this);
-        this.hentUlagredeEndringer = this.hentUlagredeEndringer.bind(this);
+        this.harUlagredeEndringer = this.harUlagredeEndringer.bind(this);
     }
 
     mellomLagreMaal(maalInput: TemporaryLagring): void {
@@ -350,7 +350,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return this.hentVarsler(this.state.avtale.id);
     }
 
-    hentUlagredeEndringer() {
+    harUlagredeEndringer() {
         return this.state.ulagredeEndringer;
     }
 
@@ -382,7 +382,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 .setMellomLagreArbeidsoppgaveTom,
             hentVarsler: this.hentVarsler,
             settVarselTilLest: this.settVarselTilLest,
-            hentUlagredeEndringer: this.hentUlagredeEndringer,
+            harUlagredeEndringer: this.harUlagredeEndringer,
         };
 
         return (
