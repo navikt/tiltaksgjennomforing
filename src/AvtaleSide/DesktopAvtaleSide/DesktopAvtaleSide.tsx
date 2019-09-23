@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Context, Rolle } from '../../AvtaleContext';
+import { Rolle } from '../../AvtaleContext';
 import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
 import BEMHelper from '../../utils/bem';
 import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
@@ -17,6 +17,7 @@ interface Props {
     varsler?: JSX.Element[];
     avtale: Avtale;
     avbrytAvtale: () => Promise<void>;
+    tilbakeTilOversiktKlikk: () => void;
 }
 
 const cls = BEMHelper('avtaleside');
@@ -33,7 +34,9 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             <div className="avtaleside__desktop">
                 {props.varsler}
                 <div className={cls.element('lenkerlinje')}>
-                    <TilbakeTilOversiktLenke />
+                    <TilbakeTilOversiktLenke
+                        onClick={props.tilbakeTilOversiktKlikk}
+                    />
                     <div className="avtaleside__avbrytOgDelLenk">
                         {' '}
                         {props.avtale.kanAvbrytes &&
