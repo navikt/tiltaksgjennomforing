@@ -88,7 +88,6 @@ export interface Context {
     rolle: Rolle;
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
-    ulagredeEndringer: boolean;
     settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
     lagreAvtale: () => Promise<any>;
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -111,6 +110,7 @@ export interface Context {
     setMellomLagreArbeidsoppgaveTom: () => void;
     hentVarsler: (avtaleId: string) => Promise<any>;
     settVarselTilLest: (varselId: string) => Promise<void>;
+    hentUlagredeEndringer: () => boolean;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -123,6 +123,7 @@ interface State {
     avtale: Avtale;
     feilmelding: string;
     rolle: Rolle;
+    ulagredeEndringer: boolean;
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     varsler: Varsel[];
@@ -136,6 +137,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtale: tomAvtale,
             feilmelding: '',
             rolle: 'INGEN_ROLLE',
+            ulagredeEndringer: false,
             mellomLagring: tomTemporaryLagring,
             mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
             varsler: [],
@@ -165,9 +167,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
         this.hentVarsler = this.hentVarsler.bind(this);
         this.settVarselTilLest = this.settVarselTilLest.bind(this);
+        this.hentUlagredeEndringer = this.hentUlagredeEndringer.bind(this);
     }
-
-    ulagredeEndringer = false;
 
     mellomLagreMaal(maalInput: TemporaryLagring): void {
         this.setState({
@@ -201,7 +202,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async endretSteg() {
-        if (this.ulagredeEndringer) {
+        if (this.state.ulagredeEndringer) {
             try {
                 await this.lagreAvtale();
             } catch (error) {
@@ -229,15 +230,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         if (avtale) {
             // @ts-ignore
             avtale[felt] = verdi;
-            this.ulagredeEndringer = true;
-            this.setState({ avtale });
+            this.setState({ avtale, ulagredeEndringer: true });
         }
     }
 
     async lagreAvtale() {
         const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
-        this.ulagredeEndringer = false;
-        this.setState({ avtale: nyAvtale });
+        this.setState({ avtale: nyAvtale, ulagredeEndringer: false });
     }
 
     lagreMaal(maalTilLagring: Maal) {
@@ -351,6 +350,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return this.hentVarsler(this.state.avtale.id);
     }
 
+    hentUlagredeEndringer() {
+        return this.state.ulagredeEndringer;
+    }
+
     render() {
         const context: Context = {
             avtale: this.state.avtale,
@@ -379,7 +382,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 .setMellomLagreArbeidsoppgaveTom,
             hentVarsler: this.hentVarsler,
             settVarselTilLest: this.settVarselTilLest,
-            ulagredeEndringer: this.ulagredeEndringer,
+            hentUlagredeEndringer: this.hentUlagredeEndringer,
         };
 
         return (

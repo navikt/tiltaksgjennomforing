@@ -130,7 +130,8 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         ));
 
     const tilbakeTilOversiktKlikk = async () => {
-        if (props.ulagredeEndringer) {
+        if (props.hentUlagredeEndringer()) {
+            debugger;
             try {
                 await props.lagreAvtale();
             } catch (error) {
