@@ -24,6 +24,7 @@ import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
+import VersjonTabs from './GodkjenningSteg/VersjonKontroll/VersjonTabs';
 
 interface MatchProps {
     avtaleId: string;
@@ -162,6 +163,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             <Innholdsboks className={cls.element('infoboks')}>
                                 {instruks(props.rolle)}
                             </Innholdsboks>
+                            {props.avtale.erLaast && <VersjonTabs {...props} />}
                         </div>
                     );
                 } else if (props.rolle === 'DELTAKER') {

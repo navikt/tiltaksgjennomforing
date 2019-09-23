@@ -31,6 +31,7 @@ export interface RestService {
     ) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
     avbrytAvtale: (avtale: Avtale) => Promise<Avtale>;
+    kanLaasesOpp: (avtaleId: string) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
@@ -165,6 +166,11 @@ const hentRolle = async (avtaleId: string): Promise<Rolle> => {
     return response.json();
 };
 
+const kanLaasesOpp = async (avtaleId: string): Promise<Avtale> => {
+    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/kanLaasesOpp`);
+    await handleResponse(response);
+    return response.json();
+};
 const godkjennAvtale = async (avtale: Avtale) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn`;
     const response = await fetch(uri, {
@@ -272,6 +278,7 @@ const restService: RestService = {
     hentUlesteVarsler,
     hentAvtaleVarsler,
     settVarselTilLest,
+    kanLaasesOpp,
 };
 
 export default restService;

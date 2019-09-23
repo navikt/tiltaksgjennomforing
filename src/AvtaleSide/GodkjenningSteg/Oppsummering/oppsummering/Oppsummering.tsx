@@ -54,7 +54,6 @@ const Oppsummering: FunctionComponent<Props> = props => (
         <VarighetOppsummering {...props.avtale} />
         <OppfolgingOppsummering {...props.avtale} />
         <Tilrettelegging {...props.avtale} />
-        {props.avtale.erLaast && <VersjonTabs {...props.avtale} />}
     </Innholdsboks>
 );
 

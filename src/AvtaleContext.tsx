@@ -112,6 +112,7 @@ export interface Context {
     setMellomLagreArbeidsoppgaveTom: () => void;
     hentVarsler: (avtaleId: string) => Promise<any>;
     settVarselTilLest: (varselId: string) => Promise<void>;
+    kanLaasesOpp: (avtaleId: string) => Promise<Avtale>;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -357,6 +358,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return this.hentVarsler(this.state.avtale.id);
     }
 
+    async kanLaasesOpp(avtaleId: string) {
+        const avtaleRevisjonIkkeGodkjent = await RestService.kanLaasesOpp(
+            avtaleId
+        );
+        return avtaleRevisjonIkkeGodkjent;
+    }
+
     render() {
         const context: Context = {
             avtale: this.state.avtale,
@@ -386,6 +394,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 .setMellomLagreArbeidsoppgaveTom,
             hentVarsler: this.hentVarsler,
             settVarselTilLest: this.settVarselTilLest,
+            kanLaasesOpp: this.kanLaasesOpp,
         };
 
         return (
