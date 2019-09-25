@@ -27,12 +27,6 @@ const OppfolgingTilretteleggingSteg = (props: Context) => (
                 maxLengde={1000}
                 feilmelding="Beskrivelse av oppfølgingen er påkrevd"
             />
-            {/*  <LagreKnapp
-                className="oppfolgingsteg__lagre-knapp"
-                lagre={props.lagreAvtale}
-                label={'Lagre'}
-                suksessmelding={'Avtale lagret'}
-            />*/}
             <Systemtittel className="tilretteleggingsteg__tittel">
                 Tilrettelegging
                 <HjelpetekstBase id="hjelpetekst">
