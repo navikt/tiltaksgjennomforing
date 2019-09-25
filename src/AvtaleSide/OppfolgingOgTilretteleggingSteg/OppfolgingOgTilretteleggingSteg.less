@@ -1,6 +1,6 @@
 @import '~nav-frontend-core/less/_variabler';
 
-.oppfolgingsteg {
+.oppfolgingsteg .tilretteleggingsteg {
     &__tittel {
         display: none;
         :first-child {
@@ -17,5 +17,20 @@
     .oppfolgingsteg__tittel {
         display: block;
         margin-bottom: 3rem;
+    }
+    .tilretteleggingsteg__tittel {
+        display: block;
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+    }
+    .begge {
+        &__tekst {
+            height: 132px !important;
+        }
+    }
+    .oppfolgingsteg {
+        &__lagre-knapp {
+            margin-top: 5rem;
+        }
     }
 }
