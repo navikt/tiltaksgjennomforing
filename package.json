@@ -12,7 +12,7 @@
         "craco-less": "^1.6.0",
         "event-stream": "^4.0.1",
         "express": "^4.16.4",
-        "helmet": "^3.15.0",
+        "helmet": "^3.21.1",
         "http-proxy-middleware": "^0.19.1",
         "intl": "^1.2.5",
         "lodash.partial": "^4.2.1",
