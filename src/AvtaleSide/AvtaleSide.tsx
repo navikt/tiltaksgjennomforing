@@ -75,14 +75,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         },
         {
             komponent: <OppfolgingTilretteleggingSteg />,
-            label: 'Oppfølging og Tilrettelegging',
+            label: 'Oppfølging og tilrettelegging',
             id: 'oppfolging',
         },
-        /* {
-            komponent: <TilretteleggingSteg />,
-            label: 'Tilrettelegging',
-            id: 'tilrettelegging',
-        },*/
         {
             komponent: <GodkjenningSteg />,
             label: 'Godkjenning',
