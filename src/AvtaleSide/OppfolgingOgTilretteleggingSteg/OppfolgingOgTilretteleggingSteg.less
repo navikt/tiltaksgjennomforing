@@ -1,14 +1,25 @@
 @import '~nav-frontend-core/less/_variabler';
 
-.oppfolgingsteg .tilretteleggingsteg {
+.oppfolgingsteg {
     &__tittel {
-        display: none;
+        display: block;
         :first-child {
             // hjelpetekst ikon
             top: 0.25rem;
         }
+        margin-bottom: 1rem;
     }
     &__lagre-knapp {
+        margin-top: 1rem;
+    }
+}
+.tilretteleggingsteg {
+    &__tittel {
+        margin-bottom: 1rem;
+    }
+}
+.begge {
+    &__tekst {
         margin-top: 1rem;
     }
 }
