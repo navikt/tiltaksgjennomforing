@@ -3,7 +3,7 @@ version: 2.1
 jobs:
     bygg:
         docker:
-            - image: circleci/node:10
+            - image: circleci/node
         steps:
             - checkout
             - restore_cache:
@@ -15,7 +15,7 @@ jobs:
             - run:
                   name: Bygg React app
                   command: |
-                      npm ci
+                      npm ci --no-optional
                       npm run build
             - save_cache:
                   paths:
