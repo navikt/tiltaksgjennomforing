@@ -34,6 +34,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
             maxLength={props.maxLengde}
             tellerTekst={lagTellerTekst}
             onBlur={sjekkInputfelt}
+            textareaClass={props.className || ''}
         />
     );
 };
