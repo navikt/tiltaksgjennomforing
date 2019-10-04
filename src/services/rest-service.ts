@@ -6,6 +6,7 @@ import {
     Bedriftinfo,
     GodkjentPaVegneGrunner,
 } from '../AvtaleSide/avtale';
+import { FeatureToggles } from '../FeatureToggleProvider';
 import {
     InnloggetBruker,
     Innloggingskilde,
@@ -16,11 +17,20 @@ import Varsel from '../varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
+export const featureTogglePath = (features: string[]): string => {
+    const query = features.map(feature => `feature=${feature}`).join('&');
+    return API_URL + '/feature' + '?' + query;
+};
+
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
     hentAvtalerForInnloggetBruker: () => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
-    opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
+    opprettAvtale: (
+        deltakerFnr: string,
+        bedriftNr: string,
+        tiltaktype: string
+    ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
     godkjennAvtalePaVegne: (
@@ -35,6 +45,8 @@ export interface RestService {
     hentUlesteVarsler: () => Promise<Varsel[]>;
     hentAvtaleVarsler: (avtaleId: string) => Promise<Varsel[]>;
     settVarselTilLest: (varselId: string) => Promise<void>;
+    hentLonnstilskuddToggle: () => Promise<Object>;
+    hentFeatureToggles: (featureToggles: string[]) => Promise<FeatureToggles>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -107,13 +119,15 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 
 const opprettAvtale = async (
     deltakerFnr: string,
-    bedriftNr: string
+    bedriftNr: string,
+    tiltaktype: string
 ): Promise<Avtale> => {
     const postResponse = await fetch(`${API_URL}/avtaler`, {
         method: 'POST',
         body: JSON.stringify({
             deltakerFnr,
             bedriftNr,
+            tiltaktype,
         }),
         headers: {
             'Content-Type': 'application/json',
@@ -224,6 +238,20 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
+const hentLonnstilskuddToggle = async (): Promise<Object> => {
+    const response = await fetchGet(`${API_URL}/feature?feature=test234`);
+    await handleResponse(response);
+    return await response.json();
+};
+
+const hentFeatureToggles = async (
+    featureToggles: string[]
+): Promise<FeatureToggles> => {
+    const response = await fetchGet(featureTogglePath(featureToggles));
+    await handleResponse(response);
+    return await response.json();
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -240,6 +268,8 @@ const restService: RestService = {
     hentUlesteVarsler,
     hentAvtaleVarsler,
     settVarselTilLest,
+    hentLonnstilskuddToggle,
+    hentFeatureToggles,
 };
 
 export default restService;

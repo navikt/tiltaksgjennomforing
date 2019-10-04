@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock';
 import { API_URL } from '../services/rest-service';
-import avtaleListeMock from './avtaler-mock';
 import avtaleMock from './avtale-mock';
+import avtaleListeMock from './avtaler-mock';
 import rolleMock from './rolle-mock';
 
 const opprettAvtaleHeaders = {

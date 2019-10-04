@@ -8,7 +8,8 @@
 
     &__tittel {
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
+        margin-top: 2rem;
     }
 
     &__eksterntLenkeikon {
@@ -48,6 +49,27 @@
     &__avbryt {
         margin: 1rem 0;
     }
+
+    &__tiltakstypeWrapper {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 2rem;
+        margin-top: 3rem;
+
+        label {
+            flex-grow: 1;
+            margin-right: 0.5rem;
+            &:last-child {
+                margin-right: 0;
+                margin-left: 0.5rem;
+            }
+        }
+    }
+
+    hr {
+        margin: 25px 0;
+        height: 1px;
+    }
 }
 
 @media (min-width: @screen-sm-min) {
@@ -63,6 +85,7 @@
             display: flex;
             flex-direction: row;
             height: 6rem;
+            margin-bottom: 3rem;
         }
 
         &__input-wrapper-rad2 {

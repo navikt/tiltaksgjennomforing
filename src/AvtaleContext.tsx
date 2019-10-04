@@ -95,7 +95,11 @@ export interface Context {
     lagreOppgave: (oppgave: Oppgave) => Promise<any>;
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     hentAvtale: (avtaleId: string) => Promise<any>;
-    opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
+    opprettAvtale: (
+        deltakerFnr: string,
+        bedriftNr: string,
+        tiltaktype: string
+    ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<any>;
     godkjenn: (godkjent: boolean) => Promise<any>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
@@ -312,9 +316,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async opprettAvtale(
         deltakerFnr: string,
-        bedriftNr: string
+        bedriftNr: string,
+        tiltaktype: string
     ): Promise<Avtale> {
-        const avtale = await RestService.opprettAvtale(deltakerFnr, bedriftNr);
+        const avtale = await RestService.opprettAvtale(
+            deltakerFnr,
+            bedriftNr,
+            tiltaktype
+        );
         this.setState({
             avtale,
         });
