@@ -29,6 +29,8 @@ import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
+type TiltaksType = 'ARBEIDSTRENING' | 'LONNSTILSKUDD';
+
 const OpprettAvtale: FunctionComponent<RouterProps> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [bedriftNr, setBedriftNr] = useState('');
@@ -134,7 +136,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
         }
     };
 
-    const [valgtTiltaksType, setTiltaksType] = useState<string>('');
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType>();
 
     const featureToggleContext = useContext(FeatureToggleContext);
 
