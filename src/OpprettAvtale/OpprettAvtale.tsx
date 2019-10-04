@@ -138,8 +138,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     const featureToggleContext = useContext(FeatureToggleContext);
 
-    const lonnstilskuddToggle =
-        featureToggleContext[Feature['tag.tiltak.lonnstilskudd']];
+    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
 
     const tittel = lonnstilskuddToggle
         ? 'Opprett avtale'

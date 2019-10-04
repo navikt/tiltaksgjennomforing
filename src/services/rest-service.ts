@@ -6,7 +6,7 @@ import {
     Bedriftinfo,
     GodkjentPaVegneGrunner,
 } from '../AvtaleSide/avtale';
-import { FeatureToggles } from '../FeatureToggleProvider';
+import { Feature, FeatureToggles } from '../FeatureToggleProvider';
 import {
     InnloggetBruker,
     Innloggingskilde,
@@ -17,7 +17,7 @@ import Varsel from '../varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
-const featureTogglePath = (features: string[]): string => {
+const featureTogglePath = (features: Feature[]): string => {
     const query = features.map(feature => `feature=${feature}`).join('&');
     return API_URL + '/feature' + '?' + query;
 };
@@ -46,7 +46,7 @@ export interface RestService {
     hentAvtaleVarsler: (avtaleId: string) => Promise<Varsel[]>;
     settVarselTilLest: (varselId: string) => Promise<void>;
     hentLonnstilskuddToggle: () => Promise<Object>;
-    hentFeatureToggles: (featureToggles: string[]) => Promise<FeatureToggles>;
+    hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -245,7 +245,7 @@ const hentLonnstilskuddToggle = async (): Promise<Object> => {
 };
 
 const hentFeatureToggles = async (
-    featureToggles: string[]
+    featureToggles: Feature[]
 ): Promise<FeatureToggles> => {
     const response = await fetchGet(featureTogglePath(featureToggles));
     await handleResponse(response);
