@@ -17,7 +17,7 @@ import Varsel from '../varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
-export const featureTogglePath = (features: string[]): string => {
+const featureTogglePath = (features: string[]): string => {
     const query = features.map(feature => `feature=${feature}`).join('&');
     return API_URL + '/feature' + '?' + query;
 };
