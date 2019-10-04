@@ -45,7 +45,6 @@ export interface RestService {
     hentUlesteVarsler: () => Promise<Varsel[]>;
     hentAvtaleVarsler: (avtaleId: string) => Promise<Varsel[]>;
     settVarselTilLest: (varselId: string) => Promise<void>;
-    hentLonnstilskuddToggle: () => Promise<Object>;
     hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
 }
 
@@ -238,12 +237,6 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
-const hentLonnstilskuddToggle = async (): Promise<Object> => {
-    const response = await fetchGet(`${API_URL}/feature?feature=test234`);
-    await handleResponse(response);
-    return await response.json();
-};
-
 const hentFeatureToggles = async (
     featureToggles: Feature[]
 ): Promise<FeatureToggles> => {
@@ -268,7 +261,6 @@ const restService: RestService = {
     hentUlesteVarsler,
     hentAvtaleVarsler,
     settVarselTilLest,
-    hentLonnstilskuddToggle,
     hentFeatureToggles,
 };
 
