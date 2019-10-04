@@ -1,7 +1,7 @@
 import React from 'react';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
-import CheckIkon from './../../../../assets/ikoner/check.svg';
-import VarselIkon from './../../../../assets/ikoner/varsel.svg';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import CheckIkon from '@/assets/ikoner/check.svg';
+import VarselIkon from '@/assets/ikoner/varsel.svg';
 import './GodkjenningRad.less';
 
 interface Props {
@@ -41,6 +41,7 @@ const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
             <span className="godkjenningsrad__status">
                 <Element tag={'span'}>{godkjentStatus}</Element>
                 <img
+                    alt="Godkjenningsgrad"
                     className="godkjenningsrad__godkjenningIkon"
                     src={props.godkjentAvtale ? CheckIkon : VarselIkon}
                 />

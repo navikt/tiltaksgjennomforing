@@ -1,10 +1,10 @@
 import * as React from 'react';
-import ApiError from '../../api-error';
-import { Context, medContext } from '../../AvtaleContext';
-import { Oppgave } from '../avtale';
+import { ApiError } from '@/types/errors';
+import { Context, medContext } from '@/AvtaleContext';
+import { Oppgave } from '@/types/avtale';
 import OppgaveKort from './OppgaveKort/OppgaveKort';
 import OpprettOppgave from './OpprettOppgave/OpprettOppgave';
-import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 
 class ArbeidsoppgaverSteg extends React.Component<Context> {
     state: {

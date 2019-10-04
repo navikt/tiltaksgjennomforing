@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import ApiError from '../api-error';
-import AutentiseringError from '../autentisering-error';
-import RestService from '../services/rest-service';
+import { ApiError, AutentiseringError } from '@/types/errors';
+import RestService from '@/services/rest-service';
 
 export interface Innloggingskilde {
     tittel: string;

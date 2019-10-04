@@ -2,17 +2,17 @@ import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useState } from 'react';
-import { Rolle } from '../../AvtaleContext';
-import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
-import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
-import { Avtale, GodkjentPaVegneGrunner } from '../avtale';
+import { Rolle } from '@/AvtaleContext';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import { Avtale, GodkjentPaVegneGrunner } from '@/types/avtale';
 import ArbeidsgiverInstruks from './Oppsummering/instruks/ArbeidsgiverInstruks';
 import DeltakerInstruks from './Oppsummering/instruks/DeltakerInstruks';
 import './Godkjenning.less';
 import VeilederInstruks from './Oppsummering/instruks/VeilederInstruks';
 import GodkjennPaVegneAv from './Oppsummering/GodkjennPaVegneAv/GodkjennPaVegneAv';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import UfullstendigError from '../../ufullstendig-error';
+import { UfullstendigError } from '@/types/errors';
 
 interface Props {
     avtale: Avtale;
@@ -125,7 +125,7 @@ const Godkjenning = (props: Props) => {
                     onChange={() => setBekreftet(!bekreftet)}
                 />
             )}
-            {props.rolle == 'VEILEDER' && !props.avtale.godkjentAvDeltaker && (
+            {props.rolle === 'VEILEDER' && !props.avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAv
                     godkjentPaVegneGrunn={godkjentPaVegneGrunn}
                     moderState={paVegneState}

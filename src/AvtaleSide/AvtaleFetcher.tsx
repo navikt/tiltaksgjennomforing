@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
-import ApiError from '../api-error';
-import { Context, medContext } from '../AvtaleContext';
+import { ApiError } from '@/types/errors';
+import { Context, medContext } from '@/AvtaleContext';
 
 type Props = {
     avtaleId: string;
@@ -21,7 +20,7 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
                     setLastetOk(false);
                 }
             });
-    }, []);
+    }, [props]);
 
     if (!lastetOk) {
         return null;

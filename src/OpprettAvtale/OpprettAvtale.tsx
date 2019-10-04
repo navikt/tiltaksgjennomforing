@@ -1,29 +1,27 @@
-import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Lenke from 'nav-frontend-lenker';
 import { Input } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { RouterProps, withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
-import RestService from '.././services/rest-service';
-import ApiError from '../api-error';
-import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
-import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle.svg';
-import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
-import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelPunktForAvtale.svg';
-import { Context, medContext } from '../AvtaleContext';
-import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
-import useValidering from '../komponenter/useValidering';
-import VeilederpanelMedUtklippstavleIkon from '../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import { pathTilOpprettAvtaleFullfort, pathTilOversikt } from '../paths';
-import BEMHelper from '../utils/bem';
-import { validerFnr } from '../utils/fnrUtils';
-import { validerOrgnr } from '../utils/orgnrUtils';
+import RestService from '@/./services/rest-service';
+import { ApiError } from '@/types/errors';
+import { ReactComponent as AvtaleSignering } from '@/assets/ikoner/avtaleSignering.svg';
+import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check-circle.svg';
+import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
+import { ReactComponent as NokkelPunktForAvtale } from '@/assets/ikoner/nokkelPunktForAvtale.svg';
+
+import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import useValidering from '@/komponenter/useValidering';
+import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import { pathTilOpprettAvtaleFullfort } from '@/paths';
+import BEMHelper from '@/utils/bem';
+import { validerFnr } from '@/utils/fnrUtils';
+import { validerOrgnr } from '@/utils/orgnrUtils';
 import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
-import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const cls = BEMHelper('opprett-avtale');
 

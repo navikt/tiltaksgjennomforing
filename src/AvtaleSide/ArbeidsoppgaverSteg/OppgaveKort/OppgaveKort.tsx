@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Oppgave } from '../../avtale';
-import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
+import { Oppgave } from '@/types/avtale';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import './OppgaveKort.less';
 import RedigerOppgave from '../RedigerOppgave/RedigerOppgave';
 import LagretOppgave from './LagretOppgave/LagretOppgave';

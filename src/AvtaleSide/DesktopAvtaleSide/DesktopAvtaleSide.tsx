@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Rolle } from '../../AvtaleContext';
-import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
-import BEMHelper from '../../utils/bem';
+import { Rolle } from '@/AvtaleContext';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import BEMHelper from '@/utils/bem';
 import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
-import { Avtale } from '../avtale';
+import { Avtale } from '@/types/avtale';
 import { StegInfo } from '../AvtaleSide';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import NesteForrige from '../NesteForrige/NesteForrige';
@@ -43,7 +43,6 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                             !props.avtale.avbrutt &&
                             props.rolle === 'VEILEDER' && (
                                 <AvbryteAvtalen
-                                    avtale={props.avtale}
                                     avbrytOnclick={bekreftelseAvbrytAvtalen}
                                 />
                             )}

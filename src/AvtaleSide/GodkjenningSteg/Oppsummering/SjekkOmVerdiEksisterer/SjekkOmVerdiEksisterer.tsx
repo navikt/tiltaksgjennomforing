@@ -2,7 +2,7 @@ import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import BEMHelper from '../../../../utils/bem';
+import BEMHelper from '@/utils/bem';
 
 const SjekkOmVerdiEksisterer: FunctionComponent<{
     verdi: string;

@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import VeilederpanelMedUtklippstavle from '../../../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import BEMHelper from '../../../../utils/bem';
+import BEMHelper from '@/utils/bem';
 import './instruks.less';
-import { ReactComponent as Benken } from '../../../../assets/ikoner/benken.svg';
-import { ReactComponent as Info } from '../../../../assets/ikoner/info.svg';
-import { ReactComponent as Arena } from '../../../../assets/ikoner/arena.svg';
+import { ReactComponent as Benken } from '@/assets/ikoner/benken.svg';
+import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
+import { ReactComponent as Arena } from '@/assets/ikoner/arena.svg';
 
 const cls = BEMHelper('instruks');
 

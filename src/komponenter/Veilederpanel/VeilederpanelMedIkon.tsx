@@ -1,5 +1,4 @@
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import { ReactComponentLike } from 'prop-types';
 import * as React from 'react';
 import './VeilederpanelMedIkon.less';
 

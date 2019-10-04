@@ -1,12 +1,12 @@
 import { Knapp } from 'nav-frontend-knapper';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
-import { Maal } from '../../avtale';
-import { Maalkategori } from '../../maalkategorier';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import { Maal } from '@/types/avtale';
+import { Maalkategori } from '@/types/maalkategorier';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import './OpprettMaal.less';
-import { TemporaryLagring } from '../../../AvtaleContext';
+import { TemporaryLagring } from '@/AvtaleContext';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;

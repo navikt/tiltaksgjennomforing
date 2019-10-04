@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Kalender from './kalender';
+import Kalender from './Kalender';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import 'moment/locale/nb';
-import DatoInputfelt from './dato-inputfelt';
+import DatoInputfelt from './DatoInputfelt';
 import { Normaltekst } from 'nav-frontend-typografi';
 
 import './datovelger.less';

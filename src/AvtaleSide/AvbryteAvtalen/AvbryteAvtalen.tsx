@@ -1,12 +1,10 @@
 import * as React from 'react';
 import './AvbryteAvtalen.less';
-import { Avtale } from '../avtale';
-import { Context } from '../../AvtaleContext';
+import { Context } from '@/AvtaleContext';
 import Lenke from 'nav-frontend-lenker';
-import { ReactComponent as AvbruttIkon } from '../../assets/ikoner/file-remove.svg';
+import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/file-remove.svg';
 
 interface Props {
-    avtale: Avtale;
     avbrytOnclick: () => void;
     lagreAvtale?: Context;
 }

@@ -1,4 +1,4 @@
-import { Avtale } from '../AvtaleSide/avtale';
+import { Avtale } from '@/types/avtale';
 import avtaleMock from './avtale-mock';
 
 const avtaleListeMock: Avtale[] = [avtaleMock, avtaleMock, avtaleMock].map(

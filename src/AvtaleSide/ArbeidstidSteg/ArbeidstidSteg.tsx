@@ -1,12 +1,11 @@
 import * as _ from 'lodash';
 import * as React from 'react';
-import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
-import Datovelger from './Datovelger/datovelger';
-import moment from 'moment';
-import { Moment } from 'moment';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import Datovelger from './Datovelger/Datovelger';
+import moment, { Moment } from 'moment';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '../../AvtaleContext';
-import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
+import { Context, medContext } from '@/AvtaleContext';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import Ukevelger from './Ukevelger/Ukevelger';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';

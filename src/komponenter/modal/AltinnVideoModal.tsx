@@ -2,8 +2,8 @@ import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import MediaQuery from 'react-responsive';
-import video from '../../assets/media/roller-rettigheter.mp4';
-import BEMHelper from '../../utils/bem';
+import video from '@/assets/media/roller-rettigheter.mp4';
+import BEMHelper from '@/utils/bem';
 import './AltinnVideoModal.less';
 
 interface Props {
