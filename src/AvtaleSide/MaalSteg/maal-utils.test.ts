@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 import { finnLedigeMaalkategorier } from './maal-utils';
-import { Maalkategori, maalkategorier } from '../maalkategorier';
+import { Maalkategori, maalkategorier } from '@/types/maalkategorier';
 
 const expect = chai.expect;
 

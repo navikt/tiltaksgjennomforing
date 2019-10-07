@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Knapp } from 'nav-frontend-knapper';
 import RedigerOppgave from '../RedigerOppgave/RedigerOppgave';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
-import { Oppgave } from '../../avtale';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import { Oppgave } from '@/types/avtale';
 import './OpprettOppgave.less';
-import { TemporaryLagringArbeidsoppgave } from '../../../AvtaleContext';
+import { TemporaryLagringArbeidsoppgave } from '@/AvtaleContext';
 
 interface Props {
     lagreOppgave: (oppgave: Oppgave) => void;

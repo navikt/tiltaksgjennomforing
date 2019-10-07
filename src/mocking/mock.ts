@@ -1,5 +1,5 @@
+import { API_URL } from '@/services/rest-service';
 import fetchMock from 'fetch-mock';
-import { API_URL } from '../services/rest-service';
 import avtaleMock from './avtale-mock';
 import avtaleListeMock from './avtaler-mock';
 import rolleMock from './rolle-mock';

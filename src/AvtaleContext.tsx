@@ -1,16 +1,11 @@
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import ApiError from './api-error';
-import {
-    Avtale,
-    GodkjentPaVegneGrunner,
-    Maal,
-    Oppgave,
-} from './AvtaleSide/avtale';
-import VarselKomponent from './komponenter/Varsel/VarselKomponent';
+import { ApiError } from '@/types/errors';
+import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
+import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import RestService from './services/rest-service';
-import Varsel from './varsel';
+import Varsel from '@/types/varsel';
 
 export const tomAvtale: Avtale = {
     id: '',

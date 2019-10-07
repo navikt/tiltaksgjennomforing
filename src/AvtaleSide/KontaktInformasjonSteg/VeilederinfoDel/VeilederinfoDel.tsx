@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Context, medContext } from '../../../AvtaleContext';
-import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '../../../komponenter/TelefonnummerInput/TelefonnummerInput';
+import { Context, medContext } from '@/AvtaleContext';
+import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import './VeilederinfoDel.less';
 
 const VeilederinfoDel = (props: Context) => (

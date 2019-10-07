@@ -1,9 +1,9 @@
 import React from 'react';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { ReactComponent as UtfyllingsIkon } from '../../../assets/ikoner/pen.svg';
+import { ReactComponent as UtfyllingsIkon } from '@/assets/ikoner/pen.svg';
 import './UtfyllerBanner.less';
 import classnames from 'classnames';
-import BEMHelper from '../../../utils/bem';
+import BEMHelper from '@/utils/bem';
 
 type Utfyller =
     | 'arbeidsgiver'

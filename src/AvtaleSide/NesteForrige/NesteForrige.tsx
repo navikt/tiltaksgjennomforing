@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { Context, medContext } from '../../AvtaleContext';
-import { pathTilStegIAvtale } from '../../paths';
+import { Context, medContext } from '@/AvtaleContext';
+import { pathTilStegIAvtale } from '@/paths';
 import { StegInfo } from '../AvtaleSide';
 import './NesteForrige.less';
 import { Link } from 'react-router-dom';
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
-import Lenke from 'nav-frontend-lenker';
 
 export interface Props {
     avtaleSteg: StegInfo[];

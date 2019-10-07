@@ -1,7 +1,7 @@
 import Lenke from 'nav-frontend-lenker';
 import React, { FunctionComponent, useState } from 'react';
-import { ReactComponent as ShareIkon } from '../../assets/ikoner/share.svg';
-import KopierLenkeModal from '../../komponenter/modal/KopierLenkeModal';
+import { ReactComponent as ShareIkon } from '@/assets/ikoner/share.svg';
+import KopierLenkeModal from '@/komponenter/modal/KopierLenkeModal';
 import './DelLenkeTilAvtalen.less';
 
 const DelLenkeTilAvtalen: FunctionComponent = () => {

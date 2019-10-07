@@ -1,26 +1,26 @@
 import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
-import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import Banner from '../komponenter/Banner/Banner';
-import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import BEMHelper from '../utils/bem';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import Banner from '@/komponenter/Banner/Banner';
+import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import BEMHelper from '@/utils/bem';
 import './informasjonsside.less';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { pathTilOversikt, pathTilInformasjonssideInnlogget } from '../paths';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { pathTilInformasjonssideInnlogget, pathTilOversikt } from '@/paths';
 import { VenstreChevron } from 'nav-frontend-chevron';
-import { ReactComponent as Keyboard } from './../assets/ikoner/keyboard.svg';
-import { ReactComponent as DigitalAvtale } from './../assets/ikoner/digitalAvtale.svg';
-import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
-import { ReactComponent as Altinn } from './../assets/ikoner/altinn.svg';
-import { ReactComponent as Clipboard } from './../assets/ikoner/informationIcon.svg';
-import { ReactComponent as Historikk } from './../assets/ikoner/historikk.svg';
-import { ReactComponent as DynamiskAvtale } from './../assets/ikoner/dynamiskAvtale.svg';
-import AltinnVideoModal from '../komponenter/modal/AltinnVideoModal';
+import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
+import { ReactComponent as DigitalAvtale } from '@/assets/ikoner/digitalAvtale.svg';
+import { ReactComponent as TilEkstern } from '@/assets/ikoner/external-link.svg';
+import { ReactComponent as Altinn } from '@/assets/ikoner/altinn.svg';
+import { ReactComponent as Clipboard } from '@/assets/ikoner/informationIcon.svg';
+import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
+import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale.svg';
+import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
-    if (pathName == pathTilInformasjonssideInnlogget) {
+    if (pathName === pathTilInformasjonssideInnlogget) {
         return <TilbakeTilOversiktLenke />;
     } else {
         return (
@@ -180,4 +180,4 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 };
-export default Informasjonsside;
+export default withRouter(Informasjonsside);

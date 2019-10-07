@@ -1,3 +1,19 @@
+import { ReactComponent as AvtaleSignering } from '@/assets/ikoner/avtaleSignering.svg';
+import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check-circle.svg';
+import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
+import { ReactComponent as NokkelPunktForAvtale } from '@/assets/ikoner/nokkelPunktForAvtale.svg';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import useValidering from '@/komponenter/useValidering';
+import { pathTilOpprettAvtaleFullfort } from '@/paths';
+import RestService from '@/services/rest-service';
+import { ApiError } from '@/types/errors';
+import BEMHelper from '@/utils/bem';
+import { validerFnr } from '@/utils/fnrUtils';
+import { validerOrgnr } from '@/utils/orgnrUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Lenke from 'nav-frontend-lenker';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
@@ -13,22 +29,6 @@ import React, {
     useState,
 } from 'react';
 import { RouterProps, withRouter } from 'react-router';
-import RestService from '.././services/rest-service';
-import ApiError from '../api-error';
-import { ReactComponent as AvtaleSignering } from '../assets/ikoner/avtaleSignering.svg';
-import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle.svg';
-import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
-import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelPunktForAvtale.svg';
-import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { FeatureToggleContext } from '../FeatureToggleProvider';
-import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import Innholdsboks from '../komponenter/Innholdsboks/Innholdsboks';
-import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
-import useValidering from '../komponenter/useValidering';
-import { pathTilOpprettAvtaleFullfort } from '../paths';
-import BEMHelper from '../utils/bem';
-import { validerFnr } from '../utils/fnrUtils';
-import { validerOrgnr } from '../utils/orgnrUtils';
 import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
 
@@ -148,7 +148,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     const featureToggleContext = useContext(FeatureToggleContext);
 
-    const lonnstilskuddToggle = false; //featureToggleContext[Feature.Lonnstilskudd];
+    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
 
     const tittel = lonnstilskuddToggle
         ? 'Opprett avtale'

@@ -1,8 +1,8 @@
 import React from 'react';
 import './GodkjenningStatus.less';
-import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { Avtale } from '../../avtale';
+import { Avtale } from '@/types/avtale';
 import GodkjenningRad from './GodkjenningRad/GodkjenningRad';
 
 interface Props {

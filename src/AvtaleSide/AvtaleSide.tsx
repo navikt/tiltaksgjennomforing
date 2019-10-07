@@ -3,12 +3,12 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import ApiError from '../api-error';
-import { Context, medContext, Rolle } from '../AvtaleContext';
-import Banner from '../komponenter/Banner/Banner';
-import Innholdsboks from '../komponenter/Innholdsboks/Innholdsboks';
-import VarselKomponent from '../komponenter/Varsel/VarselKomponent';
-import BEMHelper from '../utils/bem';
+import { ApiError } from '@/types/errors';
+import { Context, medContext, Rolle } from '@/AvtaleContext';
+import Banner from '@/komponenter/Banner/Banner';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
+import BEMHelper from '@/utils/bem';
 import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import AvtaleFetcher from './AvtaleFetcher';
@@ -22,9 +22,8 @@ import Oppsummering from './GodkjenningSteg/Oppsummering/oppsummering/Oppsummeri
 import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
-import OppfolgingSteg from './OppfolgingSteg/OppfolgingSteg';
+import OppfolgingTilretteleggingSteg from './OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import TilretteleggingSteg from './TilretteleggingSteg/TilretteleggingSteg';
 
 interface MatchProps {
     avtaleId: string;
@@ -75,14 +74,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
             id: 'arbeidstid',
         },
         {
-            komponent: <OppfolgingSteg />,
-            label: 'Oppfølging',
+            komponent: <OppfolgingTilretteleggingSteg />,
+            label: 'Oppfølging og tilrettelegging',
             id: 'oppfolging',
-        },
-        {
-            komponent: <TilretteleggingSteg />,
-            label: 'Tilrettelegging',
-            id: 'tilrettelegging',
         },
         {
             komponent: <GodkjenningSteg />,

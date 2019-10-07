@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
-import ApiError from '../api-error';
-import { Context, medContext } from '../AvtaleContext';
+import { ApiError } from '@/types/errors';
+import { Context, medContext } from '@/AvtaleContext';
 
 type Props = {
     avtaleId: string;
@@ -10,8 +9,8 @@ type Props = {
 
 const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
+    const avtaleId = props.avtaleId || "dummy";
     useEffect(() => {
-        const avtaleId = props.avtaleId;
         props.hentVarsler(avtaleId);
         Promise.all([props.hentAvtale(avtaleId), props.hentRolle(avtaleId)])
             .then(() => setLastetOk(true))
@@ -21,7 +20,8 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
                     setLastetOk(false);
                 }
             });
-    }, []);
+        // eslint-disable-next-line
+    }, [avtaleId]);
 
     if (!lastetOk) {
         return null;

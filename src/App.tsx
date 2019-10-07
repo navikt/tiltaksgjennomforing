@@ -39,7 +39,7 @@ class App extends React.Component {
                             <RedirectEtterLogin>
                                 <FeatureToggleProvider>
                                     <Route
-                                        path=""
+                                        path="/"
                                         exact={true}
                                         component={AvtaleOversikt}
                                     />
