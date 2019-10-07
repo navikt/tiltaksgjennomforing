@@ -37,7 +37,7 @@ class App extends React.Component {
                         <InnloggingBoundary>
                             <RedirectEtterLogin>
                                 <Route
-                                    path=""
+                                    path="/"
                                     exact={true}
                                     component={AvtaleOversikt}
                                 />

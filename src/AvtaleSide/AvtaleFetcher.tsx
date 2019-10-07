@@ -9,8 +9,8 @@ type Props = {
 
 const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
+    const avtaleId = props.avtaleId || "dummy";
     useEffect(() => {
-        const avtaleId = props.avtaleId;
         props.hentVarsler(avtaleId);
         Promise.all([props.hentAvtale(avtaleId), props.hentRolle(avtaleId)])
             .then(() => setLastetOk(true))
@@ -20,7 +20,8 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
                     setLastetOk(false);
                 }
             });
-    }, [props]);
+        // eslint-disable-next-line
+    }, [avtaleId]);
 
     if (!lastetOk) {
         return null;
