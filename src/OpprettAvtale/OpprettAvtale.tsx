@@ -1,7 +1,11 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Lenke from 'nav-frontend-lenker';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import {
+    Innholdstittel,
+    Normaltekst,
+    Systemtittel,
+} from 'nav-frontend-typografi';
 import React, {
     ChangeEvent,
     FunctionComponent,
@@ -16,8 +20,9 @@ import { ReactComponent as CheckCircleIkon } from '../assets/ikoner/check-circle
 import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '../assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
 import { ReactComponent as NokkelPunktForAvtale } from '../assets/ikoner/nokkelPunktForAvtale.svg';
 import TilbakeTilOversiktLenke from '../AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { Feature, FeatureToggleContext } from '../FeatureToggleProvider';
+import { FeatureToggleContext } from '../FeatureToggleProvider';
 import EkstbanderbartPanelRad from '../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import Innholdsboks from '../komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '../komponenter/LagreKnapp/LagreKnapp';
 import useValidering from '../komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfort } from '../paths';
@@ -29,7 +34,10 @@ import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
-type TiltaksType = 'ARBEIDSTRENING' | 'LONNSTILSKUDD';
+type TiltaksType =
+    | 'ARBEIDSTRENING'
+    | 'MIDLERTIDIG_LONNSTILSKUDD'
+    | 'VARIG_LONNSTILSKUDD';
 
 const OpprettAvtale: FunctionComponent<RouterProps> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
@@ -140,7 +148,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     const featureToggleContext = useContext(FeatureToggleContext);
 
-    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
+    const lonnstilskuddToggle = false; //featureToggleContext[Feature.Lonnstilskudd];
 
     const tittel = lonnstilskuddToggle
         ? 'Opprett avtale'
@@ -154,51 +162,74 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                 {tittel}
             </Innholdstittel>
             {lonnstilskuddToggle && (
-                <div className={cls.element('tiltakstypeWrapper')}>
-                    <RadioPanel
-                        name="tiltakstype"
-                        label="Arbeidstrening"
-                        value="ARBEIDSTRENING"
-                        checked={valgtTiltaksType === 'ARBEIDSTRENING'}
-                        onChange={() => setTiltaksType('ARBEIDSTRENING')}
-                    />
-                    <RadioPanel
-                        name="tiltakstype"
-                        label="Lønnstilskudd"
-                        value="LONNSTILSKUDD"
-                        checked={valgtTiltaksType === 'LONNSTILSKUDD'}
-                        onChange={() => setTiltaksType('LONNSTILSKUDD')}
-                    />
-                </div>
+                <Innholdsboks className={cls.element('innholdsboks')}>
+                    <Systemtittel className={cls.element('innholdstittel')}>
+                        Velg type avtale
+                    </Systemtittel>
+                    <div className={cls.element('tiltakstypeWrapper')}>
+                        <RadioPanel
+                            name="tiltakstype"
+                            label="Arbeidstrening"
+                            value="ARBEIDSTRENING"
+                            checked={valgtTiltaksType === 'ARBEIDSTRENING'}
+                            onChange={() => setTiltaksType('ARBEIDSTRENING')}
+                        />
+                        <RadioPanel
+                            name="tiltakstype"
+                            label="Midlertidig lønnstilskudd"
+                            value="MIDLERTIDIG_LONNSTILSKUDD"
+                            checked={
+                                valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'
+                            }
+                            onChange={() =>
+                                setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')
+                            }
+                        />
+                        <RadioPanel
+                            name="tiltakstype"
+                            label="Varig lønnstilskudd"
+                            value="VARIG_LONNSTILSKUDD"
+                            checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
+                            onChange={() =>
+                                setTiltaksType('VARIG_LONNSTILSKUDD')
+                            }
+                        />
+                    </div>
+                </Innholdsboks>
             )}
-            <div className="opprett-avtale__input-wrapper">
-                <div className="opprett-avtale__kandidat-fnr">
-                    <Input
-                        className="typo-element"
-                        label="Deltakers fødselsnummer"
-                        value={deltakerFnr}
-                        onChange={fnrOnChange}
-                        onBlur={validerDeltakerFnr}
-                        feil={deltakerFnrFeil}
-                    />
-                </div>
+            <Innholdsboks className={cls.element('innholdsboks')}>
+                <Systemtittel className={cls.element('innholdstittel')}>
+                    Knytt avtalen til andre parter
+                </Systemtittel>
+                <div className="opprett-avtale__input-wrapper">
+                    <div className="opprett-avtale__kandidat-fnr">
+                        <Input
+                            className="typo-element"
+                            label="Deltakers fødselsnummer"
+                            value={deltakerFnr}
+                            onChange={fnrOnChange}
+                            onBlur={validerDeltakerFnr}
+                            feil={deltakerFnrFeil}
+                        />
+                    </div>
 
-                <div className="opprett-avtale__arbeidsgiver-bedriftNr">
-                    <Input
-                        className="typo-element"
-                        label="Bedriftsnummer"
-                        value={bedriftNr}
-                        onChange={orgnrOnChange}
-                        onBlur={orgnrOnBlur}
-                        feil={bedriftNrFeil}
-                    />
-                    {bedriftNavn && (
-                        <Normaltekst className="opprett-avtale__bedriftNavn">
-                            {bedriftNavn}
-                        </Normaltekst>
-                    )}
+                    <div className="opprett-avtale__arbeidsgiver-bedriftNr">
+                        <Input
+                            className="typo-element"
+                            label="Bedriftsnummer"
+                            value={bedriftNr}
+                            onChange={orgnrOnChange}
+                            onBlur={orgnrOnBlur}
+                            feil={bedriftNrFeil}
+                        />
+                        {bedriftNavn && (
+                            <Normaltekst className="opprett-avtale__bedriftNavn">
+                                {bedriftNavn}
+                            </Normaltekst>
+                        )}
+                    </div>
                 </div>
-            </div>
+            </Innholdsboks>
             <Ekspanderbartpanel
                 tittel="Slik fungerer løsningen"
                 tittelProps="element"

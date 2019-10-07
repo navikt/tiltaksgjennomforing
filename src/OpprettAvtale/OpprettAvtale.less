@@ -50,29 +50,33 @@
         margin: 1rem 0;
     }
 
-    &__tiltakstypeWrapper {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 2rem;
-        margin-top: 3rem;
+    &__innholdstittel {
+        margin-bottom: 1.5rem;
+    }
+    &__innholdsboks {
+        margin-bottom: 1rem;
+    }
+}
 
-        label {
-            flex-grow: 1;
-            margin-right: 0.5rem;
-            &:last-child {
-                margin-right: 0;
-                margin-left: 0.5rem;
+@media (max-width: @screen-sm-min) {
+    // Mobil
+    .opprett-avtale {
+        &__tiltakstypeWrapper {
+            label {
+                margin-bottom: 1rem;
             }
         }
-    }
-
-    hr {
-        margin: 25px 0;
-        height: 1px;
+        &__kandidat-fnr {
+            margin-bottom: 1rem;
+        }
+        &__arbeidsgiver-bedriftNr {
+            margin-bottom: 1rem;
+        }
     }
 }
 
 @media (min-width: @screen-sm-min) {
+    // Desktop
     .opprett-avtale {
         margin: 0 auto;
         max-width: @screen-sm-min;
@@ -84,8 +88,6 @@
         &__input-wrapper {
             display: flex;
             flex-direction: row;
-            height: 6rem;
-            margin-bottom: 3rem;
         }
 
         &__input-wrapper-rad2 {
@@ -110,6 +112,22 @@
         &__bedriftNavnBrreg {
             margin-top: 0.5rem;
             margin-left: 0.2rem;
+        }
+
+        &__tiltakstypeWrapper {
+            display: flex;
+            flex-direction: row;
+
+            label {
+                flex-grow: 1;
+                margin-right: 0.5rem;
+                //flex-basis: 100%;
+                &:last-child {
+                    margin-right: 0;
+                    //margin-left: 0.5rem;
+                    //flex-basis: 100%;
+                }
+            }
         }
     }
 }
