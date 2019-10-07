@@ -1,6 +1,6 @@
 import { Input } from 'nav-frontend-skjema';
 import React from 'react';
-import useValidering from '../useValidering';
+import useValidering from '@/komponenter/useValidering';
 
 interface Props {
     className?: string;

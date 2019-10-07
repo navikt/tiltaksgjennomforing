@@ -3,7 +3,7 @@ import * as React from 'react';
 import './KnappMedIkon.less';
 import redigerIkon from './rediger-penn.svg';
 import slettIkon from './soppeldunk.svg';
-import avbruttIkon from '../../assets/ikoner/stop.svg';
+import avbruttIkon from '@/assets/ikoner/stop.svg';
 import classNames from 'classnames';
 
 type IkonType = 'blyant' | 'soppelkasse' | 'avbrutt';
@@ -29,7 +29,7 @@ const KnappMedIkon = (props: Props) => (
             'knapp-med-ikon__backgroundColor': props.backgroundColor !== null,
         })}
     >
-        <img src={ikoner[props.ikonType]} />
+        <img src={ikoner[props.ikonType]} alt={props.ikonType}/>
         <Normaltekst className="knapp-med-ikon__label">
             {props.label}
         </Normaltekst>

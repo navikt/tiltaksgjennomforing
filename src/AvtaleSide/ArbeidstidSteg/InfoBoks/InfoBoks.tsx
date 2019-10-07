@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { ReactComponent as KalkulatorIkon } from '../../../assets/ikoner/kalkulator.svg';
+import { ReactComponent as KalkulatorIkon } from '@/assets/ikoner/kalkulator.svg';
 import './InfoBoks.less';
 
 interface Props {

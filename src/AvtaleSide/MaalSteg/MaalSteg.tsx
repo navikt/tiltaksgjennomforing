@@ -1,11 +1,11 @@
 import * as React from 'react';
-import ApiError from '../../api-error';
-import { Context, medContext } from '../../AvtaleContext';
-import { Maal } from '../avtale';
+import { ApiError } from '@/types/errors';
+import { Context, medContext } from '@/AvtaleContext';
+import { Maal } from '@/types/avtale';
 import { finnLedigeMaalkategorier } from './maal-utils';
 import MaalKort from './MaalKort/MaalKort';
 import OpprettMaal from './OpprettMaal/OpprettMaal';
-import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 
 class MaalSteg extends React.Component<Context> {
     state: {

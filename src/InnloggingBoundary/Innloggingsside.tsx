@@ -3,11 +3,10 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import Banner from '../komponenter/Banner/Banner';
-import { pathTilInformasjonssideUinnlogget } from '../paths';
+import Banner from '@/komponenter/Banner/Banner';
+import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import './Innloggingsside.less';
-import { ReactComponent as Koffert } from './../assets/ikoner/koffert.svg';
-import Lenke from 'nav-frontend-lenker';
+import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
 import { Innloggingskilde } from './useInnlogget';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {

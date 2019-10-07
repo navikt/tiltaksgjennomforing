@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'nav-frontend-modal';
-import BEMHelper from '../../utils/bem';
+import BEMHelper from '@/utils/bem';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
 import KnappBase from 'nav-frontend-knapper';

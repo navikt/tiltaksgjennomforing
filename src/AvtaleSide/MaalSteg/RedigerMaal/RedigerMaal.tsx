@@ -1,12 +1,12 @@
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Select, Textarea } from 'nav-frontend-skjema';
 import * as React from 'react';
-import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
-import { Maal } from '../../avtale';
-import { Maalkategori } from '../../maalkategorier';
-import ApiError from '../../../api-error';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import { Maal } from '@/types/avtale';
+import { Maalkategori } from '@/types/maalkategorier';
+import { ApiError } from '@/types/errors';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { TemporaryLagring } from '../../../AvtaleContext';
+import { TemporaryLagring } from '@/AvtaleContext';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;

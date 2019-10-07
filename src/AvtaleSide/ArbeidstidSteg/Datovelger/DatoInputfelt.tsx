@@ -1,13 +1,8 @@
 import * as React from 'react';
 import MaskedInput from 'react-maskedinput';
-import {
-    erGyldigFormattertDato,
-    inputDatostringTilISODate,
-    ISODateTilInputDatostring,
-} from './moment-utils';
-import { Moment } from 'moment';
-import { datoIkkeTilbakeITid } from '../../../utils/datoUtils';
-import moment from 'moment';
+import { erGyldigFormattertDato, inputDatostringTilISODate, ISODateTilInputDatostring } from './moment-utils';
+import moment, { Moment } from 'moment';
+import { datoIkkeTilbakeITid } from '@/utils/datoUtils';
 
 interface Props {
     valgtDato: Moment;

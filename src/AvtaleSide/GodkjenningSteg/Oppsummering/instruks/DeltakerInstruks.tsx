@@ -1,14 +1,15 @@
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import VeilederpanelMedUtklippstavleIkon from '../../../../komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import EkstbanderbartPanelRad from '../../../../komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import { ReactComponent as RettighetsHammerIkon } from '../../../../assets/ikoner/law.svg';
-import { ReactComponent as GiBeskjedOmBorteFraJobb } from '../../../../assets/ikoner/giBeskjedOmBorteFraJobb.svg';
-import { ReactComponent as EmailSend } from '../../../../assets/ikoner/email-send-3.svg';
-import BEMHelper from '../../../../utils/bem';
+import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import { ReactComponent as RettighetsHammerIkon } from '@/assets/ikoner/law.svg';
+import { ReactComponent as GiBeskjedOmBorteFraJobb } from '@/assets/ikoner/giBeskjedOmBorteFraJobb.svg';
+import { ReactComponent as EmailSend } from '@/assets/ikoner/email-send-3.svg';
+import BEMHelper from '@/utils/bem';
 import './instruks.less';
+
 const cls = BEMHelper('instruks');
 interface Props {
     erLaast: boolean;

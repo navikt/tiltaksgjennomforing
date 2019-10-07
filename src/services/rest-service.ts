@@ -1,18 +1,10 @@
-import ApiError from '../api-error';
-import AutentiseringError from '../autentisering-error';
-import { Rolle } from '../AvtaleContext';
-import {
-    Avtale,
-    Bedriftinfo,
-    GodkjentPaVegneGrunner,
-} from '../AvtaleSide/avtale';
-import {
-    InnloggetBruker,
-    Innloggingskilde,
-} from '../InnloggingBoundary/useInnlogget';
-import { basename } from '../paths';
-import { SIDE_FOER_INNLOGGING } from '../RedirectEtterLogin';
-import Varsel from '../varsel';
+import { ApiError, AutentiseringError } from '@/types/errors';
+import { Rolle } from '@/AvtaleContext';
+import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner } from '@/types/avtale';
+import { InnloggetBruker, Innloggingskilde } from '@/InnloggingBoundary/useInnlogget';
+import { basename } from '@/paths';
+import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
+import Varsel from '@/types/varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 

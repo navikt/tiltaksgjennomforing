@@ -1,7 +1,7 @@
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { pathTilOversikt } from '../../paths';
+import { pathTilOversikt } from '@/paths';
 import './TilbakeTilOversiktLenke.less';
 
 type Props = {

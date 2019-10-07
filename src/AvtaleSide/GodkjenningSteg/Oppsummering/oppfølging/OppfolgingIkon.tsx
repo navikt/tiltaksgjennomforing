@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OppfølgingIkon = () => (
+const OppfolgingIkon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -20,4 +20,4 @@ const OppfølgingIkon = () => (
     </svg>
 );
 
-export default OppfølgingIkon;
+export default OppfolgingIkon;

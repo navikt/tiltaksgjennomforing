@@ -2,11 +2,11 @@ import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import BEMHelper from '../../../../utils/bem';
-import { MaalListe } from '../../../avtale';
+import BEMHelper from '@/utils/bem';
+import { MaalListe } from '@/types/avtale';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './MaalOppsummering.less';
-import MålIkon from './MålIkon';
+import MaalIkon from './MaalIkon';
 
 const cls = BEMHelper('mål');
 
@@ -22,11 +22,11 @@ const MaalOppsummering: FunctionComponent<MaalListe> = props => {
         </div>
     ));
     return maalListe.length > 0 ? (
-        <Stegoppsummering ikon={<MålIkon />} tittel="Mål">
+        <Stegoppsummering ikon={<MaalIkon />} tittel="Mål">
             {maalListe}
         </Stegoppsummering>
     ) : (
-        <Stegoppsummering ikon={<MålIkon />} tittel="Mål">
+        <Stegoppsummering ikon={<MaalIkon />} tittel="Mål">
             <EtikettFokus className={cls.element('etikettInfo')}>
                 Mål er ikke fylt ut
             </EtikettFokus>
