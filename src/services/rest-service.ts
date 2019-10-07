@@ -14,7 +14,7 @@ export const API_URL = '/tiltaksgjennomforing/api';
 
 const featureTogglePath = (features: Feature[]): string => {
     const query = features.map(feature => `feature=${feature}`).join('&');
-    return API_URL + '/feature' + '?' + query;
+    return `${API_URL}/feature?${query}`;
 };
 
 export interface RestService {
