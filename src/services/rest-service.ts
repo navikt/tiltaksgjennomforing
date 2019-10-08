@@ -6,7 +6,12 @@ import {
 } from '@/InnloggingBoundary/useInnlogget';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
-import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner } from '@/types/avtale';
+import {
+    Avtale,
+    Bedriftinfo,
+    GodkjentPaVegneGrunner,
+    TiltaksType,
+} from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import Varsel from '@/types/varsel';
 
@@ -24,7 +29,7 @@ export interface RestService {
     opprettAvtale: (
         deltakerFnr: string,
         bedriftNr: string,
-        tiltakstype: string
+        tiltakstype: TiltaksType
     ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
@@ -114,7 +119,7 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 const opprettAvtale = async (
     deltakerFnr: string,
     bedriftNr: string,
-    tiltakstype: string
+    tiltakstype: TiltaksType
 ): Promise<Avtale> => {
     const postResponse = await fetch(`${API_URL}/avtaler`, {
         method: 'POST',

@@ -10,6 +10,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfort } from '@/paths';
 import RestService from '@/services/rest-service';
+import { TiltaksType } from '@/types/avtale';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
@@ -33,11 +34,6 @@ import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
-
-type TiltaksType =
-    | 'ARBEIDSTRENING'
-    | 'MIDLERTIDIG_LONNSTILSKUDD'
-    | 'VARIG_LONNSTILSKUDD';
 
 const OpprettAvtale: FunctionComponent<RouterProps> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');

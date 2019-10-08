@@ -14,6 +14,11 @@ export type Avtale = AvtaleMetadata &
     } & Tilrettelegging &
     Avbrytelse;
 
+export type TiltaksType =
+    | 'ARBEIDSTRENING'
+    | 'MIDLERTIDIG_LONNSTILSKUDD'
+    | 'VARIG_LONNSTILSKUDD';
+
 export interface AvtaleMetadata {
     id: string;
     opprettetTidspunkt: string;
