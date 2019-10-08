@@ -1,18 +1,36 @@
-import { ApiError, AutentiseringError } from '@/types/errors';
 import { Rolle } from '@/AvtaleContext';
-import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner } from '@/types/avtale';
-import { InnloggetBruker, Innloggingskilde } from '@/InnloggingBoundary/useInnlogget';
+import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import {
+    InnloggetBruker,
+    Innloggingskilde,
+} from '@/InnloggingBoundary/useInnlogget';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
+import {
+    Avtale,
+    Bedriftinfo,
+    GodkjentPaVegneGrunner,
+    TiltaksType,
+} from '@/types/avtale';
+import { ApiError, AutentiseringError } from '@/types/errors';
 import Varsel from '@/types/varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
+
+const featureTogglePath = (features: Feature[]): string => {
+    const query = features.map(feature => `feature=${feature}`).join('&');
+    return `${API_URL}/feature?${query}`;
+};
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
     hentAvtalerForInnloggetBruker: () => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
-    opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
+    opprettAvtale: (
+        deltakerFnr: string,
+        bedriftNr: string,
+        tiltakstype: TiltaksType
+    ) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
     godkjennAvtalePaVegne: (
@@ -27,6 +45,7 @@ export interface RestService {
     hentUlesteVarsler: () => Promise<Varsel[]>;
     hentAvtaleVarsler: (avtaleId: string) => Promise<Varsel[]>;
     settVarselTilLest: (varselId: string) => Promise<void>;
+    hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -99,13 +118,15 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 
 const opprettAvtale = async (
     deltakerFnr: string,
-    bedriftNr: string
+    bedriftNr: string,
+    tiltakstype: TiltaksType
 ): Promise<Avtale> => {
     const postResponse = await fetch(`${API_URL}/avtaler`, {
         method: 'POST',
         body: JSON.stringify({
             deltakerFnr,
             bedriftNr,
+            tiltakstype,
         }),
         headers: {
             'Content-Type': 'application/json',
@@ -216,6 +237,14 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
+const hentFeatureToggles = async (
+    featureToggles: Feature[]
+): Promise<FeatureToggles> => {
+    const response = await fetchGet(featureTogglePath(featureToggles));
+    await handleResponse(response);
+    return await response.json();
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -232,6 +261,7 @@ const restService: RestService = {
     hentUlesteVarsler,
     hentAvtaleVarsler,
     settVarselTilLest,
+    hentFeatureToggles,
 };
 
 export default restService;

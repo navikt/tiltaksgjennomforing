@@ -1,27 +1,37 @@
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import Lenke from 'nav-frontend-lenker';
-import { Input } from 'nav-frontend-skjema';
-import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { RouterProps, withRouter } from 'react-router';
-import RestService from '@/./services/rest-service';
-import { ApiError } from '@/types/errors';
 import { ReactComponent as AvtaleSignering } from '@/assets/ikoner/avtaleSignering.svg';
 import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check-circle.svg';
 import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
 import { ReactComponent as NokkelPunktForAvtale } from '@/assets/ikoner/nokkelPunktForAvtale.svg';
-
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import useValidering from '@/komponenter/useValidering';
-import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { pathTilOpprettAvtaleFullfort } from '@/paths';
+import RestService from '@/services/rest-service';
+import { TiltaksType } from '@/types/avtale';
+import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import Lenke from 'nav-frontend-lenker';
+import { Input, RadioPanel } from 'nav-frontend-skjema';
+import {
+    Innholdstittel,
+    Normaltekst,
+    Systemtittel,
+} from 'nav-frontend-typografi';
+import React, {
+    ChangeEvent,
+    FunctionComponent,
+    useContext,
+    useState,
+} from 'react';
+import { RouterProps, withRouter } from 'react-router';
 import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -100,6 +110,9 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     const hvaMangler = () => {
         const feil = [];
+        if (lonnstilskuddToggle && !valgtTiltaksType) {
+            feil.push('avtaletype');
+        }
         if (!validerFnr(deltakerFnr)) {
             feil.push('gyldig fødselsnummer for deltaker');
         }
@@ -107,7 +120,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
             feil.push('gyldig bedriftsnummer');
         }
         if (feil.length) {
-            return 'Må oppgi ' + feil.join(' og ');
+            return 'Du må oppgi: ' + feil.join(', ');
         } else {
             return '';
         }
@@ -118,7 +131,8 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
         if (!hvaSomManglerTekst) {
             const avtale = await RestService.opprettAvtale(
                 deltakerFnr,
-                bedriftNr
+                bedriftNr,
+                valgtTiltaksType || 'ARBEIDSTRENING'
             );
             props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {
@@ -126,28 +140,94 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
         }
     };
 
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType>();
+
+    const featureToggleContext = useContext(FeatureToggleContext);
+
+    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
+
+    const tittel = lonnstilskuddToggle
+        ? 'Opprett avtale'
+        : 'Opprett avtale om arbeidstrening';
+
+    if (lonnstilskuddToggle === undefined) return null;
+
     return (
         <div className="opprett-avtale">
             <Innholdstittel className="opprett-avtale__tittel">
-                Opprett avtale om arbeidstrening
+                {tittel}
             </Innholdstittel>
+            {lonnstilskuddToggle && (
+                <Innholdsboks className={cls.element('innholdsboks')}>
+                    <Systemtittel className={cls.element('innholdstittel')}>
+                        Velg type avtale
+                    </Systemtittel>
+                    <div className={cls.element('tiltakstypeWrapper')}>
+                        <RadioPanel
+                            name="tiltakstype"
+                            label="Arbeidstrening"
+                            value="ARBEIDSTRENING"
+                            checked={valgtTiltaksType === 'ARBEIDSTRENING'}
+                            onChange={() => setTiltaksType('ARBEIDSTRENING')}
+                        />
+                        <RadioPanel
+                            name="tiltakstype"
+                            label="Midlertidig lønnstilskudd"
+                            value="MIDLERTIDIG_LONNSTILSKUDD"
+                            checked={
+                                valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'
+                            }
+                            onChange={() =>
+                                setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')
+                            }
+                        />
+                        <RadioPanel
+                            name="tiltakstype"
+                            label="Varig lønnstilskudd"
+                            value="VARIG_LONNSTILSKUDD"
+                            checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
+                            onChange={() =>
+                                setTiltaksType('VARIG_LONNSTILSKUDD')
+                            }
+                        />
+                    </div>
+                </Innholdsboks>
+            )}
+            <Innholdsboks className={cls.element('innholdsboks')}>
+                <Systemtittel className={cls.element('innholdstittel')}>
+                    Knytt avtalen til andre parter
+                </Systemtittel>
+                <div className="opprett-avtale__input-wrapper">
+                    <div className="opprett-avtale__kandidat-fnr">
+                        <Input
+                            className="typo-element"
+                            label="Deltakers fødselsnummer"
+                            value={deltakerFnr}
+                            onChange={fnrOnChange}
+                            onBlur={validerDeltakerFnr}
+                            feil={deltakerFnrFeil}
+                        />
+                    </div>
 
-            <VeilederpanelMedUtklippstavleIkon>
-                <Element className="opprett-avtale__du-trenger-tekst">
-                    Du trenger:
-                </Element>
-                <ul>
-                    <li>
-                        <Normaltekst>Deltakers fødselsnummer</Normaltekst>
-                    </li>
-                    <li>
-                        <Normaltekst>Arbeidsgivers bedriftsnummer</Normaltekst>
-                    </li>
-                </ul>
-            </VeilederpanelMedUtklippstavleIkon>
-
+                    <div className="opprett-avtale__arbeidsgiver-bedriftNr">
+                        <Input
+                            className="typo-element"
+                            label="Bedriftsnummer"
+                            value={bedriftNr}
+                            onChange={orgnrOnChange}
+                            onBlur={orgnrOnBlur}
+                            feil={bedriftNrFeil}
+                        />
+                        {bedriftNavn && (
+                            <Normaltekst className="opprett-avtale__bedriftNavn">
+                                {bedriftNavn}
+                            </Normaltekst>
+                        )}
+                    </div>
+                </div>
+            </Innholdsboks>
             <Ekspanderbartpanel
-                tittel="Sånn fungerer det"
+                tittel="Slik fungerer løsningen"
                 tittelProps="element"
                 border={true}
             >
@@ -190,35 +270,6 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                     avtalen slik at arbeidstreningen kan starte.
                 </EkstbanderbartPanelRad>
             </Ekspanderbartpanel>
-
-            <div className="opprett-avtale__input-wrapper">
-                <div className="opprett-avtale__kandidat-fnr">
-                    <Input
-                        className="typo-element"
-                        label="Deltakers fødselsnummer"
-                        value={deltakerFnr}
-                        onChange={fnrOnChange}
-                        onBlur={validerDeltakerFnr}
-                        feil={deltakerFnrFeil}
-                    />
-                </div>
-
-                <div className="opprett-avtale__arbeidsgiver-bedriftNr">
-                    <Input
-                        className="typo-element"
-                        label="Bedriftsnummer"
-                        value={bedriftNr}
-                        onChange={orgnrOnChange}
-                        onBlur={orgnrOnBlur}
-                        feil={bedriftNrFeil}
-                    />
-                    {bedriftNavn && (
-                        <Normaltekst className="opprett-avtale__bedriftNavn">
-                            {bedriftNavn}
-                        </Normaltekst>
-                    )}
-                </div>
-            </div>
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
                     lagre={opprettAvtaleKlikk}

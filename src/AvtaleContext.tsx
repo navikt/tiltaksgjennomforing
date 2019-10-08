@@ -1,11 +1,11 @@
+import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
+import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
+import { ApiError } from '@/types/errors';
+import Varsel from '@/types/varsel';
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import { ApiError } from '@/types/errors';
-import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
-import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import RestService from './services/rest-service';
-import Varsel from '@/types/varsel';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -90,7 +90,6 @@ export interface Context {
     lagreOppgave: (oppgave: Oppgave) => Promise<any>;
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     hentAvtale: (avtaleId: string) => Promise<any>;
-    opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<any>;
     godkjenn: (godkjent: boolean) => Promise<any>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
@@ -305,17 +304,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return this.lagreAvtale();
     }
 
-    async opprettAvtale(
-        deltakerFnr: string,
-        bedriftNr: string
-    ): Promise<Avtale> {
-        const avtale = await RestService.opprettAvtale(deltakerFnr, bedriftNr);
-        this.setState({
-            avtale,
-        });
-        return avtale;
-    }
-
     async godkjennAvtale() {
         const avtale = this.state.avtale;
         await RestService.godkjennAvtale(avtale);
@@ -363,7 +351,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             lagreOppgave: this.lagreOppgave,
             slettOppgave: this.slettOppgave,
             hentAvtale: this.hentAvtale,
-            opprettAvtale: this.opprettAvtale,
             hentRolle: this.hentRolle,
             godkjenn: this.godkjennAvtale,
             avbryt: this.avbrytAvtale,
