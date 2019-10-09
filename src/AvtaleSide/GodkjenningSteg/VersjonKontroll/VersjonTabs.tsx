@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
 import BEMHelper from '../../../utils/bem';
-import { Avtale } from '../../avtale';
+import { Avtale } from '@/types/avtale';
 import Tabs from 'nav-frontend-tabs';
 import Stegoppsummering from '../Oppsummering/Stegoppsummering/Stegoppsummering';
-import OppfølgingIkon from '../Oppsummering/oppfølging/OppfølgingIkon';
+import OppfølgingIkon from '../Oppsummering/oppfølging/OppfolgingIkon';
 import PanelBase, { Panel } from 'nav-frontend-paneler';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import RestService from '../../../services/rest-service';

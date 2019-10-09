@@ -1,6 +1,6 @@
 import { Textarea } from 'nav-frontend-skjema';
 import React from 'react';
-import usePaakrevd from '../usePaakrevd';
+import usePaakrevd from '@/komponenter/usePaakrevd';
 
 interface Props {
     className?: string;
@@ -34,6 +34,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
             maxLength={props.maxLengde}
             tellerTekst={lagTellerTekst}
             onBlur={sjekkInputfelt}
+            textareaClass={props.className || ''}
         />
     );
 };

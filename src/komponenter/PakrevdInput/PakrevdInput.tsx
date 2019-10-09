@@ -1,6 +1,6 @@
 import { Input } from 'nav-frontend-skjema';
 import React from 'react';
-import usePaakrevd from '../usePaakrevd';
+import usePaakrevd from '@/komponenter/usePaakrevd';
 
 interface Props {
     className?: string;

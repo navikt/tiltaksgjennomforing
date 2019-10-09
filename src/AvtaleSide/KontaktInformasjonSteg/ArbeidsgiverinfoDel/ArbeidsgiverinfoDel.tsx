@@ -2,9 +2,9 @@ import * as _ from 'lodash';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Context, medContext } from '../../../AvtaleContext';
-import PakrevdInput from '../../../komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '../../../komponenter/TelefonnummerInput/TelefonnummerInput';
+import { Context, medContext } from '@/AvtaleContext';
+import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import './ArbeidsgiverinfoDel.less';
 
 const ArbeidsgiverinfoDel = (props: Context) => (

@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleContext';
 import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
+import { FeatureToggleProvider } from './FeatureToggleProvider';
 import Informasjonsside from './Informajonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import LandingsSide from './LandingsSide/LandingsSide';
@@ -36,43 +37,45 @@ class App extends React.Component {
                         />
                         <InnloggingBoundary>
                             <RedirectEtterLogin>
-                                <Route
-                                    path=""
-                                    exact={true}
-                                    component={AvtaleOversikt}
-                                />
-                                <Route
-                                    path={pathTilInformasjonssideInnlogget}
-                                    exact={true}
-                                    component={Informasjonsside}
-                                />
-                                <Route
-                                    path={pathTilOpprettAvtale}
-                                    exact={true}
-                                    component={OpprettAvtale}
-                                />
-                                <Route
-                                    path={pathTilOpprettAvtaleFullfort(
-                                        ':avtaleId'
-                                    )}
-                                    exact={true}
-                                    component={OpprettelseFullfort}
-                                />
-                                <AvtaleProvider>
+                                <FeatureToggleProvider>
                                     <Route
-                                        path={pathTilAvtale(':avtaleId')}
+                                        path="/"
                                         exact={true}
-                                        component={LandingsSide}
+                                        component={AvtaleOversikt}
                                     />
                                     <Route
-                                        path={pathTilStegIAvtale(
-                                            ':avtaleId',
-                                            ':stegPath'
+                                        path={pathTilInformasjonssideInnlogget}
+                                        exact={true}
+                                        component={Informasjonsside}
+                                    />
+                                    <Route
+                                        path={pathTilOpprettAvtale}
+                                        exact={true}
+                                        component={OpprettAvtale}
+                                    />
+                                    <Route
+                                        path={pathTilOpprettAvtaleFullfort(
+                                            ':avtaleId'
                                         )}
                                         exact={true}
-                                        component={AvtaleSide}
+                                        component={OpprettelseFullfort}
                                     />
-                                </AvtaleProvider>
+                                    <AvtaleProvider>
+                                        <Route
+                                            path={pathTilAvtale(':avtaleId')}
+                                            exact={true}
+                                            component={LandingsSide}
+                                        />
+                                        <Route
+                                            path={pathTilStegIAvtale(
+                                                ':avtaleId',
+                                                ':stegPath'
+                                            )}
+                                            exact={true}
+                                            component={AvtaleSide}
+                                        />
+                                    </AvtaleProvider>
+                                </FeatureToggleProvider>
                             </RedirectEtterLogin>
                         </InnloggingBoundary>
                     </Switch>

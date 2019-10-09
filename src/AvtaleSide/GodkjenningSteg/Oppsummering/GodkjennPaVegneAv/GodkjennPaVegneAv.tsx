@@ -1,8 +1,8 @@
-import React, { useReducer, Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useReducer } from 'react';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import './GodkjennPaVegneAv.less';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { GodkjentPaVegneGrunner } from '../../../avtale';
+import { GodkjentPaVegneGrunner } from '@/types/avtale';
 
 type Grunner = GodkjentPaVegneGrunner;
 

@@ -3,7 +3,7 @@ version: 2.1
 jobs:
     bygg:
         docker:
-            - image: circleci/node:10
+            - image: circleci/node
         steps:
             - checkout
             - restore_cache:
@@ -13,16 +13,20 @@ jobs:
                       - node-v1-{{ .Branch }}-
                       - node-v1-
             - run:
-                  name: Bygg React app
-                  command: |
-                      npm ci
-                      npm run build
+                  name: Intallerer
+                  command: npm i --no-optional
+            - run:
+                  name: Tester React app
+                  command: npm test
+            - run:
+                  name: Bygger React app
+                  command: npm run build
             - save_cache:
                   paths:
                       - ~/usr/local/lib/node_modules # location depends on npm version
                   key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-
-            - setup_remote_docker
+            - setup_remote_docker:
+                  docker_layer_caching: true
             - run:
                   name: Bygger Docker image
                   command: docker build -t "navikt/tiltaksgjennomforing:$CIRCLE_SHA1" .

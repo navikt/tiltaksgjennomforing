@@ -4,26 +4,26 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { InnloggetBruker } from '../InnloggingBoundary/useInnlogget';
-import Banner from '../komponenter/Banner/Banner';
-import StatusIkon from '../komponenter/StatusIkon/StatusIkon';
+import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
+import Banner from '@/komponenter/Banner/Banner';
+import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import {
     pathTilInformasjonssideInnlogget,
     pathTilKontaktinformasjonSteg,
     pathTilOpprettAvtale,
-} from '../paths';
-import RestService from '../services/rest-service';
-import BEMHelper from '../utils/bem';
-import Varsel from '../varsel';
-import { Avtale } from './avtale';
-import './AvtaleOversikt.less';
+} from '@/paths';
+import RestService from '@/services/rest-service';
+import BEMHelper from '@/utils/bem';
+import Varsel from '@/types/varsel';
+import { Avtale } from '@/types/avtale';
+import './avtaleOversikt.less';
 import Natur from './natur';
-import { ReactComponent as TilEkstern } from './../assets/ikoner/external-link.svg';
+import { ReactComponent as TilEkstern } from '@/assets/ikoner/external-link.svg';
 import Lenke from 'nav-frontend-lenker';
 
 const cls = BEMHelper('avtaleoversikt');

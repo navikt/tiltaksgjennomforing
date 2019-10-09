@@ -3,12 +3,12 @@ import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import Veileder from 'nav-frontend-veileder';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Context, medContext } from '../AvtaleContext';
-import AvtaleFetcher from '../AvtaleSide/AvtaleFetcher';
+import { Context, medContext } from '@/AvtaleContext';
+import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import {
     pathTilGodkjenningsSteg,
     pathTilKontaktinformasjonSteg,
-} from '../paths';
+} from '@/paths';
 import './LandingsSide.less';
 import veilederIkon from './veileder.svg';
 
@@ -34,7 +34,7 @@ const LandingsSide: React.FunctionComponent<Props> = props => {
                 </>
             }
         >
-            <img src={veilederIkon} />
+            <img src={veilederIkon} alt="Veileder" />
         </Veileder>
     );
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Context, Rolle } from '../../AvtaleContext';
-import BekreftelseModal from '../../komponenter/modal/BekreftelseModal';
-import BEMHelper from '../../utils/bem';
+import { Rolle } from '@/AvtaleContext';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import BEMHelper from '@/utils/bem';
 import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
-import { Avtale } from '../avtale';
+import { Avtale } from '@/types/avtale';
 import { StegInfo } from '../AvtaleSide';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import NesteForrige from '../NesteForrige/NesteForrige';
@@ -17,6 +17,7 @@ interface Props {
     varsler?: JSX.Element[];
     avtale: Avtale;
     avbrytAvtale: () => Promise<void>;
+    tilbakeTilOversiktKlikk: () => void;
 }
 
 const cls = BEMHelper('avtaleside');
@@ -33,14 +34,15 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             <div className="avtaleside__desktop">
                 {props.varsler}
                 <div className={cls.element('lenkerlinje')}>
-                    <TilbakeTilOversiktLenke />
+                    <TilbakeTilOversiktLenke
+                        onClick={props.tilbakeTilOversiktKlikk}
+                    />
                     <div className="avtaleside__avbrytOgDelLenk">
                         {' '}
                         {props.avtale.kanAvbrytes &&
                             !props.avtale.avbrutt &&
                             props.rolle === 'VEILEDER' && (
                                 <AvbryteAvtalen
-                                    avtale={props.avtale}
                                     avbrytOnclick={bekreftelseAvbrytAvtalen}
                                 />
                             )}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import VarselKomponent from '../komponenter/Varsel/VarselKomponent';
+import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';

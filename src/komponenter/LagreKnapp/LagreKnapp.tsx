@@ -1,9 +1,8 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import React, { Component } from 'react';
-import ApiError from '../../api-error';
-import VarselKomponent from '../Varsel/VarselKomponent';
+import { ApiError, UfullstendigError } from '@/types/errors';
+import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import './LagreKnapp.less';
-import UfullstendigError from '../../ufullstendig-error';
 
 interface State {
     suksessmelding: string;

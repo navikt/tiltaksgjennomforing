@@ -1,7 +1,7 @@
 import React from 'react';
-import TypografiBase, { Normaltekst, Element } from 'nav-frontend-typografi';
+import TypografiBase, { Normaltekst } from 'nav-frontend-typografi';
 import './EksbanderbartPanelRad.less';
-import BEMHelper from '../../utils/bem';
+import BEMHelper from '@/utils/bem';
 
 interface Props {
     svgIkon: React.ReactNode;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Undertittel } from 'nav-frontend-typografi';
 import './Stegoppsummering.less';
-import BEMHelper from '../../../../utils/bem';
+import BEMHelper from '@/utils/bem';
 
 const cls = BEMHelper('stegoppsummering');
 

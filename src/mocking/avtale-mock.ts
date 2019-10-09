@@ -1,4 +1,4 @@
-import { Avtale, Maal, Oppgave } from '../AvtaleSide/avtale';
+import { Avtale, Maal, Oppgave } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {

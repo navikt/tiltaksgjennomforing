@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Maal } from '../../avtale';
-import Innholdsboks from '../../../komponenter/Innholdsboks/Innholdsboks';
+import { Maal } from '@/types/avtale';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import './MaalKort.less';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import LagretMaal from './LagretMaal/LagretMaal';
-import { Maalkategori } from '../../maalkategorier';
+import { Maalkategori } from '@/types/maalkategorier';
 
 interface Props {
     maal: Maal;

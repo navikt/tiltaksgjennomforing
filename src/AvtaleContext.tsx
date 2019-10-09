@@ -1,16 +1,11 @@
+import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
+import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
+import { ApiError } from '@/types/errors';
+import Varsel from '@/types/varsel';
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import ApiError from './api-error';
-import {
-    Avtale,
-    GodkjentPaVegneGrunner,
-    Maal,
-    Oppgave,
-} from './AvtaleSide/avtale';
-import VarselKomponent from './komponenter/Varsel/VarselKomponent';
 import RestService from './services/rest-service';
-import Varsel from './varsel';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -113,6 +108,7 @@ export interface Context {
     hentVarsler: (avtaleId: string) => Promise<any>;
     settVarselTilLest: (varselId: string) => Promise<void>;
     kanLaasesOpp: (avtaleId: string) => Promise<Avtale>;
+    harUlagredeEndringer: () => boolean;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -169,6 +165,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
         this.hentVarsler = this.hentVarsler.bind(this);
         this.settVarselTilLest = this.settVarselTilLest.bind(this);
+        this.harUlagredeEndringer = this.harUlagredeEndringer.bind(this);
     }
 
     mellomLagreMaal(maalInput: TemporaryLagring): void {
@@ -358,6 +355,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return this.hentVarsler(this.state.avtale.id);
     }
 
+    harUlagredeEndringer() {
+        return this.state.ulagredeEndringer;
+    }
+
     async kanLaasesOpp(avtaleId: string) {
         const avtaleRevisjonIkkeGodkjent = await RestService.kanLaasesOpp(
             avtaleId
@@ -395,6 +396,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             hentVarsler: this.hentVarsler,
             settVarselTilLest: this.settVarselTilLest,
             kanLaasesOpp: this.kanLaasesOpp,
+            harUlagredeEndringer: this.harUlagredeEndringer,
         };
 
         return (

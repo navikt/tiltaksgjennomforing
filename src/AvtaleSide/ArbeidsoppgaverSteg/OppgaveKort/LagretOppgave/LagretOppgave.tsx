@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Oppgave } from '../../../avtale';
-import KnappMedIkon from '../../../../komponenter/KnappMedIkon/KnappMedIkon';
+import { Oppgave } from '@/types/avtale';
+import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 
 interface Props {
     oppgave: Oppgave;

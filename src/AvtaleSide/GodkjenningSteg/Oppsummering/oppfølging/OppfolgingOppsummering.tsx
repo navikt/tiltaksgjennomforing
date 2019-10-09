@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import BEMHelper from '../../../../utils/bem';
-import { Oppfolging } from '../../../avtale';
+import BEMHelper from '@/utils/bem';
+import { Oppfolging } from '@/types/avtale';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './OppfolgingOppsummering.less';
-import OppfølgingIkon from './OppfølgingIkon';
+import OppfolgingIkon from './OppfolgingIkon';
 
 const cls = BEMHelper('oppfolging');
 
 const OppfolgingOppsummering: FunctionComponent<Oppfolging> = ({
     oppfolging,
 }) => (
-    <Stegoppsummering ikon={<OppfølgingIkon />} tittel="Oppfølging">
+    <Stegoppsummering ikon={<OppfolgingIkon />} tittel="Oppfølging">
         <div className={cls.className}>
             <SjekkOmVerdiEksisterer
                 clsName={cls.className}

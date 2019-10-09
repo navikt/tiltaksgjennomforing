@@ -1,4 +1,4 @@
-import { Maalkategori, maalkategorier } from '../maalkategorier';
+import { Maalkategori, maalkategorier } from '@/types/maalkategorier';
 
 export const finnLedigeMaalkategorier = (
     brukteKategorier: Maalkategori[]

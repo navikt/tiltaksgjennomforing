@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import BEMHelper from '../../../../utils/bem';
-import { Tilrettelegging as TilretteleggingInfo } from '../../../avtale';
+import BEMHelper from '@/utils/bem';
+import { Tilrettelegging as TilretteleggingInfo } from '@/types/avtale';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './tilrettelegging.less';

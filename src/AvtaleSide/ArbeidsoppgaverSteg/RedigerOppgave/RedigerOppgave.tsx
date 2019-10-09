@@ -1,10 +1,10 @@
 import { Input, Textarea } from 'nav-frontend-skjema';
 import * as React from 'react';
-import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
-import { Oppgave } from '../../avtale';
-import ApiError from '../../../api-error';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import { Oppgave } from '@/types/avtale';
+import { ApiError } from '@/types/errors';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { TemporaryLagringArbeidsoppgave } from '../../../AvtaleContext';
+import { TemporaryLagringArbeidsoppgave } from '@/AvtaleContext';
 
 interface Props {
     lagreOppgave: (oppgave: Oppgave) => Promise<any>;

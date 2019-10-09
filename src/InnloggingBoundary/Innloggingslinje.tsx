@@ -1,11 +1,11 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Knapp } from 'nav-frontend-knapper';
-import { EtikettLiten, Normaltekst } from 'nav-frontend-typografi';
+import { EtikettLiten } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
-import { ReactComponent as NavIkon } from '../assets/ikoner/navikon.svg';
-import BEMHelper from '../utils/bem';
+import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
+import BEMHelper from '@/utils/bem';
 import './Innloggingslinje.less';
 import { InnloggetBruker } from './useInnlogget';
 
