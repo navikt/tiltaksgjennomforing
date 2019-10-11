@@ -32,7 +32,7 @@ export interface RestService {
         tiltakstype: TiltaksType
     ) => Promise<Avtale>;
     // opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
-    opprettNyAvtaleRevisjon: (avtale: Avtale) => Promise<Avtale>;
+    opprettNyAvtaleGodkjentVersjon: (avtale: Avtale) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
     godkjennAvtalePaVegne: (
@@ -144,14 +144,14 @@ const opprettAvtale = async (
     return { ...avtale, id: `${avtale.id}` };
 };
 
-const opprettNyAvtaleRevisjon = async (
-    avtaleForRevisjon: Avtale
+const opprettNyAvtaleGodkjentVersjon = async (
+    avtaleForGodkjentVersjon: Avtale
 ): Promise<Avtale> => {
-    const uri = `${API_URL}/avtaler/opprettAvtaleRevisjon/${avtaleForRevisjon.id}`;
-    const deltakerFnr = avtaleForRevisjon.deltakerFnr;
-    const bedriftNr = avtaleForRevisjon.bedriftNr;
-    const revisjon = avtaleForRevisjon.revisjon;
-    const baseAvtaleId = avtaleForRevisjon.id;
+    const uri = `${API_URL}/avtaler/opprettAvtaleGodkjentVersjon/${avtaleForGodkjentVersjon.id}`;
+    const deltakerFnr = avtaleForGodkjentVersjon.deltakerFnr;
+    const bedriftNr = avtaleForGodkjentVersjon.bedriftNr;
+    const godkjentVersjon = avtaleForGodkjentVersjon.godkjentVersjon;
+    const baseAvtaleId = avtaleForGodkjentVersjon.id;
     console.log(baseAvtaleId);
     const postResponse = await fetch(uri, {
         method: 'post',
@@ -160,7 +160,7 @@ const opprettNyAvtaleRevisjon = async (
             bedriftNr,
 
             baseAvtaleId,
-            revisjon,
+            godkjentVersjon,
         }),
         headers: { 'Content-Type': 'application/json' },
     });
@@ -287,7 +287,7 @@ const restService: RestService = {
     hentAvtalerForInnloggetBruker,
     lagreAvtale,
     opprettAvtale,
-    opprettNyAvtaleRevisjon,
+    opprettNyAvtaleGodkjentVersjon,
     hentRolle,
     godkjennAvtale: godkjennAvtale,
     godkjennAvtalePaVegne: godkjennAvtalePaVegne,

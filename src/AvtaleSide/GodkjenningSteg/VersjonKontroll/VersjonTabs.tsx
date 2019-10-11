@@ -29,23 +29,23 @@ const cls = BEMHelper('versjonTabs');
 
 const VersjonTabs: React.FunctionComponent<Props> = props => {
     const [index, setIndex] = useState(0);
-    const opprettNyAvtaleRevisjonklikk = async () => {
-        const nyAvtaleRevisjon = await RestService.opprettNyAvtaleRevisjon(
+    const opprettNyAvtaleGodkjentVersjonklikk = async () => {
+        const nyAvtaleGodkjentVersjon = await RestService.opprettNyAvtaleGodkjentVersjon(
             props.avtale
         );
-        //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleRevisjon.id));
-        // this.setState({nyAvtaleRevisjon});
-        if (nyAvtaleRevisjon != null) {
+        //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleGodkjentVersjon.id));
+        // this.setState({nyAvtaleGodkjentVersjon});
+        if (nyAvtaleGodkjentVersjon != null) {
             console.log(
-                nyAvtaleRevisjon.id +
-                    ', new revisjon: ' +
-                    nyAvtaleRevisjon.revisjon
+                nyAvtaleGodkjentVersjon.id +
+                    ', new godkjentVersjon: ' +
+                    nyAvtaleGodkjentVersjon.godkjentVersjon
             );
             props.history.push(
-                pathTilKontaktinformasjonSteg(nyAvtaleRevisjon.id)
+                pathTilKontaktinformasjonSteg(nyAvtaleGodkjentVersjon.id)
             );
             window.location.replace(
-                pathTilKontaktinformasjonSteg(nyAvtaleRevisjon.id)
+                pathTilKontaktinformasjonSteg(nyAvtaleGodkjentVersjon.id)
             );
         }
     };
@@ -74,7 +74,7 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
             {' '}
             <Stegoppsummering
                 ikon={<OppfølgingIkon />}
-                tittel="Revisjon kontrolering"
+                tittel="GodkjentVersjon kontrollering"
             >
                 <Tabs
                     tabs={[
@@ -98,8 +98,10 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                         {console.log(kanLaasesOpp())}
                         {kanLaasesOpp() && props.rolle === 'VEILEDER' && (
                             <LagreKnapp
-                                label={'Lås opp avtalen/ lag ny revisjon'}
-                                lagre={opprettNyAvtaleRevisjonklikk}
+                                label={
+                                    'Lås opp avtalen/ lag ny godkjentVersjon'
+                                }
+                                lagre={opprettNyAvtaleGodkjentVersjonklikk}
                             >
                                 {' '}
                                 Lås opp avtalen

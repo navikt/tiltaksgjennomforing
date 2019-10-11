@@ -12,7 +12,7 @@ export const tomAvtale: Avtale = {
     baseAvtaleId: '',
     opprettetTidspunkt: '',
     versjon: '',
-    revisjon: '',
+    godkjentVersjon: '',
     deltakerFnr: '',
     deltakerFornavn: '',
     deltakerEtternavn: '',
@@ -91,8 +91,8 @@ export interface Context {
     lagreOppgave: (oppgave: Oppgave) => Promise<any>;
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     hentAvtale: (avtaleId: string) => Promise<any>;
-    opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
-    opprettNyAvaleRevisjon: (avtale: Avtale) => Promise<Avtale>;
+    //  opprettAvtale: (deltakerFnr: string, bedriftNr: string) => Promise<Avtale>;
+    opprettNyAvaleGodkjentVersjon: (avtale: Avtale) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<any>;
     godkjenn: (godkjent: boolean) => Promise<any>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
@@ -308,7 +308,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return this.lagreAvtale();
     }
 
-    async opprettAvtale(
+    /*async opprettAvtale(
         deltakerFnr: string,
         bedriftNr: string
     ): Promise<Avtale> {
@@ -317,10 +317,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             avtale,
         });
         return avtale;
-    }
+    }*/
 
-    async opprettNyAvtaleRevisjon(avtale: Avtale): Promise<Avtale> {
-        avtale = await RestService.opprettNyAvtaleRevisjon(avtale);
+    async opprettNyAvtaleGodkjentVersjon(avtale: Avtale): Promise<Avtale> {
+        avtale = await RestService.opprettNyAvtaleGodkjentVersjon(avtale);
         this.setState({ avtale });
         return avtale;
     }
@@ -360,10 +360,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async kanLaasesOpp(avtaleId: string) {
-        const avtaleRevisjonIkkeGodkjent = await RestService.kanLaasesOpp(
+        const avtaleGodkjentVersjonIkkeGodkjent = await RestService.kanLaasesOpp(
             avtaleId
         );
-        return avtaleRevisjonIkkeGodkjent;
+        return avtaleGodkjentVersjonIkkeGodkjent;
     }
 
     render() {
@@ -380,8 +380,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             lagreOppgave: this.lagreOppgave,
             slettOppgave: this.slettOppgave,
             hentAvtale: this.hentAvtale,
-            opprettAvtale: this.opprettAvtale,
-            opprettNyAvaleRevisjon: this.opprettNyAvtaleRevisjon,
+            // opprettAvtale: this.opprettAvtale,
+            opprettNyAvaleGodkjentVersjon: this.opprettNyAvtaleGodkjentVersjon,
             hentRolle: this.hentRolle,
             godkjenn: this.godkjennAvtale,
             avbryt: this.avbrytAvtale,

@@ -24,7 +24,7 @@ export interface AvtaleMetadata {
     baseAvtaleId?: string;
     opprettetTidspunkt: string;
     versjon: string;
-    revisjon: string;
+    godkjentVersjon: string;
 }
 
 export interface Deltakerinfo {
