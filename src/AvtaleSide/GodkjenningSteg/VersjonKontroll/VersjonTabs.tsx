@@ -29,6 +29,7 @@ const cls = BEMHelper('versjonTabs');
 
 const VersjonTabs: React.FunctionComponent<Props> = props => {
     const [index, setIndex] = useState(0);
+    const [kanLaasesOpp, setKanLaasesOpp] = useState();
     const opprettNyAvtaleGodkjentVersjonklikk = async () => {
         const nyAvtaleGodkjentVersjon = await RestService.opprettNyAvtaleGodkjentVersjon(
             props.avtale
@@ -49,7 +50,7 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
             );
         }
     };
-    const kanLaasesOpp = async () => {
+    /*  const kanLaasesOpp = await () => {
         const avtale = await RestService.kanLaasesOpp(props.avtale.id)
             .then()
             .catch();
@@ -58,17 +59,17 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
         console.log('avtale.id' + avtale.id);
         // console.log(avtale[Symbol.toStringTag].trim());
         console.log(JSON.stringify(avtale));
-        /*  Avtale a= (avtale as Avtale).id;
+        /!*  Avtale a= (avtale as Avtale).id;
         const a=JSON.parse(JSON. avtale,("id",avtaleId)=>{return avtaleId;});
-*/
-        /*
+*!/
+        /!*
         if (avtale.id === props.avtale.id) {
             return true;
         } else {
             return false;
-        }*/
+        }*!/
         return avtale;
-    };
+    };*/
     return (
         <div className={cls.className}>
             {' '}
@@ -95,18 +96,23 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                 />
                 {index === 0 ? (
                     <Panel id="først">
-                        {console.log(kanLaasesOpp())}
-                        {kanLaasesOpp() && props.rolle === 'VEILEDER' && (
-                            <LagreKnapp
-                                label={
-                                    'Lås opp avtalen/ lag ny godkjentVersjon'
-                                }
-                                lagre={opprettNyAvtaleGodkjentVersjonklikk}
-                            >
-                                {' '}
-                                Lås opp avtalen
-                            </LagreKnapp>
-                        )}
+                        {console.log(props.kanLaasesOpp(props.avtale.id))}
+                        {props
+                            .kanLaasesOpp(props.avtale.id)
+                            .then(result => setKanLaasesOpp(result)) &&
+                            kanLaasesOpp &&
+                            props.rolle === 'VEILEDER' && (
+                                <LagreKnapp
+                                    label={
+                                        'Lås opp avtalen/ lag ny godkjentVersjon'
+                                    }
+                                    lagre={opprettNyAvtaleGodkjentVersjonklikk}
+                                >
+                                    {' '}
+                                    Lås opp avtalen
+                                </LagreKnapp>
+                            )}
+                        {console.log(kanLaasesOpp + ' etter')}
                     </Panel>
                 ) : null}
                 {index === 1 ? (

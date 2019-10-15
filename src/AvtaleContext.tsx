@@ -107,7 +107,8 @@ export interface Context {
     setMellomLagreArbeidsoppgaveTom: () => void;
     hentVarsler: (avtaleId: string) => Promise<any>;
     settVarselTilLest: (varselId: string) => Promise<void>;
-    kanLaasesOpp: (avtaleId: string) => Promise<Avtale>;
+    kanLaasesOpp: (avtaleId: string) => Promise<boolean>;
+    // kanLaasesOpp: (avtaleId: string) => Promise<Avtale>;
     harUlagredeEndringer: () => boolean;
 }
 
@@ -360,10 +361,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async kanLaasesOpp(avtaleId: string) {
-        const avtaleGodkjentVersjonIkkeGodkjent = await RestService.kanLaasesOpp(
-            avtaleId
-        );
-        return avtaleGodkjentVersjonIkkeGodkjent;
+        const avtaleKanLaasesOpp = await RestService.kanLaasesOpp(avtaleId);
+        return avtaleKanLaasesOpp;
     }
 
     render() {
