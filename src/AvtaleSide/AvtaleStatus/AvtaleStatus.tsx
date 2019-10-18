@@ -13,36 +13,30 @@ const cls = BEMHelper('avtalestatus');
 interface Props {
     avtale: Avtale;
     rolle: Rolle;
-    // godkjentAvtale: boolean;
+    godkjentAvtale?: boolean;
 }
 
 const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
-    // const godkjentStatus: string = props.avtale.godkjentAvtale
-    //     ? 'Avtale godkjent'
-    //     : 'Må godkjenne';
-
-    // const info = () => {
-    //     if (props.rolle === 'DELTAKER') {
-    //         return {
-    //             header: `Deltaker må godkjenne avtalen`,
-    //         };
-    //     } else if (props.rolle === 'ARBEIDSGIVER') {
-    //         return {
-    //             header: `Du må godkjenne avtalen`,
-    //         };
-    //     } else if (props.rolle === 'VEILEDER') {
-    //         return {
-    //             header: `Veilder må godkjenne avtalen`,
-    //         };
-    //     } else {
-    //         return {};
-    //     }
-    // };
-
-    // const statusIkon = () => {
-    //     if (props.avtale.status === 'VEILEDER') {
-    //     }
-    // };
+    const info = () => {
+        if (props.rolle === 'DELTAKER') {
+            return {
+                status: props.avtale.godkjentAvDeltaker,
+                // header: `Du må godkjenne avtalen`,
+            };
+        } else if (props.rolle === 'ARBEIDSGIVER') {
+            return {
+                status: props.avtale.godkjentAvArbeidsgiver,
+                // header: `Du må godkjenne avtalen`,
+            };
+        } else if (props.rolle === 'VEILEDER') {
+            return {
+                status: props.avtale.godkjentAvVeileder,
+                // header: `Veilder må godkjenne avtalen`,
+            };
+        } else {
+            return {};
+        }
+    };
 
     const hentParter = () => {
         if (props.rolle === 'VEILEDER') {
@@ -76,10 +70,17 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <Innholdsboks className={cls.element('innholdsboks')}>
             <div className={cls.element('hovedIkon')}>
-                <img
-                    className={cls.element('hovedIkon__resize')}
-                    src={CheckIkon}
-                />
+                {info().status == true ? (
+                    <img
+                        className={cls.element('hovedIkon__resize')}
+                        src={CheckIkon}
+                    />
+                ) : (
+                    <img
+                        className={cls.element('hovedIkon__resize')}
+                        src={VarselIkon}
+                    />
+                )}
             </div>
             <Innholdstittel className={cls.element('header')}>
                 {/* {info().header} */}
