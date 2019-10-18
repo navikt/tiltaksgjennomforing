@@ -24,6 +24,7 @@ import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppfolgingTilretteleggingSteg from './OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
 
 interface MatchProps {
     avtaleId: string;
@@ -180,7 +181,11 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AlertStripe
+                            {/* <AvtaleStatus
+                                avtale={props.avtale}
+                                rolle={props.rolle}
+                            /> */}
+                            {/* <AlertStripe
                                 className={cls.element('banner')}
                                 type="info"
                             >
@@ -188,7 +193,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 av hensyn til personvern. Ta kontakt med din
                                 veileder hvis du har spørsmål til innholdet i
                                 avtalen.
-                            </AlertStripe>
+                            </AlertStripe> */}
                             <GodkjenningSteg />
                         </div>
                     );
