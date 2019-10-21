@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import BEMHelper from '../../../utils/bem';
 import { Avtale } from '@/types/avtale';
 import Tabs from 'nav-frontend-tabs';
@@ -17,6 +17,15 @@ import {
 import LagreKnapp from '../../../komponenter/LagreKnapp/LagreKnapp';
 import { string } from 'prop-types';
 import { Context, Rolle } from '../../../AvtaleContext';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import MediaQuery from 'react-responsive';
+// import moment from '@/AvtaleSide/AvtaleOversikt';
+import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
+import Varsel from '@/types/varsel';
+import { Import } from '@babel/types';
+import moment from 'moment';
 
 interface MatchProps {
     avtaleId: string;
@@ -30,6 +39,8 @@ const cls = BEMHelper('versjonTabs');
 const VersjonTabs: React.FunctionComponent<Props> = props => {
     const [index, setIndex] = useState(0);
     const [kanLaasesOpp, setKanLaasesOpp] = useState();
+    const [avtaler, setAvtaler] = useState<Avtale[] | null>(null);
+    const [varsler, setVarsler] = useState<Varsel[]>([]);
     const opprettNyAvtaleGodkjentVersjonklikk = async () => {
         const nyAvtaleGodkjentVersjon = await RestService.opprettNyAvtaleGodkjentVersjon(
             props.avtale
@@ -50,26 +61,102 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
             );
         }
     };
-    /*  const kanLaasesOpp = await () => {
-        const avtale = await RestService.kanLaasesOpp(props.avtale.id)
+    useEffect(() => {
+        RestService.hentAlleAvtaleVersjoner(
+            props.avtale.baseAvtaleId != null
+                ? props.avtale.baseAvtaleId
+                : props.avtale.id
+        ).then(setAvtaler);
+    });
+    const alleAvtaleVersjoner = async () => {
+        /*const avtaler = await RestService.hentAlleAvtaleVersjoner(
+            props.avtale.baseAvtaleId != null
+                ? props.avtale.baseAvtaleId
+                : props.avtale.id
+        )
             .then()
             .catch();
-
+*/
+        if (avtaler === null) {
+            return null;
+        }
         console.log('props.avtale.id' + props.avtale.id);
-        console.log('avtale.id' + avtale.id);
+        console.log('avtale.id' + avtaler[0].id);
         // console.log(avtale[Symbol.toStringTag].trim());
-        console.log(JSON.stringify(avtale));
-        /!*  Avtale a= (avtale as Avtale).id;
+        console.log(JSON.stringify(avtaler));
+        /*  Avtale a= (avtale as Avtale).id;
         const a=JSON.parse(JSON. avtale,("id",avtaleId)=>{return avtaleId;});
-*!/
-        /!*
+*/
+        /*
         if (avtale.id === props.avtale.id) {
             return true;
         } else {
             return false;
-        }*!/
-        return avtale;
-    };*/
+        }*/
+        return avtaler;
+    };
+    if (avtaler === null) {
+        return null;
+    }
+    const avtaleLenker = avtaler.map((avtale: Avtale) => {
+        const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
+        return (
+            <LenkepanelBase
+                key={avtale.id}
+                href={pathTilKontaktinformasjonSteg(avtale.id)}
+                linkCreator={(props: any) => (
+                    <Link to={props.href} {...props} />
+                )}
+            >
+                {ulestVarsel && <span className="ulest-varsel-ikon" />}
+                <div
+                    className={classNames(cls.element('rad'), {
+                        uthevet: ulestVarsel,
+                    })}
+                >
+                    <div className={cls.element('deltakerOgBedrift')}>
+                        {avtale.bedriftNavn}
+                    </div>
+                    <div className={cls.element('deltakerOgBedrift')}>
+                        {avtale.deltakerFornavn || ''}&nbsp;
+                        {avtale.deltakerEtternavn || ''}
+                    </div>
+                    <MediaQuery minWidth={576}>
+                        <div className={cls.element('opprettet')}>
+                            {moment(avtale.opprettetTidspunkt).format(
+                                'DD.MM.YYYY'
+                            )}
+                        </div>
+                    </MediaQuery>
+                    <div className={cls.element('statusikon')}>
+                        <StatusIkon status={avtale.status} />
+                    </div>
+                    <div className={cls.element('status')}>{avtale.status}</div>
+                </div>
+            </LenkepanelBase>
+        );
+    });
+    const avtaletabell = avtaleLenker.length > 0 && (
+        <div className="avtaleoversikt__avtaleliste typo-normal">
+            {/*{opprettAvtaleKnapp}*/}
+            <div
+                className={classNames(
+                    cls.element('header'),
+                    cls.element('rad')
+                )}
+            >
+                <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
+                <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
+                <MediaQuery minWidth={576}>
+                    <div className={cls.element('opprettet')}>Opprettet</div>
+                </MediaQuery>
+                <div className={cls.element('status')}>Status</div>
+                <div className={cls.element('statusikon')}>&nbsp;</div>
+            </div>
+            {avtaleLenker}
+        </div>
+    );
+
     return (
         <div className={cls.className}>
             {' '}
@@ -103,6 +190,7 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                             kanLaasesOpp &&
                             props.rolle === 'VEILEDER' && (
                                 <LagreKnapp
+                                    className="versjonTabs__knapp                       "
                                     label={
                                         'Lås opp avtalen/ lag ny godkjentVersjon'
                                     }
@@ -117,12 +205,13 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                 ) : null}
                 {index === 1 ? (
                     <Panel id="andre">
-                        Her skal det være tidligere versjoner, hvis det blir.{' '}
+                        {avtaletabell}|| Her skal det være tidligere versjoner,
+                        hvis det blir. {console.log(alleAvtaleVersjoner())}
                     </Panel>
                 ) : null}
                 {index === 2 ? (
                     <Panel id="tredje">
-                        <Hovedknapp>Las ned avtalen </Hovedknapp>
+                        <Hovedknapp>Last ned avtalen </Hovedknapp>
                     </Panel>
                 ) : null}
                 {/* <div className={cls.className}>

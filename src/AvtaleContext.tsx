@@ -108,7 +108,7 @@ export interface Context {
     hentVarsler: (avtaleId: string) => Promise<any>;
     settVarselTilLest: (varselId: string) => Promise<void>;
     kanLaasesOpp: (avtaleId: string) => Promise<boolean>;
-    // kanLaasesOpp: (avtaleId: string) => Promise<Avtale>;
+    hentAlleAvtaleVersjoner: (baseAvtaleId: string) => Promise<Avtale[]>;
     harUlagredeEndringer: () => boolean;
 }
 
@@ -364,7 +364,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         const avtaleKanLaasesOpp = await RestService.kanLaasesOpp(avtaleId);
         return avtaleKanLaasesOpp;
     }
-
+    async hentAlleAvtaleVersjoner(baseAvtaleId: string) {
+        const alleAvaleVersjoner = await RestService.hentAlleAvtaleVersjoner(
+            baseAvtaleId
+        );
+        return alleAvaleVersjoner;
+    }
     render() {
         const context: Context = {
             avtale: this.state.avtale,
@@ -395,6 +400,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             hentVarsler: this.hentVarsler,
             settVarselTilLest: this.settVarselTilLest,
             kanLaasesOpp: this.kanLaasesOpp,
+            hentAlleAvtaleVersjoner: this.hentAlleAvtaleVersjoner,
             harUlagredeEndringer: this.harUlagredeEndringer,
         };
 

@@ -42,7 +42,7 @@ export interface RestService {
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
     avbrytAvtale: (avtale: Avtale) => Promise<Avtale>;
     kanLaasesOpp: (avtaleId: string) => Promise<boolean>;
-    // kanLaasesOpp: (avtaleId: string) => Promise<Avtale>;
+    hentAlleAvtaleVersjoner: (baseAvaleId: string) => Promise<Avtale[]>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
@@ -184,13 +184,16 @@ const kanLaasesOpp = async (avtaleId: string): Promise<boolean> => {
     await handleResponse(response);
     return response.json();
 };
-/*
-const kanLaasesOpp = async (avtaleId: string): Promise<Avtale> => {
-    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/kanLaasesOpp`);
+
+const hentAlleAvtaleVersjoner = async (
+    baseAvtaleId: string
+): Promise<Avtale[]> => {
+    const response = await fetch(
+        `${API_URL}/avtaler/${baseAvtaleId}/hentAlleAvtaleVersjoner`
+    );
     await handleResponse(response);
     return response.json();
 };
-*/
 
 const godkjennAvtale = async (avtale: Avtale) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn`;
@@ -309,6 +312,7 @@ const restService: RestService = {
     settVarselTilLest,
     hentFeatureToggles,
     kanLaasesOpp,
+    hentAlleAvtaleVersjoner: hentAlleAvtaleVersjoner,
 };
 
 export default restService;
