@@ -196,15 +196,22 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     );
                 } else if (erDesktop) {
                     innhold = (
-                        <DesktopAvtaleSide
-                            avtaleSteg={avtaleSteg}
-                            aktivtSteg={aktivtSteg}
-                            rolle={props.rolle}
-                            avtale={props.avtale}
-                            varsler={varsler}
-                            avbrytAvtale={props.avbryt}
-                            tilbakeTilOversiktKlikk={tilbakeTilOversiktKlikk}
-                        />
+                        <div>
+                            <DesktopAvtaleSide
+                                avtaleSteg={avtaleSteg}
+                                aktivtSteg={aktivtSteg}
+                                rolle={props.rolle}
+                                avtale={props.avtale}
+                                varsler={varsler}
+                                avbrytAvtale={props.avbryt}
+                                tilbakeTilOversiktKlikk={
+                                    tilbakeTilOversiktKlikk
+                                }
+                            />
+                            {!props.avtale.erLaast && (
+                                <VersjonTabs {...props} />
+                            )}
+                        </div>
                     );
                 } else {
                     innhold = (

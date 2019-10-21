@@ -9,6 +9,7 @@ import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import VersjonTabs from '../GodkjenningSteg/VersjonKontroll/VersjonTabs';
 
 interface Props {
     avtaleSteg: StegInfo[];
