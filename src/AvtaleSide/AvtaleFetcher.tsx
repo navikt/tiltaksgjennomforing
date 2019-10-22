@@ -9,7 +9,7 @@ type Props = {
 
 const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
-    const avtaleId = props.avtaleId || "dummy";
+    const avtaleId = props.avtaleId || 'dummy';
     useEffect(() => {
         props.hentVarsler(avtaleId);
         Promise.all([props.hentAvtale(avtaleId), props.hentRolle(avtaleId)])

@@ -61,7 +61,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <Innholdsboks className={cls.element('innholdsboks')}>
             <div className={cls.element('hovedIkon')}>
-                {aktuellPerson() == true ? (
+                {aktuellPerson() ? (
                     <img
                         className={cls.element('hovedIkon__resize')}
                         src={CheckIkon}
@@ -93,7 +93,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                     {hentParter().part1}
                     {/* har godkjent */}
                     <span className={cls.element('andreParter__ikon')}>
-                        {hentParter().part1Status == true ? (
+                        {hentParter().part1Status === true ? (
                             <img src={CheckIkon} />
                         ) : (
                             <img src={VarselIkon} />
@@ -106,7 +106,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                         {hentParter().part2}
                         <span />
                         <span className={cls.element('andreParter__ikon')}>
-                            {hentParter().part2Status == true ? (
+                            {hentParter().part2Status === true ? (
                                 <img src={CheckIkon} />
                             ) : (
                                 <img src={VarselIkon} />

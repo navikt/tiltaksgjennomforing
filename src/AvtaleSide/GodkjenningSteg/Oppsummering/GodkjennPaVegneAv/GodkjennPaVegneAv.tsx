@@ -4,7 +4,7 @@ import './GodkjennPaVegneAv.less';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { GodkjentPaVegneGrunner } from '@/types/avtale';
 
-type Grunner  = GodkjentPaVegneGrunner;
+type Grunner = GodkjentPaVegneGrunner;
 
 type Props = {
     godkjentPaVegneGrunn: GodkjentPaVegneGrunner;

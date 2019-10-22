@@ -5,7 +5,10 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Context, medContext } from '@/AvtaleContext';
 import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
-import { pathTilGodkjenningsSteg, pathTilKontaktinformasjonSteg } from '@/paths';
+import {
+    pathTilGodkjenningsSteg,
+    pathTilKontaktinformasjonSteg,
+} from '@/paths';
 import './LandingsSide.less';
 import veilederIkon from './veileder.svg';
 
@@ -31,7 +34,7 @@ const LandingsSide: React.FunctionComponent<Props> = props => {
                 </>
             }
         >
-            <img src={veilederIkon} alt="Veileder"/>
+            <img src={veilederIkon} alt="Veileder" />
         </Veileder>
     );
 

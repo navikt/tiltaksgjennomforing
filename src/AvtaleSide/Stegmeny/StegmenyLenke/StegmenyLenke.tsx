@@ -20,7 +20,11 @@ const StegmenyLenke: FunctionComponent<Context & Props> = props => {
     }
     return (
         <Link to={props.url} className={className} onClick={props.endretSteg}>
-            <img src={props.ferdig ? stegFullfortIkon : stegIkkeFullfortIkon} className="hidden" alt="status"/>
+            <img
+                src={props.ferdig ? stegFullfortIkon : stegIkkeFullfortIkon}
+                className="hidden"
+                alt="status"
+            />
             <span className="stegmenylenke__label">{props.label}</span>
         </Link>
     );

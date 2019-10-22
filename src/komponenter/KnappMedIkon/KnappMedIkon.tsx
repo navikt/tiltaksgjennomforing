@@ -29,7 +29,7 @@ const KnappMedIkon = (props: Props) => (
             'knapp-med-ikon__backgroundColor': props.backgroundColor !== null,
         })}
     >
-        <img src={ikoner[props.ikonType]} alt={props.ikonType}/>
+        <img src={ikoner[props.ikonType]} alt={props.ikonType} />
         <Normaltekst className="knapp-med-ikon__label">
             {props.label}
         </Normaltekst>

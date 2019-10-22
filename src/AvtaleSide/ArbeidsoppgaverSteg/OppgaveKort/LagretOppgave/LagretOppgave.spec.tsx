@@ -9,6 +9,12 @@ test('Test that <LagretOppgave> renders correctly', () => {
         beskrivelse: 'string',
         opplaering: 'string',
     };
-    const wrapper = shallow(<LagretOppgave endreOnClick={myMock} oppgave={oppgave} slettOnClick={myMock}/>);
+    const wrapper = shallow(
+        <LagretOppgave
+            endreOnClick={myMock}
+            oppgave={oppgave}
+            slettOnClick={myMock}
+        />
+    );
     expect(wrapper).toHaveLength(1);
 });

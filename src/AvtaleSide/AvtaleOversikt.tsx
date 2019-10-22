@@ -12,7 +12,11 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
 import Banner from '@/komponenter/Banner/Banner';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { pathTilInformasjonssideInnlogget, pathTilKontaktinformasjonSteg, pathTilOpprettAvtale } from '@/paths';
+import {
+    pathTilInformasjonssideInnlogget,
+    pathTilKontaktinformasjonSteg,
+    pathTilOpprettAvtale,
+} from '@/paths';
 import RestService from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import Varsel from '@/types/varsel';
