@@ -80,10 +80,10 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
         if (avtaler === null) {
             return null;
         }
-        console.log('props.avtale.id' + props.avtale.id);
+        /* console.log('props.avtale.id' + props.avtale.id);
         console.log('avtale.id' + avtaler[0].id);
         // console.log(avtale[Symbol.toStringTag].trim());
-        console.log(JSON.stringify(avtaler));
+        console.log(JSON.stringify(avtaler));*/
         /*  Avtale a= (avtale as Avtale).id;
         const a=JSON.parse(JSON. avtale,("id",avtaleId)=>{return avtaleId;});
 */
@@ -183,7 +183,7 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                 />
                 {index === 0 ? (
                     <Panel id="først">
-                        {console.log(props.kanLaasesOpp(props.avtale.id))}
+                        {/* {console.log(props.kanLaasesOpp(props.avtale.id))}*/}
                         {props
                             .kanLaasesOpp(props.avtale.id)
                             .then(result => setKanLaasesOpp(result)) &&
@@ -200,13 +200,13 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                                     Lås opp avtalen
                                 </LagreKnapp>
                             )}
-                        {console.log(kanLaasesOpp + ' etter')}
+                        {/* {console.log(kanLaasesOpp + ' etter')}*/}
                     </Panel>
                 ) : null}
                 {index === 1 ? (
                     <Panel id="andre">
                         {avtaletabell}|| Her skal det være tidligere versjoner,
-                        hvis det blir. {console.log(alleAvtaleVersjoner())}
+                        hvis det blir. {/*console.log(alleAvtaleVersjoner())*/}
                     </Panel>
                 ) : null}
                 {index === 2 ? (

@@ -208,9 +208,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                     tilbakeTilOversiktKlikk
                                 }
                             />
-                            {!props.avtale.erLaast && (
-                                <VersjonTabs {...props} />
-                            )}
+                            {!props.avtale.erLaast &&
+                                props.rolle === 'VEILEDER' && (
+                                    <VersjonTabs {...props} />
+                                )}
                         </div>
                     );
                 } else {
