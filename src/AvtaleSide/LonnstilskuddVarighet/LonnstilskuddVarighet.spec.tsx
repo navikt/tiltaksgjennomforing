@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import LonnstilskuddVarighet from './LonnstilskuddVarighet';
 
-test('Test that <LonnstilskuddVarighet> renders correctly', () => {
+test('Test at <LonnstilskuddVarighet> rendres', () => {
     const wrapper = shallow(<LonnstilskuddVarighet />);
     expect(wrapper).toHaveLength(1);
 });

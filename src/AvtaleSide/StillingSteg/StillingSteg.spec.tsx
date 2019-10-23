@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import StillingSteg from './StillingSteg';
 
-test('Test that <StillingSteg> renders correctly', () => {
+test('Test ar <StillingSteg> rendres', () => {
     const wrapper = shallow(<StillingSteg />);
     expect(wrapper).toHaveLength(1);
 });

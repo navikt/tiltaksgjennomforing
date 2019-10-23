@@ -13,7 +13,7 @@ const wrapper = shallow(
     shallow(<OppsummeringLonnstilskudd avtale={avtaleMock} />).get(0)
 );
 
-test('Skal rendre', () => {
+test('Skal rendre Innholdsboks', () => {
     expect(wrapper.dive().find(Innholdsboks)).toHaveLength(1);
 });
 

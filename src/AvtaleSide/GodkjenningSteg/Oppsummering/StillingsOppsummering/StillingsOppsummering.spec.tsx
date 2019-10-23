@@ -4,7 +4,7 @@ import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksist
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import StillingsOppsummering from './StillingsOppsummering';
 
-test('Test that <GodkjenningSteg> renders correctly', () => {
+test('Test at <StillingsOppsummering> rendres', () => {
     const wrapper = shallow(<StillingsOppsummering />);
     expect(wrapper).toHaveLength(1);
 });
