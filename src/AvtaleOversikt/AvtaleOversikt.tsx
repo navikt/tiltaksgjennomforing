@@ -1,25 +1,28 @@
 import AlertStripe from 'nav-frontend-alertstriper';
-import {HoyreChevron} from 'nav-frontend-chevron';
-import {Hovedknapp} from 'nav-frontend-knapper';
-import {Element, Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import { HoyreChevron } from 'nav-frontend-chevron';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import {FunctionComponent, useContext, useEffect, useState} from 'react';
-import {Link, RouteComponentProps, withRouter} from 'react-router-dom';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import Banner from '@/komponenter/Banner/Banner';
-import {pathTilInformasjonssideInnlogget, pathTilOpprettAvtale,} from '@/paths';
+import {
+    pathTilInformasjonssideInnlogget,
+    pathTilOpprettAvtale,
+} from '@/paths';
 import RestService from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import Varsel from '@/types/varsel';
-import {AvtalelisteRessurs} from '@/types/avtale';
-import './avtaleOversikt.less';
+import { AvtalelisteRessurs } from '@/types/avtale';
+import './AvtaleOversikt.less';
 import Natur from './natur';
-import {ReactComponent as TilEkstern} from '@/assets/ikoner/external-link.svg';
+import { ReactComponent as TilEkstern } from '@/assets/ikoner/external-link.svg';
 import Lenke from 'nav-frontend-lenker';
-import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
-import {Checkbox} from 'nav-frontend-skjema';
-import {Status} from '@/types/nettressurs';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { Checkbox } from 'nav-frontend-skjema';
+import { Status } from '@/types/nettressurs';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import AvtaleTabell from '@/AvtaleSide/AvtaleTabell';
+import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -76,7 +79,10 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
     const tilbakemeldingHvisIngenAvtale = innloggetBruker.erNavAnsatt ? (
         <div className={cls.element('ingen-avtaler-tekst-NAV')}>
-            <Normaltekst>Du har ikke {visAlleAvtaler ? "tilgang til" : "opprettet"} noen avtaler</Normaltekst>
+            <Normaltekst>
+                Du har ikke {visAlleAvtaler ? 'tilgang til' : 'opprettet'} noen
+                avtaler
+            </Normaltekst>
         </div>
     ) : (
         <div className={cls.element('ingen-avtaler-tekst')}>
@@ -156,12 +162,11 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                             </div>
                         )}
                         {avtalelisteRessurs.status === Status.Lastet && (
-                            <>
-                                <AvtaleTabell
-                                    avtaler={avtalelisteRessurs.data}
-                                    varsler={varsler}
-                                />
-                            </>
+                            <AvtaleTabell
+                                avtaler={avtalelisteRessurs.data}
+                                varsler={varsler}
+                                innloggetBruker={innloggetBruker}
+                            />
                         )}
                     </div>
                 )}
