@@ -3,7 +3,9 @@ import { FunctionComponent } from 'react';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
-import useInnlogget from './useInnlogget';
+import useInnlogget, {InnloggetBruker} from './useInnlogget';
+
+export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({identifikator: '', erNavAnsatt: false});
 
 const InnloggingBoundary: FunctionComponent = props => {
     const {
@@ -19,7 +21,9 @@ const InnloggingBoundary: FunctionComponent = props => {
         return (
             <>
                 <Innloggingslinje innloggetBruker={innloggetBruker} />
-                {props.children}
+                <InnloggetBrukerContext.Provider value={innloggetBruker}>
+                    {props.children}
+                </InnloggetBrukerContext.Provider>
             </>
         );
     } else if (feilmelding) {

@@ -1,93 +1,63 @@
-import classNames from 'classnames';
-import moment from 'moment';
 import AlertStripe from 'nav-frontend-alertstriper';
-import { HoyreChevron } from 'nav-frontend-chevron';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import {HoyreChevron} from 'nav-frontend-chevron';
+import {Hovedknapp} from 'nav-frontend-knapper';
+import {Element, Normaltekst, Undertittel} from 'nav-frontend-typografi';
 import * as React from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
-import MediaQuery from 'react-responsive';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
+import {FunctionComponent, useContext, useEffect, useState} from 'react';
+import {Link, RouteComponentProps, withRouter} from 'react-router-dom';
 import Banner from '@/komponenter/Banner/Banner';
-import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { pathTilInformasjonssideInnlogget, pathTilKontaktinformasjonSteg, pathTilOpprettAvtale } from '@/paths';
+import {pathTilInformasjonssideInnlogget, pathTilOpprettAvtale,} from '@/paths';
 import RestService from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import Varsel from '@/types/varsel';
-import { Avtale } from '@/types/avtale';
+import {AvtalelisteRessurs} from '@/types/avtale';
 import './avtaleOversikt.less';
 import Natur from './natur';
-import { ReactComponent as TilEkstern } from '@/assets/ikoner/external-link.svg';
+import {ReactComponent as TilEkstern} from '@/assets/ikoner/external-link.svg';
 import Lenke from 'nav-frontend-lenker';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
+import {Checkbox} from 'nav-frontend-skjema';
+import {Status} from '@/types/nettressurs';
+import NavFrontendSpinner from 'nav-frontend-spinner';
+import AvtaleTabell from '@/AvtaleSide/AvtaleTabell';
 
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
-    const [avtaler, setAvtaler] = useState<Avtale[] | null>(null);
-    const [
-        innloggetBruker,
-        setInnloggetBruker,
-    ] = useState<InnloggetBruker | null>(null);
+    const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<
+        AvtalelisteRessurs
+    >({
+        status: Status.IkkeLastet,
+    });
+    const [visAlleAvtaler, setVisAlleAvtaler] = useState<boolean>(false);
+    const innloggetBruker = useContext(InnloggetBrukerContext);
     const [varsler, setVarsler] = useState<Varsel[]>([]);
 
+    const veilederNavIdent = innloggetBruker.erNavAnsatt
+        ? innloggetBruker.identifikator
+        : undefined;
+
     useEffect(() => {
-        RestService.hentAvtalerForInnloggetBruker().then(setAvtaler);
-        RestService.hentInnloggetBruker().then(setInnloggetBruker);
         RestService.hentUlesteVarsler()
             .then(setVarsler)
             .catch(() => setVarsler([]));
     }, []);
 
-    if (avtaler === null) {
-        return null;
-    }
+    useEffect(() => {
+        setAvtalelisteRessurs({ status: Status.LasterInn });
+        RestService.hentAvtalerForInnloggetBruker(
+            visAlleAvtaler ? undefined : veilederNavIdent
+        )
+            .then(data =>
+                setAvtalelisteRessurs({ status: Status.Lastet, data })
+            )
+            .catch(error =>
+                setAvtalelisteRessurs({ status: Status.Feil, error })
+            );
+    }, [veilederNavIdent, visAlleAvtaler]);
 
-    const avtaleLenker = avtaler.map((avtale: Avtale) => {
-        const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
-        return (
-            <LenkepanelBase
-                key={avtale.id}
-                href={pathTilKontaktinformasjonSteg(avtale.id)}
-                linkCreator={(props: any) => (
-                    <Link to={props.href} {...props} />
-                )}
-            >
-                {ulestVarsel && <span className="ulest-varsel-ikon" />}
-                <div
-                    className={classNames(cls.element('rad'), {
-                        uthevet: ulestVarsel,
-                    })}
-                >
-                    <div className={cls.element('deltakerOgBedrift')}>
-                        {avtale.bedriftNavn}
-                    </div>
-                    <div className={cls.element('deltakerOgBedrift')}>
-                        {avtale.deltakerFornavn || ''}&nbsp;
-                        {avtale.deltakerEtternavn || ''}
-                    </div>
-                    <MediaQuery minWidth={576}>
-                        <div className={cls.element('opprettet')}>
-                            {moment(avtale.opprettetTidspunkt).format(
-                                'DD.MM.YYYY'
-                            )}
-                        </div>
-                    </MediaQuery>
-                    <div className={cls.element('statusikon')}>
-                        <StatusIkon status={avtale.status} />
-                    </div>
-                    <div className={cls.element('status')}>{avtale.status}</div>
-                </div>
-            </LenkepanelBase>
-        );
-    });
-
-    const erVeileder =
-        innloggetBruker && innloggetBruker.identifikator.length < 11;
-
-    const opprettAvtaleKnapp = erVeileder && (
-        <div className={cls.element('topp', 'knapp_med_avtaler')}>
+    const opprettAvtaleKnapp = innloggetBruker.erNavAnsatt && (
+        <div className={cls.element('opprett-avtale')}>
             <Hovedknapp
                 onClick={() => props.history.push(pathTilOpprettAvtale)}
             >
@@ -96,31 +66,18 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 
-    const avtaletabell = avtaleLenker.length > 0 && (
-        <div className="avtaleoversikt__avtaleliste typo-normal">
-            {opprettAvtaleKnapp}
-            <div
-                className={classNames(
-                    cls.element('header'),
-                    cls.element('rad')
-                )}
-            >
-                <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
-                <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
-                <MediaQuery minWidth={576}>
-                    <div className={cls.element('opprettet')}>Opprettet</div>
-                </MediaQuery>
-                <div className={cls.element('status')}>Status</div>
-                <div className={cls.element('statusikon')}>&nbsp;</div>
-            </div>
-            {avtaleLenker}
-        </div>
+    const visAlleAvtalerCheckbox = innloggetBruker.erNavAnsatt && (
+        <Checkbox
+            label={'Vis alle avtaler på kontoret'}
+            checked={visAlleAvtaler}
+            onChange={event => setVisAlleAvtaler(event.currentTarget.checked)}
+        />
     );
 
-    const tilbakemeldingHvisIngenAvtale = erVeileder ? (
+    const tilbakemeldingHvisIngenAvtale = innloggetBruker.erNavAnsatt ? (
         <div className={cls.element('ingen-avtaler-tekst-NAV')}>
-            <Normaltekst>Du har ikke opprettet noen avtaler enda</Normaltekst>
-        </div> //NAV
+            <Normaltekst>Du har ikke {visAlleAvtaler ? "tilgang til" : "opprettet"} noen avtaler</Normaltekst>
+        </div>
     ) : (
         <div className={cls.element('ingen-avtaler-tekst')}>
             <p>
@@ -130,7 +87,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     enda. Vennligst vent på veileder i NAV.
                 </Normaltekst>
             </p>
-            <p className={cls.element('arbeidsgiver-tekst')}>
+            <p>
                 <Element>Hvis du er arbeidsgiver:</Element>
                 <Normaltekst>
                     Du har ingen avtaler her enda. Det kan være på grunn av
@@ -176,14 +133,12 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         <HoyreChevron />
                     </AlertStripe>
                 </div>
-                {avtaletabell || (
+                {opprettAvtaleKnapp}
+                {innloggetBruker.erNavAnsatt && visAlleAvtalerCheckbox}
+                {avtalelisteRessurs.status === Status.Lastet &&
+                avtalelisteRessurs.data.length === 0 ? (
                     <div className={cls.element('natur-logo')}>
-                        <MediaQuery minWidth={576}>
-                            <Natur />
-                        </MediaQuery>
-                        <MediaQuery maxWidth={576}>
-                            <Natur width={'300'} height={'100'} />
-                        </MediaQuery>
+                        <Natur width={'300'} height={'100'} />
                         <Undertittel
                             className={cls.element('ingen-avtaler-header')}
                         >
@@ -192,14 +147,22 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                         <Normaltekst>
                             {tilbakemeldingHvisIngenAvtale}
                         </Normaltekst>
-                        <div
-                            className={cls.element(
-                                'topp',
-                                'knapp_uten_avtaler'
-                            )}
-                        >
-                            {opprettAvtaleKnapp}
-                        </div>
+                    </div>
+                ) : (
+                    <div className="avtaleoversikt__avtaleliste typo-normal">
+                        {avtalelisteRessurs.status === Status.LasterInn && (
+                            <div className={cls.element('spinner')}>
+                                <NavFrontendSpinner type={'XXL'} />
+                            </div>
+                        )}
+                        {avtalelisteRessurs.status === Status.Lastet && (
+                            <>
+                                <AvtaleTabell
+                                    avtaler={avtalelisteRessurs.data}
+                                    varsler={varsler}
+                                />
+                            </>
+                        )}
                     </div>
                 )}
             </div>

@@ -2,7 +2,9 @@
 .avtaleoversikt {
     display: flex;
     flex-direction: column;
-    margin: 2rem 0 3rem 0;
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: @screen-md;
 
     &__eksterntLenkeikon {
         display: inline-block;
@@ -27,10 +29,13 @@
 
     &__ingen-avtaler-tekst {
         padding: 1rem;
+        > p {
+            margin-bottom: 2rem;
+        }
     }
 
     &__ingen-avtaler-header {
-        margin-top: 1rem;
+        margin-top: 2rem;
         margin-bottom: 1rem;
     }
 
@@ -42,18 +47,11 @@
         margin-top: 2rem;
     }
 
-    &__topp {
+    &__opprett-avtale {
+        margin-bottom: 3rem;
+        margin-bottom: 3rem;
         display: flex;
         justify-content: center;
-
-        &--knapp_med_avtaler {
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        &--knapp_uten_avtaler {
-            margin-top: 2rem;
-        }
     }
 
     &__header {
@@ -63,6 +61,7 @@
 
     &__informasjonsBanner {
         justify-content: center;
+        margin-bottom: 3rem;
     }
 
     .ulest-varsel-ikon {
@@ -100,61 +99,31 @@
     }
 
     &__deltakerOgBedrift {
-        width: 11rem;
+        width: 14rem;
+        padding-right: 1rem;
+    }
+
+    &__veileder {
+        width: 6rem;
         padding-right: 1rem;
     }
 
     &__opprettet {
-        width: 8rem;
+        width: 7rem;
     }
 
     &__statusikon {
         padding-right: 1rem;
     }
 
-    &__avtaleliste {
-        margin-top: 1rem;
+    &__status {
+        width: 9rem;
     }
 
-    @media (min-width: @screen-sm-min) {
-        margin: 0 auto;
-        max-width: @screen-sm-min;
-
-        &__topp {
-            display: flex;
-            justify-content: center;
-
-            &--knapp_med_avtaler {
-                margin-bottom: 2rem;
-            }
-
-            &--knapp_uten_avtaler {
-                margin-top: 1rem;
-            }
-        }
-
-        &__informasjonsBanner {
-            justify-content: center;
-            margin-top: 2rem;
-        }
-
-        &__arbeidsgiver-tekst {
-            margin-top: 2rem;
-        }
-
-        &__avtaleliste {
-            margin-top: 2rem;
-        }
-
-        &__natur-logo {
-            margin: 5rem 0 1.5rem 0;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        &__ingen-avtaler-header {
-            margin-top: 3rem;
-        }
+    &__spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20rem;
     }
 }

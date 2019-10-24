@@ -9,6 +9,7 @@ export interface Innloggingskilde {
 
 export interface InnloggetBruker {
     identifikator: string;
+    erNavAnsatt: boolean;
 }
 
 export interface Innlogget {
