@@ -3,6 +3,5 @@
     "api-gw-url": "https://api-gw-q0.oera.no",
     "selvbetjening-login-url": "https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing",
     "logout-url": "https://loginservice-q.nav.no/slo",
-    "kv-path": "/kv/preprod/sbs/tiltaksgjennomforing/default",
     "vault-enabled": true
 }
