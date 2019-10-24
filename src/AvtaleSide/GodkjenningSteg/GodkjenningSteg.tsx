@@ -1,14 +1,19 @@
-import * as React from 'react';
 import { Context, medContext } from '@/AvtaleContext';
+import * as React from 'react';
 import Godkjenning from './Godkjenning';
 import GodkjenningStatus from './GodkjenningStatus/GodkjenningStatus';
 import Oppsummering from './Oppsummering/oppsummering/Oppsummering';
 import AvtaleStatus from '../AvtaleStatus/AvtaleStatus';
 
-const GodkjenningSteg = (props: Context) => (
+type Props = {
+    oppsummering: JSX.Element;
+};
+
+const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
     <>
         <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
         <Oppsummering avtale={props.avtale} rolle={props.rolle} />
+        {props.oppsummering}
         <Godkjenning
             avtale={props.avtale}
             rolle={props.rolle}

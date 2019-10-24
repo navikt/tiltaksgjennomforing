@@ -69,6 +69,7 @@ const avtaleMock: Avtale = {
     arbeidsgiverFornavn: 'Arbeidsgiver',
     arbeidsgiverEtternavn: 'Arbeidsgiversen',
     arbeidsgiverTlf: '77777777',
+    tiltakstype: 'ARBEIDSTRENING',
 
     maal: maalListe,
     oppgaver: oppgaveListe,

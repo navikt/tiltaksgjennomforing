@@ -1,16 +1,15 @@
+import { Context, medContext, Rolle } from '@/AvtaleContext';
+import Banner from '@/komponenter/Banner/Banner';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
+import { ApiError } from '@/types/errors';
+import BEMHelper from '@/utils/bem';
+import hentAvtaleSteg from '@/utils/stegUtils';
 import moment from 'moment';
 import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { ApiError } from '@/types/errors';
-import { Context, medContext, Rolle } from '@/AvtaleContext';
-import Banner from '@/komponenter/Banner/Banner';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
-import BEMHelper from '@/utils/bem';
-import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
-import ArbeidstidSteg from './ArbeidstidSteg/ArbeidstidSteg';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
@@ -19,10 +18,7 @@ import ArbeidsgiverInstruks from './GodkjenningSteg/Oppsummering/instruks/Arbeid
 import DeltakerInstruks from './GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
 import VeilederInstruks from './GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
 import Oppsummering from './GodkjenningSteg/Oppsummering/oppsummering/Oppsummering';
-import KontaktinfoSteg from './KontaktInformasjonSteg/KontaktinfoSteg';
-import MaalSteg from './MaalSteg/MaalSteg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
-import OppfolgingTilretteleggingSteg from './OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
 
@@ -53,38 +49,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         return () => window.removeEventListener('resize', handleWindowSize);
     });
 
-    const avtaleSteg: StegInfo[] = [
-        {
-            komponent: <KontaktinfoSteg {...props} />,
-            label: 'Kontaktinformasjon',
-            id: 'kontaktinformasjon',
-        },
-        {
-            komponent: <MaalSteg {...props} />,
-            label: 'Mål',
-            id: 'maal',
-        },
-        {
-            komponent: <ArbeidsoppgaverSteg {...props} />,
-            label: 'Arbeidsoppgaver',
-            id: 'arbeidsoppgaver',
-        },
-        {
-            komponent: <ArbeidstidSteg />,
-            label: 'Arbeidstid',
-            id: 'arbeidstid',
-        },
-        {
-            komponent: <OppfolgingTilretteleggingSteg />,
-            label: 'Oppfølging og tilrettelegging',
-            id: 'oppfolging',
-        },
-        {
-            komponent: <GodkjenningSteg />,
-            label: 'Godkjenning',
-            id: 'godkjenning',
-        },
-    ];
+    const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
 
     const erDesktop = windowSize > 767;
     const aktivtSteg = avtaleSteg.find(

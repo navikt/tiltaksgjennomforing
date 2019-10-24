@@ -10,7 +10,7 @@ spec:
     team: teamtag
     port: 3000
     vault:
-        enabled: true
+        enabled: { { vault-enabled } }
     ingresses:
         - '{{{ingress}}}'
     liveness:
