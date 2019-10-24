@@ -11,9 +11,6 @@ spec:
     port: 3000
     vault:
         enabled: {{vault-enabled}}
-        paths:
-          - kvPath: '{{{kv-path}}}'
-            mountPath: /var/run/secrets/nais.io/vault
     ingresses:
         - '{{{ingress}}}'
     liveness:
