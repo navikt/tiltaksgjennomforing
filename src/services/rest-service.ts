@@ -14,6 +14,7 @@ import {
 } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import Varsel from '@/types/varsel';
+import AvtaleStatusDetaljer from '@/types/AvtaleStatusDetaljer';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -46,6 +47,9 @@ export interface RestService {
     hentAvtaleVarsler: (avtaleId: string) => Promise<Varsel[]>;
     settVarselTilLest: (varselId: string) => Promise<void>;
     hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
+    hentAvtaleStatusDetaljer: (
+        avtaleId: string
+    ) => Promise<AvtaleStatusDetaljer>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -82,6 +86,14 @@ const hentAvtalerForInnloggetBruker = async (): Promise<Avtale[]> => {
     return await response.json();
 };
 
+const hentAvtaleStatusDetaljer = async (
+    id: string
+): Promise<AvtaleStatusDetaljer> => {
+    const response = await fetchGet(`${API_URL}/avtaler/${id}`);
+    await handleResponse(response);
+    const avtaleStatusDetaljer = await response.json();
+    return { ...avtaleStatusDetaljer };
+};
 const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     if (
         avtale.godkjentAvDeltaker ||
@@ -262,6 +274,7 @@ const restService: RestService = {
     hentAvtaleVarsler,
     settVarselTilLest,
     hentFeatureToggles,
+    hentAvtaleStatusDetaljer,
 };
 
 export default restService;
