@@ -17,7 +17,7 @@ import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import ArbeidsgiverInstruks from './GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
 import DeltakerInstruks from './GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
 import VeilederInstruks from './GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
-import Oppsummering from './GodkjenningSteg/Oppsummering/oppsummering/Oppsummering';
+import OppsummeringArbeidstrening from './GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
@@ -129,7 +129,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 {props.avtale.avbrutt &&
                                     'Avtalen er avbrutt av veileder og låst.'}
                             </AlertStripe>
-                            <Oppsummering
+                            <OppsummeringArbeidstrening
                                 avtale={props.avtale}
                                 rolle={props.rolle}
                             />
@@ -154,7 +154,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 veileder hvis du har spørsmål til innholdet i
                                 avtalen.
                             </AlertStripe>
-                            <GodkjenningSteg />
+                            <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
                         </div>
                     );
                 } else if (erDesktop) {
