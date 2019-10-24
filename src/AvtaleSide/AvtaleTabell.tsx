@@ -16,7 +16,7 @@ const cls = BEMHelper('avtaleoversikt');
 const AvtaleTabell: FunctionComponent<{
     avtaler: Avtale[];
     varsler: Varsel[];
-}> = props => {
+}> = ({ avtaler, varsler }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     return (
         <>
@@ -37,8 +37,8 @@ const AvtaleTabell: FunctionComponent<{
                 <div className={cls.element('status')}>Status</div>
                 <div className={cls.element('statusikon')}>&nbsp;</div>
             </div>
-            {props.avtaler.map((avtale: Avtale) => {
-                const ulestVarsel = props.varsler.find(
+            {avtaler.map((avtale: Avtale) => {
+                const ulestVarsel = varsler.find(
                     value => value.avtaleId === avtale.id
                 );
                 return (
