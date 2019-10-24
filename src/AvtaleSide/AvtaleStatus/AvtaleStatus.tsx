@@ -7,6 +7,7 @@ import VarselIkon from '@/assets/ikoner/varsel.svg';
 import { Normaltekst, Innholdstittel } from 'nav-frontend-typografi';
 import { Avtale } from '@/types/avtale';
 import { Rolle } from '@/AvtaleContext';
+import AvtaleStatusDetaljer from '@/types/AvtaleStatusDetaljer';
 // import Statustekst from '@/AvtaleSide/AvtaleStatus/Statustekst';
 
 const cls = BEMHelper('avtalestatus');
@@ -15,6 +16,7 @@ interface Props {
     avtale: Avtale;
     rolle: Rolle;
     godkjentAvtale?: boolean;
+    avtaleStatusDetaljer: AvtaleStatusDetaljer;
 }
 
 const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
@@ -55,6 +57,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
             return {};
         }
     };
+    // const hentAvtaleStatusDetaljer
 
     const parter = hentParter();
 

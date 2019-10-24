@@ -87,9 +87,11 @@ const hentAvtalerForInnloggetBruker = async (): Promise<Avtale[]> => {
 };
 
 const hentAvtaleStatusDetaljer = async (
-    id: string
+    avtaleId: string
 ): Promise<AvtaleStatusDetaljer> => {
-    const response = await fetchGet(`${API_URL}/avtaler/${id}`);
+    const response = await fetchGet(
+        `${API_URL}/avtaler/${avtaleId}/hentAvtaleStatusDetaljer`
+    );
     await handleResponse(response);
     const avtaleStatusDetaljer = await response.json();
     return { ...avtaleStatusDetaljer };
