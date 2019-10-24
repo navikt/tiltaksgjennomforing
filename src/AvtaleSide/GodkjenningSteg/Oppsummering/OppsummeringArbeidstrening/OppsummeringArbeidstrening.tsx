@@ -1,4 +1,4 @@
-import { ReactComponent as PrinterSvg } from '@/assets/ikoner/printer2.svg';
+import { ReactComponent as PrinterSvg } from '@/assets/ikoner/printer.svg';
 import { medContext, Rolle } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '@/types/avtale';
