@@ -10,7 +10,10 @@ spec:
     team: teamtag
     port: 3000
     vault:
-        enabled: true
+        enabled: {{#if kv-path}}true{{#else}}false{{/if}}
+        paths:
+          - kvPath: '{{{kv-path}}}'
+            mountPath: /var/run/secrets/nais.io/vault
     ingresses:
         - '{{{ingress}}}'
     liveness:

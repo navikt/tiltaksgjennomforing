@@ -2,5 +2,6 @@
     "ingress": "https://arbeidsgiver.nav.no/tiltaksgjennomforing",
     "api-gw-url": "https://api-gw.oera.no",
     "selvbetjening-login-url": "https://loginservice.nav.no/login?redirect=https://arbeidsgiver.nav.no/tiltaksgjennomforing",
-    "logout-url": "https://loginservice.nav.no/slo"
+    "logout-url": "https://loginservice.nav.no/slo",
+    "kv-path": "/kv/prod/sbs/tiltaksgjennomforing/default"
 }
