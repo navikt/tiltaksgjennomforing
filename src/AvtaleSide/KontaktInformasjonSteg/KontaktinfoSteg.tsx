@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { Context, medContext } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import * as React from 'react';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
-import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import './KontaktinfoSteg.less';
+import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 
 const KontaktinfoSteg = (props: Context) => (
     <Innholdsboks>

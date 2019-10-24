@@ -47,6 +47,7 @@ export const tomAvtale: Avtale = {
     status: '',
     kanAvbrytes: true,
     avbrutt: false,
+    tiltakstype: 'ARBEIDSTRENING',
     godkjentPaaVegneAv: false,
     godkjentPaVegneGrunn: {
         ikkeBankId: false,
@@ -230,7 +231,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async lagreAvtale() {
         const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
-        this.setState({ avtale: nyAvtale, ulagredeEndringer: false });
+        this.setState({
+            avtale: { ...this.state.avtale, ...nyAvtale },
+            ulagredeEndringer: false,
+        });
     }
 
     lagreMaal(maalTilLagring: Maal) {
@@ -259,8 +263,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
         const godkjenningerBool = this.konverterGodkjentTilBool(avtale);
         const avtaleBool = { ...avtale, ...godkjenningerBool };
-
-        this.setState({ avtale: avtaleBool });
+        this.setState({ avtale: { ...this.state.avtale, ...avtaleBool } });
     }
 
     konverterGodkjentTilBool = (avtale: Avtale) => ({

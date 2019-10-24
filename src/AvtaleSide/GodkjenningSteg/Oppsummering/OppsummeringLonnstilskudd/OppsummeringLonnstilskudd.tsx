@@ -1,29 +1,25 @@
-import { ReactComponent as PrinterSvg } from '@/assets/ikoner/printer2.svg';
-import { medContext, Rolle } from '@/AvtaleContext';
+import PrinterSvg from '@/assets/ikoner/PrinterSvg';
+import { medContext } from '@/AvtaleContext';
+import OppfolgingOppsummering from '@/AvtaleSide/GodkjenningSteg/Oppsummering/oppfølging/OppfolgingOppsummering';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '@/types/avtale';
 import { Knapp } from 'nav-frontend-knapper';
 import { Systemtittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
-import MaalOppsummering from '../maalOppsummering/MaalOppsummering';
-import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
-import OppgaverOppsummering from '../oppgaveOppsummering/OppgaverOppsummering';
-import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
-import VarighetOppsummering from '../varighet/VarighetOppsummering';
-import './Oppsummering.less';
+import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
+import LonnstilskuddOppsummering from '../LonnstilskuddOppsummering/LonnstilskuddOppsummering';
+import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
 
 interface Props {
     avtale: Avtale;
-    rolle: Rolle;
 }
 
 const printAvtale = () => {
     window.print();
 };
 
-const Oppsummering: FunctionComponent<Props> = props => (
+const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
     <Innholdsboks>
         <div className="oppsummering__header">
             <Systemtittel className="oppsummering__tittel">
@@ -46,12 +42,11 @@ const Oppsummering: FunctionComponent<Props> = props => (
         </div>
 
         <Avtaleparter {...props.avtale} />
-        <MaalOppsummering {...props.avtale} />
-        <OppgaverOppsummering {...props.avtale} />
-        <VarighetOppsummering {...props.avtale} />
+        <StillingsOppsummering />
+        <LonnstilskuddOppsummering />
         <OppfolgingOppsummering {...props.avtale} />
-        <Tilrettelegging {...props.avtale} />
+        <BeregningTilskuddOppsummering />
     </Innholdsboks>
 );
 
-export default medContext(Oppsummering);
+export default medContext(OppsummeringLonnstilskudd);

@@ -23,6 +23,7 @@ export interface AvtaleMetadata {
     id: string;
     opprettetTidspunkt: string;
     versjon: string;
+    tiltakstype: TiltaksType;
 }
 
 export interface Deltakerinfo {
