@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Natur = ({ width, height }: { width: string; height: string }) => {
+const Natur = ({ width, height }: { width?: string; height?: string }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
