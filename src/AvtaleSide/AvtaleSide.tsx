@@ -154,7 +154,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 veileder hvis du har spørsmål til innholdet i
                                 avtalen.
                             </AlertStripe>
-                            <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
+                            <GodkjenningSteg
+                                oppsummering={<OppsummeringArbeidstrening />}
+                            />
                         </div>
                     );
                 } else if (erDesktop) {

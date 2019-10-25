@@ -24,7 +24,9 @@ const featureTogglePath = (features: Feature[]): string => {
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
-    hentAvtalerForInnloggetBruker: () => Promise<Avtale[]>;
+    hentAvtalerForInnloggetBruker: (
+        veilederNavIdent?: string
+    ) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (
         deltakerFnr: string,
@@ -76,8 +78,13 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     return { ...avtale, id: `${avtale.id}` };
 };
 
-const hentAvtalerForInnloggetBruker = async (): Promise<Avtale[]> => {
-    const response = await fetchGet(`${API_URL}/avtaler`);
+const hentAvtalerForInnloggetBruker = async (
+    veilederNavIdent?: string
+): Promise<Avtale[]> => {
+    const veilederQueryParam = veilederNavIdent
+        ? 'veilederNavIdent=' + veilederNavIdent
+        : '';
+    const response = await fetchGet(`${API_URL}/avtaler?${veilederQueryParam}`);
     await handleResponse(response);
     return await response.json();
 };
