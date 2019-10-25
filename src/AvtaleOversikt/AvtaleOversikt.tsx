@@ -23,6 +23,7 @@ import { Checkbox } from 'nav-frontend-skjema';
 import { Status } from '@/types/nettressurs';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -35,6 +36,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const [visAlleAvtaler, setVisAlleAvtaler] = useState<boolean>(false);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const [varsler, setVarsler] = useState<Varsel[]>([]);
+    const featureToggles = useContext(FeatureToggleContext);
 
     const veilederNavIdent = innloggetBruker.erNavAnsatt
         ? innloggetBruker.identifikator
@@ -51,10 +53,10 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         RestService.hentAvtalerForInnloggetBruker(
             visAlleAvtaler ? undefined : veilederNavIdent
         )
-            .then(data =>
+            .then((data: any) =>
                 setAvtalelisteRessurs({ status: Status.Lastet, data })
             )
-            .catch(error =>
+            .catch((error: any) =>
                 setAvtalelisteRessurs({ status: Status.Feil, error })
             );
     }, [veilederNavIdent, visAlleAvtaler]);
@@ -69,13 +71,16 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 
-    const visAlleAvtalerCheckbox = innloggetBruker.erNavAnsatt && (
-        <Checkbox
-            label={'Vis alle avtaler på kontoret'}
-            checked={visAlleAvtaler}
-            onChange={event => setVisAlleAvtaler(event.currentTarget.checked)}
-        />
-    );
+    const visAlleAvtalerCheckbox = featureToggles[Feature.Kontortilgang] &&
+        innloggetBruker.erNavAnsatt && (
+            <Checkbox
+                label={'Vis alle avtaler på kontoret'}
+                checked={visAlleAvtaler}
+                onChange={event =>
+                    setVisAlleAvtaler(event.currentTarget.checked)
+                }
+            />
+        );
 
     const tilbakemeldingHvisIngenAvtale = innloggetBruker.erNavAnsatt ? (
         <div className={cls.element('ingen-avtaler-tekst-NAV')}>
@@ -140,7 +145,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     </AlertStripe>
                 </div>
                 {opprettAvtaleKnapp}
-                {innloggetBruker.erNavAnsatt && visAlleAvtalerCheckbox}
+                {visAlleAvtalerCheckbox}
                 {avtalelisteRessurs.status === Status.Lastet &&
                 avtalelisteRessurs.data.length === 0 ? (
                     <div className={cls.element('natur-logo')}>

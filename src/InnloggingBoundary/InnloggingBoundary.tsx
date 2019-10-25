@@ -3,9 +3,12 @@ import { FunctionComponent } from 'react';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
-import useInnlogget, {InnloggetBruker} from './useInnlogget';
+import useInnlogget, { InnloggetBruker } from './useInnlogget';
 
-export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({identifikator: '', erNavAnsatt: false});
+export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
+    identifikator: '',
+    erNavAnsatt: false,
+});
 
 const InnloggingBoundary: FunctionComponent = props => {
     const {
