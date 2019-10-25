@@ -14,7 +14,7 @@ import {
 } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import Varsel from '@/types/varsel';
-import AvtaleStatusDetaljer from '@/types/AvtaleStatusDetaljer';
+import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -90,7 +90,7 @@ const hentAvtaleStatusDetaljer = async (
     avtaleId: string
 ): Promise<AvtaleStatusDetaljer> => {
     const response = await fetchGet(
-        `${API_URL}/avtaler/${avtaleId}/hentAvtaleStatusDetaljer`
+        `${API_URL}/avtaler/${avtaleId}/status-detaljer`
     );
     await handleResponse(response);
     const avtaleStatusDetaljer = await response.json();

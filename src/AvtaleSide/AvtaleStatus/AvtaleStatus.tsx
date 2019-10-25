@@ -4,10 +4,10 @@ import BEMHelper from '@/utils/bem';
 import './AvtaleStatus.less';
 import CheckIkon from '@/assets/ikoner/check.svg';
 import VarselIkon from '@/assets/ikoner/varsel.svg';
-import { Normaltekst, Innholdstittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Avtale } from '@/types/avtale';
 import { Rolle } from '@/AvtaleContext';
-import AvtaleStatusDetaljer from '@/types/AvtaleStatusDetaljer';
+import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 // import Statustekst from '@/AvtaleSide/AvtaleStatus/Statustekst';
 
 const cls = BEMHelper('avtalestatus');
@@ -80,16 +80,8 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 Du må godkjenne
             </Innholdstittel>
             <Normaltekst className={cls.element('infotekst')}>
-                <p>
-                    Hele avtalen er nå fylt ut og klar for godkjenning av deg.
-                    Les hele avtalen først. Hvis du er uenig i innholdet, eller
-                    har spørsmål til avtalen, bør du kontakte din veileder via
-                    Aktivitetsplanen før du godkjenner.
-                </p>
-                <p>
-                    Du kan ikke redigere teksten i avtalen på grunn av hensyn
-                    til personvern.
-                </p>
+                <p> {props.avtaleStatusDetaljer.infoDel1}</p>
+                <p>{props.avtaleStatusDetaljer.infoDel2}</p>
             </Normaltekst>
             <div className={cls.element('andreParter')}>
                 <div>
