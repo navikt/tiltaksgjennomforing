@@ -1,10 +1,18 @@
-import {Rolle} from '@/AvtaleContext';
-import {Feature, FeatureToggles} from '@/FeatureToggleProvider';
-import {InnloggetBruker, Innloggingskilde,} from '@/InnloggingBoundary/useInnlogget';
-import {basename} from '@/paths';
-import {SIDE_FOER_INNLOGGING} from '@/RedirectEtterLogin';
-import {Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType,} from '@/types/avtale';
-import {ApiError, AutentiseringError} from '@/types/errors';
+import { Rolle } from '@/AvtaleContext';
+import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import {
+    InnloggetBruker,
+    Innloggingskilde,
+} from '@/InnloggingBoundary/useInnlogget';
+import { basename } from '@/paths';
+import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
+import {
+    Avtale,
+    Bedriftinfo,
+    GodkjentPaVegneGrunner,
+    TiltaksType,
+} from '@/types/avtale';
+import { ApiError, AutentiseringError } from '@/types/errors';
 import Varsel from '@/types/varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
@@ -16,7 +24,9 @@ const featureTogglePath = (features: Feature[]): string => {
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
-    hentAvtalerForInnloggetBruker: (veilederNavIdent?: string) => Promise<Avtale[]>;
+    hentAvtalerForInnloggetBruker: (
+        veilederNavIdent?: string
+    ) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (
         deltakerFnr: string,
@@ -41,7 +51,7 @@ export interface RestService {
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
-    return fetch(url, {headers: {Pragma: 'no-cache'}});
+    return fetch(url, { headers: { Pragma: 'no-cache' } });
 };
 
 const handleResponse = async (response: Response) => {
@@ -65,11 +75,15 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     const response = await fetchGet(`${API_URL}/avtaler/${id}`);
     await handleResponse(response);
     const avtale = await response.json();
-    return {...avtale, id: `${avtale.id}`};
+    return { ...avtale, id: `${avtale.id}` };
 };
 
-const hentAvtalerForInnloggetBruker = async (veilederNavIdent?: string): Promise<Avtale[]> => {
-    const veilederQueryParam = veilederNavIdent ? "veilederNavIdent=" + veilederNavIdent : "";
+const hentAvtalerForInnloggetBruker = async (
+    veilederNavIdent?: string
+): Promise<Avtale[]> => {
+    const veilederQueryParam = veilederNavIdent
+        ? 'veilederNavIdent=' + veilederNavIdent
+        : '';
     const response = await fetchGet(`${API_URL}/avtaler?${veilederQueryParam}`);
     await handleResponse(response);
     return await response.json();
@@ -131,7 +145,7 @@ const opprettAvtale = async (
     );
     await handleResponse(getResponse);
     const avtale: Avtale = await getResponse.json();
-    return {...avtale, id: `${avtale.id}`};
+    return { ...avtale, id: `${avtale.id}` };
 };
 
 const hentRolle = async (avtaleId: string): Promise<Rolle> => {

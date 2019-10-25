@@ -39,7 +39,9 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />,
+        komponent: (
+            <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
+        ),
         label: 'Godkjenning',
         id: 'godkjenning',
     },
