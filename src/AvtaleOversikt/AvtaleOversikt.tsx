@@ -149,7 +149,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 {avtalelisteRessurs.status === Status.Lastet &&
                 avtalelisteRessurs.data.length === 0 ? (
                     <div className={cls.element('natur-logo')}>
-                        <Natur width={'300'} height={'100'} />
+                        <Natur width="300" height="100" />
                         <Undertittel
                             className={cls.element('ingen-avtaler-header')}
                         >
