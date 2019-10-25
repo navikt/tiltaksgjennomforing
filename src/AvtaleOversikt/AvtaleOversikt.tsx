@@ -15,7 +15,7 @@ import BEMHelper from '@/utils/bem';
 import Varsel from '@/types/varsel';
 import { AvtalelisteRessurs } from '@/types/avtale';
 import './AvtaleOversikt.less';
-import Natur from './natur';
+import { ReactComponent as Natur } from '@/assets/ikoner/natur.svg';
 import { ReactComponent as TilEkstern } from '@/assets/ikoner/external-link.svg';
 import Lenke from 'nav-frontend-lenker';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -149,7 +149,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 {avtalelisteRessurs.status === Status.Lastet &&
                 avtalelisteRessurs.data.length === 0 ? (
                     <div className={cls.element('natur-logo')}>
-                        <Natur width="300" height="100" />
+                        <Natur />
                         <Undertittel
                             className={cls.element('ingen-avtaler-header')}
                         >
