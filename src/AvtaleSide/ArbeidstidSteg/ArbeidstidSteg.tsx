@@ -10,7 +10,7 @@ import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput
 import InfoBoks from './InfoBoks/InfoBoks';
 import './ArbeidstidSteg.less';
 import BEMHelper from '@/utils/bem';
-import { Arbeidstid, Avtale } from '@/types/avtale';
+import { Arbeidstid } from '@/types/avtale';
 import { medContext } from '@/AvtaleContext';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 
