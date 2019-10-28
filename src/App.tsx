@@ -3,7 +3,7 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AvtaleProvider } from './AvtaleContext';
-import AvtaleOversikt from './AvtaleSide/AvtaleOversikt';
+import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import Informasjonsside from './Informajonsside/Informasjonsside';

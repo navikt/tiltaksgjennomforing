@@ -17,7 +17,7 @@ import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import ArbeidsgiverInstruks from './GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
 import DeltakerInstruks from './GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
 import VeilederInstruks from './GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
-import Oppsummering from './GodkjenningSteg/Oppsummering/oppsummering/Oppsummering';
+import OppsummeringArbeidstrening from './GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
@@ -130,7 +130,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 {props.avtale.avbrutt &&
                                     'Avtalen er avbrutt av veileder og låst.'}
                             </AlertStripe>
-                            <Oppsummering
+                            <OppsummeringArbeidstrening
                                 avtale={props.avtale}
                                 rolle={props.rolle}
                             />
@@ -146,11 +146,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            {/* <AvtaleStatus
-                                avtale={props.avtale}
-                                rolle={props.rolle}
-                            /> */}
-                            {/* <AlertStripe
+                            <AlertStripe
                                 className={cls.element('banner')}
                                 type="info"
                             >
@@ -158,8 +154,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 av hensyn til personvern. Ta kontakt med din
                                 veileder hvis du har spørsmål til innholdet i
                                 avtalen.
-                            </AlertStripe> */}
-                            <GodkjenningSteg />
+                            </AlertStripe>
+                            <GodkjenningSteg
+                                oppsummering={<OppsummeringArbeidstrening />}
+                            />
                         </div>
                     );
                 } else if (erDesktop) {

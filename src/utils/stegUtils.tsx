@@ -3,7 +3,7 @@ import ArbeidstidSteg from '@/AvtaleSide/ArbeidstidSteg/ArbeidstidSteg';
 import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 import BeregningTilskudd from '@/AvtaleSide/BeregningTilskudd/BeregningTilskudd';
 import GodkjenningSteg from '@/AvtaleSide/GodkjenningSteg/GodkjenningSteg';
-import Oppsummering from '@/AvtaleSide/GodkjenningSteg/Oppsummering/oppsummering/Oppsummering';
+import OppsummeringArbeidstrening from '@/AvtaleSide/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import OppsummeringLonnstilskudd from '@/AvtaleSide/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import KontaktinfoSteg from '@/AvtaleSide/KontaktInformasjonSteg/KontaktinfoSteg';
 import LonnstilskuddVarighet from '@/AvtaleSide/LonnstilskuddVarighet/LonnstilskuddVarighet';
@@ -39,7 +39,9 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={<Oppsummering />} />,
+        komponent: (
+            <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
+        ),
         label: 'Godkjenning',
         id: 'godkjenning',
     },

@@ -1,4 +1,4 @@
-import PrinterSvg from '@/assets/ikoner/PrinterSvg';
+import { ReactComponent as PrinterSvg } from '@/assets/ikoner/printer.svg';
 import { medContext } from '@/AvtaleContext';
 import OppfolgingOppsummering from '@/AvtaleSide/GodkjenningSteg/Oppsummering/oppfølging/OppfolgingOppsummering';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';

@@ -28,9 +28,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             <Banner tekst="Tiltaksgjennomføring" />
             <div className="innloggingsside">
                 <Koffert className="innloggingsside__koffertikon" />
-                <Sidetittel className="innloggingsside__sidetittel">
-                    Dine tiltak på ett sted
-                </Sidetittel>
+                <Sidetittel>Dine tiltak på ett sted</Sidetittel>
                 <div className="innloggingsside__infotekst">
                     <p>
                         Dette er en digital avtale som skal brukes av deltaker,

@@ -5,8 +5,12 @@ test('test riktig antall steg for arbeidstrening', () => {
     expect(avtaleSteg).toHaveLength(6);
 });
 
-test('test riktig antall steg for lønnstilskudd', () => {
-    const avtaleStegLtsMidlertidig = hentAvtaleSteg.MIDLERTIDIG_LONNSTILSKUDD;
+test('test riktig antall steg for varig lønnstilskudd', () => {
     const avtaleStegLtsVarig = hentAvtaleSteg.VARIG_LONNSTILSKUDD;
-    expect(avtaleStegLtsMidlertidig && avtaleStegLtsVarig).toHaveLength(6);
+    expect(avtaleStegLtsVarig).toHaveLength(6);
+});
+
+test('test riktig antall steg for midlertidig lønnstilskudd', () => {
+    const avtaleStegLtsMidlertidig = hentAvtaleSteg.MIDLERTIDIG_LONNSTILSKUDD;
+    expect(avtaleStegLtsMidlertidig).toHaveLength(6);
 });

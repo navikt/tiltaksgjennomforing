@@ -20,7 +20,7 @@ interface Props {
 }
 
 const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
-    const aktuellPerson = () => {
+    /* const aktuellPerson = () => {
         switch (props.rolle) {
             case 'DELTAKER':
                 return props.avtale.godkjentAvDeltaker;
@@ -30,8 +30,8 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 return props.avtale.godkjentAvVeileder;
         }
     };
-
-    const hentParter = () => {
+*/
+    /* const hentParter = () => {
         if (props.rolle === 'VEILEDER') {
             return {
                 part1: `${props.avtale.bedriftNavn} v/ ${props.avtale.arbeidsgiverFornavn}`,
@@ -56,11 +56,11 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
         } else {
             return {};
         }
-    };
+    };*/
     // const hentAvtaleStatusDetaljer
 
-    const parter = hentParter();
-
+    /*   const parter = hentParter();
+     */
     return (
         <Innholdsboks className={cls.element('innholdsboks')}>
             <div className={cls.element('hovedIkon')}>
@@ -77,7 +77,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 )}
             </div>
             <Innholdstittel className={cls.element('header')}>
-                Du må godkjenne
+                {props.avtaleStatusDetaljer.header}{' '}
             </Innholdstittel>
             <Normaltekst className={cls.element('infotekst')}>
                 <p> {props.avtaleStatusDetaljer.infoDel1}</p>
@@ -85,10 +85,10 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
             </Normaltekst>
             <div className={cls.element('andreParter')}>
                 <div>
-                    {hentParter().part1}
+                    {props.avtaleStatusDetaljer.part1}
                     {/* har godkjent */}
                     <span className={cls.element('andreParter__ikon')}>
-                        {hentParter().part1Status === true ? (
+                        {props.avtaleStatusDetaljer.part1Status === true ? (
                             <img src={CheckIkon} />
                         ) : (
                             <img src={VarselIkon} />
@@ -98,10 +98,10 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
 
                 <div>
                     <span className={cls.element('andreParter__part2')}>
-                        {hentParter().part2}
+                        {props.avtaleStatusDetaljer.part2}
                         <span />
                         <span className={cls.element('andreParter__ikon')}>
-                            {hentParter().part2Status === true ? (
+                            {props.avtaleStatusDetaljer.part2Status === true ? (
                                 <img src={CheckIkon} />
                             ) : (
                                 <img src={VarselIkon} />

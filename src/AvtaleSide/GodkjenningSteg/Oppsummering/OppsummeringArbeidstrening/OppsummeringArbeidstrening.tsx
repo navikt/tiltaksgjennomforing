@@ -1,4 +1,4 @@
-import { ReactComponent as PrinterSvg } from '@/assets/ikoner/printer2.svg';
+import { ReactComponent as PrinterSvg } from '@/assets/ikoner/printer.svg';
 import { medContext, Rolle } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '@/types/avtale';
@@ -12,7 +12,8 @@ import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import OppgaverOppsummering from '../oppgaveOppsummering/OppgaverOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
-import './Oppsummering.less';
+import './OppsummeringArbeidstrening.less';
+import BEMHelper from '@/utils/bem';
 
 interface Props {
     avtale: Avtale;
@@ -23,10 +24,12 @@ const printAvtale = () => {
     window.print();
 };
 
-const Oppsummering: FunctionComponent<Props> = props => (
+const cls = BEMHelper('oppsummering-arbeidstrening');
+
+const OppsummeringArbeidstrening: FunctionComponent<Props> = props => (
     <Innholdsboks>
-        <div className="oppsummering__header">
-            <Systemtittel className="oppsummering__tittel">
+        <div className={cls.element('header')}>
+            <Systemtittel className={cls.element('tittel')}>
                 {props.avtale.erLaast
                     ? 'Oppsummering av inngått avtale'
                     : 'Godkjenning av avtale'}
@@ -34,11 +37,11 @@ const Oppsummering: FunctionComponent<Props> = props => (
 
             {props.avtale.erLaast && (
                 <Knapp
-                    className="oppsummering__print-knapp"
+                    className={cls.element('print-knapp')}
                     onClick={printAvtale}
                 >
                     skriv ut avtale
-                    <div className="oppsummering__print-knapp__ikon">
+                    <div className={cls.element('print-knapp__ikon')}>
                         <PrinterSvg />
                     </div>
                 </Knapp>
@@ -54,4 +57,4 @@ const Oppsummering: FunctionComponent<Props> = props => (
     </Innholdsboks>
 );
 
-export default medContext(Oppsummering);
+export default medContext(OppsummeringArbeidstrening);

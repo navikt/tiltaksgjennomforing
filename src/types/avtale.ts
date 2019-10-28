@@ -1,4 +1,5 @@
 import { Maalkategori } from './maalkategorier';
+import { Nettressurs } from '@/types/nettressurs';
 
 export type Avtale = AvtaleMetadata &
     Deltakerinfo &
@@ -107,3 +108,6 @@ export interface GodkjentPaVegneGrunner {
     reservert: boolean;
     digitalKompetanse: boolean;
 }
+
+export type AvtaleRessurs = Nettressurs<Avtale>;
+export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
