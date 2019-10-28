@@ -5,8 +5,10 @@ import { Context, medContext } from '@/AvtaleContext';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import './VeilederinfoDel.less';
+import { Veilederinfo } from '@/types/avtale';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 
-const VeilederinfoDel = (props: Context) => (
+const VeilederinfoDel = (props: InputStegProps<Veilederinfo>) => (
     <>
         <Systemtittel className="veilederinfo__tittel">
             Kontaktperson i NAV
@@ -39,4 +41,4 @@ const VeilederinfoDel = (props: Context) => (
     </>
 );
 
-export default medContext(VeilederinfoDel);
+export default VeilederinfoDel;

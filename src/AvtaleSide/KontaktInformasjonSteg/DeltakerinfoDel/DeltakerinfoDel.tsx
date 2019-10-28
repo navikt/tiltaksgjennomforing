@@ -6,8 +6,11 @@ import { Context, medContext } from '@/AvtaleContext';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import './DeltakerinfoDel.less';
+import KontaktinfoSteg from '@/AvtaleSide/KontaktInformasjonSteg/KontaktinfoSteg';
+import { Deltakerinfo } from '@/types/avtale';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 
-const DeltakerinfoDel = (props: Context) => (
+const DeltakerinfoDel = (props: InputStegProps<Deltakerinfo>) => (
     <>
         <Systemtittel className="deltakerinfo__tittel">
             Informasjon om deltaker
@@ -44,4 +47,4 @@ const DeltakerinfoDel = (props: Context) => (
     </>
 );
 
-export default medContext(DeltakerinfoDel);
+export default DeltakerinfoDel;

@@ -2,13 +2,17 @@ import * as _ from 'lodash';
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Context, medContext } from '../../AvtaleContext';
+import { medContext } from '../../AvtaleContext';
 import Innholdsboks from '../../komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '../../komponenter/LagreKnapp/LagreKnapp';
 import PakrevdTextarea from '../../komponenter/PakrevdTextarea/PakrevdTextarea';
 import './OppfolgingOgTilretteleggingSteg.less';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import { Oppfolging, Tilrettelegging } from '@/types/avtale';
 
-const OppfolgingTilretteleggingSteg = (props: Context) => (
+const OppfolgingTilretteleggingSteg = (
+    props: InputStegProps<Oppfolging & Tilrettelegging>
+) => (
     <div>
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <Systemtittel className="oppfolgingsteg__tittel">

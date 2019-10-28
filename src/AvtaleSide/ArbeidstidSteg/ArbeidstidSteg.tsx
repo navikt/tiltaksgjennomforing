@@ -1,19 +1,20 @@
 import * as _ from 'lodash';
 import * as React from 'react';
-import { FunctionComponent, useContext, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import Datovelger from './Datovelger/Datovelger';
 import moment, { Moment } from 'moment';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { AvtaleContext } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';
 import './ArbeidstidSteg.less';
 import BEMHelper from '@/utils/bem';
+import { Arbeidstid, Avtale } from '@/types/avtale';
+import { medContext } from '@/AvtaleContext';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 
-const ArbeidstidSteg: FunctionComponent<{}> = props => {
-    const avtaleContext = useContext(AvtaleContext);
+const ArbeidstidSteg: FunctionComponent<InputStegProps<Arbeidstid>> = props => {
     const [startDatoRiktigFormatert, setStartDatoRiktigFormatert] = useState<
         boolean
     >(true);
@@ -23,7 +24,7 @@ const ArbeidstidSteg: FunctionComponent<{}> = props => {
 
     const velgStartDato = (dato: Moment) => {
         setStartDatoRiktigFormatert(true);
-        avtaleContext.settAvtaleVerdi(
+        props.settAvtaleVerdi(
             'startDato',
             dato.toISOString(true).split('+')[0]
         );
@@ -31,17 +32,14 @@ const ArbeidstidSteg: FunctionComponent<{}> = props => {
 
     const velgSluttDato = (dato: Moment) => {
         setSluttDatoRiktigFormatert(true);
-        avtaleContext.settAvtaleVerdi(
+        props.settAvtaleVerdi(
             'sluttDato',
             dato.toISOString(true).split('+')[0]
         );
     };
 
     const timerIUka = Number(
-        (
-            (37.5 * avtaleContext.avtale.arbeidstreningStillingprosent) /
-            100
-        ).toFixed(2)
+        ((37.5 * props.avtale.arbeidstreningStillingprosent) / 100).toFixed(2)
     );
 
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
@@ -57,7 +55,7 @@ const ArbeidstidSteg: FunctionComponent<{}> = props => {
             <Datovelger
                 className={cls.element('datovelger')}
                 velgDato={velgStartDato}
-                dato={moment(avtaleContext.avtale.startDato)}
+                dato={moment(props.avtale.startDato)}
                 settRiktigFormatert={() => setStartDatoRiktigFormatert(true)}
                 inputRiktigFormatert={startDatoRiktigFormatert}
             />
@@ -65,15 +63,15 @@ const ArbeidstidSteg: FunctionComponent<{}> = props => {
             <Datovelger
                 className={cls.element('datovelger')}
                 velgDato={velgSluttDato}
-                dato={moment(avtaleContext.avtale.sluttDato)}
+                dato={moment(props.avtale.sluttDato)}
                 settRiktigFormatert={() => setSluttDatoRiktigFormatert(true)}
                 inputRiktigFormatert={sluttDatoRiktigFormatert}
             />
             <StillingsprosentInput
                 label="Hvilken stillingsprosent skal deltakeren ha?"
-                verdi={avtaleContext.avtale.arbeidstreningStillingprosent}
+                verdi={props.avtale.arbeidstreningStillingprosent}
                 settVerdi={_.partial(
-                    avtaleContext.settAvtaleVerdi,
+                    props.settAvtaleVerdi,
                     'arbeidstreningStillingprosent'
                 )}
             />
@@ -82,11 +80,11 @@ const ArbeidstidSteg: FunctionComponent<{}> = props => {
             <LagreKnapp
                 className={cls.element('lagre-knapp')}
                 label={'Lagre'}
-                lagre={avtaleContext.lagreAvtale}
+                lagre={props.lagreAvtale}
                 suksessmelding={'Avtale lagret'}
             />
         </Innholdsboks>
     );
 };
 
-export default ArbeidstidSteg;
+export default medContext(ArbeidstidSteg);
