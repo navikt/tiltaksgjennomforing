@@ -64,7 +64,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <Innholdsboks className={cls.element('innholdsboks')}>
             <div className={cls.element('hovedIkon')}>
-                {aktuellPerson() ? (
+                {props.avtaleStatusDetaljer.godkjentAvInnloggetBruker ? (
                     <img
                         className={cls.element('hovedIkon__resize')}
                         src={CheckIkon}
