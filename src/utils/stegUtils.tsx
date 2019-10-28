@@ -88,4 +88,10 @@ const hentAvtaleSteg = {
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
 };
 
+export const avtaleTittel = {
+    ARBEIDSTRENING: 'arbeidstrening',
+    VARIG_LONNSTILSKUDD: 'varig lønnstilskudd',
+    MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
+};
+
 export default hentAvtaleSteg;

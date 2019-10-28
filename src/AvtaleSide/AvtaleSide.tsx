@@ -4,7 +4,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
-import hentAvtaleSteg from '@/utils/stegUtils';
+import hentAvtaleSteg, { avtaleTittel } from '@/utils/stegUtils';
 import moment from 'moment';
 import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
@@ -182,9 +182,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     );
                 }
 
+                const tiltakstype = avtaleTittel[props.avtale.tiltakstype];
                 return (
                     <>
-                        <Banner tekst="Avtale om arbeidstrening" />
+                        <Banner tekst={`Avtale om ${tiltakstype}`} />
                         <div className="avtaleside">{innhold}</div>
                     </>
                 );
