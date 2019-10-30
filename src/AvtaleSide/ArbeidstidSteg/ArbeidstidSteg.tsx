@@ -39,7 +39,7 @@ const ArbeidstidSteg: FunctionComponent<InputStegProps<Arbeidstid>> = props => {
     };
 
     const timerIUka = Number(
-        ((37.5 * props.avtale.arbeidstreningStillingprosent) / 100).toFixed(2)
+        ((37.5 * props.avtale.stillingprosent) / 100).toFixed(2)
     );
 
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
@@ -69,11 +69,8 @@ const ArbeidstidSteg: FunctionComponent<InputStegProps<Arbeidstid>> = props => {
             />
             <StillingsprosentInput
                 label="Hvilken stillingsprosent skal deltakeren ha?"
-                verdi={props.avtale.arbeidstreningStillingprosent}
-                settVerdi={_.partial(
-                    props.settAvtaleVerdi,
-                    'arbeidstreningStillingprosent'
-                )}
+                verdi={props.avtale.stillingprosent}
+                settVerdi={_.partial(props.settAvtaleVerdi, 'stillingprosent')}
             />
             <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
 

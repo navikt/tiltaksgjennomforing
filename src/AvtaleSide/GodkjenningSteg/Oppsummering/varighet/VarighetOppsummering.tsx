@@ -22,10 +22,10 @@ const harDato = (dato: number): string => {
 const VarighetOppsummering: FunctionComponent<Arbeidstid> = ({
     startDato,
     sluttDato,
-    arbeidstreningStillingprosent,
+    stillingprosent,
 }) => {
-    const stillingProsent = arbeidstreningStillingprosent
-        ? arbeidstreningStillingprosent.toString() + '%'
+    const stillingProsent = stillingprosent
+        ? stillingprosent.toString() + '%'
         : '';
 
     return (

@@ -35,7 +35,7 @@ export const tomAvtale: Avtale = {
 
     startDato: moment().valueOf(),
     sluttDato: moment().valueOf(),
-    arbeidstreningStillingprosent: 0,
+    stillingprosent: 0,
 
     maal: [],
     oppgaver: [],

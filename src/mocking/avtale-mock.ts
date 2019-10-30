@@ -50,7 +50,7 @@ const avtaleMock: Avtale = {
 
     startDato: 99,
     sluttDato: 99,
-    arbeidstreningStillingprosent: 99,
+    stillingprosent: 99,
 
     veilederNavIdent: 'Z123456',
     veilederFornavn: 'Nav',

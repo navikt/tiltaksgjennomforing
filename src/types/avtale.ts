@@ -56,7 +56,7 @@ export interface Veilederinfo {
 export interface Arbeidstid {
     startDato: number;
     sluttDato: number;
-    arbeidstreningStillingprosent: number;
+    stillingprosent: number;
 }
 
 export interface MaalListe {
