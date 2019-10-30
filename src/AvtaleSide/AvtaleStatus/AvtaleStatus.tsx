@@ -15,52 +15,10 @@ const cls = BEMHelper('avtalestatus');
 interface Props {
     avtale: Avtale;
     rolle: Rolle;
-    godkjentAvtale?: boolean;
     avtaleStatusDetaljer: AvtaleStatusDetaljer;
 }
 
 const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
-    /* const aktuellPerson = () => {
-        switch (props.rolle) {
-            case 'DELTAKER':
-                return props.avtale.godkjentAvDeltaker;
-            case 'ARBEIDSGIVER':
-                return props.avtale.godkjentAvArbeidsgiver;
-            case 'VEILEDER':
-                return props.avtale.godkjentAvVeileder;
-        }
-    };
-*/
-    /* const hentParter = () => {
-        if (props.rolle === 'VEILEDER') {
-            return {
-                part1: `${props.avtale.bedriftNavn} v/ ${props.avtale.arbeidsgiverFornavn}`,
-                part1Status: props.avtale.godkjentAvArbeidsgiver,
-                part2: `${props.avtale.deltakerFornavn}`,
-                part2Status: props.avtale.godkjentAvDeltaker,
-            };
-        } else if (props.rolle === 'ARBEIDSGIVER') {
-            return {
-                part1: `${props.avtale.deltakerFornavn}`,
-                part1Status: props.avtale.godkjentAvDeltaker,
-                part2: `NAV v/ ${props.avtale.veilederFornavn}`,
-                part2Status: props.avtale.godkjentAvVeileder,
-            };
-        } else if (props.rolle === 'DELTAKER') {
-            return {
-                part1: `${props.avtale.bedriftNavn} v/ ${props.avtale.arbeidsgiverFornavn}`,
-                part1Status: props.avtale.godkjentAvArbeidsgiver,
-                part2: `NAV v/ ${props.avtale.veilederFornavn}`,
-                part2Status: props.avtale.godkjentAvVeileder,
-            };
-        } else {
-            return {};
-        }
-    };*/
-    // const hentAvtaleStatusDetaljer
-
-    /*   const parter = hentParter();
-     */
     return (
         <Innholdsboks className={cls.element('innholdsboks')}>
             <div className={cls.element('hovedIkon')}>
