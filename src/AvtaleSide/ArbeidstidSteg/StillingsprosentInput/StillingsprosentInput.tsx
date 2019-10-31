@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import './StillingsprosentInput.less';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import useValidering from '@/komponenter/useValidering';
 
 interface Props {
     label: string;
     verdi: number;
-    feilmelding?: SkjemaelementFeil;
     settVerdi: (verdi: number) => void;
 }
 

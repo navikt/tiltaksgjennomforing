@@ -34,8 +34,8 @@ export const tomAvtale: Avtale = {
     tilrettelegging: '',
 
     startDato: moment().valueOf(),
-    arbeidstreningLengde: 1,
-    arbeidstreningStillingprosent: 0,
+    sluttDato: moment().valueOf(),
+    stillingprosent: 0,
 
     maal: [],
     oppgaver: [],
@@ -110,7 +110,7 @@ export interface Context {
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
 
-const AvtaleContext = React.createContext<Context>({} as Context);
+export const AvtaleContext = React.createContext<Context>({} as Context);
 
 export const AvtaleConsumer = AvtaleContext.Consumer;
 

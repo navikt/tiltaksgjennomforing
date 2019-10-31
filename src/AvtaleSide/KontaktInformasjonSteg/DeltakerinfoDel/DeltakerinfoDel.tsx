@@ -2,12 +2,13 @@ import * as _ from 'lodash';
 import { Input } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Context, medContext } from '@/AvtaleContext';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import './DeltakerinfoDel.less';
+import { Deltakerinfo } from '@/types/avtale';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 
-const DeltakerinfoDel = (props: Context) => (
+const DeltakerinfoDel = (props: InputStegProps<Deltakerinfo>) => (
     <>
         <Systemtittel className="deltakerinfo__tittel">
             Informasjon om deltaker
@@ -44,4 +45,4 @@ const DeltakerinfoDel = (props: Context) => (
     </>
 );
 
-export default medContext(DeltakerinfoDel);
+export default DeltakerinfoDel;

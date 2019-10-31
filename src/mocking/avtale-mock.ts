@@ -49,8 +49,8 @@ const avtaleMock: Avtale = {
     tilrettelegging: 'AG skal tilrettelegge',
 
     startDato: 99,
-    arbeidstreningLengde: 8,
-    arbeidstreningStillingprosent: 99,
+    sluttDato: 99,
+    stillingprosent: 99,
 
     veilederNavIdent: 'Z123456',
     veilederFornavn: 'Nav',

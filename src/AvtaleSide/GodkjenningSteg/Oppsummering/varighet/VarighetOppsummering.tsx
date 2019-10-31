@@ -1,6 +1,5 @@
 import moment from 'moment';
-import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import BEMHelper from '@/utils/bem';
@@ -12,28 +11,6 @@ import VarighetIkon from './VarighetIkon';
 
 const cls = BEMHelper('varighetOppsummering');
 
-const settInnRadStatus = (status: boolean, content: any): React.ReactNode => {
-    if (status) {
-        return (
-            <Normaltekst className={cls.element('navn')}>{content}</Normaltekst>
-        );
-    }
-    return standardTomBlokk();
-};
-
-const ukeSulfix = (antall: number): string => {
-    return antall > 1 ? ' uker' : ' uke';
-};
-
-export const sjekkOmVerdiErSatt = (input: number): boolean => {
-    if (input) {
-        if (input > 0) {
-            return true;
-        }
-    }
-    return false;
-};
-
 const formaterDato = (dato: number): string => {
     return moment(dato).format('DD.MM.YYYY');
 };
@@ -42,17 +19,13 @@ const harDato = (dato: number): string => {
     return dato ? formaterDato(dato).toString() : '';
 };
 
-const standardTomBlokk = (): React.ReactNode => {
-    return <EtikettFokus>Ikke fylt ut</EtikettFokus>;
-};
-
 const VarighetOppsummering: FunctionComponent<Arbeidstid> = ({
     startDato,
-    arbeidstreningLengde,
-    arbeidstreningStillingprosent,
+    sluttDato,
+    stillingprosent,
 }) => {
-    const stillingProsent = arbeidstreningStillingprosent
-        ? arbeidstreningStillingprosent.toString() + '%'
+    const stillingProsent = stillingprosent
+        ? stillingprosent.toString() + '%'
         : '';
 
     return (
@@ -70,15 +43,12 @@ const VarighetOppsummering: FunctionComponent<Arbeidstid> = ({
                     </div>
                     <div className={cls.element('element')}>
                         <Element className={cls.element('label')}>
-                            Varighet
+                            Sluttdato
                         </Element>
-                        {settInnRadStatus(
-                            sjekkOmVerdiErSatt(arbeidstreningLengde),
-                            arbeidstreningLengde
-                                ? arbeidstreningLengde.toString() +
-                                      ukeSulfix(arbeidstreningLengde)
-                                : ''
-                        )}
+                        <SjekkOmVerdiEksisterer
+                            verdi={harDato(sluttDato)}
+                            clsName="varighetOppsummering"
+                        />
                     </div>
                     <div className={cls.element('element')}>
                         <Element className={cls.element('label')}>

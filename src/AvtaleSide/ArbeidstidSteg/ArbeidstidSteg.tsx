@@ -1,110 +1,87 @@
 import * as _ from 'lodash';
 import * as React from 'react';
+import { FunctionComponent, useState } from 'react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import Datovelger from './Datovelger/Datovelger';
 import moment, { Moment } from 'moment';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Context, medContext } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import Ukevelger from './Ukevelger/Ukevelger';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';
 import './ArbeidstidSteg.less';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import BEMHelper from '@/utils/bem';
+import { Arbeidstid } from '@/types/avtale';
+import { medContext } from '@/AvtaleContext';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 
-interface State {
-    startDatoRiktigFormatert: boolean;
-    stillingsprosentFeil?: SkjemaelementFeil;
-    arbTreningLengdeFeil?: SkjemaelementFeil;
-}
+const ArbeidstidSteg: FunctionComponent<InputStegProps<Arbeidstid>> = props => {
+    const [startDatoRiktigFormatert, setStartDatoRiktigFormatert] = useState<
+        boolean
+    >(true);
+    const [sluttDatoRiktigFormatert, setSluttDatoRiktigFormatert] = useState<
+        boolean
+    >(true);
 
-class ArbeidstidSteg extends React.Component<Context, State> {
-    state: State = {
-        startDatoRiktigFormatert: true,
-        stillingsprosentFeil: undefined,
-        arbTreningLengdeFeil: undefined,
-    };
-
-    velgStartDato = (dato: Moment) => {
-        this.setState({
-            startDatoRiktigFormatert: true,
-        });
-        this.props.settAvtaleVerdi(
+    const velgStartDato = (dato: Moment) => {
+        setStartDatoRiktigFormatert(true);
+        props.settAvtaleVerdi(
             'startDato',
             dato.toISOString(true).split('+')[0]
         );
     };
 
-    settStartDatoRiktigFormatert = (riktigFormatert: boolean) => {
-        this.setState({ startDatoRiktigFormatert: riktigFormatert });
+    const velgSluttDato = (dato: Moment) => {
+        setSluttDatoRiktigFormatert(true);
+        props.settAvtaleVerdi(
+            'sluttDato',
+            dato.toISOString(true).split('+')[0]
+        );
     };
 
-    settArbeidstreningLengde = (verdi: number) => {
-        this.props.settAvtaleVerdi('arbeidstreningLengde', verdi);
+    const timerIUka = Number(
+        ((37.5 * props.avtale.stillingprosent) / 100).toFixed(2)
+    );
 
-        if (verdi === 0) {
-            this.setState({
-                arbTreningLengdeFeil: {
-                    feilmelding: 'Lengde på arbeidstreningen er påkrevd',
-                },
-            });
-        } else {
-            this.setState({ arbTreningLengdeFeil: undefined });
-        }
-    };
+    const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
-    render() {
-        const timerIUka = Number(
-            (
-                (37.5 * this.props.avtale.arbeidstreningStillingprosent) /
-                100
-            ).toFixed(2)
-        );
-        const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
+    const cls = BEMHelper('arbeidstidsteg');
 
-        return (
-            <Innholdsboks utfyller="arbeidsgiver">
-                <Systemtittel className="arbeidstidsteg__tittel" tag="h2">
-                    Arbeidstid og oppstart
-                </Systemtittel>
-                <Normaltekst className="arbeidstidsteg__startdato-label">
-                    Startdato
-                </Normaltekst>
-                <Datovelger
-                    className="arbeidstidsteg__datovelger"
-                    velgDato={this.velgStartDato}
-                    dato={moment(this.props.avtale.startDato)}
-                    settRiktigFormatert={this.settStartDatoRiktigFormatert}
-                    inputRiktigFormatert={this.state.startDatoRiktigFormatert}
-                />
-                <Ukevelger
-                    feilmelding={this.state.arbTreningLengdeFeil}
-                    label="Hvor lenge skal arbeidstreningen vare?"
-                    verdi={this.props.avtale.arbeidstreningLengde}
-                    onChange={this.settArbeidstreningLengde}
-                    min={1}
-                    max={12}
-                />
-                <StillingsprosentInput
-                    feilmelding={this.state.stillingsprosentFeil}
-                    label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={this.props.avtale.arbeidstreningStillingprosent}
-                    settVerdi={_.partial(
-                        this.props.settAvtaleVerdi,
-                        'arbeidstreningStillingprosent'
-                    )}
-                />
-                <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
+    return (
+        <Innholdsboks utfyller="arbeidsgiver">
+            <Systemtittel className={cls.element('tittel')} tag="h2">
+                Arbeidstid og oppstart
+            </Systemtittel>
+            <Normaltekst>Startdato</Normaltekst>
+            <Datovelger
+                className={cls.element('datovelger')}
+                velgDato={velgStartDato}
+                dato={moment(props.avtale.startDato)}
+                settRiktigFormatert={() => setStartDatoRiktigFormatert(true)}
+                inputRiktigFormatert={startDatoRiktigFormatert}
+            />
+            <Normaltekst>Sluttdato</Normaltekst>
+            <Datovelger
+                className={cls.element('datovelger')}
+                velgDato={velgSluttDato}
+                dato={moment(props.avtale.sluttDato)}
+                settRiktigFormatert={() => setSluttDatoRiktigFormatert(true)}
+                inputRiktigFormatert={sluttDatoRiktigFormatert}
+            />
+            <StillingsprosentInput
+                label="Hvilken stillingsprosent skal deltakeren ha?"
+                verdi={props.avtale.stillingprosent}
+                settVerdi={_.partial(props.settAvtaleVerdi, 'stillingprosent')}
+            />
+            <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} />
 
-                <LagreKnapp
-                    className="arbeidstidsteg__lagre-knapp"
-                    label={'Lagre'}
-                    lagre={this.props.lagreAvtale}
-                    suksessmelding={'Avtale lagret'}
-                />
-            </Innholdsboks>
-        );
-    }
-}
+            <LagreKnapp
+                className={cls.element('lagre-knapp')}
+                label={'Lagre'}
+                lagre={props.lagreAvtale}
+                suksessmelding={'Avtale lagret'}
+            />
+        </Innholdsboks>
+    );
+};
 
 export default medContext(ArbeidstidSteg);

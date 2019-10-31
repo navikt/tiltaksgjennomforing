@@ -2,12 +2,15 @@ import * as _ from 'lodash';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { Context, medContext } from '@/AvtaleContext';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import './ArbeidsgiverinfoDel.less';
+import { Arbeidsgiverinfo, Bedriftinfo } from '@/types/avtale';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 
-const ArbeidsgiverinfoDel = (props: Context) => (
+const ArbeidsgiverinfoDel = (
+    props: InputStegProps<Bedriftinfo & Arbeidsgiverinfo>
+) => (
     <>
         <Systemtittel className="arbeidsgiver-tittel">
             Informasjon om arbeidsgiver
@@ -66,4 +69,4 @@ const ArbeidsgiverinfoDel = (props: Context) => (
     </>
 );
 
-export default medContext(ArbeidsgiverinfoDel);
+export default ArbeidsgiverinfoDel;
