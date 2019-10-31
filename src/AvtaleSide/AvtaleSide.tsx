@@ -13,7 +13,6 @@ import { RouteComponentProps } from 'react-router';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
-import GodkjenningSteg from './GodkjenningSteg/GodkjenningSteg';
 import ArbeidsgiverInstruks from './GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
 import DeltakerInstruks from './GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
 import VeilederInstruks from './GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
@@ -30,14 +29,26 @@ const cls = BEMHelper('avtaleside');
 
 type Props = RouteComponentProps<MatchProps> & Context;
 
+type StegId =
+    | 'kontaktinformasjon'
+    | 'maal'
+    | 'arbeidsoppgaver'
+    | 'arbeidstid'
+    | 'oppfolging'
+    | 'stilling'
+    | 'lonnstilskuddvarighet'
+    | 'beregningtilskudd'
+    | 'godkjenning';
+
 export interface StegInfo {
     komponent: React.ReactNode;
     label: string;
-    id: string;
+    id: StegId;
 }
 
 const AvtaleSide: FunctionComponent<Props> = props => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
+    const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -51,9 +62,15 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
 
     const erDesktop = windowSize > 767;
-    const aktivtSteg = avtaleSteg.find(
-        steg => steg.id === props.match.params.stegPath
-    );
+
+    const finnSteg = (id: StegId) => avtaleSteg.find(steg => steg.id === id);
+
+    useEffect(() => {
+        setAktivtSteg(
+            avtaleSteg.find(steg => steg.id === props.match.params.stegPath)
+        );
+    }, [props.match.params.stegPath]);
+
     const instruks = (rolle: Rolle) => {
         switch (rolle) {
             case 'DELTAKER':
@@ -139,6 +156,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         </div>
                     );
                 } else if (props.rolle === 'DELTAKER') {
+                    setAktivtSteg(finnSteg('godkjenning'));
                     innhold = (
                         <div className="avtaleside__innhold">
                             <div className="tilbaketiloversikt">
@@ -154,9 +172,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 veileder hvis du har spørsmål til innholdet i
                                 avtalen.
                             </AlertStripe>
-                            <GodkjenningSteg
-                                oppsummering={<OppsummeringArbeidstrening />}
-                            />
+                            {aktivtSteg.komponent}
                         </div>
                     );
                 } else if (erDesktop) {
