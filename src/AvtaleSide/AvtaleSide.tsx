@@ -69,7 +69,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         setAktivtSteg(
             avtaleSteg.find(steg => steg.id === props.match.params.stegPath)
         );
-    }, [props.match.params.stegPath]);
+    }, [props.match.params.stegPath, avtaleSteg]);
 
     const instruks = (rolle: Rolle) => {
         switch (rolle) {
