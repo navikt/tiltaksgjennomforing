@@ -9,11 +9,13 @@ test('Test that <OpprettOppgave> renders correctly', () => {
         oppgaveBeskrivelse: 'string',
         oppgaveOpplaering: 'string',
     };
-    const wrapper = shallow(<OpprettOppgave
-        fjerneMellomLagringArbeidsoppgave={stub}
-        mellomLagretArbeidsoppgave={mellomLagretArbeidsoppgave}
-        lagreOppgave={stub}
-        setMellomLagringArbeidsoppgave={stub}
-    />);
+    const wrapper = shallow(
+        <OpprettOppgave
+            fjerneMellomLagringArbeidsoppgave={stub}
+            mellomLagretArbeidsoppgave={mellomLagretArbeidsoppgave}
+            lagreOppgave={stub}
+            setMellomLagringArbeidsoppgave={stub}
+        />
+    );
     expect(wrapper).toHaveLength(1);
 });

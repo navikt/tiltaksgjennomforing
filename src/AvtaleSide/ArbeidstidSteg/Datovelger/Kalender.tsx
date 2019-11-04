@@ -2,7 +2,7 @@ import * as React from 'react';
 import DayPicker from 'react-day-picker';
 // @ts-ignore
 import momentLocaleUtils, { LocaleUtils } from 'react-day-picker/moment';
-import Navigasjonsbar from './Navigasjonsbar';
+import Navigasjonsbar from './navigasjonsbar';
 import DatovelgerCaption from './DatovelgerCaption';
 import { datoIkkeTilbakeITid } from '@/utils/datoUtils';
 
@@ -67,9 +67,16 @@ class Kalender extends React.Component<Props> {
                     locale="nb"
                     localeUtils={localeUtils}
                     firstDayOfWeek={1}
-                    navbarElement={<Navigasjonsbar showPreviousButton={true} showNextButton={true}/>}
+                    navbarElement={
+                        <Navigasjonsbar
+                            showPreviousButton={true}
+                            showNextButton={true}
+                        />
+                    }
                     disabledDays={{ before: today }}
-                    captionElement={<DatovelgerCaption date={this.props.valgtDato}/>}
+                    captionElement={
+                        <DatovelgerCaption date={this.props.valgtDato} />
+                    }
                     selectedDays={this.props.valgtDato}
                     initialMonth={this.props.valgtDato}
                     onDayClick={dato => this.velgDato(dato)}

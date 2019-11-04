@@ -8,11 +8,13 @@ test('Test that <OpprettMaal> renders correctly', () => {
         maal: 'string',
         maalTekst: 'string',
     };
-    const wrapper = shallow(<OpprettMaal
-        fjernMellomLagring={stub}
-        lagreMaal={stub}
-        ledigeMaalkategorier={[]}
-        mellomLagretMaal={mellomLagretMaal}
-    />);
+    const wrapper = shallow(
+        <OpprettMaal
+            fjernMellomLagring={stub}
+            lagreMaal={stub}
+            ledigeMaalkategorier={[]}
+            mellomLagretMaal={mellomLagretMaal}
+        />
+    );
     expect(wrapper).toHaveLength(1);
 });

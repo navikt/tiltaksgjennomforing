@@ -8,13 +8,13 @@ test('Test that <GodkjennPaVegneAv> renders correctly', () => {
         reservert: false,
         digitalKompetanse: false,
     };
-    const moderState = {
-
-    }
+    const moderState = {};
     // @ts-ignore
-    const wrapper = shallow(<GodkjennPaVegneAv
-        godkjentPaVegneGrunn={grunner}
-        moderState={moderState}
-    />);
+    const wrapper = shallow(
+        <GodkjennPaVegneAv
+            godkjentPaVegneGrunn={grunner}
+            moderState={moderState}
+        />
+    );
     expect(wrapper).toHaveLength(1);
 });

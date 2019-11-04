@@ -7,7 +7,8 @@ module.exports = {
         plugins: [
             new EnvironmentPlugin({
                 GIT_COMMIT_HASH: 'local-dev',
-            })],
+            }),
+        ],
         alias: {
             '@': path.resolve(__dirname, 'src/'),
         },
