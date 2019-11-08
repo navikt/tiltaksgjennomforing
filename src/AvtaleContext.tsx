@@ -35,7 +35,6 @@ export const tomAvtale: Avtale = {
 
     startDato: moment().valueOf(),
     sluttDato: moment().valueOf(),
-    stillingprosent: 0,
 
     maal: [],
     oppgaver: [],
@@ -54,6 +53,14 @@ export const tomAvtale: Avtale = {
         reservert: false,
         digitalKompetanse: false,
     },
+
+    manedslonn: undefined,
+    feriepengesats: 12.0,
+    arbeidsgiveravgift: 14.1,
+    stillingprosent: 100,
+    lonnstilskuddProsent: '',
+
+    arbeidsgiverKontonummer: '',
 };
 
 export interface TemporaryLagring {
@@ -79,33 +86,31 @@ const tomTemporaryLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave = {
 };
 
 export interface Context {
+    avbryt: () => Promise<any>;
     avtale: Avtale;
-    varsler: Varsel[];
-    rolle: Rolle;
-    mellomLagring: TemporaryLagring;
-    mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
-    settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
-    lagreAvtale: () => Promise<any>;
-    lagreMaal: (maal: Maal) => Promise<any>;
-    slettMaal: (maal: Maal) => Promise<any>;
-    lagreOppgave: (oppgave: Oppgave) => Promise<any>;
-    slettOppgave: (oppgave: Oppgave) => Promise<any>;
-    hentAvtale: (avtaleId: string) => Promise<any>;
-    hentRolle: (avtaleId: string) => Promise<any>;
+    endretSteg: () => void;
     godkjenn: (godkjent: boolean) => Promise<any>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
-    avbryt: () => Promise<any>;
-    visFeilmelding: (feilmelding: string) => void;
-    endretSteg: () => void;
-    mellomLagreMaal: (maalInput: TemporaryLagring) => void;
-    setMellomLagreMaalTom: () => void;
-    mellomLagreArbeidsoppgave: (
-        arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
-    ) => void;
-    setMellomLagreArbeidsoppgaveTom: () => void;
-    hentVarsler: (avtaleId: string) => Promise<any>;
-    settVarselTilLest: (varselId: string) => Promise<void>;
     harUlagredeEndringer: () => boolean;
+    hentAvtale: (avtaleId: string) => Promise<any>;
+    hentRolle: (avtaleId: string) => Promise<any>;
+    hentVarsler: (avtaleId: string) => Promise<any>;
+    lagreAvtale: () => Promise<any>;
+    lagreMaal: (maal: Maal) => Promise<any>;
+    lagreOppgave: (oppgave: Oppgave) => Promise<any>;
+    mellomLagreArbeidsoppgave: (arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave) => void;
+    mellomLagreMaal: (maalInput: TemporaryLagring) => void;
+    mellomLagring: TemporaryLagring;
+    mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
+    rolle: Rolle;
+    setMellomLagreArbeidsoppgaveTom: () => void;
+    setMellomLagreMaalTom: () => void;
+    settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
+    settVarselTilLest: (varselId: string) => Promise<void>;
+    slettMaal: (maal: Maal) => Promise<any>;
+    slettOppgave: (oppgave: Oppgave) => Promise<any>;
+    varsler: Varsel[];
+    visFeilmelding: (feilmelding: string) => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -138,31 +143,27 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             varsler: [],
         };
 
-        this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
+        this.avbrytAvtale = this.avbrytAvtale.bind(this);
+        this.endretSteg = this.endretSteg.bind(this);
+        this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
+        this.godkjennAvtale = this.godkjennAvtale.bind(this);
+        this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
+        this.harUlagredeEndringer = this.harUlagredeEndringer.bind(this);
         this.hentAvtale = this.hentAvtale.bind(this);
+        this.hentRolle = this.hentRolle.bind(this);
+        this.hentVarsler = this.hentVarsler.bind(this);
         this.lagreAvtale = this.lagreAvtale.bind(this);
         this.lagreMaal = this.lagreMaal.bind(this);
-        this.slettMaal = this.slettMaal.bind(this);
         this.lagreOppgave = this.lagreOppgave.bind(this);
+        this.mellomLagreArbeidsoppgave = this.mellomLagreArbeidsoppgave.bind(this);
+        this.mellomLagreMaal = this.mellomLagreMaal.bind(this);
+        this.setMellomLagreArbeidsoppgaveTom = this.setMellomLagreArbeidsoppgaveTom.bind(this);
+        this.setMellomLagreMaalTom = this.setMellomLagreMaalTom.bind(this);
+        this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
+        this.settVarselTilLest = this.settVarselTilLest.bind(this);
+        this.slettMaal = this.slettMaal.bind(this);
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
-        this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
-        this.hentRolle = this.hentRolle.bind(this);
-        this.godkjennAvtale = this.godkjennAvtale.bind(this);
-        this.avbrytAvtale = this.avbrytAvtale.bind(this);
-        this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
-        this.endretSteg = this.endretSteg.bind(this);
-        this.mellomLagreMaal = this.mellomLagreMaal.bind(this);
-        this.setMellomLagreMaalTom = this.setMellomLagreMaalTom.bind(this);
-        this.mellomLagreArbeidsoppgave = this.mellomLagreArbeidsoppgave.bind(
-            this
-        );
-        this.setMellomLagreArbeidsoppgaveTom = this.setMellomLagreArbeidsoppgaveTom.bind(
-            this
-        );
-        this.hentVarsler = this.hentVarsler.bind(this);
-        this.settVarselTilLest = this.settVarselTilLest.bind(this);
-        this.harUlagredeEndringer = this.harUlagredeEndringer.bind(this);
     }
 
     mellomLagreMaal(maalInput: TemporaryLagring): void {
@@ -177,9 +178,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         });
     }
 
-    mellomLagreArbeidsoppgave(
-        arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave
-    ): void {
+    mellomLagreArbeidsoppgave(arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave): void {
         this.setState({ mellomLagringArbeidsoppgave: arbeidsoppgaveInput });
     }
 
@@ -238,14 +237,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     lagreMaal(maalTilLagring: Maal) {
-        const nyeMaal = this.state.avtale.maal.filter(
-            (maal: Maal) => maal.id !== maalTilLagring.id
-        );
+        const nyeMaal = this.state.avtale.maal.filter((maal: Maal) => maal.id !== maalTilLagring.id);
         nyeMaal.push(maalTilLagring);
-        nyeMaal.sort(
-            (a: Maal, b: Maal) =>
-                (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
-        );
+        nyeMaal.sort((a: Maal, b: Maal) => (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0));
         this.settAvtaleVerdi('maal', nyeMaal);
         return this.lagreAvtale();
     }
@@ -260,7 +254,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async hentAvtale(avtaleId: string) {
         const avtale = await RestService.hentAvtale(avtaleId);
-
         const godkjenningerBool = this.konverterGodkjentTilBool(avtale);
         const avtaleBool = { ...avtale, ...godkjenningerBool };
         this.setState({ avtale: { ...this.state.avtale, ...avtaleBool } });
@@ -278,9 +271,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     slettMaal(maalTilSletting: Maal) {
-        const nyeMaal = this.state.avtale.maal.filter(
-            (maal: Maal) => maal.id !== maalTilSletting.id
-        );
+        const nyeMaal = this.state.avtale.maal.filter((maal: Maal) => maal.id !== maalTilSletting.id);
         this.settAvtaleVerdi('maal', nyeMaal);
         return this.lagreAvtale();
     }
@@ -290,19 +281,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             (oppgave: Oppgave) => oppgave.id !== oppgaveTilLagring.id
         );
         nyeOppgaver.push(oppgaveTilLagring);
-        nyeOppgaver.sort(
-            (a: Oppgave, b: Oppgave) =>
-                (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0)
-        );
+        nyeOppgaver.sort((a: Oppgave, b: Oppgave) => (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0));
         this.settAvtaleVerdi('oppgaver', nyeOppgaver);
         return this.lagreAvtale();
     }
 
     slettOppgave(oppgaveTilSletting: Oppgave) {
         const avtale = this.state.avtale;
-        const nyeOppgaver = avtale.oppgaver.filter(
-            (oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id
-        );
+        const nyeOppgaver = avtale.oppgaver.filter((oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id);
         this.settAvtaleVerdi('oppgaver', nyeOppgaver);
         return this.lagreAvtale();
     }
@@ -342,48 +328,41 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     render() {
         const context: Context = {
+            avbryt: this.avbrytAvtale,
             avtale: this.state.avtale,
-            varsler: this.state.varsler,
-            rolle: this.state.rolle,
-            mellomLagring: this.state.mellomLagring,
-            mellomLagringArbeidsoppgave: this.state.mellomLagringArbeidsoppgave,
-            settAvtaleVerdi: this.settAvtaleVerdi,
-            lagreAvtale: this.lagreAvtale,
-            lagreMaal: this.lagreMaal,
-            slettMaal: this.slettMaal,
-            lagreOppgave: this.lagreOppgave,
-            slettOppgave: this.slettOppgave,
+            endretSteg: this.endretSteg,
+            godkjenn: this.godkjennAvtale,
+            godkjennPaVegne: this.godkjennAvtalePaVegne,
+            harUlagredeEndringer: this.harUlagredeEndringer,
             hentAvtale: this.hentAvtale,
             hentRolle: this.hentRolle,
-            godkjenn: this.godkjennAvtale,
-            avbryt: this.avbrytAvtale,
-            godkjennPaVegne: this.godkjennAvtalePaVegne,
-            visFeilmelding: this.visFeilmelding,
-            endretSteg: this.endretSteg,
-            mellomLagreMaal: this.mellomLagreMaal,
-            setMellomLagreMaalTom: this.setMellomLagreMaalTom,
-            mellomLagreArbeidsoppgave: this.mellomLagreArbeidsoppgave,
-            setMellomLagreArbeidsoppgaveTom: this
-                .setMellomLagreArbeidsoppgaveTom,
             hentVarsler: this.hentVarsler,
+            lagreAvtale: this.lagreAvtale,
+            lagreMaal: this.lagreMaal,
+            lagreOppgave: this.lagreOppgave,
+            mellomLagreArbeidsoppgave: this.mellomLagreArbeidsoppgave,
+            mellomLagreMaal: this.mellomLagreMaal,
+            mellomLagring: this.state.mellomLagring,
+            mellomLagringArbeidsoppgave: this.state.mellomLagringArbeidsoppgave,
+            rolle: this.state.rolle,
+            setMellomLagreArbeidsoppgaveTom: this.setMellomLagreArbeidsoppgaveTom,
+            setMellomLagreMaalTom: this.setMellomLagreMaalTom,
+            settAvtaleVerdi: this.settAvtaleVerdi,
             settVarselTilLest: this.settVarselTilLest,
-            harUlagredeEndringer: this.harUlagredeEndringer,
+            slettMaal: this.slettMaal,
+            slettOppgave: this.slettOppgave,
+            varsler: this.state.varsler,
+            visFeilmelding: this.visFeilmelding,
         };
 
         return (
             <>
                 {this.state.feilmelding && (
-                    <VarselKomponent
-                        kanLukkes={true}
-                        onLukkVarsel={this.fjernFeilmelding}
-                        type={'advarsel'}
-                    >
+                    <VarselKomponent kanLukkes={true} onLukkVarsel={this.fjernFeilmelding} type={'advarsel'}>
                         {this.state.feilmelding}
                     </VarselKomponent>
                 )}
-                <AvtaleContext.Provider value={context}>
-                    {this.props.children}
-                </AvtaleContext.Provider>
+                <AvtaleContext.Provider value={context}>{this.props.children}</AvtaleContext.Provider>
             </>
         );
     }
@@ -391,9 +370,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
 export const AvtaleProvider = withRouter(TempAvtaleProvider);
 
-export function medContext(
-    Component: React.ComponentType<any>
-): React.ComponentType<any> {
+export function medContext(Component: React.ComponentType<any>): React.ComponentType<any> {
     return props => (
         <AvtaleConsumer>
             {(context: Context) => {

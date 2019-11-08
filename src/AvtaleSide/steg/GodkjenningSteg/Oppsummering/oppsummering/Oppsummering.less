@@ -1,0 +1,45 @@
+.oppsummering {
+    &__tittel {
+        margin-bottom: 2.5rem;
+    }
+
+    &__oppgave-tittel {
+        margin-top: 3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    &__label {
+        font-weight: bold;
+    }
+
+    &__beskrivelse {
+        margin-bottom: 1rem;
+        font-style: italic;
+    }
+    &__header {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__print-knapp {
+        width: 12rem;
+        height: 2.5rem;
+        display: flex;
+        justify-content: space-evenly;
+        &:hover {
+            #printerSvg {
+                fill: white;
+            }
+        }
+        &__ikon {
+            margin-left: 0.5rem;
+        }
+        @media print {
+            display: none;
+        }
+    }
+    @media (max-width: 767px) {
+        &__print-knapp {
+            display: none;
+        }
+    }
+}

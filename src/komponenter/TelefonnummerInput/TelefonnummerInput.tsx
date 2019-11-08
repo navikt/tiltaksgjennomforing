@@ -7,7 +7,6 @@ interface Props {
     label: string;
     verdi: string;
     feilmelding?: string;
-    inputType?: string;
     settVerdi: (verdi: string) => void;
 }
 
@@ -36,7 +35,6 @@ const TelefonnummerInput: React.FunctionComponent<Props> = props => {
                 setFeil(undefined);
             }}
             onBlur={sjekkInputfelt}
-            className={props.className}
             type="tel"
         />
     );
