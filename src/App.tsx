@@ -30,33 +30,19 @@ class App extends React.Component {
             <IntlProvider locale="nb">
                 <BrowserRouter basename={basename}>
                     <Switch>
-                        <Route
-                            path={pathTilInformasjonssideUinnlogget}
-                            exact={true}
-                            component={Informasjonsside}
-                        />
+                        <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
                         <InnloggingBoundary>
                             <RedirectEtterLogin>
                                 <FeatureToggleProvider>
-                                    <Route
-                                        path="/"
-                                        exact={true}
-                                        component={AvtaleOversikt}
-                                    />
+                                    <Route path="/" exact={true} component={AvtaleOversikt} />
                                     <Route
                                         path={pathTilInformasjonssideInnlogget}
                                         exact={true}
                                         component={Informasjonsside}
                                     />
+                                    <Route path={pathTilOpprettAvtale} exact={true} component={OpprettAvtale} />
                                     <Route
-                                        path={pathTilOpprettAvtale}
-                                        exact={true}
-                                        component={OpprettAvtale}
-                                    />
-                                    <Route
-                                        path={pathTilOpprettAvtaleFullfort(
-                                            ':avtaleId'
-                                        )}
+                                        path={pathTilOpprettAvtaleFullfort(':avtaleId')}
                                         exact={true}
                                         component={OpprettelseFullfort}
                                     />
@@ -67,10 +53,7 @@ class App extends React.Component {
                                             component={LandingsSide}
                                         />
                                         <Route
-                                            path={pathTilStegIAvtale(
-                                                ':avtaleId',
-                                                ':stegPath'
-                                            )}
+                                            path={pathTilStegIAvtale(':avtaleId', ':stegPath')}
                                             exact={true}
                                             component={AvtaleSide}
                                         />

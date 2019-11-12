@@ -34,33 +34,21 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             <div className="avtaleside__desktop">
                 {props.varsler}
                 <div className={cls.element('lenkerlinje')}>
-                    <TilbakeTilOversiktLenke
-                        onClick={props.tilbakeTilOversiktKlikk}
-                    />
+                    <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
                     <div className="avtaleside__avbrytOgDelLenk">
                         {' '}
-                        {props.avtale.kanAvbrytes &&
-                            !props.avtale.avbrutt &&
-                            props.rolle === 'VEILEDER' && (
-                                <AvbryteAvtalen
-                                    avbrytOnclick={bekreftelseAvbrytAvtalen}
-                                />
-                            )}
+                        {props.avtale.kanAvbrytes && !props.avtale.avbrutt && props.rolle === 'VEILEDER' && (
+                            <AvbryteAvtalen avbrytOnclick={bekreftelseAvbrytAvtalen} />
+                        )}
                         {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
                     </div>
                 </div>
                 <div className="avtaleside__container">
-                    <Stegmeny
-                        steg={props.avtaleSteg}
-                        aktivtSteg={props.aktivtSteg}
-                    />
+                    <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     <form className="avtaleside__innhold">
                         {props.aktivtSteg.komponent}
 
-                        <NesteForrige
-                            avtaleSteg={props.avtaleSteg}
-                            aktivtSteg={props.aktivtSteg}
-                        />
+                        <NesteForrige avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     </form>
                 </div>
             </div>

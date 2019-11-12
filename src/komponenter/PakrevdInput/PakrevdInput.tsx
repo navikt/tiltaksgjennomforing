@@ -1,35 +1,29 @@
-import { Input } from 'nav-frontend-skjema';
+import { Input, NavFrontendInputProps } from 'nav-frontend-skjema';
 import React from 'react';
 import usePaakrevd from '@/komponenter/usePaakrevd';
 
-interface Props {
-    className?: string;
+interface Props extends NavFrontendInputProps {
     label: string;
-    verdi: string;
+    verdi: string | number;
     feilmelding?: string;
-    inputType?: string;
     settVerdi: (verdi: string) => void;
 }
 
 const PakrevdInput: React.FunctionComponent<Props> = props => {
-    const [feil, setFeil, sjekkInputfelt] = usePaakrevd(
-        props.verdi,
-        props.label,
-        props.feilmelding
-    );
-
+    const { verdi, label, feilmelding, settVerdi, type, onChange, ...other } = props;
+    const [feil, setFeil, sjekkInputfelt] = usePaakrevd(verdi ? verdi.toString() : '', label, feilmelding);
     return (
         <Input
-            label={props.label}
+            label={label}
             value={props.verdi || ''}
             feil={feil}
             onChange={event => {
-                props.settVerdi(event.target.value);
+                settVerdi(event.target.value);
                 setFeil(undefined);
             }}
             onBlur={sjekkInputfelt}
-            className={props.className}
-            type={props.inputType || 'text'}
+            type={type || 'text'}
+            {...other}
         />
     );
 };

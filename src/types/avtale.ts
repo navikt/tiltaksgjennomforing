@@ -1,37 +1,59 @@
 import { Maalkategori } from './maalkategorier';
 import { Nettressurs } from '@/types/nettressurs';
 
-export type Avtale = AvtaleMetadata &
-    Deltakerinfo &
-    Bedriftinfo &
-    Arbeidsgiverinfo &
-    Veilederinfo &
-    Arbeidstid &
-    MaalListe &
-    Oppgaver &
-    Oppfolging &
-    Godkjenninger & {
-        godkjentPaVegneGrunn: GodkjentPaVegneGrunner;
-    } & Tilrettelegging &
-    Avbrytelse;
+export type Avtale = MidlertidigLonnstilskuddAvtale & ArbeidstreningAvtale & VarigLonnstilskuddAvtale;
 
-export type TiltaksType =
-    | 'ARBEIDSTRENING'
-    | 'MIDLERTIDIG_LONNSTILSKUDD'
-    | 'VARIG_LONNSTILSKUDD';
+export type MidlertidigLonnstilskuddAvtale = Arbeidsgiverinfo &
+    Avbrytelse &
+    AvtaleMetadata &
+    Bedriftinfo &
+    Beregningsgrunnlag &
+    Deltakerinfo &
+    Godkjenninger &
+    Kontonummer &
+    MaalListe &
+    Oppfolging &
+    Oppgaver &
+    Stilling &
+    Tilrettelegging &
+    Varighet &
+    Veilederinfo & { godkjentPaVegneGrunn: GodkjentPaVegneGrunner };
+
+export type ArbeidstreningAvtale = Arbeidsgiverinfo &
+    Avbrytelse &
+    AvtaleMetadata &
+    Bedriftinfo &
+    Deltakerinfo &
+    Godkjenninger &
+    MaalListe &
+    Oppfolging &
+    Oppgaver &
+    Tilrettelegging &
+    Varighet &
+    Veilederinfo & { godkjentPaVegneGrunn: GodkjentPaVegneGrunner };
+
+export type VarigLonnstilskuddAvtale = Arbeidsgiverinfo &
+    Avbrytelse &
+    AvtaleMetadata &
+    Bedriftinfo &
+    Beregningsgrunnlag &
+    Deltakerinfo &
+    Godkjenninger &
+    MaalListe &
+    Oppfolging &
+    Oppgaver &
+    Stilling &
+    Tilrettelegging &
+    Varighet &
+    Veilederinfo & { godkjentPaVegneGrunn: GodkjentPaVegneGrunner };
+
+export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD';
 
 export interface AvtaleMetadata {
     id: string;
     opprettetTidspunkt: string;
     versjon: string;
     tiltakstype: TiltaksType;
-}
-
-export interface Deltakerinfo {
-    deltakerFornavn: string;
-    deltakerEtternavn: string;
-    deltakerFnr: string;
-    deltakerTlf: string;
 }
 
 export interface Bedriftinfo {
@@ -46,6 +68,12 @@ export interface Arbeidsgiverinfo {
     arbeidsgiverTlf: string;
 }
 
+export interface Deltakerinfo {
+    deltakerFornavn: string;
+    deltakerEtternavn: string;
+    deltakerFnr: string;
+    deltakerTlf: string;
+}
 export interface Veilederinfo {
     veilederNavIdent: string;
     veilederFornavn: string;
@@ -53,10 +81,27 @@ export interface Veilederinfo {
     veilederTlf: string;
 }
 
-export interface Arbeidstid {
+export interface Varighet {
     startDato: number;
-    arbeidstreningLengde: number;
-    arbeidstreningStillingprosent: number;
+    sluttDato: number;
+    stillingprosent: number;
+}
+
+export interface Stilling {
+    stillingtype?: string;
+    stillingbeskrivelse?: string;
+}
+
+export interface Beregningsgrunnlag {
+    manedslonn?: number;
+    feriepengesats: number;
+    arbeidsgiveravgift: number;
+    lonnstilskuddProsent: string;
+    stillingprosent: number;
+}
+
+export interface Kontonummer {
+    arbeidsgiverKontonummer: string;
 }
 
 export interface MaalListe {
