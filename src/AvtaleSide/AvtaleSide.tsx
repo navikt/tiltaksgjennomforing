@@ -13,11 +13,11 @@ import { RouteComponentProps } from 'react-router';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
-import ArbeidsgiverInstruks from './GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
-import DeltakerInstruks from './GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
-import VeilederInstruks from './GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
-import OppsummeringArbeidstrening from './GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
+import ArbeidsgiverInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
+import DeltakerInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
+import VeilederInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
+import OppsummeringArbeidstrening from './steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 interface MatchProps {
@@ -36,7 +36,7 @@ type StegId =
     | 'arbeidstid'
     | 'oppfolging'
     | 'stilling'
-    | 'lonnstilskuddvarighet'
+    | 'varighet'
     | 'beregningtilskudd'
     | 'godkjenning';
 
@@ -66,9 +66,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const finnSteg = (id: StegId) => avtaleSteg.find(steg => steg.id === id);
 
     useEffect(() => {
-        setAktivtSteg(
-            avtaleSteg.find(steg => steg.id === props.match.params.stegPath)
-        );
+        setAktivtSteg(avtaleSteg.find(steg => steg.id === props.match.params.stegPath));
     }, [props.match.params.stegPath, avtaleSteg]);
 
     const instruks = (rolle: Rolle) => {
@@ -81,6 +79,12 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 return <VeilederInstruks />;
         }
     };
+    const titler = {
+        ARBEIDSTRENING: 'Avtale om arbeidstrening',
+        MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
+        VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
+    };
+    const sideTittel = titler[props.avtale.tiltakstype] !== undefined ? titler[props.avtale.tiltakstype] : 'Avtale';
 
     const varsler: JSX.Element[] = props.varsler
         .filter(v => !v.lest)
@@ -93,14 +97,8 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 className={cls.element('varsel')}
             >
                 <div>
-                    <div className={cls.element('varsel__tekst')}>
-                        {v.varslingstekst}
-                    </div>
-                    {v.tidspunkt && (
-                        <div className={cls.element('svak')}>
-                            {moment(v.tidspunkt).fromNow()}
-                        </div>
-                    )}
+                    <div className={cls.element('varsel__tekst')}>{v.varslingstekst}</div>
+                    {v.tidspunkt && <div className={cls.element('svak')}>{moment(v.tidspunkt).fromNow()}</div>}
                 </div>
             </VarselKomponent>
         ));
@@ -135,24 +133,13 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             {varsler}
                             <AlertStripe
                                 className={cls.element('banner')}
-                                type={
-                                    props.avtale.erLaast
-                                        ? 'suksess'
-                                        : 'advarsel'
-                                }
+                                type={props.avtale.erLaast ? 'suksess' : 'advarsel'}
                             >
-                                {props.avtale.erLaast &&
-                                    'Avtalen er godkjent av alle parter og låst.'}
-                                {props.avtale.avbrutt &&
-                                    'Avtalen er avbrutt av veileder og låst.'}
+                                {props.avtale.erLaast && 'Avtalen er godkjent av alle parter og låst.'}
+                                {props.avtale.avbrutt && 'Avtalen er avbrutt av veileder og låst.'}
                             </AlertStripe>
-                            <OppsummeringArbeidstrening
-                                avtale={props.avtale}
-                                rolle={props.rolle}
-                            />
-                            <Innholdsboks className={cls.element('infoboks')}>
-                                {instruks(props.rolle)}
-                            </Innholdsboks>
+                            <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
+                            <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
                         </div>
                     );
                 } else if (props.rolle === 'DELTAKER') {
@@ -163,14 +150,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AlertStripe
-                                className={cls.element('banner')}
-                                type="info"
-                            >
-                                Du kan ikke redigere teksten i avtalen på grunn
-                                av hensyn til personvern. Ta kontakt med din
-                                veileder hvis du har spørsmål til innholdet i
-                                avtalen.
+                            <AlertStripe className={cls.element('banner')} type="info">
+                                Du kan ikke redigere teksten i avtalen på grunn av hensyn til personvern. Ta kontakt med
+                                din veileder hvis du har spørsmål til innholdet i avtalen.
                             </AlertStripe>
                             {aktivtSteg.komponent}
                         </div>
@@ -200,7 +182,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
 
                 return (
                     <>
-                        <Banner tekst="Avtale om arbeidstrening" />
+                        <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
                     </>
                 );

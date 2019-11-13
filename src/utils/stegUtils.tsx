@@ -1,16 +1,15 @@
-import ArbeidsoppgaverSteg from '@/AvtaleSide/ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
-import ArbeidstidSteg from '@/AvtaleSide/ArbeidstidSteg/ArbeidstidSteg';
+import ArbeidsoppgaverSteg from '@/AvtaleSide/steg/ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import { StegInfo } from '@/AvtaleSide/AvtaleSide';
-import BeregningTilskudd from '@/AvtaleSide/BeregningTilskudd/BeregningTilskudd';
-import GodkjenningSteg from '@/AvtaleSide/GodkjenningSteg/GodkjenningSteg';
-import OppsummeringArbeidstrening from '@/AvtaleSide/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
-import OppsummeringLonnstilskudd from '@/AvtaleSide/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
-import KontaktinfoSteg from '@/AvtaleSide/KontaktInformasjonSteg/KontaktinfoSteg';
-import LonnstilskuddVarighet from '@/AvtaleSide/LonnstilskuddVarighet/LonnstilskuddVarighet';
-import MaalSteg from '@/AvtaleSide/MaalSteg/MaalSteg';
-import OppfolgingTilretteleggingSteg from '@/AvtaleSide/OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
-import StillingSteg from '@/AvtaleSide/StillingSteg/StillingSteg';
+import BeregningTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningTilskuddSteg';
+import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
+import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
+import KontaktinfoSteg from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktinfoSteg';
+import MaalSteg from '@/AvtaleSide/steg/MaalSteg/MaalSteg';
+import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
+import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import React from 'react';
+import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -29,9 +28,9 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'arbeidsoppgaver',
     },
     {
-        komponent: <ArbeidstidSteg />,
-        label: 'Arbeidstid',
-        id: 'arbeidstid',
+        komponent: <VarighetSteg />,
+        label: 'Varighet',
+        id: 'varighet',
     },
     {
         komponent: <OppfolgingTilretteleggingSteg />,
@@ -39,9 +38,7 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: (
-            <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
-        ),
+        komponent: <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -54,14 +51,14 @@ const lonnstilskuddSteg: StegInfo[] = [
         id: 'kontaktinformasjon',
     },
     {
+        komponent: <VarighetSteg />,
+        label: 'Varighet',
+        id: 'varighet',
+    },
+    {
         komponent: <StillingSteg />,
         label: 'Stilling',
         id: 'stilling',
-    },
-    {
-        komponent: <LonnstilskuddVarighet />,
-        label: 'Lønnstilskudd og varighet',
-        id: 'lonnstilskuddvarighet',
     },
     {
         komponent: <OppfolgingTilretteleggingSteg />,
@@ -69,14 +66,12 @@ const lonnstilskuddSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: <BeregningTilskudd />,
+        komponent: <BeregningTilskuddSteg />,
         label: 'Beregning av tilskudd',
         id: 'beregningtilskudd',
     },
     {
-        komponent: (
-            <GodkjenningSteg oppsummering={<OppsummeringLonnstilskudd />} />
-        ),
+        komponent: <GodkjenningSteg oppsummering={<OppsummeringLonnstilskudd />} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },

@@ -1,4 +1,4 @@
-import { Avtale, Maal, Oppgave } from '@/types/avtale';
+import { ArbeidstreningAvtale, Maal, Oppgave } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -25,7 +25,7 @@ const oppgaveListe: Oppgave[] = [
     },
 ];
 
-const avtaleMock: Avtale = {
+const avtaleMock: ArbeidstreningAvtale = {
     id: '9565e74d-66f3-44a1-8a3c-91fae6b450d3',
     opprettetTidspunkt: '4 uker siden',
     versjon: '34',

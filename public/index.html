@@ -2,10 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="theme-color" content="#000000" />
         <!--
       manifest.json provides metadata used when your web app is added to the
@@ -38,13 +35,10 @@
                 r = o.createElement('script');
                 r.async = 1;
                 r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-                a.appendChild(r);
-            })(
-                window,
-                document,
-                'https://static.hotjar.com/c/hotjar-',
-                '.js?sv='
-            );
+                if (h.location.hostname !== 'localhost') {
+                    a.appendChild(r);
+                }
+            })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
         </script>
 
         <!-- Google Tag Manager -->
@@ -60,12 +54,14 @@
                     dl = l != 'dataLayer' ? '&l=' + l : '';
                 j.async = true;
                 j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
+                if (w.location.hostname !== 'localhost') {
+                    f.parentNode.insertBefore(j, f);
+                }
             })(window, document, 'script', 'dataLayer', 'GTM-PM9RP3');
         </script>
         <!-- End Google Tag Manager -->
 
-        <title>Avtale om arbeidstrening</title>
+        <title>Tiltak</title>
     </head>
 
     <body>
