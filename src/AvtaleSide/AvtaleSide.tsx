@@ -17,7 +17,6 @@ import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import ArbeidsgiverInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
 import DeltakerInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
 import VeilederInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
-import OppsummeringArbeidstrening from './steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 interface MatchProps {
@@ -125,6 +124,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 if (!aktivtSteg) {
                     return null;
                 } else if (props.avtale.erLaast || props.avtale.avbrutt) {
+                    setAktivtSteg(finnSteg('godkjenning'));
                     innhold = (
                         <div className="avtaleside__innhold">
                             <div className="tilbaketiloversikt">
@@ -138,7 +138,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 {props.avtale.erLaast && 'Avtalen er godkjent av alle parter og låst.'}
                                 {props.avtale.avbrutt && 'Avtalen er avbrutt av veileder og låst.'}
                             </AlertStripe>
-                            <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
+                            {aktivtSteg.komponent}
                             <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
                         </div>
                     );
