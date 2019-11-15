@@ -81,13 +81,15 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     Du har ingen avtaler her enda. Det kan være på grunn av følgende årsaker:
                     <ol>
                         <li>
-                            Du har ikke riktig tilgang i Altinn.{' '}
+                            Du har ikke riktig tilgang i Altinn. Du må enten ha rollen{' '}
+                            <i>Helse-, sosial- og velferdstjenester</i> eller enkelttjenesten{' '}
+                            <i>Avtale om arbeidstrening.</i>{' '}
                             <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                                 Les mer om roller og rettigheter på Altinn.no
                                 <TilEkstern className={cls.element('eksterntLenkeikon')} />
                             </Lenke>
                         </li>
-                        <li>NAV-veileder har ikke opprettet avtalen med bedriftsnummeret ditt enda</li>
+                        <li>NAV-veileder har ikke opprettet avtalen med bedriftsnummeret ditt enda.</li>
                     </ol>
                     <p>Hvis alternativ 1 og 2 ikke er tilfelle, ta kontakt med veileder i NAV.</p>
                 </Normaltekst>
