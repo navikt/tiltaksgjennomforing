@@ -13,14 +13,13 @@ import Varsel from '@/types/varsel';
 import { AvtalelisteRessurs } from '@/types/avtale';
 import './AvtaleOversikt.less';
 import { ReactComponent as Natur } from '@/assets/ikoner/natur.svg';
-import { ReactComponent as TilEkstern } from '@/assets/ikoner/external-link.svg';
-import Lenke from 'nav-frontend-lenker';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { Checkbox } from 'nav-frontend-skjema';
 import { Status } from '@/types/nettressurs';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -84,10 +83,9 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                             Du har ikke riktig tilgang i Altinn. Du må enten ha rollen{' '}
                             <i>Helse-, sosial- og velferdstjenester</i> eller enkelttjenesten{' '}
                             <i>Avtale om arbeidstrening.</i>{' '}
-                            <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                            <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                                 Les mer om roller og rettigheter på Altinn.no
-                                <TilEkstern className={cls.element('eksterntLenkeikon')} />
-                            </Lenke>
+                            </EksternLenke>
                         </li>
                         <li>NAV-veileder har ikke opprettet avtalen med bedriftsnummeret ditt enda.</li>
                     </ol>
