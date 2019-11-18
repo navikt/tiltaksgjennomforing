@@ -11,12 +11,12 @@ import { pathTilInformasjonssideInnlogget, pathTilOversikt } from '@/paths';
 import { VenstreChevron } from 'nav-frontend-chevron';
 import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
 import { ReactComponent as DigitalAvtale } from '@/assets/ikoner/digitalAvtale.svg';
-import { ReactComponent as TilEkstern } from '@/assets/ikoner/external-link.svg';
 import { ReactComponent as Altinn } from '@/assets/ikoner/altinn.svg';
 import { ReactComponent as Clipboard } from '@/assets/ikoner/informationIcon.svg';
 import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
 import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale.svg';
 import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
@@ -33,7 +33,6 @@ const tilbakeTilOversikt = (pathName: string) => {
         );
     }
 };
-
 const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
     return (
@@ -124,15 +123,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 </Lenke>
                             </span>
                             <span className={cls.element('lenke')}>
-                                <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                                    Les mer om roller og rettigheter på
-                                    Altinn.no
-                                    <TilEkstern
-                                        className={cls.element(
-                                            'eksterntLenkeikon'
-                                        )}
-                                    />
-                                </Lenke>
+                                <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                                    Les mer om roller og rettigheter på Altinn.no
+                                </EksternLenke>
                             </span>
                             <AltinnVideoModal
                                 isOpen={isVideoModalOpen}
