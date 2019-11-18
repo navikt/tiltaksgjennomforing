@@ -5,8 +5,8 @@ import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/Veile
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
 import { ReactComponent as RettighetsHammerIkon } from '@/assets/ikoner/law.svg';
-import { ReactComponent as GiBeskjedOmBorteFraJobb } from '@/assets/ikoner/giBeskjedOmBorteFraJobb.svg';
-import { ReactComponent as EmailSend } from '@/assets/ikoner/email-send-3.svg';
+import { ReactComponent as Syk } from '@/assets/ikoner/syk.svg';
+import { ReactComponent as SendEmail } from '@/assets/ikoner/sende-email.svg';
 import BEMHelper from '@/utils/bem';
 import './instruks.less';
 
@@ -49,7 +49,7 @@ const DeltakerInstruks: FunctionComponent<Props> = props => (
                 for deg hvis du blir skadet på jobb.
             </EkstbanderbartPanelRad>
             <EkstbanderbartPanelRad
-                svgIkon={<GiBeskjedOmBorteFraJobb />}
+                svgIkon={<Syk />}
                 headerTekst={{
                     tekst: 'Gi beskjed hvis du er borte fra jobb',
                 }}
@@ -57,7 +57,7 @@ const DeltakerInstruks: FunctionComponent<Props> = props => (
                 Du må melde fra til arbeidsgiver ved fravær. Ved egen eller barns sykdom gjelder ordinære regler for
                 bruk av egenmelding også for deg som er på arbeidstrening.
             </EkstbanderbartPanelRad>
-            <EkstbanderbartPanelRad svgIkon={<EmailSend />} headerTekst={{ tekst: 'Meldekort' }}>
+            <EkstbanderbartPanelRad svgIkon={<SendEmail />} headerTekst={{ tekst: 'Meldekort' }}>
                 Du må sende meldekort hver 14. dag når du er på arbeidstrening.
             </EkstbanderbartPanelRad>
         </Ekspanderbartpanel>
