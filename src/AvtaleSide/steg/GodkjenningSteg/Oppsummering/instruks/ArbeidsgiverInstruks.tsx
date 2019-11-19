@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import { ReactComponent as LovIkon } from '@/assets/ikoner/lov.svg';
 import { ReactComponent as AnsatteIkon } from '@/assets/ikoner/ansatte.svg';
 import { ReactComponent as SkadeIkon } from '@/assets/ikoner/skade.svg';
@@ -46,7 +46,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
         </VeilederpanelMedUtklippstavle>
 
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
-            <EkstbanderbartPanelRad svgIkon={<LovIkon />} headerTekst={{ tekst: 'Arbeidsmiljøloven' }}>
+            <EkspanderbartPanelRad svgIkon={<LovIkon />} headerTekst={{ tekst: 'Arbeidsmiljøloven' }}>
                 <p>
                     Selv om deltakeren ikke er ansatt, skal dere følge arbeidsmiljølovens bestemmelser om arbeidsgivers
                     og arbeidstakers plikter, krav til arbeidsmiljø og krav til kontrolltiltak. Det inkluderer også
@@ -57,9 +57,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                         Les mer om arbeidsmiljøloven her
                     </EksternLenke>
                 </p>
-            </EkstbanderbartPanelRad>
+            </EkspanderbartPanelRad>
 
-            <EkstbanderbartPanelRad
+            <EkspanderbartPanelRad
                 svgIkon={<SkadeIkon />}
                 headerTekst={{
                     tekst: 'Yrkesskadeforsikring og skadeerstatning',
@@ -79,9 +79,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                     </EksternLenke>{' '}
                     ansvarlig for skade som deltakeren gjør forsettlig eller uaktsomt.{' '}
                 </p>
-            </EkstbanderbartPanelRad>
+            </EkspanderbartPanelRad>
 
-            <EkstbanderbartPanelRad
+            <EkspanderbartPanelRad
                 svgIkon={<SykIkon />}
                 headerTekst={{
                     tekst: 'Folketrygdlovens regler for egenmelding og sykmelding',
@@ -89,9 +89,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
             >
                 Folketrygdlovens regler følges når det gjelder bruk av egenmelding og sykmelding for egen og barns
                 sykdom.
-            </EkstbanderbartPanelRad>
+            </EkspanderbartPanelRad>
 
-            <EkstbanderbartPanelRad
+            <EkspanderbartPanelRad
                 svgIkon={<AnsatteIkon />}
                 headerTekst={{
                     tekst: 'Drøft med representanter for de ansatte',
@@ -102,9 +102,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                     representanter for ansatte i bedriften.
                 </p>
                 <p>Tiltaksplasser skal ikke erstatte en vanlig stilling i bedriften.</p>
-            </EkstbanderbartPanelRad>
+            </EkspanderbartPanelRad>
 
-            <EkstbanderbartPanelRad
+            <EkspanderbartPanelRad
                 svgIkon={<PersonOpplysningIkon />}
                 headerTekst={{ tekst: 'Behandling av personopplysninger' }}
             >
@@ -120,7 +120,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                     må slette alle personopplysningene om deltakeren senest innen 12 uker etter at tiltaket er
                     avsluttet.
                 </p>
-            </EkstbanderbartPanelRad>
+            </EkspanderbartPanelRad>
         </Ekspanderbartpanel>
     </>
 );

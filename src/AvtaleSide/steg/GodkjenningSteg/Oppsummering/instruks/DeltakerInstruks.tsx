@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import { ReactComponent as RettighetsHammerIkon } from '@/assets/ikoner/law.svg';
 import { ReactComponent as Syk } from '@/assets/ikoner/syk.svg';
 import { ReactComponent as SendEmail } from '@/assets/ikoner/sende-email.svg';
@@ -38,7 +38,7 @@ const DeltakerInstruks: FunctionComponent<Props> = props => (
         </VeilederpanelMedUtklippstavleIkon>
 
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
-            <EkstbanderbartPanelRad
+            <EkspanderbartPanelRad
                 svgIkon={<RettighetsHammerIkon />}
                 headerTekst={{
                     tekst: 'Ditt forhold til arbeidsmiljøloven',
@@ -47,8 +47,8 @@ const DeltakerInstruks: FunctionComponent<Props> = props => (
                 Når du deltar på arbeidstrening regnes du som en vanlig ansatt, som vil si at din arbeidsgiver må følge
                 de fleste av arbeidsmiljølovens regler. Arbeidsgiver må også forsikre deg og arbeidsgiver har et ansvar
                 for deg hvis du blir skadet på jobb.
-            </EkstbanderbartPanelRad>
-            <EkstbanderbartPanelRad
+            </EkspanderbartPanelRad>
+            <EkspanderbartPanelRad
                 svgIkon={<Syk />}
                 headerTekst={{
                     tekst: 'Gi beskjed hvis du er borte fra jobb',
@@ -56,10 +56,10 @@ const DeltakerInstruks: FunctionComponent<Props> = props => (
             >
                 Du må melde fra til arbeidsgiver ved fravær. Ved egen eller barns sykdom gjelder ordinære regler for
                 bruk av egenmelding også for deg som er på arbeidstrening.
-            </EkstbanderbartPanelRad>
-            <EkstbanderbartPanelRad svgIkon={<SendEmail />} headerTekst={{ tekst: 'Meldekort' }}>
+            </EkspanderbartPanelRad>
+            <EkspanderbartPanelRad svgIkon={<SendEmail />} headerTekst={{ tekst: 'Meldekort' }}>
                 Du må sende meldekort hver 14. dag når du er på arbeidstrening.
-            </EkstbanderbartPanelRad>
+            </EkspanderbartPanelRad>
         </Ekspanderbartpanel>
     </>
 );
