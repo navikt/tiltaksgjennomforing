@@ -5,10 +5,13 @@ import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import RestService from '@/services/rest-service';
 import { useEffect, useState } from 'react';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
-// import OppsummeringArbeidstrening from '@/AvtaleSide/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+// import OppsummeringArbeidstrening from '@/AvtaleSide/GodkjenningSteg
+// /Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import GodkjenningStatus from './GodkjenningStatus/GodkjenningStatus';
 
 type Props = {
     oppsummering: JSX.Element;
+    avtaleStatus: JSX.Element;
 };
 
 const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => {
@@ -19,10 +22,12 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => {
     if (!avtaleStatusDetaljer) {
         return null;
     }
+
     return (
         <>
             <AvtaleStatus avtale={props.avtale} rolle={props.rolle} avtaleStatusDetaljer={avtaleStatusDetaljer} />
             {/* <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />*/}
+
             {props.oppsummering}
             <Godkjenning
                 avtale={props.avtale}
@@ -30,7 +35,7 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => {
                 endreGodkjenning={props.godkjenn}
                 godkjennPaVegne={props.godkjennPaVegne}
             />
-            {/* <GodkjenningStatus avtale={props.avtale} /> */}
+            <GodkjenningStatus avtale={props.avtale} />
         </>
     );
 };

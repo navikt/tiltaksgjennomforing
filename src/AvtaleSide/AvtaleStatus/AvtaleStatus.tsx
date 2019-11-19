@@ -6,7 +6,7 @@ import CheckIkon from '@/assets/ikoner/check.svg';
 import VarselIkon from '@/assets/ikoner/varsel.svg';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Avtale } from '@/types/avtale';
-import { Rolle } from '@/AvtaleContext';
+import { medContext, Rolle } from '@/AvtaleContext';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 // import Statustekst from '@/AvtaleSide/AvtaleStatus/Statustekst';
 
@@ -23,20 +23,12 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
         <Innholdsboks className={cls.element('innholdsboks')}>
             <div className={cls.element('hovedIkon')}>
                 {props.avtaleStatusDetaljer.godkjentAvInnloggetBruker ? (
-                    <img
-                        className={cls.element('hovedIkon__resize')}
-                        src={CheckIkon}
-                    />
+                    <img className={cls.element('hovedIkon__resize')} src={CheckIkon} />
                 ) : (
-                    <img
-                        className={cls.element('hovedIkon__resize')}
-                        src={VarselIkon}
-                    />
+                    <img className={cls.element('hovedIkon__resize')} src={VarselIkon} />
                 )}
             </div>
-            <Innholdstittel className={cls.element('header')}>
-                {props.avtaleStatusDetaljer.header}{' '}
-            </Innholdstittel>
+            <Innholdstittel className={cls.element('header')}>{props.avtaleStatusDetaljer.header} </Innholdstittel>
             <Normaltekst className={cls.element('infotekst')}>
                 <p> {props.avtaleStatusDetaljer.infoDel1}</p>
                 <p>{props.avtaleStatusDetaljer.infoDel2}</p>
@@ -72,4 +64,4 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
     );
 };
 
-export default AvtaleStatus;
+export default medContext(AvtaleStatus);

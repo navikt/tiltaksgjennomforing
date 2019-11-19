@@ -138,8 +138,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             />
                             <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
                             <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
-                            <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
-                            <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
                         </div>
                     );
                 } else if (props.rolle === 'DELTAKER') {

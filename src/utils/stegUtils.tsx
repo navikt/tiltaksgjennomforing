@@ -10,6 +10,7 @@ import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilrett
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import React from 'react';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
+import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -38,7 +39,7 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />,
+        komponent: <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} avtaleStatus={<AvtaleStatus />} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -71,7 +72,7 @@ const lonnstilskuddSteg: StegInfo[] = [
         id: 'beregningtilskudd',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={<OppsummeringLonnstilskudd />} />,
+        komponent: <GodkjenningSteg oppsummering={<OppsummeringLonnstilskudd />} avtaleStatus={<AvtaleStatus />} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
