@@ -37,7 +37,7 @@ const avtaleMock: ArbeidstreningAvtale = {
     status: '',
     kanAvbrytes: true,
     avbrutt: false,
-    godkjentPaaVegneAv: false,
+    godkjentPaVegneAv: false,
 
     godkjentPaVegneGrunn: {
         ikkeBankId: false,
@@ -65,7 +65,6 @@ const avtaleMock: ArbeidstreningAvtale = {
     deltakerFnr: '00000000000',
     deltakerTlf: '44444444',
 
-    arbeidsgiverFnr: '00000000000',
     arbeidsgiverFornavn: 'Arbeidsgiver',
     arbeidsgiverEtternavn: 'Arbeidsgiversen',
     arbeidsgiverTlf: '77777777',

@@ -18,20 +18,12 @@ import { validerOrgnr } from '@/utils/orgnrUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Lenke from 'nav-frontend-lenker';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
-import {
-    Innholdstittel,
-    Normaltekst,
-    Systemtittel,
-} from 'nav-frontend-typografi';
-import React, {
-    ChangeEvent,
-    FunctionComponent,
-    useContext,
-    useState,
-} from 'react';
+import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { RouterProps, withRouter } from 'react-router';
 import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
+import amplitude from '@/utils/amplitude';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -134,6 +126,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                 bedriftNr,
                 valgtTiltaksType || 'ARBEIDSTRENING'
             );
+            amplitude.logEvent('avtale-opprettet', { tiltakstype: valgtTiltaksType });
             props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {
             throw new ApiError(hvaSomManglerTekst);

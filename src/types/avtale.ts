@@ -62,7 +62,6 @@ export interface Bedriftinfo {
 }
 
 export interface Arbeidsgiverinfo {
-    arbeidsgiverFnr: string;
     arbeidsgiverFornavn: string;
     arbeidsgiverEtternavn: string;
     arbeidsgiverTlf: string;
@@ -140,7 +139,7 @@ export interface Godkjenninger {
     godkjentAvArbeidsgiver: boolean;
     godkjentAvVeileder: boolean;
     status: string;
-    godkjentPaaVegneAv: boolean;
+    godkjentPaVegneAv: boolean;
     erLaast: boolean;
 }
 
@@ -154,5 +153,4 @@ export interface GodkjentPaVegneGrunner {
     digitalKompetanse: boolean;
 }
 
-export type AvtaleRessurs = Nettressurs<Avtale>;
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
