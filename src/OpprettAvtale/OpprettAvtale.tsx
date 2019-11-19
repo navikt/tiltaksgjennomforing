@@ -32,11 +32,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
 
-    const [
-        deltakerFnrFeil,
-        setDeltakerFnrFeil,
-        validerDeltakerFnr,
-    ] = useValidering(deltakerFnr, [
+    const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
         verdi => {
             if (!verdi) {
                 return { feilmelding: 'Fødselsnummer er påkrevd' };
@@ -49,23 +45,20 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
         },
     ]);
 
-    const [bedriftNrFeil, setBedriftNrFeil, validerBedriftNr] = useValidering(
-        bedriftNr,
-        [
-            verdi => {
-                if (!verdi) {
-                    return { feilmelding: 'Bedriftsnummer er påkrevd' };
-                }
-            },
-            verdi => {
-                if (!validerOrgnr(verdi)) {
-                    return {
-                        feilmelding: 'Ugyldig bedriftsnummer',
-                    };
-                }
-            },
-        ]
-    );
+    const [bedriftNrFeil, setBedriftNrFeil, validerBedriftNr] = useValidering(bedriftNr, [
+        verdi => {
+            if (!verdi) {
+                return { feilmelding: 'Bedriftsnummer er påkrevd' };
+            }
+        },
+        verdi => {
+            if (!validerOrgnr(verdi)) {
+                return {
+                    feilmelding: 'Ugyldig bedriftsnummer',
+                };
+            }
+        },
+    ]);
 
     const fnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         const verdi = event.target.value.replace(/\D/g, '');
@@ -139,22 +132,16 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
 
-    const tittel = lonnstilskuddToggle
-        ? 'Opprett avtale'
-        : 'Opprett avtale om arbeidstrening';
+    const tittel = lonnstilskuddToggle ? 'Opprett avtale' : 'Opprett avtale om arbeidstrening';
 
     if (lonnstilskuddToggle === undefined) return null;
 
     return (
         <div className="opprett-avtale">
-            <Innholdstittel className="opprett-avtale__tittel">
-                {tittel}
-            </Innholdstittel>
+            <Innholdstittel className="opprett-avtale__tittel">{tittel}</Innholdstittel>
             {lonnstilskuddToggle && (
                 <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Systemtittel className={cls.element('innholdstittel')}>
-                        Velg type avtale
-                    </Systemtittel>
+                    <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
                     <div className={cls.element('tiltakstypeWrapper')}>
                         <RadioPanel
                             name="tiltakstype"
@@ -167,29 +154,21 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                             name="tiltakstype"
                             label="Midlertidig lønnstilskudd"
                             value="MIDLERTIDIG_LONNSTILSKUDD"
-                            checked={
-                                valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'
-                            }
-                            onChange={() =>
-                                setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')
-                            }
+                            checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
+                            onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
                         />
                         <RadioPanel
                             name="tiltakstype"
                             label="Varig lønnstilskudd"
                             value="VARIG_LONNSTILSKUDD"
                             checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                            onChange={() =>
-                                setTiltaksType('VARIG_LONNSTILSKUDD')
-                            }
+                            onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
                         />
                     </div>
                 </Innholdsboks>
             )}
             <Innholdsboks className={cls.element('innholdsboks')}>
-                <Systemtittel className={cls.element('innholdstittel')}>
-                    Knytt avtalen til andre parter
-                </Systemtittel>
+                <Systemtittel className={cls.element('innholdstittel')}>Knytt avtalen til andre parter</Systemtittel>
                 <div className="opprett-avtale__input-wrapper">
                     <div className="opprett-avtale__kandidat-fnr">
                         <Input
@@ -212,63 +191,41 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                             feil={bedriftNrFeil}
                         />
                         {bedriftNavn && (
-                            <Normaltekst className="opprett-avtale__bedriftNavn">
-                                {bedriftNavn}
-                            </Normaltekst>
+                            <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>
                         )}
                     </div>
                 </div>
             </Innholdsboks>
-            <Ekspanderbartpanel
-                tittel="Slik fungerer løsningen"
-                tittelProps="element"
-                border={true}
-            >
+            <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
                 <EkstbanderbartPanelRad svgIkon={<AvtaleSignering />}>
-                    Dette er en digital avtale for arbeidstrening som skal
-                    brukes av deltaker, arbeidsgiver og veileder ved NAV.
+                    Dette er en digital avtale for arbeidstrening som skal brukes av deltaker, arbeidsgiver og veileder
+                    ved NAV.
                 </EkstbanderbartPanelRad>
 
                 <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
-                    For at deltaker og arbeidsgiver skal få tilgang til avtalen
-                    må de logge seg inn via ID-porten. Tilgang for arbeidsgiver
-                    styres gjennom Altinn. En representant for arbeidsgiver må
-                    ha rollen <em>Helse-, sosial- og velferdstjenester</em>,{' '}
-                    eller gis tilgang til enkelttjenesten{' '}
-                    <em>Avtale om arbeidstrening</em> for å kunne representere
-                    bedriften.
+                    For at deltaker og arbeidsgiver skal få tilgang til avtalen må de logge seg inn via ID-porten.
+                    Tilgang for arbeidsgiver styres gjennom Altinn. En representant for arbeidsgiver må ha rollen{' '}
+                    <em>Helse-, sosial- og velferdstjenester</em>, eller gis tilgang til enkelttjenesten{' '}
+                    <em>Avtale om arbeidstrening</em> for å kunne representere bedriften.
                     <p>
-                        <Lenke
-                            href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/"
-                            target="_blank"
-                        >
-                            Finn mer informasjon om roller og rettigheter på
-                            Altinn.no
-                            <TilEkstern
-                                className={cls.element('eksterntLenkeikon')}
-                            />
+                        <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/" target="_blank">
+                            Finn mer informasjon om roller og rettigheter på Altinn.no
+                            <TilEkstern className={cls.element('eksterntLenkeikon')} />
                         </Lenke>
                     </p>
                 </EkstbanderbartPanelRad>
-                <EkstbanderbartPanelRad
-                    svgIkon={<DrofteMedAnsattePersonOpplysning />}
-                >
-                    Deltaker, arbeidsgiver og veileder skal fylle ut avtalen
-                    sammen. Der blir de enige om mål, arbeidsoppgaver og
-                    oppfølging.
+                <EkstbanderbartPanelRad svgIkon={<DrofteMedAnsattePersonOpplysning />}>
+                    Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om mål,
+                    arbeidsoppgaver og oppfølging.
                 </EkstbanderbartPanelRad>
 
                 <EkstbanderbartPanelRad svgIkon={<CheckCircleIkon />}>
-                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne
-                    avtalen slik at arbeidstreningen kan starte.
+                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at arbeidstreningen kan
+                    starte.
                 </EkstbanderbartPanelRad>
             </Ekspanderbartpanel>
             <div className={cls.element('knappRad')}>
-                <LagreKnapp
-                    lagre={opprettAvtaleKlikk}
-                    label={'Opprett avtale'}
-                    className="opprett-avtale__knapp"
-                />
+                <LagreKnapp lagre={opprettAvtaleKlikk} label={'Opprett avtale'} className="opprett-avtale__knapp" />
 
                 <TilbakeTilOversiktLenke />
             </div>

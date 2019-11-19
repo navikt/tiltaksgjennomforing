@@ -11,10 +11,11 @@ const EksternLenke: React.FunctionComponent<Props> = props => {
         });
     };
     return (
-        <Lenke target="_blank" onClick={onClick} {...props} >
+        <Lenke target="_blank" onClick={onClick} {...props}>
             {props.children}
-            <TilEkstern className="ekstern-lenke-icon"/>
-        </Lenke>);
+            <TilEkstern className="ekstern-lenke-icon" />
+        </Lenke>
+    );
 };
 
 export default EksternLenke;

@@ -39,7 +39,7 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} avtaleStatus={<AvtaleStatus />} />,
+        komponent: <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -72,7 +72,7 @@ const lonnstilskuddSteg: StegInfo[] = [
         id: 'beregningtilskudd',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={<OppsummeringLonnstilskudd />} avtaleStatus={<AvtaleStatus />} />,
+        komponent: <GodkjenningSteg oppsummering={<OppsummeringLonnstilskudd />} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },

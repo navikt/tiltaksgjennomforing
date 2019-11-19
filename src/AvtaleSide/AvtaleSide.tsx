@@ -21,8 +21,6 @@ import VeilederInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/Veile
 import OppsummeringArbeidstrening from './steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
-import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
-import RestService from '@/services/rest-service';
 
 interface MatchProps {
     avtaleId: string;
@@ -41,10 +39,6 @@ export interface StegInfo {
 
 const AvtaleSide: FunctionComponent<Props> = props => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
-    const [avtaleStatusDetaljer, setAvtaleStatusDetaljer] = useState<AvtaleStatusDetaljer | undefined>(undefined);
-    useEffect(() => {
-        RestService.hentAvtaleStatusDetaljer(props.match.params.avtaleId).then(setAvtaleStatusDetaljer);
-    }, []);
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -54,9 +48,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
 
         return () => window.removeEventListener('resize', handleWindowSize);
     });
-    if (!avtaleStatusDetaljer) {
-        return null;
-    }
 
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
 
@@ -131,11 +122,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 {props.avtale.erLaast && 'Avtalen er godkjent av alle parter og låst.'}
                                 {props.avtale.avbrutt && 'Avtalen er avbrutt av veileder og låst.'}
                             </AlertStripe>
-                            <AvtaleStatus
-                                avtale={props.avtale}
-                                rolle={props.rolle}
-                                avtaleStatusDetaljer={avtaleStatusDetaljer}
-                            />
+                            <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
                             <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
                             <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
                         </div>

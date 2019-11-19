@@ -7,7 +7,7 @@ export const SIDE_FOER_INNLOGGING = 'side-foer-innlogging';
 const RedirectEtterLogin: FunctionComponent<RouteComponentProps> = props => {
     const redirectTilSideFoerInnlogging = () => {
         const sideFoerInnlogging = sessionStorage.getItem(SIDE_FOER_INNLOGGING);
-        if (typeof sideFoerInnlogging === "string") {
+        if (typeof sideFoerInnlogging === 'string') {
             sessionStorage.removeItem(SIDE_FOER_INNLOGGING);
             amplitude.logEvent('bruker-ble-innlogget');
             props.history.push(sideFoerInnlogging);
