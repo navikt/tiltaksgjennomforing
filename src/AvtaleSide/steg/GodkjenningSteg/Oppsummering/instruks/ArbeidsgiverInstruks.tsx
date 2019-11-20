@@ -8,7 +8,7 @@ import { ReactComponent as LovIkon } from '@/assets/ikoner/lov.svg';
 import { ReactComponent as AnsatteIkon } from '@/assets/ikoner/ansatte.svg';
 import { ReactComponent as SkadeIkon } from '@/assets/ikoner/skade.svg';
 import { ReactComponent as PersonOpplysningIkon } from '@/assets/ikoner/personopplysninger.svg';
-import { ReactComponent as SykIkon } from '@/assets/ikoner/sykdom.svg';
+import { ReactComponent as SkjoldIkon } from '@/assets/ikoner/skjold.svg';
 import BEMHelper from '@/utils/bem';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
@@ -46,7 +46,10 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
         </VeilederpanelMedUtklippstavle>
 
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
-            <EkspanderbartPanelRad svgIkon={<LovIkon />} headerTekst={{ tekst: 'Arbeidsmiljøloven' }}>
+            <EkspanderbartPanelRad
+                svgIkon={<LovIkon />}
+                headerTekst={{ tekst: 'Arbeidsmiljøloven', typografiType: 'undertittel' }}
+            >
                 <p>
                     Selv om deltakeren ikke er ansatt, skal dere følge arbeidsmiljølovens bestemmelser om arbeidsgivers
                     og arbeidstakers plikter, krav til arbeidsmiljø og krav til kontrolltiltak. Det inkluderer også
@@ -60,9 +63,10 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
             </EkspanderbartPanelRad>
 
             <EkspanderbartPanelRad
-                svgIkon={<SkadeIkon />}
+                svgIkon={<SkjoldIkon />}
                 headerTekst={{
                     tekst: 'Yrkesskadeforsikring og skadeerstatning',
+                    typografiType: 'undertittel',
                 }}
             >
                 <p>
@@ -82,19 +86,23 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
             </EkspanderbartPanelRad>
 
             <EkspanderbartPanelRad
-                svgIkon={<SykIkon />}
+                svgIkon={<SkadeIkon />}
                 headerTekst={{
-                    tekst: 'Folketrygdlovens regler for egenmelding og sykmelding',
+                    tekst: 'Folketrygdloven: egenmelding og sykmelding',
+                    typografiType: 'undertittel',
                 }}
             >
-                Folketrygdlovens regler følges når det gjelder bruk av egenmelding og sykmelding for egen og barns
-                sykdom.
+                <p>
+                    Folketrygdlovens regler følges når det gjelder bruk av egenmelding og sykmelding for egen og barns
+                    sykdom.
+                </p>
             </EkspanderbartPanelRad>
 
             <EkspanderbartPanelRad
                 svgIkon={<AnsatteIkon />}
                 headerTekst={{
                     tekst: 'Drøft med representanter for de ansatte',
+                    typografiType: 'undertittel',
                 }}
             >
                 <p>
@@ -106,7 +114,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
 
             <EkspanderbartPanelRad
                 svgIkon={<PersonOpplysningIkon />}
-                headerTekst={{ tekst: 'Behandling av personopplysninger' }}
+                headerTekst={{ tekst: 'Behandling av personopplysninger', typografiType: 'undertittel' }}
             >
                 <p>
                     Dere har ansvar for å følge{' '}
