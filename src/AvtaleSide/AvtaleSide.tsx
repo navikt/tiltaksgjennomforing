@@ -134,10 +134,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AlertStripe className={cls.element('banner')} type="info">
-                                Du kan ikke redigere teksten i avtalen på grunn av hensyn til personvern. Ta kontakt med
-                                din veileder hvis du har spørsmål til innholdet i avtalen.
-                            </AlertStripe>
                             <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
                         </div>
                     );
