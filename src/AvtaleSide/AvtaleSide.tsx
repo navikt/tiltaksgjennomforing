@@ -115,13 +115,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AlertStripe
-                                className={cls.element('banner')}
-                                type={props.avtale.erLaast ? 'suksess' : 'advarsel'}
-                            >
-                                {props.avtale.erLaast && 'Avtalen er godkjent av alle parter og låst.'}
-                                {props.avtale.avbrutt && 'Avtalen er avbrutt av veileder og låst.'}
-                            </AlertStripe>
                             <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
                             <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
                             <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>

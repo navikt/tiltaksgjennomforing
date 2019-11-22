@@ -10,7 +10,6 @@ import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilrett
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import React from 'react';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
-import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
