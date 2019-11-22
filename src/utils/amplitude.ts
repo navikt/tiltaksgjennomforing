@@ -13,14 +13,6 @@ instance.init(getApiKey(), '', {
     includeUtm: true,
     batchEvents: false,
     includeReferrer: true,
-    trackingOptions: {
-        city: false,
-        ip_address: false,
-        version_name: false,
-        region: false,
-        country: false,
-        dma: false,
-    },
 });
 
 export default instance;
