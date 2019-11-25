@@ -25,9 +25,5 @@ export const FeatureToggleProvider = (props: any) => {
         hentToggles();
     }, []);
 
-    return (
-        <FeatureToggleContext.Provider value={featureToggles}>
-            {props.children}
-        </FeatureToggleContext.Provider>
-    );
+    return <FeatureToggleContext.Provider value={featureToggles}>{props.children}</FeatureToggleContext.Provider>;
 };
