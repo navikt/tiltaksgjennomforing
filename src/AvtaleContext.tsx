@@ -11,7 +11,7 @@ import amplitude from '@/utils/amplitude';
 export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
-    versjon: '',
+    sistEndret: '',
 
     deltakerFnr: '',
     deltakerFornavn: '',

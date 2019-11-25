@@ -52,7 +52,7 @@ export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARI
 export interface AvtaleMetadata {
     id: string;
     opprettetTidspunkt: string;
-    versjon: string;
+    sistEndret: string;
     tiltakstype: TiltaksType;
 }
 
