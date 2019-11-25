@@ -126,7 +126,7 @@
     ],
     "husky": {
         "hooks": {
-            "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js|jsx|ts|tsx|css|scss|less)\""
+            "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js|json|jsx|ts|tsx|css|scss|less)\""
         }
     }
 }
