@@ -6,7 +6,6 @@ import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
 import moment from 'moment';
-import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
