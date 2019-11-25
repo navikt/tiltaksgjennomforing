@@ -19,10 +19,7 @@ const envProperties = {
             '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
 };
 
-if (
-    !envProperties.LOGOUT_URL ||
-    !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)
-) {
+if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
     console.error(
         'Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, SELVBETJENING_LOGIN_URL, ISSO_LOGIN_URL.'
     );
@@ -34,14 +31,23 @@ module.exports = function(app) {
         const innloggingskilder = [];
 
         if (envProperties.SELVBETJENING_LOGIN_URL) {
-            innloggingskilder.push({
-                tittel: 'Logg inn via ID-porten',
-                url: envProperties.SELVBETJENING_LOGIN_URL,
-            });
+            innloggingskilder.push(
+                {
+                    tittel: 'Logg inn som deltaker',
+                    part: 'deltaker',
+                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                },
+                {
+                    tittel: 'Logg inn som arbeidsgiver',
+                    part: 'arbeidsgiver',
+                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                }
+            );
         }
         if (envProperties.ISSO_LOGIN_URL) {
             innloggingskilder.push({
                 tittel: 'Logg inn som NAV-veileder',
+                part: 'veileder',
                 url: envProperties.ISSO_LOGIN_URL,
             });
         }

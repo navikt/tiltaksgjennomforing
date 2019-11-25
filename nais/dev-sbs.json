@@ -1,7 +1,8 @@
 {
     "ingress": "https://arbeidsgiver-q.nav.no/tiltaksgjennomforing",
     "api-gw-url": "https://api-gw-q0.oera.no",
-    "selvbetjening-login-url": "https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing",
+    "deltaker-login-url": "https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing/deltaker",
+    "arbeidsgiver-login-url": "https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing/arbeidsgiver",
     "logout-url": "https://loginservice-q.nav.no/slo",
     "vault-enabled": true
 }

@@ -20,6 +20,7 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -95,6 +96,29 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 
+    const innloggetPart = sessionStorage.getItem(INNLOGGET_PART);
+    const partIngenAvtaler = () => {
+        if (innloggetBruker.erNavAnsatt) {
+            return (
+                <div>
+                    <Normaltekst>Du er veileder uten avtaler</Normaltekst>
+                </div>
+            );
+        } else if (innloggetPart === 'deltaker') {
+            return (
+                <div>
+                    <Normaltekst>Du er deltaker og har ingen avtaler</Normaltekst>
+                </div>
+            );
+        } else if (innloggetPart === 'arbeidsgiver') {
+            return (
+                <div>
+                    <Normaltekst>Du er arbeidsgiver og har ikke tilgang til noen avtaler</Normaltekst>
+                </div>
+            );
+        }
+    };
+
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
@@ -114,7 +138,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     <div className={cls.element('natur-logo')}>
                         <Natur />
                         <Undertittel className={cls.element('ingen-avtaler-header')}>Ingen avtaler</Undertittel>
-                        <Normaltekst>{tilbakemeldingHvisIngenAvtale}</Normaltekst>
+                        <Normaltekst>{partIngenAvtaler()}</Normaltekst>
                     </div>
                 ) : (
                     <div className="avtaleoversikt__avtaleliste typo-normal">

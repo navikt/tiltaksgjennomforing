@@ -4,6 +4,7 @@ import RestService from '@/services/rest-service';
 
 export interface Innloggingskilde {
     tittel: string;
+    part: string;
     url: string;
 }
 
@@ -20,14 +21,9 @@ export interface Innlogget {
 }
 
 const useInnlogget = (): Innlogget => {
-    const [
-        innloggetBruker,
-        setInnloggetBruker,
-    ] = useState<InnloggetBruker | null>(null);
+    const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker | null>(null);
 
-    const [innloggingskilder, setInnloggingskilder] = useState<
-        Innloggingskilde[]
-    >([]);
+    const [innloggingskilder, setInnloggingskilder] = useState<Innloggingskilde[]>([]);
 
     const [feilmelding, setFeilmelding] = useState<string | null>(null);
 
