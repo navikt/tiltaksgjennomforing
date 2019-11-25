@@ -1,13 +1,11 @@
 version: '3'
 services:
-  frontend:
-    build: .
-    ports:
-      - 3090:3000
-    environment:
-      - APIGW_URL=http://host.docker.internal:8080
-      - LOGOUT_URL=http://localhost:3000
-      - SELVBETJENING_LOGIN_URL=http://localhost:3000
-      - ISSO_LOGIN_URL=http://localhost:3000
-
-
+    frontend:
+        build: .
+        ports:
+            - 3090:3000
+        environment:
+            - APIGW_URL=http://host.docker.internal:8080
+            - LOGOUT_URL=http://localhost:3000
+            - SELVBETJENING_LOGIN_URL=http://localhost:3000
+            - ISSO_LOGIN_URL=http://localhost:3000

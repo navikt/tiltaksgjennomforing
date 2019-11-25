@@ -1,31 +1,29 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as InfoIkon } from '@/assets/ikoner/pabegynt.svg';
+import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
 import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
+import { ReactComponent as GjennomforesIkon } from '@/assets/ikoner/gjennomfores.svg';
 
-const StatusIkon: FunctionComponent<{ status: string }> = ({ status }) => {
-    let ikon;
-    switch (status) {
+const StatusIkon: FunctionComponent<{ status: string } & React.SVGProps<SVGSVGElement>> = props => {
+    switch (props.status) {
         case 'Påbegynt':
-            ikon = <InfoIkon />;
-            break;
+            return <PabegyntIkon {...props} />;
         case 'Klar for oppstart':
-            ikon = <CheckIkon />;
-            break;
+            return <CheckIkon {...props} />;
         case 'Mangler godkjenning':
-            ikon = <ProblemIkon />;
-            break;
+            return <ProblemIkon {...props} />;
         case 'Avbrutt':
-            ikon = <AvbruttIkon />;
-            break;
+            return <AvbruttIkon {...props} />;
         case 'Avsluttet':
-            ikon = <InaktivIkon />;
-            break;
+            return <InaktivIkon {...props} />;
+        case 'Gjennomføres':
+            return <GjennomforesIkon {...props} />;
+        default:
+            return null;
     }
-    return <>{ikon}</>;
 };
 
 export default StatusIkon;

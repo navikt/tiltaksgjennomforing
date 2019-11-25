@@ -73,7 +73,7 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
                 verdi={props.avtale.stillingprosent}
                 settVerdi={_.partial(props.settAvtaleVerdi, 'stillingprosent')}
             />
-            <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration}/>
+            <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
             <LagreKnapp
                 className={cls.element('lagre-knapp')}
                 label={'Lagre'}

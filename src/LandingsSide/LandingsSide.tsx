@@ -25,45 +25,33 @@ const LandingsSide: React.FunctionComponent<Props> = props => {
                 <>
                     <Element>Hei</Element>
                     <Normaltekst>
-                        Dette er en avtale mellom arbeidsgiver, kandidaten på
-                        arbeidstrening og NAV.
+                        Dette er en avtale mellom arbeidsgiver, kandidaten på arbeidstrening og NAV.
                     </Normaltekst>
                 </>
             }
         >
-            <img src={veilederIkon} alt="Veileder"/>
+            <img src={veilederIkon} alt="Veileder" />
         </Veileder>
     );
 
-    const gaTilAvtaleKlikk = () =>
-        props.history.push(
-            pathTilKontaktinformasjonSteg(props.match.params.avtaleId)
-        );
+    const gaTilAvtaleKlikk = () => props.history.push(pathTilKontaktinformasjonSteg(props.match.params.avtaleId));
 
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
             render={() => {
                 if (props.avtale.erLaast) {
-                    props.history.replace(
-                        pathTilGodkjenningsSteg(props.match.params.avtaleId)
-                    );
+                    props.history.replace(pathTilGodkjenningsSteg(props.match.params.avtaleId));
                 }
                 return (
                     <div className="landingsside">
                         <div className="landingsside__banner" />
                         {veileder}
-                        <Innholdstittel className="landingsside__tittel">
-                            Avtale om arbeidstrening
-                        </Innholdstittel>
+                        <Innholdstittel className="landingsside__tittel">Avtale om arbeidstrening</Innholdstittel>
                         <Normaltekst className="landingsside__beskrivelse">
-                            Alle tre partene må godkjenne avtalen før dere kan
-                            begynne arbeidstreningen
+                            Alle tre partene må godkjenne avtalen før dere kan begynne arbeidstreningen
                         </Normaltekst>
-                        <Hovedknapp
-                            className="landingsside__knapp"
-                            onClick={gaTilAvtaleKlikk}
-                        >
+                        <Hovedknapp className="landingsside__knapp" onClick={gaTilAvtaleKlikk}>
                             Gå til avtalen
                         </Hovedknapp>
                     </div>

@@ -19,27 +19,20 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const ekspanderbartPanel = props.avtaleSteg.map(steg => (
         <div className="avtaleside__ekspanderbart-panel" key={steg.id}>
-            <Ekspanderbartpanel tittel={steg.label}>
-                {steg.komponent}
-            </Ekspanderbartpanel>
+            <Ekspanderbartpanel tittel={steg.label}>{steg.komponent}</Ekspanderbartpanel>
         </div>
     ));
 
     return (
         <>
             <div className={cls.element('lenkerlinje')}>
-                <TilbakeTilOversiktLenke
-                    onClick={props.tilbakeTilOversiktKlikk}
-                />
+                <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
                 {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
             </div>
             {props.varsler}
             <form>{ekspanderbartPanel}</form>
 
-            <KopierLenkeModal
-                isOpen={isOpen}
-                lukkModal={() => setOpen(false)}
-            />
+            <KopierLenkeModal isOpen={isOpen} lukkModal={() => setOpen(false)} />
         </>
     );
 };
