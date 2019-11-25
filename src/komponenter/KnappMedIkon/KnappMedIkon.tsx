@@ -30,9 +30,7 @@ const KnappMedIkon = (props: Props) => (
         })}
     >
         <img src={ikoner[props.ikonType]} alt={props.ikonType} />
-        <Normaltekst className="knapp-med-ikon__label">
-            {props.label}
-        </Normaltekst>
+        <Normaltekst className="knapp-med-ikon__label">{props.label}</Normaltekst>
     </button>
 );
 

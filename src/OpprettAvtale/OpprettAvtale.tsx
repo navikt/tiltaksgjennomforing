@@ -4,7 +4,7 @@ import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/iko
 import { ReactComponent as NokkelPunktForAvtale } from '@/assets/ikoner/nokkelPunktForAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import useValidering from '@/komponenter/useValidering';
@@ -197,12 +197,12 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                 </div>
             </Innholdsboks>
             <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
-                <EkstbanderbartPanelRad svgIkon={<AvtaleSignering />}>
+                <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
                     Dette er en digital avtale for arbeidstrening som skal brukes av deltaker, arbeidsgiver og veileder
                     ved NAV.
-                </EkstbanderbartPanelRad>
+                </EkspanderbartPanelRad>
 
-                <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
+                <EkspanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
                     For at deltaker og arbeidsgiver skal få tilgang til avtalen må de logge seg inn via ID-porten.
                     Tilgang for arbeidsgiver styres gjennom Altinn. En representant for arbeidsgiver må ha rollen{' '}
                     <em>Helse-, sosial- og velferdstjenester</em>, eller gis tilgang til enkelttjenesten{' '}
@@ -213,16 +213,16 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                             <TilEkstern className={cls.element('eksterntLenkeikon')} />
                         </Lenke>
                     </p>
-                </EkstbanderbartPanelRad>
-                <EkstbanderbartPanelRad svgIkon={<DrofteMedAnsattePersonOpplysning />}>
+                </EkspanderbartPanelRad>
+                <EkspanderbartPanelRad svgIkon={<DrofteMedAnsattePersonOpplysning />}>
                     Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om mål,
                     arbeidsoppgaver og oppfølging.
-                </EkstbanderbartPanelRad>
+                </EkspanderbartPanelRad>
 
-                <EkstbanderbartPanelRad svgIkon={<CheckCircleIkon />}>
+                <EkspanderbartPanelRad svgIkon={<CheckCircleIkon />}>
                     Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at arbeidstreningen kan
                     starte.
-                </EkstbanderbartPanelRad>
+                </EkspanderbartPanelRad>
             </Ekspanderbartpanel>
             <div className={cls.element('knappRad')}>
                 <LagreKnapp lagre={opprettAvtaleKlikk} label={'Opprett avtale'} className="opprett-avtale__knapp" />

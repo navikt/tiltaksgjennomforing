@@ -3,7 +3,7 @@ import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '@/komponenter/Banner/Banner';
-import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import BEMHelper from '@/utils/bem';
 import './informasjonsside.less';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
@@ -54,7 +54,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             </Normaltekst>
                         </div>
 
-                        <EkstbanderbartPanelRad
+                        <EkspanderbartPanelRad
                             classname={cls.element('info')}
                             svgIkon={<DigitalAvtale className={cls.element('SubIkon')} />}
                             headerTekst={{
@@ -65,9 +65,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             Deltaker, arbeidsgiver og NAV fyller ut, ser over og godkjenner avtalen i samme løsning i
                             sanntid, på hver sin PC eller mobil. NAV skal alltid godkjenne avtalen til slutt, og først
                             da kan arbeidstreningen starte.
-                        </EkstbanderbartPanelRad>
+                        </EkspanderbartPanelRad>
 
-                        <EkstbanderbartPanelRad
+                        <EkspanderbartPanelRad
                             classname={cls.element('info')}
                             svgIkon={<Keyboard className={cls.element('SubIkon')} />}
                             headerTekst={{
@@ -78,9 +78,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp en arbeidstrening,
                             oppretter NAV en digital avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV
                             når denne er klar til innlogging.
-                        </EkstbanderbartPanelRad>
+                        </EkspanderbartPanelRad>
 
-                        <EkstbanderbartPanelRad
+                        <EkspanderbartPanelRad
                             classname={cls.element('info')}
                             svgIkon={<Altinn className={cls.element('SubIkon')} />}
                             headerTekst={{
@@ -105,9 +105,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 </EksternLenke>
                             </span>
                             <AltinnVideoModal isOpen={isVideoModalOpen} lukkModal={() => setVideoModalOpen(false)} />
-                        </EkstbanderbartPanelRad>
+                        </EkspanderbartPanelRad>
 
-                        <EkstbanderbartPanelRad
+                        <EkspanderbartPanelRad
                             classname={cls.element('info')}
                             svgIkon={<DynamiskAvtale className={cls.element('SubIkon')} />}
                             headerTekst={{
@@ -118,9 +118,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             Innholdet i avtalen kan endres gjennom hele perioden for arbeidstrening. Hvis innholdet i
                             avtalen blir endret etter at arbeidstreningen har startet, må alle parter godkjenne avtalen
                             på nytt.
-                        </EkstbanderbartPanelRad>
+                        </EkspanderbartPanelRad>
 
-                        <EkstbanderbartPanelRad
+                        <EkspanderbartPanelRad
                             classname={cls.element('info')}
                             svgIkon={<Historikk className={cls.element('SubIkon')} />}
                             headerTekst={{
@@ -131,7 +131,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             Hvis det gjøres endringer i avtalen underveis i arbeidstreningen lagrer NAV den forrige,
                             godkjente versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan
                             alle tre parter se utviklingen og vurdere måloppnåelse i etterkant.
-                        </EkstbanderbartPanelRad>
+                        </EkspanderbartPanelRad>
                     </div>
                 </div>
             </div>

@@ -5,17 +5,12 @@ import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { RouteComponentProps } from 'react-router';
 import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
-import {
-    pathTilKontaktinformasjonSteg,
-    pathTilOversiktISelvbetjeningProd,
-} from '@/paths';
+import { pathTilKontaktinformasjonSteg, pathTilOversiktISelvbetjeningProd } from '@/paths';
 
 import './OpprettelseFullfort.less';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
-const OpprettelseFullfort: React.FunctionComponent<
-    RouteComponentProps<{ avtaleId: string }>
-> = props => {
+const OpprettelseFullfort: React.FunctionComponent<RouteComponentProps<{ avtaleId: string }>> = props => {
     const avtaleId = props.match.params.avtaleId;
 
     const tilAvtalenKlikk = () => {
@@ -24,28 +19,21 @@ const OpprettelseFullfort: React.FunctionComponent<
 
     const inputLabel = (
         <Normaltekst className="opprettelseFullfort__undertittel">
-            For at arbeidsgiver og deltaker skal kunne fylle ut og godkjenne
-            avtalen, må du kopiere og sende dem lenken under. De må da logge seg
-            inn via ID-porten.
+            For at arbeidsgiver og deltaker skal kunne fylle ut og godkjenne avtalen, må du kopiere og sende dem lenken
+            under. De må da logge seg inn via ID-porten.
         </Normaltekst>
     );
 
     const veilederpanel = (
         <VeilederpanelMedAvsjekkIkon>
-            <Systemtittel className="opprettelseFullfort__innholdstittel">
-                Avtalen er opprettet
-            </Systemtittel>
+            <Systemtittel className="opprettelseFullfort__innholdstittel">Avtalen er opprettet</Systemtittel>
             {inputLabel}
             <div className="opprettelseFullfort__lenkedeling">
                 <div className="opprettelseFullfort__lenke">
-                    <Lenke href={pathTilOversiktISelvbetjeningProd}>
-                        {pathTilOversiktISelvbetjeningProd}
-                    </Lenke>
+                    <Lenke href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Lenke>
                 </div>
                 <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
-                    <Hovedknapp className="opprettelseFullfort__kopier-knapp">
-                        Kopier lenke
-                    </Hovedknapp>
+                    <Hovedknapp className="opprettelseFullfort__kopier-knapp">Kopier lenke</Hovedknapp>
                 </CopyToClipboard>
             </div>
         </VeilederpanelMedAvsjekkIkon>
@@ -54,10 +42,7 @@ const OpprettelseFullfort: React.FunctionComponent<
     return (
         <div className="opprettelseFullfort">
             {veilederpanel}
-            <Hovedknapp
-                onClick={tilAvtalenKlikk}
-                className="opprettelseFullfort__knapp"
-            >
+            <Hovedknapp onClick={tilAvtalenKlikk} className="opprettelseFullfort__knapp">
                 Gå til avtalen
             </Hovedknapp>
 

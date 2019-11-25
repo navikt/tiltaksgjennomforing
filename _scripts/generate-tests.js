@@ -37,11 +37,7 @@ glob(pathToTest, function(er, files) {
             const fileSizeInBytes = stats['size'];
             const componentName = path.basename(filePath, '.tsx');
             if (fileSizeInBytes === 0) {
-                console.log(
-                    'Created a simple test for component <' +
-                        componentName +
-                        '/>'
-                );
+                console.log('Created a simple test for component <' + componentName + '/>');
                 const simpleTest = createSimpleTest(componentName);
                 fs.writeFileSync(specFilePath, simpleTest);
             }

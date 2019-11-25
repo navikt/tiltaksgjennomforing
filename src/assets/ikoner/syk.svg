@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="100%" viewBox="0 0 24 24">
+    <defs>
+        <path id="syk_a" d="M21.5 5C22.879 5 24 6.121 24 7.5v12c0 1.379-1.121 2.5-2.5 2.5h-19A2.502 2.502 0 0 1 0 19.5v-12C0 6.121 1.121 5 2.5 5H8V4c0-1.103.897-2 2-2h4c1.103 0 2 .897 2 2v1h5.5zM23 19.5v-12c0-.827-.673-1.5-1.5-1.5h-19C1.673 6 1 6.673 1 7.5v12c0 .827.673 1.5 1.5 1.5h19c.827 0 1.5-.673 1.5-1.5zM9 4v1h6V4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1zm7.5 8a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H14v2.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V16H7.5a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5H10V9.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V12h2.5zm-.5 3v-2h-2.5a.5.5 0 0 1-.5-.5V10h-2v2.5a.5.5 0 0 1-.5.5H8v2h2.5a.5.5 0 0 1 .5.5V18h2v-2.5a.5.5 0 0 1 .5-.5H16z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <mask id="syk_b" fill="#fff">
+            <use xlink:href="#syk_a"/>
+        </mask>
+        <use fill="#3E3832" xlink:href="#syk_a"/>
+        <g fill="#3E3832" mask="url(#syk_b)">
+            <path d="M0 24h24V0H0z"/>
+        </g>
+    </g>
+</svg>
