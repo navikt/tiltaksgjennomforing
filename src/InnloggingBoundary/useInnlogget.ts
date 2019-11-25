@@ -20,14 +20,9 @@ export interface Innlogget {
 }
 
 const useInnlogget = (): Innlogget => {
-    const [
-        innloggetBruker,
-        setInnloggetBruker,
-    ] = useState<InnloggetBruker | null>(null);
+    const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker | null>(null);
 
-    const [innloggingskilder, setInnloggingskilder] = useState<
-        Innloggingskilde[]
-    >([]);
+    const [innloggingskilder, setInnloggingskilder] = useState<Innloggingskilde[]>([]);
 
     const [feilmelding, setFeilmelding] = useState<string | null>(null);
 
