@@ -2,12 +2,7 @@ import React from 'react';
 
 const Keyboard = () => {
     return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="51"
-            height="44"
-            viewBox="0 0 51 44"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="51" height="44" viewBox="0 0 51 44">
             <g fill="none" fillRule="evenodd">
                 <path
                     fill="#C6C2BF"
@@ -24,10 +19,7 @@ const Keyboard = () => {
                     />
                     <path fill="#BDD1D0" d="M7.5 44h10v-8h-10z" />
                     <path fill="#6F9CAA" d="M7.5 38.5h10v-3h-10z" />
-                    <path
-                        fill="#38363A"
-                        d="M8.5 37a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0"
-                    />
+                    <path fill="#38363A" d="M8.5 37a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0" />
                 </g>
                 <g>
                     <path
@@ -36,10 +28,7 @@ const Keyboard = () => {
                     />
                     <path fill="#BDD1D0" d="M42.5 44h-10v-8h10z" />
                     <path fill="#6F9CAA" d="M42.5 38.5h-10v-3h10z" />
-                    <path
-                        fill="#38363A"
-                        d="M41.5 37a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0"
-                    />
+                    <path fill="#38363A" d="M41.5 37a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0" />
                 </g>
             </g>
         </svg>

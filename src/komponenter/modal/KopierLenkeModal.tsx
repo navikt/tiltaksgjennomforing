@@ -20,25 +20,18 @@ const KopierLenkeModal: React.FunctionComponent<Props> = props => (
         isOpen={props.isOpen}
         onRequestClose={() => props.lukkModal()}
     >
-        <Systemtittel className="kopierlenke__innholdstittel">
-            Kopier lenken til arbeidsgiver og deltaker:
-        </Systemtittel>
+        <Systemtittel className="kopierlenke__innholdstittel">Kopier lenken til arbeidsgiver og deltaker:</Systemtittel>
         <div className="kopierlenke__lenkedeling">
             <div className="kopierlenke__lenke">
-                <Lenke href={pathTilOversiktISelvbetjeningProd}>
-                    {pathTilOversiktISelvbetjeningProd}
-                </Lenke>
+                <Lenke href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Lenke>
             </div>
             <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
-                <Hovedknapp className="kopierlenke__kopier-knapp">
-                    Kopier lenke
-                </Hovedknapp>
+                <Hovedknapp className="kopierlenke__kopier-knapp">Kopier lenke</Hovedknapp>
             </CopyToClipboard>
         </div>
         <Normaltekst className="kopierlenke__undertittel">
-            For at arbeidsgiver og deltaker skal kunne fylle ut og godkjenne
-            avtalen må du sende dem lenken vist over. De kan da logge seg inn i
-            avtalen via ID-porten.
+            For at arbeidsgiver og deltaker skal kunne fylle ut og godkjenne avtalen må du sende dem lenken vist over.
+            De kan da logge seg inn i avtalen via ID-porten.
         </Normaltekst>
     </Modal>
 );
