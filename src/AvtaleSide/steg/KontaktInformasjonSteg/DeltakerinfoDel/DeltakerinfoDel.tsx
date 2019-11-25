@@ -13,22 +13,21 @@ const DeltakerinfoDel = (props: InputStegProps<Deltakerinfo>) => (
     <Container fluid={true}>
         <Row className="">
             <Column>
-        <Systemtittel className="deltakerinfo__tittel">Informasjon om deltaker</Systemtittel>
+                <Systemtittel className="deltakerinfo__tittel">Informasjon om deltaker</Systemtittel>
             </Column>
         </Row>
         <Row className="">
             <Column md="6">
-                <Input label="Fødselsnummer" value={props.avtale.deltakerFnr}
-                       disabled={true}/>
+                <Input label="Fødselsnummer" value={props.avtale.deltakerFnr} disabled={true} />
             </Column>
         </Row>
         <Row className="">
             <Column md="6">
-            <PakrevdInput
-                label="Fornavn"
-                verdi={props.avtale.deltakerFornavn}
-                settVerdi={_.partial(props.settAvtaleVerdi, 'deltakerFornavn')}
-            />
+                <PakrevdInput
+                    label="Fornavn"
+                    verdi={props.avtale.deltakerFornavn}
+                    settVerdi={_.partial(props.settAvtaleVerdi, 'deltakerFornavn')}
+                />
             </Column>
             <Column md="6">
                 <PakrevdInput
@@ -40,11 +39,11 @@ const DeltakerinfoDel = (props: InputStegProps<Deltakerinfo>) => (
         </Row>
         <Row className="">
             <Column md="6">
-        <TelefonnummerInput
-            label="Telefonnummer"
-            verdi={props.avtale.deltakerTlf}
-            settVerdi={_.partial(props.settAvtaleVerdi, 'deltakerTlf')}
-        />
+                <TelefonnummerInput
+                    label="Telefonnummer"
+                    verdi={props.avtale.deltakerTlf}
+                    settVerdi={_.partial(props.settAvtaleVerdi, 'deltakerTlf')}
+                />
             </Column>
         </Row>
     </Container>

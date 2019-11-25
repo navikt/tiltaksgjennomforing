@@ -13,7 +13,7 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     erNavAnsatt: false,
 });
 
-const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
+const InnloggingBoundary: FunctionComponent = props => {
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
 
     if (uinnlogget) {

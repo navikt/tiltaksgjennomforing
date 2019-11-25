@@ -6,7 +6,6 @@ import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
 import moment from 'moment';
-import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -20,6 +19,7 @@ import DeltakerInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/Delta
 import VeilederInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
 import OppsummeringArbeidstrening from './steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
 
 interface MatchProps {
     avtaleId: string;
@@ -42,9 +42,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
     };
-
     useEffect(() => {
         window.addEventListener('resize', handleWindowSize);
+
         return () => window.removeEventListener('resize', handleWindowSize);
     });
 
@@ -114,13 +114,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AlertStripe
-                                className={cls.element('banner')}
-                                type={props.avtale.erLaast ? 'suksess' : 'advarsel'}
-                            >
-                                {props.avtale.erLaast && 'Avtalen er godkjent av alle parter og låst.'}
-                                {props.avtale.avbrutt && 'Avtalen er avbrutt av veileder og låst.'}
-                            </AlertStripe>
+                            <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
                             <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
                             <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
                         </div>
@@ -132,10 +126,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AlertStripe className={cls.element('banner')} type="info">
-                                Du kan ikke redigere teksten i avtalen på grunn av hensyn til personvern. Ta kontakt med
-                                din veileder hvis du har spørsmål til innholdet i avtalen.
-                            </AlertStripe>
                             <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
                         </div>
                     );

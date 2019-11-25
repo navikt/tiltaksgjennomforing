@@ -23,16 +23,14 @@ const Innloggingslinje: FunctionComponent<{
                         <NavIkon />
                     </div>
                     <div className={cls.element('identitetogloggut')}>
-                        <EtikettLiten className={cls.element('identitetogloggut__identitet')}>
-                            {bruker}
-                        </EtikettLiten>
-                        <LoggUtKnapp/>
+                        <EtikettLiten className={cls.element('identitetogloggut__identitet')}>{bruker}</EtikettLiten>
+                        <LoggUtKnapp />
                     </div>
                 </MediaQuery>
                 <MediaQuery maxWidth={576}>
                     <Ekspanderbartpanel tittel={bruker}>
                         <div className={cls.className}>
-                            <LoggUtKnapp/>
+                            <LoggUtKnapp />
                         </div>
                     </Ekspanderbartpanel>
                 </MediaQuery>

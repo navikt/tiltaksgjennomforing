@@ -3,6 +3,7 @@
 .howto {
     &__icon {
         flex-grow: 1;
+        display: none;
     }
 
     &__element {
@@ -28,6 +29,11 @@
 
 @media (min-width: @screen-sm-min) {
     .howto {
+        &__icon {
+            flex-grow: 1;
+            display: flex;
+        }
+
         &__element {
             display: flex;
             margin-bottom: 2.5rem;

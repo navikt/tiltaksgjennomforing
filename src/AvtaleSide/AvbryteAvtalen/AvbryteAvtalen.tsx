@@ -11,11 +11,7 @@ interface Props {
 
 const AvbryteAvtalen = (props: Props) => (
     <div className="avbryteavtalen">
-        <Lenke
-            onClick={props.avbrytOnclick}
-            href="#"
-            className="avbryteavtalen__lenke"
-        >
+        <Lenke onClick={props.avbrytOnclick} href="#" className="avbryteavtalen__lenke">
             <AvbruttIkon className="avbryteavtalen__ikon" />
             Avbryt avtale
         </Lenke>

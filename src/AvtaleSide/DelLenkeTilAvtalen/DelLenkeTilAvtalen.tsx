@@ -13,10 +13,7 @@ const DelLenkeTilAvtalen: FunctionComponent = () => {
                 <ShareIkon className="lenkedeling__ikon" />
                 Del lenke til avtalen
             </Lenke>
-            <KopierLenkeModal
-                isOpen={isOpen}
-                lukkModal={() => setOpen(false)}
-            />
+            <KopierLenkeModal isOpen={isOpen} lukkModal={() => setOpen(false)} />
         </>
     );
 };

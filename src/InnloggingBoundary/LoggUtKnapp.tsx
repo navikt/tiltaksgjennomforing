@@ -9,12 +9,9 @@ const LoggUtKnapp: React.FunctionComponent<KnappBaseProps> = props => {
         });
     };
     return (
-        <Knapp
-            className="innloggingslinje__loggutknapp"
-            mini={true}
-            onClick={onClick}
-            {...props}
-        >Logg ut</Knapp>
+        <Knapp className="innloggingslinje__loggutknapp" mini={true} onClick={onClick} {...props}>
+            Logg ut
+        </Knapp>
     );
 };
 

@@ -59,23 +59,13 @@ const BekreftelseModal = ({
                                 {oversiktTekst} {navn}
                             </Systemtittel>
                         </div>
-                        <Normaltekst className={cls.element('varselTekst')}>
-                            {varselTekst}
-                        </Normaltekst>
+                        <Normaltekst className={cls.element('varselTekst')}>{varselTekst}</Normaltekst>
                     </div>
                     <div className={cls.element('knapper')}>
-                        <KnappBase
-                            type={'hoved'}
-                            className={cls.element('knapp lenkeknapp')}
-                            onClick={slettRad}
-                        >
+                        <KnappBase type={'hoved'} className={cls.element('knapp lenkeknapp')} onClick={slettRad}>
                             {bekreftelseTekst} {navn}
                         </KnappBase>
-                        <KnappBase
-                            type={'flat'}
-                            className={cls.element('knapp lenkeknapp')}
-                            onClick={lukkModal}
-                        >
+                        <KnappBase type={'flat'} className={cls.element('knapp lenkeknapp')} onClick={lukkModal}>
                             {avbrytelseTekst}
                         </KnappBase>
                     </div>

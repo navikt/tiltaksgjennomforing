@@ -22,8 +22,12 @@ const InfoBoks = (props: InfoBoksProps) => (
                 &nbsp;
                 {props.dagerIUka <= 1 ? 'arbeidsdag' : 'arbeidsdager'} per uke
             </Normaltekst>
-            {props.varighet &&
-            <Normaltekst><VerticalSpacer twentyPx={true}/>Avtalen varer i {props.varighet}</Normaltekst>}
+            {props.varighet && (
+                <Normaltekst>
+                    <VerticalSpacer twentyPx={true} />
+                    Avtalen varer i {props.varighet}
+                </Normaltekst>
+            )}
         </div>
     </div>
 );
