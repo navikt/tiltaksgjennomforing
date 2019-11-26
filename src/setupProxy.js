@@ -19,10 +19,7 @@ const envProperties = {
             '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
 };
 
-if (
-    !envProperties.LOGOUT_URL ||
-    !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)
-) {
+if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
     console.error(
         'Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, SELVBETJENING_LOGIN_URL, ISSO_LOGIN_URL.'
     );

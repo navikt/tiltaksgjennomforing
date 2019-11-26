@@ -43,10 +43,7 @@ class VarselKomponent extends React.Component<Props, State> {
     render() {
         return (
             this.state.display && (
-                <AlertStripe
-                    type={this.props.type}
-                    className={classNames('varsel', this.props.className)}
-                >
+                <AlertStripe type={this.props.type} className={classNames('varsel', this.props.className)}>
                     <div className="varsel__innhold">
                         <div>{this.props.children}</div>
                         {this.props.kanLukkes && (

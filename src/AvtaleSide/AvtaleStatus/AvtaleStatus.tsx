@@ -4,7 +4,6 @@ import BEMHelper from '@/utils/bem';
 import './AvtaleStatus.less';
 import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
 import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
-import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { Avtale } from '@/types/avtale';
 import { Rolle } from '@/AvtaleContext';

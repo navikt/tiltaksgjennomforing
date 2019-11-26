@@ -5,11 +5,7 @@ import './UtfyllerBanner.less';
 import classnames from 'classnames';
 import BEMHelper from '@/utils/bem';
 
-type Utfyller =
-    | 'arbeidsgiver'
-    | 'veileder'
-    | 'veileder_og_arbeidsgiver'
-    | undefined;
+type Utfyller = 'arbeidsgiver' | 'veileder' | 'veileder_og_arbeidsgiver' | undefined;
 
 interface Props {
     utfyller: Utfyller;
@@ -38,9 +34,7 @@ const UfyllerBanner: React.FunctionComponent<Props> = (props: Props) => {
         <div className={classnames(cls.className, wrapperClass)}>
             <div className="utfyllerBanner">
                 <UtfyllingsIkon className="utfyllerBanner__utfyllingsIkon" />
-                <Normaltekst className="utfyllerBanner__fyllesUtAvTekst">
-                    {utfyllesAv}
-                </Normaltekst>
+                <Normaltekst className="utfyllerBanner__fyllesUtAvTekst">{utfyllesAv}</Normaltekst>
             </div>
         </div>
     );
