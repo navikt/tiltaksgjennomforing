@@ -111,6 +111,7 @@ export interface Context {
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     varsler: Varsel[];
     visFeilmelding: (feilmelding: string) => void;
+    opprettNyAvtaleGodkjentVersjon: (avtale: Avtale) => Promise<Avtale>;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -340,7 +341,11 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     harUlagredeEndringer() {
         return this.state.ulagredeEndringer;
     }
-
+    async opprettNyAvtaleGodkjentVersjon(avtale: Avtale): Promise<Avtale> {
+        avtale = await RestService.opprettNyAvtaleGodkjentVersjon(avtale);
+        this.setState({ avtale });
+        return avtale;
+    }
     render() {
         const context: Context = {
             avbryt: this.avbrytAvtale,
@@ -368,6 +373,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             slettOppgave: this.slettOppgave,
             varsler: this.state.varsler,
             visFeilmelding: this.visFeilmelding,
+            opprettNyAvtaleGodkjentVersjon: this.opprettNyAvtaleGodkjentVersjon,
         };
 
         return (
