@@ -5,12 +5,12 @@ import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget, { InnloggetBruker } from './useInnlogget';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { basename } from '@/paths';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
     erNavAnsatt: false,
+    organisasjoner: [],
 });
 
 const InnloggingBoundary: FunctionComponent = props => {

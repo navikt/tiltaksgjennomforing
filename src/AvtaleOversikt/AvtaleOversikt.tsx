@@ -1,26 +1,23 @@
-import AlertStripe from 'nav-frontend-alertstriper';
-import { HoyreChevron } from 'nav-frontend-chevron';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
 import RestService from '@/services/rest-service';
-import BEMHelper from '@/utils/bem';
-import Varsel from '@/types/varsel';
 import { AvtalelisteRessurs } from '@/types/avtale';
-import './AvtaleOversikt.less';
-import { ReactComponent as Natur } from '@/assets/ikoner/natur.svg';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { Checkbox } from 'nav-frontend-skjema';
 import { Status } from '@/types/nettressurs';
+import Varsel from '@/types/varsel';
+import BEMHelper from '@/utils/bem';
+import AlertStripe from 'nav-frontend-alertstriper';
+import { HoyreChevron } from 'nav-frontend-chevron';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import { Checkbox } from 'nav-frontend-skjema';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { INNLOGGET_PART } from '@/RedirectEtterLogin';
+import * as React from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import './AvtaleOversikt.less';
+import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -63,62 +60,6 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         />
     );
 
-    const tilbakemeldingHvisIngenAvtale = innloggetBruker.erNavAnsatt ? (
-        <div className={cls.element('ingen-avtaler-tekst-NAV')}>
-            <Normaltekst>Du har ikke {visAlleAvtaler ? 'tilgang til' : 'opprettet'} noen avtaler</Normaltekst>
-        </div>
-    ) : (
-        <div className={cls.element('ingen-avtaler-tekst')}>
-            <p>
-                <Element>Hvis du er deltaker:</Element>
-                <Normaltekst>
-                    Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.
-                </Normaltekst>
-            </p>
-            <p>
-                <Element>Hvis du er arbeidsgiver:</Element>
-                <Normaltekst>
-                    Du har ingen avtaler her enda. Det kan være på grunn av følgende årsaker:
-                    <ol>
-                        <li>
-                            Du har ikke riktig tilgang i Altinn. Du må enten ha rollen{' '}
-                            <i>Helse-, sosial- og velferdstjenester</i> eller enkelttjenesten{' '}
-                            <i>Avtale om arbeidstrening.</i>{' '}
-                            <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                                Les mer om roller og rettigheter på Altinn.no
-                            </EksternLenke>
-                        </li>
-                        <li>NAV-veileder har ikke opprettet avtalen med bedriftsnummeret ditt enda.</li>
-                    </ol>
-                    <p>Hvis alternativ 1 og 2 ikke er tilfelle, ta kontakt med veileder i NAV.</p>
-                </Normaltekst>
-            </p>
-        </div>
-    );
-
-    const innloggetPart = sessionStorage.getItem(INNLOGGET_PART);
-    const partIngenAvtaler = () => {
-        if (innloggetBruker.erNavAnsatt) {
-            return (
-                <div>
-                    <Normaltekst>Du er veileder uten avtaler</Normaltekst>
-                </div>
-            );
-        } else if (innloggetPart === 'deltaker') {
-            return (
-                <div>
-                    <Normaltekst>Du er deltaker og har ingen avtaler</Normaltekst>
-                </div>
-            );
-        } else if (innloggetPart === 'arbeidsgiver') {
-            return (
-                <div>
-                    <Normaltekst>Du er arbeidsgiver og har ikke tilgang til noen avtaler</Normaltekst>
-                </div>
-            );
-        }
-    };
-
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
@@ -135,10 +76,8 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                 {opprettAvtaleKnapp}
                 {visAlleAvtalerCheckbox}
                 {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
-                    <div className={cls.element('natur-logo')}>
-                        <Natur />
-                        <Undertittel className={cls.element('ingen-avtaler-header')}>Ingen avtaler</Undertittel>
-                        <Normaltekst>{partIngenAvtaler()}</Normaltekst>
+                    <div>
+                        <IngenAvtaler visAlleAvtalerChecked={visAlleAvtaler} />
                     </div>
                 ) : (
                     <div className="avtaleoversikt__avtaleliste typo-normal">

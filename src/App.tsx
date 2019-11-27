@@ -35,7 +35,6 @@ class App extends React.Component {
                             <RedirectEtterLogin>
                                 <FeatureToggleProvider>
                                     <Route path="/" exact={true} component={AvtaleOversikt} />
-                                    {/* <Route path="/tiltaksgjennomforing" exact={true} component={AvtaleOversikt} /> */}
                                     <Route
                                         path={pathTilInformasjonssideInnlogget}
                                         exact={true}

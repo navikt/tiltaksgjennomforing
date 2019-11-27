@@ -11,7 +11,13 @@ export interface Innloggingskilde {
 export interface InnloggetBruker {
     identifikator: string;
     erNavAnsatt: boolean;
+    organisasjoner: Organisasjon[];
 }
+
+export type Organisasjon = {
+    bedriftNavn: string;
+    bedriftNr: string;
+};
 
 export interface Innlogget {
     innloggetBruker: InnloggetBruker | null;
