@@ -2,6 +2,10 @@ import { Context, medContext } from '@/AvtaleContext';
 import * as React from 'react';
 import Godkjenning from './Godkjenning';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
+import DeltakerInstruks from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
+import ArbeidsgiverInstruks from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
+import VeilederInstruks from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 
 type Props = {
     oppsummering: JSX.Element;
@@ -12,6 +16,11 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => {
         <>
             <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
             {props.oppsummering}
+            <Innholdsboks className={'avtaleside__infoboks'}>
+                {props.rolle === 'DELTAKER' && <DeltakerInstruks erLaast={props.avtale.erLaast} />}
+                {props.rolle === 'ARBEIDSGIVER' && <ArbeidsgiverInstruks erLaast={props.avtale.erLaast} />}
+                {props.rolle === 'VEILEDER' && <VeilederInstruks />}
+            </Innholdsboks>
             <Godkjenning
                 avtale={props.avtale}
                 rolle={props.rolle}

@@ -1,12 +1,10 @@
-import { Context, medContext, Rolle } from '@/AvtaleContext';
+import { Context, medContext } from '@/AvtaleContext';
 import Banner from '@/komponenter/Banner/Banner';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
 import moment from 'moment';
-import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -14,12 +12,7 @@ import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
-import ArbeidsgiverInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
-import DeltakerInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
-import VeilederInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
-import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
 
 interface MatchProps {
     avtaleId: string;
@@ -64,22 +57,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
 
     const erDesktop = windowSize > 767;
 
-    const finnSteg = (id: StegId) => avtaleSteg.find(steg => steg.id === id);
-
     useEffect(() => {
         setAktivtSteg(avtaleSteg.find(steg => steg.id === props.match.params.stegPath));
     }, [props.match.params.stegPath, avtaleSteg]);
 
-    const instruks = (rolle: Rolle) => {
-        switch (rolle) {
-            case 'DELTAKER':
-                return <DeltakerInstruks erLaast={props.avtale.erLaast} />;
-            case 'ARBEIDSGIVER':
-                return <ArbeidsgiverInstruks erLaast={props.avtale.erLaast} />;
-            case 'VEILEDER':
-                return <VeilederInstruks />;
-        }
-    };
     const titler = {
         ARBEIDSTRENING: 'Avtale om arbeidstrening',
         MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
@@ -125,28 +106,15 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 let innhold: ReactNode;
                 if (!aktivtSteg) {
                     return null;
-                } else if (props.avtale.erLaast || props.avtale.avbrutt) {
-                    setAktivtSteg(finnSteg('godkjenning'));
+                } else if (props.avtale.erLaast || props.avtale.avbrutt || props.rolle === 'DELTAKER') {
+                    setAktivtSteg(avtaleSteg.find(steg => steg.id === 'godkjenning'));
                     innhold = (
                         <div className="avtaleside__innhold">
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
                             {aktivtSteg.komponent}
-                            <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
-                        </div>
-                    );
-                } else if (props.rolle === 'DELTAKER') {
-                    setAktivtSteg(finnSteg('godkjenning'));
-                    innhold = (
-                        <div className="avtaleside__innhold">
-                            <div className="tilbaketiloversikt">
-                                <TilbakeTilOversiktLenke />
-                            </div>
-                            {varsler}
-                            <GodkjenningSteg oppsummering={aktivtSteg.komponent} />
                         </div>
                     );
                 } else if (erDesktop) {
