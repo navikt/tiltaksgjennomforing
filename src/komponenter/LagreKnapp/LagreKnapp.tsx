@@ -30,10 +30,7 @@ class LagreKnapp extends Component<Props, State> {
             await this.props.lagre();
             this.visSuksessmelding();
         } catch (error) {
-            if (
-                error instanceof ApiError ||
-                error instanceof UfullstendigError
-            ) {
+            if (error instanceof ApiError || error instanceof UfullstendigError) {
                 this.visFeilmelding(error.message);
             } else {
                 throw error;

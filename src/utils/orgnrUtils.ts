@@ -4,10 +4,7 @@ export const validerOrgnr = (orgNumber: string) => {
     if (orgNumber.length !== 9) {
         return false;
     }
-    return (
-        parseInt(orgNumber.charAt(orgNumber.length - 1), 10) ===
-        mod11OfNumberWithControlDigit(orgNumber)
-    );
+    return parseInt(orgNumber.charAt(orgNumber.length - 1), 10) === mod11OfNumberWithControlDigit(orgNumber);
 };
 
 const mod11OfNumberWithControlDigit = (input: any) => {

@@ -1,0 +1,90 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.avtalestatus {
+    display: flex;
+
+    &__innholdsboks {
+        margin-bottom: 0.5rem;
+    }
+
+    &__hovedIkon {
+        display: flex;
+        justify-content: center;
+        margin-top: -3.5rem;
+
+        &__justerStorrelse {
+            width: 3.125rem;
+            height: 3.125rem;
+        }
+    }
+
+    &__parterIkon {
+        margin-bottom: 1rem;
+    }
+
+    &__header {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem;
+    }
+
+    &__infotekst {
+        border-bottom: 1px solid #c6c2bf;
+    }
+
+    &__andreParter {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+
+        &__ikon {
+            margin-left: 2rem;
+        }
+        &__begge {
+            display: flex;
+            margin-right: 1rem;
+        }
+    }
+}
+@media (max-width: @screen-sm-min) {
+    // Mobil
+    .avtalestatus {
+        &__innholdsboks {
+            border-bottom: 4px solid #e9e7e7;
+            border-radius: 0;
+        }
+        &__hovedIkonMobil {
+            display: flex;
+            justify-content: space-between;
+
+            &__justerStorrelse {
+                width: 1.5rem;
+                height: 1.5rem;
+                margin-top: 1rem;
+            }
+        }
+
+        &__infotekst {
+            border-bottom: 0;
+        }
+
+        &__header {
+            margin-top: 0rem;
+            margin-bottom: 1rem;
+            font-size: large;
+        }
+        &__andreParter {
+            margin-top: 2rem;
+            display: block;
+
+            &__ikon {
+                margin-left: 2rem;
+            }
+            &__begge {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+                margin-right: 0;
+            }
+        }
+    }
+}

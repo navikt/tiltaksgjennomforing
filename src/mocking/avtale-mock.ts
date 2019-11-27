@@ -27,8 +27,8 @@ const oppgaveListe: Oppgave[] = [
 
 const avtaleMock: ArbeidstreningAvtale = {
     id: '9565e74d-66f3-44a1-8a3c-91fae6b450d3',
-    opprettetTidspunkt: '4 uker siden',
-    versjon: '34',
+    opprettetTidspunkt: '',
+    sistEndret: '',
 
     godkjentAvDeltaker: false,
     godkjentAvArbeidsgiver: false,
@@ -37,7 +37,7 @@ const avtaleMock: ArbeidstreningAvtale = {
     status: '',
     kanAvbrytes: true,
     avbrutt: false,
-    godkjentPaaVegneAv: false,
+    godkjentPaVegneAv: false,
 
     godkjentPaVegneGrunn: {
         ikkeBankId: false,
@@ -65,7 +65,6 @@ const avtaleMock: ArbeidstreningAvtale = {
     deltakerFnr: '00000000000',
     deltakerTlf: '44444444',
 
-    arbeidsgiverFnr: '00000000000',
     arbeidsgiverFornavn: 'Arbeidsgiver',
     arbeidsgiverEtternavn: 'Arbeidsgiversen',
     arbeidsgiverTlf: '77777777',

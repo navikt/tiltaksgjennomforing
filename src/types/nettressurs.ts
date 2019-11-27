@@ -29,9 +29,4 @@ export interface Feil {
     error: string;
 }
 
-export type Nettressurs<T> =
-    | IkkeLastet
-    | LasterInn
-    | SenderInn<T>
-    | Lastet<T>
-    | Feil;
+export type Nettressurs<T> = IkkeLastet | LasterInn | SenderInn<T> | Lastet<T> | Feil;

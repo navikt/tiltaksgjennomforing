@@ -5,11 +5,7 @@ type UsePaakrevd = (
     verdi: string,
     label: string,
     feilmelding?: string
-) => [
-    SkjemaelementFeil | undefined,
-    Dispatch<SetStateAction<SkjemaelementFeil | undefined>>,
-    () => boolean
-];
+) => [SkjemaelementFeil | undefined, Dispatch<SetStateAction<SkjemaelementFeil | undefined>>, () => boolean];
 
 const usePaakrevd: UsePaakrevd = (verdi, label, feilmelding) => {
     const [feil, setFeil] = useState<SkjemaelementFeil | undefined>(undefined);

@@ -13,11 +13,11 @@ jobs:
                       - node-v1-{{ .Branch }}-
                       - node-v1-
             - run:
-                name: Intallerer
-                command: npm i --no-optional
+                  name: Intallerer
+                  command: npm i --no-optional
             - run:
-                name: Tester React app
-                command: npm test
+                  name: Tester React app
+                  command: npm test
             - run:
                   name: Bygger React app
                   command: npm run build
@@ -26,7 +26,7 @@ jobs:
                       - ~/usr/local/lib/node_modules # location depends on npm version
                   key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
             - setup_remote_docker:
-                docker_layer_caching: true
+                  docker_layer_caching: true
             - run:
                   name: Bygger Docker image
                   command: docker build -t "navikt/tiltaksgjennomforing:$CIRCLE_SHA1" .

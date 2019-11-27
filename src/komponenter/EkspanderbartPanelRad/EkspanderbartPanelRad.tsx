@@ -1,6 +1,6 @@
 import React from 'react';
 import TypografiBase, { Normaltekst } from 'nav-frontend-typografi';
-import './EksbanderbartPanelRad.less';
+import './EkspanderbartPanelRad.less';
 import BEMHelper from '@/utils/bem';
 
 interface Props {
@@ -14,26 +14,16 @@ interface Props {
 
 const cls = BEMHelper('howto');
 
-const EkstbanderbartPanelRad: React.FunctionComponent<Props> = props => {
+const EkspanderbartPanelRad: React.FunctionComponent<Props> = props => {
     const { svgIkon, headerTekst, classname, children } = props;
     const header = headerTekst ? (
-        <TypografiBase
-            type={
-                headerTekst.typografiType
-                    ? headerTekst.typografiType
-                    : 'element'
-            }
-        >
+        <TypografiBase type={headerTekst.typografiType ? headerTekst.typografiType : 'element'}>
             {headerTekst.tekst}
         </TypografiBase>
     ) : null;
 
     return (
-        <div
-            className={cls.element(
-                classname ? `element ${classname}` : 'element'
-            )}
-        >
+        <div className={cls.element(classname ? `element ${classname}` : 'element')}>
             <div className={cls.element('icon')}>{svgIkon}</div>
             <div className={cls.element('tekst')}>
                 {header}
@@ -43,4 +33,4 @@ const EkstbanderbartPanelRad: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default EkstbanderbartPanelRad;
+export default EkspanderbartPanelRad;

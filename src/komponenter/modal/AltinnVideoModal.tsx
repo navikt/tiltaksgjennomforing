@@ -5,6 +5,7 @@ import MediaQuery from 'react-responsive';
 import video from '@/assets/media/roller-rettigheter.mp4';
 import BEMHelper from '@/utils/bem';
 import './AltinnVideoModal.less';
+import { trackVideo } from '@/utils/amplitude';
 
 interface Props {
     isOpen: boolean;
@@ -23,18 +24,16 @@ const AltinnVideoModal: React.FunctionComponent<Props> = props => {
             onRequestClose={() => props.lukkModal()}
         >
             <div className={cls.element('tittel')}>
-                <Systemtittel>
-                    Slik tildeler du roller og rettigheter i Altinn.
-                </Systemtittel>
+                <Systemtittel>Slik tildeler du roller og rettigheter i Altinn.</Systemtittel>
             </div>
             <MediaQuery minWidth={576}>
-                <video width="700" height="450" controls>
+                <video width="700" height="450" controls={true} onTimeUpdate={trackVideo}>
                     <source src={video} type="video/mp4" />
                     Nettleseren din støtter ikke denne videoen.
                 </video>
             </MediaQuery>
             <MediaQuery maxWidth={575}>
-                <video width="300" height="300" controls>
+                <video width="300" height="300" controls={true} onTimeUpdate={trackVideo}>
                     <source src={video} type="video/mp4" />
                     Nettleseren din støtter ikke denne videoen.
                 </video>

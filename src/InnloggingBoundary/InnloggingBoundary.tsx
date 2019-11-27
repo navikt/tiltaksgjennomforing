@@ -11,12 +11,7 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
 });
 
 const InnloggingBoundary: FunctionComponent = props => {
-    const {
-        innloggetBruker,
-        uinnlogget,
-        innloggingskilder,
-        feilmelding,
-    } = useInnlogget();
+    const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
 
     if (uinnlogget) {
         return <Innloggingside innloggingskilder={innloggingskilder} />;

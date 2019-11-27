@@ -18,6 +18,8 @@ import ArbeidsgiverInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/A
 import DeltakerInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
 import VeilederInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
+import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
 
 interface MatchProps {
     avtaleId: string;
@@ -131,13 +133,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AlertStripe
-                                className={cls.element('banner')}
-                                type={props.avtale.erLaast ? 'suksess' : 'advarsel'}
-                            >
-                                {props.avtale.erLaast && 'Avtalen er godkjent av alle parter og låst.'}
-                                {props.avtale.avbrutt && 'Avtalen er avbrutt av veileder og låst.'}
-                            </AlertStripe>
+                            <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
                             {aktivtSteg.komponent}
                             <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
                         </div>
@@ -150,11 +146,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 <TilbakeTilOversiktLenke />
                             </div>
                             {varsler}
-                            <AlertStripe className={cls.element('banner')} type="info">
-                                Du kan ikke redigere teksten i avtalen på grunn av hensyn til personvern. Ta kontakt med
-                                din veileder hvis du har spørsmål til innholdet i avtalen.
-                            </AlertStripe>
-                            {aktivtSteg.komponent}
+                            <GodkjenningSteg oppsummering={aktivtSteg.komponent} />
                         </div>
                     );
                 } else if (erDesktop) {

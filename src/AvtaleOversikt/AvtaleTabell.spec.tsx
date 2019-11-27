@@ -5,11 +5,7 @@ import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 
 test('Test that <AvtaleOversikt> renders correctly', () => {
     const wrapper = shallow(
-        <AvtaleTabell
-            innloggetBruker={{ erNavAnsatt: false, identifikator: '' }}
-            avtaler={[]}
-            varsler={[]}
-        />
+        <AvtaleTabell innloggetBruker={{ erNavAnsatt: false, identifikator: '' }} avtaler={[]} varsler={[]} />
     );
     expect(wrapper).toHaveLength(1);
 });
