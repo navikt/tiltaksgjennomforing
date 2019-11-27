@@ -1,29 +1,12 @@
+import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { NavFrontendInputProps } from 'nav-frontend-skjema';
 import React from 'react';
-import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 
-const precision = (a: number) => {
-    if (!isFinite(a)) {
-        return 0;
-    }
-    let e = 1;
-    let p = 0;
-    while (Math.round(a * e) / e !== a) {
-        e *= 10;
-        p++;
-    }
-    return p;
-};
 export const formaterProsent = (value: any): string => {
-    const numericValue = parseFloat(value) / 100;
-    if (!value || !numericValue) {
+    if (!value) {
         return '';
     }
-    const formatter = new Intl.NumberFormat('no-bok', {
-        style: 'percent',
-        minimumFractionDigits: precision(1),
-    });
-    return formatter.format(numericValue);
+    return `${value} %`;
 };
 
 const ProsentInput: React.FunctionComponent<NavFrontendInputProps> = props => {
