@@ -5,10 +5,10 @@ import * as React from 'react';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import './ArbeidsgiverinfoDel.less';
-import { Arbeidsgiverinfo, Bedriftinfo } from '@/types/avtale';
+import { Arbeidsgiverinfo, Avtaleparter, Bedriftinfo } from '@/types/avtale';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 
-const ArbeidsgiverinfoDel = (props: InputStegProps<Bedriftinfo & Arbeidsgiverinfo>) => (
+const ArbeidsgiverinfoDel = (props: InputStegProps<Bedriftinfo & Arbeidsgiverinfo & Avtaleparter>) => (
     <>
         <Systemtittel className="arbeidsgiver-tittel">Informasjon om arbeidsgiver</Systemtittel>
 

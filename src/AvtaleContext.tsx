@@ -12,6 +12,8 @@ export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
     sistEndret: '',
+    versjon: 1,
+    versjoner: [],
 
     deltakerFnr: '',
     deltakerFornavn: '',
@@ -45,6 +47,7 @@ export const tomAvtale: Avtale = {
     erLaast: false,
     status: '',
     kanAvbrytes: true,
+    kanLaasesOpp: false,
     avbrutt: false,
     tiltakstype: 'ARBEIDSTRENING',
     godkjentPaVegneAv: false,

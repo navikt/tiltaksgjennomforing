@@ -7,9 +7,11 @@ import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import './KontaktinfoSteg.less';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
-import { Arbeidsgiverinfo, Bedriftinfo, Deltakerinfo, Veilederinfo } from '@/types/avtale';
+import { Arbeidsgiverinfo, Avtaleparter, Bedriftinfo, Deltakerinfo, Veilederinfo } from '@/types/avtale';
 
-const KontaktinfoSteg = (props: InputStegProps<Deltakerinfo & Bedriftinfo & Arbeidsgiverinfo & Veilederinfo>) => (
+const KontaktinfoSteg = (
+    props: InputStegProps<Avtaleparter & Deltakerinfo & Bedriftinfo & Arbeidsgiverinfo & Veilederinfo>
+) => (
     <Innholdsboks>
         <DeltakerinfoDel {...props} />
         <ArbeidsgiverinfoDel {...props} />
