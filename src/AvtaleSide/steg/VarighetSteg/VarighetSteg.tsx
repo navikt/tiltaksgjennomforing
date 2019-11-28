@@ -3,11 +3,9 @@ import { FunctionComponent, useState } from 'react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import Datovelger from './Datovelger/Datovelger';
 import moment, { Moment } from 'moment';
-import { Normaltekst } from 'nav-frontend-typografi';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';
-import BEMHelper from '@/utils/bem';
 import { Varighet } from '@/types/avtale';
 import { medContext } from '@/AvtaleContext';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
@@ -31,10 +29,8 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
     };
 
     const timerIUka = Number(((37.5 * props.avtale.stillingprosent) / 100).toFixed(2));
-
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
-    const cls = BEMHelper('arbeidstidsteg');
     const duration = moment(props.avtale.sluttDato).diff(props.avtale.startDato, 'days');
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
     return (
@@ -65,6 +61,7 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
                         />
                     </Column>
                 </Row>
+                <VerticalSpacer sixteenPx={true} />
                 <StillingsprosentInput
                     label="Hvilken stillingsprosent skal deltakeren ha?"
                     verdi={props.avtale.stillingprosent}
