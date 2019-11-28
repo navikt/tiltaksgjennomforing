@@ -31,11 +31,11 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     return (
         <>
-            <div className="avtaleside__desktop">
+            <div className={cls.element('desktop')}>
                 {props.varsler}
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
-                    <div className="avtaleside__avbrytOgDelLenk">
+                    <div className={cls.element('avbrytOgDelLenk')}>
                         {' '}
                         {props.avtale.kanAvbrytes && !props.avtale.avbrutt && props.rolle === 'VEILEDER' && (
                             <AvbryteAvtalen avbrytOnclick={bekreftelseAvbrytAvtalen} />
@@ -43,13 +43,12 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                         {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
                     </div>
                 </div>
-                <div className="avtaleside__container">
+                <div className={cls.element('container')}>
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
-                    <form className="avtaleside__innhold">
+                    <div className={cls.element('innhold')}>
                         {props.aktivtSteg.komponent}
-
                         <NesteForrige avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
-                    </form>
+                    </div>
                 </div>
             </div>
             <BekreftelseModal
