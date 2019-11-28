@@ -1,9 +1,9 @@
 import React from 'react';
 import './GodkjenningStatus.less';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Systemtittel } from 'nav-frontend-typografi';
 import { Avtale } from '@/types/avtale';
 import GodkjenningRad from './GodkjenningRad/GodkjenningRad';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     avtale: Avtale;
@@ -12,7 +12,7 @@ interface Props {
 const GodkjenningStatus: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <Innholdsboks className="godkjenningstatus">
-            <Systemtittel>Hvem har godkjent?</Systemtittel>
+            <SkjemaTittel>Hvem har godkjent?</SkjemaTittel>
             <div className="godkjenningstatus__rader">
                 <GodkjenningRad
                     godkjentAvtale={props.avtale.godkjentAvDeltaker}

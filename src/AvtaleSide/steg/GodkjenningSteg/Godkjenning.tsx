@@ -1,5 +1,4 @@
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
-import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useState } from 'react';
 import { Rolle } from '@/AvtaleContext';
@@ -13,6 +12,7 @@ import VeilederInstruks from './Oppsummering/instruks/VeilederInstruks';
 import GodkjennPaVegneAv from './Oppsummering/GodkjennPaVegneAv/GodkjennPaVegneAv';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { UfullstendigError } from '@/types/errors';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     avtale: Avtale;
@@ -104,7 +104,7 @@ const Godkjenning = (props: Props) => {
     };
     return (
         <Innholdsboks className="godkjenning">
-            <Systemtittel className="godkjenning__tittel">Godkjenn avtalen</Systemtittel>
+            <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             {instruks(props.rolle, props.avtale)}
             {props.rolle !== 'VEILEDER' && (
                 <BekreftCheckboksPanel
@@ -116,22 +116,20 @@ const Godkjenning = (props: Props) => {
             {props.rolle === 'VEILEDER' && !props.avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAv godkjentPaVegneGrunn={godkjentPaVegneGrunn} moderState={paVegneState} />
             )}
-            <div>
-                <LagreKnapp
-                    lagre={() => {
-                        if (bekreftet || props.rolle === 'VEILEDER') {
-                            if (godkjentPaVegneAv) {
-                                validerGodkjentPaVegne();
-                                return props.godkjennPaVegne(godkjentPaVegneGrunn);
-                            }
-                            return props.endreGodkjenning(true);
-                        } else {
-                            throw new UfullstendigError('Du må bekrefte at du forstår kravene før du kan godkjenne.');
+            <LagreKnapp
+                lagre={() => {
+                    if (bekreftet || props.rolle === 'VEILEDER') {
+                        if (godkjentPaVegneAv) {
+                            validerGodkjentPaVegne();
+                            return props.godkjennPaVegne(godkjentPaVegneGrunn);
                         }
-                    }}
-                    label="Godkjenn avtalen"
-                />
-            </div>
+                        return props.endreGodkjenning(true);
+                    } else {
+                        throw new UfullstendigError('Du må bekrefte at du forstår kravene før du kan godkjenne.');
+                    }
+                }}
+                label="Godkjenn avtalen"
+            />
         </Innholdsboks>
     );
 };
