@@ -58,7 +58,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const erDesktop = windowSize > 767;
 
     useEffect(() => {
-        setAktivtSteg(avtaleSteg.find(steg => steg.id === props.match.params.stegPath));
+        setAktivtSteg(avtaleSteg.find(steg => steg.id === props.match.params.stegPath) || avtaleSteg[0]);
     }, [props.match.params.stegPath, avtaleSteg]);
 
     const titler = {

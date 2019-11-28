@@ -8,7 +8,6 @@ import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import Informasjonsside from './Informajonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
-import LandingsSide from './LandingsSide/LandingsSide';
 import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import {
@@ -48,12 +47,10 @@ class App extends React.Component {
                                     />
                                     <AvtaleProvider>
                                         <Route
-                                            path={pathTilAvtale(':avtaleId')}
-                                            exact={true}
-                                            component={LandingsSide}
-                                        />
-                                        <Route
-                                            path={pathTilStegIAvtale(':avtaleId', ':stegPath')}
+                                            path={[
+                                                pathTilAvtale(':avtaleId'),
+                                                pathTilStegIAvtale(':avtaleId', ':stegPath'),
+                                            ]}
                                             exact={true}
                                             component={AvtaleSide}
                                         />
