@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import BEMHelper from '@/utils/bem';
-import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
+import { AltAvtaleinnhold, Avtale, AvtalelisteRessurs } from '@/types/avtale';
 import Tabs from 'nav-frontend-tabs';
 import Stegoppsummering from '../steg/GodkjenningSteg/Oppsummering/Stegoppsummering/Stegoppsummering';
 import OppfølgingIkon from '../steg/GodkjenningSteg/Oppsummering/oppfølging/OppfolgingIkon';
@@ -22,6 +22,14 @@ import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import Varsel from '@/types/varsel';
 import moment from 'moment';
 import { Status } from '@/types/nettressurs';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import MaalOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/maalOppsummering/MaalOppsummering';
+import OppgaverOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppgaveOppsummering/OppgaverOppsummering';
+import VarighetOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/varighet/VarighetOppsummering';
+import { StegId } from '@/AvtaleSide/AvtaleSide';
+import { switchCase } from '@babel/types';
+import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 
 interface MatchProps {
     avtaleId: string;
@@ -34,13 +42,8 @@ const cls = BEMHelper('versjonTabs');
 
 const VersjonTabs: React.FunctionComponent<Props> = props => {
     const [index, setIndex] = useState(0);
-    const [kanLaasesOpp, setKanLaasesOpp] = useState();
-    const [avtaler, setAvtaler] = useState<Avtale[] | null>(null);
-    const [avtalelisteRessurs, setAvtalelistRessurs] = useState<AvtalelisteRessurs>({
-        status: Status.IkkeLastet,
-    });
-    const [varsler, setVarsler] = useState<Varsel[]>([]);
-    const opprettNyAvtaleGodkjentVersjonklikk = async () => {
+
+    const låsOppAvtaleklikk = async () => {
         const nyAvtaleGodkjentVersjon = await RestService.låsOppAvtale(props.avtale.id);
         //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleGodkjentVersjon.id));
         // this.setState({nyAvtaleGodkjentVersjon});
@@ -52,78 +55,69 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
             window.location.replace(pathTilKontaktinformasjonSteg(props.avtale.id));
         }
     };
-    useEffect(() => {
-        RestService.hentAlleAvtaleVersjoner(
-            props.avtale.id
-            /*props.avtale.id != null ? props.avtale.baseAvtaleId : props.avtale.id*/
-        ).then(setAvtaler);
-    });
-    const alleAvtaleVersjoner = async () => {
-        /*const avtaler = await RestService.hentAlleAvtaleVersjoner(
-            props.avtale.baseAvtaleId != null
-                ? props.avtale.baseAvtaleId
-                : props.avtale.id
-        )
-            .then()
-            .catch();
-*/
-        if (avtaler === null) {
-            return null;
-        }
-        /* console.log('props.avtale.id' + props.avtale.id);
-        console.log('avtale.id' + avtaler[0].id);
-        // console.log(avtale[Symbol.toStringTag].trim());
-        console.log(JSON.stringify(avtaler));*/
-        /*  Avtale a= (avtale as Avtale).id;
-        const a=JSON.parse(JSON. avtale,("id",avtaleId)=>{return avtaleId;});
-*/
-        /*
-        if (avtale.id === props.avtale.id) {
-            return true;
-        } else {
-            return false;
-        }*/
-        return avtaler;
-    };
-    if (avtaler === null) {
-        return null;
-    }
-    const avtaleLenker = avtaler.map((avtale: Avtale) => {
-        const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
-        return (
-            <LenkepanelBase
-                key={avtale.id}
-                href={pathTilKontaktinformasjonSteg(avtale.id)}
-                linkCreator={(props: any) => <Link to={props.href} {...props} />}
-            >
-                {ulestVarsel && <span className="ulest-varsel-ikon" />}
-                <div
-                    className={classNames(cls.element('rad'), {
-                        uthevet: ulestVarsel,
-                    })}
-                >
-                    <div className={cls.element('deltakerOgBedrift')}>{avtale.bedriftNavn}</div>
-                    <div className={cls.element('deltakerOgBedrift')}>
-                        {avtale.deltakerFornavn || ''}&nbsp;
-                        {avtale.deltakerEtternavn || ''}
-                    </div>
-                    <MediaQuery minWidth={576}>
-                        <div className={cls.element('opprettet')}>
-                            {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
-                        </div>
-                    </MediaQuery>
-                    <div className={cls.element('statusikon')}>
-                        <StatusIkon status={avtale.status} />
-                    </div>
-                    <div className={cls.element('status')}>{avtale.status}</div>
+
+    // if (avtaleVersjoner === null) {
+    //     return null;
+    // }
+    // const harStegEndret = (versjonNummer: number, steg: StegId) => {
+    //     switch (steg) {
+    //         case 'kontaktinformasjon': {
+    //             console.log(
+    //                 'v' +
+    //                     versjonNummer +
+    //                     props.avtale.arbeidsgiverFornavn +
+    //                     avtaleVersjoner[versjonNummer].arbeidsgiverFornavn
+    //             );
+    //             if (
+    //                 avtaleVersjoner[versjonNummer].arbeidsgiverFornavn ===
+    //                 avtaleVersjoner[versjonNummer - 1 >= 0 ? versjonNummer - 1 : 0].arbeidsgiverFornavn
+    //             ) {
+    //                 return true;
+    //             } else {
+    //                 return false;
+    //             }
+    //         }
+    //         case 'maal': {
+    //             const result = [];
+    //             avtaleVersjoner[versjonNummer].maal.forEach(m1 =>
+    //                 avtaleVersjoner[versjonNummer - 1 >= 0 ? versjonNummer - 1 : 0].maal.forEach(m2 => {
+    //                     if (m1.kategori !== m2.kategori || m1.beskrivelse !== m2.beskrivelse) {
+    //                         result.push(m1);
+    //                     }
+    //                 })
+    //             );
+    //             return result.length > 0;
+    //         }
+    //     }
+    // };
+    const versjonLenker = props.avtale.versjoner
+        .filter(andreVersjoner => andreVersjoner.versjon !== props.avtale.versjon)
+        .map((avtaleVerjon: AltAvtaleinnhold) => {
+            // const ulestVarsel = varsler.find(value => value.avtaleId === avtaleVerjon.id);
+            return (
+                <div key={avtaleVerjon.versjon}>
+                    <div> Versjon {avtaleVerjon.versjon}</div>
+                    {/*<div>*/}
+                    {/*    {' '}*/}
+                    {/*    {harStegEndret(avtaleVerjon.versjon - 1, 'kontaktinformasjon') &&*/}
+                    {/*        avtaleVerjon.arbeidsgiverFornavn}*/}
+                    {/*</div>*/}
+                    {/*<OppsummeringArbeidstrening avtale={avtaleVerjon} />*/}
+                    <MaalOppsummering maal={avtaleVerjon.maal} />
+                    <OppgaverOppsummering oppgaver={avtaleVerjon.oppgaver} />
+                    <VarighetOppsummering
+                        startDato={avtaleVerjon.startDato}
+                        sluttDato={avtaleVerjon.sluttDato}
+                        stillingprosent={avtaleVerjon.stillingprosent}
+                    />
                 </div>
-            </LenkepanelBase>
-        );
-    });
-    const avtaletabell = avtaleLenker.length > 0 && (
+            );
+        })
+        .reverse();
+    const avtaletabell = versjonLenker.length > 0 && (
         <div className="avtaleoversikt__avtaleliste typo-normal">
             {/*{opprettAvtaleKnapp}*/}
-            <div className={classNames(cls.element('header'), cls.element('rad'))}>
+            {/* <div className={classNames(cls.element('header'), cls.element('rad'))}>
                 <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
                 <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
                 <MediaQuery minWidth={576}>
@@ -131,13 +125,13 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                 </MediaQuery>
                 <div className={cls.element('status')}>Status</div>
                 <div className={cls.element('statusikon')}>&nbsp;</div>
-            </div>
-            {avtaleLenker}
+            </div>*/}
+            {versjonLenker}
         </div>
     );
 
     return (
-        <div className={cls.className}>
+        <Innholdsboks>
             <Stegoppsummering ikon={<OppfølgingIkon />} tittel="Versjon kontrollering">
                 <Tabs
                     tabs={[
@@ -162,7 +156,7 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                             <LagreKnapp
                                 className="versjonTabs__knapp                       "
                                 label={'Lås opp avtalen/ lag ny godkjentVersjon'}
-                                lagre={opprettNyAvtaleGodkjentVersjonklikk}
+                                lagre={låsOppAvtaleklikk}
                             >
                                 {' '}
                                 Lås opp avtalen
@@ -188,7 +182,32 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
             {versjon}
         </div>*/}
             </Stegoppsummering>
-        </div>
+        </Innholdsboks>
     );
 };
 export default VersjonTabs;
+{
+    /*
+<LenkepanelBase
+    key={avtaleVerjon.versjon}
+    href={pathTilKontaktinformasjonSteg(props.avtale.id)}
+    linkCreator={(props: any) => <Link to={props.href} {...props} />}
+>
+    <div
+        className={classNames(cls.element('rad'), {
+            uthevet: false,
+        })}
+    >
+        <div className={cls.element('deltakerOgBedrift')}>Versjon {avtaleVerjon.versjon}</div>
+        <div className={cls.element('deltakerOgBedrift')}>
+            {mestViktigEndring(avtaleVerjon.versjon - 1)}
+        </div>
+        <MaalOppsummering maal={avtaleVerjon.maal} />
+
+        <div className={cls.element('statusikon')}>
+            <StatusIkon status={avtaleVerjon.status} />
+        </div>
+        <div className={cls.element('status')}>{avtaleVerjon.status}</div>
+    </div>
+</LenkepanelBase>*/
+}

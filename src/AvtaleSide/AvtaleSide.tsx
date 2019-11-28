@@ -24,7 +24,7 @@ const cls = BEMHelper('avtaleside');
 
 type Props = RouteComponentProps<MatchProps> & Context;
 
-type StegId =
+export type StegId =
     | 'kontaktinformasjon'
     | 'maal'
     | 'arbeidsoppgaver'
