@@ -4,7 +4,6 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import * as React from 'react';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
-import './KontaktinfoSteg.less';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Arbeidsgiverinfo, Bedriftinfo, Deltakerinfo, Veilederinfo } from '@/types/avtale';

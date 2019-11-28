@@ -6,9 +6,9 @@ import DeltakerInstruks from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/ins
 import ArbeidsgiverInstruks from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
 import VeilederInstruks from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Systemtittel } from 'nav-frontend-typografi';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 type Props = {
     oppsummering: JSX.Element;
@@ -25,9 +25,9 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
                     alignItems: 'flex-start',
                 }}
             >
-                <Systemtittel style={{ marginBottom: '2rem' }}>
+                <SkjemaTittel>
                     {props.avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-                </Systemtittel>
+                </SkjemaTittel>
 
                 {props.avtale.erLaast && <SkrivUtKnapp />}
             </div>
