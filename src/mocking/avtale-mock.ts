@@ -1,4 +1,4 @@
-import { ArbeidstreningAvtale, Maal, Oppgave } from '@/types/avtale';
+import { ArbeidstreningAvtaleinnhold, Avtale, Maal, Oppgave } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -25,10 +25,10 @@ const oppgaveListe: Oppgave[] = [
     },
 ];
 
-const avtaleMock: ArbeidstreningAvtale = {
+const avtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
     id: '9565e74d-66f3-44a1-8a3c-91fae6b450d3',
-    opprettetTidspunkt: '4 uker siden',
-    versjon: '34',
+    opprettetTidspunkt: '',
+    sistEndret: '',
 
     godkjentAvDeltaker: false,
     godkjentAvArbeidsgiver: false,
@@ -36,6 +36,9 @@ const avtaleMock: ArbeidstreningAvtale = {
     erLaast: false,
     status: '',
     kanAvbrytes: true,
+    kanLaasesOpp: false,
+    versjon: 1,
+    versjoner: [],
     avbrutt: false,
     godkjentPaVegneAv: false,
 

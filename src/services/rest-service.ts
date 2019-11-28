@@ -33,7 +33,7 @@ export interface RestService {
     settVarselTilLest: (varselId: string) => Promise<void>;
     hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
-    opprettNyAvtaleVersjon: (avtale: Avtale) => Promise<Avtale>;
+    låsOppAvtale: (avtaleId: string) => Promise<void>;
     hentAlleAvtaleVersjoner: (baseAvaleId: string) => Promise<Avtale[]>;
 }
 
@@ -93,16 +93,11 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
         body: JSON.stringify(avtale),
         headers: {
             'Content-Type': 'application/json',
-            'If-Match': avtale.versjon,
+            'If-Unmodified-Since': avtale.sistEndret,
         },
     });
     await handleResponse(response);
-    const versjon = response.headers.get('ETag');
-    if (versjon !== avtale.versjon) {
-        return await hentAvtale(avtale.id);
-    } else {
-        return avtale;
-    }
+    return await hentAvtale(avtale.id);
 };
 
 const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType): Promise<Avtale> => {
@@ -123,7 +118,7 @@ const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype
     const avtale: Avtale = await getResponse.json();
     return { ...avtale, id: `${avtale.id}` };
 };
-const opprettNyAvtaleVersjon = async (avtaleForGodkjentVersjon: Avtale): Promise<Avtale> => {
+/*const opprettNyAvtaleVersjon = async (avtaleForGodkjentVersjon: Avtale): Promise<Avtale> => {
     const uri = `${API_URL}/avtaler/${avtaleForGodkjentVersjon.id}/laas-opp`;
     const deltakerFnr = avtaleForGodkjentVersjon.deltakerFnr;
     const bedriftNr = avtaleForGodkjentVersjon.bedriftNr;
@@ -132,7 +127,7 @@ const opprettNyAvtaleVersjon = async (avtaleForGodkjentVersjon: Avtale): Promise
     console.log(baseAvtaleId);
     const postResponse = await fetch(uri, {
         method: 'post',
-        /*headers: { 'If-match': 'application/json' },*/
+        /!*headers: { 'If-match': 'application/json' },*!/
     });
     await handleResponse(postResponse);
     const getResponse = await fetch(`${API_URL}/${postResponse.headers.get('Location')}`);
@@ -140,7 +135,7 @@ const opprettNyAvtaleVersjon = async (avtaleForGodkjentVersjon: Avtale): Promise
     // const avtale: Avtale = await getResponse.json();
     // return { ...avtale, id: `${avtale.id}` };
     return hentAvtale(avtaleForGodkjentVersjon.id);
-};
+};*/
 const hentAlleAvtaleVersjoner = async (avtaleId: string): Promise<Avtale[]> => {
     const response = await fetch(`${API_URL}/avtaler/${avtaleId}/versjoner`);
     await handleResponse(response);
@@ -158,7 +153,7 @@ const godkjennAvtale = async (avtale: Avtale) => {
     const response = await fetch(uri, {
         method: 'POST',
         headers: {
-            'If-Match': avtale.versjon,
+            'If-Unmodified-Since': avtale.sistEndret,
         },
     });
     await handleResponse(response);
@@ -172,7 +167,7 @@ const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVeg
         body: JSON.stringify(paVegneGrunn),
         headers: {
             'Content-Type': 'application/json',
-            'If-Match': avtale.versjon,
+            'If-Unmodified-Since': avtale.sistEndret,
         },
     });
     await handleResponse(response);
@@ -192,7 +187,7 @@ const avbrytAvtale = async (avtale: Avtale) => {
     const response = await fetch(uri, {
         method: 'POST',
         headers: {
-            'If-Match': avtale.versjon,
+            'If-Unmodified-Since': avtale.sistEndret,
         },
     });
     await handleResponse(response);
@@ -241,12 +236,18 @@ const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureTog
     return await response.json();
 };
 
+const låsOppAvtale = async (avtaleId: string): Promise<void> => {
+    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/laas-opp`, {
+        method: 'POST',
+    });
+    await handleResponse(response);
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
     lagreAvtale,
     opprettAvtale,
-    opprettNyAvtaleVersjon: opprettNyAvtaleVersjon,
     hentRolle,
     godkjennAvtale: godkjennAvtale,
     godkjennAvtalePaVegne: godkjennAvtalePaVegne,
@@ -261,6 +262,7 @@ const restService: RestService = {
     hentFeatureToggles,
     hentAvtaleStatusDetaljer,
     hentAlleAvtaleVersjoner: hentAlleAvtaleVersjoner,
+    låsOppAvtale,
 };
 
 export default restService;

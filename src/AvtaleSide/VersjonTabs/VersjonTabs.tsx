@@ -41,15 +41,15 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
     });
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const opprettNyAvtaleGodkjentVersjonklikk = async () => {
-        const nyAvtaleGodkjentVersjon = await RestService.opprettNyAvtaleVersjon(props.avtale);
+        const nyAvtaleGodkjentVersjon = await RestService.låsOppAvtale(props.avtale.id);
         //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleGodkjentVersjon.id));
         // this.setState({nyAvtaleGodkjentVersjon});
         if (nyAvtaleGodkjentVersjon != null) {
             /*console.log(
                 nyAvtaleGodkjentVersjon.id + ', new godkjentVersjon: ' + nyAvtaleGodkjentVersjon.godkjentVersjon
             );*/
-            props.history.push(pathTilKontaktinformasjonSteg(nyAvtaleGodkjentVersjon.id));
-            window.location.replace(pathTilKontaktinformasjonSteg(nyAvtaleGodkjentVersjon.id));
+            props.history.push(pathTilKontaktinformasjonSteg(props.avtale.id));
+            window.location.replace(pathTilKontaktinformasjonSteg(props.avtale.id));
         }
     };
     useEffect(() => {

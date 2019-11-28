@@ -11,7 +11,9 @@ import amplitude from '@/utils/amplitude';
 export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
-    versjon: '',
+    sistEndret: '',
+    versjon: 1,
+    versjoner: [],
 
     deltakerFnr: '',
     deltakerFornavn: '',
@@ -45,6 +47,7 @@ export const tomAvtale: Avtale = {
     erLaast: false,
     status: '',
     kanAvbrytes: true,
+    kanLaasesOpp: false,
     avbrutt: false,
     tiltakstype: 'ARBEIDSTRENING',
     godkjentPaVegneAv: false,
@@ -111,7 +114,7 @@ export interface Context {
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     varsler: Varsel[];
     visFeilmelding: (feilmelding: string) => void;
-    opprettNyAvtaleGodkjentVersjon: (avtale: Avtale) => Promise<Avtale>;
+    // opprettNyAvtaleGodkjentVersjon: (avtale: Avtale) => Promise<Avtale>;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -341,11 +344,11 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     harUlagredeEndringer() {
         return this.state.ulagredeEndringer;
     }
-    async opprettNyAvtaleGodkjentVersjon(avtale: Avtale): Promise<Avtale> {
+    /*  async opprettNyAvtaleGodkjentVersjon(avtale: Avtale): Promise<Avtale> {
         avtale = await RestService.opprettNyAvtaleVersjon(avtale);
         this.setState({ avtale });
         return avtale;
-    }
+    }*/
     render() {
         const context: Context = {
             avbryt: this.avbrytAvtale,
@@ -373,7 +376,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             slettOppgave: this.slettOppgave,
             varsler: this.state.varsler,
             visFeilmelding: this.visFeilmelding,
-            opprettNyAvtaleGodkjentVersjon: this.opprettNyAvtaleGodkjentVersjon,
+            //   opprettNyAvtaleGodkjentVersjon: this.opprettNyAvtaleGodkjentVersjon,
         };
 
         return (

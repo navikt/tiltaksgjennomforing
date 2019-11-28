@@ -3,7 +3,7 @@ import { Avtale } from '@/types/avtale';
 import classNames from 'classnames';
 import MediaQuery from 'react-responsive';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { pathTilKontaktinformasjonSteg } from '@/paths';
+import { pathTilAvtale } from '@/paths';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
@@ -34,7 +34,7 @@ const AvtaleTabell: FunctionComponent<{
             return (
                 <LenkepanelBase
                     key={avtale.id}
-                    href={pathTilKontaktinformasjonSteg(avtale.id)}
+                    href={pathTilAvtale(avtale.id)}
                     linkCreator={(props: any) => <Link to={props.href} {...props} />}
                 >
                     {ulestVarsel && <span className="ulest-varsel-ikon" />}
