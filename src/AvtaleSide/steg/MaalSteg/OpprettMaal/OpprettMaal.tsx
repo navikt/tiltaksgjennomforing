@@ -1,5 +1,4 @@
 import { Knapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Maal } from '@/types/avtale';
@@ -7,6 +6,7 @@ import { Maalkategori } from '@/types/maalkategorier';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import './OpprettMaal.less';
 import { TemporaryLagring } from '@/AvtaleContext';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -45,9 +45,7 @@ class OpprettMaal extends React.Component<Props> {
     render() {
         return (
             <Innholdsboks utfyller="veileder">
-                <Systemtittel tag="h1" className="opprett-maal__tittel">
-                    Opprett mål
-                </Systemtittel>
+                <SkjemaTittel>Opprett mål</SkjemaTittel>
                 {this.state.visRedigerMaal ? (
                     <RedigerMaal
                         ledigeMaalkategorier={this.props.ledigeMaalkategorier}

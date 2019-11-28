@@ -3,7 +3,6 @@ import { medContext, Rolle } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '@/types/avtale';
 import { Knapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
@@ -13,6 +12,7 @@ import OppgaverOppsummering from '../oppgaveOppsummering/OppgaverOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import './Oppsummering.less';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     avtale: Avtale;
@@ -26,9 +26,9 @@ const printAvtale = () => {
 const Oppsummering: FunctionComponent<Props> = props => (
     <Innholdsboks>
         <div className="oppsummering__header">
-            <Systemtittel className="oppsummering__tittel">
+            <SkjemaTittel>
                 {props.avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-            </Systemtittel>
+            </SkjemaTittel>
 
             {props.avtale.erLaast && (
                 <Knapp className="oppsummering__print-knapp" onClick={printAvtale}>

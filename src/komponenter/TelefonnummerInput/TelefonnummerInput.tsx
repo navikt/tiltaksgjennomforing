@@ -26,6 +26,7 @@ const TelefonnummerInput: React.FunctionComponent<Props> = props => {
 
     return (
         <Input
+            bredde="S"
             label={props.label}
             value={props.verdi || ''}
             feil={feil}
