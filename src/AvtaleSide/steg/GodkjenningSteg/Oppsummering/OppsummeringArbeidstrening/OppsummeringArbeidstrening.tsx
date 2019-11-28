@@ -3,7 +3,6 @@ import { medContext, Rolle } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '@/types/avtale';
 import { Knapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
@@ -14,6 +13,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import './OppsummeringArbeidstrening.less';
 import BEMHelper from '@/utils/bem';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     avtale: Avtale;
@@ -29,9 +29,9 @@ const cls = BEMHelper('oppsummering-arbeidstrening');
 const OppsummeringArbeidstrening: FunctionComponent<Props> = props => (
     <Innholdsboks>
         <div className={cls.element('header')}>
-            <Systemtittel className={cls.element('tittel')}>
+            <SkjemaTittel>
                 {props.avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-            </Systemtittel>
+            </SkjemaTittel>
 
             {props.avtale.erLaast && (
                 <Knapp className={cls.element('print-knapp')} onClick={printAvtale}>

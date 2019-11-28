@@ -53,14 +53,13 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                     </div>
                 </div>
             </MediaQuery>
-            <Normaltekst className={cls.element('infotekst')}>
+            <Normaltekst className={cls.element('infotekst')} tag="div">
                 <p>
                     {' '}
                     {props.avtale.godkjentAvVeileder
                         ? 'Avtalen er godkjent av alle parter og låst.' + avtaleStatusDetaljer.infoDel1
                         : avtaleStatusDetaljer.infoDel1}
                 </p>
-
                 <p>{avtaleStatusDetaljer.infoDel2}</p>
             </Normaltekst>
             <div className={cls.element('andreParter')}>

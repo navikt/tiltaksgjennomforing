@@ -8,12 +8,16 @@ import './KontaktinfoSteg.less';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Arbeidsgiverinfo, Bedriftinfo, Deltakerinfo, Veilederinfo } from '@/types/avtale';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const KontaktinfoSteg = (props: InputStegProps<Deltakerinfo & Bedriftinfo & Arbeidsgiverinfo & Veilederinfo>) => (
     <Innholdsboks>
         <DeltakerinfoDel {...props} />
+        <VerticalSpacer thirtyTwoPx={true} />
         <ArbeidsgiverinfoDel {...props} />
+        <VerticalSpacer thirtyTwoPx={true} />
         <VeilederinfoDel {...props} />
+        <VerticalSpacer thirtyTwoPx={true} />
         <LagreKnapp
             className="kontaktinfo-steg__lagre-knapp"
             lagre={props.lagreAvtale}
