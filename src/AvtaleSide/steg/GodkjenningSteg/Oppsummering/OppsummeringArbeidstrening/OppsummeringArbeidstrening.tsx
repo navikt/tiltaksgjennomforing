@@ -14,6 +14,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import './OppsummeringArbeidstrening.less';
 import BEMHelper from '@/utils/bem';
+import VersjonTabs from '@/AvtaleSide/VersjonTabs/VersjonTabs';
 
 interface Props {
     avtale: Avtale;

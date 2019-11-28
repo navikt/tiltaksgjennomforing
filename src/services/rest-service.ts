@@ -20,7 +20,6 @@ export interface RestService {
     hentAvtalerForInnloggetBruker: (veilederNavIdent?: string) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType) => Promise<Avtale>;
-    opprettNyAvtaleGodkjentVersjon: (avtale: Avtale) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
     godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
     godkjennAvtalePaVegne: (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => Promise<Avtale>;
@@ -34,6 +33,8 @@ export interface RestService {
     settVarselTilLest: (varselId: string) => Promise<void>;
     hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
+    opprettNyAvtaleVersjon: (avtale: Avtale) => Promise<Avtale>;
+    hentAlleAvtaleVersjoner: (baseAvaleId: string) => Promise<Avtale[]>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -122,7 +123,7 @@ const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype
     const avtale: Avtale = await getResponse.json();
     return { ...avtale, id: `${avtale.id}` };
 };
-const opprettNyAvtaleGodkjentVersjon = async (avtaleForGodkjentVersjon: Avtale): Promise<Avtale> => {
+const opprettNyAvtaleVersjon = async (avtaleForGodkjentVersjon: Avtale): Promise<Avtale> => {
     const uri = `${API_URL}/avtaler/${avtaleForGodkjentVersjon.id}/laas-opp`;
     const deltakerFnr = avtaleForGodkjentVersjon.deltakerFnr;
     const bedriftNr = avtaleForGodkjentVersjon.bedriftNr;
@@ -131,13 +132,19 @@ const opprettNyAvtaleGodkjentVersjon = async (avtaleForGodkjentVersjon: Avtale):
     console.log(baseAvtaleId);
     const postResponse = await fetch(uri, {
         method: 'post',
-        headers: { 'If-match': 'application/json' },
+        /*headers: { 'If-match': 'application/json' },*/
     });
     await handleResponse(postResponse);
     const getResponse = await fetch(`${API_URL}/${postResponse.headers.get('Location')}`);
     await handleResponse(getResponse);
-    const avtale: Avtale = await getResponse.json();
-    return { ...avtale, id: `${avtale.id}` };
+    // const avtale: Avtale = await getResponse.json();
+    // return { ...avtale, id: `${avtale.id}` };
+    return hentAvtale(avtaleForGodkjentVersjon.id);
+};
+const hentAlleAvtaleVersjoner = async (avtaleId: string): Promise<Avtale[]> => {
+    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/versjoner`);
+    await handleResponse(response);
+    return response.json();
 };
 
 const hentRolle = async (avtaleId: string): Promise<Rolle> => {
@@ -239,7 +246,7 @@ const restService: RestService = {
     hentAvtalerForInnloggetBruker,
     lagreAvtale,
     opprettAvtale,
-    opprettNyAvtaleGodkjentVersjon,
+    opprettNyAvtaleVersjon: opprettNyAvtaleVersjon,
     hentRolle,
     godkjennAvtale: godkjennAvtale,
     godkjennAvtalePaVegne: godkjennAvtalePaVegne,
@@ -253,6 +260,7 @@ const restService: RestService = {
     settVarselTilLest,
     hentFeatureToggles,
     hentAvtaleStatusDetaljer,
+    hentAlleAvtaleVersjoner: hentAlleAvtaleVersjoner,
 };
 
 export default restService;

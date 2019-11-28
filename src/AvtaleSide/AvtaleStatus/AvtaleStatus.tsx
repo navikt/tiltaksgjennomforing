@@ -38,14 +38,14 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
             </div>
             <Innholdstittel className={cls.element('header')}>{avtaleStatusDetaljer.header} </Innholdstittel>
             <Normaltekst className={cls.element('infotekst')}>
-                <p>
+                <span>
                     {' '}
                     {props.avtale.godkjentAvVeileder
                         ? 'Avtalen er godkjent av alle parter og låst.' + avtaleStatusDetaljer.infoDel1
                         : avtaleStatusDetaljer.infoDel1}
-                </p>
+                </span>
 
-                <p>{avtaleStatusDetaljer.infoDel2}</p>
+                <span>{avtaleStatusDetaljer.infoDel2}</span>
             </Normaltekst>
             <div className={cls.element('andreParter')}>
                 <div className={cls.element('andreParter__begge')}>

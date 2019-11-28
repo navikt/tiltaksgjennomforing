@@ -342,7 +342,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return this.state.ulagredeEndringer;
     }
     async opprettNyAvtaleGodkjentVersjon(avtale: Avtale): Promise<Avtale> {
-        avtale = await RestService.opprettNyAvtaleGodkjentVersjon(avtale);
+        avtale = await RestService.opprettNyAvtaleVersjon(avtale);
         this.setState({ avtale });
         return avtale;
     }

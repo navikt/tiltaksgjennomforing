@@ -20,7 +20,7 @@ import VeilederInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/Veile
 import OppsummeringArbeidstrening from './steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
-
+import VersjonTabs from './VersjonTabs/VersjonTabs';
 interface MatchProps {
     avtaleId: string;
     stegPath: string;
@@ -116,6 +116,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             {varsler}
                             <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
                             <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
+                            <VersjonTabs {...props} />
                             <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
                         </div>
                     );
@@ -127,6 +128,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             </div>
                             {varsler}
                             <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
+                            <VersjonTabs {...props} />
                         </div>
                     );
                 } else if (erDesktop) {
