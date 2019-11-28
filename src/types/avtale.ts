@@ -20,13 +20,9 @@ type FellesAvtaleinnhold = Arbeidsgiverinfo &
 
 export type ArbeidstreningAvtaleinnhold = FellesAvtaleinnhold & MaalListe & Oppgaver;
 
-export type MidlertidigLonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer;
+export type LonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer;
 
-export type VarigLonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer;
-
-export type AltAvtaleinnhold = ArbeidstreningAvtaleinnhold &
-    MidlertidigLonnstilskuddAvtaleinnhold &
-    VarigLonnstilskuddAvtaleinnhold;
+export type AltAvtaleinnhold = ArbeidstreningAvtaleinnhold & LonnstilskuddAvtaleinnhold;
 
 export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD';
 

@@ -1,5 +1,5 @@
 import { medContext, Rolle } from '@/AvtaleContext';
-import { Avtale } from '@/types/avtale';
+import { ArbeidstreningAvtaleinnhold } from '@/types/avtale';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import MaalOppsummering from '../maalOppsummering/MaalOppsummering';
@@ -9,7 +9,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 
 interface Props {
-    avtale: Avtale;
+    avtale: ArbeidstreningAvtaleinnhold;
     rolle: Rolle;
 }
 
