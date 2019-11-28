@@ -1,14 +1,15 @@
+import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
+import Banner from '@/komponenter/Banner/Banner';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { pathTilInformasjonssideUinnlogget } from '@/paths';
+import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import Banner from '@/komponenter/Banner/Banner';
-import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import './Innloggingsside.less';
-import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
 import { Innloggingskilde } from './useInnlogget';
-import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde) => (
@@ -39,7 +40,8 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         </Link>
                     </p>
                 </div>
-                {logginnknapper}
+                <VerticalSpacer thirtyTwoPx={true} />
+                <div className={'innloggingsside__loginKnapper'}>{logginnknapper}</div>
             </div>
         </div>
     );

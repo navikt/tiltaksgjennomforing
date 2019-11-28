@@ -1,11 +1,15 @@
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import { Normaltekst } from 'nav-frontend-typografi';
+import BEMHelper from '@/utils/bem';
+import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './IngenAvtalerArbeidsgiver';
 
 type Props = {
     visAlleAvtalerChecked: boolean;
 };
+
+const cls = BEMHelper('ingenAvtaler');
 
 const IngenAvtaler: FunctionComponent<Props> = props => {
     const innloggetPart = sessionStorage.getItem(INNLOGGET_PART);
@@ -20,10 +24,12 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
         );
     } else if (innloggetPart === 'deltaker') {
         return (
-            <div>
-                <Normaltekst>
-                    Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.
-                </Normaltekst>
+            <div className={cls.element('tekst')}>
+                <div className={cls.element('headerTekst')}>
+                    <Innholdstittel>Ingen avtaler</Innholdstittel>
+                </div>
+                <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
+                <Ingress>Vennligst vent på veileder i NAV.</Ingress>
             </div>
         );
     } else if (innloggetPart === 'arbeidsgiver') {

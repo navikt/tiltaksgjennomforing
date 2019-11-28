@@ -1,68 +1,125 @@
+import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import { ReactComponent as StopIkon } from '@/assets/ikoner/stop.svg';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import BEMHelper from '@/utils/bem';
-import { EtikettAdvarsel } from 'nav-frontend-etiketter';
-import { Ingress, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Ingress, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './IngenAvtalerArbeidsgiver.less';
-
 type Props = {};
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
 const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
+
+    const enkeltRettighet = lonnstilskuddToggle ? (
+        <>
+            en av enkelttjenestene:
+            <ul>
+                <li>Avtale om arbeidstrening</li>
+                <li>Avtale om lønnstilskudd</li>
+            </ul>
+        </>
+    ) : (
+        <>enkelttjenesten Avtale om arbeidstrening</>
+    );
+
     const harTilgangPaMinstEnOrg = innloggetBruker.organisasjoner.length > 0;
     const organisasjonsListe = innloggetBruker.organisasjoner.map(org => (
-        <p>
-            <EtikettAdvarsel>
-                {org.bedriftNavn} ({org.bedriftNr})
-            </EtikettAdvarsel>
-        </p>
+        <li>
+            {org.bedriftNavn} ({org.bedriftNr})
+        </li>
     ));
+    const flertall = innloggetBruker.organisasjoner.length > 1;
 
     return (
         <div>
-            {harTilgangPaMinstEnOrg && (
-                <div>
-                    <Undertittel className={cls.element('header')}>Ingen avtaler</Undertittel>
-                    <Ingress>Du har ingen avtaler her enda.</Ingress>
-                    <Ingress>Du har tilgang på følgende bedrifter: {organisasjonsListe}</Ingress>
-                    <Ingress>
-                        Det har ikke blitt opprettet noen avtaler på noen av disse bedriftene, hvis du mener du skulle
-                        hatt tilgang på en avtale registrert på en annen bedrift, mangler du tilgang i Altinn til denne
-                        bedrften.
-                    </Ingress>
-                    <Ingress>
-                        Du må enten ha rollen <i>Helse-, sosial- og velferdstjenester</i> eller enkelttjenesten{' '}
-                        <i>Avtale om arbeidstrening.</i>{' '}
-                        <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                            Les mer om roller og rettigheter på Altinn.no
-                        </EksternLenke>
-                    </Ingress>
-                </div>
-            )}
+            <Innholdsboks>
+                <div className={cls.element('container')}>
+                    {harTilgangPaMinstEnOrg && (
+                        <div>
+                            <div className={cls.element('headerContainer')}>
+                                <InfoIkon className={cls.element('headerIkon')} />
+                                <Innholdstittel>Ingen avtaler</Innholdstittel>
+                            </div>
+                            <Ingress>
+                                Du har ingen avtaler her enda, men du har rettigheter på bedriften(e) under.
+                                {flertall
+                                    ? ` Skulle det
+                                bli opprettet en avtale på noen av disse bedriftene vil du få tilgang til disse.`
+                                    : `Skulle det bli opprettet en avtale på denne bedriften vil du få tilgang på denne.`}{' '}
+                                <ul>{organisasjonsListe}</ul>
+                            </Ingress>
 
-            {!harTilgangPaMinstEnOrg && (
-                <div>
-                    <Systemtittel className={cls.element('header')}>Du mangler rettigheter i Altinn</Systemtittel>
-                    <div>
-                        <Ingress>
-                            Du har ikke tilstrekkelig tilgang på noen bedriftsnummere. Bruk av vår
-                            <ul>
-                                <li>
-                                    Du må bli tildelt riktig rolle/rettighet i Altinn. Du må enten ha rollen{' '}
-                                    <i>Helse-, sosial- og velferdstjenester</i> eller enkelttjenesten{' '}
-                                    <i>Avtale om arbeidstrening.</i>{' '}
-                                    <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                                        Les mer om roller og rettigheter på Altinn.no
-                                    </EksternLenke>
-                                </li>
-                            </ul>
-                        </Ingress>
-                    </div>
+                            <Undertittel>Hvordan får jeg tilgang?</Undertittel>
+                            <Ingress>
+                                Hvis du er ute etter en avtale registrert på en annen bedrift enn de overnevnte
+                                bedriftene, mangler du riktig tilgang til denne bedriften.
+                            </Ingress>
+                            <Ingress>
+                                For å få tilgang til din bedrift må du i Altinn enten ha rollen{' '}
+                                <ul>
+                                    <li>Helse-, sosial- og velferdstjenester</li>
+                                </ul>{' '}
+                                eller {enkeltRettighet}{' '}
+                                <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                                    Les mer om roller og rettigheter på Altinn.no
+                                </EksternLenke>
+                            </Ingress>
+                        </div>
+                    )}
+
+                    {!harTilgangPaMinstEnOrg && (
+                        <div>
+                            <div className={cls.element('headerContainer')}>
+                                <StopIkon width="35" height="35" className={cls.element('headerIkon')} />
+                                <Innholdstittel>Du mangler rettigheter i Altinn</Innholdstittel>
+                            </div>
+                            <div>
+                                <Ingress>
+                                    Du har ikke nødvendig tilgang på noen bedrifter. Tilgang til avtaler på din bedrift
+                                    forutsetter at du har fått tildelt korrekt rolle eller rettighet i Altinn.
+                                </Ingress>
+
+                                <Ingress>
+                                    <VerticalSpacer twentyPx={true} />
+                                    <Undertittel>Hvordan får jeg tilgang?</Undertittel>For å få tilgang på avtaler til
+                                    din bedrift må du i Altinn enten ha rollen{' '}
+                                    <ul>
+                                        <li>Helse-, sosial- og velferdstjenester</li>
+                                    </ul>{' '}
+                                    eller
+                                    {enkeltRettighet}
+                                </Ingress>
+
+                                <div className={cls.element('rolleinfo')}>
+                                    <Undertittel>Hvem kan gi deg tilgang?</Undertittel>
+                                    <Ingress>
+                                        Det er virksomheten som må gi deg tilgang. Tilgang kan delegeres av personer som
+                                        selv har tilgang, dersom de også har rollen Tilgangsstyring.
+                                        <div className={cls.element('rolleinfo2')}>
+                                            I store virksomheter er det vanlig at HR-personell har fått tilgangsstyring
+                                            fra ledelsen for å kunne delegere Altinn-roller på vegne av virksomheten.
+                                            Hvis tilgangsstyring ikke er delegert til HR-personell må man få tildelt
+                                            tilgang fra daglig leder eller andre fra eiersiden.{' '}
+                                            <VerticalSpacer twentyPx={true} />
+                                            <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                                                Les mer om roller og rettigheter på Altinn.no
+                                            </EksternLenke>
+                                        </div>
+                                    </Ingress>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
-            )}
+            </Innholdsboks>
         </div>
     );
 };
