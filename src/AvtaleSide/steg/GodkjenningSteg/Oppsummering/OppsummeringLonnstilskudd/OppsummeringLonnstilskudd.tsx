@@ -4,12 +4,12 @@ import OppfolgingOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummeri
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '@/types/avtale';
 import { Knapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
 import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import LonnstilskuddOppsummering from '../LonnstilskuddOppsummering/LonnstilskuddOppsummering';
 import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     avtale: Avtale;
@@ -22,9 +22,9 @@ const printAvtale = () => {
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
     <Innholdsboks>
         <div className="oppsummering__header">
-            <Systemtittel className="oppsummering__tittel">
+            <SkjemaTittel>
                 {props.avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-            </Systemtittel>
+            </SkjemaTittel>
 
             {props.avtale.erLaast && (
                 <Knapp className="oppsummering__print-knapp" onClick={printAvtale}>

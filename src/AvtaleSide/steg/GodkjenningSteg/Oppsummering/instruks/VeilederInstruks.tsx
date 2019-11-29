@@ -9,7 +9,7 @@ const cls = BEMHelper('instruks');
 const VeilederInstruks: FunctionComponent = () => (
     <VeilederpanelMedUtklippstavle>
         <div className={cls.element('subheader')}>
-            <Element>Ny rutine:</Element>
+            <Element>Hva du må gjøre videre:</Element>
         </div>
         <div className={cls.element('instrukslist')}>
             <Normaltekst>

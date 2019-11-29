@@ -91,16 +91,11 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
         body: JSON.stringify(avtale),
         headers: {
             'Content-Type': 'application/json',
-            'If-Match': avtale.versjon,
+            'If-Unmodified-Since': avtale.sistEndret,
         },
     });
     await handleResponse(response);
-    const versjon = response.headers.get('ETag');
-    if (versjon !== avtale.versjon) {
-        return await hentAvtale(avtale.id);
-    } else {
-        return avtale;
-    }
+    return await hentAvtale(avtale.id);
 };
 
 const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType): Promise<Avtale> => {
@@ -133,7 +128,7 @@ const godkjennAvtale = async (avtale: Avtale) => {
     const response = await fetch(uri, {
         method: 'POST',
         headers: {
-            'If-Match': avtale.versjon,
+            'If-Unmodified-Since': avtale.sistEndret,
         },
     });
     await handleResponse(response);
@@ -147,7 +142,7 @@ const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVeg
         body: JSON.stringify(paVegneGrunn),
         headers: {
             'Content-Type': 'application/json',
-            'If-Match': avtale.versjon,
+            'If-Unmodified-Since': avtale.sistEndret,
         },
     });
     await handleResponse(response);
@@ -167,7 +162,7 @@ const avbrytAvtale = async (avtale: Avtale) => {
     const response = await fetch(uri, {
         method: 'POST',
         headers: {
-            'If-Match': avtale.versjon,
+            'If-Unmodified-Since': avtale.sistEndret,
         },
     });
     await handleResponse(response);

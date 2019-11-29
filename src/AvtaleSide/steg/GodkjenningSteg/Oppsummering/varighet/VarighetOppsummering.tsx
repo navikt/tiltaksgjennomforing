@@ -6,8 +6,9 @@ import BEMHelper from '@/utils/bem';
 import { Varighet } from '@/types/avtale';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import './varighet.less';
 import VarighetIkon from './VarighetIkon';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('varighetOppsummering');
 
@@ -24,22 +25,23 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({ startDato, sluttDat
 
     return (
         <Stegoppsummering ikon={<VarighetIkon />} tittel="Dato og arbeidstid">
-            <div className={cls.element('content')}>
-                <div className={cls.element('rad')}>
-                    <div className={cls.element('element')}>
+            <Container fluid={true}>
+                <Row className={''}>
+                    <Column md="4" sm="6" xs="6">
                         <Element className={cls.element('label')}>Startdato</Element>
                         <SjekkOmVerdiEksisterer verdi={harDato(startDato)} clsName="varighetOppsummering" />
-                    </div>
-                    <div className={cls.element('element')}>
+                        <VerticalSpacer sixteenPx={true} />
+                    </Column>
+                    <Column md="4" sm="6" xs="6">
                         <Element className={cls.element('label')}>Sluttdato</Element>
                         <SjekkOmVerdiEksisterer verdi={harDato(sluttDato)} clsName="varighetOppsummering" />
-                    </div>
-                    <div className={cls.element('element')}>
+                    </Column>
+                    <Column md="4" sm="12" xs="12">
                         <Element className={cls.element('label')}>Stillingsprosent</Element>
                         <SjekkOmVerdiEksisterer verdi={stillingProsent} clsName="varighetOppsummering" />
-                    </div>
-                </div>
-            </div>
+                    </Column>
+                </Row>
+            </Container>
         </Stegoppsummering>
     );
 };

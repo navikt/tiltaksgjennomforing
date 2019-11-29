@@ -1,38 +1,44 @@
-import * as _ from 'lodash';
-import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import './VeilederinfoDel.less';
 import { Veilederinfo } from '@/types/avtale';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 const VeilederinfoDel = (props: InputStegProps<Veilederinfo>) => (
-    <>
-        <Systemtittel className="veilederinfo__tittel">Kontaktperson i NAV</Systemtittel>
-        <div className="veilederinfo__rad">
-            <PakrevdInput
-                className="veilederinfo__fornavn"
-                label="Fornavn"
-                verdi={props.avtale.veilederFornavn}
-                settVerdi={_.partial(props.settAvtaleVerdi, 'veilederFornavn')}
-            />
-            <PakrevdInput
-                className="veilederinfo__etternavn"
-                label="Etternavn"
-                verdi={props.avtale.veilederEtternavn}
-                settVerdi={_.partial(props.settAvtaleVerdi, 'veilederEtternavn')}
-            />
-        </div>
-        <div className="veilederinfo__rad">
-            <TelefonnummerInput
-                className="veilederinfo__tlf"
-                label="Telefonnummer"
-                verdi={props.avtale.veilederTlf}
-                settVerdi={_.partial(props.settAvtaleVerdi, 'veilederTlf')}
-            />
-        </div>
-    </>
+    <Container fluid={true}>
+        <Row className="">
+            <Column md="12">
+                <SkjemaTittel>Kontaktperson i NAV</SkjemaTittel>
+            </Column>
+        </Row>
+        <Row className="">
+            <Column md="6">
+                <PakrevdInput
+                    label="Fornavn"
+                    verdi={props.avtale.veilederFornavn}
+                    settVerdi={verdi => props.settAvtaleVerdi('veilederFornavn', verdi)}
+                />
+            </Column>
+            <Column md="6">
+                <PakrevdInput
+                    label="Etternavn"
+                    verdi={props.avtale.veilederEtternavn}
+                    settVerdi={verdi => props.settAvtaleVerdi('veilederEtternavn', verdi)}
+                />
+            </Column>
+        </Row>
+        <Row className="">
+            <Column md="12">
+                <TelefonnummerInput
+                    label="Telefonnummer"
+                    verdi={props.avtale.veilederTlf}
+                    settVerdi={verdi => props.settAvtaleVerdi('veilederTlf', verdi)}
+                />
+            </Column>
+        </Row>
+    </Container>
 );
 
 export default VeilederinfoDel;
