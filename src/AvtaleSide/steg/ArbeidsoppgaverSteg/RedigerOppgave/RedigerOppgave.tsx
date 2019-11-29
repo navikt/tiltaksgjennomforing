@@ -33,6 +33,7 @@ class RedigerOppgave extends React.Component<Props, State> {
         beskrivelseFeil: undefined,
         opplaeringFeil: undefined,
         erLagret: false,
+        isMounted: false,
     };
 
     componentDidMount(): void {
@@ -111,11 +112,11 @@ class RedigerOppgave extends React.Component<Props, State> {
               });
     };
 
-    lagreOppgave = () => {
+    lagreOppgave = async () => {
         if (this.state.tittel && this.state.beskrivelse && this.state.opplaering) {
-            this.setState({ erLagret: true });
+            await this.setState({ erLagret: true });
             if (this.props.fjerneMellomLagringArbeidsoppgave) {
-                this.props.fjerneMellomLagringArbeidsoppgave();
+                await this.props.fjerneMellomLagringArbeidsoppgave();
             }
             return this.props.lagreOppgave({
                 id: this.props.defaultOppgave && this.props.defaultOppgave.id,

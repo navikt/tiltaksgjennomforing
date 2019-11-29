@@ -1,13 +1,13 @@
 import { Context, medContext } from '@/AvtaleContext';
 import * as React from 'react';
+import { createElement, FunctionComponent } from 'react';
 import Godkjenning from './Godkjenning';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Systemtittel } from 'nav-frontend-typografi';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
-import { createElement, FunctionComponent } from 'react';
 import { AltAvtaleinnhold } from '@/types/avtale';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 type Props = {
     oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
@@ -24,9 +24,9 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
                     alignItems: 'flex-start',
                 }}
             >
-                <Systemtittel style={{ marginBottom: '2rem' }}>
+                <SkjemaTittel>
                     {props.avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-                </Systemtittel>
+                </SkjemaTittel>
 
                 {props.avtale.erLaast && <SkrivUtKnapp />}
             </div>
