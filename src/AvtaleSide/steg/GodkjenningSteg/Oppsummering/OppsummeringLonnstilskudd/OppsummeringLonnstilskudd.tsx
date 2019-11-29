@@ -1,4 +1,3 @@
-import { medContext } from '@/AvtaleContext';
 import OppfolgingOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppfølging/OppfolgingOppsummering';
 import { LonnstilskuddAvtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
@@ -7,16 +6,16 @@ import LonnstilskuddOppsummering from '../LonnstilskuddOppsummering/Lonnstilskud
 import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
 
 interface Props {
-    avtale: LonnstilskuddAvtaleinnhold;
+    avtaleinnhold: LonnstilskuddAvtaleinnhold;
 }
 
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
     <>
         <StillingsOppsummering />
         <LonnstilskuddOppsummering />
-        <OppfolgingOppsummering {...props.avtale} />
+        <OppfolgingOppsummering {...props.avtaleinnhold} />
         <BeregningTilskuddOppsummering />
     </>
 );
 
-export default medContext(OppsummeringLonnstilskudd);
+export default OppsummeringLonnstilskudd;

@@ -1,4 +1,3 @@
-import { medContext, Rolle } from '@/AvtaleContext';
 import { ArbeidstreningAvtaleinnhold } from '@/types/avtale';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
@@ -9,18 +8,17 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 
 interface Props {
-    avtale: ArbeidstreningAvtaleinnhold;
-    rolle: Rolle;
+    avtaleinnhold: ArbeidstreningAvtaleinnhold;
 }
 
 const OppsummeringArbeidstrening: FunctionComponent<Props> = props => (
     <>
-        <MaalOppsummering {...props.avtale} />
-        <OppgaverOppsummering {...props.avtale} />
-        <VarighetOppsummering {...props.avtale} />
-        <OppfolgingOppsummering {...props.avtale} />
-        <Tilrettelegging {...props.avtale} />
+        <MaalOppsummering {...props.avtaleinnhold} />
+        <OppgaverOppsummering {...props.avtaleinnhold} />
+        <VarighetOppsummering {...props.avtaleinnhold} />
+        <OppfolgingOppsummering {...props.avtaleinnhold} />
+        <Tilrettelegging {...props.avtaleinnhold} />
     </>
 );
 
-export default medContext(OppsummeringArbeidstrening);
+export default OppsummeringArbeidstrening;
