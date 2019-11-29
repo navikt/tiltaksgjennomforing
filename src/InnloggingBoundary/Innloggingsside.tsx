@@ -3,6 +3,8 @@ import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
+import restService from '@/services/rest-service';
+import { AutentiseringError } from '@/types/errors';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel } from 'nav-frontend-typografi';
@@ -12,13 +14,25 @@ import './Innloggingsside.less';
 import { Innloggingskilde } from './useInnlogget';
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
+    const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
+        try {
+            await restService.hentInnloggetBruker();
+            window.location.reload();
+        } catch (err) {
+            if (err instanceof AutentiseringError) {
+                window.location.href = innloggingskilde.url;
+            }
+        }
+    };
+
     const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde) => (
         <Hovedknapp
             key={innlogginskilde.url}
             className="innloggingsside__logginnKnapp"
             onClick={() => {
                 sessionStorage.setItem(INNLOGGET_PART, innlogginskilde.part);
-                window.location.href = innlogginskilde.url;
+                loginKlikk(innlogginskilde);
+                //window.location.href = innlogginskilde.url;
             }}
         >
             {innlogginskilde.tittel}

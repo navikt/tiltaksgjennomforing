@@ -32,7 +32,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
 
     const harTilgangPaMinstEnOrg = innloggetBruker.organisasjoner.length > 0;
     const organisasjonsListe = innloggetBruker.organisasjoner.map(org => (
-        <li>
+        <li key={org.bedriftNr}>
             {org.bedriftNavn} ({org.bedriftNr})
         </li>
     ));
@@ -47,14 +47,14 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <InfoIkon className={cls.element('headerIkon')} />
                                 <Innholdstittel>Ingen avtaler</Innholdstittel>
                             </div>
-                            <Ingress>
+                            <Ingress tag="div">
                                 Du har ingen avtaler her enda, men du har rettigheter på bedriften(e) under. Skulle det
                                 bli opprettet en avtale på noen av disse bedriftene vil du få tilgang til denne avtalen.
                                 <ul>{organisasjonsListe}</ul>
                             </Ingress>
 
                             <Undertittel>Hvordan får jeg tilgang?</Undertittel>
-                            <Ingress>
+                            <Ingress tag="div">
                                 Hvis du er ute etter en avtale registrert på en annen bedrift enn de overnevnte må du i
                                 Altinn enten ha rollen
                                 <ul>
