@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
+import { INNLOGGET_PART } from '@/RedirectEtterLogin';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
+import { withRouter } from 'react-router-dom';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget, { InnloggetBruker } from './useInnlogget';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
