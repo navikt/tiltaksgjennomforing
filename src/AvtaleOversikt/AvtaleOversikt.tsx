@@ -56,7 +56,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
     const visAlleAvtalerCheckbox = featureToggles[Feature.Kontortilgang] && innloggetBruker.erNavAnsatt && (
         <Checkbox
-            label={'Vis alle avtaler på kontoret'}
+            label={'Vis alle avtaler du har tilgang til'}
             checked={visAlleAvtaler}
             onChange={event => setVisAlleAvtaler(event.currentTarget.checked)}
         />
