@@ -20,14 +20,14 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
 
     const enkeltRettighet = lonnstilskuddToggle ? (
         <>
-            en av enkelttjenestene:
+            en av enkelttjenestene
             <ul>
                 <li>Avtale om arbeidstrening</li>
                 <li>Avtale om lønnstilskudd</li>
             </ul>
         </>
     ) : (
-        <>enkelttjenesten Avtale om arbeidstrening</>
+        <> enkelttjenesten Avtale om arbeidstrening</>
     );
 
     const harTilgangPaMinstEnOrg = innloggetBruker.organisasjoner.length > 0;
@@ -36,7 +36,6 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
             {org.bedriftNavn} ({org.bedriftNr})
         </li>
     ));
-    const flertall = innloggetBruker.organisasjoner.length > 1;
 
     return (
         <div>
@@ -49,25 +48,19 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <Innholdstittel>Ingen avtaler</Innholdstittel>
                             </div>
                             <Ingress>
-                                Du har ingen avtaler her enda, men du har rettigheter på bedriften(e) under.
-                                {flertall
-                                    ? ` Skulle det
-                                bli opprettet en avtale på noen av disse bedriftene vil du få tilgang til disse.`
-                                    : `Skulle det bli opprettet en avtale på denne bedriften vil du få tilgang på denne.`}{' '}
+                                Du har ingen avtaler her enda, men du har rettigheter på bedriften(e) under. Skulle det
+                                bli opprettet en avtale på noen av disse bedriftene vil du få tilgang til denne avtalen.
                                 <ul>{organisasjonsListe}</ul>
                             </Ingress>
 
                             <Undertittel>Hvordan får jeg tilgang?</Undertittel>
                             <Ingress>
-                                Hvis du er ute etter en avtale registrert på en annen bedrift enn de overnevnte
-                                bedriftene, mangler du riktig tilgang til denne bedriften.
-                            </Ingress>
-                            <Ingress>
-                                For å få tilgang til din bedrift må du i Altinn enten ha rollen{' '}
+                                Hvis du er ute etter en avtale registrert på en annen bedrift enn de overnevnte må du i
+                                Altinn enten ha rollen
                                 <ul>
                                     <li>Helse-, sosial- og velferdstjenester</li>
-                                </ul>{' '}
-                                eller {enkeltRettighet}{' '}
+                                </ul>
+                                eller {enkeltRettighet}
                                 <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                                     Les mer om roller og rettigheter på Altinn.no
                                 </EksternLenke>
@@ -94,8 +87,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                     <ul>
                                         <li>Helse-, sosial- og velferdstjenester</li>
                                     </ul>{' '}
-                                    eller
-                                    {enkeltRettighet}
+                                    eller {enkeltRettighet}
                                 </Ingress>
 
                                 <div className={cls.element('rolleinfo')}>
