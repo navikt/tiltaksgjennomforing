@@ -137,7 +137,8 @@ export interface GodkjentPaVegneGrunner {
 export interface Versjonering<T extends FellesAvtaleinnhold> {
     versjon: number;
     versjoner: T[];
-    kanLaasesOpp: boolean;
+    kanLåsesOpp: boolean;
+    // kanLåsesOpp: boolean;
 }
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;

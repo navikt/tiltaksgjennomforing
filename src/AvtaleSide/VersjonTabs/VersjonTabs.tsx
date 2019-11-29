@@ -102,14 +102,14 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                     {/*    {harStegEndret(avtaleVerjon.versjon - 1, 'kontaktinformasjon') &&*/}
                     {/*        avtaleVerjon.arbeidsgiverFornavn}*/}
                     {/*</div>*/}
-                    {/*<OppsummeringArbeidstrening avtale={avtaleVerjon} />*/}
-                    <MaalOppsummering maal={avtaleVerjon.maal} />
+                    <OppsummeringArbeidstrening avtaleinnhold={avtaleVerjon} />
+                    {/*<MaalOppsummering maal={avtaleVerjon.maal} />
                     <OppgaverOppsummering oppgaver={avtaleVerjon.oppgaver} />
                     <VarighetOppsummering
                         startDato={avtaleVerjon.startDato}
                         sluttDato={avtaleVerjon.sluttDato}
                         stillingprosent={avtaleVerjon.stillingprosent}
-                    />
+                    />*/}
                 </div>
             );
         })
@@ -152,7 +152,7 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                 />
                 {index === 0 ? (
                     <Panel id="først">
-                        {props.rolle === 'VEILEDER' && (
+                        {props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
                             <LagreKnapp
                                 className="versjonTabs__knapp                       "
                                 label={'Lås opp avtalen/ lag ny godkjentVersjon'}

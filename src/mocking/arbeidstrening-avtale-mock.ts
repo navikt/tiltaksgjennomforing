@@ -36,7 +36,7 @@ const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
     erLaast: false,
     status: '',
     kanAvbrytes: true,
-    kanLaasesOpp: false,
+    kanLåsesOpp: false,
     versjon: 1,
     versjoner: [],
     avbrutt: false,

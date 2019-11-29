@@ -11,7 +11,7 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     erLaast: false,
     status: '',
     kanAvbrytes: true,
-    kanLaasesOpp: false,
+    kanLåsesOpp: false,
     versjon: 1,
     versjoner: [],
     avbrutt: false,

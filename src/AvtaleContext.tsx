@@ -47,7 +47,7 @@ export const tomAvtale: Avtale = {
     erLaast: false,
     status: '',
     kanAvbrytes: true,
-    kanLaasesOpp: false,
+    kanLåsesOpp: false,
     avbrutt: false,
     tiltakstype: 'ARBEIDSTRENING',
     godkjentPaVegneAv: false,
@@ -114,7 +114,6 @@ export interface Context {
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     varsler: Varsel[];
     visFeilmelding: (feilmelding: string) => void;
-    // opprettNyAvtaleGodkjentVersjon: (avtale: Avtale) => Promise<Avtale>;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';

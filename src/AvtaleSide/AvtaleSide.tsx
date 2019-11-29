@@ -150,6 +150,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     <>
                         <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
+                        <VersjonTabs {...props} />
                     </>
                 );
             }}
