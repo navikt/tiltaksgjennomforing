@@ -48,12 +48,12 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
         //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleGodkjentVersjon.id));
         // this.setState({nyAvtaleGodkjentVersjon});
         if (nyAvtaleGodkjentVersjon != null) {
-            /*console.log(
-                nyAvtaleGodkjentVersjon.id + ', new godkjentVersjon: ' + nyAvtaleGodkjentVersjon.godkjentVersjon
-            );*/
-            props.history.push(pathTilKontaktinformasjonSteg(props.avtale.id));
-            window.location.replace(pathTilKontaktinformasjonSteg(props.avtale.id));
         }
+        /*console.log(
+            nyAvtaleGodkjentVersjon.id + ', new godkjentVersjon: ' + nyAvtaleGodkjentVersjon.godkjentVersjon
+        );*/
+        props.history.push(pathTilKontaktinformasjonSteg(props.avtale.id));
+        window.location.replace(pathTilKontaktinformasjonSteg(props.avtale.id));
     };
 
     // if (avtaleVersjoner === null) {

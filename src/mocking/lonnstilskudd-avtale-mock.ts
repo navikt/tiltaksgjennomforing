@@ -1,31 +1,6 @@
-import { ArbeidstreningAvtaleinnhold, Avtale, Maal, Oppgave } from '@/types/avtale';
+import { LonnstilskuddAvtaleinnhold, Avtale } from '@/types/avtale';
 
-const maalListe: Maal[] = [
-    {
-        id: 'c9697a6f-f3fe-4436-a9d9-959ab6e5bcbe',
-        opprettetTimestamp: 1353253214,
-        kategori: 'Arbeidserfaring',
-        beskrivelse: 'Trenger arbeidserfaring',
-    },
-    {
-        id: '26cfdb72-1efd-11e9-ab14-d663bd873d93',
-        opprettetTimestamp: 1353253214,
-        kategori: 'Annet',
-        beskrivelse: 'Hadde vært fint med noe annet også',
-    },
-];
-
-const oppgaveListe: Oppgave[] = [
-    {
-        id: 'a1a98572-6771-467a-99f1-141870c286cc',
-        opprettetTimestamp: 1353253214,
-        tittel: 'Flytte varer',
-        beskrivelse: 'skal flytte varer',
-        opplaering: 'for å flytte varer',
-    },
-];
-
-const avtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
+const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     id: '9565e74d-66f3-44a1-8a3c-91fae6b450d3',
     opprettetTidspunkt: '',
     sistEndret: '',
@@ -71,10 +46,15 @@ const avtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
     arbeidsgiverFornavn: 'Arbeidsgiver',
     arbeidsgiverEtternavn: 'Arbeidsgiversen',
     arbeidsgiverTlf: '77777777',
-    tiltakstype: 'ARBEIDSTRENING',
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
 
-    maal: maalListe,
-    oppgaver: oppgaveListe,
+    arbeidsgiveravgift: 10,
+    feriepengesats: 10,
+    lonnstilskuddProsent: '60',
+    manedslonn: 10000,
+    arbeidsgiverKontonummer: '123',
+    stillingbeskrivelse: '',
+    stillingtype: '',
 };
 
-export default avtaleMock;
+export default lonnstilskuddAvtaleMock;

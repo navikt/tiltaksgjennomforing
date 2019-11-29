@@ -5,9 +5,9 @@ import OpprettOppgave from './OpprettOppgave';
 test('Test that <OpprettOppgave> renders correctly', () => {
     const stub = jest.fn();
     const mellomLagretArbeidsoppgave = {
-        oppgaveTittel: 'string',
-        oppgaveBeskrivelse: 'string',
-        oppgaveOpplaering: 'string',
+        oppgaveTittel: '',
+        oppgaveBeskrivelse: '',
+        oppgaveOpplaering: '',
     };
     const wrapper = shallow(
         <OpprettOppgave

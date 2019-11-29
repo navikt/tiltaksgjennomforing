@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Knapp } from 'nav-frontend-knapper';
 import RedigerOppgave from '../RedigerOppgave/RedigerOppgave';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Oppgave } from '@/types/avtale';
 import './OpprettOppgave.less';
 import { TemporaryLagringArbeidsoppgave } from '@/AvtaleContext';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     lagreOppgave: (oppgave: Oppgave) => void;
@@ -15,6 +16,11 @@ interface Props {
 }
 
 class OpprettOppgave extends React.Component<Props> {
+    state = {
+        isMounted: false,
+        visRedigerOppgave: false,
+    };
+
     setInnMellomLagringArbeidsoppgave = () => {
         return (
             this.props.mellomLagretArbeidsoppgave.oppgaveTittel !== '' ||
@@ -23,12 +29,22 @@ class OpprettOppgave extends React.Component<Props> {
         );
     };
 
-    state = {
-        visRedigerOppgave: this.setInnMellomLagringArbeidsoppgave(),
-    };
+    componentDidMount() {
+        this.setState({
+            visRedigerOppgave: this.setInnMellomLagringArbeidsoppgave(),
+            isMounted: true,
+        });
+    }
+
+    componentWillUnmount() {
+        // eslint-disable-next-line
+        this.state.isMounted = false;
+    }
 
     visOppgave = (skalVises: boolean) => {
-        this.setState({ visRedigerOppgave: skalVises });
+        if (this.state.isMounted) {
+            this.setState({ visRedigerOppgave: skalVises });
+        }
     };
 
     nyOppgaveOnClick = () => {
@@ -37,16 +53,14 @@ class OpprettOppgave extends React.Component<Props> {
 
     lagreOppgave = async (oppgave: Oppgave) => {
         await this.props.lagreOppgave(oppgave);
-        this.visOppgave(false);
+        await this.visOppgave(false);
     };
 
     render() {
         return (
             <Innholdsboks utfyller="arbeidsgiver">
-                <Systemtittel tag="h1" className="opprett-oppgave__tittel">
-                    Hvilke arbeidsoppgaver skal utføres?
-                </Systemtittel>
-                <Normaltekst className="opprett-oppgave__beskrivelse">
+                <SkjemaTittel>Hvilke arbeidsoppgaver skal utføres?</SkjemaTittel>
+                <Normaltekst>
                     Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal utføre hos dere under
                     arbeidstreningen.
                 </Normaltekst>

@@ -8,6 +8,7 @@ interface State {
     suksessmelding: string;
     feilmelding: string;
     spinner: boolean;
+    isMounted: boolean;
 }
 
 interface Props {
@@ -22,7 +23,17 @@ class LagreKnapp extends Component<Props, State> {
         suksessmelding: '',
         feilmelding: '',
         spinner: false,
+        isMounted: false,
     };
+
+    componentDidMount() {
+        this.setState({ isMounted: true });
+    }
+
+    componentWillUnmount() {
+        // eslint-disable-next-line
+        this.state.isMounted = false;
+    }
 
     lagreKnappOnClick = async () => {
         this.setState({ spinner: true });
@@ -36,7 +47,9 @@ class LagreKnapp extends Component<Props, State> {
                 throw error;
             }
         } finally {
-            this.fjernSpinner();
+            if (this.state.isMounted) {
+                this.fjernSpinner();
+            }
         }
     };
 

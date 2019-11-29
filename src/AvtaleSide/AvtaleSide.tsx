@@ -13,6 +13,8 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+
 import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
 import VersjonTabs from './VersjonTabs/VersjonTabs';
 interface MatchProps {
@@ -110,11 +112,13 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.avtale.erLaast || props.avtale.avbrutt || props.rolle === 'DELTAKER') {
                     setAktivtSteg(avtaleSteg.find(steg => steg.id === 'godkjenning'));
                     innhold = (
-                        <div className="avtaleside__innhold">
+                        <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
                             </div>
+                            <VerticalSpacer sixteenPx={true} />
                             {varsler}
+                            <VerticalSpacer sixteenPx={true} />
                             {aktivtSteg.komponent}
                             <VersjonTabs {...props} />
                         </div>

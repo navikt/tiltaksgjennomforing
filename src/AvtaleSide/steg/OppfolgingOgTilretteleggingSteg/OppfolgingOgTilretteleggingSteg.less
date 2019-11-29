@@ -1,21 +1,8 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .oppfolgingsteg {
-    &__tittel {
-        display: block;
-        :first-child {
-            // hjelpetekst ikon
-            top: 0.25rem;
-        }
-        margin-bottom: 1rem;
-    }
     &__lagre-knapp {
         margin-top: 1rem;
-    }
-}
-.tilretteleggingsteg {
-    &__tittel {
-        margin-bottom: 1rem;
     }
 }
 .begge {
@@ -25,23 +12,9 @@
 }
 
 @media (min-width: @screen-sm-min) {
-    .oppfolgingsteg__tittel {
-        display: block;
-        margin-bottom: 1rem;
-    }
-    .tilretteleggingsteg__tittel {
-        display: block;
-        margin-top: 4rem;
-        margin-bottom: 1rem;
-    }
     .begge {
         &__tekst {
             height: 132px !important;
-        }
-    }
-    .oppfolgingsteg {
-        &__lagre-knapp {
-            margin-top: 1rem;
         }
     }
 }

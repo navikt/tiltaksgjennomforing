@@ -1,6 +1,6 @@
 import { API_URL } from '@/services/rest-service';
 import fetchMock from 'fetch-mock';
-import avtaleMock from './avtale-mock';
+import arbeidstreningAvtaleMock from './arbeidstrening-avtale-mock';
 import avtaleListeMock from './avtaler-mock';
 import rolleMock from './rolle-mock';
 
@@ -8,7 +8,7 @@ const opprettAvtaleHeaders = {
     Location: 'avtaler/9565e74d-66f3-44a1-8a3c-91fae6b450d3',
 };
 
-const opprettAvtaleResponse = new Response(JSON.stringify(avtaleMock), {
+const opprettAvtaleResponse = new Response(JSON.stringify(arbeidstreningAvtaleMock), {
     status: 200,
     headers: opprettAvtaleHeaders,
 });
@@ -31,6 +31,6 @@ const hentRolleUrl = new RegExp(`${API_URL}/avtaler/[a-zA-Z0-9-]*/rolle`);
 fetchMock
     .get(hentAvtalerUrl, avtaleListeMock)
     .get(hentRolleUrl, JSON.stringify(rolleMock))
-    .get(hentAvtaleUrl, JSON.stringify(avtaleMock))
+    .get(hentAvtaleUrl, JSON.stringify(arbeidstreningAvtaleMock))
     .put(lagreAvtaleUrl, lagreAvtaleResponse)
     .post(opprettAvtaleUrl, opprettAvtaleResponse);
