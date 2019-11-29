@@ -7,8 +7,9 @@ import restService from '@/services/rest-service';
 import { AutentiseringError } from '@/types/errors';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Sidetittel } from 'nav-frontend-typografi';
+import { Ingress, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
+import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
 import { Innloggingskilde } from './useInnlogget';
@@ -32,7 +33,6 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             onClick={() => {
                 sessionStorage.setItem(INNLOGGET_PART, innlogginskilde.part);
                 loginKlikk(innlogginskilde);
-                //window.location.href = innlogginskilde.url;
             }}
         >
             {innlogginskilde.tittel}
@@ -42,18 +42,26 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
         <div className="wrapper">
             <Banner tekst="Tiltaksgjennomføring" />
             <div className="innloggingsside">
-                <Koffert className="innloggingsside__koffertikon" />
-                <Sidetittel>Dine tiltak på ett sted</Sidetittel>
-                <div className="innloggingsside__infotekst">
-                    <p>Dette er en digital avtale som skal brukes av deltaker, arbeidsgiver og NAV.</p>
-                    <p>For å se avtalene du er en del av må du først logge på.</p>
-                    <p className="innloggingsside__lenke">
-                        <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
-                            Her kan du lese mer om hvordan løsningen fungerer
-                            <HoyreChevron className="tilbaketiloversikt__chevron" />
-                        </Link>
-                    </p>
+                <MediaQuery minWidth={576}>
+                    <Koffert className="innloggingsside__koffertikon" />
+                </MediaQuery>
+                <div className="innloggingsside__tittel">
+                    <Sidetittel>Dine tiltak på ett sted</Sidetittel>
                 </div>
+                <div className="innloggingsside__infotekst">
+                    <Ingress>
+                        <p>Dette er en digital avtale som skal brukes av deltaker, arbeidsgiver og NAV.</p>
+                        <p>For å se avtalene du er en del av må du først logge på.</p>
+                        <p className="innloggingsside__lenke">
+                            <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
+                                Her kan du lese mer om hvordan løsningen fungerer
+                                <HoyreChevron className="tilbaketiloversikt__chevron" />
+                            </Link>
+                        </p>
+                    </Ingress>
+                </div>
+                <VerticalSpacer thirtyTwoPx={true} />
+                <Systemtittel>Logg inn</Systemtittel>
                 <VerticalSpacer thirtyTwoPx={true} />
                 <div className={'innloggingsside__loginKnapper'}>{logginnknapper}</div>
             </div>

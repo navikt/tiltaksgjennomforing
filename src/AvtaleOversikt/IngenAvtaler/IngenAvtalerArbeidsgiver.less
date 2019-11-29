@@ -1,9 +1,6 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .ingenAvtalerArbeidsgiver {
-    &__container {
-        padding: 0 3rem;
-    }
     &__headerIkon {
         margin-right: 1rem;
         margin-top: 0.2rem;
@@ -22,5 +19,12 @@
 
     &__rolleinfo2 {
         margin-top: 1rem;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        // Desktop only
+        &__container {
+            padding: 0 3rem;
+        }
     }
 }

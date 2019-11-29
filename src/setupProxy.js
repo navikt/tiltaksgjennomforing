@@ -33,12 +33,12 @@ module.exports = function(app) {
         if (envProperties.SELVBETJENING_LOGIN_URL) {
             innloggingskilder.push(
                 {
-                    tittel: 'Logg inn som deltaker',
+                    tittel: 'Som deltaker',
                     part: 'deltaker',
                     url: envProperties.SELVBETJENING_LOGIN_URL,
                 },
                 {
-                    tittel: 'Logg inn som arbeidsgiver',
+                    tittel: 'Som arbeidsgiver',
                     part: 'arbeidsgiver',
                     url: envProperties.SELVBETJENING_LOGIN_URL,
                 }
@@ -46,7 +46,7 @@ module.exports = function(app) {
         }
         if (envProperties.ISSO_LOGIN_URL) {
             innloggingskilder.push({
-                tittel: 'Logg inn som NAV-veileder',
+                tittel: 'Som NAV-veileder',
                 part: 'veileder',
                 url: envProperties.ISSO_LOGIN_URL,
             });
