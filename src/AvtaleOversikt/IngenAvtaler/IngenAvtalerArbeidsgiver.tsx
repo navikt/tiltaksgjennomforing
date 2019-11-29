@@ -27,7 +27,12 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
             </ul>
         </>
     ) : (
-        <> enkelttjenesten Avtale om arbeidstrening</>
+        <>
+            enkelttjenesten
+            <ul>
+                <li>Avtale om arbeidstrening</li>
+            </ul>
+        </>
     );
 
     const harTilgangPaMinstEnOrg = innloggetBruker.organisasjoner.length > 0;
@@ -93,13 +98,13 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <div className={cls.element('rolleinfo')}>
                                     <Undertittel>Hvem kan gi deg tilgang?</Undertittel>
                                     <Ingress>
-                                        Det er virksomheten som må gi deg tilgang. Tilgang kan delegeres av personer som
-                                        selv har tilgang, dersom de også har rollen Tilgangsstyring.
+                                        Det er virksomheten din som må gi deg tilgang. Tilgang kan delegeres av personer
+                                        som selv har tilgang, dersom de også har rollen Tilgangsstyring.
                                         <div className={cls.element('rolleinfo2')}>
                                             I store virksomheter er det vanlig at HR-personell har fått tilgangsstyring
                                             fra ledelsen for å kunne delegere Altinn-roller på vegne av virksomheten.
                                             Hvis tilgangsstyring ikke er delegert til HR-personell må man få tildelt
-                                            tilgang fra daglig leder eller andre fra eiersiden.{' '}
+                                            tilgang fra daglig leder eller andre fra eiersiden.
                                             <VerticalSpacer twentyPx={true} />
                                             <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                                                 Les mer om roller og rettigheter på Altinn.no
