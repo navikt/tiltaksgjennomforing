@@ -100,7 +100,8 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                     <Ingress>
                                         Det er virksomheten din som må gi deg tilgang. Tilgang kan delegeres av personer
                                         som selv har tilgang, dersom de også har rollen Tilgangsstyring.
-                                        <div className={cls.element('rolleinfo2')}>
+                                        <VerticalSpacer sixteenPx={true} />
+                                        <div>
                                             I store virksomheter er det vanlig at HR-personell har fått tilgangsstyring
                                             fra ledelsen for å kunne delegere Altinn-roller på vegne av virksomheten.
                                             Hvis tilgangsstyring ikke er delegert til HR-personell må man få tildelt
