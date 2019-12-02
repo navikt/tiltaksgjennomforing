@@ -1,9 +1,9 @@
 import Modal from 'nav-frontend-modal';
-import { Systemtittel } from 'nav-frontend-typografi';
-import React, { useState } from 'react';
+import React from 'react';
 import './VersjonModal.less';
 import { AltAvtaleinnhold } from '@/types/avtale';
 import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     isOpen: boolean;
@@ -20,7 +20,9 @@ const VersjonModal: React.FunctionComponent<Props> = props => {
             isOpen={props.isOpen}
             onRequestClose={() => props.lukkModal()}
         >
-            <Systemtittel className="versjon__innholdstittel">Oversikt over en versjon av avtale</Systemtittel>
+            <SkjemaTittel className="versjon__innholdstittel">
+                {'Versjon ' + (props.avtaleInnhold !== undefined && props.avtaleInnhold.versjon.toString())}
+            </SkjemaTittel>
             <OppsummeringArbeidstrening avtaleinnhold={props.avtaleInnhold} />
         </Modal>
     );
