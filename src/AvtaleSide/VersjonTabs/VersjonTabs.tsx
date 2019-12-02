@@ -173,7 +173,30 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
                 ) : null}
                 {index === 2 ? (
                     <Panel id="tredje">
-                        <Hovedknapp>Last ned avtalen </Hovedknapp>
+                        {/*<LenkepanelBase
+key={avtaleVerjon.versjon}
+href={pathTilKontaktinformasjonSteg(props.avtale.id)}
+linkCreator={(props: any) => <Link to={props.href} {...props} />}
+>
+<div
+    className={classNames(cls.element('rad'), {
+        uthevet: false,
+    })}
+>
+    <div className={cls.element('deltakerOgBedrift')}>Versjon {avtaleVerjon.versjon}</div>
+    <div className={cls.element('deltakerOgBedrift')}>
+        {mestViktigEndring(avtaleVerjon.versjon - 1)}
+    </div>
+    <MaalOppsummering maal={avtaleVerjon.maal} />
+
+    <div className={cls.element('statusikon')}>
+        <StatusIkon status={avtaleVerjon.status} />
+    </div>
+    <div className={cls.element('status')}>{avtaleVerjon.status}</div>
+</div>
+</LenkepanelBase>*/}
+
+                        {/*<Hovedknapp>Last ned avtalen </Hovedknapp>*/}
                     </Panel>
                 ) : null}
                 {/* <div className={cls.className}>
@@ -186,28 +209,3 @@ const VersjonTabs: React.FunctionComponent<Props> = props => {
     );
 };
 export default VersjonTabs;
-{
-    /*
-<LenkepanelBase
-    key={avtaleVerjon.versjon}
-    href={pathTilKontaktinformasjonSteg(props.avtale.id)}
-    linkCreator={(props: any) => <Link to={props.href} {...props} />}
->
-    <div
-        className={classNames(cls.element('rad'), {
-            uthevet: false,
-        })}
-    >
-        <div className={cls.element('deltakerOgBedrift')}>Versjon {avtaleVerjon.versjon}</div>
-        <div className={cls.element('deltakerOgBedrift')}>
-            {mestViktigEndring(avtaleVerjon.versjon - 1)}
-        </div>
-        <MaalOppsummering maal={avtaleVerjon.maal} />
-
-        <div className={cls.element('statusikon')}>
-            <StatusIkon status={avtaleVerjon.status} />
-        </div>
-        <div className={cls.element('status')}>{avtaleVerjon.status}</div>
-    </div>
-</LenkepanelBase>*/
-}

@@ -8,7 +8,7 @@ import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtalep
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
 import { AltAvtaleinnhold } from '@/types/avtale';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-
+import Versjoner from './Versjonering/Versjoner';
 type Props = {
     oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
 };
@@ -40,6 +40,7 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
             endreGodkjenning={props.godkjenn}
             godkjennPaVegne={props.godkjennPaVegne}
         />
+        <Versjoner {...props.avtale} />
     </>
 );
 export default medContext(GodkjenningSteg);

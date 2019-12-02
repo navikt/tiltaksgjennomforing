@@ -15,8 +15,6 @@ import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
-import AvtaleStatus from './AvtaleStatus/AvtaleStatus';
-import VersjonTabs from './VersjonTabs/VersjonTabs';
 interface MatchProps {
     avtaleId: string;
     stegPath: string;
@@ -120,7 +118,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             {varsler}
                             <VerticalSpacer sixteenPx={true} />
                             {aktivtSteg.komponent}
-                            <VersjonTabs {...props} />
                         </div>
                     );
                 } else if (erDesktop) {
@@ -150,7 +147,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     <>
                         <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
-                        <VersjonTabs {...props} />
                     </>
                 );
             }}
