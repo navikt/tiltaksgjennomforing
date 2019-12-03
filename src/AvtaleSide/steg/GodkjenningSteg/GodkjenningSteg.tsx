@@ -40,7 +40,7 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
             endreGodkjenning={props.godkjenn}
             godkjennPaVegne={props.godkjennPaVegne}
         />
-        {props.avtale.versjoner.length > 1 && <Versjoner {...props.avtale} />}
+        {props.avtale.versjoner.length > 1 && <Versjoner avtale={props.avtale} rolle={props.rolle} />}
     </>
 );
 export default medContext(GodkjenningSteg);

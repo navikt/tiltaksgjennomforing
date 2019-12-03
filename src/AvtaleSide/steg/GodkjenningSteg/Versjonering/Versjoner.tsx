@@ -10,14 +10,35 @@ import moment from 'moment';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
 import { Element } from 'nav-frontend-typografi';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
+import RestService from '@/services/rest-service';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import { Rolle } from '@/AvtaleContext';
+import { RouteComponentProps } from 'react-router';
 
 const cls = BEMHelper('versjoner');
-
-const Versjoner: React.FunctionComponent<Avtale> = props => {
+interface Props {
+    rolle: Rolle;
+    avtale: Avtale;
+}
+// type RouteProps=RouteComponentProps<Props>
+const Versjoner: React.FunctionComponent<Props> = props => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
-    const versjonLenker = props.versjoner
-        .filter(andreVersjoner => andreVersjoner.versjon !== props.versjon)
+    const låsOppAvtaleklikk = async () => {
+        const nyAvtaleGodkjentVersjon = await RestService.låsOppAvtale(props.avtale.id);
+        //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleGodkjentVersjon.id));
+        // this.setState({nyAvtaleGodkjentVersjon});
+        if (nyAvtaleGodkjentVersjon != null) {
+            //
+        }
+        /*console.log(
+            nyAvtaleGodkjentVersjon.id + ', new godkjentVersjon: ' + nyAvtaleGodkjentVersjon.godkjentVersjon
+        );*/
+        // props.history.push(pathTilKontaktinformasjonSteg(props.avtale.id));
+        // window.location.replace(pathTilKontaktinformasjonSteg(props.avtale.id));
+    };
+    const versjonLenker = props.avtale.versjoner
+        .filter(andreVersjoner => andreVersjoner.versjon !== props.avtale.versjon)
         .map((avtaleVerjon: AltAvtaleinnhold) => {
             return (
                 <div key={avtaleVerjon.versjon}>
@@ -45,7 +66,7 @@ const Versjoner: React.FunctionComponent<Avtale> = props => {
                     <VersjonModal
                         isOpen={isOpen}
                         lukkModal={() => setOpen(false)}
-                        avtaleInnhold={props.versjoner[currentVersjon > 0 ? currentVersjon - 1 : 0]}
+                        avtaleInnhold={props.avtale.versjoner[currentVersjon > 0 ? currentVersjon - 1 : 0]}
                     />
                 </div>
             );
@@ -55,6 +76,18 @@ const Versjoner: React.FunctionComponent<Avtale> = props => {
 
     return (
         <Innholdsboks>
+            {props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
+                <Innholdsboks>
+                    <LagreKnapp
+                        className="versjonTabs__knapp                       "
+                        label={'Lås opp avtalen/ lag ny godkjentVersjon'}
+                        lagre={låsOppAvtaleklikk}
+                    >
+                        {' '}
+                        Lås opp avtalen
+                    </LagreKnapp>
+                </Innholdsboks>
+            )}
             <Systemtittel>Tidligere versjoner</Systemtittel>
             {avtaletabell}
         </Innholdsboks>
