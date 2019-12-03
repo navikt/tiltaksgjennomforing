@@ -1,12 +1,13 @@
 import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
-import { ReactComponent as StopIkon } from '@/assets/ikoner/stop.svg';
+import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import BEMHelper from '@/utils/bem';
-import { Ingress, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Ingress, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './IngenAvtalerArbeidsgiver.less';
 type Props = {};
@@ -35,7 +36,8 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
         </>
     );
 
-    const harTilgangPaMinstEnOrg = innloggetBruker.organisasjoner.length > 0;
+    const antallOrgTilgangTil = innloggetBruker.organisasjoner.length;
+    const harTilgangPaMinstEnOrg = antallOrgTilgangTil > 0;
     const organisasjonsListe = innloggetBruker.organisasjoner.map(org => (
         <li key={org.bedriftNr}>
             {org.bedriftNavn} ({org.bedriftNr})
@@ -52,14 +54,24 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <InfoIkon className={cls.element('headerIkon')} />
                                 <Innholdstittel>Ingen avtaler</Innholdstittel>
                             </div>
-                            <Ingress tag="div">
-                                Du har ingen avtaler her enda, men du har rettigheter på bedriften(e) under. Skulle det
-                                bli opprettet en avtale på noen av disse bedriftene vil du få tilgang til denne avtalen.
-                                <ul>{organisasjonsListe}</ul>
-                            </Ingress>
+                            <Normaltekst tag="div">
+                                Du har ingen avtaler her enda, men du har rettigheter på virksomheten(e) vist under.
+                                Hvis det blir opprettet en avtale på noen av disse virksomhetene, vil du få tilgang til
+                                denne avtalen.
+                                <VerticalSpacer twentyPx={true} />
+                                <Ekspanderbartpanel
+                                    tittel="Virksomheter du har rettigheter i"
+                                    border
+                                    apen={antallOrgTilgangTil < 5}
+                                >
+                                    <ul>{organisasjonsListe}</ul>
+                                </Ekspanderbartpanel>
+                                <VerticalSpacer twentyPx={true} />
+                            </Normaltekst>
 
-                            <Undertittel>Hvordan får jeg tilgang?</Undertittel>
-                            <Ingress tag="div">
+                            <VerticalSpacer thirtyTwoPx={true} />
+                            <Systemtittel>Hvordan får jeg tilgang?</Systemtittel>
+                            <Normaltekst tag="div">
                                 Hvis du er ute etter en avtale registrert på en annen bedrift enn de overnevnte må du i
                                 Altinn enten ha rollen
                                 <ul>
@@ -69,14 +81,14 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                                     Les mer om roller og rettigheter på Altinn.no
                                 </EksternLenke>
-                            </Ingress>
+                            </Normaltekst>
                         </div>
                     )}
 
                     {!harTilgangPaMinstEnOrg && (
                         <div>
                             <div className={cls.element('headerContainer')}>
-                                <StopIkon width="35" height="35" className={cls.element('headerIkon')} />
+                                <VarselIkon width="35" height="35" className={cls.element('headerIkon')} />
                                 <Innholdstittel>Du mangler rettigheter i Altinn</Innholdstittel>
                             </div>
                             <div>
@@ -85,19 +97,19 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                     forutsetter at du har fått tildelt korrekt rolle eller rettighet i Altinn.
                                 </Ingress>
 
-                                <Ingress>
+                                <Normaltekst>
                                     <VerticalSpacer twentyPx={true} />
-                                    <Undertittel>Hvordan får jeg tilgang?</Undertittel>For å få tilgang på avtaler til
+                                    <Systemtittel>Hvordan får jeg tilgang?</Systemtittel>For å få tilgang på avtaler til
                                     din bedrift må du i Altinn enten ha rollen{' '}
                                     <ul>
                                         <li>Helse-, sosial- og velferdstjenester</li>
                                     </ul>{' '}
                                     eller {enkeltRettighet}
-                                </Ingress>
+                                </Normaltekst>
 
                                 <div className={cls.element('rolleinfo')}>
-                                    <Undertittel>Hvem kan gi deg tilgang?</Undertittel>
-                                    <Ingress>
+                                    <Systemtittel>Hvem kan gi deg tilgang?</Systemtittel>
+                                    <Normaltekst>
                                         Det er virksomheten din som må gi deg tilgang. Tilgang kan delegeres av personer
                                         som selv har tilgang, dersom de også har rollen Tilgangsstyring.
                                         <VerticalSpacer sixteenPx={true} />
@@ -111,7 +123,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                                 Les mer om roller og rettigheter på Altinn.no
                                             </EksternLenke>
                                         </div>
-                                    </Ingress>
+                                    </Normaltekst>
                                 </div>
                             </div>
                         </div>
