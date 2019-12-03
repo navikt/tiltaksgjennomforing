@@ -241,7 +241,7 @@ const låsOppAvtale = async (avtaleId: string): Promise<void> => {
         method: 'POST',
     });
     await handleResponse(response);
-    // return hentAvtale(avtaleId);
+    //   return hentAvtale(avtaleId);
 };
 
 const restService: RestService = {

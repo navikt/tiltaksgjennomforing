@@ -41,7 +41,7 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
             endreGodkjenning={props.godkjenn}
             godkjennPaVegne={props.godkjennPaVegne}
         />
-        <Versjoner avtale={props.avtale} rolle={props.rolle} />
+        <Versjoner laasOpp={props.laasOpp} avtale={props.avtale} rolle={props.rolle} />
     </>
 );
 

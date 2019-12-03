@@ -19,30 +19,21 @@ const cls = BEMHelper('versjoner');
 interface Props {
     rolle: Rolle;
     avtale: Avtale;
-    laasOpp?: () => Promise<any>;
+    laasOpp: () => Promise<any>;
 }
 
 const Versjoner: React.FunctionComponent<Props> = props => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
-    const låsOppAvtaleklikk = async () => {
+    const låsOppAvtaleklikk = () => {
         if (
             window.confirm(
                 'Er du sikker på at du vil låse opp avtalen og opprette en ny versjon?\nDu og arbeidsgiver kan endre innhold i avtalen og alle må godjhenne på nytt.'
             )
         ) {
-            const nyAvtaleGodkjentVersjon = await RestService.låsOppAvtale(props.avtale.id);
-            //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleGodkjentVersjon.id));
-            // this.setState({nyAvtaleGodkjentVersjon});
-            if (nyAvtaleGodkjentVersjon != null) {
-                //
-            }
+            return props.laasOpp();
         }
-        /*console.log(
-            nyAvtaleGodkjentVersjon.id + ', new godkjentVersjon: ' + nyAvtaleGodkjentVersjon.godkjentVersjon
-        );*/
-        // props.history.push(pathTilKontaktinformasjonSteg(props.avtale.id));
-        // window.location.replace(pathTilKontaktinformasjonSteg(props.avtale.id));
+        return Promise.reject();
     };
     const versjonLenker = props.avtale.versjoner
         .filter(andreVersjoner => andreVersjoner.versjon !== props.avtale.versjon)
