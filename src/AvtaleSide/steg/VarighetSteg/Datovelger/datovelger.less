@@ -172,10 +172,7 @@
     color: @white;
 }
 
-.datovelger_DayPicker:focus {
-    outline: 0;
-    box-shadow: 0 0 0 3px @navOransjeLighten40;
-}
+// .datovelger
 
 .datovelger {
     width: 140px;
@@ -222,18 +219,9 @@
         width: max-content;
     }
 
-    &__inputContainer {
-        display: flex;
-        margin-bottom: 0;
-        width: 100%;
-    }
-
-    &__toggleDayPicker {
-        display: none;
-    }
-
-    &__DayPicker {
-        display: none;
+    &__DayPicker:focus {
+        outline: 0;
+        box-shadow: 0 0 0 3px @navOransjeLighten40;
     }
 }
 
@@ -267,6 +255,7 @@
     }
 
     &__inputContainer {
+        display: flex;
         position: relative;
         margin-bottom: 0;
         width: auto;
