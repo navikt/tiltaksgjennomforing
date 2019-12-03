@@ -114,6 +114,7 @@ export interface Context {
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     varsler: Varsel[];
     visFeilmelding: (feilmelding: string) => void;
+    // laasOpp: () => Promise<any>;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';

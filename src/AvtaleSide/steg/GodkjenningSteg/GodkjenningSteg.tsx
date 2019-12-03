@@ -9,6 +9,7 @@ import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
 import { AltAvtaleinnhold } from '@/types/avtale';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Versjoner from './Versjonering/Versjoner';
+
 type Props = {
     oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
 };
@@ -40,7 +41,8 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
             endreGodkjenning={props.godkjenn}
             godkjennPaVegne={props.godkjennPaVegne}
         />
-        {props.avtale.versjoner.length > 1 && <Versjoner avtale={props.avtale} rolle={props.rolle} />}
+        <Versjoner avtale={props.avtale} rolle={props.rolle} />
     </>
 );
+
 export default medContext(GodkjenningSteg);

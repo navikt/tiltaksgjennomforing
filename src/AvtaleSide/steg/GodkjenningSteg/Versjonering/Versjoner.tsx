@@ -19,17 +19,24 @@ const cls = BEMHelper('versjoner');
 interface Props {
     rolle: Rolle;
     avtale: Avtale;
+    laasOpp?: () => Promise<any>;
 }
-// type RouteProps=RouteComponentProps<Props>
+
 const Versjoner: React.FunctionComponent<Props> = props => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
     const låsOppAvtaleklikk = async () => {
-        const nyAvtaleGodkjentVersjon = await RestService.låsOppAvtale(props.avtale.id);
-        //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleGodkjentVersjon.id));
-        // this.setState({nyAvtaleGodkjentVersjon});
-        if (nyAvtaleGodkjentVersjon != null) {
-            //
+        if (
+            window.confirm(
+                'Er du sikker på at du vil låse opp avtalen og opprette en ny versjon?\nDu og arbeidsgiver kan endre innhold i avtalen og alle må godjhenne på nytt.'
+            )
+        ) {
+            const nyAvtaleGodkjentVersjon = await RestService.låsOppAvtale(props.avtale.id);
+            //  props.history.push(pathTilOpprettAvtaleFullfort(nyAvtaleGodkjentVersjon.id));
+            // this.setState({nyAvtaleGodkjentVersjon});
+            if (nyAvtaleGodkjentVersjon != null) {
+                //
+            }
         }
         /*console.log(
             nyAvtaleGodkjentVersjon.id + ', new godkjentVersjon: ' + nyAvtaleGodkjentVersjon.godkjentVersjon
@@ -75,22 +82,23 @@ const Versjoner: React.FunctionComponent<Props> = props => {
     const avtaletabell = <div className="versjoner__liste">{versjonLenker}</div>;
 
     return (
-        <Innholdsboks>
+        <>
             {props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
                 <Innholdsboks>
-                    <LagreKnapp
-                        className="versjonTabs__knapp                       "
-                        label={'Lås opp avtalen/ lag ny godkjentVersjon'}
-                        lagre={låsOppAvtaleklikk}
-                    >
+                    {' '}
+                    <LagreKnapp className="versjoner__laasoppknapp" label={'Lag ny versjon'} lagre={låsOppAvtaleklikk}>
                         {' '}
                         Lås opp avtalen
                     </LagreKnapp>
                 </Innholdsboks>
             )}
-            <Systemtittel>Tidligere versjoner</Systemtittel>
-            {avtaletabell}
-        </Innholdsboks>
+            {props.avtale.versjoner.length > 1 && (
+                <Innholdsboks>
+                    <Systemtittel>Tidligere versjoner</Systemtittel>
+                    {avtaletabell}
+                </Innholdsboks>
+            )}
+        </>
     );
 };
 export default Versjoner;
