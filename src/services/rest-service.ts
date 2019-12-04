@@ -118,24 +118,7 @@ const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype
     const avtale: Avtale = await getResponse.json();
     return { ...avtale, id: `${avtale.id}` };
 };
-/*const opprettNyAvtaleVersjon = async (avtaleForGodkjentVersjon: Avtale): Promise<Avtale> => {
-    const uri = `${API_URL}/avtaler/${avtaleForGodkjentVersjon.id}/laas-opp`;
-    const deltakerFnr = avtaleForGodkjentVersjon.deltakerFnr;
-    const bedriftNr = avtaleForGodkjentVersjon.bedriftNr;
-    const godkjentVersjon = avtaleForGodkjentVersjon.versjon;
-    const baseAvtaleId = avtaleForGodkjentVersjon.id;
-    console.log(baseAvtaleId);
-    const postResponse = await fetch(uri, {
-        method: 'post',
-        /!*headers: { 'If-match': 'application/json' },*!/
-    });
-    await handleResponse(postResponse);
-    const getResponse = await fetch(`${API_URL}/${postResponse.headers.get('Location')}`);
-    await handleResponse(getResponse);
-    // const avtale: Avtale = await getResponse.json();
-    // return { ...avtale, id: `${avtale.id}` };
-    return hentAvtale(avtaleForGodkjentVersjon.id);
-};*/
+
 const hentAlleAvtaleVersjoner = async (avtaleId: string): Promise<Avtale[]> => {
     const response = await fetch(`${API_URL}/avtaler/${avtaleId}/versjoner`);
     await handleResponse(response);
@@ -241,7 +224,6 @@ const låsOppAvtale = async (avtaleId: string): Promise<void> => {
         method: 'POST',
     });
     await handleResponse(response);
-    //   return hentAvtale(avtaleId);
 };
 
 const restService: RestService = {
