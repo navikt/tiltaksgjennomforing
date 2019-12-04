@@ -1,7 +1,11 @@
-import { ArbeidstreningAvtale } from '@/types/avtale';
-import avtaleMock from './avtale-mock';
+import { ArbeidstreningAvtaleinnhold, Avtale } from '@/types/avtale';
+import arbeidstreningAvtaleMock from './arbeidstrening-avtale-mock';
 
-const avtaleListeMock: ArbeidstreningAvtale[] = [avtaleMock, avtaleMock, avtaleMock].map((avtale, index) => {
+const avtaleListeMock: Avtale<ArbeidstreningAvtaleinnhold>[] = [
+    arbeidstreningAvtaleMock,
+    arbeidstreningAvtaleMock,
+    arbeidstreningAvtaleMock,
+].map((avtale, index) => {
     return {
         ...avtale,
         id: `${index}`,

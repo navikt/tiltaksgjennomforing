@@ -3,18 +3,16 @@ import { FunctionComponent, useState } from 'react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import Datovelger from './Datovelger/Datovelger';
 import moment, { Moment } from 'moment';
-import { Normaltekst } from 'nav-frontend-typografi';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';
-import './VarighetSteg.less';
-import BEMHelper from '@/utils/bem';
 import { Varighet } from '@/types/avtale';
 import { medContext } from '@/AvtaleContext';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import { accurateHumanize } from '@/utils/datoUtils';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
     const [startDatoRiktigFormatert, setStartDatoRiktigFormatert] = useState<boolean>(true);
@@ -31,10 +29,8 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
     };
 
     const timerIUka = Number(((37.5 * props.avtale.stillingprosent) / 100).toFixed(2));
-
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
-    const cls = BEMHelper('arbeidstidsteg');
     const duration = moment(props.avtale.sluttDato).diff(props.avtale.startDato, 'days');
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
     return (
@@ -47,9 +43,8 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
                 </Row>
                 <Row className="">
                     <Column md="6">
-                        <Normaltekst>Startdato</Normaltekst>
+                        <label className="skjemaelement__label">Startdato</label>
                         <Datovelger
-                            className={cls.element('datovelger')}
                             velgDato={velgStartDato}
                             dato={moment(props.avtale.startDato)}
                             settRiktigFormatert={() => setStartDatoRiktigFormatert(true)}
@@ -57,9 +52,8 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
                         />
                     </Column>
                     <Column md="6">
-                        <Normaltekst>Sluttdato</Normaltekst>
+                        <label className="skjemaelement__label">Sluttdato</label>
                         <Datovelger
-                            className={cls.element('datovelger')}
                             velgDato={velgSluttDato}
                             dato={moment(props.avtale.sluttDato)}
                             settRiktigFormatert={() => setSluttDatoRiktigFormatert(true)}
@@ -67,19 +61,16 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
                         />
                     </Column>
                 </Row>
-
+                <VerticalSpacer sixteenPx={true} />
                 <StillingsprosentInput
                     label="Hvilken stillingsprosent skal deltakeren ha?"
                     verdi={props.avtale.stillingprosent}
                     settVerdi={verdi => props.settAvtaleVerdi('stillingprosent', verdi)}
                 />
+                <VerticalSpacer thirtyTwoPx={true} />
                 <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
-                <LagreKnapp
-                    className={cls.element('lagre-knapp')}
-                    label={'Lagre'}
-                    lagre={props.lagreAvtale}
-                    suksessmelding={'Avtale lagret'}
-                />
+                <VerticalSpacer thirtyTwoPx={true} />
+                <LagreKnapp label={'Lagre'} lagre={props.lagreAvtale} suksessmelding={'Avtale lagret'} />
             </Container>
         </Innholdsboks>
     );

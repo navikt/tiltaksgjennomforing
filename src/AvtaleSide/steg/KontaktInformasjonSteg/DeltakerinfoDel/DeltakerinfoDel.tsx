@@ -2,12 +2,12 @@ import { Input } from 'nav-frontend-skjema';
 import * as React from 'react';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { Deltakerinfo } from '@/types/avtale';
+import { Avtaleparter, Deltakerinfo } from '@/types/avtale';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
-const DeltakerinfoDel = (props: InputStegProps<Deltakerinfo>) => (
+const DeltakerinfoDel = (props: InputStegProps<Deltakerinfo & Avtaleparter>) => (
     <Container fluid={true}>
         <Row className="">
             <Column md="12">

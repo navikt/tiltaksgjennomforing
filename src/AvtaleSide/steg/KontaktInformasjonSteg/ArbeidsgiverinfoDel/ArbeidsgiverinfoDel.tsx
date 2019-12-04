@@ -2,13 +2,13 @@ import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import * as React from 'react';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { Arbeidsgiverinfo, Bedriftinfo } from '@/types/avtale';
+import { Arbeidsgiverinfo, Avtaleparter, Bedriftinfo } from '@/types/avtale';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
-const ArbeidsgiverinfoDel = (props: InputStegProps<Bedriftinfo & Arbeidsgiverinfo>) => (
+const ArbeidsgiverinfoDel = (props: InputStegProps<Avtaleparter & Bedriftinfo & Arbeidsgiverinfo>) => (
     <Container fluid={true}>
         <Row className="">
             <Column md="12">

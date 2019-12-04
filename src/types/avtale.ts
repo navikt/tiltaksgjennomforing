@@ -1,51 +1,28 @@
 import { Maalkategori } from './maalkategorier';
 import { Nettressurs } from '@/types/nettressurs';
 
-export type Avtale = MidlertidigLonnstilskuddAvtale & ArbeidstreningAvtale & VarigLonnstilskuddAvtale;
-
-export type MidlertidigLonnstilskuddAvtale = Arbeidsgiverinfo &
-    Avbrytelse &
+export type Avtale<T extends FellesAvtaleinnhold = AltAvtaleinnhold> = Avbrytelse &
     AvtaleMetadata &
+    Avtaleparter &
+    Versjonering<T> &
+    FellesAvtaleinnhold &
+    T;
+
+type FellesAvtaleinnhold = Arbeidsgiverinfo &
     Bedriftinfo &
-    Beregningsgrunnlag &
     Deltakerinfo &
     Godkjenninger &
-    Kontonummer &
-    MaalListe &
     Oppfolging &
-    Oppgaver &
     Stilling &
     Tilrettelegging &
     Varighet &
-    Veilederinfo & { godkjentPaVegneGrunn: GodkjentPaVegneGrunner };
+    Veilederinfo & { versjon: number };
 
-export type ArbeidstreningAvtale = Arbeidsgiverinfo &
-    Avbrytelse &
-    AvtaleMetadata &
-    Bedriftinfo &
-    Deltakerinfo &
-    Godkjenninger &
-    MaalListe &
-    Oppfolging &
-    Oppgaver &
-    Tilrettelegging &
-    Varighet &
-    Veilederinfo & { godkjentPaVegneGrunn: GodkjentPaVegneGrunner };
+export type ArbeidstreningAvtaleinnhold = FellesAvtaleinnhold & MaalListe & Oppgaver;
 
-export type VarigLonnstilskuddAvtale = Arbeidsgiverinfo &
-    Avbrytelse &
-    AvtaleMetadata &
-    Bedriftinfo &
-    Beregningsgrunnlag &
-    Deltakerinfo &
-    Godkjenninger &
-    MaalListe &
-    Oppfolging &
-    Oppgaver &
-    Stilling &
-    Tilrettelegging &
-    Varighet &
-    Veilederinfo & { godkjentPaVegneGrunn: GodkjentPaVegneGrunner };
+export type LonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer;
+
+export type AltAvtaleinnhold = ArbeidstreningAvtaleinnhold & LonnstilskuddAvtaleinnhold;
 
 export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD';
 
@@ -56,9 +33,14 @@ export interface AvtaleMetadata {
     tiltakstype: TiltaksType;
 }
 
+export interface Avtaleparter {
+    bedriftNr: string;
+    deltakerFnr: string;
+    veilederNavIdent: string;
+}
+
 export interface Bedriftinfo {
     bedriftNavn: string;
-    bedriftNr: string;
 }
 
 export interface Arbeidsgiverinfo {
@@ -70,11 +52,9 @@ export interface Arbeidsgiverinfo {
 export interface Deltakerinfo {
     deltakerFornavn: string;
     deltakerEtternavn: string;
-    deltakerFnr: string;
     deltakerTlf: string;
 }
 export interface Veilederinfo {
-    veilederNavIdent: string;
     veilederFornavn: string;
     veilederEtternavn: string;
     veilederTlf: string;
@@ -140,6 +120,7 @@ export interface Godkjenninger {
     godkjentAvVeileder: boolean;
     status: string;
     godkjentPaVegneAv: boolean;
+    godkjentPaVegneGrunn?: GodkjentPaVegneGrunner;
     erLaast: boolean;
 }
 
@@ -151,6 +132,12 @@ export interface GodkjentPaVegneGrunner {
     ikkeBankId: boolean;
     reservert: boolean;
     digitalKompetanse: boolean;
+}
+
+export interface Versjonering<T extends FellesAvtaleinnhold> {
+    versjon: number;
+    versjoner: T[];
+    kanLåsesOpp: boolean;
 }
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
