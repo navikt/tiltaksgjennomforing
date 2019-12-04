@@ -1,7 +1,7 @@
 import { LonnstilskuddAvtaleinnhold, Avtale } from '@/types/avtale';
 
 const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
-    id: '9565e74d-66f3-44a1-8a3c-91fae6b450d3',
+    id: '6565e74d-66f3-44a1-8a3c-91fae6b450d3',
     opprettetTidspunkt: '',
     sistEndret: '',
 
@@ -23,33 +23,33 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
         digitalKompetanse: false,
     },
 
-    oppfolging: 'Bruker og AG skal følges opp',
-    tilrettelegging: 'AG skal tilrettelegge',
+    oppfolging: 'Bruker og AG skal følges opp.',
+    tilrettelegging: 'AG skal tilrettelegge.',
 
-    startDato: 99,
-    sluttDato: 99,
+    startDato: 89,
+    sluttDato: 79,
     stillingprosent: 99,
 
     veilederNavIdent: 'Z123456',
-    veilederFornavn: 'Nav',
-    veilederEtternavn: 'Navesen',
+    veilederFornavn: 'Nave',
+    veilederEtternavn: 'Naversen',
     veilederTlf: '88888888',
 
-    bedriftNavn: 'Arbeid AS',
+    bedriftNavn: 'Arbeids AS',
     bedriftNr: '12345678',
 
-    deltakerFornavn: 'Deltaker',
-    deltakerEtternavn: 'Deltakersen',
+    deltakerFornavn: 'Deltakeren',
+    deltakerEtternavn: 'Deltakerensen',
     deltakerFnr: '00000000000',
-    deltakerTlf: '44444444',
+    deltakerTlf: '54444444',
 
-    arbeidsgiverFornavn: 'Arbeidsgiver',
-    arbeidsgiverEtternavn: 'Arbeidsgiversen',
-    arbeidsgiverTlf: '77777777',
+    arbeidsgiverFornavn: 'Arbeidsgivers',
+    arbeidsgiverEtternavn: 'Arbeidsgiverssen',
+    arbeidsgiverTlf: '87777777',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
 
-    arbeidsgiveravgift: 10,
-    feriepengesats: 10,
+    arbeidsgiveravgift: 20,
+    feriepengesats: 20,
     lonnstilskuddProsent: '60',
     manedslonn: 10000,
     arbeidsgiverKontonummer: '123',
