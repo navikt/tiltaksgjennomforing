@@ -138,7 +138,6 @@ export interface Versjonering<T extends FellesAvtaleinnhold> {
     versjon: number;
     versjoner: T[];
     kanLåsesOpp: boolean;
-    // kanLåsesOpp: boolean;
 }
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;

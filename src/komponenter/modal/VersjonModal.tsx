@@ -20,9 +20,7 @@ const VersjonModal: React.FunctionComponent<Props> = props => {
             isOpen={props.isOpen}
             onRequestClose={() => props.lukkModal()}
         >
-            <SkjemaTittel className="versjon__innholdstittel">
-                {'Versjon ' + (props.avtaleInnhold !== undefined && props.avtaleInnhold.versjon.toString())}
-            </SkjemaTittel>
+            <SkjemaTittel>Versjon {props.avtaleInnhold.versjon}</SkjemaTittel>
             <OppsummeringArbeidstrening avtaleinnhold={props.avtaleInnhold} />
         </Modal>
     );

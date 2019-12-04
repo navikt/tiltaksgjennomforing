@@ -2,14 +2,13 @@ import * as React from 'react';
 import { useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import { AltAvtaleinnhold, Avtale } from '@/types/avtale';
-import classNames from 'classnames';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import './TidligereVersjoner.less';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import moment from 'moment';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
 import { Element } from 'nav-frontend-typografi';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 const cls = BEMHelper('tidligereVersjoner');
 
@@ -19,46 +18,38 @@ const TidligereVersjoner: React.FunctionComponent<Avtale> = props => {
 
     const versjonLenker = props.versjoner
         .filter(andreVersjoner => andreVersjoner.versjon !== props.versjon)
+        .sort((a, b) => b.versjon - a.versjon)
         .map((avtaleVerjon: AltAvtaleinnhold) => {
             return (
-                <div key={avtaleVerjon.versjon}>
-                    <LenkepanelBase
-                        key={avtaleVerjon.versjon}
-                        href={'#'}
-                        onClick={() => {
-                            setCurrentVersjon(avtaleVerjon.versjon);
-                            setOpen(true);
-                        }}
-                        border={true}
-                    >
-                        <div
-                            className={classNames(cls.element('rad'), {
-                                uthevet: false,
-                            })}
-                        >
-                            <Element>Versjon {avtaleVerjon.versjon}</Element>
-                            <div className={cls.element('dato')}>
-                                {moment(avtaleVerjon.godkjentAvVeileder as moment.MomentInput).format('DD.MM.YYYY')}
-                            </div>
+                <LenkepanelBase
+                    key={avtaleVerjon.versjon}
+                    href={'#'}
+                    onClick={() => {
+                        setCurrentVersjon(avtaleVerjon.versjon);
+                        setOpen(true);
+                    }}
+                    border={true}
+                >
+                    <div className={cls.element('rad')}>
+                        <Element>Versjon {avtaleVerjon.versjon}</Element>
+                        <div className={cls.element('dato')}>
+                            {moment(avtaleVerjon.godkjentAvVeileder as moment.MomentInput).format('DD.MM.YYYY')}
                         </div>
-                    </LenkepanelBase>
+                    </div>
+                </LenkepanelBase>
+            );
+        });
+    return (
+        <>
+            {versjonLenker.length > 0 && (
+                <Innholdsboks>
+                    <SkjemaTittel>Tidligere versjoner</SkjemaTittel>
+                    <div>{versjonLenker}</div>
                     <VersjonModal
                         isOpen={isOpen}
                         lukkModal={() => setOpen(false)}
                         avtaleInnhold={props.versjoner[currentVersjon > 0 ? currentVersjon - 1 : 0]}
                     />
-                </div>
-            );
-        })
-        .reverse();
-    const avtaletabell = <div className="versjoner__liste">{versjonLenker}</div>;
-
-    return (
-        <>
-            {props.versjoner.length > 1 && (
-                <Innholdsboks>
-                    <Systemtittel>Tidligere versjoner</Systemtittel>
-                    {avtaletabell}
                 </Innholdsboks>
             )}
         </>

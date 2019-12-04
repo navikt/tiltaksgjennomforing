@@ -2,26 +2,12 @@
 
 .versjon {
     &__modal {
-        max-width: 80%;
-        padding: 4rem 1.5rem;
-    }
-
-    &__innholdstittel {
-        margin-top: -2rem !important;
-        margin-bottom: 2rem !important;
-    }
-}
-
-@media (min-width: @screen-sm-min) {
-    .versjon {
-        &__modal {
-            padding: 4rem 3rem;
-            width: 80% !important;
-            max-width: 80% !important;
-        }
-        &__innholdstittel {
-            margin-top: 1rem;
-            margin-bottom: 2rem !important;
+        width: 90%;
+        padding: 2rem 1.5rem 4rem 1.5rem;
+        @media (min-width: @screen-sm-min) {
+            padding: 2rem 3rem 4rem 3rem;
+            width: 80%;
+            max-width: unset;
         }
     }
 }
