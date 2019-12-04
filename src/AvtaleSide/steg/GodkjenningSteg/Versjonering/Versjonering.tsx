@@ -18,7 +18,7 @@ interface Props {
 const Versjonering: React.FunctionComponent<Props> = props => {
     const tidligereVersjoner = props.avtale.versjoner.length > 1 && (
         <>
-            <SkjemaUndertittel>Tidligere versjoner</SkjemaUndertittel>
+            <SkjemaUndertittel>Tidligere versjoner av avtalen</SkjemaUndertittel>
             <TidligereVersjoner {...props.avtale} />
         </>
     );
