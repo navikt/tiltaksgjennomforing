@@ -2,12 +2,9 @@
 
 .innloggingsside {
     align-items: center;
+    text-align: center;
     flex-direction: column;
     display: flex;
-
-    &__infotekst {
-        text-align: center;
-    }
 
     &__lenke {
         margin-top: 2rem;
@@ -21,10 +18,8 @@
     @media (min-width: @screen-sm-min) {
         // Desktop only
         &__loginKnapper {
-            display: flex;
-            justify-content: center;
             button {
-                margin: 0rem 0.5rem 0 0.5rem;
+                margin: 0rem 0.5rem;
             }
         }
     }
@@ -32,7 +27,6 @@
     @media (max-width: @screen-sm-min) {
         // Mobile only
         &__loginKnapper {
-            text-align: center;
             button {
                 margin: 0.5rem 0;
             }

@@ -5,6 +5,7 @@ import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import restService from '@/services/rest-service';
 import { AutentiseringError } from '@/types/errors';
+import BEMHelper from '@/utils/bem';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Ingress, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
@@ -13,6 +14,8 @@ import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
 import { Innloggingskilde } from './useInnlogget';
+
+const cls = BEMHelper('innloggingsside');
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
@@ -41,18 +44,18 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     return (
         <div className="wrapper">
             <Banner tekst="Tiltaksgjennomføring" />
-            <div className="innloggingsside">
+            <div className={cls.className}>
                 <MediaQuery minWidth={576}>
-                    <Koffert className="innloggingsside__koffertikon" />
+                    <Koffert className={cls.element('koffertikon')} />
                 </MediaQuery>
-                <div className="innloggingsside__tittel">
+                <div className={cls.element('tittel')}>
                     <Sidetittel>Dine tiltak på ett sted</Sidetittel>
                 </div>
-                <div className="innloggingsside__infotekst">
+                <div className={cls.element('infotekst')}>
                     <Ingress>
                         <p>Dette er en digital avtale som skal brukes av deltaker, arbeidsgiver og NAV.</p>
                         <p>For å se avtalene du er en del av må du først logge på.</p>
-                        <p className="innloggingsside__lenke">
+                        <p className={cls.element('lenke')}>
                             <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
                                 Her kan du lese mer om hvordan løsningen fungerer
                                 <HoyreChevron className="tilbaketiloversikt__chevron" />

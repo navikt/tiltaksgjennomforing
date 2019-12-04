@@ -20,14 +20,18 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
         return <Innloggingside innloggingskilder={innloggingskilder} />;
     } else if (innloggetBruker) {
         if (!sessionStorage.getItem(INNLOGGET_PART)) {
-            const innloggetPart = new URLSearchParams(props.location.search).get('part');
+            const urlParametere = new URLSearchParams(props.location.search);
+
+            const innloggetPart = urlParametere.get('part');
             if (innloggetPart && ['arbeidsgiver', 'deltaker', 'veileder'].includes(innloggetPart)) {
                 sessionStorage.setItem(INNLOGGET_PART, innloggetPart);
-                props.history.replace(props.location.pathname.replace(`?part=${innloggetPart}`, ''));
+                urlParametere.delete('part');
+                props.history.replace(props.location.pathname + '?' + urlParametere.toString());
             } else {
                 return <Innloggingside innloggingskilder={innloggingskilder} />;
             }
         }
+
         return (
             <>
                 <Innloggingslinje innloggetBruker={innloggetBruker} />
