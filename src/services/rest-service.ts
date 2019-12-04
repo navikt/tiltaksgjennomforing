@@ -34,7 +34,6 @@ export interface RestService {
     hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
     låsOppAvtale: (avtaleId: string) => Promise<void>;
-    hentAlleAvtaleVersjoner: (baseAvaleId: string) => Promise<Avtale[]>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -117,12 +116,6 @@ const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype
     await handleResponse(getResponse);
     const avtale: Avtale = await getResponse.json();
     return { ...avtale, id: `${avtale.id}` };
-};
-
-const hentAlleAvtaleVersjoner = async (avtaleId: string): Promise<Avtale[]> => {
-    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/versjoner`);
-    await handleResponse(response);
-    return response.json();
 };
 
 const hentRolle = async (avtaleId: string): Promise<Rolle> => {
@@ -244,7 +237,6 @@ const restService: RestService = {
     settVarselTilLest,
     hentFeatureToggles,
     hentAvtaleStatusDetaljer,
-    hentAlleAvtaleVersjoner: hentAlleAvtaleVersjoner,
     låsOppAvtale,
 };
 
