@@ -71,6 +71,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
 
                             <VerticalSpacer thirtyTwoPx={true} />
                             <Systemtittel>Hvordan får jeg tilgang?</Systemtittel>
+                            <VerticalSpacer sixteenPx={true} />
                             <Normaltekst tag="div">
                                 Hvis du er ute etter en avtale registrert på en annen bedrift enn de overnevnte må du i
                                 Altinn enten ha rollen
@@ -96,11 +97,11 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                     Du har ikke nødvendig tilgang på noen bedrifter. Tilgang til avtaler på din bedrift
                                     forutsetter at du har fått tildelt korrekt rolle eller rettighet i Altinn.
                                 </Ingress>
-
+                                <VerticalSpacer thirtyTwoPx={true} />
                                 <Normaltekst>
-                                    <VerticalSpacer twentyPx={true} />
-                                    <Systemtittel>Hvordan får jeg tilgang?</Systemtittel>For å få tilgang på avtaler til
-                                    din bedrift må du i Altinn enten ha rollen{' '}
+                                    <Systemtittel>Hvordan får jeg tilgang?</Systemtittel>
+                                    <VerticalSpacer sixteenPx={true} />
+                                    For å få tilgang på avtaler til din bedrift må du i Altinn enten ha rollen{' '}
                                     <ul>
                                         <li>Helse-, sosial- og velferdstjenester</li>
                                     </ul>{' '}
@@ -109,6 +110,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
 
                                 <div className={cls.element('rolleinfo')}>
                                     <Systemtittel>Hvem kan gi deg tilgang?</Systemtittel>
+                                    <VerticalSpacer sixteenPx={true} />
                                     <Normaltekst>
                                         Det er virksomheten din som må gi deg tilgang. Tilgang kan delegeres av personer
                                         som selv har tilgang, dersom de også har rollen Tilgangsstyring.
