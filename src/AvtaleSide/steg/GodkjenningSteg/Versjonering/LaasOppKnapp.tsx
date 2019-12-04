@@ -1,12 +1,7 @@
 import * as React from 'react';
-import { Avtale } from '@/types/avtale';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { Rolle } from '@/AvtaleContext';
 
 interface Props {
-    rolle: Rolle;
-    avtale: Avtale;
     laasOpp: () => Promise<any>;
 }
 
@@ -23,15 +18,9 @@ const LaasOppKnapp: React.FunctionComponent<Props> = props => {
     };
 
     return (
-        <>
-            {props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
-                <Innholdsboks>
-                    <LagreKnapp label={'Lås opp avtale'} lagre={låsOppAvtaleklikk}>
-                        Lås opp avtalen
-                    </LagreKnapp>
-                </Innholdsboks>
-            )}
-        </>
+        <LagreKnapp knapptype={'standard'} label={'Lås opp avtale'} lagre={låsOppAvtaleklikk}>
+            Lås opp avtalen
+        </LagreKnapp>
     );
 };
 export default LaasOppKnapp;
