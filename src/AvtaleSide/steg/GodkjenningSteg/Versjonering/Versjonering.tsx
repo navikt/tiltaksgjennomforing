@@ -16,26 +16,29 @@ interface Props {
 }
 
 const Versjonering: React.FunctionComponent<Props> = props => {
-    const tidligereVersjoner = (
+    const tidligereVersjoner = props.avtale.versjoner.length > 1 && (
         <>
             <SkjemaUndertittel>Tidligere versjoner</SkjemaUndertittel>
             <TidligereVersjoner {...props.avtale} />
         </>
     );
 
-    if (props.avtale.versjoner.length < 2) {
+    const behandleAvtale = props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
+        <>
+            <SkjemaTittel>Behandle avtale</SkjemaTittel>
+            <LaasOppKnapp laasOpp={props.laasOpp} />
+            <VerticalSpacer thirtyTwoPx={true} />
+        </>
+    );
+
+    if (!tidligereVersjoner && !behandleAvtale) {
         return null;
     }
+
     return (
         <MediaQuery print={false}>
             <Innholdsboks>
-                {props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
-                    <>
-                        <SkjemaTittel>Behandle avtale</SkjemaTittel>
-                        <LaasOppKnapp laasOpp={props.laasOpp} />
-                        <VerticalSpacer thirtyTwoPx={true} />
-                    </>
-                )}
+                {behandleAvtale}
                 {tidligereVersjoner}
             </Innholdsboks>
         </MediaQuery>
