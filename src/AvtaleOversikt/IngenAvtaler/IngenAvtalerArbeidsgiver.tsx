@@ -68,7 +68,6 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 </Ekspanderbartpanel>
                                 <VerticalSpacer twentyPx={true} />
                             </Normaltekst>
-
                             <VerticalSpacer thirtyTwoPx={true} />
                             <Systemtittel>Hvordan får jeg tilgang?</Systemtittel>
                             <VerticalSpacer sixteenPx={true} />
