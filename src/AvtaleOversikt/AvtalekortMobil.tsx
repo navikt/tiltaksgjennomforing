@@ -22,8 +22,8 @@ const AvtalekortMobil: FunctionComponent<{
         {avtaler.map((avtale: Avtale) => {
             const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
             return (
-                <a className={cls.element('a')} href={pathTilKontaktinformasjonSteg(avtale.id)}>
-                    <LenkepanelBase key={avtale.id} className="avtalekortMobil">
+                <a className={cls.element('lenke')} href={pathTilKontaktinformasjonSteg(avtale.id)}>
+                    <LenkepanelBase key={avtale.id} className={cls.className}>
                         {ulestVarsel && <span className={cls.element('ulest-varsel-ikon')} />}
                         <div>
                             <Undertittel>
