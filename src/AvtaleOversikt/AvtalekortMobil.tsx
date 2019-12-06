@@ -1,17 +1,16 @@
 import React, { FunctionComponent } from 'react';
-import './AvtalekortMobil.less';
-// import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Undertittel, Normaltekst, Systemtittel, Ingress } from 'nav-frontend-typografi';
+import { Undertittel, Normaltekst, Ingress } from 'nav-frontend-typografi';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
 import { pathTilKontaktinformasjonSteg } from '@/paths';
+import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import './AvtalekortMobil.less';
 import BEMHelper from '@/utils/bem';
 import { Avtale } from '@/types/avtale';
 import Varsel from '@/types/varsel';
-// import { Link } from 'react-router-dom';
-import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
 import moment from 'moment';
-import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+
 const cls = BEMHelper('avtalekortMobil');
 
 const AvtalekortMobil: FunctionComponent<{
@@ -32,7 +31,7 @@ const AvtalekortMobil: FunctionComponent<{
                                 {avtale.deltakerEtternavn || ''}
                             </Undertittel>
                             <VerticalSpacer eightPx={true}></VerticalSpacer>
-                            <Normaltekst>{avtale.bedriftNavn}</Normaltekst>
+                            <Ingress>{avtale.bedriftNavn}</Ingress>
                             <VerticalSpacer eightPx={true}></VerticalSpacer>
                             <Normaltekst>
                                 Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
