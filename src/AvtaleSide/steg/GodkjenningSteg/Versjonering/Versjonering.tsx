@@ -38,7 +38,7 @@ const Versjonering: React.FunctionComponent<Props> = props => {
     return (
         <MediaQuery print={false}>
             <Innholdsboks>
-                {behandleAvtale}
+                {/*{behandleAvtale}*/}
                 {tidligereVersjoner}
             </Innholdsboks>
         </MediaQuery>
