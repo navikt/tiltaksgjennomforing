@@ -36,7 +36,11 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
         <Innholdsboks className={cls.element('innholdsboks')}>
             <MediaQuery minWidth={576}>
                 <div className={cls.element('hovedIkon')}>
-                    <StatusIkon status={props.avtale.status} className={cls.element('hovedIkon__justerStorrelse')} />
+                    <StatusIkon
+                        rolle={props.rolle}
+                        status={props.avtale.status}
+                        className={cls.element('hovedIkon__justerStorrelse')}
+                    />
                 </div>
                 <Innholdstittel className={cls.element('header')}>{avtaleStatusDetaljer.header} </Innholdstittel>
             </MediaQuery>
@@ -47,6 +51,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                     </div>
                     <div>
                         <StatusIkon
+                            rolle={props.rolle}
                             status={props.avtale.status}
                             className={cls.element('hovedIkonMobil__justerStorrelse')}
                         />

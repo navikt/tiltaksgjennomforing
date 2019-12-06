@@ -43,7 +43,7 @@ const Versjonering: React.FunctionComponent<Props> = props => {
             {/*<Innholdsboks>
                 {behandleAvtale}
             </Innholdsboks>*/}
-                {tidligereVersjoner}
+            {tidligereVersjoner}
         </MediaQuery>
     );
 };
