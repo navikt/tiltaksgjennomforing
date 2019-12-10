@@ -20,6 +20,8 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import AvtalekortMobil from './AvtalekortMobil';
+import MediaQuery from 'react-responsive';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -124,11 +126,22 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                             </div>
                         )}
                         {avtalelisteRessurs.status === Status.Lastet && (
-                            <AvtaleTabell
-                                avtaler={avtalelisteRessurs.data}
-                                varsler={varsler}
-                                innloggetBruker={innloggetBruker}
-                            />
+                            <>
+                                <MediaQuery minWidth={700}>
+                                    <AvtaleTabell
+                                        avtaler={avtalelisteRessurs.data}
+                                        varsler={varsler}
+                                        innloggetBruker={innloggetBruker}
+                                    />
+                                </MediaQuery>
+                                <MediaQuery maxWidth={699}>
+                                    <AvtalekortMobil
+                                        avtaler={avtalelisteRessurs.data}
+                                        varsler={varsler}
+                                        innloggetBruker={innloggetBruker}
+                                    />
+                                </MediaQuery>
+                            </>
                         )}
                     </div>
                 )}
