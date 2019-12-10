@@ -15,6 +15,7 @@ const InfoBoks = (props: InfoBoksProps) => (
         <KalkulatorIkon className="#" />
         <div className="infoboks__tekst">
             <Element className="infoboks__dette-tilsvarer">Dette tilsvarer ca:</Element>
+            <VerticalSpacer eightPx={true} />
             <Normaltekst>
                 <span className="infoboks__bold">{props.timerIUka ? props.timerIUka : 0}</span>
                 &nbsp; timer eller &nbsp;
@@ -24,7 +25,7 @@ const InfoBoks = (props: InfoBoksProps) => (
             </Normaltekst>
             {props.varighet && (
                 <Normaltekst>
-                    <VerticalSpacer twentyPx={true} />
+                    <VerticalSpacer eightPx={true} />
                     Avtalen varer i {props.varighet}
                 </Normaltekst>
             )}

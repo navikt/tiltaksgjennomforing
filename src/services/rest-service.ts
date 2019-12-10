@@ -33,6 +33,7 @@ export interface RestService {
     settVarselTilLest: (varselId: string) => Promise<void>;
     hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
+    låsOppAvtale: (avtaleId: string) => Promise<void>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -211,6 +212,13 @@ const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureTog
     return await response.json();
 };
 
+const låsOppAvtale = async (avtaleId: string): Promise<void> => {
+    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/laas-opp`, {
+        method: 'POST',
+    });
+    await handleResponse(response);
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -229,6 +237,7 @@ const restService: RestService = {
     settVarselTilLest,
     hentFeatureToggles,
     hentAvtaleStatusDetaljer,
+    låsOppAvtale,
 };
 
 export default restService;

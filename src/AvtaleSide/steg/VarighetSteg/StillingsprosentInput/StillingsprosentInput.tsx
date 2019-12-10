@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Input } from 'nav-frontend-skjema';
-import './StillingsprosentInput.less';
 import useValidering from '@/komponenter/useValidering';
 
 interface Props {
