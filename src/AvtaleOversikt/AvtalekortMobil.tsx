@@ -2,7 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { Undertittel, Normaltekst, Ingress } from 'nav-frontend-typografi';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
-import { pathTilKontaktinformasjonSteg } from '@/paths';
+import { pathTilAvtale } from '@/paths';
+import { Link } from 'react-router-dom';
+// import { basename } from '@/paths';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import './AvtalekortMobil.less';
@@ -22,8 +24,13 @@ const AvtalekortMobil: FunctionComponent<{
         {avtaler.map((avtale: Avtale) => {
             const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
             return (
-                <a className={cls.element('lenke')} href={pathTilKontaktinformasjonSteg(avtale.id)}>
-                    <LenkepanelBase key={avtale.id} className={cls.className}>
+                <a className={cls.element('lenke')}>
+                    <LenkepanelBase
+                        key={avtale.id}
+                        className={cls.className}
+                        href={pathTilAvtale(avtale.id)}
+                        linkCreator={(props: any) => <Link to={props.href} {...props} />}
+                    >
                         {ulestVarsel && <span className={cls.element('ulest-varsel-ikon')} />}
                         <div>
                             <Undertittel>
