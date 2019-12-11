@@ -35,12 +35,14 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
             <Avtaleparter {...props.avtale} />
             {createElement(props.oppsummering, { avtaleinnhold: props.avtale })}
         </Innholdsboks>
-        <Godkjenning
-            avtale={props.avtale}
-            rolle={props.rolle}
-            endreGodkjenning={props.godkjenn}
-            godkjennPaVegne={props.godkjennPaVegne}
-        />
+        {!props.avtale.avbrutt && (
+            <Godkjenning
+                avtale={props.avtale}
+                rolle={props.rolle}
+                endreGodkjenning={props.godkjenn}
+                godkjennPaVegne={props.godkjennPaVegne}
+            />
+        )}
         <Versjonering laasOpp={props.laasOpp} avtale={props.avtale} rolle={props.rolle} />
     </>
 );
