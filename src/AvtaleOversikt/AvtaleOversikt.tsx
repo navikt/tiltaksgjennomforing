@@ -135,11 +135,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                                     />
                                 </MediaQuery>
                                 <MediaQuery maxWidth={699}>
-                                    <AvtalekortMobil
-                                        avtaler={avtalelisteRessurs.data}
-                                        varsler={varsler}
-                                        innloggetBruker={innloggetBruker}
-                                    />
+                                    <AvtalekortMobil avtaler={avtalelisteRessurs.data} varsler={varsler} />
                                 </MediaQuery>
                             </>
                         )}

@@ -17,8 +17,7 @@ const cls = BEMHelper('avtalekortMobil');
 const AvtalekortMobil: FunctionComponent<{
     avtaler: Avtale[];
     varsler: Varsel[];
-    innloggetBruker: InnloggetBruker;
-}> = ({ avtaler, varsler, innloggetBruker }) => (
+}> = ({ avtaler, varsler }) => (
     <>
         {avtaler.map((avtale: Avtale) => {
             const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
