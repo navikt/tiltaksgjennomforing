@@ -4,7 +4,6 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
 import { pathTilAvtale } from '@/paths';
 import { Link } from 'react-router-dom';
-// import { basename } from '@/paths';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import './AvtalekortMobil.less';
