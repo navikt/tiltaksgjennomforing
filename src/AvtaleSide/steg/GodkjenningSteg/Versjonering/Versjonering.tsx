@@ -17,13 +17,10 @@ interface Props {
 
 const Versjonering: React.FunctionComponent<Props> = props => {
     const tidligereVersjoner = props.avtale.versjoner.length > 1 && (
-        <Innholdsboks>
-            {' '}
-            <>
-                <SkjemaUndertittel>Tidligere versjoner av avtalen</SkjemaUndertittel>
-                <TidligereVersjoner {...props.avtale} />
-            </>
-        </Innholdsboks>
+        <>
+            <SkjemaUndertittel>Tidligere versjoner av avtalen</SkjemaUndertittel>
+            <TidligereVersjoner {...props.avtale} />
+        </>
     );
 
     const behandleAvtale = props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
@@ -40,10 +37,10 @@ const Versjonering: React.FunctionComponent<Props> = props => {
 
     return (
         <MediaQuery print={false}>
-            {/*<Innholdsboks>
+            <Innholdsboks>
                 {behandleAvtale}
-            </Innholdsboks>*/}
                 {tidligereVersjoner}
+            </Innholdsboks>
         </MediaQuery>
     );
 };
