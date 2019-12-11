@@ -4,7 +4,6 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
 import { pathTilAvtale } from '@/paths';
 import { Link } from 'react-router-dom';
-// import { basename } from '@/paths';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import './AvtalekortMobil.less';
@@ -24,7 +23,6 @@ const AvtalekortMobil: FunctionComponent<{
         {avtaler.map((avtale: Avtale) => {
             const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
             return (
-                // <a className={cls.element('lenke')}>
                 <LenkepanelBase
                     key={avtale.id}
                     className={cls.className}
@@ -48,7 +46,6 @@ const AvtalekortMobil: FunctionComponent<{
                         </div>
                     </div>
                 </LenkepanelBase>
-                // </a>
             );
         })}
     </>
