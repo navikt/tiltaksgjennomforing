@@ -24,33 +24,31 @@ const AvtalekortMobil: FunctionComponent<{
         {avtaler.map((avtale: Avtale) => {
             const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
             return (
-                <a className={cls.element('lenke')}>
-                    <LenkepanelBase
-                        key={avtale.id}
-                        className={cls.className}
-                        href={pathTilAvtale(avtale.id)}
-                        linkCreator={(props: any) => <Link to={props.href} {...props} />}
-                    >
-                        {ulestVarsel && <span className={cls.element('ulest-varsel-ikon')} />}
-                        <div>
-                            <Undertittel>
-                                {avtale.deltakerFornavn || ''}&nbsp;
-                                {avtale.deltakerEtternavn || ''}
-                            </Undertittel>
-                            <VerticalSpacer eightPx={true}></VerticalSpacer>
-                            <Ingress>{avtale.bedriftNavn}</Ingress>
-                            <VerticalSpacer eightPx={true}></VerticalSpacer>
-                            <Normaltekst>
-                                Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
-                            </Normaltekst>
-                            <div className={cls.element('status')}>
-                                <StatusIkon status={avtale.status} />
+                // <a className={cls.element('lenke')}>
+                <LenkepanelBase
+                    key={avtale.id}
+                    className={cls.className}
+                    href={pathTilAvtale(avtale.id)}
+                    linkCreator={(props: any) => <Link to={props.href} {...props} />}
+                >
+                    {ulestVarsel && <span className={cls.element('ulest-varsel-ikon')} />}
+                    <div>
+                        <Undertittel>
+                            {avtale.deltakerFornavn || ''}&nbsp;
+                            {avtale.deltakerEtternavn || ''}
+                        </Undertittel>
+                        <VerticalSpacer eightPx={true}></VerticalSpacer>
+                        <Ingress>{avtale.bedriftNavn}</Ingress>
+                        <VerticalSpacer eightPx={true}></VerticalSpacer>
+                        <Normaltekst>Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}</Normaltekst>
+                        <div className={cls.element('status')}>
+                            <StatusIkon status={avtale.status} />
 
-                                <div className={cls.element('statustekst')}>{avtale.status}</div>
-                            </div>
+                            <div className={cls.element('statustekst')}>{avtale.status}</div>
                         </div>
-                    </LenkepanelBase>
-                </a>
+                    </div>
+                </LenkepanelBase>
+                // </a>
             );
         })}
     </>
