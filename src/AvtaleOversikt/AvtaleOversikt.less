@@ -4,7 +4,7 @@
     flex-direction: column;
     margin: 0 auto;
     padding: 1rem;
-    max-width: @screen-md;
+    //max-width: @screen-md;
 
     &__eksterntLenkeikon {
         display: inline-block;
@@ -61,6 +61,7 @@
     &__informasjonsBanner {
         justify-content: center;
         margin-bottom: 3rem;
+        align-self: center;
     }
 
     .ulest-varsel-ikon {
@@ -120,10 +121,10 @@
     }
 
     &__spinner {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 20rem;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // height: 20rem;
     }
 
     &__sokeboks {
@@ -144,8 +145,27 @@
         margin-right: 1rem;
     }
 
-    &__innhold {
-        display: flex;
-        justify-content: space-between;
+    @media (min-width: @screen-md-max) {
+        &__innhold {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+    }
+
+    // &__innhold {
+    //     display: flex;
+    //     justify-content: center;
+    //     flex-wrap: wrap;
+    // }
+
+    // @media (max-width: 699px) {
+    //     &__avtaleliste {
+    //         flex: auto;
+    //     }
+    // }
+
+    &__avtaleliste {
+        margin: 1rem;
     }
 }

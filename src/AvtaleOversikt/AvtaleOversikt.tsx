@@ -14,7 +14,6 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Checkbox } from 'nav-frontend-skjema';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -22,6 +21,7 @@ import MediaQuery from 'react-responsive';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import AvtalekortMobil from './AvtalekortMobil';
 import './AvtaleOversikt.less';
+import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
 import SokEtterAvtaler from './SokEtterAvtaler/SokEtterAvtaler';
 
 const cls = BEMHelper('avtaleoversikt');
@@ -120,9 +120,9 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     </AlertStripe>
                 </div>
                 {opprettAvtaleKnapp}
-                {visAlleAvtalerCheckbox}
+                {/* {visAlleAvtalerCheckbox} */}
                 <div className={cls.element('innhold')}>
-                    <SokEtterAvtaler sokEtterAvtaler={sokEtterAvtaler} />
+                    {veilederNavIdent && <SokEtterAvtaler sokEtterAvtaler={sokEtterAvtaler} />}
                     {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
                         <div className={cls.element('natur-logo')}>
                             <Natur />
@@ -130,11 +130,9 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                             <Normaltekst>{tilbakemeldingHvisIngenAvtale}</Normaltekst>
                         </div>
                     ) : (
-                        <div className="avtaleoversikt__avtaleliste typo-normal">
+                        <div className={cls.element('avtaleliste')}>
                             {avtalelisteRessurs.status === Status.LasterInn && (
-                                <div className={cls.element('spinner')}>
-                                    <NavFrontendSpinner type={'XXL'} />
-                                </div>
+                                <AvtaleOversiktSkeleton erNavAnsatt={innloggetBruker.erNavAnsatt} />
                             )}
                             {avtalelisteRessurs.status === Status.Lastet && (
                                 <>

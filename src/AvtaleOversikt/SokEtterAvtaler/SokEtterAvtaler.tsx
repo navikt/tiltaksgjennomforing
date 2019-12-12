@@ -1,10 +1,9 @@
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import useValidering from '@/komponenter/useValidering';
 import { SokeTyper } from '@/services/rest-service';
-import { UfullstendigError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
+import classNames from 'classnames';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import { Fieldset, Input, Radio } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
@@ -23,9 +22,9 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
 
     const hvaErfeil = () => {
         if (valgtSokeType === 'deltakerFnr' && !validerFnr(sokeTerm)) {
-            return `Fødselsnummeret ${sokeTerm} er ikke gyldig`;
+            return `Ugyldig fødselsnummer`;
         } else if (valgtSokeType === 'bedriftNr' && !validerOrgnr(sokeTerm)) {
-            return `Bedriftsnummeret ${sokeTerm} er ikke gyldig`;
+            return `Ugyldig bedriftsnummer`;
         }
     };
 
@@ -35,7 +34,7 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
             const sok: SokeTyper = { [valgtSokeType]: sokeTerm };
             props.sokEtterAvtaler(sok);
         } else {
-            throw new UfullstendigError(hvaSomErFeilTekst);
+            setDeltakerFnrFeil({ feilmelding: hvaSomErFeilTekst });
         }
     };
 
@@ -60,7 +59,10 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
     ]);
 
     useEffect(() => {
-        if (!sokeTerm) props.sokEtterAvtaler({});
+        if (!sokeTerm) {
+            props.sokEtterAvtaler({});
+            setDeltakerFnrFeil(undefined);
+        }
     }, [sokeTerm]);
 
     const enterKlikk = (event: any) => {
@@ -76,7 +78,7 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
     };
 
     return (
-        <Innholdsboks className={cls.element('sokeboks')}>
+        <div className={classNames(cls.element('sokeboks'), 'innholdsboks')}>
             <Undertittel>Søk etter</Undertittel>
             <Fieldset legend="">
                 <Radio
@@ -108,7 +110,7 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
                     <Søkeknapp onClick={sokEtterAvtaler} />
                 </div>
             </div>
-        </Innholdsboks>
+        </div>
     );
 };
 
