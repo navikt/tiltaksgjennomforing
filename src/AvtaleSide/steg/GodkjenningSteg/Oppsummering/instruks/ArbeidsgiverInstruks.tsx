@@ -1,14 +1,14 @@
-import { ReactComponent as BehandlingPersonOpplysning } from '@/assets/ikoner/behandlingPersonOpplysning.svg';
-import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
-import { ReactComponent as RettighetsHammerIkon } from '@/assets/ikoner/lov.svg';
-import { ReactComponent as SkadeErstatning } from '@/assets/ikoner/skadeErstatning.svg';
-import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
-import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import BEMHelper from '@/utils/bem';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
+import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import EkstbanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkstbanderbartPanelRad';
+import { ReactComponent as RettighetsHammerIkon } from '@/assets/ikoner/law.svg';
+import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
+import { ReactComponent as SkadeErstatning } from '@/assets/ikoner/skadeErstatning.svg';
+import { ReactComponent as BehandlingPersonOpplysning } from '@/assets/ikoner/behandlingPersonOpplysning.svg';
+import BEMHelper from '@/utils/bem';
 
 const cls = BEMHelper('instruks');
 interface Props {
