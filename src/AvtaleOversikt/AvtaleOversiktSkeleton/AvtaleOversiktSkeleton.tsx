@@ -6,7 +6,7 @@ import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
 import './AvtaleOversiktSkeleton.less';
 
-const cls = BEMHelper('avtaleoversiktskeleton');
+const cls = BEMHelper('avtaleoversikt');
 
 type Props = {
     erNavAnsatt: boolean;
@@ -14,7 +14,7 @@ type Props = {
 
 const AvtaleOversiktSkeleton: FunctionComponent<Props> = props => {
     return (
-        <div className={cls.element('spinnerlol')}>
+        <div>
             <MediaQuery minWidth={940}>
                 <div className={classNames(cls.element('header'), cls.element('rad'))}>
                     <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
@@ -26,14 +26,14 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = props => {
                     <div className={cls.element('status')}>Status</div>
                     <div className={cls.element('statusikon')}>&nbsp;</div>
                 </div>
-                <div className={cls.element('skeletonrader')}>
+                <div className="avtaleoversiktskeleton__skeletonrader">
                     <Skeleton width={816} height={68} />
                     <Skeleton width={816} height={68} />
                     <Skeleton width={816} height={68} />
                 </div>
             </MediaQuery>
             <MediaQuery maxWidth={939}>
-                <div className={cls.element('spinner')}>
+                <div className="avtaleoversiktskeleton__spinner">
                     <NavFrontendSpinner type={'XXL'} />
                 </div>
             </MediaQuery>
