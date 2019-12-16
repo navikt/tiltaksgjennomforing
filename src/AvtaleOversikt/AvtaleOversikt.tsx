@@ -115,7 +115,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
                 <div className={cls.element('innhold')}>
                     {innloggetBruker.erNavAnsatt && <SokEtterAvtaler sokEtterAvtaler={sokEtterAvtaler} />}
-                    <div className={cls.element('avtaleliste2')}>
+                    <div className={cls.element('avtalelistecontainer')}>
                         {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
                             tilbakemeldingHvisIngenAvtale
                         ) : (
