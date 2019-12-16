@@ -6,15 +6,10 @@ import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
+import { SokeTyper } from '@/types/SokeTyper';
 import Varsel from '@/types/varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
-
-export type SokeTyper = {
-    veilederNavIdent?: string;
-    bedriftNr?: string;
-    deltakerFnr?: string;
-};
 
 const featureTogglePath = (features: Feature[]): string => {
     const query = features.map(feature => `feature=${feature}`).join('&');
@@ -67,21 +62,8 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     return { ...avtale, id: `${avtale.id}` };
 };
 
-const lagHentAvtalerQueryParam = (identifikasjon: SokeTyper) => {
-    if (identifikasjon.veilederNavIdent) {
-        return new URLSearchParams({ veilederNavIdent: identifikasjon.veilederNavIdent }).toString();
-    } else if (identifikasjon.bedriftNr) {
-        return new URLSearchParams({ bedriftNr: identifikasjon.bedriftNr }).toString();
-    } else if (identifikasjon.deltakerFnr) {
-        return new URLSearchParams({ deltakerFnr: identifikasjon.deltakerFnr }).toString();
-    } else {
-        return '';
-    }
-};
-
 const hentAvtalerForInnloggetBruker = async (identifikasjon: SokeTyper): Promise<Avtale[]> => {
-    const queryParam = lagHentAvtalerQueryParam(identifikasjon);
-    // const veilederQueryParam = veilederNavIdent ? 'veilederNavIdent=' + veilederNavIdent : '';
+    const queryParam = new URLSearchParams(identifikasjon as {});
     const response = await fetchGet(`${API_URL}/avtaler?${queryParam}`);
     await handleResponse(response);
     return await response.json();

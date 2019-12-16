@@ -27,9 +27,9 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = props => {
                     <div className={cls.element('statusikon')}>&nbsp;</div>
                 </div>
                 <div className={cls.element('skeletonrader')}>
-                    <Skeleton width={900} height={68} />
-                    <Skeleton width={900} height={68} />
-                    <Skeleton width={900} height={68} />
+                    <Skeleton width={816} height={68} />
+                    <Skeleton width={816} height={68} />
+                    <Skeleton width={816} height={68} />
                 </div>
             </MediaQuery>
             <MediaQuery maxWidth={939}>

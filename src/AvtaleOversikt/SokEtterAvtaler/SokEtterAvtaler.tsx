@@ -1,5 +1,5 @@
 import useValidering from '@/komponenter/useValidering';
-import { SokeTyper } from '@/services/rest-service';
+import { Søk, Søketyper } from '@/types/SokeTyper';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
@@ -11,16 +11,17 @@ import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'reac
 import './SokEtterAvtaler.less';
 
 type Props = {
-    sokEtterAvtaler: (sok: SokeTyper) => void;
+    sokEtterAvtaler: (sok: Søk) => void;
 };
 
 const cls = BEMHelper('soketteravtaler');
 
 const SokEtterAvtaler: FunctionComponent<Props> = props => {
     const [valgtSokeType, setValgtSokeType] = useState('deltakerFnr');
-    const [sokeTerm, settSokeTerm] = useState<string>('');
+    const [sokeTerm, settSokeTerm] = useState();
 
     const hvaErfeil = () => {
+        if (!sokeTerm) return '';
         if (valgtSokeType === 'deltakerFnr' && !validerFnr(sokeTerm)) {
             return `Ugyldig fødselsnummer`;
         } else if (valgtSokeType === 'bedriftNr' && !validerOrgnr(sokeTerm)) {
@@ -31,7 +32,14 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
     const sokEtterAvtaler = () => {
         const hvaSomErFeilTekst = hvaErfeil();
         if (!hvaSomErFeilTekst) {
-            const sok: SokeTyper = { [valgtSokeType]: sokeTerm };
+            let sok: Søk = { søketype: Søketyper.TomtSøk };
+            if (!sokeTerm) {
+                sok = { søketype: Søketyper.TomtSøk };
+            } else if (valgtSokeType === 'deltakerFnr') {
+                sok = { søketype: Søketyper.DeltakerSøk, deltakerFnr: sokeTerm };
+            } else if (valgtSokeType === 'bedriftNr') {
+                sok = { søketype: Søketyper.BedriftSøk, bedriftNr: sokeTerm };
+            }
             props.sokEtterAvtaler(sok);
         } else {
             setDeltakerFnrFeil({ feilmelding: hvaSomErFeilTekst });
@@ -59,8 +67,8 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
     ]);
 
     useEffect(() => {
-        if (!sokeTerm) {
-            props.sokEtterAvtaler({});
+        if (sokeTerm === '') {
+            props.sokEtterAvtaler({ søketype: Søketyper.TomtSøk });
             setDeltakerFnrFeil(undefined);
         }
     }, [sokeTerm]);
