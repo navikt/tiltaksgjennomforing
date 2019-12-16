@@ -29,7 +29,7 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
         }
     };
 
-    const sokEtterAvtaler = () => {
+    const sokEtterAvtalerKlikk = () => {
         const hvaSomErFeilTekst = hvaErfeil();
         if (!hvaSomErFeilTekst) {
             let sok: Søk = { søketype: Søketyper.TomtSøk };
@@ -66,17 +66,19 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
         },
     ]);
 
+    const { sokEtterAvtaler } = props;
+
     useEffect(() => {
         if (sokeTerm === '') {
-            props.sokEtterAvtaler({ søketype: Søketyper.TomtSøk });
+            sokEtterAvtaler({ søketype: Søketyper.TomtSøk });
             setDeltakerFnrFeil(undefined);
         }
-    }, [sokeTerm]);
+    }, [sokeTerm, setDeltakerFnrFeil, sokEtterAvtaler]);
 
     const enterKlikk = (event: any) => {
         if (event.key === 'Enter') {
             settSokeTerm(event.currentTarget.value);
-            sokEtterAvtaler();
+            sokEtterAvtalerKlikk();
         }
     };
 
@@ -115,7 +117,8 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
                     placeholder={valgtSokeType === 'deltakerFnr' ? 'Fødselsnummer' : 'Bedriftsnummer'}
                 />
                 <div className={cls.element('sokeknapp')}>
-                    <Søkeknapp onClick={sokEtterAvtaler} />
+                    {/* eslint-disable-next-line */}
+                    <Søkeknapp onClick={sokEtterAvtalerKlikk} />
                 </div>
             </div>
         </div>
