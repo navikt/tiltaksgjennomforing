@@ -60,11 +60,11 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
             }
             props.sokEtterAvtaler(sok);
         } else {
-            setDeltakerFnrFeil({ feilmelding: hvaSomErFeilTekst });
+            setSokeFeltFeil({ feilmelding: hvaSomErFeilTekst });
         }
     };
 
-    const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(sokeTerm, [
+    const [sokeFeltFeil, setSokeFeltFeil, validerSokeFelt] = useValidering(sokeTerm, [
         verdi => {
             if (verdi) {
                 if (valgtSokeType === 'deltakerFnr') {
@@ -89,9 +89,13 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
     useEffect(() => {
         if (sokeTerm === '') {
             sokEtterAvtaler({ søketype: Søketyper.TomtSøk });
-            setDeltakerFnrFeil(undefined);
+            setSokeFeltFeil(undefined);
         }
-    }, [sokeTerm, setDeltakerFnrFeil, sokEtterAvtaler]);
+    }, [sokeTerm, setSokeFeltFeil, sokEtterAvtaler]);
+
+    useEffect(() => {
+        setSokeFeltFeil(undefined);
+    }, [valgtSokeType, setSokeFeltFeil]);
 
     const enterKlikk = (event: any) => {
         if (event.key === 'Enter') {
@@ -104,6 +108,7 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
         const inputValNumeric = event.currentTarget.value.replace(/\D/g, '');
         if (inputValNumeric.length <= 11) {
             settSokeTerm(inputValNumeric);
+            setSokeFeltFeil(undefined);
         }
     };
 
@@ -128,12 +133,12 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
             <div className={cls.element('sokelinje')}>
                 <Input
                     label=""
-                    onBlur={validerDeltakerFnr}
+                    onBlur={validerSokeFelt}
                     onKeyPress={enterKlikk}
                     onChange={inputOnChange}
                     value={sokeTerm}
                     className={cls.element('sokefelt')}
-                    feil={deltakerFnrFeil}
+                    feil={sokeFeltFeil}
                     placeholder={valgtSokeType === 'deltakerFnr' ? 'Fødselsnummer' : 'Bedriftsnummer'}
                 />
                 <div className={cls.element('sokeknapp')}>
