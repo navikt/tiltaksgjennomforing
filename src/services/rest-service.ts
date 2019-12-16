@@ -6,7 +6,7 @@ import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
-import { SokeTyper } from '@/types/SokeTyper';
+import { SokeTyper } from '@/types/soke-typer';
 import Varsel from '@/types/varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';

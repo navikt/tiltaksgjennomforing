@@ -1,5 +1,5 @@
+import { Søk, Søketyper } from '@/AvtaleOversikt/SokEtterAvtaler/SokEtterAvtaler';
 import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
-import { Søk, Søketyper } from '@/types/SokeTyper';
 
 const lagQueryParams = (innloggetBruker: InnloggetBruker, sok: Søk) => {
     if (sok.søketype === Søketyper.DeltakerSøk) {

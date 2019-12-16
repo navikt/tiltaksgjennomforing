@@ -1,5 +1,4 @@
 import useValidering from '@/komponenter/useValidering';
-import { Søk, Søketyper } from '@/types/SokeTyper';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
@@ -13,6 +12,25 @@ import './SokEtterAvtaler.less';
 type Props = {
     sokEtterAvtaler: (sok: Søk) => void;
 };
+
+// Søketyper
+export enum Søketyper {
+    'TomtSøk',
+    'DeltakerSøk',
+    'BedriftSøk',
+}
+export type TomtSøk = {
+    søketype: Søketyper.TomtSøk;
+};
+export type DeltakerSøk = {
+    deltakerFnr: string;
+    søketype: Søketyper.DeltakerSøk;
+};
+export type BedriftSøk = {
+    bedriftNr: string;
+    søketype: Søketyper.BedriftSøk;
+};
+export type Søk = TomtSøk | DeltakerSøk | BedriftSøk;
 
 const cls = BEMHelper('soketteravtaler');
 

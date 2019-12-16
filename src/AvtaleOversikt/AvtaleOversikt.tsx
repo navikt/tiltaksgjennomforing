@@ -8,7 +8,7 @@ import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths'
 import RestService from '@/services/rest-service';
 import { AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
-import { SokeTyper, Søk } from '@/types/SokeTyper';
+import { SokeTyper } from '@/types/soke-typer';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { lagQueryParams } from '@/utils/queryParamUtils';
@@ -24,7 +24,7 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import AvtalekortMobil from './AvtalekortMobil';
 import './AvtaleOversikt.less';
 import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
-import SokEtterAvtaler from './SokEtterAvtaler/SokEtterAvtaler';
+import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
