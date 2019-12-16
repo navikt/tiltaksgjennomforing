@@ -1,12 +1,14 @@
-import * as React from 'react';
-import { Avtale } from '@/types/avtale';
 import { Rolle } from '@/AvtaleContext';
-import TidligereVersjoner from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/TidligereVersjoner';
 import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import TidligereVersjoner from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/TidligereVersjoner';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Avtale } from '@/types/avtale';
+import * as React from 'react';
+import { useContext } from 'react';
 import MediaQuery from 'react-responsive';
 
 interface Props {
@@ -16,6 +18,9 @@ interface Props {
 }
 
 const Versjonering: React.FunctionComponent<Props> = props => {
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const laasOppKnappFeature = featureToggleContext[Feature.Lonnstilskudd];
+
     const tidligereVersjoner = props.avtale.versjoner.length > 1 && (
         <>
             <SkjemaUndertittel>Tidligere versjoner av avtalen</SkjemaUndertittel>
@@ -23,7 +28,7 @@ const Versjonering: React.FunctionComponent<Props> = props => {
         </>
     );
 
-    const behandleAvtale = props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
+    const behandleAvtale = props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && laasOppKnappFeature && (
         <>
             <SkjemaTittel>Behandle avtale</SkjemaTittel>
             <LaasOppKnapp laasOpp={props.laasOpp} />
