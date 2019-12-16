@@ -102,7 +102,9 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
 
     const inputOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         const inputValNumeric = event.currentTarget.value.replace(/\D/g, '');
-        settSokeTerm(inputValNumeric);
+        if (inputValNumeric.length <= 11) {
+            settSokeTerm(inputValNumeric);
+        }
     };
 
     return (
