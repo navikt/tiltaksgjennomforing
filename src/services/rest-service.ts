@@ -38,7 +38,7 @@ export interface RestService {
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
-    return fetch(url, { headers: { Pragma: 'no-cache' } });
+    return fetch(url, { headers: { Pragma: 'no-cache' }, credentials: 'same-origin' });
 };
 
 const handleResponse = async (response: Response) => {
