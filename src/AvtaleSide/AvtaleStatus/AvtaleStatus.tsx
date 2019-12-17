@@ -62,7 +62,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 <p>
                     {' '}
                     {props.avtale.godkjentAvVeileder
-                        ? 'Avtalen er godkjent av alle parter og låst.' + avtaleStatusDetaljer.infoDel1
+                        ? 'Avtalen er godkjent av alle parter og låst. ' + avtaleStatusDetaljer.infoDel1
                         : avtaleStatusDetaljer.infoDel1}
                 </p>
                 <p>{avtaleStatusDetaljer.infoDel2}</p>
