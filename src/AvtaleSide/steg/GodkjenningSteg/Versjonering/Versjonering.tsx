@@ -19,7 +19,7 @@ interface Props {
 
 const Versjonering: React.FunctionComponent<Props> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
-    const laasOppKnappFeature = featureToggleContext[Feature.Lonnstilskudd];
+    const laasOppKnappFeature = featureToggleContext[Feature.LaasOppKnapp];
 
     const tidligereVersjoner = props.avtale.versjoner.length > 1 && (
         <>
