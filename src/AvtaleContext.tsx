@@ -7,6 +7,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import RestService from './services/rest-service';
 import amplitude from '@/utils/amplitude';
+import { Maalkategori } from '@/types/maalkategorier';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -67,7 +68,7 @@ export const tomAvtale: Avtale = {
 };
 
 export interface TemporaryLagring {
-    maal: string;
+    maal?: Maalkategori;
     maalTekst: string;
 }
 
@@ -78,7 +79,7 @@ export interface TemporaryLagringArbeidsoppgave {
 }
 
 const tomTemporaryLagring: TemporaryLagring = {
-    maal: '',
+    maal: undefined,
     maalTekst: '',
 };
 

@@ -4,13 +4,13 @@ const maalListe: Maal[] = [
     {
         id: 'c9697a6f-f3fe-4436-a9d9-959ab6e5bcbe',
         opprettetTimestamp: 1353253214,
-        kategori: 'Arbeidserfaring',
+        kategori: 'ARBEIDSERFARING',
         beskrivelse: 'Trenger arbeidserfaring',
     },
     {
         id: '26cfdb72-1efd-11e9-ab14-d663bd873d93',
         opprettetTimestamp: 1353253214,
-        kategori: 'Annet',
+        kategori: 'ANNET',
         beskrivelse: 'Hadde vært fint med noe annet også',
     },
 ];

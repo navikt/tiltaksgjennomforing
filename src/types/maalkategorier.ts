@@ -1,16 +1,16 @@
 export type Maalkategori =
-    | 'Få jobb i bedriften'
-    | 'Arbeidserfaring'
-    | 'Utprøving'
-    | 'Språkopplæring'
-    | 'Oppnå fagbrev/kompetansebevis'
-    | 'Annet';
+    | 'FÅ_JOBB_I_BEDRIFTEN'
+    | 'ARBEIDSERFARING'
+    | 'UTPRØVING'
+    | 'SPRÅKOPPLÆRING'
+    | 'OPPNÅ_FAGBREV_KOMPETANSEBEVIS'
+    | 'ANNET';
 
 export const maalkategorier: Maalkategori[] = [
-    'Få jobb i bedriften',
-    'Arbeidserfaring',
-    'Utprøving',
-    'Språkopplæring',
-    'Oppnå fagbrev/kompetansebevis',
-    'Annet',
+    'FÅ_JOBB_I_BEDRIFTEN',
+    'ARBEIDSERFARING',
+    'UTPRØVING',
+    'SPRÅKOPPLÆRING',
+    'OPPNÅ_FAGBREV_KOMPETANSEBEVIS',
+    'ANNET',
 ];
