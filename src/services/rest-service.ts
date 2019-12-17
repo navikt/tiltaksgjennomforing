@@ -4,9 +4,10 @@ import { InnloggetBruker, Innloggingskilde } from '@/InnloggingBoundary/useInnlo
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
-import { ApiError, AutentiseringError } from '@/types/errors';
-import Varsel from '@/types/varsel';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
+import { ApiError, AutentiseringError } from '@/types/errors';
+import { SokeTyper } from '@/types/soke-typer';
+import Varsel from '@/types/varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -17,7 +18,7 @@ const featureTogglePath = (features: Feature[]): string => {
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
-    hentAvtalerForInnloggetBruker: (veilederNavIdent?: string) => Promise<Avtale[]>;
+    hentAvtalerForInnloggetBruker: (identifikasjon: SokeTyper) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
@@ -61,9 +62,9 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     return { ...avtale, id: `${avtale.id}` };
 };
 
-const hentAvtalerForInnloggetBruker = async (veilederNavIdent?: string): Promise<Avtale[]> => {
-    const veilederQueryParam = veilederNavIdent ? 'veilederNavIdent=' + veilederNavIdent : '';
-    const response = await fetchGet(`${API_URL}/avtaler?${veilederQueryParam}`);
+const hentAvtalerForInnloggetBruker = async (identifikasjon: SokeTyper): Promise<Avtale[]> => {
+    const queryParam = new URLSearchParams(identifikasjon as {});
+    const response = await fetchGet(`${API_URL}/avtaler?${queryParam}`);
     await handleResponse(response);
     return await response.json();
 };

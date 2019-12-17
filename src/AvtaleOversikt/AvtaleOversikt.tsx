@@ -1,39 +1,42 @@
+import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import Banner from '@/komponenter/Banner/Banner';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
+import RestService from '@/services/rest-service';
+import { AvtalelisteRessurs } from '@/types/avtale';
+import { Status } from '@/types/nettressurs';
+import { SokeTyper } from '@/types/soke-typer';
+import Varsel from '@/types/varsel';
+import BEMHelper from '@/utils/bem';
+import { lagQueryParams } from '@/utils/queryParamUtils';
+import classNames from 'classnames';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import MediaQuery from 'react-responsive';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import Banner from '@/komponenter/Banner/Banner';
-import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
-import RestService from '@/services/rest-service';
-import BEMHelper from '@/utils/bem';
-import Varsel from '@/types/varsel';
-import { AvtalelisteRessurs } from '@/types/avtale';
+import AvtalekortMobil from './AvtalekortMobil';
 import './AvtaleOversikt.less';
-import { ReactComponent as Natur } from '@/assets/ikoner/natur.svg';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { Checkbox } from 'nav-frontend-skjema';
-import { Status } from '@/types/nettressurs';
-import NavFrontendSpinner from 'nav-frontend-spinner';
-import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-
+import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
+import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<AvtalelisteRessurs>({
         status: Status.IkkeLastet,
     });
-    const [visAlleAvtaler, setVisAlleAvtaler] = useState<boolean>(false);
+
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
-    const featureToggles = useContext(FeatureToggleContext);
-
-    const veilederNavIdent = innloggetBruker.erNavAnsatt ? innloggetBruker.identifikator : undefined;
+    const defaultSøkeType = innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {};
+    const [queryParams, setQueryParams] = useState<SokeTyper>(defaultSøkeType);
 
     useEffect(() => {
         RestService.hentUlesteVarsler()
@@ -43,10 +46,15 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
     useEffect(() => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
-        RestService.hentAvtalerForInnloggetBruker(visAlleAvtaler ? undefined : veilederNavIdent)
+        RestService.hentAvtalerForInnloggetBruker(queryParams)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
             .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error }));
-    }, [veilederNavIdent, visAlleAvtaler]);
+    }, [queryParams]);
+
+    const sokEtterAvtaler = (sok: Søk) => {
+        setAvtalelisteRessurs({ status: Status.LasterInn });
+        setQueryParams(lagQueryParams(innloggetBruker, sok));
+    };
 
     const opprettAvtaleKnapp = innloggetBruker.erNavAnsatt && (
         <div className={cls.element('opprett-avtale')}>
@@ -54,20 +62,15 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 
-    const visAlleAvtalerCheckbox = featureToggles[Feature.Kontortilgang] && innloggetBruker.erNavAnsatt && (
-        <Checkbox
-            label={'Vis alle avtaler du har tilgang til'}
-            checked={visAlleAvtaler}
-            onChange={event => setVisAlleAvtaler(event.currentTarget.checked)}
-        />
-    );
-
     const tilbakemeldingHvisIngenAvtale = innloggetBruker.erNavAnsatt ? (
-        <div className={cls.element('ingen-avtaler-tekst-NAV')}>
-            <Normaltekst>Du har ikke {visAlleAvtaler ? 'tilgang til' : 'opprettet'} noen avtaler</Normaltekst>
+        <div className={classNames(cls.element('ingenavtalerveileder'), 'innholdsboks')}>
+            <InfoIkon />
+            <VerticalSpacer sixteenPx={true} />
+            <Undertittel>Finner ingen avtaler</Undertittel>
         </div>
     ) : (
         <div className={cls.element('ingen-avtaler-tekst')}>
+            <Undertittel className={cls.element('ingen-avtaler-header')}>Ingen avtaler</Undertittel>
             <p>
                 <Element>Hvis du er deltaker:</Element>
                 <Normaltekst>
@@ -109,29 +112,35 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     </AlertStripe>
                 </div>
                 {opprettAvtaleKnapp}
-                {visAlleAvtalerCheckbox}
-                {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
-                    <div className={cls.element('natur-logo')}>
-                        <Natur />
-                        <Undertittel className={cls.element('ingen-avtaler-header')}>Ingen avtaler</Undertittel>
-                        <Normaltekst>{tilbakemeldingHvisIngenAvtale}</Normaltekst>
-                    </div>
-                ) : (
-                    <div className="avtaleoversikt__avtaleliste typo-normal">
-                        {avtalelisteRessurs.status === Status.LasterInn && (
-                            <div className={cls.element('spinner')}>
-                                <NavFrontendSpinner type={'XXL'} />
+
+                <div className={cls.element('innhold')}>
+                    {innloggetBruker.erNavAnsatt && <SokEtterAvtaler sokEtterAvtaler={sokEtterAvtaler} />}
+                    <div className={cls.element('avtalelistecontainer')}>
+                        {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
+                            tilbakemeldingHvisIngenAvtale
+                        ) : (
+                            <div className={cls.element('avtaleliste')}>
+                                {avtalelisteRessurs.status === Status.LasterInn && (
+                                    <AvtaleOversiktSkeleton erNavAnsatt={innloggetBruker.erNavAnsatt} />
+                                )}
+                                {avtalelisteRessurs.status === Status.Lastet && (
+                                    <>
+                                        <MediaQuery minWidth={700}>
+                                            <AvtaleTabell
+                                                avtaler={avtalelisteRessurs.data}
+                                                varsler={varsler}
+                                                innloggetBruker={innloggetBruker}
+                                            />
+                                        </MediaQuery>
+                                        <MediaQuery maxWidth={699}>
+                                            <AvtalekortMobil avtaler={avtalelisteRessurs.data} varsler={varsler} />
+                                        </MediaQuery>
+                                    </>
+                                )}
                             </div>
                         )}
-                        {avtalelisteRessurs.status === Status.Lastet && (
-                            <AvtaleTabell
-                                avtaler={avtalelisteRessurs.data}
-                                varsler={varsler}
-                                innloggetBruker={innloggetBruker}
-                            />
-                        )}
                     </div>
-                )}
+                </div>
             </div>
         </>
     );
