@@ -8,14 +8,21 @@ import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
 import { ReactComponent as GjennomforesIkon } from '@/assets/ikoner/gjennomfores.svg';
 import { Rolle } from '@/AvtaleContext';
 
-const StatusIkon: FunctionComponent<{ status: string; rolle?: Rolle } & React.SVGProps<SVGSVGElement>> = props => {
+const StatusIkon: FunctionComponent<{
+    status: string;
+    rolle?: Rolle;
+    godkjentAvInnloggetBruker?: boolean;
+} & React.SVGProps<SVGSVGElement>> = props => {
     switch (props.status) {
         case 'Påbegynt':
             return <PabegyntIkon {...props} />;
         case 'Klar for oppstart':
             return <CheckIkon {...props} />;
         case 'Mangler godkjenning':
-            if (props.rolle !== undefined && props.rolle === 'VEILEDER') {
+            if (
+                (props.rolle !== undefined && props.rolle === 'VEILEDER') ||
+                (props.godkjentAvInnloggetBruker !== undefined && props.godkjentAvInnloggetBruker)
+            ) {
                 return <PabegyntIkon {...props} />;
             } else {
                 return <ProblemIkon {...props} />;

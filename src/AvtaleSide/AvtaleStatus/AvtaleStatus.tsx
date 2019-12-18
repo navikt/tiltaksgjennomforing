@@ -39,6 +39,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                     <StatusIkon
                         rolle={props.rolle}
                         status={props.avtale.status}
+                        godkjentAvInnloggetBruker={avtaleStatusDetaljer.godkjentAvInnloggetBruker}
                         className={cls.element('hovedIkon__justerStorrelse')}
                     />
                 </div>
