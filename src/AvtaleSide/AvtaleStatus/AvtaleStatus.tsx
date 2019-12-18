@@ -69,16 +69,16 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
             </Normaltekst>
             <div className={cls.element('andreParter')}>
                 <div className={cls.element('andreParter__begge')}>
-                    {avtaleStatusDetaljer.part1}
                     <span className={cls.element('andreParter__ikon')}>
                         {avtaleStatusDetaljer.part1Status === true ? <CheckIkon /> : <VarselIkon />}
                     </span>
+                    {avtaleStatusDetaljer.part1}
                 </div>
                 <div className={cls.element('andreParter__begge')}>
-                    {avtaleStatusDetaljer.part2}
                     <span className={cls.element('andreParter__ikon')}>
                         {avtaleStatusDetaljer.part2Status === true ? <CheckIkon /> : <VarselIkon />}
                     </span>
+                    {avtaleStatusDetaljer.part2}
                 </div>
             </div>
         </Innholdsboks>
