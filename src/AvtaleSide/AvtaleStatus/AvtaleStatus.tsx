@@ -11,6 +11,7 @@ import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import RestService from '@/services/rest-service';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import MediaQuery from 'react-responsive';
+import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 
 const cls = BEMHelper('avtalestatus');
 
@@ -71,13 +72,25 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
             <div className={cls.element('andreParter')}>
                 <div className={cls.element('andreParter__begge')}>
                     <span className={cls.element('andreParter__ikon')}>
-                        {avtaleStatusDetaljer.part1Status === true ? <CheckIkon /> : <VarselIkon />}
+                        {avtaleStatusDetaljer.part1Status === true ? (
+                            <CheckIkon />
+                        ) : props.avtale.status === 'Påbegynt' ? (
+                            <PabegyntIkon />
+                        ) : (
+                            <VarselIkon />
+                        )}
                     </span>
                     {avtaleStatusDetaljer.part1}
                 </div>
                 <div className={cls.element('andreParter__begge')}>
                     <span className={cls.element('andreParter__ikon')}>
-                        {avtaleStatusDetaljer.part2Status === true ? <CheckIkon /> : <VarselIkon />}
+                        {avtaleStatusDetaljer.part2Status === true ? (
+                            <CheckIkon />
+                        ) : props.avtale.status === 'Påbegynt' ? (
+                            <PabegyntIkon />
+                        ) : (
+                            <VarselIkon />
+                        )}
                     </span>
                     {avtaleStatusDetaljer.part2}
                 </div>
