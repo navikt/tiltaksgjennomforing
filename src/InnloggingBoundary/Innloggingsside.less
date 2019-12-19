@@ -2,16 +2,9 @@
 
 .innloggingsside {
     align-items: center;
+    text-align: center;
     flex-direction: column;
     display: flex;
-
-    &__logginnKnapp {
-        margin: 3rem 0rem 2rem 0rem;
-    }
-
-    &__infotekst {
-        text-align: center;
-    }
 
     &__lenke {
         margin-top: 2rem;
@@ -20,6 +13,31 @@
     &__koffertikon {
         margin-top: 4rem;
         margin-bottom: 3rem;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        // Desktop only
+        &__loginKnapper {
+            button {
+                margin: 0rem 0.5rem;
+            }
+        }
+    }
+
+    @media (max-width: @screen-sm-min) {
+        // Mobile only
+        &__loginKnapper {
+            button {
+                margin: 0.5rem 0;
+            }
+        }
+        &__infotekst {
+            padding: 1rem;
+        }
+
+        &__tittel {
+            margin-top: 3rem;
+        }
     }
 }
 
