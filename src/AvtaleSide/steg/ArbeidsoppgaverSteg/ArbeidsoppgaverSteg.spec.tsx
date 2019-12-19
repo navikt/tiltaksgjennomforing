@@ -45,7 +45,7 @@ test('Test that <ArbeidsoppgaverSteg> renders correctly', async () => {
             .at(0),
         'arbeidsoppgavens navn'
     );
-    await wrapper.find(Hovedknapp).simulate('click');
+    await wrapper.find(Knapp).simulate('click');
     const redigerOppgaveState = wrapper.find(RedigerOppgave).state();
     expect(redigerOppgaveState.erLagret).toBeTruthy();
     expect(lagreOppgaveStub).toBeCalledTimes(1);

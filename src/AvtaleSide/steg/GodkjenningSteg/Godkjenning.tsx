@@ -1,6 +1,6 @@
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import * as React from 'react';
-import { useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { Rolle } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -51,7 +51,7 @@ const initState: GodkjentPaVegneGrunner = {
     reservert: false,
 };
 
-const Godkjenning = (props: Props) => {
+const Godkjenning: FunctionComponent<Props> = props => {
     const [bekreftet, setBekreftet] = useState(false);
     const [godkjentPaVegneAv, setGodkjentPaVegneAv] = useState(false);
     const [godkjentPaVegneGrunn, setGodkjentPaVegneGrunn] = useState(initState);

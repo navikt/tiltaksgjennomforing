@@ -4,7 +4,7 @@
     flex-direction: column;
     margin: 0 auto;
     padding: 1rem;
-    max-width: @screen-md;
+    max-width: 55rem;
 
     &__eksterntLenkeikon {
         display: inline-block;
@@ -37,6 +37,7 @@
     &__ingen-avtaler-header {
         margin-top: 2rem;
         margin-bottom: 1rem;
+        text-align: center;
     }
 
     &__ingen_avtaler {
@@ -61,6 +62,7 @@
     &__informasjonsBanner {
         justify-content: center;
         margin-bottom: 3rem;
+        align-self: center;
     }
 
     .ulest-varsel-ikon {
@@ -116,13 +118,32 @@
     }
 
     &__status {
-        width: 9rem;
+        width: 11rem;
     }
 
-    &__spinner {
+    @media (min-width: @screen-md-max) {
+        &__innhold {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+    }
+
+    &__avtaleliste {
+        margin: 1rem;
+    }
+
+    &__avtalelistecontainer {
+        min-width: 100%;
+    }
+
+    &__ingenavtalerveileder {
         display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
         justify-content: center;
         align-items: center;
-        height: 20rem;
+        height: 16rem;
+        margin: 4.2rem 1rem 1rem 1rem;
     }
 }

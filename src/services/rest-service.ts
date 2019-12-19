@@ -4,9 +4,10 @@ import { InnloggetBruker, Innloggingskilde } from '@/InnloggingBoundary/useInnlo
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
-import { ApiError, AutentiseringError } from '@/types/errors';
-import Varsel from '@/types/varsel';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
+import { ApiError, AutentiseringError } from '@/types/errors';
+import { SokeTyper } from '@/types/soke-typer';
+import Varsel from '@/types/varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -17,7 +18,7 @@ const featureTogglePath = (features: Feature[]): string => {
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
-    hentAvtalerForInnloggetBruker: (veilederNavIdent?: string) => Promise<Avtale[]>;
+    hentAvtalerForInnloggetBruker: (identifikasjon: SokeTyper) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
@@ -33,10 +34,17 @@ export interface RestService {
     settVarselTilLest: (varselId: string) => Promise<void>;
     hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
+    låsOppAvtale: (avtaleId: string) => Promise<void>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
-    return fetch(url, { headers: { Pragma: 'no-cache' } });
+    return fetchWithCredentials(url, { headers: { Pragma: 'no-cache' } });
+};
+const fetchPost: (url: string, otherParams?: any) => Promise<Response> = (url, otherParams) => {
+    return fetchWithCredentials(url, { method: 'POST', ...otherParams });
+};
+const fetchWithCredentials: (url: string, otherParams?: any) => Promise<Response> = (url, otherParams) => {
+    return fetch(url, { credentials: 'same-origin', ...otherParams });
 };
 
 const handleResponse = async (response: Response) => {
@@ -60,9 +68,9 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     return { ...avtale, id: `${avtale.id}` };
 };
 
-const hentAvtalerForInnloggetBruker = async (veilederNavIdent?: string): Promise<Avtale[]> => {
-    const veilederQueryParam = veilederNavIdent ? 'veilederNavIdent=' + veilederNavIdent : '';
-    const response = await fetchGet(`${API_URL}/avtaler?${veilederQueryParam}`);
+const hentAvtalerForInnloggetBruker = async (identifikasjon: SokeTyper): Promise<Avtale[]> => {
+    const queryParam = new URLSearchParams(identifikasjon as {});
+    const response = await fetchGet(`${API_URL}/avtaler?${queryParam}`);
     await handleResponse(response);
     return await response.json();
 };
@@ -86,7 +94,7 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
         }
     }
 
-    const response = await fetch(`${API_URL}/avtaler/${avtale.id}`, {
+    const response = await fetchWithCredentials(`${API_URL}/avtaler/${avtale.id}`, {
         method: 'PUT',
         body: JSON.stringify(avtale),
         headers: {
@@ -94,13 +102,13 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
+
     await handleResponse(response);
     return await hentAvtale(avtale.id);
 };
 
 const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType): Promise<Avtale> => {
-    const postResponse = await fetch(`${API_URL}/avtaler`, {
-        method: 'POST',
+    const postResponse = await fetchPost(`${API_URL}/avtaler`, {
         body: JSON.stringify({
             deltakerFnr,
             bedriftNr,
@@ -111,34 +119,30 @@ const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype
         },
     });
     await handleResponse(postResponse);
-    const getResponse = await fetch(`${API_URL}/${postResponse.headers.get('Location')}`);
+    const getResponse = await fetchGet(`${API_URL}/${postResponse.headers.get('Location')}`);
     await handleResponse(getResponse);
     const avtale: Avtale = await getResponse.json();
     return { ...avtale, id: `${avtale.id}` };
 };
 
 const hentRolle = async (avtaleId: string): Promise<Rolle> => {
-    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/rolle`);
+    const response = await fetchGet(`${API_URL}/avtaler/${avtaleId}/rolle`);
     await handleResponse(response);
     return response.json();
 };
 
 const godkjennAvtale = async (avtale: Avtale) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn`;
-    const response = await fetch(uri, {
-        method: 'POST',
-        headers: {
-            'If-Unmodified-Since': avtale.sistEndret,
-        },
-    });
+
+    const response = await fetchPost(uri, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
+
     await handleResponse(response);
     return hentAvtale(avtale.id);
 };
 
 const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn-paa-vegne-av`;
-    const response = await fetch(uri, {
-        method: 'POST',
+    const response = await fetchPost(uri, {
         body: JSON.stringify(paVegneGrunn),
         headers: {
             'Content-Type': 'application/json',
@@ -151,16 +155,13 @@ const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVeg
 
 const opphevGodkjenninger = async (avtaleId: string) => {
     const uri = `${API_URL}/avtaler/${avtaleId}/opphev-godkjenninger`;
-    const response = await fetch(uri, {
-        method: 'POST',
-    });
+    const response = await fetchPost(uri);
     await handleResponse(response);
     return hentAvtale(avtaleId);
 };
 const avbrytAvtale = async (avtale: Avtale) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/avbryt`;
-    const response = await fetch(uri, {
-        method: 'POST',
+    const response = await fetchPost(uri, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },
@@ -199,9 +200,7 @@ const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
 };
 
 const settVarselTilLest = async (varselId: string): Promise<void> => {
-    const response = await fetch(`${API_URL}/varsler/${varselId}/sett-til-lest`, {
-        method: 'POST',
-    });
+    const response = await fetchPost(`${API_URL}/varsler/${varselId}/sett-til-lest`);
     await handleResponse(response);
 };
 
@@ -209,6 +208,11 @@ const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureTog
     const response = await fetchGet(featureTogglePath(featureToggles));
     await handleResponse(response);
     return await response.json();
+};
+
+const låsOppAvtale = async (avtaleId: string): Promise<void> => {
+    const response = await fetchPost(`${API_URL}/avtaler/${avtaleId}/laas-opp`);
+    await handleResponse(response);
 };
 
 const restService: RestService = {
@@ -229,6 +233,7 @@ const restService: RestService = {
     settVarselTilLest,
     hentFeatureToggles,
     hentAvtaleStatusDetaljer,
+    låsOppAvtale,
 };
 
 export default restService;

@@ -11,7 +11,8 @@ import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfort } from '@/paths';
 import RestService from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
-import { ApiError } from '@/types/errors';
+import { UfullstendigError } from '@/types/errors';
+import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
@@ -23,7 +24,6 @@ import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'rea
 import { RouterProps, withRouter } from 'react-router';
 import { ReactComponent as TilEkstern } from './external-link.svg';
 import './OpprettAvtale.less';
-import amplitude from '@/utils/amplitude';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -122,7 +122,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
             amplitude.logEvent('avtale-opprettet', { tiltakstype: valgtTiltaksType });
             props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {
-            throw new ApiError(hvaSomManglerTekst);
+            throw new UfullstendigError(hvaSomManglerTekst);
         }
     };
 

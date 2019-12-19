@@ -60,7 +60,7 @@ class OpprettOppgave extends React.Component<Props> {
         return (
             <Innholdsboks utfyller="arbeidsgiver">
                 <SkjemaTittel>Hvilke arbeidsoppgaver skal utføres?</SkjemaTittel>
-                <Normaltekst className="opprett-oppgave__beskrivelse">
+                <Normaltekst>
                     Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal utføre hos dere under
                     arbeidstreningen.
                 </Normaltekst>
