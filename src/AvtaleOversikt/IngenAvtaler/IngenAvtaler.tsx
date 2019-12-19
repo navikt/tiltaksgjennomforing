@@ -1,25 +1,24 @@
+import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import BEMHelper from '@/utils/bem';
-import { Ingress, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import classNames from 'classnames';
+import { Ingress, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './IngenAvtalerArbeidsgiver';
 
-type Props = {
-    visAlleAvtalerChecked: boolean;
-};
-
 const cls = BEMHelper('ingenAvtaler');
 
-const IngenAvtaler: FunctionComponent<Props> = props => {
+const IngenAvtaler: FunctionComponent<{}> = () => {
     const innloggetPart = sessionStorage.getItem(INNLOGGET_PART);
 
     if (innloggetPart === 'veileder') {
         return (
-            <div>
-                <Normaltekst>
-                    Du har ikke {props.visAlleAvtalerChecked ? 'tilgang til' : 'opprettet'} noen avtaler
-                </Normaltekst>
+            <div className={classNames(cls.element('ingenavtalerveileder'), 'innholdsboks')}>
+                <InfoIkon />
+                <VerticalSpacer sixteenPx={true} />
+                <Undertittel>Finner ingen avtaler</Undertittel>
             </div>
         );
     } else if (innloggetPart === 'deltaker') {
