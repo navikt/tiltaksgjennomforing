@@ -18,7 +18,7 @@ interface Props {
 
 class OpprettMaal extends React.Component<Props> {
     setInnMellomLagring = () => {
-        return this.props.mellomLagretMaal.maal !== '' && this.props.mellomLagretMaal.maalTekst !== '';
+        return this.props.mellomLagretMaal.maal !== undefined && this.props.mellomLagretMaal.maalTekst !== '';
     };
 
     state = {

@@ -1,12 +1,13 @@
-import { Flatknapp } from 'nav-frontend-knapper';
-import { Select, Textarea } from 'nav-frontend-skjema';
-import * as React from 'react';
+import { TemporaryLagring } from '@/AvtaleContext';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Maal } from '@/types/avtale';
-import { Maalkategori } from '@/types/maalkategorier';
 import { ApiError } from '@/types/errors';
+import { Maalkategori } from '@/types/maalkategorier';
+import { Flatknapp } from 'nav-frontend-knapper';
+import { Select, Textarea } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { TemporaryLagring } from '@/AvtaleContext';
+import * as React from 'react';
+import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -26,7 +27,7 @@ interface State {
     erLagret: boolean;
 }
 
-class RedigerMaal extends React.Component<Props, State> {
+class RedigerMaal extends React.Component<Props & InjectedIntlProps, State> {
     state = {
         valgtKategori: this.props.defaultMaal && this.props.defaultMaal.kategori,
         beskrivelse: (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) || '',
@@ -39,7 +40,7 @@ class RedigerMaal extends React.Component<Props, State> {
         if (this.props.mellomLagretData) {
             if (this.props.mellomLagretData.maalTekst !== '') {
                 this.setState({
-                    valgtKategori: this.mapKategoriTilMaal(this.props.mellomLagretData.maal),
+                    valgtKategori: this.props.mellomLagretData.maal,
                     beskrivelse: this.props.mellomLagretData.maalTekst,
                 });
             }
@@ -62,25 +63,6 @@ class RedigerMaal extends React.Component<Props, State> {
             }
         }
     }
-
-    mapKategoriTilMaal = (input: string): Maalkategori => {
-        switch (input) {
-            case 'Få jobb i bedriften':
-                return 'Få jobb i bedriften';
-            case 'Arbeidserfaring':
-                return 'Arbeidserfaring';
-            case 'Utprøving':
-                return 'Utprøving';
-            case 'Språkopplæring':
-                return 'Språkopplæring';
-            case 'Oppnå fagbrev/kompetansebevis':
-                return 'Oppnå fagbrev/kompetansebevis';
-            case 'Annet':
-                return 'Annet';
-            default:
-                return 'Få jobb i bedriften';
-        }
-    };
 
     velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
         this.setState({
@@ -158,21 +140,21 @@ class RedigerMaal extends React.Component<Props, State> {
         const redigerComponentListe = [];
         redigerComponentListe.push(
             <option value="" key="">
-                Velg mål{' '}
+                Velg mål
             </option>
         );
         if (this.state.valgtKategori) {
             redigerComponentListe.push(
                 <option value={this.state.valgtKategori} key={this.state.valgtKategori}>
-                    {this.state.valgtKategori}
+                    {this.props.intl.formatMessage({ id: this.state.valgtKategori })}
                 </option>
             );
         }
         const liste = this.props.ledigeMaalkategorier
             .filter(mal => mal !== this.state.valgtKategori)
-            .map((mal, index) => (
-                <option value={mal} key={index}>
-                    {mal}
+            .map(mål => (
+                <option value={mål} key={mål}>
+                    {this.props.intl.formatMessage({ id: mål })}
                 </option>
             ));
         redigerComponentListe.push(...liste);
@@ -208,4 +190,4 @@ class RedigerMaal extends React.Component<Props, State> {
     }
 }
 
-export default RedigerMaal;
+export default injectIntl(RedigerMaal);
