@@ -14,6 +14,7 @@ import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
 import { Innloggingskilde } from './useInnlogget';
+import { VarselOmNedetid } from './VarselOmNedetid';
 
 const cls = BEMHelper('innloggingsside');
 
@@ -41,10 +42,23 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             {innlogginskilde.tittel}
         </Hovedknapp>
     ));
+
+    const visNedeTid = true;
+    const varselOmNedetidTekst = `Altinn vil være utilgjengelig 01.01.2020 i tidsrommet 17:00 til ca. 23:00. Dette vil medføre at løsningen ikke fungerer for arbeidsgivere.`;
+    const nedetidVarselFra: Date = new Date('2019-12-30 01:00:00');
+    const nedetidVarselTil: Date = new Date('2020-01-01 23:59:00');
+
     return (
         <div className="wrapper">
             <Banner tekst="Tiltaksgjennomføring" />
             <div className={cls.className}>
+                <VarselOmNedetid
+                    visVarselOmNedeTid={visNedeTid}
+                    visFraDato={nedetidVarselFra}
+                    visTilDato={nedetidVarselTil}
+                    varselTekst={varselOmNedetidTekst}
+                    spaceTop="thirtyTwoPx"
+                />
                 <MediaQuery minWidth={576}>
                     <Koffert className={cls.element('koffertikon')} />
                 </MediaQuery>
