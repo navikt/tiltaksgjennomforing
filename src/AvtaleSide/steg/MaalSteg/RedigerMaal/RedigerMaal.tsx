@@ -1,12 +1,12 @@
-import { Flatknapp } from 'nav-frontend-knapper';
-import { Select, Textarea } from 'nav-frontend-skjema';
-import * as React from 'react';
+import { TemporaryLagring } from '@/AvtaleContext';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Maal } from '@/types/avtale';
-import { Maalkategori } from '@/types/maalkategorier';
 import { ApiError } from '@/types/errors';
+import { Maalkategori } from '@/types/maalkategorier';
+import { Flatknapp } from 'nav-frontend-knapper';
+import { Select, Textarea } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { TemporaryLagring } from '@/AvtaleContext';
+import * as React from 'react';
 import { InjectedIntlProps, injectIntl } from 'react-intl';
 
 interface Props {
@@ -40,7 +40,7 @@ class RedigerMaal extends React.Component<Props & InjectedIntlProps, State> {
         if (this.props.mellomLagretData) {
             if (this.props.mellomLagretData.maalTekst !== '') {
                 this.setState({
-                    valgtKategori: this.mapKategoriTilMaal(this.props.mellomLagretData.maal),
+                    valgtKategori: this.props.mellomLagretData.maal,
                     beskrivelse: this.props.mellomLagretData.maalTekst,
                 });
             }
@@ -63,10 +63,6 @@ class RedigerMaal extends React.Component<Props & InjectedIntlProps, State> {
             }
         }
     }
-
-    mapKategoriTilMaal = (input: any): Maalkategori => {
-        return (input as Maalkategori) || 'FÅ_JOBB_I_BEDRIFTEN';
-    };
 
     velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
         this.setState({
