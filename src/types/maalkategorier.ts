@@ -1,16 +1,10 @@
-export type Maalkategori =
-    | 'Få jobb i bedriften'
-    | 'Arbeidserfaring'
-    | 'Utprøving'
-    | 'Språkopplæring'
-    | 'Oppnå fagbrev/kompetansebevis'
-    | 'Annet';
+export const maalkategorier = [
+    'FÅ_JOBB_I_BEDRIFTEN',
+    'ARBEIDSERFARING',
+    'UTPRØVING',
+    'SPRÅKOPPLÆRING',
+    'OPPNÅ_FAGBREV_KOMPETANSEBEVIS',
+    'ANNET',
+] as const;
 
-export const maalkategorier: Maalkategori[] = [
-    'Få jobb i bedriften',
-    'Arbeidserfaring',
-    'Utprøving',
-    'Språkopplæring',
-    'Oppnå fagbrev/kompetansebevis',
-    'Annet',
-];
+export type Maalkategori = typeof maalkategorier[number];

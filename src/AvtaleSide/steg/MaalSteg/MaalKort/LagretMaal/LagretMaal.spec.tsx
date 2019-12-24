@@ -6,7 +6,7 @@ import { Maal } from '@/types/avtale';
 test('Test that <LagretMaal> renders correctly', () => {
     const stub = jest.fn();
     const maal: Maal = {
-        kategori: 'Få jobb i bedriften',
+        kategori: 'FÅ_JOBB_I_BEDRIFTEN',
         beskrivelse: 'string',
     };
     const wrapper = shallow(<LagretMaal endreOnClick={stub} maal={maal} slettOnClick={stub} />);

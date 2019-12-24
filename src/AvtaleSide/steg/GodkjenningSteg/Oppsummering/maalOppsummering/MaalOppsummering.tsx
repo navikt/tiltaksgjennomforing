@@ -7,13 +7,16 @@ import { MaalListe } from '@/types/avtale';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './MaalOppsummering.less';
 import MaalIkon from './MaalIkon';
+import { FormattedMessage } from 'react-intl';
 
 const cls = BEMHelper('mål');
 
 const MaalOppsummering: FunctionComponent<MaalListe> = props => {
     const maalListe = props.maal.map(maal => (
         <div key={maal.id} className={cls.className}>
-            <Undertittel className={cls.element('label')}>{maal.kategori}</Undertittel>
+            <Undertittel className={cls.element('label')}>
+                <FormattedMessage id={maal.kategori} />
+            </Undertittel>
             <Normaltekst className={cls.element('beskrivelse')}>{maal.beskrivelse}</Normaltekst>
         </div>
     ));

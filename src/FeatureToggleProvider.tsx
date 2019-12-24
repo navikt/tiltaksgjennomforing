@@ -4,9 +4,9 @@ import restService from './services/rest-service';
 export enum Feature {
     Lonnstilskudd = 'tag.tiltak.lonnstilskudd',
     Kontortilgang = 'tag.tiltak.ny.veiledertilgang',
-    LaasOppKnapp = 'tag.tiltak.laasoppknapp', // Legger du til ny feature her, ma den også inn i alleFeatures[]
+    LaasOppKnapp = 'tag.tiltak.laasoppknapp',
 }
-const alleFeatures = [Feature.Lonnstilskudd, Feature.Kontortilgang, Feature.LaasOppKnapp];
+const alleFeatures = Object.values(Feature);
 
 export interface FeatureToggles {
     [toggles: string]: boolean;

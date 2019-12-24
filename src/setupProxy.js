@@ -31,14 +31,23 @@ module.exports = function(app) {
         const innloggingskilder = [];
 
         if (envProperties.SELVBETJENING_LOGIN_URL) {
-            innloggingskilder.push({
-                tittel: 'Logg inn via ID-porten',
-                url: envProperties.SELVBETJENING_LOGIN_URL,
-            });
+            innloggingskilder.push(
+                {
+                    tittel: 'Som deltaker',
+                    part: 'deltaker',
+                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                },
+                {
+                    tittel: 'Som arbeidsgiver',
+                    part: 'arbeidsgiver',
+                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                }
+            );
         }
         if (envProperties.ISSO_LOGIN_URL) {
             innloggingskilder.push({
-                tittel: 'Logg inn som NAV-veileder',
+                tittel: 'Som NAV-veileder',
+                part: 'veileder',
                 url: envProperties.ISSO_LOGIN_URL,
             });
         }

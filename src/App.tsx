@@ -20,13 +20,14 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import messages from '@/messages';
 
 addLocaleData(nb);
 
 class App extends React.Component {
     render() {
         return (
-            <IntlProvider locale="nb">
+            <IntlProvider locale="nb" messages={messages}>
                 <BrowserRouter basename={basename}>
                     <Switch>
                         <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />

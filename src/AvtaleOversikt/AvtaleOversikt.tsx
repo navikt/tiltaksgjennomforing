@@ -1,9 +1,6 @@
-import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
 import RestService from '@/services/rest-service';
 import { AvtalelisteRessurs } from '@/types/avtale';
@@ -12,11 +9,9 @@ import { SokeTyper } from '@/types/soke-typer';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { lagQueryParams } from '@/utils/queryParamUtils';
-import classNames from 'classnames';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
@@ -24,6 +19,7 @@ import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import AvtalekortMobil from './AvtalekortMobil';
 import './AvtaleOversikt.less';
 import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
+import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
 import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
 const cls = BEMHelper('avtaleoversikt');
 
@@ -62,42 +58,6 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 
-    const tilbakemeldingHvisIngenAvtale = innloggetBruker.erNavAnsatt ? (
-        <div className={classNames(cls.element('ingenavtalerveileder'), 'innholdsboks')}>
-            <InfoIkon />
-            <VerticalSpacer sixteenPx={true} />
-            <Undertittel>Finner ingen avtaler</Undertittel>
-        </div>
-    ) : (
-        <div className={cls.element('ingen-avtaler-tekst')}>
-            <Undertittel className={cls.element('ingen-avtaler-header')}>Ingen avtaler</Undertittel>
-            <p>
-                <Element>Hvis du er deltaker:</Element>
-                <Normaltekst>
-                    Det har ikke blitt opprettet noen avtaler hvor du er med enda. Vennligst vent på veileder i NAV.
-                </Normaltekst>
-            </p>
-            <p>
-                <Element>Hvis du er arbeidsgiver:</Element>
-                <Normaltekst>
-                    Du har ingen avtaler her enda. Det kan være på grunn av følgende årsaker:
-                    <ol>
-                        <li>
-                            Du har ikke riktig tilgang i Altinn. Du må enten ha rollen{' '}
-                            <i>Helse-, sosial- og velferdstjenester</i> eller enkelttjenesten{' '}
-                            <i>Avtale om arbeidstrening.</i>{' '}
-                            <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                                Les mer om roller og rettigheter på Altinn.no
-                            </EksternLenke>
-                        </li>
-                        <li>NAV-veileder har ikke opprettet avtalen med bedriftsnummeret ditt enda.</li>
-                    </ol>
-                    <p>Hvis alternativ 1 og 2 ikke er tilfelle, ta kontakt med veileder i NAV.</p>
-                </Normaltekst>
-            </p>
-        </div>
-    );
-
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
@@ -117,7 +77,9 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                     {innloggetBruker.erNavAnsatt && <SokEtterAvtaler sokEtterAvtaler={sokEtterAvtaler} />}
                     <div className={cls.element('avtalelistecontainer')}>
                         {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
-                            tilbakemeldingHvisIngenAvtale
+                            <div>
+                                <IngenAvtaler />
+                            </div>
                         ) : (
                             <div className={cls.element('avtaleliste')}>
                                 {avtalelisteRessurs.status === Status.LasterInn && (

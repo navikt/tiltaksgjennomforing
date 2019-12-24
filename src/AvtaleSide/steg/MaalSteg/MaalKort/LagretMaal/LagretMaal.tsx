@@ -5,6 +5,7 @@ import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import KortKnapper from '@/komponenter/kort/KortKnapper';
 import TekstBlokk from '@/komponenter/typografi/TekstBlokk';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
     maal: Maal;
@@ -14,7 +15,9 @@ interface Props {
 
 const LagretMaal = (props: Props) => (
     <>
-        <SkjemaUndertittel>{props.maal.kategori}</SkjemaUndertittel>
+        <SkjemaUndertittel>
+            <FormattedMessage id={props.maal.kategori} />
+        </SkjemaUndertittel>
         <Normaltekst className="maalkort__label">Beskrivelse av mål</Normaltekst>
         <TekstBlokk>{props.maal.beskrivelse}</TekstBlokk>
         <KortKnapper>
