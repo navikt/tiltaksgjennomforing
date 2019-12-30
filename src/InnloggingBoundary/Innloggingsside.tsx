@@ -43,7 +43,6 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
         </Hovedknapp>
     ));
 
-    const visNedeTid = true;
     const varselOmNedetidTekst = `Altinn vil være utilgjengelig 01.01.2020 i tidsrommet 17:00 til ca. 23:00. Dette vil medføre at løsningen ikke fungerer for arbeidsgivere.`;
     const nedetidVarselFra: Date = new Date('2019-12-30 01:00:00');
     const nedetidVarselTil: Date = new Date('2020-01-01 23:59:00');
@@ -53,7 +52,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             <Banner tekst="Tiltaksgjennomføring" />
             <div className={cls.className}>
                 <VarselOmNedetid
-                    visVarselOmNedeTid={visNedeTid}
+                    visVarselOmNedeTid={true}
                     visFraDato={nedetidVarselFra}
                     visTilDato={nedetidVarselTil}
                     varselTekst={varselOmNedetidTekst}
