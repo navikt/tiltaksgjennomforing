@@ -11,6 +11,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import './BeregningTilskuddSteg.less';
+import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 
 const feriepengeAlternativer = (erOver60: boolean) => {
     const satser = erOver60 ? [0.12, 0.143] : [0.102, 0.125];
@@ -102,6 +104,8 @@ const BeregningTilskuddSteg = (props: Context) => {
                                 settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
                             }}
                         />
+                        <VisUtregningenPanel {...props} />
+                        <VerticalSpacer twentyPx={true} />
                         <LagreKnapp
                             className="kontaktinfo-steg__lagre-knapp"
                             lagre={props.lagreAvtale}
