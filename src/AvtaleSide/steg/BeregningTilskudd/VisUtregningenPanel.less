@@ -1,0 +1,38 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.visUtregningenPanel {
+    &__rad {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        flex-direction: row;
+        width: 100%;
+        border-bottom: 1px solid @navGra20;
+        padding-bottom: 0.5rem;
+        &__siste {
+            border-bottom: 1px solid;
+        }
+        &__oppsummering {
+            border-bottom: none;
+        }
+    }
+
+    &__tittel {
+        display: flex;
+        align-items: center;
+    }
+
+    &__ikon {
+        margin-right: 1rem;
+    }
+    &__orienter {
+        margin-right: 4rem;
+        &__sum {
+            margin-right: 3.5rem !important;
+        }
+    }
+    &__orienter__left {
+        margin-left: 6rem;
+    }
+}

@@ -11,7 +11,6 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import './BeregningTilskuddSteg.less';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 
 const feriepengeAlternativer = (erOver60: boolean) => {
@@ -82,7 +81,7 @@ const BeregningTilskuddSteg = (props: Context) => {
                         />
                         <VerticalSpacer twentyPx={true} />
                         <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
-
+                        2 %
                         <VerticalSpacer twentyPx={true} />
                         <Undertittel>Arbeidsgiveravgift</Undertittel>
                         <SelectInput
