@@ -1,11 +1,11 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import React, { useState } from 'react';
 import { Rolle } from '@/AvtaleContext';
-import KopierLenkeModal from '@/komponenter/modal/KopierLenkeModal';
 import BEMHelper from '@/utils/bem';
 import { StegInfo } from '../AvtaleSide';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import KopierLenkeModal from '../DelLenkeTilAvtalen/KopierLenkeModal';
 
 interface Props {
     avtaleSteg: StegInfo[];

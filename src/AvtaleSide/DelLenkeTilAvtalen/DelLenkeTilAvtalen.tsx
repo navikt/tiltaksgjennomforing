@@ -1,8 +1,8 @@
 import Lenke from 'nav-frontend-lenker';
 import React, { FunctionComponent, useState } from 'react';
 import { ReactComponent as ShareIkon } from '@/assets/ikoner/share.svg';
-import KopierLenkeModal from '@/komponenter/modal/KopierLenkeModal';
 import './DelLenkeTilAvtalen.less';
+import KopierLenkeModal from './KopierLenkeModal';
 
 const DelLenkeTilAvtalen: FunctionComponent = () => {
     const [isOpen, setOpen] = useState<boolean>(false);
