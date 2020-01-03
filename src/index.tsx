@@ -5,6 +5,7 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import './index.less';
 import { init as Sentry, Integrations } from '@sentry/browser';
+import 'url-search-params-polyfill';
 
 Sentry({
     dsn: 'https://3a5b579938bc4d6c9011c48d34af18f8@sentry.gc.nav.no/4',
