@@ -4,14 +4,15 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { ReactComponent as StillingProsentIkon } from '@/assets/ikoner/stillingsprosent.svg';
 import { ReactComponent as ManedsLonnIkon } from '@/assets/ikoner/manedsLonn.svg';
 import { ReactComponent as FeriepengerIkon } from '@/assets/ikoner/feriepenger.svg';
-import { ReactComponent as ObligTjenestepensjon } from '@/assets/ikoner/obligTjenestepensjon.svg';
-import { ReactComponent as GraphRefusjonAvLonn } from '@/assets/ikoner/graphRefusjonAvLønn.svg';
+import { ReactComponent as ObligTjenestepensjonIkon } from '@/assets/ikoner/obligTjenestepensjon.svg';
+import { ReactComponent as GraphRefusjonAvLonnIkon } from '@/assets/ikoner/graphRefusjonAvLønn.svg';
+import { ReactComponent as ArbeidsgiveravgiftIkon } from '@/assets/ikoner/arbeidsgiveravgift.svg';
 import './VisUtregningenPanel.less';
 import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 
 const VisUtregningenPanel = (props: Context) => {
     return (
-        <Ekspanderbartpanel border={true} tittel="Vis hele utregningen">
+        <Ekspanderbartpanel border={true} tittel="Vis hele utregningen" apen={true}>
             <div className="visUtregningenPanel__rad">
                 <div className="visUtregningenPanel__tittel">
                     <StillingProsentIkon className="visUtregningenPanel__ikon" />
@@ -31,7 +32,7 @@ const VisUtregningenPanel = (props: Context) => {
                     <FeriepengerIkon className="visUtregningenPanel__ikon" />
                     <div>Feriepenger</div>
                 </div>
-                <div>({props.avtale.feriepengesats * 100}%)</div>
+                <div style={{ marginLeft: '7.5rem' }}>({(props.avtale.feriepengesats * 100).toFixed(1)}%)</div>
                 <div className="visUtregningenPanel__tittel">
                     <div className="visUtregningenPanel__orienter">+</div>
                     {props.avtale.manedslonn === undefined || props.avtale.feriepengesats === undefined
@@ -42,7 +43,7 @@ const VisUtregningenPanel = (props: Context) => {
             </div>
             <div className="visUtregningenPanel__rad">
                 <div className="visUtregningenPanel__tittel">
-                    <ObligTjenestepensjon className="visUtregningenPanel__ikon" />
+                    <ObligTjenestepensjonIkon className="visUtregningenPanel__ikon" />
                     <div>Obligatorisk tjenestepensjon</div>
                 </div>
                 <div>(2%)</div>
@@ -51,10 +52,10 @@ const VisUtregningenPanel = (props: Context) => {
             </div>
             <div className="visUtregningenPanel__rad">
                 <div className="visUtregningenPanel__tittel">
-                    <ObligTjenestepensjon className="visUtregningenPanel__ikon" />
+                    <ArbeidsgiveravgiftIkon className="visUtregningenPanel__ikon" />
                     <div>Arbeidsgiveravgift</div>
                 </div>
-                <div>({props.avtale.arbeidsgiveravgift * 100}%)</div>
+                <div style={{ marginLeft: '6rem' }}>({props.avtale.arbeidsgiveravgift * 100}%)</div>
                 <div className="visUtregningenPanel__tittel">
                     <div className="visUtregningenPanel__orienter">+</div>
                     {props.avtale.manedslonn === undefined || props.avtale.arbeidsgiveravgift === undefined
@@ -65,8 +66,7 @@ const VisUtregningenPanel = (props: Context) => {
             </div>
 
             <div className="visUtregningenPanel__rad">
-                <div className="visUtregningenPanel__tittel">
-                    <div className="visUtregningenPanel__ikon" />
+                <div className="visUtregningenPanel__orienter__sum__tittel">
                     <div>Sum utgifter for arbeidsgiver</div>
                 </div>
                 <div className="visUtregningenPanel__tittel">
@@ -82,25 +82,25 @@ const VisUtregningenPanel = (props: Context) => {
             </div>
             <div className="visUtregningenPanel__rad visUtregningenPanel__rad__siste">
                 <div className="visUtregningenPanel__tittel">
-                    <GraphRefusjonAvLonn className="visUtregningenPanel__ikon" />
+                    <GraphRefusjonAvLonnIkon className="visUtregningenPanel__ikon" />
                     <div>Fastsatt refusjon av lønn</div>
                 </div>
-                <div>40 %</div>
+                <div>{props.avtale.lonnstilskuddProsent} %</div>
             </div>
             <div className="visUtregningenPanel__rad visUtregningenPanel__rad__oppsummering">
                 <div className="visUtregningenPanel__tittel">
                     <Undertittel> Månedlig lønnstilskudd fra Nav(inntil):</Undertittel>
                 </div>
-                <div>
+                <Undertittel>
                     {props.avtale.manedslonn === undefined || !parseFloat(props.avtale.lonnstilskuddProsent)
                         ? 0
                         : (props.avtale.manedslonn +
                               props.avtale.manedslonn * props.avtale.feriepengesats +
                               props.avtale.manedslonn * 0.02 +
                               props.avtale.manedslonn * props.avtale.arbeidsgiveravgift) *
-                          parseFloat(props.avtale.lonnstilskuddProsent)}{' '}
+                          (parseFloat(props.avtale.lonnstilskuddProsent) / 100)}{' '}
                     kr
-                </div>
+                </Undertittel>
             </div>
         </Ekspanderbartpanel>
     );

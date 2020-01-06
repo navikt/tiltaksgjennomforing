@@ -5,14 +5,15 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 0.5rem;
         flex-direction: row;
         width: 100%;
         border-bottom: 1px solid @navGra20;
-        padding-bottom: 0.5rem;
+        padding: 0.5rem 0 0.5rem 0;
+
         &__siste {
             border-bottom: 1px solid;
         }
+
         &__oppsummering {
             border-bottom: none;
         }
@@ -26,13 +27,68 @@
     &__ikon {
         margin-right: 1rem;
     }
+
     &__orienter {
         margin-right: 4rem;
+
         &__sum {
             margin-right: 3.5rem !important;
+
+            &__tittel {
+                margin-left: 2.5rem;
+            }
         }
     }
+
     &__orienter__left {
         margin-left: 6rem;
+    }
+
+    // spesielt til mobil
+    @media (max-width: 755px) {
+        &__rad {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-direction: row;
+            width: 80%;
+            border-bottom: 1px solid @navGra20;
+
+            padding: 1rem 1rem 1rem 1rem;
+
+            &__siste {
+                border-bottom: 1px solid;
+            }
+
+            &__oppsummering {
+                border-bottom: none;
+            }
+        }
+
+        &__tittel {
+            display: flex;
+            align-items: center;
+        }
+
+        &__ikon {
+            display: none;
+        }
+
+        &__orienter {
+            margin-right: 4rem;
+
+            &__sum {
+                margin-right: 3.5rem !important;
+
+                &__tittel {
+                    margin-left: 2.5rem;
+                }
+            }
+        }
+
+        &__orienter__left {
+            margin-left: 6rem;
+        }
     }
 }

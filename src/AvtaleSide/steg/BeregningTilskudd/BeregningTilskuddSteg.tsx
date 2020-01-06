@@ -12,12 +12,20 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
-
+import './BeregningTilskuddSteg.less';
 const feriepengeAlternativer = (erOver60: boolean) => {
     const satser = erOver60 ? [0.12, 0.143] : [0.102, 0.125];
     return satser.map((sats: number) => ({
         label: (sats * 100).toFixed(1) + ' %',
         value: sats.toString(),
+    }));
+};
+
+const lonnstilskuddProsentAlternativer = () => {
+    const prosenter = [40, 60];
+    return prosenter.map((prosent: number) => ({
+        label: prosent.toFixed(0) + '%',
+        value: prosent.toString(),
     }));
 };
 const arbeidsgiveravgiftAlternativer = () => {
@@ -32,7 +40,20 @@ const BeregningTilskuddSteg = (props: Context) => {
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
-            <Undertittel>Lønn og stillingsprosent</Undertittel>
+            <Undertittel>Lønnstilskudd prosent</Undertittel>
+            <Normaltekst className="beregningTilskuddSteg__luft">
+                Velg sats for refusjon som arbeidsgiver skal få tilbake
+            </Normaltekst>
+            <RadioPanelGruppeHorisontal
+                radios={lonnstilskuddProsentAlternativer()}
+                name="lonnstilskuddProsent"
+                checked={avtale.lonnstilskuddProsent + ''}
+                legend=""
+                onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                    props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
+                }
+            />
+            <Undertittel className="beregningTilskuddSteg__luft">Lønn og stillingsprosent</Undertittel>
             <Container fluid={true}>
                 <Row className="">
                     <Column md="6">
