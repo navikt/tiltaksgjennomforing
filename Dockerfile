@@ -3,6 +3,7 @@ RUN npm install -g helmet
 RUN npm install -g http-proxy-middleware
 WORKDIR /app
 COPY ./src/setupProxy.js ./src/setupProxy.js
+COPY ./src/whitelist.js ./src/whitelist.js
 COPY server.js ./
 COPY build/ ./build
 EXPOSE 3000
