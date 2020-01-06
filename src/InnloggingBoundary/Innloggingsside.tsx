@@ -8,7 +8,7 @@ import { AutentiseringError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Ingress, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Sidetittel, Systemtittel, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
@@ -49,7 +49,6 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
 
     return (
         <div className="wrapper">
-            <Banner tekst="Tiltaksgjennomføring" />
             <div className={cls.className}>
                 <VarselOmNedetid
                     visVarselOmNedeTid={true}
@@ -58,23 +57,27 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     varselTekst={varselOmNedetidTekst}
                     spaceTop="thirtyTwoPx"
                 />
+                <Koffert className={cls.element('koffertikon')} />
                 <MediaQuery minWidth={576}>
-                    <Koffert className={cls.element('koffertikon')} />
+                    <VerticalSpacer thirtyTwoPx={true} />
                 </MediaQuery>
                 <div className={cls.element('tittel')}>
-                    <Sidetittel>Dine tiltak på ett sted</Sidetittel>
+                    <Sidetittel>Tiltaksgjennomføring</Sidetittel>
                 </div>
+                <VerticalSpacer thirtyTwoPx={true} />
                 <div className={cls.element('infotekst')}>
                     <Ingress>
-                        <p>Dette er en digital avtale som skal brukes av deltaker, arbeidsgiver og NAV.</p>
-                        <p>For å se avtalene du er en del av må du først logge på.</p>
+                        Dette er en digital avtale som skal brukes av deltaker, arbeidsgiver og NAV. For å se avtalene
+                        du er en del av må du først logge på.
+                    </Ingress>
+                    <Normaltekst>
                         <p className={cls.element('lenke')}>
                             <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
                                 Her kan du lese mer om hvordan løsningen fungerer
                                 <HoyreChevron className="tilbaketiloversikt__chevron" />
                             </Link>
                         </p>
-                    </Ingress>
+                    </Normaltekst>
                 </div>
                 <VerticalSpacer thirtyTwoPx={true} />
                 <Systemtittel>Logg inn</Systemtittel>
