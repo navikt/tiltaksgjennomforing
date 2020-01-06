@@ -1,5 +1,5 @@
 import Modal from 'nav-frontend-modal';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
 import './KopierLenkeModal.less';
 import BEMHelper from '@/utils/bem';
@@ -7,6 +7,10 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import RestService from '@/services/rest-service';
 import { Context, medContext } from '@/AvtaleContext';
+import Lenke from 'nav-frontend-lenker';
+import { pathTilOversiktISelvbetjeningProd } from '@/paths';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { Knapp } from 'nav-frontend-knapper';
 
 interface Props {
     isOpen: boolean;
@@ -23,21 +27,45 @@ const SendVarselModal: React.FunctionComponent<Props & Context> = props => (
         isOpen={props.isOpen}
         onRequestClose={() => props.lukkModal()}
     >
-        <Systemtittel className={cls.element('innholdstittel')}>Send lenke til avtalen på SMS:</Systemtittel>
+        <Systemtittel>Del lenke til avtalen</Systemtittel>
+        <VerticalSpacer sixteenPx={true} />
+        <Ingress>
+            Lenke til avtalen kan sendes på SMS hvis telefonnummer er registrert på avtalen. Hvis det er ønskelig å
+            sende lenke til avtalen via andre kanaler, for eksempel Aktivitetsplanen eller epost, er det adressen under
+            som må benyttes.
+        </Ingress>
+
+        <VerticalSpacer thirtyTwoPx={true} />
+
+        <Undertittel>Send lenke på SMS</Undertittel>
+        <VerticalSpacer eightPx={true} />
         <LagreKnapp
             label="Send til arbeidsgiver"
             lagre={() => RestService.delAvtaleMedAvtalepart(props.avtale.id, 'ARBEIDSGIVER')}
-            suksessmelding="Varsel sendt til arbeidsgiver"
+            suksessmelding="SMS sendt til arbeidsgiver"
+            knapptype={'standard'}
         />
-        <VerticalSpacer thirtyTwoPx={true} />
+        <VerticalSpacer eightPx={true} />
         <LagreKnapp
             label="Send til deltaker"
             lagre={() => RestService.delAvtaleMedAvtalepart(props.avtale.id, 'DELTAKER')}
-            suksessmelding="Varsel sendt til deltaker"
+            suksessmelding="SMS sendt til deltaker"
+            knapptype={'standard'}
         />
-        <Normaltekst className={cls.element('undertittel')}>
-            Arbeidsgiver og deltaker vil motta en lenke på SMS, og de kan da logge seg inn i avtalen via ID-porten.
-        </Normaltekst>
+
+        <VerticalSpacer thirtyTwoPx={true} />
+
+        <Undertittel>Send lenke manuelt</Undertittel>
+        <div className={cls.element('lenkedeling')}>
+            <div className={cls.element('lenke')}>
+                <Lenke href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Lenke>
+            </div>
+            <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
+                <Knapp mini={true} className={cls.element('kopier-knapp')}>
+                    Kopier lenke
+                </Knapp>
+            </CopyToClipboard>
+        </div>
     </Modal>
 );
 
