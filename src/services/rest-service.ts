@@ -35,6 +35,7 @@ export interface RestService {
     hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
     låsOppAvtale: (avtaleId: string) => Promise<void>;
+    delAvtaleMedAvtalepart: (avtaleId: string, avtalepart: Rolle) => Promise<void>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -215,6 +216,16 @@ const låsOppAvtale = async (avtaleId: string): Promise<void> => {
     await handleResponse(response);
 };
 
+const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
+    const response = await fetchPost(`${API_URL}/avtaler/${avtaleId}/del-med-avtalepart`, {
+        body: JSON.stringify(rolle),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    await handleResponse(response);
+};
+
 const restService: RestService = {
     hentAvtale,
     hentAvtalerForInnloggetBruker,
@@ -234,6 +245,7 @@ const restService: RestService = {
     hentFeatureToggles,
     hentAvtaleStatusDetaljer,
     låsOppAvtale,
+    delAvtaleMedAvtalepart,
 };
 
 export default restService;

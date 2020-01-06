@@ -1,11 +1,15 @@
 import Lenke from 'nav-frontend-lenker';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { ReactComponent as ShareIkon } from '@/assets/ikoner/share.svg';
 import './DelLenkeTilAvtalen.less';
 import KopierLenkeModal from './KopierLenkeModal';
+import SendVarselModal from '@/AvtaleSide/DelLenkeTilAvtalen/SendVarselModal';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const DelLenkeTilAvtalen: FunctionComponent = () => {
     const [isOpen, setOpen] = useState<boolean>(false);
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const varsleOpprettelseToggle = featureToggleContext[Feature.DelLenkeViaSms];
 
     return (
         <>
@@ -13,7 +17,11 @@ const DelLenkeTilAvtalen: FunctionComponent = () => {
                 <ShareIkon className="lenkedeling__ikon" />
                 Del lenke til avtalen
             </Lenke>
-            <KopierLenkeModal isOpen={isOpen} lukkModal={() => setOpen(false)} />
+            {varsleOpprettelseToggle ? (
+                <SendVarselModal isOpen={isOpen} lukkModal={() => setOpen(false)} />
+            ) : (
+                <KopierLenkeModal isOpen={isOpen} lukkModal={() => setOpen(false)} />
+            )}
         </>
     );
 };
