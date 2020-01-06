@@ -119,7 +119,7 @@ const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype
         },
     });
     await handleResponse(postResponse);
-    const getResponse = await fetchGet(`${API_URL}/${postResponse.headers.get('Location')}`);
+    const getResponse = await fetchGet(`${API_URL}${postResponse.headers.get('Location')}`);
     await handleResponse(getResponse);
     const avtale: Avtale = await getResponse.json();
     return { ...avtale, id: `${avtale.id}` };

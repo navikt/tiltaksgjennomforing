@@ -1,4 +1,5 @@
 *
 !build
 !src/setupProxy.js
+!src/whitelist.js
 !server.js

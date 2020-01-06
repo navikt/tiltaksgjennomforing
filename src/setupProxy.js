@@ -1,4 +1,5 @@
 const proxy = require('http-proxy-middleware');
+const whitelist = require('./whitelist');
 
 const erDevelopmentModus = process.env.NODE_ENV === 'development';
 
@@ -61,9 +62,7 @@ module.exports = function(app) {
 
     const proxyConfig = {
         changeOrigin: true,
-        pathRewrite: {
-            '^/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api',
-        },
+        pathRewrite: whitelist,
         target: envProperties.APIGW_URL,
         xfwd: true,
     };
