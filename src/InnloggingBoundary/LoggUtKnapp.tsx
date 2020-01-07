@@ -1,9 +1,14 @@
-import React from 'react';
+import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import amplitude from '@/utils/amplitude';
 import { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
+import React from 'react';
+import { useCookies } from 'react-cookie';
 
 const LoggUtKnapp: React.FunctionComponent<KnappBaseProps> = props => {
+    const [cookies, setCookie, removeCookie] = useCookies([INNLOGGET_PART]);
+
     const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        removeCookie(INNLOGGET_PART);
         amplitude.logEvent('bruker-logget-ut', {}, () => {
             window.location.href = '/tiltaksgjennomforing/logout';
         });
