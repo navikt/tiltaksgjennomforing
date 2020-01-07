@@ -13,6 +13,8 @@ import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import './BeregningTilskuddSteg.less';
+import MediaQuery from 'react-responsive';
+import VisUtregningenPanelMobil from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanelMobil';
 const feriepengeAlternativer = (erOver60: boolean) => {
     const satser = erOver60 ? [0.12, 0.143] : [0.102, 0.125];
     return satser.map((sats: number) => ({
@@ -124,7 +126,12 @@ const BeregningTilskuddSteg = (props: Context) => {
                                 settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
                             }}
                         />
-                        <VisUtregningenPanel {...props} />
+                        <MediaQuery minWidth={700}>
+                            <VisUtregningenPanel {...props} />
+                        </MediaQuery>
+                        <MediaQuery maxWidth={699}>
+                            <VisUtregningenPanelMobil {...props} />
+                        </MediaQuery>
                         <VerticalSpacer twentyPx={true} />
                         <LagreKnapp
                             className="kontaktinfo-steg__lagre-knapp"
