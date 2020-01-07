@@ -5,13 +5,15 @@ import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
 import { Ingress, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './IngenAvtalerArbeidsgiver';
 
 const cls = BEMHelper('ingenAvtaler');
 
 const IngenAvtaler: FunctionComponent<{}> = () => {
-    const innloggetPart = sessionStorage.getItem(INNLOGGET_PART);
+    const [cookies] = useCookies([INNLOGGET_PART]);
+    const innloggetPart = cookies[INNLOGGET_PART];
 
     if (innloggetPart === 'veileder') {
         return (
