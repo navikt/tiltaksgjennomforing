@@ -20,7 +20,7 @@ import { VarselOmNedetid } from './VarselOmNedetid';
 const cls = BEMHelper('innloggingsside');
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
-    const [cookies, setCookie, removeCookie] = useCookies([INNLOGGET_PART]);
+    const [, setCookie] = useCookies([INNLOGGET_PART]);
 
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
         try {

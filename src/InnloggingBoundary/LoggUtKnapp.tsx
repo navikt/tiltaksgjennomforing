@@ -5,16 +5,16 @@ import React from 'react';
 import { useCookies } from 'react-cookie';
 
 const LoggUtKnapp: React.FunctionComponent<KnappBaseProps> = props => {
-    const [cookies, setCookie, removeCookie] = useCookies([INNLOGGET_PART]);
+    const [, , removeCookie] = useCookies([INNLOGGET_PART]);
 
-    const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const onClick = () => {
         removeCookie(INNLOGGET_PART);
         amplitude.logEvent('bruker-logget-ut', {}, () => {
             window.location.href = '/tiltaksgjennomforing/logout';
         });
     };
     return (
-        <Knapp className="innloggingslinje__loggutknapp" mini={true} onClick={onClick} {...props}>
+        <Knapp mini={true} onClick={onClick} {...props}>
             Logg ut
         </Knapp>
     );
