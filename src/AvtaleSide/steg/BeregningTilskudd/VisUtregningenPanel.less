@@ -60,8 +60,8 @@
             width: 80%;
             border-bottom: 1px solid @navGra20;
 
-            padding: 1rem 1rem 1rem 1rem;
-
+            padding: 1rem 0 1rem 0;
+            margin-left: 0.5rem;
             &__siste {
                 border-bottom: 1px solid;
             }
@@ -91,7 +91,12 @@
                 }
             }
         }
-
+        &__column {
+            &__siste {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
         &__orienter__left {
             margin-left: 6rem;
         }

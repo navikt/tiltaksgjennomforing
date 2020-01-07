@@ -16,7 +16,7 @@ const VisUtregningenPanel = (props: Context) => {
         <Ekspanderbartpanel border={true} tittel="Vis hele utregningen" apen={true}>
             <Container fluid={true}>
                 <Row className="visUtregningenPanel__rad">
-                    <Column md="6" className="visUtregningenPanel__tittel">
+                    <Column md="9" className="visUtregningenPanel__tittel">
                         <div className="visUtregningenPanel__tittel">
                             <StillingProsentIkon className="visUtregningenPanel__ikon" />
                             Stillingsprosent
