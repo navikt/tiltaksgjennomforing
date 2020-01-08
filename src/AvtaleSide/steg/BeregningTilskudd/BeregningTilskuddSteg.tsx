@@ -126,12 +126,12 @@ const BeregningTilskuddSteg = (props: Context) => {
                                 settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
                             }}
                         />
-                        <MediaQuery minWidth={700}>
-                            <VisUtregningenPanel {...props} />
+                        <VisUtregningenPanel {...props} />
+                        {/*<MediaQuery minWidth={700}>
                         </MediaQuery>
                         <MediaQuery maxWidth={699}>
                             <VisUtregningenPanelMobil {...props} />
-                        </MediaQuery>
+                        </MediaQuery>*/}
                         <VerticalSpacer twentyPx={true} />
                         <LagreKnapp
                             className="kontaktinfo-steg__lagre-knapp"
