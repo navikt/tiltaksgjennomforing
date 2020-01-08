@@ -16,7 +16,7 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
 
 const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
-    const [cookies, setCookie] = useCookies([INNLOGGET_PART]);
+    const [cookies, setCookie] = useCookies();
 
     if (uinnlogget) {
         return <Innloggingside innloggingskilder={innloggingskilder} />;

@@ -12,7 +12,7 @@ import IngenAvtalerArbeidsgiver from './IngenAvtalerArbeidsgiver';
 const cls = BEMHelper('ingenAvtaler');
 
 const IngenAvtaler: FunctionComponent<{}> = () => {
-    const [cookies] = useCookies([INNLOGGET_PART]);
+    const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
 
     if (innloggetPart === 'veileder') {

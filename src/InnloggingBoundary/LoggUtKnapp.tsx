@@ -5,7 +5,7 @@ import React from 'react';
 import { useCookies } from 'react-cookie';
 
 const LoggUtKnapp: React.FunctionComponent<KnappBaseProps> = props => {
-    const [, , removeCookie] = useCookies([INNLOGGET_PART]);
+    const [, , removeCookie] = useCookies();
 
     const onClick = () => {
         removeCookie(INNLOGGET_PART);
