@@ -1,5 +1,6 @@
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
 import Banner from '@/komponenter/Banner/Banner';
 import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
 import RestService from '@/services/rest-service';
@@ -9,8 +10,8 @@ import { SokeTyper } from '@/types/soke-typer';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { lagQueryParams } from '@/utils/queryParamUtils';
-import AlertStripe from 'nav-frontend-alertstriper';
-import { HoyreChevron } from 'nav-frontend-chevron';
+// import AlertStripe from 'nav-frontend-alertstriper';
+// import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -21,6 +22,7 @@ import './AvtaleOversikt.less';
 import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
 import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
 import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
@@ -64,12 +66,12 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
             <div className="avtaleoversikt">
                 <div className={cls.element('informasjonsBanner')}>
-                    <AlertStripe type="info">
-                        <Link to={pathTilInformasjonssideInnlogget} className="lenke">
-                            Les om hvordan den nye digitale løsningen for avtale om arbeidstrening fungerer her
+                    <LenkepanelBase>
+                        <Info width="24" height="24" />
+                        <Link to={pathTilInformasjonssideInnlogget} className={cls.element('lenke')}>
+                            Om tiltaksgjennomføring
                         </Link>
-                        <HoyreChevron />
-                    </AlertStripe>
+                    </LenkepanelBase>
                 </div>
                 {opprettAvtaleKnapp}
 

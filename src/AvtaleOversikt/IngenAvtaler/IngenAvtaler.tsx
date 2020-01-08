@@ -7,6 +7,7 @@ import { Ingress, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './IngenAvtalerArbeidsgiver';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 
 const cls = BEMHelper('ingenAvtaler');
 
@@ -23,13 +24,15 @@ const IngenAvtaler: FunctionComponent<{}> = () => {
         );
     } else if (innloggetPart === 'deltaker') {
         return (
-            <div className={cls.element('tekst')}>
-                <div className={cls.element('headerTekst')}>
-                    <Innholdstittel>Ingen avtaler</Innholdstittel>
+            <Innholdsboks>
+                <div className={cls.element('tekst')}>
+                    <div className={cls.element('headerTekst')}>
+                        <Innholdstittel>Ingen avtaler</Innholdstittel>
+                    </div>
+                    <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
+                    <Ingress>Vennligst vent på veileder i NAV.</Ingress>
                 </div>
-                <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
-                <Ingress>Vennligst vent på veileder i NAV.</Ingress>
-            </div>
+            </Innholdsboks>
         );
     } else if (innloggetPart === 'arbeidsgiver') {
         return <IngenAvtalerArbeidsgiver />;

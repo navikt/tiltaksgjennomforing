@@ -1,5 +1,4 @@
 import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
-import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
