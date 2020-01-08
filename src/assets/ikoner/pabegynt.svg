@@ -1,6 +1,9 @@
 <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>
+    Påbegynt
+  </title>
   <g fill="none" fill-rule="evenodd">
-    <circle fill="#669DB4" cx="12" cy="12" r="12"/>
-    <path d="M9.3 6.75a1.03 1.03 0 010-1.45c.4-.4 1.04-.4 1.44 0l5.96 5.98c.4.4.4 1.04 0 1.44l-5.96 5.98c-.4.4-1.04.4-1.44 0a1.03 1.03 0 010-1.45L14.54 12 9.3 6.75z" fill="#FFF" fill-rule="nonzero"/>
+    <circle cx="12" cy="12" r="12" fill="#669DB4"/>
+    <path d="M15 10.65l.64.64a1 1 0 010 1.42l-.64.64-3.37 3.37a.95.95 0 11-1.35-1.35L13.65 12l-3.37-3.37a.95.95 0 111.35-1.35L15 10.65z" fill="#FFF" fill-rule="nonzero"/>
   </g>
 </svg>
