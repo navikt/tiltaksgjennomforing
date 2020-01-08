@@ -108,7 +108,12 @@ const VisUtregningenPanel = (props: Context) => {
                     </Column>
                 </Row>
                 <Row className="visUtregningenPanel__rad">
-                    <Column md="6" sm="9" xs="4" className="visUtregningenPanel__tittel">
+                    <Column
+                        md="6"
+                        sm="9"
+                        xs="4"
+                        className="visUtregningenPanel__tittel visUtregningenPanel__orienter__sum"
+                    >
                         <div>Sum utgifter for arbeidsgiver</div>
                     </Column>
                     <Column md="3" sm="4" xs="3" />
@@ -134,9 +139,7 @@ const VisUtregningenPanel = (props: Context) => {
                         </MediaQuery>
                         <div>Fastsatt refusjon av lønn</div>
                     </Column>
-                    {/*  <Column md="3" sm="4" xs="3" />
-                    <Column md="1" sm="2" xs="2" />*/}
-                    <Column md="2" sm="3" xs="6" className="visUtregningenPanel__column__siste">
+                    <Column md="6" sm="3" xs="6" className="visUtregningenPanel__column__siste">
                         {props.avtale.lonnstilskuddProsent} %
                     </Column>
                 </Row>
