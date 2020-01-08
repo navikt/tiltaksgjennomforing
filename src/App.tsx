@@ -31,7 +31,6 @@ class App extends React.Component {
                 <BrowserRouter basename={basename}>
                     <Switch>
                         <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
-
                         <InnloggingBoundary>
                             <RedirectEtterLogin>
                                 <FeatureToggleProvider>
