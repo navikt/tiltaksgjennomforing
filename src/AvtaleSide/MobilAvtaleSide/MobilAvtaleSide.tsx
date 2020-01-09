@@ -1,7 +1,7 @@
 import { Rolle } from '@/AvtaleContext';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import React, { useState } from 'react';
+import React from 'react';
 import { StegInfo } from '../AvtaleSide';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
@@ -14,7 +14,6 @@ interface Props {
 const cls = BEMHelper('avtaleside');
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
-    const [isOpen, setOpen] = useState<boolean>(false);
     const ekspanderbartPanel = props.avtaleSteg.map(steg => (
         <div className="avtaleside__ekspanderbart-panel" key={steg.id}>
             <Ekspanderbartpanel tittel={steg.label}>{steg.komponent}</Ekspanderbartpanel>
