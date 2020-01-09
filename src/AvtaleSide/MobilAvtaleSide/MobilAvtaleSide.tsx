@@ -11,6 +11,7 @@ interface Props {
     varsler?: JSX.Element[];
     tilbakeTilOversiktKlikk: () => void;
 }
+
 const cls = BEMHelper('avtaleside');
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
