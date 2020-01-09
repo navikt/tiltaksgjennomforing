@@ -3,7 +3,6 @@ import restService from './services/rest-service';
 
 export enum Feature {
     Lonnstilskudd = 'tag.tiltak.lonnstilskudd',
-    Kontortilgang = 'tag.tiltak.ny.veiledertilgang',
     LaasOppKnapp = 'tag.tiltak.laasoppknapp',
 }
 const alleFeatures = Object.values(Feature);
