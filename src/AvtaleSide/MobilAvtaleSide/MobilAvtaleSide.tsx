@@ -1,11 +1,9 @@
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import React, { useState } from 'react';
 import { Rolle } from '@/AvtaleContext';
 import BEMHelper from '@/utils/bem';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import React, { useState } from 'react';
 import { StegInfo } from '../AvtaleSide';
-import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import KopierLenkeModal from '../DelLenkeTilAvtalen/KopierLenkeModal';
 
 interface Props {
     avtaleSteg: StegInfo[];
@@ -27,12 +25,9 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
         <>
             <div className={cls.element('lenkerlinje')}>
                 <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
-                {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
             </div>
             {props.varsler}
             <form>{ekspanderbartPanel}</form>
-
-            <KopierLenkeModal isOpen={isOpen} lukkModal={() => setOpen(false)} />
         </>
     );
 };
