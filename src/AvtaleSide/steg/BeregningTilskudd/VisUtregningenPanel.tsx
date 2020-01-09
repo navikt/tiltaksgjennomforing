@@ -144,7 +144,7 @@ const VisUtregningenPanel = (props: Context) => {
                     </Column>
                 </Row>
                 <Row className="visUtregningenPanel__rad visUtregningenPanel__rad__oppsummering">
-                    <Column md="9" sm="12" xs="6" className="visUtregningenPanel__tittel">
+                    <Column md="9" sm="9" xs="6" className="visUtregningenPanel__tittel">
                         <Undertittel> Månedlig lønnstilskudd fra Nav:</Undertittel>
                     </Column>
 
