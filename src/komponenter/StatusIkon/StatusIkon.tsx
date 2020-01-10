@@ -19,10 +19,7 @@ const StatusIkon: FunctionComponent<{
         case 'Klar for oppstart':
             return <CheckIkon {...props} />;
         case 'Mangler godkjenning':
-            if (
-                (props.rolle !== undefined && props.rolle === 'VEILEDER') ||
-                (props.godkjentAvInnloggetBruker !== undefined && props.godkjentAvInnloggetBruker)
-            ) {
+            if (props.rolle === 'VEILEDER' || props.godkjentAvInnloggetBruker) {
                 return <PabegyntIkon {...props} />;
             } else {
                 return <ProblemIkon {...props} />;
