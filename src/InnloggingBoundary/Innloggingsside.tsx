@@ -10,6 +10,7 @@ import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Ingress, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
+import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
@@ -19,6 +20,8 @@ import { VarselOmNedetid } from './VarselOmNedetid';
 const cls = BEMHelper('innloggingsside');
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
+    const [, setCookie] = useCookies();
+
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
         try {
             await restService.hentInnloggetBruker();
@@ -35,7 +38,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             key={innlogginskilde.url}
             className="innloggingsside__logginnKnapp"
             onClick={() => {
-                sessionStorage.setItem(INNLOGGET_PART, innlogginskilde.part);
+                setCookie(INNLOGGET_PART, innlogginskilde.part);
                 loginKlikk(innlogginskilde);
             }}
         >
