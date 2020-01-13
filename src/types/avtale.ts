@@ -103,6 +103,7 @@ export interface Maal {
 }
 
 export interface Oppgaver {
+    arbeidsoppgaver?: string;
     oppgaver: Oppgave[];
 }
 

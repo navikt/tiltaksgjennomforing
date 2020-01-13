@@ -28,6 +28,7 @@ export type StegId =
     | 'kontaktinformasjon'
     | 'maal'
     | 'arbeidsoppgaver'
+    | 'nyarbeidsoppgaver'
     | 'arbeidstid'
     | 'oppfolging'
     | 'stilling'

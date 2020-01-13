@@ -2,16 +2,19 @@ import ArbeidsoppgaverSteg from '@/AvtaleSide/steg/ArbeidsoppgaverSteg/Arbeidsop
 import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 import BeregningTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningTilskuddSteg';
 import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
-import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
-import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
+import OppsummeringArbeidstrening
+    from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import OppsummeringLonnstilskudd
+    from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import KontaktinfoSteg from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from '@/AvtaleSide/steg/MaalSteg/MaalSteg';
-import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
+import OppfolgingTilretteleggingSteg
+    from '@/AvtaleSide/steg/OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import React from 'react';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
-import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
-import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
+import NyttArbeidsoppgaverSteg from "@/AvtaleSide/steg/ArbeidsoppgaverSteg/NyttArbeidsoppgaverSteg";
+import OppsummeringMentor from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor";
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -28,6 +31,11 @@ const arbeidstreningSteg: StegInfo[] = [
         komponent: <ArbeidsoppgaverSteg />,
         label: 'Arbeidsoppgaver',
         id: 'arbeidsoppgaver',
+    },
+    {
+        komponent: <NyttArbeidsoppgaverSteg />,
+        label: 'Arbeidsoppgaver (ny)',
+        id: 'nyarbeidsoppgaver',
     },
     {
         komponent: <VarighetSteg />,
