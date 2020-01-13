@@ -10,8 +10,6 @@ import { SokeTyper } from '@/types/soke-typer';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { lagQueryParams } from '@/utils/queryParamUtils';
-// import AlertStripe from 'nav-frontend-alertstriper';
-// import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
