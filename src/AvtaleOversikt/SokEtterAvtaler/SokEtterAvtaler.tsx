@@ -5,7 +5,7 @@ import { validerOrgnr } from '@/utils/orgnrUtils';
 import classNames from 'classnames';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import { Fieldset, Input, Radio } from 'nav-frontend-skjema';
-import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useCallback, useEffect, useState } from 'react';
 import './SokEtterAvtaler.less';
 
