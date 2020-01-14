@@ -47,6 +47,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     return (
         <div className="wrapper">
             <div className={cls.className}>
+                <Koffert className={cls.element('koffertikon')} />
                 <MediaQuery minWidth={576}>
                     <VerticalSpacer thirtyTwoPx={true} />
                 </MediaQuery>
