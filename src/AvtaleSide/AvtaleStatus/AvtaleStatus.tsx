@@ -11,6 +11,7 @@ import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import RestService from '@/services/rest-service';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import MediaQuery from 'react-responsive';
+import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 
 const cls = BEMHelper('avtalestatus');
 
@@ -36,7 +37,12 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
         <Innholdsboks className={cls.element('innholdsboks')}>
             <MediaQuery minWidth={576}>
                 <div className={cls.element('hovedIkon')}>
-                    <StatusIkon status={props.avtale.status} className={cls.element('hovedIkon__justerStorrelse')} />
+                    <StatusIkon
+                        rolle={props.rolle}
+                        status={props.avtale.status}
+                        godkjentAvInnloggetBruker={avtaleStatusDetaljer.godkjentAvInnloggetBruker}
+                        className={cls.element('hovedIkon__justerStorrelse')}
+                    />
                 </div>
                 <Innholdstittel className={cls.element('header')}>{avtaleStatusDetaljer.header} </Innholdstittel>
             </MediaQuery>
@@ -47,6 +53,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                     </div>
                     <div>
                         <StatusIkon
+                            rolle={props.rolle}
                             status={props.avtale.status}
                             className={cls.element('hovedIkonMobil__justerStorrelse')}
                         />
@@ -57,23 +64,35 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 <p>
                     {' '}
                     {props.avtale.godkjentAvVeileder
-                        ? 'Avtalen er godkjent av alle parter og låst.' + avtaleStatusDetaljer.infoDel1
+                        ? 'Avtalen er godkjent av alle parter og låst. ' + avtaleStatusDetaljer.infoDel1
                         : avtaleStatusDetaljer.infoDel1}
                 </p>
                 <p>{avtaleStatusDetaljer.infoDel2}</p>
             </Normaltekst>
             <div className={cls.element('andreParter')}>
                 <div className={cls.element('andreParter__begge')}>
-                    {avtaleStatusDetaljer.part1}
                     <span className={cls.element('andreParter__ikon')}>
-                        {avtaleStatusDetaljer.part1Status === true ? <CheckIkon /> : <VarselIkon />}
+                        {avtaleStatusDetaljer.part1Status === true ? (
+                            <CheckIkon />
+                        ) : props.avtale.status === 'Påbegynt' ? (
+                            <PabegyntIkon />
+                        ) : (
+                            <VarselIkon />
+                        )}
                     </span>
+                    {avtaleStatusDetaljer.part1}
                 </div>
                 <div className={cls.element('andreParter__begge')}>
-                    {avtaleStatusDetaljer.part2}
                     <span className={cls.element('andreParter__ikon')}>
-                        {avtaleStatusDetaljer.part2Status === true ? <CheckIkon /> : <VarselIkon />}
+                        {avtaleStatusDetaljer.part2Status === true ? (
+                            <CheckIkon />
+                        ) : props.avtale.status === 'Påbegynt' ? (
+                            <PabegyntIkon />
+                        ) : (
+                            <VarselIkon />
+                        )}
                     </span>
+                    {avtaleStatusDetaljer.part2}
                 </div>
             </div>
         </Innholdsboks>
