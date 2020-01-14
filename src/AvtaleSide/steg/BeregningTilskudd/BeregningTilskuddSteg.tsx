@@ -13,6 +13,9 @@ import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import './BeregningTilskuddSteg.less';
+import BEMHelper from '@/utils/bem';
+
+const cls = BEMHelper('beregningTilskuddSteg');
 
 const feriepengeAlternativer = (erOver60: boolean) => {
     const satser = erOver60 ? [0.12, 0.143] : [0.102, 0.125];
@@ -42,7 +45,7 @@ const BeregningTilskuddSteg = (props: Context) => {
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
             <Undertittel>Lønnstilskudd prosent</Undertittel>
-            <Normaltekst className="beregningTilskuddSteg__luft">
+            <Normaltekst className={cls.element('luft')}>
                 Velg sats for refusjon som arbeidsgiver skal få tilbake
             </Normaltekst>
             <RadioPanelGruppeHorisontal
@@ -54,7 +57,7 @@ const BeregningTilskuddSteg = (props: Context) => {
                     props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
                 }
             />
-            <Undertittel className="beregningTilskuddSteg__luft">Lønn og stillingsprosent</Undertittel>
+            <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn og stillingsprosent</Undertittel>
             <Container fluid={true}>
                 <Row className="">
                     <Column md="6">
@@ -90,8 +93,10 @@ const BeregningTilskuddSteg = (props: Context) => {
                 </Row>
                 <Row className="">
                     <Column md="12">
-                        <Undertittel>Feriepenger</Undertittel>
-                        <Normaltekst>Velg sats for feriepenger som arbeidstaker skal ha</Normaltekst>
+                        <Undertittel className={cls.element('luft')}>Feriepenger</Undertittel>
+                        <Normaltekst className={cls.element('luft')}>
+                            Velg sats for feriepenger som arbeidstaker skal ha
+                        </Normaltekst>
                         <RadioPanelGruppeHorisontal
                             radios={feriepengeAlternativer(true)}
                             name="feriepengesats"
@@ -119,6 +124,7 @@ const BeregningTilskuddSteg = (props: Context) => {
                             }}
                         />
                         <KontonummerInput
+                            bredde={'L'}
                             label={'Kontonummer'}
                             value={avtale.arbeidsgiverKontonummer}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
