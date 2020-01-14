@@ -21,6 +21,7 @@ import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkele
 import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
 import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import { Normaltekst } from 'nav-frontend-typografi';
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
@@ -63,14 +64,6 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
             <Banner tekst="Dine arbeidstreningsavtaler" />
 
             <div className="avtaleoversikt">
-                <div className={cls.element('informasjonsBanner')}>
-                    <LenkepanelBase>
-                        <Info width="24" height="24" />
-                        <Link to={pathTilInformasjonssideInnlogget} className={cls.element('lenke')}>
-                            Om tiltaksgjennomføring
-                        </Link>
-                    </LenkepanelBase>
-                </div>
                 {opprettAvtaleKnapp}
 
                 <div className={cls.element('innhold')}>
@@ -102,6 +95,15 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                             </div>
                         )}
                     </div>
+                </div>
+                <div className={cls.element('informasjonsBanner')}>
+                    <LenkepanelBase
+                        href={pathTilInformasjonssideInnlogget}
+                        linkCreator={(props: any) => <Link to={props.href} {...props} />}
+                    >
+                        <Info width="24" height="24" />
+                        <Normaltekst className={cls.element('lenke')}>Les mer om løsningen</Normaltekst>
+                    </LenkepanelBase>
                 </div>
             </div>
         </>

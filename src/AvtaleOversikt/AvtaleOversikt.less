@@ -12,7 +12,6 @@
     }
 
     &__lenke {
-        text-decoration-line: none;
         margin-left: 1rem;
     }
 
@@ -43,6 +42,7 @@
     }
 
     &__opprett-avtale {
+        margin-top: 2rem;
         margin-bottom: 2rem;
         display: flex;
         justify-content: center;
@@ -54,9 +54,13 @@
     }
 
     &__informasjonsBanner {
+        margin-bottom: 1rem;
+        margin-top: 1rem;
         width: 100%;
+        display: flex;
         justify-content: center;
-        align-self: center;
+        position: relative;
+        bottom: 0;
     }
 
     .ulest-varsel-ikon {
@@ -123,17 +127,21 @@
         }
 
         &__informasjonsBanner {
+            display: flex;
             margin-top: 1rem;
-            width: 35%;
             margin-bottom: 1rem;
+            // width: 35%;
             align-self: center;
             text-align: center;
+            justify-content: center;
+            position: absolute;
+            bottom: 0;
         }
     }
 
-    &__avtaleliste {
-        margin: 1rem;
-    }
+    // &__avtaleliste {
+    //     margin: 1rem;
+    // }
 
     &__avtalelistecontainer {
         min-width: 100%;
