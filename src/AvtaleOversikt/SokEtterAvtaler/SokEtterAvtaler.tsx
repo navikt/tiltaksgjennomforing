@@ -5,7 +5,7 @@ import { validerOrgnr } from '@/utils/orgnrUtils';
 import classNames from 'classnames';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import { Fieldset, Input, Radio } from 'nav-frontend-skjema';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Undertittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useCallback, useEffect, useState } from 'react';
 import './SokEtterAvtaler.less';
 
@@ -114,7 +114,7 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
 
     return (
         <div className={classNames(cls.element('sokeboks'), 'innholdsboks')}>
-            <Undertittel>Søk etter</Undertittel>
+            <Undertittel>Søk etter avtaler registrert på</Undertittel>
             <Fieldset legend="">
                 <Radio
                     checked={valgtSokeType === 'deltakerFnr'}
