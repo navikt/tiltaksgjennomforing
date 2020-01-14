@@ -41,6 +41,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                         rolle={props.rolle}
                         status={props.avtale.status}
                         godkjentAvInnloggetBruker={avtaleStatusDetaljer.godkjentAvInnloggetBruker}
+                        andrePartnerHarGodkjent={avtaleStatusDetaljer.part1Status && avtaleStatusDetaljer.part2Status}
                         className={cls.element('hovedIkon__justerStorrelse')}
                     />
                 </div>
@@ -80,7 +81,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                             <VarselIkon />
                         )}
                     </span>
-                    {avtaleStatusDetaljer.part1}
+                    <div className={cls.element('noprint')}>{avtaleStatusDetaljer.part1}</div>
                 </div>
                 <div className={cls.element('andreParter__begge')}>
                     <span className={cls.element('andreParter__ikon')}>
@@ -92,7 +93,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                             <VarselIkon />
                         )}
                     </span>
-                    {avtaleStatusDetaljer.part2}
+                    <div className={cls.element('noprint')}>{avtaleStatusDetaljer.part2}</div>
                 </div>
             </div>
         </Innholdsboks>
