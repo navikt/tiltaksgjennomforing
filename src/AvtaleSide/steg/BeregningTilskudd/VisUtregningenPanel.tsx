@@ -45,7 +45,10 @@ const VisUtregningenPanel = (props: Context) => {
                         </div>
                     </Column>
                     <Column md="6" sm="6" xs="6" className="visUtregningenPanel__column__siste">
-                        {props.avtale.stillingprosent} %
+                        {props.avtale.stillingprosent !== undefined && props.avtale.stillingprosent > 0
+                            ? props.avtale.stillingprosent
+                            : 0}{' '}
+                        %
                     </Column>
                 </Row>
                 <Row className="visUtregningenPanel__rad">
