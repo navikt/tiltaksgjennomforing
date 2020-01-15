@@ -34,10 +34,15 @@ const lonnstilskuddProsentAlternativer = () => {
 };
 const arbeidsgiveravgiftAlternativer = () => {
     const satser = [0.141, 0.106, 0.064, 0.051, 0.079];
-    return satser.map((sats: number) => ({
-        label: (sats * 100).toFixed(1) + ' %',
-        value: sats.toString(),
-    }));
+    const satserVerdier = [{ label: 'Velg', value: '0' }];
+    satser.map((sats: number) =>
+        satserVerdier.push({
+            label: (sats * 100).toFixed(1) + ' %',
+            value: sats.toString(),
+        })
+    );
+
+    return satserVerdier;
 };
 const BeregningTilskuddSteg = (props: Context) => {
     const { settAvtaleVerdi, avtale } = props;
