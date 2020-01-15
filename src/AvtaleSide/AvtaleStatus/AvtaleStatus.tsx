@@ -41,6 +41,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                         rolle={props.rolle}
                         status={props.avtale.status}
                         godkjentAvInnloggetBruker={avtaleStatusDetaljer.godkjentAvInnloggetBruker}
+                        andrePartnerHarGodkjent={avtaleStatusDetaljer.part1Status && avtaleStatusDetaljer.part2Status}
                         className={cls.element('hovedIkon__justerStorrelse')}
                     />
                 </div>

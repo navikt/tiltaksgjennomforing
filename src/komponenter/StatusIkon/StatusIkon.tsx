@@ -12,6 +12,7 @@ const StatusIkon: FunctionComponent<{
     status: string;
     rolle?: Rolle;
     godkjentAvInnloggetBruker?: boolean;
+    andrePartnerHarGodkjent?: boolean;
 } & React.SVGProps<SVGSVGElement>> = props => {
     switch (props.status) {
         case 'Påbegynt':
@@ -19,7 +20,7 @@ const StatusIkon: FunctionComponent<{
         case 'Klar for oppstart':
             return <CheckIkon {...props} />;
         case 'Mangler godkjenning':
-            if (props.rolle === 'VEILEDER' || props.godkjentAvInnloggetBruker) {
+            if (props.godkjentAvInnloggetBruker || (props.rolle === 'VEILEDER' && !props.andrePartnerHarGodkjent)) {
                 return <PabegyntIkon {...props} />;
             } else {
                 return <ProblemIkon {...props} />;
