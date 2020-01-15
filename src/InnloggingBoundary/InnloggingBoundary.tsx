@@ -25,7 +25,6 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
             const urlParametere = new URLSearchParams(props.location.search);
 
             const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
-            debugger;
             if (innloggetPart && ['ARBEIDSGIVER', 'DELTAKER', 'VEILEDER'].includes(innloggetPart)) {
                 setCookie(INNLOGGET_PART, innloggetPart);
                 urlParametere.delete('part');
