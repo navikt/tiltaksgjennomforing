@@ -5,6 +5,9 @@
 
     &__innholdsboks {
         margin-bottom: 0.5rem;
+        @media print {
+            display: none;
+        }
     }
 
     &__hovedIkon {
@@ -72,7 +75,7 @@
         }
 
         &__header {
-            margin-top: 0rem;
+            margin-top: 0;
             margin-bottom: 1rem;
             font-size: large;
         }
