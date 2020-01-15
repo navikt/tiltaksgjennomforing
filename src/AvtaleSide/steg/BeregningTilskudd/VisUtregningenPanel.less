@@ -41,23 +41,11 @@
         }
     }
 
-    &__orienter__left {
-        margin-left: 6rem;
-    }
-
     // spesielt til mobil
-    @media (max-width: 755px) {
+    @media (max-width: @screen-sm-min) {
         &__rad {
             padding: 1rem 0 1rem 0;
             margin: auto;
-
-            &__siste {
-                border-bottom: 1px solid;
-            }
-
-            &__oppsummering {
-                border-bottom: none;
-            }
         }
 
         &__orienter {

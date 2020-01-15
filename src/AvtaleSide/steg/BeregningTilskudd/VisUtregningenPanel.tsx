@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Context } from '@/AvtaleContext';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { ReactComponent as StillingProsentIkon } from '@/assets/ikoner/stillingsprosent.svg';
@@ -12,56 +12,41 @@ import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import MediaQuery from 'react-responsive';
 import BEMHelper from '@/utils/bem';
-import { number } from 'prop-types';
+import classNames from 'classnames';
 
 const cls = BEMHelper('visUtregningenPanel');
-interface State {
-    apen: boolean;
-    tittel: string;
-}
-/*const [apen, setApen] = useState<boolean>(true);
-const [tittel, setTittel] = useState<string>('skjul hele utregningen');*/
-/*const endreTittelVedApning = () => {
-    if (this.state.apen) {
-        this. state={tittel:'skjul hele utregningen',
-        apen:false}
-        setApen(false);
-    } else {
-        setTittel('vis hele utregningen');
-        setApen(true);
-    }
-};*/
+
 const VisUtregningenPanel = (props: Context) => {
     return (
         <Ekspanderbartpanel border={true} tittel={'Utregningen'} apen={true}>
             <Container fluid={true}>
-                <Row className="visUtregningenPanel__rad">
-                    <Column md="6" sm="6" xs="6" className="visUtregningenPanel__tittel">
-                        <div className="visUtregningenPanel__tittel">
+                <Row className={cls.element('rad')}>
+                    <Column md="6" sm="6" xs="6" className={cls.element('tittel')}>
+                        <div className={cls.element('tittel')}>
                             <MediaQuery minWidth={700}>
-                                <StillingProsentIkon className="visUtregningenPanel__ikon" />
+                                <StillingProsentIkon className={cls.element('ikon')} />
                             </MediaQuery>
                             Stillingsprosent
                         </div>
                     </Column>
-                    <Column md="6" sm="6" xs="6" className="visUtregningenPanel__column__siste">
+                    <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
                         {props.avtale.stillingprosent !== undefined && props.avtale.stillingprosent > 0
                             ? props.avtale.stillingprosent
                             : 0}{' '}
                         %
                     </Column>
                 </Row>
-                <Row className="visUtregningenPanel__rad">
+                <Row className={cls.element('rad')}>
                     <Column md="6" sm="6" xs="6">
                         {' '}
-                        <div className="visUtregningenPanel__tittel">
+                        <div className={cls.element('tittel')}>
                             <MediaQuery minWidth={700}>
-                                <ManedsLonnIkon className="visUtregningenPanel__ikon" />
+                                <ManedsLonnIkon className={cls.element('ikon')} />
                             </MediaQuery>
                             Månedslønn
                         </div>
                     </Column>
-                    <Column md="6" sm="6" xs="6" className="visUtregningenPanel__column__siste">
+                    <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
                         <div>
                             {' '}
                             {props.avtale.manedslonn !== undefined && props.avtale.manedslonn > 0
@@ -71,10 +56,10 @@ const VisUtregningenPanel = (props: Context) => {
                         </div>
                     </Column>
                 </Row>
-                <Row className="visUtregningenPanel__rad">
-                    <Column md="6" sm="6" xs="4" className="visUtregningenPanel__tittel">
+                <Row className={cls.element('rad')}>
+                    <Column md="6" sm="6" xs="4" className={cls.element('tittel')}>
                         <MediaQuery minWidth={700}>
-                            <FeriepengerIkon className="visUtregningenPanel__ikon" />
+                            <FeriepengerIkon className={cls.element('ikon')} />
                         </MediaQuery>
                         <div>Feriepenger</div>
                     </Column>
@@ -84,7 +69,7 @@ const VisUtregningenPanel = (props: Context) => {
                     <Column md="1" sm="1" xs="1">
                         +
                     </Column>
-                    <Column md="2" sm="2" xs="5" className="visUtregningenPanel__column__siste">
+                    <Column md="2" sm="2" xs="5" className={cls.element('column__siste')}>
                         {props.avtale.manedslonn !== undefined &&
                         props.avtale.manedslonn > 0 &&
                         props.avtale.feriepengesats !== undefined &&
@@ -94,10 +79,10 @@ const VisUtregningenPanel = (props: Context) => {
                         kr
                     </Column>
                 </Row>
-                <Row className="visUtregningenPanel__rad">
-                    <Column md="6" sm="6" xs="4" className="visUtregningenPanel__tittel">
+                <Row className={cls.element('rad')}>
+                    <Column md="6" sm="6" xs="4" className={cls.element('tittel')}>
                         <MediaQuery minWidth={700}>
-                            <ObligTjenestepensjonIkon className="visUtregningenPanel__ikon" />
+                            <ObligTjenestepensjonIkon className={cls.element('ikon')} />
                         </MediaQuery>
                         <div>
                             Obligatorisk tjenestepensjon <MediaQuery maxWidth={699}>(2%)</MediaQuery>{' '}
@@ -109,17 +94,17 @@ const VisUtregningenPanel = (props: Context) => {
                     <Column md="1" sm="1" xs="1">
                         +
                     </Column>
-                    <Column md="2" sm="2" xs="4" className="visUtregningenPanel__column__siste">
+                    <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
                         {props.avtale.manedslonn !== undefined && props.avtale.manedslonn > 0
                             ? (props.avtale.manedslonn * 0.02).toFixed(0)
                             : 0}{' '}
                         kr
                     </Column>
                 </Row>
-                <Row className="visUtregningenPanel__rad">
-                    <Column md="6" sm="6" xs="4" className="visUtregningenPanel__tittel">
+                <Row className={cls.element('rad')}>
+                    <Column md="6" sm="6" xs="4" className={cls.element('tittel')}>
                         <MediaQuery minWidth={700}>
-                            <ArbeidsgiveravgiftIkon className="visUtregningenPanel__ikon" />
+                            <ArbeidsgiveravgiftIkon className={cls.element('ikon')} />
                         </MediaQuery>
                         <div>
                             Arbeidsgiveravgift{' '}
@@ -134,7 +119,7 @@ const VisUtregningenPanel = (props: Context) => {
                     <Column md="1" sm="1" xs="1">
                         +
                     </Column>
-                    <Column md="2" sm="2" xs="4" className="visUtregningenPanel__column__siste">
+                    <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
                         {props.avtale.manedslonn !== undefined &&
                         props.avtale.manedslonn > 0 &&
                         props.avtale.arbeidsgiveravgift !== undefined &&
@@ -144,12 +129,12 @@ const VisUtregningenPanel = (props: Context) => {
                         kr
                     </Column>
                 </Row>
-                <Row className="visUtregningenPanel__rad">
+                <Row className={cls.element('rad')}>
                     <Column
                         md="6"
                         sm="6"
                         xs="4"
-                        className="visUtregningenPanel__tittel visUtregningenPanel__orienter__sum__tittel"
+                        className={classNames(cls.element('tittel'), cls.element('orienter__sum__tittel'))}
                     >
                         <div>Sum utgifter</div>
                     </Column>
@@ -157,7 +142,7 @@ const VisUtregningenPanel = (props: Context) => {
                     <Column md="1" sm="1" xs="1">
                         =
                     </Column>
-                    <Column md="2" sm="2" xs="4" className="visUtregningenPanel__column__siste">
+                    <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
                         {props.avtale.manedslonn !== undefined &&
                         props.avtale.manedslonn > 0 &&
                         props.avtale.feriepengesats > 0 &&
@@ -172,23 +157,27 @@ const VisUtregningenPanel = (props: Context) => {
                         kr
                     </Column>
                 </Row>
-                <Row className="visUtregningenPanel__rad visUtregningenPanel__rad__siste">
-                    <Column md="6" sm="9" xs="6" className="visUtregningenPanel__tittel">
+                <Row className={classNames(cls.element('rad'), cls.element('rad__siste'))}>
+                    <Column md="6" sm="9" xs="6" className={cls.element('tittel')}>
                         <MediaQuery minWidth={700}>
-                            <GraphRefusjonAvLonnIkon className="visUtregningenPanel__ikon" />
+                            <GraphRefusjonAvLonnIkon className={cls.element('ikon')} />
                         </MediaQuery>
                         <div>Fastsatt refusjon</div>
                     </Column>
-                    <Column md="6" sm="3" xs="6" className="visUtregningenPanel__column__siste">
-                        {props.avtale.lonnstilskuddProsent} %
+                    <Column md="6" sm="3" xs="6" className={cls.element('column__siste')}>
+                        {props.avtale.lonnstilskuddProsent !== undefined &&
+                        parseFloat(props.avtale.lonnstilskuddProsent) > 0
+                            ? props.avtale.lonnstilskuddProsent
+                            : 0}{' '}
+                        %
                     </Column>
                 </Row>
-                <Row className="visUtregningenPanel__rad visUtregningenPanel__rad__oppsummering">
-                    <Column md="9" sm="9" xs="6" className="visUtregningenPanel__tittel">
+                <Row className={classNames(cls.element('rad'), cls.element('rad__oppsummering'))}>
+                    <Column md="9" sm="9" xs="6" className={cls.element('tittel')}>
                         <Undertittel> Sum lønnstilskudd:</Undertittel>
                     </Column>
 
-                    <Column md="3" sm="3" xs="6" className="visUtregningenPanel__column__siste">
+                    <Column md="3" sm="3" xs="6" className={cls.element('column__siste')}>
                         <Undertittel>
                             {props.avtale.manedslonn !== undefined &&
                             props.avtale.manedslonn > 0 &&
