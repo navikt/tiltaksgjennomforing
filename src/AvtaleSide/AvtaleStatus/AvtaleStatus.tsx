@@ -81,7 +81,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                             <VarselIkon />
                         )}
                     </span>
-                    <div className={cls.element('noprint')}>{avtaleStatusDetaljer.part1}</div>
+                    {avtaleStatusDetaljer.part1}
                 </div>
                 <div className={cls.element('andreParter__begge')}>
                     <span className={cls.element('andreParter__ikon')}>
@@ -93,7 +93,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                             <VarselIkon />
                         )}
                     </span>
-                    <div className={cls.element('noprint')}>{avtaleStatusDetaljer.part2}</div>
+                    {avtaleStatusDetaljer.part2}
                 </div>
             </div>
         </Innholdsboks>

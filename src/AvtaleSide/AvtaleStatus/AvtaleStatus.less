@@ -5,16 +5,15 @@
 
     &__innholdsboks {
         margin-bottom: 0.5rem;
+        @media print {
+            display: none;
+        }
     }
 
     &__hovedIkon {
         display: flex;
         justify-content: center;
         margin-top: -3.5rem;
-        @media print {
-            display: none;
-        }
-
         &__justerStorrelse {
             width: 3.125rem;
             height: 3.125rem;
@@ -23,9 +22,6 @@
 
     &__parterIkon {
         margin-bottom: 1rem;
-        @media print {
-            display: none;
-        }
     }
 
     &__header {
@@ -44,22 +40,11 @@
 
         &__ikon {
             margin-right: 0.5rem;
-            @media print {
-                display: none;
-            }
         }
         &__begge {
             display: flex;
             margin-right: 1rem;
             align-items: center;
-            @media print {
-                display: none;
-            }
-        }
-    }
-    @media print {
-        &__noprint {
-            display: none;
         }
     }
 }
@@ -105,10 +90,4 @@
             }
         }
     }
-    @media print {
-        display: none;
-    }
-}
-@media print {
-    display: none;
 }
