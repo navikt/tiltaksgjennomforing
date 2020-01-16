@@ -63,8 +63,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             }}
                         >
                             Deltaker, arbeidsgiver og NAV fyller ut, ser over og godkjenner avtalen i samme løsning i
-                            sanntid, på hver sin PC eller mobil. NAV skal alltid godkjenne avtalen til slutt, og først
-                            da kan arbeidstreningen starte.
+                            sanntid. Når innholdet i avtalen er ferdig utfylt skal alle parter godkjenne avtalen.
+                            Hvem som godkjenner avtalen først av arbeidsgiver eller deltaker har ikke noe å si. NAV skal alltid godkjenne avtalen 
+                            til slutt, og først da kan arbeidstreningen starte.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
