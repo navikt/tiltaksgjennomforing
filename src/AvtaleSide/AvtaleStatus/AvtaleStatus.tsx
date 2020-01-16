@@ -51,7 +51,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
         );
     return (
         <Innholdsboks className={cls.element('innholdsboks')}>
-            <MediaQuery minWidth={576}>
+            <MediaQuery minWidth={768}>
                 <div className={cls.element('hovedIkon')}>
                     <StatusIkon
                         rolle={props.rolle}
@@ -63,7 +63,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 </div>
                 <Innholdstittel className={cls.element('header')}>{avtaleStatusDetaljer.header} </Innholdstittel>
             </MediaQuery>
-            <MediaQuery maxWidth={575}>
+            <MediaQuery maxWidth={767}>
                 <div className={cls.element('hovedIkonMobil')}>
                     <div>
                         <Undertittel className={cls.element('header')}>{avtaleStatusDetaljer.header} </Undertittel>
