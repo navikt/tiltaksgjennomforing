@@ -88,21 +88,21 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
             </Normaltekst>
             <div className={cls.element('andreParter')}>
                 <div className={cls.element('andreParter__begge')}>
-                    <MediaQuery minWidth={576}>
+                    <MediaQuery minWidth={768}>
                         <span className={cls.element('andreParter__ikon')}>{part1Ikon}</span>
                         {avtaleStatusDetaljer.part1}
                     </MediaQuery>
-                    <MediaQuery maxWidth={575}>
+                    <MediaQuery maxWidth={767}>
                         {avtaleStatusDetaljer.part1}
                         <span className={cls.element('andreParter__ikon')}>{part1Ikon}</span>
                     </MediaQuery>
                 </div>
                 <div className={cls.element('andreParter__begge')}>
-                    <MediaQuery minWidth={576}>
+                    <MediaQuery minWidth={768}>
                         <span className={cls.element('andreParter__ikon')}>{part2Ikon}</span>
                         {avtaleStatusDetaljer.part2}
                     </MediaQuery>
-                    <MediaQuery maxWidth={575}>
+                    <MediaQuery maxWidth={767}>
                         {avtaleStatusDetaljer.part2}
                         <span className={cls.element('andreParter__ikon')}>{part2Ikon}</span>
                     </MediaQuery>
