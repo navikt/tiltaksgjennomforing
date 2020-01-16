@@ -14,6 +14,7 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import './BeregningTilskuddSteg.less';
 import BEMHelper from '@/utils/bem';
+import { number } from 'prop-types';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -35,13 +36,12 @@ const lonnstilskuddProsentAlternativer = () => {
 const arbeidsgiveravgiftAlternativer = () => {
     const satser = [0.141, 0.106, 0.064, 0.051, 0.079];
     const satserVerdier = [{ label: 'Velg', value: '0' }];
-    satser.map((sats: number) =>
+    satser.forEach((sats: number) =>
         satserVerdier.push({
             label: (sats * 100).toFixed(1) + ' %',
             value: sats.toString(),
         })
     );
-
     return satserVerdier;
 };
 const BeregningTilskuddSteg = (props: Context) => {
