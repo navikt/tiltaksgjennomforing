@@ -14,7 +14,6 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import './BeregningTilskuddSteg.less';
 import BEMHelper from '@/utils/bem';
-import { number } from 'prop-types';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
