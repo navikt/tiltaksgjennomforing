@@ -1,3 +1,4 @@
+import messages from '@/messages';
 import * as React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
@@ -20,7 +21,6 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import messages from '@/messages';
 
 addLocaleData(nb);
 

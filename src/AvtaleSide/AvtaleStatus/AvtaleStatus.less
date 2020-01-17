@@ -5,13 +5,15 @@
 
     &__innholdsboks {
         margin-bottom: 0.5rem;
+        @media print {
+            display: none;
+        }
     }
 
     &__hovedIkon {
         display: flex;
         justify-content: center;
         margin-top: -3.5rem;
-
         &__justerStorrelse {
             width: 3.125rem;
             height: 3.125rem;
@@ -37,11 +39,12 @@
         justify-content: space-between;
 
         &__ikon {
-            margin-left: 2rem;
+            margin-right: 0.5rem;
         }
         &__begge {
             display: flex;
             margin-right: 1rem;
+            align-items: center;
         }
     }
 }
@@ -68,7 +71,7 @@
         }
 
         &__header {
-            margin-top: 0rem;
+            margin-top: 0;
             margin-bottom: 1rem;
             font-size: large;
         }
@@ -78,6 +81,7 @@
 
             &__ikon {
                 margin-left: 2rem;
+                margin-right: 0;
             }
             &__begge {
                 display: flex;
