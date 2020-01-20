@@ -1,6 +1,6 @@
+import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
 import Banner from '@/komponenter/Banner/Banner';
 import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
 import RestService from '@/services/rest-service';
@@ -11,6 +11,8 @@ import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { lagQueryParams } from '@/utils/queryParamUtils';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
@@ -20,8 +22,6 @@ import './AvtaleOversikt.less';
 import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
 import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
 import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel';
-import { Normaltekst } from 'nav-frontend-typografi';
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
