@@ -22,7 +22,6 @@ import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
 import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { Normaltekst } from 'nav-frontend-typografi';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
