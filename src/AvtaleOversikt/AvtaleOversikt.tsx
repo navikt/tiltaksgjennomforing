@@ -22,6 +22,7 @@ import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
 import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { Normaltekst } from 'nav-frontend-typografi';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
@@ -68,6 +69,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
                 <div className={cls.element('innhold')}>
                     {innloggetBruker.erNavAnsatt && <SokEtterAvtaler sokEtterAvtaler={sokEtterAvtaler} />}
+                    <div className={cls.element('luft')}></div>
                     <div className={cls.element('avtalelistecontainer')}>
                         {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
                             <div>
