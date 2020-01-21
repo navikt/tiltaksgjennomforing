@@ -11,7 +11,8 @@ staleLabel: wontfix
 # Comment to post when marking an issue as stale. Set to `false` to disable
 markComment: >
   Denne PR-en har automatisk blitt markert som inaktiv fordi den ikke har hatt noen nylig aktivitet.
-  Den vil bli lukket hvis det ikke blir foretatt noe mer aktivitet innen 7 dager fra opprettelse.
+  Den vil bli lukket hvis det ikke blir foretatt noe mer aktivitet innen 7 dager.
   Takk for at du får saken din igjennom!
 # Comment to post when closing a stale issue. Set to `false` to disable
-closeComment: false
+closeComment: >
+  Denne PR-en har nå blitt lukket pga. inaktivitet. Du kan fortsatt reåpne den.
