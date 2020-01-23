@@ -1,51 +1,39 @@
-import React from 'react';
-import Modal from 'nav-frontend-modal';
 import BEMHelper from '@/utils/bem';
+import KnappBase from 'nav-frontend-knapper';
+import Modal from 'nav-frontend-modal';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import React from 'react';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
-import KnappBase from 'nav-frontend-knapper';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 
 const cls = BEMHelper('bekreftelseModal');
 
 interface Props {
     modalIsOpen: boolean;
-    radTilSletting: any;
-    slettOnClick: (rad: any) => Promise<any>;
+    bekreftOnClick: () => Promise<any>;
     lukkModal: () => void;
-    navn: string;
     varselTekst: string;
     oversiktTekst: string;
     bekreftelseTekst: string;
     avbrytelseTekst: string;
 }
 
-const BekreftelseModal = ({
-    modalIsOpen,
-    slettOnClick,
-    radTilSletting,
-    lukkModal,
-    navn,
-    varselTekst,
-    oversiktTekst,
-    bekreftelseTekst,
-    avbrytelseTekst,
-}: Props) => {
+const BekreftelseModal: React.FunctionComponent<Props> = props => {
     if (typeof window !== 'undefined') {
         Modal.setAppElement('body');
     }
 
     const slettRad = () => {
-        return slettOnClick(radTilSletting);
+        return props.bekreftOnClick();
     };
 
     return (
         <div className={cls.className}>
             <Modal
-                isOpen={modalIsOpen}
+                isOpen={props.modalIsOpen}
                 className="modal--overflow-visible"
                 contentLabel={'test'}
-                onRequestClose={lukkModal}
+                onRequestClose={props.lukkModal}
                 closeButton={false}
             >
                 <div className={cls.element('topIconContainer')}>
@@ -55,18 +43,16 @@ const BekreftelseModal = ({
                     <div className={cls.element('knappRad')} />
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('tittel')}>
-                            <Systemtittel>
-                                {oversiktTekst} {navn}
-                            </Systemtittel>
+                            <Systemtittel>{props.oversiktTekst}</Systemtittel>
                         </div>
-                        <Normaltekst className={cls.element('varselTekst')}>{varselTekst}</Normaltekst>
+                        <Normaltekst className={cls.element('varselTekst')}>{props.varselTekst}</Normaltekst>
                     </div>
                     <div className={cls.element('knapper')}>
                         <KnappBase type={'hoved'} className={cls.element('knapp lenkeknapp')} onClick={slettRad}>
-                            {bekreftelseTekst} {navn}
+                            {props.bekreftelseTekst}
                         </KnappBase>
-                        <KnappBase type={'flat'} className={cls.element('knapp lenkeknapp')} onClick={lukkModal}>
-                            {avbrytelseTekst}
+                        <KnappBase type={'flat'} className={cls.element('knapp lenkeknapp')} onClick={props.lukkModal}>
+                            {props.avbrytelseTekst}
                         </KnappBase>
                     </div>
                 </div>

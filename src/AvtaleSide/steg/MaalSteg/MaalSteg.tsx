@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { ApiError } from '@/types/errors';
 import { Context, medContext } from '@/AvtaleContext';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Maal } from '@/types/avtale';
+import { ApiError } from '@/types/errors';
+import * as React from 'react';
 import { finnLedigeMaalkategorier } from './maal-utils';
 import MaalKort from './MaalKort/MaalKort';
 import OpprettMaal from './OpprettMaal/OpprettMaal';
-import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 
 class MaalSteg extends React.Component<Context> {
     state: {
@@ -27,9 +27,9 @@ class MaalSteg extends React.Component<Context> {
         this.setState({ maalRad: maal }, () => this.setState({ modalIsOpen: true }));
     };
 
-    slettMaal = async (maal: Maal) => {
+    slettMaal = async () => {
         try {
-            await this.props.slettMaal(maal);
+            await this.props.slettMaal(this.state.maalRad);
             this.lukkModal();
         } catch (error) {
             if (error instanceof ApiError) {
@@ -68,13 +68,11 @@ class MaalSteg extends React.Component<Context> {
             ))}
             <BekreftelseModal
                 modalIsOpen={this.state.modalIsOpen}
-                radTilSletting={this.state.maalRad}
-                slettOnClick={this.slettMaal}
+                bekreftOnClick={this.slettMaal}
                 lukkModal={this.lukkModal}
-                navn="mål"
                 varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
-                oversiktTekst="Slette "
-                bekreftelseTekst="Ja, slett"
+                oversiktTekst="Slette mål"
+                bekreftelseTekst="Ja, slett mål"
                 avbrytelseTekst="avbryt"
             />
         </>

@@ -1,5 +1,5 @@
-import { Maalkategori } from './maalkategorier';
 import { Nettressurs } from '@/types/nettressurs';
+import { Maalkategori } from './maalkategorier';
 
 export type Avtale<T extends FellesAvtaleinnhold = AltAvtaleinnhold> = Avbrytelse &
     AvtaleMetadata &

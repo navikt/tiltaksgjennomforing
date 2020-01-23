@@ -1,13 +1,14 @@
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
 import { ApiError } from '@/types/errors';
+import { Maalkategori } from '@/types/maalkategorier';
 import Varsel from '@/types/varsel';
+import amplitude from '@/utils/amplitude';
 import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import RestService from './services/rest-service';
-import amplitude from '@/utils/amplitude';
-import { Maalkategori } from '@/types/maalkategorier';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -132,6 +133,7 @@ interface State {
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     varsler: Varsel[];
+    bekreftelseModalIsOpen: boolean;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -146,6 +148,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             mellomLagring: tomTemporaryLagring,
             mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
             varsler: [],
+            bekreftelseModalIsOpen: false,
         };
 
         this.avbrytAvtale = this.avbrytAvtale.bind(this);
@@ -241,13 +244,22 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
-    async lagreAvtale() {
-        const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
-        this.sendToAmplitude('avtale-lagret');
-        this.setState({
-            avtale: { ...this.state.avtale, ...nyAvtale },
-            ulagredeEndringer: false,
-        });
+    async lagreAvtale(oppheve?: boolean) {
+        const noenHarGodkjent =
+            this.state.avtale.godkjentAvDeltaker ||
+            this.state.avtale.godkjentAvArbeidsgiver ||
+            this.state.avtale.godkjentAvVeileder;
+        debugger;
+        if (!oppheve && noenHarGodkjent) {
+            this.setState({ bekreftelseModalIsOpen: true });
+        } else {
+            const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
+            this.sendToAmplitude('avtale-lagret');
+            this.setState({
+                avtale: { ...this.state.avtale, ...nyAvtale },
+                ulagredeEndringer: false,
+            });
+        }
     }
 
     lagreMaal(maalTilLagring: Maal) {
@@ -382,6 +394,46 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             laasOpp: this.laasOpp,
         };
 
+        const bekreftOpphevGodkjenninger = async () => {
+            // restservice.opphevGodkjenninger() => Får tilbake avtale objekt med ingen godkjenninger.
+            const opphevetAvtale = await RestService.opphevGodkjenninger(this.state.avtale.id);
+            const hehe = {
+                sistEndret: opphevetAvtale.sistEndret,
+                godkjentAvArbeidsgiver: opphevetAvtale.godkjentAvArbeidsgiver,
+                godkjentAvDeltaker: opphevetAvtale.godkjentAvArbeidsgiver,
+                godkjentAvVeileder: opphevetAvtale.godkjentAvArbeidsgiver,
+            };
+
+            // Dette avtaleobektet må oppdateres med endringene og settes på state (context). (OBS: sistEndret og godkjenninger må ikke endres).
+            const endretAvtale = { ...this.state.avtale, ...opphevetAvtale };
+
+            const pastate = this.state.avtale;
+            debugger;
+            this.setState({ avtale: endretAvtale });
+
+            // Denne funksjonen kaller rest-service.lagreAvtale(this.state.avtale) (hvis det ikke er godkjenninger på state) og setter responsen på state (context);
+            await this.lagreAvtale();
+
+            //Lukke modal
+            this.setState({ bekreftelseModalIsOpen: false });
+        };
+
+        const opphevGodkjenningerTekst = `En eller flere parter i avtalen har godkjent. 
+        Du er nå i ferd med å endre innholdet de har godkjent, og deres godkjenninger vil bli opphevet.
+        De må da logge seg inn å godkjenne på nytt. Er du sikker på at du vil fortsette?`;
+
+        const opphevGodkjenningerModal = (
+            <BekreftelseModal
+                modalIsOpen={this.state.bekreftelseModalIsOpen}
+                bekreftOnClick={bekreftOpphevGodkjenninger}
+                lukkModal={() => this.setState({ bekreftelseModalIsOpen: false })}
+                varselTekst={opphevGodkjenningerTekst}
+                oversiktTekst="Endring av godkjent innhold"
+                bekreftelseTekst="Ja, lagre og opphev godkjenninger"
+                avbrytelseTekst="avbryt"
+            />
+        );
+
         return (
             <>
                 {this.state.feilmelding && (
@@ -390,6 +442,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                     </VarselKomponent>
                 )}
                 <AvtaleContext.Provider value={context}>{this.props.children}</AvtaleContext.Provider>
+                {opphevGodkjenningerModal}
             </>
         );
     }
