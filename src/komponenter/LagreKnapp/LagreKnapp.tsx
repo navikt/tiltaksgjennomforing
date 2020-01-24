@@ -1,7 +1,7 @@
+import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
+import { ApiError, UfullstendigError } from '@/types/errors';
 import KnappBase, { Knapp } from 'nav-frontend-knapper';
 import React, { Component } from 'react';
-import { ApiError, UfullstendigError } from '@/types/errors';
-import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import './LagreKnapp.less';
 
 interface State {

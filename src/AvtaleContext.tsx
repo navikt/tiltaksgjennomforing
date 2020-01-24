@@ -9,12 +9,12 @@ import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import RestService from './services/rest-service';
+import { lagAvtaleObjektMedKunInputFelter } from './utils/avtaleObjektUtils';
 
 export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
     sistEndret: '',
-    versjon: 1,
     versjoner: [],
 
     deltakerFnr: '',
@@ -244,14 +244,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
-    async lagreAvtale(oppheve?: boolean) {
+    async lagreAvtale() {
         const noenHarGodkjent =
             this.state.avtale.godkjentAvDeltaker ||
             this.state.avtale.godkjentAvArbeidsgiver ||
             this.state.avtale.godkjentAvVeileder;
-        debugger;
-        if (!oppheve && noenHarGodkjent) {
+        if (noenHarGodkjent) {
             this.setState({ bekreftelseModalIsOpen: true });
+            return Promise.reject();
         } else {
             const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
             this.sendToAmplitude('avtale-lagret');
@@ -395,26 +395,16 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         };
 
         const bekreftOpphevGodkjenninger = async () => {
-            // restservice.opphevGodkjenninger() => Får tilbake avtale objekt med ingen godkjenninger.
             const opphevetAvtale = await RestService.opphevGodkjenninger(this.state.avtale.id);
-            const hehe = {
-                sistEndret: opphevetAvtale.sistEndret,
-                godkjentAvArbeidsgiver: opphevetAvtale.godkjentAvArbeidsgiver,
-                godkjentAvDeltaker: opphevetAvtale.godkjentAvArbeidsgiver,
-                godkjentAvVeileder: opphevetAvtale.godkjentAvArbeidsgiver,
-            };
 
-            // Dette avtaleobektet må oppdateres med endringene og settes på state (context). (OBS: sistEndret og godkjenninger må ikke endres).
-            const endretAvtale = { ...this.state.avtale, ...opphevetAvtale };
+            const endretInnhold = lagAvtaleObjektMedKunInputFelter(this.state.avtale);
 
-            const pastate = this.state.avtale;
-            debugger;
+            const endretAvtale = { ...opphevetAvtale, ...endretInnhold };
+
             this.setState({ avtale: endretAvtale });
 
-            // Denne funksjonen kaller rest-service.lagreAvtale(this.state.avtale) (hvis det ikke er godkjenninger på state) og setter responsen på state (context);
             await this.lagreAvtale();
 
-            //Lukke modal
             this.setState({ bekreftelseModalIsOpen: false });
         };
 

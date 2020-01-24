@@ -1,37 +1,37 @@
+import VersjonModal from '@/komponenter/modal/VersjonModal';
+import { AltAvtaleinnhold, Versjonering } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import moment from 'moment';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
+import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useState } from 'react';
-import BEMHelper from '@/utils/bem';
-import { AltAvtaleinnhold, Avtale } from '@/types/avtale';
 import './TidligereVersjoner.less';
-import moment from 'moment';
-import VersjonModal from '@/komponenter/modal/VersjonModal';
-import { Element } from 'nav-frontend-typografi';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
 
 const cls = BEMHelper('tidligereVersjoner');
 
-const TidligereVersjoner: React.FunctionComponent<Avtale> = props => {
+const TidligereVersjoner: React.FunctionComponent<Versjonering<AltAvtaleinnhold>> = props => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
     const versjonLenker = props.versjoner
-        .filter(andreVersjoner => andreVersjoner.versjon !== props.versjon)
-        .sort((a, b) => b.versjon - a.versjon)
-        .map((avtaleVerjon: AltAvtaleinnhold) => {
+        .slice(0, -1)
+        .reverse()
+        .map(avtaleVersjon => {
             return (
                 <LenkepanelBase
-                    key={avtaleVerjon.versjon}
+                    key={avtaleVersjon.versjon}
                     href={'#'}
                     onClick={() => {
-                        setCurrentVersjon(avtaleVerjon.versjon);
+                        setCurrentVersjon(avtaleVersjon.versjon);
                         setOpen(true);
                     }}
                     border={true}
                 >
                     <div className={cls.element('rad')}>
-                        <Element>Versjon {avtaleVerjon.versjon}</Element>
+                        <Element>Versjon {avtaleVersjon.versjon}</Element>
                         <div className={cls.element('dato')}>
-                            {moment(avtaleVerjon.godkjentAvVeileder as moment.MomentInput).format('DD.MM.YYYY')}
+                            {moment(avtaleVersjon.godkjentAvVeileder as moment.MomentInput).format('DD.MM.YYYY')}
                         </div>
                     </div>
                 </LenkepanelBase>

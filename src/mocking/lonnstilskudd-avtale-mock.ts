@@ -1,4 +1,4 @@
-import { LonnstilskuddAvtaleinnhold, Avtale } from '@/types/avtale';
+import { Avtale, LonnstilskuddAvtaleinnhold } from '@/types/avtale';
 
 const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     id: '6565e74d-66f3-44a1-8a3c-91fae6b450d3',
@@ -12,7 +12,6 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     status: '',
     kanAvbrytes: true,
     kanLåsesOpp: false,
-    versjon: 1,
     versjoner: [],
     avbrutt: false,
     godkjentPaVegneAv: false,

@@ -6,18 +6,18 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtale } from '@/types/avtale';
+import { AltAvtaleinnhold, Versjonering } from '@/types/avtale';
 import * as React from 'react';
 import { useContext } from 'react';
 import MediaQuery from 'react-responsive';
 
 interface Props {
     rolle: Rolle;
-    avtale: Avtale;
+    avtale: Versjonering<AltAvtaleinnhold>;
     laasOpp: () => Promise<any>;
 }
 
-const Versjonering: React.FunctionComponent<Props> = props => {
+const VersjoneringKomponent: React.FunctionComponent<Props> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const laasOppKnappFeature = featureToggleContext[Feature.LaasOppKnapp];
 
@@ -49,4 +49,4 @@ const Versjonering: React.FunctionComponent<Props> = props => {
         </MediaQuery>
     );
 };
-export default Versjonering;
+export default VersjoneringKomponent;

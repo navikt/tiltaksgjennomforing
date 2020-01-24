@@ -1,0 +1,39 @@
+import { AltAvtaleinnhold, Avtale } from '@/types/avtale';
+const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
+    arbeidsgiverEtternavn: '',
+    arbeidsgiverFornavn: '',
+    arbeidsgiverKontonummer: '',
+    arbeidsgiverTlf: '',
+    arbeidsgiveravgift: 0,
+    bedriftNavn: '',
+    deltakerEtternavn: '',
+    deltakerFornavn: '',
+    deltakerTlf: '',
+    feriepengesats: 0,
+    lonnstilskuddProsent: '',
+    maal: [],
+    oppfolging: '',
+    oppgaver: [],
+    sluttDato: 0,
+    startDato: 0,
+    stillingprosent: 0,
+    tilrettelegging: '',
+    veilederEtternavn: '',
+    veilederFornavn: '',
+    veilederTlf: '',
+    manedslonn: 0,
+    stillingbeskrivelse: '',
+    stillingtype: '',
+};
+
+const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {
+    const newObj: any = {};
+    Object.keys(avtale).forEach(key => {
+        if (key in tomtAvtaleInnholdInput) {
+            newObj[key] = avtale[key as keyof AltAvtaleinnhold];
+        }
+    });
+    return newObj as AltAvtaleinnhold;
+};
+
+export { lagAvtaleObjektMedKunInputFelter };
