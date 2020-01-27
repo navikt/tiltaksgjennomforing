@@ -408,9 +408,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             this.setState({ bekreftelseModalIsOpen: false });
         };
 
-        const opphevGodkjenningerTekst = `En eller flere parter i avtalen har godkjent. 
-        Du er nå i ferd med å endre innholdet de har godkjent, og deres godkjenninger vil bli opphevet.
-        De må da logge seg inn å godkjenne på nytt. Er du sikker på at du vil fortsette?`;
+        const opphevGodkjenningerTekst = (
+            <>
+                En eller flere parter i avtalen har godkjent. Du er nå i ferd med å endre innholdet de har godkjent, og
+                deres godkjenninger vil bli opphevet. De må da logge seg inn og godkjenne på nytt.
+                <p>Er du sikker på at du vil fortsette?</p>
+            </>
+        );
 
         const opphevGodkjenningerModal = (
             <BekreftelseModal
@@ -419,7 +423,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                 lukkModal={() => this.setState({ bekreftelseModalIsOpen: false })}
                 varselTekst={opphevGodkjenningerTekst}
                 oversiktTekst="Endring av godkjent innhold"
-                bekreftelseTekst="Ja, lagre og opphev godkjenninger"
+                bekreftelseTekst="Ja, opphev godkjenninger"
                 avbrytelseTekst="avbryt"
             />
         );

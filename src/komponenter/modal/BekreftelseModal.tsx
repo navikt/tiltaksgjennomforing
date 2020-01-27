@@ -12,7 +12,7 @@ interface Props {
     modalIsOpen: boolean;
     bekreftOnClick: () => Promise<any>;
     lukkModal: () => void;
-    varselTekst: string;
+    varselTekst: string | JSX.Element;
     oversiktTekst: string;
     bekreftelseTekst: string;
     avbrytelseTekst: string;
