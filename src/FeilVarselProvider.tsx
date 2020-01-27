@@ -1,9 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, FunctionComponent, useState } from 'react';
 import VarselKomponent from './komponenter/Varsel/VarselKomponent';
 
 export const FeilVarselContext = createContext<(feilmelding?: string) => void>(() => {});
 
-export const FeilVarselProvider = (props: any) => {
+export const FeilVarselProvider: FunctionComponent = props => {
     const [feilVarsel, setFeilVarsel] = useState<string | undefined>(undefined);
 
     return (
