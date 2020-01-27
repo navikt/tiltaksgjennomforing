@@ -11,11 +11,7 @@ import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfort } from '@/paths';
 import RestService from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
-<<<<<<< HEAD
-import { ApiError } from '@/types/errors';
-=======
 import { UfullstendigError } from '@/types/errors';
->>>>>>> refs/remotes/origin/master
 import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
@@ -201,21 +197,12 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                 </div>
             </Innholdsboks>
             <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
-<<<<<<< HEAD
-                <EkstbanderbartPanelRad svgIkon={<AvtaleSignering />}>
-                    Dette er en digital avtale for arbeidstrening som skal brukes av deltaker, arbeidsgiver og veileder
-                    ved NAV.
-                </EkstbanderbartPanelRad>
-
-                <EkstbanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
-=======
                 <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
                     Dette er en digital avtale for arbeidstrening som skal brukes av deltaker, arbeidsgiver og veileder
                     ved NAV.
                 </EkspanderbartPanelRad>
 
                 <EkspanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
->>>>>>> refs/remotes/origin/master
                     For at deltaker og arbeidsgiver skal få tilgang til avtalen må de logge seg inn via ID-porten.
                     Tilgang for arbeidsgiver styres gjennom Altinn. En representant for arbeidsgiver må ha rollen{' '}
                     <em>Helse-, sosial- og velferdstjenester</em>, eller gis tilgang til enkelttjenesten{' '}
@@ -226,18 +213,6 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                             <TilEkstern className={cls.element('eksterntLenkeikon')} />
                         </Lenke>
                     </p>
-<<<<<<< HEAD
-                </EkstbanderbartPanelRad>
-                <EkstbanderbartPanelRad svgIkon={<DrofteMedAnsattePersonOpplysning />}>
-                    Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om mål,
-                    arbeidsoppgaver og oppfølging.
-                </EkstbanderbartPanelRad>
-
-                <EkstbanderbartPanelRad svgIkon={<CheckCircleIkon />}>
-                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at arbeidstreningen kan
-                    starte.
-                </EkstbanderbartPanelRad>
-=======
                 </EkspanderbartPanelRad>
                 <EkspanderbartPanelRad svgIkon={<DrofteMedAnsattePersonOpplysning />}>
                     Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om mål,
@@ -248,7 +223,6 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                     Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at arbeidstreningen kan
                     starte.
                 </EkspanderbartPanelRad>
->>>>>>> refs/remotes/origin/master
             </Ekspanderbartpanel>
             <div className={cls.element('knappRad')}>
                 <LagreKnapp lagre={opprettAvtaleKlikk} label={'Opprett avtale'} className="opprett-avtale__knapp" />
