@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import BEMHelper from '@/utils/bem';
-import './AvtaleStatus.less';
 import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
-import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Avtale } from '@/types/avtale';
-import { Rolle } from '@/AvtaleContext';
-import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
-import RestService from '@/services/rest-service';
-import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import MediaQuery from 'react-responsive';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
+import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
+import { Rolle } from '@/AvtaleContext';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
+import RestService from '@/services/rest-service';
+import { Avtale } from '@/types/avtale';
+import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
+import BEMHelper from '@/utils/bem';
+import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { useEffect, useState } from 'react';
+import MediaQuery from 'react-responsive';
+import './AvtaleStatus.less';
 
 const cls = BEMHelper('avtalestatus');
 
@@ -61,7 +61,9 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                         className={cls.element('hovedIkon__justerStorrelse')}
                     />
                 </div>
-                <Innholdstittel className={cls.element('header')}>{avtaleStatusDetaljer.header} </Innholdstittel>
+                <div className={cls.element('header')}>
+                    <Innholdstittel>{avtaleStatusDetaljer.header} </Innholdstittel>
+                </div>
             </MediaQuery>
             <MediaQuery maxWidth={767}>
                 <div className={cls.element('hovedIkonMobil')}>
