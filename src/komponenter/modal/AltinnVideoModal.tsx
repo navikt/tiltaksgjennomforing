@@ -24,9 +24,7 @@ const AltinnVideoModal: React.FunctionComponent<Props> = props => {
             onRequestClose={() => props.lukkModal()}
         >
             <div className={cls.element('tittel')}>
-                <Systemtittel>
-                    Slik tildeler du roller og rettigheter i Altinn.
-                </Systemtittel>
+                <Systemtittel>Slik tildeler du roller og rettigheter i Altinn.</Systemtittel>
             </div>
             <MediaQuery minWidth={576}>
                 <video width="700" height="450" controls={true} onTimeUpdate={trackVideo}>

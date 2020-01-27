@@ -1,0 +1,19 @@
+.skriv-ut-knapp {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    &:hover {
+        #printerSvg {
+            fill: white;
+        }
+    }
+    &__ikon {
+        margin-left: 0.5rem;
+    }
+    @media print {
+        display: none;
+    }
+
+    @media (max-width: 767px) {
+        display: none;
+    }
+}

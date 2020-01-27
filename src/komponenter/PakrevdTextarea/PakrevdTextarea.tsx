@@ -12,11 +12,7 @@ interface Props {
 }
 
 const PakrevdTextarea: React.FunctionComponent<Props> = props => {
-    const [feil, setFeil, sjekkInputfelt] = usePaakrevd(
-        props.verdi,
-        props.label,
-        props.feilmelding
-    );
+    const [feil, setFeil, sjekkInputfelt] = usePaakrevd(props.verdi, props.label, props.feilmelding);
 
     const lagTellerTekst = (antallTegn: number, maxLength: number) => {
         return maxLength - antallTegn;

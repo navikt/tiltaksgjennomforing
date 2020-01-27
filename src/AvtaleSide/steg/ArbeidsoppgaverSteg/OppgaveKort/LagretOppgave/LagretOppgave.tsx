@@ -1,7 +1,10 @@
 import * as React from 'react';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { Oppgave } from '@/types/avtale';
 import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
+import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
+import KortKnapper from '@/komponenter/kort/KortKnapper';
+import TekstBlokk from '@/komponenter/typografi/TekstBlokk';
 
 interface Props {
     oppgave: Oppgave;
@@ -11,15 +14,15 @@ interface Props {
 
 const LagretOppgave = (props: Props) => (
     <>
-        <Undertittel className="oppgavekort__tittel">{props.oppgave.tittel}</Undertittel>
+        <SkjemaUndertittel>{props.oppgave.tittel}</SkjemaUndertittel>
         <Normaltekst className="oppgavekort__label">Beskrivelse av arbeidsoppgave</Normaltekst>
-        <Normaltekst className="oppgavekort__beskrivelse">{props.oppgave.beskrivelse}</Normaltekst>
+        <TekstBlokk>{props.oppgave.beskrivelse}</TekstBlokk>
         <Normaltekst className="oppgavekort__label">Opplæring i arbeidsoppgave</Normaltekst>
-        <Normaltekst className="oppgavekort__opplaering">{props.oppgave.opplaering}</Normaltekst>
-        <div className="oppgavekort__knapper-wrapper">
+        <TekstBlokk>{props.oppgave.opplaering}</TekstBlokk>
+        <KortKnapper>
             <KnappMedIkon ikonType="blyant" label="Endre" onClick={props.endreOnClick} />
             <KnappMedIkon ikonType="soppelkasse" label="Slett" onClick={props.slettOnClick} />
-        </div>
+        </KortKnapper>
     </>
 );
 

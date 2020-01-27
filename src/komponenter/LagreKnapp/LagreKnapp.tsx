@@ -1,4 +1,4 @@
-import { Hovedknapp } from 'nav-frontend-knapper';
+import KnappBase, { Knapp } from 'nav-frontend-knapper';
 import React, { Component } from 'react';
 import { ApiError, UfullstendigError } from '@/types/errors';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
@@ -8,6 +8,7 @@ interface State {
     suksessmelding: string;
     feilmelding: string;
     spinner: boolean;
+    isMounted: boolean;
 }
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
     className?: string;
     suksessmelding?: string;
     label: React.ReactNode;
+    knapptype?: typeof KnappBase.defaultProps.type;
 }
 
 class LagreKnapp extends Component<Props, State> {
@@ -22,7 +24,17 @@ class LagreKnapp extends Component<Props, State> {
         suksessmelding: '',
         feilmelding: '',
         spinner: false,
+        isMounted: false,
     };
+
+    componentDidMount() {
+        this.setState({ isMounted: true });
+    }
+
+    componentWillUnmount() {
+        // eslint-disable-next-line
+        this.state.isMounted = false;
+    }
 
     lagreKnappOnClick = async () => {
         this.setState({ spinner: true });
@@ -30,16 +42,15 @@ class LagreKnapp extends Component<Props, State> {
             await this.props.lagre();
             this.visSuksessmelding();
         } catch (error) {
-            if (
-                error instanceof ApiError ||
-                error instanceof UfullstendigError
-            ) {
+            if (error instanceof ApiError || error instanceof UfullstendigError) {
                 this.visFeilmelding(error.message);
             } else {
                 throw error;
             }
         } finally {
-            this.fjernSpinner();
+            if (this.state.isMounted) {
+                this.fjernSpinner();
+            }
         }
     };
 
@@ -89,14 +100,15 @@ class LagreKnapp extends Component<Props, State> {
                         {this.state.feilmelding}
                     </VarselKomponent>
                 )}
-                <Hovedknapp
+                <Knapp
+                    type={this.props.knapptype || 'hoved'}
                     htmlType="button"
                     onClick={this.lagreKnappOnClick}
                     className={this.props.className}
                     spinner={this.state.spinner}
                 >
                     {this.props.label}
-                </Hovedknapp>
+                </Knapp>
             </>
         );
     }

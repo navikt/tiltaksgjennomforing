@@ -1,12 +1,10 @@
-import { Context, medContext, Rolle } from '@/AvtaleContext';
+import { Context, medContext } from '@/AvtaleContext';
 import Banner from '@/komponenter/Banner/Banner';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
 import moment from 'moment';
-import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -14,12 +12,8 @@ import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
-import GodkjenningSteg from './steg/GodkjenningSteg/GodkjenningSteg';
-import ArbeidsgiverInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/ArbeidsgiverInstruks';
-import DeltakerInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/DeltakerInstruks';
-import VeilederInstruks from './steg/GodkjenningSteg/Oppsummering/instruks/VeilederInstruks';
-import OppsummeringArbeidstrening from './steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface MatchProps {
     avtaleId: string;
@@ -30,14 +24,26 @@ const cls = BEMHelper('avtaleside');
 
 type Props = RouteComponentProps<MatchProps> & Context;
 
+export type StegId =
+    | 'kontaktinformasjon'
+    | 'maal'
+    | 'arbeidsoppgaver'
+    | 'arbeidstid'
+    | 'oppfolging'
+    | 'stilling'
+    | 'varighet'
+    | 'beregningtilskudd'
+    | 'godkjenning';
+
 export interface StegInfo {
     komponent: React.ReactNode;
     label: string;
-    id: string;
+    id: StegId;
 }
 
 const AvtaleSide: FunctionComponent<Props> = props => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
+    const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -51,17 +57,11 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
 
     const erDesktop = windowSize > 767;
-    const aktivtSteg = avtaleSteg.find(steg => steg.id === props.match.params.stegPath);
-    const instruks = (rolle: Rolle) => {
-        switch (rolle) {
-            case 'DELTAKER':
-                return <DeltakerInstruks erLaast={props.avtale.erLaast} />;
-            case 'ARBEIDSGIVER':
-                return <ArbeidsgiverInstruks erLaast={props.avtale.erLaast} />;
-            case 'VEILEDER':
-                return <VeilederInstruks />;
-        }
-    };
+
+    useEffect(() => {
+        setAktivtSteg(avtaleSteg.find(steg => steg.id === props.match.params.stegPath) || avtaleSteg[0]);
+    }, [props.match.params.stegPath, avtaleSteg]);
+
     const titler = {
         ARBEIDSTRENING: 'Avtale om arbeidstrening',
         MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
@@ -107,36 +107,17 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 let innhold: ReactNode;
                 if (!aktivtSteg) {
                     return null;
-                } else if (props.avtale.erLaast || props.avtale.avbrutt) {
+                } else if (props.avtale.erLaast || props.avtale.avbrutt || props.rolle === 'DELTAKER') {
+                    setAktivtSteg(avtaleSteg.find(steg => steg.id === 'godkjenning'));
                     innhold = (
-                        <div className="avtaleside__innhold">
+                        <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
                             </div>
+                            <VerticalSpacer sixteenPx={true} />
                             {varsler}
-                            <AlertStripe
-                                className={cls.element('banner')}
-                                type={props.avtale.erLaast ? 'suksess' : 'advarsel'}
-                            >
-                                {props.avtale.erLaast && 'Avtalen er godkjent av alle parter og låst.'}
-                                {props.avtale.avbrutt && 'Avtalen er avbrutt av veileder og låst.'}
-                            </AlertStripe>
-                            <OppsummeringArbeidstrening avtale={props.avtale} rolle={props.rolle} />
-                            <Innholdsboks className={cls.element('infoboks')}>{instruks(props.rolle)}</Innholdsboks>
-                        </div>
-                    );
-                } else if (props.rolle === 'DELTAKER') {
-                    innhold = (
-                        <div className="avtaleside__innhold">
-                            <div className="tilbaketiloversikt">
-                                <TilbakeTilOversiktLenke />
-                            </div>
-                            {varsler}
-                            <AlertStripe className={cls.element('banner')} type="info">
-                                Du kan ikke redigere teksten i avtalen på grunn av hensyn til personvern. Ta kontakt med
-                                din veileder hvis du har spørsmål til innholdet i avtalen.
-                            </AlertStripe>
-                            <GodkjenningSteg oppsummering={<OppsummeringArbeidstrening />} />
+                            <VerticalSpacer sixteenPx={true} />
+                            {aktivtSteg.komponent}
                         </div>
                     );
                 } else if (erDesktop) {

@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { Maal } from '@/types/avtale';
 import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
+import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
+import KortKnapper from '@/komponenter/kort/KortKnapper';
+import TekstBlokk from '@/komponenter/typografi/TekstBlokk';
+import { FormattedMessage } from 'react-intl';
 
 interface Props {
     maal: Maal;
@@ -11,13 +15,15 @@ interface Props {
 
 const LagretMaal = (props: Props) => (
     <>
-        <Undertittel className="maalkort__tittel">{props.maal.kategori}</Undertittel>
+        <SkjemaUndertittel>
+            <FormattedMessage id={props.maal.kategori} />
+        </SkjemaUndertittel>
         <Normaltekst className="maalkort__label">Beskrivelse av mål</Normaltekst>
-        <Normaltekst className="maalkort__beskrivelse">{props.maal.beskrivelse}</Normaltekst>
-        <div className="maalkort__knapper-wrapper">
+        <TekstBlokk>{props.maal.beskrivelse}</TekstBlokk>
+        <KortKnapper>
             <KnappMedIkon ikonType="blyant" label="Endre" onClick={props.endreOnClick} />
             <KnappMedIkon ikonType="soppelkasse" label="Slett" onClick={props.slettOnClick} />
-        </div>
+        </KortKnapper>
     </>
 );
 

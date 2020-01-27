@@ -1,4 +1,5 @@
 const proxy = require('http-proxy-middleware');
+const whitelist = require('./whitelist');
 
 const erDevelopmentModus = process.env.NODE_ENV === 'development';
 
@@ -19,10 +20,7 @@ const envProperties = {
             '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
 };
 
-if (
-    !envProperties.LOGOUT_URL ||
-    !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)
-) {
+if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
     console.error(
         'Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, SELVBETJENING_LOGIN_URL, ISSO_LOGIN_URL.'
     );
@@ -34,14 +32,23 @@ module.exports = function(app) {
         const innloggingskilder = [];
 
         if (envProperties.SELVBETJENING_LOGIN_URL) {
-            innloggingskilder.push({
-                tittel: 'Logg inn via ID-porten',
-                url: envProperties.SELVBETJENING_LOGIN_URL,
-            });
+            innloggingskilder.push(
+                {
+                    tittel: 'Som deltaker',
+                    part: 'DELTAKER',
+                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                },
+                {
+                    tittel: 'Som arbeidsgiver',
+                    part: 'ARBEIDSGIVER',
+                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                }
+            );
         }
         if (envProperties.ISSO_LOGIN_URL) {
             innloggingskilder.push({
-                tittel: 'Logg inn som NAV-veileder',
+                tittel: 'Som NAV-veileder',
+                part: 'VEILEDER',
                 url: envProperties.ISSO_LOGIN_URL,
             });
         }
@@ -55,9 +62,7 @@ module.exports = function(app) {
 
     const proxyConfig = {
         changeOrigin: true,
-        pathRewrite: {
-            '^/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api',
-        },
+        pathRewrite: whitelist,
         target: envProperties.APIGW_URL,
         xfwd: true,
     };

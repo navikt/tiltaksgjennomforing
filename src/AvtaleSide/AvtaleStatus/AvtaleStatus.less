@@ -1,0 +1,99 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.avtalestatus {
+    display: flex;
+
+    &__innholdsboks {
+        margin-bottom: 0.5rem;
+        @media print {
+            display: none;
+        }
+    }
+
+    &__hovedIkon {
+        display: flex;
+        justify-content: center;
+
+        &__justerStorrelse {
+            width: 3.125rem;
+            height: 3.125rem;
+        }
+    }
+
+    &__parterIkon {
+        margin-bottom: 1rem;
+    }
+
+    &__header {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__infotekst {
+        margin-top: 2rem;
+        border-bottom: 1px solid #c6c2bf;
+    }
+
+    &__andreParter {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+
+        &__ikon {
+            margin-right: 0.5rem;
+        }
+        &__begge {
+            display: flex;
+            margin-right: 1rem;
+            align-items: center;
+        }
+    }
+}
+@media (max-width: @screen-sm-min) {
+    // Mobil
+    .avtalestatus {
+        &__innholdsboks {
+            border-bottom: 4px solid #e9e7e7;
+            border-radius: 4px;
+        }
+        &__hovedIkonMobil {
+            display: flex;
+            justify-content: space-between;
+
+            &__justerStorrelse {
+                width: 1.5rem;
+                height: 1.5rem;
+                margin-top: 1rem;
+            }
+        }
+
+        &__infotekst {
+            border-bottom: 0;
+            border-bottom: 1px solid #c6c2bf;
+        }
+
+        &__header {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: large;
+        }
+
+        &__andreParter {
+            margin-top: 2rem;
+            display: block;
+
+            &__ikon {
+                margin-left: 2rem;
+                margin-right: 0;
+            }
+            &__begge {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+                margin-right: 0;
+            }
+        }
+    }
+}

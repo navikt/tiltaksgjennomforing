@@ -7,11 +7,14 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import RestService from './services/rest-service';
 import amplitude from '@/utils/amplitude';
+import { Maalkategori } from '@/types/maalkategorier';
 
 export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
-    versjon: '',
+    sistEndret: '',
+    versjon: 1,
+    versjoner: [],
 
     deltakerFnr: '',
     deltakerFornavn: '',
@@ -45,6 +48,7 @@ export const tomAvtale: Avtale = {
     erLaast: false,
     status: '',
     kanAvbrytes: true,
+    kanLåsesOpp: false,
     avbrutt: false,
     tiltakstype: 'ARBEIDSTRENING',
     godkjentPaVegneAv: false,
@@ -64,7 +68,7 @@ export const tomAvtale: Avtale = {
 };
 
 export interface TemporaryLagring {
-    maal: string;
+    maal?: Maalkategori;
     maalTekst: string;
 }
 
@@ -75,7 +79,7 @@ export interface TemporaryLagringArbeidsoppgave {
 }
 
 const tomTemporaryLagring: TemporaryLagring = {
-    maal: '',
+    maal: undefined,
     maalTekst: '',
 };
 
@@ -111,6 +115,7 @@ export interface Context {
     slettOppgave: (oppgave: Oppgave) => Promise<any>;
     varsler: Varsel[];
     visFeilmelding: (feilmelding: string) => void;
+    laasOpp: () => Promise<any>;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -164,6 +169,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.slettMaal = this.slettMaal.bind(this);
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
+        this.laasOpp = this.laasOpp.bind(this);
     }
 
     sendToAmplitude = (eventName: string) => {
@@ -340,7 +346,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     harUlagredeEndringer() {
         return this.state.ulagredeEndringer;
     }
+    async laasOpp() {
+        const avtale = this.state.avtale;
+        await RestService.låsOppAvtale(avtale.id);
 
+        await this.hentAvtale(avtale.id);
+    }
     render() {
         const context: Context = {
             avbryt: this.avbrytAvtale,
@@ -368,6 +379,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             slettOppgave: this.slettOppgave,
             varsler: this.state.varsler,
             visFeilmelding: this.visFeilmelding,
+            laasOpp: this.laasOpp,
         };
 
         return (

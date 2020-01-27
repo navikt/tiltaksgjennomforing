@@ -1,0 +1,48 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.howto {
+    &__icon {
+        flex-grow: 1;
+        display: none;
+    }
+
+    &__element {
+        display: flex;
+        margin-bottom: 1.5rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        margin-top: 1rem;
+        align-items: flex-start;
+
+        &:nth-child(0) {
+            flex-grow: 1;
+        }
+        &:nth-child(1) {
+            flex-grow: 5;
+        }
+    }
+    &__tekst {
+        margin-left: 1rem;
+        flex-grow: 5;
+    }
+}
+
+@media (min-width: @screen-sm-min) {
+    .howto {
+        &__icon {
+            flex-grow: 1;
+            display: flex;
+        }
+
+        &__element {
+            display: flex;
+            margin-bottom: 2.5rem;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            margin-top: 1rem;
+        }
+        &__tekst {
+            margin-left: 2rem;
+        }
+    }
+}

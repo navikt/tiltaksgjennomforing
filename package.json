@@ -22,7 +22,6 @@
         "classnames": "^2.2.6",
         "event-stream": "^4.0.1",
         "intl": "^1.2.5",
-        "lodash.partial": "^4.2.1",
         "lodash.throttle": "^4.1.1",
         "moment": "^2.24.0",
         "nav-frontend-alertstriper": "3.0.3",
@@ -39,6 +38,7 @@
         "nav-frontend-hjelpetekst": "^1.0.44",
         "nav-frontend-hjelpetekst-style": "^0.3.34",
         "nav-frontend-ikoner-assets": "^1.0.3",
+        "nav-frontend-ikonknapper": "0.0.10",
         "nav-frontend-js-utils": "^1.0.8",
         "nav-frontend-knapper": "^1.0.37",
         "nav-frontend-knapper-style": "^0.3.32",
@@ -48,7 +48,7 @@
         "nav-frontend-lenker-style": "^0.2.24",
         "nav-frontend-lukknapp": "^1.0.23",
         "nav-frontend-lukknapp-style": "^0.2.21",
-        "nav-frontend-modal": "^1.0.30",
+        "nav-frontend-modal": "^1.0.31",
         "nav-frontend-modal-style": "^0.3.31",
         "nav-frontend-paneler": "^1.0.21",
         "nav-frontend-paneler-style": "^0.3.17",
@@ -58,6 +58,8 @@
         "nav-frontend-spinner-style": "^0.2.5",
         "nav-frontend-stegindikator": "0.0.36",
         "nav-frontend-stegindikator-style": "^1.0.25",
+        "nav-frontend-tabs": "0.0.36",
+        "nav-frontend-tabs-style": "0.0.22",
         "nav-frontend-typografi": "^2.0.16",
         "nav-frontend-typografi-style": "^1.0.17",
         "nav-frontend-veileder": "^2.0.13",
@@ -65,18 +67,21 @@
         "nav-frontend-veilederpanel": "^0.1.18",
         "nav-frontend-veilederpanel-style": "0.0.17",
         "prop-types": "^15.7.2",
-        "react": "^16.11.0",
+        "react": "^16.12.0",
         "react-app-polyfill": "^0.2.1",
         "react-collapse": "^4.0.3",
+        "react-cookie": "^4.0.3",
         "react-copy-to-clipboard": "^5.0.1",
         "react-day-picker": "^7.4.0",
         "react-dom": "^16.11.0",
         "react-intl": "^2.8.0",
+        "react-loading-skeleton": "^1.3.0",
         "react-maskedinput": "^4.0.1",
         "react-modal": "^3.11.1",
         "react-motion": "^0.5.2",
         "react-responsive": "^6.1.1",
-        "react-router-dom": "^5.1.2"
+        "react-router-dom": "^5.1.2",
+        "url-search-params-polyfill": "^7.0.1"
     },
     "devDependencies": {
         "@craco/craco": "^5.6.1",
@@ -84,9 +89,9 @@
         "@types/classnames": "^2.2.7",
         "@types/enzyme": "^3.10.3",
         "@types/enzyme-adapter-react-16": "^1.0.5",
+        "@types/enzyme-react-intl": "^2.0.0",
         "@types/fetch-mock": "^7.2.2",
         "@types/jest": "^23.3.14",
-        "@types/lodash": "^4.14.144",
         "@types/node": "^10.17.4",
         "@types/react": "^16.9.11",
         "@types/react-collapse": "^4.0.2",
@@ -102,13 +107,16 @@
         "cross-env": "^6.0.2",
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.15.1",
+        "enzyme-react-intl": "^2.0.6",
         "fetch-mock": "^7.7.3",
         "glob": "^7.1.5",
         "http-proxy-middleware": "^0.19.1",
+        "husky": "^3.1.0",
         "less": "^3.8.1",
         "less-watch-compiler": "^1.13.0",
         "npm-run-all": "^4.1.5",
-        "prettier": "^1.16.4",
+        "prettier": "^1.19.1",
+        "pretty-quick": "^2.0.1",
         "react-scripts": "^3.2.0",
         "tslint": "^5.20.1",
         "tslint-config-prettier": "^1.18.0",
@@ -121,5 +129,10 @@
         "not dead",
         "not ie < 10",
         "not op_mini all"
-    ]
+    ],
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged --pattern \"**/*.*(js|json|jsx|ts|tsx|css|scss|less)\""
+        }
+    }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '@/AvtaleContext';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import { Column, Container, Row } from 'nav-frontend-grid';
@@ -10,6 +10,7 @@ import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 const feriepengeAlternativer = (erOver60: boolean) => {
     const satser = erOver60 ? [0.12, 0.143] : [0.102, 0.125];
@@ -29,7 +30,7 @@ const BeregningTilskuddSteg = (props: Context) => {
     const { settAvtaleVerdi, avtale } = props;
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
-            <Systemtittel className="deltakerinfo__tittel">Beregning av lønnstilskudd</Systemtittel>
+            <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
             <Undertittel>Lønn og stillingsprosent</Undertittel>
             <Container fluid={true}>
                 <Row className="">

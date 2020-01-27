@@ -4,22 +4,20 @@
     flex-direction: column;
     margin: 0 auto;
     padding: 1rem;
-    max-width: @screen-md;
+    max-width: 55rem;
 
     &__eksterntLenkeikon {
         display: inline-block;
         margin-left: 0.3rem;
     }
 
-    &__banner {
-        width: 100%;
+    &__lenke {
+        margin-left: 1rem;
     }
 
-    &__natur-logo {
-        margin: 2.5rem 0 1.5rem 0;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
+    &__luft {
+        margin-left: 2rem;
+        margin-top: 1rem;
     }
 
     &__ingen-avtaler-tekst-NAV {
@@ -37,6 +35,7 @@
     &__ingen-avtaler-header {
         margin-top: 2rem;
         margin-bottom: 1rem;
+        text-align: center;
     }
 
     &__ingen_avtaler {
@@ -48,7 +47,8 @@
     }
 
     &__opprett-avtale {
-        margin-bottom: 3rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
         display: flex;
         justify-content: center;
     }
@@ -59,8 +59,10 @@
     }
 
     &__informasjonsBanner {
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        display: flex;
         justify-content: center;
-        margin-bottom: 3rem;
     }
 
     .ulest-varsel-ikon {
@@ -116,13 +118,28 @@
     }
 
     &__status {
-        width: 9rem;
+        width: 11rem;
     }
 
-    &__spinner {
+    @media (min-width: @screen-md-max) {
+        &__innhold {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+    }
+
+    &__avtalelistecontainer {
+        min-width: 100%;
+    }
+
+    &__ingenavtalerveileder {
         display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
         justify-content: center;
         align-items: center;
-        height: 20rem;
+        height: 16rem;
+        margin: 4.2rem 1rem 1rem 1rem;
     }
 }

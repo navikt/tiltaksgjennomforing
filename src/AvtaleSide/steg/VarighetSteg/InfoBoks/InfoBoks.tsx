@@ -15,6 +15,7 @@ const InfoBoks = (props: InfoBoksProps) => (
         <KalkulatorIkon className="#" />
         <div className="infoboks__tekst">
             <Element className="infoboks__dette-tilsvarer">Dette tilsvarer ca:</Element>
+            <VerticalSpacer eightPx={true} />
             <Normaltekst>
                 <span className="infoboks__bold">{props.timerIUka ? props.timerIUka : 0}</span>
                 &nbsp; timer eller &nbsp;
@@ -22,8 +23,12 @@ const InfoBoks = (props: InfoBoksProps) => (
                 &nbsp;
                 {props.dagerIUka <= 1 ? 'arbeidsdag' : 'arbeidsdager'} per uke
             </Normaltekst>
-            {props.varighet &&
-            <Normaltekst><VerticalSpacer twentyPx={true}/>Avtalen varer i {props.varighet}</Normaltekst>}
+            {props.varighet && (
+                <Normaltekst>
+                    <VerticalSpacer eightPx={true} />
+                    Avtalen varer i {props.varighet}
+                </Normaltekst>
+            )}
         </div>
     </div>
 );

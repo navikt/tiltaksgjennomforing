@@ -4,13 +4,20 @@ import RestService from '@/services/rest-service';
 
 export interface Innloggingskilde {
     tittel: string;
+    part: string;
     url: string;
 }
 
 export interface InnloggetBruker {
     identifikator: string;
     erNavAnsatt: boolean;
+    organisasjoner: Organisasjon[];
 }
+
+export type Organisasjon = {
+    bedriftNavn: string;
+    bedriftNr: string;
+};
 
 export interface Innlogget {
     innloggetBruker: InnloggetBruker | null;
@@ -20,14 +27,9 @@ export interface Innlogget {
 }
 
 const useInnlogget = (): Innlogget => {
-    const [
-        innloggetBruker,
-        setInnloggetBruker,
-    ] = useState<InnloggetBruker | null>(null);
+    const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker | null>(null);
 
-    const [innloggingskilder, setInnloggingskilder] = useState<
-        Innloggingskilde[]
-    >([]);
+    const [innloggingskilder, setInnloggingskilder] = useState<Innloggingskilde[]>([]);
 
     const [feilmelding, setFeilmelding] = useState<string | null>(null);
 
