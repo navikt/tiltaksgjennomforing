@@ -121,12 +121,7 @@ const BeregningTilskuddSteg = (props: Context) => {
                     />
                     <VisUtregningenPanel {...props} />
                     <VerticalSpacer twentyPx={true} />
-                    <LagreKnapp
-                        className="kontaktinfo-steg__lagre-knapp"
-                        lagre={props.lagreAvtale}
-                        label={'Lagre'}
-                        suksessmelding={'Avtale lagret'}
-                    />
+                    <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>
         </Innholdsboks>
