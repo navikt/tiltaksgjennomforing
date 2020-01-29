@@ -1,24 +1,24 @@
-import React from 'react';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Context, medContext } from '@/AvtaleContext';
-import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
-import { Column, Container, Row } from 'nav-frontend-grid';
-import ValutaInput from '@/komponenter/form/ValutaInput';
-import ProsentInput from '@/komponenter/form/ProsentInput';
-import SelectInput from '@/komponenter/form/SelectInput';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import KontonummerInput from '@/komponenter/form/KontonummerInput';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
-import './BeregningTilskuddSteg.less';
+import KontonummerInput from '@/komponenter/form/KontonummerInput';
+import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
+import SelectInput from '@/komponenter/form/SelectInput';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import ValutaInput from '@/komponenter/form/ValutaInput';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React from 'react';
+import './BeregningTilskuddSteg.less';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
 const feriepengeAlternativer = (erOver60: boolean) => {
-    const satser = erOver60 ? [0.12, 0.143] : [0.102, 0.125];
+    // const satser = erOver60 ? [0.12, 0.143] : [0.102, 0.125];
+    const satser = [0.12, 0.143, 0.102, 0.125];
     return satser.map((sats: number) => ({
         label: (sats * 100).toFixed(1) + ' %',
         value: sats.toString(),
@@ -61,7 +61,7 @@ const BeregningTilskuddSteg = (props: Context) => {
                     props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
                 }
             />
-            <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn og stillingsprosent</Undertittel>
+            <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn</Undertittel>
             <Container fluid={true}>
                 <Row className="">
                     <Column md="6">
@@ -76,22 +76,6 @@ const BeregningTilskuddSteg = (props: Context) => {
                             }}
                             min={10000}
                             max={65000}
-                        />
-                    </Column>
-                    <Column md="6">
-                        <ProsentInput
-                            name="stillingprosent"
-                            type="number"
-                            bredde="S"
-                            label="Stillingsprosent"
-                            maxLength={3}
-                            max={100}
-                            min={50}
-                            className="BeregningTilskudd"
-                            value={avtale.stillingprosent}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                settAvtaleVerdi('stillingprosent', parseFloat(event.target.value));
-                            }}
                         />
                     </Column>
                 </Row>
