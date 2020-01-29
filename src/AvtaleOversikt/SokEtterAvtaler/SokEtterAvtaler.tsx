@@ -114,7 +114,7 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
 
     return (
         <div className={classNames(cls.element('sokeboks'), 'innholdsboks')}>
-            <Undertittel>Søk etter</Undertittel>
+            <Undertittel>Søk etter avtaler registrert på</Undertittel>
             <Fieldset legend="">
                 <Radio
                     checked={valgtSokeType === 'deltakerFnr'}

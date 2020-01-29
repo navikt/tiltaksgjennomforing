@@ -7,6 +7,7 @@ import { AvtaleProvider } from './AvtaleContext';
 import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
+import { FeilVarselProvider } from './FeilVarselProvider';
 import Informasjonsside from './Informajonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
@@ -31,34 +32,36 @@ class App extends React.Component {
                 <BrowserRouter basename={basename}>
                     <Switch>
                         <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
-                        <InnloggingBoundary>
-                            <RedirectEtterLogin>
-                                <FeatureToggleProvider>
-                                    <Route path="/" exact={true} component={AvtaleOversikt} />
-                                    <Route
-                                        path={pathTilInformasjonssideInnlogget}
-                                        exact={true}
-                                        component={Informasjonsside}
-                                    />
-                                    <Route path={pathTilOpprettAvtale} exact={true} component={OpprettAvtale} />
-                                    <Route
-                                        path={pathTilOpprettAvtaleFullfort(':avtaleId')}
-                                        exact={true}
-                                        component={OpprettelseFullfort}
-                                    />
-                                    <AvtaleProvider>
+                        <FeilVarselProvider>
+                            <InnloggingBoundary>
+                                <RedirectEtterLogin>
+                                    <FeatureToggleProvider>
+                                        <Route path="/" exact={true} component={AvtaleOversikt} />
                                         <Route
-                                            path={[
-                                                pathTilAvtale(':avtaleId'),
-                                                pathTilStegIAvtale(':avtaleId', ':stegPath'),
-                                            ]}
+                                            path={pathTilInformasjonssideInnlogget}
                                             exact={true}
-                                            component={AvtaleSide}
+                                            component={Informasjonsside}
                                         />
-                                    </AvtaleProvider>
-                                </FeatureToggleProvider>
-                            </RedirectEtterLogin>
-                        </InnloggingBoundary>
+                                        <Route path={pathTilOpprettAvtale} exact={true} component={OpprettAvtale} />
+                                        <Route
+                                            path={pathTilOpprettAvtaleFullfort(':avtaleId')}
+                                            exact={true}
+                                            component={OpprettelseFullfort}
+                                        />
+                                        <AvtaleProvider>
+                                            <Route
+                                                path={[
+                                                    pathTilAvtale(':avtaleId'),
+                                                    pathTilStegIAvtale(':avtaleId', ':stegPath'),
+                                                ]}
+                                                exact={true}
+                                                component={AvtaleSide}
+                                            />
+                                        </AvtaleProvider>
+                                    </FeatureToggleProvider>
+                                </RedirectEtterLogin>
+                            </InnloggingBoundary>
+                        </FeilVarselProvider>
                     </Switch>
                 </BrowserRouter>
             </IntlProvider>
