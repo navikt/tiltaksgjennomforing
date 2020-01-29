@@ -69,7 +69,6 @@ const BeregningTilskuddSteg = (props: Context) => {
                         name="manedslonn"
                         bredde="S"
                         label="Månedslønn før skatt"
-                        className="BeregningTilskudd"
                         value={avtale.manedslonn}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdi('manedslonn', parseFloat(event.target.value));
@@ -105,7 +104,6 @@ const BeregningTilskuddSteg = (props: Context) => {
                         options={arbeidsgiveravgiftAlternativer()}
                         label="Sats for arbeidsgiveravgift"
                         children=""
-                        className="BeregningTilskudd"
                         value={avtale.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                             settAvtaleVerdi('arbeidsgiveravgift', parseFloat(event.target.value));
