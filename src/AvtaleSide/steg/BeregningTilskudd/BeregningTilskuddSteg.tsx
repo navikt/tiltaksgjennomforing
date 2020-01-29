@@ -9,7 +9,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
 import './BeregningTilskuddSteg.less';
@@ -62,74 +62,73 @@ const BeregningTilskuddSteg = (props: Context) => {
                 }
             />
             <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn</Undertittel>
-            <Container fluid={true}>
-                <Row className="">
-                    <Column md="6">
-                        <ValutaInput
-                            name="manedslonn"
-                            bredde="S"
-                            label="Månedslønn før skatt"
-                            className="BeregningTilskudd"
-                            value={avtale.manedslonn}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                settAvtaleVerdi('manedslonn', parseFloat(event.target.value));
-                            }}
-                            min={10000}
-                            max={65000}
-                        />
-                    </Column>
-                </Row>
-                <Row className="">
-                    <Column md="12">
-                        <Undertittel className={cls.element('luft')}>Feriepenger</Undertittel>
-                        <Normaltekst className={cls.element('luft')}>
-                            Velg sats for feriepenger som arbeidstaker skal ha
-                        </Normaltekst>
-                        <RadioPanelGruppeHorisontal
-                            radios={feriepengeAlternativer(true)}
-                            name="feriepengesats"
-                            checked={avtale.feriepengesats + ''}
-                            legend=""
-                            onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                                props.settAvtaleVerdi('feriepengesats', parseFloat(verdi))
-                            }
-                        />
-                        <VerticalSpacer twentyPx={true} />
-                        <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
-                        2 %
-                        <VerticalSpacer twentyPx={true} />
-                        <Undertittel>Arbeidsgiveravgift</Undertittel>
-                        <SelectInput
-                            name="arbeidsgiveravgift"
-                            bredde="s"
-                            options={arbeidsgiveravgiftAlternativer()}
-                            label="Sats for arbeidsgiveravgift"
-                            children=""
-                            className="BeregningTilskudd"
-                            value={avtale.arbeidsgiveravgift}
-                            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                                settAvtaleVerdi('arbeidsgiveravgift', parseFloat(event.target.value));
-                            }}
-                        />
-                        <KontonummerInput
-                            bredde={'L'}
-                            label={'Kontonummer'}
-                            value={avtale.arbeidsgiverKontonummer}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
-                            }}
-                        />
-                        <VisUtregningenPanel {...props} />
-                        <VerticalSpacer twentyPx={true} />
-                        <LagreKnapp
-                            className="kontaktinfo-steg__lagre-knapp"
-                            lagre={props.lagreAvtale}
-                            label={'Lagre'}
-                            suksessmelding={'Avtale lagret'}
-                        />
-                    </Column>
-                </Row>
-            </Container>
+
+            <Row className="">
+                <Column md="6">
+                    <ValutaInput
+                        name="manedslonn"
+                        bredde="S"
+                        label="Månedslønn før skatt"
+                        className="BeregningTilskudd"
+                        value={avtale.manedslonn}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            settAvtaleVerdi('manedslonn', parseFloat(event.target.value));
+                        }}
+                        min={10000}
+                        max={65000}
+                    />
+                </Column>
+            </Row>
+            <Row className="">
+                <Column md="12">
+                    <Undertittel className={cls.element('luft')}>Feriepenger</Undertittel>
+                    <Normaltekst className={cls.element('luft')}>
+                        Velg sats for feriepenger som arbeidstaker skal ha
+                    </Normaltekst>
+                    <RadioPanelGruppeHorisontal
+                        radios={feriepengeAlternativer(true)}
+                        name="feriepengesats"
+                        checked={avtale.feriepengesats + ''}
+                        legend=""
+                        onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                            props.settAvtaleVerdi('feriepengesats', parseFloat(verdi))
+                        }
+                    />
+                    <VerticalSpacer twentyPx={true} />
+                    <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
+                    2 %
+                    <VerticalSpacer twentyPx={true} />
+                    <Undertittel>Arbeidsgiveravgift</Undertittel>
+                    <SelectInput
+                        name="arbeidsgiveravgift"
+                        bredde="s"
+                        options={arbeidsgiveravgiftAlternativer()}
+                        label="Sats for arbeidsgiveravgift"
+                        children=""
+                        className="BeregningTilskudd"
+                        value={avtale.arbeidsgiveravgift}
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                            settAvtaleVerdi('arbeidsgiveravgift', parseFloat(event.target.value));
+                        }}
+                    />
+                    <KontonummerInput
+                        bredde={'L'}
+                        label={'Kontonummer'}
+                        value={avtale.arbeidsgiverKontonummer}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
+                        }}
+                    />
+                    <VisUtregningenPanel {...props} />
+                    <VerticalSpacer twentyPx={true} />
+                    <LagreKnapp
+                        className="kontaktinfo-steg__lagre-knapp"
+                        lagre={props.lagreAvtale}
+                        label={'Lagre'}
+                        suksessmelding={'Avtale lagret'}
+                    />
+                </Column>
+            </Row>
         </Innholdsboks>
     );
 };
