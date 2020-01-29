@@ -28,14 +28,14 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'maal',
     },
     {
-        komponent: <ArbeidsoppgaverSteg />,
-        label: 'Arbeidsoppgaver',
-        id: 'arbeidsoppgaver',
-    },
-    {
         komponent: <NyttArbeidsoppgaverSteg />,
         label: 'Arbeidsoppgaver (ny)',
         id: 'nyarbeidsoppgaver',
+    },
+    {
+        komponent: <ArbeidsoppgaverSteg />,
+        label: 'Arbeidsoppgaver',
+        id: 'arbeidsoppgaver',
     },
     {
         komponent: <VarighetSteg />,

@@ -1,18 +1,16 @@
 import React, { FunctionComponent } from 'react';
-import BEMHelper from '@/utils/bem';
 import { Tilrettelegging as TilretteleggingInfo } from '@/types/avtale';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import './tilrettelegging.less';
 import TilretteleggingIkon from './TilretteleggingIkon';
-
-const cls = BEMHelper('tilrettelegging');
+import TekstMedLinjeskift from '@/komponenter/TekstMedLinjeskift';
 
 const Tilrettelegging: FunctionComponent<TilretteleggingInfo> = props => (
     <Stegoppsummering ikon={<TilretteleggingIkon />} tittel="Tilrettelegging">
-        <div className={cls.className}>
-            <SjekkOmVerdiEksisterer verdi={props.tilrettelegging} />
-        </div>
+        <SjekkOmVerdiEksisterer
+            verdi={props.tilrettelegging}
+            formatertVerdi={<TekstMedLinjeskift tekst={props.tilrettelegging} />}
+        />
     </Stegoppsummering>
 );
 

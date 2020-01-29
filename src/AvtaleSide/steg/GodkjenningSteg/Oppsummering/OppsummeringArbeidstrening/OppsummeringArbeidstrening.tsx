@@ -6,6 +6,7 @@ import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import OppgaverOppsummering from '../oppgaveOppsummering/OppgaverOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
+import ArbeidsoppgaverOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppgaveOppsummering/ArbeidsoppgaverOppsummering';
 
 interface Props {
     avtaleinnhold: ArbeidstreningAvtaleinnhold;
@@ -14,6 +15,7 @@ interface Props {
 const OppsummeringArbeidstrening: FunctionComponent<Props> = props => (
     <>
         <MaalOppsummering {...props.avtaleinnhold} />
+        <ArbeidsoppgaverOppsummering {...props.avtaleinnhold} />
         <OppgaverOppsummering {...props.avtaleinnhold} />
         <VarighetOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
