@@ -61,8 +61,8 @@ export interface Veilederinfo {
 }
 
 export interface Varighet {
-    startDato: number;
-    sluttDato: number;
+    startDato: string;
+    sluttDato: string;
     stillingprosent: number;
 }
 

@@ -26,15 +26,15 @@ const oppgaveListe: Oppgave[] = [
 ];
 
 const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
-    id: '9565e74d-66f3-44a1-8a3c-91fae6b450d3',
-    opprettetTidspunkt: '',
-    sistEndret: '',
+    id: '0',
+    opprettetTidspunkt: '2020-01-01T00:00:00.000000',
+    sistEndret: '2020-01-01T00:00:00.000000',
 
     godkjentAvDeltaker: false,
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
     erLaast: false,
-    status: '',
+    status: 'Påbegynt',
     kanAvbrytes: true,
     kanLåsesOpp: false,
     versjon: 1,
@@ -51,25 +51,25 @@ const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',
 
-    startDato: 99,
-    sluttDato: 99,
+    startDato: '2020-02-01',
+    sluttDato: '2020-03-01',
     stillingprosent: 99,
 
     veilederNavIdent: 'Z123456',
-    veilederFornavn: 'Nav',
-    veilederEtternavn: 'Navesen',
+    veilederFornavn: 'Karoline',
+    veilederEtternavn: 'Jakobsen',
     veilederTlf: '88888888',
 
-    bedriftNavn: 'Arbeid AS',
+    bedriftNavn: 'Sigvartsen Transport AS',
     bedriftNr: '12345678',
 
-    deltakerFornavn: 'Deltaker',
-    deltakerEtternavn: 'Deltakersen',
+    deltakerFornavn: 'Frida',
+    deltakerEtternavn: 'Vikanes',
     deltakerFnr: '00000000000',
     deltakerTlf: '44444444',
 
-    arbeidsgiverFornavn: 'Arbeidsgiver',
-    arbeidsgiverEtternavn: 'Arbeidsgiversen',
+    arbeidsgiverFornavn: 'Otto',
+    arbeidsgiverEtternavn: 'Olsen',
     arbeidsgiverTlf: '77777777',
     tiltakstype: 'ARBEIDSTRENING',
 

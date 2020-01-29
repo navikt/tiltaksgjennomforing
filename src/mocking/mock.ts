@@ -1,36 +1,45 @@
 import { API_URL } from '@/services/rest-service';
 import fetchMock from 'fetch-mock';
 import arbeidstreningAvtaleMock from './arbeidstrening-avtale-mock';
-import avtaleListeMock from './avtaler-mock';
-import rolleMock from './rolle-mock';
+import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
+import { alleFeatures } from '@/FeatureToggleProvider';
+import statusDetaljer from '@/mocking/status-detaljer-mock';
 
 const opprettAvtaleHeaders = {
-    Location: 'avtaler/9565e74d-66f3-44a1-8a3c-91fae6b450d3',
+    Location: 'avtaler/0',
 };
 
-const opprettAvtaleResponse = new Response(JSON.stringify(arbeidstreningAvtaleMock), {
-    status: 200,
+const opprettAvtaleResponse = new Response(null, {
+    status: 201,
     headers: opprettAvtaleHeaders,
 });
 
-const lagreAvtaleHeaders = {
-    ETag: '0',
-};
-
 const lagreAvtaleResponse = new Response('ok', {
     status: 200,
-    headers: lagreAvtaleHeaders,
 });
 
-const hentAvtalerUrl = `${API_URL}/avtaler`;
-const opprettAvtaleUrl = hentAvtalerUrl;
-const hentAvtaleUrl = new RegExp(`${API_URL}/avtaler/[a-zA-Z0-9-]*`);
-const lagreAvtaleUrl = hentAvtaleUrl;
-const hentRolleUrl = new RegExp(`${API_URL}/avtaler/[a-zA-Z0-9-]*/rolle`);
+const features = alleFeatures.reduce((obj, item) => {
+    return { ...obj, [item]: true };
+}, {});
 
 fetchMock
-    .get(hentAvtalerUrl, avtaleListeMock)
-    .get(hentRolleUrl, JSON.stringify(rolleMock))
-    .get(hentAvtaleUrl, JSON.stringify(arbeidstreningAvtaleMock))
-    .put(lagreAvtaleUrl, lagreAvtaleResponse)
-    .post(opprettAvtaleUrl, opprettAvtaleResponse);
+    .get('/tiltaksgjennomforing/innloggingskilder', [
+        {
+            tittel: 'Som NAV-veileder',
+            part: 'VEILEDER',
+            url: '',
+        },
+    ])
+    .get(`${API_URL}/innlogget-bruker`, { identifikator: 'Z123456', erNavAnsatt: true })
+    .get(`${API_URL}/avtaler?veilederNavIdent=Z123456`, [arbeidstreningAvtaleMock, lonnstilskuddAvtaleMock])
+    .get(`${API_URL}/avtaler/0/rolle`, '"VEILEDER"')
+    .get(`${API_URL}/avtaler/1/rolle`, '"VEILEDER"')
+    .get(`${API_URL}/avtaler/0`, arbeidstreningAvtaleMock)
+    .get(`${API_URL}/avtaler/1`, lonnstilskuddAvtaleMock)
+    .get(`${API_URL}/avtaler/0/status-detaljer`, statusDetaljer)
+    .get(`${API_URL}/avtaler/1/status-detaljer`, statusDetaljer)
+    .get(new RegExp(`${API_URL}/varsler`), [])
+    .get(new RegExp(`${API_URL}/feature`), features)
+    .put(new RegExp(`${API_URL}/avtaler/.*`), lagreAvtaleResponse)
+    .post(`${API_URL}/avtaler`, opprettAvtaleResponse)
+    .post(new RegExp('https://sentry.gc.nav.no'), {});

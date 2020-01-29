@@ -12,11 +12,11 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('varighetOppsummering');
 
-const formaterDato = (dato: number): string => {
+const formaterDato = (dato: string): string => {
     return moment(dato).format('DD.MM.YYYY');
 };
 
-const harDato = (dato: number): string => {
+const harDato = (dato: string): string => {
     return dato ? formaterDato(dato).toString() : '';
 };
 
