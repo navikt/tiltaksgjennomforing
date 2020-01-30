@@ -39,11 +39,7 @@ const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
     avbrutt: false,
     godkjentPaVegneAv: false,
 
-    godkjentPaVegneGrunn: {
-        ikkeBankId: false,
-        reservert: false,
-        digitalKompetanse: false,
-    },
+    godkjentPaVegneGrunn: undefined,
 
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',
