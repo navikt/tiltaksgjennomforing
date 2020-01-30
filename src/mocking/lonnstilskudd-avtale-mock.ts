@@ -2,8 +2,8 @@ import { LonnstilskuddAvtaleinnhold, Avtale } from '@/types/avtale';
 
 const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     id: '1',
-    opprettetTidspunkt: '2020-01-01T00:00:00.000000',
-    sistEndret: '2020-01-01T00:00:00.000000',
+    opprettetTidspunkt: '2020-01-02T00:00:00.000000',
+    sistEndret: '2020-01-03T00:00:00.000000',
 
     godkjentAvDeltaker: false,
     godkjentAvArbeidsgiver: false,

@@ -253,7 +253,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     lagreMaal(maalTilLagring: Maal) {
         const nyeMaal = this.state.avtale.maal.filter((maal: Maal) => maal.id !== maalTilLagring.id);
         nyeMaal.push(maalTilLagring);
-        nyeMaal.sort((a: Maal, b: Maal) => (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0));
         this.settAvtaleVerdi('maal', nyeMaal);
         this.sendToAmplitude('avtale-maal-lagret');
         return this.lagreAvtale();
@@ -297,7 +296,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             (oppgave: Oppgave) => oppgave.id !== oppgaveTilLagring.id
         );
         nyeOppgaver.push(oppgaveTilLagring);
-        nyeOppgaver.sort((a: Oppgave, b: Oppgave) => (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0));
         this.settAvtaleVerdi('oppgaver', nyeOppgaver);
         this.sendToAmplitude('avtale-oppgave-lagret');
         return this.lagreAvtale();

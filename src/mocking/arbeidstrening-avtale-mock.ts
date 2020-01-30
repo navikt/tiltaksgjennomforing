@@ -3,13 +3,11 @@ import { ArbeidstreningAvtaleinnhold, Avtale, Maal, Oppgave } from '@/types/avta
 const maalListe: Maal[] = [
     {
         id: 'c9697a6f-f3fe-4436-a9d9-959ab6e5bcbe',
-        opprettetTimestamp: 1353253214,
         kategori: 'ARBEIDSERFARING',
         beskrivelse: 'Trenger arbeidserfaring',
     },
     {
         id: '26cfdb72-1efd-11e9-ab14-d663bd873d93',
-        opprettetTimestamp: 1353253214,
         kategori: 'ANNET',
         beskrivelse: 'Hadde vært fint med noe annet også',
     },
@@ -18,7 +16,6 @@ const maalListe: Maal[] = [
 const oppgaveListe: Oppgave[] = [
     {
         id: 'a1a98572-6771-467a-99f1-141870c286cc',
-        opprettetTimestamp: 1353253214,
         tittel: 'Flytte varer',
         beskrivelse: 'skal flytte varer',
         opplaering: 'for å flytte varer',

@@ -18,9 +18,7 @@ const lagreAvtaleResponse = new Response('ok', {
     status: 200,
 });
 
-const features = alleFeatures.reduce((obj, item) => {
-    return { ...obj, [item]: true };
-}, {});
+const features = alleFeatures.reduce((obj, item) => ({ ...obj, [item]: true }), {});
 
 fetchMock
     .get('/tiltaksgjennomforing/innloggingskilder', [
