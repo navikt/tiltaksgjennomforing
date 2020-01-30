@@ -2,7 +2,6 @@ import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
 import { ApiError } from '@/types/errors';
 import Varsel from '@/types/varsel';
-import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import RestService from './services/rest-service';
@@ -36,8 +35,8 @@ export const tomAvtale: Avtale = {
     oppfolging: '',
     tilrettelegging: '',
 
-    startDato: moment().valueOf(),
-    sluttDato: moment().valueOf(),
+    startDato: '',
+    sluttDato: '',
 
     maal: [],
     oppgaver: [],
@@ -179,6 +178,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             });
         }
     };
+
     mellomLagreMaal(maalInput: TemporaryLagring): void {
         this.setState({
             mellomLagring: maalInput,
@@ -253,7 +253,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     lagreMaal(maalTilLagring: Maal) {
         const nyeMaal = this.state.avtale.maal.filter((maal: Maal) => maal.id !== maalTilLagring.id);
         nyeMaal.push(maalTilLagring);
-        nyeMaal.sort((a: Maal, b: Maal) => (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0));
         this.settAvtaleVerdi('maal', nyeMaal);
         this.sendToAmplitude('avtale-maal-lagret');
         return this.lagreAvtale();
@@ -297,7 +296,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             (oppgave: Oppgave) => oppgave.id !== oppgaveTilLagring.id
         );
         nyeOppgaver.push(oppgaveTilLagring);
-        nyeOppgaver.sort((a: Oppgave, b: Oppgave) => (b.opprettetTimestamp || 0) - (a.opprettetTimestamp || 0));
         this.settAvtaleVerdi('oppgaver', nyeOppgaver);
         this.sendToAmplitude('avtale-oppgave-lagret');
         return this.lagreAvtale();
@@ -324,6 +322,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.sendToAmplitude('avtale-godkjent-pavegneav');
         await this.hentAvtale(avtale.id);
     }
+
     async avbrytAvtale() {
         const avtale = this.state.avtale;
         await RestService.avbrytAvtale(avtale);
@@ -346,12 +345,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     harUlagredeEndringer() {
         return this.state.ulagredeEndringer;
     }
+
     async laasOpp() {
         const avtale = this.state.avtale;
         await RestService.låsOppAvtale(avtale.id);
 
         await this.hentAvtale(avtale.id);
     }
+
     render() {
         const context: Context = {
             avbryt: this.avbrytAvtale,

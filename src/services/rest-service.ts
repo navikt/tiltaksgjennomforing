@@ -79,8 +79,7 @@ const hentAvtalerForInnloggetBruker = async (identifikasjon: SokeTyper): Promise
 const hentAvtaleStatusDetaljer = async (avtaleId: string): Promise<AvtaleStatusDetaljer> => {
     const response = await fetchGet(`${API_URL}/avtaler/${avtaleId}/status-detaljer`);
     await handleResponse(response);
-    // const avtaleStatusDetaljer = ;
-    return { ...(await response.json()) };
+    return await response.json();
 };
 const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     if (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder) {

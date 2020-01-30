@@ -3,13 +3,11 @@ import { ArbeidstreningAvtaleinnhold, Avtale, Maal, Oppgave } from '@/types/avta
 const maalListe: Maal[] = [
     {
         id: 'c9697a6f-f3fe-4436-a9d9-959ab6e5bcbe',
-        opprettetTimestamp: 1353253214,
         kategori: 'ARBEIDSERFARING',
         beskrivelse: 'Trenger arbeidserfaring',
     },
     {
         id: '26cfdb72-1efd-11e9-ab14-d663bd873d93',
-        opprettetTimestamp: 1353253214,
         kategori: 'ANNET',
         beskrivelse: 'Hadde vært fint med noe annet også',
     },
@@ -18,7 +16,6 @@ const maalListe: Maal[] = [
 const oppgaveListe: Oppgave[] = [
     {
         id: 'a1a98572-6771-467a-99f1-141870c286cc',
-        opprettetTimestamp: 1353253214,
         tittel: 'Flytte varer',
         beskrivelse: 'skal flytte varer',
         opplaering: 'for å flytte varer',
@@ -26,15 +23,15 @@ const oppgaveListe: Oppgave[] = [
 ];
 
 const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
-    id: '9565e74d-66f3-44a1-8a3c-91fae6b450d3',
-    opprettetTidspunkt: '',
-    sistEndret: '',
+    id: '0',
+    opprettetTidspunkt: '2020-01-01T00:00:00.000000',
+    sistEndret: '2020-01-01T00:00:00.000000',
 
     godkjentAvDeltaker: false,
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
     erLaast: false,
-    status: '',
+    status: 'Påbegynt',
     kanAvbrytes: true,
     kanLåsesOpp: false,
     versjon: 1,
@@ -42,34 +39,30 @@ const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
     avbrutt: false,
     godkjentPaVegneAv: false,
 
-    godkjentPaVegneGrunn: {
-        ikkeBankId: false,
-        reservert: false,
-        digitalKompetanse: false,
-    },
+    godkjentPaVegneGrunn: undefined,
 
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',
 
-    startDato: 99,
-    sluttDato: 99,
+    startDato: '2020-02-01',
+    sluttDato: '2020-03-01',
     stillingprosent: 99,
 
     veilederNavIdent: 'Z123456',
-    veilederFornavn: 'Nav',
-    veilederEtternavn: 'Navesen',
+    veilederFornavn: 'Karoline',
+    veilederEtternavn: 'Jakobsen',
     veilederTlf: '88888888',
 
-    bedriftNavn: 'Arbeid AS',
+    bedriftNavn: 'Sigvartsen Transport AS',
     bedriftNr: '12345678',
 
-    deltakerFornavn: 'Deltaker',
-    deltakerEtternavn: 'Deltakersen',
+    deltakerFornavn: 'Frida',
+    deltakerEtternavn: 'Vikanes',
     deltakerFnr: '00000000000',
     deltakerTlf: '44444444',
 
-    arbeidsgiverFornavn: 'Arbeidsgiver',
-    arbeidsgiverEtternavn: 'Arbeidsgiversen',
+    arbeidsgiverFornavn: 'Otto',
+    arbeidsgiverEtternavn: 'Olsen',
     arbeidsgiverTlf: '77777777',
     tiltakstype: 'ARBEIDSTRENING',
 

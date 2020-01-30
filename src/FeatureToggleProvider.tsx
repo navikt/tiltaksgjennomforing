@@ -6,7 +6,8 @@ export enum Feature {
     LaasOppKnapp = 'tag.tiltak.laasoppknapp',
     DelLenkeViaSms = 'tag.tiltak.dellenkeviasms',
 }
-const alleFeatures = Object.values(Feature);
+
+export const alleFeatures = Object.values(Feature);
 
 export interface FeatureToggles {
     [toggles: string]: boolean;

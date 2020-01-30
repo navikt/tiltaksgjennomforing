@@ -1,15 +1,15 @@
 import { LonnstilskuddAvtaleinnhold, Avtale } from '@/types/avtale';
 
 const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
-    id: '6565e74d-66f3-44a1-8a3c-91fae6b450d3',
-    opprettetTidspunkt: '',
-    sistEndret: '',
+    id: '1',
+    opprettetTidspunkt: '2020-01-02T00:00:00.000000',
+    sistEndret: '2020-01-03T00:00:00.000000',
 
     godkjentAvDeltaker: false,
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
     erLaast: false,
-    status: '',
+    status: 'Påbegynt',
     kanAvbrytes: true,
     kanLåsesOpp: false,
     versjon: 1,
@@ -26,25 +26,25 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     oppfolging: 'Bruker og AG skal følges opp.',
     tilrettelegging: 'AG skal tilrettelegge.',
 
-    startDato: 89,
-    sluttDato: 79,
+    startDato: '2020-04-01',
+    sluttDato: '2020-05-01',
     stillingprosent: 99,
 
     veilederNavIdent: 'Z123456',
-    veilederFornavn: 'Nave',
-    veilederEtternavn: 'Naversen',
+    veilederFornavn: 'Kåre',
+    veilederEtternavn: 'Sandøy',
     veilederTlf: '88888888',
 
-    bedriftNavn: 'Arbeids AS',
+    bedriftNavn: 'Arna Snekker AS',
     bedriftNr: '12345678',
 
-    deltakerFornavn: 'Deltakeren',
-    deltakerEtternavn: 'Deltakerensen',
+    deltakerFornavn: 'Håkon',
+    deltakerEtternavn: 'Johansen',
     deltakerFnr: '00000000000',
     deltakerTlf: '54444444',
 
-    arbeidsgiverFornavn: 'Arbeidsgivers',
-    arbeidsgiverEtternavn: 'Arbeidsgiverssen',
+    arbeidsgiverFornavn: 'Ingunn',
+    arbeidsgiverEtternavn: 'Thomassen',
     arbeidsgiverTlf: '87777777',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
 
