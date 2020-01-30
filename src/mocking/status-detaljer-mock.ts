@@ -1,6 +1,6 @@
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 
-const statusDetaljer: AvtaleStatusDetaljer = {
+const statusDetaljerMock: AvtaleStatusDetaljer = {
     godkjentAvInnloggetBruker: false,
     header: 'Du må fylle ut avtalen',
     infoDel1: '',
@@ -11,4 +11,4 @@ const statusDetaljer: AvtaleStatusDetaljer = {
     part2Status: false,
 };
 
-export default statusDetaljer;
+export default statusDetaljerMock;

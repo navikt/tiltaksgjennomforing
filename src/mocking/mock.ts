@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock';
 import arbeidstreningAvtaleMock from './arbeidstrening-avtale-mock';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 import { alleFeatures } from '@/FeatureToggleProvider';
-import statusDetaljer from '@/mocking/status-detaljer-mock';
+import statusDetaljerMock from '@/mocking/status-detaljer-mock';
 
 const opprettAvtaleHeaders = {
     Location: 'avtaler/0',
@@ -36,8 +36,8 @@ fetchMock
     .get(`${API_URL}/avtaler/1/rolle`, '"VEILEDER"')
     .get(`${API_URL}/avtaler/0`, arbeidstreningAvtaleMock)
     .get(`${API_URL}/avtaler/1`, lonnstilskuddAvtaleMock)
-    .get(`${API_URL}/avtaler/0/status-detaljer`, statusDetaljer)
-    .get(`${API_URL}/avtaler/1/status-detaljer`, statusDetaljer)
+    .get(`${API_URL}/avtaler/0/status-detaljer`, statusDetaljerMock)
+    .get(`${API_URL}/avtaler/1/status-detaljer`, statusDetaljerMock)
     .get(new RegExp(`${API_URL}/varsler`), [])
     .get(new RegExp(`${API_URL}/feature`), features)
     .put(new RegExp(`${API_URL}/avtaler/.*`), lagreAvtaleResponse)
