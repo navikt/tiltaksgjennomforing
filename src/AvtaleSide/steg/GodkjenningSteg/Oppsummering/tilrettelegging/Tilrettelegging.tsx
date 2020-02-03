@@ -11,7 +11,7 @@ const cls = BEMHelper('tilrettelegging');
 const Tilrettelegging: FunctionComponent<TilretteleggingInfo> = props => (
     <Stegoppsummering ikon={<TilretteleggingIkon />} tittel="Tilrettelegging">
         <div className={cls.className}>
-            <SjekkOmVerdiEksisterer verdi={props.tilrettelegging} clsName="tilrettelegging" />
+            <SjekkOmVerdiEksisterer verdi={props.tilrettelegging} />
         </div>
     </Stegoppsummering>
 );

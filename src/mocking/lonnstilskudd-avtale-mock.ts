@@ -53,7 +53,7 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     lonnstilskuddProsent: '60',
     manedslonn: 10000,
     arbeidsgiverKontonummer: '123',
-    stillingbeskrivelse: '',
+    arbeidsoppgaver: '',
     stillingtype: '',
 };
 

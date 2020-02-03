@@ -12,7 +12,7 @@ const cls = BEMHelper('oppfolging');
 const OppfolgingOppsummering: FunctionComponent<Oppfolging> = ({ oppfolging }) => (
     <Stegoppsummering ikon={<OppfolgingIkon />} tittel="Oppfølging">
         <div className={cls.className}>
-            <SjekkOmVerdiEksisterer clsName={cls.className} verdi={oppfolging} />
+            <SjekkOmVerdiEksisterer verdi={oppfolging} />
         </div>
     </Stegoppsummering>
 );
