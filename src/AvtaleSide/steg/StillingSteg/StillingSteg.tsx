@@ -18,8 +18,8 @@ const StillingSteg = (props: Context) => {
             <SkjemaTittel>Arbeidsoppgaver</SkjemaTittel>
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"
-                verdi={props.avtale.stillingbeskrivelse || ''}
-                settVerdi={verdi => props.settAvtaleVerdi('stillingbeskrivelse', verdi)}
+                verdi={props.avtale.arbeidsoppgaver || ''}
+                settVerdi={verdi => props.settAvtaleVerdi('arbeidsoppgaver', verdi)}
                 maxLengde={1000}
                 feilmelding="Beskrivelse av arbeidsoppgavene er påkrevd"
             />

@@ -6,14 +6,14 @@ import BEMHelper from '@/utils/bem';
 
 const SjekkOmVerdiEksisterer: FunctionComponent<{
     verdi: string;
-    clsName: string;
+    clsName?: string;
     label?: string;
 }> = props => {
-    const classN = BEMHelper(props.clsName);
+    const classN = props.clsName ? BEMHelper(props.clsName).element('navn') : '';
 
     if (props.verdi) {
         return (
-            <Normaltekst className={classN.element('navn')}>
+            <Normaltekst className={classN}>
                 {props.label} {props.verdi}
             </Normaltekst>
         );
