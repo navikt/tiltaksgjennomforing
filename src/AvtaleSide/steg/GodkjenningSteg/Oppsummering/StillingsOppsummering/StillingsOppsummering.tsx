@@ -7,11 +7,11 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const StillingsOppsummering: FunctionComponent<Stilling> = props => (
     <Stegoppsummering tittel="Stilling">
-        <Element>Stilling</Element>
-        <SjekkOmVerdiEksisterer verdi={props.stillingtype || ''} />
+        <Element>Stillingstittel</Element>
+        <SjekkOmVerdiEksisterer verdi={props.stillingtype} />
         <VerticalSpacer sixteenPx={true} />
         <Element>Arbeidsoppgaver</Element>
-        <SjekkOmVerdiEksisterer verdi={props.arbeidsoppgaver || ''} />
+        <SjekkOmVerdiEksisterer verdi={props.arbeidsoppgaver} />
     </Stegoppsummering>
 );
 

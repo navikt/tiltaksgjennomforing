@@ -11,11 +11,10 @@ const StillingSteg = (props: Context) => {
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Stilling</SkjemaTittel>
             <PakrevdInput
-                label="Stilling"
+                label="Stillingstittel"
                 verdi={props.avtale.stillingtype || ''}
                 settVerdi={verdi => props.settAvtaleVerdi('stillingtype', verdi)}
             />
-            <SkjemaTittel>Arbeidsoppgaver</SkjemaTittel>
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"
                 verdi={props.avtale.arbeidsoppgaver || ''}
