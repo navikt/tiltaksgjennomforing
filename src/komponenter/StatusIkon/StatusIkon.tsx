@@ -13,7 +13,8 @@ const StatusIkon: FunctionComponent<{
     rolle?: Rolle;
     godkjentAvInnloggetBruker?: boolean;
     andrePartnerHarGodkjent?: boolean;
-} & React.SVGProps<SVGSVGElement>> = props => {
+    className?: string;
+}> = props => {
     switch (props.status) {
         case 'Påbegynt':
             return <PabegyntIkon {...props} />;

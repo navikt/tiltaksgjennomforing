@@ -100,7 +100,6 @@ class RedigerMaal extends React.Component<Props & InjectedIntlProps, State> {
             }
             return this.props.lagreMaal({
                 id: this.props.defaultMaal && this.props.defaultMaal.id,
-                opprettetTimestamp: this.props.defaultMaal && this.props.defaultMaal.opprettetTimestamp,
                 kategori: this.state.valgtKategori,
                 beskrivelse: this.state.beskrivelse,
             });

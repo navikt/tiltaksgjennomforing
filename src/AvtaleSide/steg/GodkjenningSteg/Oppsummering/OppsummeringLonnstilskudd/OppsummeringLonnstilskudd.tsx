@@ -11,10 +11,10 @@ interface Props {
 
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
     <>
-        <StillingsOppsummering />
-        <LonnstilskuddOppsummering />
+        <StillingsOppsummering {...props.avtaleinnhold} />
+        <LonnstilskuddOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
-        <BeregningTilskuddOppsummering />
+        <BeregningTilskuddOppsummering {...props.avtaleinnhold} />
     </>
 );
 

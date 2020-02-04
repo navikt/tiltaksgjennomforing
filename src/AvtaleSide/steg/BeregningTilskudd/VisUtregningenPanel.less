@@ -1,0 +1,59 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.visUtregningenPanel {
+    &__rad {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+        border-bottom: 1px solid @navGra20;
+        padding: 0.9rem 0;
+
+        &__siste {
+            border-bottom: 1px solid;
+        }
+
+        &__oppsummering {
+            border-bottom: none;
+        }
+    }
+    &__column {
+        &__siste {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+    &__tittel {
+        display: flex;
+        align-items: center;
+    }
+
+    &__ikon {
+        margin-right: 1rem;
+    }
+
+    &__orienter {
+        &__sum {
+            &__tittel {
+                padding-left: 3rem;
+            }
+        }
+    }
+
+    // spesielt til mobil
+    @media (max-width: @screen-sm-min) {
+        &__rad {
+            padding: 1rem 0 1rem 0;
+            margin: auto;
+        }
+
+        &__orienter {
+            &__sum {
+                &__tittel {
+                    padding-left: 0.5rem;
+                }
+            }
+        }
+    }
+}

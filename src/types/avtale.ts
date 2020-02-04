@@ -60,14 +60,14 @@ export interface Veilederinfo {
 }
 
 export interface Varighet {
-    startDato: number;
-    sluttDato: number;
+    startDato: string;
+    sluttDato: string;
     stillingprosent: number;
 }
 
 export interface Stilling {
     stillingtype?: string;
-    stillingbeskrivelse?: string;
+    arbeidsoppgaver?: string;
 }
 
 export interface Beregningsgrunnlag {
@@ -88,7 +88,6 @@ export interface MaalListe {
 
 export interface Maal {
     id?: string;
-    opprettetTimestamp?: number;
     kategori: Maalkategori;
     beskrivelse: string;
 }
@@ -99,7 +98,6 @@ export interface Oppgaver {
 
 export interface Oppgave {
     id?: string;
-    opprettetTimestamp?: number;
     tittel: string;
     beskrivelse: string;
     opplaering: string;

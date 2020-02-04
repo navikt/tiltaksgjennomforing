@@ -1,4 +1,6 @@
+import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
@@ -9,9 +11,9 @@ import { SokeTyper } from '@/types/soke-typer';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { lagQueryParams } from '@/utils/queryParamUtils';
-import AlertStripe from 'nav-frontend-alertstriper';
-import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
@@ -29,6 +31,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     });
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const feilVarsel = useContext(FeilVarselContext);
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const defaultSøkeType = innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {};
@@ -44,7 +47,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
         RestService.hentAvtalerForInnloggetBruker(queryParams)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
-            .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error }));
+            .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error.message }));
     }, [queryParams]);
 
     const sokEtterAvtaler = (sok: Søk) => {
@@ -58,23 +61,20 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         </div>
     );
 
+    if (avtalelisteRessurs.status === Status.Feil) {
+        feilVarsel(avtalelisteRessurs.error);
+    }
+
     return (
         <>
             <Banner tekst="Dine arbeidstreningsavtaler" />
 
             <div className="avtaleoversikt">
-                <div className={cls.element('informasjonsBanner')}>
-                    <AlertStripe type="info">
-                        <Link to={pathTilInformasjonssideInnlogget} className="lenke">
-                            Les om hvordan den nye digitale løsningen for avtale om arbeidstrening fungerer her
-                        </Link>
-                        <HoyreChevron />
-                    </AlertStripe>
-                </div>
                 {opprettAvtaleKnapp}
 
                 <div className={cls.element('innhold')}>
                     {innloggetBruker.erNavAnsatt && <SokEtterAvtaler sokEtterAvtaler={sokEtterAvtaler} />}
+                    <div className={cls.element('luft')}></div>
                     <div className={cls.element('avtalelistecontainer')}>
                         {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
                             <div>
@@ -102,6 +102,15 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
                             </div>
                         )}
                     </div>
+                </div>
+                <div className={cls.element('informasjonsBanner')}>
+                    <LenkepanelBase
+                        href={pathTilInformasjonssideInnlogget}
+                        linkCreator={(props: any) => <Link to={props.href} {...props} />}
+                    >
+                        <Info width="24" height="24" />
+                        <Normaltekst className={cls.element('lenke')}>Les mer om løsningen</Normaltekst>
+                    </LenkepanelBase>
                 </div>
             </div>
         </>

@@ -4,7 +4,6 @@ import { medContext } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import './OppfolgingOgTilretteleggingSteg.less';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Oppfolging, Tilrettelegging } from '@/types/avtale';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
@@ -20,7 +19,6 @@ const OppfolgingTilretteleggingSteg = (props: InputStegProps<Oppfolging & Tilret
             </HjelpetekstBase>
         </SkjemaTittel>
         <PakrevdTextarea
-            className="begge__tekst"
             label="Beskriv hvilken oppfølging dere har avtalt"
             verdi={props.avtale.oppfolging || ''}
             settVerdi={verdi => props.settAvtaleVerdi('oppfolging', verdi)}
@@ -36,19 +34,14 @@ const OppfolgingTilretteleggingSteg = (props: InputStegProps<Oppfolging & Tilret
             </HjelpetekstBase>
         </SkjemaTittel>
         <PakrevdTextarea
-            className="begge__tekst"
             label="Beskriv hvilken tilrettelegging dere har avtalt"
             verdi={props.avtale.tilrettelegging}
             settVerdi={verdi => props.settAvtaleVerdi('tilrettelegging', verdi)}
             maxLengde={1000}
             feilmelding="Beskrivelse av tilrettelegging er påkrevd"
         />
-        <LagreKnapp
-            className="oppfolgingsteg__lagre-knapp"
-            lagre={props.lagreAvtale}
-            label={'Lagre'}
-            suksessmelding={'Avtale lagret'}
-        />
+        <VerticalSpacer thirtyTwoPx={true} />
+        <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
     </Innholdsboks>
 );
 
