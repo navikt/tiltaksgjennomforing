@@ -49,9 +49,7 @@ class OpprettOppgave extends React.Component<Props & Godkjenninger> {
     };
 
     nyOppgaveOnClick = () => {
-        const noenHarGodkjent =
-            this.props.godkjentAvArbeidsgiver || this.props.godkjentAvDeltaker || this.props.godkjentAvVeileder;
-        if (noenHarGodkjent) {
+        if (this.props.godkjentAvArbeidsgiver || this.props.godkjentAvDeltaker || this.props.godkjentAvVeileder) {
             this.props.setBekreftelseModalIsOpen(true);
         } else {
             this.visOppgave(true);

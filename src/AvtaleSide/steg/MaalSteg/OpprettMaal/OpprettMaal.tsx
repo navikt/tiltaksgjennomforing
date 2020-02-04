@@ -31,9 +31,7 @@ class OpprettMaal extends React.Component<Props & Godkjenninger> {
     };
 
     nyttMaalOnClick = () => {
-        const noenHarGodkjent =
-            this.props.godkjentAvArbeidsgiver || this.props.godkjentAvDeltaker || this.props.godkjentAvVeileder;
-        if (noenHarGodkjent) {
+        if (this.props.godkjentAvArbeidsgiver || this.props.godkjentAvDeltaker || this.props.godkjentAvVeileder) {
             this.props.setBekreftelseModalIsOpen(true);
         } else {
             this.visRedigerMaal(true);
