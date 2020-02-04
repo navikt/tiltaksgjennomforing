@@ -1,7 +1,7 @@
-import { Context, medContext, TemporaryLagringArbeidsoppgave } from '@/AvtaleContext';
+import { TemporaryLagringArbeidsoppgave } from '@/AvtaleContext';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Oppgave } from '@/types/avtale';
+import { Godkjenninger, Oppgave } from '@/types/avtale';
 import { Knapp } from 'nav-frontend-knapper';
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
@@ -13,9 +13,10 @@ interface Props {
     mellomLagretArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     setMellomLagringArbeidsoppgave: (arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave) => void;
     fjerneMellomLagringArbeidsoppgave: () => void;
+    setBekreftelseModalIsOpen: (apen: boolean) => void;
 }
 
-class OpprettOppgave extends React.Component<Props & Context> {
+class OpprettOppgave extends React.Component<Props & Godkjenninger> {
     state = {
         isMounted: false,
         visRedigerOppgave: false,
@@ -49,9 +50,7 @@ class OpprettOppgave extends React.Component<Props & Context> {
 
     nyOppgaveOnClick = () => {
         const noenHarGodkjent =
-            this.props.avtale.godkjentAvArbeidsgiver ||
-            this.props.avtale.godkjentAvDeltaker ||
-            this.props.avtale.godkjentAvVeileder;
+            this.props.godkjentAvArbeidsgiver || this.props.godkjentAvDeltaker || this.props.godkjentAvVeileder;
         if (noenHarGodkjent) {
             this.props.setBekreftelseModalIsOpen(true);
         } else {
@@ -89,4 +88,4 @@ class OpprettOppgave extends React.Component<Props & Context> {
     }
 }
 
-export default medContext(OpprettOppgave);
+export default OpprettOppgave;

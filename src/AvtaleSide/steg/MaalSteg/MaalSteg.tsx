@@ -51,6 +51,8 @@ class MaalSteg extends React.Component<Context> {
     render = () => (
         <>
             <OpprettMaal
+                {...this.props.avtale}
+                setBekreftelseModalIsOpen={(apen: boolean) => this.props.setBekreftelseModalIsOpen(apen)}
                 ledigeMaalkategorier={finnLedigeMaalkategorier(this.valgteMaalkategorier())}
                 lagreMaal={this.props.lagreMaal}
                 mellomLagretMaal={this.props.mellomLagring}

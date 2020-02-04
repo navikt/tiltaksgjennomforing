@@ -45,6 +45,8 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
     render = () => (
         <>
             <OpprettOppgave
+                {...this.props.avtale}
+                setBekreftelseModalIsOpen={(apen: boolean) => this.props.setBekreftelseModalIsOpen(apen)}
                 lagreOppgave={this.props.lagreOppgave}
                 mellomLagretArbeidsoppgave={this.props.mellomLagringArbeidsoppgave}
                 setMellomLagringArbeidsoppgave={this.props.mellomLagreArbeidsoppgave}
