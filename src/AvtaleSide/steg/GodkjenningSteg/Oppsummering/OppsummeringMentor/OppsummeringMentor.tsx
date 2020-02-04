@@ -1,4 +1,4 @@
-import { ArbeidstreningAvtaleinnhold, MentorAvtaleinnhold } from '@/types/avtale';
+import { MentorAvtaleinnhold } from '@/types/avtale';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
