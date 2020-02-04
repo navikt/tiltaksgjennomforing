@@ -14,15 +14,15 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     maal: [],
     oppfolging: '',
     oppgaver: [],
-    sluttDato: 0,
-    startDato: 0,
+    sluttDato: '',
+    startDato: '',
     stillingprosent: 0,
     tilrettelegging: '',
     veilederEtternavn: '',
     veilederFornavn: '',
     veilederTlf: '',
     manedslonn: 0,
-    stillingbeskrivelse: '',
+    arbeidsoppgaver: '',
     stillingtype: '',
 };
 
