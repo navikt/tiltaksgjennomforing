@@ -1,12 +1,12 @@
-import { Knapp } from 'nav-frontend-knapper';
-import * as React from 'react';
+import { Context, medContext, TemporaryLagring } from '@/AvtaleContext';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
+import { Knapp } from 'nav-frontend-knapper';
+import * as React from 'react';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import './OpprettMaal.less';
-import { TemporaryLagring } from '@/AvtaleContext';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
@@ -16,7 +16,7 @@ interface Props {
     fjernMellomLagring: () => void;
 }
 
-class OpprettMaal extends React.Component<Props> {
+class OpprettMaal extends React.Component<Props & Context> {
     setInnMellomLagring = () => {
         return this.props.mellomLagretMaal.maal !== undefined && this.props.mellomLagretMaal.maalTekst !== '';
     };
@@ -30,7 +30,15 @@ class OpprettMaal extends React.Component<Props> {
     };
 
     nyttMaalOnClick = () => {
-        this.visRedigerMaal(true);
+        const noenHarGodkjent =
+            this.props.avtale.godkjentAvArbeidsgiver ||
+            this.props.avtale.godkjentAvDeltaker ||
+            this.props.avtale.godkjentAvVeileder;
+        if (noenHarGodkjent) {
+            this.props.setBekreftelseModalIsOpen(true);
+        } else {
+            this.visRedigerMaal(true);
+        }
     };
 
     avbrytRedigering = () => {
@@ -65,4 +73,4 @@ class OpprettMaal extends React.Component<Props> {
     }
 }
 
-export default OpprettMaal;
+export default medContext(OpprettMaal);

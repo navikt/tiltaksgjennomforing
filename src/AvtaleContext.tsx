@@ -116,6 +116,7 @@ export interface Context {
     varsler: Varsel[];
     visFeilmelding: (feilmelding: string) => void;
     laasOpp: () => Promise<any>;
+    setBekreftelseModalIsOpen: (apen: boolean) => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -172,6 +173,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.laasOpp = this.laasOpp.bind(this);
+        this.setBekreftelseModalIsOpen = this.setBekreftelseModalIsOpen.bind(this);
     }
 
     sendToAmplitude = (eventName: string) => {
@@ -279,6 +281,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     visFeilmelding = (feilmelding: string): void => {
         this.setState({ feilmelding });
+    };
+
+    setBekreftelseModalIsOpen = (apen: boolean): void => {
+        this.setState({ bekreftelseModalIsOpen: apen });
     };
 
     fjernFeilmelding = (): void => {
@@ -398,6 +404,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             varsler: this.state.varsler,
             visFeilmelding: this.visFeilmelding,
             laasOpp: this.laasOpp,
+            setBekreftelseModalIsOpen: this.setBekreftelseModalIsOpen,
         };
 
         const bekreftOpphevGodkjenninger = async () => {
