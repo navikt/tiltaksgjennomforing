@@ -136,6 +136,22 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     if (lonnstilskuddToggle === undefined) return null;
 
+    const mentorToggle = featureToggleContext[Feature.Mentor];
+
+    const mentorRadioPanel = () => {
+        if (!mentorToggle) return null;
+
+        return (
+            <RadioPanel
+                name="tiltakstype"
+                label="Mentor"
+                value="MENTOR"
+                checked={valgtTiltaksType === 'MENTOR'}
+                onChange={() => setTiltaksType('MENTOR')}
+            />
+        );
+    };
+
     return (
         <div className="opprett-avtale">
             <Innholdstittel className="opprett-avtale__tittel">{tittel}</Innholdstittel>
@@ -164,6 +180,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                             checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
                             onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
                         />
+                        {mentorRadioPanel()}
                     </div>
                 </Innholdsboks>
             )}
