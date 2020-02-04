@@ -9,7 +9,6 @@ import moment from 'moment';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import RestService from './services/rest-service';
-import { lagAvtaleObjektMedKunInputFelter } from './utils/avtaleObjektUtils';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -235,22 +234,29 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
+    noenHarGodkjent() {
+        return (
+            this.state.avtale.godkjentAvDeltaker ||
+            this.state.avtale.godkjentAvArbeidsgiver ||
+            this.state.avtale.godkjentAvVeileder
+        );
+    }
+
     settAvtaleVerdi(felt: keyof Avtale, verdi: any) {
-        const avtale = this.state.avtale;
-        if (avtale) {
-            // @ts-ignore
-            avtale[felt] = verdi;
-            this.setState({ avtale, ulagredeEndringer: true });
+        if (this.noenHarGodkjent()) {
+            this.setState({ bekreftelseModalIsOpen: true });
+        } else {
+            const avtale = this.state.avtale;
+            if (avtale) {
+                // @ts-ignore
+                avtale[felt] = verdi;
+                this.setState({ avtale, ulagredeEndringer: true });
+            }
         }
     }
 
     async lagreAvtale() {
-        const noenHarGodkjent =
-            this.state.avtale.godkjentAvDeltaker ||
-            this.state.avtale.godkjentAvArbeidsgiver ||
-            this.state.avtale.godkjentAvVeileder;
-        if (noenHarGodkjent) {
-            this.setState({ bekreftelseModalIsOpen: true });
+        if (this.noenHarGodkjent()) {
             return Promise.reject();
         } else {
             const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
@@ -396,16 +402,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
         const bekreftOpphevGodkjenninger = async () => {
             const opphevetAvtale = await RestService.opphevGodkjenninger(this.state.avtale.id);
-
-            const endretInnhold = lagAvtaleObjektMedKunInputFelter(this.state.avtale);
-
-            const endretAvtale = { ...opphevetAvtale, ...endretInnhold };
-
-            this.setState({ avtale: endretAvtale });
-
-            await this.lagreAvtale();
-
-            this.setState({ bekreftelseModalIsOpen: false });
+            this.setState({ avtale: opphevetAvtale, bekreftelseModalIsOpen: false });
         };
 
         const opphevGodkjenningerTekst = (
