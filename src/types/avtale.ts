@@ -1,22 +1,21 @@
-import { Maalkategori } from './maalkategorier';
 import { Nettressurs } from '@/types/nettressurs';
+import { Maalkategori } from './maalkategorier';
 
 export type Avtale<T extends FellesAvtaleinnhold = AltAvtaleinnhold> = Avbrytelse &
     AvtaleMetadata &
     Avtaleparter &
     Versjonering<T> &
-    FellesAvtaleinnhold &
+    Godkjenninger &
     T;
 
 type FellesAvtaleinnhold = Arbeidsgiverinfo &
     Bedriftinfo &
     Deltakerinfo &
-    Godkjenninger &
     Oppfolging &
     Stilling &
     Tilrettelegging &
     Varighet &
-    Veilederinfo & { versjon: number };
+    Veilederinfo;
 
 export type ArbeidstreningAvtaleinnhold = FellesAvtaleinnhold & MaalListe & Oppgaver;
 
@@ -132,9 +131,10 @@ export interface GodkjentPaVegneGrunner {
     digitalKompetanse: boolean;
 }
 
+export type AvtaleVersjon<T extends FellesAvtaleinnhold> = T & { versjon: number } & Godkjenninger;
+
 export interface Versjonering<T extends FellesAvtaleinnhold> {
-    versjon: number;
-    versjoner: T[];
+    versjoner: AvtaleVersjon<T>[];
     kanLåsesOpp: boolean;
 }
 

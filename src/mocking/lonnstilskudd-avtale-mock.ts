@@ -1,4 +1,4 @@
-import { LonnstilskuddAvtaleinnhold, Avtale } from '@/types/avtale';
+import { Avtale, LonnstilskuddAvtaleinnhold } from '@/types/avtale';
 
 const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     id: '1',
@@ -12,7 +12,6 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     status: 'Påbegynt',
     kanAvbrytes: true,
     kanLåsesOpp: false,
-    versjon: 1,
     versjoner: [],
     avbrutt: false,
     godkjentPaVegneAv: false,

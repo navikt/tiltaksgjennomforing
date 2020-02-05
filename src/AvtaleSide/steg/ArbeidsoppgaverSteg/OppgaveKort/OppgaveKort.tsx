@@ -1,14 +1,15 @@
-import * as React from 'react';
-import { Oppgave } from '@/types/avtale';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import './OppgaveKort.less';
+import { Oppgave } from '@/types/avtale';
+import * as React from 'react';
 import RedigerOppgave from '../RedigerOppgave/RedigerOppgave';
 import LagretOppgave from './LagretOppgave/LagretOppgave';
+import './OppgaveKort.less';
 
 interface Props {
     oppgave: Oppgave;
     lagreOppgave: (oppgave: Oppgave) => Promise<any>;
     slettOppgave: (oppgave: Oppgave) => void;
+    utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
 interface State {
@@ -30,11 +31,15 @@ class OppgaveKort extends React.Component<Props, State> {
     };
 
     endreOppgave = () => {
-        this.settEndreModus(true);
+        this.props.utforHandlingHvisRedigerbar(() => {
+            this.settEndreModus(true);
+        });
     };
 
     slettOppgave = () => {
-        return this.props.slettOppgave(this.props.oppgave);
+        this.props.utforHandlingHvisRedigerbar(() => {
+            return this.props.slettOppgave(this.props.oppgave);
+        });
     };
 
     render() {

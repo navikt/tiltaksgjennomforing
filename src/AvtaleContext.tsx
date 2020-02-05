@@ -1,18 +1,18 @@
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
 import { ApiError } from '@/types/errors';
+import { Maalkategori } from '@/types/maalkategorier';
 import Varsel from '@/types/varsel';
+import amplitude from '@/utils/amplitude';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import RestService from './services/rest-service';
-import amplitude from '@/utils/amplitude';
-import { Maalkategori } from '@/types/maalkategorier';
 
 export const tomAvtale: Avtale = {
     id: '',
     opprettetTidspunkt: '',
     sistEndret: '',
-    versjon: 1,
     versjoner: [],
 
     deltakerFnr: '',
@@ -115,6 +115,7 @@ export interface Context {
     varsler: Varsel[];
     visFeilmelding: (feilmelding: string) => void;
     laasOpp: () => Promise<any>;
+    utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -131,6 +132,7 @@ interface State {
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     varsler: Varsel[];
+    bekreftelseModalIsOpen: boolean;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -145,6 +147,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             mellomLagring: tomTemporaryLagring,
             mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
             varsler: [],
+            bekreftelseModalIsOpen: false,
         };
 
         this.avbrytAvtale = this.avbrytAvtale.bind(this);
@@ -169,6 +172,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.laasOpp = this.laasOpp.bind(this);
+        this.utforHandlingHvisRedigerbar = this.utforHandlingHvisRedigerbar.bind(this);
     }
 
     sendToAmplitude = (eventName: string) => {
@@ -232,22 +236,38 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
+    noenHarGodkjent() {
+        return (
+            this.state.avtale.godkjentAvDeltaker ||
+            this.state.avtale.godkjentAvArbeidsgiver ||
+            this.state.avtale.godkjentAvVeileder
+        );
+    }
+
     settAvtaleVerdi(felt: keyof Avtale, verdi: any) {
-        const avtale = this.state.avtale;
-        if (avtale) {
-            // @ts-ignore
-            avtale[felt] = verdi;
-            this.setState({ avtale, ulagredeEndringer: true });
+        if (this.noenHarGodkjent()) {
+            this.setState({ bekreftelseModalIsOpen: true });
+        } else {
+            const avtale = this.state.avtale;
+            if (avtale) {
+                // @ts-ignore
+                avtale[felt] = verdi;
+                this.setState({ avtale, ulagredeEndringer: true });
+            }
         }
     }
 
     async lagreAvtale() {
-        const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
-        this.sendToAmplitude('avtale-lagret');
-        this.setState({
-            avtale: { ...this.state.avtale, ...nyAvtale },
-            ulagredeEndringer: false,
-        });
+        if (this.noenHarGodkjent()) {
+            return Promise.reject();
+        } else {
+            const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
+            this.sendToAmplitude('avtale-lagret');
+            this.setState({
+                avtale: { ...this.state.avtale, ...nyAvtale },
+                ulagredeEndringer: false,
+            });
+        }
     }
 
     lagreMaal(maalTilLagring: Maal) {
@@ -260,6 +280,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     visFeilmelding = (feilmelding: string): void => {
         this.setState({ feilmelding });
+    };
+
+    utforHandlingHvisRedigerbar = (callback: () => void) => {
+        if (this.noenHarGodkjent()) {
+            this.setState({ bekreftelseModalIsOpen: true });
+        } else {
+            callback();
+        }
     };
 
     fjernFeilmelding = (): void => {
@@ -381,7 +409,21 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             varsler: this.state.varsler,
             visFeilmelding: this.visFeilmelding,
             laasOpp: this.laasOpp,
+            utforHandlingHvisRedigerbar: this.utforHandlingHvisRedigerbar,
         };
+
+        const bekreftOpphevGodkjenninger = async () => {
+            const opphevetAvtale = await RestService.opphevGodkjenninger(this.state.avtale.id);
+            this.setState({ avtale: opphevetAvtale, bekreftelseModalIsOpen: false });
+        };
+
+        const opphevGodkjenningerModal = (
+            <OpphevGodkjenningerModal
+                modalIsOpen={this.state.bekreftelseModalIsOpen}
+                bekreftOpphevGodkjenninger={bekreftOpphevGodkjenninger}
+                lukkModal={() => this.setState({ bekreftelseModalIsOpen: false })}
+            />
+        );
 
         return (
             <>
@@ -391,6 +433,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
                     </VarselKomponent>
                 )}
                 <AvtaleContext.Provider value={context}>{this.props.children}</AvtaleContext.Provider>
+                {opphevGodkjenningerModal}
             </>
         );
     }

@@ -1,14 +1,14 @@
 import { Context, medContext } from '@/AvtaleContext';
-import * as React from 'react';
-import { createElement, FunctionComponent } from 'react';
-import Godkjenning from './Godkjenning';
-import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
 import { AltAvtaleinnhold } from '@/types/avtale';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import Versjonering from './Versjonering/Versjonering';
+import * as React from 'react';
+import { createElement, FunctionComponent } from 'react';
+import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
+import Godkjenning from './Godkjenning';
+import VersjoneringKomponent from './Versjonering/VersjoneringKomponent';
 
 type Props = {
     oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
@@ -41,7 +41,7 @@ const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
             endreGodkjenning={props.godkjenn}
             godkjennPaVegne={props.godkjennPaVegne}
         />
-        <Versjonering laasOpp={props.laasOpp} avtale={props.avtale} rolle={props.rolle} />
+        <VersjoneringKomponent laasOpp={props.laasOpp} avtale={props.avtale} rolle={props.rolle} />
     </>
 );
 

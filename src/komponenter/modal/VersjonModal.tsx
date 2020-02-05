@@ -1,14 +1,14 @@
+import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import { ArbeidstreningAvtaleinnhold, AvtaleVersjon } from '@/types/avtale';
 import Modal from 'nav-frontend-modal';
 import React from 'react';
 import './VersjonModal.less';
-import { AltAvtaleinnhold } from '@/types/avtale';
-import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     isOpen: boolean;
     lukkModal: () => void;
-    avtaleInnhold: AltAvtaleinnhold;
+    avtaleInnhold: AvtaleVersjon<ArbeidstreningAvtaleinnhold>;
 }
 
 const VersjonModal: React.FunctionComponent<Props> = props => {

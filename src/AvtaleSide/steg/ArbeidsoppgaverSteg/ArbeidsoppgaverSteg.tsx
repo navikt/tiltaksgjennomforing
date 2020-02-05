@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { ApiError } from '@/types/errors';
 import { Context, medContext } from '@/AvtaleContext';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Oppgave } from '@/types/avtale';
+import { ApiError } from '@/types/errors';
+import * as React from 'react';
 import OppgaveKort from './OppgaveKort/OppgaveKort';
 import OpprettOppgave from './OpprettOppgave/OpprettOppgave';
-import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 
 class ArbeidsoppgaverSteg extends React.Component<Context> {
     state: {
@@ -21,9 +21,9 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
         };
     }
 
-    slettOppgave = async (oppgave: Oppgave) => {
+    slettOppgave = async () => {
         try {
-            await this.props.slettOppgave(oppgave);
+            await this.props.slettOppgave(this.state.oppgaveRad);
             this.lukkModal();
         } catch (error) {
             if (error instanceof ApiError) {
@@ -45,6 +45,8 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
     render = () => (
         <>
             <OpprettOppgave
+                {...this.props.avtale}
+                utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
                 lagreOppgave={this.props.lagreOppgave}
                 mellomLagretArbeidsoppgave={this.props.mellomLagringArbeidsoppgave}
                 setMellomLagringArbeidsoppgave={this.props.mellomLagreArbeidsoppgave}
@@ -56,17 +58,16 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
                     key={oppgave.id}
                     lagreOppgave={this.props.lagreOppgave}
                     slettOppgave={this.bekrefelsePaSlettRad}
+                    utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
                 />
             ))}
             <BekreftelseModal
                 modalIsOpen={this.state.modalIsOpen}
-                radTilSletting={this.state.oppgaveRad}
-                slettOnClick={this.slettOppgave}
+                bekreftOnClick={this.slettOppgave}
                 lukkModal={this.lukkModal}
-                navn="oppgave"
                 varselTekst="Du er i ferd med å slette en arbeidsoppgave. Hvis du gjør det vil alt innholdet i arbeidsoppgaven forsvinne. Er du sikker?"
-                oversiktTekst="Slette "
-                bekreftelseTekst="Ja, slett"
+                oversiktTekst="Slette oppgave"
+                bekreftelseTekst="Ja, slett oppgave"
                 avbrytelseTekst="avbryt"
             />
         </>
