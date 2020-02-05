@@ -1,22 +1,21 @@
-import Lenke from 'nav-frontend-lenker';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState } from 'react';
+import { ReactComponent as Altinn } from '@/assets/ikoner/altinn.svg';
+import { ReactComponent as DigitalAvtale } from '@/assets/ikoner/digitalAvtale.svg';
+import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale.svg';
+import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
+import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '@/komponenter/Banner/Banner';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
-import BEMHelper from '@/utils/bem';
-import './informasjonsside.less';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { pathTilInformasjonssideInnlogget, pathTilOversikt } from '@/paths';
-import { VenstreChevron } from 'nav-frontend-chevron';
-import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
-import { ReactComponent as DigitalAvtale } from '@/assets/ikoner/digitalAvtale.svg';
-import { ReactComponent as Altinn } from '@/assets/ikoner/altinn.svg';
-import { ReactComponent as Clipboard } from '@/assets/ikoner/informationIcon.svg';
-import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
-import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale.svg';
 import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { pathTilInformasjonssideInnlogget, pathTilOversikt } from '@/paths';
+import BEMHelper from '@/utils/bem';
+import { VenstreChevron } from 'nav-frontend-chevron';
+import Lenke from 'nav-frontend-lenker';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useState } from 'react';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import './informasjonsside.less';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
@@ -43,7 +42,6 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                     <div className="tilbaketiloversikt">{tilbakeTilOversikt(props.location.pathname)}</div>
 
                     <div className={cls.element('innhold')}>
-                        <Clipboard className={cls.element('ClipboardIkon')} />
                         <div className={cls.element('innholdstittel')}>
                             <Innholdstittel>Hvordan fungerer løsningen?</Innholdstittel>
                         </div>

@@ -1,16 +1,16 @@
+import { ReactComponent as AnsatteIkon } from '@/assets/ikoner/ansatte.svg';
+import { ReactComponent as LovIkon } from '@/assets/ikoner/lov.svg';
+import { ReactComponent as PersonOpplysningIkon } from '@/assets/ikoner/personopplysninger.svg';
+import { ReactComponent as SkadeIkon } from '@/assets/ikoner/skade.svg';
+import { ReactComponent as SkjoldIkon } from '@/assets/ikoner/skjold.svg';
+import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import BEMHelper from '@/utils/bem';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
-import { ReactComponent as LovIkon } from '@/assets/ikoner/lov.svg';
-import { ReactComponent as AnsatteIkon } from '@/assets/ikoner/ansatte.svg';
-import { ReactComponent as SkadeIkon } from '@/assets/ikoner/skade.svg';
-import { ReactComponent as PersonOpplysningIkon } from '@/assets/ikoner/personopplysninger.svg';
-import { ReactComponent as SkjoldIkon } from '@/assets/ikoner/skjold.svg';
-import BEMHelper from '@/utils/bem';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 const cls = BEMHelper('instruks');
 interface Props {

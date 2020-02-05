@@ -1,5 +1,5 @@
 import { ReactComponent as AvtaleSignering } from '@/assets/ikoner/avtaleSignering.svg';
-import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check-circle.svg';
+import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check.svg';
 import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
 import { ReactComponent as NokkelPunktForAvtale } from '@/assets/ikoner/nokkelPunktForAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
@@ -22,7 +22,7 @@ import { Input, RadioPanel } from 'nav-frontend-skjema';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { RouterProps, withRouter } from 'react-router';
-import { ReactComponent as TilEkstern } from './external-link.svg';
+import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');

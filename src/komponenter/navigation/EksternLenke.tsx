@@ -1,8 +1,8 @@
-import React from 'react';
-import Lenke, { Props } from 'nav-frontend-lenker';
-import { ReactComponent as TilEkstern } from '@/assets/ikoner/external-link.svg';
-import './EksternLenke.less';
+import { ReactComponent as TilEkstern } from '@/assets/ikoner/ekstern-lenke.svg';
 import amplitude from '@/utils/amplitude';
+import Lenke, { Props } from 'nav-frontend-lenker';
+import React from 'react';
+import './EksternLenke.less';
 
 const EksternLenke: React.FunctionComponent<Props> = props => {
     const onClick = (event: any) => {
