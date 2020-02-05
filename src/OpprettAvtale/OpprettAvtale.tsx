@@ -1,5 +1,5 @@
 import { ReactComponent as AvtaleSignering } from '@/assets/ikoner/avtaleSignering.svg';
-import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check.svg';
+import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check-stroke.svg';
 import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
 import { ReactComponent as NokkelPunktForAvtale } from '@/assets/ikoner/nokkelPunktForAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
@@ -198,8 +198,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
             </Innholdsboks>
             <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
                 <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
-                    Dette er en digital avtale for arbeidstrening som skal brukes av deltaker, arbeidsgiver og veileder
-                    ved NAV.
+                    Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved NAV.
                 </EkspanderbartPanelRad>
 
                 <EkspanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
@@ -220,8 +219,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                 </EkspanderbartPanelRad>
 
                 <EkspanderbartPanelRad svgIkon={<CheckCircleIkon />}>
-                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at arbeidstreningen kan
-                    starte.
+                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at tiltaket kan starte.
                 </EkspanderbartPanelRad>
             </Ekspanderbartpanel>
             <div className={cls.element('knappRad')}>
