@@ -13,7 +13,7 @@ interface Props {
     mellomLagretArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     setMellomLagringArbeidsoppgave: (arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave) => void;
     fjerneMellomLagringArbeidsoppgave: () => void;
-    setBekreftelseModalIsOpen: (apen: boolean) => void;
+    utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
 class OpprettOppgave extends React.Component<Props & Godkjenninger> {
@@ -49,11 +49,9 @@ class OpprettOppgave extends React.Component<Props & Godkjenninger> {
     };
 
     nyOppgaveOnClick = () => {
-        if (this.props.godkjentAvArbeidsgiver || this.props.godkjentAvDeltaker || this.props.godkjentAvVeileder) {
-            this.props.setBekreftelseModalIsOpen(true);
-        } else {
+        this.props.utforHandlingHvisRedigerbar(() => {
             this.visOppgave(true);
-        }
+        });
     };
 
     lagreOppgave = async (oppgave: Oppgave) => {

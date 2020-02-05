@@ -52,7 +52,7 @@ class MaalSteg extends React.Component<Context> {
         <>
             <OpprettMaal
                 {...this.props.avtale}
-                setBekreftelseModalIsOpen={(apen: boolean) => this.props.setBekreftelseModalIsOpen(apen)}
+                utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
                 ledigeMaalkategorier={finnLedigeMaalkategorier(this.valgteMaalkategorier())}
                 lagreMaal={this.props.lagreMaal}
                 mellomLagretMaal={this.props.mellomLagring}
@@ -66,6 +66,7 @@ class MaalSteg extends React.Component<Context> {
                     key={maal.id}
                     lagreMaal={this.props.lagreMaal}
                     slettMaal={this.bekrefelsePaSlettRad}
+                    utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
                 />
             ))}
             <BekreftelseModal

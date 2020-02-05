@@ -14,7 +14,7 @@ interface Props {
     mellomLagretMaal: TemporaryLagring;
     setMellomLagring: (maalInput: TemporaryLagring) => void;
     fjernMellomLagring: () => void;
-    setBekreftelseModalIsOpen: (apen: boolean) => void;
+    utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
 class OpprettMaal extends React.Component<Props & Godkjenninger> {
@@ -31,11 +31,9 @@ class OpprettMaal extends React.Component<Props & Godkjenninger> {
     };
 
     nyttMaalOnClick = () => {
-        if (this.props.godkjentAvArbeidsgiver || this.props.godkjentAvDeltaker || this.props.godkjentAvVeileder) {
-            this.props.setBekreftelseModalIsOpen(true);
-        } else {
+        this.props.utforHandlingHvisRedigerbar(() => {
             this.visRedigerMaal(true);
-        }
+        });
     };
 
     avbrytRedigering = () => {

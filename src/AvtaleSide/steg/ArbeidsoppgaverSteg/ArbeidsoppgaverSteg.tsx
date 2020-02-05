@@ -46,7 +46,7 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
         <>
             <OpprettOppgave
                 {...this.props.avtale}
-                setBekreftelseModalIsOpen={(apen: boolean) => this.props.setBekreftelseModalIsOpen(apen)}
+                utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
                 lagreOppgave={this.props.lagreOppgave}
                 mellomLagretArbeidsoppgave={this.props.mellomLagringArbeidsoppgave}
                 setMellomLagringArbeidsoppgave={this.props.mellomLagreArbeidsoppgave}
@@ -58,6 +58,7 @@ class ArbeidsoppgaverSteg extends React.Component<Context> {
                     key={oppgave.id}
                     lagreOppgave={this.props.lagreOppgave}
                     slettOppgave={this.bekrefelsePaSlettRad}
+                    utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
                 />
             ))}
             <BekreftelseModal

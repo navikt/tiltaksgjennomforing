@@ -1,4 +1,3 @@
-import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
 import { ApiError } from '@/types/errors';
@@ -7,6 +6,7 @@ import Varsel from '@/types/varsel';
 import amplitude from '@/utils/amplitude';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import RestService from './services/rest-service';
 
 export const tomAvtale: Avtale = {
@@ -115,7 +115,7 @@ export interface Context {
     varsler: Varsel[];
     visFeilmelding: (feilmelding: string) => void;
     laasOpp: () => Promise<any>;
-    setBekreftelseModalIsOpen: (apen: boolean) => void;
+    utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -172,7 +172,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.laasOpp = this.laasOpp.bind(this);
-        this.setBekreftelseModalIsOpen = this.setBekreftelseModalIsOpen.bind(this);
+        this.utforHandlingHvisRedigerbar = this.utforHandlingHvisRedigerbar.bind(this);
     }
 
     sendToAmplitude = (eventName: string) => {
@@ -282,8 +282,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.setState({ feilmelding });
     };
 
-    setBekreftelseModalIsOpen = (apen: boolean): void => {
-        this.setState({ bekreftelseModalIsOpen: apen });
+    utforHandlingHvisRedigerbar = (callback: () => void) => {
+        if (this.noenHarGodkjent()) {
+            this.setState({ bekreftelseModalIsOpen: true });
+        } else {
+            callback();
+        }
     };
 
     fjernFeilmelding = (): void => {
@@ -405,7 +409,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             varsler: this.state.varsler,
             visFeilmelding: this.visFeilmelding,
             laasOpp: this.laasOpp,
-            setBekreftelseModalIsOpen: this.setBekreftelseModalIsOpen,
+            utforHandlingHvisRedigerbar: this.utforHandlingHvisRedigerbar,
         };
 
         const bekreftOpphevGodkjenninger = async () => {
@@ -413,23 +417,11 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             this.setState({ avtale: opphevetAvtale, bekreftelseModalIsOpen: false });
         };
 
-        const opphevGodkjenningerTekst = (
-            <>
-                En eller flere parter i avtalen har godkjent. Du er nå i ferd med å endre innholdet de har godkjent, og
-                deres godkjenninger vil bli opphevet. De må da logge seg inn og godkjenne på nytt.
-                <p>Er du sikker på at du vil fortsette?</p>
-            </>
-        );
-
         const opphevGodkjenningerModal = (
-            <BekreftelseModal
+            <OpphevGodkjenningerModal
                 modalIsOpen={this.state.bekreftelseModalIsOpen}
-                bekreftOnClick={bekreftOpphevGodkjenninger}
+                bekreftOpphevGodkjenninger={bekreftOpphevGodkjenninger}
                 lukkModal={() => this.setState({ bekreftelseModalIsOpen: false })}
-                varselTekst={opphevGodkjenningerTekst}
-                oversiktTekst="Endring av godkjent innhold"
-                bekreftelseTekst="Ja, opphev godkjenninger"
-                avbrytelseTekst="avbryt"
             />
         );
 

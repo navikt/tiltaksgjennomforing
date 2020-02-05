@@ -1,16 +1,17 @@
-import * as React from 'react';
-import { Maal } from '@/types/avtale';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import './MaalKort.less';
+import { Maal } from '@/types/avtale';
+import { Maalkategori } from '@/types/maalkategorier';
+import * as React from 'react';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import LagretMaal from './LagretMaal/LagretMaal';
-import { Maalkategori } from '@/types/maalkategorier';
+import './MaalKort.less';
 
 interface Props {
     maal: Maal;
     slettMaal: (maal: Maal) => void;
     lagreMaal: (maal: Maal) => Promise<any>;
     ledigeMaalkategorier: Maalkategori[];
+    utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
 interface State {
@@ -32,7 +33,9 @@ class MaalKort extends React.Component<Props, State> {
     };
 
     endreMaal = () => {
-        this.settEndreModus(true);
+        this.props.utforHandlingHvisRedigerbar(() => {
+            this.settEndreModus(true);
+        });
     };
 
     avbrytEndreMaal = () => {
@@ -40,7 +43,9 @@ class MaalKort extends React.Component<Props, State> {
     };
 
     slettMaal = () => {
-        return this.props.slettMaal(this.props.maal);
+        this.props.utforHandlingHvisRedigerbar(() => {
+            this.props.slettMaal(this.props.maal);
+        });
     };
 
     render() {
