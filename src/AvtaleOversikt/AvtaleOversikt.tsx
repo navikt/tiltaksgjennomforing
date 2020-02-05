@@ -1,5 +1,6 @@
 import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
@@ -30,6 +31,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
     });
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const feilVarsel = useContext(FeilVarselContext);
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const defaultSøkeType = innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {};
@@ -45,7 +47,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
         RestService.hentAvtalerForInnloggetBruker(queryParams)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
-            .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error }));
+            .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error.message }));
     }, [queryParams]);
 
     const sokEtterAvtaler = (sok: Søk) => {
@@ -58,6 +60,10 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
             <Hovedknapp onClick={() => props.history.push(pathTilOpprettAvtale)}>Opprett ny avtale</Hovedknapp>
         </div>
     );
+
+    if (avtalelisteRessurs.status === Status.Feil) {
+        feilVarsel(avtalelisteRessurs.error);
+    }
 
     return (
         <>

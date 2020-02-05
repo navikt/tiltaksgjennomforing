@@ -9,7 +9,7 @@ test('Test at <StillingsOppsummering> rendres', () => {
     expect(wrapper).toHaveLength(1);
 });
 
-test('Skal rendre Stegoppsummering og SjekkOmVerdiEksisterer', () => {
+test('Skal rendre stillingstype og arbeidsoppgaver', () => {
     const wrapper = shallow(<StillingsOppsummering />);
-    expect(wrapper.find(Stegoppsummering) && wrapper.find(SjekkOmVerdiEksisterer)).toHaveLength(1);
+    expect(wrapper.find(Stegoppsummering) && wrapper.find(SjekkOmVerdiEksisterer)).toHaveLength(2);
 });

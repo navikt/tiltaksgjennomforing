@@ -7,7 +7,7 @@ interface Props {}
 const LonnstilskuddOppsummering: FunctionComponent<Props> = () => (
     <Stegoppsummering tittel="Lønnstilskudd og varighet">
         <div>
-            <SjekkOmVerdiEksisterer verdi={''} clsName="lonnstilskudd" />
+            <SjekkOmVerdiEksisterer verdi={''} />
         </div>
     </Stegoppsummering>
 );
