@@ -67,7 +67,7 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
     return (
         <>
-            <Banner tekst="Dine arbeidstreningsavtaler" />
+            <Banner tekst="Tiltaksoversikt" />
 
             <div className="avtaleoversikt">
                 {opprettAvtaleKnapp}

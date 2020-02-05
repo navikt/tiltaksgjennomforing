@@ -36,7 +36,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
     return (
         <div>
-            <Banner tekst="Avtale om arbeidstrening" />
+            <Banner tekst="Avtale om tiltak" />
             <div className={cls.className}>
                 <div className={cls.element('container')}>
                     <div className="tilbaketiloversikt">{tilbakeTilOversikt(props.location.pathname)}</div>
@@ -47,8 +47,8 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                         </div>
                         <div className={cls.element('ingress')}>
                             <Normaltekst>
-                                Vi innfører en digital avtale om arbeidstrening. Her får du en rask introduksjon til
-                                hvordan den nye løsningen fungerer:
+                                Vi innfører en digital avtale om tiltak. Her får du en rask introduksjon til hvordan den
+                                nye løsningen fungerer:
                             </Normaltekst>
                         </div>
 
@@ -63,7 +63,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             Deltaker, arbeidsgiver og NAV fyller ut, ser over og godkjenner avtalen i samme løsning i
                             sanntid. Når innholdet i avtalen er ferdig utfylt skal alle parter godkjenne avtalen. Hvem
                             som godkjenner avtalen først av arbeidsgiver eller deltaker har ikke noe å si. NAV skal
-                            alltid godkjenne avtalen til slutt, og først da kan arbeidstreningen starte.
+                            alltid godkjenne avtalen til slutt, og først da kan tiltaket starte.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
@@ -74,9 +74,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp en arbeidstrening,
-                            oppretter NAV en digital avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV
-                            når denne er klar til innlogging.
+                            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp et tiltak, oppretter
+                            NAV en digital avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV når denne
+                            er klar til innlogging.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
@@ -114,9 +114,8 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Innholdet i avtalen kan endres gjennom hele perioden for arbeidstrening. Hvis innholdet i
-                            avtalen blir endret etter at arbeidstreningen har startet, må alle parter godkjenne avtalen
-                            på nytt.
+                            Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Hvis innholdet i avtalen
+                            blir endret etter at tiltaket har startet, må alle parter godkjenne avtalen på nytt.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
@@ -127,9 +126,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Hvis det gjøres endringer i avtalen underveis i arbeidstreningen lagrer NAV den forrige,
-                            godkjente versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan
-                            alle tre parter se utviklingen og vurdere måloppnåelse i etterkant.
+                            Hvis det gjøres endringer i avtalen underveis i tiltaket lagrer NAV den forrige, godkjente
+                            versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan alle tre
+                            parter se utviklingen og vurdere måloppnåelse i etterkant.
                         </EkspanderbartPanelRad>
                     </div>
                 </div>
