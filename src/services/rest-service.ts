@@ -36,9 +36,10 @@ export interface RestService {
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
     låsOppAvtale: (avtaleId: string) => Promise<void>;
     delAvtaleMedAvtalepart: (avtaleId: string, avtalepart: Rolle) => Promise<void>;
+    setmenu: () => Promise<boolean>;
 }
 
-const fetchGet: (url: string) => Promise<Response> = url => {
+export const fetchGet: (url: string) => Promise<Response> = url => {
     return fetchWithCredentials(url, { headers: { Pragma: 'no-cache' } });
 };
 const fetchPost: (url: string, otherParams?: any) => Promise<Response> = (url, otherParams) => {
@@ -204,6 +205,14 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
+const setmenu = async () => {
+    const url = '/tiltaksgjennomforing/setbasemenuline';
+    const response = await fetchGet(url);
+    return await response.text().then(res => {
+        return res.includes('enable');
+    });
+};
+
 const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
     const response = await fetchGet(featureTogglePath(featureToggles));
     await handleResponse(response);
@@ -245,6 +254,7 @@ const restService: RestService = {
     hentAvtaleStatusDetaljer,
     låsOppAvtale,
     delAvtaleMedAvtalepart,
+    setmenu,
 };
 
 export default restService;

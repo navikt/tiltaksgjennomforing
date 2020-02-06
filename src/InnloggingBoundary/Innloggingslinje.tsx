@@ -9,13 +9,16 @@ import './Innloggingslinje.less';
 import { InnloggetBruker } from './useInnlogget';
 import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 
+import RestService from '@/services/rest-service';
+
 const cls = BEMHelper('innloggingslinje');
 
 const Innloggingslinje: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = props => {
     const bruker = props.innloggetBruker.identifikator;
-    return (
+
+    return !RestService.setmenu() ? (
         <div className="innloggingslinje">
             <div className="innloggingslinje__innhold">
                 <MediaQuery minWidth={577}>
@@ -36,6 +39,6 @@ const Innloggingslinje: FunctionComponent<{
                 </MediaQuery>
             </div>
         </div>
-    );
+    ) : null;
 };
 export default Innloggingslinje;

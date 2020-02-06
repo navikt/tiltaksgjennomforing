@@ -60,6 +60,11 @@ module.exports = function(app) {
         res.redirect(envProperties.LOGOUT_URL);
     });
 
+    app.get('/tiltaksgjennomforing/setbasemenuline', (req, res) => {
+        const answer = process.env.ENABLE_EXTERNAL_MENU ? process.env.ENABLE_EXTERNAL_MENU : 'disable';
+        res.send(answer);
+    });
+
     const proxyConfig = {
         changeOrigin: true,
         pathRewrite: whitelist,

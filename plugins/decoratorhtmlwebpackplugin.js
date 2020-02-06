@@ -39,6 +39,11 @@ const getHtmlwebpackPlugin = plugins => {
     });
 };
 
+const enablebackup = plugin => {
+    process.env.ENABLE_EXTERNAL_MENU = 'enable';
+    addelements(plugin, false);
+};
+
 const getelement = (document, id) => {
     const prop = 'innerHTML';
     return document.getElementById(id)[prop];
@@ -50,7 +55,7 @@ const getmenu = plugin => {
             const { document } = new JSDOM(body).window;
             addelements(plugin, true, document);
         } else {
-            addelements(plugin, false);
+            enablebackup(plugin);
         }
     });
 };
