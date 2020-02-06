@@ -1,5 +1,6 @@
 import { Context, medContext } from '@/AvtaleContext';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
@@ -11,7 +12,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 
 const cls = BEMHelper('beregningTilskuddSteg');
@@ -44,6 +45,7 @@ const arbeidsgiveravgiftAlternativer = () => {
     return satserVerdier;
 };
 const BeregningTilskuddSteg = (props: Context) => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
     const { settAvtaleVerdi, avtale } = props;
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -77,6 +79,21 @@ const BeregningTilskuddSteg = (props: Context) => {
                         max={65000}
                     />
                 </Column>
+                {innloggetBruker.erNavAnsatt && avtale.stillingprosent < 100 && (
+                    <Column md="6">
+                        <ValutaInput
+                            disabled={true}
+                            name="manedslonn100%"
+                            bredde="S"
+                            label="Lønn ved 100% stilling"
+                            value={
+                                avtale.manedslonn != null
+                                    ? (avtale.manedslonn / avtale.stillingprosent) * 100
+                                    : undefined
+                            }
+                        />
+                    </Column>
+                )}
             </Row>
             <Row className="">
                 <Column md="12">
