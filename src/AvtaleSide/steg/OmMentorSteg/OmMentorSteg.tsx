@@ -61,12 +61,7 @@ const OmMentorSteg = (props: InputStegProps<Mentorinfo & Avtaleparter>) => (
             </Row>
         </Container>
         <VerticalSpacer thirtyTwoPx={true} />
-        <LagreKnapp
-            className="oppfolgingsteg__lagre-knapp"
-            lagre={props.lagreAvtale}
-            label={'Lagre'}
-            suksessmelding={'Avtale lagret'}
-        />
+        <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
     </Innholdsboks>
 );
 

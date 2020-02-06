@@ -16,20 +16,14 @@ const verdi = (tall: number) => {
     return tall === null ? '' : tall.toString();
 };
 
-const OmMentorOppsummering: FunctionComponent<Mentorinfo> = ({
-    mentorFornavn,
-    mentorEtternavn,
-    mentorOppgaver,
-    mentorTimelonn,
-    mentorAntallTimer,
-}) => {
+const OmMentorOppsummering: FunctionComponent<Mentorinfo> = props => {
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
             <div>
                 <Avtalepart
                     navnFelter={[
-                        { felt: 'fornavn', verdi: mentorFornavn },
-                        { felt: 'etternavn', verdi: mentorEtternavn },
+                        { felt: 'fornavn', verdi: props.mentorFornavn },
+                        { felt: 'etternavn', verdi: props.mentorEtternavn },
                     ]}
                     borderFarge={''}
                     overskrift={''}
@@ -42,18 +36,18 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = ({
                     <Row className={''}>
                         <Column md="12" sm="12" xs="12">
                             <Element className={cls.element('label')}>Arbeidsoppgaver</Element>
-                            <SjekkOmVerdiEksisterer verdi={mentorOppgaver} />
+                            <SjekkOmVerdiEksisterer verdi={props.mentorOppgaver} />
                             <VerticalSpacer sixteenPx={true} />
                         </Column>
                     </Row>
                     <Row className={''}>
                         <Column md="4" sm="6" xs="6">
-                            <Element className={cls.element('label')}>Sluttdato</Element>
-                            <SjekkOmVerdiEksisterer verdi={verdi(mentorTimelonn)} />
+                            <Element className={cls.element('label')}>Antall timer med mentor</Element>
+                            <SjekkOmVerdiEksisterer verdi={verdi(props.mentorTimelonn)} />
                         </Column>
                         <Column md="4" sm="12" xs="12">
-                            <Element className={cls.element('label')}>Stillingsprosent</Element>
-                            <SjekkOmVerdiEksisterer verdi={verdi(mentorAntallTimer)} />
+                            <Element className={cls.element('label')}>Timelønn</Element>
+                            <SjekkOmVerdiEksisterer verdi={verdi(props.mentorAntallTimer)} />
                         </Column>
                     </Row>
                 </Container>
