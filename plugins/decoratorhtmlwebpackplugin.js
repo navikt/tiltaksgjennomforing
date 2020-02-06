@@ -3,6 +3,7 @@ const request = require('request');
 
 const { JSDOM } = jsdom;
 const url =
+    process.env.DECORATOR_EXTERNAL_URL ||
     'https://appres-q1.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
 const htmlinsert = [
     { inject: 'styles', from: 'styles' },
@@ -15,7 +16,7 @@ const htmlinsert = [
 const decoratorhtmlwebpackplugin = (enablemenu = false, title = '') => {
     return {
         overrideWebpackConfig: ({ webpackConfig }) => {
-            const plugin = getHtmlwebpackPlugin(webpackConfig.plugins);
+            const plugin = gethtmlwebpackplugin(webpackConfig.plugins);
             if (plugin) {
                 plugin.options.title = title;
                 enablemenu ? getmenu(plugin) : addelements(plugin, false);
@@ -31,7 +32,7 @@ const addelements = (plugin, documentisfetched, document = {}) => {
     });
 };
 
-const getHtmlwebpackPlugin = plugins => {
+const gethtmlwebpackplugin = plugins => {
     return plugins.find(plugin => {
         if (plugin.constructor.name === 'HtmlWebpackPlugin') {
             return plugin;
