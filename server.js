@@ -12,17 +12,10 @@ const setupProxy = require('./src/setupProxy');
 setupProxy(server);
 
 // health checks
-server.get('/tiltaksgjennomforing/internal/isAlive', (req, res) =>
-    res.sendStatus(200)
-);
-server.get('/tiltaksgjennomforing/internal/isReady', (req, res) =>
-    res.sendStatus(200)
-);
+server.get('/tiltaksgjennomforing/internal/isAlive', (req, res) => res.sendStatus(200));
+server.get('/tiltaksgjennomforing/internal/isReady', (req, res) => res.sendStatus(200));
 
-server.use(
-    '/tiltaksgjennomforing',
-    express.static(path.join(__dirname, 'build'))
-);
+server.use('/tiltaksgjennomforing', express.static(path.join(__dirname, 'build')));
 
 server.get('/tiltaksgjennomforing/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
