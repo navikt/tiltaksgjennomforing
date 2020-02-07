@@ -61,7 +61,7 @@ module.exports = function(app) {
     });
 
     app.get('/tiltaksgjennomforing/setbasemenuline', (req, res) => {
-        const answer = process.env.ENABLE_EXTERNAL_MENU ? process.env.ENABLE_EXTERNAL_MENU : 'disable';
+        const answer = process.env.ENABLE_EXTERNAL_MENU ? process.env.ENABLE_EXTERNAL_MENU : 'enable';
         res.send(answer);
     });
 

@@ -36,7 +36,7 @@ export interface RestService {
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
     låsOppAvtale: (avtaleId: string) => Promise<void>;
     delAvtaleMedAvtalepart: (avtaleId: string, avtalepart: Rolle) => Promise<void>;
-    setmenu: () => Promise<boolean>;
+    setmenu: () => Promise<string>;
 }
 
 export const fetchGet: (url: string) => Promise<Response> = url => {
@@ -208,9 +208,7 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
 const setmenu = async () => {
     const url = '/tiltaksgjennomforing/setbasemenuline';
     const response = await fetchGet(url);
-    return await response.text().then(res => {
-        return res.includes('enable');
-    });
+    return await response.text();
 };
 
 const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
