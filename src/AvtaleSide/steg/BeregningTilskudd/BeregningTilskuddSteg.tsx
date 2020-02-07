@@ -1,6 +1,7 @@
 import { Context, medContext } from '@/AvtaleContext';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
+import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
@@ -11,7 +12,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import './BeregningTilskuddSteg.less';
 
 const cls = BEMHelper('beregningTilskuddSteg');
@@ -43,8 +44,39 @@ const arbeidsgiveravgiftAlternativer = () => {
     );
     return satserVerdier;
 };
-const BeregningTilskuddSteg = (props: Context) => {
-    const { settAvtaleVerdi, avtale } = props;
+
+const BeregningTilskuddSteg: FunctionComponent<Context> = props => {
+    const lonnstilskuddProsent = () => {
+        if (props.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
+            return (
+                <RadioPanelGruppeHorisontal
+                    radios={lonnstilskuddProsentAlternativer()}
+                    name="lonnstilskuddProsent"
+                    checked={props.avtale.lonnstilskuddProsent + ''}
+                    legend=""
+                    onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                        props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
+                    }
+                />
+            );
+        } else if (props.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') {
+            return (
+                <ProsentInput
+                    name="lonnstilskuddProsent"
+                    bredde="S"
+                    label=""
+                    value={props.avtale.lonnstilskuddProsent}
+                    onChange={event => {
+                        props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(event.target.value));
+                    }}
+                    min={0}
+                    max={75}
+                />
+            );
+        } else {
+            return null;
+        }
+    };
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
@@ -52,15 +84,7 @@ const BeregningTilskuddSteg = (props: Context) => {
             <Normaltekst className={cls.element('luft')}>
                 Velg sats for refusjon som arbeidsgiver skal få tilbake
             </Normaltekst>
-            <RadioPanelGruppeHorisontal
-                radios={lonnstilskuddProsentAlternativer()}
-                name="lonnstilskuddProsent"
-                checked={avtale.lonnstilskuddProsent + ''}
-                legend=""
-                onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                    props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
-                }
-            />
+            {lonnstilskuddProsent()}
             <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn</Undertittel>
 
             <Row className="">
@@ -69,9 +93,9 @@ const BeregningTilskuddSteg = (props: Context) => {
                         name="manedslonn"
                         bredde="S"
                         label="Månedslønn før skatt"
-                        value={avtale.manedslonn}
+                        value={props.avtale.manedslonn}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdi('manedslonn', parseFloat(event.target.value));
+                            props.settAvtaleVerdi('manedslonn', parseFloat(event.target.value));
                         }}
                         min={10000}
                         max={65000}
@@ -87,7 +111,7 @@ const BeregningTilskuddSteg = (props: Context) => {
                     <RadioPanelGruppeHorisontal
                         radios={feriepengeAlternativer(true)}
                         name="feriepengesats"
-                        checked={avtale.feriepengesats + ''}
+                        checked={props.avtale.feriepengesats + ''}
                         legend=""
                         onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
                             props.settAvtaleVerdi('feriepengesats', parseFloat(verdi))
@@ -104,17 +128,17 @@ const BeregningTilskuddSteg = (props: Context) => {
                         options={arbeidsgiveravgiftAlternativer()}
                         label="Sats for arbeidsgiveravgift"
                         children=""
-                        value={avtale.arbeidsgiveravgift}
+                        value={props.avtale.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                            settAvtaleVerdi('arbeidsgiveravgift', parseFloat(event.target.value));
+                            props.settAvtaleVerdi('arbeidsgiveravgift', parseFloat(event.target.value));
                         }}
                     />
                     <KontonummerInput
                         bredde={'L'}
                         label={'Kontonummer'}
-                        value={avtale.arbeidsgiverKontonummer}
+                        value={props.avtale.arbeidsgiverKontonummer}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
+                            props.settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
                         }}
                     />
                     <VisUtregningenPanel {...props} />
