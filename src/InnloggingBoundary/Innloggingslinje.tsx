@@ -23,7 +23,7 @@ const Innloggingslinje: FunctionComponent<{
             setmenukey(showMenu(response.includes('enable')));
         });
     }, []);
-    const showMenu = (responskey: boolean) => {
+    const showMenu = (responskey: boolean): boolean => {
         return process.env.NODE_ENV ? true : responskey;
     };
 

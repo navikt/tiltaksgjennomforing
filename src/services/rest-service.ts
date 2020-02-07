@@ -205,7 +205,7 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
-const setmenu = async () => {
+const setmenu = async (): Promise<string> => {
     const url = '/tiltaksgjennomforing/setbasemenuline';
     const response = await fetchGet(url);
     return await response.text();
