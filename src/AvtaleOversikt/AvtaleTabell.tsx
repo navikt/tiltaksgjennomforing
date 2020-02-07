@@ -10,15 +10,15 @@ import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
-
-const cls = BEMHelper('avtaleoversikt');
+import './AvtaleTabell.less';
+const cls = BEMHelper('avtaletabell');
 
 const AvtaleTabell: FunctionComponent<{
     avtaler: Avtale[];
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => (
-    <>
+    <div className={cls.className}>
         <div className={classNames(cls.element('header'), cls.element('rad'))}>
             <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
             <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
@@ -64,7 +64,7 @@ const AvtaleTabell: FunctionComponent<{
                 </LenkepanelBase>
             );
         })}
-    </>
+    </div>
 );
 
 export default AvtaleTabell;

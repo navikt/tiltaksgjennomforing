@@ -1,0 +1,69 @@
+@import '~nav-frontend-core/less/_variabler';
+.avtaletabell {
+    max-width: 55rem;
+
+    &__arbeidsgiver-tekst {
+        margin-top: 2rem;
+    }
+
+    &__header {
+        padding: 1rem;
+        font-weight: bold;
+    }
+
+    .ulest-varsel-ikon {
+        background-color: #006eed;
+        border: 3px solid @grayBackground;
+        border-radius: 50%;
+        color: #fff;
+        height: 16px;
+        width: 16px;
+        position: absolute;
+        left: -0.45rem;
+    }
+
+    .ulest-varsel-border {
+        display: inline-block;
+        background-clip: border-box;
+        background-image: linear-gradient(#54a3ff, #006eed);
+        border: 2px solid @grayBackground;
+        height: 55px;
+        width: 1rem;
+    }
+
+    .uthevet {
+        font-weight: bold;
+    }
+
+    &__rad {
+        margin: 0 0.25rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: nowrap;
+        width: 95%;
+        position: relative;
+    }
+
+    &__deltakerOgBedrift {
+        width: 14rem;
+        padding-right: 1rem;
+    }
+
+    &__veileder {
+        width: 6rem;
+        padding-right: 1rem;
+    }
+
+    &__opprettet {
+        width: 7rem;
+    }
+
+    &__statusikon {
+        padding-right: 1rem;
+    }
+
+    &__status {
+        width: 11rem;
+    }
+}

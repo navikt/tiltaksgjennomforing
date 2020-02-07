@@ -1,14 +1,22 @@
-import { Søk, Søketyper } from '@/AvtaleOversikt/SokEtterAvtaler/SokEtterAvtaler';
 import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
+import { Søk, Søketyper } from '@/AvtaleOversikt/Filtrering';
 
-const lagQueryParams = (innloggetBruker: InnloggetBruker, sok: Søk) => {
-    if (sok.søketype === Søketyper.DeltakerSøk) {
-        return { deltakerFnr: sok.deltakerFnr };
-    } else if (sok.søketype === Søketyper.BedriftSøk) {
-        return { bedriftNr: sok.bedriftNr };
-    } else {
-        return innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {};
+const lagQueryParam = (innloggetBruker: InnloggetBruker, sok: Søk) => {
+    switch (sok.søketype) {
+        case Søketyper.TomtSøk:
+            return innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {};
+        case Søketyper.DeltakerSøk:
+            return { deltakerFnr: sok.deltakerFnr };
+        case Søketyper.BedriftSøk:
+            return { bedriftNr: sok.bedriftNr };
+        case Søketyper.Tiltakstype:
+            return { tiltakstype: sok.tiltakstype };
     }
 };
 
-export { lagQueryParams };
+const lagQueryParams = (innloggetBruker: InnloggetBruker, sok: Søk[]) => {
+    let obj = Object.assign({}, ...sok.map(s => lagQueryParam(innloggetBruker, s)));
+    return obj;
+};
+
+export { lagQueryParam, lagQueryParams };

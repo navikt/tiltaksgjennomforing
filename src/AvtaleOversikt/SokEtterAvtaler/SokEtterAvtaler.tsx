@@ -2,48 +2,25 @@ import useValidering from '@/komponenter/useValidering';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import classNames from 'classnames';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import { Fieldset, Input, Radio } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useCallback, useEffect, useState } from 'react';
 import './SokEtterAvtaler.less';
-
-type Props = {
-    sokEtterAvtaler: (sok: Søk) => void;
-};
-
-// Søketyper
-export enum Søketyper {
-    'TomtSøk',
-    'DeltakerSøk',
-    'BedriftSøk',
-}
-export type TomtSøk = {
-    søketype: Søketyper.TomtSøk;
-};
-export type DeltakerSøk = {
-    deltakerFnr: string;
-    søketype: Søketyper.DeltakerSøk;
-};
-export type BedriftSøk = {
-    bedriftNr: string;
-    søketype: Søketyper.BedriftSøk;
-};
-export type Søk = TomtSøk | DeltakerSøk | BedriftSøk;
+import { FiltreringProps, Søk, Søketyper } from '@/AvtaleOversikt/Filtrering';
 
 const cls = BEMHelper('soketteravtaler');
 
-const SokEtterAvtaler: FunctionComponent<Props> = props => {
+const SokEtterAvtaler: FunctionComponent<FiltreringProps> = props => {
     const [valgtSokeType, setValgtSokeType] = useState('deltakerFnr');
     const [sokeTerm, settSokeTerm] = useState();
 
     const hvaErfeil = () => {
         if (!sokeTerm) return '';
         if (valgtSokeType === 'deltakerFnr' && !validerFnr(sokeTerm)) {
-            return `Ugyldig fødselsnummer`;
+            return 'Ugyldig fødselsnummer';
         } else if (valgtSokeType === 'bedriftNr' && !validerOrgnr(sokeTerm)) {
-            return `Ugyldig bedriftsnummer`;
+            return 'Ugyldig bedriftsnummer';
         }
     };
 
@@ -113,7 +90,7 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
     };
 
     return (
-        <div className={classNames(cls.element('sokeboks'), 'innholdsboks')}>
+        <div className={'innholdsboks'}>
             <Undertittel>Søk etter avtaler registrert på</Undertittel>
             <Fieldset legend="">
                 <Radio
@@ -142,7 +119,6 @@ const SokEtterAvtaler: FunctionComponent<Props> = props => {
                     placeholder={valgtSokeType === 'deltakerFnr' ? 'Fødselsnummer' : 'Bedriftsnummer'}
                 />
                 <div className={cls.element('sokeknapp')}>
-                    {/* eslint-disable-next-line */}
                     <Søkeknapp onClick={sokEtterAvtalerKlikk} />
                 </div>
             </div>
