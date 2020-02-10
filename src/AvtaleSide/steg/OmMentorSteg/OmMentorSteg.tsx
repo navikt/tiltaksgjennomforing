@@ -1,14 +1,14 @@
-import * as React from 'react';
 import { medContext } from '@/AvtaleContext';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
-import { Avtaleparter, Mentorinfo } from '@/types/avtale';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Column, Container, Row } from 'nav-frontend-grid';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import { Mentorinfo } from '@/types/avtale';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import * as React from 'react';
 
 const OmMentorSteg = (props: InputStegProps<Mentorinfo>) => (
     <Innholdsboks utfyller="veileder">
