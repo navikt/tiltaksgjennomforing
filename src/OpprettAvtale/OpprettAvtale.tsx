@@ -132,11 +132,11 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
 
-    const tittel = lonnstilskuddToggle ? 'Opprett avtale' : 'Opprett avtale om arbeidstrening';
-
     if (lonnstilskuddToggle === undefined) return null;
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
+
+    const tittel = lonnstilskuddToggle || mentorToggle ? 'Opprett avtale' : 'Opprett avtale om arbeidstrening';
 
     const mentorRadioPanel = () => {
         if (!mentorToggle) return null;
@@ -189,8 +189,33 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                         checked={valgtTiltaksType === 'ARBEIDSTRENING'}
                         onChange={() => setTiltaksType('ARBEIDSTRENING')}
                     />
-                    {lonnstilskuddRadioPanel()}
-                    {mentorRadioPanel()}
+                    {lonnstilskuddToggle && (
+                        <>
+                            <RadioPanel
+                                name="tiltakstype"
+                                label="Midlertidig lønnstilskudd"
+                                value="MIDLERTIDIG_LONNSTILSKUDD"
+                                checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
+                                onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                            />
+                            <RadioPanel
+                                name="tiltakstype"
+                                label="Varig lønnstilskudd"
+                                value="VARIG_LONNSTILSKUDD"
+                                checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
+                                onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
+                            />
+                        </>
+                    )}
+                    {mentorToggle && (
+                        <RadioPanel
+                            name="tiltakstype"
+                            label="Mentor"
+                            value="MENTOR"
+                            checked={valgtTiltaksType === 'MENTOR'}
+                            onChange={() => setTiltaksType('MENTOR')}
+                        />
+                    )}
                 </div>
             </Innholdsboks>
         );
