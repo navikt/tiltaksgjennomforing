@@ -10,7 +10,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 
-const OmMentorSteg = (props: InputStegProps<Mentorinfo & Avtaleparter>) => (
+const OmMentorSteg = (props: InputStegProps<Mentorinfo>) => (
     <Innholdsboks utfyller="veileder">
         <SkjemaTittel>Om mentoren</SkjemaTittel>
         <Container fluid={true}>
