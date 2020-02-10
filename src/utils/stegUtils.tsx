@@ -10,6 +10,8 @@ import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilrett
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import React from 'react';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
+import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
+import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -77,10 +79,39 @@ const lonnstilskuddSteg: StegInfo[] = [
     },
 ];
 
+const mentorSteg: StegInfo[] = [
+    {
+        komponent: <KontaktinfoSteg />,
+        label: 'Kontaktinformasjon',
+        id: 'kontaktinformasjon',
+    },
+    {
+        komponent: <OmMentorSteg />,
+        label: 'Om mentoren',
+        id: 'mentoren',
+    },
+    {
+        komponent: <VarighetSteg />,
+        label: 'Varighet',
+        id: 'varighet',
+    },
+    {
+        komponent: <OppfolgingTilretteleggingSteg />,
+        label: 'Oppfølging og tilrettelegging',
+        id: 'oppfolging',
+    },
+    {
+        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
+        label: 'Godkjenning',
+        id: 'godkjenning',
+    },
+];
+
 const hentAvtaleSteg = {
     ARBEIDSTRENING: arbeidstreningSteg,
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
+    MENTOR: mentorSteg,
 };
 
 export default hentAvtaleSteg;
