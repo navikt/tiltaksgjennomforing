@@ -152,38 +152,54 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
         );
     };
 
+    const lonnstilskuddRadioPanel = () => {
+        if (!lonnstilskuddToggle) return null;
+
+        return (
+            <>
+                <RadioPanel
+                    name="tiltakstype"
+                    label="Midlertidig lønnstilskudd"
+                    value="MIDLERTIDIG_LONNSTILSKUDD"
+                    checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
+                    onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                />
+                <RadioPanel
+                    name="tiltakstype"
+                    label="Varig lønnstilskudd"
+                    value="VARIG_LONNSTILSKUDD"
+                    checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
+                    onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
+                />
+            </>
+        );
+    };
+
+    const enabledFeatureToggleRadioPanel = () => {
+        if (!lonnstilskuddToggle && !mentorToggle) return null;
+
+        return (
+            <Innholdsboks className={cls.element('innholdsboks')}>
+                <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
+                <div className={cls.element('tiltakstypeWrapper')}>
+                    <RadioPanel
+                        name="tiltakstype"
+                        label="Arbeidstrening"
+                        value="ARBEIDSTRENING"
+                        checked={valgtTiltaksType === 'ARBEIDSTRENING'}
+                        onChange={() => setTiltaksType('ARBEIDSTRENING')}
+                    />
+                    {lonnstilskuddRadioPanel()}
+                    {mentorRadioPanel()}
+                </div>
+            </Innholdsboks>
+        );
+    };
+
     return (
         <div className="opprett-avtale">
             <Innholdstittel className="opprett-avtale__tittel">{tittel}</Innholdstittel>
-            {lonnstilskuddToggle && (
-                <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
-                    <div className={cls.element('tiltakstypeWrapper')}>
-                        <RadioPanel
-                            name="tiltakstype"
-                            label="Arbeidstrening"
-                            value="ARBEIDSTRENING"
-                            checked={valgtTiltaksType === 'ARBEIDSTRENING'}
-                            onChange={() => setTiltaksType('ARBEIDSTRENING')}
-                        />
-                        <RadioPanel
-                            name="tiltakstype"
-                            label="Midlertidig lønnstilskudd"
-                            value="MIDLERTIDIG_LONNSTILSKUDD"
-                            checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                            onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
-                        />
-                        <RadioPanel
-                            name="tiltakstype"
-                            label="Varig lønnstilskudd"
-                            value="VARIG_LONNSTILSKUDD"
-                            checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                            onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
-                        />
-                        {mentorRadioPanel()}
-                    </div>
-                </Innholdsboks>
-            )}
+            {enabledFeatureToggleRadioPanel()}
             <Innholdsboks className={cls.element('innholdsboks')}>
                 <Systemtittel className={cls.element('innholdstittel')}>Knytt avtalen til andre parter</Systemtittel>
                 <div className="opprett-avtale__input-wrapper">
