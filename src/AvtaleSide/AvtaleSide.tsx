@@ -67,7 +67,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         ARBEIDSTRENING: 'Avtale om arbeidstrening',
         MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
         VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
-        MENTOR: 'Avtale om mentortilskudd',
+        MENTOR: 'Avtale om tilskudd til mentor',
     };
     const sideTittel = titler[props.avtale.tiltakstype] !== undefined ? titler[props.avtale.tiltakstype] : 'Avtale';
 
