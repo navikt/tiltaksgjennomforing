@@ -11,39 +11,35 @@ type Props = {
 };
 
 const LonnstilskuddProsent: FunctionComponent<Props> = props => {
-    const lonnstilskuddProsent = () => {
-        if (props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
-            return (
-                <RadioPanelGruppeHorisontal
-                    radios={props.radioButtons()}
-                    name="lonnstilskuddProsent"
-                    checked={props.lonnstilskuddProsent + ''}
-                    legend=""
-                    onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                        props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
-                    }
-                />
-            );
-        } else if (props.tiltakstype === 'VARIG_LONNSTILSKUDD') {
-            return (
-                <ProsentInput
-                    name="lonnstilskuddProsent"
-                    bredde="S"
-                    label=""
-                    value={props.lonnstilskuddProsent}
-                    onChange={event => {
-                        props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(event.target.value));
-                    }}
-                    min={0}
-                    max={75}
-                />
-            );
-        } else {
-            return null;
-        }
-    };
-
-    return <div>{lonnstilskuddProsent()}</div>;
+    if (props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
+        return (
+            <RadioPanelGruppeHorisontal
+                radios={props.radioButtons()}
+                name="lonnstilskuddProsent"
+                checked={props.lonnstilskuddProsent + ''}
+                legend=""
+                onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                    props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
+                }
+            />
+        );
+    } else if (props.tiltakstype === 'VARIG_LONNSTILSKUDD') {
+        return (
+            <ProsentInput
+                name="lonnstilskuddProsent"
+                bredde="S"
+                label=""
+                value={props.lonnstilskuddProsent}
+                onChange={event => {
+                    props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(event.target.value));
+                }}
+                min={0}
+                max={75}
+            />
+        );
+    } else {
+        return null;
+    }
 };
 
 export default LonnstilskuddProsent;
