@@ -1,12 +1,12 @@
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
-import { AvtaleMetadata, Beregningsgrunnlag } from '@/types/avtale';
+import { Avtale, AvtaleMetadata, Beregningsgrunnlag } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 
 type Props = {
     tiltakstype: AvtaleMetadata['tiltakstype'];
     lonnstilskuddProsent: Beregningsgrunnlag['lonnstilskuddProsent'];
-    onChange: () => void;
+    settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
     radioButtons: () => { label: string; value: string }[];
 };
 
@@ -19,7 +19,9 @@ const LonnstilskuddProsent: FunctionComponent<Props> = props => {
                     name="lonnstilskuddProsent"
                     checked={props.lonnstilskuddProsent + ''}
                     legend=""
-                    onChange={() => props.onChange()}
+                    onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                        props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
+                    }
                 />
             );
         } else if (props.tiltakstype === 'VARIG_LONNSTILSKUDD') {
@@ -29,7 +31,9 @@ const LonnstilskuddProsent: FunctionComponent<Props> = props => {
                     bredde="S"
                     label=""
                     value={props.lonnstilskuddProsent}
-                    onChange={() => props.onChange()}
+                    onChange={event => {
+                        props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(event.target.value));
+                    }}
                     min={0}
                     max={75}
                 />

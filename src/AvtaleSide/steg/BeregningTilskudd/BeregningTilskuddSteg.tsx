@@ -1,7 +1,6 @@
 import { Context, medContext } from '@/AvtaleContext';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
-import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
@@ -14,6 +13,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './BeregningTilskuddSteg.less';
+import LonnstilskuddProsent from './LonnstilskuddProsent';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -46,37 +46,6 @@ const arbeidsgiveravgiftAlternativer = () => {
 };
 
 const BeregningTilskuddSteg: FunctionComponent<Context> = props => {
-    const lonnstilskuddProsent = () => {
-        if (props.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
-            return (
-                <RadioPanelGruppeHorisontal
-                    radios={lonnstilskuddProsentAlternativer()}
-                    name="lonnstilskuddProsent"
-                    checked={props.avtale.lonnstilskuddProsent + ''}
-                    legend=""
-                    onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                        props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
-                    }
-                />
-            );
-        } else if (props.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') {
-            return (
-                <ProsentInput
-                    name="lonnstilskuddProsent"
-                    bredde="S"
-                    label=""
-                    value={props.avtale.lonnstilskuddProsent}
-                    onChange={event => {
-                        props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(event.target.value));
-                    }}
-                    min={0}
-                    max={75}
-                />
-            );
-        } else {
-            return null;
-        }
-    };
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
@@ -84,7 +53,12 @@ const BeregningTilskuddSteg: FunctionComponent<Context> = props => {
             <Normaltekst className={cls.element('luft')}>
                 Velg sats for refusjon som arbeidsgiver skal få tilbake
             </Normaltekst>
-            {lonnstilskuddProsent()}
+            <LonnstilskuddProsent
+                lonnstilskuddProsent={props.avtale.lonnstilskuddProsent}
+                tiltakstype={props.avtale.tiltakstype}
+                radioButtons={lonnstilskuddProsentAlternativer}
+                settAvtaleVerdi={props.settAvtaleVerdi}
+            />
             <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn</Undertittel>
 
             <Row className="">
