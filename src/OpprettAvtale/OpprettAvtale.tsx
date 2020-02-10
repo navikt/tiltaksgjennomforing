@@ -138,43 +138,6 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     const tittel = lonnstilskuddToggle || mentorToggle ? 'Opprett avtale' : 'Opprett avtale om arbeidstrening';
 
-    const mentorRadioPanel = () => {
-        if (!mentorToggle) return null;
-
-        return (
-            <RadioPanel
-                name="tiltakstype"
-                label="Mentor"
-                value="MENTOR"
-                checked={valgtTiltaksType === 'MENTOR'}
-                onChange={() => setTiltaksType('MENTOR')}
-            />
-        );
-    };
-
-    const lonnstilskuddRadioPanel = () => {
-        if (!lonnstilskuddToggle) return null;
-
-        return (
-            <>
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Midlertidig lønnstilskudd"
-                    value="MIDLERTIDIG_LONNSTILSKUDD"
-                    checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                    onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
-                />
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Varig lønnstilskudd"
-                    value="VARIG_LONNSTILSKUDD"
-                    checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                    onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
-                />
-            </>
-        );
-    };
-
     const enabledFeatureToggleRadioPanel = () => {
         if (!lonnstilskuddToggle && !mentorToggle) return null;
 
