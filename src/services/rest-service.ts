@@ -7,6 +7,7 @@ import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/type
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import Varsel from '@/types/varsel';
+import { Søkekriterier } from '@/AvtaleOversikt/Filtrering';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -17,7 +18,7 @@ const featureTogglePath = (features: Feature[]): string => {
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
-    hentAvtalerForInnloggetBruker: (søk: {}) => Promise<Avtale[]>;
+    hentAvtalerForInnloggetBruker: (søkekriterier: Søkekriterier) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
@@ -68,8 +69,13 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     return { ...avtale, id: `${avtale.id}` };
 };
 
-const hentAvtalerForInnloggetBruker = async (søk: {}): Promise<Avtale[]> => {
-    const queryParam = new URLSearchParams(søk as {});
+const removeEmpty = (obj: any) => {
+    Object.keys(obj).forEach(k => !obj[k] && obj[k] !== undefined && delete obj[k]);
+    return obj;
+};
+
+const hentAvtalerForInnloggetBruker = async (søkekriterier: Søkekriterier): Promise<Avtale[]> => {
+    const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
     const response = await fetchGet(`${API_URL}/avtaler?${queryParam}`);
     await handleResponse(response);
     return await response.json();

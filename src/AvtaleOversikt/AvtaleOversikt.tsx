@@ -8,7 +8,6 @@ import { AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { lagQueryParams } from '@/utils/queryParamUtils';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
@@ -16,7 +15,7 @@ import AvtalekortMobil from './AvtalekortMobil';
 import './AvtaleOversikt.less';
 import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
 import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
-import Filtrering, { Søk } from '@/AvtaleOversikt/Filtrering';
+import Filtrering, { Søkekriterier } from '@/AvtaleOversikt/Filtrering';
 import LesMerOmLosningen from '@/AvtaleOversikt/LesMerOmLosningen';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 
@@ -26,8 +25,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<AvtalelisteRessurs>({
         status: Status.IkkeLastet,
     });
-
-    const [søk, setSøk] = useState<Søk[]>([]);
+    const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>({});
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const feilVarsel = useContext(FeilVarselContext);
@@ -43,16 +41,10 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
-        const input = lagQueryParams(innloggetBruker, søk);
-        RestService.hentAvtalerForInnloggetBruker(input)
+        RestService.hentAvtalerForInnloggetBruker(søkekriterier)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
             .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error.message }));
-    }, [søk]);
-
-    const sokEtterAvtaler = (sok: Søk) => {
-        setAvtalelisteRessurs({ status: Status.LasterInn });
-        setSøk([...søk, sok]);
-    };
+    }, [søkekriterier]);
 
     let avtalerInnhold;
     if (avtalelisteRessurs.status === Status.LasterInn) {
@@ -88,7 +80,11 @@ const AvtaleOversikt: FunctionComponent = () => {
                 <div className={cls.element('filter-og-tabell')}>
                     {innloggetBruker.erNavAnsatt && (
                         <aside className={cls.element('filter')}>
-                            <Filtrering sokEtterAvtaler={sokEtterAvtaler} />
+                            <Filtrering
+                                endreSøkeverdi={(søkefelt, søkeverdi) => {
+                                    setSøkekriterier({ ...søkekriterier, [søkefelt]: søkeverdi });
+                                }}
+                            />
                         </aside>
                     )}
                     <section className={cls.element('avtaletabell')}>{avtalerInnhold}</section>

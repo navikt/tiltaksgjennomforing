@@ -4,10 +4,11 @@ import { Undertittel } from 'nav-frontend-typografi';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Input } from 'nav-frontend-skjema';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
-import { FiltreringProps, Søketyper } from '@/AvtaleOversikt/Filtrering';
+import { FiltreringProps, Søkekriterier } from '@/AvtaleOversikt/Filtrering';
 
 export const BedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [bedriftNr, setBedriftNr] = useState<string>('');
+    const endreBedriftNrSøk = (søkeverdi: Søkekriterier['bedriftNr']) => props.endreSøkeverdi('bedriftNr', søkeverdi);
 
     return (
         <div className={'innholdsboks'}>
@@ -18,8 +19,9 @@ export const BedriftFilter: FunctionComponent<FiltreringProps> = props => {
                 defaultValue={bedriftNr}
                 onChange={event => setBedriftNr(event.target.value)}
                 bredde="M"
+                maxLength={9}
             />
-            <Søkeknapp onClick={() => props.sokEtterAvtaler({ søketype: Søketyper.BedriftSøk, bedriftNr })} />
+            <Søkeknapp onClick={() => endreBedriftNrSøk(bedriftNr)} />
         </div>
     );
 };
