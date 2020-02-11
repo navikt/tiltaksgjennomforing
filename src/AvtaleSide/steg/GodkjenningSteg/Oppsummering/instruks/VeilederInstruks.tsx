@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import BEMHelper from '@/utils/bem';
-import './instruks.less';
 import { TiltaksType } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import './instruks.less';
 
 const cls = BEMHelper('instruks');
 
@@ -11,6 +11,7 @@ const navnPåTiltakstype = {
     ARBEIDSTRENING: 'Arbeidstrening',
     MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
+    MENTOR: 'Mentor',
 };
 
 const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = props => (
