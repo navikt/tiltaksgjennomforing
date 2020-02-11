@@ -16,7 +16,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
     ];
 
     return (
-        <Ekspanderbartpanel tittel="Tiltakstype">
+        <Ekspanderbartpanel tittel="Tiltakstype" apen={true}>
             <SelectInput
                 bredde="xl"
                 options={alleTiltakstyper}

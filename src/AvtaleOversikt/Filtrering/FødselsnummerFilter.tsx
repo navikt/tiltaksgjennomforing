@@ -39,7 +39,7 @@ export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props =>
     };
 
     return (
-        <Ekspanderbartpanel tittel={"Søk etter deltaker"}>
+        <Ekspanderbartpanel tittel={"Søk etter deltaker"} apen={true}>
             <Input
                 maxLength={11}
                 label="Fødselsnummer"
