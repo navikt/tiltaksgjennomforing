@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
-import { FiltreringProps, Søkekriterier } from '@/AvtaleOversikt/Filtrering';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering';
 import { Undertittel } from 'nav-frontend-typografi';
 import { TiltaksType } from '@/types/avtale';
 import SelectInput, { OptionProps } from '@/komponenter/form/SelectInput';
@@ -16,9 +16,6 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
     ];
 
-    const endreTiltakstypeSøk = (søkeverdi: Søkekriterier['tiltakstype']) =>
-        props.endreSøkeverdi('tiltakstype', søkeverdi);
-
     return (
         <div className={'innholdsboks'}>
             <Undertittel>Tiltakstype</Undertittel>
@@ -32,7 +29,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
                 onChange={event => {
                     const valgtTiltakstype = event.currentTarget.value as TiltaksType;
                     setTiltakstype(valgtTiltakstype);
-                    endreTiltakstypeSøk(valgtTiltakstype);
+                    props.endreSøk('tiltakstype', valgtTiltakstype);
                 }}
             />
         </div>

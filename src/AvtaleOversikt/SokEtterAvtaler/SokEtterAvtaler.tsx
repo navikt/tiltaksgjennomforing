@@ -1,4 +1,4 @@
-// import useValidering from '@/komponenter/useValidering';
+// // import useValidering from '@/komponenter/useValidering';
 // import BEMHelper from '@/utils/bem';
 // import { validerFnr } from '@/utils/fnrUtils';
 // import { validerOrgnr } from '@/utils/orgnrUtils';
@@ -8,6 +8,7 @@
 // import React, { ChangeEvent, FunctionComponent, useCallback, useEffect, useState } from 'react';
 // import './SokEtterAvtaler.less';
 // import { FiltreringProps, Søk, Filtertyper } from '@/AvtaleOversikt/Filtrering';
+// import useValidering from "@/komponenter/useValidering";
 //
 // const cls = BEMHelper('soketteravtaler');
 //
@@ -35,7 +36,7 @@
 //             } else if (valgtSokeType === 'bedriftNr') {
 //                 sok = { søketype: Filtertyper.BedriftSøk, bedriftNr: sokeTerm };
 //             }
-//             props.sokEtterAvtaler(sok);
+//             // props.sokEtterAvtaler(sok);
 //         } else {
 //             setSokeFeltFeil({ feilmelding: hvaSomErFeilTekst });
 //         }
@@ -126,4 +127,6 @@
 //     );
 // };
 //
+// export default SokEtterAvtaler;
+
 export default () => null;
