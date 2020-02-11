@@ -9,10 +9,10 @@ import BEMHelper from '@/utils/bem';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
-import Filtrering from '@/AvtaleOversikt/Filtrering';
 import LesMerOmLosningen from '@/AvtaleOversikt/LesMerOmLosningen';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
+import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
 
 const cls = BEMHelper('avtaleoversikt');
 

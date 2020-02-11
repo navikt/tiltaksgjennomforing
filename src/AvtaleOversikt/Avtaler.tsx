@@ -28,14 +28,14 @@ export const Avtaler: FunctionComponent<Props> = props => {
     } else if (props.avtalelisteRessurs.status === Status.Lastet) {
         avtalerInnhold = (
             <>
-                <MediaQuery minWidth={700}>
+                <MediaQuery minWidth={880}>
                     <AvtaleTabell
                         avtaler={props.avtalelisteRessurs.data}
                         varsler={props.varsler}
                         innloggetBruker={props.innloggetBruker}
                     />
                 </MediaQuery>
-                <MediaQuery maxWidth={699}>
+                <MediaQuery maxWidth={889}>
                     <AvtalekortMobil avtaler={props.avtalelisteRessurs.data} varsler={props.varsler} />
                 </MediaQuery>
             </>

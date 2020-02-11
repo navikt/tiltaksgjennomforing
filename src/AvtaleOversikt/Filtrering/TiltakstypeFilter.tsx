@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering';
 import { Undertittel } from 'nav-frontend-typografi';
 import { TiltaksType } from '@/types/avtale';
 import SelectInput, { OptionProps } from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
 
 const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
     const [tiltakstype, setTiltakstype] = useState<TiltaksType>();

@@ -4,7 +4,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Input } from 'nav-frontend-skjema';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
 
 export const BedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [bedriftNr, setBedriftNr] = useState<string>('');
