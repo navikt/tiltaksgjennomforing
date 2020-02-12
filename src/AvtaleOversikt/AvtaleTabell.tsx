@@ -19,7 +19,7 @@ const AvtaleTabell: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => (
     <div className={cls.className}>
-        <div className={classNames(cls.element('header'), cls.element('rad'))}>
+        <div className={classNames(cls.element('rad'), cls.element('header'))}>
             <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
             <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
             {innloggetBruker.erNavAnsatt && <div className={cls.element('veileder')}>Veileder</div>}
