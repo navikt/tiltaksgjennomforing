@@ -3,7 +3,7 @@ import { FunctionComponent, useContext } from 'react';
 import { Status } from '@/types/nettressurs';
 import AvtaleOversiktSkeleton from '@/AvtaleOversikt/AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
 import IngenAvtaler from '@/AvtaleOversikt/IngenAvtaler/IngenAvtaler';
-import MediaQuery from 'react-responsive';
+import { useMediaQuery } from 'react-responsive';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import AvtalekortMobil from '@/AvtaleOversikt/AvtalekortMobil';
 import { AvtalelisteRessurs } from '@/types/avtale';
@@ -20,30 +20,26 @@ type Props = {
 export const Avtaler: FunctionComponent<Props> = props => {
     const feilVarsel = useContext(FeilVarselContext);
 
-    let avtalerInnhold;
+    const erNokPlassTilTabell = useMediaQuery({ query: '(min-width: 55rem)' });
+
     if (props.avtalelisteRessurs.status === Status.LasterInn) {
-        avtalerInnhold = <AvtaleOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
+        return <AvtaleOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet && props.avtalelisteRessurs.data.length === 0) {
-        avtalerInnhold = <IngenAvtaler />;
+        return <IngenAvtaler />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet) {
-        avtalerInnhold = (
-            <>
-                <MediaQuery minWidth={880}>
-                    <AvtaleTabell
-                        avtaler={props.avtalelisteRessurs.data}
-                        varsler={props.varsler}
-                        innloggetBruker={props.innloggetBruker}
-                    />
-                </MediaQuery>
-                <MediaQuery maxWidth={889}>
-                    <AvtalekortMobil avtaler={props.avtalelisteRessurs.data} varsler={props.varsler} />
-                </MediaQuery>
-            </>
+        return erNokPlassTilTabell ? (
+            <AvtaleTabell
+                avtaler={props.avtalelisteRessurs.data}
+                varsler={props.varsler}
+                innloggetBruker={props.innloggetBruker}
+            />
+        ) : (
+            <AvtalekortMobil avtaler={props.avtalelisteRessurs.data} varsler={props.varsler} />
         );
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
         feilVarsel(props.avtalelisteRessurs.error);
     }
-    return <>{avtalerInnhold}</>;
+    return null;
 };
 
 export default Avtaler;

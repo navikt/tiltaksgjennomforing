@@ -1,19 +1,40 @@
 @import '~nav-frontend-core/less/_variabler';
+
+@filter-bredde: 15rem;
+@tabell-bredde: 55rem;
+@avstand-mellom: 1rem;
+@avstand-rundt: 1rem;
+@total-bredde: @filter-bredde + @avstand-mellom + @tabell-bredde + @avstand-rundt;
+
 .avtaleoversikt {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: @avstand-rundt / 2;
 
     > * {
         margin-top: 3rem;
     }
 
     &__filter-og-tabell {
+        align-self: stretch;
+
         display: flex;
         flex-direction: column;
 
-        @media (min-width: 73rem) {
+        @media (min-width: @total-bredde) {
+            justify-content: center;
             flex-direction: row;
+
+            aside {
+                width: @filter-bredde;
+                margin-right: @avstand-mellom;
+            }
+
+            section {
+                max-width: @tabell-bredde;
+                flex-grow: 1;
+            }
         }
     }
 }
