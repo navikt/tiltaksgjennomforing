@@ -1,16 +1,9 @@
 @import '~nav-frontend-core/less/_variabler';
 
-@filter-bredde: 15rem;
-@tabell-bredde: 55rem;
-@avstand-mellom: 2rem;
-@avstand-rundt: 0.5rem;
-@total-bredde: @filter-bredde + @avstand-mellom + @tabell-bredde + @avstand-rundt * 2;
-
 .avtaleoversikt {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: @avstand-rundt;
 
     > * {
         margin-top: 3rem;
@@ -21,21 +14,5 @@
 
         display: flex;
         flex-direction: column;
-
-        @media (min-width: @total-bredde) {
-            justify-content: center;
-            flex-direction: row;
-
-            aside {
-                width: @filter-bredde;
-                margin-right: @avstand-mellom;
-                margin-top: 3.1rem; // Hack: skal matche høyden på "overskriftsraden" på tabellen
-            }
-
-            section {
-                max-width: @tabell-bredde;
-                flex-grow: 1;
-            }
-        }
     }
 }

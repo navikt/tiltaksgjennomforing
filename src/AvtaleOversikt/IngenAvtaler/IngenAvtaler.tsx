@@ -12,7 +12,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 
 const cls = BEMHelper('ingenAvtaler');
 
-const IngenAvtaler: FunctionComponent<{}> = () => {
+const IngenAvtaler: FunctionComponent = () => {
     const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
 

@@ -13,6 +13,7 @@ import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
 import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
+import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -40,6 +41,8 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
+    const layout = useAvtaleOversiktLayout();
+
     const endreSøk = (søkefelt: keyof Avtale, søkeverdi: any) => {
         setSøkekriterier({ ...søkekriterier, [søkefelt]: søkeverdi });
     };
@@ -48,16 +51,16 @@ const AvtaleOversikt: FunctionComponent = () => {
         <>
             <Banner tekst="Tiltaksoversikt" />
 
-            <main className={cls.className}>
+            <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
 
-                <div className={cls.element('filter-og-tabell')}>
+                <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
                     {innloggetBruker.erNavAnsatt && (
-                        <aside>
+                        <aside style={layout.stylingAvFilter}>
                             <Filtrering endreSøk={endreSøk} />
                         </aside>
                     )}
-                    <section>
+                    <section style={layout.stylingAvTabell}>
                         <Avtaler
                             avtalelisteRessurs={avtalelisteRessurs}
                             innloggetBruker={innloggetBruker}

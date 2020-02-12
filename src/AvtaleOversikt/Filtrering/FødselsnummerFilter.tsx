@@ -39,7 +39,7 @@ export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props =>
     };
 
     return (
-        <Filter tittel="Deltaker">
+        <Filter tittel="Filtrer på deltaker">
             <Input
                 maxLength={11}
                 label="Fødselsnummer"

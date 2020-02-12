@@ -8,7 +8,7 @@ import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 export const BedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [bedriftNr, setBedriftNr] = useState<string>('');
     return (
-        <Filter tittel="Bedrift">
+        <Filter tittel="Filtrer på bedrift">
             <Input
                 label="Bedriftsnummer"
                 defaultValue={bedriftNr}
