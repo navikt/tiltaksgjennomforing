@@ -5,7 +5,7 @@ import { Input } from 'nav-frontend-skjema';
 import useValidering from '@/komponenter/useValidering';
 import { validerFnr } from '@/utils/fnrUtils';
 import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 
 export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props => {
     const [fnr, setFnr] = useState<string>('');
@@ -39,7 +39,7 @@ export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props =>
     };
 
     return (
-        <Ekspanderbartpanel tittel={'Deltaker'} apen={true}>
+        <Filter tittel="Deltaker">
             <Input
                 maxLength={11}
                 label="Fødselsnummer"
@@ -54,6 +54,6 @@ export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props =>
                 feil={skjemaelementfeil}
             />
             <Søkeknapp onClick={endreSøk} />
-        </Ekspanderbartpanel>
+        </Filter>
     );
 };

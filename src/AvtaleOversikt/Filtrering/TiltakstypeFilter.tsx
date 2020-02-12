@@ -3,7 +3,7 @@ import { FunctionComponent, useState } from 'react';
 import { TiltaksType } from '@/types/avtale';
 import SelectInput, { OptionProps } from '@/komponenter/form/SelectInput';
 import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 
 const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
     const [tiltakstype, setTiltakstype] = useState<TiltaksType>();
@@ -16,7 +16,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
     ];
 
     return (
-        <Ekspanderbartpanel tittel="Tiltakstype" apen={true}>
+        <Filter tittel="Tiltakstype">
             <SelectInput
                 bredde="xl"
                 options={alleTiltakstyper}
@@ -29,7 +29,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
                     props.endreSøk('tiltakstype', valgtTiltakstype);
                 }}
             />
-        </Ekspanderbartpanel>
+        </Filter>
     );
 };
 
