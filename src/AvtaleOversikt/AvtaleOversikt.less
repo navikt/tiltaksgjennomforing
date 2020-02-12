@@ -2,15 +2,15 @@
 
 @filter-bredde: 15rem;
 @tabell-bredde: 55rem;
-@avstand-mellom: 1rem;
-@avstand-rundt: 1rem;
-@total-bredde: @filter-bredde + @avstand-mellom + @tabell-bredde + @avstand-rundt;
+@avstand-mellom: 2rem;
+@avstand-rundt: 0.5rem;
+@total-bredde: @filter-bredde + @avstand-mellom + @tabell-bredde + @avstand-rundt * 2;
 
 .avtaleoversikt {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: @avstand-rundt / 2;
+    padding: @avstand-rundt;
 
     > * {
         margin-top: 3rem;
