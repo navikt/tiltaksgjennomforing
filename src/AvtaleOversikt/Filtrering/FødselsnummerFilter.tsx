@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {FunctionComponent, useState} from 'react';
-import {Søkeknapp} from 'nav-frontend-ikonknapper';
-import {Input} from 'nav-frontend-skjema';
+import { FunctionComponent, useState } from 'react';
+import { Søkeknapp } from 'nav-frontend-ikonknapper';
+import { Input } from 'nav-frontend-skjema';
 import useValidering from '@/komponenter/useValidering';
-import {validerFnr} from '@/utils/fnrUtils';
-import {FiltreringProps} from '@/AvtaleOversikt/Filtrering/Filtrering';
-import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import { validerFnr } from '@/utils/fnrUtils';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
 export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props => {
     const [fnr, setFnr] = useState<string>('');
@@ -39,7 +39,7 @@ export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props =>
     };
 
     return (
-        <Ekspanderbartpanel tittel={"Søk etter deltaker"} apen={true}>
+        <Ekspanderbartpanel tittel={'Deltaker'} apen={true}>
             <Input
                 maxLength={11}
                 label="Fødselsnummer"

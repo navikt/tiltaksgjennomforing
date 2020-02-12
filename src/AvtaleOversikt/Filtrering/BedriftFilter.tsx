@@ -8,7 +8,7 @@ import { Søkeknapp } from 'nav-frontend-ikonknapper';
 export const BedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [bedriftNr, setBedriftNr] = useState<string>('');
     return (
-        <Ekspanderbartpanel tittel="Søk etter bedrift" apen={true}>
+        <Ekspanderbartpanel tittel="Bedrift" apen={true}>
             <Input
                 label="Bedriftsnummer"
                 defaultValue={bedriftNr}
