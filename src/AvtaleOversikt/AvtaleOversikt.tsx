@@ -9,10 +9,10 @@ import BEMHelper from '@/utils/bem';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
-import LesMerOmLosningen from '@/AvtaleOversikt/LesMerOmLosningen';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
 import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
+import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -65,7 +65,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         />
                     </section>
                 </div>
-                <LesMerOmLosningen />
+                <LesMerOmLøsningen />
             </main>
         </>
     );
