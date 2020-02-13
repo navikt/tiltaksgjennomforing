@@ -12,7 +12,7 @@ type AvtaleLayout = {
 
 type UseAvtaleOversiktLayout = () => AvtaleLayout;
 
-const breddeTabell = 53;
+const breddeTabell = 55;
 const breddeFilter = 15;
 const breddeMellom = 2;
 const mellomromPåHverSide = 0.5;

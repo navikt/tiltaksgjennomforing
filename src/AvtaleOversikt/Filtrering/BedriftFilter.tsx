@@ -1,22 +1,19 @@
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent } from 'react';
 import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
-import { Input } from 'nav-frontend-skjema';
-import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
+import { validerOrgnr } from '@/utils/orgnrUtils';
+import { SøkeInput } from './SøkeInput';
 
 export const BedriftFilter: FunctionComponent<FiltreringProps> = props => {
-    const [bedriftNr, setBedriftNr] = useState<string>('');
     return (
-        <Filter tittel="Filtrer på bedrift">
-            <Input
+        <Filter tittel="Søk på bedrift">
+            <SøkeInput
                 label="Bedriftsnummer"
-                defaultValue={bedriftNr}
-                onChange={event => setBedriftNr(event.target.value)}
-                bredde="M"
                 maxLength={9}
+                utførSøk={søkeord => props.endreSøk('bedriftNr', søkeord)}
+                valider={verdi => (!validerOrgnr(verdi) ? { feilmelding: 'Ugyldig bedriftsnummer' } : undefined)}
             />
-            <Søkeknapp onClick={() => props.endreSøk('bedriftNr', bedriftNr)} />
         </Filter>
     );
 };
