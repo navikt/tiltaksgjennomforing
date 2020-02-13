@@ -25,7 +25,7 @@ module.exports = {
     plugins: [
         { plugin: CracoLessPlugin },
         {
-            plugin: decoratorhtmlwebpackplugin(process.env.ENABLE_EXTERNAL_MENU, 'Tiltaksgjennomføring'),
+            plugin: decoratorhtmlwebpackplugin(process.env.ENABLE_EXTERNAL_MENU),
         },
     ],
     jest: {

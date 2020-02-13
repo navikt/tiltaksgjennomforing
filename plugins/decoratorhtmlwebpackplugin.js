@@ -12,12 +12,11 @@ const htmlinsert = [
     { inject: 'megamenuResources', from: 'megamenu-resources' },
 ];
 
-const decoratorHtmlWebpackPlugin = (enablemenu = false, title = '') => {
+const decoratorHtmlWebpackPlugin = (enablemenu = false) => {
     return {
         overrideWebpackConfig: ({ webpackConfig }) => {
             const plugin = getHtmlWebpackPlugin(webpackConfig.plugins);
             if (plugin) {
-                plugin.options.title = title;
                 enablemenu ? getMenu(plugin) : addElements(plugin, false);
             }
             return webpackConfig;
