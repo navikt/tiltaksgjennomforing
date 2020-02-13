@@ -92,13 +92,10 @@ const serveAppWithOutMenu = () => {
 };
 
 const getMenuAndServeApp = () => {
-    console.log('checking cache');
     mainCache.get(mainCacheKey, (err, response) => {
         if (!err && response !== undefined) {
-            console.log('cache found');
             serveAppWithMenu(response);
         } else {
-            console.log('cache empty, fetching menu');
             getMenu();
         }
     });
