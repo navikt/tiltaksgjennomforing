@@ -16,17 +16,13 @@ export const SøkeInput: FunctionComponent<Props> = props => {
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
     const utførSøk = () => {
-        if (!søkeord || valider()) {
+        if (valider()) {
             props.utførSøk(søkeord);
         }
     };
 
     const onBlur = () => {
-        if (!søkeord) {
-            props.utførSøk('');
-        } else {
-            valider();
-        }
+        valider();
     };
 
     const onChange = (event: FormEvent<HTMLInputElement>) => {
@@ -52,7 +48,7 @@ export const SøkeInput: FunctionComponent<Props> = props => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
-            <Søkeknapp onClick={utførSøk} />
+            {!props.hidden && <Søkeknapp onClick={utførSøk} />}
         </>
     );
 };

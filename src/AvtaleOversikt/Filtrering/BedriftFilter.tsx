@@ -11,7 +11,7 @@ export const BedriftFilter: FunctionComponent<FiltreringProps> = props => {
             <SøkeInput
                 label="Bedriftsnummer"
                 maxLength={9}
-                utførSøk={søkeord => props.endreSøk('bedriftNr', søkeord)}
+                utførSøk={søkeord => props.endreSøk({ bedriftNr: søkeord })}
                 valider={verdi => (!validerOrgnr(verdi) ? { feilmelding: 'Ugyldig bedriftsnummer' } : undefined)}
             />
         </Filter>

@@ -11,7 +11,7 @@ export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props =>
             <SøkeInput
                 label="Fødselsnummer"
                 maxLength={11}
-                utførSøk={søkeord => props.endreSøk('deltakerFnr', søkeord)}
+                utførSøk={søkeord => props.endreSøk({deltakerFnr: søkeord})}
                 valider={verdi => (!validerFnr(verdi) ? { feilmelding: 'Ugyldig fødselsnummer' } : undefined)}
             />
         </Filter>

@@ -18,7 +18,10 @@ import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent = () => {
-    const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>({});
+    const innloggetBruker = useContext(InnloggetBrukerContext);
+    const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(
+        innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {}
+    );
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
 
@@ -39,12 +42,10 @@ const AvtaleOversikt: FunctionComponent = () => {
             .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error.message }));
     }, [søkekriterier]);
 
-    const innloggetBruker = useContext(InnloggetBrukerContext);
-
     const layout = useAvtaleOversiktLayout();
 
-    const endreSøk = (søkefelt: keyof Avtale, søkeverdi: any) => {
-        setSøkekriterier({ ...søkekriterier, [søkefelt]: søkeverdi });
+    const endreSøk = (endredeSøkekriterier: Partial<Avtale>) => {
+        setSøkekriterier({ ...søkekriterier, ...endredeSøkekriterier });
     };
 
     return (

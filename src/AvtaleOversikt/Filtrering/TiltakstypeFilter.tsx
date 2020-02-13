@@ -17,7 +17,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
     ];
 
     return (
-        <Filter tittel="Filtrer på tiltakstype">
+        <Filter tittel="Tiltakstype">
             {alleTiltakstyper.map(tiltakstype => (
                 <Radio
                     key={tiltakstype.label}
@@ -28,7 +28,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
                     onChange={event => {
                         const nyTiltakstype = event.currentTarget.value as TiltaksType;
                         setValgtTiltakstype(nyTiltakstype);
-                        props.endreSøk('tiltakstype', nyTiltakstype);
+                        props.endreSøk({ tiltakstype: nyTiltakstype });
                     }}
                 />
             ))}
