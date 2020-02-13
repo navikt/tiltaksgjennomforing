@@ -3,8 +3,7 @@ const request = require('request');
 
 const { JSDOM } = jsdom;
 const url =
-    process.env.DECORATOR_EXTERNAL_URL ||
-    'https://appres-q1.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
+    'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
 const htmlinsert = [
     { inject: 'styles', from: 'styles' },
     { inject: 'scripts', from: 'scripts' },
@@ -40,8 +39,8 @@ const getHtmlWebpackPlugin = plugins => {
     });
 };
 
-const enableBackup = plugin => {
-    process.env.ENABLE_EXTERNAL_MENU = 'enable';
+const enablebackup = plugin => {
+    console.log('failed to fetch decorator from:' + url);
     addElements(plugin, false);
 };
 
@@ -56,7 +55,7 @@ const getMenu = plugin => {
             const { document } = new JSDOM(body).window;
             addElements(plugin, true, document);
         } else {
-            enableBackup(plugin);
+            enablebackup(plugin);
         }
     });
 };

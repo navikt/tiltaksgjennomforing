@@ -24,7 +24,7 @@ const Innloggingslinje: FunctionComponent<{
         });
     }, []);
     const showMenu = (responskey: boolean): boolean => {
-        return process.env.NODE_ENV ? true : responskey;
+        return process.env.NODE_ENV !== 'production' ? true : responskey;
     };
 
     return showmenu ? (
