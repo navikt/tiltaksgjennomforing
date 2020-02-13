@@ -117,7 +117,7 @@ const BeregningTilskuddSteg = (props: Context) => {
                             settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
                         }}
                     />
-                    <VisUtregningenPanel {...props} />
+                    <VisUtregningenPanel {...props.avtale} />
                     <VerticalSpacer twentyPx={true} />
                     <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
