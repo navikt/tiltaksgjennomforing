@@ -1,4 +1,4 @@
-import { Context, medContext } from '@/AvtaleContext';
+import { medContext } from '@/AvtaleContext';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
@@ -14,6 +14,8 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -26,13 +28,6 @@ const feriepengeAlternativer = (erOver60: boolean) => {
     }));
 };
 
-const lonnstilskuddProsentAlternativer = () => {
-    const prosenter = [40, 60];
-    return prosenter.map((prosent: number) => ({
-        label: prosent.toFixed(0) + '%',
-        value: prosent.toString(),
-    }));
-};
 const arbeidsgiveravgiftAlternativer = () => {
     const satser = [0.141, 0.106, 0.064, 0.051, 0.079];
     const satserVerdier = [{ label: 'Velg', value: '0' }];
@@ -45,7 +40,9 @@ const arbeidsgiveravgiftAlternativer = () => {
     return satserVerdier;
 };
 
-const BeregningTilskuddSteg: FunctionComponent<Context> = props => {
+const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag & Kontonummer> & {
+    avtale: AvtaleMetadata;
+}> = props => {
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
@@ -54,10 +51,9 @@ const BeregningTilskuddSteg: FunctionComponent<Context> = props => {
                 Velg sats for refusjon som arbeidsgiver skal få tilbake
             </Normaltekst>
             <LonnstilskuddProsent
-                lonnstilskuddProsent={props.avtale.lonnstilskuddProsent}
                 tiltakstype={props.avtale.tiltakstype}
-                radioButtons={lonnstilskuddProsentAlternativer}
-                settAvtaleVerdi={props.settAvtaleVerdi}
+                lonnstilskuddProsent={props.avtale.lonnstilskuddProsent}
+                settLonnstilskuddProsent={verdi => props.settAvtaleVerdi('lonnstilskuddProsent', verdi)}
             />
             <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn</Undertittel>
 
@@ -115,7 +111,7 @@ const BeregningTilskuddSteg: FunctionComponent<Context> = props => {
                             props.settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
                         }}
                     />
-                    <VisUtregningenPanel {...props} />
+                    <VisUtregningenPanel {...props.avtale} />
                     <VerticalSpacer twentyPx={true} />
                     <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>

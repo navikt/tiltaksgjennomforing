@@ -10,7 +10,7 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     deltakerFornavn: '',
     deltakerTlf: '',
     feriepengesats: 0,
-    lonnstilskuddProsent: '',
+    lonnstilskuddProsent: 0,
     maal: [],
     oppfolging: '',
     oppgaver: [],

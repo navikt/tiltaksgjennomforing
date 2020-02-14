@@ -61,7 +61,7 @@ export const tomAvtale: Avtale = {
     feriepengesats: 12.0,
     arbeidsgiveravgift: 14.1,
     stillingprosent: 100,
-    lonnstilskuddProsent: '',
+    lonnstilskuddProsent: undefined,
 
     arbeidsgiverKontonummer: '',
 };

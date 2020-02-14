@@ -74,7 +74,7 @@ export interface Beregningsgrunnlag {
     manedslonn?: number;
     feriepengesats: number;
     arbeidsgiveravgift: number;
-    lonnstilskuddProsent: string;
+    lonnstilskuddProsent?: number;
     stillingprosent: number;
 }
 

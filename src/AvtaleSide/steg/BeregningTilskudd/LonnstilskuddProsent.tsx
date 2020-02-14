@@ -1,25 +1,29 @@
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
-import { Avtale, AvtaleMetadata, Beregningsgrunnlag } from '@/types/avtale';
+import { Beregningsgrunnlag, TiltaksType } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 
+const radioer = [
+    { label: '40 %', value: '40' },
+    { label: '60 %', value: '60' },
+];
+
 type Props = {
-    tiltakstype: AvtaleMetadata['tiltakstype'];
+    tiltakstype: TiltaksType;
     lonnstilskuddProsent: Beregningsgrunnlag['lonnstilskuddProsent'];
-    settAvtaleVerdi: (felt: keyof Avtale, verdi: any) => void;
-    radioButtons: () => { label: string; value: string }[];
+    settLonnstilskuddProsent: (lonnstilskuddProsent: Beregningsgrunnlag['lonnstilskuddProsent']) => void;
 };
 
 const LonnstilskuddProsent: FunctionComponent<Props> = props => {
     if (props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
         return (
             <RadioPanelGruppeHorisontal
-                radios={props.radioButtons()}
+                radios={radioer}
                 name="lonnstilskuddProsent"
                 checked={props.lonnstilskuddProsent + ''}
                 legend=""
                 onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                    props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(verdi))
+                    props.settLonnstilskuddProsent(parseInt(verdi))
                 }
             />
         );
@@ -31,7 +35,7 @@ const LonnstilskuddProsent: FunctionComponent<Props> = props => {
                 label=""
                 value={props.lonnstilskuddProsent}
                 onChange={event => {
-                    props.settAvtaleVerdi('lonnstilskuddProsent', parseFloat(event.target.value));
+                    props.settLonnstilskuddProsent(parseInt(event.target.value));
                 }}
                 min={0}
                 max={75}
