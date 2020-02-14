@@ -10,7 +10,6 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
-import { hundreProsentLonn } from '@/utils/utregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
@@ -45,6 +44,11 @@ const arbeidsgiveravgiftAlternativer = () => {
     );
     return satserVerdier;
 };
+
+const hundreProsentLonn = (manedslonn?: number, stillingsprosent?: number) => {
+    return manedslonn && stillingsprosent ? (manedslonn / stillingsprosent) * 100 : undefined;
+};
+
 const BeregningTilskuddSteg = (props: Context) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { settAvtaleVerdi, avtale } = props;
