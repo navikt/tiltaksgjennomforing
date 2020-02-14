@@ -11,7 +11,7 @@ type Props = {
 
 const LenkeKnapp: FunctionComponent<Props & RouteComponentProps> = props => (
     <Knapp type={props.type || 'hoved'} onClick={() => props.history.push(props.path)}>
-        Opprett ny avtale
+        {props.tekst}
     </Knapp>
 );
 
