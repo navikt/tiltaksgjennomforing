@@ -36,10 +36,10 @@ export interface RestService {
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
     låsOppAvtale: (avtaleId: string) => Promise<void>;
     delAvtaleMedAvtalepart: (avtaleId: string, avtalepart: Rolle) => Promise<void>;
-    setmenu: () => Promise<string>;
+    sjekkOmBackupmenySkalBrukes: () => Promise<object>;
 }
 
-export const fetchGet: (url: string) => Promise<Response> = url => {
+const fetchGet: (url: string) => Promise<Response> = url => {
     return fetchWithCredentials(url, { headers: { Pragma: 'no-cache' } });
 };
 const fetchPost: (url: string, otherParams?: any) => Promise<Response> = (url, otherParams) => {
@@ -205,10 +205,10 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
-const setmenu = async (): Promise<string> => {
-    const url = '/tiltaksgjennomforing/setbasemenuline';
+const sjekkOmBackupmenySkalBrukes = async (): Promise<object> => {
+    const url = '/tiltaksgjennomforing/sjekkombackupmenyskalbrukes';
     const response = await fetchGet(url);
-    return await response.text();
+    return await response.json();
 };
 
 const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
@@ -252,7 +252,7 @@ const restService: RestService = {
     hentAvtaleStatusDetaljer,
     låsOppAvtale,
     delAvtaleMedAvtalepart,
-    setmenu,
+    sjekkOmBackupmenySkalBrukes,
 };
 
 export default restService;

@@ -19,11 +19,12 @@ const Innloggingslinje: FunctionComponent<{
     const bruker = props.innloggetBruker.identifikator;
     const [showmenu, setmenukey] = useState<boolean>(false);
     useEffect(() => {
-        RestService.setmenu().then(response => {
-            setmenukey(showMenu(response.includes('enable')));
+        RestService.sjekkOmBackupmenySkalBrukes().then(response => {
+            const result = Object.values(response);
+            setmenukey(showBackupMenu(result[0].includes('disabled')));
         });
     }, []);
-    const showMenu = (responskey: boolean): boolean => {
+    const showBackupMenu = (responskey: boolean): boolean => {
         return process.env.NODE_ENV !== 'production' ? true : responskey;
     };
 

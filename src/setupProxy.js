@@ -60,8 +60,11 @@ module.exports = function(app) {
         res.redirect(envProperties.LOGOUT_URL);
     });
 
-    app.get('/tiltaksgjennomforing/setbasemenuline', (req, res) => {
-        const answer = process.env.ENABLE_EXTERNAL_MENU ? process.env.ENABLE_EXTERNAL_MENU : 'enable';
+    app.get('/tiltaksgjennomforing/sjekkombackupmenyskalbrukes', (req, res) => {
+        const respons = process.env.ENABLE_EXTERNAL_MENU ? process.env.ENABLE_EXTERNAL_MENU : 'disabled';
+        const answer = JSON.stringify({
+            externalmenustatus: respons,
+        });
         res.send(answer);
     });
 
