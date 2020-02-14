@@ -20,8 +20,8 @@ type Søketype = 'deltaker' | 'bedrift' | 'egne';
 export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [søketype, setAktueltSøk] = useState<Søketype>('egne');
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '' };
 
+    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '' };
     const søk = {
         egne: {
             placeholder: '',
@@ -46,8 +46,6 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
         },
     };
 
-    const aktueltSøk = søk[søketype];
-
     const endreSøketype = (event: FormEvent<HTMLInputElement>) => {
         const nySøketype = event.currentTarget.value as Søketype;
         setAktueltSøk(nySøketype);
@@ -55,6 +53,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             søk.egne.utførSøk();
         }
     };
+
+    const aktueltSøk = søk[søketype];
 
     return (
         <Filter tittel={'Vis avtaler'}>
