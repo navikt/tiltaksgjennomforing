@@ -1,12 +1,12 @@
-import React from 'react';
-import { CommonWrapper, mount } from 'enzyme';
-import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg';
-import { Input, Textarea } from 'nav-frontend-skjema';
 import { tomAvtale } from '@/AvtaleContext';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import RedigerOppgave from '@/AvtaleSide/steg/ArbeidsoppgaverSteg/RedigerOppgave/RedigerOppgave';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Oppgave } from '@/types/avtale';
-import RedigerOppgave from '@/AvtaleSide/steg/ArbeidsoppgaverSteg/RedigerOppgave/RedigerOppgave';
+import { CommonWrapper, mount } from 'enzyme';
+import { Knapp } from 'nav-frontend-knapper';
+import { Input, Textarea } from 'nav-frontend-skjema';
+import React from 'react';
+import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg';
 
 test('Test that <ArbeidsoppgaverSteg> renders correctly', async () => {
     const setValue = async (element: CommonWrapper, value: string) => {
@@ -24,6 +24,7 @@ test('Test that <ArbeidsoppgaverSteg> renders correctly', async () => {
     });
     const wrapper = await mount(
         <ArbeidsoppgaverSteg
+            utforHandlingHvisRedigerbar={(callback: () => void) => callback()}
             avtale={tomAvtale}
             mellomLagringArbeidsoppgave={mellomLagringArbeidsoppgave}
             lagreOppgave={lagreOppgaveStub}

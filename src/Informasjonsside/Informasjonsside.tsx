@@ -1,22 +1,21 @@
-import Lenke from 'nav-frontend-lenker';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState } from 'react';
+import { ReactComponent as Altinn } from '@/assets/ikoner/altinn.svg';
+import { ReactComponent as DigitalAvtale } from '@/assets/ikoner/digitalAvtale.svg';
+import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale.svg';
+import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
+import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '@/komponenter/Banner/Banner';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
-import BEMHelper from '@/utils/bem';
-import './informasjonsside.less';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { pathTilInformasjonssideInnlogget, pathTilOversikt } from '@/paths';
-import { VenstreChevron } from 'nav-frontend-chevron';
-import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
-import { ReactComponent as DigitalAvtale } from '@/assets/ikoner/digitalAvtale.svg';
-import { ReactComponent as Altinn } from '@/assets/ikoner/altinn.svg';
-import { ReactComponent as Clipboard } from '@/assets/ikoner/informationIcon.svg';
-import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
-import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale.svg';
 import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { pathTilInformasjonssideInnlogget, pathTilOversikt } from '@/paths';
+import BEMHelper from '@/utils/bem';
+import { VenstreChevron } from 'nav-frontend-chevron';
+import Lenke from 'nav-frontend-lenker';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useState } from 'react';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import './informasjonsside.less';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
@@ -37,20 +36,19 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
     return (
         <div>
-            <Banner tekst="Avtale om arbeidstrening" />
+            <Banner tekst="Avtale om tiltak" />
             <div className={cls.className}>
                 <div className={cls.element('container')}>
                     <div className="tilbaketiloversikt">{tilbakeTilOversikt(props.location.pathname)}</div>
 
                     <div className={cls.element('innhold')}>
-                        <Clipboard className={cls.element('ClipboardIkon')} />
                         <div className={cls.element('innholdstittel')}>
                             <Innholdstittel>Hvordan fungerer løsningen?</Innholdstittel>
                         </div>
                         <div className={cls.element('ingress')}>
                             <Normaltekst>
-                                Vi innfører en digital avtale om arbeidstrening. Her får du en rask introduksjon til
-                                hvordan den nye løsningen fungerer:
+                                Vi innfører en digital avtale om tiltak. Her får du en rask introduksjon til hvordan den
+                                nye løsningen fungerer:
                             </Normaltekst>
                         </div>
 
@@ -65,7 +63,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             Deltaker, arbeidsgiver og NAV fyller ut, ser over og godkjenner avtalen i samme løsning i
                             sanntid. Når innholdet i avtalen er ferdig utfylt skal alle parter godkjenne avtalen. Hvem
                             som godkjenner avtalen først av arbeidsgiver eller deltaker har ikke noe å si. NAV skal
-                            alltid godkjenne avtalen til slutt, og først da kan arbeidstreningen starte.
+                            alltid godkjenne avtalen til slutt, og først da kan tiltaket starte.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
@@ -76,9 +74,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp en arbeidstrening,
-                            oppretter NAV en digital avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV
-                            når denne er klar til innlogging.
+                            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp et tiltak, oppretter
+                            NAV en digital avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV når denne
+                            er klar til innlogging.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
@@ -116,9 +114,8 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Innholdet i avtalen kan endres gjennom hele perioden for arbeidstrening. Hvis innholdet i
-                            avtalen blir endret etter at arbeidstreningen har startet, må alle parter godkjenne avtalen
-                            på nytt.
+                            Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Hvis innholdet i avtalen
+                            blir endret etter at tiltaket har startet, må alle parter godkjenne avtalen på nytt.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
@@ -129,9 +126,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Hvis det gjøres endringer i avtalen underveis i arbeidstreningen lagrer NAV den forrige,
-                            godkjente versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan
-                            alle tre parter se utviklingen og vurdere måloppnåelse i etterkant.
+                            Hvis det gjøres endringer i avtalen underveis i tiltaket lagrer NAV den forrige, godkjente
+                            versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan alle tre
+                            parter se utviklingen og vurdere måloppnåelse i etterkant.
                         </EkspanderbartPanelRad>
                     </div>
                 </div>

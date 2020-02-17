@@ -41,7 +41,7 @@ const instruks = (rolle: Rolle, avtale: Avtale) => {
         case 'ARBEIDSGIVER':
             return <ArbeidsgiverInstruks erLaast={avtale.erLaast} />;
         case 'VEILEDER':
-            return <VeilederInstruks />;
+            return <VeilederInstruks tiltakstype={avtale.tiltakstype} />;
     }
 };
 

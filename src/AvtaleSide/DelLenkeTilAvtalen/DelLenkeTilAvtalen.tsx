@@ -1,10 +1,10 @@
-import Lenke from 'nav-frontend-lenker';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import { ReactComponent as ShareIkon } from '@/assets/ikoner/share.svg';
-import './DelLenkeTilAvtalen.less';
-import KopierLenkeModal from './KopierLenkeModal';
+import { ReactComponent as ShareIkon } from '@/assets/ikoner/del-lenke.svg';
+import KopierLenkeModal from '@/AvtaleSide/DelLenkeTilAvtalen/KopierLenkeModal';
 import SendVarselModal from '@/AvtaleSide/DelLenkeTilAvtalen/SendVarselModal';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import Lenke from 'nav-frontend-lenker';
+import React, { FunctionComponent, useContext, useState } from 'react';
+import './DelLenkeTilAvtalen.less';
 
 const DelLenkeTilAvtalen: FunctionComponent = () => {
     const [isOpen, setOpen] = useState<boolean>(false);

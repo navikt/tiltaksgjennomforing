@@ -1,21 +1,22 @@
-import * as React from 'react';
-import { Knapp } from 'nav-frontend-knapper';
-import RedigerOppgave from '../RedigerOppgave/RedigerOppgave';
-import { Normaltekst } from 'nav-frontend-typografi';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Oppgave } from '@/types/avtale';
-import './OpprettOppgave.less';
 import { TemporaryLagringArbeidsoppgave } from '@/AvtaleContext';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import { Godkjenninger, Oppgave } from '@/types/avtale';
+import { Knapp } from 'nav-frontend-knapper';
+import { Normaltekst } from 'nav-frontend-typografi';
+import * as React from 'react';
+import RedigerOppgave from '../RedigerOppgave/RedigerOppgave';
+import './OpprettOppgave.less';
 
 interface Props {
     lagreOppgave: (oppgave: Oppgave) => void;
     mellomLagretArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     setMellomLagringArbeidsoppgave: (arbeidsoppgaveInput: TemporaryLagringArbeidsoppgave) => void;
     fjerneMellomLagringArbeidsoppgave: () => void;
+    utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
-class OpprettOppgave extends React.Component<Props> {
+class OpprettOppgave extends React.Component<Props & Godkjenninger> {
     state = {
         isMounted: false,
         visRedigerOppgave: false,
@@ -48,7 +49,9 @@ class OpprettOppgave extends React.Component<Props> {
     };
 
     nyOppgaveOnClick = () => {
-        this.visOppgave(true);
+        this.props.utforHandlingHvisRedigerbar(() => {
+            this.visOppgave(true);
+        });
     };
 
     lagreOppgave = async (oppgave: Oppgave) => {

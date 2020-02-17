@@ -8,7 +8,7 @@ import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import { FeilVarselProvider } from './FeilVarselProvider';
-import Informasjonsside from './Informajonsside/Informasjonsside';
+import Informasjonsside from './Informasjonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';

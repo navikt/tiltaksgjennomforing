@@ -1,5 +1,5 @@
 import { ReactComponent as AvtaleSignering } from '@/assets/ikoner/avtaleSignering.svg';
-import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check-circle.svg';
+import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check-stroke.svg';
 import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
 import { ReactComponent as NokkelPunktForAvtale } from '@/assets/ikoner/nokkelPunktForAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
@@ -22,7 +22,7 @@ import { Input, RadioPanel } from 'nav-frontend-skjema';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { RouterProps, withRouter } from 'react-router';
-import { ReactComponent as TilEkstern } from './external-link.svg';
+import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
@@ -132,41 +132,62 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
 
     const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
 
-    const tittel = lonnstilskuddToggle ? 'Opprett avtale' : 'Opprett avtale om arbeidstrening';
-
     if (lonnstilskuddToggle === undefined) return null;
+
+    const mentorToggle = featureToggleContext[Feature.Mentor];
+
+    const tittel = lonnstilskuddToggle || mentorToggle ? 'Opprett avtale' : 'Opprett avtale om arbeidstrening';
+
+    const enabledFeatureToggleRadioPanel = () => {
+        if (!lonnstilskuddToggle && !mentorToggle) return null;
+
+        return (
+            <Innholdsboks className={cls.element('innholdsboks')}>
+                <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
+                <div className={cls.element('tiltakstypeWrapper')}>
+                    <RadioPanel
+                        name="tiltakstype"
+                        label="Arbeidstrening"
+                        value="ARBEIDSTRENING"
+                        checked={valgtTiltaksType === 'ARBEIDSTRENING'}
+                        onChange={() => setTiltaksType('ARBEIDSTRENING')}
+                    />
+                    {lonnstilskuddToggle && (
+                        <>
+                            <RadioPanel
+                                name="tiltakstype"
+                                label="Midlertidig lønnstilskudd"
+                                value="MIDLERTIDIG_LONNSTILSKUDD"
+                                checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
+                                onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                            />
+                            <RadioPanel
+                                name="tiltakstype"
+                                label="Varig lønnstilskudd"
+                                value="VARIG_LONNSTILSKUDD"
+                                checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
+                                onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
+                            />
+                        </>
+                    )}
+                    {mentorToggle && (
+                        <RadioPanel
+                            name="tiltakstype"
+                            label="Mentor"
+                            value="MENTOR"
+                            checked={valgtTiltaksType === 'MENTOR'}
+                            onChange={() => setTiltaksType('MENTOR')}
+                        />
+                    )}
+                </div>
+            </Innholdsboks>
+        );
+    };
 
     return (
         <div className="opprett-avtale">
             <Innholdstittel className="opprett-avtale__tittel">{tittel}</Innholdstittel>
-            {lonnstilskuddToggle && (
-                <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
-                    <div className={cls.element('tiltakstypeWrapper')}>
-                        <RadioPanel
-                            name="tiltakstype"
-                            label="Arbeidstrening"
-                            value="ARBEIDSTRENING"
-                            checked={valgtTiltaksType === 'ARBEIDSTRENING'}
-                            onChange={() => setTiltaksType('ARBEIDSTRENING')}
-                        />
-                        <RadioPanel
-                            name="tiltakstype"
-                            label="Midlertidig lønnstilskudd"
-                            value="MIDLERTIDIG_LONNSTILSKUDD"
-                            checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                            onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
-                        />
-                        <RadioPanel
-                            name="tiltakstype"
-                            label="Varig lønnstilskudd"
-                            value="VARIG_LONNSTILSKUDD"
-                            checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                            onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
-                        />
-                    </div>
-                </Innholdsboks>
-            )}
+            {enabledFeatureToggleRadioPanel()}
             <Innholdsboks className={cls.element('innholdsboks')}>
                 <Systemtittel className={cls.element('innholdstittel')}>Knytt avtalen til andre parter</Systemtittel>
                 <div className="opprett-avtale__input-wrapper">
@@ -198,8 +219,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
             </Innholdsboks>
             <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
                 <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
-                    Dette er en digital avtale for arbeidstrening som skal brukes av deltaker, arbeidsgiver og veileder
-                    ved NAV.
+                    Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved NAV.
                 </EkspanderbartPanelRad>
 
                 <EkspanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
@@ -220,8 +240,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                 </EkspanderbartPanelRad>
 
                 <EkspanderbartPanelRad svgIkon={<CheckCircleIkon />}>
-                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at arbeidstreningen kan
-                    starte.
+                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at tiltaket kan starte.
                 </EkspanderbartPanelRad>
             </Ekspanderbartpanel>
             <div className={cls.element('knappRad')}>

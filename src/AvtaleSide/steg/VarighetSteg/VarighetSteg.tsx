@@ -38,7 +38,7 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
             <Container fluid={true}>
                 <Row className="">
                     <Column md="12">
-                        <SkjemaTittel>Arbeidstid og varighet</SkjemaTittel>
+                        <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
                     </Column>
                 </Row>
                 <Row className="">

@@ -25,7 +25,7 @@ interface Props {
     skjulHvaMangler: boolean;
 }
 
-const Avtalepart: FunctionComponent<Props> = props => {
+export const Avtalepart: FunctionComponent<Props> = props => {
     const alleFelter = props.navnFelter.concat(props.tilleggFelter);
     const hvaMangler = props.skjulHvaMangler ? [] : alleFelter.filter(felt => !felt.verdi).map(felt => felt.felt);
 

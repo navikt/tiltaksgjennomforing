@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="40px" height="100%" viewBox="0 0 35 42">
-    <g fill="none" fill-rule="evenodd" stroke="#3E3832" stroke-linejoin="round" stroke-width="1.739">
-        <path stroke-linecap="round" d="M27 14L14.25 26 10 21.714"/>
-        <path d="M1 1h33v12.633A30.932 30.932 0 0 1 17.5 41 30.922 30.922 0 0 1 1 13.633V1z"/>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="40" viewBox="0 0 35 42"><title>Skjold</title><g fill="none" fill-rule="evenodd" stroke="#3E3832" stroke-linejoin="round" stroke-width="1.739"><path stroke-linecap="round" d="M27 14L14.25 26 10 21.714"/><path d="M1 1h33v12.633A30.932 30.932 0 0117.5 41 30.922 30.922 0 011 13.633V1z"/></g></svg>
