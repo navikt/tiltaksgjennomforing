@@ -43,11 +43,11 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = props => {
                     <Row className={''}>
                         <Column md="4" sm="6" xs="6">
                             <Element className={cls.element('label')}>Antall timer med mentor</Element>
-                            <SjekkOmVerdiEksisterer verdi={verdi(props.mentorTimelonn)} />
+                            <SjekkOmVerdiEksisterer verdi={verdi(props.mentorAntallTimer)} />
                         </Column>
                         <Column md="4" sm="12" xs="12">
                             <Element className={cls.element('label')}>Timelønn</Element>
-                            <SjekkOmVerdiEksisterer verdi={verdi(props.mentorAntallTimer)} />
+                            <SjekkOmVerdiEksisterer verdi={verdi(props.mentorTimelonn)} />
                         </Column>
                     </Row>
                 </Container>
