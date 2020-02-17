@@ -18,7 +18,7 @@ const orgNrValidering: Validering = verdi =>
 type Søketype = 'deltaker' | 'bedrift' | 'egne';
 
 export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props => {
-    const [søketype, setAktueltSøk] = useState<Søketype>('egne');
+    const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '' };
@@ -48,34 +48,34 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
 
     const endreSøketype = (event: FormEvent<HTMLInputElement>) => {
         const nySøketype = event.currentTarget.value as Søketype;
-        setAktueltSøk(nySøketype);
+        setAktivSøketype(nySøketype);
         if (nySøketype === 'egne') {
             søk.egne.utførSøk();
         }
     };
 
-    const aktueltSøk = søk[søketype];
+    const aktueltSøk = søk[aktivSøketype];
 
     return (
         <Filter tittel={'Vis avtaler'}>
             {Object.entries(søk).map(([key, value]) => (
                 <Radio
                     label={value.label}
-                    name={'søketype'}
+                    name={'aktivSøketype'}
                     key={key}
                     value={key}
-                    checked={søketype === key}
+                    checked={aktivSøketype === key}
                     onChange={endreSøketype}
                 />
             ))}
             <SøkeInput
-                key={søketype}
+                key={aktivSøketype}
                 label=""
                 placeholder={aktueltSøk.placeholder}
                 maxLength={aktueltSøk.maxLength}
                 utførSøk={aktueltSøk.utførSøk}
                 valider={aktueltSøk.validering}
-                hidden={søketype === 'egne'}
+                hidden={aktivSøketype === 'egne'}
             />
         </Filter>
     );
