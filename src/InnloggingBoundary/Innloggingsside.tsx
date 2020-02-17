@@ -7,7 +7,7 @@ import { AutentiseringError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Ingress, Sidetittel, Systemtittel, Normaltekst } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
@@ -36,7 +36,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             key={innlogginskilde.url}
             className="innloggingsside__logginnKnapp"
             onClick={() => {
-                setCookie(INNLOGGET_PART, innlogginskilde.part);
+                setCookie(INNLOGGET_PART, innlogginskilde.part, { path: '/', sameSite: 'strict' });
                 loginKlikk(innlogginskilde);
             }}
         >
