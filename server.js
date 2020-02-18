@@ -53,10 +53,7 @@ const readfile = (injectHtml, menu = {}) => {
     fs.readFile(__dirname + '/build/index.html', 'utf8', function(err, html) {
         if (!err) {
             const { document } = new JSDOM(html).window;
-            if (Object.keys(menu).length !== 0) {
-                return injectHtml(document, menu);
-            }
-            return injectHtml(document);
+            Object.keys(menu).length !== 0 ? injectHtml(document, menu) : injectHtml(document);
         } else {
             checkBackupCache();
         }
