@@ -25,7 +25,6 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     const [brukmeny, setbrukmeny] = useState<boolean>(false);
     useEffect(() => {
         RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(response => {
-            console.log(response, response.toString().includes('enable'));
             setbrukmeny(response.toString().includes('enable'));
         });
     }, []);
