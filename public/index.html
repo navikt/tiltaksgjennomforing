@@ -12,6 +12,10 @@
         <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
         <link rel="stylesheet" href="%PUBLIC_URL%/index.css" />
 
+        <div id="scripts"><%=htmlWebpackPlugin.options.scripts %></div>
+        <div id="megamenuResources"><%=htmlWebpackPlugin.options.megamenuResources %></div>
+        <div id="styles"><%=htmlWebpackPlugin.options.styles %></div>
+
         <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -65,10 +69,12 @@
     </head>
 
     <body>
+        <div id="headerWithmenu"><%=htmlWebpackPlugin.options.headerWithmenu %></div>
         <noscript>
             You need to enable JavaScript to run this app.
         </noscript>
         <div id="root" class="tiltaksgjennomforing"></div>
+        <div id="footerWithmenu"><%=htmlWebpackPlugin.options.footerWithmenu %></div>
         <!--
   This HTML file is a template.
   If you open it directly in the browser, you will see an empty page.

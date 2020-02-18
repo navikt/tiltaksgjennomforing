@@ -28,3 +28,9 @@ spec:
           value: '{{{selvbetjening-login-url}}}'
         - name: LOGOUT_URL
           value: '{{{logout-url}}}'
+        - name: ENABLE_INTERNAL_MENU
+          value: '{{{enable-internal-menu}}}'
+        - name: DECORATOR_INTERNAL_SCRIPT
+          value: '{{{decorator-external-script}}}'
+        - name: DECORATOR_INTERNAL_STYLING
+          value: '{{{decorator-external-styling}}}'

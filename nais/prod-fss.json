@@ -3,5 +3,8 @@
     "api-gw-url": "http://tiltaksgjennomforing-api",
     "isso-login-url": "https://loginservice.nais.adeo.no/login?redirect=https://arbeidsgiver.nais.adeo.no/tiltaksgjennomforing",
     "logout-url": "https://loginservice.nais.adeo.no/slo",
-    "vault-enabled": false
+    "vault-enabled": false,
+    "enable-internal-menu": true,
+    "decorator-external-script": "https://app.adeo.no/internarbeidsflatedecorator/v2/static/js/head.v2.min.js",
+    "decorator-external-styling": "https://app.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css"
 }
