@@ -120,7 +120,7 @@ const getMenuAndServeApp = callback => {
         if (!err && response !== undefined) {
             serveAppWithMenu(response);
         } else {
-            return () => callback();
+            callback();
         }
     });
 };
@@ -138,7 +138,11 @@ const checkBackupCache = () => {
 
 // HAR MILJOØVARIABLER BASERT PÅ (PROD|DEV)-SBS / (PROD|DEV)-FSS
 process.env.ENABLE_EXTERNAL_MENU
-    ? getMenuAndServeApp(getMenu())
+    ? getMenuAndServeApp(() => {
+          getMenu();
+      })
     : process.env.ENABLE_INTERNAL_MENU
-    ? getMenuAndServeApp(readfile(injectInternalMenu))
+    ? getMenuAndServeApp(() => {
+          readfile(injectInternalMenu);
+      })
     : serveAppWithOutMenu();
