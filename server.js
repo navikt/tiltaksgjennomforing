@@ -120,8 +120,7 @@ const getMenuAndServeApp = callback => {
         if (!err && response !== undefined) {
             serveAppWithMenu(response);
         } else {
-            console.log('callback:', callback);
-            callback;
+            return () => callback();
         }
     });
 };
