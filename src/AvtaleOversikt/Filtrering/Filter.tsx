@@ -10,7 +10,7 @@ type Props = {
 export const Filter: FunctionComponent<Props> = props => {
     const layout = useAvtaleOversiktLayout();
     return (
-        <Ekspanderbartpanel tittel={props.tittel} tittelProps={'element'} apen={layout.erNokPlassTilTabellOgFilter}>
+        <Ekspanderbartpanel tittel={props.tittel} apen={layout.erNokPlassTilTabellOgFilter}>
             {props.children}
         </Ekspanderbartpanel>
     );

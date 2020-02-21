@@ -25,21 +25,21 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     const søk = {
         egne: {
             placeholder: '',
-            label: 'Opprettet selv',
+            label: 'Jeg har opprettet',
             maxLength: 0,
             validering: () => undefined,
             utførSøk: () => props.endreSøk({ ...tomt, veilederNavIdent: innloggetBruker.identifikator }),
         },
         deltaker: {
             placeholder: 'Fødselsnummer',
-            label: 'Fødselsnummer',
+            label: 'På en deltaker',
             maxLength: 11,
             validering: fnrValidering,
             utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, deltakerFnr: søkeord }),
         },
         bedrift: {
             placeholder: 'Bedriftsnummer',
-            label: 'Bedriftsnummer',
+            label: 'På en bedrift',
             maxLength: 9,
             validering: orgNrValidering,
             utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, bedriftNr: søkeord }),
