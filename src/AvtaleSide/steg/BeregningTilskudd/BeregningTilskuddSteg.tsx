@@ -77,7 +77,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         max={65000}
                     />
                 </Column>
-                {innloggetBruker.erNavAnsatt && props.avtale.stillingprosent < 100 && (
+                {innloggetBruker.erNavAnsatt && props.avtale.stillingprosent > 0 && props.avtale.stillingprosent < 100 && (
                     <Column md="6">
                         <ValutaInput
                             disabled={true}
