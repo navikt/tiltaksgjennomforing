@@ -1,41 +1,33 @@
-import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
-import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
-import { FeilVarselContext } from '@/FeilVarselProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
-import { pathTilInformasjonssideInnlogget, pathTilOpprettAvtale } from '@/paths';
+import { pathTilOpprettAvtale } from '@/paths';
 import RestService from '@/services/rest-service';
-import { AvtalelisteRessurs } from '@/types/avtale';
+import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
-import { SokeTyper } from '@/types/soke-typer';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { lagQueryParams } from '@/utils/queryParamUtils';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel';
-import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import MediaQuery from 'react-responsive';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import AvtalekortMobil from './AvtalekortMobil';
 import './AvtaleOversikt.less';
-import AvtaleOversiktSkeleton from './AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
-import IngenAvtaler from './IngenAvtaler/IngenAvtaler';
-import SokEtterAvtaler, { Søk } from './SokEtterAvtaler/SokEtterAvtaler';
+import LenkeKnapp from '@/komponenter/LenkeKnapp';
+import Avtaler from '@/AvtaleOversikt/Avtaler';
+import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
+import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
+import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
+
 const cls = BEMHelper('avtaleoversikt');
 
-const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
+const AvtaleOversikt: FunctionComponent = () => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
+    const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(
+        innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {}
+    );
+
+    const [varsler, setVarsler] = useState<Varsel[]>([]);
+
     const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<AvtalelisteRessurs>({
         status: Status.IkkeLastet,
     });
-
-    const innloggetBruker = useContext(InnloggetBrukerContext);
-    const feilVarsel = useContext(FeilVarselContext);
-
-    const [varsler, setVarsler] = useState<Varsel[]>([]);
-    const defaultSøkeType = innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {};
-    const [queryParams, setQueryParams] = useState<SokeTyper>(defaultSøkeType);
 
     useEffect(() => {
         RestService.hentUlesteVarsler()
@@ -45,76 +37,42 @@ const AvtaleOversikt: FunctionComponent<RouteComponentProps> = props => {
 
     useEffect(() => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
-        RestService.hentAvtalerForInnloggetBruker(queryParams)
+        RestService.hentAvtalerForInnloggetBruker(søkekriterier)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
             .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error.message }));
-    }, [queryParams]);
+    }, [søkekriterier]);
 
-    const sokEtterAvtaler = (sok: Søk) => {
-        setAvtalelisteRessurs({ status: Status.LasterInn });
-        setQueryParams(lagQueryParams(innloggetBruker, sok));
+    const layout = useAvtaleOversiktLayout();
+
+    const endreSøk = (endredeSøkekriterier: Partial<Avtale>) => {
+        setSøkekriterier({ ...søkekriterier, ...endredeSøkekriterier });
     };
-
-    const opprettAvtaleKnapp = innloggetBruker.erNavAnsatt && (
-        <div className={cls.element('opprett-avtale')}>
-            <Hovedknapp onClick={() => props.history.push(pathTilOpprettAvtale)}>Opprett ny avtale</Hovedknapp>
-        </div>
-    );
-
-    if (avtalelisteRessurs.status === Status.Feil) {
-        feilVarsel(avtalelisteRessurs.error);
-    }
 
     return (
         <>
             <Banner tekst="Tiltaksoversikt" />
 
-            <div className="avtaleoversikt">
-                {opprettAvtaleKnapp}
+            <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
+                {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
 
-                <div className={cls.element('innhold')}>
-                    {innloggetBruker.erNavAnsatt && <SokEtterAvtaler sokEtterAvtaler={sokEtterAvtaler} />}
-                    <div className={cls.element('luft')}></div>
-                    <div className={cls.element('avtalelistecontainer')}>
-                        {avtalelisteRessurs.status === Status.Lastet && avtalelisteRessurs.data.length === 0 ? (
-                            <div>
-                                <IngenAvtaler />
-                            </div>
-                        ) : (
-                            <div className={cls.element('avtaleliste')}>
-                                {avtalelisteRessurs.status === Status.LasterInn && (
-                                    <AvtaleOversiktSkeleton erNavAnsatt={innloggetBruker.erNavAnsatt} />
-                                )}
-                                {avtalelisteRessurs.status === Status.Lastet && (
-                                    <>
-                                        <MediaQuery minWidth={700}>
-                                            <AvtaleTabell
-                                                avtaler={avtalelisteRessurs.data}
-                                                varsler={varsler}
-                                                innloggetBruker={innloggetBruker}
-                                            />
-                                        </MediaQuery>
-                                        <MediaQuery maxWidth={699}>
-                                            <AvtalekortMobil avtaler={avtalelisteRessurs.data} varsler={varsler} />
-                                        </MediaQuery>
-                                    </>
-                                )}
-                            </div>
-                        )}
-                    </div>
+                <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
+                    {innloggetBruker.erNavAnsatt && (
+                        <aside style={layout.stylingAvFilter}>
+                            <Filtrering endreSøk={endreSøk} />
+                        </aside>
+                    )}
+                    <section style={layout.stylingAvTabell}>
+                        <Avtaler
+                            avtalelisteRessurs={avtalelisteRessurs}
+                            innloggetBruker={innloggetBruker}
+                            varsler={varsler}
+                        />
+                    </section>
                 </div>
-                <div className={cls.element('informasjonsBanner')}>
-                    <LenkepanelBase
-                        href={pathTilInformasjonssideInnlogget}
-                        linkCreator={(props: any) => <Link to={props.href} {...props} />}
-                    >
-                        <Info width="24" height="24" />
-                        <Normaltekst className={cls.element('lenke')}>Les mer om løsningen</Normaltekst>
-                    </LenkepanelBase>
-                </div>
-            </div>
+                <LesMerOmLøsningen />
+            </main>
         </>
     );
 };
 
-export default withRouter(AvtaleOversikt);
+export default AvtaleOversikt;

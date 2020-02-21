@@ -6,7 +6,7 @@ import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
 import './AvtaleOversiktSkeleton.less';
 
-const cls = BEMHelper('avtaleoversikt');
+const cls = BEMHelper('avtaletabell');
 
 type Props = {
     erNavAnsatt: boolean;

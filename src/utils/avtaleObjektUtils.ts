@@ -24,6 +24,11 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     manedslonn: 0,
     arbeidsoppgaver: '',
     stillingtype: '',
+    mentorFornavn: '',
+    mentorEtternavn: '',
+    mentorOppgaver: '',
+    mentorAntallTimer: 0,
+    mentorTimelonn: 0,
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {

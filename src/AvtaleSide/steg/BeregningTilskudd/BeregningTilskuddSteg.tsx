@@ -1,5 +1,7 @@
 import { medContext } from '@/AvtaleContext';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
@@ -8,14 +10,13 @@ import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
-import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -40,9 +41,14 @@ const arbeidsgiveravgiftAlternativer = () => {
     return satserVerdier;
 };
 
+const hundreProsentLonn = (manedslonn?: number, stillingsprosent?: number) => {
+    return manedslonn && stillingsprosent ? (manedslonn / stillingsprosent) * 100 : undefined;
+};
+
 const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag & Kontonummer> & {
     avtale: AvtaleMetadata;
 }> = props => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
@@ -71,6 +77,17 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         max={65000}
                     />
                 </Column>
+                {innloggetBruker.erNavAnsatt && props.avtale.stillingprosent < 100 && (
+                    <Column md="6">
+                        <ValutaInput
+                            disabled={true}
+                            name="manedslonn100%"
+                            bredde="S"
+                            label="Lønn ved 100% stilling"
+                            value={hundreProsentLonn(props.avtale.manedslonn, props.avtale.stillingprosent)}
+                        />
+                    </Column>
+                )}
             </Row>
             <Row className="">
                 <Column md="12">
