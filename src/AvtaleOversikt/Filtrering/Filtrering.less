@@ -1,0 +1,22 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.filtrering {
+    > * {
+        margin-bottom: 1rem;
+    }
+
+    &__nullstill-knapp {
+        border: none;
+        background: none;
+        color: @navBla;
+        align-self: flex-start;
+        margin: 1rem 0;
+        padding: 0;
+        height: 2rem;
+
+        &:hover {
+            text-decoration: underline @navBla;
+            cursor: pointer;
+        }
+    }
+}

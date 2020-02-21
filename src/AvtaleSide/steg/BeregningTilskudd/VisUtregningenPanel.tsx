@@ -154,10 +154,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         <div>Fastsatt refusjon</div>
                     </Column>
                     <Column md="6" sm="3" xs="6" className={cls.element('column__siste')}>
-                        {props.lonnstilskuddProsent !== undefined && parseFloat(props.lonnstilskuddProsent) > 0
-                            ? props.lonnstilskuddProsent
-                            : 0}{' '}
-                        %
+                        {props.lonnstilskuddProsent || 0} %
                     </Column>
                 </Row>
                 <Row className={classNames(cls.element('rad'), cls.element('rad__oppsummering'))}>
@@ -173,13 +170,13 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                             props.feriepengesats > 0 &&
                             props.arbeidsgiveravgift !== undefined &&
                             props.arbeidsgiveravgift > 0 &&
-                            parseFloat(props.lonnstilskuddProsent)
+                            props.lonnstilskuddProsent
                                 ? (
                                       (props.manedslonn +
                                           props.manedslonn * props.feriepengesats +
                                           props.manedslonn * 0.02 +
                                           props.manedslonn * props.arbeidsgiveravgift) *
-                                      (parseFloat(props.lonnstilskuddProsent) / 100)
+                                      (props.lonnstilskuddProsent / 100)
                                   ).toFixed(0)
                                 : 0}{' '}
                             kr
