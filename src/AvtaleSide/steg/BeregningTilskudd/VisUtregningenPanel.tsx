@@ -1,18 +1,18 @@
-import React, { FunctionComponent } from 'react';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { ReactComponent as StillingProsentIkon } from '@/assets/ikoner/stillingsprosent.svg';
-import { ReactComponent as ManedsLonnIkon } from '@/assets/ikoner/manedsLonn.svg';
-import { ReactComponent as FeriepengerIkon } from '@/assets/ikoner/feriepenger.svg';
-import { ReactComponent as ObligTjenestepensjonIkon } from '@/assets/ikoner/obligTjenestepensjon.svg';
-import { ReactComponent as GraphRefusjonAvLonnIkon } from '@/assets/ikoner/graphRefusjonAvLønn.svg';
 import { ReactComponent as ArbeidsgiveravgiftIkon } from '@/assets/ikoner/arbeidsgiveravgift.svg';
-import './VisUtregningenPanel.less';
-import Undertittel from 'nav-frontend-typografi/lib/undertittel';
-import { Column, Container, Row } from 'nav-frontend-grid';
-import MediaQuery from 'react-responsive';
+import { ReactComponent as FeriepengerIkon } from '@/assets/ikoner/feriepenger.svg';
+import { ReactComponent as GraphRefusjonAvLonnIkon } from '@/assets/ikoner/graphRefusjonAvLønn.svg';
+import { ReactComponent as ManedsLonnIkon } from '@/assets/ikoner/manedsLonn.svg';
+import { ReactComponent as ObligTjenestepensjonIkon } from '@/assets/ikoner/obligTjenestepensjon.svg';
+import { ReactComponent as StillingProsentIkon } from '@/assets/ikoner/stillingsprosent.svg';
+import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
-import { Beregningsgrunnlag } from '@/types/avtale';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import Undertittel from 'nav-frontend-typografi/lib/undertittel';
+import React, { FunctionComponent } from 'react';
+import MediaQuery from 'react-responsive';
+import './VisUtregningenPanel.less';
 
 const cls = BEMHelper('visUtregningenPanel');
 
