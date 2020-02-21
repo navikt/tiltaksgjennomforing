@@ -21,9 +21,11 @@ export type ArbeidstreningAvtaleinnhold = FellesAvtaleinnhold & MaalListe & Oppg
 
 export type LonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer;
 
-export type AltAvtaleinnhold = ArbeidstreningAvtaleinnhold & LonnstilskuddAvtaleinnhold;
+export type MentorAvtaleinnhold = FellesAvtaleinnhold & Mentorinfo;
 
-export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD';
+export type AltAvtaleinnhold = ArbeidstreningAvtaleinnhold & LonnstilskuddAvtaleinnhold & MentorAvtaleinnhold;
+
+export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD' | 'MENTOR';
 
 export interface AvtaleMetadata {
     id: string;
@@ -57,6 +59,14 @@ export interface Veilederinfo {
     veilederFornavn: string;
     veilederEtternavn: string;
     veilederTlf: string;
+}
+
+export interface Mentorinfo {
+    mentorFornavn: string;
+    mentorEtternavn: string;
+    mentorOppgaver: string;
+    mentorAntallTimer: number;
+    mentorTimelonn: number;
 }
 
 export interface Varighet {

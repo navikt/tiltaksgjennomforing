@@ -32,6 +32,12 @@ export const tomAvtale: Avtale = {
     veilederEtternavn: '',
     veilederTlf: '',
 
+    mentorFornavn: '',
+    mentorEtternavn: '',
+    mentorOppgaver: '',
+    mentorAntallTimer: 0,
+    mentorTimelonn: 0,
+
     oppfolging: '',
     tilrettelegging: '',
 
