@@ -36,7 +36,7 @@ export interface RestService {
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
     låsOppAvtale: (avtaleId: string) => Promise<void>;
     delAvtaleMedAvtalepart: (avtaleId: string, avtalepart: Rolle) => Promise<void>;
-    sjekkOmMenySkalBrukes: (url: string) => Promise<object>;
+    sjekkOmMenySkalBrukes: (url: string) => Promise<boolean>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -205,7 +205,7 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
-const sjekkOmMenySkalBrukes = async (url: string): Promise<object> => {
+const sjekkOmMenySkalBrukes = async (url: string): Promise<boolean> => {
     const response = await fetchGet(url);
     return await response.json();
 };

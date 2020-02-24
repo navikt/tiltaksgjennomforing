@@ -61,8 +61,8 @@ module.exports = function(app) {
     });
 
     app.get('/tiltaksgjennomforing/brukavInternflate', (req, res) => {
-        const respons = process.env.ENABLE_INTERNAL_MENU ? process.env.ENABLE_INTERNAL_MENU : 'disable';
-        res.send(JSON.stringify(respons));
+        const respons = process.env.ENABLE_INTERNAL_MENU || false;
+        res.send(respons);
     });
 
     const proxyConfig = {

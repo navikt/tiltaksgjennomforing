@@ -9,7 +9,7 @@
         "heroku": "node heroku.js",
         "server": "node server.js",
         "start": "craco start",
-        "start-intern": "cross-env process.env.ENABLE_INTERNAL_MENU=\"enable\" craco start",
+        "start-intern": "cross-env process.env.ENABLE_INTERNAL_MENU=\"true\" craco start",
         "test": "cross-env CI=true craco test -w 1",
         "test:config": "node -e 'console.dir(require(\"./jest.config.js\"))'",
         "test:help": "craco test --help",
