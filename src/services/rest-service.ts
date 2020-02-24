@@ -35,6 +35,7 @@ export interface RestService {
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
     låsOppAvtale: (avtaleId: string) => Promise<void>;
     delAvtaleMedAvtalepart: (avtaleId: string, avtalepart: Rolle) => Promise<void>;
+    sjekkOmBackupmenySkalBrukes: () => Promise<object>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -208,6 +209,12 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
+const sjekkOmBackupmenySkalBrukes = async (): Promise<object> => {
+    const url = '/tiltaksgjennomforing/sjekkombackupmenyskalbrukes';
+    const response = await fetchGet(url);
+    return await response.json();
+};
+
 const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
     const response = await fetchGet(featureTogglePath(featureToggles));
     await handleResponse(response);
@@ -249,6 +256,7 @@ const restService: RestService = {
     hentAvtaleStatusDetaljer,
     låsOppAvtale,
     delAvtaleMedAvtalepart,
+    sjekkOmBackupmenySkalBrukes,
 };
 
 export default restService;

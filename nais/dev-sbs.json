@@ -3,5 +3,7 @@
     "api-gw-url": "https://api-gw-q0.oera.no",
     "selvbetjening-login-url": "https://loginservice-q.nav.no/login?redirect=https://arbeidsgiver-q.nav.no/tiltaksgjennomforing",
     "logout-url": "https://loginservice-q.nav.no/slo",
-    "vault-enabled": true
+    "vault-enabled": true,
+    "enable-external-menu": true,
+    "decorator-external-url": "https://appres-q1.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true"
 }
