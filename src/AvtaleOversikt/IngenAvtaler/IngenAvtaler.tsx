@@ -12,7 +12,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 
 const cls = BEMHelper('ingenAvtaler');
 
-const IngenAvtaler: FunctionComponent<{}> = () => {
+const IngenAvtaler: FunctionComponent = () => {
     const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
 
@@ -28,9 +28,8 @@ const IngenAvtaler: FunctionComponent<{}> = () => {
         return (
             <Innholdsboks>
                 <div className={cls.element('tekst')}>
-                    <div className={cls.element('headerTekst')}>
-                        <Innholdstittel>Ingen avtaler</Innholdstittel>
-                    </div>
+                    <Innholdstittel>Ingen avtaler</Innholdstittel>
+                    <VerticalSpacer sixteenPx={true} />
                     <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
                     <Ingress>Vennligst vent på veileder i NAV.</Ingress>
                 </div>

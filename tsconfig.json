@@ -14,7 +14,8 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "downlevelIteration": true
     },
     "include": ["src"],
     "exclude": ["server.js", "src/whitelist.js", "src/setupProxy.js"]

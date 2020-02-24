@@ -1,4 +1,4 @@
-import messages from '@/messages';
+import { messages } from '@/messages';
 import * as React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
