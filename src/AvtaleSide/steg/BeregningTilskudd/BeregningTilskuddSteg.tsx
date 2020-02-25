@@ -77,17 +77,6 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         max={65000}
                     />
                 </Column>
-                {innloggetBruker.erNavAnsatt && props.avtale.stillingprosent > 0 && props.avtale.stillingprosent < 100 && (
-                    <Column md="6">
-                        <ValutaInput
-                            disabled={true}
-                            name="manedslonn100%"
-                            bredde="S"
-                            label="Lønn ved 100% stilling"
-                            value={hundreProsentLonn(props.avtale.manedslonn, props.avtale.stillingprosent)}
-                        />
-                    </Column>
-                )}
             </Row>
             <Row className="">
                 <Column md="12">
@@ -130,6 +119,18 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                     />
                     <VisUtregningenPanel {...props.avtale} />
                     <VerticalSpacer twentyPx={true} />
+                    {innloggetBruker.erNavAnsatt &&
+                        props.avtale.stillingprosent > 0 &&
+                        props.avtale.stillingprosent < 100 && (
+                            <ValutaInput
+                                disabled={true}
+                                name="manedslonn100%"
+                                bredde="S"
+                                label="Lønn ved 100% stilling"
+                                value={hundreProsentLonn(props.avtale.manedslonn, props.avtale.stillingprosent)}
+                            />
+                        )}
+                    <VerticalSpacer thirtyTwoPx={true} />
                     <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>
