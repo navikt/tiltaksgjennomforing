@@ -41,6 +41,18 @@ jobs:
       - name: Sett miljøvariabel IMAGE
         run: echo "::set-env name=IMAGE::$IMAGE_BASE:$COMMIT"
 
+      - name: Deploy til dev-sbs
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          TEAM: arbeidsgiver
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-sbs
+          RESOURCE: naiserator.yaml
+          PRINT_PAYLOAD: true
+          VARS: nais/dev-sbs.json
+          REF: ${{ env.COMMIT }}
+          IMAGE: ${{ env.IMAGE }}
+
       - name: Deploy til dev-fss
         uses: nais/deploy/actions/deploy@v1
         env:
