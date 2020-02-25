@@ -1,14 +1,12 @@
 import { Rolle } from '@/AvtaleContext';
 import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
 import TidligereVersjoner from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/TidligereVersjoner';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { AltAvtaleinnhold, Versjonering } from '@/types/avtale';
 import * as React from 'react';
-import { useContext } from 'react';
 import MediaQuery from 'react-responsive';
 
 interface Props {
@@ -18,9 +16,6 @@ interface Props {
 }
 
 const VersjoneringKomponent: React.FunctionComponent<Props> = props => {
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const laasOppKnappFeature = featureToggleContext[Feature.LaasOppKnapp];
-
     const tidligereVersjoner = props.avtale.versjoner.length > 1 && (
         <>
             <SkjemaUndertittel>Tidligere versjoner av avtalen</SkjemaUndertittel>
@@ -28,7 +23,7 @@ const VersjoneringKomponent: React.FunctionComponent<Props> = props => {
         </>
     );
 
-    const behandleAvtale = props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && laasOppKnappFeature && (
+    const behandleAvtale = props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
         <>
             <SkjemaTittel>Behandle avtale</SkjemaTittel>
             <LaasOppKnapp laasOpp={props.laasOpp} />
