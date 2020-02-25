@@ -7,8 +7,8 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing-varsel
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing-varsel:${{ github.sha }}
+  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing:${{ github.sha }}
 
 jobs:
   bygg:

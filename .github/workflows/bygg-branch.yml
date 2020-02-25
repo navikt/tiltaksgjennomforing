@@ -7,7 +7,7 @@ on:
       - '!master'
 
 env:
-  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing-varsel
+  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing
 
 jobs:
   bygg:

@@ -4,7 +4,7 @@ on:
     types: [deploy-command]
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing-varsel
+  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing
       
 jobs:
   deploy-branch:
@@ -21,7 +21,7 @@ jobs:
               issue_number: ${{ github.event.client_payload.github.payload.issue.number }},
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Deploy satt i gang: https://github.com/navikt/tiltaksgjennomforing-varsel/actions/runs/${{ github.run_id }}'
+              body: 'Deploy satt i gang: https://github.com/navikt/tiltaksgjennomforing/actions/runs/${{ github.run_id }}'
             })
 
       - name: Sjekk ut kode
