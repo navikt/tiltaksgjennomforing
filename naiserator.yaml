@@ -4,10 +4,10 @@ metadata:
     name: tiltaksgjennomforing
     namespace: default
     labels:
-        team: teamtag
+        team: arbeidsgiver
 spec:
-    image: navikt/tiltaksgjennomforing:{{version}}
-    team: teamtag
+    image: {{image}}
+    team: arbeidsgiver
     port: 3000
     vault:
         enabled: {{vault-enabled}}
