@@ -1,16 +1,15 @@
+import { Avtale } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { storForbokstav } from '@/utils/stringUtils';
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import BEMHelper from '@/utils/bem';
-import { Avtale } from '@/types/avtale';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
 
 const cls = BEMHelper('avtaleparter');
-
-const storForbokstav = (streng: string) => streng.charAt(0).toUpperCase() + streng.slice(1);
 
 type Felt = {
     felt: string;

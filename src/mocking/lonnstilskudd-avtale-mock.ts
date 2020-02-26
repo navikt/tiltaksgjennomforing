@@ -49,7 +49,7 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
 
     arbeidsgiveravgift: 20,
     feriepengesats: 20,
-    lonnstilskuddProsent: '60',
+    lonnstilskuddProsent: 60,
     manedslonn: 10000,
     arbeidsgiverKontonummer: '123',
     arbeidsoppgaver: '',

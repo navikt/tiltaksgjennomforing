@@ -6,7 +6,6 @@ import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
-import { SokeTyper } from '@/types/soke-typer';
 import Varsel from '@/types/varsel';
 
 export const API_URL = '/tiltaksgjennomforing/api';
@@ -18,7 +17,7 @@ const featureTogglePath = (features: Feature[]): string => {
 
 export interface RestService {
     hentAvtale: (id: string) => Promise<Avtale>;
-    hentAvtalerForInnloggetBruker: (identifikasjon: SokeTyper) => Promise<Avtale[]>;
+    hentAvtalerForInnloggetBruker: (søkekriterier: Partial<Avtale>) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
     opprettAvtale: (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType) => Promise<Avtale>;
     hentRolle: (avtaleId: string) => Promise<Rolle>;
@@ -36,6 +35,7 @@ export interface RestService {
     hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
     låsOppAvtale: (avtaleId: string) => Promise<void>;
     delAvtaleMedAvtalepart: (avtaleId: string, avtalepart: Rolle) => Promise<void>;
+    sjekkOmBackupmenySkalBrukes: () => Promise<object>;
 }
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -69,8 +69,13 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     return { ...avtale, id: `${avtale.id}` };
 };
 
-const hentAvtalerForInnloggetBruker = async (identifikasjon: SokeTyper): Promise<Avtale[]> => {
-    const queryParam = new URLSearchParams(identifikasjon as {});
+const removeEmpty = (obj: any) => {
+    Object.keys(obj).forEach(k => !obj[k] && obj[k] !== undefined && delete obj[k]);
+    return obj;
+};
+
+const hentAvtalerForInnloggetBruker = async (søkekriterier: Partial<Avtale>): Promise<Avtale[]> => {
+    const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
     const response = await fetchGet(`${API_URL}/avtaler?${queryParam}`);
     await handleResponse(response);
     return await response.json();
@@ -204,6 +209,12 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
+const sjekkOmBackupmenySkalBrukes = async (): Promise<object> => {
+    const url = '/tiltaksgjennomforing/sjekkombackupmenyskalbrukes';
+    const response = await fetchGet(url);
+    return await response.json();
+};
+
 const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
     const response = await fetchGet(featureTogglePath(featureToggles));
     await handleResponse(response);
@@ -245,6 +256,7 @@ const restService: RestService = {
     hentAvtaleStatusDetaljer,
     låsOppAvtale,
     delAvtaleMedAvtalepart,
+    sjekkOmBackupmenySkalBrukes,
 };
 
 export default restService;

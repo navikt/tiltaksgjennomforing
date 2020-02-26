@@ -8,10 +8,14 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
+
+        <title>Tiltaksgjennomføring</title>
         <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
         <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
         <link rel="stylesheet" href="%PUBLIC_URL%/index.css" />
-
+        <div id="scripts"><%=htmlWebpackPlugin.options.scripts %></div>
+        <div id="megamenuResources"><%=htmlWebpackPlugin.options.megamenuResources %></div>
+        <div id="styles"><%=htmlWebpackPlugin.options.styles %></div>
         <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -65,6 +69,8 @@
     </head>
 
     <body>
+        <div id="headerWithmenu"><%=htmlWebpackPlugin.options.headerWithmenu %></div>
+
         <noscript>
             You need to enable JavaScript to run this app.
         </noscript>
@@ -79,5 +85,6 @@
   To begin the development, run `npm start` or `yarn start`.
   To create a production bundle, use `npm run build` or `yarn build`.
 -->
+        <div id="footerWithmenu"><%=htmlWebpackPlugin.options.footerWithmenu %></div>
     </body>
 </html>
