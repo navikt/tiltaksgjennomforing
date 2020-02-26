@@ -1,6 +1,4 @@
-# TAG - Tiltaksgjennomføring
-
-[![CircleCI](https://circleci.com/gh/navikt/tiltaksgjennomforing.svg?style=svg)](https://circleci.com/gh/navikt/tiltaksgjennomforing)
+# Tiltaksgjennomføring
 
 Starte via NPM med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-api også kjører lokalt).
 `npm start`
