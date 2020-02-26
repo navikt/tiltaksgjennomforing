@@ -1,7 +1,7 @@
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { EtikettLiten } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
 import BEMHelper from '@/utils/bem';
@@ -9,13 +9,26 @@ import './Innloggingslinje.less';
 import { InnloggetBruker } from './useInnlogget';
 import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 
+import RestService from '@/services/rest-service';
+
 const cls = BEMHelper('innloggingslinje');
 
 const Innloggingslinje: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = props => {
     const bruker = props.innloggetBruker.identifikator;
-    return (
+    const [showmenu, setmenukey] = useState<boolean>(false);
+    useEffect(() => {
+        RestService.sjekkOmBackupmenySkalBrukes().then(response => {
+            const result = Object.values(response);
+            setmenukey(showBackupMenu(result[0].includes('disabled')));
+        });
+    }, []);
+    const showBackupMenu = (responskey: boolean): boolean => {
+        return process.env.NODE_ENV !== 'production' ? true : responskey;
+    };
+
+    return showmenu ? (
         <div className="innloggingslinje">
             <div className="innloggingslinje__innhold">
                 <MediaQuery minWidth={577}>
@@ -36,6 +49,6 @@ const Innloggingslinje: FunctionComponent<{
                 </MediaQuery>
             </div>
         </div>
-    );
+    ) : null;
 };
 export default Innloggingslinje;
