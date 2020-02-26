@@ -6,14 +6,11 @@
         }
     ],
     "env": {
-        "PORT": {
-            "required": true
-        },
         "REACT_APP_MOCK": {
-            "required": true
+            "value": true
         },
         "ENABLE_EXTERNAL_MENU": {
-            "required": true
+            "value": false
         }
     },
     "formation": {
