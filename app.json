@@ -4,6 +4,11 @@
             "url": "heroku/nodejs"
         }
     ],
+    "env": {
+        "REACT_APP_MOCK": {
+            "value": "true"
+        }
+    },
     "formation": {
         "web": {
             "quantity": 1
