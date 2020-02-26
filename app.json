@@ -1,0 +1,27 @@
+{
+    "addons": [],
+    "buildpacks": [
+        {
+            "url": "heroku/nodejs"
+        }
+    ],
+    "env": {
+        "PORT": {
+            "required": true
+        },
+        "REACT_APP_MOCK": {
+            "required": true
+        },
+        "ENABLE_EXTERNAL_MENU": {
+            "required": true
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity": 1
+        }
+    },
+    "name": "tiltaksgjennomforing",
+    "scripts": {},
+    "stack": "heroku-18"
+}
