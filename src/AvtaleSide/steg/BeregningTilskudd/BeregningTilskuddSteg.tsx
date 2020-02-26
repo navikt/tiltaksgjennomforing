@@ -12,6 +12,14 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import {
+    arbeidsgiveravgift,
+    feriepenger,
+    lonnHundreProsent,
+    obligTjenestepensjon,
+    sumLonnFeriePensjon,
+    sumUtgifter,
+} from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
@@ -41,14 +49,17 @@ const arbeidsgiveravgiftAlternativer = () => {
     return satserVerdier;
 };
 
-const hundreProsentLonn = (manedslonn?: number, stillingsprosent?: number) => {
-    return manedslonn && stillingsprosent ? (manedslonn / stillingsprosent) * 100 : undefined;
-};
-
 const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag & Kontonummer> & {
     avtale: AvtaleMetadata;
 }> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+
+    const feriepengene = feriepenger(props.avtale.manedslonn, props.avtale.feriepengesats);
+    const otp = obligTjenestepensjon(props.avtale.manedslonn, feriepengene);
+    const lonnFeriePensjon = sumLonnFeriePensjon(props.avtale.manedslonn, feriepengene, otp);
+    const arbeidsgiveravgiften = arbeidsgiveravgift(lonnFeriePensjon, props.avtale.arbeidsgiveravgift);
+    const sumUtgiftene = sumUtgifter(props.avtale.manedslonn, feriepengene, otp, arbeidsgiveravgiften);
+
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
@@ -127,7 +138,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                                 name="manedslonn100%"
                                 bredde="S"
                                 label="Lønn ved 100% stilling"
-                                value={hundreProsentLonn(props.avtale.manedslonn, props.avtale.stillingprosent)}
+                                value={lonnHundreProsent(sumUtgiftene, props.avtale.stillingprosent)}
                             />
                         )}
                     <VerticalSpacer thirtyTwoPx={true} />

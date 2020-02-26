@@ -1,7 +1,7 @@
-const OTP_PROSENT_SATS = 2;
+const OTP_PROSENT_SATS = 0.02;
 
 export const feriepenger = (manedsLonn?: number, feriepengesats?: number) => {
-    return manedsLonn && feriepengesats ? Math.round((manedsLonn / 100) * feriepengesats) : 0;
+    return manedsLonn && feriepengesats ? Math.round(manedsLonn * feriepengesats) : 0;
 };
 
 export const sumLonnFeriePensjon = (manedsLonn?: number, feriepenger?: number, obligTjenestepensjon?: number) => {
@@ -11,17 +11,16 @@ export const sumLonnFeriePensjon = (manedsLonn?: number, feriepenger?: number, o
 };
 
 export const arbeidsgiveravgift = (sumLonnFeriePensjon?: number, arbeidsgiveravgiftSats?: number) => {
-    return sumLonnFeriePensjon && arbeidsgiveravgiftSats
-        ? Math.round((sumLonnFeriePensjon / 100) * arbeidsgiveravgiftSats)
-        : 0;
+    return sumLonnFeriePensjon && arbeidsgiveravgiftSats ? Math.round(sumLonnFeriePensjon * arbeidsgiveravgiftSats) : 0;
 };
 
 export const obligTjenestepensjon = (manedsLonn?: number, feriepenger?: number) => {
-    return manedsLonn && feriepenger ? Math.round(((manedsLonn + feriepenger) / 100) * OTP_PROSENT_SATS) : 0;
+    return manedsLonn && feriepenger ? Math.round((manedsLonn + feriepenger) * OTP_PROSENT_SATS) : 0;
 };
 
 export const sumLonnstilskuddPerManed = (sumUtgifter?: number, lonnstilskuddProsent?: number) => {
-    return sumUtgifter && lonnstilskuddProsent ? Math.round((sumUtgifter / 100) * lonnstilskuddProsent) : 0;
+    const ltsProsent = lonnstilskuddProsent ? lonnstilskuddProsent / 100 : 0;
+    return sumUtgifter && lonnstilskuddProsent ? Math.round(sumUtgifter * ltsProsent) : 0;
 };
 
 export const lonnHundreProsent = (sumUtgifter?: number, stillingsprosent?: number) => {
