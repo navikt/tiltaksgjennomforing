@@ -46,6 +46,7 @@ const TidligereVersjoner: React.FunctionComponent<Versjonering<AltAvtaleinnhold>
                         isOpen={isOpen}
                         lukkModal={() => setOpen(false)}
                         avtaleInnhold={props.versjoner[currentVersjon > 0 ? currentVersjon - 1 : 0]}
+                        tiltakstype={props.tiltakstype}
                     />
                 </>
             )}
