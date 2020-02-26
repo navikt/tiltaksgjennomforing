@@ -7,10 +7,10 @@
     ],
     "env": {
         "REACT_APP_MOCK": {
-            "value": true
+            "value": "true"
         },
         "ENABLE_EXTERNAL_MENU": {
-            "value": false
+            "value": "false"
         }
     },
     "formation": {
