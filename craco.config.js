@@ -1,14 +1,13 @@
 const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const { EnvironmentPlugin } = require('webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
     webpack: {
         plugins: [
             new BundleAnalyzerPlugin({
-                analyzerMode: 'disabled',
-                openAnalyzer: false,
+                analyzerMode: 'disabled', // Sett til 'server' for å vise analyse
             }),
             new EnvironmentPlugin({
                 GIT_COMMIT_HASH: 'local-dev',
