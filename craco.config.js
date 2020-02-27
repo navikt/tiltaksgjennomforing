@@ -2,8 +2,6 @@ const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const { EnvironmentPlugin } = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const { defaults } = require('jest-config');
-const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
 
 module.exports = {
     webpack: {
@@ -20,12 +18,7 @@ module.exports = {
             '@': path.resolve(__dirname, 'src/'),
         },
     },
-    plugins: [
-        { plugin: CracoLessPlugin },
-        {
-            plugin: decoratorhtmlwebpackplugin(process.env.ENABLE_EXTERNAL_MENU),
-        },
-    ],
+    plugins: [{ plugin: CracoLessPlugin }],
     eslint: {
         enable: true,
         mode: 'extends',

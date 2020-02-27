@@ -1,7 +1,8 @@
 const proxy = require('http-proxy-middleware');
 const whitelist = require('./whitelist');
+const headerFooterDecorator = require('../headerFooterDecorator');
 
-const erDevelopmentModus = process.env.NODE_ENV === 'development';
+const erDevelopmentModus = true; //process.env.NODE_ENV === 'development';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
@@ -60,10 +61,6 @@ module.exports = function(app) {
         res.redirect(envProperties.LOGOUT_URL);
     });
 
-    app.get('/tiltaksgjennomforing/skal-backupmeny-brukes', (req, res) => {
-        res.send(!Boolean(process.env.ENABLE_EXTERNAL_MENU));
-    });
-
     const proxyConfig = {
         changeOrigin: true,
         pathRewrite: whitelist,
@@ -78,4 +75,6 @@ module.exports = function(app) {
     }
 
     app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
+
+    headerFooterDecorator(app);
 };
