@@ -1,12 +1,10 @@
 'use strict';
 const path = require('path');
 const fs = require('fs');
-const jsdom = require('jsdom');
 const NodeCache = require('node-cache');
 const express = require('express');
 const fetch = require('node-fetch');
-
-const { JSDOM } = jsdom;
+const { JSDOM } = require('jsdom');
 
 const cacheKey = 'tiltak-withMenu';
 const cache = new NodeCache();
@@ -32,7 +30,7 @@ const fetchMenu = async () => {
     }
 };
 
-const injectMenuToIndexHtml = (indexDom, menuDom) => {
+const injectMenuToIndexDocument = (indexDocument, menuDocument) => {
     const htmlinsert = [
         { inject: 'styles', from: 'styles' },
         { inject: 'scripts', from: 'scripts' },
@@ -41,26 +39,26 @@ const injectMenuToIndexHtml = (indexDom, menuDom) => {
         { inject: 'megamenuResources', from: 'megamenu-resources' },
     ];
     htmlinsert.forEach(element => {
-        indexDom.getElementById(element.inject).innerHTML = menuDom.getElementById(element.from).innerHTML;
+        indexDocument.getElementById(element.inject).innerHTML = menuDocument.getElementById(element.from).innerHTML;
     });
 };
 
 const decoratedIndexHtml = async () => {
     const indexHtml = await readIndexFile();
-    const indexDom = new JSDOM(indexHtml).window.document;
+    const indexDocument = new JSDOM(indexHtml).window.document;
 
     try {
         const menu = await fetchMenu();
-        const menuDom = new JSDOM(menu).window.document;
+        const menuDocument = new JSDOM(menu).window.document;
 
-        injectMenuToIndexHtml(indexDom, menuDom);
+        injectMenuToIndexDocument(indexDocument, menuDocument);
         menuInjectedSuccessfully = true;
     } catch (error) {
         console.error('ERROR: Kunne ikke injecte fra meny', error);
         menuInjectedSuccessfully = false;
     }
 
-    return indexDom.documentElement.innerHTML;
+    return indexDocument.documentElement.innerHTML;
 };
 
 module.exports = server => {
