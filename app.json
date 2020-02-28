@@ -7,6 +7,9 @@
     "env": {
         "REACT_APP_MOCK": {
             "value": "true"
+        },
+        "REACT_APP_ON_HEROKU": {
+            "value": "true"
         }
     },
     "formation": {
