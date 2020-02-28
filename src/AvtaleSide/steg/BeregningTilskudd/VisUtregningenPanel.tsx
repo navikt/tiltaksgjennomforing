@@ -105,11 +105,15 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         </MediaQuery>
                         <div>
                             Arbeidsgiveravgift{' '}
-                            <MediaQuery maxWidth={699}>({(props.arbeidsgiveravgift * 100).toFixed(1)}.%)</MediaQuery>
+                            <MediaQuery maxWidth={699}>
+                                ({(props.arbeidsgiveravgift ? props.arbeidsgiveravgift * 100 : 0).toFixed(1)}%)
+                            </MediaQuery>
                         </div>
                     </Column>
                     <Column md="3" sm="3" xs="3">
-                        <MediaQuery minWidth={700}>({(props.arbeidsgiveravgift * 100).toFixed(1)}.%)</MediaQuery>
+                        <MediaQuery minWidth={700}>
+                            ({(props.arbeidsgiveravgift ? props.arbeidsgiveravgift * 100 : 0).toFixed(1)}%)
+                        </MediaQuery>
                     </Column>
                     <Column md="1" sm="1" xs="1">
                         +

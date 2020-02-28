@@ -33,7 +33,7 @@ export const sumUtgifter = (
     obligTjenestepensjon?: number,
     arbeidsgiveravgift?: number
 ) => {
-    if (manedsLonn && feriepenger && obligTjenestepensjon && arbeidsgiveravgift) {
+    if (manedsLonn && feriepenger && obligTjenestepensjon && arbeidsgiveravgift !== undefined) {
         return Math.round(manedsLonn + feriepenger + obligTjenestepensjon + arbeidsgiveravgift);
     } else {
         return 0;
