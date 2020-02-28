@@ -1,4 +1,5 @@
 const whitelist = require('./whitelist');
+const proxy = require('http-proxy-middleware');
 const headerFooterDecorator = require('../headerFooterDecorator');
 
 const erDevelopmentModus = true; //process.env.NODE_ENV === 'development';
@@ -73,14 +74,7 @@ module.exports = function(app) {
         };
     }
 
-    try {
-        const proxy = require.resolve('http-proxy-middleware');
-        app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
-    } catch (e) {
-        console.warn(
-            'WARN: http-proxy-middleware er ikke installert, så frontend vil ikke kunne kommunisere med backend'
-        );
-    }
+    app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
 
     headerFooterDecorator(app);
 };
