@@ -47,3 +47,16 @@ test('Lønn ved 100% stilling', () => {
 test('Sum lønnstilskudd per måned', () => {
     expect(sumLonnstilskuddPerManed(sumUtgiftene, LØNNSTILSKUDD_PROSENT)).toBe(5214);
 });
+
+// Sjekker med blanke verdier
+test('Sum utgifter uten arbeidsgiveravgift skal fortsatt regnes ut', () => {
+    const sumUtgifteneFeriepenger0 = sumUtgifter(MÅNEDSLØNN, 0, obligTjenestepensjonen, arbeidsgiveravgiften);
+    expect(sumUtgifteneFeriepenger0).toBe(11424);
+    const sumUtgifteneFeriepengerUndefined = sumUtgifter(
+        MÅNEDSLØNN,
+        undefined,
+        obligTjenestepensjonen,
+        arbeidsgiveravgiften
+    );
+    expect(sumUtgifteneFeriepengerUndefined).toBe(11424);
+});
