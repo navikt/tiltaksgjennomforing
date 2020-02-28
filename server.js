@@ -1,24 +1,18 @@
 'use strict';
 const express = require('express');
 const setupProxy = require('./src/setupProxy');
+const helmet = require('helmet');
 
 const server = express();
+
+// Middleware for sikkerhet
+server.use(helmet());
 
 server.get('/', (req, res) => res.redirect(req.baseUrl + '/tiltaksgjennomforing'));
 
 // health checks
 server.get('/tiltaksgjennomforing/internal/isAlive', (req, res) => res.sendStatus(200));
 server.get('/tiltaksgjennomforing/internal/isReady', (req, res) => res.sendStatus(200));
-
-// security
-server.disable('x-powered-by');
-
-try {
-    const helmet = require.resolve('helmet');
-    server.use(helmet());
-} catch (error) {
-    console.warn('WARN: Helmet er ikke installert. Starter Express uten.');
-}
 
 setupProxy(server);
 
