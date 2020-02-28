@@ -88,6 +88,7 @@
         "react-motion": "^0.5.2",
         "react-responsive": "^8.0.3",
         "react-router-dom": "^5.1.2",
+        "request": "^2.88.2",
         "url-search-params-polyfill": "^7.0.1"
     },
     "devDependencies": {
