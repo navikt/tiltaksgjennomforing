@@ -53,7 +53,7 @@ module.exports = function(app) {
             });
         }
 
-        res.send(JSON.stringify(innloggingskilder));
+        res.json(innloggingskilder);
     });
 
     app.get('/tiltaksgjennomforing/logout', (req, res) => {
@@ -61,7 +61,7 @@ module.exports = function(app) {
     });
 
     app.get('/tiltaksgjennomforing/skal-backupmeny-brukes', (req, res) => {
-        res.send(!Boolean(process.env.ENABLE_EXTERNAL_MENU));
+        res.json(process.env.ENABLE_EXTERNAL_MENU !== 'true');
     });
 
     const proxyConfig = {
