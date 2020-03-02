@@ -60,6 +60,15 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
     const arbeidsgiveravgiften = arbeidsgiveravgift(lonnFeriePensjon, props.avtale.arbeidsgiveravgift);
     const sumUtgiftene = sumUtgifter(props.avtale.manedslonn, feriepengene, otp, arbeidsgiveravgiften);
 
+    const parseFloatIfFloatable = (verdi: string) => {
+        const floatedValue = parseFloat(verdi);
+        if (!isNaN(floatedValue)) {
+            return parseFloat(verdi);
+        } else {
+            return '';
+        }
+    };
+
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
@@ -117,7 +126,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         children=""
                         value={props.avtale.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                            props.settAvtaleVerdi('arbeidsgiveravgift', parseFloat(event.target.value));
+                            props.settAvtaleVerdi('arbeidsgiveravgift', parseFloatIfFloatable(event.target.value));
                         }}
                     />
                     <KontonummerInput
