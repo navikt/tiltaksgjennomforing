@@ -8,7 +8,7 @@ const cls = BEMHelper('advarsel-banner-heroku');
 const AdvarselBannerHeroku = () => {
     return (
         <>
-            {process.env.REACT_APP_ON_HEROKU !== 'true' && (
+            {process.env.REACT_APP_ON_HEROKU === 'true' && (
                 <AlertStripeAdvarsel className={cls.className}>
                     <b>Dette er en testversjon</b>
                     <br />
