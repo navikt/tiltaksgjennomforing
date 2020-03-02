@@ -91,7 +91,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             }}
                         >
                             Deltaker og arbeidsgiver logger seg inn i avtalen via ID-porten. Tilgang for arbeidsgiver
-                            styres gjennom Altinn. For at en arbeidsgiver kan representere en bedrift må personen må gis
+                            styres gjennom Altinn. For at en arbeidsgiver kan representere en bedrift må personen gis
                             følgende tilganger til enkeltrettigheter for de ulike avtalene:
                             <ul>
                                 <li>Avtale om arbeidstrening</li>

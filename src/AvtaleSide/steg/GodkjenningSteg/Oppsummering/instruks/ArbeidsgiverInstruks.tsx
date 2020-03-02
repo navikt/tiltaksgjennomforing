@@ -3,6 +3,7 @@ import { ReactComponent as LovIkon } from '@/assets/ikoner/lov.svg';
 import { ReactComponent as PersonOpplysningIkon } from '@/assets/ikoner/personopplysninger.svg';
 import { ReactComponent as SkadeIkon } from '@/assets/ikoner/skade.svg';
 import { ReactComponent as SkjoldIkon } from '@/assets/ikoner/skjold.svg';
+import { ReactComponent as SedlerIkon } from '@/assets/ikoner/sedler.svg';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
@@ -142,9 +143,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                 </p>
             </EkspanderbartPanelRad>
 
-            {props.tiltakstype !== 'ARBEIDSTRENING' && (
+            {(props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
                 <EkspanderbartPanelRad
-                    svgIkon={<PersonOpplysningIkon />}
+                    svgIkon={<SedlerIkon />}
                     headerTekst={{ tekst: 'Sende inn krav om refusjon', typografiType: 'undertittel' }}
                 >
                     <p>
@@ -154,10 +155,12 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                     </p>
 
                     <p>
-                        Når perioden er over, må dere sende inn et krav om tilskudd til NAV på skjema for refusjonskrav
-                        [lenke]. Siste frist for å sende inn dette kravet er senest to måneder etter at perioden er
-                        over. Hvis fristen ikke holdes, trekkes tilskuddet som er innvilget og dere får ikke utbetalt
-                        støtte.
+                        Når perioden er over, må dere sende inn et krav om tilskudd til NAV på{' '}
+                        <EksternLenke href={'https://www.nav.no/soknader/nb/bedrift/refusjoner/lonnstilskud'}>
+                            skjema for refusjonskrav
+                        </EksternLenke>
+                        . Siste frist for å sende inn dette kravet er senest to måneder etter at perioden er over. Hvis
+                        fristen ikke holdes, trekkes tilskuddet som er innvilget og dere får ikke utbetalt støtte.
                     </p>
 
                     <p>
