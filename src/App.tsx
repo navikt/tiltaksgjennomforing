@@ -22,7 +22,7 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import AdvarselBannerHeroku from './AdvarselBannerHeroku';
+import AdvarselBannerHeroku from './AdvarselBannerHeroku/AdvarselBannerHeroku';
 
 addLocaleData(nb);
 
