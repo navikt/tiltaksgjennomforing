@@ -64,11 +64,11 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         lonnstilskuddProsent={props.avtale.lonnstilskuddProsent}
                         settLonnstilskuddProsent={verdi => props.settAvtaleVerdi('lonnstilskuddProsent', verdi)}
                     />
-                    <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn</Undertittel>
+                    <VerticalSpacer sixteenPx={true} />
                 </>
             )}
 
-            {!innloggetBruker.erNavAnsatt && <Undertittel>Lønn</Undertittel>}
+            <Undertittel className={cls.element('lonn-tittel')}>Lønn</Undertittel>
 
             <Row className="">
                 <Column md="6">
