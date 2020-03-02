@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
-const TestAdvarsel = () => {
+const AdvarselBannerHeroku = () => {
     return (
         <>
             {process.env.REACT_APP_ON_HEROKU === 'true' && (
@@ -13,4 +13,4 @@ const TestAdvarsel = () => {
     );
 };
 
-export default TestAdvarsel;
+export default AdvarselBannerHeroku;
