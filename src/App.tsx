@@ -22,6 +22,7 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import TestAdvarsel from '@/TestAdvarsel';
 
 addLocaleData(nb);
 
@@ -30,6 +31,7 @@ class App extends React.Component {
         return (
             <IntlProvider locale="nb" messages={messages}>
                 <BrowserRouter basename={basename}>
+                    <TestAdvarsel />
                     <Switch>
                         <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
                         <FeilVarselProvider>
