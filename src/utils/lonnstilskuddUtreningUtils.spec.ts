@@ -65,8 +65,28 @@ test('visSatsMedEttDesmial', () => {
     expect(visSatsMedEttDesimal(NaN)).toBe('0.0');
 });
 
-// Sjekker med blanke verdier
+// BLANKE VERDIER
 test('Sum utgifter uten arbeidsgiveravgift skal fortsatt regnes ut', () => {
     const sumUtgifteneArbeidsgiveravgift0 = sumUtgifter(MÅNEDSLØNN, feriepengene, obligTjenestepensjonen, 0);
     expect(sumUtgifteneArbeidsgiveravgift0).toBe(11424);
+});
+test('Feriepenger blanks', () => {
+    expect(feriepenger(MÅNEDSLØNN, 0)).toBe(0);
+    expect(feriepenger(MÅNEDSLØNN, undefined)).toBe(0);
+    expect(feriepenger(MÅNEDSLØNN)).toBe(0);
+    expect(feriepenger(MÅNEDSLØNN, NaN)).toBe(0);
+
+    expect(feriepenger(0, 0)).toBe(0);
+    expect(feriepenger(0, FERIEPENGE_SATS)).toBe(0);
+    expect(feriepenger(NaN, FERIEPENGE_SATS)).toBe(0);
+    expect(feriepenger(undefined, FERIEPENGE_SATS)).toBe(0);
+});
+test('Obligatorisk Tjenestepensjon blanks', () => {
+    expect(obligTjenestepensjon(MÅNEDSLØNN, 0)).toBe(0);
+    expect(obligTjenestepensjon(MÅNEDSLØNN, undefined)).toBe(0);
+    expect(obligTjenestepensjon(MÅNEDSLØNN, NaN)).toBe(0);
+
+    expect(obligTjenestepensjon(0, feriepengene)).toBe(0);
+    expect(obligTjenestepensjon(undefined, feriepengene)).toBe(0);
+    expect(obligTjenestepensjon(NaN, feriepengene)).toBe(0);
 });
