@@ -35,6 +35,10 @@ const backupCache = new NodeCache({ stdTTL: 0, checkperiod: 0 });
 const setupProxy = require('./src/setupProxy');
 setupProxy(server);
 
+if (process.env.REACT_APP_ON_HEROKU === 'true') {
+    server.get('/', (req, res) => res.redirect(req.baseUrl + '/tiltaksgjennomforing'));
+}
+
 // health checks
 server.get('/tiltaksgjennomforing/internal/isAlive', (req, res) => res.sendStatus(200));
 server.get('/tiltaksgjennomforing/internal/isReady', (req, res) => res.sendStatus(200));

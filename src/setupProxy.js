@@ -1,22 +1,22 @@
 const proxy = require('http-proxy-middleware');
 const whitelist = require('./whitelist');
 
-const erDevelopmentModus = process.env.NODE_ENV === 'development';
+const brukLokalLogin = process.env.NODE_ENV === 'development' || process.env.REACT_APP_ON_HEROKU === 'true';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
     APIGW_HEADER: process.env.APIGW_HEADER,
     ISSO_LOGIN_URL:
         process.env.ISSO_LOGIN_URL ||
-        (erDevelopmentModus &&
+        (brukLokalLogin &&
             '/tiltaksgjennomforing/api/local/isso-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
     SELVBETJENING_LOGIN_URL:
         process.env.SELVBETJENING_LOGIN_URL ||
-        (erDevelopmentModus &&
+        (brukLokalLogin &&
             '/tiltaksgjennomforing/api/local/selvbetjening-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
     LOGOUT_URL:
         process.env.LOGOUT_URL ||
-        (erDevelopmentModus &&
+        (brukLokalLogin &&
             '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
 };
 
@@ -53,19 +53,15 @@ module.exports = function(app) {
             });
         }
 
-        res.send(JSON.stringify(innloggingskilder));
+        res.json(innloggingskilder);
     });
 
     app.get('/tiltaksgjennomforing/logout', (req, res) => {
         res.redirect(envProperties.LOGOUT_URL);
     });
 
-    app.get('/tiltaksgjennomforing/sjekkombackupmenyskalbrukes', (req, res) => {
-        const respons = process.env.ENABLE_EXTERNAL_MENU ? process.env.ENABLE_EXTERNAL_MENU : 'disabled';
-        const answer = JSON.stringify({
-            externalmenustatus: respons,
-        });
-        res.send(answer);
+    app.get('/tiltaksgjennomforing/skal-backupmeny-brukes', (req, res) => {
+        res.json(process.env.ENABLE_EXTERNAL_MENU !== 'true');
     });
 
     const proxyConfig = {

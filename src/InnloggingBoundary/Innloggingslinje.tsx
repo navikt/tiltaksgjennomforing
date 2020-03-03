@@ -17,18 +17,12 @@ const Innloggingslinje: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = props => {
     const bruker = props.innloggetBruker.identifikator;
-    const [showmenu, setmenukey] = useState<boolean>(false);
+    const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>(false);
     useEffect(() => {
-        RestService.sjekkOmBackupmenySkalBrukes().then(response => {
-            const result = Object.values(response);
-            setmenukey(showBackupMenu(result[0].includes('disabled')));
-        });
+        RestService.skalBackupmenyBrukes().then(setBrukBackupmeny);
     }, []);
-    const showBackupMenu = (responskey: boolean): boolean => {
-        return process.env.NODE_ENV !== 'production' ? true : responskey;
-    };
 
-    return showmenu ? (
+    return brukBackupmeny ? (
         <div className="innloggingslinje">
             <div className="innloggingslinje__innhold">
                 <MediaQuery minWidth={577}>

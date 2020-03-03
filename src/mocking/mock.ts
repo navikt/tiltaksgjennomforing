@@ -28,6 +28,7 @@ fetchMock
             url: '',
         },
     ])
+    .get('/tiltaksgjennomforing/skal-backupmeny-brukes', 'true')
     .get(`${API_URL}/innlogget-bruker`, { identifikator: 'Z123456', erNavAnsatt: true })
     .get(`${API_URL}/avtaler?veilederNavIdent=Z123456`, [arbeidstreningAvtaleMock, lonnstilskuddAvtaleMock])
     .get(`${API_URL}/avtaler/0/rolle`, '"VEILEDER"')

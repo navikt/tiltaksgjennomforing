@@ -1,5 +1,4 @@
 {
-    "addons": [],
     "buildpacks": [
         {
             "url": "heroku/nodejs"
@@ -9,8 +8,8 @@
         "REACT_APP_MOCK": {
             "value": "true"
         },
-        "ENABLE_EXTERNAL_MENU": {
-            "value": "false"
+        "REACT_APP_ON_HEROKU": {
+            "value": "true"
         }
     },
     "formation": {
@@ -18,7 +17,5 @@
             "quantity": 1
         }
     },
-    "name": "tiltaksgjennomforing",
-    "scripts": {},
-    "stack": "heroku-18"
+    "name": "tiltaksgjennomforing"
 }
