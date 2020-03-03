@@ -47,7 +47,6 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         </div>
                     </Column>
                     <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
-                        {/* {props.stillingprosent ? props.stillingprosent : 0} % */}
                         {visTalletEller0(props.stillingprosent)} %
                     </Column>
                 </Row>

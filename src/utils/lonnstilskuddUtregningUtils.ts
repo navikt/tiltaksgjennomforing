@@ -1,12 +1,12 @@
 const OTP_PROSENT_SATS = 0.02;
 
-export const feriepenger = (manedsLonn?: number, feriepengesats?: number) => {
-    return manedsLonn && feriepengesats ? Math.round(manedsLonn * feriepengesats) : 0;
+export const feriepenger = (manedslonn?: number, feriepengesats?: number) => {
+    return manedslonn && feriepengesats ? Math.round(manedslonn * feriepengesats) : 0;
 };
 
-export const sumLonnFeriePensjon = (manedsLonn?: number, feriepenger?: number, obligTjenestepensjon?: number) => {
-    return manedsLonn && feriepenger && obligTjenestepensjon
-        ? Math.round(manedsLonn + feriepenger + obligTjenestepensjon)
+export const sumLonnFeriePensjon = (manedslonn?: number, feriepenger?: number, obligTjenestepensjon?: number) => {
+    return manedslonn && feriepenger && obligTjenestepensjon
+        ? Math.round(manedslonn + feriepenger + obligTjenestepensjon)
         : 0;
 };
 
@@ -14,8 +14,8 @@ export const arbeidsgiveravgift = (sumLonnFeriePensjon?: number, arbeidsgiveravg
     return sumLonnFeriePensjon && arbeidsgiveravgiftSats ? Math.round(sumLonnFeriePensjon * arbeidsgiveravgiftSats) : 0;
 };
 
-export const obligTjenestepensjon = (manedsLonn?: number, feriepenger?: number) => {
-    return manedsLonn && feriepenger ? Math.round((manedsLonn + feriepenger) * OTP_PROSENT_SATS) : 0;
+export const obligTjenestepensjon = (manedslonn?: number, feriepenger?: number) => {
+    return manedslonn && feriepenger ? Math.round((manedslonn + feriepenger) * OTP_PROSENT_SATS) : 0;
 };
 
 export const sumLonnstilskuddPerManed = (sumUtgifter?: number, lonnstilskuddProsent?: number) => {
@@ -28,13 +28,13 @@ export const lonnHundreProsent = (sumUtgifter?: number, stillingsprosent?: numbe
 };
 
 export const sumUtgifter = (
-    manedsLonn?: number,
+    manedslonn?: number,
     feriepenger?: number,
     obligTjenestepensjon?: number,
     arbeidsgiveravgift?: number
 ) => {
-    if (manedsLonn && feriepenger && obligTjenestepensjon && arbeidsgiveravgift !== undefined) {
-        return Math.round(manedsLonn + feriepenger + obligTjenestepensjon + arbeidsgiveravgift);
+    if (manedslonn && feriepenger && obligTjenestepensjon && arbeidsgiveravgift !== undefined) {
+        return Math.round(manedslonn + feriepenger + obligTjenestepensjon + arbeidsgiveravgift);
     } else {
         return 0;
     }
