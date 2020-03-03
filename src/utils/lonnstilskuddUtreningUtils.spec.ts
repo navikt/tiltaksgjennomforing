@@ -52,7 +52,6 @@ test('Sum lønnstilskudd per måned', () => {
 
 test('visTalltEller0', () => {
     expect(visTalletEller0(1000)).toBe(1000);
-    expect(visTalletEller0()).toBe(0);
     expect(visTalletEller0(undefined)).toBe(0);
     expect(visTalletEller0(NaN)).toBe(0);
 });
@@ -60,7 +59,6 @@ test('visSatsMedEttDesmial', () => {
     // .toFixed() som brukes for å spesifisere antall desimaler returnerer string.
     expect(visSatsMedEttDesimal(0.141)).toBe('14.1');
     expect(visSatsMedEttDesimal(0.12)).toBe('12.0');
-    expect(visSatsMedEttDesimal()).toBe('0.0');
     expect(visSatsMedEttDesimal(undefined)).toBe('0.0');
     expect(visSatsMedEttDesimal(NaN)).toBe('0.0');
 });
@@ -73,7 +71,6 @@ test('Sum utgifter uten arbeidsgiveravgift skal fortsatt regnes ut', () => {
 test('Feriepenger blanks', () => {
     expect(feriepenger(MÅNEDSLØNN, 0)).toBe(0);
     expect(feriepenger(MÅNEDSLØNN, undefined)).toBe(0);
-    expect(feriepenger(MÅNEDSLØNN)).toBe(0);
     expect(feriepenger(MÅNEDSLØNN, NaN)).toBe(0);
 
     expect(feriepenger(0, 0)).toBe(0);
