@@ -1,6 +1,8 @@
 import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
+import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import { ArbeidstreningAvtaleinnhold, AvtaleVersjon } from '@/types/avtale';
+import { AltAvtaleinnhold, AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import Modal from 'nav-frontend-modal';
 import React from 'react';
 import './VersjonModal.less';
@@ -8,10 +10,18 @@ import './VersjonModal.less';
 interface Props {
     isOpen: boolean;
     lukkModal: () => void;
-    avtaleInnhold: AvtaleVersjon<ArbeidstreningAvtaleinnhold>;
+    avtaleInnhold: AvtaleVersjon<AltAvtaleinnhold>;
+    tiltakstype: TiltaksType;
 }
 
 const VersjonModal: React.FunctionComponent<Props> = props => {
+    const oppsummeringType: { [key in TiltaksType]: JSX.Element } = {
+        ARBEIDSTRENING: <OppsummeringArbeidstrening avtaleinnhold={props.avtaleInnhold} />,
+        MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
+        VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
+        MENTOR: <OppsummeringMentor avtaleinnhold={props.avtaleInnhold} />,
+    };
+
     return (
         <Modal
             className="versjon__modal"
@@ -21,7 +31,7 @@ const VersjonModal: React.FunctionComponent<Props> = props => {
             onRequestClose={() => props.lukkModal()}
         >
             <SkjemaTittel>Versjon {props.avtaleInnhold.versjon}</SkjemaTittel>
-            <OppsummeringArbeidstrening avtaleinnhold={props.avtaleInnhold} />
+            {oppsummeringType[props.tiltakstype]}
         </Modal>
     );
 };
