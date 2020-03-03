@@ -13,9 +13,10 @@ import BEMHelper from '@/utils/bem';
 import { VenstreChevron } from 'nav-frontend-chevron';
 import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import './informasjonsside.less';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
@@ -33,6 +34,8 @@ const tilbakeTilOversikt = (pathName: string) => {
     }
 };
 const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
     return (
         <div>
@@ -88,10 +91,13 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             }}
                         >
                             Deltaker og arbeidsgiver logger seg inn i avtalen via ID-porten. Tilgang for arbeidsgiver
-                            styres gjennom Altinn. For at en arbeidsgiver kan representere en bedrift må personen ha
-                            rollen{'  '}
-                            <u>Helse-, sosial- og velferdstjenester</u> eller gis tilgang til enkelttjenesten{' '}
-                            <u>Avtale om arbeidstrening</u>.
+                            styres gjennom Altinn. For at en arbeidsgiver kan representere en bedrift må personen gis
+                            følgende tilganger til enkeltrettigheter for de ulike avtalene:
+                            <ul>
+                                <li>Avtale om arbeidstrening</li>
+                                {lonnstilskuddToggle && <li>Avtale om midlertidig lønnstilskudd</li>}
+                                {lonnstilskuddToggle && <li>Avtale om varig lønnstilskudd</li>}
+                            </ul>
                             <br />
                             <span className={cls.element('lenke')}>
                                 <Lenke onClick={() => setVideoModalOpen(true)} href="#">
@@ -100,7 +106,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             </span>
                             <span className={cls.element('lenke')}>
                                 <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                                    Les mer om roller og rettigheter på Altinn.no
+                                    Finn mer informasjon om roller og rettigheter på Altinn.no
                                 </EksternLenke>
                             </span>
                             <AltinnVideoModal isOpen={isVideoModalOpen} lukkModal={() => setVideoModalOpen(false)} />
