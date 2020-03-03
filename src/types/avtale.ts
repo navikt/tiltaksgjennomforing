@@ -146,6 +146,7 @@ export type AvtaleVersjon<T extends FellesAvtaleinnhold> = T & { versjon: number
 export interface Versjonering<T extends FellesAvtaleinnhold> {
     versjoner: AvtaleVersjon<T>[];
     kanLåsesOpp: boolean;
+    tiltakstype: TiltaksType;
 }
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
