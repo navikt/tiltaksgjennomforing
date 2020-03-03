@@ -13,6 +13,8 @@ import {
     sumLonnFeriePensjon,
     sumLonnstilskuddPerManed,
     sumUtgifter,
+    visSatsMedEttDesimal,
+    visTalletEller0,
 } from '@/utils/lonnstilskuddUtregningUtils';
 import classNames from 'classnames';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -45,7 +47,8 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         </div>
                     </Column>
                     <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
-                        {props.stillingprosent ? props.stillingprosent : 0} %
+                        {/* {props.stillingprosent ? props.stillingprosent : 0} % */}
+                        {visTalletEller0(props.stillingprosent)} %
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -59,7 +62,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         </div>
                     </Column>
                     <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
-                        <div> {props.manedslonn ? props.manedslonn : 0} kr</div>
+                        <div> {visTalletEller0(props.manedslonn)} kr</div>
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -70,7 +73,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         <div>Feriepenger</div>
                     </Column>
                     <Column md="3" sm="3" xs="3">
-                        ({(props.feriepengesats * 100).toFixed(1)}%)
+                        ({visSatsMedEttDesimal(props.feriepengesats)}%)
                     </Column>
                     <Column md="1" sm="1" xs="1">
                         +
@@ -105,15 +108,11 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         </MediaQuery>
                         <div>
                             Arbeidsgiveravgift{' '}
-                            <MediaQuery maxWidth={699}>
-                                ({(props.arbeidsgiveravgift ? props.arbeidsgiveravgift * 100 : 0).toFixed(1)}%)
-                            </MediaQuery>
+                            <MediaQuery maxWidth={699}>({visSatsMedEttDesimal(props.arbeidsgiveravgift)}%)</MediaQuery>
                         </div>
                     </Column>
                     <Column md="3" sm="3" xs="3">
-                        <MediaQuery minWidth={700}>
-                            ({(props.arbeidsgiveravgift ? props.arbeidsgiveravgift * 100 : 0).toFixed(1)}%)
-                        </MediaQuery>
+                        <MediaQuery minWidth={700}>({visSatsMedEttDesimal(props.arbeidsgiveravgift)}%)</MediaQuery>
                     </Column>
                     <Column md="1" sm="1" xs="1">
                         +

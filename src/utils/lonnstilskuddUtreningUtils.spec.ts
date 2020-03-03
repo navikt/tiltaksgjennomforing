@@ -6,6 +6,8 @@ import {
     sumLonnFeriePensjon,
     sumLonnstilskuddPerManed,
     sumUtgifter,
+    visSatsMedEttDesimal,
+    visTalletEller0,
 } from './lonnstilskuddUtregningUtils';
 
 const MÅNEDSLØNN = 10000;
@@ -48,15 +50,23 @@ test('Sum lønnstilskudd per måned', () => {
     expect(sumLonnstilskuddPerManed(sumUtgiftene, LØNNSTILSKUDD_PROSENT)).toBe(5214);
 });
 
+test('visTalltEller0', () => {
+    expect(visTalletEller0(1000)).toBe(1000);
+    expect(visTalletEller0()).toBe(0);
+    expect(visTalletEller0(undefined)).toBe(0);
+    expect(visTalletEller0(NaN)).toBe(0);
+});
+test('visSatsMedEttDesmial', () => {
+    // .toFixed() som brukes for å spesifisere antall desimaler returnerer string.
+    expect(visSatsMedEttDesimal(0.141)).toBe('14.1');
+    expect(visSatsMedEttDesimal(0.12)).toBe('12.0');
+    expect(visSatsMedEttDesimal()).toBe('0.0');
+    expect(visSatsMedEttDesimal(undefined)).toBe('0.0');
+    expect(visSatsMedEttDesimal(NaN)).toBe('0.0');
+});
+
 // Sjekker med blanke verdier
 test('Sum utgifter uten arbeidsgiveravgift skal fortsatt regnes ut', () => {
-    const sumUtgifteneFeriepenger0 = sumUtgifter(MÅNEDSLØNN, 0, obligTjenestepensjonen, arbeidsgiveravgiften);
-    expect(sumUtgifteneFeriepenger0).toBe(11424);
-    const sumUtgifteneFeriepengerUndefined = sumUtgifter(
-        MÅNEDSLØNN,
-        undefined,
-        obligTjenestepensjonen,
-        arbeidsgiveravgiften
-    );
-    expect(sumUtgifteneFeriepengerUndefined).toBe(11424);
+    const sumUtgifteneArbeidsgiveravgift0 = sumUtgifter(MÅNEDSLØNN, feriepengene, obligTjenestepensjonen, 0);
+    expect(sumUtgifteneArbeidsgiveravgift0).toBe(11424);
 });
