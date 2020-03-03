@@ -12,6 +12,14 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import {
+    arbeidsgiveravgift,
+    feriepenger,
+    lonnHundreProsent,
+    obligTjenestepensjon,
+    sumLonnFeriePensjon,
+    sumUtgifter,
+} from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
@@ -30,8 +38,8 @@ const feriepengeAlternativer = (erOver60: boolean) => {
 };
 
 const arbeidsgiveravgiftAlternativer = () => {
-    const satser = [0.141, 0.106, 0.064, 0.051, 0.079];
-    const satserVerdier = [{ label: 'Velg', value: '0' }];
+    const satser = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
+    const satserVerdier = [{ label: 'Velg', value: '' }];
     satser.forEach((sats: number) =>
         satserVerdier.push({
             label: (sats * 100).toFixed(1) + ' %',
@@ -41,14 +49,26 @@ const arbeidsgiveravgiftAlternativer = () => {
     return satserVerdier;
 };
 
-const hundreProsentLonn = (manedslonn?: number, stillingsprosent?: number) => {
-    return manedslonn && stillingsprosent ? (manedslonn / stillingsprosent) * 100 : undefined;
-};
-
 const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag & Kontonummer> & {
     avtale: AvtaleMetadata;
 }> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+
+    const feriepengene = feriepenger(props.avtale.manedslonn, props.avtale.feriepengesats);
+    const otp = obligTjenestepensjon(props.avtale.manedslonn, feriepengene);
+    const lonnFeriePensjon = sumLonnFeriePensjon(props.avtale.manedslonn, feriepengene, otp);
+    const arbeidsgiveravgiften = arbeidsgiveravgift(lonnFeriePensjon, props.avtale.arbeidsgiveravgift);
+    const sumUtgiftene = sumUtgifter(props.avtale.manedslonn, feriepengene, otp, arbeidsgiveravgiften);
+
+    const parseFloatIfFloatable = (verdi: string) => {
+        const floatedValue = parseFloat(verdi);
+        if (!isNaN(floatedValue)) {
+            return parseFloat(verdi);
+        } else {
+            return '';
+        }
+    };
+
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
@@ -77,17 +97,6 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         max={65000}
                     />
                 </Column>
-                {innloggetBruker.erNavAnsatt && props.avtale.stillingprosent > 0 && props.avtale.stillingprosent < 100 && (
-                    <Column md="6">
-                        <ValutaInput
-                            disabled={true}
-                            name="manedslonn100%"
-                            bredde="S"
-                            label="Lønn ved 100% stilling"
-                            value={hundreProsentLonn(props.avtale.manedslonn, props.avtale.stillingprosent)}
-                        />
-                    </Column>
-                )}
             </Row>
             <Row className="">
                 <Column md="12">
@@ -117,7 +126,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         children=""
                         value={props.avtale.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                            props.settAvtaleVerdi('arbeidsgiveravgift', parseFloat(event.target.value));
+                            props.settAvtaleVerdi('arbeidsgiveravgift', parseFloatIfFloatable(event.target.value));
                         }}
                     />
                     <KontonummerInput
@@ -130,6 +139,18 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                     />
                     <VisUtregningenPanel {...props.avtale} />
                     <VerticalSpacer twentyPx={true} />
+                    {innloggetBruker.erNavAnsatt &&
+                        props.avtale.stillingprosent > 0 &&
+                        props.avtale.stillingprosent < 100 && (
+                            <ValutaInput
+                                disabled={true}
+                                name="manedslonn100%"
+                                bredde="S"
+                                label="Lønn ved 100% stilling"
+                                value={lonnHundreProsent(sumUtgiftene, props.avtale.stillingprosent)}
+                            />
+                        )}
+                    <VerticalSpacer thirtyTwoPx={true} />
                     <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>

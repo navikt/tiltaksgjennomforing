@@ -9,7 +9,8 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag> = pro
         <Stegoppsummering tittel="Beregning av tilskudd">
             <HvaManglerOppsummering
                 avhengigFelter={{
-                    arbeidsgiveravgift: props.arbeidsgiveravgift,
+                    // I dette tilfellet ønsker skal 0 være en gyldig verdi på arbeidsgiveravgift.
+                    arbeidsgiveravgift: props.arbeidsgiveravgift === 0 ? 1 : props.arbeidsgiveravgift,
                     feriepengesats: props.feriepengesats,
                     lonnstilskuddProsent: props.lonnstilskuddProsent,
                     manedslonn: props.manedslonn,
