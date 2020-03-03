@@ -223,10 +223,14 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                 </EkspanderbartPanelRad>
 
                 <EkspanderbartPanelRad svgIkon={<NokkelPunktForAvtale />}>
-                    For at deltaker og arbeidsgiver skal få tilgang til avtalen må de logge seg inn via ID-porten.
-                    Tilgang for arbeidsgiver styres gjennom Altinn. En representant for arbeidsgiver må ha rollen{' '}
-                    <em>Helse-, sosial- og velferdstjenester</em>, eller gis tilgang til enkelttjenesten{' '}
-                    <em>Avtale om arbeidstrening</em> for å kunne representere bedriften.
+                    For at deltaker og arbeidsgiver skal få tilgang til avtaler må de logge seg inn via ID-porten.
+                    Tilgang for arbeidsgiver styres gjennom Altinn. En representant for arbeidsgiver må gis følgende
+                    tilganger til enkeltrettigheter for de ulike avtalene:
+                    <ul>
+                        <li>Avtale om arbeidstrening</li>
+                        {lonnstilskuddToggle && <li>Avtale om midlertidig lønnstilskudd</li>}
+                        {lonnstilskuddToggle && <li>Avtale om varig lønnstilskudd</li>}
+                    </ul>
                     <p>
                         <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/" target="_blank">
                             Finn mer informasjon om roller og rettigheter på Altinn.no
@@ -235,8 +239,8 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                     </p>
                 </EkspanderbartPanelRad>
                 <EkspanderbartPanelRad svgIkon={<DrofteMedAnsattePersonOpplysning />}>
-                    Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om mål,
-                    arbeidsoppgaver og oppfølging.
+                    Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om innholdet i
+                    avtalen.
                 </EkspanderbartPanelRad>
 
                 <EkspanderbartPanelRad svgIkon={<CheckCircleIkon />}>
