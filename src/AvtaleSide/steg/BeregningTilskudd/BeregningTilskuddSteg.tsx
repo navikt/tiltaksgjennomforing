@@ -72,16 +72,23 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
-            <Undertittel>Lønnstilskudd prosent</Undertittel>
-            <Normaltekst className={cls.element('luft')}>
-                Velg sats for refusjon som arbeidsgiver skal få tilbake
-            </Normaltekst>
-            <LonnstilskuddProsent
-                tiltakstype={props.avtale.tiltakstype}
-                lonnstilskuddProsent={props.avtale.lonnstilskuddProsent}
-                settLonnstilskuddProsent={verdi => props.settAvtaleVerdi('lonnstilskuddProsent', verdi)}
-            />
-            <Undertittel className={cls.element('lonnogstillingprosent')}>Lønn</Undertittel>
+
+            {innloggetBruker.erNavAnsatt && (
+                <>
+                    <Undertittel>Lønnstilskudd prosent</Undertittel>
+                    <Normaltekst className={cls.element('luft')}>
+                        Velg sats for refusjon som arbeidsgiver skal få tilbake
+                    </Normaltekst>
+                    <LonnstilskuddProsent
+                        tiltakstype={props.avtale.tiltakstype}
+                        lonnstilskuddProsent={props.avtale.lonnstilskuddProsent}
+                        settLonnstilskuddProsent={verdi => props.settAvtaleVerdi('lonnstilskuddProsent', verdi)}
+                    />
+                    <VerticalSpacer sixteenPx={true} />
+                </>
+            )}
+
+            <Undertittel className={cls.element('lonn-tittel')}>Lønn</Undertittel>
 
             <Row className="">
                 <Column md="6">
