@@ -36,7 +36,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             key={innlogginskilde.url}
             className="innloggingsside__logginnKnapp"
             onClick={() => {
-                setCookie(INNLOGGET_PART, innlogginskilde.part, { path: '/', sameSite: 'strict' });
+                setCookie(INNLOGGET_PART, innlogginskilde.part, { path: '/tiltaksgjennomforing', sameSite: 'strict' });
                 loginKlikk(innlogginskilde);
             }}
         >
