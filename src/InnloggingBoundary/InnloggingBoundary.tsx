@@ -26,7 +26,7 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
 
             const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
             if (innloggetPart && ['ARBEIDSGIVER', 'DELTAKER', 'VEILEDER'].includes(innloggetPart)) {
-                setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing', sameSite: 'strict' });
+                setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
                 urlParametere.delete('part');
                 props.history.replace(props.location.pathname + '?' + urlParametere.toString());
             } else {
