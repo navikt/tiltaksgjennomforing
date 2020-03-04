@@ -268,7 +268,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             return Promise.reject();
         } else {
             const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
-            this.sendToAmplitude('avtale-lagret');
+            this.sendToAmplitude('#tiltak-avtale-lagret');
             this.setState({
                 avtale: { ...this.state.avtale, ...nyAvtale },
                 ulagredeEndringer: false,
@@ -280,7 +280,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         const nyeMaal = this.state.avtale.maal.filter((maal: Maal) => maal.id !== maalTilLagring.id);
         nyeMaal.push(maalTilLagring);
         this.settAvtaleVerdi('maal', nyeMaal);
-        this.sendToAmplitude('avtale-maal-lagret');
+        this.sendToAmplitude('#tiltak-avtale-maal-lagret');
         return this.lagreAvtale();
     }
 
@@ -321,7 +321,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     slettMaal(maalTilSletting: Maal) {
         const nyeMaal = this.state.avtale.maal.filter((maal: Maal) => maal.id !== maalTilSletting.id);
         this.settAvtaleVerdi('maal', nyeMaal);
-        this.sendToAmplitude('avtale-maal-slettet');
+        this.sendToAmplitude('#tiltak-avtale-maal-slettet');
         return this.lagreAvtale();
     }
 
@@ -331,7 +331,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
         nyeOppgaver.push(oppgaveTilLagring);
         this.settAvtaleVerdi('oppgaver', nyeOppgaver);
-        this.sendToAmplitude('avtale-oppgave-lagret');
+        this.sendToAmplitude('#tiltak-avtale-oppgave-lagret');
         return this.lagreAvtale();
     }
 
@@ -339,28 +339,28 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         const avtale = this.state.avtale;
         const nyeOppgaver = avtale.oppgaver.filter((oppgave: Oppgave) => oppgave.id !== oppgaveTilSletting.id);
         this.settAvtaleVerdi('oppgaver', nyeOppgaver);
-        this.sendToAmplitude('avtale-oppgave-slettet');
+        this.sendToAmplitude('#tiltak-avtale-oppgave-slettet');
         return this.lagreAvtale();
     }
 
     async godkjennAvtale() {
         const avtale = this.state.avtale;
         await RestService.godkjennAvtale(avtale);
-        this.sendToAmplitude('avtale-godkjent');
+        this.sendToAmplitude('#tiltak-avtale-godkjent');
         await this.hentAvtale(avtale.id);
     }
 
     async godkjennAvtalePaVegne(paVegneGrunn: GodkjentPaVegneGrunner) {
         const avtale = this.state.avtale;
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
-        this.sendToAmplitude('avtale-godkjent-pavegneav');
+        this.sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
         await this.hentAvtale(avtale.id);
     }
 
     async avbrytAvtale() {
         const avtale = this.state.avtale;
         await RestService.avbrytAvtale(avtale);
-        this.sendToAmplitude('avtale-avbrutt');
+        this.sendToAmplitude('#tiltak-avtale-avbrutt');
         await this.hentAvtale(avtale.id);
     }
 
@@ -383,7 +383,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     async laasOpp() {
         const avtale = this.state.avtale;
         await RestService.låsOppAvtale(avtale.id);
-
+        this.sendToAmplitude('#tiltak-avtale-laastOpp');
         await this.hentAvtale(avtale.id);
     }
 
