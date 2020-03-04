@@ -331,7 +331,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         );
         nyeOppgaver.push(oppgaveTilLagring);
         this.settAvtaleVerdi('oppgaver', nyeOppgaver);
-        this.sendToAmplitude('"tiltak-avtale-oppgave-lagret');
+        this.sendToAmplitude('#tiltak-avtale-oppgave-lagret');
         return this.lagreAvtale();
     }
 
