@@ -1,5 +1,6 @@
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
+import useInnloggetPartCookie from '@/utils/cookieUtils';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { useCookies } from 'react-cookie';
@@ -16,7 +17,8 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
 
 const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
-    const [cookies, setCookie] = useCookies();
+    const [cookies] = useCookies();
+    const setInnloggetPartCookie = useInnloggetPartCookie();
 
     if (uinnlogget) {
         return <Innloggingside innloggingskilder={innloggingskilder} />;
@@ -26,7 +28,7 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
 
             const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
             if (innloggetPart && ['ARBEIDSGIVER', 'DELTAKER', 'VEILEDER'].includes(innloggetPart)) {
-                setCookie(INNLOGGET_PART, innloggetPart, { sameSite: 'strict' });
+                setInnloggetPartCookie(innloggetPart);
                 urlParametere.delete('part');
                 props.history.replace(props.location.pathname + '?' + urlParametere.toString());
             } else {
