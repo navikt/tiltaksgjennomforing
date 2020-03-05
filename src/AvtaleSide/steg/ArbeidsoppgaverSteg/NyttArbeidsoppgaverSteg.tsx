@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { Context, medContext } from '@/AvtaleContext';
+import { medContext } from '@/AvtaleContext';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { Normaltekst } from 'nav-frontend-typografi';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import { Stilling } from '@/types/avtale';
 
-const ArbeidsoppgaverSteg: FunctionComponent<Context> = props => {
+const NyttArbeidsoppgaverSteg: FunctionComponent<InputStegProps<Stilling>> = props => {
     return (
         <>
             <Innholdsboks utfyller={'arbeidsgiver'}>
@@ -32,4 +34,4 @@ const ArbeidsoppgaverSteg: FunctionComponent<Context> = props => {
     );
 };
 
-export default medContext(ArbeidsoppgaverSteg);
+export default medContext(NyttArbeidsoppgaverSteg);
