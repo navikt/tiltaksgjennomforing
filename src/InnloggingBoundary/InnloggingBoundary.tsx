@@ -1,5 +1,9 @@
+import decoratorconfig from '@/internflateDekorator/decoratorconfig';
+import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
+import RestService from '@/services/rest-service';
+import NAVSPA from '@navikt/navspa';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
@@ -7,12 +11,8 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget, { InnloggetBruker } from './useInnlogget';
-import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
-import decoratorconfig from '@/internflateDekorator/decoratorconfig';
-import NAVSPA from '@navikt/navspa';
-import RestService from '@/services/rest-service';
 
-const config = decoratorconfig();
+const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
 
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
@@ -24,6 +24,9 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
 const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     const [brukmeny, setbrukmeny] = useState<boolean>(false);
     useEffect(() => {
+        RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(response => {
+            setbrukmeny(response);
+        });
         RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(setbrukmeny);
     }, []);
 
@@ -48,7 +51,7 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
 
         return (
             <>
-                {brukmeny && <InternflateDecorator {...config} />}
+                {brukmeny && <InternflateDecorator {...dekoratorConfig} />}
                 <Innloggingslinje innloggetBruker={innloggetBruker} />
                 <InnloggetBrukerContext.Provider value={innloggetBruker}>
                     {props.children}
