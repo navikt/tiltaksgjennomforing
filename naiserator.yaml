@@ -4,10 +4,10 @@ metadata:
     name: tiltaksgjennomforing
     namespace: default
     labels:
-        team: teamtag
+        team: arbeidsgiver
 spec:
-    image: navikt/tiltaksgjennomforing:{{version}}
-    team: teamtag
+    image: {{image}}
+    team: arbeidsgiver
     port: 3000
     vault:
         enabled: {{vault-enabled}}
@@ -28,6 +28,10 @@ spec:
           value: '{{{selvbetjening-login-url}}}'
         - name: LOGOUT_URL
           value: '{{{logout-url}}}'
+        - name: ENABLE_EXTERNAL_MENU
+          value: '{{{enable-external-menu}}}'
+        - name: DECORATOR_EXTERNAL_URL
+          value: '{{{decorator-external-url}}}'
         - name: ENABLE_INTERNAL_MENU
           value: '{{{enable-internal-menu}}}'
         - name: DECORATOR_INTERNAL_SCRIPT

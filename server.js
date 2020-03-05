@@ -45,6 +45,10 @@ const backupCache = new NodeCache({ stdTTL: 0, checkperiod: 0 });
 const setupProxy = require('./src/setupProxy');
 setupProxy(server);
 
+if (process.env.REACT_APP_ON_HEROKU === 'true') {
+    server.get('/', (req, res) => res.redirect(req.baseUrl + '/tiltaksgjennomforing'));
+}
+
 // health checks
 server.get('/tiltaksgjennomforing/internal/isAlive', (req, res) => res.sendStatus(200));
 server.get('/tiltaksgjennomforing/internal/isReady', (req, res) => res.sendStatus(200));
@@ -94,6 +98,10 @@ const getMenu = () => {
 const serveAppWithMenu = app => {
     server.use('/tiltaksgjennomforing/static', express.static(path.join(__dirname, 'build/static')));
     server.use('/tiltaksgjennomforing/index.css', express.static(path.join(__dirname, 'build/index.css')));
+    server.use(
+        '/tiltaksgjennomforing/asset-manifest.json',
+        express.static(path.join(__dirname, 'build/asset-manifest.json'))
+    );
     server.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) => {
         res.send(app);
     });

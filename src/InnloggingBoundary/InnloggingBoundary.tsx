@@ -24,9 +24,7 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
 const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     const [brukmeny, setbrukmeny] = useState<boolean>(false);
     useEffect(() => {
-        RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(response => {
-            setbrukmeny(response.toString().includes('enable'));
-        });
+        RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(setbrukmeny);
     }, []);
 
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();

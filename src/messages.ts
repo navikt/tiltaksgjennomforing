@@ -1,4 +1,6 @@
-const messages = {
+import { AltAvtaleinnhold } from './types/avtale';
+
+export const messages = {
     FÅ_JOBB_I_BEDRIFTEN: 'Få jobb i bedriften',
     ARBEIDSERFARING: 'Arbeidserfaring',
     UTPRØVING: 'Utprøving',
@@ -7,4 +9,34 @@ const messages = {
     ANNET: 'Annet',
 };
 
-export default messages;
+export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
+    arbeidsgiverEtternavn: 'arbeidsgivers etternavn',
+    arbeidsgiverFornavn: 'arbeidsgivers fornavn',
+    arbeidsgiverKontonummer: 'arbeidsgivers kontonummer',
+    arbeidsgiverTlf: 'arbeidsgivers telefonnummer',
+    arbeidsgiveravgift: 'arbeidsgiveravgift',
+    arbeidsoppgaver: 'arbeidsoppgaver',
+    bedriftNavn: 'bedriftnavn',
+    deltakerEtternavn: 'deltakers etternavn',
+    deltakerFornavn: 'deltakers fornavn',
+    deltakerTlf: 'deltakers telefonnummer',
+    feriepengesats: 'feriepengesats',
+    lonnstilskuddProsent: 'lønnstilskuddprosent',
+    maal: 'mål',
+    manedslonn: 'månedslønn',
+    mentorAntallTimer: 'antall timer med mentor',
+    mentorEtternavn: 'mentors etternavn',
+    mentorFornavn: 'mentors fornavn',
+    mentorOppgaver: 'mentors oppgaver',
+    mentorTimelonn: 'mentors timelønn',
+    oppfolging: 'oppfølging',
+    oppgaver: 'oppgaver',
+    sluttDato: 'sluttdato',
+    startDato: 'startdato',
+    stillingprosent: 'stillingsprosent',
+    stillingtype: 'stillingstype',
+    tilrettelegging: 'tilrettelegging',
+    veilederEtternavn: 'veileders etternavn',
+    veilederFornavn: 'veileders fornavn',
+    veilederTlf: 'veileders telefonnummer',
+};

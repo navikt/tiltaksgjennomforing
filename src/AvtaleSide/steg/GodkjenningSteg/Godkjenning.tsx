@@ -37,9 +37,9 @@ const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
 const instruks = (rolle: Rolle, avtale: Avtale) => {
     switch (rolle) {
         case 'DELTAKER':
-            return <DeltakerInstruks erLaast={avtale.erLaast} />;
+            return <DeltakerInstruks erLaast={avtale.erLaast} tiltakstype={avtale.tiltakstype} />;
         case 'ARBEIDSGIVER':
-            return <ArbeidsgiverInstruks erLaast={avtale.erLaast} />;
+            return <ArbeidsgiverInstruks erLaast={avtale.erLaast} tiltakstype={avtale.tiltakstype} />;
         case 'VEILEDER':
             return <VeilederInstruks tiltakstype={avtale.tiltakstype} />;
     }

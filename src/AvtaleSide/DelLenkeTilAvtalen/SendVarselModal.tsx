@@ -1,7 +1,7 @@
 import Modal from 'nav-frontend-modal';
 import { Ingress, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
-import './KopierLenkeModal.less';
+import './SendVarselModal.less';
 import BEMHelper from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';

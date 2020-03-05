@@ -1,4 +1,4 @@
-import messages from '@/messages';
+import { messages } from '@/messages';
 import * as React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
@@ -22,6 +22,7 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import AdvarselBannerHeroku from './AdvarselBannerHeroku/AdvarselBannerHeroku';
 
 addLocaleData(nb);
 
@@ -30,6 +31,7 @@ class App extends React.Component {
         return (
             <IntlProvider locale="nb" messages={messages}>
                 <BrowserRouter basename={basename}>
+                    <AdvarselBannerHeroku />
                     <Switch>
                         <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
                         <FeilVarselProvider>

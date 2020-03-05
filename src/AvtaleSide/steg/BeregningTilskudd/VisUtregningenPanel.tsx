@@ -1,22 +1,39 @@
-import React from 'react';
-import { Context } from '@/AvtaleContext';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { ReactComponent as StillingProsentIkon } from '@/assets/ikoner/stillingsprosent.svg';
-import { ReactComponent as ManedsLonnIkon } from '@/assets/ikoner/manedsLonn.svg';
-import { ReactComponent as FeriepengerIkon } from '@/assets/ikoner/feriepenger.svg';
-import { ReactComponent as ObligTjenestepensjonIkon } from '@/assets/ikoner/obligTjenestepensjon.svg';
-import { ReactComponent as GraphRefusjonAvLonnIkon } from '@/assets/ikoner/graphRefusjonAvLønn.svg';
 import { ReactComponent as ArbeidsgiveravgiftIkon } from '@/assets/ikoner/arbeidsgiveravgift.svg';
-import './VisUtregningenPanel.less';
-import Undertittel from 'nav-frontend-typografi/lib/undertittel';
-import { Column, Container, Row } from 'nav-frontend-grid';
-import MediaQuery from 'react-responsive';
+import { ReactComponent as FeriepengerIkon } from '@/assets/ikoner/feriepenger.svg';
+import { ReactComponent as GraphRefusjonAvLonnIkon } from '@/assets/ikoner/graphRefusjonAvLønn.svg';
+import { ReactComponent as ManedsLonnIkon } from '@/assets/ikoner/manedsLonn.svg';
+import { ReactComponent as ObligTjenestepensjonIkon } from '@/assets/ikoner/obligTjenestepensjon.svg';
+import { ReactComponent as StillingProsentIkon } from '@/assets/ikoner/stillingsprosent.svg';
+import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import {
+    arbeidsgiveravgift,
+    feriepenger,
+    obligTjenestepensjon,
+    sumLonnFeriePensjon,
+    sumLonnstilskuddPerManed,
+    sumUtgifter,
+    visSatsMedEttDesimal,
+    visTalletEller0,
+} from '@/utils/lonnstilskuddUtregningUtils';
 import classNames from 'classnames';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import Undertittel from 'nav-frontend-typografi/lib/undertittel';
+import React, { FunctionComponent } from 'react';
+import MediaQuery from 'react-responsive';
+import './VisUtregningenPanel.less';
 
 const cls = BEMHelper('visUtregningenPanel');
 
-const VisUtregningenPanel = (props: Context) => {
+const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
+    const feriepengene = feriepenger(props.manedslonn, props.feriepengesats);
+    const obligatoriskTjenestepensjon = obligTjenestepensjon(props.manedslonn, feriepengene);
+    const lonnFeriePensjon = sumLonnFeriePensjon(props.manedslonn, feriepengene, obligatoriskTjenestepensjon);
+    const arbeidsgiveravgiften = arbeidsgiveravgift(lonnFeriePensjon, props.arbeidsgiveravgift);
+    const sumUtgiftene = sumUtgifter(props.manedslonn, feriepengene, obligatoriskTjenestepensjon, arbeidsgiveravgiften);
+    const sumLonnstilskuddPerMåned = sumLonnstilskuddPerManed(sumUtgiftene, props.lonnstilskuddProsent);
+
     return (
         <Ekspanderbartpanel border={true} tittel={'Utregningen'} apen={true}>
             <Container fluid={true}>
@@ -30,10 +47,7 @@ const VisUtregningenPanel = (props: Context) => {
                         </div>
                     </Column>
                     <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
-                        {props.avtale.stillingprosent !== undefined && props.avtale.stillingprosent > 0
-                            ? props.avtale.stillingprosent
-                            : 0}{' '}
-                        %
+                        {visTalletEller0(props.stillingprosent)} %
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -47,13 +61,7 @@ const VisUtregningenPanel = (props: Context) => {
                         </div>
                     </Column>
                     <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
-                        <div>
-                            {' '}
-                            {props.avtale.manedslonn !== undefined && props.avtale.manedslonn > 0
-                                ? props.avtale.manedslonn
-                                : 0}{' '}
-                            kr
-                        </div>
+                        <div> {visTalletEller0(props.manedslonn)} kr</div>
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -64,19 +72,13 @@ const VisUtregningenPanel = (props: Context) => {
                         <div>Feriepenger</div>
                     </Column>
                     <Column md="3" sm="3" xs="3">
-                        ({(props.avtale.feriepengesats * 100).toFixed(1)}%)
+                        ({visSatsMedEttDesimal(props.feriepengesats)}%)
                     </Column>
                     <Column md="1" sm="1" xs="1">
                         +
                     </Column>
                     <Column md="2" sm="2" xs="5" className={cls.element('column__siste')}>
-                        {props.avtale.manedslonn !== undefined &&
-                        props.avtale.manedslonn > 0 &&
-                        props.avtale.feriepengesats !== undefined &&
-                        props.avtale.feriepengesats > 0
-                            ? (props.avtale.manedslonn * props.avtale.feriepengesats).toFixed(0)
-                            : 0}{' '}
-                        kr
+                        {feriepengene} kr
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -95,10 +97,7 @@ const VisUtregningenPanel = (props: Context) => {
                         +
                     </Column>
                     <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
-                        {props.avtale.manedslonn !== undefined && props.avtale.manedslonn > 0
-                            ? (props.avtale.manedslonn * 0.02).toFixed(0)
-                            : 0}{' '}
-                        kr
+                        {obligatoriskTjenestepensjon} kr
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -108,25 +107,17 @@ const VisUtregningenPanel = (props: Context) => {
                         </MediaQuery>
                         <div>
                             Arbeidsgiveravgift{' '}
-                            <MediaQuery maxWidth={699}>
-                                ({(props.avtale.arbeidsgiveravgift * 100).toFixed(1)}.%)
-                            </MediaQuery>
+                            <MediaQuery maxWidth={699}>({visSatsMedEttDesimal(props.arbeidsgiveravgift)}%)</MediaQuery>
                         </div>
                     </Column>
                     <Column md="3" sm="3" xs="3">
-                        <MediaQuery minWidth={700}>({(props.avtale.arbeidsgiveravgift * 100).toFixed(1)}.%)</MediaQuery>
+                        <MediaQuery minWidth={700}>({visSatsMedEttDesimal(props.arbeidsgiveravgift)}%)</MediaQuery>
                     </Column>
                     <Column md="1" sm="1" xs="1">
                         +
                     </Column>
                     <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
-                        {props.avtale.manedslonn !== undefined &&
-                        props.avtale.manedslonn > 0 &&
-                        props.avtale.arbeidsgiveravgift !== undefined &&
-                        props.avtale.arbeidsgiveravgift > 0
-                            ? (props.avtale.manedslonn * props.avtale.arbeidsgiveravgift).toFixed(0)
-                            : 0}{' '}
-                        kr
+                        {arbeidsgiveravgiften} kr
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -143,18 +134,7 @@ const VisUtregningenPanel = (props: Context) => {
                         =
                     </Column>
                     <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
-                        {props.avtale.manedslonn !== undefined &&
-                        props.avtale.manedslonn > 0 &&
-                        props.avtale.feriepengesats > 0 &&
-                        props.avtale.arbeidsgiveravgift > 0
-                            ? (
-                                  props.avtale.manedslonn +
-                                  props.avtale.manedslonn * props.avtale.feriepengesats +
-                                  props.avtale.manedslonn * 0.02 +
-                                  props.avtale.manedslonn * props.avtale.arbeidsgiveravgift
-                              ).toFixed(0)
-                            : 0}{' '}
-                        kr
+                        {sumUtgiftene} kr
                     </Column>
                 </Row>
                 <Row className={classNames(cls.element('rad'), cls.element('rad__siste'))}>
@@ -165,37 +145,16 @@ const VisUtregningenPanel = (props: Context) => {
                         <div>Fastsatt refusjon</div>
                     </Column>
                     <Column md="6" sm="3" xs="6" className={cls.element('column__siste')}>
-                        {props.avtale.lonnstilskuddProsent !== undefined &&
-                        parseFloat(props.avtale.lonnstilskuddProsent) > 0
-                            ? props.avtale.lonnstilskuddProsent
-                            : 0}{' '}
-                        %
+                        {props.lonnstilskuddProsent || 0} %
                     </Column>
                 </Row>
                 <Row className={classNames(cls.element('rad'), cls.element('rad__oppsummering'))}>
                     <Column md="9" sm="9" xs="6" className={cls.element('tittel')}>
-                        <Undertittel> Sum lønnstilskudd:</Undertittel>
+                        <Undertittel> Sum lønnstilskudd per måned:</Undertittel>
                     </Column>
 
                     <Column md="3" sm="3" xs="6" className={cls.element('column__siste')}>
-                        <Undertittel>
-                            {props.avtale.manedslonn !== undefined &&
-                            props.avtale.manedslonn > 0 &&
-                            props.avtale.feriepengesats !== undefined &&
-                            props.avtale.feriepengesats > 0 &&
-                            props.avtale.arbeidsgiveravgift !== undefined &&
-                            props.avtale.arbeidsgiveravgift > 0 &&
-                            parseFloat(props.avtale.lonnstilskuddProsent)
-                                ? (
-                                      (props.avtale.manedslonn +
-                                          props.avtale.manedslonn * props.avtale.feriepengesats +
-                                          props.avtale.manedslonn * 0.02 +
-                                          props.avtale.manedslonn * props.avtale.arbeidsgiveravgift) *
-                                      (parseFloat(props.avtale.lonnstilskuddProsent) / 100)
-                                  ).toFixed(0)
-                                : 0}{' '}
-                            kr
-                        </Undertittel>
+                        <Undertittel>{sumLonnstilskuddPerMåned} kr</Undertittel>
                     </Column>
                 </Row>
             </Container>

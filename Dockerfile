@@ -1,10 +1,13 @@
 FROM navikt/node-express:12.2.0-alpine
-RUN npm install -g helmet
-RUN npm install -g http-proxy-middleware
+
+# Workaround: får tilfeldige feil ved npm install uten neste linje
+RUN npm config set unsafe-perm true
+RUN npm install -g helmet@3.21.3
+RUN npm install -g http-proxy-middleware@0.21.0
 RUN npm install -g node-cache@4.2.0
-RUN npm install -g jsdom
-RUN npm install -g request
-RUN npm install -g fs-extra
+RUN npm install -g jsdom@16.2.0
+RUN npm install -g request@2.88.2
+RUN npm install -g fs-extra@8.1.0
 WORKDIR /app
 COPY ./src/setupProxy.js ./src/setupProxy.js
 COPY ./src/whitelist.js ./src/whitelist.js
