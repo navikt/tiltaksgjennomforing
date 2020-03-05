@@ -2,10 +2,10 @@ const jsdom = require('jsdom');
 const request = require('request');
 
 const { JSDOM } = jsdom;
-const scripts =
-    '<script src="https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js"></script>';
 const styles =
     '<link rel="stylesheet" href="https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css">';
+const scripts =
+    '<script src="https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js"></script>';
 
 const htmlinsert = [
     { inject: 'styles', from: styles },
