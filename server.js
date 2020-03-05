@@ -2,12 +2,12 @@
 const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
-const server = express();
 const fs = require('fs-extra');
 const request = require('request');
 const jsdom = require('jsdom');
 const NodeCache = require('node-cache');
 
+const server = express();
 // security
 server.disable('x-powered-by');
 server.use(helmet());
