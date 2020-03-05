@@ -12,25 +12,22 @@ import { Stilling } from '@/types/avtale';
 
 const NyttArbeidsoppgaverSteg: FunctionComponent<InputStegProps<Stilling>> = props => {
     return (
-        <>
-            <Innholdsboks utfyller={'arbeidsgiver'}>
-                <SkjemaTittel>Hvilke arbeidsoppgaver skal utføres?</SkjemaTittel>
-                <Normaltekst>
-                    Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal utføre hos dere under
-                    arbeidstreningen.
-                </Normaltekst>
-                <VerticalSpacer thirtyTwoPx={true} />
-                <PakrevdTextarea
-                    label=""
-                    verdi={props.avtale.arbeidsoppgaver || ''}
-                    settVerdi={verdi => props.settAvtaleVerdi('arbeidsoppgaver', verdi)}
-                    maxLengde={1000}
-                    feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
-                />
-                <VerticalSpacer thirtyTwoPx={true} />
-                <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
-            </Innholdsboks>
-        </>
+        <Innholdsboks utfyller="arbeidsgiver">
+            <SkjemaTittel>Hvilke arbeidsoppgaver skal utføres?</SkjemaTittel>
+            <Normaltekst>
+                Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal utføre hos dere under arbeidstreningen.
+            </Normaltekst>
+            <VerticalSpacer thirtyTwoPx={true} />
+            <PakrevdTextarea
+                label=""
+                verdi={props.avtale.arbeidsoppgaver || ''}
+                settVerdi={verdi => props.settAvtaleVerdi('arbeidsoppgaver', verdi)}
+                maxLengde={1000}
+                feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
+            />
+            <VerticalSpacer thirtyTwoPx={true} />
+            <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+        </Innholdsboks>
     );
 };
 
