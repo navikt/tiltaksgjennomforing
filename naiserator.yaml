@@ -32,3 +32,9 @@ spec:
           value: '{{{enable-external-menu}}}'
         - name: DECORATOR_EXTERNAL_URL
           value: '{{{decorator-external-url}}}'
+        - name: ENABLE_INTERNAL_MENU
+          value: '{{{enable-internal-menu}}}'
+        - name: DECORATOR_INTERNAL_SCRIPT
+          value: '{{{decorator-external-script}}}'
+        - name: DECORATOR_INTERNAL_STYLING
+          value: '{{{decorator-external-styling}}}'
