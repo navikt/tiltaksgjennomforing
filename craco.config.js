@@ -3,6 +3,7 @@ const path = require('path');
 const { EnvironmentPlugin } = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { defaults } = require('jest-config');
+const internflateDecoratorHtmlWebpackPlugin = require('./plugins/internflateDecoratorHtmlWebpackPlugin');
 const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
 
 module.exports = {
@@ -22,6 +23,7 @@ module.exports = {
     },
     plugins: [
         { plugin: CracoLessPlugin },
+        { plugin: internflateDecoratorHtmlWebpackPlugin(process.env.ENABLE_INTERNAL_MENU) },
         {
             plugin: decoratorhtmlwebpackplugin(process.env.ENABLE_EXTERNAL_MENU),
         },

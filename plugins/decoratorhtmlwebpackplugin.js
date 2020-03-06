@@ -15,9 +15,11 @@ const htmlinsert = [
 const decoratorHtmlWebpackPlugin = (enablemenu = false) => {
     return {
         overrideWebpackConfig: ({ webpackConfig }) => {
-            const plugin = getHtmlWebpackPlugin(webpackConfig.plugins);
-            if (plugin) {
-                enablemenu ? getMenu(plugin) : addElements(plugin, false);
+            if (enablemenu) {
+                const plugin = getHtmlWebpackPlugin(webpackConfig.plugins);
+                if (plugin) {
+                    getMenu(plugin);
+                }
             }
             return webpackConfig;
         },

@@ -64,6 +64,10 @@ module.exports = function(app) {
         res.json(process.env.ENABLE_EXTERNAL_MENU !== 'true');
     });
 
+    app.get('/tiltaksgjennomforing/brukavInternflate', (req, res) => {
+        res.json(process.env.ENABLE_INTERNAL_MENU === 'true');
+    });
+
     const proxyConfig = {
         changeOrigin: true,
         pathRewrite: whitelist,

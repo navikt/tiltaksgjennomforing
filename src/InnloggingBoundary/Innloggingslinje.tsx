@@ -19,7 +19,7 @@ const Innloggingslinje: FunctionComponent<{
     const bruker = props.innloggetBruker.identifikator;
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>(false);
     useEffect(() => {
-        RestService.skalBackupmenyBrukes().then(setBrukBackupmeny);
+        RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes').then(setBrukBackupmeny);
     }, []);
 
     return brukBackupmeny ? (
