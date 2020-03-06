@@ -16,9 +16,9 @@ const { JSDOM } = jsdom;
 const prop = 'innerHTML';
 
 const scripts = `<script src=${process.env.DECORATOR_INTERNAL_SCRIPT ||
-    'https://app.adeo.no/internarbeidsflatedecorator/v2/static/js/head.v2.min.js'}></script>`;
+    'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/js/head.v2.min.js'}></script>`;
 const styles = `<link rel="stylesheet" href=${process.env.DECORATOR_INTERNAL_STYLING ||
-    'https://app.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css'}>`;
+    'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css'}>`;
 const url =
     process.env.DECORATOR_EXTERNAL_URL ||
     'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
