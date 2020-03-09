@@ -5,12 +5,14 @@ import { FunctionComponent } from 'react';
 
 const SjekkOmVerdiEksisterer: FunctionComponent<{
     verdi?: string;
+    formatertVerdi?: JSX.Element;
+    clsName?: string;
     label?: string;
 }> = props => {
     if (props.verdi) {
         return (
             <Normaltekst>
-                {props.label} {props.verdi}
+                {props.label} {props.formatertVerdi ? props.formatertVerdi : props.verdi}
             </Normaltekst>
         );
     }

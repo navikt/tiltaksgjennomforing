@@ -24,8 +24,10 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
             label={props.label}
             value={props.verdi || ''}
             onChange={(event: any) => {
-                props.settVerdi(event.target.value);
-                setFeil(undefined);
+                if (event.target.value.length <= props.maxLengde) {
+                    props.settVerdi(event.target.value);
+                    setFeil(undefined);
+                }
             }}
             maxLength={props.maxLengde}
             tellerTekst={lagTellerTekst}
