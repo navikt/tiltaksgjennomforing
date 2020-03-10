@@ -29,11 +29,10 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     }, []);
 
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
-    const [cookies, , removeCookie] = useCookies();
+    const [cookies] = useCookies();
     const setInnloggetPartCookie = useInnloggetPartCookie();
 
     if (uinnlogget) {
-        removeCookie(INNLOGGET_PART);
         return <Innloggingside innloggingskilder={innloggingskilder} />;
     } else if (innloggetBruker) {
         if (!cookies[INNLOGGET_PART]) {

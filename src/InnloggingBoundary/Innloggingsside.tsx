@@ -1,6 +1,7 @@
 import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilInformasjonssideUinnlogget } from '@/paths';
+import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import restService from '@/services/rest-service';
 import { AutentiseringError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
@@ -9,6 +10,8 @@ import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Ingress, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
+import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
@@ -27,6 +30,11 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             }
         }
     };
+
+    const [, , removeCookie] = useCookies();
+    useEffect(() => {
+        removeCookie(INNLOGGET_PART);
+    }, [removeCookie]);
 
     const setInnloggetPartCookie = useInnloggetPartCookie();
 
