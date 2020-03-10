@@ -17,7 +17,9 @@ const SelectInput: React.FunctionComponent<SelectInputProps> = props => {
     return (
         <Select {...other}>
             {options.map(attr => (
-                <option key={attr.value} {...attr} />
+                <option key={attr.value} {...attr}>
+                    {attr.label}
+                </option>
             ))}
         </Select>
     );

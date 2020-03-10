@@ -1,4 +1,3 @@
-import ArbeidsoppgaverSteg from '@/AvtaleSide/steg/ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 import BeregningTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningTilskuddSteg';
 import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
@@ -10,8 +9,9 @@ import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilrett
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import React from 'react';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
-import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
+import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
+import { ArbeidsoppgaverSteg } from '@/AvtaleSide/steg/ArbeidsoppgaverSteg/ArbeidsoppgaverSteg';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
