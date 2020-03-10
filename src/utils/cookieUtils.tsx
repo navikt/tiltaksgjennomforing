@@ -19,7 +19,7 @@ const useInnloggetPartCookie = () => {
 
         if (!getCookie(INNLOGGET_PART)) {
             // Some browsers does not support path
-            setCookie(INNLOGGET_PART, innloggetPart, { sameSite: 'strict' });
+            setCookie(INNLOGGET_PART, innloggetPart);
         }
     };
 };
