@@ -31,10 +31,12 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
         }
     };
 
-    const [, , removeCookie] = useCookies();
+    const [cookies, , removeCookie] = useCookies();
     useEffect(() => {
-        removeCookie(INNLOGGET_PART);
-    }, [removeCookie]);
+        if (cookies[INNLOGGET_PART]) {
+            removeCookie(INNLOGGET_PART);
+        }
+    }, [removeCookie, cookies]);
 
     const setInnloggetPartCookie = useInnloggetPartCookie();
 
