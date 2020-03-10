@@ -6,7 +6,7 @@ import { CommonWrapper, mount } from 'enzyme';
 import { Knapp } from 'nav-frontend-knapper';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import React from 'react';
-import ArbeidsoppgaverSteg from './ArbeidsoppgaverSteg';
+import ArbeidsoppgaverSteg from './GamleArbeidsoppgaverSteg';
 
 test('Test that <ArbeidsoppgaverSteg> renders correctly', async () => {
     const setValue = async (element: CommonWrapper, value: string) => {
