@@ -7,7 +7,7 @@ type Props = {
 };
 
 const LaasOppKnapp: FunctionComponent<Props> = props => {
-    const [bekreftLaasOppModalOpen, setBekreftLaasOppModalOpen] = useState(false);
+    const [bekreftLaasOppModalOpen, setBekreftLaasOppModalOpen] = useState(true);
 
     const låsOppAvtaleklikk = () => {
         setBekreftLaasOppModalOpen(true);
@@ -15,9 +15,11 @@ const LaasOppKnapp: FunctionComponent<Props> = props => {
 
     const varselTekst = (
         <>
-            1) Endre – gjør de endringene du ønsker. <br />
-            2) Godkjenn – Du og de andre partene må godkjenne ny versjon
-            <p>Gamle versjoner ligger under "Historikk".</p>
+            <ol>
+                <li>Gjør de endringene du ønsker.</li>
+                <li>Du og de andre partene må godkjenne ny versjon.</li>
+            </ol>
+            Gamle versjoner ligger under "Historikk".
         </>
     );
 
