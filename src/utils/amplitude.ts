@@ -22,7 +22,7 @@ export const trackVideo = (event: any): void => {
     const played = event.target.currentTime / event.target.duration;
     const amplitudeTracked = event.target.getAttribute(attributeName);
     if (played > 0.5 && amplitudeTracked !== '50') {
-        instance.logEvent('video-spilt-av', {
+        instance.logEvent('#tiltak-infoside-video-spilt-av', {
             src: event.target.currentSrc,
         });
         event.target.setAttribute(attributeName, '50');

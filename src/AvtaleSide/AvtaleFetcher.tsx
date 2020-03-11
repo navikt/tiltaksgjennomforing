@@ -1,7 +1,7 @@
-import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
-import { ApiError } from '@/types/errors';
 import { Context, medContext } from '@/AvtaleContext';
+import { ApiError } from '@/types/errors';
 import amplitude from '@/utils/amplitude';
+import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
 
 type Props = {
     avtaleId: string;
@@ -17,14 +17,14 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
             .then(() => {
                 setLastetOk(true);
                 amplitude.setUserProperties({ rolle: props.rolle });
-                amplitude.logEvent('avtale-lastet');
+                amplitude.logEvent('#tiltak-avtale-lastet');
             })
             .catch(error => {
                 if (error instanceof ApiError) {
                     props.visFeilmelding('Kan ikke åpne avtale.');
                     setLastetOk(false);
                 }
-                amplitude.logEvent('avtale-lastet-feilet');
+                amplitude.logEvent('#tiltak-avtale-lastet-feilet');
             });
         // eslint-disable-next-line
     }, [avtaleId]);

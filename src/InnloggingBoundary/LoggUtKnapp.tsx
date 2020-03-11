@@ -9,7 +9,7 @@ const LoggUtKnapp: React.FunctionComponent<KnappBaseProps> = props => {
 
     const onClick = () => {
         removeCookie(INNLOGGET_PART);
-        amplitude.logEvent('bruker-logget-ut', {}, () => {
+        amplitude.logEvent('#tiltak-bruker-logget-ut', {}, () => {
             window.location.href = '/tiltaksgjennomforing/logout';
         });
     };

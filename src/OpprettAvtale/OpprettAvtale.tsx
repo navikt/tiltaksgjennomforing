@@ -119,7 +119,7 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
                 bedriftNr,
                 valgtTiltaksType || 'ARBEIDSTRENING'
             );
-            amplitude.logEvent('avtale-opprettet', { tiltakstype: valgtTiltaksType });
+            amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {
             throw new UfullstendigError(hvaSomManglerTekst);
