@@ -1,39 +1,45 @@
-import * as React from 'react';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import { useState } from 'react';
+import { Knapp } from 'nav-frontend-knapper';
+import React, { FunctionComponent, useState } from 'react';
 
-interface Props {
+type Props = {
     laasOpp: () => Promise<any>;
-}
+};
 
-const LaasOppKnapp: React.FunctionComponent<Props> = props => {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+const LaasOppKnapp: FunctionComponent<Props> = props => {
+    const [bekreftLaasOppModalOpen, setBekreftLaasOppModalOpen] = useState(false);
+
     const låsOppAvtaleklikk = () => {
-        if (
-            window.confirm(
-                'Er du sikker på at du vil låse opp avtalen og opprette en ny versjon?\nDu og arbeidsgiver kan endre innhold i avtalen og alle må godkjenne på nytt.'
-            )
-        ) {
-            return props.laasOpp();
-        }
-        return Promise.reject();
+        setBekreftLaasOppModalOpen(true);
+    };
+
+    const varselTekst = (
+        <>
+            1) Endre – gjør de endringene du ønsker. <br />
+            2) Godkjenn – Du og de andre partene må godkjenne ny versjon
+            <p>Gamle versjoner ligger under "Historikk".</p>
+        </>
+    );
+
+    const bekreftLaasOpp = async () => {
+        await props.laasOpp();
+        setBekreftLaasOppModalOpen(false);
     };
 
     return (
         <>
-            <LagreKnapp knapptype={'standard'} label={'Lås opp avtale'} lagre={låsOppAvtaleklikk}>
+            <Knapp type={'standard'} onClick={låsOppAvtaleklikk}>
                 Lås opp avtalen
-            </LagreKnapp>
+            </Knapp>
 
             <BekreftelseModal
-                avbrytelseTekst="Avbryt"
-                bekreftelseTekst="Lås opp"
-                bekreftOnClick={låsOppAvtaleklikk}
-                modalIsOpen={modalIsOpen}
-                lukkModal={() => setModal(false)}
-                oversiktTekst="hehe"
-                varselTekst="hoi"
+                avbrytelseTekst="Behold avtale"
+                bekreftelseTekst="Endre avtale"
+                bekreftOnClick={() => bekreftLaasOpp()}
+                modalIsOpen={bekreftLaasOppModalOpen}
+                lukkModal={() => setBekreftLaasOppModalOpen(false)}
+                oversiktTekst="Endre avtale"
+                varselTekst={varselTekst}
             />
         </>
     );
