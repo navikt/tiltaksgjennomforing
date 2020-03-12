@@ -23,7 +23,7 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     veilederTlf: '',
     manedslonn: 0,
     arbeidsoppgaver: '',
-    stillingtype: '',
+    stillingstittel: '',
     mentorFornavn: '',
     mentorEtternavn: '',
     mentorOppgaver: '',
