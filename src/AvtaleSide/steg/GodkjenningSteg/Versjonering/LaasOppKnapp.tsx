@@ -1,26 +1,62 @@
-import * as React from 'react';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import BEMHelper from '@/utils/bem';
+import { Knapp } from 'nav-frontend-knapper';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useState } from 'react';
+import './LaasOppKnapp.less';
 
-interface Props {
+type Props = {
     laasOpp: () => Promise<any>;
-}
+};
 
-const LaasOppKnapp: React.FunctionComponent<Props> = props => {
+const cls = BEMHelper('laasoppknapp');
+
+const LaasOppKnapp: FunctionComponent<Props> = props => {
+    const [bekreftLaasOppModalOpen, setBekreftLaasOppModalOpen] = useState(false);
+
     const låsOppAvtaleklikk = () => {
-        if (
-            window.confirm(
-                'Er du sikker på at du vil låse opp avtalen og opprette en ny versjon?\nDu og arbeidsgiver kan endre innhold i avtalen og alle må godkjenne på nytt.'
-            )
-        ) {
-            return props.laasOpp();
-        }
-        return Promise.reject();
+        setBekreftLaasOppModalOpen(true);
+    };
+
+    const varselTekst = (
+        <>
+            <VerticalSpacer sixteenPx={true} />
+            <span className={cls.element('modal-nb-tekst')}>
+                <VarselIkon />
+                <Element>NB: Alle parter må godkjenne på nytt</Element>
+            </span>
+
+            <VerticalSpacer sixteenPx={true} />
+            <Normaltekst>
+                Nåværende versjon av avtalen vil du finne du under "tidligere versjoner av avtalen".
+            </Normaltekst>
+            <VerticalSpacer twentyPx={true} />
+        </>
+    );
+
+    const bekreftLaasOpp = async () => {
+        await props.laasOpp();
+        setBekreftLaasOppModalOpen(false);
     };
 
     return (
-        <LagreKnapp knapptype={'standard'} label={'Lås opp avtale'} lagre={låsOppAvtaleklikk}>
-            Lås opp avtalen
-        </LagreKnapp>
+        <>
+            <Knapp type={'standard'} onClick={låsOppAvtaleklikk}>
+                Lås opp avtalen
+            </Knapp>
+
+            <BekreftelseModal
+                avbrytelseTekst="Avbryt"
+                bekreftelseTekst="Endre avtale"
+                bekreftOnClick={() => bekreftLaasOpp()}
+                modalIsOpen={bekreftLaasOppModalOpen}
+                lukkModal={() => setBekreftLaasOppModalOpen(false)}
+                oversiktTekst="Endre avtale"
+                varselTekst={varselTekst}
+            />
+        </>
     );
 };
 export default LaasOppKnapp;
