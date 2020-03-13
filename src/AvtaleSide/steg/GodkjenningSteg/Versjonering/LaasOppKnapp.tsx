@@ -14,7 +14,7 @@ type Props = {
 const cls = BEMHelper('laasoppknapp');
 
 const LaasOppKnapp: FunctionComponent<Props> = props => {
-    const [bekreftLaasOppModalOpen, setBekreftLaasOppModalOpen] = useState(false);
+    const [bekreftLaasOppModalOpen, setBekreftLaasOppModalOpen] = useState(true);
 
     const låsOppAvtaleklikk = () => {
         setBekreftLaasOppModalOpen(true);
@@ -22,12 +22,16 @@ const LaasOppKnapp: FunctionComponent<Props> = props => {
 
     const varselTekst = (
         <>
+            <VerticalSpacer sixteenPx={true} />
             <span className={cls.element('modal-nb-tekst')}>
                 <VarselIkon />
                 <Element>NB: Alle parter må godkjenne på nytt</Element>
             </span>
-            <VerticalSpacer thirtyTwoPx={true} />
-            <Normaltekst>Nåværende versjoner av avtalen finner du under "tidligere versjoner".</Normaltekst>
+
+            <VerticalSpacer sixteenPx={true} />
+            <Normaltekst>
+                Nåværende versjon av avtalen vil du finne du under "tidligere versjoner av avtalen".
+            </Normaltekst>
             <VerticalSpacer twentyPx={true} />
         </>
     );
