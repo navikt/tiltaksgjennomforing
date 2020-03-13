@@ -76,7 +76,7 @@ export interface Varighet {
 }
 
 export interface Stilling {
-    stillingtype?: string;
+    stillingstittel?: string;
     arbeidsoppgaver?: string;
 }
 

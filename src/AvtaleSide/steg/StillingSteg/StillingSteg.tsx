@@ -1,10 +1,10 @@
-import React from 'react';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { Context, medContext } from '@/AvtaleContext';
-import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import React from 'react';
 
 const StillingSteg = (props: Context) => {
     return (
@@ -12,8 +12,8 @@ const StillingSteg = (props: Context) => {
             <SkjemaTittel>Stilling</SkjemaTittel>
             <PakrevdInput
                 label="Stillingstittel"
-                verdi={props.avtale.stillingtype || ''}
-                settVerdi={verdi => props.settAvtaleVerdi('stillingtype', verdi)}
+                verdi={props.avtale.stillingstittel || ''}
+                settVerdi={verdi => props.settAvtaleVerdi('stillingstittel', verdi)}
             />
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"

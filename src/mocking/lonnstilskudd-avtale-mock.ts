@@ -53,7 +53,7 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     manedslonn: 10000,
     arbeidsgiverKontonummer: '123',
     arbeidsoppgaver: '',
-    stillingtype: '',
+    stillingstittel: '',
 };
 
 export default lonnstilskuddAvtaleMock;
