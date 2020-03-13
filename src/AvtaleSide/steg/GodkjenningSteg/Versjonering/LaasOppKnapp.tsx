@@ -14,7 +14,7 @@ type Props = {
 const cls = BEMHelper('laasoppknapp');
 
 const LaasOppKnapp: FunctionComponent<Props> = props => {
-    const [bekreftLaasOppModalOpen, setBekreftLaasOppModalOpen] = useState(true);
+    const [bekreftLaasOppModalOpen, setBekreftLaasOppModalOpen] = useState(false);
 
     const låsOppAvtaleklikk = () => {
         setBekreftLaasOppModalOpen(true);
