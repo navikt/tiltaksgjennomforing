@@ -34,7 +34,7 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     sluttDato: 'sluttdato',
     startDato: 'startdato',
     stillingprosent: 'stillingsprosent',
-    stillingtype: 'stillingstype',
+    stillingstittel: 'stillingstittel',
     tilrettelegging: 'tilrettelegging',
     veilederEtternavn: 'veileders etternavn',
     veilederFornavn: 'veileders fornavn',
