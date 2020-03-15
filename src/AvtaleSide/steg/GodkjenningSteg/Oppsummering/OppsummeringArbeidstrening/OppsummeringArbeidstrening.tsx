@@ -1,7 +1,6 @@
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { ArbeidstreningAvtaleinnhold } from '@/types/avtale';
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import MaalOppsummering from '../maalOppsummering/MaalOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import OppgaverOppsummering from '../oppgaveOppsummering/OppgaverOppsummering';
