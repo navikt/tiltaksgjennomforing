@@ -1,10 +1,11 @@
+import usePaakrevd from '@/komponenter/usePaakrevd';
 import { Textarea } from 'nav-frontend-skjema';
 import React from 'react';
-import usePaakrevd from '@/komponenter/usePaakrevd';
 import './PakrevdTextarea.less';
 
 interface Props {
     label: string;
+    placeholder?: string;
     verdi: string;
     feilmelding?: string;
     maxLengde: number;
@@ -20,6 +21,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
 
     return (
         <Textarea
+            placeholder={props.placeholder}
             feil={feil}
             label={props.label}
             value={props.verdi || ''}

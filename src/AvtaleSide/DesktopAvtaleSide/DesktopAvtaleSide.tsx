@@ -1,5 +1,5 @@
 import { Rolle } from '@/AvtaleContext';
-import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import React, { useState } from 'react';
@@ -28,7 +28,8 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const lukkModal = () => {
         setModalIsOpen(false);
     };
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(true);
+
     return (
         <>
             <div className={cls.element('desktop')}>
@@ -51,15 +52,17 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                     </div>
                 </div>
             </div>
-            <BekreftelseModal
+
+            <AvbrytAvtaleModal isOpen={modalIsOpen} lukkModal={lukkModal} avbrytAvtale={props.avbrytAvtale} />
+            {/* <BekreftelseModal
                 modalIsOpen={modalIsOpen}
                 bekreftOnClick={props.avbrytAvtale}
                 lukkModal={lukkModal}
-                varselTekst='Når du avbryter avtalen, blir innholdet låst og den blir markert som "avbrutt" i din oversikt. Du kan ikke redigere eller gjenopprette den etterpå.'
+                varselTekst={'avbrytelseInnhold'}
                 oversiktTekst="Avbryte avtale"
                 bekreftelseTekst="avbryt avtale"
                 avbrytelseTekst="behold avtale"
-            />
+            /> */}
         </>
     );
 };

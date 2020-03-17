@@ -70,6 +70,8 @@ export const tomAvtale: Avtale = {
     lonnstilskuddProsent: undefined,
 
     arbeidsgiverKontonummer: '',
+    avbruttDato: '',
+    avbruttGrunn: '',
 };
 
 export interface TemporaryLagring {
