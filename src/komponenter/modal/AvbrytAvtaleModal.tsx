@@ -7,8 +7,9 @@ import BEMHelper from '@/utils/bem';
 import moment, { Moment } from 'moment';
 import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
-import { Radio } from 'nav-frontend-skjema';
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import Datovelger from '../../AvtaleSide/steg/VarighetSteg/Datovelger/Datovelger';
 import VarselTegnForModal from './VarselTegnForModal';
@@ -24,12 +25,23 @@ const cls = BEMHelper('bekreftelseModal');
 const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> = props => {
     const [annetGrunn, setAnnetGrunn] = useState('');
     const [startDatoRiktigFormatert, setStartDatoRiktigFormatert] = useState<boolean>(true);
+    const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
+    const [datoFeil, setDatoFeil] = useState<undefined | SkjemaelementFeil>(undefined);
 
     const bekreftAvbrytAvtale = () => {
-        if (props.avtale.avbruttGrunn === 'Annet') {
-            props.settAvtaleVerdi('avbruttGrunn', annetGrunn);
+        if (!props.avtale.avbruttGrunn || !props.avtale.avbruttDato) {
+            if (!props.avtale.avbruttGrunn) {
+                setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
+            }
+            if (!props.avtale.avbruttDato) {
+                setDatoFeil({ feilmelding: 'Vennligst velg en dato' });
+            }
+        } else {
+            if (props.avtale.avbruttGrunn === 'Annet') {
+                props.settAvtaleVerdi('avbruttGrunn', annetGrunn);
+            }
+            return props.avbrytAvtale();
         }
-        return props.avbrytAvtale();
     };
 
     const velgStartDato = (dato: Moment) => {
@@ -43,6 +55,12 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
         // eslint-disable-next-line
     }, []);
 
+    useEffect(() => {
+        if (props.avtale.avbruttGrunn) {
+            setGrunnFeil(undefined);
+        }
+    }, [props.avtale.avbruttGrunn]);
+
     const modalInnhold = (
         <>
             <div>
@@ -51,66 +69,68 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
                     kan ikke redigere eller gjenopprette den etterpå.
                 </Normaltekst>
             </div>
-            <VerticalSpacer thirtyTwoPx={true} />
-            <Element>Dato for avbrytelse</Element>
-            <Datovelger
-                velgDato={velgStartDato}
-                dato={moment(props.avtale.avbruttDato)}
-                settRiktigFormatert={() => setStartDatoRiktigFormatert(true)}
-                inputRiktigFormatert={startDatoRiktigFormatert}
-            />
+            <VerticalSpacer sixteenPx={true} />
+            <SkjemaGruppe feil={datoFeil} title="Dato for avbrytelse">
+                <Datovelger
+                    velgDato={velgStartDato}
+                    dato={moment(props.avtale.avbruttDato)}
+                    settRiktigFormatert={() => setStartDatoRiktigFormatert(true)}
+                    inputRiktigFormatert={startDatoRiktigFormatert}
+                />
+            </SkjemaGruppe>
             <div>
-                <Element>Hvorfor avbrytes avtalen?</Element>
                 <VerticalSpacer twentyPx={true} />
-                <Radio
-                    label="Begynt i arbeid"
-                    name="avbrytelsegrunn"
-                    value="Begynt i arbeid"
-                    checked={props.avtale.avbruttGrunn === 'Begynt i arbeid'}
-                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                />
-                <Radio
-                    label="Fått tilbud om annet tiltak"
-                    name="avbrytelsegrunn"
-                    value="Fått tilbud om annet tiltak"
-                    checked={props.avtale.avbruttGrunn === 'Fått tilbud om annet tiltak'}
-                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                />
-                <Radio
-                    label="Syk"
-                    name="avbrytelsegrunn"
-                    value="Syk"
-                    checked={props.avtale.avbruttGrunn === 'Syk'}
-                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                />
-                <Radio
-                    label="Ikke møtt"
-                    name="avbrytelsegrunn"
-                    value="Ikke møtt"
-                    checked={props.avtale.avbruttGrunn === 'Ikke møtt'}
-                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                />
-                <Radio
-                    label="Fullført"
-                    name="avbrytelsegrunn"
-                    value="Fullført"
-                    checked={props.avtale.avbruttGrunn === 'Fullført'}
-                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                />
-                <Radio
-                    label="Korona"
-                    name="avbrytelsegrunn"
-                    value="Korona"
-                    checked={props.avtale.avbruttGrunn === 'Korona'}
-                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                />
-                <Radio
-                    label="Annet"
-                    name="avbrytelsegrunn"
-                    value="Annet"
-                    checked={props.avtale.avbruttGrunn === 'Annet'}
-                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                />
+                <SkjemaGruppe title="Hvorfor avbrytes avtalen?" feil={grunnFeil}>
+                    <Radio
+                        label="Begynt i arbeid"
+                        name="avbrytelsegrunn"
+                        value="Begynt i arbeid"
+                        checked={props.avtale.avbruttGrunn === 'Begynt i arbeid'}
+                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                    />
+                    <Radio
+                        label="Fått tilbud om annet tiltak"
+                        name="avbrytelsegrunn"
+                        value="Fått tilbud om annet tiltak"
+                        checked={props.avtale.avbruttGrunn === 'Fått tilbud om annet tiltak'}
+                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                    />
+                    <Radio
+                        label="Syk"
+                        name="avbrytelsegrunn"
+                        value="Syk"
+                        checked={props.avtale.avbruttGrunn === 'Syk'}
+                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                    />
+                    <Radio
+                        label="Ikke møtt"
+                        name="avbrytelsegrunn"
+                        value="Ikke møtt"
+                        checked={props.avtale.avbruttGrunn === 'Ikke møtt'}
+                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                    />
+                    <Radio
+                        label="Fullført"
+                        name="avbrytelsegrunn"
+                        value="Fullført"
+                        checked={props.avtale.avbruttGrunn === 'Fullført'}
+                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                    />
+                    <Radio
+                        label="Korona"
+                        name="avbrytelsegrunn"
+                        value="Korona"
+                        checked={props.avtale.avbruttGrunn === 'Korona'}
+                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                    />
+                    <Radio
+                        label="Annet"
+                        name="avbrytelsegrunn"
+                        value="Annet"
+                        checked={props.avtale.avbruttGrunn === 'Annet'}
+                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                    />
+                </SkjemaGruppe>
             </div>
 
             {props.avtale.avbruttGrunn === 'Annet' && (
