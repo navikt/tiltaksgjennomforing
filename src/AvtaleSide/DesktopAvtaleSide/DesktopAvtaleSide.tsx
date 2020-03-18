@@ -28,7 +28,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const lukkModal = () => {
         setModalIsOpen(false);
     };
-    const [modalIsOpen, setModalIsOpen] = useState(true);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     return (
         <>

@@ -244,16 +244,21 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
-    noenHarGodkjent() {
+    noenHarGodkjentMenIkkeAlle() {
         return (
-            this.state.avtale.godkjentAvDeltaker ||
-            this.state.avtale.godkjentAvArbeidsgiver ||
-            this.state.avtale.godkjentAvVeileder
+            (this.state.avtale.godkjentAvDeltaker ||
+                this.state.avtale.godkjentAvArbeidsgiver ||
+                this.state.avtale.godkjentAvVeileder) &&
+            !(
+                this.state.avtale.godkjentAvDeltaker &&
+                this.state.avtale.godkjentAvArbeidsgiver &&
+                this.state.avtale.godkjentAvVeileder
+            )
         );
     }
 
     settAvtaleVerdi(felt: keyof Avtale, verdi: any) {
-        if (this.noenHarGodkjent()) {
+        if (this.noenHarGodkjentMenIkkeAlle()) {
             this.setState({ bekreftelseModalIsOpen: true });
         } else {
             const avtale = this.state.avtale;
@@ -266,7 +271,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async lagreAvtale() {
-        if (this.noenHarGodkjent()) {
+        if (this.noenHarGodkjentMenIkkeAlle()) {
             return Promise.reject();
         } else {
             const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
@@ -291,7 +296,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     };
 
     utforHandlingHvisRedigerbar = (callback: () => void) => {
-        if (this.noenHarGodkjent()) {
+        if (this.noenHarGodkjentMenIkkeAlle()) {
             this.setState({ bekreftelseModalIsOpen: true });
         } else {
             callback();

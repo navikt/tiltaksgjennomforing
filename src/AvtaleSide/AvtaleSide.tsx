@@ -1,5 +1,7 @@
 import { Context, medContext } from '@/AvtaleContext';
 import Banner from '@/komponenter/Banner/Banner';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
@@ -8,12 +10,12 @@ import moment from 'moment';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
+import AvbryteAvtalen from './AvbryteAvtalen/AvbryteAvtalen';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface MatchProps {
     avtaleId: string;
@@ -45,6 +47,7 @@ export interface StegInfo {
 const AvtaleSide: FunctionComponent<Props> = props => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
+    const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState(false);
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -112,14 +115,21 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.avtale.erLaast || props.avtale.avbrutt || props.rolle === 'DELTAKER') {
                     setAktivtSteg(avtaleSteg.find(steg => steg.id === 'godkjenning'));
                     innhold = (
-                        <div className={cls.element('innhold')}>
+                        <div className={cls.element('avbrytOgDelLenke')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
+                                <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
                             </div>
                             <VerticalSpacer sixteenPx={true} />
                             {varsler}
                             <VerticalSpacer sixteenPx={true} />
                             {aktivtSteg.komponent}
+
+                            <AvbrytAvtaleModal
+                                isOpen={avbrytModalIsOpen}
+                                lukkModal={() => setAvbrytModalIsOpen(false)}
+                                avbrytAvtale={props.avbryt}
+                            />
                         </div>
                     );
                 } else if (erDesktop) {
