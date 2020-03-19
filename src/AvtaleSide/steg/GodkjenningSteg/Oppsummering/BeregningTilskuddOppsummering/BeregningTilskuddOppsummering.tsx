@@ -12,6 +12,7 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
         <Stegoppsummering tittel="Beregning av tilskudd">
             <Element>Kontonummer</Element> <SjekkOmVerdiEksisterer verdi={props.arbeidsgiverKontonummer} />
             <VerticalSpacer sixteenPx={true} />
+            <Element>Utregning</Element>
             <HvaManglerOppsummering
                 avhengigFelter={{
                     // I dette tilfellet ønsker skal 0 være en gyldig verdi på arbeidsgiveravgift.
@@ -21,6 +22,7 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
                     manedslonn: props.manedslonn,
                 }}
             >
+                <VerticalSpacer sixteenPx={true} />
                 <VisUtregningenPanel {...props} />
             </HvaManglerOppsummering>
         </Stegoppsummering>
