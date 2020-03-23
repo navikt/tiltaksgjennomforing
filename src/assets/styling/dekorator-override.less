@@ -13,6 +13,36 @@
     }
 
     @media (max-width: 48.0625em) {
+        .hodefot .panel-wrapper .tilbaketilgruppe .home-link:before {
+            background: transparent url('@{appresRoot}img/navno/gfx/mainmenu/hjem_hvit.png') no-repeat;
+            height: 24px;
+            margin-left: 2rem;
+        }
+
+        .topnavitem .has-children .selected-topnavitem .panel-wrapper p {
+            margin-bottom: 0;
+        }
+
+        .tilbaketilgruppe.typo-normal {
+            min-height: 0;
+            padding: 0;
+            margin-top: 1.75rem;
+
+            a.home-link {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+            }
+
+            span.lenke-fremhevet.tilbaketilforsidelink {
+                margin-left: 70px;
+            }
+        }
+
+        .hodefot .panel-wrapper .tilbaketilgruppe .tilbaketittel {
+            bottom: 22px;
+        }
+
         .hodefot a {
             color: white;
         }
@@ -25,39 +55,19 @@
 
 @appresRoot: 'https://appres.nav.no/_public/appressurser/built-appres-v4/';
 
+.hodefot .login-details #auth-btns {
+    padding-top: 3px;
+}
+
+#mainmenu.topnav.container {
+    form#sitesearch {
+        margin-bottom: 0;
+    }
+}
+
 .knapp.mini.btn-auth.btn-login {
     text-align: center;
     min-height: 1.75rem;
-}
-
-.hodefot .panel-wrapper .tilbaketilgruppe .home-link:before {
-    background: transparent url('@{appresRoot}img/navno/gfx/mainmenu/hjem_hvit.png') no-repeat;
-    height: 24px;
-    margin-left: 2rem;
-}
-
-.topnavitem .has-children .selected-topnavitem .panel-wrapper p {
-    margin-bottom: 0;
-}
-
-.tilbaketilgruppe.typo-normal {
-    min-height: 0;
-    padding: 0;
-    margin-top: 1.75rem;
-
-    a.home-link {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-    }
-
-    span.lenke-fremhevet.tilbaketilforsidelink {
-        margin-left: 70px;
-    }
-}
-
-.hodefot .panel-wrapper .tilbaketilgruppe .tilbaketittel {
-    bottom: 22px;
 }
 
 .siteheader {
