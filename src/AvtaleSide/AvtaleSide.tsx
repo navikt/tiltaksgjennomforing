@@ -105,6 +105,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         }
     };
 
+    const lukkeModal = () => {
+        setAvbrytModalIsOpen(false);
+    };
+
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
@@ -115,21 +119,25 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 } else if (props.avtale.erLaast || props.avtale.avbrutt || props.rolle === 'DELTAKER') {
                     setAktivtSteg(avtaleSteg.find(steg => steg.id === 'godkjenning'));
                     innhold = (
-                        <div className={cls.element('avbrytOgDelLenke')}>
+                        <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
-                                <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
+                                {props.rolle === 'VEILEDER' && !props.avtale.avbrutt && (
+                                    <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
+                                )}
                             </div>
                             <VerticalSpacer sixteenPx={true} />
                             {varsler}
                             <VerticalSpacer sixteenPx={true} />
                             {aktivtSteg.komponent}
 
-                            <AvbrytAvtaleModal
-                                isOpen={avbrytModalIsOpen}
-                                lukkModal={() => setAvbrytModalIsOpen(false)}
-                                avbrytAvtale={props.avbryt}
-                            />
+                            {props.rolle === 'VEILEDER' && !props.avtale.avbrutt && (
+                                <AvbrytAvtaleModal
+                                    isOpen={avbrytModalIsOpen}
+                                    lukkModal={lukkeModal}
+                                    avbrytAvtale={props.avbryt}
+                                />
+                            )}
                         </div>
                     );
                 } else if (erDesktop) {

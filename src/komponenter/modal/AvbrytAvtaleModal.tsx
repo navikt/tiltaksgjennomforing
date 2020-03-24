@@ -2,17 +2,16 @@ import { medContext } from '@/AvtaleContext';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Avbrytelse } from '@/types/avtale';
+import { Avbrytelse, AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment, { Moment } from 'moment';
-import KnappBase from 'nav-frontend-knapper';
-import Modal from 'nav-frontend-modal';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import Datovelger from '../../AvtaleSide/steg/VarighetSteg/Datovelger/Datovelger';
-import VarselTegnForModal from './VarselTegnForModal';
+import './AvbrytAvtaleModal.less';
+import BekreftelseModal from './BekreftelseModal';
 
 type Props = {
     isOpen: boolean;
@@ -20,7 +19,7 @@ type Props = {
     avbrytAvtale: () => Promise<any>;
 };
 
-const cls = BEMHelper('bekreftelseModal');
+const cls = BEMHelper('avbryt-avtale-modal');
 
 const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> = props => {
     const [annetGrunn, setAnnetGrunn] = useState('');
@@ -28,7 +27,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
     const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
     const [datoFeil, setDatoFeil] = useState<undefined | SkjemaelementFeil>(undefined);
 
-    const bekreftAvbrytAvtale = () => {
+    const bekreftAvbrytAvtale = async () => {
         if (!props.avtale.avbruttGrunn || !props.avtale.avbruttDato) {
             if (!props.avtale.avbruttGrunn) {
                 setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
@@ -38,9 +37,18 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
             }
         } else {
             if (props.avtale.avbruttGrunn === 'Annet') {
-                props.settAvtaleVerdi('avbruttGrunn', annetGrunn);
+                if (!annetGrunn) {
+                    const annetTextArea = document.querySelector<HTMLElement>('.pakrevd-textarea');
+                    if (annetTextArea) {
+                        annetTextArea.focus();
+                        annetTextArea.blur();
+                    }
+                    return;
+                } else {
+                    props.settAvtaleVerdi('avbruttGrunn', annetGrunn);
+                }
             }
-            return props.avbrytAvtale();
+            return await props.avbrytAvtale();
         }
     };
 
@@ -61,6 +69,15 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
         }
     }, [props.avtale.avbruttGrunn]);
 
+    const grunner: AvbrytelseGrunn[] = [
+        'Begynt i arbeid',
+        'Fått tilbud om annet tiltak',
+        'Syk',
+        'Ikke møtt',
+        'Fullført',
+        'Annet',
+    ];
+
     const modalInnhold = (
         <>
             <div>
@@ -78,109 +95,50 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
                     inputRiktigFormatert={startDatoRiktigFormatert}
                 />
             </SkjemaGruppe>
-            <div>
-                <VerticalSpacer twentyPx={true} />
-                <SkjemaGruppe title="Hvorfor avbrytes avtalen?" feil={grunnFeil}>
-                    <Radio
-                        label="Begynt i arbeid"
-                        name="avbrytelsegrunn"
-                        value="Begynt i arbeid"
-                        checked={props.avtale.avbruttGrunn === 'Begynt i arbeid'}
-                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                    />
-                    <Radio
-                        label="Fått tilbud om annet tiltak"
-                        name="avbrytelsegrunn"
-                        value="Fått tilbud om annet tiltak"
-                        checked={props.avtale.avbruttGrunn === 'Fått tilbud om annet tiltak'}
-                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                    />
-                    <Radio
-                        label="Syk"
-                        name="avbrytelsegrunn"
-                        value="Syk"
-                        checked={props.avtale.avbruttGrunn === 'Syk'}
-                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                    />
-                    <Radio
-                        label="Ikke møtt"
-                        name="avbrytelsegrunn"
-                        value="Ikke møtt"
-                        checked={props.avtale.avbruttGrunn === 'Ikke møtt'}
-                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                    />
-                    <Radio
-                        label="Fullført"
-                        name="avbrytelsegrunn"
-                        value="Fullført"
-                        checked={props.avtale.avbruttGrunn === 'Fullført'}
-                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                    />
-                    <Radio
-                        label="Korona"
-                        name="avbrytelsegrunn"
-                        value="Korona"
-                        checked={props.avtale.avbruttGrunn === 'Korona'}
-                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                    />
-                    <Radio
-                        label="Annet"
-                        name="avbrytelsegrunn"
-                        value="Annet"
-                        checked={props.avtale.avbruttGrunn === 'Annet'}
-                        onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
-                    />
-                </SkjemaGruppe>
+            <div className={cls.element('grunner-og-annet')}>
+                <div>
+                    <VerticalSpacer twentyPx={true} />
+                    <SkjemaGruppe title="Hvorfor avbrytes avtalen?" feil={grunnFeil}>
+                        {grunner.map(grunn => {
+                            return (
+                                <Radio
+                                    label={grunn}
+                                    name="avbrytelsegrunn"
+                                    value={grunn}
+                                    checked={props.avtale.avbruttGrunn === grunn}
+                                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                                />
+                            );
+                        })}
+                    </SkjemaGruppe>
+                </div>
+                <div>
+                    {props.avtale.avbruttGrunn === 'Annet' && (
+                        <PakrevdTextarea
+                            label=""
+                            verdi={annetGrunn}
+                            placeholder="Begrunnelse"
+                            settVerdi={verdi => setAnnetGrunn(verdi)}
+                            maxLengde={500}
+                            feilmelding="Vennligst beskriv"
+                            className={cls.element('pakrevd-text-area')}
+                        />
+                    )}
+                </div>
             </div>
-
-            {props.avtale.avbruttGrunn === 'Annet' && (
-                <PakrevdTextarea
-                    label=""
-                    verdi={annetGrunn}
-                    placeholder="Begrunnelse"
-                    settVerdi={verdi => setAnnetGrunn(verdi)}
-                    maxLengde={500}
-                    feilmelding="Vennligst beskriv"
-                />
-            )}
         </>
     );
 
     return (
-        <div className={cls.className}>
-            <Modal
-                isOpen={props.isOpen}
-                className="modal--overflow-visible"
-                contentLabel={'test'}
-                onRequestClose={props.lukkModal}
-                closeButton={false}
-            >
-                <div className={cls.element('topIconContainer')}>
-                    <VarselTegnForModal width={'80px'} height={'80px'} />
-                </div>
-                <div className={cls.element('body')}>
-                    <div className={cls.element('knappRad')} />
-                    <div className={cls.element('innhold')}>
-                        <div className={cls.element('tittel')}>
-                            <Systemtittel>Avbryt avtale</Systemtittel>
-                        </div>
-                        <Normaltekst className={cls.element('varselTekst')}>{modalInnhold}</Normaltekst>
-                    </div>
-                    <div className={cls.element('knapper')}>
-                        <KnappBase
-                            type={'hoved'}
-                            className={cls.element('knapp lenkeknapp')}
-                            onClick={bekreftAvbrytAvtale}
-                        >
-                            avbryt avtale
-                        </KnappBase>
-                        <KnappBase type={'flat'} className={cls.element('knapp lenkeknapp')} onClick={props.lukkModal}>
-                            behold avtale
-                        </KnappBase>
-                    </div>
-                </div>
-            </Modal>
-        </div>
+        <BekreftelseModal
+            bekreftOnClick={bekreftAvbrytAvtale}
+            lukkModal={props.lukkModal}
+            modalIsOpen={props.isOpen}
+            oversiktTekst="Avbryt avtale"
+            varselTekst={modalInnhold}
+            bekreftelseTekst="Avbryt avtale"
+            avbrytelseTekst="Behold avtale"
+        />
     );
 };
 
