@@ -37,15 +37,10 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
             }
         } else {
             if (props.avtale.avbruttGrunn === 'Annet') {
-                if (!annetGrunn) {
-                    const annetTextArea = document.querySelector<HTMLElement>('.pakrevd-textarea');
-                    if (annetTextArea) {
-                        annetTextArea.focus();
-                        annetTextArea.blur();
-                    }
-                    return;
-                } else {
+                if (annetGrunn) {
                     props.settAvtaleVerdi('avbruttGrunn', annetGrunn);
+                } else {
+                    return;
                 }
             }
             return await props.avbrytAvtale();
@@ -66,6 +61,9 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
     useEffect(() => {
         if (props.avtale.avbruttGrunn) {
             setGrunnFeil(undefined);
+        }
+        if (props.avtale.avbruttGrunn === 'Annet') {
+            document.querySelector<HTMLElement>('.pakrevd-textarea')!.focus();
         }
     }, [props.avtale.avbruttGrunn]);
 
@@ -102,6 +100,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
                         {grunner.map(grunn => {
                             return (
                                 <Radio
+                                    key={grunn}
                                     label={grunn}
                                     name="avbrytelsegrunn"
                                     value={grunn}
