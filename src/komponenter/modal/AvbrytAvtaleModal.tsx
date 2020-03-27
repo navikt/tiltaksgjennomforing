@@ -119,7 +119,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
                             placeholder="Begrunnelse"
                             settVerdi={verdi => setAnnetGrunn(verdi)}
                             maxLengde={500}
-                            feilmelding="Vennligst beskriv"
+                            feilmelding="Begrunnelse er påkrevd"
                             className={cls.element('pakrevd-text-area')}
                         />
                     )}
