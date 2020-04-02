@@ -10,6 +10,8 @@ import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import {
@@ -22,7 +24,7 @@ import {
 } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 
@@ -69,9 +71,79 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
         }
     };
 
+    const [harFamilietilknytning, setHarFamilietilknytning] = useState<string>('');
+    const relasjonHjelpetekst = (
+        <div className={cls.element('relasjon-hjelpetekst')}>
+            Du kan ikke få tilskudd til arbeidsmarkedstiltak for egne familiemedlemmer eller andre du har et nært
+            forhold til, med mindre særlige grunner foreligger.
+            <VerticalSpacer eightPx={true} />
+            Er det en nær relasjon mellom deg eller noen i virksomheten og arbeidstakeren skal du huke av for dette i
+            boksen under.
+            <VerticalSpacer eightPx={true} />
+            Du kan søke om oppstart av lønnstilskudd selv om du har en nær relasjon til arbeidstakeren, men du må oppgi
+            at det er en nær relasjon og utdype tilknytningen. NAV vil deretter vurdere om det foreligger særlige
+            grunner for likevel å innvilge tiltaket.
+            {
+                <ul>
+                    <li>Den som fyller ut skjemaet og den meldingen gjelder er</li>
+                    <li>Samme person</li>
+                    <li>Ektefelle/partner/samboer/forlovet</li>
+                    <li>Tidligere ektefelle/partner/samboer</li>
+                    <li>Søsken/halvsøsken</li>
+                    <li>Barn/barnebarn</li>
+                    <li>Foreldre</li>
+                    <li>Besteforeldre</li>
+                    <li>Svogerskap</li>
+                    <li>Annen nær personlig tilknytning</li>
+                </ul>
+            }
+        </div>
+    );
+
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
+
+            <Row className="">
+                <Column md="12">
+                    <Undertittel>Relasjoner</Undertittel>
+                    <Normaltekst>
+                        Er det familiære eller økonomiske relasjoner mellom abriedsgiveren og deltakeren?
+                    </Normaltekst>
+                    <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
+                        {relasjonHjelpetekst}
+                    </LesMerPanel>
+                    <VerticalSpacer eightPx={true} />
+                </Column>
+                <Column md="12">
+                    <RadioPanelGruppeHorisontal
+                        radios={[
+                            { label: 'Ja', value: 'ja' },
+                            { label: 'Nei', value: 'nei' },
+                        ]}
+                        name="feriepengesats"
+                        checked={harFamilietilknytning}
+                        legend=""
+                        onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                            setHarFamilietilknytning(verdi)
+                        }
+                    />
+                    {/* <Radio label="Ja" name="ja" checked={harFamilietilknytning === 'ja'} />
+                    <Radio label="Nei" name="nei" checked={harFamilietilknytning === 'nei'} /> */}
+                </Column>
+                {harFamilietilknytning === 'ja' && (
+                    <Column md="12">
+                        <VerticalSpacer sixteenPx={true} />
+                        <PakrevdTextarea
+                            label="Vennligst utdyp denne relasjonen"
+                            maxLengde={500}
+                            verdi=""
+                            settVerdi={() => null}
+                        />
+                    </Column>
+                )}
+            </Row>
+            <VerticalSpacer sixteenPx={true} />
 
             {innloggetBruker.erNavAnsatt && (
                 <>
