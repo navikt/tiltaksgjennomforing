@@ -1,14 +1,12 @@
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { ArbeidstreningAvtaleinnhold } from '@/types/avtale';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import MaalOppsummering from '../maalOppsummering/MaalOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import OppgaverOppsummering from '../oppgaveOppsummering/OppgaverOppsummering';
+import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
-import ArbeidsoppgaverOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppgaveOppsummering/ArbeidsoppgaverOppsummering';
-import { useContext } from 'react';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 interface Props {
     avtaleinnhold: ArbeidstreningAvtaleinnhold;
@@ -22,7 +20,7 @@ const OppsummeringArbeidstrening: FunctionComponent<Props> = props => {
         <>
             <MaalOppsummering {...props.avtaleinnhold} />
             {fritekstToggle ? (
-                <ArbeidsoppgaverOppsummering {...props.avtaleinnhold} />
+                <StillingsOppsummering {...props.avtaleinnhold} />
             ) : (
                 <OppgaverOppsummering {...props.avtaleinnhold} />
             )}
