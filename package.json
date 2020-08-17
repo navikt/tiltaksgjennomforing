@@ -17,6 +17,7 @@
         "up": "docker-compose up -d --remove-orphans --build"
     },
     "dependencies": {
+        "@babel/compat-data": "^7.8.6",
         "@navikt/fnrvalidator": "^1.1.0",
         "@navikt/navspa": "^1.0.3",
         "@sentry/browser": "^5.7.1",
@@ -97,7 +98,6 @@
         "url-search-params-polyfill": "^7.0.1"
     },
     "devDependencies": {
-        "@babel/plugin-proposal-private-methods": "^7.10.4",
         "@craco/craco": "^5.6.1",
         "@types/chai": "^4.2.4",
         "@types/classnames": "^2.2.7",
