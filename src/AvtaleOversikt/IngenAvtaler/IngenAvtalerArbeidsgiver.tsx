@@ -88,7 +88,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                     {!harTilgangPaMinstEnOrg && (
                         <div>
                             <div className={cls.element('headerContainer')}>
-                                <VarselIkon width="35" height="35" className={cls.element('headerIkon')} />
+                                <VarselIkon className={cls.element('headerIkon')} />
                                 <Innholdstittel>Du mangler rettigheter i Altinn</Innholdstittel>
                             </div>
                             <div>
