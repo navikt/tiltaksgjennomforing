@@ -52,6 +52,9 @@ const mentorAvtaleMock: Avtale<MentorAvtaleinnhold> = {
     mentorOppgaver: 'Mentorgreier',
     mentorAntallTimer: 20,
     mentorTimelonn: 200,
+
+    avbruttDato: '',
+    avbruttGrunn: '',
 };
 
 export default mentorAvtaleMock;

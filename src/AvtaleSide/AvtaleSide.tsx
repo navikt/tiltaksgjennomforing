@@ -1,5 +1,7 @@
 import { Context, medContext } from '@/AvtaleContext';
 import Banner from '@/komponenter/Banner/Banner';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
@@ -8,12 +10,12 @@ import moment from 'moment';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
+import AvbryteAvtalen from './AvbryteAvtalen/AvbryteAvtalen';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface MatchProps {
     avtaleId: string;
@@ -45,6 +47,7 @@ export interface StegInfo {
 const AvtaleSide: FunctionComponent<Props> = props => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
+    const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState(false);
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -102,6 +105,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         }
     };
 
+    const lukkeModal = () => {
+        setAvbrytModalIsOpen(false);
+    };
+
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
@@ -115,6 +122,16 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
+                                {props.rolle === 'VEILEDER' && !props.avtale.avbrutt && (
+                                    <>
+                                        <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
+                                        <AvbrytAvtaleModal
+                                            isOpen={avbrytModalIsOpen}
+                                            lukkModal={lukkeModal}
+                                            avbrytAvtale={props.avbryt}
+                                        />
+                                    </>
+                                )}
                             </div>
                             <VerticalSpacer sixteenPx={true} />
                             {varsler}

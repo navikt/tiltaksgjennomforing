@@ -67,6 +67,9 @@ const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
 
     maal: maalListe,
     oppgaver: oppgaveListe,
+
+    avbruttDato: '',
+    avbruttGrunn: '',
 };
 
 export default arbeidstreningAvtaleMock;
