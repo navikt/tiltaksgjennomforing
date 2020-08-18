@@ -4,12 +4,12 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { Avbrytelse, AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
+import { Datovelger } from 'nav-datovelger';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import Datovelger from '../../AvtaleSide/steg/VarighetSteg/Datovelger/Datovelger';
 import './AvbrytAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
 
@@ -18,12 +18,11 @@ type Props = {
     lukkModal: () => void;
     avbrytAvtale: () => Promise<any>;
 };
-
+const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
 const cls = BEMHelper('avbryt-avtale-modal');
 
 const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> = props => {
     const [annetGrunn, setAnnetGrunn] = useState('');
-    const [startDatoRiktigFormatert, setStartDatoRiktigFormatert] = useState<boolean>(true);
     const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
     const [datoFeil, setDatoFeil] = useState<undefined | SkjemaelementFeil>(undefined);
 
@@ -47,14 +46,12 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
         }
     };
 
-    const velgStartDato = (dato: Moment) => {
-        setStartDatoRiktigFormatert(true);
-        props.settAvtaleVerdi('avbruttDato', dato.toISOString(true).split('+')[0]);
+    const velgStartDato = (dato: string | undefined) => {
+        props.settAvtaleVerdi('avbruttDato', dato);
     };
 
     useEffect(() => {
-        const dagensDato = moment(moment.now());
-        velgStartDato(dagensDato);
+        velgStartDato(DAGENS_DATO);
         // eslint-disable-next-line
     }, []);
 
@@ -87,10 +84,10 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
             <VerticalSpacer sixteenPx={true} />
             <SkjemaGruppe feil={datoFeil} title="Dato for avbrytelse">
                 <Datovelger
-                    velgDato={velgStartDato}
-                    dato={moment(props.avtale.avbruttDato)}
-                    settRiktigFormatert={() => setStartDatoRiktigFormatert(true)}
-                    inputRiktigFormatert={startDatoRiktigFormatert}
+                    avgrensninger={{ minDato: DAGENS_DATO }}
+                    input={{ placeholder: 'dd.mm.åååå' }}
+                    valgtDato={props.avtale.avbruttDato}
+                    onChange={dato => velgStartDato(dato)}
                 />
             </SkjemaGruppe>
             <div className={cls.element('grunner-og-annet')}>
