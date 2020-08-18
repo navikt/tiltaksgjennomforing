@@ -18,6 +18,7 @@ type Props = {
     lukkModal: () => void;
     avbrytAvtale: () => Promise<any>;
 };
+
 const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
 const cls = BEMHelper('avbryt-avtale-modal');
 
