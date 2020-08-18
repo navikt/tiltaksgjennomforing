@@ -123,21 +123,20 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
                                 {props.rolle === 'VEILEDER' && !props.avtale.avbrutt && (
-                                    <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
+                                    <>
+                                        <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
+                                        <AvbrytAvtaleModal
+                                            isOpen={avbrytModalIsOpen}
+                                            lukkModal={lukkeModal}
+                                            avbrytAvtale={props.avbryt}
+                                        />
+                                    </>
                                 )}
                             </div>
                             <VerticalSpacer sixteenPx={true} />
                             {varsler}
                             <VerticalSpacer sixteenPx={true} />
                             {aktivtSteg.komponent}
-
-                            {props.rolle === 'VEILEDER' && !props.avtale.avbrutt && (
-                                <AvbrytAvtaleModal
-                                    isOpen={avbrytModalIsOpen}
-                                    lukkModal={lukkeModal}
-                                    avbrytAvtale={props.avbryt}
-                                />
-                            )}
                         </div>
                     );
                 } else if (erDesktop) {

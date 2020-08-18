@@ -54,15 +54,6 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             </div>
 
             <AvbrytAvtaleModal isOpen={modalIsOpen} lukkModal={lukkModal} avbrytAvtale={props.avbrytAvtale} />
-            {/* <BekreftelseModal
-                modalIsOpen={modalIsOpen}
-                bekreftOnClick={props.avbrytAvtale}
-                lukkModal={lukkModal}
-                varselTekst={'avbrytelseInnhold'}
-                oversiktTekst="Avbryte avtale"
-                bekreftelseTekst="avbryt avtale"
-                avbrytelseTekst="behold avtale"
-            /> */}
         </>
     );
 };
