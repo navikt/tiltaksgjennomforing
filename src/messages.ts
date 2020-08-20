@@ -39,4 +39,6 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     veilederEtternavn: 'veileders etternavn',
     veilederFornavn: 'veileders fornavn',
     veilederTlf: 'veileders telefonnummer',
+    harFamilietilknytning: 'har deltaker familietilknytning til arbeidsgiver',
+    familietilknytningForklaring: 'forklaring på familietilknytning',
 };

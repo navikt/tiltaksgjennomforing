@@ -29,6 +29,8 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     mentorOppgaver: '',
     mentorAntallTimer: 0,
     mentorTimelonn: 0,
+    harFamilietilknytning: false,
+    familietilknytningForklaring: '',
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {

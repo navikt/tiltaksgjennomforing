@@ -94,6 +94,8 @@ export interface Beregningsgrunnlag {
     arbeidsgiveravgift: number;
     lonnstilskuddProsent?: number;
     stillingprosent: number;
+    harFamilietilknytning: boolean;
+    familietilknytningForklaring?: string;
 }
 
 export interface Kontonummer {

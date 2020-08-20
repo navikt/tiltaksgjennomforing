@@ -54,7 +54,7 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     arbeidsgiverKontonummer: '123',
     arbeidsoppgaver: '',
     stillingstittel: '',
-
+    harFamilietilknytning: false,
     avbruttDato: '',
     avbruttGrunn: '',
 };

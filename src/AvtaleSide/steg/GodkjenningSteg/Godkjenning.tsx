@@ -1,18 +1,20 @@
-import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
-import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
 import { Rolle } from '@/AvtaleContext';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale, GodkjentPaVegneGrunner } from '@/types/avtale';
+import { UfullstendigError } from '@/types/errors';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import * as React from 'react';
+import { FunctionComponent, useState } from 'react';
+import './Godkjenning.less';
+import GodkjennPaVegneAv from './Oppsummering/GodkjennPaVegneAv/GodkjennPaVegneAv';
 import ArbeidsgiverInstruks from './Oppsummering/instruks/ArbeidsgiverInstruks';
 import DeltakerInstruks from './Oppsummering/instruks/DeltakerInstruks';
-import './Godkjenning.less';
 import VeilederInstruks from './Oppsummering/instruks/VeilederInstruks';
-import GodkjennPaVegneAv from './Oppsummering/GodkjennPaVegneAv/GodkjennPaVegneAv';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { UfullstendigError } from '@/types/errors';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 
 interface Props {
     avtale: Avtale;
@@ -115,6 +117,14 @@ const Godkjenning: FunctionComponent<Props> = props => {
             )}
             {props.rolle === 'VEILEDER' && !props.avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAv godkjentPaVegneGrunn={godkjentPaVegneGrunn} moderState={paVegneState} />
+            )}
+            {props.avtale.harFamilietilknytning && (
+                <>
+                    <AlertStripeAdvarsel>
+                        OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
+                    </AlertStripeAdvarsel>
+                    <VerticalSpacer sixteenPx={true} />
+                </>
             )}
             <LagreKnapp
                 lagre={() => {

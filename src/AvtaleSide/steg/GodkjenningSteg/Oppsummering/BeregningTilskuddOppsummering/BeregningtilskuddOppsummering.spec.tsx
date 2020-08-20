@@ -13,7 +13,7 @@ test('Test at <BeregningTilskuddOppsummering> rendres', () => {
 
 test('Skal rendre Stegoppsummering og HvaManglerOppsummering', () => {
     const wrapper = shallow(<BeregningTilskuddOppsummering {...lonnstilskuddAvtaleMock} />);
-    expect(wrapper.find(Stegoppsummering) && wrapper.find(HvaManglerOppsummering)).toHaveLength(1);
+    expect(wrapper.find(Stegoppsummering) && wrapper.find(HvaManglerOppsummering)).toHaveLength(2);
 });
 
 test('Skal rendre VisUtreningPanel', () => {
