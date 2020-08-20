@@ -26,7 +26,7 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
                 <VisUtregningenPanel {...props} />
             </HvaManglerOppsummering>
             <VerticalSpacer sixteenPx={true} />
-            <Element>Familietilknytning</Element>
+            <Element>Relasjoner</Element>
             <HvaManglerOppsummering
                 avhengigFelter={{
                     harFamilietilknytning: props.harFamilietilknytning !== null,
