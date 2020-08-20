@@ -1,14 +1,17 @@
+import usePaakrevd from '@/komponenter/usePaakrevd';
+import classNames from 'classnames';
 import { Textarea } from 'nav-frontend-skjema';
 import React from 'react';
-import usePaakrevd from '@/komponenter/usePaakrevd';
 import './PakrevdTextarea.less';
 
 interface Props {
     label: string;
+    placeholder?: string;
     verdi: string;
     feilmelding?: string;
     maxLengde: number;
     settVerdi: (verdi: string) => void;
+    className?: string;
 }
 
 const PakrevdTextarea: React.FunctionComponent<Props> = props => {
@@ -20,6 +23,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
 
     return (
         <Textarea
+            placeholder={props.placeholder}
             feil={feil}
             label={props.label}
             value={props.verdi || ''}
@@ -32,7 +36,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
             maxLength={props.maxLengde}
             tellerTekst={lagTellerTekst}
             onBlur={sjekkInputfelt}
-            textareaClass={'pakrevd-textarea'}
+            textareaClass={classNames('pakrevd-textarea', props.className)}
         />
     );
 };

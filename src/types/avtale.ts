@@ -26,6 +26,14 @@ export type MentorAvtaleinnhold = FellesAvtaleinnhold & Mentorinfo;
 export type AltAvtaleinnhold = ArbeidstreningAvtaleinnhold & LonnstilskuddAvtaleinnhold & MentorAvtaleinnhold;
 
 export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD' | 'MENTOR';
+export type AvbrytelseGrunn =
+    | 'Begynt i arbeid'
+    | 'Fått tilbud om annet tiltak'
+    | 'Syk'
+    | 'Ikke møtt'
+    | 'Fullført'
+    | 'Annet'
+    | '';
 
 export interface AvtaleMetadata {
     id: string;
@@ -136,6 +144,8 @@ export interface Godkjenninger {
 export interface Avbrytelse {
     kanAvbrytes: boolean;
     avbrutt: boolean;
+    avbruttDato: string;
+    avbruttGrunn: AvbrytelseGrunn;
 }
 export interface GodkjentPaVegneGrunner {
     ikkeBankId: boolean;

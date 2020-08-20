@@ -55,6 +55,8 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     arbeidsoppgaver: '',
     stillingstittel: '',
     harFamilietilknytning: false,
+    avbruttDato: '',
+    avbruttGrunn: '',
 };
 
 export default lonnstilskuddAvtaleMock;

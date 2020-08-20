@@ -72,6 +72,12 @@ export const tomAvtale: Avtale = {
     arbeidsgiverKontonummer: '',
     harFamilietilknytning: false,
     familietilknytningForklaring: undefined,
+    avbruttDato: '',
+    avbruttGrunn: '',
+};
+
+export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
+    return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
 
 export interface TemporaryLagring {
@@ -140,7 +146,7 @@ interface State {
     mellomLagring: TemporaryLagring;
     mellomLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave;
     varsler: Varsel[];
-    bekreftelseModalIsOpen: boolean;
+    opphevGodkjenningerModalIsOpen: boolean;
 }
 
 export class TempAvtaleProvider extends React.Component<any, State> {
@@ -155,7 +161,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             mellomLagring: tomTemporaryLagring,
             mellomLagringArbeidsoppgave: tomTemporaryLagringArbeidsoppgave,
             varsler: [],
-            bekreftelseModalIsOpen: false,
+            opphevGodkjenningerModalIsOpen: false,
         };
 
         this.avbrytAvtale = this.avbrytAvtale.bind(this);
@@ -244,17 +250,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
-    noenHarGodkjent() {
-        return (
-            this.state.avtale.godkjentAvDeltaker ||
-            this.state.avtale.godkjentAvArbeidsgiver ||
-            this.state.avtale.godkjentAvVeileder
-        );
-    }
-
     settAvtaleVerdi(felt: keyof Avtale, verdi: any) {
-        if (this.noenHarGodkjent()) {
-            this.setState({ bekreftelseModalIsOpen: true });
+        if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
+            this.setState({ opphevGodkjenningerModalIsOpen: true });
         } else {
             const avtale = this.state.avtale;
             if (avtale) {
@@ -266,7 +264,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async lagreAvtale() {
-        if (this.noenHarGodkjent()) {
+        if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
             return Promise.reject();
         } else {
             const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
@@ -291,8 +289,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     };
 
     utforHandlingHvisRedigerbar = (callback: () => void) => {
-        if (this.noenHarGodkjent()) {
-            this.setState({ bekreftelseModalIsOpen: true });
+        if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
+            this.setState({ opphevGodkjenningerModalIsOpen: true });
         } else {
             callback();
         }
@@ -422,14 +420,14 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
         const bekreftOpphevGodkjenninger = async () => {
             const opphevetAvtale = await RestService.opphevGodkjenninger(this.state.avtale.id);
-            this.setState({ avtale: opphevetAvtale, bekreftelseModalIsOpen: false });
+            this.setState({ avtale: opphevetAvtale, opphevGodkjenningerModalIsOpen: false });
         };
 
         const opphevGodkjenningerModal = (
             <OpphevGodkjenningerModal
-                modalIsOpen={this.state.bekreftelseModalIsOpen}
+                modalIsOpen={this.state.opphevGodkjenningerModalIsOpen}
                 bekreftOpphevGodkjenninger={bekreftOpphevGodkjenninger}
-                lukkModal={() => this.setState({ bekreftelseModalIsOpen: false })}
+                lukkModal={() => this.setState({ opphevGodkjenningerModalIsOpen: false })}
             />
         );
 

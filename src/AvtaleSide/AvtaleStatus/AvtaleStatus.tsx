@@ -3,6 +3,7 @@ import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
 import { Rolle } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import RestService from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
@@ -29,6 +30,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
         props.avtale.godkjentAvDeltaker,
         props.avtale.godkjentAvArbeidsgiver,
         props.avtale.godkjentAvVeileder,
+        props.avtale.avbrutt,
     ]);
     if (!avtaleStatusDetaljer) {
         return null;
@@ -64,6 +66,8 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 <div className={cls.element('header')}>
                     <Innholdstittel>{avtaleStatusDetaljer.header} </Innholdstittel>
                 </div>
+                <VerticalSpacer sixteenPx={true} />
+                {props.avtale.avbruttGrunn && props.avtale.avbrutt && `Årsak: ${props.avtale.avbruttGrunn}`}
             </MediaQuery>
             <MediaQuery maxWidth={767}>
                 <div className={cls.element('hovedIkonMobil')}>

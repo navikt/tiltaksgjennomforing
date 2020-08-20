@@ -167,7 +167,9 @@ const opphevGodkjenninger = async (avtaleId: string) => {
 const avbrytAvtale = async (avtale: Avtale) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/avbryt`;
     const response = await fetchPost(uri, {
+        body: JSON.stringify({ avbruttDato: avtale.avbruttDato, avbruttGrunn: avtale.avbruttGrunn }),
         headers: {
+            'Content-Type': 'application/json',
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
