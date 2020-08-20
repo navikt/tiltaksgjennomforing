@@ -70,6 +70,8 @@ export const tomAvtale: Avtale = {
     lonnstilskuddProsent: undefined,
 
     arbeidsgiverKontonummer: '',
+    harFamilietilknytning: false,
+    familietilknytningForklaring: undefined,
 };
 
 export interface TemporaryLagring {

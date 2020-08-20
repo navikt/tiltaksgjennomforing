@@ -1,7 +1,7 @@
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
-import { Element } from 'nav-frontend-typografi';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import HvaManglerOppsummering from '../HvaManglerOppsummering';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
@@ -24,6 +24,24 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
             >
                 <VerticalSpacer sixteenPx={true} />
                 <VisUtregningenPanel {...props} />
+            </HvaManglerOppsummering>
+            <VerticalSpacer sixteenPx={true} />
+            <Element>Familietilknytning</Element>
+            <HvaManglerOppsummering
+                avhengigFelter={{
+                    harFamilietilknytning: props.harFamilietilknytning !== null,
+                    familietilknytningForklaring: props.harFamilietilknytning
+                        ? props.familietilknytningForklaring
+                        : 'true',
+                }}
+            >
+                <Normaltekst>
+                    Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?
+                </Normaltekst>
+                <Normaltekst>{props.harFamilietilknytning ? 'Ja' : ' Nei'}</Normaltekst>
+                {props.familietilknytningForklaring && (
+                    <Normaltekst>Forklaring: {props.familietilknytningForklaring}</Normaltekst>
+                )}
             </HvaManglerOppsummering>
         </Stegoppsummering>
     );

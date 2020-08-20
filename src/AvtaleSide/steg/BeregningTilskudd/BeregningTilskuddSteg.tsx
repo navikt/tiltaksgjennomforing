@@ -1,4 +1,4 @@
-import { medContext } from '@/AvtaleContext';
+import { medContext, Rolle } from '@/AvtaleContext';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -23,8 +23,9 @@ import {
     sumUtgifter,
 } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
+import { RadioPanel } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 
@@ -53,6 +54,7 @@ const arbeidsgiveravgiftAlternativer = () => {
 
 const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag & Kontonummer> & {
     avtale: AvtaleMetadata;
+    rolle: Rolle;
 }> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
@@ -71,7 +73,6 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
         }
     };
 
-    const [harFamilietilknytning, setHarFamilietilknytning] = useState<string>('');
     const relasjonHjelpetekst = (
         <div className={cls.element('relasjon-hjelpetekst')}>
             Du kan ikke få tilskudd til arbeidsmarkedstiltak for egne familiemedlemmer eller andre du har et nært
@@ -104,45 +105,52 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
 
-            <Row className="">
-                <Column md="12">
-                    <Undertittel>Relasjoner</Undertittel>
-                    <Normaltekst>
-                        Er det familiære eller økonomiske relasjoner mellom abriedsgiveren og deltakeren?
-                    </Normaltekst>
-                    <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
-                        {relasjonHjelpetekst}
-                    </LesMerPanel>
-                    <VerticalSpacer eightPx={true} />
-                </Column>
-                <Column md="12">
-                    <RadioPanelGruppeHorisontal
-                        radios={[
-                            { label: 'Ja', value: 'ja' },
-                            { label: 'Nei', value: 'nei' },
-                        ]}
-                        name="feriepengesats"
-                        checked={harFamilietilknytning}
-                        legend=""
-                        onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                            setHarFamilietilknytning(verdi)
-                        }
-                    />
-                    {/* <Radio label="Ja" name="ja" checked={harFamilietilknytning === 'ja'} />
-                    <Radio label="Nei" name="nei" checked={harFamilietilknytning === 'nei'} /> */}
-                </Column>
-                {harFamilietilknytning === 'ja' && (
+            {props.rolle === 'ARBEIDSGIVER' && (
+                <Row className="">
                     <Column md="12">
-                        <VerticalSpacer sixteenPx={true} />
-                        <PakrevdTextarea
-                            label="Vennligst utdyp denne relasjonen"
-                            maxLengde={500}
-                            verdi=""
-                            settVerdi={() => null}
-                        />
+                        <Undertittel>Relasjoner</Undertittel>
+                        <Normaltekst>
+                            Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?
+                        </Normaltekst>
+                        <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
+                            {relasjonHjelpetekst}
+                        </LesMerPanel>
+                        <VerticalSpacer eightPx={true} />
                     </Column>
-                )}
-            </Row>
+                    <Column md="12">
+                        <div className={cls.element('familietilknytning-valg')}>
+                            <RadioPanel
+                                label="Ja"
+                                name="Ja"
+                                checked={props.avtale.harFamilietilknytning === true}
+                                value="ja"
+                                onChange={() => props.settAvtaleVerdi('harFamilietilknytning', true)}
+                            />
+                            <RadioPanel
+                                label="Nei"
+                                name="Nei"
+                                checked={props.avtale.harFamilietilknytning === false}
+                                value="nei"
+                                onChange={() => {
+                                    props.settAvtaleVerdi('harFamilietilknytning', false);
+                                    props.settAvtaleVerdi('familietilknytningForklaring', null);
+                                }}
+                            />
+                        </div>
+                    </Column>
+                    {props.avtale.harFamilietilknytning && (
+                        <Column md="12">
+                            <VerticalSpacer sixteenPx={true} />
+                            <PakrevdTextarea
+                                label="Vennligst utdyp denne relasjonen"
+                                maxLengde={500}
+                                verdi={props.avtale.familietilknytningForklaring || ''}
+                                settVerdi={verdi => props.settAvtaleVerdi('familietilknytningForklaring', verdi)}
+                            />
+                        </Column>
+                    )}
+                </Row>
+            )}
             <VerticalSpacer sixteenPx={true} />
 
             {innloggetBruker.erNavAnsatt && (
