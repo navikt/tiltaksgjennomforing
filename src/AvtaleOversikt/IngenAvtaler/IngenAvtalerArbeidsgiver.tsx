@@ -24,7 +24,8 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
             en av enkelttjenestene
             <ul>
                 <li>Avtale om arbeidstrening</li>
-                <li>Avtale om lønnstilskudd</li>
+                <li>Avtale om midlertidig lønnstilskudd</li>
+                <li>Avtale om varig lønnstilskudd</li>
             </ul>
         </>
     ) : (
@@ -73,11 +74,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                             <VerticalSpacer sixteenPx={true} />
                             <Normaltekst tag="div">
                                 Hvis du er ute etter en avtale registrert på en annen bedrift enn de overnevnte må du i
-                                Altinn enten ha rollen
-                                <ul>
-                                    <li>Helse-, sosial- og velferdstjenester</li>
-                                </ul>
-                                eller {enkeltRettighet}
+                                Altinn ha {enkeltRettighet}
                                 <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                                     Les mer om roller og rettigheter på Altinn.no
                                 </EksternLenke>
@@ -100,11 +97,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <Normaltekst>
                                     <Systemtittel>Hvordan får jeg tilgang?</Systemtittel>
                                     <VerticalSpacer sixteenPx={true} />
-                                    For å få tilgang på avtaler til din bedrift må du i Altinn enten ha rollen{' '}
-                                    <ul>
-                                        <li>Helse-, sosial- og velferdstjenester</li>
-                                    </ul>{' '}
-                                    eller {enkeltRettighet}
+                                    For å få tilgang på avtaler til din bedrift må du i Altinn ha {enkeltRettighet}
                                 </Normaltekst>
 
                                 <div className={cls.element('rolleinfo')}>
