@@ -16,7 +16,7 @@ import BekreftelseModal from './BekreftelseModal';
 type Props = {
     isOpen: boolean;
     lukkModal: () => void;
-    avbrytAvtale: () => Promise<any>;
+    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
 };
 
 const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
@@ -26,44 +26,45 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
     const [annetGrunn, setAnnetGrunn] = useState('');
     const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
     const [datoFeil, setDatoFeil] = useState<undefined | SkjemaelementFeil>(undefined);
+    const [avbruttGrunn, setAvbruttGrunn] = useState<AvbrytelseGrunn | string>('');
+    const [avbruttDato, setAvbruttDato] = useState('');
 
     const bekreftAvbrytAvtale = async () => {
-        if (!props.avtale.avbruttGrunn || !props.avtale.avbruttDato) {
-            if (!props.avtale.avbruttGrunn) {
+        if (!avbruttGrunn || !avbruttDato) {
+            if (!avbruttGrunn) {
                 setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
             }
-            if (!props.avtale.avbruttDato) {
+            if (!avbruttDato) {
                 setDatoFeil({ feilmelding: 'Vennligst velg en dato' });
             }
         } else {
-            if (props.avtale.avbruttGrunn === 'Annet') {
-                if (annetGrunn) {
-                    props.settAvtaleVerdi('avbruttGrunn', annetGrunn);
-                } else {
-                    return;
-                }
+            if (avbruttGrunn === 'Annet') {
+                if (!annetGrunn) return;
+                return await props.avbrytAvtale(avbruttDato, annetGrunn);
             }
-            return await props.avbrytAvtale();
+            return await props.avbrytAvtale(avbruttDato, avbruttGrunn);
         }
     };
 
     const velgStartDato = (dato: string | undefined) => {
-        props.settAvtaleVerdi('avbruttDato', dato);
+        dato && setAvbruttDato(dato);
     };
 
     useEffect(() => {
-        velgStartDato(DAGENS_DATO);
+        if (props.isOpen) {
+            velgStartDato(DAGENS_DATO);
+        }
         // eslint-disable-next-line
-    }, []);
+    }, [props.isOpen]);
 
     useEffect(() => {
-        if (props.avtale.avbruttGrunn) {
+        if (avbruttGrunn) {
             setGrunnFeil(undefined);
         }
-        if (props.avtale.avbruttGrunn === 'Annet') {
+        if (avbruttGrunn === 'Annet') {
             document.querySelector<HTMLElement>('.pakrevd-textarea')!.focus();
         }
-    }, [props.avtale.avbruttGrunn]);
+    }, [avbruttGrunn]);
 
     const grunner: AvbrytelseGrunn[] = [
         'Begynt i arbeid',
@@ -87,7 +88,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
                 <Datovelger
                     avgrensninger={{ minDato: DAGENS_DATO }}
                     input={{ placeholder: 'dd.mm.åååå' }}
-                    valgtDato={props.avtale.avbruttDato}
+                    valgtDato={avbruttDato}
                     onChange={dato => velgStartDato(dato)}
                 />
             </SkjemaGruppe>
@@ -102,15 +103,17 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
                                     label={grunn}
                                     name="avbrytelsegrunn"
                                     value={grunn}
-                                    checked={props.avtale.avbruttGrunn === grunn}
-                                    onChange={event => props.settAvtaleVerdi('avbruttGrunn', event.currentTarget.value)}
+                                    checked={avbruttGrunn === grunn}
+                                    onChange={event => {
+                                        setAvbruttGrunn(event.currentTarget.value);
+                                    }}
                                 />
                             );
                         })}
                     </SkjemaGruppe>
                 </div>
                 <div>
-                    {props.avtale.avbruttGrunn === 'Annet' && (
+                    {avbruttGrunn === 'Annet' && (
                         <PakrevdTextarea
                             label=""
                             verdi={annetGrunn}

@@ -16,7 +16,7 @@ interface Props {
     rolle: Rolle;
     varsler?: JSX.Element[];
     avtale: Avtale;
-    avbrytAvtale: () => Promise<void>;
+    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     tilbakeTilOversiktKlikk: () => void;
 }
 
