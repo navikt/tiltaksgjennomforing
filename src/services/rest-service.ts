@@ -24,7 +24,7 @@ export interface RestService {
     godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
     godkjennAvtalePaVegne: (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
-    avbrytAvtale: (avtale: Avtale) => Promise<Avtale>;
+    avbrytAvtale: (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
     hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
@@ -164,10 +164,10 @@ const opphevGodkjenninger = async (avtaleId: string) => {
     await handleResponse(response);
     return hentAvtale(avtaleId);
 };
-const avbrytAvtale = async (avtale: Avtale) => {
+const avbrytAvtale = async (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/avbryt`;
     const response = await fetchPost(uri, {
-        body: JSON.stringify({ avbruttDato: avtale.avbruttDato, avbruttGrunn: avtale.avbruttGrunn }),
+        body: JSON.stringify({ avbruttDato: avbruttDato, avbruttGrunn: avbruttGrunn }),
         headers: {
             'Content-Type': 'application/json',
             'If-Unmodified-Since': avtale.sistEndret,

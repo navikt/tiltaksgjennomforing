@@ -103,7 +103,7 @@ const tomTemporaryLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave = {
 };
 
 export interface Context {
-    avbryt: () => Promise<any>;
+    avbryt: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
     avtale: Avtale;
     endretSteg: () => void;
     godkjenn: (godkjent: boolean) => Promise<any>;
@@ -252,7 +252,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     settAvtaleVerdi(felt: keyof Avtale, verdi: any) {
         if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
-            debugger;
             this.setState({ opphevGodkjenningerModalIsOpen: true });
         } else {
             const avtale = this.state.avtale;
@@ -291,7 +290,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     utforHandlingHvisRedigerbar = (callback: () => void) => {
         if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
-            debugger;
             this.setState({ opphevGodkjenningerModalIsOpen: true });
         } else {
             callback();
@@ -359,9 +357,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await this.hentAvtale(avtale.id);
     }
 
-    async avbrytAvtale() {
+    async avbrytAvtale(avbruttDato: string, avbruttGrunn: string) {
         const avtale = this.state.avtale;
-        await RestService.avbrytAvtale(avtale);
+        await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
         this.sendToAmplitude('#tiltak-avtale-avbrutt');
         await this.hentAvtale(avtale.id);
     }
