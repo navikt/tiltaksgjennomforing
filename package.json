@@ -32,7 +32,7 @@
         "html-webpack-plugin": "^3.2.0",
         "http-proxy-middleware": "^0.21.0",
         "intl": "^1.2.5",
-        "jsdom": "^16.2.0",
+        "jsdom": "^16.4.0",
         "lodash.throttle": "^4.1.1",
         "moment": "^2.24.0",
         "nav-datovelger": "^6.1.9",
