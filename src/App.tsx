@@ -32,12 +32,12 @@ class App extends React.Component {
             <IntlProvider locale="nb" messages={messages}>
                 <BrowserRouter basename={basename}>
                     <AdvarselBannerHeroku />
-                    <Switch>
-                        <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
-                        <FeilVarselProvider>
-                            <InnloggingBoundary>
-                                <RedirectEtterLogin>
-                                    <FeatureToggleProvider>
+                    <FeatureToggleProvider>
+                        <Switch>
+                            <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
+                            <FeilVarselProvider>
+                                <InnloggingBoundary>
+                                    <RedirectEtterLogin>
                                         <Route path="/" exact={true} component={AvtaleOversikt} />
                                         <Route
                                             path={pathTilInformasjonssideInnlogget}
@@ -60,11 +60,11 @@ class App extends React.Component {
                                                 component={AvtaleSide}
                                             />
                                         </AvtaleProvider>
-                                    </FeatureToggleProvider>
-                                </RedirectEtterLogin>
-                            </InnloggingBoundary>
-                        </FeilVarselProvider>
-                    </Switch>
+                                    </RedirectEtterLogin>
+                                </InnloggingBoundary>
+                            </FeilVarselProvider>
+                        </Switch>
+                    </FeatureToggleProvider>
                 </BrowserRouter>
             </IntlProvider>
         );
