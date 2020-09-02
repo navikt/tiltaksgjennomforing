@@ -252,6 +252,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     settAvtaleVerdi(felt: keyof Avtale, verdi: any) {
         if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
+            debugger;
             this.setState({ opphevGodkjenningerModalIsOpen: true });
         } else {
             const avtale = this.state.avtale;
@@ -290,6 +291,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     utforHandlingHvisRedigerbar = (callback: () => void) => {
         if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
+            debugger;
             this.setState({ opphevGodkjenningerModalIsOpen: true });
         } else {
             callback();

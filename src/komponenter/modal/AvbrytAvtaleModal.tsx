@@ -51,10 +51,12 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
         props.settAvtaleVerdi('avbruttDato', dato);
     };
 
-    useEffect(() => {
-        velgStartDato(DAGENS_DATO);
-        // eslint-disable-next-line
-    }, []);
+    // useEffect(() => {
+    //     if (props.isOpen) {
+    //         velgStartDato(DAGENS_DATO);
+    //     }
+    //     // eslint-disable-next-line
+    // }, [props.isOpen]);
 
     useEffect(() => {
         if (props.avtale.avbruttGrunn) {
