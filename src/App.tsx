@@ -32,8 +32,8 @@ class App extends React.Component {
             <IntlProvider locale="nb" messages={messages}>
                 <BrowserRouter basename={basename}>
                     <AdvarselBannerHeroku />
-                    <Switch>
-                        <FeatureToggleProvider>
+                    <FeatureToggleProvider>
+                        <Switch>
                             <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
                             <FeilVarselProvider>
                                 <InnloggingBoundary>
@@ -63,8 +63,8 @@ class App extends React.Component {
                                     </RedirectEtterLogin>
                                 </InnloggingBoundary>
                             </FeilVarselProvider>
-                        </FeatureToggleProvider>
-                    </Switch>
+                        </Switch>
+                    </FeatureToggleProvider>
                 </BrowserRouter>
             </IntlProvider>
         );
