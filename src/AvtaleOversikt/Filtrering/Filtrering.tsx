@@ -6,6 +6,7 @@ import './Filtrering.less';
 import { Avtale } from '@/types/avtale';
 import { DeltakerOgBedriftFilter } from '@/AvtaleOversikt/Filtrering/DeltakerOgBedriftFilter';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import StatusFilter from '@/AvtaleOversikt/Filtrering/StatusFilter';
 
 const cls = BEMHelper('filtrering');
 
@@ -19,6 +20,7 @@ const Filtrering: FunctionComponent<FiltreringProps> = props => {
         <div className={cls.className}>
             <DeltakerOgBedriftFilter {...props} />
             {lonnstilskuddToggle && <TiltakstypeFilter {...props} />}
+            <StatusFilter {...props} />
         </div>
     );
 };
