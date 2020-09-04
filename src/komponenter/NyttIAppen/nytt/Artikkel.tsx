@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import { EtikettLiten, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
 import { Nyhet } from './Nytt';
-import { EtikettLiten, Undertittel, Normaltekst } from 'nav-frontend-typografi';
 
 const printDato = (dato: Date) =>
     dato.toLocaleDateString

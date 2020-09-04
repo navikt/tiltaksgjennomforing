@@ -6,11 +6,16 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
-        dato: tilDato(2, 8, 2020),
+        dato: tilDato(2, 9, 2020),
+        tittel: 'Nå kan du filtrere avtaler i oversikten på status',
+        innhold:
+            'Nederst i den venstre kolonnen er det nå mulig å filtrere ut avtalene i oversikten på ulike statuser.',
+    },
+    {
+        dato: tilDato(1, 9, 2020),
         tittel: 'Ny digital avtale om lønnstilskudd lansert i dag :)',
         innhold: (
             <>
-                <p></p>
                 <p>
                     Den digitale lønnstilskuddsavtalen har vært pilotert på NAV Nordstrand i Oslo, og er fra i dag (1.
                     sept.) tilgjengelig for alle fylker. Den digitale avtalen om lønnstilskudd er i samme løsning som
@@ -25,18 +30,6 @@ const nyheter = [
                 </p>
             </>
         ),
-    },
-    {
-        dato: tilDato(8, 6, 2020),
-        tittel: 'Nå kan du søke etter en kandidat',
-        innhold:
-            'Øverst i kandidatsøket i fritekstsøket, kan du nå søke på fødselsnummer og få treff på kandidaten du leter etter. Du vil kun få treff på kandidater som er synlige i Rekrutteringsbistand.',
-    },
-    {
-        dato: tilDato(4, 6, 2020),
-        tittel: 'Filtrering på alder',
-        innhold:
-            'I kandidatsøket har du nå mulighet til å filtrere på alder. Du legger selv inn hvilket aldersintervall du vil ha i søket. Det gir en ny mulighet til målrettede søk etter kandidater innenfor prioriterte målgrupper.',
     },
 ];
 

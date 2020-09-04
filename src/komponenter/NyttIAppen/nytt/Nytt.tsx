@@ -57,6 +57,7 @@ const Nytt: FunctionComponent<Props> = props => {
         if (erÅpnet) {
             markerSomLest();
         }
+        // eslint-disable-next-line
     }, [erÅpnet]);
 
     return (

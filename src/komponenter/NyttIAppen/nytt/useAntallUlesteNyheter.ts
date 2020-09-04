@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Nyhet } from './Nytt';
 
 const hentAntallUlesteNyheter = (nyheter: Nyhet[], antallLesteNyheter: number) => {
@@ -33,6 +33,7 @@ const useAntallUlesteNyheter = (nyheter: Nyhet[], onFørsteBesøk: () => void): 
         } catch (error) {
             console.error('Kunne ikke hente fra local storage:', error);
         }
+        // eslint-disable-next-line
     }, [nyheter]);
 
     const markerSomLest = () => {
