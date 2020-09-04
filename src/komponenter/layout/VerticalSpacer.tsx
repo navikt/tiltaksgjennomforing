@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 import './VerticalSpacer.less';
 
 interface VerticalSpacerProps {
@@ -17,7 +17,13 @@ interface VerticalSpacerProps {
  *
  * Presentasjonskomponent. Legg inn vertikalt tomrom.
  */
-const VerticalSpacer = (classes: VerticalSpacerProps) => <div className={classNames(classes)} />;
+const VerticalSpacer = (classes: VerticalSpacerProps & { rem?: number }) => {
+    if (classes.rem) {
+        return <div style={{ marginTop: `${classes.rem}rem` }} />;
+    } else {
+        return <div className={classNames(classes)} />;
+    }
+};
 
 VerticalSpacer.propTypes = {
     fourPx: PropTypes.bool,

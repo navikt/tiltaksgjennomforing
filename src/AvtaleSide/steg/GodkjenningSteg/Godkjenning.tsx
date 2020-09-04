@@ -56,20 +56,21 @@ const initState: GodkjentPaVegneGrunner = {
 const feilmeldinger = {
     arbeidsavtaleOgBekreftelseMangler:
         'Det må bekreftes at arbeidsavtale er inngått og at du forstår kravene før du kan godkjenne.',
-    bekreftelse: 'Du må bekrefte at det er inngått arbeidsavtale',
-    arbeidsavtaleMaInnga: 'Du må bekrefte at du forstår kravene før du kan godkjenne.\n',
+    bekreftelse: 'Du må bekrefte at du forstår kravene før du kan godkjenne.',
+    arbeidsavtaleMaInnga: 'Du må bekrefte at det er inngått arbeidsavtale',
 };
 
 const Godkjenning: FunctionComponent<Props> = props => {
-    const initBekreftArbeidsavtale = () =>
+    const slipperBekrefteArbeidsavtale =
         !(
             props.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
             props.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD'
         ) || props.rolle !== 'ARBEIDSGIVER';
-    const erVeileder = () => props.rolle === 'VEILEDER';
 
-    const [bekreftet, setBekreftet] = useState<boolean>(erVeileder());
-    const [bekreftetArbeidsAvtale, setBekreftetArbeidsAvtale] = useState<boolean>(initBekreftArbeidsavtale());
+    const erVeileder = props.rolle === 'VEILEDER';
+
+    const [bekreftet, setBekreftet] = useState<boolean>(erVeileder);
+    const [bekreftetArbeidsAvtale, setBekreftetArbeidsAvtale] = useState<boolean>(slipperBekrefteArbeidsavtale);
     const [godkjentPaVegneAv, setGodkjentPaVegneAv] = useState<boolean>(false);
     const [paVegneDeltakerInformert, setPaVegneDeltakerInformert] = useState<boolean>(false);
     const [godkjentPaVegneGrunn, setGodkjentPaVegneGrunn] = useState<GodkjentPaVegneGrunner>(initState);
@@ -130,21 +131,24 @@ const Godkjenning: FunctionComponent<Props> = props => {
         <Innholdsboks className="godkjenning">
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             {instruks(props.rolle, props.avtale)}
-            {!initBekreftArbeidsavtale() && (
+            {!slipperBekrefteArbeidsavtale && (
                 <BekreftCheckboksPanel
                     onChange={() => setBekreftetArbeidsAvtale(!bekreftetArbeidsAvtale)}
                     checked={bekreftetArbeidsAvtale}
                     label="Jeg bekrefter at det en inngått arbeidsavtale"
                 />
             )}
-            {!erVeileder() && (
-                <BekreftCheckboksPanel
-                    label="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"
-                    checked={bekreftet}
-                    onChange={() => setBekreftet(!bekreftet)}
-                />
+            {!erVeileder && (
+                <>
+                    <BekreftCheckboksPanel
+                        label="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"
+                        checked={bekreftet}
+                        onChange={() => setBekreftet(!bekreftet)}
+                    />
+                    <VerticalSpacer rem={1.5} />
+                </>
             )}
-            {erVeileder() && !props.avtale.godkjentAvDeltaker && (
+            {erVeileder && !props.avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAv godkjentPaVegneGrunn={godkjentPaVegneGrunn} moderState={paVegneState} />
             )}
             {props.avtale.harFamilietilknytning && (
