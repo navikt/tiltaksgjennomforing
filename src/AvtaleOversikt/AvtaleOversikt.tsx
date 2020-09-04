@@ -1,5 +1,12 @@
+import Avtaler from '@/AvtaleOversikt/Avtaler';
+import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
+import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
+import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
+import LenkeKnapp from '@/komponenter/LenkeKnapp';
+import nyheter from '@/komponenter/NyttIAppen/nytt/nyheter';
+import Nytt from '@/komponenter/NyttIAppen/nytt/Nytt';
 import { pathTilOpprettAvtale } from '@/paths';
 import RestService from '@/services/rest-service';
 import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
@@ -9,11 +16,6 @@ import BEMHelper from '@/utils/bem';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
-import LenkeKnapp from '@/komponenter/LenkeKnapp';
-import Avtaler from '@/AvtaleOversikt/Avtaler';
-import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
-import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
-import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -51,6 +53,16 @@ const AvtaleOversikt: FunctionComponent = () => {
     return (
         <>
             <Banner tekst="Tiltaksoversikt" />
+            {innloggetBruker.erNavAnsatt && (
+                <div style={{ position: 'absolute', margin: '2rem' }}>
+                    <Nytt
+                        åpneVedFørsteBesøk
+                        nyheter={nyheter}
+                        title="Nytt i tiltaksgjennomføring"
+                        navn="Tiltaksgjennomføring"
+                    />
+                </div>
+            )}
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
