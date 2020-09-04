@@ -8,30 +8,32 @@ import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
 import { ReactComponent as GjennomforesIkon } from '@/assets/ikoner/gjennomfores.svg';
 import { Rolle } from '@/AvtaleContext';
 
-const StatusIkon: FunctionComponent<{
+interface Props {
     status: string;
     rolle?: Rolle;
     godkjentAvInnloggetBruker?: boolean;
     andrePartnerHarGodkjent?: boolean;
     className?: string;
-}> = props => {
+}
+
+const StatusIkon: FunctionComponent<Props> = props => {
     switch (props.status) {
         case 'Påbegynt':
-            return <PabegyntIkon {...props} />;
+            return <PabegyntIkon />;
         case 'Klar for oppstart':
-            return <CheckIkon {...props} />;
+            return <CheckIkon />;
         case 'Mangler godkjenning':
             if (props.godkjentAvInnloggetBruker || (props.rolle === 'VEILEDER' && !props.andrePartnerHarGodkjent)) {
-                return <PabegyntIkon {...props} />;
+                return <PabegyntIkon />;
             } else {
-                return <ProblemIkon {...props} />;
+                return <ProblemIkon />;
             }
         case 'Avbrutt':
-            return <AvbruttIkon {...props} />;
+            return <AvbruttIkon />;
         case 'Avsluttet':
-            return <InaktivIkon {...props} />;
+            return <InaktivIkon />;
         case 'Gjennomføres':
-            return <GjennomforesIkon {...props} />;
+            return <GjennomforesIkon />;
         default:
             return null;
     }

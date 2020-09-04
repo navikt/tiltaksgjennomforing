@@ -10,9 +10,9 @@ import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import Godkjenning from './Godkjenning';
 import VersjoneringKomponent from './Versjonering/VersjoneringKomponent';
 
-type Props = {
+interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
-};
+}
 
 const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
     <>
