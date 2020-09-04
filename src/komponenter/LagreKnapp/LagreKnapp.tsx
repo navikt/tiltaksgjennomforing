@@ -37,7 +37,7 @@ class LagreKnapp extends Component<Props, State> {
     }
 
     lagreKnappOnClick = async () => {
-        this.setState({ spinner: true });
+        this.enableSpinner(true);
         try {
             await this.props.lagre();
             this.visSuksessmelding();
@@ -49,7 +49,7 @@ class LagreKnapp extends Component<Props, State> {
             }
         } finally {
             if (this.state.isMounted) {
-                this.fjernSpinner();
+                this.enableSpinner(false);
             }
         }
     };
@@ -72,8 +72,8 @@ class LagreKnapp extends Component<Props, State> {
         this.setState({ feilmelding: '' });
     };
 
-    fjernSpinner = () => {
-        this.setState({ spinner: false });
+    enableSpinner = (state: boolean) => {
+        this.setState({ spinner: state });
     };
 
     render() {
