@@ -22,9 +22,11 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
 });
 
 const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
-    const [brukmeny, setbrukmeny] = useState<boolean>(false);
+    const [brukmeny, setbrukmeny] = useState<boolean>();
+    const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
     useEffect(() => {
         RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(setbrukmeny);
+        RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes').then(setBrukBackupmeny);
     }, []);
 
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
@@ -46,10 +48,11 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
             }
         }
 
+        if (brukBackupmeny === undefined || brukmeny === undefined) return null;
         return (
             <>
                 {brukmeny && <InternflateDecorator {...dekoratorConfig} />}
-                <Innloggingslinje innloggetBruker={innloggetBruker} />
+                <Innloggingslinje brukBackupmeny={brukBackupmeny} innloggetBruker={innloggetBruker} />
                 <InnloggetBrukerContext.Provider value={innloggetBruker}>
                     {props.children}
                 </InnloggetBrukerContext.Provider>

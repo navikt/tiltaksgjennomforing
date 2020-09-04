@@ -1,0 +1,109 @@
+@nav-nesten-svart: #3e3832;
+@nav-fokus: 0 0 0 3px @nav-nesten-svart;
+
+.nytt {
+    color: @nav-nesten-svart;
+
+    &__knapp {
+        background: none;
+        border: none;
+        padding: 0.25rem;
+        position: relative;
+        border-radius: 0.125rem;
+
+        &:focus {
+            outline: none;
+            box-shadow: @nav-fokus;
+        }
+
+        .nytt .popover {
+            margin: 0;
+        }
+    }
+
+    &__notifikasjon {
+        position: absolute;
+        top: 0.25rem;
+        right: 0;
+        height: 0.9rem;
+        width: 0.9rem;
+        border-radius: 50%;
+        background-color: #0067c5;
+    }
+
+    &__ikon {
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+    .popover {
+        border: none;
+        box-shadow: none;
+        border-radius: 0.6rem;
+
+        &:focus {
+            box-shadow: @nav-fokus;
+
+            .popover__pil {
+                box-shadow: @nav-fokus;
+            }
+        }
+
+        &__pil {
+            border-width: 2px;
+            border-color: @nav-nesten-svart;
+            background-color: @nav-nesten-svart;
+        }
+    }
+
+    &__popover {
+        border-radius: 0.5rem;
+        box-shadow: 0 0.25rem 0.25rem 0 rgba(62, 56, 50, 0.125);
+        max-width: 27rem;
+
+        // Unngå at scrollbar flyter over avrundet border i Windows
+        overflow: hidden;
+    }
+
+    &__tittel {
+        color: white;
+        text-align: center;
+        background-color: @nav-nesten-svart;
+        border-radius: 0.5rem 0.5rem 0 0;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    &__nyheter {
+        max-height: 30rem;
+        overflow-y: scroll;
+    }
+
+    &__artikkel {
+        padding: 1rem 2rem;
+
+        &--ulest {
+            background-color: #e3edf8;
+        }
+    }
+
+    &__artikkel:not(:last-child) {
+        border-bottom: 1px solid lightgray;
+    }
+
+    &__artikkeltittel.typo-undertittel {
+        margin-bottom: 1rem;
+    }
+
+    &__artikkelinnhold {
+        h3 {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        p {
+            margin-top: 0;
+        }
+    }
+}

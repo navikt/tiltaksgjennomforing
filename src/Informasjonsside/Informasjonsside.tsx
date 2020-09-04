@@ -4,6 +4,7 @@ import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale
 import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
 import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import Banner from '@/komponenter/Banner/Banner';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
@@ -16,7 +17,6 @@ import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import './informasjonsside.less';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
