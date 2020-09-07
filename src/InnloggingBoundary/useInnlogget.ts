@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { ApiError, AutentiseringError } from '@/types/errors';
 import RestService from '@/services/rest-service';
+import { ApiError, AutentiseringError, IkkeValgtPartError } from '@/types/errors';
+import { useEffect, useState } from 'react';
 
 export interface Innloggingskilde {
     tittel: string;
@@ -39,7 +39,7 @@ const useInnlogget = (): Innlogget => {
         RestService.hentInnloggetBruker()
             .then(setInnloggetBruker)
             .catch(error => {
-                if (error instanceof AutentiseringError) {
+                if (error instanceof AutentiseringError || error instanceof IkkeValgtPartError) {
                     setUinnlogget(true);
                 } else if (error instanceof ApiError) {
                     setFeilmelding(error.message);

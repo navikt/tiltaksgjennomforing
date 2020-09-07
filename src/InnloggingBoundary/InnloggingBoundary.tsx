@@ -29,25 +29,28 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
         RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes').then(setBrukBackupmeny);
     }, []);
 
-    const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
     const [cookies, setCookie] = useCookies();
-
-    if (uinnlogget) {
-        return <Innloggingside innloggingskilder={innloggingskilder} />;
-    } else if (innloggetBruker) {
+    const sjekkOgSettCookie = (cookies: any) => {
         if (!cookies[INNLOGGET_PART]) {
             const urlParametere = new URLSearchParams(props.location.search);
 
             const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
             if (innloggetPart && ['ARBEIDSGIVER', 'DELTAKER', 'VEILEDER'].includes(innloggetPart)) {
-                setCookie(INNLOGGET_PART, innloggetPart);
+                setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
                 urlParametere.delete('part');
                 props.history.replace(props.location.pathname + '?' + urlParametere.toString());
             } else {
                 return <Innloggingside innloggingskilder={innloggingskilder} />;
             }
         }
+    };
 
+    sjekkOgSettCookie(cookies);
+    const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
+
+    if (uinnlogget) {
+        return <Innloggingside innloggingskilder={innloggingskilder} />;
+    } else if (innloggetBruker) {
         if (brukBackupmeny === undefined || brukmeny === undefined) return null;
         return (
             <>
