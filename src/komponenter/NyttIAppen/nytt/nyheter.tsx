@@ -13,7 +13,7 @@ const nyheter = [
     },
     {
         dato: tilDato(1, 9, 2020),
-        tittel: 'Ny digital avtale om lønnstilskudd lansert i dag :)',
+        tittel: 'Ny digital avtale om lønnstilskudd lansert',
         innhold: (
             <>
                 <p>
