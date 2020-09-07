@@ -23,16 +23,12 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
         Modal.setAppElement('body');
     }
 
-    const slettRad = () => {
-        return props.bekreftOnClick();
-    };
-
     return (
         <div className={cls.className}>
             <Modal
                 isOpen={props.modalIsOpen}
                 className="modal--overflow-visible"
-                contentLabel={'test'}
+                contentLabel={'bekrefte valgt handling'}
                 onRequestClose={props.lukkModal}
                 closeButton={false}
             >
@@ -48,7 +44,11 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                         <Normaltekst className={cls.element('varselTekst')}>{props.varselTekst}</Normaltekst>
                     </div>
                     <div className={cls.element('knapper')}>
-                        <KnappBase type={'hoved'} className={cls.element('knapp lenkeknapp')} onClick={slettRad}>
+                        <KnappBase
+                            type={'hoved'}
+                            className={cls.element('knapp lenkeknapp')}
+                            onClick={() => props.bekreftOnClick()}
+                        >
                             {props.bekreftelseTekst}
                         </KnappBase>
                         <KnappBase type={'flat'} className={cls.element('knapp lenkeknapp')} onClick={props.lukkModal}>

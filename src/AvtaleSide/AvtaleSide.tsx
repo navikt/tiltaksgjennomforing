@@ -16,6 +16,8 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
+import GjenopprettModal from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettModal';
 
 interface MatchProps {
     avtaleId: string;
@@ -45,9 +47,10 @@ export interface StegInfo {
 }
 
 const AvtaleSide: FunctionComponent<Props> = props => {
-    const [windowSize, setWindowSize] = useState(window.innerWidth);
+    const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
-    const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState(false);
+    const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState<boolean>(false);
+    const [apneGjenopprett, setApneGjenopprett] = useState<boolean>(false);
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -122,6 +125,11 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
+                                {props.rolle === 'VEILEDER' && props.avtale.avbrutt && (
+                                    <>
+                                        <GjenopprettAvtalen apneModal={() => setApneGjenopprett(true)} />
+                                    </>
+                                )}
                                 {props.rolle === 'VEILEDER' && !props.avtale.avbrutt && (
                                     <>
                                         <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
@@ -166,6 +174,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     <>
                         <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
+                        <GjenopprettModal isOpen={apneGjenopprett} lukkModal={() => setApneGjenopprett(false)} />
                     </>
                 );
             }}
