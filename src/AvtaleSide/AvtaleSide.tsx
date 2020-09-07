@@ -51,6 +51,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState<boolean>(false);
     const [apneGjenopprett, setApneGjenopprett] = useState<boolean>(false);
+    const erVeileder = props.rolle === 'VEILEDER';
+    const avtaleAvbrutt = props.avtale.avbrutt;
+    const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
+    const erDesktop = windowSize > 767;
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -60,10 +64,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         window.addEventListener('resize', handleWindowSize);
         return () => window.removeEventListener('resize', handleWindowSize);
     });
-
-    const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
-
-    const erDesktop = windowSize > 767;
 
     useEffect(() => {
         setAktivtSteg(avtaleSteg.find(steg => steg.id === props.match.params.stegPath) || avtaleSteg[0]);
@@ -125,20 +125,11 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
-                                {props.rolle === 'VEILEDER' && props.avtale.avbrutt && (
-                                    <>
-                                        <GjenopprettAvtalen apneModal={() => setApneGjenopprett(true)} />
-                                    </>
+                                {erVeileder && avtaleAvbrutt && (
+                                    <GjenopprettAvtalen apneModal={() => setApneGjenopprett(true)} />
                                 )}
-                                {props.rolle === 'VEILEDER' && !props.avtale.avbrutt && (
-                                    <>
-                                        <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
-                                        <AvbrytAvtaleModal
-                                            isOpen={avbrytModalIsOpen}
-                                            lukkModal={lukkeModal}
-                                            avbrytAvtale={props.avbryt}
-                                        />
-                                    </>
+                                {erVeileder && !avtaleAvbrutt && (
+                                    <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
                                 )}
                             </div>
                             <VerticalSpacer sixteenPx={true} />
@@ -174,7 +165,16 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     <>
                         <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
-                        <GjenopprettModal isOpen={apneGjenopprett} lukkModal={() => setApneGjenopprett(false)} />
+                        <AvbrytAvtaleModal
+                            isOpen={avbrytModalIsOpen}
+                            lukkModal={lukkeModal}
+                            avbrytAvtale={props.avbryt}
+                        />
+                        <GjenopprettModal
+                            avtaleId={props.avtale.id}
+                            isOpen={apneGjenopprett}
+                            lukkModal={() => setApneGjenopprett(false)}
+                        />
                     </>
                 );
             }}

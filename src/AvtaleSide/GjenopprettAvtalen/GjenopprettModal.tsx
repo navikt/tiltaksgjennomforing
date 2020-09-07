@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import { AvtaleContext } from '@/AvtaleContext';
 
 interface Props {
+    avtaleId: string;
     isOpen: boolean;
     lukkModal: () => void;
 }
 
 const GjenopprettModal = (props: Props) => {
-    const bekreftValgtHandling = (): any => {};
+    const context = useContext(AvtaleContext);
+    const bekreftValgtHandling = (): any => {
+        props.lukkModal();
+        context.gjenopprettAvtale();
+    };
 
     return (
         <>

@@ -103,6 +103,7 @@ const tomTemporaryLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave = {
 };
 
 export interface Context {
+    gjenopprettAvtale: () => Promise<void>;
     avbryt: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
     avtale: Avtale;
     endretSteg: () => void;
@@ -164,6 +165,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             opphevGodkjenningerModalIsOpen: false,
         };
 
+        this.gjenopprettAvtale = this.gjenopprettAvtale.bind(this);
         this.avbrytAvtale = this.avbrytAvtale.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
@@ -357,6 +359,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await this.hentAvtale(avtale.id);
     }
 
+    async gjenopprettAvtale() {
+        const id = this.state.avtale.id;
+        await RestService.gjenopprettAvtale(id);
+        this.sendToAmplitude('#tiltak-avtale-gjenopprettet');
+        await this.hentAvtale(id);
+    }
+
     async avbrytAvtale(avbruttDato: string, avbruttGrunn: string) {
         const avtale = this.state.avtale;
         await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
@@ -389,6 +398,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     render() {
         const context: Context = {
+            gjenopprettAvtale: this.gjenopprettAvtale,
             avbryt: this.avbrytAvtale,
             avtale: this.state.avtale,
             endretSteg: this.endretSteg,

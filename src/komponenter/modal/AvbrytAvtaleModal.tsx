@@ -13,11 +13,11 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import './AvbrytAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
 
-type Props = {
+interface Props {
     isOpen: boolean;
     lukkModal: () => void;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
-};
+}
 
 const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
 const cls = BEMHelper('avbryt-avtale-modal');
@@ -29,32 +29,53 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
     const [avbruttGrunn, setAvbruttGrunn] = useState<AvbrytelseGrunn | string>('');
     const [avbruttDato, setAvbruttDato] = useState('');
 
-    const bekreftAvbrytAvtale = async () => {
-        if (!avbruttGrunn || !avbruttDato) {
-            if (!avbruttGrunn) {
-                setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
-            }
-            if (!avbruttDato) {
-                setDatoFeil({ feilmelding: 'Vennligst velg en dato' });
-            }
-        } else {
-            if (avbruttGrunn === 'Annet') {
-                if (!annetGrunn) return;
-                return await props.avbrytAvtale(avbruttDato, annetGrunn);
-            }
-            return await props.avbrytAvtale(avbruttDato, avbruttGrunn);
+    const avbryttGrunnSatt = () =>
+        !avbruttGrunn || !avbruttDato || (avbruttGrunn === 'Annet' && !annetGrunn) || sjekkDato();
+
+    const sjekkOgSetAvbryttGrunn = (grunn: boolean, setfeil: () => void) => {
+        if (grunn) {
+            return setfeil();
         }
     };
 
+    const sjekkDatoDiff = () => moment(avbruttDato).diff(DAGENS_DATO);
+
+    const sjekkDato = (): boolean => {
+        const datodifferanse = sjekkDatoDiff();
+        return isNaN(datodifferanse) || datodifferanse < 0;
+    };
+
+    const avbryttAvtalen = async (grunn: string) => {
+        props.lukkModal();
+        return await props.avbrytAvtale(avbruttDato, grunn);
+    };
+
+    const bekreftAvbrytAvtale = async () => {
+        if (avbryttGrunnSatt()) {
+            sjekkOgSetAvbryttGrunn(!avbruttGrunn, () => {
+                setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
+            });
+            sjekkOgSetAvbryttGrunn(!avbruttDato || sjekkDato(), () => {
+                setDatoFeil({ feilmelding: 'Vennligst velg gyldig dato' });
+            });
+            return;
+        }
+        if (avbruttGrunn === 'Annet' && annetGrunn) {
+            return avbryttAvtalen(annetGrunn);
+        }
+        return avbryttAvtalen(avbruttGrunn);
+    };
+
     const velgStartDato = (dato: string | undefined) => {
-        dato && setAvbruttDato(dato);
+        if (dato) {
+            setAvbruttDato(dato);
+        }
     };
 
     useEffect(() => {
         if (props.isOpen) {
             velgStartDato(DAGENS_DATO);
         }
-        // eslint-disable-next-line
     }, [props.isOpen]);
 
     useEffect(() => {
