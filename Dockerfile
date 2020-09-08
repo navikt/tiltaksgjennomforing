@@ -9,6 +9,7 @@ RUN npm install -g jsdom@16.4.0
 RUN npm install -g request@2.88.2
 RUN npm install -g fs-extra@8.1.0
 WORKDIR /app
+COPY ./server ./server
 COPY ./src/setupProxy.js ./src/setupProxy.js
 COPY ./src/whitelist.js ./src/whitelist.js
 COPY server.js ./
