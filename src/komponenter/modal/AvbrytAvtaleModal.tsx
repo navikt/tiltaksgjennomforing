@@ -13,11 +13,11 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import './AvbrytAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
 
-interface Props {
+type Props = {
     isOpen: boolean;
     lukkModal: () => void;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
-}
+};
 
 const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
 const cls = BEMHelper('avbryt-avtale-modal');
@@ -29,7 +29,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
     const [avbruttGrunn, setAvbruttGrunn] = useState<AvbrytelseGrunn | string>('');
     const [avbruttDato, setAvbruttDato] = useState('');
 
-    const avbryttGrunnSatt = () =>
+    const avbruttGrunnSatt = () =>
         !avbruttGrunn || !avbruttDato || (avbruttGrunn === 'Annet' && !annetGrunn) || sjekkDato();
 
     const sjekkOgSetAvbryttGrunn = (grunn: boolean, setfeil: () => void) => {
@@ -38,10 +38,8 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
         }
     };
 
-    const sjekkDatoDiff = () => moment(avbruttDato).diff(DAGENS_DATO);
-
     const sjekkDato = (): boolean => {
-        const datodifferanse = sjekkDatoDiff();
+        const datodifferanse = moment(avbruttDato).diff(DAGENS_DATO);
         return isNaN(datodifferanse) || datodifferanse < 0;
     };
 
@@ -51,7 +49,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
     };
 
     const bekreftAvbrytAvtale = async () => {
-        if (avbryttGrunnSatt()) {
+        if (avbruttGrunnSatt()) {
             sjekkOgSetAvbryttGrunn(!avbruttGrunn, () => {
                 setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
             });
