@@ -53,6 +53,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const [apneGjenopprett, setApneGjenopprett] = useState<boolean>(false);
     const erVeileder = props.rolle === 'VEILEDER';
     const avtaleAvbrutt = props.avtale.avbrutt;
+    const avtaleKanGjenopprettes = props.avtale.kanGjenopprettes;
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
     const erDesktop = windowSize > 767;
 
@@ -125,7 +126,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
-                                {erVeileder && avtaleAvbrutt && (
+                                {erVeileder && avtaleKanGjenopprettes && (
                                     <GjenopprettAvtalen apneModal={() => setApneGjenopprett(true)} />
                                 )}
                                 {erVeileder && !avtaleAvbrutt && (

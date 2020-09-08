@@ -143,6 +143,7 @@ export interface Godkjenninger {
 
 export interface Avbrytelse {
     kanAvbrytes: boolean;
+    kanGjenopprettes: boolean;
     avbrutt: boolean;
     avbruttDato: string;
     avbruttGrunn: AvbrytelseGrunn;

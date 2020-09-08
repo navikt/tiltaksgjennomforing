@@ -53,6 +53,7 @@ export const tomAvtale: Avtale = {
     erLaast: false,
     status: '',
     kanAvbrytes: true,
+    kanGjenopprettes: false,
     kanLåsesOpp: false,
     avbrutt: false,
     tiltakstype: 'ARBEIDSTRENING',
