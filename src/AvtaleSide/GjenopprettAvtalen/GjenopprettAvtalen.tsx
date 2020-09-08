@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as NokkelPunktForAvtale } from '@/assets/ikoner/nokkelPunktForAvtale.svg';
+import { ReactComponent as Synchronize } from '@/assets/ikoner/synchronize-4.svg';
 import Lenke from 'nav-frontend-lenker';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 const GjenopprettAvtalen = (props: Props) => (
     <div className="avbryteavtalen">
         <Lenke onClick={() => props.apneModal()} href="#" className="avbryteavtalen__lenke">
-            <NokkelPunktForAvtale className="avbryteavtalen__ikon" />
+            <Synchronize className="avbryteavtalen__ikon" />
             Gjenopprett avtale
         </Lenke>
     </div>
