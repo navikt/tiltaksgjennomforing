@@ -11,10 +11,10 @@ import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
 
 const cls = BEMHelper('avtaleparter');
 
-type Felt = {
+interface Felt {
     felt: string;
     verdi: string;
-};
+}
 
 interface Props {
     navnFelter: Felt[];
