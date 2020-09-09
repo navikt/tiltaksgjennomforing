@@ -5,34 +5,40 @@ import { ReactComponent as EndretIkon } from '@/assets/ikoner/endret.svg';
 import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg';
 import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
+import { AvtaleContext } from '@/AvtaleContext';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hendelseTekst } from '@/messages';
 import { hentHendelselogg } from '@/services/rest-service';
 import { Hendelse, HendelseType } from '@/types/hendelse';
+import { Nettressurs, Status } from '@/types/nettressurs';
 import BEMHelper from '@/utils/bem';
 import { formatterDato } from '@/utils/datoUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import moment from 'moment';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import Modal from 'nav-frontend-modal';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import 'nav-frontend-tabell-style';
-import { Systemtittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './Hendelselogg.less';
 
 const cls = BEMHelper('hendelselogg');
 
 const Hendelselogg: FunctionComponent = () => {
     const [hendelseLoggModalApen, setHendelseLoggModalApen] = useState(false);
-    const [hendelser, setHendelser] = useState<Hendelse[]>([]);
-    const { avtaleId } = useParams();
+    const [hendelser, setHendelser] = useState<Nettressurs<Hendelse[]>>({ status: Status.IkkeLastet });
+    const avtaleContext = useContext(AvtaleContext);
 
     useEffect(() => {
+        setHendelser({ status: Status.LasterInn });
         //Hent nye hendelser når loggen åpnes.
-        if (hendelseLoggModalApen) hentHendelselogg(avtaleId).then(setHendelser);
-    }, [avtaleId, hendelseLoggModalApen]);
+        if (hendelseLoggModalApen)
+            hentHendelselogg(avtaleContext.avtale.id)
+                .then((data: any) => setHendelser({ status: Status.Lastet, data }))
+                .catch((error: any) => setHendelser({ status: Status.Feil, error: error.message }));
+    }, [avtaleContext.avtale.id, hendelseLoggModalApen]);
 
     const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
         ENDRET: <EndretIkon />,
@@ -48,6 +54,7 @@ const Hendelselogg: FunctionComponent = () => {
         DELT_MED_ARBEIDSGIVER: <></>,
         DELT_MED_DELTAKER: <></>,
         SMS_VARSLING_FEILET: <></>,
+        GJENOPPRETTET: <></>,
     };
 
     const formaterTid = (tidspunkt: string) => {
@@ -75,7 +82,15 @@ const Hendelselogg: FunctionComponent = () => {
             >
                 <Systemtittel>Hendelselogg</Systemtittel>
                 <VerticalSpacer rem={1} />
-                {hendelser.length ? (
+                {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
+                    <>
+                        <AlertStripeInfo>
+                            Denne avtalen ble opprettet før hendelssloggen ble innført og vil være mangelfull.
+                        </AlertStripeInfo>
+                        <VerticalSpacer rem={1} />
+                    </>
+                )}
+                {hendelser.status === Status.Lastet && hendelser.data.length > 0 && (
                     <table className="tabell">
                         <thead>
                             <tr>
@@ -85,7 +100,7 @@ const Hendelselogg: FunctionComponent = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {hendelser.map(h => (
+                            {hendelser.data.map(h => (
                                 <tr>
                                     <td>{formaterTid(h.tidspunkt)}</td>
                                     <td>
@@ -101,8 +116,12 @@ const Hendelselogg: FunctionComponent = () => {
                             ))}
                         </tbody>
                     </table>
-                ) : (
+                )}
+                {hendelser.status === Status.LasterInn && (
                     <NavFrontendSpinner type="XL" className={cls.element('spinner')} />
+                )}
+                {hendelser.status === Status.Feil && (
+                    <Normaltekst>Klarte ikke hente hendelselogg. Prøv igjen senere.</Normaltekst>
                 )}
             </Modal>
         </>

@@ -19,4 +19,5 @@ export type HendelseType =
     | 'DELT_MED_DELTAKER'
     | 'DELT_MED_ARBEIDSGIVER'
     | 'AVBRUTT'
+    | 'GJENOPPRETTET'
     | 'LÅST_OPP';

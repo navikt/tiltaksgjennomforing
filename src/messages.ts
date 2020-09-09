@@ -58,4 +58,5 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     LÅST_OPP: 'Avtale låst opp av veileder',
     ENDRET: 'Avtale endret',
     SMS_VARSLING_FEILET: 'Varsling på SMS har feilet',
+    GJENOPPRETTET: 'Avtale gjenopprettet',
 };
