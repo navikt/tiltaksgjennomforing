@@ -6,6 +6,7 @@ import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
+import { Hendelse } from '@/types/hendelse';
 import Varsel from '@/types/varsel';
 import { IkkeValgtPartError } from './../types/errors';
 
@@ -207,6 +208,11 @@ const hentUlesteVarsler = async (): Promise<Varsel[]> => {
 
 const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
     const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}`);
+    await handleResponse(response);
+    return await response.json();
+};
+export const hentHendelselogg = async (avtaleId: string): Promise<Hendelse[]> => {
+    const response = await fetchGet(`${API_URL}/hendelselogg?avtaleId=${avtaleId}`);
     await handleResponse(response);
     return await response.json();
 };

@@ -14,6 +14,7 @@ import AvbryteAvtalen from './AvbryteAvtalen/AvbryteAvtalen';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
+import Hendelselogg from './Hendelselogg/Hendelselogg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
@@ -45,9 +46,12 @@ export interface StegInfo {
 }
 
 const AvtaleSide: FunctionComponent<Props> = props => {
-    const [windowSize, setWindowSize] = useState(window.innerWidth);
+    const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
-    const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState(false);
+    const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState<boolean>(false);
+    const erVeileder = props.rolle === 'VEILEDER';
+    const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
+    const erDesktop = windowSize > 767;
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -57,10 +61,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         window.addEventListener('resize', handleWindowSize);
         return () => window.removeEventListener('resize', handleWindowSize);
     });
-
-    const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
-
-    const erDesktop = windowSize > 767;
 
     useEffect(() => {
         setAktivtSteg(avtaleSteg.find(steg => steg.id === props.match.params.stegPath) || avtaleSteg[0]);
@@ -122,16 +122,10 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
-                                {props.rolle === 'VEILEDER' && !props.avtale.avbrutt && (
-                                    <>
-                                        <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
-                                        <AvbrytAvtaleModal
-                                            isOpen={avbrytModalIsOpen}
-                                            lukkModal={lukkeModal}
-                                            avbrytAvtale={props.avbryt}
-                                        />
-                                    </>
+                                {erVeileder && props.avtale.kanAvbrytes && (
+                                    <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
                                 )}
+                                <Hendelselogg />
                             </div>
                             <VerticalSpacer sixteenPx={true} />
                             {varsler}
@@ -166,6 +160,11 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     <>
                         <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
+                        <AvbrytAvtaleModal
+                            isOpen={avbrytModalIsOpen}
+                            lukkModal={lukkeModal}
+                            avbrytAvtale={props.avbryt}
+                        />
                     </>
                 );
             }}

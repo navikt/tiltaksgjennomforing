@@ -30,3 +30,13 @@ export const accurateHumanize = (duration: moment.Duration, accuracy: number = 2
         .map(({ value, key }) => moment.localeData().relativeTime(value, true, key as moment.RelativeTimeKey, true))
         .join(', ');
 };
+const NORSK_DATO_FORMAT = 'DD.MM.YYYY hh:mm';
+export const formatterDato = (dato: string) => {
+    try {
+        const formattertDato = moment(dato).format(NORSK_DATO_FORMAT);
+        return !formattertDato.includes('NaN') ? formattertDato : dato;
+    } catch (e) {
+        // Kunne ikke caste stringen til dato.
+        return dato;
+    }
+};

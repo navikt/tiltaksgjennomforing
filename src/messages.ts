@@ -1,4 +1,5 @@
 import { AltAvtaleinnhold } from './types/avtale';
+import { HendelseType } from './types/hendelse';
 
 export const messages = {
     FÅ_JOBB_I_BEDRIFTEN: 'Få jobb i bedriften',
@@ -41,4 +42,20 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     veilederTlf: 'veileders telefonnummer',
     harFamilietilknytning: 'har deltaker familietilknytning til arbeidsgiver',
     familietilknytningForklaring: 'forklaring på familietilknytning',
+};
+
+export const hendelseTekst: { [key in HendelseType]: string } = {
+    OPPRETTET: 'Avtale opprettet',
+    GODKJENT_AV_VEILEDER: 'Avtale er godkjent av NAV-veileder',
+    GODKJENT_AV_ARBEIDSGIVER: 'Avtale er godkjent av arbeidsgiver',
+    GODKJENT_AV_DELTAKER: 'Avtale er godkjent av deltaker',
+    GODKJENT_PAA_VEGNE_AV: 'Avtalen ble godkjent på vegne av deltaker',
+    GODKJENNINGER_OPPHEVET_AV_ARBEIDSGIVER: 'Avtalens godkjenninger er opphevet',
+    GODKJENNINGER_OPPHEVET_AV_VEILEDER: 'Avtalens godkjenninger er opphevet',
+    DELT_MED_ARBEIDSGIVER: 'Avtale delt med arbeidsgiver',
+    DELT_MED_DELTAKER: 'Avtale delt med deltaker',
+    AVBRUTT: 'Avtale avbrutt av veileder',
+    LÅST_OPP: 'Avtale låst opp av veileder',
+    ENDRET: 'Avtale endret',
+    SMS_VARSLING_FEILET: 'Varsling på SMS har feilet',
 };
