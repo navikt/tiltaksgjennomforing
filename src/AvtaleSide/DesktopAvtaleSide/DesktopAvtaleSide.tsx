@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
 import { StegInfo } from '../AvtaleSide';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
+import Hendelselogg from '../Hendelselogg/Hendelselogg';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
@@ -37,7 +38,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
                     <div className={cls.element('avbrytOgDelLenk')}>
-                        {' '}
+                        <Hendelselogg />
                         {props.avtale.kanAvbrytes && !props.avtale.avbrutt && props.rolle === 'VEILEDER' && (
                             <AvbryteAvtalen avbrytOnclick={bekreftelseAvbrytAvtalen} />
                         )}
