@@ -1,4 +1,6 @@
 import { Context, medContext } from '@/AvtaleContext';
+import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
+import GjenopprettModal from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettModal';
 import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
@@ -49,6 +51,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState<boolean>(false);
+    const [apneGjenopprett, setApneGjenopprett] = useState<boolean>(false);
     const erVeileder = props.rolle === 'VEILEDER';
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
     const erDesktop = windowSize > 767;
@@ -122,6 +125,9 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
+                                {erVeileder && props.avtale.kanGjenopprettes && (
+                                    <GjenopprettAvtalen apneModal={() => setApneGjenopprett(true)} />
+                                )}
                                 {erVeileder && props.avtale.kanAvbrytes && (
                                     <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
                                 )}
@@ -164,6 +170,11 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             isOpen={avbrytModalIsOpen}
                             lukkModal={lukkeModal}
                             avbrytAvtale={props.avbryt}
+                        />
+                        <GjenopprettModal
+                            avtaleId={props.avtale.id}
+                            isOpen={apneGjenopprett}
+                            lukkModal={() => setApneGjenopprett(false)}
                         />
                     </>
                 );

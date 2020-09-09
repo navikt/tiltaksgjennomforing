@@ -26,6 +26,7 @@ export interface RestService {
     godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
     godkjennAvtalePaVegne: (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => Promise<Avtale>;
     opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
+    gjenopprettAvtale: (id: string) => Promise<void>;
     avbrytAvtale: (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => Promise<Avtale>;
     hentInnloggetBruker: () => Promise<InnloggetBruker>;
     hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
@@ -71,7 +72,9 @@ const handleResponse = async (response: Response) => {
 const hentAvtale = async (id: string): Promise<Avtale> => {
     const response = await fetchGet(`${API_URL}/avtaler/${id}`);
     await handleResponse(response);
+
     const avtale = await response.json();
+
     return { ...avtale, id: `${avtale.id}` };
 };
 
@@ -170,6 +173,19 @@ const opphevGodkjenninger = async (avtaleId: string) => {
     await handleResponse(response);
     return hentAvtale(avtaleId);
 };
+
+const gjenopprettAvtale = async (id: string) => {
+    const uri = `${API_URL}/avtaler/${id}/gjenopprett`;
+
+    const response = await fetchPost(uri, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    await handleResponse(response);
+};
+
 const avbrytAvtale = async (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/avbryt`;
     const response = await fetchPost(uri, {
@@ -257,6 +273,7 @@ const restService: RestService = {
     godkjennAvtale: godkjennAvtale,
     godkjennAvtalePaVegne: godkjennAvtalePaVegne,
     opphevGodkjenninger: opphevGodkjenninger,
+    gjenopprettAvtale: gjenopprettAvtale,
     avbrytAvtale: avbrytAvtale,
     hentInnloggetBruker,
     hentInnloggingskilder,
