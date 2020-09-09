@@ -7,6 +7,7 @@ import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/type
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import Varsel from '@/types/varsel';
+import { IkkeValgtPartError } from './../types/errors';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -54,6 +55,10 @@ const handleResponse = async (response: Response) => {
         sessionStorage.setItem(SIDE_FOER_INNLOGGING, window.location.pathname.replace(basename, ''));
         throw new AutentiseringError('Er ikke logget inn.');
     }
+    if (response.status === 400 && response.headers.get('feilkode') === 'IKKE_VALGT_PART') {
+        throw new IkkeValgtPartError('Ikke valgt part');
+    }
+
     if (response.status >= 400 && response.status < 500) {
         const error = await response.json();
         throw new ApiError(error.message);
