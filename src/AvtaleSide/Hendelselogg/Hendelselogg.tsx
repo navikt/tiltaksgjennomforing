@@ -88,7 +88,6 @@ const Hendelselogg: FunctionComponent = () => {
                             {hendelser.map(h => (
                                 <tr>
                                     <td>{formaterTid(h.tidspunkt)}</td>
-
                                     <td>
                                         <div style={{ display: 'flex' }}>
                                             <span className={cls.element('hendelse-ikon')}>
