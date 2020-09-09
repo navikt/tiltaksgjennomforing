@@ -5,6 +5,7 @@ import { ReactComponent as EndretIkon } from '@/assets/ikoner/endret.svg';
 import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg';
 import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
+import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/synchronize-4.svg';
 import { AvtaleContext } from '@/AvtaleContext';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hendelseTekst } from '@/messages';
@@ -54,7 +55,7 @@ const Hendelselogg: FunctionComponent = () => {
         DELT_MED_ARBEIDSGIVER: <></>,
         DELT_MED_DELTAKER: <></>,
         SMS_VARSLING_FEILET: <></>,
-        GJENOPPRETTET: <></>,
+        GJENOPPRETTET: <GjenopprettIkon />,
     };
 
     const formaterTid = (tidspunkt: string) => {
