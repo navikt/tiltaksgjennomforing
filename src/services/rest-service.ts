@@ -238,6 +238,15 @@ const settVarselTilLest = async (varselId: string): Promise<void> => {
     await handleResponse(response);
 };
 
+export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<void> => {
+    const uri = `${API_URL}/varsler/sett-alle-til-lest`;
+    const response = await fetchPost(uri, {
+        body: JSON.stringify(varselIder),
+        headers: { 'Content-Type': 'application/json' },
+    });
+    await handleResponse(response);
+};
+
 const sjekkOmMenySkalBrukes = async (url: string): Promise<boolean> => {
     const response = await fetchGet(url);
     return await response.json();

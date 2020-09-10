@@ -15,7 +15,6 @@ interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
     rolle: Rolle;
-    varsler?: JSX.Element[];
     avtale: Avtale;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     tilbakeTilOversiktKlikk: () => void;
@@ -34,7 +33,6 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     return (
         <>
             <div className={cls.element('desktop')}>
-                {props.varsler}
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
                     <div className={cls.element('avbrytOgDelLenk')}>
