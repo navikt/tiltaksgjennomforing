@@ -1,4 +1,6 @@
 import { Context, medContext } from '@/AvtaleContext';
+import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
+import GjenopprettModal from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettModal';
 import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
@@ -14,10 +16,9 @@ import AvbryteAvtalen from './AvbryteAvtalen/AvbryteAvtalen';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
+import Hendelselogg from './Hendelselogg/Hendelselogg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
-import GjenopprettModal from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettModal';
 
 interface MatchProps {
     avtaleId: string;
@@ -130,6 +131,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                                 {erVeileder && props.avtale.kanAvbrytes && (
                                     <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
                                 )}
+                                <Hendelselogg />
                             </div>
                             <VerticalSpacer sixteenPx={true} />
                             {varsler}
