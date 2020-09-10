@@ -42,7 +42,7 @@ const VarselModal: FunctionComponent = () => {
                 onRequestClose={lukkOgLesVarsler}
                 className={cls.element('modal')}
             >
-                <Systemtittel>Det har skjedd endringer i avtalen som du har blitt varslet om</Systemtittel>
+                <Systemtittel>Det har skjedd endringer i avtalen</Systemtittel>
                 <VerticalSpacer rem={2} />
                 <table className="tabell">
                     <tbody>
