@@ -1,5 +1,4 @@
 import BEMHelper from '@/utils/bem';
-import classNames from 'classnames';
 import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
@@ -17,7 +16,6 @@ interface Props {
     oversiktTekst: string;
     bekreftelseTekst: string;
     avbrytelseTekst: string;
-    classname?: string;
 }
 
 const BekreftelseModal: React.FunctionComponent<Props> = props => {
@@ -29,7 +27,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
         <div className={cls.className}>
             <Modal
                 isOpen={props.modalIsOpen}
-                className={classNames('modal--overflow-visible', props.classname)}
+                className="modal--overflow-visible"
                 contentLabel={'bekrefte valgt handling'}
                 onRequestClose={props.lukkModal}
                 closeButton={false}
