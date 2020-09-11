@@ -21,6 +21,8 @@ import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
 import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
+import { useContext } from 'react';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 interface MatchProps {
     avtaleId: string;
@@ -50,6 +52,7 @@ export interface StegInfo {
 }
 
 const AvtaleSide: FunctionComponent<Props> = props => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
     const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState<boolean>(false);
@@ -58,6 +61,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const erVeileder = props.rolle === 'VEILEDER';
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
     const erDesktop = windowSize > 767;
+    const erNavIdenterLike: boolean = innloggetBruker.identifikator === props.avtale.veilederNavIdent;
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -153,6 +157,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             varsler={varsler}
                             avbrytAvtale={props.avbryt}
                             tilbakeTilOversiktKlikk={tilbakeTilOversiktKlikk}
+                            erNavIdenterLike={erNavIdenterLike}
                         />
                     );
                 } else {

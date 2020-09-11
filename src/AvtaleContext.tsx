@@ -81,10 +81,6 @@ export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
     return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
 
-export const avtalensVeilederErlikInnloggetVeileder = (avtaleNavIdent: String) => {
-    // return (avtaleNavIdent === InnloggetBruker.);
-};
-
 export interface TemporaryLagring {
     maal?: Maalkategori;
     maalTekst: string;
@@ -366,7 +362,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await this.hentAvtale(avtale.id);
     }
 
-    async overtaAvtale() {
+    async overtaAvtale(): Promise<void> {
         const id = this.state.avtale.id;
         await RestService.overtaAvtale(id);
         this.sendToAmplitude('#tiltak-avtale-overtatt');

@@ -16,12 +16,46 @@
         margin-bottom: 1rem;
     }
 
+    .popover__content-inner.lenke {
+        padding: 1rem;
+    }
+
+    .popover__content-inner {
+        padding: 1rem 2rem;
+
+        .lenke {
+            padding-bottom: 1rem;
+            &:not(:last-of-type) {
+                padding-bottom: 1rem;
+            }
+        }
+    }
+
+    &__popover-lenke {
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+
+    &__popover-knapp {
+        margin-bottom: 0.5rem;
+    }
+
     &__lenkerlinje {
         align-items: center;
         display: flex;
         justify-content: space-between;
         margin-bottom: 1rem;
         margin-top: 1rem;
+
+        .popover__content-inner {
+            padding: 10rem;
+        }
+
+        .popover {
+            &__content-inner {
+                padding: 1rem;
+            }
+        }
     }
 
     .tilbaketiloversikt {

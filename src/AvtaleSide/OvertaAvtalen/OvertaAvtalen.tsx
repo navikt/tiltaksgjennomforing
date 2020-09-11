@@ -1,21 +1,25 @@
 import React from 'react';
-import { ReactComponent as Synchronize } from '@/assets/ikoner/synchronize-4.svg';
+import { ReactComponent as OvertaAvtalenSVG } from '@/assets/ikoner/overtaAvtalen.svg';
 import Lenke from 'nav-frontend-lenker';
+import BEMHelper from '@/utils/bem';
+import './overtaAvtalen.less';
 
 interface Props {
     apneModal: () => void;
 }
 
+const cls = BEMHelper('overtaavtalen');
+
 const OvertaAvtalen = (props: Props) => (
-    <div className="overtaavtalen">
+    <div className={cls.className}>
         <Lenke
             onClick={() => {
                 props.apneModal();
             }}
             href="#"
-            className="overtaavtalen__lenke"
+            className={cls.element('lenke')}
         >
-            <Synchronize className="overtaavtalen__ikon" />
+            <OvertaAvtalenSVG className={cls.element('ikon')} />
             Overta avtale
         </Lenke>
     </div>

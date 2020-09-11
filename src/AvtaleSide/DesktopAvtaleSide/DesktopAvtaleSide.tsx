@@ -10,6 +10,8 @@ import Hendelselogg from '../Hendelselogg/Hendelselogg';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
+import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
 
 interface Props {
     avtaleSteg: StegInfo[];
@@ -19,6 +21,7 @@ interface Props {
     avtale: Avtale;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     tilbakeTilOversiktKlikk: () => void;
+    erNavIdenterLike: boolean;
 }
 
 const cls = BEMHelper('avtaleside');
@@ -29,6 +32,9 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     const lukkModal = () => {
         setModalIsOpen(false);
     };
+
+    const erVeileder = props.rolle === 'VEILEDER';
+    const [overtaModalIsOpen, setOvertaModalIsOpen] = useState<boolean>(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     return (
@@ -38,13 +44,17 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
                     <div className={cls.element('avbrytOgDelLenk')}>
+                        {erVeileder && !props.erNavIdenterLike && (
+                            <OvertaAvtalen apneModal={() => setOvertaModalIsOpen(true)} />
+                        )}
                         <Hendelselogg />
                         {props.avtale.kanAvbrytes && !props.avtale.avbrutt && props.rolle === 'VEILEDER' && (
                             <AvbryteAvtalen avbrytOnclick={bekreftelseAvbrytAvtalen} />
                         )}
-                        {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
+                        {erVeileder && <DelLenkeTilAvtalen />}
                     </div>
                 </div>
+
                 <div className={cls.element('container')}>
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     <div className={cls.element('innhold')}>
@@ -55,6 +65,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
             </div>
 
             <AvbrytAvtaleModal isOpen={modalIsOpen} lukkModal={lukkModal} avbrytAvtale={props.avbrytAvtale} />
+            <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
         </>
     );
 };
