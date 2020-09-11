@@ -1,3 +1,4 @@
+import { HendelseType } from '@/types/hendelse';
 import { Moment } from 'moment';
 
 export default interface Varsel {
@@ -6,4 +7,5 @@ export default interface Varsel {
     varslingstekst: string;
     avtaleId: string;
     tidspunkt: Moment;
+    varslbarHendelseType: HendelseType;
 }

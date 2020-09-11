@@ -12,8 +12,7 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
     const avtaleId = props.avtaleId || 'dummy';
     useEffect(() => {
-        props.hentVarsler(avtaleId);
-        Promise.all([props.hentAvtale(avtaleId), props.hentRolle(avtaleId)])
+        Promise.all([props.hentAvtale(avtaleId), props.hentRolle(avtaleId), props.hentVarsler(avtaleId)])
             .then(() => {
                 setLastetOk(true);
                 amplitude.setUserProperties({ rolle: props.rolle });

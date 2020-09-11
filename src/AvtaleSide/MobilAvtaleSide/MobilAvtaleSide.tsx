@@ -3,12 +3,12 @@ import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import React from 'react';
 import { StegInfo } from '../AvtaleSide';
+import Hendelselogg from '../Hendelselogg/Hendelselogg';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 interface Props {
     avtaleSteg: StegInfo[];
     rolle: Rolle;
-    varsler?: JSX.Element[];
     tilbakeTilOversiktKlikk: () => void;
 }
 
@@ -25,8 +25,8 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
         <>
             <div className={cls.element('lenkerlinje')}>
                 <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
+                <Hendelselogg />
             </div>
-            {props.varsler}
             <form>{ekspanderbartPanel}</form>
         </>
     );

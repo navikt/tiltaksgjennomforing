@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
 import { StegInfo } from '../AvtaleSide';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
+import Hendelselogg from '../Hendelselogg/Hendelselogg';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
 import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
@@ -14,7 +15,6 @@ interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
     rolle: Rolle;
-    varsler?: JSX.Element[];
     avtale: Avtale;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     tilbakeTilOversiktKlikk: () => void;
@@ -33,11 +33,10 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     return (
         <>
             <div className={cls.element('desktop')}>
-                {props.varsler}
                 <div className={cls.element('lenkerlinje')}>
                     <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
                     <div className={cls.element('avbrytOgDelLenk')}>
-                        {' '}
+                        <Hendelselogg />
                         {props.avtale.kanAvbrytes && !props.avtale.avbrutt && props.rolle === 'VEILEDER' && (
                             <AvbryteAvtalen avbrytOnclick={bekreftelseAvbrytAvtalen} />
                         )}
