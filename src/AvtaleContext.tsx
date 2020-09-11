@@ -81,6 +81,10 @@ export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
     return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
 
+export const avtalensVeilederErlikInnloggetVeileder = (avtaleNavIdent: String) => {
+    // return (avtaleNavIdent === InnloggetBruker.);
+};
+
 export interface TemporaryLagring {
     maal?: Maalkategori;
     maalTekst: string;
@@ -104,6 +108,7 @@ const tomTemporaryLagringArbeidsoppgave: TemporaryLagringArbeidsoppgave = {
 };
 
 export interface Context {
+    overtaAvtale: () => Promise<void>;
     gjenopprettAvtale: () => Promise<void>;
     avbryt: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
     avtale: Avtale;
@@ -166,6 +171,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             opphevGodkjenningerModalIsOpen: false,
         };
 
+        this.overtaAvtale = this.overtaAvtale.bind(this);
         this.gjenopprettAvtale = this.gjenopprettAvtale.bind(this);
         this.avbrytAvtale = this.avbrytAvtale.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
@@ -360,6 +366,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await this.hentAvtale(avtale.id);
     }
 
+    async overtaAvtale() {
+        const id = this.state.avtale.id;
+        await RestService.overtaAvtale(id);
+        this.sendToAmplitude('#tiltak-avtale-overtatt');
+        await this.hentAvtale(id);
+    }
+
     async gjenopprettAvtale() {
         const id = this.state.avtale.id;
         await RestService.gjenopprettAvtale(id);
@@ -399,6 +412,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     render() {
         const context: Context = {
+            overtaAvtale: this.overtaAvtale,
             gjenopprettAvtale: this.gjenopprettAvtale,
             avbryt: this.avbrytAvtale,
             avtale: this.state.avtale,

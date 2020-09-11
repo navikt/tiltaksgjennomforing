@@ -19,6 +19,8 @@ import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import Hendelselogg from './Hendelselogg/Hendelselogg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
+import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
 
 interface MatchProps {
     avtaleId: string;
@@ -52,6 +54,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState<boolean>(false);
     const [apneGjenopprett, setApneGjenopprett] = useState<boolean>(false);
+    const [overtaModalIsOpen, setOvertaModalIsOpen] = useState<boolean>(false);
     const erVeileder = props.rolle === 'VEILEDER';
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
     const erDesktop = windowSize > 767;
@@ -125,6 +128,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <div className={cls.element('innhold')}>
                             <div className="tilbaketiloversikt">
                                 <TilbakeTilOversiktLenke />
+                                {erVeileder && <OvertaAvtalen apneModal={() => setOvertaModalIsOpen(true)} />}
                                 {erVeileder && props.avtale.kanGjenopprettes && (
                                     <GjenopprettAvtalen apneModal={() => setApneGjenopprett(true)} />
                                 )}
@@ -161,11 +165,11 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         />
                     );
                 }
-
                 return (
                     <>
                         <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
+                        <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
                         <AvbrytAvtaleModal
                             isOpen={avbrytModalIsOpen}
                             lukkModal={lukkeModal}
