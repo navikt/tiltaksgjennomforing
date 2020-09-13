@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ReactComponent as OvertaAvtalenSVG } from '@/assets/ikoner/overtaAvtalen.svg';
 import Lenke from 'nav-frontend-lenker';
 import BEMHelper from '@/utils/bem';
 import './overtaAvtalen.less';
 import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
+import { AvtaleContext } from '@/AvtaleContext';
 
 interface Props {
     erVeileder: boolean;

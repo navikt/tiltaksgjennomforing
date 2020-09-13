@@ -4,7 +4,6 @@ import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
 import AvbryteAvtalen from '@/AvtaleSide/AvbryteAvtalen/AvbryteAvtalen';
 import Hendelselogg from '@/AvtaleSide/Hendelselogg/Hendelselogg';
 import DelLenkeTilAvtalen from '@/AvtaleSide/DelLenkeTilAvtalen/DelLenkeTilAvtalen';
-import { ApiError } from '@/types/errors';
 import { AvtaleContext } from '@/AvtaleContext';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BEMHelper from '@/utils/bem';
@@ -18,22 +17,9 @@ const OppgaveLenker: React.FunctionComponent<{}> = () => {
     const erNavIdenterLike: boolean = innloggetBruker.identifikator === context.avtale.veilederNavIdent;
     const erVeileder: boolean = context.rolle === 'VEILEDER';
 
-    const tilbakeTilOversikt = async () => {
-        if (context.harUlagredeEndringer()) {
-            try {
-                await context.lagreAvtale();
-            } catch (error) {
-                if (error instanceof ApiError) {
-                    return context.visFeilmelding(error.message);
-                }
-                throw error;
-            }
-        }
-    };
-
     return (
         <>
-            <TilbakeTilOversiktLenke onClick={tilbakeTilOversikt} />
+            <TilbakeTilOversiktLenke />
             <div className={cls.element('avbrytOgDelLenk')}>
                 <OvertaAvtalen erVeileder={erVeileder} forskjelligNavIdent={!erNavIdenterLike} />
                 <GjenopprettAvtalen erVeileder={erVeileder} kanGjenopprettes={context.avtale.kanGjenopprettes} />
