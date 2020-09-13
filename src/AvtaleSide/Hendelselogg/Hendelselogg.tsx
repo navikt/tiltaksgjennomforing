@@ -34,11 +34,12 @@ const Hendelselogg: FunctionComponent = () => {
 
     useEffect(() => {
         setHendelser({ status: Status.LasterInn });
-        //Hent nye hendelser når loggen åpnes.
-        if (hendelseLoggModalApen)
+        // Hent nye hendelser når loggen åpnes.
+        if (hendelseLoggModalApen) {
             hentHendelselogg(avtaleContext.avtale.id)
-                .then((data: any) => setHendelser({ status: Status.Lastet, data }))
-                .catch((error: any) => setHendelser({ status: Status.Feil, error: error.message }));
+                .then((data: Hendelse[]) => setHendelser({ status: Status.Lastet, data }))
+                .catch((error: Error) => setHendelser({ status: Status.Feil, error: error.message }));
+        }
     }, [avtaleContext.avtale.id, hendelseLoggModalApen]);
 
     const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
@@ -101,18 +102,18 @@ const Hendelselogg: FunctionComponent = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {hendelser.data.map(h => (
-                                <tr>
-                                    <td>{formaterTid(h.tidspunkt)}</td>
+                            {hendelser.data.map((hendelse, index) => (
+                                <tr key={index}>
+                                    <td>{formaterTid(hendelse.tidspunkt)}</td>
                                     <td>
                                         <div style={{ display: 'flex' }}>
                                             <span className={cls.element('hendelse-ikon')}>
-                                                {hendelsesIkon[h.hendelse]}
+                                                {hendelsesIkon[hendelse.hendelse]}
                                             </span>
-                                            {hendelseTekst[h.hendelse]}
+                                            {hendelseTekst[hendelse.hendelse]}
                                         </div>
                                     </td>
-                                    <td>{storForbokstav(h.utførtAv)}</td>
+                                    <td>{storForbokstav(hendelse.utførtAv)}</td>
                                 </tr>
                             ))}
                         </tbody>

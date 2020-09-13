@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { pathTilOversikt } from '@/paths';
 import './TilbakeTilOversiktLenke.less';
 
-type Props = {
+interface Props {
     onClick?: () => void;
-};
+}
 
 const TilbakeTilOversiktLenke: FunctionComponent<Props> = props => (
     <Link to={pathTilOversikt} className="lenke" onClick={props.onClick}>

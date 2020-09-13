@@ -3,7 +3,6 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { AvtaleContext } from '@/AvtaleContext';
 
 interface Props {
-    avtaleId: string;
     isOpen: boolean;
     lukkModal: () => void;
 }
