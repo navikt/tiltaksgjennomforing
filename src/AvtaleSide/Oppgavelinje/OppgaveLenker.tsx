@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
 import AvbryteAvtalen from '@/AvtaleSide/AvbryteAvtalen/AvbryteAvtalen';
@@ -7,9 +7,6 @@ import DelLenkeTilAvtalen from '@/AvtaleSide/DelLenkeTilAvtalen/DelLenkeTilAvtal
 import { ApiError } from '@/types/errors';
 import { AvtaleContext } from '@/AvtaleContext';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
-import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
-import GjenopprettModal from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettModal';
 import BEMHelper from '@/utils/bem';
 import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
 
@@ -20,10 +17,6 @@ const OppgaveLenker: React.FunctionComponent<{}> = () => {
 
     const erNavIdenterLike: boolean = innloggetBruker.identifikator === context.avtale.veilederNavIdent;
     const erVeileder: boolean = context.rolle === 'VEILEDER';
-
-    const [overtaModalIsOpen, setOvertaModalIsOpen] = useState<boolean>(false);
-    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-    const [apneGjenopprett, setApneGjenopprett] = useState<boolean>(false);
 
     const tilbakeTilOversikt = async () => {
         if (context.harUlagredeEndringer()) {
