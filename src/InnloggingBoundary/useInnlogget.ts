@@ -14,10 +14,10 @@ export interface InnloggetBruker {
     organisasjoner: Organisasjon[];
 }
 
-export type Organisasjon = {
+export interface Organisasjon {
     bedriftNavn: string;
     bedriftNr: string;
-};
+}
 
 export interface Innlogget {
     innloggetBruker: InnloggetBruker | null;

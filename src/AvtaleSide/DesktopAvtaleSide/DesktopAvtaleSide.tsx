@@ -1,48 +1,25 @@
 import { Rolle } from '@/AvtaleContext';
-import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import React, { useState } from 'react';
-import AvbryteAvtalen from '../AvbryteAvtalen/AvbryteAvtalen';
+import React from 'react';
 import { StegInfo } from '../AvtaleSide';
-import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
-import Hendelselogg from '../Hendelselogg/Hendelselogg';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
-import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 
 interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
     rolle: Rolle;
     avtale: Avtale;
-    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
-    tilbakeTilOversiktKlikk: () => void;
 }
 
 const cls = BEMHelper('avtaleside');
 const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
-    const bekreftelseAvbrytAvtalen = () => {
-        setModalIsOpen(true);
-    };
-    const lukkModal = () => {
-        setModalIsOpen(false);
-    };
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
     return (
         <>
             <div className={cls.element('desktop')}>
-                <div className={cls.element('lenkerlinje')}>
-                    <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
-                    <div className={cls.element('avbrytOgDelLenk')}>
-                        <Hendelselogg />
-                        {props.avtale.kanAvbrytes && !props.avtale.avbrutt && props.rolle === 'VEILEDER' && (
-                            <AvbryteAvtalen avbrytOnclick={bekreftelseAvbrytAvtalen} />
-                        )}
-                        {props.rolle === 'VEILEDER' && <DelLenkeTilAvtalen />}
-                    </div>
-                </div>
+                <OppgaveLinje enableScreenSizeCheck={true} />
                 <div className={cls.element('container')}>
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     <div className={cls.element('innhold')}>
@@ -51,8 +28,6 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                     </div>
                 </div>
             </div>
-
-            <AvbrytAvtaleModal isOpen={modalIsOpen} lukkModal={lukkModal} avbrytAvtale={props.avbrytAvtale} />
         </>
     );
 };

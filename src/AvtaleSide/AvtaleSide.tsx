@@ -1,22 +1,16 @@
 import { Context, medContext } from '@/AvtaleContext';
-import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
-import GjenopprettModal from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettModal';
 import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
-import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import AvbryteAvtalen from './AvbryteAvtalen/AvbryteAvtalen';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
-import Hendelselogg from './Hendelselogg/Hendelselogg';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
-import TilbakeTilOversiktLenke from './TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import VarselModal from './VarselModal/VarselModal';
 
 interface MatchProps {
@@ -49,9 +43,6 @@ export interface StegInfo {
 const AvtaleSide: FunctionComponent<Props> = props => {
     const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
-    const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState<boolean>(false);
-    const [apneGjenopprett, setApneGjenopprett] = useState<boolean>(false);
-    const erVeileder = props.rolle === 'VEILEDER';
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
     const erDesktop = windowSize > 767;
 
@@ -76,24 +67,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     };
     const sideTittel = titler[props.avtale.tiltakstype] !== undefined ? titler[props.avtale.tiltakstype] : 'Avtale';
 
-    const tilbakeTilOversiktKlikk = async () => {
-        if (props.harUlagredeEndringer()) {
-            try {
-                await props.lagreAvtale();
-            } catch (error) {
-                if (error instanceof ApiError) {
-                    props.visFeilmelding(error.message);
-                } else {
-                    throw error;
-                }
-            }
-        }
-    };
-
-    const lukkeModal = () => {
-        setAvbrytModalIsOpen(false);
-    };
-
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
@@ -105,16 +78,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     setAktivtSteg(avtaleSteg.find(steg => steg.id === 'godkjenning'));
                     innhold = (
                         <div className={cls.element('innhold')}>
-                            <div className="tilbaketiloversikt">
-                                <TilbakeTilOversiktLenke />
-                                {erVeileder && props.avtale.kanGjenopprettes && (
-                                    <GjenopprettAvtalen apneModal={() => setApneGjenopprett(true)} />
-                                )}
-                                {erVeileder && props.avtale.kanAvbrytes && (
-                                    <AvbryteAvtalen avbrytOnclick={() => setAvbrytModalIsOpen(true)} />
-                                )}
-                                <Hendelselogg />
-                            </div>
+                            <OppgaveLinje enableScreenSizeCheck={false} />
                             <VerticalSpacer sixteenPx={true} />
                             <VerticalSpacer sixteenPx={true} />
                             {aktivtSteg.komponent}
@@ -127,35 +91,16 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             aktivtSteg={aktivtSteg}
                             rolle={props.rolle}
                             avtale={props.avtale}
-                            avbrytAvtale={props.avbryt}
-                            tilbakeTilOversiktKlikk={tilbakeTilOversiktKlikk}
                         />
                     );
                 } else {
-                    innhold = (
-                        <MobilAvtaleSide
-                            avtaleSteg={avtaleSteg}
-                            rolle={props.rolle}
-                            tilbakeTilOversiktKlikk={tilbakeTilOversiktKlikk}
-                        />
-                    );
+                    innhold = <MobilAvtaleSide avtaleSteg={avtaleSteg} rolle={props.rolle} />;
                 }
-
                 return (
                     <>
                         <VarselModal />
                         <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
-                        <AvbrytAvtaleModal
-                            isOpen={avbrytModalIsOpen}
-                            lukkModal={lukkeModal}
-                            avbrytAvtale={props.avbryt}
-                        />
-                        <GjenopprettModal
-                            avtaleId={props.avtale.id}
-                            isOpen={apneGjenopprett}
-                            lukkModal={() => setApneGjenopprett(false)}
-                        />
                     </>
                 );
             }}
