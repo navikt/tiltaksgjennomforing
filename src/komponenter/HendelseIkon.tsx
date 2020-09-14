@@ -15,6 +15,7 @@ type Props = {
 const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     ENDRET: <EndretIkon />,
     OPPRETTET: <ArkIkon />,
+    OPPRETTET_AV_ARBEIDSGIVER: <ArkIkon />,
     GODKJENT_AV_ARBEIDSGIVER: <GodkjentIkon />,
     GODKJENT_AV_DELTAKER: <GodkjentIkon />,
     GODKJENT_AV_VEILEDER: <GodkjentIkon />,

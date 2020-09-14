@@ -2,10 +2,11 @@ import Avtaler from '@/AvtaleOversikt/Avtaler';
 import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
+import { Feature } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
-import { pathTilOpprettAvtale } from '@/paths';
+import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
 import RestService from '@/services/rest-service';
 import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
@@ -54,6 +55,11 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
+                {Feature.ArbeidsgiverOppretter &&
+                    innloggetBruker.rolle === 'ARBEIDSGIVER' &&
+                    innloggetBruker.organisasjoner.length > 0 && (
+                        <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} tekst="Opprett ny avtale" />
+                    )}
 
                 <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
                     {innloggetBruker.erNavAnsatt && (

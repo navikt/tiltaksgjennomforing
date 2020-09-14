@@ -3,6 +3,7 @@ import * as React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import AdvarselBannerHeroku from './AdvarselBannerHeroku/AdvarselBannerHeroku';
 import { AvtaleProvider } from './AvtaleContext';
 import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
@@ -10,7 +11,8 @@ import { FeatureToggleProvider } from './FeatureToggleProvider';
 import { FeilVarselProvider } from './FeilVarselProvider';
 import Informasjonsside from './Informasjonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
-import OpprettAvtale from './OpprettAvtale/OpprettAvtale';
+import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
+import OpprettAvtaleVeileder from './OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
 import {
     basename,
@@ -18,11 +20,11 @@ import {
     pathTilInformasjonssideInnlogget,
     pathTilInformasjonssideUinnlogget,
     pathTilOpprettAvtale,
+    pathTilOpprettAvtaleArbeidsgiver,
     pathTilOpprettAvtaleFullfort,
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import AdvarselBannerHeroku from './AdvarselBannerHeroku/AdvarselBannerHeroku';
 
 addLocaleData(nb);
 
@@ -44,7 +46,16 @@ class App extends React.Component {
                                             exact={true}
                                             component={Informasjonsside}
                                         />
-                                        <Route path={pathTilOpprettAvtale} exact={true} component={OpprettAvtale} />
+                                        <Route
+                                            path={pathTilOpprettAvtale}
+                                            exact={true}
+                                            component={OpprettAvtaleVeileder}
+                                        />
+                                        <Route
+                                            path={pathTilOpprettAvtaleArbeidsgiver}
+                                            exact={true}
+                                            component={OpprettAvtaleArbeidsgiver}
+                                        />
                                         <Route
                                             path={pathTilOpprettAvtaleFullfort(':avtaleId')}
                                             exact={true}

@@ -1,12 +1,13 @@
+import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
+import { ReactComponent as GjennomforesIkon } from '@/assets/ikoner/gjennomfores.svg';
+import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
+import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
+import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
+import { ReactComponent as UtkastIkon } from '@/assets/ikoner/utkast.svg';
+import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
+import { Rolle } from '@/AvtaleContext';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
-import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
-import { ReactComponent as GjennomforesIkon } from '@/assets/ikoner/gjennomfores.svg';
-import { Rolle } from '@/AvtaleContext';
 
 interface Props {
     status: string;
@@ -34,6 +35,8 @@ const StatusIkon: FunctionComponent<Props> = props => {
             return <InaktivIkon />;
         case 'Gjennomføres':
             return <GjennomforesIkon />;
+        case 'Utkast':
+            return <UtkastIkon viewBox="0 0 24 24" height="24" width="24" />;
         default:
             return null;
     }

@@ -1,4 +1,4 @@
-import { AltAvtaleinnhold } from './types/avtale';
+import { AltAvtaleinnhold, TiltaksType } from './types/avtale';
 import { HendelseType } from './types/hendelse';
 
 export const messages = {
@@ -46,6 +46,7 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
 
 export const hendelseTekst: { [key in HendelseType]: string } = {
     OPPRETTET: 'Avtale opprettet',
+    OPPRETTET_AV_ARBEIDSGIVER: 'Avtale opprettet',
     GODKJENT_AV_VEILEDER: 'Avtale er godkjent av NAV-veileder',
     GODKJENT_AV_ARBEIDSGIVER: 'Avtale er godkjent av arbeidsgiver',
     GODKJENT_AV_DELTAKER: 'Avtale er godkjent av deltaker',
@@ -59,4 +60,11 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     ENDRET: 'Avtale endret',
     SMS_VARSLING_FEILET: 'Varsling på SMS har feilet',
     GJENOPPRETTET: 'Avtale gjenopprettet',
+};
+
+export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
+    ARBEIDSTRENING: 'Arbeidstrening',
+    MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
+    VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
+    MENTOR: 'Mentor',
 };
