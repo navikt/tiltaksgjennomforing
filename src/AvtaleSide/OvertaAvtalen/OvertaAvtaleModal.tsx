@@ -7,11 +7,11 @@ interface Props {
     lukkModal: () => void;
 }
 
-const GjenopprettModal = (props: Props) => {
+const OvertaAvtaleModal = (props: Props) => {
     const context = useContext(AvtaleContext);
     const bekreftValgtHandling = (): any => {
         props.lukkModal();
-        context.gjenopprettAvtale();
+        context.overtaAvtale();
     };
 
     return (
@@ -20,13 +20,13 @@ const GjenopprettModal = (props: Props) => {
                 modalIsOpen={props.isOpen}
                 bekreftOnClick={() => bekreftValgtHandling()}
                 lukkModal={() => props.lukkModal()}
-                varselTekst="Vil du gjenopprette avtalen? Hvis du gjenoppretter avtalen vil avtalen bli låst opp og satt til aktiv igjen."
-                oversiktTekst="Gjenopprett avtale"
-                bekreftelseTekst="Gjenopprett avtale"
-                avbrytelseTekst="Angre valg"
+                varselTekst="Du må huske å oppdatere kontaktinformasjonen til veileder i avtalen."
+                oversiktTekst="Overta avtale"
+                bekreftelseTekst="Overta avtalen"
+                avbrytelseTekst="Lukk"
             />
         </>
     );
 };
 
-export default GjenopprettModal;
+export default OvertaAvtaleModal;
