@@ -1,17 +1,10 @@
-import { ReactComponent as ArkIkon } from '@/assets/ikoner/ark.svg';
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/avbrutt-avtale.svg';
 import { ReactComponent as BurgerMenyIkon } from '@/assets/ikoner/burgermeny.svg';
-import { ReactComponent as EndretIkon } from '@/assets/ikoner/endret.svg';
-import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg';
-import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
-import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
-import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/synchronize-4.svg';
-import { ReactComponent as OvertaAvtalenikon } from '@/assets/ikoner/veileder.svg';
 import { AvtaleContext } from '@/AvtaleContext';
+import HendelseIkon from '@/komponenter/HendelseIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hendelseTekst } from '@/messages';
 import { hentHendelselogg } from '@/services/rest-service';
-import { Hendelse, HendelseType } from '@/types/hendelse';
+import { Hendelse } from '@/types/hendelse';
 import { Nettressurs, Status } from '@/types/nettressurs';
 import BEMHelper from '@/utils/bem';
 import { formatterDato } from '@/utils/datoUtils';
@@ -43,24 +36,6 @@ const Hendelselogg: FunctionComponent = () => {
         }
     }, [avtaleContext.avtale.id, hendelseLoggModalApen]);
 
-    const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
-        ENDRET: <EndretIkon />,
-        OPPRETTET: <ArkIkon />,
-        GODKJENT_AV_ARBEIDSGIVER: <GodkjentIkon />,
-        GODKJENT_AV_DELTAKER: <GodkjentIkon />,
-        GODKJENT_AV_VEILEDER: <GodkjentIkon />,
-        GODKJENT_PAA_VEGNE_AV: <GodkjentIkon />,
-        LÅST_OPP: <LastOppIkon />,
-        AVBRUTT: <AvbruttIkon />,
-        GODKJENNINGER_OPPHEVET_AV_ARBEIDSGIVER: <OpphevetIkon />,
-        GODKJENNINGER_OPPHEVET_AV_VEILEDER: <OpphevetIkon />,
-        DELT_MED_ARBEIDSGIVER: <></>,
-        DELT_MED_DELTAKER: <></>,
-        SMS_VARSLING_FEILET: <></>,
-        GJENOPPRETTET: <GjenopprettIkon />,
-        NY_VEILEDER: <OvertaAvtalenikon />,
-    };
-
     const formaterTid = (tidspunkt: string) => {
         const antallTimerSiden = moment(moment()).diff(tidspunkt, 'hours');
         if (antallTimerSiden > 12) {
@@ -72,7 +47,12 @@ const Hendelselogg: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke onClick={() => setHendelseLoggModalApen(true)} href="#" className={cls.element('menylenke')}>
+            <Lenke
+                id="hendelselogglenke"
+                onClick={() => setHendelseLoggModalApen(true)}
+                href="#"
+                className={cls.element('menylenke')}
+            >
                 <BurgerMenyIkon className={cls.element('burger-ikon')} />
                 Hendelselogg
             </Lenke>
@@ -110,7 +90,7 @@ const Hendelselogg: FunctionComponent = () => {
                                     <td>
                                         <div style={{ display: 'flex' }}>
                                             <span className={cls.element('hendelse-ikon')}>
-                                                {hendelsesIkon[hendelse.hendelse]}
+                                                <HendelseIkon hendelse={hendelse.hendelse} />
                                             </span>
                                             {hendelseTekst[hendelse.hendelse]}
                                         </div>

@@ -11,7 +11,6 @@ interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
     rolle: Rolle;
-    varsler?: JSX.Element[];
     avtale: Avtale;
 }
 
@@ -20,7 +19,6 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     return (
         <>
             <div className={cls.element('desktop')}>
-                {props.varsler}
                 <OppgaveLinje enableScreenSizeCheck={true} />
                 <div className={cls.element('container')}>
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />

@@ -7,7 +7,6 @@ import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 interface Props {
     avtaleSteg: StegInfo[];
     rolle: Rolle;
-    varsler?: JSX.Element[];
 }
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
@@ -20,7 +19,6 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
     return (
         <>
             <OppgaveLinje enableScreenSizeCheck={true} />
-            {props.varsler}
             <form>{ekspanderbartPanel}</form>
         </>
     );

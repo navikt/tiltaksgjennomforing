@@ -1,10 +1,8 @@
 import { Context, medContext } from '@/AvtaleContext';
 import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
-import moment from 'moment';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -13,6 +11,7 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
+import VarselModal from './VarselModal/VarselModal';
 
 interface MatchProps {
     avtaleId: string;
@@ -68,23 +67,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     };
     const sideTittel = titler[props.avtale.tiltakstype] !== undefined ? titler[props.avtale.tiltakstype] : 'Avtale';
 
-    const varsler: JSX.Element[] = props.varsler
-        .filter(v => !v.lest)
-        .map(v => (
-            <VarselKomponent
-                kanLukkes={true}
-                onLukkVarsel={() => props.settVarselTilLest(v.id)}
-                type={'info'}
-                key={v.id}
-                className={cls.element('varsel')}
-            >
-                <div>
-                    <div className={cls.element('varsel__tekst')}>{v.varslingstekst}</div>
-                    {v.tidspunkt && <div className={cls.element('svak')}>{moment(v.tidspunkt).fromNow()}</div>}
-                </div>
-            </VarselKomponent>
-        ));
-
     return (
         <AvtaleFetcher
             avtaleId={props.match.params.avtaleId}
@@ -98,7 +80,6 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                         <div className={cls.element('innhold')}>
                             <OppgaveLinje enableScreenSizeCheck={false} />
                             <VerticalSpacer sixteenPx={true} />
-                            {varsler}
                             <VerticalSpacer sixteenPx={true} />
                             {aktivtSteg.komponent}
                         </div>
@@ -110,14 +91,14 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                             aktivtSteg={aktivtSteg}
                             rolle={props.rolle}
                             avtale={props.avtale}
-                            varsler={varsler}
                         />
                     );
                 } else {
-                    innhold = <MobilAvtaleSide avtaleSteg={avtaleSteg} rolle={props.rolle} varsler={varsler} />;
+                    innhold = <MobilAvtaleSide avtaleSteg={avtaleSteg} rolle={props.rolle} />;
                 }
                 return (
                     <>
+                        <VarselModal />
                         <Banner tekst={sideTittel} />
                         <div className="avtaleside">{innhold}</div>
                     </>
