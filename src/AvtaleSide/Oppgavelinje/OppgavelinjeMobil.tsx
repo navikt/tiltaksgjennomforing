@@ -4,6 +4,7 @@ import { UndertekstBold } from 'nav-frontend-typografi';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
 import BEMHelper from '@/utils/bem';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const cls = BEMHelper('avtaleside');
 
@@ -20,6 +21,7 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
 
     return (
         <div className={cls.element('meny-wrapper')}>
+            <TilbakeTilOversiktLenke />
             <Menyknapp
                 className={cls.element('popover-knapp')}
                 id="menyKnapp"

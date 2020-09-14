@@ -96,7 +96,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                     setAktivtSteg(avtaleSteg.find(steg => steg.id === 'godkjenning'));
                     innhold = (
                         <div className={cls.element('innhold')}>
-                            <OppgaveLinje />
+                            <OppgaveLinje enableScreenSizeCheck={false} />
                             <VerticalSpacer sixteenPx={true} />
                             {varsler}
                             <VerticalSpacer sixteenPx={true} />

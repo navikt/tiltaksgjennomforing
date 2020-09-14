@@ -21,7 +21,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
         <>
             <div className={cls.element('desktop')}>
                 {props.varsler}
-                <OppgaveLinje />
+                <OppgaveLinje enableScreenSizeCheck={true} />
                 <div className={cls.element('container')}>
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     <div className={cls.element('innhold')}>
