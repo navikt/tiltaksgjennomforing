@@ -60,6 +60,7 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     ENDRET: 'Avtale endret',
     SMS_VARSLING_FEILET: 'Varsling på SMS har feilet',
     GJENOPPRETTET: 'Avtale gjenopprettet',
+    NY_VEILEDER: 'Avtale tildelt ny veileder',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {

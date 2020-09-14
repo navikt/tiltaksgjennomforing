@@ -18,6 +18,7 @@ const featureTogglePath = (features: Feature[]): string => {
 };
 
 export interface RestService {
+    overtaAvtale: (id: string) => Promise<void>;
     hentAvtale: (id: string) => Promise<Avtale>;
     hentAvtalerForInnloggetBruker: (søkekriterier: Partial<Avtale>) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
@@ -289,7 +290,13 @@ const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<v
     await handleResponse(response);
 };
 
+const overtaAvtale = async (avtaleId: string): Promise<void> => {
+    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/overta`, { method: 'PUT' });
+    await handleResponse(response);
+};
+
 const restService: RestService = {
+    overtaAvtale,
     hentAvtale,
     hentAvtalerForInnloggetBruker,
     lagreAvtale,

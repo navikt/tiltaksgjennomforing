@@ -17,11 +17,11 @@ export interface InnloggetBruker {
     rolle: Rolle;
 }
 
-export type Organisasjon = {
+export interface Organisasjon {
     bedriftNavn: string;
     bedriftNr: string;
     tilgangstyper: TiltaksType[];
-};
+}
 
 export interface Innlogget {
     innloggetBruker: InnloggetBruker | null;

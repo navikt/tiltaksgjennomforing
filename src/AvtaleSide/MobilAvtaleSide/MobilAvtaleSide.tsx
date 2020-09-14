@@ -1,18 +1,13 @@
 import { Rolle } from '@/AvtaleContext';
-import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import React from 'react';
 import { StegInfo } from '../AvtaleSide';
-import Hendelselogg from '../Hendelselogg/Hendelselogg';
-import TilbakeTilOversiktLenke from '../TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 
 interface Props {
     avtaleSteg: StegInfo[];
     rolle: Rolle;
-    tilbakeTilOversiktKlikk: () => void;
 }
-
-const cls = BEMHelper('avtaleside');
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
     const ekspanderbartPanel = props.avtaleSteg.map(steg => (
@@ -23,10 +18,7 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            <div className={cls.element('lenkerlinje')}>
-                <TilbakeTilOversiktLenke onClick={props.tilbakeTilOversiktKlikk} />
-                <Hendelselogg />
-            </div>
+            <OppgaveLinje enableScreenSizeCheck={true} />
             <form>{ekspanderbartPanel}</form>
         </>
     );

@@ -21,4 +21,5 @@ export type HendelseType =
     | 'AVBRUTT'
     | 'GJENOPPRETTET'
     | 'OPPRETTET_AV_ARBEIDSGIVER'
-    | 'LÅST_OPP';
+    | 'LÅST_OPP'
+    | 'NY_VEILEDER';
