@@ -4,7 +4,7 @@ import { ReactComponent as EndretIkon } from '@/assets/ikoner/endret.svg';
 import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg';
 import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
-import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/synchronize-4.svg';
+import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/gjenoppretteAvtaleIkon.svg';
 import { ReactComponent as Veileder } from '@/assets/ikoner/veileder.svg';
 import { HendelseType } from '@/types/hendelse';
 import React, { FunctionComponent } from 'react';
