@@ -27,7 +27,7 @@ import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
-const OpprettAvtale: FunctionComponent<RouterProps> = props => {
+const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
@@ -256,4 +256,4 @@ const OpprettAvtale: FunctionComponent<RouterProps> = props => {
     );
 };
 
-export default withRouter(OpprettAvtale);
+export default withRouter(OpprettAvtaleVeileder);

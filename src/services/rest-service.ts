@@ -123,7 +123,23 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 };
 
 const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType): Promise<Avtale> => {
-    const postResponse = await fetchPost(`${API_URL}/avtaler`, {
+    return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype);
+};
+export const opprettAvtaleArbeidsgiver = async (
+    deltakerFnr: string,
+    bedriftNr: string,
+    tiltakstype: TiltaksType
+): Promise<Avtale> => {
+    return opprettAvtalen('/avtaler/opprett-som-arbeidsgiver', deltakerFnr, bedriftNr, tiltakstype);
+};
+
+const opprettAvtalen = async (
+    url: string,
+    deltakerFnr: string,
+    bedriftNr: string,
+    tiltakstype: TiltaksType
+): Promise<Avtale> => {
+    const postResponse = await fetchPost(`${API_URL}${url}`, {
         body: JSON.stringify({
             deltakerFnr,
             bedriftNr,

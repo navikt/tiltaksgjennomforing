@@ -20,5 +20,6 @@ export type HendelseType =
     | 'DELT_MED_ARBEIDSGIVER'
     | 'AVBRUTT'
     | 'GJENOPPRETTET'
+    | 'OPPRETTET_AV_ARBEIDSGIVER'
     | 'LÅST_OPP'
     | 'NY_VEILEDER';

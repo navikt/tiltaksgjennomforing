@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { Radio } from 'nav-frontend-skjema';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const StatusFilter: FunctionComponent<FiltreringProps> = props => {
     const [valgtStatus, setValgtStatus] = useState('');
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
     const statuser: OptionProps[] = [
         { value: '', label: 'Alle' },
@@ -17,6 +20,10 @@ const StatusFilter: FunctionComponent<FiltreringProps> = props => {
         { value: 'AVSLUTTET', label: 'Avsluttet' },
         { value: 'AVBRUTT', label: 'Avbrutt' },
     ];
+
+    if (arbeidsgiverOppretterToggle) {
+        statuser.splice(1, 0, { value: 'UTKAST', label: 'Utkast' });
+    }
 
     return (
         <Filter tittel="Status">

@@ -6,6 +6,7 @@ export enum Feature {
     DelLenkeViaSms = 'tag.tiltak.dellenkeviasms',
     Mentor = 'tag.tiltak.mentor',
     ArbeidsoppgaverFritekst = 'tag.tiltak.arbeidsoppgaver.fritekst',
+    ArbeidsgiverOppretter = 'tag.tiltak.arbeidsgiver.oppretter',
 }
 
 export const alleFeatures = Object.values(Feature);
