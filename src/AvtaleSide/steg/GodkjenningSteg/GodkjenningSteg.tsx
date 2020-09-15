@@ -9,6 +9,7 @@ import { createElement, FunctionComponent } from 'react';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import Godkjenning from './Godkjenning';
 import VersjoneringKomponent from './Versjonering/VersjoneringKomponent';
+import { UtkastStatus } from '@/AvtaleSide/steg/GodkjenningSteg/UtkastStatus';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
@@ -16,7 +17,11 @@ interface Props {
 
 const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
     <>
-        <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
+        {props.avtale.status === 'Utkast' ? (
+            <UtkastStatus />
+        ) : (
+            <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
+        )}
         <Innholdsboks>
             <div
                 style={{
