@@ -4,17 +4,19 @@ import { ReactComponent as EndretIkon } from '@/assets/ikoner/endret.svg';
 import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg';
 import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
-import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/synchronize-4.svg';
+import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/gjenoppretteAvtaleIkon.svg';
+import { ReactComponent as Veileder } from '@/assets/ikoner/veileder.svg';
 import { HendelseType } from '@/types/hendelse';
 import React, { FunctionComponent } from 'react';
 
-type Props = {
+interface Props {
     hendelse: HendelseType;
-};
+}
 
 const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     ENDRET: <EndretIkon />,
     OPPRETTET: <ArkIkon />,
+    OPPRETTET_AV_ARBEIDSGIVER: <ArkIkon />,
     GODKJENT_AV_ARBEIDSGIVER: <GodkjentIkon />,
     GODKJENT_AV_DELTAKER: <GodkjentIkon />,
     GODKJENT_AV_VEILEDER: <GodkjentIkon />,
@@ -27,6 +29,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     DELT_MED_DELTAKER: <></>,
     SMS_VARSLING_FEILET: <></>,
     GJENOPPRETTET: <GjenopprettIkon />,
+    NY_VEILEDER: <Veileder />,
 };
 
 const HendelseIkon: FunctionComponent<Props> = props => {

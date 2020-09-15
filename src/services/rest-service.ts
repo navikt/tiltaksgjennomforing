@@ -18,6 +18,7 @@ const featureTogglePath = (features: Feature[]): string => {
 };
 
 export interface RestService {
+    overtaAvtale: (id: string) => Promise<void>;
     hentAvtale: (id: string) => Promise<Avtale>;
     hentAvtalerForInnloggetBruker: (søkekriterier: Partial<Avtale>) => Promise<Avtale[]>;
     lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
@@ -122,7 +123,23 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 };
 
 const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType): Promise<Avtale> => {
-    const postResponse = await fetchPost(`${API_URL}/avtaler`, {
+    return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype);
+};
+export const opprettAvtaleArbeidsgiver = async (
+    deltakerFnr: string,
+    bedriftNr: string,
+    tiltakstype: TiltaksType
+): Promise<Avtale> => {
+    return opprettAvtalen('/avtaler/opprett-som-arbeidsgiver', deltakerFnr, bedriftNr, tiltakstype);
+};
+
+const opprettAvtalen = async (
+    url: string,
+    deltakerFnr: string,
+    bedriftNr: string,
+    tiltakstype: TiltaksType
+): Promise<Avtale> => {
+    const postResponse = await fetchPost(`${API_URL}${url}`, {
         body: JSON.stringify({
             deltakerFnr,
             bedriftNr,
@@ -273,7 +290,13 @@ const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<v
     await handleResponse(response);
 };
 
+const overtaAvtale = async (avtaleId: string): Promise<void> => {
+    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/overta`, { method: 'PUT' });
+    await handleResponse(response);
+};
+
 const restService: RestService = {
+    overtaAvtale,
     hentAvtale,
     hentAvtalerForInnloggetBruker,
     lagreAvtale,

@@ -13,11 +13,11 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import './AvbrytAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
 
-type Props = {
+interface Props {
     isOpen: boolean;
     lukkModal: () => void;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
-};
+}
 
 const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
 const cls = BEMHelper('avbryt-avtale-modal');

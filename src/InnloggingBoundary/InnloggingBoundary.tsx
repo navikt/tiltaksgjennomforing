@@ -19,6 +19,7 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
     erNavAnsatt: false,
     organisasjoner: [],
+    rolle: 'INGEN_ROLLE',
 });
 
 const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
