@@ -38,3 +38,7 @@ spec:
           value: '{{{decorator-external-script}}}'
         - name: DECORATOR_INTERNAL_STYLING
           value: '{{{decorator-external-styling}}}'
+    accessPolicy:
+      outbound:
+        rules:
+        - application: tiltaksgjennomforing-api
