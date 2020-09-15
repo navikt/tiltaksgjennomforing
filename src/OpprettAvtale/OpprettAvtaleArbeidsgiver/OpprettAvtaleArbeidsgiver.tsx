@@ -30,7 +30,7 @@ type Props = {};
 
 const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
-    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType>();
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const [valgtBedriftNr, setValgtBedriftNr] = useState(innloggetBruker.organisasjoner[0].bedriftNr);
     const history = useHistory();
@@ -101,7 +101,13 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                     </div>
 
                     <div className="opprett-avtale__arbeidsgiver-bedriftNr">
-                        <Select label="Virksomhet" onChange={e => setValgtBedriftNr(e.currentTarget.value)}>
+                        <Select
+                            label="Virksomhet"
+                            onChange={e => {
+                                setValgtBedriftNr(e.currentTarget.value);
+                                setTiltaksType(undefined);
+                            }}
+                        >
                             {innloggetBruker.organisasjoner.map(o => (
                                 <option
                                     key={o.bedriftNr}
