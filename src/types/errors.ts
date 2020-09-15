@@ -1,4 +1,4 @@
 export class ApiError extends Error {}
 export class AutentiseringError extends ApiError {}
 export class UfullstendigError extends Error {}
-export class IkkeValgtPartError extends ApiError {}
+export class FeilkodeError extends Error {}

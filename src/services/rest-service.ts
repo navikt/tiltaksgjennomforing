@@ -8,7 +8,7 @@ import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import Varsel from '@/types/varsel';
-import { IkkeValgtPartError } from './../types/errors';
+import { FeilkodeError } from './../types/errors';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -56,8 +56,8 @@ const handleResponse = async (response: Response) => {
         sessionStorage.setItem(SIDE_FOER_INNLOGGING, window.location.pathname.replace(basename, ''));
         throw new AutentiseringError('Er ikke logget inn.');
     }
-    if (response.status === 400 && response.headers.get('feilkode') === 'IKKE_VALGT_PART') {
-        throw new IkkeValgtPartError('Ikke valgt part');
+    if (response.status === 400 && response.headers.has('feilkode')) {
+        throw new FeilkodeError(response.headers.get('feilkode')!);
     }
 
     if (response.status >= 400 && response.status < 500) {
