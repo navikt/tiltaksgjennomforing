@@ -36,7 +36,7 @@ const StatusIkon: FunctionComponent<Props> = props => {
         case 'Gjennomføres':
             return <GjennomforesIkon />;
         case 'Utkast':
-            return <UtkastIkon viewBox="0 0 24 24" height="24" width="24" />;
+            return <UtkastIkon viewBox="0 0 40 40" height="24" width="24" />;
         default:
             return null;
     }
