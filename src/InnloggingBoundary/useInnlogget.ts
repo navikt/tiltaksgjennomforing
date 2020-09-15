@@ -1,8 +1,9 @@
 import { Rolle } from '@/AvtaleContext';
 import RestService from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
-import { ApiError, AutentiseringError, IkkeValgtPartError } from '@/types/errors';
+import { ApiError, AutentiseringError } from '@/types/errors';
 import { useEffect, useState } from 'react';
+import { FeilkodeError } from './../types/errors';
 
 export interface Innloggingskilde {
     tittel: string;
@@ -43,7 +44,7 @@ const useInnlogget = (): Innlogget => {
         RestService.hentInnloggetBruker()
             .then(setInnloggetBruker)
             .catch(error => {
-                if (error instanceof AutentiseringError || error instanceof IkkeValgtPartError) {
+                if (error instanceof AutentiseringError || error instanceof FeilkodeError) {
                     setUinnlogget(true);
                 } else if (error instanceof ApiError) {
                     setFeilmelding(error.message);
