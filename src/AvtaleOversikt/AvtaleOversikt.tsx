@@ -2,7 +2,7 @@ import Avtaler from '@/AvtaleOversikt/Avtaler';
 import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
-import { Feature } from '@/FeatureToggleProvider';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
@@ -20,6 +20,9 @@ const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
+
     const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(
         innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {}
     );
@@ -55,7 +58,7 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
-                {Feature.ArbeidsgiverOppretter &&
+                {arbeidsgiverOppretterToggle &&
                     innloggetBruker.rolle === 'ARBEIDSGIVER' &&
                     innloggetBruker.organisasjoner.length > 0 && (
                         <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} tekst="Opprett ny avtale" />
