@@ -38,6 +38,8 @@ spec:
           value: '{{{decorator-external-script}}}'
         - name: DECORATOR_INTERNAL_STYLING
           value: '{{{decorator-external-styling}}}'
+        - name: REACT_APP_ON_LABS
+          value: '{{labs}}'
     {{#if labs}}
     accessPolicy:
       outbound:

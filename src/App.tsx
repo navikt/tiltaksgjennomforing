@@ -3,7 +3,7 @@ import * as React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import AdvarselBannerHeroku from './AdvarselBannerHeroku/AdvarselBannerHeroku';
+import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import { AvtaleProvider } from './AvtaleContext';
 import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
@@ -33,7 +33,7 @@ class App extends React.Component {
         return (
             <IntlProvider locale="nb" messages={messages}>
                 <BrowserRouter basename={basename}>
-                    <AdvarselBannerHeroku />
+                    <AdvarselBannerTestversjon />
                     <FeatureToggleProvider>
                         <Switch>
                             <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
