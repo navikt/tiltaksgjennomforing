@@ -1,6 +1,6 @@
 #!/bin/sh
-for i in $(git diff --cached --name-only|grep .svg)
+for i in $(git diff  --cached --diff-filter=A --name-only|grep .svg)
 do
-  echo "Minifiserer og Gir unik ID til SVG: $i"
+  echo "Minifiserer og gir unik id til svg: $i"
   svgo --enable=prefixIds $i
 done
