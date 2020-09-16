@@ -9,5 +9,6 @@
     "enable-internal-menu": true,
     "decorator-external-script": "https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js",
     "decorator-external-styling": "https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css",
-    "namespace": "arbeidsgiver"
+    "namespace": "arbeidsgiver",
+    "labs": true
 }
