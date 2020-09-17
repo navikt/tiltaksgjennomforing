@@ -8,7 +8,7 @@ const cls = BEMHelper('advarsel-banner-testversjon');
 const AdvarselBannerTestversjon = () => {
     return (
         <>
-            {process.env.REACT_APP_ON_LABS === 'true' && (
+            {window.location.hostname.includes('labs.nais.io') && (
                 <AlertStripeAdvarsel className={cls.className}>
                     <b>Dette er en testversjon</b>
                     <br />
