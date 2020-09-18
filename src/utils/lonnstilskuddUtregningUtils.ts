@@ -10,7 +10,7 @@ export const sumLonnFeriePensjon = (manedslonn?: number, feriepenger?: number, o
         : 0;
 };
 
-export const arbeidsgiveravgift = (sumLonnFeriePensjon?: number, arbeidsgiveravgiftSats?: number) => {
+export const arbeidsgiverAvgift = (sumLonnFeriePensjon?: number, arbeidsgiveravgiftSats?: number) => {
     return sumLonnFeriePensjon && arbeidsgiveravgiftSats ? Math.round(sumLonnFeriePensjon * arbeidsgiveravgiftSats) : 0;
 };
 

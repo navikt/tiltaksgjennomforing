@@ -69,6 +69,11 @@ export const tomAvtale: Avtale = {
     arbeidsgiveravgift: 14.1,
     stillingprosent: 100,
     lonnstilskuddProsent: undefined,
+    feriepengerBelop: 0,
+    otpBelop: 0,
+    arbeidsgiveravgiftBelop: 0,
+    sumLonntilskudd: 0,
+    utbetaltLonntilskudd: 0,
 
     arbeidsgiverKontonummer: '',
     harFamilietilknytning: false,

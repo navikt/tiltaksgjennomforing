@@ -42,6 +42,11 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     veilederTlf: 'veileders telefonnummer',
     harFamilietilknytning: 'har deltaker familietilknytning til arbeidsgiver',
     familietilknytningForklaring: 'forklaring på familietilknytning',
+    feriepengerBelop: 'feriepenger opptjent',
+    otpBelop: 'obligatorisk tjenestepensjon',
+    arbeidsgiveravgiftBelop: 'arbeidsgiveravgift beløp',
+    sumLonntilskudd: 'sum utgifter til lønnstilskudd',
+    utbetaltLonntilskudd: 'sum beløp til utbetaling',
 };
 
 export const hendelseTekst: { [key in HendelseType]: string } = {

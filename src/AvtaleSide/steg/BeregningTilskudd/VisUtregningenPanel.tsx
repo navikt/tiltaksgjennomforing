@@ -6,16 +6,7 @@ import { ReactComponent as ObligTjenestepensjonIkon } from '@/assets/ikoner/obli
 import { ReactComponent as StillingProsentIkon } from '@/assets/ikoner/stillingsprosent.svg';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import {
-    arbeidsgiveravgift,
-    feriepenger,
-    obligTjenestepensjon,
-    sumLonnFeriePensjon,
-    sumLonnstilskuddPerManed,
-    sumUtgifter,
-    visSatsMedEttDesimal,
-    visTalletEller0,
-} from '@/utils/lonnstilskuddUtregningUtils';
+import { visSatsMedEttDesimal, visTalletEller0 } from '@/utils/lonnstilskuddUtregningUtils';
 import classNames from 'classnames';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Container, Row } from 'nav-frontend-grid';
@@ -27,13 +18,6 @@ import './VisUtregningenPanel.less';
 const cls = BEMHelper('visUtregningenPanel');
 
 const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
-    const feriepengene = feriepenger(props.manedslonn, props.feriepengesats);
-    const obligatoriskTjenestepensjon = obligTjenestepensjon(props.manedslonn, feriepengene);
-    const lonnFeriePensjon = sumLonnFeriePensjon(props.manedslonn, feriepengene, obligatoriskTjenestepensjon);
-    const arbeidsgiveravgiften = arbeidsgiveravgift(lonnFeriePensjon, props.arbeidsgiveravgift);
-    const sumUtgiftene = sumUtgifter(props.manedslonn, feriepengene, obligatoriskTjenestepensjon, arbeidsgiveravgiften);
-    const sumLonnstilskuddPerMåned = sumLonnstilskuddPerManed(sumUtgiftene, props.lonnstilskuddProsent);
-
     return (
         <Ekspanderbartpanel border={true} tittel={'Utregningen'} apen={true}>
             <Container fluid={true}>
@@ -78,7 +62,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         +
                     </Column>
                     <Column md="2" sm="2" xs="5" className={cls.element('column__siste')}>
-                        {feriepengene} kr
+                        {props.feriepengerBelop} kr
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -97,7 +81,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         +
                     </Column>
                     <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
-                        {obligatoriskTjenestepensjon} kr
+                        {props.otpBelop} kr
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -117,7 +101,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         +
                     </Column>
                     <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
-                        {arbeidsgiveravgiften} kr
+                        {props.arbeidsgiveravgiftBelop} kr
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
@@ -134,7 +118,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         =
                     </Column>
                     <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
-                        {sumUtgiftene} kr
+                        {props.sumLonntilskudd} kr
                     </Column>
                 </Row>
                 <Row className={classNames(cls.element('rad'), cls.element('rad__siste'))}>
@@ -154,7 +138,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                     </Column>
 
                     <Column md="3" sm="3" xs="6" className={cls.element('column__siste')}>
-                        <Undertittel>{sumLonnstilskuddPerMåned} kr</Undertittel>
+                        <Undertittel>{props.utbetaltLonntilskudd} kr</Undertittel>
                     </Column>
                 </Row>
             </Container>
