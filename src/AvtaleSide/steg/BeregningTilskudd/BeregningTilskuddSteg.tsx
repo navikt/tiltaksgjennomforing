@@ -235,7 +235,6 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                     2 %
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>
-                    hei
                     <SelectInput
                         name="arbeidsgiveravgift"
                         bredde="s"
