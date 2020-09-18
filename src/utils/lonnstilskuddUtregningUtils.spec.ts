@@ -1,5 +1,5 @@
 import {
-    arbeidsgiveravgift,
+    arbeidsgiverAvgift,
     feriepenger,
     lonnHundreProsent,
     obligTjenestepensjon,
@@ -19,7 +19,7 @@ const LØNNSTILSKUDD_PROSENT = 40;
 const feriepengene = feriepenger(MÅNEDSLØNN, FERIEPENGE_SATS);
 const obligTjenestepensjonen = obligTjenestepensjon(MÅNEDSLØNN, feriepengene);
 const lonnFeriePensjon = sumLonnFeriePensjon(MÅNEDSLØNN, feriepengene, obligTjenestepensjonen);
-const arbeidsgiveravgiften = arbeidsgiveravgift(lonnFeriePensjon, ARBEIDSGIVERAVGIFT_SATS);
+const arbeidsgiveravgiften = arbeidsgiverAvgift(lonnFeriePensjon, ARBEIDSGIVERAVGIFT_SATS);
 const sumUtgiftene = sumUtgifter(MÅNEDSLØNN, feriepengene, obligTjenestepensjonen, arbeidsgiveravgiften);
 
 test('Feriepenger', () => {
