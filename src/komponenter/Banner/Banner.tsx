@@ -1,8 +1,8 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
-import nyheter from '../NyttIAppen/nytt/nyheter';
-import Nytt from '../NyttIAppen/nytt/Nytt';
+import nyheter from '../NyttIAppen/nyheter';
+import Nytt from '../NyttIAppen/Nytt';
 import './Banner.less';
 
 interface Props {
