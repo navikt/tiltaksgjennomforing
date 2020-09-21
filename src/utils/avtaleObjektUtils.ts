@@ -31,6 +31,11 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     mentorTimelonn: 0,
     harFamilietilknytning: false,
     familietilknytningForklaring: '',
+    feriepengerBelop: 0,
+    otpBelop: 0,
+    arbeidsgiveravgiftBelop: 0,
+    sumLonnsutgifter: 0,
+    sumLonnstilskudd: 0,
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {

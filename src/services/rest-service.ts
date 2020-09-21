@@ -75,7 +75,6 @@ const hentAvtale = async (id: string): Promise<Avtale> => {
     await handleResponse(response);
 
     const avtale = await response.json();
-
     return { ...avtale, id: `${avtale.id}` };
 };
 

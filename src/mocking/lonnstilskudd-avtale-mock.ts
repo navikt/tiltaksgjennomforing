@@ -58,6 +58,11 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     harFamilietilknytning: false,
     avbruttDato: '',
     avbruttGrunn: '',
+    feriepengerBelop: 0,
+    otpBelop: 0,
+    arbeidsgiveravgiftBelop: 0,
+    sumLonnsutgifter: 0,
+    sumLonnstilskudd: 0,
 };
 
 export default lonnstilskuddAvtaleMock;

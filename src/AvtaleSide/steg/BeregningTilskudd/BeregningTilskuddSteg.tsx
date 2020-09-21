@@ -15,17 +15,18 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import {
-    arbeidsgiveravgift,
+    arbeidsgiverAvgift,
     feriepenger,
     lonnHundreProsent,
     obligTjenestepensjon,
     sumLonnFeriePensjon,
+    sumLonnstilskuddPerManed,
     sumUtgifter,
 } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
 import { RadioPanel } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 
@@ -57,12 +58,51 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
     rolle: Rolle;
 }> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { settAvtaleVerdi, avtale } = props;
+    const {
+        manedslonn,
+        feriepengesats,
+        feriepengerBelop,
+        arbeidsgiveravgift,
+        otpBelop,
+        sumLonnsutgifter,
+        arbeidsgiveravgiftBelop,
+        lonnstilskuddProsent,
+    } = props.avtale;
 
-    const feriepengene = feriepenger(props.avtale.manedslonn, props.avtale.feriepengesats);
-    const otp = obligTjenestepensjon(props.avtale.manedslonn, feriepengene);
-    const lonnFeriePensjon = sumLonnFeriePensjon(props.avtale.manedslonn, feriepengene, otp);
-    const arbeidsgiveravgiften = arbeidsgiveravgift(lonnFeriePensjon, props.avtale.arbeidsgiveravgift);
-    const sumUtgiftene = sumUtgifter(props.avtale.manedslonn, feriepengene, otp, arbeidsgiveravgiften);
+    useEffect(() => {
+        const sjekkOmAvtaleVerdiSkalSettes = (key: keyof Beregningsgrunnlag, nyttBelop: number) => {
+            if (avtale[key] !== nyttBelop) {
+                settAvtaleVerdi(key, nyttBelop);
+            }
+        };
+
+        sjekkOmAvtaleVerdiSkalSettes('feriepengerBelop', feriepenger(manedslonn, feriepengesats));
+        sjekkOmAvtaleVerdiSkalSettes('otpBelop', obligTjenestepensjon(manedslonn, feriepengerBelop));
+        sjekkOmAvtaleVerdiSkalSettes(
+            'arbeidsgiveravgiftBelop',
+            arbeidsgiverAvgift(sumLonnFeriePensjon(manedslonn, feriepengerBelop, otpBelop), arbeidsgiveravgift)
+        );
+        sjekkOmAvtaleVerdiSkalSettes(
+            'sumLonnsutgifter',
+            sumUtgifter(manedslonn, feriepengerBelop, otpBelop, arbeidsgiveravgiftBelop)
+        );
+        sjekkOmAvtaleVerdiSkalSettes(
+            'sumLonnstilskudd',
+            sumLonnstilskuddPerManed(sumLonnsutgifter, lonnstilskuddProsent)
+        );
+    }, [
+        avtale,
+        manedslonn,
+        feriepengesats,
+        feriepengerBelop,
+        settAvtaleVerdi,
+        arbeidsgiveravgift,
+        otpBelop,
+        sumLonnsutgifter,
+        arbeidsgiveravgiftBelop,
+        lonnstilskuddProsent,
+    ]);
 
     const parseFloatIfFloatable = (verdi: string) => {
         const floatedValue = parseFloat(verdi);
@@ -211,7 +251,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         options={arbeidsgiveravgiftAlternativer()}
                         label="Sats for arbeidsgiveravgift"
                         children=""
-                        value={props.avtale.arbeidsgiveravgift}
+                        value={props.avtale.arbeidsgiveravgift || 0}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                             props.settAvtaleVerdi('arbeidsgiveravgift', parseFloatIfFloatable(event.target.value));
                         }}
@@ -234,7 +274,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                                 name="manedslonn100%"
                                 bredde="S"
                                 label="Lønn ved 100% stilling"
-                                value={lonnHundreProsent(sumUtgiftene, props.avtale.stillingprosent)}
+                                value={lonnHundreProsent(sumLonnsutgifter, props.avtale.stillingprosent)}
                             />
                         )}
                     <VerticalSpacer thirtyTwoPx={true} />

@@ -96,6 +96,11 @@ export interface Beregningsgrunnlag {
     stillingprosent: number;
     harFamilietilknytning: boolean;
     familietilknytningForklaring?: string;
+    feriepengerBelop: number;
+    otpBelop: number;
+    arbeidsgiveravgiftBelop: number;
+    sumLonnsutgifter: number;
+    sumLonnstilskudd: number;
 }
 
 export interface Kontonummer {
