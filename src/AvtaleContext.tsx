@@ -1,6 +1,7 @@
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
 import { ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Maalkategori } from '@/types/maalkategorier';
 import Varsel from '@/types/varsel';
 import amplitude from '@/utils/amplitude';
@@ -8,7 +9,6 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import RestService from './services/rest-service';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -273,8 +273,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async lagreAvtale() {
-        if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
-            return Promise.reject();
+        if (noenHarGodkjentMenIkkeAlle(this.state.avtale) && !this.harUlagredeEndringer()) {
+            // Du har de siste endringene
         } else {
             const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
             this.sendToAmplitude('#tiltak-avtale-lagret');
