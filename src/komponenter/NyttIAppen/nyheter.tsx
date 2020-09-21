@@ -6,14 +6,35 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(18, 9, 2020),
+        tittel: 'Overta avtale',
+        innhold: (
+            <>
+                Du kan nå overta en avtale fra en annen veileder dersom veilederen for eksempel blir syk. Funksjonen
+                finner du på verktøylinjen inne i avtalen. Avtalen beholder eventuelle godkjenninger når den blir
+                overtatt av en annen veileder.
+            </>
+        ),
+    },
+    {
+        dato: tilDato(18, 9, 2020),
+        tittel: 'Hendelseslogg',
+        innhold: (
+            <>
+                Nå kan du se en logg over hva som har blitt gjort i avtalen. Du finner loggen på verktøylinjen inne i
+                avtalen.
+            </>
+        ),
+    },
+    {
         dato: tilDato(2, 9, 2020),
-        tittel: 'Nå kan du filtrere avtaler i oversikten på status',
+        tittel: 'Filtrere avtaler i oversikten på status',
         innhold:
             'Nederst i den venstre kolonnen er det nå mulig å filtrere ut avtalene i oversikten på ulike statuser.',
     },
     {
         dato: tilDato(1, 9, 2020),
-        tittel: 'Ny digital avtale om lønnstilskudd lansert',
+        tittel: 'Digital avtale om lønnstilskudd lansert',
         innhold: (
             <>
                 <p>

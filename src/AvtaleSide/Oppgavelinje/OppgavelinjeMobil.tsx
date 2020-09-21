@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Menyknapp } from 'nav-frontend-ikonknapper';
-import { UndertekstBold } from 'nav-frontend-typografi';
-import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+import { AvtaleContext } from '@/AvtaleContext';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
-import BEMHelper from '@/utils/bem';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { ApiError } from '@/types/errors';
+import BEMHelper from '@/utils/bem';
+import { Menyknapp } from 'nav-frontend-ikonknapper';
+import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+import { UndertekstBold } from 'nav-frontend-typografi';
+import React, { useContext, useState } from 'react';
 
 const cls = BEMHelper('avtaleside');
 
@@ -19,9 +21,24 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
         return setDropdown(event.currentTarget);
     };
 
+    const context = useContext(AvtaleContext);
+
+    const lagreEndringer = async () => {
+        if (context.harUlagredeEndringer()) {
+            try {
+                await context.lagreAvtale();
+            } catch (error) {
+                if (error instanceof ApiError) {
+                    return context.visFeilmelding(error.message);
+                }
+                throw error;
+            }
+        }
+    };
+
     return (
         <div className={cls.element('meny-wrapper')}>
-            <TilbakeTilOversiktLenke />
+            <TilbakeTilOversiktLenke onClick={lagreEndringer} />
             <Menyknapp
                 className={cls.element('popover-knapp')}
                 id="menyKnapp"

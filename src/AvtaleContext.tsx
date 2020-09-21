@@ -1,6 +1,6 @@
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
-import { ApiError } from '@/types/errors';
+import { ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import Varsel from '@/types/varsel';
 import amplitude from '@/utils/amplitude';
@@ -8,6 +8,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import RestService from './services/rest-service';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -241,9 +242,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             try {
                 await this.lagreAvtale();
             } catch (error) {
-                if (error instanceof ApiError) {
+                if (error instanceof FeilkodeError) {
+                    this.visFeilmelding(Feilmeldinger[error.message as Feilkode]);
+                } else if (error instanceof ApiError || error instanceof UfullstendigError) {
                     this.visFeilmelding(error.message);
                 } else {
+                    this.visFeilmelding('Det har skjedd en uventet feil');
                     throw error;
                 }
             }

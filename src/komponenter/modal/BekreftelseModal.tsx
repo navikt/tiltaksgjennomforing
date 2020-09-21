@@ -1,8 +1,11 @@
+import { ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import BEMHelper from '@/utils/bem';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React from 'react';
+import React, { useState } from 'react';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
 
@@ -19,9 +22,25 @@ interface Props {
 }
 
 const BekreftelseModal: React.FunctionComponent<Props> = props => {
+    const [feilmelding, setFeilmelding] = useState<string>();
     if (typeof window !== 'undefined') {
         Modal.setAppElement('body');
     }
+
+    const bekreftKlikk = async () => {
+        setFeilmelding(undefined);
+        try {
+            await props.bekreftOnClick();
+        } catch (error) {
+            if (error instanceof FeilkodeError) {
+                setFeilmelding(Feilmeldinger[error.message as Feilkode]);
+            } else if (error instanceof ApiError || error instanceof UfullstendigError) {
+                setFeilmelding(error.message);
+            } else {
+                throw error;
+            }
+        }
+    };
 
     return (
         <div className={cls.className}>
@@ -47,7 +66,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                         <KnappBase
                             type={'hoved'}
                             className={cls.element('knapp lenkeknapp')}
-                            onClick={() => props.bekreftOnClick()}
+                            onClick={() => bekreftKlikk()}
                         >
                             {props.bekreftelseTekst}
                         </KnappBase>
@@ -56,6 +75,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                         </KnappBase>
                     </div>
                 </div>
+                {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>}
             </Modal>
         </div>
     );

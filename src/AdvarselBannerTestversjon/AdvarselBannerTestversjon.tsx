@@ -1,14 +1,14 @@
 import React from 'react';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import './AdvarselBannerHeroku.less';
+import './AdvarselBannerTestversjon.less';
 import BEMHelper from '@/utils/bem';
 
-const cls = BEMHelper('advarsel-banner-heroku');
+const cls = BEMHelper('advarsel-banner-testversjon');
 
-const AdvarselBannerHeroku = () => {
+const AdvarselBannerTestversjon = () => {
     return (
         <>
-            {process.env.REACT_APP_ON_HEROKU === 'true' && (
+            {window.location.hostname.includes('labs.nais.io') && (
                 <AlertStripeAdvarsel className={cls.className}>
                     <b>Dette er en testversjon</b>
                     <br />
@@ -25,4 +25,4 @@ const AdvarselBannerHeroku = () => {
     );
 };
 
-export default AdvarselBannerHeroku;
+export default AdvarselBannerTestversjon;

@@ -39,7 +39,7 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
             {forrigeSteg && (
                 <Link
                     to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}
-                    onClick={() => props.endretSteg()}
+                    onClick={props.endretSteg}
                     className="lenke"
                 >
                     <VenstreChevron />
@@ -50,7 +50,7 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
                 <Link
                     to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}
                     className="nesteforrige__nesteknapp lenke"
-                    onClick={() => props.endretSteg()}
+                    onClick={props.endretSteg}
                 >
                     Neste
                     <HoyreChevron />

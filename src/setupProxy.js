@@ -1,7 +1,7 @@
 const proxy = require('http-proxy-middleware');
 const whitelist = require('./whitelist');
 
-const brukLokalLogin = process.env.NODE_ENV === 'development' || process.env.REACT_APP_ON_HEROKU === 'true';
+const brukLokalLogin = process.env.NODE_ENV === 'development';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',

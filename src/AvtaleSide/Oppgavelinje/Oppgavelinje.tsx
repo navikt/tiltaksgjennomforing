@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import BEMHelper from '@/utils/bem';
-import OppgavelinjeMobil from '@/AvtaleSide/Oppgavelinje/OppgavelinjeMobil';
+import { AvtaleContext } from '@/AvtaleContext';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
+import OppgavelinjeMobil from '@/AvtaleSide/Oppgavelinje/OppgavelinjeMobil';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { ApiError } from '@/types/errors';
+import BEMHelper from '@/utils/bem';
+import React, { useContext, useEffect, useState } from 'react';
 
 interface Props {
     enableScreenSizeCheck: boolean;
@@ -21,13 +23,28 @@ const OppgaveLinje: React.FunctionComponent<Props> = props => {
         };
     }, [props.enableScreenSizeCheck, checksize]);
 
+    const context = useContext(AvtaleContext);
+
+    const lagreEndringer = async () => {
+        if (context.harUlagredeEndringer()) {
+            try {
+                await context.lagreAvtale();
+            } catch (error) {
+                if (error instanceof ApiError) {
+                    return context.visFeilmelding(error.message);
+                }
+                throw error;
+            }
+        }
+    };
+
     return (
         <>
             {isMobile && <OppgavelinjeMobil />}
             {!isMobile && (
                 <>
                     <div className={cls.element('lenkerlinje')}>
-                        <TilbakeTilOversiktLenke />
+                        <TilbakeTilOversiktLenke onClick={lagreEndringer} />
                         <div className={cls.element('avbrytOgDelLenk')}>
                             <OppgaveLenker />
                         </div>

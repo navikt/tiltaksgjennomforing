@@ -44,8 +44,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
     };
 
     const avbryttAvtalen = async (grunn: string) => {
-        props.lukkModal();
-        return await props.avbrytAvtale(avbruttDato, grunn);
+        return await props.avbrytAvtale(avbruttDato, grunn).then(() => props.lukkModal());
     };
 
     const bekreftAvbrytAvtale = async () => {

@@ -48,6 +48,7 @@ class LagreKnapp extends Component<Props, State> {
             } else if (error instanceof ApiError || error instanceof UfullstendigError) {
                 this.visFeilmelding(error.message);
             } else {
+                this.visFeilmelding('Det har skjedd en uventet feil');
                 throw error;
             }
         } finally {
