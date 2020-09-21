@@ -1,6 +1,7 @@
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { Avtale, GodkjentPaVegneGrunner, Maal, Oppgave } from '@/types/avtale';
-import { ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
+import { ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Maalkategori } from '@/types/maalkategorier';
 import Varsel from '@/types/varsel';
 import amplitude from '@/utils/amplitude';
@@ -8,7 +9,6 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import RestService from './services/rest-service';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -244,6 +244,9 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             } catch (error) {
                 if (error instanceof FeilkodeError) {
                     this.visFeilmelding(Feilmeldinger[error.message as Feilkode]);
+                } else if (error instanceof AutentiseringError) {
+                    // Ikke logget inn
+                    this.visFeilmelding('Innloggingen din har utløpt. Ta vare på endringene dine og oppfrisk siden.');
                 } else if (error instanceof ApiError || error instanceof UfullstendigError) {
                     this.visFeilmelding(error.message);
                 } else {
@@ -255,7 +258,10 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             try {
                 await this.hentAvtale(this.state.avtale.id);
             } catch (error) {
-                if (error instanceof ApiError) {
+                if (error instanceof AutentiseringError) {
+                    // Ikke logget inn
+                    window.location.reload();
+                } else if (error instanceof ApiError) {
                     this.visFeilmelding(error.message);
                 } else {
                     throw error;
@@ -278,8 +284,8 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     }
 
     async lagreAvtale() {
-        if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
-            return Promise.reject();
+        if (noenHarGodkjentMenIkkeAlle(this.state.avtale) && !this.harUlagredeEndringer()) {
+            // Du har de siste endringene
         } else {
             const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
             this.sendToAmplitude('#tiltak-avtale-lagret');
