@@ -12,7 +12,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Avtale, AvtaleMetadata, Beregningsgrunnlag, Kontonummer, Versjonering } from '@/types/avtale';
+import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import {
     arbeidsgiverAvgift,
@@ -58,7 +58,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
     rolle: Rolle;
 }> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { settAvtaleVerdi } = props;
+    const { settAvtaleVerdi, avtale } = props;
     const {
         manedslonn,
         feriepengesats,
@@ -72,7 +72,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
 
     useEffect(() => {
         const sjekkOmAvtaleVerdiSkalSettes = (key: keyof Beregningsgrunnlag, nyttBelop: number) => {
-            if (props.avtale[key] !== nyttBelop) {
+            if (avtale[key] !== nyttBelop) {
                 settAvtaleVerdi(key, nyttBelop);
             }
         };
@@ -92,6 +92,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
             sumLonnstilskuddPerManed(sumLonnsutgifter, lonnstilskuddProsent)
         );
     }, [
+        avtale,
         manedslonn,
         feriepengesats,
         feriepengerBelop,
