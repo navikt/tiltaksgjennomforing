@@ -34,8 +34,8 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     feriepengerBelop: 0,
     otpBelop: 0,
     arbeidsgiveravgiftBelop: 0,
-    sumLonntilskudd: 0,
-    utbetaltLonntilskudd: 0,
+    sumLonnsutgifter: 0,
+    sumLonnstilskudd: 0,
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {

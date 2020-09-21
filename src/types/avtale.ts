@@ -99,8 +99,8 @@ export interface Beregningsgrunnlag {
     feriepengerBelop: number;
     otpBelop: number;
     arbeidsgiveravgiftBelop: number;
-    sumLonntilskudd: number;
-    utbetaltLonntilskudd: number;
+    sumLonnsutgifter: number;
+    sumLonnstilskudd: number;
 }
 
 export interface Kontonummer {

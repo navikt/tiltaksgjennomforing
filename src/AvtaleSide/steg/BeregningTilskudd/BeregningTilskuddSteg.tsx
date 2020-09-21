@@ -65,7 +65,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
         feriepengerBelop,
         arbeidsgiveravgift,
         otpBelop,
-        sumLonntilskudd,
+        sumLonnsutgifter,
         arbeidsgiveravgiftBelop,
         lonnstilskuddProsent,
     } = props.avtale;
@@ -78,10 +78,10 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
             arbeidsgiverAvgift(sumLonnFeriePensjon(manedslonn, feriepengerBelop, otpBelop), arbeidsgiveravgift)
         );
         settAvtaleVerdi(
-            'sumLonntilskudd',
+            'sumLonnsutgifter',
             sumUtgifter(manedslonn, feriepengerBelop, otpBelop, arbeidsgiveravgiftBelop)
         );
-        settAvtaleVerdi('utbetaltLonntilskudd', sumLonnstilskuddPerManed(sumLonntilskudd, lonnstilskuddProsent));
+        settAvtaleVerdi('sumLonnstilskudd', sumLonnstilskuddPerManed(sumLonnsutgifter, lonnstilskuddProsent));
     }, [
         manedslonn,
         feriepengesats,
@@ -89,7 +89,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
         settAvtaleVerdi,
         arbeidsgiveravgift,
         otpBelop,
-        sumLonntilskudd,
+        sumLonnsutgifter,
         arbeidsgiveravgiftBelop,
         lonnstilskuddProsent,
     ]);
@@ -264,7 +264,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                                 name="manedslonn100%"
                                 bredde="S"
                                 label="Lønn ved 100% stilling"
-                                value={lonnHundreProsent(sumLonntilskudd, props.avtale.stillingprosent)}
+                                value={lonnHundreProsent(sumLonnsutgifter, props.avtale.stillingprosent)}
                             />
                         )}
                     <VerticalSpacer thirtyTwoPx={true} />

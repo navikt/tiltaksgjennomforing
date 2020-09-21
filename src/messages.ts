@@ -45,8 +45,8 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     feriepengerBelop: 'feriepenger opptjent',
     otpBelop: 'obligatorisk tjenestepensjon',
     arbeidsgiveravgiftBelop: 'arbeidsgiveravgift beløp',
-    sumLonntilskudd: 'sum utgifter til lønnstilskudd',
-    utbetaltLonntilskudd: 'sum beløp til utbetaling',
+    sumLonnsutgifter: 'sum utgifter til lønnstilskudd',
+    sumLonnstilskudd: 'sum beløp til utbetaling',
 };
 
 export const hendelseTekst: { [key in HendelseType]: string } = {

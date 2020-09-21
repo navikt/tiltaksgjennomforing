@@ -118,7 +118,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         =
                     </Column>
                     <Column md="2" sm="2" xs="4" className={cls.element('column__siste')}>
-                        {props.sumLonntilskudd} kr
+                        {props.sumLonnsutgifter} kr
                     </Column>
                 </Row>
                 <Row className={classNames(cls.element('rad'), cls.element('rad__siste'))}>
@@ -138,7 +138,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                     </Column>
 
                     <Column md="3" sm="3" xs="6" className={cls.element('column__siste')}>
-                        <Undertittel>{props.utbetaltLonntilskudd} kr</Undertittel>
+                        <Undertittel>{props.sumLonnstilskudd} kr</Undertittel>
                     </Column>
                 </Row>
             </Container>
