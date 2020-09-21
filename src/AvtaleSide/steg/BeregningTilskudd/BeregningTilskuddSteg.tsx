@@ -12,7 +12,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
+import { Avtale, AvtaleMetadata, Beregningsgrunnlag, Kontonummer, Versjonering } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import {
     arbeidsgiverAvgift,
@@ -71,17 +71,26 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
     } = props.avtale;
 
     useEffect(() => {
-        settAvtaleVerdi('feriepengerBelop', feriepenger(manedslonn, feriepengesats));
-        settAvtaleVerdi('otpBelop', obligTjenestepensjon(manedslonn, feriepengerBelop));
-        settAvtaleVerdi(
+        const sjekkOmAvtaleVerdiSkalSettes = (key: keyof Beregningsgrunnlag, nyttBelop: number) => {
+            if (props.avtale[key] !== nyttBelop) {
+                settAvtaleVerdi(key, nyttBelop);
+            }
+        };
+
+        sjekkOmAvtaleVerdiSkalSettes('feriepengerBelop', feriepenger(manedslonn, feriepengesats));
+        sjekkOmAvtaleVerdiSkalSettes('otpBelop', obligTjenestepensjon(manedslonn, feriepengerBelop));
+        sjekkOmAvtaleVerdiSkalSettes(
             'arbeidsgiveravgiftBelop',
             arbeidsgiverAvgift(sumLonnFeriePensjon(manedslonn, feriepengerBelop, otpBelop), arbeidsgiveravgift)
         );
-        settAvtaleVerdi(
+        sjekkOmAvtaleVerdiSkalSettes(
             'sumLonnsutgifter',
             sumUtgifter(manedslonn, feriepengerBelop, otpBelop, arbeidsgiveravgiftBelop)
         );
-        settAvtaleVerdi('sumLonnstilskudd', sumLonnstilskuddPerManed(sumLonnsutgifter, lonnstilskuddProsent));
+        sjekkOmAvtaleVerdiSkalSettes(
+            'sumLonnstilskudd',
+            sumLonnstilskuddPerManed(sumLonnsutgifter, lonnstilskuddProsent)
+        );
     }, [
         manedslonn,
         feriepengesats,
