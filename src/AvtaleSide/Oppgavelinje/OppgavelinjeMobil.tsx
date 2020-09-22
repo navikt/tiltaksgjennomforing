@@ -5,7 +5,6 @@ import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { Menyknapp } from 'nav-frontend-ikonknapper';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
-import { UndertekstBold } from 'nav-frontend-typografi';
 import React, { useContext, useState } from 'react';
 
 const cls = BEMHelper('avtaleside');
@@ -47,7 +46,7 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
                 aria-controls={dropdownId}
                 aria-haspopup="menu"
             >
-                <UndertekstBold>Dropdown Meny</UndertekstBold>
+                Meny
             </Menyknapp>
             <Popover
                 id={dropdownId}
