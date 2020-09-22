@@ -9,7 +9,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfort } from '@/paths';
-import RestService from '@/services/rest-service';
+import { hentBedriftBrreg, opprettAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
 import amplitude from '@/utils/amplitude';
@@ -79,7 +79,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     const orgnrOnBlur = () => {
         if (validerBedriftNr()) {
-            RestService.hentBedriftBrreg(bedriftNr)
+            hentBedriftBrreg(bedriftNr)
                 .then(response => {
                     setBedriftNavn(response.bedriftNavn);
                     setBedriftNrFeil(undefined);
@@ -114,11 +114,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
     const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
         if (!hvaSomManglerTekst) {
-            const avtale = await RestService.opprettAvtale(
-                deltakerFnr,
-                bedriftNr,
-                valgtTiltaksType || 'ARBEIDSTRENING'
-            );
+            const avtale = await opprettAvtale(deltakerFnr, bedriftNr, valgtTiltaksType || 'ARBEIDSTRENING');
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {

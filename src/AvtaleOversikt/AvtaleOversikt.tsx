@@ -7,7 +7,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import Banner from '@/komponenter/Banner/Banner';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
-import RestService from '@/services/rest-service';
+import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import Varsel from '@/types/varsel';
@@ -34,14 +34,14 @@ const AvtaleOversikt: FunctionComponent = () => {
     });
 
     useEffect(() => {
-        RestService.hentUlesteVarsler()
+        hentUlesteVarsler()
             .then(setVarsler)
             .catch(() => setVarsler([]));
     }, []);
 
     useEffect(() => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
-        RestService.hentAvtalerForInnloggetBruker(søkekriterier)
+        hentAvtalerForInnloggetBruker(søkekriterier)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
             .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error.message }));
     }, [søkekriterier]);

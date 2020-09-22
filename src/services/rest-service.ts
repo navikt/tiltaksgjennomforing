@@ -17,31 +17,6 @@ const featureTogglePath = (features: Feature[]): string => {
     return `${API_URL}/feature?${query}`;
 };
 
-export interface RestService {
-    overtaAvtale: (id: string) => Promise<void>;
-    hentAvtale: (id: string) => Promise<Avtale>;
-    hentAvtalerForInnloggetBruker: (søkekriterier: Partial<Avtale>) => Promise<Avtale[]>;
-    lagreAvtale: (avtale: Avtale) => Promise<Avtale>;
-    opprettAvtale: (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType) => Promise<Avtale>;
-    hentRolle: (avtaleId: string) => Promise<Rolle>;
-    godkjennAvtale: (avtale: Avtale) => Promise<Avtale>;
-    godkjennAvtalePaVegne: (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => Promise<Avtale>;
-    opphevGodkjenninger: (avtaleId: string) => Promise<Avtale>;
-    gjenopprettAvtale: (id: string) => Promise<void>;
-    avbrytAvtale: (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => Promise<Avtale>;
-    hentInnloggetBruker: () => Promise<InnloggetBruker>;
-    hentInnloggingskilder: () => Promise<Innloggingskilde[]>;
-    hentBedriftBrreg: (bedriftNr: string) => Promise<Bedriftinfo>;
-    hentUlesteVarsler: () => Promise<Varsel[]>;
-    hentAvtaleVarsler: (avtaleId: string) => Promise<Varsel[]>;
-    settVarselTilLest: (varselId: string) => Promise<void>;
-    hentFeatureToggles: (featureToggles: Feature[]) => Promise<FeatureToggles>;
-    hentAvtaleStatusDetaljer: (avtaleId: string) => Promise<AvtaleStatusDetaljer>;
-    låsOppAvtale: (avtaleId: string) => Promise<void>;
-    delAvtaleMedAvtalepart: (avtaleId: string, avtalepart: Rolle) => Promise<void>;
-    sjekkOmMenySkalBrukes: (url: string) => Promise<boolean>;
-}
-
 const fetchGet: (url: string) => Promise<Response> = url => {
     return fetchWithCredentials(url, { headers: { Pragma: 'no-cache' } });
 };
@@ -70,7 +45,7 @@ const handleResponse = async (response: Response) => {
     }
 };
 
-const hentAvtale = async (id: string): Promise<Avtale> => {
+export const hentAvtale = async (id: string): Promise<Avtale> => {
     const response = await fetchGet(`${API_URL}/avtaler/${id}`);
     await handleResponse(response);
 
@@ -83,19 +58,20 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
-const hentAvtalerForInnloggetBruker = async (søkekriterier: Partial<Avtale>): Promise<Avtale[]> => {
+export const hentAvtalerForInnloggetBruker = async (søkekriterier: Partial<Avtale>): Promise<Avtale[]> => {
     const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
     const response = await fetchGet(`${API_URL}/avtaler?${queryParam}`);
     await handleResponse(response);
     return await response.json();
 };
 
-const hentAvtaleStatusDetaljer = async (avtaleId: string): Promise<AvtaleStatusDetaljer> => {
+export const hentAvtaleStatusDetaljer = async (avtaleId: string): Promise<AvtaleStatusDetaljer> => {
     const response = await fetchGet(`${API_URL}/avtaler/${avtaleId}/status-detaljer`);
     await handleResponse(response);
     return await response.json();
 };
-const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
+
+export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     if (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder) {
         if (
             window.confirm(
@@ -121,9 +97,14 @@ const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     return await hentAvtale(avtale.id);
 };
 
-const opprettAvtale = async (deltakerFnr: string, bedriftNr: string, tiltakstype: TiltaksType): Promise<Avtale> => {
+export const opprettAvtale = async (
+    deltakerFnr: string,
+    bedriftNr: string,
+    tiltakstype: TiltaksType
+): Promise<Avtale> => {
     return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype);
 };
+
 export const opprettAvtaleArbeidsgiver = async (
     deltakerFnr: string,
     bedriftNr: string,
@@ -155,13 +136,13 @@ const opprettAvtalen = async (
     return { ...avtale, id: `${avtale.id}` };
 };
 
-const hentRolle = async (avtaleId: string): Promise<Rolle> => {
+export const hentRolle = async (avtaleId: string): Promise<Rolle> => {
     const response = await fetchGet(`${API_URL}/avtaler/${avtaleId}/rolle`);
     await handleResponse(response);
     return response.json();
 };
 
-const godkjennAvtale = async (avtale: Avtale) => {
+export const godkjennAvtale = async (avtale: Avtale) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn`;
 
     const response = await fetchPost(uri, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
@@ -170,7 +151,7 @@ const godkjennAvtale = async (avtale: Avtale) => {
     return hentAvtale(avtale.id);
 };
 
-const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => {
+export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn-paa-vegne-av`;
     const response = await fetchPost(uri, {
         body: JSON.stringify(paVegneGrunn),
@@ -183,14 +164,14 @@ const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVeg
     return hentAvtale(avtale.id);
 };
 
-const opphevGodkjenninger = async (avtaleId: string) => {
+export const opphevGodkjenninger = async (avtaleId: string) => {
     const uri = `${API_URL}/avtaler/${avtaleId}/opphev-godkjenninger`;
     const response = await fetchPost(uri);
     await handleResponse(response);
     return hentAvtale(avtaleId);
 };
 
-const gjenopprettAvtale = async (id: string) => {
+export const gjenopprettAvtale = async (id: string) => {
     const uri = `${API_URL}/avtaler/${id}/gjenopprett`;
 
     const response = await fetchPost(uri, {
@@ -202,7 +183,7 @@ const gjenopprettAvtale = async (id: string) => {
     await handleResponse(response);
 };
 
-const avbrytAvtale = async (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => {
+export const avbrytAvtale = async (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => {
     const uri = `${API_URL}/avtaler/${avtale.id}/avbryt`;
     const response = await fetchPost(uri, {
         body: JSON.stringify({ avbruttDato: avbruttDato, avbruttGrunn: avbruttGrunn }),
@@ -214,42 +195,44 @@ const avbrytAvtale = async (avtale: Avtale, avbruttDato: string, avbruttGrunn: s
     await handleResponse(response);
     return hentAvtale(avtale.id);
 };
-const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
+
+export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     const response = await fetchGet(`${API_URL}/innlogget-bruker`);
     await handleResponse(response);
     return response.json();
 };
 
-const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
+export const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
     const response = await fetchGet('/tiltaksgjennomforing/innloggingskilder');
     await handleResponse(response);
     return await response.json();
 };
 
-const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
+export const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
     const response = await fetchGet(`${API_URL}/organisasjoner?bedriftNr=${bedriftNr}`);
     await handleResponse(response);
     return await response.json();
 };
 
-const hentUlesteVarsler = async (): Promise<Varsel[]> => {
+export const hentUlesteVarsler = async (): Promise<Varsel[]> => {
     const response = await fetchGet(`${API_URL}/varsler?lest=false`);
     await handleResponse(response);
     return await response.json();
 };
 
-const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
+export const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
     const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}`);
     await handleResponse(response);
     return await response.json();
 };
+
 export const hentHendelselogg = async (avtaleId: string): Promise<Hendelse[]> => {
     const response = await fetchGet(`${API_URL}/hendelselogg?avtaleId=${avtaleId}`);
     await handleResponse(response);
     return await response.json();
 };
 
-const settVarselTilLest = async (varselId: string): Promise<void> => {
+export const settVarselTilLest = async (varselId: string): Promise<void> => {
     const response = await fetchPost(`${API_URL}/varsler/${varselId}/sett-til-lest`);
     await handleResponse(response);
 };
@@ -263,23 +246,23 @@ export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<voi
     await handleResponse(response);
 };
 
-const sjekkOmMenySkalBrukes = async (url: string): Promise<boolean> => {
+export const sjekkOmMenySkalBrukes = async (url: string): Promise<boolean> => {
     const response = await fetchGet(url);
     return await response.json();
 };
 
-const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
+export const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
     const response = await fetchGet(featureTogglePath(featureToggles));
     await handleResponse(response);
     return await response.json();
 };
 
-const låsOppAvtale = async (avtaleId: string): Promise<void> => {
+export const låsOppAvtale = async (avtaleId: string): Promise<void> => {
     const response = await fetchPost(`${API_URL}/avtaler/${avtaleId}/laas-opp`);
     await handleResponse(response);
 };
 
-const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
+export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
     const response = await fetchPost(`${API_URL}/avtaler/${avtaleId}/del-med-avtalepart`, {
         body: JSON.stringify(rolle),
         headers: {
@@ -289,34 +272,7 @@ const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<v
     await handleResponse(response);
 };
 
-const overtaAvtale = async (avtaleId: string): Promise<void> => {
+export const overtaAvtale = async (avtaleId: string): Promise<void> => {
     const response = await fetch(`${API_URL}/avtaler/${avtaleId}/overta`, { method: 'PUT' });
     await handleResponse(response);
 };
-
-const restService: RestService = {
-    overtaAvtale,
-    hentAvtale,
-    hentAvtalerForInnloggetBruker,
-    lagreAvtale,
-    opprettAvtale,
-    hentRolle,
-    godkjennAvtale: godkjennAvtale,
-    godkjennAvtalePaVegne: godkjennAvtalePaVegne,
-    opphevGodkjenninger: opphevGodkjenninger,
-    gjenopprettAvtale: gjenopprettAvtale,
-    avbrytAvtale: avbrytAvtale,
-    hentInnloggetBruker,
-    hentInnloggingskilder,
-    hentBedriftBrreg,
-    hentUlesteVarsler,
-    hentAvtaleVarsler,
-    settVarselTilLest,
-    hentFeatureToggles,
-    hentAvtaleStatusDetaljer,
-    låsOppAvtale,
-    delAvtaleMedAvtalepart,
-    sjekkOmMenySkalBrukes,
-};
-
-export default restService;
