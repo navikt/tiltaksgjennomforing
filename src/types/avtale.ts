@@ -19,7 +19,7 @@ type FellesAvtaleinnhold = Arbeidsgiverinfo &
 
 export type ArbeidstreningAvtaleinnhold = FellesAvtaleinnhold & MaalListe & Oppgaver;
 
-export type LonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer;
+export type LonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer & RelasjonerInfo;
 
 export type MentorAvtaleinnhold = FellesAvtaleinnhold & Mentorinfo;
 
@@ -94,8 +94,6 @@ export interface Beregningsgrunnlag {
     arbeidsgiveravgift: number;
     lonnstilskuddProsent?: number;
     stillingprosent: number;
-    harFamilietilknytning: boolean;
-    familietilknytningForklaring?: string;
     feriepengerBelop: number;
     otpBelop: number;
     arbeidsgiveravgiftBelop: number;
@@ -157,6 +155,11 @@ export interface GodkjentPaVegneGrunner {
     ikkeBankId: boolean;
     reservert: boolean;
     digitalKompetanse: boolean;
+}
+
+export interface RelasjonerInfo {
+    harFamilietilknytning: boolean;
+    familietilknytningForklaring?: string;
 }
 
 export type AvtaleVersjon<T extends FellesAvtaleinnhold> = T & { versjon: number } & Godkjenninger;

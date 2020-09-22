@@ -12,6 +12,7 @@ interface Props {
     maxLengde: number;
     settVerdi: (verdi: string) => void;
     className?: string;
+    disabled?: boolean;
 }
 
 const PakrevdTextarea: React.FunctionComponent<Props> = props => {
@@ -23,6 +24,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
 
     return (
         <Textarea
+            disabled={props.disabled}
             placeholder={props.placeholder}
             feil={feil}
             label={props.label}

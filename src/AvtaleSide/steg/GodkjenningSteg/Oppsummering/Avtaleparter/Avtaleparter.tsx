@@ -5,6 +5,7 @@ import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
+import HvaManglerOppsummering from '../HvaManglerOppsummering';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
@@ -74,6 +75,9 @@ const Avtaleparter: FunctionComponent<Avtale> = ({
     bedriftNr,
     bedriftNavn,
     erLaast,
+    harFamilietilknytning,
+    familietilknytningForklaring,
+    tiltakstype,
 }) => (
     <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
         <div>
@@ -137,6 +141,26 @@ const Avtaleparter: FunctionComponent<Avtale> = ({
                 borderFarge="farge-lysblaa"
                 skjulHvaMangler={erLaast}
             />
+
+            {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(tiltakstype) && (
+                <div className={cls.element('content', 'farge-graa')}>
+                    <Undertekst>Relasjoner</Undertekst>
+                    <HvaManglerOppsummering
+                        avhengigFelter={{
+                            harFamilietilknytning: harFamilietilknytning !== null,
+                            familietilknytningForklaring: harFamilietilknytning ? familietilknytningForklaring : 'true',
+                        }}
+                    >
+                        <Normaltekst>
+                            Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?
+                        </Normaltekst>
+                        <Normaltekst>{harFamilietilknytning ? 'Ja' : ' Nei'}</Normaltekst>
+                        {familietilknytningForklaring && (
+                            <Normaltekst>Forklaring: {familietilknytningForklaring}</Normaltekst>
+                        )}
+                    </HvaManglerOppsummering>
+                </div>
+            )}
         </div>
     </Stegoppsummering>
 );
