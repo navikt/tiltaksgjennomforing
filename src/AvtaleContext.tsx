@@ -8,7 +8,20 @@ import amplitude from '@/utils/amplitude';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
-import RestService from './services/rest-service';
+import {
+    avbrytAvtale,
+    gjenopprettAvtale,
+    godkjennAvtale,
+    godkjennAvtalePaVegne,
+    hentAvtale,
+    hentAvtaleVarsler,
+    hentRolle,
+    lagreAvtale,
+    låsOppAvtale,
+    opphevGodkjenninger,
+    overtaAvtale,
+    settVarselTilLest,
+} from './services/rest-service';
 
 export const tomAvtale: Avtale = {
     id: '',
@@ -173,13 +186,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             opphevGodkjenningerModalIsOpen: false,
         };
 
-        this.overtaAvtale = this.overtaAvtale.bind(this);
-        this.gjenopprettAvtale = this.gjenopprettAvtale.bind(this);
-        this.avbrytAvtale = this.avbrytAvtale.bind(this);
+        this._overtaAvtale = this._overtaAvtale.bind(this);
+        this._gjenopprettAvtale = this._gjenopprettAvtale.bind(this);
+        this._avbrytAvtale = this._avbrytAvtale.bind(this);
         this.endretSteg = this.endretSteg.bind(this);
         this.fjernFeilmelding = this.fjernFeilmelding.bind(this);
-        this.godkjennAvtale = this.godkjennAvtale.bind(this);
-        this.godkjennAvtalePaVegne = this.godkjennAvtalePaVegne.bind(this);
+        this._godkjennAvtale = this._godkjennAvtale.bind(this);
+        this._godkjennAvtalePaVegne = this._godkjennAvtalePaVegne.bind(this);
         this.harUlagredeEndringer = this.harUlagredeEndringer.bind(this);
         this.hentAvtale = this.hentAvtale.bind(this);
         this.hentRolle = this.hentRolle.bind(this);
@@ -192,7 +205,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.setMellomLagreArbeidsoppgaveTom = this.setMellomLagreArbeidsoppgaveTom.bind(this);
         this.setMellomLagreMaalTom = this.setMellomLagreMaalTom.bind(this);
         this.settAvtaleVerdi = this.settAvtaleVerdi.bind(this);
-        this.settVarselTilLest = this.settVarselTilLest.bind(this);
+        this._settVarselTilLest = this._settVarselTilLest.bind(this);
         this.slettMaal = this.slettMaal.bind(this);
         this.slettOppgave = this.slettOppgave.bind(this);
         this.visFeilmelding = this.visFeilmelding.bind(this);
@@ -287,7 +300,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         if (noenHarGodkjentMenIkkeAlle(this.state.avtale) && !this.harUlagredeEndringer()) {
             // Du har de siste endringene
         } else {
-            const nyAvtale = await RestService.lagreAvtale(this.state.avtale);
+            const nyAvtale = await lagreAvtale(this.state.avtale);
             this.sendToAmplitude('#tiltak-avtale-lagret');
             this.setState({
                 avtale: { ...this.state.avtale, ...nyAvtale },
@@ -321,7 +334,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     };
 
     async hentAvtale(avtaleId: string) {
-        const avtale = await RestService.hentAvtale(avtaleId);
+        const avtale = await hentAvtale(avtaleId);
         const godkjenningerBool = this.konverterGodkjentTilBool(avtale);
         const avtaleBool = { ...avtale, ...godkjenningerBool };
         this.setState({ avtale: { ...this.state.avtale, ...avtaleBool } });
@@ -334,7 +347,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
     });
 
     async hentRolle(avtaleId: string) {
-        const rolle = await RestService.hentRolle(avtaleId);
+        const rolle = await hentRolle(avtaleId);
         this.setState({ rolle });
     }
 
@@ -363,50 +376,50 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         return this.lagreAvtale();
     }
 
-    async godkjennAvtale() {
+    async _godkjennAvtale() {
         const avtale = this.state.avtale;
-        await RestService.godkjennAvtale(avtale);
+        await godkjennAvtale(avtale);
         this.sendToAmplitude('#tiltak-avtale-godkjent');
         await this.hentAvtale(avtale.id);
     }
 
-    async godkjennAvtalePaVegne(paVegneGrunn: GodkjentPaVegneGrunner) {
+    async _godkjennAvtalePaVegne(paVegneGrunn: GodkjentPaVegneGrunner) {
         const avtale = this.state.avtale;
-        await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
+        await godkjennAvtalePaVegne(avtale, paVegneGrunn);
         this.sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
         await this.hentAvtale(avtale.id);
     }
 
-    async overtaAvtale(): Promise<void> {
+    async _overtaAvtale(): Promise<void> {
         const id = this.state.avtale.id;
-        await RestService.overtaAvtale(id);
+        await overtaAvtale(id);
         this.sendToAmplitude('#tiltak-avtale-overtatt');
         await this.hentAvtale(id);
     }
 
-    async gjenopprettAvtale() {
+    async _gjenopprettAvtale() {
         const id = this.state.avtale.id;
-        await RestService.gjenopprettAvtale(id);
+        await gjenopprettAvtale(id);
         this.sendToAmplitude('#tiltak-avtale-gjenopprettet');
         await this.hentAvtale(id);
     }
 
-    async avbrytAvtale(avbruttDato: string, avbruttGrunn: string) {
+    async _avbrytAvtale(avbruttDato: string, avbruttGrunn: string) {
         const avtale = this.state.avtale;
-        await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
+        await avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
         this.sendToAmplitude('#tiltak-avtale-avbrutt');
         await this.hentAvtale(avtale.id);
     }
 
     async hentVarsler(avtaleId: string) {
         try {
-            const varsler = await RestService.hentAvtaleVarsler(avtaleId);
+            const varsler = await hentAvtaleVarsler(avtaleId);
             this.setState({ varsler });
         } catch (e) {}
     }
 
-    async settVarselTilLest(varselId: string) {
-        await RestService.settVarselTilLest(varselId);
+    async _settVarselTilLest(varselId: string) {
+        await settVarselTilLest(varselId);
         return this.hentVarsler(this.state.avtale.id);
     }
 
@@ -416,20 +429,20 @@ export class TempAvtaleProvider extends React.Component<any, State> {
 
     async laasOpp() {
         const avtale = this.state.avtale;
-        await RestService.låsOppAvtale(avtale.id);
+        await låsOppAvtale(avtale.id);
         this.sendToAmplitude('#tiltak-avtale-laastOpp');
         await this.hentAvtale(avtale.id);
     }
 
     render() {
         const context: Context = {
-            overtaAvtale: this.overtaAvtale,
-            gjenopprettAvtale: this.gjenopprettAvtale,
-            avbryt: this.avbrytAvtale,
+            overtaAvtale: this._overtaAvtale,
+            gjenopprettAvtale: this._gjenopprettAvtale,
+            avbryt: this._avbrytAvtale,
             avtale: this.state.avtale,
             endretSteg: this.endretSteg,
-            godkjenn: this.godkjennAvtale,
-            godkjennPaVegne: this.godkjennAvtalePaVegne,
+            godkjenn: this._godkjennAvtale,
+            godkjennPaVegne: this._godkjennAvtalePaVegne,
             harUlagredeEndringer: this.harUlagredeEndringer,
             hentAvtale: this.hentAvtale,
             hentRolle: this.hentRolle,
@@ -445,7 +458,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             setMellomLagreArbeidsoppgaveTom: this.setMellomLagreArbeidsoppgaveTom,
             setMellomLagreMaalTom: this.setMellomLagreMaalTom,
             settAvtaleVerdi: this.settAvtaleVerdi,
-            settVarselTilLest: this.settVarselTilLest,
+            settVarselTilLest: this._settVarselTilLest,
             slettMaal: this.slettMaal,
             slettOppgave: this.slettOppgave,
             varsler: this.state.varsler,
@@ -455,7 +468,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         };
 
         const bekreftOpphevGodkjenninger = async () => {
-            const opphevetAvtale = await RestService.opphevGodkjenninger(this.state.avtale.id);
+            const opphevetAvtale = await opphevGodkjenninger(this.state.avtale.id);
             this.setState({ avtale: opphevetAvtale, opphevGodkjenningerModalIsOpen: false });
         };
 

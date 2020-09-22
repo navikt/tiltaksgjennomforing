@@ -5,7 +5,7 @@ import './SendVarselModal.less';
 import BEMHelper from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import RestService from '@/services/rest-service';
+import { delAvtaleMedAvtalepart } from '@/services/rest-service';
 import { Context, medContext } from '@/AvtaleContext';
 import Lenke from 'nav-frontend-lenker';
 import { pathTilOversiktISelvbetjeningProd } from '@/paths';
@@ -41,14 +41,14 @@ const SendVarselModal: React.FunctionComponent<Props & Context> = props => (
         <VerticalSpacer eightPx={true} />
         <LagreKnapp
             label="Send til arbeidsgiver"
-            lagre={() => RestService.delAvtaleMedAvtalepart(props.avtale.id, 'ARBEIDSGIVER')}
+            lagre={() => delAvtaleMedAvtalepart(props.avtale.id, 'ARBEIDSGIVER')}
             suksessmelding="SMS sendt til arbeidsgiver"
             knapptype={'standard'}
         />
         <VerticalSpacer eightPx={true} />
         <LagreKnapp
             label="Send til deltaker"
-            lagre={() => RestService.delAvtaleMedAvtalepart(props.avtale.id, 'DELTAKER')}
+            lagre={() => delAvtaleMedAvtalepart(props.avtale.id, 'DELTAKER')}
             suksessmelding="SMS sendt til deltaker"
             knapptype={'standard'}
         />

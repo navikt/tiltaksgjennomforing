@@ -5,7 +5,7 @@ import { Rolle } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import RestService from '@/services/rest-service';
+import { hentAvtaleStatusDetaljer } from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import BEMHelper from '@/utils/bem';
@@ -24,7 +24,7 @@ interface Props {
 const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
     const [avtaleStatusDetaljer, setAvtaleStatusDetaljer] = useState<AvtaleStatusDetaljer | undefined>(undefined);
     useEffect(() => {
-        RestService.hentAvtaleStatusDetaljer(props.avtale.id).then(setAvtaleStatusDetaljer);
+        hentAvtaleStatusDetaljer(props.avtale.id).then(setAvtaleStatusDetaljer);
     }, [
         props.avtale.id,
         props.avtale.godkjentAvDeltaker,

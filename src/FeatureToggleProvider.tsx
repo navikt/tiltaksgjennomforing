@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import restService from './services/rest-service';
+import { hentFeatureToggles } from './services/rest-service';
 
 export enum Feature {
     Lonnstilskudd = 'tag.tiltak.lonnstilskudd',
@@ -21,7 +21,7 @@ export const FeatureToggleProvider = (props: any) => {
     const [featureToggles, setFeatureToggles] = useState<FeatureToggles>({});
 
     const hentToggles = () => {
-        restService.hentFeatureToggles(alleFeatures).then(setFeatureToggles);
+        hentFeatureToggles(alleFeatures).then(setFeatureToggles);
     };
 
     useEffect(() => {

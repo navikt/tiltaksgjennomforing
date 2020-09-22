@@ -2,7 +2,7 @@ import decoratorconfig from '@/internflateDekorator/decoratorconfig';
 import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import RestService from '@/services/rest-service';
+import { sjekkOmMenySkalBrukes } from '@/services/rest-service';
 import NAVSPA from '@navikt/navspa';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
@@ -26,8 +26,8 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     const [brukmeny, setbrukmeny] = useState<boolean>();
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
     useEffect(() => {
-        RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(setbrukmeny);
-        RestService.sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes').then(setBrukBackupmeny);
+        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(setbrukmeny);
+        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes').then(setBrukBackupmeny);
     }, []);
 
     const [cookies, setCookie] = useCookies();

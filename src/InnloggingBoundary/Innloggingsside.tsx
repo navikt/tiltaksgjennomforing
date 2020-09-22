@@ -2,7 +2,7 @@ import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import restService from '@/services/rest-service';
+import { hentInnloggetBruker } from '@/services/rest-service';
 import { AutentiseringError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { HoyreChevron } from 'nav-frontend-chevron';
@@ -22,7 +22,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
 
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
         try {
-            await restService.hentInnloggetBruker();
+            await hentInnloggetBruker();
             window.location.reload();
         } catch (err) {
             if (err instanceof AutentiseringError) {
