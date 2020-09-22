@@ -106,9 +106,11 @@ const Relasjoner: FunctionComponent<Props> = props => {
                     />
                 </Column>
             )}
-            <Popover avstandTilAnker={16} onRequestClose={() => setPopoverAnker(undefined)} ankerEl={popoverAnker}>
-                <div style={{ padding: '1rem' }}>Dette fylles ut av arbeidsgiver.</div>
-            </Popover>
+            {props.rolle === 'VEILEDER' && (
+                <Popover avstandTilAnker={16} onRequestClose={() => setPopoverAnker(undefined)} ankerEl={popoverAnker}>
+                    <div style={{ padding: '1rem' }}>Dette fylles ut av arbeidsgiver.</div>
+                </Popover>
+            )}
         </Row>
     );
 };
