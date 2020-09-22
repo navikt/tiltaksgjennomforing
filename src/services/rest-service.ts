@@ -276,3 +276,8 @@ export const overtaAvtale = async (avtaleId: string): Promise<void> => {
     const response = await fetch(`${API_URL}/avtaler/${avtaleId}/overta`, { method: 'PUT' });
     await handleResponse(response);
 };
+
+export const aksepterUtkast = async (avtaleId: string): Promise<void> => {
+    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/aksepter-utkast`, { method: 'POST' });
+    await handleResponse(response);
+};

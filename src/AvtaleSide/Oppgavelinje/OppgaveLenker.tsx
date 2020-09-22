@@ -16,7 +16,11 @@ const OppgaveLenker: React.FunctionComponent<{}> = () => {
 
     return (
         <>
-            <OvertaAvtalen erVeileder={erVeileder} forskjelligNavIdent={!erNavIdenterLike} />
+            <OvertaAvtalen
+                erVeileder={erVeileder}
+                forskjelligNavIdent={!erNavIdenterLike}
+                utkastmodus={context.avtale.status === 'Utkast'}
+            />
             <GjenopprettAvtalen erVeileder={erVeileder} kanGjenopprettes={context.avtale.kanGjenopprettes} />
             <AvbryteAvtalen
                 avbrytAvtale={context.avbryt}
