@@ -22,4 +22,5 @@ export type HendelseType =
     | 'GJENOPPRETTET'
     | 'OPPRETTET_AV_ARBEIDSGIVER'
     | 'LÅST_OPP'
-    | 'NY_VEILEDER';
+    | 'NY_VEILEDER'
+    | 'UTKAST_AKSEPTERT';

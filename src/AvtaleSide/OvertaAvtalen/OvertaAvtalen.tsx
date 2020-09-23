@@ -4,10 +4,12 @@ import Lenke from 'nav-frontend-lenker';
 import BEMHelper from '@/utils/bem';
 import './overtaAvtalen.less';
 import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
+import UtkastModusModal from '@/AvtaleSide/OvertaAvtalen/UtkastModusModal';
 
 interface Props {
     erVeileder: boolean;
     forskjelligNavIdent: boolean;
+    utkastmodus: boolean;
 }
 
 const cls = BEMHelper('overtaavtalen');
@@ -23,7 +25,11 @@ const OvertaAvtalen = (props: Props) => {
                     Overta avtale
                 </Lenke>
             </div>
-            <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
+            {props.utkastmodus ? (
+                <UtkastModusModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
+            ) : (
+                <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
+            )}
         </>
     ) : null;
 };

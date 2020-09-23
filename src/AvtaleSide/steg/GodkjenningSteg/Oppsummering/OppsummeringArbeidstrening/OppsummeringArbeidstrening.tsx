@@ -1,5 +1,5 @@
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import { ArbeidstreningAvtaleinnhold } from '@/types/avtale';
+import { AltAvtaleinnhold, ArbeidstreningAvtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent, useContext } from 'react';
 import MaalOppsummering from '../maalOppsummering/MaalOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
@@ -9,10 +9,13 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 
 interface Props {
-    avtaleinnhold: ArbeidstreningAvtaleinnhold;
+    // Burde hatt typen ArbeidstreningAvtaleinnhold, og droppet typesetting av prop under, men fikk problemer :/
+    avtaleinnhold: AltAvtaleinnhold;
 }
 
-const OppsummeringArbeidstrening: FunctionComponent<Props> = props => {
+const OppsummeringArbeidstrening: FunctionComponent<Props> = (props: {
+    avtaleinnhold: ArbeidstreningAvtaleinnhold;
+}) => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const fritekstToggle = featureToggleContext[Feature.ArbeidsoppgaverFritekst];
 
