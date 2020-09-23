@@ -74,9 +74,6 @@ const Avtaleparter: FunctionComponent<Avtale> = ({
     bedriftNr,
     bedriftNavn,
     erLaast,
-    harFamilietilknytning,
-    familietilknytningForklaring,
-    tiltakstype,
 }) => (
     <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
         <div>
