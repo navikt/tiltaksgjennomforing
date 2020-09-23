@@ -1,17 +1,14 @@
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { RelasjonerInfo } from '@/types/avtale';
-import BEMHelper from '@/utils/bem';
-import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import HvaManglerOppsummering from '../HvaManglerOppsummering';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 
-const cls = BEMHelper('avtaleparter');
-
 const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = props => {
     return (
         <Stegoppsummering tittel="Relasjoner">
-            <div className={cls.element('content', 'farge-graa')}>
-                <Undertekst>Relasjoner</Undertekst>
+            <div>
                 <HvaManglerOppsummering
                     avhengigFelter={{
                         harFamilietilknytning: props.harFamilietilknytning !== null,
@@ -20,12 +17,14 @@ const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = props => {
                             : 'true',
                     }}
                 >
-                    <Normaltekst>
-                        Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?
-                    </Normaltekst>
+                    <Element>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Element>
                     <Normaltekst>{props.harFamilietilknytning ? 'Ja' : ' Nei'}</Normaltekst>
                     {props.familietilknytningForklaring && (
-                        <Normaltekst>Forklaring: {props.familietilknytningForklaring}</Normaltekst>
+                        <>
+                            <VerticalSpacer rem={1} />
+                            <Element>Forklaring</Element>
+                            <Normaltekst>{props.familietilknytningForklaring}</Normaltekst>
+                        </>
                     )}
                 </HvaManglerOppsummering>
             </div>
