@@ -9,6 +9,7 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import {
+    aksepterUtkast,
     avbrytAvtale,
     gjenopprettAvtale,
     godkjennAvtale,
@@ -152,6 +153,7 @@ export interface Context {
     visFeilmelding: (feilmelding: string) => void;
     laasOpp: () => Promise<any>;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
+    aksepterUtkast: () => Promise<void>;
 }
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
@@ -211,6 +213,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.laasOpp = this.laasOpp.bind(this);
         this.utforHandlingHvisRedigerbar = this.utforHandlingHvisRedigerbar.bind(this);
+        this._aksepterUtkast = this._aksepterUtkast.bind(this);
     }
 
     sendToAmplitude = (eventName: string) => {
@@ -411,6 +414,13 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         await this.hentAvtale(avtale.id);
     }
 
+    async _aksepterUtkast() {
+        const avtale = this.state.avtale;
+        await aksepterUtkast(avtale.id);
+        this.sendToAmplitude('#tiltak-avtale-utkastakseptert');
+        await this.hentAvtale(avtale.id);
+    }
+
     async hentVarsler(avtaleId: string) {
         try {
             const varsler = await hentAvtaleVarsler(avtaleId);
@@ -465,6 +475,7 @@ export class TempAvtaleProvider extends React.Component<any, State> {
             visFeilmelding: this.visFeilmelding,
             laasOpp: this.laasOpp,
             utforHandlingHvisRedigerbar: this.utforHandlingHvisRedigerbar,
+            aksepterUtkast: this._aksepterUtkast,
         };
 
         const bekreftOpphevGodkjenninger = async () => {

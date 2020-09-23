@@ -30,6 +30,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     SMS_VARSLING_FEILET: <></>,
     GJENOPPRETTET: <GjenopprettIkon />,
     NY_VEILEDER: <Veileder />,
+    UTKAST_AKSEPTERT: <Veileder />,
 };
 
 const HendelseIkon: FunctionComponent<Props> = props => {

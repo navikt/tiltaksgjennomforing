@@ -113,8 +113,8 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
-        if (!hvaSomManglerTekst) {
-            const avtale = await opprettAvtale(deltakerFnr, bedriftNr, valgtTiltaksType || 'ARBEIDSTRENING');
+        if (!hvaSomManglerTekst && valgtTiltaksType) {
+            const avtale = await opprettAvtale(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
         } else {
@@ -122,7 +122,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
         }
     };
 
-    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType>();
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
 
     const featureToggleContext = useContext(FeatureToggleContext);
 
