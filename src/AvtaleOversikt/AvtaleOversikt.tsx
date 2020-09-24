@@ -23,9 +23,19 @@ const AvtaleOversikt: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
-    const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(
-        innloggetBruker.erNavAnsatt ? { veilederNavIdent: innloggetBruker.identifikator } : {}
-    );
+    const sokeKriterer = () => {
+        switch (innloggetBruker.rolle) {
+            case 'ARBEIDSGIVER':
+                return { bedriftNr: new URLSearchParams(window.location.search).get('bedrift')! };
+            case 'VEILEDER':
+                return { veilederNavIdent: innloggetBruker.identifikator };
+            case 'DELTAKER':
+            default:
+                return {};
+        }
+    };
+
+    const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(sokeKriterer());
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
 
@@ -54,7 +64,14 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     return (
         <>
-            <Banner tekst="Tiltaksoversikt" />
+            <Banner
+                byttetOrg={org => {
+                    if (søkekriterier.bedriftNr !== org.OrganizationNumber) {
+                        setSøkekriterier({ bedriftNr: org.OrganizationNumber });
+                    }
+                }}
+                tekst="Tiltaksoversikt"
+            />
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}

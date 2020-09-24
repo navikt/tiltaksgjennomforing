@@ -1,16 +1,17 @@
 import { Context, medContext } from '@/AvtaleContext';
+import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
 import * as React from 'react';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
-import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import VarselModal from './VarselModal/VarselModal';
 
 interface MatchProps {
@@ -45,6 +46,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
     const erDesktop = windowSize > 767;
+    const history = useHistory();
 
     const handleWindowSize = () => {
         setWindowSize(window.innerWidth);
@@ -99,7 +101,17 @@ const AvtaleSide: FunctionComponent<Props> = props => {
                 return (
                     <>
                         <VarselModal />
-                        <Banner tekst={sideTittel} />
+                        <Banner
+                            byttetOrg={org => {
+                                if (props.avtale.bedriftNr !== org.OrganizationNumber) {
+                                    history.push({
+                                        pathname: pathTilOversikt,
+                                        search: window.location.search,
+                                    });
+                                }
+                            }}
+                            tekst={sideTittel}
+                        />
                         <div className="avtaleside">{innhold}</div>
                     </>
                 );

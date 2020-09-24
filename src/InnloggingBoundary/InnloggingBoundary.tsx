@@ -19,6 +19,7 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
     erNavAnsatt: false,
     organisasjoner: [],
+    altinnOrganisasjoner: [],
     rolle: 'INGEN_ROLLE',
 });
 

@@ -1,15 +1,15 @@
-import { default as React, FunctionComponent } from 'react';
-import { Avtale } from '@/types/avtale';
-import classNames from 'classnames';
-import MediaQuery from 'react-responsive';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { pathTilAvtale } from '@/paths';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
+import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
+import { pathTilAvtale } from '@/paths';
+import { Avtale } from '@/types/avtale';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
+import classNames from 'classnames';
+import moment from 'moment';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
+import { default as React, FunctionComponent } from 'react';
+import MediaQuery from 'react-responsive';
+import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
 const cls = BEMHelper('avtaletabell');
 
@@ -35,7 +35,9 @@ const AvtaleTabell: FunctionComponent<{
                 <LenkepanelBase
                     key={avtale.id}
                     href={pathTilAvtale(avtale.id)}
-                    linkCreator={(props: any) => <Link to={props.href} {...props} />}
+                    linkCreator={(props: any) => (
+                        <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
+                    )}
                 >
                     {ulestVarsel && <span className="ulest-varsel-ikon" />}
                     <div

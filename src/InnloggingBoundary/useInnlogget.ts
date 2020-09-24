@@ -2,6 +2,7 @@ import { Rolle } from '@/AvtaleContext';
 import { hentInnloggetBruker, hentInnloggingskilder } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
+import { Organisasjon as AltinnOrganisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { useEffect, useState } from 'react';
 import { FeilkodeError } from './../types/errors';
 
@@ -15,6 +16,7 @@ export interface InnloggetBruker {
     identifikator: string;
     erNavAnsatt: boolean;
     organisasjoner: Organisasjon[];
+    altinnOrganisasjoner: AltinnOrganisasjon[];
     rolle: Rolle;
 }
 
