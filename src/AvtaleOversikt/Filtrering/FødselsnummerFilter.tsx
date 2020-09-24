@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import { validerFnr } from '@/utils/fnrUtils';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import { validerFnr } from '@/utils/fnrUtils';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
 
 // Ikke i bruk nå, men kan være relevant senere når AG også får filtreringsmulighet
 export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props => {

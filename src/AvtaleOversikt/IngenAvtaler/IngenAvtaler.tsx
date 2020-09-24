@@ -1,6 +1,8 @@
 import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
+import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
 import { Ingress, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
@@ -8,11 +10,14 @@ import React, { FunctionComponent } from 'react';
 import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './IngenAvtalerArbeidsgiver';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 
 const cls = BEMHelper('ingenAvtaler');
 
-const IngenAvtaler: FunctionComponent = () => {
+type Props = {
+    sokekriterier: Partial<Avtale>;
+};
+
+const IngenAvtaler: FunctionComponent<Props> = props => {
     const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
 
@@ -36,7 +41,7 @@ const IngenAvtaler: FunctionComponent = () => {
             </Innholdsboks>
         );
     } else if (innloggetPart === 'ARBEIDSGIVER') {
-        return <IngenAvtalerArbeidsgiver />;
+        return <IngenAvtalerArbeidsgiver sokekriterier={props.sokekriterier} />;
     } else {
         return null;
     }

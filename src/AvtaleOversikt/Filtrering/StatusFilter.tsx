@@ -1,10 +1,10 @@
+import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { OptionProps } from '@/komponenter/form/SelectInput';
+import { Radio } from 'nav-frontend-skjema';
 import * as React from 'react';
 import { FunctionComponent, useContext, useState } from 'react';
-import { OptionProps } from '@/komponenter/form/SelectInput';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
-import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
-import { Radio } from 'nav-frontend-skjema';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const StatusFilter: FunctionComponent<FiltreringProps> = props => {
     const [valgtStatus, setValgtStatus] = useState('');

@@ -5,12 +5,16 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { tiltakstypeTekst } from '@/messages';
+import { Avtale, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Ingress, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './IngenAvtalerArbeidsgiver.less';
-type Props = {};
+
+type Props = {
+    sokekriterier: Partial<Avtale>;
+};
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
@@ -45,6 +49,29 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
         </li>
     ));
 
+    const valgtBedrift = innloggetBruker.organisasjoner.find(o => o.bedriftNr === props.sokekriterier.bedriftNr)!;
+    const harTilgangTilValgTiltakstype = valgtBedrift.tilgangstyper.some(
+        valgt => valgt === props.sokekriterier.tiltakstype
+    );
+    console.log(harTilgangTilValgTiltakstype);
+
+    const harTilgangPaTiltakstypeIValgtBedrift = () => {
+        if (props.sokekriterier.tiltakstype) {
+            return valgtBedrift.tilgangstyper.includes(props.sokekriterier.tiltakstype);
+        }
+        return true;
+    };
+    const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
+    const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !valgtBedrift.tilgangstyper.includes(tilgang));
+
+    if (!harTilgangPaTiltakstypeIValgtBedrift()) {
+        return (
+            <Normaltekst>
+                Du har dessverre ikke tilgang på {tiltakstypeTekst[props.sokekriterier.tiltakstype as TiltaksType]} her
+            </Normaltekst>
+        );
+    }
+
     return (
         <div>
             <Innholdsboks>
@@ -56,25 +83,24 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <Innholdstittel>Ingen avtaler</Innholdstittel>
                             </div>
                             <Normaltekst tag="div">
-                                Du har ingen avtaler her enda, men du har rettigheter på virksomheten(e) vist under.
-                                Hvis det blir opprettet en avtale på noen av disse virksomhetene, vil du få tilgang til
-                                denne avtalen.
-                                <VerticalSpacer twentyPx={true} />
-                                <Ekspanderbartpanel
-                                    tittel="Virksomheter du har rettigheter i"
-                                    border
-                                    apen={antallOrgTilgangTil < 5}
-                                >
-                                    <ul>{organisasjonsListe}</ul>
-                                </Ekspanderbartpanel>
+                                Du har ingen avtaler her enda. Du har rettigheter i bedriften til
+                                <ul>
+                                    {valgtBedrift.tilgangstyper.map(t => (
+                                        <li key={t}>{tiltakstypeTekst[t as TiltaksType]}</li>
+                                    ))}
+                                </ul>
                                 <VerticalSpacer twentyPx={true} />
                             </Normaltekst>
                             <VerticalSpacer thirtyTwoPx={true} />
-                            <Systemtittel>Hvordan får jeg tilgang?</Systemtittel>
+                            <Systemtittel>Hvordan får jeg tilgang på andre tiltak?</Systemtittel>
                             <VerticalSpacer sixteenPx={true} />
                             <Normaltekst tag="div">
-                                Hvis du er ute etter en avtale registrert på en annen bedrift enn de overnevnte må du i
-                                Altinn ha {enkeltRettighet}
+                                Hvis du er ute etter en avtale om et annet tiltak, må du i Altinn ha korrekt tilgang:
+                                <ul>
+                                    {tilgangerJegIkkeHar.map(t => (
+                                        <li key={t}>{tiltakstypeTekst[t as TiltaksType]}</li>
+                                    ))}
+                                </ul>
                                 <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                                     Les mer om roller og rettigheter på Altinn.no
                                 </EksternLenke>

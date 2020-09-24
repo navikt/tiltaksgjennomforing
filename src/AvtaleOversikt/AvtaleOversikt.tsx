@@ -1,5 +1,5 @@
 import Avtaler from '@/AvtaleOversikt/Avtaler';
-import Filtrering from '@/AvtaleOversikt/Filtrering/Filtrering';
+import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
@@ -15,6 +15,7 @@ import BEMHelper from '@/utils/bem';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
+import ArbeidsgiverFiltrering from './Filtrering/ArbeidsgiverFiltrering';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -84,7 +85,12 @@ const AvtaleOversikt: FunctionComponent = () => {
                 <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
                     {innloggetBruker.erNavAnsatt && (
                         <aside style={layout.stylingAvFilter}>
-                            <Filtrering endreSøk={endreSøk} />
+                            <VeilederFiltrering endreSøk={endreSøk} />
+                        </aside>
+                    )}
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                        <aside style={layout.stylingAvFilter}>
+                            <ArbeidsgiverFiltrering endreSøk={endreSøk} />
                         </aside>
                     )}
                     <section style={layout.stylingAvTabell}>
@@ -92,6 +98,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                             avtalelisteRessurs={avtalelisteRessurs}
                             innloggetBruker={innloggetBruker}
                             varsler={varsler}
+                            sokekriterier={søkekriterier}
                         />
                     </section>
                 </div>

@@ -1,13 +1,13 @@
+import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
+import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { validerFnr } from '@/utils/fnrUtils';
+import { validerOrgnr } from '@/utils/orgnrUtils';
+import { Radio } from 'nav-frontend-skjema';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import * as React from 'react';
 import { FormEvent, FunctionComponent, useContext, useState } from 'react';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
-import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
-import { validerFnr } from '@/utils/fnrUtils';
-import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { validerOrgnr } from '@/utils/orgnrUtils';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { Radio } from 'nav-frontend-skjema';
 
 type Validering = (verdi: string) => SkjemaelementFeil | undefined;
 
