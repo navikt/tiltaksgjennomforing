@@ -18,9 +18,9 @@ const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflate
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
     erNavAnsatt: false,
-    organisasjoner: [],
     altinnOrganisasjoner: [],
     rolle: 'INGEN_ROLLE',
+    tilganger: {},
 });
 
 const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {

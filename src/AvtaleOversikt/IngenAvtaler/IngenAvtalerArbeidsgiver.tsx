@@ -41,18 +41,12 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
         </>
     );
 
-    const antallOrgTilgangTil = innloggetBruker.organisasjoner.length;
+    const antallOrgTilgangTil = innloggetBruker.altinnOrganisasjoner.length;
     const harTilgangPaMinstEnOrg = antallOrgTilgangTil > 0;
 
-    const valgtBedrift = innloggetBruker.organisasjoner.find(o => o.bedriftNr === props.sokekriterier.bedriftNr)!;
+    const valgtBedriftNr = props.sokekriterier.bedriftNr!;
+    const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(org => org.OrganizationNumber === valgtBedriftNr)?.Name;
 
-    const harTilgangPaTiltakstypeIValgtBedrift = () => {
-        if (props.sokekriterier.tiltakstype) {
-            return valgtBedrift.tilgangstyper.includes(props.sokekriterier.tiltakstype);
-        }
-        return true;
-    };
-    const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
     const serviceKoder = {
         ARBEIDSTRENING: '5532_1',
         MIDLERTIDIG_LONNSTILSKUDD: '5516_1',
@@ -61,7 +55,15 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
     };
     const valgtServiceKode = props.sokekriterier.tiltakstype && serviceKoder[props.sokekriterier.tiltakstype];
 
-    const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !valgtBedrift.tilgangstyper.includes(tilgang));
+    const harTilgangPaTiltakstypeIValgtBedrift = () => {
+        if (props.sokekriterier.tiltakstype) {
+            return innloggetBruker.tilganger[valgtBedriftNr].includes(props.sokekriterier.tiltakstype);
+        }
+        return true;
+    };
+    const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
+
+    const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !innloggetBruker.tilganger[valgtBedriftNr].includes(tilgang));
 
     if (!harTilgangPaTiltakstypeIValgtBedrift()) {
         return (
@@ -74,11 +76,11 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                     <Normaltekst>
                         Du har dessverre ikke tilgang på{' '}
                         <b>{tiltakstypeTekst[props.sokekriterier.tiltakstype as TiltaksType]}</b> i{' '}
-                        {valgtBedrift.bedriftNavn}.
+                        {valgtBedriftNavn}.
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <EksternLenke
-                        href={`https://tt02.altinn.no/ui/DelegationRequest?offeredBy=${valgtBedrift.bedriftNr}&resources=${valgtServiceKode}`}
+                        href={`https://tt02.altinn.no/ui/DelegationRequest?offeredBy=${valgtBedriftNr}&resources=${valgtServiceKode}`}
                     >
                         Be om tilgang i Altinn her
                     </EksternLenke>
@@ -107,8 +109,8 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                     <Normaltekst tag="div">
                                         Du har ingen avtaler her enda. Du har rettigheter i bedriften til
                                         <ul>
-                                            {valgtBedrift.tilgangstyper.map(t => (
-                                                <li key={t}>{tiltakstypeTekst[t as TiltaksType]}</li>
+                                            {innloggetBruker.tilganger[valgtBedriftNr].map(tiltakstype => (
+                                                <li key={tiltakstype}>{tiltakstypeTekst[tiltakstype]}</li>
                                             ))}
                                         </ul>
                                         <VerticalSpacer twentyPx={true} />

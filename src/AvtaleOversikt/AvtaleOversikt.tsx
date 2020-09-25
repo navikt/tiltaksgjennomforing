@@ -78,7 +78,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                 {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
                 {arbeidsgiverOppretterToggle &&
                     innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-                    innloggetBruker.organisasjoner.length > 0 && (
+                    innloggetBruker.altinnOrganisasjoner.length > 0 && (
                         <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} tekst="Opprett ny avtale" />
                     )}
 

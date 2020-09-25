@@ -33,7 +33,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    // const [valgtBedriftNr, setValgtBedriftNr] = useState(innloggetBruker.organisasjoner[0].bedriftNr);
     const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
@@ -125,17 +124,15 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.organisasjoner
-                            .find(o => o.bedriftNr === valgtBedriftNr)
-                            ?.tilgangstyper.map(t => (
-                                <RadioPanel
-                                    name="tiltakstype"
-                                    label={tiltakstypeTekst[t]}
-                                    value={t}
-                                    checked={valgtTiltaksType === t}
-                                    onChange={() => setTiltaksType(t)}
-                                />
-                            ))}
+                        {innloggetBruker.tilganger[valgtBedriftNr]?.map(t => (
+                            <RadioPanel
+                                name="tiltakstype"
+                                label={tiltakstypeTekst[t]}
+                                value={t}
+                                checked={valgtTiltaksType === t}
+                                onChange={() => setTiltaksType(t)}
+                            />
+                        ))}
                     </div>
                 </Innholdsboks>
 

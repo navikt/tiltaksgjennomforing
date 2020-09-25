@@ -15,9 +15,9 @@ export interface Innloggingskilde {
 export interface InnloggetBruker {
     identifikator: string;
     erNavAnsatt: boolean;
-    organisasjoner: Organisasjon[];
     altinnOrganisasjoner: AltinnOrganisasjon[];
     rolle: Rolle;
+    tilganger: { [bedriftNr: string]: TiltaksType[] };
 }
 
 export interface Organisasjon {
