@@ -44,7 +44,7 @@ const useInnlogget = (): Innlogget => {
 
     useEffect(() => {
         hentInnloggetBruker()
-            .then(setInnloggetBruker)
+            .then(data => setInnloggetBruker({ ...data, ...innloggetBruker }))
             .catch(error => {
                 if (error instanceof AutentiseringError || error instanceof FeilkodeError) {
                     setUinnlogget(true);
@@ -55,7 +55,7 @@ const useInnlogget = (): Innlogget => {
                 }
             });
         hentInnloggingskilder().then(setInnloggingskilder);
-    }, []);
+    }, [innloggetBruker]);
 
     return { innloggetBruker, uinnlogget, innloggingskilder, feilmelding };
 };

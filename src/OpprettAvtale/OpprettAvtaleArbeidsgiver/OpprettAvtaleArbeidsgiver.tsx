@@ -10,7 +10,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
-import { pathTilOpprettAvtaleFullfortArbeidsgiver, pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
+import { pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
 import { opprettAvtaleArbeidsgiver } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';

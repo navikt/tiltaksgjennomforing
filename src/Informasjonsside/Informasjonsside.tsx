@@ -9,13 +9,12 @@ import Banner from '@/komponenter/Banner/Banner';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { pathTilInformasjonssideInnlogget, pathTilOversikt } from '@/paths';
+import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
-import { VenstreChevron } from 'nav-frontend-chevron';
 import Lenke from 'nav-frontend-lenker';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import './informasjonsside.less';
 
 const cls = BEMHelper('informasjonsside');
