@@ -43,17 +43,8 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
 
     const antallOrgTilgangTil = innloggetBruker.organisasjoner.length;
     const harTilgangPaMinstEnOrg = antallOrgTilgangTil > 0;
-    const organisasjonsListe = innloggetBruker.organisasjoner.map(org => (
-        <li key={org.bedriftNr}>
-            {org.bedriftNavn} ({org.bedriftNr})
-        </li>
-    ));
 
     const valgtBedrift = innloggetBruker.organisasjoner.find(o => o.bedriftNr === props.sokekriterier.bedriftNr)!;
-    const harTilgangTilValgTiltakstype = valgtBedrift.tilgangstyper.some(
-        valgt => valgt === props.sokekriterier.tiltakstype
-    );
-    console.log(harTilgangTilValgTiltakstype);
 
     const harTilgangPaTiltakstypeIValgtBedrift = () => {
         if (props.sokekriterier.tiltakstype) {
@@ -62,13 +53,37 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
         return true;
     };
     const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
+    const serviceKoder = {
+        ARBEIDSTRENING: '5532_1',
+        MIDLERTIDIG_LONNSTILSKUDD: '5516_1',
+        VARIG_LONNSTILSKUDD: '5516_2',
+        MENTOR: '5216_1',
+    };
+    const valgtServiceKode = props.sokekriterier.tiltakstype && serviceKoder[props.sokekriterier.tiltakstype];
+
     const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !valgtBedrift.tilgangstyper.includes(tilgang));
 
     if (!harTilgangPaTiltakstypeIValgtBedrift()) {
         return (
-            <Normaltekst>
-                Du har dessverre ikke tilgang på {tiltakstypeTekst[props.sokekriterier.tiltakstype as TiltaksType]} her
-            </Normaltekst>
+            <Innholdsboks>
+                <div className={cls.element('container')}>
+                    <div className={cls.element('headerContainer')}>
+                        <InfoIkon className={cls.element('headerIkon')} />
+                        <Innholdstittel>Ikke tilgang på tiltak</Innholdstittel>
+                    </div>
+                    <Normaltekst>
+                        Du har dessverre ikke tilgang på{' '}
+                        <b>{tiltakstypeTekst[props.sokekriterier.tiltakstype as TiltaksType]}</b> i{' '}
+                        {valgtBedrift.bedriftNavn}.
+                    </Normaltekst>
+                    <VerticalSpacer rem={1} />
+                    <EksternLenke
+                        href={`https://tt02.altinn.no/ui/DelegationRequest?offeredBy=${valgtBedrift.bedriftNr}&resources=${valgtServiceKode}`}
+                    >
+                        Be om tilgang i Altinn her
+                    </EksternLenke>
+                </div>
+            </Innholdsboks>
         );
     }
 
@@ -82,29 +97,39 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <InfoIkon className={cls.element('headerIkon')} />
                                 <Innholdstittel>Ingen avtaler</Innholdstittel>
                             </div>
-                            <Normaltekst tag="div">
-                                Du har ingen avtaler her enda. Du har rettigheter i bedriften til
-                                <ul>
-                                    {valgtBedrift.tilgangstyper.map(t => (
-                                        <li key={t}>{tiltakstypeTekst[t as TiltaksType]}</li>
-                                    ))}
-                                </ul>
-                                <VerticalSpacer twentyPx={true} />
-                            </Normaltekst>
-                            <VerticalSpacer thirtyTwoPx={true} />
-                            <Systemtittel>Hvordan får jeg tilgang på andre tiltak?</Systemtittel>
-                            <VerticalSpacer sixteenPx={true} />
-                            <Normaltekst tag="div">
-                                Hvis du er ute etter en avtale om et annet tiltak, må du i Altinn ha korrekt tilgang:
-                                <ul>
-                                    {tilgangerJegIkkeHar.map(t => (
-                                        <li key={t}>{tiltakstypeTekst[t as TiltaksType]}</li>
-                                    ))}
-                                </ul>
-                                <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                                    Les mer om roller og rettigheter på Altinn.no
-                                </EksternLenke>
-                            </Normaltekst>
+                            {props.sokekriterier.tiltakstype && harTilgangPaTiltakstypeIValgtBedrift() ? (
+                                <Normaltekst>
+                                    Det har ikke blitt opprettet noen avtaler om{' '}
+                                    {tiltakstypeTekst[props.sokekriterier.tiltakstype]}.
+                                </Normaltekst>
+                            ) : (
+                                <>
+                                    <Normaltekst tag="div">
+                                        Du har ingen avtaler her enda. Du har rettigheter i bedriften til
+                                        <ul>
+                                            {valgtBedrift.tilgangstyper.map(t => (
+                                                <li key={t}>{tiltakstypeTekst[t as TiltaksType]}</li>
+                                            ))}
+                                        </ul>
+                                        <VerticalSpacer twentyPx={true} />
+                                    </Normaltekst>
+                                    <VerticalSpacer thirtyTwoPx={true} />
+                                    <Systemtittel>Hvordan får jeg tilgang på andre tiltak?</Systemtittel>
+                                    <VerticalSpacer sixteenPx={true} />
+                                    <Normaltekst tag="div">
+                                        Hvis du er ute etter en avtale om et annet tiltak, må du i Altinn ha korrekt
+                                        tilgang:
+                                        <ul>
+                                            {tilgangerJegIkkeHar.map(t => (
+                                                <li key={t}>{tiltakstypeTekst[t as TiltaksType]}</li>
+                                            ))}
+                                        </ul>
+                                        <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                                            Les mer om roller og rettigheter på Altinn.no
+                                        </EksternLenke>
+                                    </Normaltekst>
+                                </>
+                            )}
                         </div>
                     )}
 
