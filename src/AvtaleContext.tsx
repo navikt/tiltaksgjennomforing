@@ -283,13 +283,12 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         }
     }
 
-    settAvtaleVerdi(felt: keyof Avtale, verdi: any) {
+    settAvtaleVerdi<K extends keyof Avtale>(felt: keyof Avtale, verdi: Avtale[K]): void {
         if (noenHarGodkjentMenIkkeAlle(this.state.avtale)) {
             this.setState({ opphevGodkjenningerModalIsOpen: true });
         } else {
-            const avtale = this.state.avtale;
+            const { avtale }: any = this.state;
             if (avtale) {
-                // @ts-ignore
                 avtale[felt] = verdi;
                 this.setState({ avtale, ulagredeEndringer: true });
             }

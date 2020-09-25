@@ -251,7 +251,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         options={arbeidsgiveravgiftAlternativer()}
                         label="Sats for arbeidsgiveravgift"
                         children=""
-                        value={props.avtale.arbeidsgiveravgift || 0}
+                        value={props.avtale.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                             props.settAvtaleVerdi('arbeidsgiveravgift', parseFloatIfFloatable(event.target.value));
                         }}
