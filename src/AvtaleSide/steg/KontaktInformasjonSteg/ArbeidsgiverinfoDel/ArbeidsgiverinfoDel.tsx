@@ -1,14 +1,20 @@
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import * as React from 'react';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { Arbeidsgiverinfo, Avtaleparter, Bedriftinfo } from '@/types/avtale';
+import { Rolle } from '@/AvtaleContext';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
-import { Column, Container, Row } from 'nav-frontend-grid';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import { Arbeidsgiverinfo, AvtaleMetadata, Avtaleparter, Bedriftinfo, RelasjonerInfo } from '@/types/avtale';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import * as React from 'react';
+import Relasjoner from './Relasjoner';
 
-const ArbeidsgiverinfoDel = (props: InputStegProps<Avtaleparter & Bedriftinfo & Arbeidsgiverinfo>) => (
+const ArbeidsgiverinfoDel = (
+    props: InputStegProps<Avtaleparter & Bedriftinfo & Arbeidsgiverinfo & RelasjonerInfo & AvtaleMetadata> & {
+        rolle: Rolle;
+    }
+) => (
     <Container fluid={true}>
         <Row className="">
             <Column md="12">
@@ -56,6 +62,10 @@ const ArbeidsgiverinfoDel = (props: InputStegProps<Avtaleparter & Bedriftinfo & 
                     />
                 </Column>
             </Row>
+            <VerticalSpacer rem={2} />
+            {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(props.avtale.tiltakstype) && (
+                <Relasjoner {...props} />
+            )}
         </SkjemaGruppe>
     </Container>
 );
