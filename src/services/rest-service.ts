@@ -29,7 +29,10 @@ const fetchWithCredentials: (url: string, otherParams?: any) => Promise<Response
 
 const handleResponse = async (response: Response) => {
     if (response.status === 401) {
-        sessionStorage.setItem(SIDE_FOER_INNLOGGING, window.location.pathname.replace(basename, ''));
+        sessionStorage.setItem(
+            SIDE_FOER_INNLOGGING,
+            window.location.pathname.replace(basename, '') + window.location.search
+        );
         throw new AutentiseringError('Er ikke logget inn.');
     }
     if (response.status === 400 && response.headers.has('feilkode')) {

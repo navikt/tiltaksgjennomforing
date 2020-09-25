@@ -25,7 +25,9 @@ const AvtalekortMobil: FunctionComponent<{
                     key={avtale.id}
                     className={cls.className}
                     href={pathTilAvtale(avtale.id)}
-                    linkCreator={(props: any) => <Link to={props.href} {...props} />}
+                    linkCreator={(props: any) => (
+                        <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
+                    )}
                 >
                     {ulestVarsel && <span className={cls.element('ulest-varsel-ikon')} />}
                     <div>

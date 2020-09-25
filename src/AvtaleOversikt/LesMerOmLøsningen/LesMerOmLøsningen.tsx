@@ -13,7 +13,7 @@ const cls = BEMHelper('les-mer-om-løsningen');
 const LesMerOmLøsningen: FunctionComponent = () => (
     <LenkepanelBase
         href={pathTilInformasjonssideInnlogget}
-        linkCreator={(props: any) => <Link to={props.href} {...props} />}
+        linkCreator={(props: any) => <Link to={{pathname: props.href, search: window.location.search}} {...props} />}
         className={cls.className}
     >
         <Info width="24" height="24" />

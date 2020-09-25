@@ -8,7 +8,7 @@ import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/Ekspander
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import useValidering from '@/komponenter/useValidering';
-import { pathTilOpprettAvtaleFullfort } from '@/paths';
+import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import { hentBedriftBrreg, opprettAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
@@ -116,7 +116,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
         if (!hvaSomManglerTekst && valgtTiltaksType) {
             const avtale = await opprettAvtale(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-            props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
+            props.history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
         } else {
             throw new UfullstendigError(hvaSomManglerTekst);
         }

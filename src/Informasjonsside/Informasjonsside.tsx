@@ -23,14 +23,7 @@ const tilbakeTilOversikt = (pathName: string) => {
     if (pathName === pathTilInformasjonssideInnlogget) {
         return <TilbakeTilOversiktLenke />;
     } else {
-        return (
-            <div className="tilbaketiloversikt">
-                <Link to={pathTilOversikt} className="lenke">
-                    <VenstreChevron className="tilbaketiloversikt__chevron" />
-                    Tilbake
-                </Link>
-            </div>
-        );
+        return <TilbakeTilOversiktLenke tekst={'Tilbake'} />;
     }
 };
 const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {

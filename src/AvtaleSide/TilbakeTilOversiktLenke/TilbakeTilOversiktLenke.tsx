@@ -6,6 +6,7 @@ import './TilbakeTilOversiktLenke.less';
 
 type Props = {
     onClick?: () => void;
+    tekst?: string;
 };
 
 const TilbakeTilOversiktLenke: FunctionComponent<Props> = props => {
@@ -16,7 +17,7 @@ const TilbakeTilOversiktLenke: FunctionComponent<Props> = props => {
             onClick={props.onClick}
         >
             <VenstreChevron className="tilbaketiloversikt__chevron" />
-            Tilbake til oversikt
+            {props.tekst || 'Tilbake til oversikt'}
         </Link>
     );
 };

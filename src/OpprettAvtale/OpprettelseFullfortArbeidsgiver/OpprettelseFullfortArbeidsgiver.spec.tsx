@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import OpprettelseFullfort from './OpprettelseFullfort';
+import OpprettelseFullfortVeileder from './OpprettelseFullfort';
 
 test('Test that <OpprettelseFullfort> renders correctly', () => {
     const match = {
@@ -9,6 +9,6 @@ test('Test that <OpprettelseFullfort> renders correctly', () => {
         },
     };
     // @ts-ignore
-    const wrapper = shallow(<OpprettelseFullfort match={match} />);
+    const wrapper = shallow(<OpprettelseFullfortVeileder match={match} />);
     expect(wrapper).toHaveLength(1);
 });

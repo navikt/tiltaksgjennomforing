@@ -10,7 +10,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
-import { pathTilOpprettAvtaleFullfort } from '@/paths';
+import { pathTilOpprettAvtaleFullfortArbeidsgiver, pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import { opprettAvtaleArbeidsgiver } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
@@ -76,7 +76,10 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
         if (!hvaSomManglerTekst) {
             const avtale = await opprettAvtaleArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType!);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
-            history.push(pathTilOpprettAvtaleFullfort(avtale.id));
+            history.push({
+                pathname: pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id),
+                search: window.location.search,
+            });
         } else {
             throw new UfullstendigError(hvaSomManglerTekst);
         }
