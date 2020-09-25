@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import OpprettelseFullfortVeileder from './OpprettelseFullfort';
+import OpprettelseFullfortVeileder from './OpprettelseFullfortVeileder';
 
 test('Test that <OpprettelseFullfort> renders correctly', () => {
     const match = {
