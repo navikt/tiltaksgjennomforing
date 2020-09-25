@@ -1,11 +1,10 @@
 import { Context, medContext } from '@/AvtaleContext';
 import { ApiError } from '@/types/errors';
 import amplitude from '@/utils/amplitude';
-import { FunctionComponent, ReactElement, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 type Props = {
     avtaleId: string;
-    render: () => ReactElement<any> | null;
 } & Context;
 
 const AvtaleFetcher: FunctionComponent<Props> = props => {
@@ -30,7 +29,7 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
     if (!lastetOk) {
         return null;
     }
-    return props.render();
+    return <>{props.children}</>;
 };
 
 export default medContext(AvtaleFetcher);
