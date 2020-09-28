@@ -1,4 +1,5 @@
 import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import { DuManglerRettigheterIAltinn } from '@/AvtaleOversikt/IngenAvtaler/DuManglerRettigheterIAltinn';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -9,7 +10,6 @@ import BEMHelper from '@/utils/bem';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './IngenAvtalerArbeidsgiver.less';
-import { DuManglerRettigheterIAltinn } from '@/AvtaleOversikt/IngenAvtaler/DuManglerRettigheterIAltinn';
 
 type Props = {
     sokekriterier: Partial<Avtale>;
@@ -18,6 +18,7 @@ type Props = {
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
 const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
+    const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const antallOrgTilgangTil = innloggetBruker.altinnOrganisasjoner.length;
@@ -39,17 +40,49 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
     };
     const valgtServiceKode = props.sokekriterier.tiltakstype && serviceKoder[props.sokekriterier.tiltakstype];
 
+    //const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !innloggetBruker.tilganger[valgtBedriftNr].includes(tilgang));
+    const tilgangerJegHar = innloggetBruker.tilganger[valgtBedriftNr] || [];
+    const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !tilgangerJegHar.includes(tilgang));
+
+    if (tilgangerJegHar.length === 0) {
+        return (
+            <Innholdsboks>
+                <div className={cls.element('container')}>
+                    <div className={cls.element('headerContainer')}>
+                        <InfoIkon className={cls.element('headerIkon')} />
+                        <Innholdstittel>Ingen tilganger på tiltak</Innholdstittel>
+                    </div>
+                    <Normaltekst>Du har dessverre ikke tilgang på noen tiltak i {valgtBedriftNavn}.</Normaltekst>
+                    <VerticalSpacer rem={1} />
+                    <ul>
+                        {Object.keys(serviceKoder)
+                            .filter(sc => sc !== 'MENTOR')
+                            .map(sc => (
+                                <>
+                                    <li key={sc}>
+                                        <EksternLenke
+                                            href={`https://tt02.altinn.no/ui/DelegationRequest?offeredBy=${valgtBedriftNr}&resources=${
+                                                serviceKoder[sc as TiltaksType]
+                                            }`}
+                                        >
+                                            Be om tilgang til {tiltakstypeTekst[sc as TiltaksType]} i Altinn her
+                                        </EksternLenke>
+                                    </li>
+                                    <VerticalSpacer rem={0.5} />
+                                </>
+                            ))}
+                    </ul>
+                </div>
+            </Innholdsboks>
+        );
+    }
+
     const harTilgangPaTiltakstypeIValgtBedrift = () => {
         if (props.sokekriterier.tiltakstype) {
             return innloggetBruker.tilganger[valgtBedriftNr].includes(props.sokekriterier.tiltakstype);
         }
         return true;
     };
-    const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
-
-    const tilgangerJegIkkeHar = alleTilganger.filter(
-        tilgang => !innloggetBruker.tilganger[valgtBedriftNr].includes(tilgang)
-    );
 
     if (!harTilgangPaTiltakstypeIValgtBedrift()) {
         return (
@@ -93,7 +126,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                                 <Normaltekst tag="div">
                                     Du har ingen avtaler her enda. Du har rettigheter i bedriften til
                                     <ul>
-                                        {innloggetBruker.tilganger[valgtBedriftNr].map(tiltakstype => (
+                                        {tilgangerJegHar.map(tiltakstype => (
                                             <li key={tiltakstype}>{tiltakstypeTekst[tiltakstype]}</li>
                                         ))}
                                     </ul>

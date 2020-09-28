@@ -88,11 +88,13 @@ const AvtaleOversikt: FunctionComponent = () => {
                             <VeilederFiltrering endreSøk={endreSøk} />
                         </aside>
                     )}
-                    {innloggetBruker.rolle === 'ARBEIDSGIVER' && innloggetBruker.altinnOrganisasjoner.length > 0 && (
-                        <aside style={layout.stylingAvFilter}>
-                            <ArbeidsgiverFiltrering endreSøk={endreSøk} />
-                        </aside>
-                    )}
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
+                        innloggetBruker.altinnOrganisasjoner.length > 0 &&
+                        innloggetBruker.tilganger[søkekriterier.bedriftNr!] && (
+                            <aside style={layout.stylingAvFilter}>
+                                <ArbeidsgiverFiltrering endreSøk={endreSøk} />
+                            </aside>
+                        )}
                     <section style={layout.stylingAvTabell}>
                         <Avtaler
                             avtalelisteRessurs={avtalelisteRessurs}
