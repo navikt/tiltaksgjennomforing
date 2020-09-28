@@ -2,6 +2,7 @@ import { Context, medContext } from '@/AvtaleContext';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
 import * as React from 'react';
@@ -74,7 +75,17 @@ const AvtaleSide: FunctionComponent<Props> = props => {
             <AvtaleFetcher avtaleId={props.match.params.avtaleId}>
                 <>
                     <VarselModal />
-                    <Banner tekst={sideTittel} />
+                    <Banner
+                        byttetOrg={org => {
+                            if (props.avtale.bedriftNr !== org.OrganizationNumber) {
+                                history.push({
+                                    pathname: pathTilOversikt,
+                                    search: window.location.search,
+                                });
+                            }
+                        }}
+                        tekst={sideTittel}
+                    />
                     <div className="avtaleside">
                         {erAvtaleLaast && (
                             <div className={cls.element('innhold')}>
