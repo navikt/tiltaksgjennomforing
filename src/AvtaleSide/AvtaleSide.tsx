@@ -2,11 +2,10 @@ import { Context, medContext } from '@/AvtaleContext';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
 import * as React from 'react';
-import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { RouteComponentProps, useHistory } from 'react-router';
 import AvtaleFetcher from './AvtaleFetcher';
 import './AvtaleSide.less';
@@ -45,21 +44,7 @@ const AvtaleSide: FunctionComponent<Props> = props => {
     const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[props.avtale.tiltakstype];
-    const erDesktop = windowSize > 767;
     const history = useHistory();
-
-    const handleWindowSize = () => {
-        setWindowSize(window.innerWidth);
-    };
-
-    useEffect(() => {
-        window.addEventListener('resize', handleWindowSize);
-        return () => window.removeEventListener('resize', handleWindowSize);
-    });
-
-    useEffect(() => {
-        setAktivtSteg(avtaleSteg.find(steg => steg.id === props.match.params.stegPath) || avtaleSteg[0]);
-    }, [props.match.params.stegPath, avtaleSteg]);
 
     const titler = {
         ARBEIDSTRENING: 'Avtale om arbeidstrening',
@@ -67,57 +52,54 @@ const AvtaleSide: FunctionComponent<Props> = props => {
         VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
         MENTOR: 'Avtale om tilskudd til mentor',
     };
+
+    const erDesktop = windowSize > 767;
+    const erAvtaleLaast = props.avtale.erLaast || props.avtale.avbrutt || props.rolle === 'DELTAKER';
     const sideTittel = titler[props.avtale.tiltakstype] !== undefined ? titler[props.avtale.tiltakstype] : 'Avtale';
 
-    return (
-        <AvtaleFetcher
-            avtaleId={props.match.params.avtaleId}
-            render={() => {
-                let innhold: ReactNode;
-                if (!aktivtSteg) {
-                    return null;
-                } else if (props.avtale.erLaast || props.avtale.avbrutt || props.rolle === 'DELTAKER') {
-                    setAktivtSteg(avtaleSteg.find(steg => steg.id === 'godkjenning'));
-                    innhold = (
-                        <div className={cls.element('innhold')}>
-                            <OppgaveLinje enableScreenSizeCheck={false} />
-                            <VerticalSpacer sixteenPx={true} />
-                            <VerticalSpacer sixteenPx={true} />
-                            {aktivtSteg.komponent}
-                        </div>
-                    );
-                } else if (erDesktop) {
-                    innhold = (
-                        <DesktopAvtaleSide
-                            avtaleSteg={avtaleSteg}
-                            aktivtSteg={aktivtSteg}
-                            rolle={props.rolle}
-                            avtale={props.avtale}
-                        />
-                    );
-                } else {
-                    innhold = <MobilAvtaleSide avtaleSteg={avtaleSteg} rolle={props.rolle} />;
-                }
-                return (
-                    <>
-                        <VarselModal />
-                        <Banner
-                            byttetOrg={org => {
-                                if (props.avtale.bedriftNr !== org.OrganizationNumber) {
-                                    history.push({
-                                        pathname: pathTilOversikt,
-                                        search: window.location.search,
-                                    });
-                                }
-                            }}
-                            tekst={sideTittel}
-                        />
-                        <div className="avtaleside">{innhold}</div>
-                    </>
-                );
-            }}
-        />
-    );
+    const handleWindowSize = () => setWindowSize(window.innerWidth);
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSize);
+        return () => window.removeEventListener('resize', handleWindowSize);
+    });
+
+    useEffect(() => {
+        const getFilterType = () => (!erAvtaleLaast ? props.match.params.stegPath : 'godkjenning');
+        setAktivtSteg(avtaleSteg.find(steg => steg.id === getFilterType()) || avtaleSteg[0]);
+    }, [props.match.params.stegPath, avtaleSteg, erAvtaleLaast]);
+
+    return aktivtSteg ? (
+        <>
+            <AvtaleFetcher avtaleId={props.match.params.avtaleId}>
+                <>
+                    <VarselModal />
+                    <Banner tekst={sideTittel} />
+                    <div className="avtaleside">
+                        {erAvtaleLaast && (
+                            <div className={cls.element('innhold')}>
+                                <OppgaveLinje enableScreenSizeCheck={false} />
+                                <VerticalSpacer sixteenPx={true} />
+                                <VerticalSpacer sixteenPx={true} />
+                                {aktivtSteg.komponent}
+                            </div>
+                        )}
+                        {!erAvtaleLaast && erDesktop && (
+                            <DesktopAvtaleSide
+                                avtaleSteg={avtaleSteg}
+                                aktivtSteg={aktivtSteg}
+                                rolle={props.rolle}
+                                avtale={props.avtale}
+                            />
+                        )}
+                        {!erAvtaleLaast && !erDesktop && (
+                            <MobilAvtaleSide avtaleSteg={avtaleSteg} rolle={props.rolle} />
+                        )}
+                    </div>
+                </>
+            </AvtaleFetcher>
+        </>
+    ) : null;
 };
 
 export default medContext(AvtaleSide);
