@@ -29,14 +29,29 @@ enum Tilstand {
     'Ugyldig',
 }
 
-const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
+type Tilstander =
+    | { tilstand: Tilstand.IkkeTilgangPåNoenBedrifter }
+    | { tilstand: Tilstand.IkkeTilgangPåValgtBedrift; bedriftNavn: string; tilgangerJegIkkeHar: typeof alleTilganger }
+    | { tilstand: Tilstand.IkkeTilgangPåValgtTiltakIValgtBedrift; tiltakNavn: string; bedriftNavn: string }
+    | { tilstand: Tilstand.TilgangPåValgtTiltakIValgtBedrift; tiltakNavn: string; bedriftNavn: string }
+    | {
+          tilstand: Tilstand.ValgtAlleHarIkkeAlleTiltakstyper;
+          tilgangerJegHar: TiltaksType[];
+          tilgangerJegIkkeHar: TiltaksType[];
+          bedriftNavn: string;
+      }
+    | { tilstand: Tilstand.ValgtAlleHarAlleTiltakstyper; bedriftNavn: string };
 
-const logikk = (
+type TilstanderFunksjon = (
     valgtBedrift: string | undefined,
     valgtTiltakstype: TiltaksType | undefined,
     altinnOrganisasjoner: Organisasjon[],
     tilganger: { [bedriftNr: string]: TiltaksType[] }
-) => {
+) => Tilstander;
+
+const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
+
+const logikk: TilstanderFunksjon = (valgtBedrift, valgtTiltakstype, altinnOrganisasjoner, tilganger) => {
     if (!valgtBedrift) {
         return { tilstand: Tilstand.IkkeTilgangPåNoenBedrifter };
     }
@@ -63,18 +78,18 @@ const logikk = (
         }
     }
 
-    if (tilganger[valgtBedrift].length) {
+    if (tilganger[valgtBedrift].length < alleTilganger.length) {
         const tilgangerJegHar = tilganger[valgtBedrift];
         const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !tilgangerJegHar.includes(tilgang));
 
         return {
             tilstand: Tilstand.ValgtAlleHarIkkeAlleTiltakstyper,
-            tilgangerJegHar: alleTilganger,
-            tilgangerJegIkkeHar: alleTilganger,
+            tilgangerJegHar,
+            tilgangerJegIkkeHar,
         };
+    } else {
+        return { tilstand: Tilstand.ValgtAlleHarAlleTiltakstyper };
     }
-
-    return { tilstand: Tilstand.Ugyldig };
 };
 
 const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
@@ -201,23 +216,21 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                 </Innholdsboks>
             );
         case Tilstand.ValgtAlleHarAlleTiltakstyper:
-            return <div />;
-        // return (
-        //     <Innholdsboks>
-        //     <div className={cls.element('container')}>
-        //         <div>
-        //             <div className={cls.element('headerContainer')}>
-        //                 <InfoIkon className={cls.element('headerIkon')} />
-        //                 <Innholdstittel>Ingen avtaler</Innholdstittel>
-        //             </div>
-        //             <Normaltekst>
-        //                 Det har ikke blitt opprettet noen avtaler på {tilstand.bedriftNavn}.
-        //             </Normaltekst>
-        //         </div>
-        //     </div>
-        // </Innholdboks>
-        // );
-        case Tilstand.Ugyldig:
+            return (
+                <Innholdsboks>
+                    <div className={cls.element('container')}>
+                        <div>
+                            <div className={cls.element('headerContainer')}>
+                                <InfoIkon className={cls.element('headerIkon')} />
+                                <Innholdstittel>Ingen avtaler</Innholdstittel>
+                            </div>
+                            <Normaltekst>
+                                Det har ikke blitt opprettet noen avtaler på {tilstand.bedriftNavn}.
+                            </Normaltekst>
+                        </div>
+                    </div>
+                </Innholdsboks>
+            );
         default:
             return null;
     }
