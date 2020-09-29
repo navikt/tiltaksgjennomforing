@@ -9,7 +9,7 @@ import { BeOmRettigheterUrl, hentBeOmRettighetUrler } from '@/services/rest-serv
 import { Avtale, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './IngenAvtalerArbeidsgiver.less';
 
@@ -116,74 +116,75 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
         case Tilstand.IkkeTilgangPåValgtBedrift:
             return (
                 <Innholdsboks>
-                    <div className={cls.element('container')}>
-                        <div className={cls.element('headerContainer')}>
-                            <InfoIkon className={cls.element('headerIkon')} />
-                            <Innholdstittel>Ingen tilganger på tiltak</Innholdstittel>
-                        </div>
-                        <Normaltekst>
-                            Du har dessverre ikke tilgang på noen tiltak i {tilstand.bedriftNavn}.
-                        </Normaltekst>
+                    <div className={cls.element('headerContainer')}>
+                        <InfoIkon className={cls.element('headerIkon')} />
+                        <Innholdstittel>Du mangler tilgang</Innholdstittel>
+                    </div>
+                    <Normaltekst style={{ textAlign: 'center' }}>
+                        Du har valgt en virksomhet som ikke har tilgang til noen av tiltakstypene
+                    </Normaltekst>
+                    <VerticalSpacer rem={2} />
+                    <div style={{ maxWidth: '45rem', margin: '0 auto' }}>
+                        <Undertittel>Be om tilgang i Altinn</Undertittel>
                         <VerticalSpacer rem={1} />
-                        <ul>
-                            {beOmRettighetUrler.map(({ tiltakstype, url }) => (
-                                <>
-                                    <li key={tiltakstype}>
-                                        <EksternLenke href={url}>
-                                            Be om tilgang til {tiltakstypeTekst[tiltakstype]} i Altinn her
-                                        </EksternLenke>
-                                    </li>
-                                    <VerticalSpacer rem={0.5} />
-                                </>
-                            ))}
-                        </ul>
+                        {beOmRettighetUrler.map(({ tiltakstype, url }) => (
+                            <div
+                                key={tiltakstype}
+                                style={{
+                                    borderBottom: '1px solid #E7E9E9',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    padding: '0.5rem 0',
+                                }}
+                            >
+                                <Normaltekst>{tiltakstypeTekst[tiltakstype]}</Normaltekst>
+                                <EksternLenke href={url}>Be om tilgang i Altinn her</EksternLenke>
+                            </div>
+                        ))}
                     </div>
                 </Innholdsboks>
             );
         case Tilstand.IkkeTilgangPåValgtTiltakIValgtBedrift:
             return (
                 <Innholdsboks>
-                    <div className={cls.element('container')}>
-                        <div className={cls.element('headerContainer')}>
-                            <InfoIkon className={cls.element('headerIkon')} />
-                            <Innholdstittel>Ikke tilgang på tiltak</Innholdstittel>
-                        </div>
-                        <Normaltekst>
-                            Du har dessverre ikke tilgang på <b>{tilstand.tiltakNavn}</b> i {tilstand.bedriftNavn}.
-                        </Normaltekst>
-                        <VerticalSpacer rem={1} />
-                        <EksternLenke
-                            href={
-                                beOmRettighetUrler.find(
-                                    ({ tiltakstype }) => tiltakstype === props.sokekriterier.tiltakstype
-                                )?.url ?? ''
-                            }
-                        >
-                            Be om tilgang i Altinn her
-                        </EksternLenke>
+                    <div className={cls.element('headerContainer')}>
+                        <InfoIkon className={cls.element('headerIkon')} />
+                        <Innholdstittel>Du mangler tilgang</Innholdstittel>
                     </div>
+                    <Normaltekst>
+                        Du har dessverre ikke tilgang på <b>{tilstand.tiltakNavn}</b> i {tilstand.bedriftNavn}.
+                    </Normaltekst>
+                    <VerticalSpacer rem={1} />
+                    <EksternLenke
+                        href={
+                            beOmRettighetUrler.find(
+                                ({ tiltakstype }) => tiltakstype === props.sokekriterier.tiltakstype
+                            )?.url ?? ''
+                        }
+                    >
+                        Be om tilgang i Altinn her
+                    </EksternLenke>
                 </Innholdsboks>
             );
         case Tilstand.TilgangPåValgtTiltakIValgtBedrift:
             return (
                 <Innholdsboks>
-                    <div className={cls.element('container')}>
-                        <div>
-                            <div className={cls.element('headerContainer')}>
-                                <InfoIkon className={cls.element('headerIkon')} />
-                                <Innholdstittel>Ingen avtaler</Innholdstittel>
-                            </div>
-                            <Normaltekst>
-                                Det har ikke blitt opprettet noen avtaler om {tilstand.tiltakNavn} på{' '}
-                                {tilstand.bedriftNavn}.
-                            </Normaltekst>
-                        </div>
+                    <div className={cls.element('headerContainer')}>
+                        <InfoIkon className={cls.element('headerIkon')} />
+                        <Innholdstittel>Ingen avtaler</Innholdstittel>
                     </div>
+                    <Normaltekst>
+                        Det har ikke blitt opprettet noen avtaler om {tilstand.tiltakNavn} på {tilstand.bedriftNavn}.
+                    </Normaltekst>
                 </Innholdsboks>
             );
         case Tilstand.ValgtAlleHarIkkeAlleTiltakstyper:
             return (
                 <Innholdsboks>
+                    <div className={cls.element('headerContainer')}>
+                        <InfoIkon className={cls.element('headerIkon')} />
+                        <Innholdstittel>Ingen avtaler du har tilgang</Innholdstittel>
+                    </div>
                     <Normaltekst tag="div">
                         Du har ingen avtaler her enda. Du har rettigheter i bedriften til
                         <ul>
@@ -218,17 +219,11 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
         case Tilstand.ValgtAlleHarAlleTiltakstyper:
             return (
                 <Innholdsboks>
-                    <div className={cls.element('container')}>
-                        <div>
-                            <div className={cls.element('headerContainer')}>
-                                <InfoIkon className={cls.element('headerIkon')} />
-                                <Innholdstittel>Ingen avtaler</Innholdstittel>
-                            </div>
-                            <Normaltekst>
-                                Det har ikke blitt opprettet noen avtaler på {tilstand.bedriftNavn}.
-                            </Normaltekst>
-                        </div>
+                    <div className={cls.element('headerContainer')}>
+                        <InfoIkon className={cls.element('headerIkon')} />
+                        <Innholdstittel>Ingen avtaler</Innholdstittel>
                     </div>
+                    <Normaltekst>Det har ikke blitt opprettet noen avtaler på {tilstand.bedriftNavn}.</Normaltekst>
                 </Innholdsboks>
             );
         default:
