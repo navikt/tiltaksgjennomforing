@@ -8,8 +8,10 @@ import { tiltakstypeTekst } from '@/messages';
 import { Avtale, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './IngenAvtalerArbeidsgiver.less';
+import { BeOmRettigheterUrl, hentBeOmRettighetUrler } from '@/services/rest-service';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 type Props = {
     sokekriterier: Partial<Avtale>;
@@ -17,143 +19,208 @@ type Props = {
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
-const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
-    const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
-    const innloggetBruker = useContext(InnloggetBrukerContext);
+enum Tilstand {
+    'IkkeTilgangPåNoenBedrifter',
+    'IkkeTilgangPåValgtBedrift',
+    'IkkeTilgangPåValgtTiltakIValgtBedrift',
+    'TilgangPåValgtTiltakIValgtBedrift',
+    'ValgtAlleHarIkkeAlleTiltakstyper',
+    'ValgtAlleHarAlleTiltakstyper',
+    'Ugyldig',
+}
 
-    const antallOrgTilgangTil = innloggetBruker.altinnOrganisasjoner.length;
-    const harTilgangPaMinstEnOrg = antallOrgTilgangTil > 0;
+const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
 
-    if (!harTilgangPaMinstEnOrg) {
-        return <DuManglerRettigheterIAltinn />;
+const logikk = (
+    valgtBedrift: string | undefined,
+    valgtTiltakstype: TiltaksType | undefined,
+    altinnOrganisasjoner: Organisasjon[],
+    tilganger: { [bedriftNr: string]: TiltaksType[] }
+) => {
+    if (!valgtBedrift) {
+        return { tilstand: Tilstand.IkkeTilgangPåNoenBedrifter };
     }
 
-    const valgtBedriftNr = props.sokekriterier.bedriftNr!;
-    const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(org => org.OrganizationNumber === valgtBedriftNr)
-        ?.Name;
+    const bedriftNavn = altinnOrganisasjoner.find(org => org.OrganizationNumber === valgtBedrift)?.Name;
 
-    const serviceKoder = {
-        ARBEIDSTRENING: '5532_1',
-        MIDLERTIDIG_LONNSTILSKUDD: '5516_1',
-        VARIG_LONNSTILSKUDD: '5516_2',
-        MENTOR: '5216_1',
-    };
-    const valgtServiceKode = props.sokekriterier.tiltakstype && serviceKoder[props.sokekriterier.tiltakstype];
+    if (!tilganger[valgtBedrift] || tilganger[valgtBedrift].length === 0) {
+        return { tilstand: Tilstand.IkkeTilgangPåValgtBedrift, bedriftNavn, tilgangerJegIkkeHar: alleTilganger };
+    }
 
-    //const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !innloggetBruker.tilganger[valgtBedriftNr].includes(tilgang));
-    const tilgangerJegHar = innloggetBruker.tilganger[valgtBedriftNr] || [];
-    const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !tilgangerJegHar.includes(tilgang));
+    if (valgtTiltakstype) {
+        // har valgt bedrift og en gitt tiltakstype
+        const tiltakNavn = tiltakstypeTekst[valgtTiltakstype];
 
-    if (tilgangerJegHar.length === 0) {
-        return (
-            <Innholdsboks>
-                <div className={cls.element('container')}>
-                    <div className={cls.element('headerContainer')}>
-                        <InfoIkon className={cls.element('headerIkon')} />
-                        <Innholdstittel>Ingen tilganger på tiltak</Innholdstittel>
-                    </div>
-                    <Normaltekst>Du har dessverre ikke tilgang på noen tiltak i {valgtBedriftNavn}.</Normaltekst>
-                    <VerticalSpacer rem={1} />
-                    <ul>
-                        {Object.keys(serviceKoder)
-                            .filter(sc => sc !== 'MENTOR')
-                            .map(sc => (
+        if (!tilganger[valgtBedrift].includes(valgtTiltakstype)) {
+            return {
+                tilstand: Tilstand.IkkeTilgangPåValgtTiltakIValgtBedrift,
+                bedriftNavn,
+                tiltakNavn,
+                beOmRettighetUrl: '',
+            };
+        } else {
+            return { tilstand: Tilstand.TilgangPåValgtTiltakIValgtBedrift, bedriftNavn, tiltakNavn };
+        }
+    }
+
+    if (tilganger[valgtBedrift].length) {
+        const tilgangerJegHar = tilganger[valgtBedrift];
+        const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !tilgangerJegHar.includes(tilgang));
+
+        return {
+            tilstand: Tilstand.ValgtAlleHarIkkeAlleTiltakstyper,
+            tilgangerJegHar: alleTilganger,
+            tilgangerJegIkkeHar: alleTilganger,
+        };
+    }
+
+    return { tilstand: Tilstand.Ugyldig };
+};
+
+const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
+
+    const valgtBedriftNr = props.sokekriterier.bedriftNr;
+    const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrl[]>([]);
+    useEffect(() => {
+        if (valgtBedriftNr) {
+            hentBeOmRettighetUrler(valgtBedriftNr).then(setBeOmRettighetUrler);
+        }
+    }, [valgtBedriftNr]);
+
+    const tilstand = logikk(
+        valgtBedriftNr,
+        props.sokekriterier.tiltakstype,
+        innloggetBruker.altinnOrganisasjoner,
+        innloggetBruker.tilganger
+    );
+
+    switch (tilstand.tilstand) {
+        case Tilstand.IkkeTilgangPåNoenBedrifter:
+            return <DuManglerRettigheterIAltinn />;
+        case Tilstand.IkkeTilgangPåValgtBedrift:
+            return (
+                <Innholdsboks>
+                    <div className={cls.element('container')}>
+                        <div className={cls.element('headerContainer')}>
+                            <InfoIkon className={cls.element('headerIkon')} />
+                            <Innholdstittel>Ingen tilganger på tiltak</Innholdstittel>
+                        </div>
+                        <Normaltekst>
+                            Du har dessverre ikke tilgang på noen tiltak i {tilstand.bedriftNavn}.
+                        </Normaltekst>
+                        <VerticalSpacer rem={1} />
+                        <ul>
+                            {beOmRettighetUrler.map(({ tiltakstype, url }) => (
                                 <>
-                                    <li key={sc}>
-                                        <EksternLenke
-                                            href={`https://tt02.altinn.no/ui/DelegationRequest?offeredBy=${valgtBedriftNr}&resources=${
-                                                serviceKoder[sc as TiltaksType]
-                                            }`}
-                                        >
-                                            Be om tilgang til {tiltakstypeTekst[sc as TiltaksType]} i Altinn her
+                                    <li key={tiltakstype}>
+                                        <EksternLenke href={url}>
+                                            Be om tilgang til {tiltakstypeTekst[tiltakstype]} i Altinn her
                                         </EksternLenke>
                                     </li>
                                     <VerticalSpacer rem={0.5} />
                                 </>
                             ))}
-                    </ul>
-                </div>
-            </Innholdsboks>
-        );
-    }
-
-    const harTilgangPaTiltakstypeIValgtBedrift = () => {
-        if (props.sokekriterier.tiltakstype) {
-            return innloggetBruker.tilganger[valgtBedriftNr].includes(props.sokekriterier.tiltakstype);
-        }
-        return true;
-    };
-
-    if (!harTilgangPaTiltakstypeIValgtBedrift()) {
-        return (
-            <Innholdsboks>
-                <div className={cls.element('container')}>
-                    <div className={cls.element('headerContainer')}>
-                        <InfoIkon className={cls.element('headerIkon')} />
-                        <Innholdstittel>Ikke tilgang på tiltak</Innholdstittel>
+                        </ul>
                     </div>
-                    <Normaltekst>
-                        Du har dessverre ikke tilgang på{' '}
-                        <b>{tiltakstypeTekst[props.sokekriterier.tiltakstype as TiltaksType]}</b> i {valgtBedriftNavn}.
-                    </Normaltekst>
-                    <VerticalSpacer rem={1} />
-                    <EksternLenke
-                        href={`https://tt02.altinn.no/ui/DelegationRequest?offeredBy=${valgtBedriftNr}&resources=${valgtServiceKode}`}
-                    >
-                        Be om tilgang i Altinn her
-                    </EksternLenke>
-                </div>
-            </Innholdsboks>
-        );
-    }
-
-    return (
-        <div>
-            <Innholdsboks>
-                <div className={cls.element('container')}>
-                    <div>
+                </Innholdsboks>
+            );
+        case Tilstand.IkkeTilgangPåValgtTiltakIValgtBedrift:
+            return (
+                <Innholdsboks>
+                    <div className={cls.element('container')}>
                         <div className={cls.element('headerContainer')}>
                             <InfoIkon className={cls.element('headerIkon')} />
-                            <Innholdstittel>Ingen avtaler</Innholdstittel>
+                            <Innholdstittel>Ikke tilgang på tiltak</Innholdstittel>
                         </div>
-                        {props.sokekriterier.tiltakstype && harTilgangPaTiltakstypeIValgtBedrift() ? (
-                            <Normaltekst>
-                                Det har ikke blitt opprettet noen avtaler om{' '}
-                                {tiltakstypeTekst[props.sokekriterier.tiltakstype]}.
-                            </Normaltekst>
-                        ) : (
-                            <>
-                                <Normaltekst tag="div">
-                                    Du har ingen avtaler her enda. Du har rettigheter i bedriften til
-                                    <ul>
-                                        {tilgangerJegHar.map(tiltakstype => (
-                                            <li key={tiltakstype}>{tiltakstypeTekst[tiltakstype]}</li>
-                                        ))}
-                                    </ul>
-                                    <VerticalSpacer twentyPx={true} />
-                                </Normaltekst>
-                                <VerticalSpacer thirtyTwoPx={true} />
-                                <Systemtittel>Hvordan får jeg tilgang på andre tiltak?</Systemtittel>
-                                <VerticalSpacer sixteenPx={true} />
-                                <Normaltekst tag="div">
-                                    Hvis du er ute etter en avtale om et annet tiltak, må du i Altinn ha korrekt
-                                    tilgang:
-                                    <ul>
-                                        {tilgangerJegIkkeHar.map(t => (
-                                            <li key={t}>{tiltakstypeTekst[t as TiltaksType]}</li>
-                                        ))}
-                                    </ul>
-                                    <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                                        Les mer om roller og rettigheter på Altinn.no
-                                    </EksternLenke>
-                                </Normaltekst>
-                            </>
-                        )}
+                        <Normaltekst>
+                            Du har dessverre ikke tilgang på <b>{tilstand.tiltakNavn}</b> i {tilstand.bedriftNavn}.
+                        </Normaltekst>
+                        <VerticalSpacer rem={1} />
+                        <EksternLenke
+                            href={
+                                beOmRettighetUrler.find(
+                                    ({ tiltakstype }) => tiltakstype === props.sokekriterier.tiltakstype
+                                )?.url ?? ''
+                            }
+                        >
+                            Be om tilgang i Altinn her
+                        </EksternLenke>
                     </div>
-                </div>
-            </Innholdsboks>
-        </div>
-    );
+                </Innholdsboks>
+            );
+        case Tilstand.TilgangPåValgtTiltakIValgtBedrift:
+            return (
+                <Innholdsboks>
+                    <div className={cls.element('container')}>
+                        <div>
+                            <div className={cls.element('headerContainer')}>
+                                <InfoIkon className={cls.element('headerIkon')} />
+                                <Innholdstittel>Ingen avtaler</Innholdstittel>
+                            </div>
+                            <Normaltekst>
+                                Det har ikke blitt opprettet noen avtaler om {tilstand.tiltakNavn} på{' '}
+                                {tilstand.bedriftNavn}.
+                            </Normaltekst>
+                        </div>
+                    </div>
+                </Innholdsboks>
+            );
+        case Tilstand.ValgtAlleHarIkkeAlleTiltakstyper:
+            return (
+                <Innholdsboks>
+                    <Normaltekst tag="div">
+                        Du har ingen avtaler her enda. Du har rettigheter i bedriften til
+                        <ul>
+                            {tilstand.tilgangerJegHar.map(tiltakstype => (
+                                <li key={tiltakstype}>{tiltakstypeTekst[tiltakstype]}</li>
+                            ))}
+                        </ul>
+                        <VerticalSpacer twentyPx={true} />
+                    </Normaltekst>
+                    <VerticalSpacer thirtyTwoPx={true} />
+                    <Systemtittel>Hvordan får jeg tilgang på andre tiltak?</Systemtittel>
+                    <VerticalSpacer sixteenPx={true} />
+                    <Normaltekst tag="div">
+                        Hvis du er ute etter en avtale om et annet tiltak, må du i Altinn ha korrekt tilgang:
+                        <ul>
+                            {beOmRettighetUrler.length &&
+                                tilstand.tilgangerJegIkkeHar
+                                    .map(t => beOmRettighetUrler.find(({ tiltakstype }) => tiltakstype === t)!)
+                                    .map(({ tiltakstype, url }) => (
+                                        <li key={tiltakstype}>
+                                            {tiltakstypeTekst[tiltakstype]} (
+                                            <EksternLenke href={url}>Be om tilgang i Altinn</EksternLenke>)
+                                        </li>
+                                    ))}
+                        </ul>
+                        <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                            Les mer om roller og rettigheter på Altinn.no
+                        </EksternLenke>
+                    </Normaltekst>
+                </Innholdsboks>
+            );
+        case Tilstand.ValgtAlleHarAlleTiltakstyper:
+            return <div />;
+        // return (
+        //     <Innholdsboks>
+        //     <div className={cls.element('container')}>
+        //         <div>
+        //             <div className={cls.element('headerContainer')}>
+        //                 <InfoIkon className={cls.element('headerIkon')} />
+        //                 <Innholdstittel>Ingen avtaler</Innholdstittel>
+        //             </div>
+        //             <Normaltekst>
+        //                 Det har ikke blitt opprettet noen avtaler på {tilstand.bedriftNavn}.
+        //             </Normaltekst>
+        //         </div>
+        //     </div>
+        // </Innholdboks>
+        // );
+        case Tilstand.Ugyldig:
+        default:
+            return null;
+    }
 };
 
 export default IngenAvtalerArbeidsgiver;

@@ -1,4 +1,12 @@
-const whitelistPaths = ['avtaler', 'innlogget-bruker', 'feature', 'organisasjoner', 'varsler', 'hendelselogg'];
+const whitelistPaths = [
+    'avtaler',
+    'innlogget-bruker',
+    'feature',
+    'organisasjoner',
+    'varsler',
+    'hendelselogg',
+    'be-om-altinn-rettighet-urler',
+];
 
 if (process.env.NODE_ENV === 'development') {
     // Funksjoner som bare skal finnes lokalt, bl.a. generering av id-token

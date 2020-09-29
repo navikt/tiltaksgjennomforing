@@ -284,3 +284,14 @@ export const aksepterUtkast = async (avtaleId: string): Promise<void> => {
     const response = await fetch(`${API_URL}/avtaler/${avtaleId}/aksepter-utkast`, { method: 'POST' });
     await handleResponse(response);
 };
+
+export type BeOmRettigheterUrl = {
+    tiltakstype: TiltaksType;
+    url: string;
+};
+
+export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigheterUrl[]> => {
+    const response = await fetch(`${API_URL}/be-om-altinn-rettighet-urler?orgNr=${orgNr}`, { method: 'GET' });
+    await handleResponse(response);
+    return await response.json();
+};
