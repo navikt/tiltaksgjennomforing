@@ -5,13 +5,13 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { tiltakstypeTekst } from '@/messages';
+import { BeOmRettigheterUrl, hentBeOmRettighetUrler } from '@/services/rest-service';
 import { Avtale, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './IngenAvtalerArbeidsgiver.less';
-import { BeOmRettigheterUrl, hentBeOmRettighetUrler } from '@/services/rest-service';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 
 type Props = {
     sokekriterier: Partial<Avtale>;
@@ -31,7 +31,7 @@ enum Tilstand {
 
 type Tilstander =
     | { tilstand: Tilstand.IkkeTilgangPåNoenBedrifter }
-    | { tilstand: Tilstand.IkkeTilgangPåValgtBedrift; bedriftNavn: string; tilgangerJegIkkeHar: typeof alleTilganger }
+    | { tilstand: Tilstand.IkkeTilgangPåValgtBedrift; bedriftNavn: string; tilgangerJegIkkeHar: TiltaksType[] }
     | { tilstand: Tilstand.IkkeTilgangPåValgtTiltakIValgtBedrift; tiltakNavn: string; bedriftNavn: string }
     | { tilstand: Tilstand.TilgangPåValgtTiltakIValgtBedrift; tiltakNavn: string; bedriftNavn: string }
     | {
@@ -56,7 +56,7 @@ const logikk: TilstanderFunksjon = (valgtBedrift, valgtTiltakstype, altinnOrgani
         return { tilstand: Tilstand.IkkeTilgangPåNoenBedrifter };
     }
 
-    const bedriftNavn = altinnOrganisasjoner.find(org => org.OrganizationNumber === valgtBedrift)?.Name;
+    const bedriftNavn = altinnOrganisasjoner.find(org => org.OrganizationNumber === valgtBedrift)?.Name || '';
 
     if (!tilganger[valgtBedrift] || tilganger[valgtBedrift].length === 0) {
         return { tilstand: Tilstand.IkkeTilgangPåValgtBedrift, bedriftNavn, tilgangerJegIkkeHar: alleTilganger };
@@ -69,12 +69,11 @@ const logikk: TilstanderFunksjon = (valgtBedrift, valgtTiltakstype, altinnOrgani
         if (!tilganger[valgtBedrift].includes(valgtTiltakstype)) {
             return {
                 tilstand: Tilstand.IkkeTilgangPåValgtTiltakIValgtBedrift,
-                bedriftNavn,
                 tiltakNavn,
-                beOmRettighetUrl: '',
+                bedriftNavn,
             };
         } else {
-            return { tilstand: Tilstand.TilgangPåValgtTiltakIValgtBedrift, bedriftNavn, tiltakNavn };
+            return { tilstand: Tilstand.TilgangPåValgtTiltakIValgtBedrift, tiltakNavn, bedriftNavn };
         }
     }
 
@@ -86,9 +85,10 @@ const logikk: TilstanderFunksjon = (valgtBedrift, valgtTiltakstype, altinnOrgani
             tilstand: Tilstand.ValgtAlleHarIkkeAlleTiltakstyper,
             tilgangerJegHar,
             tilgangerJegIkkeHar,
+            bedriftNavn,
         };
     } else {
-        return { tilstand: Tilstand.ValgtAlleHarAlleTiltakstyper };
+        return { tilstand: Tilstand.ValgtAlleHarAlleTiltakstyper, bedriftNavn };
     }
 };
 
