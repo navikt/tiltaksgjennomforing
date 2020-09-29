@@ -7,21 +7,18 @@ import BEMHelper from '@/utils/bem';
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
-type Props = {
-    tiltakNavn: string;
-    bedriftNavn: string;
-};
+type Props = { bedriftNavn: string };
 
-export const TilgangPåValgtTiltakIValgtBedrift: FunctionComponent<Props> = props => {
+const ValgtAlleHarAlleTiltakstyper: FunctionComponent<Props> = props => {
     return (
         <Innholdsboks>
             <div className={cls.element('headerContainer')}>
                 <InfoIkon className={cls.element('headerIkon')} />
                 <Innholdstittel>Ingen avtaler</Innholdstittel>
             </div>
-            <Normaltekst>
-                Det har ikke blitt opprettet noen avtaler om {props.tiltakNavn} på {props.bedriftNavn}.
-            </Normaltekst>
+            <Normaltekst>Det har ikke blitt opprettet noen avtaler på {props.bedriftNavn}.</Normaltekst>
         </Innholdsboks>
     );
 };
+
+export default ValgtAlleHarAlleTiltakstyper;

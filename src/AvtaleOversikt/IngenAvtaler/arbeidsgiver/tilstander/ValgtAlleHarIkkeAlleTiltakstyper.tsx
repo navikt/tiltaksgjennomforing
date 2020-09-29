@@ -8,7 +8,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import useBeOmRettighetUrler from '@/AvtaleOversikt/IngenAvtaler/useBeOmRettigheter';
+import useBeOmRettighetUrler from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/useBeOmRettigheter';
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
@@ -19,14 +19,14 @@ type Props = {
     bedriftNr: string;
 };
 
-export const ValgtAlleHarIkkeAlleTiltakstyper: FunctionComponent<Props> = props => {
+const ValgtAlleHarIkkeAlleTiltakstyper: FunctionComponent<Props> = props => {
     const { lagBeOmRettighetUrl } = useBeOmRettighetUrler(props.bedriftNr);
 
     return (
         <Innholdsboks>
             <div className={cls.element('headerContainer')}>
                 <InfoIkon className={cls.element('headerIkon')} />
-                <Innholdstittel>Ingen avtaler du har tilgang</Innholdstittel>
+                <Innholdstittel>Ingen avtaler du har tilgang på</Innholdstittel>
             </div>
             <Normaltekst tag="div">
                 Du har ingen avtaler her enda. Du har rettigheter i bedriften til
@@ -57,3 +57,5 @@ export const ValgtAlleHarIkkeAlleTiltakstyper: FunctionComponent<Props> = props 
         </Innholdsboks>
     );
 };
+
+export default ValgtAlleHarIkkeAlleTiltakstyper;

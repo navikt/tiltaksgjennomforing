@@ -9,7 +9,7 @@ import { Ingress, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
-import IngenAvtalerArbeidsgiver from './IngenAvtalerArbeidsgiver';
+import IngenAvtalerArbeidsgiver from './arbeidsgiver/IngenAvtalerArbeidsgiver';
 
 const cls = BEMHelper('ingenAvtaler');
 
@@ -36,12 +36,11 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
                     <Innholdstittel>Ingen avtaler</Innholdstittel>
                     <VerticalSpacer sixteenPx={true} />
                     <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
-                    <Ingress>Vennligst vent på veileder i NAV.</Ingress>
                 </div>
             </Innholdsboks>
         );
     } else if (innloggetPart === 'ARBEIDSGIVER') {
-        return <IngenAvtalerArbeidsgiver sokekriterier={props.sokekriterier} />;
+        return <IngenAvtalerArbeidsgiver {...props.sokekriterier} />;
     } else {
         return null;
     }

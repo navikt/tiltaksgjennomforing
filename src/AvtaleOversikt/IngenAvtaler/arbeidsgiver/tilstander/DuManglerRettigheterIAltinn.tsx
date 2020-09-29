@@ -9,7 +9,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
-export const DuManglerRettigheterIAltinn: FunctionComponent = () => {
+const DuManglerRettigheterIAltinn: FunctionComponent = () => {
     return (
         <Innholdsboks>
             <div className={cls.element('headerContainer')}>
@@ -56,3 +56,5 @@ export const DuManglerRettigheterIAltinn: FunctionComponent = () => {
         </Innholdsboks>
     );
 };
+
+export default DuManglerRettigheterIAltinn;
