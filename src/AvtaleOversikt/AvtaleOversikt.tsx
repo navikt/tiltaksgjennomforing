@@ -63,6 +63,11 @@ const AvtaleOversikt: FunctionComponent = () => {
         setSøkekriterier({ ...søkekriterier, ...endredeSøkekriterier });
     };
 
+    const harTilgangerSomArbeidsgiver =
+        innloggetBruker.rolle === 'ARBEIDSGIVER' &&
+        søkekriterier.bedriftNr &&
+        innloggetBruker.tilganger[søkekriterier.bedriftNr]?.length > 0;
+
     return (
         <>
             <Banner
@@ -76,11 +81,10 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
-                {arbeidsgiverOppretterToggle &&
-                    innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-                    innloggetBruker.altinnOrganisasjoner.length > 0 && (
-                        <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} tekst="Opprett ny avtale" />
-                    )}
+
+                {arbeidsgiverOppretterToggle && harTilgangerSomArbeidsgiver && (
+                    <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} tekst="Opprett ny avtale" />
+                )}
 
                 <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
                     {innloggetBruker.erNavAnsatt && (
