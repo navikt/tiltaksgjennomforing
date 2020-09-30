@@ -95,7 +95,7 @@ export const tomAvtale: Avtale = {
     familietilknytningForklaring: undefined,
     avbruttDato: '',
     avbruttGrunn: '',
-    erUfordelt: true,
+    erUfordelt: false,
 };
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
