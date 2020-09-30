@@ -12,12 +12,14 @@ export interface Innloggingskilde {
     url: string;
 }
 
+export type Tilganger = { [bedriftNr: string]: TiltaksType[] };
+
 export interface InnloggetBruker {
     identifikator: string;
     erNavAnsatt: boolean;
     altinnOrganisasjoner: AltinnOrganisasjon[];
     rolle: Rolle;
-    tilganger: { [bedriftNr: string]: TiltaksType[] };
+    tilganger: Tilganger;
 }
 
 export interface Organisasjon {

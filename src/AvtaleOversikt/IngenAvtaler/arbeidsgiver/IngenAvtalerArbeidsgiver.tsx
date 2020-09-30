@@ -6,8 +6,7 @@ import DuManglerRettigheterIAltinn from '@/AvtaleOversikt/IngenAvtaler/arbeidsgi
 import IkkeTilgangPåValgtBedrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/IkkeTilgangPåValgtBedrift';
 import IkkeTilgangPåValgtTiltakIValgtBedrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/IkkeTilgangPåValgtTiltakIValgtBedrift';
 import TilgangPåValgtTiltakIValgtBedrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/TilgangPåValgtTiltakIValgtBedrift';
-import ValgtAlleHarIkkeAlleTiltakstyper from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/ValgtAlleHarIkkeAlleTiltakstyper';
-import ValgtAlleHarAlleTiltakstyper from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/ValgtAlleHarAlleTiltakstyper';
+import ValgtAlle from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/ValgtAlle';
 
 const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
 
@@ -49,21 +48,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
         }
     }
 
-    if (tilganger[props.bedriftNr].length < alleTilganger.length) {
-        const tilgangerJegHar = tilganger[props.bedriftNr];
-        const tilgangerJegIkkeHar = alleTilganger.filter(tilgang => !tilgangerJegHar.includes(tilgang));
-
-        return (
-            <ValgtAlleHarIkkeAlleTiltakstyper
-                bedriftNr={props.bedriftNr}
-                bedriftNavn={bedriftNavn}
-                tilgangerJegIkkeHar={tilgangerJegIkkeHar}
-                tilgangerJegHar={tilgangerJegHar}
-            />
-        );
-    } else {
-        return <ValgtAlleHarAlleTiltakstyper bedriftNavn={bedriftNavn} />;
-    }
+    return <ValgtAlle bedriftNavn={bedriftNavn} bedriftNr={props.bedriftNr} tilganger={tilganger} />;
 };
 
 export default IngenAvtalerArbeidsgiver;

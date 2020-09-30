@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { BeOmRettigheterUrl, hentBeOmRettighetUrler } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 
-const useBeOmRettigheter = (orgNr: string) => {
+const useBeOmRettigheter = (orgNr?: string) => {
     const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrl[]>([]);
     useEffect(() => {
         if (orgNr) {
