@@ -1,13 +1,12 @@
+import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/check.svg';
+import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
+import { AvtaleContext } from '@/AvtaleContext';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { ReactComponent as UtkastIkon } from '@/assets/ikoner/utkast.svg';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { AvtaleContext } from '@/AvtaleContext';
-import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/check.svg';
 
 export const AksepterUtkast: FunctionComponent = () => {
     const { overtaAvtale, avtale } = useContext(AvtaleContext);
