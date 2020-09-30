@@ -58,7 +58,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                 bedriftNr={props.bedriftNr}
                 bedriftNavn={bedriftNavn}
                 tilgangerJegIkkeHar={tilgangerJegIkkeHar}
-                tilgangerJegHar={tilgangerJegIkkeHar}
+                tilgangerJegHar={tilgangerJegHar}
             />
         );
     } else {
