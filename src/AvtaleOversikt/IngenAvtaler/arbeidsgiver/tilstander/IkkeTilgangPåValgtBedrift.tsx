@@ -1,14 +1,14 @@
+import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import useBeOmRettigheter from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/useBeOmRettigheter';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { tiltakstypeTekst } from '@/messages';
+import { TiltaksType } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { TiltaksType } from '@/types/avtale';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import useBeOmRettigheter from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/useBeOmRettigheter';
-import BEMHelper from '@/utils/bem';
-import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
-import { tiltakstypeTekst } from '@/messages';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
@@ -28,7 +28,7 @@ const IkkeTilgangPåValgtBedrift: FunctionComponent<Props> = props => {
                 <Innholdstittel>Du mangler tilgang</Innholdstittel>
             </div>
             <Normaltekst style={{ textAlign: 'center' }}>
-                Du har valgt en virksomhet som ikke har tilgang til noen av tiltakstypene
+                Du har valgt en virksomhet der du ikke har tilgang til noen av tiltakstypene
             </Normaltekst>
             <VerticalSpacer rem={2} />
             <div style={{ maxWidth: '45rem', margin: '0 auto' }}>
