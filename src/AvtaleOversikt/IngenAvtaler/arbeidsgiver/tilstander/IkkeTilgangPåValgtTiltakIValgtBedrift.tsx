@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import BEMHelper from '@/utils/bem';
-import { BeOmRettigheterUrl, hentBeOmRettighetUrler } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
 import { tiltakstypeTekst } from '@/messages';
+import { TiltaksType } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
+import useBeOmRettigheter from '../useBeOmRettigheter';
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 
@@ -19,12 +19,7 @@ type Props = {
 };
 
 const IkkeTilgangPåValgtTiltakIValgtBedrift: FunctionComponent<Props> = props => {
-    const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrl[]>([]);
-    useEffect(() => {
-        if (props.bedriftNr) {
-            hentBeOmRettighetUrler(props.bedriftNr).then(setBeOmRettighetUrler);
-        }
-    }, [props.bedriftNr]);
+    const { lagBeOmRettighetUrl } = useBeOmRettigheter(props.bedriftNr);
 
     return (
         <Innholdsboks>
@@ -36,11 +31,7 @@ const IkkeTilgangPåValgtTiltakIValgtBedrift: FunctionComponent<Props> = props =
                 Du har dessverre ikke tilgang på <b>{tiltakstypeTekst[props.tiltakstype]}</b> i {props.bedriftNavn}.
             </Normaltekst>
             <VerticalSpacer rem={1} />
-            <EksternLenke
-                href={beOmRettighetUrler.find(({ tiltakstype }) => tiltakstype === props.tiltakstype)?.url ?? ''}
-            >
-                Be om tilgang i Altinn her
-            </EksternLenke>
+            <EksternLenke href={lagBeOmRettighetUrl(props.tiltakstype)}>Be om tilgang i Altinn her</EksternLenke>
         </Innholdsboks>
     );
 };
