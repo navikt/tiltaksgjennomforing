@@ -1,4 +1,4 @@
-import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel-ikon.svg';
+import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
 import classNames from 'classnames';
 import Modal, { ModalProps } from 'nav-frontend-modal';
 import React, { FunctionComponent } from 'react';
