@@ -13,10 +13,11 @@ import { pathTilInformasjonssideInnlogget, pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import { VenstreChevron } from 'nav-frontend-chevron';
 import Lenke from 'nav-frontend-lenker';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import './informasjonsside.less';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
@@ -36,7 +37,49 @@ const tilbakeTilOversikt = (pathName: string) => {
 const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
+    const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
+
+    const veilederOppretter = (
+        <EkspanderbartPanelRad
+            classname={cls.element('info')}
+            svgIkon={<Keyboard className={cls.element('SubIkon')} />}
+            headerTekst={{
+                tekst: 'NAV oppretter en avtale',
+                typografiType: 'undertittel',
+            }}
+        >
+            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp et tiltak, oppretter NAV en digital
+            avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV når denne er klar til innlogging.
+        </EkspanderbartPanelRad>
+    );
+
+    const veilederOgArbeidsgiverOppretter = (
+        <EkspanderbartPanelRad
+            classname={cls.element('info')}
+            svgIkon={<Keyboard className={cls.element('SubIkon')} />}
+            headerTekst={{
+                tekst: 'NAV eller arbeidsgiver oppretter en avtale',
+                typografiType: 'undertittel',
+            }}
+        >
+            <VerticalSpacer rem={1} />
+            <Element>NAV oppretter en avtale</Element>
+            <Normaltekst>
+                {' '}
+                Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp et tiltak, oppretter NAV en
+                digital avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV når denne er klar til
+                innlogging.
+            </Normaltekst>
+            <VerticalSpacer rem={1} />
+            <Element>Arbeidsgiver oppretter en avtale</Element>
+            <Normaltekst>
+                Arbeidsgiveren kan også opprette en avtale selv. Når avtalen er opprettet kan arbeidsgiveren begynne å
+                fylle ut avtalen.
+            </Normaltekst>
+        </EkspanderbartPanelRad>
+    );
+
     return (
         <div>
             <Banner tekst="Avtale om tiltak" />
@@ -69,18 +112,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             alltid godkjenne avtalen til slutt, og først da kan tiltaket starte.
                         </EkspanderbartPanelRad>
 
-                        <EkspanderbartPanelRad
-                            classname={cls.element('info')}
-                            svgIkon={<Keyboard className={cls.element('SubIkon')} />}
-                            headerTekst={{
-                                tekst: 'NAV oppretter en avtale',
-                                typografiType: 'undertittel',
-                            }}
-                        >
-                            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp et tiltak, oppretter
-                            NAV en digital avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV når denne
-                            er klar til innlogging.
-                        </EkspanderbartPanelRad>
+                        {arbeidsgiverOppretterToggle ? veilederOgArbeidsgiverOppretter : veilederOppretter}
 
                         <EkspanderbartPanelRad
                             classname={cls.element('info')}

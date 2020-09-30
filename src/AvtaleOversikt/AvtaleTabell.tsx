@@ -11,6 +11,7 @@ import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
 import './AvtaleTabell.less';
+
 const cls = BEMHelper('avtaletabell');
 
 const AvtaleTabell: FunctionComponent<{
@@ -49,7 +50,7 @@ const AvtaleTabell: FunctionComponent<{
                             {avtale.deltakerEtternavn || ''}
                         </div>
                         {innloggetBruker.erNavAnsatt && (
-                            <div className={cls.element('veileder')}>{avtale.veilederNavIdent}</div>
+                            <div className={cls.element('veileder')}>{avtale.veilederNavIdent || 'Ufordelt'}</div>
                         )}
                         <MediaQuery minWidth={576}>
                             <div className={cls.element('opprettet')}>

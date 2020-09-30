@@ -6,26 +6,52 @@ import { ReactComponent as UtkastIkon } from '@/assets/ikoner/utkast.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { AvtaleContext } from '@/AvtaleContext';
+import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
+import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/check.svg';
 
 export const AksepterUtkast: FunctionComponent = () => {
-    const { aksepterUtkast } = useContext(AvtaleContext);
+    const { overtaAvtale, avtale } = useContext(AvtaleContext);
     return (
         <Innholdsboks>
             <div style={{ textAlign: 'center' }}>
-                <UtkastIkon style={{ display: 'inline-block' }} />
                 <VerticalSpacer rem={1} />
-                <Systemtittel>Avtalen er i utkastmodus</Systemtittel>
+                <Systemtittel>Avtalen er ufordelt</Systemtittel>
                 <VerticalSpacer rem={1} />
-                <Normaltekst>
-                    Avtalen er opprettet av arbeidsgiver. Deltaker har enda ikke tilgang til den. Når du overtar avtalen
-                    vil deltaker få tilgang.
-                </Normaltekst>
+                <Normaltekst>Avtalen er opprettet av arbeidsgiver. Den er ikke tildelt en veileder ennå.</Normaltekst>
+                <VerticalSpacer rem={1.5} />
+                <LagreKnapp lagre={() => overtaAvtale()} label="Overta avtale" suksessmelding="Avtale tildelt" />
+                <VerticalSpacer rem={1.5} />
+                <div style={{ borderBottom: '1px solid #c6c2bf' }} />
                 <VerticalSpacer rem={1} />
-                <LagreKnapp
-                    lagre={() => aksepterUtkast()}
-                    label="Overta avtale og gi deltaker tilgang"
-                    suksessmelding="Avtaleutkast akseptert"
-                />
+
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex' }}>
+                        {avtale.godkjentAvArbeidsgiver ? (
+                            <>
+                                <GodkjentIkon style={{ marginRight: '0.5rem' }} />
+                                <Normaltekst>Arbeidsgiver har godkjent</Normaltekst>
+                            </>
+                        ) : (
+                            <>
+                                <PabegyntIkon style={{ marginRight: '0.5rem' }} />
+                                <Normaltekst>Arbeidsgiver har ikke godkjent</Normaltekst>
+                            </>
+                        )}
+                    </div>
+                    <div style={{ display: 'flex' }}>
+                        {avtale.godkjentAvDeltaker ? (
+                            <>
+                                <GodkjentIkon style={{ marginRight: '0.5rem' }} />
+                                <Normaltekst>Deltaker har godkjent</Normaltekst>
+                            </>
+                        ) : (
+                            <>
+                                <PabegyntIkon style={{ marginRight: '0.5rem' }} />
+                                <Normaltekst>Deltaker har ikke godkjent</Normaltekst>
+                            </>
+                        )}
+                    </div>
+                </div>
             </div>
         </Innholdsboks>
     );

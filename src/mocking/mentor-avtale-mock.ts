@@ -56,6 +56,7 @@ const mentorAvtaleMock: Avtale<MentorAvtaleinnhold> = {
 
     avbruttDato: '',
     avbruttGrunn: '',
+    erUfordelt: false,
 };
 
 export default mentorAvtaleMock;

@@ -5,18 +5,18 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { ReactComponent as UtkastIkon } from '@/assets/ikoner/utkast.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
-export const UtkastStatus: FunctionComponent = () => {
+export const UfordeltStatus: FunctionComponent = () => {
     return (
         <Innholdsboks>
             <div style={{ textAlign: 'center' }}>
                 <UtkastIkon style={{ display: 'inline-block' }} />
                 <VerticalSpacer rem={1} />
-                <Systemtittel>Avtalen er i utkastmodus</Systemtittel>
+                <Systemtittel>Avtalen kan godkjennes</Systemtittel>
                 <VerticalSpacer rem={1} />
                 <Normaltekst>
-                    Du kan begynne å fylle ut avtalen, men deltager vil ikke få tilgang før NAV har godkjent dette. Når
-                    deltaker har fått tilgang og alt er utfylt må alle parter godkjenne avtalen før tiltaket kan
-                    iverksettes.
+                    Når avtalen er ferdig utfylt kan du og deltaker godkjenne den. Deltaker vil få tilgang til avtalen
+                    via lenken til avtalen. Når alt er utfylt og avtalen er tildelt en veileder i NAV, må alle parter
+                    godkjenne avtalen før tiltaket kan iverksettes.
                 </Normaltekst>
             </div>
         </Innholdsboks>

@@ -8,22 +8,29 @@ import * as React from 'react';
 import { createElement, FunctionComponent, useContext } from 'react';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import Godkjenning from './Godkjenning';
-import VersjoneringKomponent from './Versjonering/VersjoneringKomponent';
-import { UtkastStatus } from '@/AvtaleSide/steg/GodkjenningSteg/UtkastStatus';
+import { UfordeltStatus } from './UfordeltStatus';
 import { AksepterUtkast } from '@/AvtaleSide/steg/GodkjenningSteg/AksepterUtkast';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
 }
 
 const GodkjenningSteg: React.FunctionComponent<Props> = props => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale, rolle, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
+
+    const skalViseGodkjenning = !innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt);
 
     return (
         <>
-            {avtale.status === 'Utkast' && rolle === 'ARBEIDSGIVER' && <UtkastStatus />}
-            {avtale.status === 'Utkast' && rolle === 'VEILEDER' && <AksepterUtkast />}
-            {avtale.status !== 'Utkast' && <AvtaleStatus avtale={avtale} rolle={rolle} />}
+            {avtale.status === 'Påbegynt' && avtale.erUfordelt && rolle === 'ARBEIDSGIVER' && <UfordeltStatus />}
+            {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' ? (
+                <AksepterUtkast />
+            ) : (
+                <AvtaleStatus avtale={avtale} rolle={rolle} />
+            )}
             <Innholdsboks>
                 <div
                     style={{
@@ -42,7 +49,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
                 <Avtaleparter {...avtale} />
                 {createElement(props.oppsummering, { avtaleinnhold: avtale })}
             </Innholdsboks>
-            {avtale.status !== 'Utkast' && (
+            {skalViseGodkjenning && (
                 <Godkjenning
                     avtale={avtale}
                     rolle={rolle}

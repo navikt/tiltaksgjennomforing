@@ -155,13 +155,16 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
             </Ekspanderbartpanel>
 
             <AlertStripeInfo>
-                <Element>Før du oppretter </Element>
+                <Element>Dette skjer etter at du har opprettet avtalen</Element>
                 <Normaltekst>
                     <ul>
-                        <li> En veileder i NAV må akseptere avtaleutkastet før deltaker kan involveres.</li>
+                        <li> Du kan begynne å fylle ut avtalen.</li>
+                        <li> Du kan invitere deltaker ved å sende lenken til avtalen.</li>
                         <li>
-                            Du kan begynne å fylle ut avtalen før dette, men deltaker vil ikke få tilgang til den før
-                            veileder har akseptert dette.
+                            {' '}
+                            Avtalen blir tilgjengelig for veilederne på NAV kontoret til deltakeren. Når avtalen har
+                            blitt fordelt til en veileder vil du se kontaktinformasjonen til denne veilederen inne i
+                            avtalen.
                         </li>
                     </ul>
                 </Normaltekst>

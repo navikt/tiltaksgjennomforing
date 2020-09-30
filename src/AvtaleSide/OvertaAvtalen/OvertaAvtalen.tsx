@@ -9,7 +9,7 @@ import UtkastModusModal from '@/AvtaleSide/OvertaAvtalen/UtkastModusModal';
 interface Props {
     erVeileder: boolean;
     forskjelligNavIdent: boolean;
-    utkastmodus: boolean;
+    erUfordelt: boolean;
 }
 
 const cls = BEMHelper('overtaavtalen');
@@ -25,7 +25,7 @@ const OvertaAvtalen = (props: Props) => {
                     Overta avtale
                 </Lenke>
             </div>
-            {props.utkastmodus ? (
+            {props.erUfordelt ? (
                 <UtkastModusModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
             ) : (
                 <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />

@@ -8,6 +8,7 @@ import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmel
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { Radio } from 'nav-frontend-skjema';
+import { Feature } from '@/FeatureToggleProvider';
 
 type Validering = (verdi: string) => SkjemaelementFeil | undefined;
 
@@ -15,17 +16,18 @@ const fnrValidering: Validering = verdi => (!validerFnr(verdi) ? { feilmelding: 
 const orgNrValidering: Validering = verdi =>
     !validerOrgnr(verdi) ? { feilmelding: 'Ugyldig bedriftsnummer' } : undefined;
 
-type Søketype = 'deltaker' | 'bedrift' | 'egne';
+type Søketype = 'deltaker' | 'bedrift' | 'egne' | 'ufordelte';
 
 export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const arbeidsgiverOppretterToggle = Feature.ArbeidsgiverOppretter;
 
-    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '' };
+    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false };
     const søk = {
         egne: {
             placeholder: '',
-            label: 'Jeg har opprettet',
+            label: 'Tilknyttet meg',
             maxLength: 0,
             validering: () => undefined,
             utførSøk: () => props.endreSøk({ ...tomt, veilederNavIdent: innloggetBruker.identifikator }),
@@ -44,6 +46,13 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             validering: orgNrValidering,
             utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, bedriftNr: søkeord }),
         },
+        ufordelte: {
+            placeholder: '',
+            label: 'Ufordelte',
+            maxLength: 0,
+            validering: () => undefined,
+            utførSøk: () => props.endreSøk({ ...tomt, erUfordelt: true }),
+        },
     };
 
     const endreSøketype = (event: FormEvent<HTMLInputElement>) => {
@@ -51,14 +60,24 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
         setAktivSøketype(nySøketype);
         if (nySøketype === 'egne') {
             søk.egne.utførSøk();
+        } else if (nySøketype === 'ufordelte') {
+            søk.ufordelte.utførSøk();
         }
     };
 
     const aktueltSøk = søk[aktivSøketype];
+    const skjulSøkefelt: boolean = aktivSøketype === 'egne' || aktivSøketype === 'ufordelte';
+
+    const søkEntries = () => {
+        if (arbeidsgiverOppretterToggle) {
+            return Object.entries(søk);
+        }
+        return Object.entries(søk).splice(0, 3);
+    };
 
     return (
         <Filter tittel={'Vis avtaler'}>
-            {Object.entries(søk).map(([key, value]) => (
+            {søkEntries().map(([key, value]) => (
                 <Radio
                     label={value.label}
                     name={'aktivSøketype'}
@@ -75,7 +94,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                 maxLength={aktueltSøk.maxLength}
                 utførSøk={aktueltSøk.utførSøk}
                 valider={aktueltSøk.validering}
-                hidden={aktivSøketype === 'egne'}
+                hidden={skjulSøkefelt}
             />
         </Filter>
     );
