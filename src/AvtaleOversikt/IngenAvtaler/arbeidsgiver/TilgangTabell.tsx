@@ -1,26 +1,30 @@
 import * as React from 'react';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { tiltakstypeTekst } from '@/messages';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import useBeOmRettigheter from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/useBeOmRettigheter';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import './TilgangTabell.less';
 import { Tilganger } from '@/InnloggingBoundary/useInnlogget';
 import { ReactComponent as SuccessIkon } from '@/assets/ikoner/success.svg';
 import { ReactComponent as ErrorIkon } from '@/assets/ikoner/error.svg';
+import { BeOmRettigheterUrler, hentBeOmRettighetUrler } from '@/services/rest-service';
 
 const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
 
 const cls = BEMHelper('tilgangtabell');
 
 interface Props {
-    bedriftNr?: string;
+    bedriftNr: string;
     tilganger: Tilganger;
 }
 
 const TilgangTabell: FunctionComponent<Props> = props => {
-    const { lagBeOmRettighetUrl } = useBeOmRettigheter(props.bedriftNr);
+    const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrler>({});
+    useEffect(() => {
+        hentBeOmRettighetUrler(props.bedriftNr).then(setBeOmRettighetUrler);
+    }, [props.bedriftNr]);
+
     return (
         <div className={cls.className}>
             <table className="tabell">
@@ -38,7 +42,7 @@ const TilgangTabell: FunctionComponent<Props> = props => {
                                             <SuccessIkon
                                                 style={{
                                                     display: 'inline-block',
-                                                    verticalAlign: '-0.4rem',
+                                                    verticalAlign: '-0.45rem',
                                                     marginRight: '0.5rem',
                                                 }}
                                             />
@@ -49,7 +53,7 @@ const TilgangTabell: FunctionComponent<Props> = props => {
                                             <ErrorIkon
                                                 style={{
                                                     display: 'inline-block',
-                                                    verticalAlign: '-0.4rem',
+                                                    verticalAlign: '-0.45rem',
                                                     marginRight: '0.5rem',
                                                 }}
                                             />
@@ -58,8 +62,8 @@ const TilgangTabell: FunctionComponent<Props> = props => {
                                     )}
                                 </td>
                                 <td align="right">
-                                    {props.bedriftNr && !harTilgangTilTiltakstype ? (
-                                        <EksternLenke href={lagBeOmRettighetUrl(tiltakstype)}>
+                                    {!harTilgangTilTiltakstype ? (
+                                        <EksternLenke href={beOmRettighetUrler[tiltakstype] || ''}>
                                             Be om tilgang i Altinn her
                                         </EksternLenke>
                                     ) : (

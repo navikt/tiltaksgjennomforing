@@ -285,12 +285,11 @@ export const aksepterUtkast = async (avtaleId: string): Promise<void> => {
     await handleResponse(response);
 };
 
-export type BeOmRettigheterUrl = {
-    tiltakstype: TiltaksType;
-    url: string;
+export type BeOmRettigheterUrler = {
+    [tiltakstype in TiltaksType]?: string;
 };
 
-export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigheterUrl[]> => {
+export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigheterUrler> => {
     const response = await fetch(`${API_URL}/be-om-altinn-rettighet-urler?orgNr=${orgNr}`, { method: 'GET' });
     await handleResponse(response);
     return await response.json();

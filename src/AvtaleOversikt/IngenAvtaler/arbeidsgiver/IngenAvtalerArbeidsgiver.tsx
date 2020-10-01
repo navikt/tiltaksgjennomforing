@@ -2,13 +2,10 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { TiltaksType } from '@/types/avtale';
 import React, { FunctionComponent, useContext } from 'react';
 import './IngenAvtalerArbeidsgiver.less';
-import DuManglerRettigheterIAltinn from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/DuManglerRettigheterIAltinn';
-import IkkeTilgangPåValgtBedrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/IkkeTilgangPåValgtBedrift';
-import IkkeTilgangPåValgtTiltakIValgtBedrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/IkkeTilgangPåValgtTiltakIValgtBedrift';
-import TilgangPåValgtTiltakIValgtBedrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/TilgangPåValgtTiltakIValgtBedrift';
-import ValgtAlle from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/tilstander/ValgtAlle';
+import DuManglerRettigheterIAltinn from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/DuManglerRettigheterIAltinn';
 
-const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
+import { tiltakstypeTekst } from '@/messages';
+import BoksMedTekstOgTilgangstabell from './BoksMedTekstOgTilgangstabell';
 
 type Props = {
     bedriftNr?: string;
@@ -16,39 +13,43 @@ type Props = {
 };
 
 const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
-    const { altinnOrganisasjoner, tilganger } = useContext(InnloggetBrukerContext);
+    const { tilganger } = useContext(InnloggetBrukerContext);
 
     if (!props.bedriftNr) {
         return <DuManglerRettigheterIAltinn />;
     }
 
-    const bedriftNavn = altinnOrganisasjoner.find(org => org.OrganizationNumber === props.bedriftNr)?.Name || '';
+    const fellesProps = { bedriftNr: props.bedriftNr, tilganger };
 
     if (!tilganger[props.bedriftNr] || tilganger[props.bedriftNr].length === 0) {
         return (
-            <IkkeTilgangPåValgtBedrift
-                bedriftNr={props.bedriftNr}
-                bedriftNavn={bedriftNavn}
-                tilgangerJegIkkeHar={alleTilganger}
+            <BoksMedTekstOgTilgangstabell
+                {...fellesProps}
+                overskrift={'Du mangler tilgang til alle tiltakstypene'}
+                visTekst={false}
             />
         );
     }
 
     if (props.tiltakstype) {
-        if (!tilganger[props.bedriftNr].includes(props.tiltakstype)) {
+        if (tilganger[props.bedriftNr].includes(props.tiltakstype)) {
+            // Har tilgang til valgt tiltakstype
             return (
-                <IkkeTilgangPåValgtTiltakIValgtBedrift
-                    bedriftNr={props.bedriftNr}
-                    tiltakstype={props.tiltakstype}
-                    bedriftNavn={bedriftNavn}
-                />
+                <BoksMedTekstOgTilgangstabell {...fellesProps} overskrift={'Finner ingen avtaler'} visTekst={true} />
             );
         } else {
-            return <TilgangPåValgtTiltakIValgtBedrift tiltakstype={props.tiltakstype} bedriftNavn={bedriftNavn} />;
+            return (
+                <BoksMedTekstOgTilgangstabell
+                    {...fellesProps}
+                    overskrift={'Du mangler tilgang til ' + tiltakstypeTekst[props.tiltakstype]}
+                    visTekst={false}
+                />
+            );
         }
     }
 
-    return <ValgtAlle bedriftNavn={bedriftNavn} bedriftNr={props.bedriftNr} tilganger={tilganger} />;
+    // Har ikke valgt tiltakstype. Har en eller alle tilganger
+    return <BoksMedTekstOgTilgangstabell {...fellesProps} overskrift={'Finner ingen avtaler'} visTekst={true} />;
 };
 
 export default IngenAvtalerArbeidsgiver;
