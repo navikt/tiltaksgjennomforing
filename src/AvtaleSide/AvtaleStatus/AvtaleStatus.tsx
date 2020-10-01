@@ -56,6 +56,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
             <MediaQuery minWidth={768}>
                 <div className={cls.element('hovedIkon')}>
                     <StatusIkon
+                        style={{ width: '40px', height: '40px' }}
                         rolle={props.rolle}
                         status={props.avtale.status}
                         godkjentAvInnloggetBruker={avtaleStatusDetaljer.godkjentAvInnloggetBruker}

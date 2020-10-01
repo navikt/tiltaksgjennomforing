@@ -6,8 +6,7 @@ import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
 import { ReactComponent as UtkastIkon } from '@/assets/ikoner/utkast.svg';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
 import { Rolle } from '@/AvtaleContext';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { CSSProperties, FunctionComponent } from 'react';
 
 interface Props {
     status: string;
@@ -15,26 +14,27 @@ interface Props {
     godkjentAvInnloggetBruker?: boolean;
     andrePartnerHarGodkjent?: boolean;
     className?: string;
+    style?: CSSProperties;
 }
 
 const StatusIkon: FunctionComponent<Props> = props => {
     switch (props.status) {
         case 'Påbegynt':
-            return <PabegyntIkon />;
+            return <PabegyntIkon style={props.style} />;
         case 'Klar for oppstart':
-            return <CheckIkon />;
+            return <CheckIkon style={props.style} />;
         case 'Mangler godkjenning':
             if (props.godkjentAvInnloggetBruker || (props.rolle === 'VEILEDER' && !props.andrePartnerHarGodkjent)) {
-                return <PabegyntIkon />;
+                return <PabegyntIkon style={props.style} />;
             } else {
-                return <ProblemIkon />;
+                return <ProblemIkon style={props.style} />;
             }
         case 'Avbrutt':
-            return <AvbruttIkon />;
+            return <AvbruttIkon style={props.style} />;
         case 'Avsluttet':
-            return <InaktivIkon />;
+            return <InaktivIkon style={props.style} />;
         case 'Gjennomføres':
-            return <GjennomforesIkon />;
+            return <GjennomforesIkon style={props.style} />;
         case 'Utkast':
             return <UtkastIkon viewBox="0 0 40 40" height="24" width="24" />;
         default:
