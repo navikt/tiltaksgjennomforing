@@ -26,7 +26,7 @@ const useAvtaleOversiktLayout: UseAvtaleOversiktLayout = () => {
     const erNokPlassTilTabell = useMediaQuery({ minWidth: rem(breddeTabell) });
 
     let stylingAvFilter: CSSProperties = {};
-    let stylingAvTabell: CSSProperties = {};
+    let stylingAvTabell: CSSProperties;
     let stylingAvFilterOgTabell: CSSProperties = {};
 
     if (erNokPlassTilTabellOgFilter) {
@@ -34,7 +34,7 @@ const useAvtaleOversiktLayout: UseAvtaleOversiktLayout = () => {
         stylingAvTabell = { width: rem(breddeTabell) };
         stylingAvFilterOgTabell = { flexDirection: 'row', justifyContent: 'center' };
     } else {
-        stylingAvTabell = { marginTop: '0.5rem' };
+        stylingAvTabell = { marginTop: '1rem' };
     }
 
     return {

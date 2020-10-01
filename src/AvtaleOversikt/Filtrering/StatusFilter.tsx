@@ -2,9 +2,8 @@ import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
 import { OptionProps } from '@/komponenter/form/SelectInput';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import { Radio } from 'nav-frontend-skjema';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 
 const StatusFilter: FunctionComponent<FiltreringProps> = props => {
     const [valgtStatus, setValgtStatus] = useState('');
