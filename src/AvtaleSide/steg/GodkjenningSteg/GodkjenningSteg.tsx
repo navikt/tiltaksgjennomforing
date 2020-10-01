@@ -25,7 +25,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            {console.log(avtale.erUfordelt)}
             {avtale.erUfordelt && rolle !== 'VEILEDER' && <UfordeltStatusArbeidsgiverDeltaker />}
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
             {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={rolle} />}
