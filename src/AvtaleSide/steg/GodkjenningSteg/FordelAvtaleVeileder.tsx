@@ -8,7 +8,7 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
 
-export const AksepterUtkast: FunctionComponent = () => {
+export const FordelAvtaleVeileder: FunctionComponent = () => {
     const { overtaAvtale, avtale } = useContext(AvtaleContext);
     return (
         <Innholdsboks>
@@ -20,6 +20,7 @@ export const AksepterUtkast: FunctionComponent = () => {
                 <VerticalSpacer rem={1.5} />
                 <LagreKnapp lagre={() => overtaAvtale()} label="Overta avtale" suksessmelding="Avtale tildelt" />
                 <VerticalSpacer rem={1.5} />
+
                 <div style={{ borderBottom: '1px solid #c6c2bf' }} />
                 <VerticalSpacer rem={1} />
 
