@@ -3,7 +3,6 @@ import { ReactComponent as GjennomforesIkon } from '@/assets/ikoner/gjennomfores
 import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
-import { ReactComponent as UtkastIkon } from '@/assets/ikoner/utkast.svg';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
 import { Rolle } from '@/AvtaleContext';
 import React, { CSSProperties, FunctionComponent } from 'react';
@@ -35,8 +34,6 @@ const StatusIkon: FunctionComponent<Props> = props => {
             return <InaktivIkon style={props.style} />;
         case 'Gjennomføres':
             return <GjennomforesIkon style={props.style} />;
-        case 'Utkast':
-            return <UtkastIkon viewBox="0 0 40 40" height="24" width="24" />;
         default:
             return null;
     }
