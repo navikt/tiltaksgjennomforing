@@ -9,6 +9,7 @@ import { Tilganger } from '@/InnloggingBoundary/useInnlogget';
 import { ReactComponent as SuccessIkon } from '@/assets/ikoner/success.svg';
 import { ReactComponent as ErrorIkon } from '@/assets/ikoner/error.svg';
 import { BeOmRettigheterUrler, hentBeOmRettighetUrler } from '@/services/rest-service';
+import { useMediaQuery } from 'react-responsive';
 
 const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
 
@@ -25,6 +26,8 @@ const TilgangTabell: FunctionComponent<Props> = props => {
         hentBeOmRettighetUrler(props.bedriftNr).then(setBeOmRettighetUrler);
     }, [props.bedriftNr]);
 
+    const harGodPlass = useMediaQuery({ minWidth: '40rem' });
+
     return (
         <div className={cls.className}>
             <table className="tabell">
@@ -40,20 +43,24 @@ const TilgangTabell: FunctionComponent<Props> = props => {
                                     <span style={{ display: 'flex', alignItems: 'center' }}>
                                         {harTilgangTilTiltakstype ? (
                                             <>
-                                                <SuccessIkon
-                                                    style={{
-                                                        marginRight: '0.5rem',
-                                                    }}
-                                                />
+                                                {harGodPlass && (
+                                                    <SuccessIkon
+                                                        style={{
+                                                            marginRight: '0.5rem',
+                                                        }}
+                                                    />
+                                                )}
                                                 Har tilgang
                                             </>
                                         ) : (
                                             <>
-                                                <ErrorIkon
-                                                    style={{
-                                                        marginRight: '0.5rem',
-                                                    }}
-                                                />
+                                                {harGodPlass && (
+                                                    <ErrorIkon
+                                                        style={{
+                                                            marginRight: '0.5rem',
+                                                        }}
+                                                    />
+                                                )}
                                                 Mangler tilgang
                                             </>
                                         )}
@@ -62,7 +69,7 @@ const TilgangTabell: FunctionComponent<Props> = props => {
                                 <td align="right">
                                     {!harTilgangTilTiltakstype ? (
                                         <EksternLenke href={beOmRettighetUrler[tiltakstype] || ''}>
-                                            Be om tilgang i Altinn her
+                                            Be om tilgang {harGodPlass && 'i Altinn her'}
                                         </EksternLenke>
                                     ) : (
                                         <span>&nbsp;</span>
