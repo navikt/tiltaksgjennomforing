@@ -171,7 +171,7 @@ const Godkjenning: FunctionComponent<Props> = props => {
                         throw new UfullstendigError(feilmeldingManglerBekreftelse());
                     }
                 }}
-                label="Godkjenn avtalen"
+                label=" Godkjenn avtalen"
             />
         </Innholdsboks>
     );

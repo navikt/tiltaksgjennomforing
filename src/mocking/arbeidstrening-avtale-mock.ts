@@ -71,6 +71,7 @@ const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
 
     avbruttDato: '',
     avbruttGrunn: '',
+    erUfordelt: false,
 };
 
 export default arbeidstreningAvtaleMock;

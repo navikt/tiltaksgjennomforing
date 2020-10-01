@@ -11,6 +11,7 @@ import { default as React, FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
+
 const cls = BEMHelper('avtaletabell');
 
 const AvtaleTabell: FunctionComponent<{
@@ -51,7 +52,7 @@ const AvtaleTabell: FunctionComponent<{
                             {avtale.deltakerEtternavn || ''}
                         </div>
                         {innloggetBruker.erNavAnsatt && (
-                            <div className={cls.element('veileder')}>{avtale.veilederNavIdent}</div>
+                            <div className={cls.element('veileder')}>{avtale.veilederNavIdent || 'Ufordelt'}</div>
                         )}
                         <MediaQuery minWidth={576}>
                             <div className={cls.element('opprettet')}>

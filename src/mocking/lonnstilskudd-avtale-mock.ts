@@ -63,6 +63,7 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     arbeidsgiveravgiftBelop: 0,
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,
+    erUfordelt: false,
 };
 
 export default lonnstilskuddAvtaleMock;

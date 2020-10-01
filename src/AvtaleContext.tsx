@@ -95,6 +95,7 @@ export const tomAvtale: Avtale = {
     familietilknytningForklaring: undefined,
     avbruttDato: '',
     avbruttGrunn: '',
+    erUfordelt: false,
 };
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
@@ -213,7 +214,6 @@ export class TempAvtaleProvider extends React.Component<any, State> {
         this.visFeilmelding = this.visFeilmelding.bind(this);
         this.laasOpp = this.laasOpp.bind(this);
         this.utforHandlingHvisRedigerbar = this.utforHandlingHvisRedigerbar.bind(this);
-        this._aksepterUtkast = this._aksepterUtkast.bind(this);
     }
 
     sendToAmplitude = (eventName: string) => {

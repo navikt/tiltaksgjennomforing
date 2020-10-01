@@ -40,6 +40,7 @@ export interface AvtaleMetadata {
     opprettetTidspunkt: string;
     sistEndret: string;
     tiltakstype: TiltaksType;
+    erUfordelt: boolean;
 }
 
 export interface Avtaleparter {
