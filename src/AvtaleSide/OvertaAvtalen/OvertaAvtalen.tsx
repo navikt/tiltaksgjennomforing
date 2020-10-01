@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import { ReactComponent as OvertaAvtalenSVG } from '@/assets/ikoner/overtaAvtalen.svg';
-import Lenke from 'nav-frontend-lenker';
-import BEMHelper from '@/utils/bem';
-import './overtaAvtalen.less';
 import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
-import UtkastModusModal from '@/AvtaleSide/OvertaAvtalen/UtkastModusModal';
+import UfordeltModusModal from '@/AvtaleSide/OvertaAvtalen/UfordeltModusModal';
+import BEMHelper from '@/utils/bem';
+import Lenke from 'nav-frontend-lenker';
+import React, { useState } from 'react';
+import './overtaAvtalen.less';
 
 interface Props {
     erVeileder: boolean;
@@ -26,7 +26,7 @@ const OvertaAvtalen = (props: Props) => {
                 </Lenke>
             </div>
             {props.erUfordelt ? (
-                <UtkastModusModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
+                <UfordeltModusModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
             ) : (
                 <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
             )}
