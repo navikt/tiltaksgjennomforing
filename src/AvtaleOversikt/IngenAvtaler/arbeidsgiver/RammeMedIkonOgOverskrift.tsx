@@ -20,11 +20,8 @@ const RammeMedIkonOgOverskrift: FunctionComponent<Props> = props => {
                 borderRadius: '4px',
             }}
         >
-            <Systemtittel>
-                <InfoIkon
-                    width="24px"
-                    style={{ display: 'inline-block', verticalAlign: '-0.45rem', marginRight: '0.8rem' }}
-                />
+            <Systemtittel style={{ display: 'flex', alignItems: 'center' }}>
+                <InfoIkon width="24px" style={{ marginRight: '0.8rem' }} />
                 {props.overskrift}
             </Systemtittel>
             <VerticalSpacer rem={2} />

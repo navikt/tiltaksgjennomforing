@@ -37,29 +37,27 @@ const TilgangTabell: FunctionComponent<Props> = props => {
                             <tr key={tiltakstype}>
                                 <td>{tiltakstypeTekst[tiltakstype]}</td>
                                 <td>
-                                    {harTilgangTilTiltakstype ? (
-                                        <span>
-                                            <SuccessIkon
-                                                style={{
-                                                    display: 'inline-block',
-                                                    verticalAlign: '-0.45rem',
-                                                    marginRight: '0.5rem',
-                                                }}
-                                            />
-                                            Har tilgang
-                                        </span>
-                                    ) : (
-                                        <span>
-                                            <ErrorIkon
-                                                style={{
-                                                    display: 'inline-block',
-                                                    verticalAlign: '-0.45rem',
-                                                    marginRight: '0.5rem',
-                                                }}
-                                            />
-                                            Mangler tilgang
-                                        </span>
-                                    )}
+                                    <span style={{ display: 'flex', alignItems: 'center' }}>
+                                        {harTilgangTilTiltakstype ? (
+                                            <>
+                                                <SuccessIkon
+                                                    style={{
+                                                        marginRight: '0.5rem',
+                                                    }}
+                                                />
+                                                Har tilgang
+                                            </>
+                                        ) : (
+                                            <>
+                                                <ErrorIkon
+                                                    style={{
+                                                        marginRight: '0.5rem',
+                                                    }}
+                                                />
+                                                Mangler tilgang
+                                            </>
+                                        )}
+                                    </span>
                                 </td>
                                 <td align="right">
                                     {!harTilgangTilTiltakstype ? (
