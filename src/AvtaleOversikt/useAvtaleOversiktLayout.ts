@@ -33,6 +33,8 @@ const useAvtaleOversiktLayout: UseAvtaleOversiktLayout = () => {
         stylingAvFilter = { width: rem(breddeFilter), marginRight: rem(breddeMellom) };
         stylingAvTabell = { width: rem(breddeTabell) };
         stylingAvFilterOgTabell = { flexDirection: 'row', justifyContent: 'center' };
+    } else {
+        stylingAvTabell = { marginTop: '0.5rem' };
     }
 
     return {
