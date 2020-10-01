@@ -29,7 +29,10 @@ const fetchWithCredentials: (url: string, otherParams?: any) => Promise<Response
 
 const handleResponse = async (response: Response) => {
     if (response.status === 401) {
-        sessionStorage.setItem(SIDE_FOER_INNLOGGING, window.location.pathname.replace(basename, ''));
+        sessionStorage.setItem(
+            SIDE_FOER_INNLOGGING,
+            window.location.pathname.replace(basename, '') + window.location.search
+        );
         throw new AutentiseringError('Er ikke logget inn.');
     }
     if (response.status === 400 && response.headers.has('feilkode')) {
@@ -280,4 +283,14 @@ export const overtaAvtale = async (avtaleId: string): Promise<void> => {
 export const aksepterUtkast = async (avtaleId: string): Promise<void> => {
     const response = await fetch(`${API_URL}/avtaler/${avtaleId}/aksepter-utkast`, { method: 'POST' });
     await handleResponse(response);
+};
+
+export type BeOmRettigheterUrler = {
+    [tiltakstype in TiltaksType]?: string;
+};
+
+export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigheterUrler> => {
+    const response = await fetch(`${API_URL}/be-om-altinn-rettighet-urler?orgNr=${orgNr}`, { method: 'GET' });
+    await handleResponse(response);
+    return await response.json();
 };

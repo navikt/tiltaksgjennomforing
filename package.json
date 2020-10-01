@@ -17,6 +17,7 @@
         "up": "docker-compose up -d --remove-orphans --build"
     },
     "dependencies": {
+        "@navikt/bedriftsmeny": "^2.2.0",
         "@navikt/fnrvalidator": "^1.1.3",
         "@navikt/navspa": "^1.0.3",
         "@sentry/browser": "^5.7.1",

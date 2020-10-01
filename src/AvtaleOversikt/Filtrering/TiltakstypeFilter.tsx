@@ -1,10 +1,10 @@
+import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import { OptionProps } from '@/komponenter/form/SelectInput';
+import { TiltaksType } from '@/types/avtale';
+import { Radio } from 'nav-frontend-skjema';
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
-import { TiltaksType } from '@/types/avtale';
-import { OptionProps } from '@/komponenter/form/SelectInput';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
-import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
-import { Radio } from 'nav-frontend-skjema';
 
 const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
     const [valgtTiltakstype, setValgtTiltakstype] = useState<TiltaksType | ''>('');

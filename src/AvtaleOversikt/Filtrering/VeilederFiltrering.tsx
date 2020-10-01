@@ -1,18 +1,18 @@
+import { DeltakerOgBedriftFilter } from '@/AvtaleOversikt/Filtrering/DeltakerOgBedriftFilter';
+import StatusFilter from '@/AvtaleOversikt/Filtrering/StatusFilter';
+import TiltakstypeFilter from '@/AvtaleOversikt/Filtrering/TiltakstypeFilter';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { Avtale } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
 import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
-import TiltakstypeFilter from '@/AvtaleOversikt/Filtrering/TiltakstypeFilter';
-import BEMHelper from '@/utils/bem';
 import './Filtrering.less';
-import { Avtale } from '@/types/avtale';
-import { DeltakerOgBedriftFilter } from '@/AvtaleOversikt/Filtrering/DeltakerOgBedriftFilter';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import StatusFilter from '@/AvtaleOversikt/Filtrering/StatusFilter';
 
 const cls = BEMHelper('filtrering');
 
 export type FiltreringProps = { endreSøk: (søkekriterier: Partial<Avtale>) => void };
 
-const Filtrering: FunctionComponent<FiltreringProps> = props => {
+const VeilederFiltrering: FunctionComponent<FiltreringProps> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
 
@@ -25,4 +25,4 @@ const Filtrering: FunctionComponent<FiltreringProps> = props => {
     );
 };
 
-export default Filtrering;
+export default VeilederFiltrering;

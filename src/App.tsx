@@ -13,7 +13,7 @@ import Informasjonsside from './Informasjonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
 import OpprettAvtaleVeileder from './OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
+import OpprettelseFullfortVeileder from './OpprettAvtale/OpprettelseFullfortVeileder/OpprettelseFullfortVeileder';
 import {
     basename,
     pathTilAvtale,
@@ -21,10 +21,12 @@ import {
     pathTilInformasjonssideUinnlogget,
     pathTilOpprettAvtale,
     pathTilOpprettAvtaleArbeidsgiver,
-    pathTilOpprettAvtaleFullfort,
+    pathTilOpprettAvtaleFullfortArbeidsgiver,
+    pathTilOpprettAvtaleFullfortVeileder,
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 
 addLocaleData(nb);
 
@@ -57,9 +59,14 @@ class App extends React.Component {
                                             component={OpprettAvtaleArbeidsgiver}
                                         />
                                         <Route
-                                            path={pathTilOpprettAvtaleFullfort(':avtaleId')}
+                                            path={pathTilOpprettAvtaleFullfortVeileder(':avtaleId')}
                                             exact={true}
-                                            component={OpprettelseFullfort}
+                                            component={OpprettelseFullfortVeileder}
+                                        />
+                                        <Route
+                                            path={pathTilOpprettAvtaleFullfortArbeidsgiver(':avtaleId')}
+                                            exact={true}
+                                            component={OpprettelseFullfortArbeidsgiver}
                                         />
                                         <AvtaleProvider>
                                             <Route
