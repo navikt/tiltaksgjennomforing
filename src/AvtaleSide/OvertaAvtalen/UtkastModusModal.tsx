@@ -1,6 +1,6 @@
-import React from 'react';
+import { FordelAvtaleVeileder } from '@/AvtaleSide/steg/GodkjenningSteg/FordelAvtaleVeileder';
 import Modal from 'nav-frontend-modal';
-import { AksepterUtkast } from '@/AvtaleSide/steg/GodkjenningSteg/AksepterUtkast';
+import React from 'react';
 
 interface Props {
     isOpen: boolean;
@@ -10,7 +10,7 @@ interface Props {
 const UtkastModusModal = (props: Props) => {
     return (
         <Modal isOpen={props.isOpen} onRequestClose={props.lukkModal} contentLabel={''}>
-            <AksepterUtkast />
+            <FordelAvtaleVeileder />
         </Modal>
     );
 };
