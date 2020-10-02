@@ -1,16 +1,16 @@
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import Banner from '@/komponenter/Banner/Banner';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import LenkeKnapp from '@/komponenter/LenkeKnapp';
+import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
+import { pathTilKontaktinformasjonSteg, pathTilOversiktISelvbetjeningProd } from '@/paths';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { RouteComponentProps } from 'react-router';
-import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
-import { pathTilKontaktinformasjonSteg, pathTilOversiktISelvbetjeningProd } from '@/paths';
 import './OpprettelseFullfortArbeidsgiver.less';
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import Banner from '@/komponenter/Banner/Banner';
-import LenkeKnapp from '@/komponenter/LenkeKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentProps<{ avtaleId: string }>> = props => {
     const avtaleId = props.match.params.avtaleId;
@@ -40,7 +40,7 @@ const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentPro
                     </div>
                 </VeilederpanelMedAvsjekkIkon>
                 <VerticalSpacer rem={2} />
-                <LenkeKnapp path={pathTilKontaktinformasjonSteg(avtaleId)} tekst={'Gå til avtalen'} />
+                <LenkeKnapp path={pathTilKontaktinformasjonSteg(avtaleId)}>Gå til avtalen</LenkeKnapp>
                 <VerticalSpacer rem={1} />
                 <TilbakeTilOversiktLenke />
             </div>

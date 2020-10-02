@@ -1,3 +1,4 @@
+import { ReactComponent as PlussIkon } from '@/assets/ikoner/pluss-tegn.svg';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
 import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
@@ -5,6 +6,7 @@ import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
@@ -80,15 +82,20 @@ const AvtaleOversikt: FunctionComponent = () => {
             />
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
-
-                {arbeidsgiverOppretterToggle && harTilgangerSomArbeidsgiver && (
-                    <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} tekst="Opprett ny avtale" />
-                )}
-
                 <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
                     {innloggetBruker.erNavAnsatt && (
                         <aside style={layout.stylingAvFilter}>
+                            {innloggetBruker.erNavAnsatt && (
+                                <div style={{ margin: '0.2rem 0 1rem 0' }}>
+                                    <LenkeKnapp
+                                        path={pathTilOpprettAvtale}
+                                        style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
+                                    >
+                                        <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                        Opprett ny avtale
+                                    </LenkeKnapp>
+                                </div>
+                            )}
                             <VeilederFiltrering endreSøk={endreSøk} />
                         </aside>
                     )}
@@ -96,6 +103,20 @@ const AvtaleOversikt: FunctionComponent = () => {
                         innloggetBruker.altinnOrganisasjoner.length > 0 &&
                         innloggetBruker.tilganger[søkekriterier.bedriftNr!] && (
                             <aside style={layout.stylingAvFilter}>
+                                {arbeidsgiverOppretterToggle && harTilgangerSomArbeidsgiver && (
+                                    <div style={{ margin: '0.2rem 0 1rem 0' }}>
+                                        <LenkeKnapp
+                                            path={pathTilOpprettAvtaleArbeidsgiver}
+                                            style={{
+                                                paddingLeft: '1.5rem',
+                                                paddingRight: '1.5rem',
+                                            }}
+                                        >
+                                            <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                            Opprett ny avtale
+                                        </LenkeKnapp>
+                                    </div>
+                                )}
                                 <ArbeidsgiverFiltrering endreSøk={endreSøk} />
                             </aside>
                         )}
@@ -106,9 +127,10 @@ const AvtaleOversikt: FunctionComponent = () => {
                             varsler={varsler}
                             sokekriterier={søkekriterier}
                         />
+                        <VerticalSpacer rem={1} />
+                        <LesMerOmLøsningen />
                     </section>
                 </div>
-                <LesMerOmLøsningen />
             </main>
         </>
     );
