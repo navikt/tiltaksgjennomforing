@@ -18,7 +18,7 @@ const LesMerOmLøsningen: FunctionComponent = () => (
     >
         <div style={{ display: 'flex' }}>
             <Info width="24" height="24" />
-            <Normaltekst className={''}>Les mer om løsningen</Normaltekst>
+            <Normaltekst>Les mer om løsningen</Normaltekst>
         </div>
     </LenkepanelBase>
 );
