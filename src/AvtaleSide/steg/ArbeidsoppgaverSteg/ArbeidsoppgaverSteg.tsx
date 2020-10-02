@@ -1,13 +1,34 @@
 import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import NyttArbeidsoppgaverSteg from '@/AvtaleSide/steg/ArbeidsoppgaverSteg/NyttArbeidsoppgaverSteg';
-import GamleArbeidsoppgaverSteg from '@/AvtaleSide/steg/ArbeidsoppgaverSteg/GamleArbeidsoppgaverSteg';
+import { FunctionComponent } from 'react';
+import { medContext } from '@/AvtaleContext';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import { Normaltekst } from 'nav-frontend-typografi';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import { Stilling } from '@/types/avtale';
 
-// Når toggle slettes skal NyttArbeidsoppgaverSteg inlines her og GamleArbeidsoppgaverSteg slettes
-export const ArbeidsoppgaverSteg: FunctionComponent = () => {
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const fritekstToggle = featureToggleContext[Feature.ArbeidsoppgaverFritekst];
-
-    return fritekstToggle ? <NyttArbeidsoppgaverSteg /> : <GamleArbeidsoppgaverSteg />;
+const ArbeidsoppgaverSteg: FunctionComponent<InputStegProps<Stilling>> = props => {
+    return (
+        <Innholdsboks utfyller="arbeidsgiver">
+            <SkjemaTittel>Hvilke arbeidsoppgaver skal utføres?</SkjemaTittel>
+            <Normaltekst>
+                Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal utføre hos dere under arbeidstreningen.
+            </Normaltekst>
+            <VerticalSpacer thirtyTwoPx={true} />
+            <PakrevdTextarea
+                label=""
+                verdi={props.avtale.arbeidsoppgaver || ''}
+                settVerdi={verdi => props.settAvtaleVerdi('arbeidsoppgaver', verdi)}
+                maxLengde={1000}
+                feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
+            />
+            <VerticalSpacer thirtyTwoPx={true} />
+            <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+        </Innholdsboks>
+    );
 };
+
+export default medContext(ArbeidsoppgaverSteg);

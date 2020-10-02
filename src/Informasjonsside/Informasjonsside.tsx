@@ -28,7 +28,6 @@ const tilbakeTilOversikt = (pathName: string) => {
 };
 const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
-    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
     const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
 
@@ -119,8 +118,8 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             følgende tilganger til enkeltrettigheter for de ulike avtalene:
                             <ul>
                                 <li>Avtale om arbeidstrening</li>
-                                {lonnstilskuddToggle && <li>Avtale om midlertidig lønnstilskudd</li>}
-                                {lonnstilskuddToggle && <li>Avtale om varig lønnstilskudd</li>}
+                                <li>Avtale om midlertidig lønnstilskudd</li>
+                                <li>Avtale om varig lønnstilskudd</li>
                             </ul>
                             <br />
                             <span className={cls.element('lenke')}>

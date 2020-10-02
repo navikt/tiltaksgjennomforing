@@ -95,7 +95,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     const hvaMangler = () => {
         const feil = [];
-        if (lonnstilskuddToggle && !valgtTiltaksType) {
+        if (!valgtTiltaksType) {
             feil.push('avtaletype');
         }
         if (!validerFnr(deltakerFnr)) {
@@ -126,17 +126,11 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     const featureToggleContext = useContext(FeatureToggleContext);
 
-    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
-
-    if (lonnstilskuddToggle === undefined) return null;
-
     const mentorToggle = featureToggleContext[Feature.Mentor];
 
-    const tittel = lonnstilskuddToggle || mentorToggle ? 'Opprett avtale' : 'Opprett avtale om arbeidstrening';
+    const tittel = 'Opprett avtale';
 
     const enabledFeatureToggleRadioPanel = () => {
-        if (!lonnstilskuddToggle && !mentorToggle) return null;
-
         return (
             <Innholdsboks className={cls.element('innholdsboks')}>
                 <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
@@ -148,24 +142,20 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
                         checked={valgtTiltaksType === 'ARBEIDSTRENING'}
                         onChange={() => setTiltaksType('ARBEIDSTRENING')}
                     />
-                    {lonnstilskuddToggle && (
-                        <>
-                            <RadioPanel
-                                name="tiltakstype"
-                                label="Midlertidig lønnstilskudd"
-                                value="MIDLERTIDIG_LONNSTILSKUDD"
-                                checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                                onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
-                            />
-                            <RadioPanel
-                                name="tiltakstype"
-                                label="Varig lønnstilskudd"
-                                value="VARIG_LONNSTILSKUDD"
-                                checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                                onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
-                            />
-                        </>
-                    )}
+                    <RadioPanel
+                        name="tiltakstype"
+                        label="Midlertidig lønnstilskudd"
+                        value="MIDLERTIDIG_LONNSTILSKUDD"
+                        checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
+                        onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                    />
+                    <RadioPanel
+                        name="tiltakstype"
+                        label="Varig lønnstilskudd"
+                        value="VARIG_LONNSTILSKUDD"
+                        checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
+                        onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
+                    />
                     {mentorToggle && (
                         <RadioPanel
                             name="tiltakstype"
@@ -224,8 +214,8 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
                     tilganger til enkeltrettigheter for de ulike avtalene:
                     <ul>
                         <li>Avtale om arbeidstrening</li>
-                        {lonnstilskuddToggle && <li>Avtale om midlertidig lønnstilskudd</li>}
-                        {lonnstilskuddToggle && <li>Avtale om varig lønnstilskudd</li>}
+                        <li>Avtale om midlertidig lønnstilskudd</li>
+                        <li>Avtale om varig lønnstilskudd</li>
                     </ul>
                     <p>
                         <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/" target="_blank">
