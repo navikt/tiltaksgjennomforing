@@ -6,6 +6,17 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(2, 10, 2020),
+        tittel: 'Virksomhetsmeny for arbeidsgiver',
+        innhold: (
+            <>
+                Arbeidsgiver må nå velge fra menyen hvilken virksomhet de ønsker å se avtaler på. På denne måten kan vi
+                gi bedre informasjon om hvilke tilganger man har i den valgte virksomheten, og hvilke som mangler. For
+                tiltakene man mangler tilgang på er det mulig å trykke på "Be om tilgang" og bli videresendt til Altinn.
+            </>
+        ),
+    },
+    {
         dato: tilDato(18, 9, 2020),
         tittel: 'Overta avtale',
         innhold: (
