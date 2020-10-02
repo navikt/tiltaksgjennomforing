@@ -8,8 +8,10 @@
     max-width: 530px;
     min-width: 320px;
 
-    &--overflow-visible {
-        overflow: visible;
+    @media (min-height: 710px) {
+        &--overflow-visible {
+            overflow: visible;
+        }
     }
 
     .bekreftelseModal {
@@ -64,12 +66,12 @@
         }
 
         &__topIconContainer {
-            pointer-events: none;
-            z-index: 98;
             display: flex;
             justify-content: center;
-            text-align: center;
             margin: -3.3rem auto 0 auto;
+            @media (max-height: 710px) {
+                display: none;
+            }
         }
 
         &__knapper {
