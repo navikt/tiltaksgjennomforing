@@ -6,8 +6,6 @@ import Navigasjonsbar from './Navigasjonsbar';
 import DatovelgerCaption from './DatovelgerCaption';
 import { datoIkkeTilbakeITid } from '@/utils/datoUtils';
 
-const today = new Date();
-
 interface Props {
     valgtDato: Date;
     velgDato: (dato: Date) => void;
