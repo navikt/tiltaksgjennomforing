@@ -20,7 +20,6 @@ const LesMerOmLøsningen: FunctionComponent = () => (
             <Info width="24" height="24" />
             <Normaltekst className={''}>Les mer om løsningen</Normaltekst>
         </div>
-        <div />
     </LenkepanelBase>
 );
 
