@@ -63,7 +63,6 @@ class Kalender extends React.Component<Props> {
                     localeUtils={localeUtils}
                     firstDayOfWeek={1}
                     navbarElement={<Navigasjonsbar showPreviousButton={true} showNextButton={true} />}
-                    disabledDays={{ before: today }}
                     captionElement={<DatovelgerCaption date={this.props.valgtDato} />}
                     selectedDays={this.props.valgtDato}
                     initialMonth={this.props.valgtDato}

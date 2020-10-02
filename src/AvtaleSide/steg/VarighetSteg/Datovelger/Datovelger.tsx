@@ -70,7 +70,7 @@ class Datovelger extends React.Component<Props, State> {
         const { visKalender } = this.state;
         const classNameFraProps = this.props.className ? this.props.className : '';
         const datoInputClass = classnames({
-            'datovelger__input--harFeil': !this.props.inputRiktigFormatert || this.state.datoTilbakeITid,
+            'datovelger__input--harFeil': !this.props.inputRiktigFormatert,
         });
 
         return (
