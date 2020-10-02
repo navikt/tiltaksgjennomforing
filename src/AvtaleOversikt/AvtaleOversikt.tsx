@@ -1,3 +1,4 @@
+import { ReactComponent as PlussIkon } from '@/assets/ikoner/pluss-tegn.svg';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
 import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
@@ -81,18 +82,18 @@ const AvtaleOversikt: FunctionComponent = () => {
             />
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                {/* {innloggetBruker.erNavAnsatt && <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />}
-
-                {arbeidsgiverOppretterToggle && harTilgangerSomArbeidsgiver && (
-                    <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} tekst="Opprett ny avtale" />
-                )} */}
-
                 <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
                     {innloggetBruker.erNavAnsatt && (
                         <aside style={layout.stylingAvFilter}>
                             {innloggetBruker.erNavAnsatt && (
                                 <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                    <LenkeKnapp path={pathTilOpprettAvtale} tekst="Opprett ny avtale" />
+                                    <LenkeKnapp
+                                        path={pathTilOpprettAvtale}
+                                        style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
+                                    >
+                                        <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                        Opprett ny avtale
+                                    </LenkeKnapp>
                                 </div>
                             )}
                             <VeilederFiltrering endreSøk={endreSøk} />
@@ -104,7 +105,16 @@ const AvtaleOversikt: FunctionComponent = () => {
                             <aside style={layout.stylingAvFilter}>
                                 {arbeidsgiverOppretterToggle && harTilgangerSomArbeidsgiver && (
                                     <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                        <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} tekst="Opprett ny avtale" />
+                                        <LenkeKnapp
+                                            path={pathTilOpprettAvtaleArbeidsgiver}
+                                            style={{
+                                                paddingLeft: '1.5rem',
+                                                paddingRight: '1.5rem',
+                                            }}
+                                        >
+                                            <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                            Opprett ny avtale
+                                        </LenkeKnapp>
                                     </div>
                                 )}
                                 <ArbeidsgiverFiltrering endreSøk={endreSøk} />
