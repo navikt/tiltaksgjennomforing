@@ -7,6 +7,7 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import { hentBedriftBrreg, opprettAvtale } from '@/services/rest-service';
@@ -21,9 +22,9 @@ import Lenke from 'nav-frontend-lenker';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
-import { useHistory } from 'react-router-dom';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -129,12 +130,11 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
 
-    const tittel = 'Opprett avtale';
-
     const enabledFeatureToggleRadioPanel = () => {
         return (
-            <Innholdsboks className={cls.element('innholdsboks')}>
-                <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
+            <Innholdsboks>
+                <Systemtittel>Velg type avtale</Systemtittel>
+                <VerticalSpacer rem={1} />
                 <div className={cls.element('tiltakstypeWrapper')}>
                     <RadioPanel
                         name="tiltakstype"
@@ -173,10 +173,14 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
 
     return (
         <div className="opprett-avtale">
-            <Innholdstittel className="opprett-avtale__tittel">{tittel}</Innholdstittel>
+            <VerticalSpacer rem={1} />
+            <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
+            <VerticalSpacer rem={2} />
             {enabledFeatureToggleRadioPanel()}
-            <Innholdsboks className={cls.element('innholdsboks')}>
-                <Systemtittel className={cls.element('innholdstittel')}>Knytt avtalen til andre parter</Systemtittel>
+            <VerticalSpacer rem={2} />
+            <Innholdsboks>
+                <Systemtittel>Knytt avtalen til andre parter</Systemtittel>
+                <VerticalSpacer rem={1} />
                 <div className="opprett-avtale__input-wrapper">
                     <div className="opprett-avtale__kandidat-fnr">
                         <Input
@@ -204,6 +208,7 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
                     </div>
                 </div>
             </Innholdsboks>
+            <VerticalSpacer rem={2} />
             <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
                 <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
                     Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved NAV.
