@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
 import { Context, medContext } from '@/AvtaleContext';
 import { pathTilStegIAvtale } from '@/paths';
+import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
+import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
+import { Link } from 'react-router-dom';
 import { StegInfo } from '../AvtaleSide';
 import './NesteForrige.less';
-import { Link } from 'react-router-dom';
-import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
-import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
 
 export interface Props {
     avtaleSteg: StegInfo[];
@@ -38,7 +38,10 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
         <div className="nesteforrige">
             {forrigeSteg && (
                 <Link
-                    to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}
+                    to={{
+                        pathname: pathTilStegIAvtale(props.avtale.id, forrigeSteg.id),
+                        search: window.location.search,
+                    }}
                     onClick={props.endretSteg}
                     className="lenke"
                 >
@@ -48,7 +51,7 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
             )}
             {nesteSteg && (
                 <Link
-                    to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}
+                    to={{ pathname: pathTilStegIAvtale(props.avtale.id, nesteSteg.id), search: window.location.search }}
                     className="nesteforrige__nesteknapp lenke"
                     onClick={props.endretSteg}
                 >
