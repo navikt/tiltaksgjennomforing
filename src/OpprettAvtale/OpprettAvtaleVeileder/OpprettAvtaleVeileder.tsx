@@ -21,16 +21,17 @@ import Lenke from 'nav-frontend-lenker';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
-import { RouterProps, withRouter } from 'react-router';
 import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
+import { useHistory } from 'react-router-dom';
 
 const cls = BEMHelper('opprett-avtale');
 
-const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
+const OpprettAvtaleVeileder: FunctionComponent = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
+    const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
         verdi => {
@@ -116,7 +117,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
         if (!hvaSomManglerTekst && valgtTiltaksType) {
             const avtale = await opprettAvtale(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-            props.history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
+            history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
         } else {
             throw new UfullstendigError(hvaSomManglerTekst);
         }
@@ -242,4 +243,4 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
     );
 };
 
-export default withRouter(OpprettAvtaleVeileder);
+export default OpprettAvtaleVeileder;

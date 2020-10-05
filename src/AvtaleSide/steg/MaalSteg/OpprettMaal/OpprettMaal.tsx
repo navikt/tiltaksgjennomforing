@@ -11,19 +11,23 @@ import './OpprettMaal.less';
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
     ledigeMaalkategorier: Maalkategori[];
-    mellomLagretMaal: TemporaryLagring;
+    mellomLagretMaal: TemporaryLagring | undefined;
     setMellomLagring: (maalInput: TemporaryLagring) => void;
     fjernMellomLagring: () => void;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
 class OpprettMaal extends React.Component<Props & Godkjenninger> {
-    setInnMellomLagring = () => {
-        return this.props.mellomLagretMaal.maal !== undefined && this.props.mellomLagretMaal.maalTekst !== '';
+    erNoeMellomLagret = () => {
+        return (
+            this.props.mellomLagretMaal &&
+            this.props.mellomLagretMaal.maal !== undefined &&
+            this.props.mellomLagretMaal.maalTekst !== ''
+        );
     };
 
     state = {
-        visRedigerMaal: this.setInnMellomLagring(),
+        visRedigerMaal: this.erNoeMellomLagret(),
     };
 
     visRedigerMaal = (skalVises: boolean) => {

@@ -1,22 +1,24 @@
-import { Context, medContext } from '@/AvtaleContext';
 import { pathTilStegIAvtale } from '@/paths';
 import * as React from 'react';
 import { StegInfo } from '../AvtaleSide';
 import './Stegmeny.less';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
+import { FunctionComponent, useContext } from 'react';
+import { AvtaleContext } from '@/NyAvtaleProvider';
 
 interface Props {
     steg: StegInfo[];
     aktivtSteg: StegInfo;
 }
 
-const Stegmeny = (props: Context & Props) => {
+const Stegmeny: FunctionComponent<Props> = (props: Props) => {
+    const { avtale } = useContext(AvtaleContext);
     const stegLenker = props.steg.map(steg => (
         <StegmenyLenke
             label={steg.label}
             aktiv={props.aktivtSteg === steg}
             ferdig={false}
-            url={pathTilStegIAvtale(props.avtale.id, steg.id)}
+            url={pathTilStegIAvtale(avtale.id, steg.id)}
             key={steg.id}
         />
     ));
@@ -24,4 +26,4 @@ const Stegmeny = (props: Context & Props) => {
     return <nav className="stegmeny">{stegLenker}</nav>;
 };
 
-export default medContext(Stegmeny);
+export default Stegmeny;

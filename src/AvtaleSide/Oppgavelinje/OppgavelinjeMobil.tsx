@@ -1,4 +1,4 @@
-import { AvtaleContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/NyAvtaleProvider';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { ApiError } from '@/types/errors';
@@ -6,6 +6,7 @@ import BEMHelper from '@/utils/bem';
 import { Menyknapp } from 'nav-frontend-ikonknapper';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 import React, { useContext, useState } from 'react';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 
 const cls = BEMHelper('avtaleside');
 
@@ -20,15 +21,16 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
         return setDropdown(event.currentTarget);
     };
 
-    const context = useContext(AvtaleContext);
+    const { ulagredeEndringer, lagreAvtale } = useContext(AvtaleContext);
+    const visFeilmelding = useContext(FeilVarselContext);
 
     const lagreEndringer = async () => {
-        if (context.harUlagredeEndringer()) {
+        if (ulagredeEndringer) {
             try {
-                await context.lagreAvtale();
+                await lagreAvtale();
             } catch (error) {
                 if (error instanceof ApiError) {
-                    return context.visFeilmelding(error.message);
+                    return visFeilmelding(error.message);
                 }
                 throw error;
             }

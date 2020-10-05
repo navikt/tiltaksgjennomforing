@@ -1,10 +1,10 @@
 import stegFullfortIkon from '@/assets/ikoner/check.svg';
 import stegIkkeFullfortIkon from '@/assets/ikoner/steg-ikke-fullfort.svg';
-import { Context, medContext } from '@/AvtaleContext';
 import * as React from 'react';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './StegmenyLenke.less';
+import { AvtaleContext } from '@/NyAvtaleProvider';
 
 interface Props {
     label: string;
@@ -13,7 +13,9 @@ interface Props {
     url: string;
 }
 
-const StegmenyLenke: FunctionComponent<Context & Props> = props => {
+const StegmenyLenke: FunctionComponent<Props> = props => {
+    const avtaleContext = useContext(AvtaleContext);
+
     let className = 'stegmenylenke';
     if (props.aktiv) {
         className += ' aktiv';
@@ -22,7 +24,7 @@ const StegmenyLenke: FunctionComponent<Context & Props> = props => {
         <Link
             to={{ pathname: props.url, search: window.location.search }}
             className={className}
-            onClick={props.endretSteg}
+            onClick={avtaleContext.endretSteg}
         >
             <img src={props.ferdig ? stegFullfortIkon : stegIkkeFullfortIkon} className="hidden" alt="status" />
             <span className="stegmenylenke__label">{props.label}</span>
@@ -30,4 +32,4 @@ const StegmenyLenke: FunctionComponent<Context & Props> = props => {
     );
 };
 
-export default medContext(StegmenyLenke);
+export default StegmenyLenke;

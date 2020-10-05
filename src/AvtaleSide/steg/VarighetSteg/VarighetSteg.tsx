@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import Datovelger from './Datovelger/Datovelger';
 import moment, { Moment } from 'moment';
@@ -7,31 +7,32 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';
 import { Varighet } from '@/types/avtale';
-import { medContext } from '@/AvtaleContext';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import { accurateHumanize } from '@/utils/datoUtils';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { AvtaleContext } from '@/NyAvtaleProvider';
 
-const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
+const VarighetSteg: FunctionComponent = props => {
+    const avtaleContext: InputStegProps<Varighet> = useContext(AvtaleContext);
     const [startDatoRiktigFormatert, setStartDatoRiktigFormatert] = useState<boolean>(true);
     const [sluttDatoRiktigFormatert, setSluttDatoRiktigFormatert] = useState<boolean>(true);
 
     const velgStartDato = (dato: Moment) => {
         setStartDatoRiktigFormatert(true);
-        props.settAvtaleVerdi('startDato', dato.toISOString(true).split('+')[0]);
+        avtaleContext.settAvtaleVerdi('startDato', dato.toISOString(true).split('+')[0]);
     };
 
     const velgSluttDato = (dato: Moment) => {
         setSluttDatoRiktigFormatert(true);
-        props.settAvtaleVerdi('sluttDato', dato.toISOString(true).split('+')[0]);
+        avtaleContext.settAvtaleVerdi('sluttDato', dato.toISOString(true).split('+')[0]);
     };
 
-    const timerIUka = Number(((37.5 * props.avtale.stillingprosent) / 100).toFixed(2));
+    const timerIUka = Number(((37.5 * avtaleContext.avtale.stillingprosent) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
-    const duration = moment(props.avtale.sluttDato).diff(props.avtale.startDato, 'days');
+    const duration = moment(avtaleContext.avtale.sluttDato).diff(avtaleContext.avtale.startDato, 'days');
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
     return (
         <Innholdsboks utfyller="arbeidsgiver">
@@ -46,7 +47,7 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
                         <label className="skjemaelement__label">Startdato</label>
                         <Datovelger
                             velgDato={velgStartDato}
-                            dato={moment(props.avtale.startDato)}
+                            dato={moment(avtaleContext.avtale.startDato)}
                             settRiktigFormatert={() => setStartDatoRiktigFormatert(true)}
                             inputRiktigFormatert={startDatoRiktigFormatert}
                         />
@@ -55,7 +56,7 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
                         <label className="skjemaelement__label">Sluttdato</label>
                         <Datovelger
                             velgDato={velgSluttDato}
-                            dato={moment(props.avtale.sluttDato)}
+                            dato={moment(avtaleContext.avtale.sluttDato)}
                             settRiktigFormatert={() => setSluttDatoRiktigFormatert(true)}
                             inputRiktigFormatert={sluttDatoRiktigFormatert}
                         />
@@ -64,16 +65,16 @@ const VarighetSteg: FunctionComponent<InputStegProps<Varighet>> = props => {
                 <VerticalSpacer sixteenPx={true} />
                 <StillingsprosentInput
                     label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={props.avtale.stillingprosent}
-                    settVerdi={verdi => props.settAvtaleVerdi('stillingprosent', verdi)}
+                    verdi={avtaleContext.avtale.stillingprosent}
+                    settVerdi={verdi => avtaleContext.settAvtaleVerdi('stillingprosent', verdi)}
                 />
                 <VerticalSpacer thirtyTwoPx={true} />
                 <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
                 <VerticalSpacer thirtyTwoPx={true} />
-                <LagreKnapp label={'Lagre'} lagre={props.lagreAvtale} suksessmelding={'Avtale lagret'} />
+                <LagreKnapp label={'Lagre'} lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'} />
             </Container>
         </Innholdsboks>
     );
 };
 
-export default medContext(VarighetSteg);
+export default VarighetSteg;

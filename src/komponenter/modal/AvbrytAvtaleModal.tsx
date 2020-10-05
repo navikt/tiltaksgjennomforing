@@ -1,8 +1,6 @@
-import { medContext } from '@/AvtaleContext';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Avbrytelse, AvbrytelseGrunn } from '@/types/avtale';
+import { AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
 import { Datovelger } from 'nav-datovelger';
@@ -22,7 +20,7 @@ interface Props {
 const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
 const cls = BEMHelper('avbryt-avtale-modal');
 
-const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> = props => {
+const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
     const [annetGrunn, setAnnetGrunn] = useState('');
     const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
     const [datoFeil, setDatoFeil] = useState<undefined | SkjemaelementFeil>(undefined);
@@ -160,4 +158,4 @@ const AvbrytAvtaleModal: FunctionComponent<Props & InputStegProps<Avbrytelse>> =
     );
 };
 
-export default medContext(AvbrytAvtaleModal);
+export default AvbrytAvtaleModal;

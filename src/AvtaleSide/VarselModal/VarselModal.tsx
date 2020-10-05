@@ -1,4 +1,4 @@
-import { AvtaleContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/NyAvtaleProvider';
 import HendelseIkon from '@/komponenter/HendelseIkon';
 import IkonModal from '@/komponenter/IkonModal/IkonModal';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -9,14 +9,16 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './VarselModal.less';
+import { BjelleVarselContext } from '@/BjelleVarselProvider';
 
 const cls = BEMHelper('varsel-modal');
 
 const VarselModal: FunctionComponent = () => {
     const [varselModalApen, setVarselModalApen] = useState(false);
-    const avtaleContext = useContext(AvtaleContext);
+    const bjelleVarselContext = useContext(BjelleVarselContext);
+    const { avtale } = useContext(AvtaleContext);
 
-    const ulesteVarsler = avtaleContext.varsler.filter(v => !v.lest);
+    const ulesteVarsler = bjelleVarselContext.varsler.filter(v => !v.lest);
 
     useEffect(() => {
         ulesteVarsler.length && setVarselModalApen(true);
@@ -25,7 +27,7 @@ const VarselModal: FunctionComponent = () => {
     const lukkOgLesVarsler = async () => {
         const ulesteVarselIder = ulesteVarsler.map(v => v.id);
         await settAlleVarselerTilLest(ulesteVarselIder);
-        await avtaleContext.hentVarsler(avtaleContext.avtale.id);
+        await bjelleVarselContext.hentVarsler(avtale.id);
         setVarselModalApen(false);
     };
     const lukkeOgSeHendelselogg = async () => {

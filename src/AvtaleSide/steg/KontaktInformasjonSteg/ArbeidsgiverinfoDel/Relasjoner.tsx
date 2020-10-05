@@ -1,21 +1,18 @@
 import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
-import { Rolle } from '@/AvtaleContext';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { RelasjonerInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Column, Row } from 'nav-frontend-grid';
 import Popover from 'nav-frontend-popover';
 import { RadioPanel } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
+import { AvtaleContext } from '@/NyAvtaleProvider';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const cls = BEMHelper('relasjoner');
-
-type Props = { rolle: Rolle } & InputStegProps<RelasjonerInfo>;
 
 const relasjonHjelpetekst = (
     <div className={cls.element('relasjon-hjelpetekst')}>
@@ -45,7 +42,9 @@ const relasjonHjelpetekst = (
     </div>
 );
 
-const Relasjoner: FunctionComponent<Props> = props => {
+const Relasjoner: FunctionComponent = () => {
+    const { avtale, settAvtaleVerdi } = useContext(AvtaleContext);
+    const { rolle } = useContext(InnloggetBrukerContext);
     const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>();
     return (
         <Row className="">
@@ -74,39 +73,39 @@ const Relasjoner: FunctionComponent<Props> = props => {
                     id="familevalg"
                 >
                     <RadioPanel
-                        disabled={props.rolle === 'VEILEDER'}
+                        disabled={rolle === 'VEILEDER'}
                         label="Ja"
                         name="Ja"
-                        checked={props.avtale.harFamilietilknytning === true}
+                        checked={avtale.harFamilietilknytning}
                         value="ja"
-                        onChange={() => props.settAvtaleVerdi('harFamilietilknytning', true)}
+                        onChange={() => settAvtaleVerdi('harFamilietilknytning', true)}
                     />
                     <RadioPanel
-                        disabled={props.rolle === 'VEILEDER'}
+                        disabled={rolle === 'VEILEDER'}
                         label="Nei"
                         name="Nei"
-                        checked={props.avtale.harFamilietilknytning === false}
+                        checked={!avtale.harFamilietilknytning}
                         value="nei"
                         onChange={() => {
-                            props.settAvtaleVerdi('harFamilietilknytning', false);
-                            props.settAvtaleVerdi('familietilknytningForklaring', null);
+                            settAvtaleVerdi('harFamilietilknytning', false);
+                            settAvtaleVerdi('familietilknytningForklaring', null);
                         }}
                     />
                 </div>
             </Column>
-            {props.avtale.harFamilietilknytning && (
+            {avtale.harFamilietilknytning && (
                 <Column md="12">
                     <VerticalSpacer sixteenPx={true} />
                     <PakrevdTextarea
-                        disabled={props.rolle === 'VEILEDER'}
+                        disabled={rolle === 'VEILEDER'}
                         label="Vennligst utdyp denne relasjonen"
                         maxLengde={500}
-                        verdi={props.avtale.familietilknytningForklaring || ''}
-                        settVerdi={verdi => props.settAvtaleVerdi('familietilknytningForklaring', verdi)}
+                        verdi={avtale.familietilknytningForklaring || ''}
+                        settVerdi={verdi => settAvtaleVerdi('familietilknytningForklaring', verdi)}
                     />
                 </Column>
             )}
-            {props.rolle === 'VEILEDER' && (
+            {rolle === 'VEILEDER' && (
                 <Popover avstandTilAnker={16} onRequestClose={() => setPopoverAnker(undefined)} ankerEl={popoverAnker}>
                     <div style={{ padding: '1rem' }}>Dette fylles ut av arbeidsgiver.</div>
                 </Popover>

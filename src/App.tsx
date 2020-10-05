@@ -4,9 +4,8 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
-import { AvtaleProvider } from './AvtaleContext';
+import NyAvtaleProvider from './NyAvtaleProvider';
 import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
-import AvtaleSide from './AvtaleSide/AvtaleSide';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import { FeilVarselProvider } from './FeilVarselProvider';
 import Informasjonsside from './Informasjonsside/Informasjonsside';
@@ -27,6 +26,8 @@ import {
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
 import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
+import BjelleVarselProvider from '@/BjelleVarselProvider';
+import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 
 addLocaleData(nb);
 
@@ -68,16 +69,18 @@ class App extends React.Component {
                                             exact={true}
                                             component={OpprettelseFullfortArbeidsgiver}
                                         />
-                                        <AvtaleProvider>
-                                            <Route
-                                                path={[
-                                                    pathTilAvtale(':avtaleId'),
-                                                    pathTilStegIAvtale(':avtaleId', ':stegPath'),
-                                                ]}
-                                                exact={true}
-                                                component={AvtaleSide}
-                                            />
-                                        </AvtaleProvider>
+                                        <NyAvtaleProvider>
+                                            <BjelleVarselProvider>
+                                                <Route
+                                                    path={[
+                                                        pathTilAvtale(':avtaleId'),
+                                                        pathTilStegIAvtale(':avtaleId', ':stegPath'),
+                                                    ]}
+                                                    exact={true}
+                                                    component={AvtaleFetcher}
+                                                />
+                                            </BjelleVarselProvider>
+                                        </NyAvtaleProvider>
                                     </RedirectEtterLogin>
                                 </InnloggingBoundary>
                             </FeilVarselProvider>

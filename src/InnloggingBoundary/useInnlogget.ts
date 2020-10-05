@@ -5,6 +5,7 @@ import { ApiError, AutentiseringError } from '@/types/errors';
 import { Organisasjon as AltinnOrganisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { useEffect, useState } from 'react';
 import { FeilkodeError } from './../types/errors';
+import amplitude from '@/utils/amplitude';
 
 export interface Innloggingskilde {
     tittel: string;
@@ -46,7 +47,10 @@ const useInnlogget = (): Innlogget => {
 
     useEffect(() => {
         hentInnloggetBruker()
-            .then(setInnloggetBruker)
+            .then(response => {
+                setInnloggetBruker(response);
+                amplitude.setUserProperties({ rolle: response.rolle });
+            })
             .catch(error => {
                 if (error instanceof AutentiseringError || error instanceof FeilkodeError) {
                     setUinnlogget(true);

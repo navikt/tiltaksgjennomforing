@@ -1,6 +1,6 @@
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/check.svg';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import { AvtaleContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/NyAvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
