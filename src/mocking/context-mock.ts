@@ -58,6 +58,7 @@ const altAvtaleInnhold: Avtale<AltAvtaleinnhold> = {
 export const contextMock: Context = {
     avtale: altAvtaleInnhold,
     settAvtaleVerdi: () => null,
+    settAvtaleVerdier: () => null,
     hentAvtale: () => Promise.resolve(),
     avbrytAvtale: () => Promise.resolve(),
     lagreAvtale: () => Promise.resolve(),

@@ -11,6 +11,8 @@ import { RadioPanel } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import { RelasjonerInfo } from '@/types/avtale';
 
 const cls = BEMHelper('relasjoner');
 
@@ -43,7 +45,7 @@ const relasjonHjelpetekst = (
 );
 
 const Relasjoner: FunctionComponent = () => {
-    const { avtale, settAvtaleVerdi } = useContext(AvtaleContext);
+    const { avtale, settAvtaleVerdier }: InputStegProps<RelasjonerInfo> = useContext(AvtaleContext);
     const { rolle } = useContext(InnloggetBrukerContext);
     const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>();
     return (
@@ -78,7 +80,7 @@ const Relasjoner: FunctionComponent = () => {
                         name="familievalg"
                         checked={avtale.harFamilietilknytning === true}
                         value="ja"
-                        onChange={() => settAvtaleVerdi('harFamilietilknytning', true)}
+                        onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
                     />
                     <RadioPanel
                         disabled={rolle === 'VEILEDER'}
@@ -87,8 +89,10 @@ const Relasjoner: FunctionComponent = () => {
                         checked={avtale.harFamilietilknytning === false}
                         value="nei"
                         onChange={() => {
-                            settAvtaleVerdi('harFamilietilknytning', false);
-                            settAvtaleVerdi('familietilknytningForklaring', null);
+                            settAvtaleVerdier({
+                                familietilknytningForklaring: undefined,
+                                harFamilietilknytning: false,
+                            });
                         }}
                     />
                 </div>
@@ -101,7 +105,7 @@ const Relasjoner: FunctionComponent = () => {
                         label="Vennligst utdyp denne relasjonen"
                         maxLengde={500}
                         verdi={avtale.familietilknytningForklaring || ''}
-                        settVerdi={verdi => settAvtaleVerdi('familietilknytningForklaring', verdi)}
+                        settVerdi={verdi => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
                     />
                 </Column>
             )}

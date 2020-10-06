@@ -21,6 +21,8 @@ export interface TemporaryLagring {
 
 type SettAvtaleVerdi<K extends keyof Avtale> = (felt: K, verdi: Avtale[K]) => void;
 
+type SettFlereAvtaleVerdier = (endringer: Partial<Avtale>) => void;
+
 export interface Context {
     avtale: Avtale<AltAvtaleinnhold>;
     overtaAvtale: () => Promise<void>;
@@ -36,6 +38,7 @@ export interface Context {
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
     settAvtaleVerdi: SettAvtaleVerdi<any>;
+    settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<any>;
     laasOpp: () => Promise<any>;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
@@ -86,11 +89,25 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale();
     };
 
+    /**
+     * @deprecated Bruk heller settAvtaleVerdier, som har bedre typesetting
+     */
     const settAvtaleVerdi = (felt: keyof Avtale, verdi: any) => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             const nyAvtale = { ...avtale, [felt]: verdi };
+            setAvtale(nyAvtale);
+            setUlagredeEndringer(true);
+            return nyAvtale;
+        }
+    };
+
+    const settAvtaleVerdier = (endringer: Partial<Avtale>) => {
+        if (noenHarGodkjentMenIkkeAlle(avtale)) {
+            setOpphevGodkjenningerModalIsOpen(true);
+        } else {
+            const nyAvtale = { ...avtale, ...endringer };
             setAvtale(nyAvtale);
             setUlagredeEndringer(true);
             return nyAvtale;
@@ -180,6 +197,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const avtaleContext: Context = {
         avtale,
         settAvtaleVerdi,
+        settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         avbrytAvtale,
         lagreAvtale,
