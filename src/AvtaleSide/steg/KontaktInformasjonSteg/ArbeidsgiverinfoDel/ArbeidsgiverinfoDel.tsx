@@ -55,7 +55,7 @@ const ArbeidsgiverinfoDel = () => {
                         <TelefonnummerInput
                             label="Telefonnummer"
                             verdi={avtale.arbeidsgiverTlf}
-                            settVerdi={verdi => settAvtaleVerdi('arbeidsgiveravgiftdsad', verdi)}
+                            settVerdi={verdi => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
                         />
                     </Column>
                 </Row>
