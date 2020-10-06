@@ -19,21 +19,18 @@ const VarselModal: FunctionComponent = () => {
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { avtale } = useContext(AvtaleContext);
 
-    const ulesteVarsler = varsler.filter(v => !v.lest);
-
     useEffect(() => {
-        RestService.hentAvtaleVarsler(avtale.id).then(setVarsler);
-    }, []);
-
-    useEffect(() => {
-        if (ulesteVarsler.length > 0) {
-            setVarselModalApen(true);
-        }
-    }, [varsler]);
+        RestService.hentUlesteAvtaleVarsler(avtale.id).then(hentedeVarsler => {
+            if (hentedeVarsler.length > 0) {
+                setVarselModalApen(true);
+            }
+            setVarsler(hentedeVarsler);
+        });
+    }, [avtale]);
 
     const lukkOgLesVarsler = async () => {
-        const ulesteVarselIder = ulesteVarsler.map(v => v.id);
-        await settAlleVarselerTilLest(ulesteVarselIder);
+        const varselIder = varsler.map(v => v.id);
+        await settAlleVarselerTilLest(varselIder);
         setVarselModalApen(false);
     };
     const lukkeOgSeHendelselogg = async () => {
@@ -53,7 +50,7 @@ const VarselModal: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <table className="tabell">
                 <tbody>
-                    {ulesteVarsler.map(v => (
+                    {varsler.map(v => (
                         <tr key={v.id}>
                             <td>
                                 <div style={{ display: 'flex' }}>

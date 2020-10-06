@@ -222,8 +222,8 @@ export const hentUlesteVarsler = async (): Promise<Varsel[]> => {
     return await response.json();
 };
 
-export const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}`);
+export const hentUlesteAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}&lest=false`);
     await handleResponse(response);
     return await response.json();
 };
