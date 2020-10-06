@@ -1,4 +1,3 @@
-import { Rolle } from '@/AvtaleContext';
 import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
 import TidligereVersjoner from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/TidligereVersjoner';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
@@ -6,6 +5,7 @@ import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { AltAvtaleinnhold, Versjonering } from '@/types/avtale';
+import { Rolle } from '@/types/innlogget-bruker';
 import * as React from 'react';
 import MediaQuery from 'react-responsive';
 

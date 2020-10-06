@@ -1,4 +1,4 @@
-import { ArbeidstreningAvtaleinnhold, Avtale, Maal, Oppgave } from '@/types/avtale';
+import { ArbeidstreningAvtaleinnhold, Avtale, Maal } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -10,15 +10,6 @@ const maalListe: Maal[] = [
         id: '26cfdb72-1efd-11e9-ab14-d663bd873d93',
         kategori: 'ANNET',
         beskrivelse: 'Hadde vært fint med noe annet også',
-    },
-];
-
-const oppgaveListe: Oppgave[] = [
-    {
-        id: 'a1a98572-6771-467a-99f1-141870c286cc',
-        tittel: 'Flytte varer',
-        beskrivelse: 'skal flytte varer',
-        opplaering: 'for å flytte varer',
     },
 ];
 
@@ -67,7 +58,6 @@ const arbeidstreningAvtaleMock: Avtale<ArbeidstreningAvtaleinnhold> = {
     tiltakstype: 'ARBEIDSTRENING',
 
     maal: maalListe,
-    oppgaver: oppgaveListe,
 
     avbruttDato: '',
     avbruttGrunn: '',

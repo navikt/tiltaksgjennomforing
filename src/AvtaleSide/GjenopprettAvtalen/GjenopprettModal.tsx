@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import { AvtaleContext } from '@/AvtaleContext';
-
+import React, { useContext } from 'react';
 interface Props {
     isOpen: boolean;
     lukkModal: () => void;

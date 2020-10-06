@@ -1,16 +1,15 @@
-import React from 'react';
+import { AvtaleContext, Context } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import arbeidstreningAvtaleMock from '@/mocking/arbeidstrening-avtale-mock';
 import { mount } from 'enzyme';
+import React from 'react';
 import StillingSteg from './StillingSteg';
-import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
 test('Test ar <StillingSteg> rendres correctly', () => {
     const wrapper = mount(
-        <StillingSteg
-            avtale={lonnstilskuddAvtaleMock}
-            settAvtaleVerdi={() => {}}
-            lagreAvtale={() => Promise.resolve()}
-        />
+        <AvtaleContext.Provider value={{ avtale: arbeidstreningAvtaleMock } as Context}>
+            <StillingSteg />
+        </AvtaleContext.Provider>
     );
     expect(wrapper).toHaveLength(1);
     const innholdsBoks = wrapper.find(Innholdsboks);

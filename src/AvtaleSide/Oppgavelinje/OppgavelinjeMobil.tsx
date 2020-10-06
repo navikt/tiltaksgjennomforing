@@ -1,6 +1,7 @@
-import { AvtaleContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { Menyknapp } from 'nav-frontend-ikonknapper';
@@ -20,15 +21,16 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
         return setDropdown(event.currentTarget);
     };
 
-    const context = useContext(AvtaleContext);
+    const { ulagredeEndringer, lagreAvtale } = useContext(AvtaleContext);
+    const visFeilmelding = useContext(FeilVarselContext);
 
     const lagreEndringer = async () => {
-        if (context.harUlagredeEndringer()) {
+        if (ulagredeEndringer) {
             try {
-                await context.lagreAvtale();
+                await lagreAvtale();
             } catch (error) {
                 if (error instanceof ApiError) {
-                    return context.visFeilmelding(error.message);
+                    return visFeilmelding(error.message);
                 }
                 throw error;
             }

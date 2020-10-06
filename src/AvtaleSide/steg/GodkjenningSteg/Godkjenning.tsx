@@ -1,10 +1,10 @@
-import { Rolle } from '@/AvtaleContext';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale, GodkjentPaVegneGrunner } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
+import { Rolle } from '@/types/innlogget-bruker';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';

@@ -1,13 +1,13 @@
 import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
-import { Rolle } from '@/AvtaleContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { hentAvtaleStatusDetaljer } from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
+import { Rolle } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import { Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { useEffect, useState } from 'react';

@@ -1,5 +1,4 @@
-import { medContext, Rolle } from '@/AvtaleContext';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import { AvtaleContext } from '@/AvtaleProvider';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
@@ -10,7 +9,7 @@ import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { AvtaleMetadata, Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
+import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import {
     arbeidsgiverAvgift,
@@ -26,11 +25,9 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
-
 const cls = BEMHelper('beregningTilskuddSteg');
 
-const feriepengeAlternativer = (erOver60: boolean) => {
-    // const satser = erOver60 ? [0.12, 0.143] : [0.102, 0.125];
+const feriepengeAlternativer = () => {
     const satser = [0.12, 0.143, 0.102, 0.125];
     return satser.map((sats: number) => ({
         label: (sats * 100).toFixed(1) + ' %',
@@ -50,12 +47,9 @@ const arbeidsgiveravgiftAlternativer = () => {
     return satserVerdier;
 };
 
-const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag & Kontonummer> & {
-    avtale: AvtaleMetadata;
-    rolle: Rolle;
-}> = props => {
+const BeregningTilskuddSteg: FunctionComponent = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { settAvtaleVerdi, avtale } = props;
+    const { avtale, settAvtaleVerdi, lagreAvtale } = useContext(AvtaleContext);
     const {
         manedslonn,
         feriepengesats,
@@ -65,7 +59,7 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
         sumLonnsutgifter,
         arbeidsgiveravgiftBelop,
         lonnstilskuddProsent,
-    } = props.avtale;
+    } = avtale;
 
     useEffect(() => {
         const sjekkOmAvtaleVerdiSkalSettes = (key: keyof Beregningsgrunnlag, nyttBelop: number) => {
@@ -122,9 +116,9 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         Velg sats for refusjon som arbeidsgiver skal få tilbake
                     </Normaltekst>
                     <LonnstilskuddProsent
-                        tiltakstype={props.avtale.tiltakstype}
-                        lonnstilskuddProsent={props.avtale.lonnstilskuddProsent}
-                        settLonnstilskuddProsent={verdi => props.settAvtaleVerdi('lonnstilskuddProsent', verdi)}
+                        tiltakstype={avtale.tiltakstype}
+                        lonnstilskuddProsent={avtale.lonnstilskuddProsent}
+                        settLonnstilskuddProsent={verdi => settAvtaleVerdi('lonnstilskuddProsent', verdi)}
                     />
                     <VerticalSpacer sixteenPx={true} />
                 </>
@@ -138,9 +132,9 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         name="manedslonn"
                         bredde="S"
                         label="Månedslønn før skatt"
-                        value={props.avtale.manedslonn}
+                        value={avtale.manedslonn}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            props.settAvtaleVerdi('manedslonn', parseFloat(event.target.value));
+                            settAvtaleVerdi('manedslonn', parseFloat(event.target.value));
                         }}
                         min={10000}
                         max={65000}
@@ -154,12 +148,12 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         Velg sats for feriepenger som arbeidstaker skal ha
                     </Normaltekst>
                     <RadioPanelGruppeHorisontal
-                        radios={feriepengeAlternativer(true)}
+                        radios={feriepengeAlternativer()}
                         name="feriepengesats"
-                        checked={props.avtale.feriepengesats + ''}
+                        checked={avtale.feriepengesats + ''}
                         legend=""
                         onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                            props.settAvtaleVerdi('feriepengesats', parseFloat(verdi))
+                            settAvtaleVerdi('feriepengesats', parseFloat(verdi))
                         }
                     />
                     <VerticalSpacer twentyPx={true} />
@@ -173,38 +167,36 @@ const BeregningTilskuddSteg: FunctionComponent<InputStegProps<Beregningsgrunnlag
                         options={arbeidsgiveravgiftAlternativer()}
                         label="Sats for arbeidsgiveravgift"
                         children=""
-                        value={props.avtale.arbeidsgiveravgift}
+                        value={avtale.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                            props.settAvtaleVerdi('arbeidsgiveravgift', parseFloatIfFloatable(event.target.value));
+                            settAvtaleVerdi('arbeidsgiveravgift', parseFloatIfFloatable(event.target.value));
                         }}
                     />
                     <KontonummerInput
                         bredde={'L'}
                         label={'Kontonummer'}
-                        value={props.avtale.arbeidsgiverKontonummer}
+                        value={avtale.arbeidsgiverKontonummer}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            props.settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
+                            settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
                         }}
                     />
-                    <VisUtregningenPanel {...props.avtale} />
+                    <VisUtregningenPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
-                    {innloggetBruker.erNavAnsatt &&
-                        props.avtale.stillingprosent > 0 &&
-                        props.avtale.stillingprosent < 100 && (
-                            <ValutaInput
-                                disabled={true}
-                                name="manedslonn100%"
-                                bredde="S"
-                                label="Lønn ved 100% stilling"
-                                value={lonnHundreProsent(sumLonnsutgifter, props.avtale.stillingprosent)}
-                            />
-                        )}
+                    {innloggetBruker.erNavAnsatt && avtale.stillingprosent > 0 && avtale.stillingprosent < 100 && (
+                        <ValutaInput
+                            disabled={true}
+                            name="manedslonn100%"
+                            bredde="S"
+                            label="Lønn ved 100% stilling"
+                            value={lonnHundreProsent(sumLonnsutgifter, avtale.stillingprosent)}
+                        />
+                    )}
                     <VerticalSpacer thirtyTwoPx={true} />
-                    <LagreKnapp lagre={props.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+                    <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>
         </Innholdsboks>
     );
 };
 
-export default medContext(BeregningTilskuddSteg);
+export default BeregningTilskuddSteg;

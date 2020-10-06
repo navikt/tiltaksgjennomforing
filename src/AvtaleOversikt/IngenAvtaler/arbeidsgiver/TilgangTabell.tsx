@@ -1,15 +1,15 @@
+import { ReactComponent as ErrorIkon } from '@/assets/ikoner/error.svg';
+import { ReactComponent as SuccessIkon } from '@/assets/ikoner/success.svg';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { tiltakstypeTekst } from '@/messages';
+import { BeOmRettigheterUrler, hentBeOmRettighetUrler } from '@/services/rest-service';
+import { TiltaksType } from '@/types/avtale';
+import { Tilganger } from '@/types/innlogget-bruker';
+import BEMHelper from '@/utils/bem';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
-import { tiltakstypeTekst } from '@/messages';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { TiltaksType } from '@/types/avtale';
-import BEMHelper from '@/utils/bem';
-import './TilgangTabell.less';
-import { Tilganger } from '@/InnloggingBoundary/useInnlogget';
-import { ReactComponent as SuccessIkon } from '@/assets/ikoner/success.svg';
-import { ReactComponent as ErrorIkon } from '@/assets/ikoner/error.svg';
-import { BeOmRettigheterUrler, hentBeOmRettighetUrler } from '@/services/rest-service';
 import { useMediaQuery } from 'react-responsive';
+import './TilgangTabell.less';
 
 const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
 

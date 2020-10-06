@@ -1,13 +1,13 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import GodkjenningSteg from './GodkjenningSteg';
+import { AvtaleContext } from '@/AvtaleProvider';
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
-import { AvtaleContext } from '@/AvtaleContext';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
+import { shallow } from 'enzyme';
+import React from 'react';
+import GodkjenningSteg from './GodkjenningSteg';
 
 test('Test that <GodkjenningSteg> renders correctly', () => {
     const wrapper = shallow(
-        <AvtaleContext.Provider value={lonnstilskuddAvtaleMock as AvtaleContext}>
+        <AvtaleContext.Provider value={lonnstilskuddAvtaleMock}>
             <GodkjenningSteg oppsummering={OppsummeringLonnstilskudd} />
         </AvtaleContext.Provider>
     );

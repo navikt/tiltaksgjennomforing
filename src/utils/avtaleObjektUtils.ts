@@ -13,7 +13,6 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     lonnstilskuddProsent: 0,
     maal: [],
     oppfolging: '',
-    oppgaver: [],
     sluttDato: '',
     startDato: '',
     stillingprosent: 0,

@@ -1,8 +1,8 @@
-import { Rolle } from '@/AvtaleContext';
+import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
+import { Rolle } from '@/types/innlogget-bruker';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import React from 'react';
 import { StegInfo } from '../AvtaleSide';
-import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 
 interface Props {
     avtaleSteg: StegInfo[];

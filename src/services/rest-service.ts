@@ -1,12 +1,11 @@
-import { Rolle } from '@/AvtaleContext';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
-import { InnloggetBruker, Innloggingskilde } from '@/InnloggingBoundary/useInnlogget';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
+import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
 import { FeilkodeError } from './../types/errors';
 
@@ -223,8 +222,8 @@ export const hentUlesteVarsler = async (): Promise<Varsel[]> => {
     return await response.json();
 };
 
-export const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}`);
+export const hentUlesteAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}&lest=false`);
     await handleResponse(response);
     return await response.json();
 };

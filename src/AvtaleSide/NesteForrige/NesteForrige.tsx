@@ -1,9 +1,9 @@
-import { Context, medContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/AvtaleProvider';
 import { pathTilStegIAvtale } from '@/paths';
 import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
 import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
 import * as React from 'react';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { StegInfo } from '../AvtaleSide';
 import './NesteForrige.less';
@@ -31,7 +31,8 @@ const finnNesteSteg = (alleSteg: StegInfo[], steg: StegInfo) => {
     }
 };
 
-const NesteForrige: FunctionComponent<Props & Context> = props => {
+const NesteForrige: FunctionComponent<Props> = props => {
+    const avtaleContext = useContext(AvtaleContext);
     const forrigeSteg = finnForrigeSteg(props.avtaleSteg, props.aktivtSteg);
     const nesteSteg = finnNesteSteg(props.avtaleSteg, props.aktivtSteg);
     return (
@@ -39,10 +40,10 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
             {forrigeSteg && (
                 <Link
                     to={{
-                        pathname: pathTilStegIAvtale(props.avtale.id, forrigeSteg.id),
+                        pathname: pathTilStegIAvtale(avtaleContext.avtale.id, forrigeSteg.id),
                         search: window.location.search,
                     }}
-                    onClick={props.endretSteg}
+                    onClick={avtaleContext.endretSteg}
                     className="lenke"
                 >
                     <VenstreChevron />
@@ -51,9 +52,12 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
             )}
             {nesteSteg && (
                 <Link
-                    to={{ pathname: pathTilStegIAvtale(props.avtale.id, nesteSteg.id), search: window.location.search }}
+                    to={{
+                        pathname: pathTilStegIAvtale(avtaleContext.avtale.id, nesteSteg.id),
+                        search: window.location.search,
+                    }}
                     className="nesteforrige__nesteknapp lenke"
-                    onClick={props.endretSteg}
+                    onClick={avtaleContext.endretSteg}
                 >
                     Neste
                     <HoyreChevron />
@@ -63,4 +67,4 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
     );
 };
 
-export default medContext(NesteForrige);
+export default NesteForrige;

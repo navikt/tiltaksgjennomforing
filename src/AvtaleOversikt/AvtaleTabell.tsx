@@ -1,7 +1,7 @@
-import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { pathTilAvtale } from '@/paths';
 import { Avtale } from '@/types/avtale';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';

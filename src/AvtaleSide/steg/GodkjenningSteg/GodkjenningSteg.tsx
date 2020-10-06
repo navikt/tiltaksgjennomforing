@@ -1,4 +1,4 @@
-import { AvtaleContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/AvtaleProvider';
 import { FordelAvtaleVeileder } from '@/AvtaleSide/steg/GodkjenningSteg/FordelAvtaleVeileder';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
@@ -19,15 +19,15 @@ interface Props {
 
 const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, rolle, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
+    const { avtale, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
 
     const skalViseGodkjenning = !innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt);
 
     return (
         <>
-            {avtale.erUfordelt && rolle !== 'VEILEDER' && <UfordeltStatusArbeidsgiverDeltaker />}
+            {avtale.erUfordelt && innloggetBruker.rolle !== 'VEILEDER' && <UfordeltStatusArbeidsgiverDeltaker />}
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
-            {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={rolle} />}
+            {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />}
             <Innholdsboks>
                 <div
                     style={{
@@ -49,12 +49,12 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
             {skalViseGodkjenning && (
                 <Godkjenning
                     avtale={avtale}
-                    rolle={rolle}
+                    rolle={innloggetBruker.rolle}
                     endreGodkjenning={godkjenn}
                     godkjennPaVegne={godkjennPaVegne}
                 />
             )}
-            <VersjoneringKomponent laasOpp={laasOpp} avtale={avtale} rolle={rolle} />
+            <VersjoneringKomponent laasOpp={laasOpp} avtale={avtale} rolle={innloggetBruker.rolle} />
         </>
     );
 };

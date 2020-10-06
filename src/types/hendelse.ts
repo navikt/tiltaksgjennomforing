@@ -1,4 +1,5 @@
-import { Rolle } from '@/AvtaleContext';
+import { Rolle } from './innlogget-bruker';
+
 export type Hendelse = {
     id: string;
     tidspunkt: string;
@@ -23,4 +24,4 @@ export type HendelseType =
     | 'OPPRETTET_AV_ARBEIDSGIVER'
     | 'LÅST_OPP'
     | 'NY_VEILEDER'
-    | 'UTKAST_AKSEPTERT';
+    | 'AVTALE_FORDELT';

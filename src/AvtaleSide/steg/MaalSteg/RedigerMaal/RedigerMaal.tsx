@@ -1,4 +1,4 @@
-import { TemporaryLagring } from '@/AvtaleContext';
+import { TemporaryLagring } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Maal } from '@/types/avtale';
 import { ApiError } from '@/types/errors';

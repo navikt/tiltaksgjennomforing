@@ -7,6 +7,7 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import { hentBedriftBrreg, opprettAvtale } from '@/services/rest-service';
@@ -21,16 +22,17 @@ import Lenke from 'nav-frontend-lenker';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
-import { RouterProps, withRouter } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
-const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
+const OpprettAvtaleVeileder: FunctionComponent = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
+    const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
         verdi => {
@@ -116,7 +118,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
         if (!hvaSomManglerTekst && valgtTiltaksType) {
             const avtale = await opprettAvtale(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-            props.history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
+            history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
         } else {
             throw new UfullstendigError(hvaSomManglerTekst);
         }
@@ -128,12 +130,11 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
 
-    const tittel = 'Opprett avtale';
-
     const enabledFeatureToggleRadioPanel = () => {
         return (
-            <Innholdsboks className={cls.element('innholdsboks')}>
-                <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
+            <Innholdsboks>
+                <Systemtittel>Velg type avtale</Systemtittel>
+                <VerticalSpacer rem={1} />
                 <div className={cls.element('tiltakstypeWrapper')}>
                     <RadioPanel
                         name="tiltakstype"
@@ -172,10 +173,14 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     return (
         <div className="opprett-avtale">
-            <Innholdstittel className="opprett-avtale__tittel">{tittel}</Innholdstittel>
+            <VerticalSpacer rem={1} />
+            <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
+            <VerticalSpacer rem={2} />
             {enabledFeatureToggleRadioPanel()}
-            <Innholdsboks className={cls.element('innholdsboks')}>
-                <Systemtittel className={cls.element('innholdstittel')}>Knytt avtalen til andre parter</Systemtittel>
+            <VerticalSpacer rem={2} />
+            <Innholdsboks>
+                <Systemtittel>Knytt avtalen til andre parter</Systemtittel>
+                <VerticalSpacer rem={1} />
                 <div className="opprett-avtale__input-wrapper">
                     <div className="opprett-avtale__kandidat-fnr">
                         <Input
@@ -203,6 +208,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
                     </div>
                 </div>
             </Innholdsboks>
+            <VerticalSpacer rem={2} />
             <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
                 <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
                     Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved NAV.
@@ -242,4 +248,4 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
     );
 };
 
-export default withRouter(OpprettAvtaleVeileder);
+export default OpprettAvtaleVeileder;

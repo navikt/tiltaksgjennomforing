@@ -31,7 +31,6 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     mentorOppgaver: 'mentors oppgaver',
     mentorTimelonn: 'mentors timelønn',
     oppfolging: 'oppfølging',
-    oppgaver: 'oppgaver',
     sluttDato: 'sluttdato',
     startDato: 'startdato',
     stillingprosent: 'stillingsprosent',
@@ -66,7 +65,7 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     SMS_VARSLING_FEILET: 'Varsling på SMS har feilet',
     GJENOPPRETTET: 'Avtale gjenopprettet',
     NY_VEILEDER: 'Avtale tildelt ny veileder',
-    UTKAST_AKSEPTERT: 'Avtale tildelt veileder',
+    AVTALE_FORDELT: 'Avtale tildelt veileder',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
