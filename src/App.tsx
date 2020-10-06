@@ -1,5 +1,4 @@
 import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
-import BjelleVarselProvider from '@/BjelleVarselProvider';
 import { messages } from '@/messages';
 import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 import * as React from 'react';
@@ -70,16 +69,14 @@ class App extends React.Component {
                                             component={OpprettelseFullfortArbeidsgiver}
                                         />
                                         <AvtaleProvider>
-                                            <BjelleVarselProvider>
-                                                <Route
-                                                    path={[
-                                                        pathTilAvtale(':avtaleId'),
-                                                        pathTilStegIAvtale(':avtaleId', ':stegPath'),
-                                                    ]}
-                                                    exact={true}
-                                                    component={AvtaleFetcher}
-                                                />
-                                            </BjelleVarselProvider>
+                                            <Route
+                                                path={[
+                                                    pathTilAvtale(':avtaleId'),
+                                                    pathTilStegIAvtale(':avtaleId', ':stegPath'),
+                                                ]}
+                                                exact={true}
+                                                component={AvtaleFetcher}
+                                            />
                                         </AvtaleProvider>
                                     </RedirectEtterLogin>
                                 </InnloggingBoundary>

@@ -1,6 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleSide from '@/AvtaleSide/AvtaleSide';
-import { BjelleVarselContext } from '@/BjelleVarselProvider';
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import amplitude from '@/utils/amplitude';
 import { handterFeil } from '@/utils/apiFeilUtils';
@@ -15,11 +14,10 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
     const { avtaleId } = useParams();
     const visFeilmelding = useContext(FeilVarselContext);
-    const { hentVarsler } = useContext(BjelleVarselContext);
     const { hentAvtale } = useContext(AvtaleContext);
 
     useEffect(() => {
-        Promise.all([hentAvtale(avtaleId), hentVarsler(avtaleId)])
+        hentAvtale(avtaleId)
             .then(() => {
                 setLastetOk(true);
                 amplitude.logEvent('#tiltak-avtale-lastet');
