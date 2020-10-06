@@ -75,16 +75,16 @@ const Relasjoner: FunctionComponent = () => {
                     <RadioPanel
                         disabled={rolle === 'VEILEDER'}
                         label="Ja"
-                        name="Ja"
-                        checked={avtale.harFamilietilknytning}
+                        name="familievalg"
+                        checked={avtale.harFamilietilknytning === true}
                         value="ja"
                         onChange={() => settAvtaleVerdi('harFamilietilknytning', true)}
                     />
                     <RadioPanel
                         disabled={rolle === 'VEILEDER'}
                         label="Nei"
-                        name="Nei"
-                        checked={!avtale.harFamilietilknytning}
+                        name="familievalg"
+                        checked={avtale.harFamilietilknytning === false}
                         value="nei"
                         onChange={() => {
                             settAvtaleVerdi('harFamilietilknytning', false);

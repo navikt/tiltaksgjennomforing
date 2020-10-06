@@ -152,6 +152,7 @@ export interface Avbrytelse {
     avbruttDato: string;
     avbruttGrunn: AvbrytelseGrunn;
 }
+
 export interface GodkjentPaVegneGrunner {
     ikkeBankId: boolean;
     reservert: boolean;
@@ -159,7 +160,7 @@ export interface GodkjentPaVegneGrunner {
 }
 
 export interface RelasjonerInfo {
-    harFamilietilknytning: boolean;
+    harFamilietilknytning?: boolean;
     familietilknytningForklaring?: string;
 }
 

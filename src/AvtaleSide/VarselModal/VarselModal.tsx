@@ -26,7 +26,7 @@ const VarselModal: FunctionComponent = () => {
             }
             setVarsler(hentedeVarsler);
         });
-    }, [avtale]);
+    }, [avtale.id]);
 
     const lukkOgLesVarsler = async () => {
         const varselIder = varsler.map(v => v.id);
