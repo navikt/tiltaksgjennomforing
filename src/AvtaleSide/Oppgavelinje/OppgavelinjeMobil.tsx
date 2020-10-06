@@ -1,12 +1,12 @@
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { Menyknapp } from 'nav-frontend-ikonknapper';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 import React, { useContext, useState } from 'react';
-import { FeilVarselContext } from '@/FeilVarselProvider';
 
 const cls = BEMHelper('avtaleside');
 

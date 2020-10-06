@@ -1,4 +1,5 @@
 import { ReactComponent as BurgerMenyIkon } from '@/assets/ikoner/burgermeny.svg';
+import { AvtaleContext } from '@/AvtaleProvider';
 import HendelseIkon from '@/komponenter/HendelseIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hendelseTekst } from '@/messages';
@@ -17,7 +18,6 @@ import 'nav-frontend-tabell-style';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './Hendelselogg.less';
-import { AvtaleContext } from '@/NyAvtaleProvider';
 
 const cls = BEMHelper('hendelselogg');
 

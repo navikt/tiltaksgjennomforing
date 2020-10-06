@@ -3,6 +3,7 @@ import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/rest-service';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
 import NAVSPA from '@navikt/navspa';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
@@ -10,7 +11,7 @@ import { useCookies } from 'react-cookie';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
-import useInnlogget, { InnloggetBruker } from './useInnlogget';
+import useInnlogget from './useInnlogget';
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');

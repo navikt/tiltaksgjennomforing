@@ -1,33 +1,9 @@
-import { Rolle } from '@/AvtaleContext';
 import { hentInnloggetBruker, hentInnloggingskilder } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
-import { Organisasjon as AltinnOrganisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { InnloggetBruker, Innloggingskilde } from '@/types/innlogget-bruker';
+import amplitude from '@/utils/amplitude';
 import { useEffect, useState } from 'react';
 import { FeilkodeError } from './../types/errors';
-import amplitude from '@/utils/amplitude';
-
-export interface Innloggingskilde {
-    tittel: string;
-    part: string;
-    url: string;
-}
-
-export type Tilganger = { [bedriftNr: string]: TiltaksType[] };
-
-export interface InnloggetBruker {
-    identifikator: string;
-    erNavAnsatt: boolean;
-    altinnOrganisasjoner: AltinnOrganisasjon[];
-    rolle: Rolle;
-    tilganger: Tilganger;
-}
-
-export interface Organisasjon {
-    bedriftNavn: string;
-    bedriftNr: string;
-    tilgangstyper: TiltaksType[];
-}
 
 export interface Innlogget {
     innloggetBruker: InnloggetBruker | null;

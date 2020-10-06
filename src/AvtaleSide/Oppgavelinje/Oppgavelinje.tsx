@@ -1,11 +1,11 @@
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
 import OppgavelinjeMobil from '@/AvtaleSide/Oppgavelinje/OppgavelinjeMobil';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import React, { useContext, useEffect, useState } from 'react';
-import { FeilVarselContext } from '@/FeilVarselProvider';
 
 interface Props {
     enableScreenSizeCheck: boolean;

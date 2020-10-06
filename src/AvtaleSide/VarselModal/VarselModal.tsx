@@ -1,4 +1,5 @@
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { BjelleVarselContext } from '@/BjelleVarselProvider';
 import HendelseIkon from '@/komponenter/HendelseIkon';
 import IkonModal from '@/komponenter/IkonModal/IkonModal';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -9,7 +10,6 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './VarselModal.less';
-import { BjelleVarselContext } from '@/BjelleVarselProvider';
 
 const cls = BEMHelper('varsel-modal');
 

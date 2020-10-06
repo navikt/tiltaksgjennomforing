@@ -1,15 +1,16 @@
-import { Avtale, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
+import { FeilVarselContext } from '@/FeilVarselProvider';
+import { AltAvtaleinnhold, Avtale, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
+import { ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Maalkategori } from '@/types/maalkategorier';
+import amplitude from '@/utils/amplitude';
 import * as React from 'react';
 import { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import * as RestService from './services/rest-service';
-import amplitude from '@/utils/amplitude';
-import { ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-import { FeilVarselContext } from '@/FeilVarselProvider';
+import { FellesAvtaleinnhold } from './types/avtale';
 
-export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
+export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale<FellesAvtaleinnhold>) => {
     return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
 
@@ -21,7 +22,7 @@ export interface TemporaryLagring {
 type SettAvtaleVerdi<K extends keyof Avtale> = (felt: K, verdi: Avtale[K]) => void;
 
 export interface Context {
-    avtale: Avtale;
+    avtale: Avtale<AltAvtaleinnhold>;
     overtaAvtale: () => Promise<void>;
     gjenopprettAvtale: () => Promise<void>;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
@@ -40,11 +41,9 @@ export interface Context {
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
-export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
-
 export const AvtaleContext = React.createContext<Context>({} as Context);
 
-const NyAvtaleProvider: FunctionComponent = props => {
+const AvtaleProvider: FunctionComponent = props => {
     const [avtale, setAvtale] = useState<Avtale>({} as Avtale);
     const [ulagredeEndringer, setUlagredeEndringer] = useState(false);
     const [opphevGodkjenningerModalIsOpen, setOpphevGodkjenningerModalIsOpen] = useState(false);
@@ -210,4 +209,4 @@ const NyAvtaleProvider: FunctionComponent = props => {
     );
 };
 
-export default NyAvtaleProvider;
+export default AvtaleProvider;

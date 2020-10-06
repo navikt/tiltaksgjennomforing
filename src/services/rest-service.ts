@@ -1,12 +1,11 @@
-import { Rolle } from '@/AvtaleContext';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
-import { InnloggetBruker, Innloggingskilde } from '@/InnloggingBoundary/useInnlogget';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
+import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
 import { FeilkodeError } from './../types/errors';
 

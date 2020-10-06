@@ -1,10 +1,10 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import { pathTilStegIAvtale } from '@/paths';
 import * as React from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { StegInfo } from '../AvtaleSide';
 import './Stegmeny.less';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
-import { FunctionComponent, useContext } from 'react';
-import { AvtaleContext } from '@/NyAvtaleProvider';
 
 interface Props {
     steg: StegInfo[];

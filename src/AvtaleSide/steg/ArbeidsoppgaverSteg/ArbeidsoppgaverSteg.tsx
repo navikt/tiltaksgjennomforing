@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
-import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import { Normaltekst } from 'nav-frontend-typografi';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { Stilling } from '@/types/avtale';
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import { Normaltekst } from 'nav-frontend-typografi';
+import * as React from 'react';
+import { FunctionComponent, useContext } from 'react';
 
 const ArbeidsoppgaverSteg: FunctionComponent = props => {
     const avtaleContext: InputStegProps<Stilling> = useContext(AvtaleContext);

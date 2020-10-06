@@ -1,3 +1,4 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
@@ -7,7 +8,6 @@ import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import * as React from 'react';
 import { useContext } from 'react';
 import Relasjoner from './Relasjoner';
-import { AvtaleContext } from '@/NyAvtaleProvider';
 
 const ArbeidsgiverinfoDel = () => {
     const { avtale, settAvtaleVerdi } = useContext(AvtaleContext);

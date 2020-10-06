@@ -1,18 +1,18 @@
+import { AvtaleContext } from '@/AvtaleProvider';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Varighet } from '@/types/avtale';
+import { accurateHumanize } from '@/utils/datoUtils';
+import moment, { Moment } from 'moment';
+import { Column, Container, Row } from 'nav-frontend-grid';
 import * as React from 'react';
 import { FunctionComponent, useContext, useState } from 'react';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import Datovelger from './Datovelger/Datovelger';
-import moment, { Moment } from 'moment';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import InfoBoks from './InfoBoks/InfoBoks';
-import { Varighet } from '@/types/avtale';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
-import { Column, Container, Row } from 'nav-frontend-grid';
-import { accurateHumanize } from '@/utils/datoUtils';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 
 const VarighetSteg: FunctionComponent = props => {
     const avtaleContext: InputStegProps<Varighet> = useContext(AvtaleContext);

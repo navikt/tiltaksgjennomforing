@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { useContext } from 'react';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Veilederinfo } from '@/types/avtale';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import * as React from 'react';
+import { useContext } from 'react';
 
 const VeilederinfoDel = () => {
     const avtaleContext: InputStegProps<Veilederinfo> = useContext(AvtaleContext);

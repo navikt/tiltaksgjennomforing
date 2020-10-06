@@ -31,7 +31,6 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     mentorOppgaver: 'mentors oppgaver',
     mentorTimelonn: 'mentors timelønn',
     oppfolging: 'oppfølging',
-    oppgaver: 'oppgaver',
     sluttDato: 'sluttdato',
     startDato: 'startdato',
     stillingprosent: 'stillingsprosent',

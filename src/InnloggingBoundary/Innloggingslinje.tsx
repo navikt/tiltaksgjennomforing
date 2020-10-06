@@ -1,5 +1,6 @@
 import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
 import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { EtikettLiten } from 'nav-frontend-typografi';
@@ -7,7 +8,6 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './Innloggingslinje.less';
-import { InnloggetBruker } from './useInnlogget';
 
 type Props = {
     innloggetBruker: InnloggetBruker;

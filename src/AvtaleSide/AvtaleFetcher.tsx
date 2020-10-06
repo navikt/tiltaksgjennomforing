@@ -1,10 +1,10 @@
-import { ApiError } from '@/types/errors';
-import amplitude from '@/utils/amplitude';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { AvtaleContext as NyAvtaleContext } from '@/NyAvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
+import AvtaleSide from '@/AvtaleSide/AvtaleSide';
 import { BjelleVarselContext } from '@/BjelleVarselProvider';
 import { FeilVarselContext } from '@/FeilVarselProvider';
-import AvtaleSide from '@/AvtaleSide/AvtaleSide';
+import amplitude from '@/utils/amplitude';
+import { handterFeil } from '@/utils/apiFeilUtils';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 type Props = {
@@ -16,7 +16,7 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
     const { avtaleId } = useParams();
     const visFeilmelding = useContext(FeilVarselContext);
     const { hentVarsler } = useContext(BjelleVarselContext);
-    const { hentAvtale } = useContext(NyAvtaleContext);
+    const { hentAvtale } = useContext(AvtaleContext);
 
     useEffect(() => {
         Promise.all([hentAvtale(avtaleId), hentVarsler(avtaleId)])
@@ -25,10 +25,8 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
                 amplitude.logEvent('#tiltak-avtale-lastet');
             })
             .catch(error => {
-                if (error instanceof ApiError) {
-                    visFeilmelding('Kan ikke åpne avtale.');
-                    setLastetOk(false);
-                }
+                setLastetOk(false);
+                handterFeil(error, visFeilmelding, 'Kunne ikke åpne avtale');
                 amplitude.logEvent('#tiltak-avtale-lastet-feilet');
             });
         // eslint-disable-next-line

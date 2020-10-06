@@ -1,6 +1,6 @@
+import { AvtaleContext, Context } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import arbeidstreningAvtaleMock from '@/mocking/arbeidstrening-avtale-mock';
-import { AvtaleContext, Context } from '@/NyAvtaleProvider';
 import { mount } from 'enzyme';
 import React from 'react';
 import StillingSteg from './StillingSteg';

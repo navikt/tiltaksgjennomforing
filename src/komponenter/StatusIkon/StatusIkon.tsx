@@ -4,7 +4,7 @@ import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
-import { Rolle } from '@/AvtaleContext';
+import { Rolle } from '@/types/innlogget-bruker';
 import React, { CSSProperties, FunctionComponent } from 'react';
 
 interface Props {

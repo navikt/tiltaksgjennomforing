@@ -1,12 +1,12 @@
+import { AvtaleContext } from '@/AvtaleProvider';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import React, { FunctionComponent, useContext } from 'react';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { Stilling } from '@/types/avtale';
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import React, { FunctionComponent, useContext } from 'react';
 
 const StillingSteg: FunctionComponent = () => {
     const avtaleContext: InputStegProps<Stilling> = useContext(AvtaleContext);

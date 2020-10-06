@@ -1,16 +1,16 @@
+import { AvtaleContext } from '@/AvtaleProvider';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { pathTilOversiktISelvbetjeningProd } from '@/paths';
+import { delAvtaleMedAvtalepart } from '@/services/rest-service';
+import BEMHelper from '@/utils/bem';
+import { Knapp } from 'nav-frontend-knapper';
+import Lenke from 'nav-frontend-lenker';
 import Modal from 'nav-frontend-modal';
 import { Ingress, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
-import './SendVarselModal.less';
-import BEMHelper from '@/utils/bem';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { delAvtaleMedAvtalepart } from '@/services/rest-service';
-import Lenke from 'nav-frontend-lenker';
-import { pathTilOversiktISelvbetjeningProd } from '@/paths';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { Knapp } from 'nav-frontend-knapper';
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import './SendVarselModal.less';
 
 interface Props {
     isOpen: boolean;

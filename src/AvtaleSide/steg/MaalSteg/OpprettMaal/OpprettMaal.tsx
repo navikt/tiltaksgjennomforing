@@ -1,4 +1,4 @@
-import { TemporaryLagring } from '@/AvtaleContext';
+import { TemporaryLagring } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Godkjenninger, Maal } from '@/types/avtale';

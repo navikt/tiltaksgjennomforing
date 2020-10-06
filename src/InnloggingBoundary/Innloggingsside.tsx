@@ -4,16 +4,16 @@ import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { hentInnloggetBruker } from '@/services/rest-service';
 import { AutentiseringError } from '@/types/errors';
+import { Innloggingskilde } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Ingress, Sidetittel, Systemtittel, Normaltekst } from 'nav-frontend-typografi';
+import { Ingress, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
-import { Innloggingskilde } from './useInnlogget';
 
 const cls = BEMHelper('innloggingsside');
 

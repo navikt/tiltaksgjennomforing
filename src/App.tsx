@@ -1,11 +1,14 @@
+import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
+import BjelleVarselProvider from '@/BjelleVarselProvider';
 import { messages } from '@/messages';
+import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 import * as React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
-import NyAvtaleProvider from './NyAvtaleProvider';
 import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
+import AvtaleProvider from './AvtaleProvider';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import { FeilVarselProvider } from './FeilVarselProvider';
 import Informasjonsside from './Informasjonsside/Informasjonsside';
@@ -25,9 +28,6 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
-import BjelleVarselProvider from '@/BjelleVarselProvider';
-import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 
 addLocaleData(nb);
 
@@ -69,7 +69,7 @@ class App extends React.Component {
                                             exact={true}
                                             component={OpprettelseFullfortArbeidsgiver}
                                         />
-                                        <NyAvtaleProvider>
+                                        <AvtaleProvider>
                                             <BjelleVarselProvider>
                                                 <Route
                                                     path={[
@@ -80,7 +80,7 @@ class App extends React.Component {
                                                     component={AvtaleFetcher}
                                                 />
                                             </BjelleVarselProvider>
-                                        </NyAvtaleProvider>
+                                        </AvtaleProvider>
                                     </RedirectEtterLogin>
                                 </InnloggingBoundary>
                             </FeilVarselProvider>

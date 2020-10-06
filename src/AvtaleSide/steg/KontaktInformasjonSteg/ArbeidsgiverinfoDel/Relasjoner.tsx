@@ -1,4 +1,6 @@
 import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
@@ -9,8 +11,6 @@ import { RadioPanel } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
-import { AvtaleContext } from '@/NyAvtaleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const cls = BEMHelper('relasjoner');
 

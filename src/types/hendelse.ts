@@ -1,4 +1,5 @@
-import { Rolle } from '@/AvtaleContext';
+import { Rolle } from './innlogget-bruker';
+
 export type Hendelse = {
     id: string;
     tidspunkt: string;

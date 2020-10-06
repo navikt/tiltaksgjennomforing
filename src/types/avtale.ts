@@ -8,7 +8,7 @@ export type Avtale<T extends FellesAvtaleinnhold = AltAvtaleinnhold> = Avbrytels
     Godkjenninger &
     T;
 
-type FellesAvtaleinnhold = Arbeidsgiverinfo &
+export type FellesAvtaleinnhold = Arbeidsgiverinfo &
     Bedriftinfo &
     Deltakerinfo &
     Oppfolging &
@@ -17,7 +17,7 @@ type FellesAvtaleinnhold = Arbeidsgiverinfo &
     Varighet &
     Veilederinfo;
 
-export type ArbeidstreningAvtaleinnhold = FellesAvtaleinnhold & MaalListe & Oppgaver;
+export type ArbeidstreningAvtaleinnhold = FellesAvtaleinnhold & MaalListe;
 
 export type LonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer & RelasjonerInfo;
 

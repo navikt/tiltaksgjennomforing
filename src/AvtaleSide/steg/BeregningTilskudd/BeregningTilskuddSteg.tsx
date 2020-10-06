@@ -1,3 +1,4 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
@@ -24,7 +25,6 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
-import { AvtaleContext } from '@/NyAvtaleProvider';
 const cls = BEMHelper('beregningTilskuddSteg');
 
 const feriepengeAlternativer = () => {

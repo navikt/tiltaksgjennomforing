@@ -1,14 +1,14 @@
+import { AvtaleContext } from '@/AvtaleProvider';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import { Oppfolging, Tilrettelegging } from '@/types/avtale';
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
 import * as React from 'react';
 import { useContext } from 'react';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
-import { Oppfolging, Tilrettelegging } from '@/types/avtale';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { AvtaleContext } from '@/NyAvtaleProvider';
 
 const OppfolgingTilretteleggingSteg = () => {
     const avtaleContext: InputStegProps<Oppfolging & Tilrettelegging> = useContext(AvtaleContext);

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import TilgangTabell from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/TilgangTabell';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import TilgangTabell from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/TilgangTabell';
-import { Tilganger } from '@/InnloggingBoundary/useInnlogget';
+import { Tilganger } from '@/types/innlogget-bruker';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
 import RammeMedIkonOgOverskrift from './RammeMedIkonOgOverskrift';
 
 interface Props {

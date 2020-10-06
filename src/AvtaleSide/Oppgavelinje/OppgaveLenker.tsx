@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
+import { AvtaleContext } from '@/AvtaleProvider';
 import AvbryteAvtalen from '@/AvtaleSide/AvbryteAvtalen/AvbryteAvtalen';
-import Hendelselogg from '@/AvtaleSide/Hendelselogg/Hendelselogg';
 import DelLenkeTilAvtalen from '@/AvtaleSide/DelLenkeTilAvtalen/DelLenkeTilAvtalen';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
-import { AvtaleContext } from '@/NyAvtaleProvider';
+import Hendelselogg from '@/AvtaleSide/Hendelselogg/Hendelselogg';
+import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import React, { useContext } from 'react';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale, avbrytAvtale } = useContext(AvtaleContext);

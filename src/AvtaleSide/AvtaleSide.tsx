@@ -1,4 +1,6 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilOversikt } from '@/paths';
@@ -7,13 +9,11 @@ import hentAvtaleSteg from '@/utils/stegUtils';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
-import { AvtaleContext } from '@/NyAvtaleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { useParams } from 'react-router-dom';
 
 interface MatchProps {
     avtaleId: string;

@@ -1,4 +1,4 @@
-import { AvtaleContext, Context } from '@/NyAvtaleProvider';
+import { AvtaleContext, Context } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Maal } from '@/types/avtale';
 import * as React from 'react';

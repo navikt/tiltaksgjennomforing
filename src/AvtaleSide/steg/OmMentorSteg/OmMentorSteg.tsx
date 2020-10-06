@@ -1,3 +1,4 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
@@ -9,7 +10,6 @@ import { Mentorinfo } from '@/types/avtale';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import * as React from 'react';
 import { useContext } from 'react';
-import { AvtaleContext } from '@/NyAvtaleProvider';
 
 const OmMentorSteg = () => {
     const avtaleContext: InputStegProps<Mentorinfo> = useContext(AvtaleContext);

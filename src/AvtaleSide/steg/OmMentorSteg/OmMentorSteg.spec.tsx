@@ -1,5 +1,5 @@
+import { AvtaleContext, Context } from '@/AvtaleProvider';
 import arbeidstreningAvtaleMock from '@/mocking/arbeidstrening-avtale-mock';
-import { AvtaleContext, Context } from '@/NyAvtaleProvider';
 import { shallow } from 'enzyme';
 import React from 'react';
 import OmMentorSteg from './OmMentorSteg';
