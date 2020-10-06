@@ -35,6 +35,7 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     arbeidsgiveravgiftBelop: 0,
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,
+    stillingstype: 'FAST',
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {

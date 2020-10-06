@@ -87,6 +87,7 @@ export interface Varighet {
 export interface Stilling {
     stillingstittel?: string;
     arbeidsoppgaver?: string;
+    stillingstype?: 'FAST' | 'MIDLERTIDIG';
 }
 
 export interface Beregningsgrunnlag {
