@@ -5,10 +5,11 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Varighet } from '@/types/avtale';
-import { accurateHumanize } from '@/utils/datoUtils';
+import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import moment from 'moment';
 import 'moment/locale/nb';
 import { Datovelger } from 'nav-datovelger';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
@@ -48,6 +49,16 @@ const VarighetSteg: FunctionComponent = props => {
                             onChange={dato => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
                         />
                     </Column>
+                </Row>
+                {(erDatoTilbakeITid(avtaleContext.avtale.startDato) ||
+                    erDatoTilbakeITid(avtaleContext.avtale.sluttDato)) && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>
+                    </>
+                )}
+                <Row>
+                    <Column md="12"></Column>
                 </Row>
                 <VerticalSpacer sixteenPx={true} />
                 <StillingsprosentInput
