@@ -5,29 +5,19 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Varighet } from '@/types/avtale';
-import { accurateHumanize } from '@/utils/datoUtils';
-import moment, { Moment } from 'moment';
+import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
+import moment from 'moment';
+import 'moment/locale/nb';
+import { Datovelger } from 'nav-datovelger';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import * as React from 'react';
-import { FunctionComponent, useContext, useState } from 'react';
-import Datovelger from './Datovelger/Datovelger';
+import { FunctionComponent, useContext } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 
 const VarighetSteg: FunctionComponent = props => {
     const avtaleContext: InputStegProps<Varighet> = useContext(AvtaleContext);
-    const [startDatoRiktigFormatert, setStartDatoRiktigFormatert] = useState<boolean>(true);
-    const [sluttDatoRiktigFormatert, setSluttDatoRiktigFormatert] = useState<boolean>(true);
-
-    const velgStartDato = (dato: Moment) => {
-        setStartDatoRiktigFormatert(true);
-        avtaleContext.settAvtaleVerdi('startDato', dato.toISOString(true).split('+')[0]);
-    };
-
-    const velgSluttDato = (dato: Moment) => {
-        setSluttDatoRiktigFormatert(true);
-        avtaleContext.settAvtaleVerdi('sluttDato', dato.toISOString(true).split('+')[0]);
-    };
 
     const timerIUka = Number(((37.5 * (avtaleContext.avtale.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
@@ -46,21 +36,29 @@ const VarighetSteg: FunctionComponent = props => {
                     <Column md="6">
                         <label className="skjemaelement__label">Startdato</label>
                         <Datovelger
-                            velgDato={velgStartDato}
-                            dato={moment(avtaleContext.avtale.startDato)}
-                            settRiktigFormatert={() => setStartDatoRiktigFormatert(true)}
-                            inputRiktigFormatert={startDatoRiktigFormatert}
+                            input={{ placeholder: 'dd.mm.åååå' }}
+                            valgtDato={avtaleContext.avtale.startDato}
+                            onChange={dato => avtaleContext.settAvtaleVerdier({ startDato: dato })}
                         />
                     </Column>
                     <Column md="6">
                         <label className="skjemaelement__label">Sluttdato</label>
                         <Datovelger
-                            velgDato={velgSluttDato}
-                            dato={moment(avtaleContext.avtale.sluttDato)}
-                            settRiktigFormatert={() => setSluttDatoRiktigFormatert(true)}
-                            inputRiktigFormatert={sluttDatoRiktigFormatert}
+                            input={{ placeholder: 'dd.mm.åååå' }}
+                            valgtDato={avtaleContext.avtale.sluttDato}
+                            onChange={dato => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
                         />
                     </Column>
+                </Row>
+                {(erDatoTilbakeITid(avtaleContext.avtale.startDato) ||
+                    erDatoTilbakeITid(avtaleContext.avtale.sluttDato)) && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>
+                    </>
+                )}
+                <Row>
+                    <Column md="12"></Column>
                 </Row>
                 <VerticalSpacer sixteenPx={true} />
                 <StillingsprosentInput
