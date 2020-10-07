@@ -12,8 +12,8 @@ import { ReactComponent as MentorIkon } from '@/assets/ikoner/mentor.svg';
 
 const cls = BEMHelper('mentorOppsummering');
 
-const verdi = (tall: number) => {
-    return tall === null ? '' : tall.toString();
+const verdi = (tall?: number) => {
+    return tall === null || tall === undefined ? '' : tall.toString();
 };
 
 const OmMentorOppsummering: FunctionComponent<Mentorinfo> = props => {

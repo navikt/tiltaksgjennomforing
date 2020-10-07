@@ -1,29 +1,26 @@
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
 
-export type Avtale<T extends FellesAvtaleinnhold = AltAvtaleinnhold> = Avbrytelse &
-    AvtaleMetadata &
+export type Avtale = Avbrytelse &
+    Readonly<AvtaleMetadata> &
     Avtaleparter &
-    Versjonering<T> &
+    Versjonering &
     Godkjenninger &
-    T;
+    Avtaleinnhold;
 
-export type FellesAvtaleinnhold = Arbeidsgiverinfo &
+export type Avtaleinnhold = Arbeidsgiverinfo &
     Bedriftinfo &
     Deltakerinfo &
     Oppfolging &
     Stilling &
     Tilrettelegging &
     Varighet &
-    Veilederinfo;
-
-export type ArbeidstreningAvtaleinnhold = FellesAvtaleinnhold & MaalListe;
-
-export type LonnstilskuddAvtaleinnhold = FellesAvtaleinnhold & Beregningsgrunnlag & Kontonummer & RelasjonerInfo;
-
-export type MentorAvtaleinnhold = FellesAvtaleinnhold & Mentorinfo;
-
-export type AltAvtaleinnhold = ArbeidstreningAvtaleinnhold & LonnstilskuddAvtaleinnhold & MentorAvtaleinnhold;
+    Veilederinfo &
+    MaalListe &
+    Beregningsgrunnlag &
+    Kontonummer &
+    RelasjonerInfo &
+    Mentorinfo;
 
 export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD' | 'MENTOR';
 export type AvbrytelseGrunn =
@@ -54,34 +51,34 @@ export interface Bedriftinfo {
 }
 
 export interface Arbeidsgiverinfo {
-    arbeidsgiverFornavn: string;
-    arbeidsgiverEtternavn: string;
-    arbeidsgiverTlf: string;
+    arbeidsgiverFornavn?: string;
+    arbeidsgiverEtternavn?: string;
+    arbeidsgiverTlf?: string;
 }
 
 export interface Deltakerinfo {
-    deltakerFornavn: string;
-    deltakerEtternavn: string;
-    deltakerTlf: string;
+    deltakerFornavn?: string;
+    deltakerEtternavn?: string;
+    deltakerTlf?: string;
 }
 export interface Veilederinfo {
-    veilederFornavn: string;
-    veilederEtternavn: string;
-    veilederTlf: string;
+    veilederFornavn?: string;
+    veilederEtternavn?: string;
+    veilederTlf?: string;
 }
 
 export interface Mentorinfo {
-    mentorFornavn: string;
-    mentorEtternavn: string;
-    mentorOppgaver: string;
-    mentorAntallTimer: number;
-    mentorTimelonn: number;
+    mentorFornavn?: string;
+    mentorEtternavn?: string;
+    mentorOppgaver?: string;
+    mentorAntallTimer?: number;
+    mentorTimelonn?: number;
 }
 
 export interface Varighet {
-    startDato: string;
-    sluttDato: string;
-    stillingprosent: number;
+    startDato?: string;
+    sluttDato?: string;
+    stillingprosent?: number;
 }
 
 export interface Stilling {
@@ -91,19 +88,19 @@ export interface Stilling {
 
 export interface Beregningsgrunnlag {
     manedslonn?: number;
-    feriepengesats: number;
-    arbeidsgiveravgift: number;
+    feriepengesats?: number;
+    arbeidsgiveravgift?: number;
     lonnstilskuddProsent?: number;
-    stillingprosent: number;
-    feriepengerBelop: number;
-    otpBelop: number;
-    arbeidsgiveravgiftBelop: number;
-    sumLonnsutgifter: number;
-    sumLonnstilskudd: number;
+    stillingprosent?: number;
+    feriepengerBelop?: number;
+    otpBelop?: number;
+    arbeidsgiveravgiftBelop?: number;
+    sumLonnsutgifter?: number;
+    sumLonnstilskudd?: number;
 }
 
 export interface Kontonummer {
-    arbeidsgiverKontonummer: string;
+    arbeidsgiverKontonummer?: string;
 }
 
 export interface MaalListe {
@@ -116,23 +113,12 @@ export interface Maal {
     beskrivelse: string;
 }
 
-export interface Oppgaver {
-    oppgaver: Oppgave[];
-}
-
-export interface Oppgave {
-    id?: string;
-    tittel: string;
-    beskrivelse: string;
-    opplaering: string;
-}
-
 export interface Oppfolging {
-    oppfolging: string;
+    oppfolging?: string;
 }
 
 export interface Tilrettelegging {
-    tilrettelegging: string;
+    tilrettelegging?: string;
 }
 
 export interface Godkjenninger {
@@ -164,10 +150,10 @@ export interface RelasjonerInfo {
     familietilknytningForklaring?: string;
 }
 
-export type AvtaleVersjon<T extends FellesAvtaleinnhold> = T & { versjon: number } & Godkjenninger;
+export type AvtaleVersjon = Avtaleinnhold & { versjon: number } & Godkjenninger;
 
-export interface Versjonering<T extends FellesAvtaleinnhold> {
-    versjoner: AvtaleVersjon<T>[];
+export interface Versjonering {
+    versjoner: AvtaleVersjon[];
     kanLåsesOpp: boolean;
     tiltakstype: TiltaksType;
 }

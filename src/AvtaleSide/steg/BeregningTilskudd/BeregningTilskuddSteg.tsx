@@ -47,7 +47,7 @@ const arbeidsgiveravgiftAlternativer = () => {
     return satserVerdier;
 };
 
-const BeregningTilskuddSteg: FunctionComponent = props => {
+const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale, settAvtaleVerdi, lagreAvtale } = useContext(AvtaleContext);
     const {
@@ -182,15 +182,18 @@ const BeregningTilskuddSteg: FunctionComponent = props => {
                     />
                     <VisUtregningenPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
-                    {innloggetBruker.erNavAnsatt && avtale.stillingprosent > 0 && avtale.stillingprosent < 100 && (
-                        <ValutaInput
-                            disabled={true}
-                            name="manedslonn100%"
-                            bredde="S"
-                            label="Lønn ved 100% stilling"
-                            value={lonnHundreProsent(sumLonnsutgifter, avtale.stillingprosent)}
-                        />
-                    )}
+                    {innloggetBruker.erNavAnsatt &&
+                        avtale.stillingprosent !== undefined &&
+                        avtale.stillingprosent > 0 &&
+                        avtale.stillingprosent < 100 && (
+                            <ValutaInput
+                                disabled={true}
+                                name="manedslonn100%"
+                                bredde="S"
+                                label="Lønn ved 100% stilling"
+                                value={lonnHundreProsent(sumLonnsutgifter, avtale.stillingprosent)}
+                            />
+                        )}
                     <VerticalSpacer thirtyTwoPx={true} />
                     <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>

@@ -29,7 +29,7 @@ const VarighetSteg: FunctionComponent = props => {
         avtaleContext.settAvtaleVerdi('sluttDato', dato.toISOString(true).split('+')[0]);
     };
 
-    const timerIUka = Number(((37.5 * avtaleContext.avtale.stillingprosent) / 100).toFixed(2));
+    const timerIUka = Number(((37.5 * (avtaleContext.avtale.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
     const duration = moment(avtaleContext.avtale.sluttDato).diff(avtaleContext.avtale.startDato, 'days');

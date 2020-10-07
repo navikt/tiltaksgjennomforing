@@ -1,5 +1,5 @@
 import OppfolgingOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppfølging/OppfolgingOppsummering';
-import { AltAvtaleinnhold, LonnstilskuddAvtaleinnhold } from '@/types/avtale';
+import { Avtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import RelasjonerOppsummering from '../RelasjonerOppsummering/RelasjonerOppsummering';
@@ -8,11 +8,10 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 
 interface Props {
-    // Burde hatt typen LonnstilskuddAvtaleinnhold, og droppet typesetting av prop under, men fikk problemer :/
-    avtaleinnhold: AltAvtaleinnhold;
+    avtaleinnhold: Avtaleinnhold;
 }
 
-const OppsummeringLonnstilskudd: FunctionComponent<Props> = (props: { avtaleinnhold: LonnstilskuddAvtaleinnhold }) => (
+const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
     <>
         <RelasjonerOppsummering {...props.avtaleinnhold} />
         <StillingsOppsummering {...props.avtaleinnhold} />

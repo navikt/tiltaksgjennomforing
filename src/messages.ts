@@ -1,4 +1,4 @@
-import { AltAvtaleinnhold, TiltaksType } from './types/avtale';
+import { Avtaleinnhold, TiltaksType } from './types/avtale';
 import { HendelseType } from './types/hendelse';
 
 export const messages = {
@@ -10,7 +10,7 @@ export const messages = {
     ANNET: 'Annet',
 };
 
-export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
+export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     arbeidsgiverEtternavn: 'arbeidsgivers etternavn',
     arbeidsgiverFornavn: 'arbeidsgivers fornavn',
     arbeidsgiverKontonummer: 'arbeidsgivers kontonummer',

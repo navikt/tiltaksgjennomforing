@@ -1,7 +1,7 @@
 import { Context } from '@/AvtaleProvider';
-import { AltAvtaleinnhold, Avtale } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 
-const altAvtaleInnhold: Avtale<AltAvtaleinnhold> = {
+const avtaleInnhold: Avtale = {
     arbeidsgiverEtternavn: '',
     arbeidsgiverFornavn: '',
     arbeidsgiverKontonummer: '',
@@ -56,7 +56,7 @@ const altAvtaleInnhold: Avtale<AltAvtaleinnhold> = {
 };
 
 export const contextMock: Context = {
-    avtale: altAvtaleInnhold,
+    avtale: avtaleInnhold,
     settAvtaleVerdi: () => null,
     settAvtaleVerdier: () => null,
     hentAvtale: () => Promise.resolve(),

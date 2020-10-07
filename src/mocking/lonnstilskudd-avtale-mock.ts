@@ -1,6 +1,6 @@
-import { Avtale, LonnstilskuddAvtaleinnhold } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 
-const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
+const lonnstilskuddAvtaleMock: Avtale = {
     id: '1',
     opprettetTidspunkt: '2020-01-02T00:00:00.000000',
     sistEndret: '2020-01-03T00:00:00.000000',
@@ -64,6 +64,8 @@ const lonnstilskuddAvtaleMock: Avtale<LonnstilskuddAvtaleinnhold> = {
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,
     erUfordelt: false,
+
+    maal: [],
 };
 
 export default lonnstilskuddAvtaleMock;

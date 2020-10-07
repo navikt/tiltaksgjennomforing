@@ -4,14 +4,14 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { AltAvtaleinnhold, Versjonering } from '@/types/avtale';
+import { Versjonering } from '@/types/avtale';
 import { Rolle } from '@/types/innlogget-bruker';
 import * as React from 'react';
 import MediaQuery from 'react-responsive';
 
 interface Props {
     rolle: Rolle;
-    avtale: Versjonering<AltAvtaleinnhold>;
+    avtale: Versjonering;
     laasOpp: () => Promise<any>;
 }
 

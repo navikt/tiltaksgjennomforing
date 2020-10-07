@@ -1,6 +1,6 @@
-import { Avtale } from '@/types/avtale';
+import { Avtaleinnhold } from '@/types/avtale';
 
-export type InputStegProps<T extends Partial<Avtale>> = {
+export type InputStegProps<T extends Partial<Avtaleinnhold>> = {
     avtale: T;
     settAvtaleVerdi: (felt: keyof T, verdi: any) => void;
     settAvtaleVerdier: (endringer: Partial<T>) => void;

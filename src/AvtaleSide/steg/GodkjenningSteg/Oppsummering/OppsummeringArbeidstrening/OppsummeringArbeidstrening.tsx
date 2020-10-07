@@ -1,4 +1,4 @@
-import { AltAvtaleinnhold, ArbeidstreningAvtaleinnhold } from '@/types/avtale';
+import { Avtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 import MaalOppsummering from '../maalOppsummering/MaalOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
@@ -7,13 +7,10 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 
 interface Props {
-    // Burde hatt typen ArbeidstreningAvtaleinnhold, og droppet typesetting av prop under, men fikk problemer :/
-    avtaleinnhold: AltAvtaleinnhold;
+    avtaleinnhold: Avtaleinnhold;
 }
 
-const OppsummeringArbeidstrening: FunctionComponent<Props> = (props: {
-    avtaleinnhold: ArbeidstreningAvtaleinnhold;
-}) => {
+const OppsummeringArbeidstrening: FunctionComponent<Props> = props => {
     return (
         <>
             <MaalOppsummering {...props.avtaleinnhold} />
