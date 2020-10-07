@@ -2,6 +2,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import amplitude from 'amplitude-js';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -26,6 +27,7 @@ const Banner: React.FunctionComponent<Props> = props => {
 
                     <div style={{ position: 'absolute', right: '1rem' }}>
                         <Nytt
+                            onÅpneNyheter={() => amplitude.logEvent('#tiltak-nyheter-apnet')}
                             åpneVedFørsteBesøk
                             nyheter={nyheter}
                             title="Nytt i tiltaksgjennomføring"
