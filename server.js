@@ -13,10 +13,6 @@ setupProxy(server);
 const basePath = '/tiltaksgjennomforing';
 const staticPaths = ['/static', '/index.css', '/asset-manifest.json'];
 
-if (process.env.REACT_APP_ON_HEROKU === 'true') {
-    server.get('/', (req, res) => res.redirect(req.baseUrl + '/tiltaksgjennomforing'));
-}
-
 // health checks
 server.get('/tiltaksgjennomforing/internal/isAlive', (req, res) => res.sendStatus(200));
 server.get('/tiltaksgjennomforing/internal/isReady', (req, res) => res.sendStatus(200));

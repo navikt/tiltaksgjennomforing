@@ -1,11 +1,20 @@
-import { Context, medContext } from '@/AvtaleContext';
+import { AvtaleContext, Context } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Maal } from '@/types/avtale';
-import { ApiError } from '@/types/errors';
 import * as React from 'react';
 import { finnLedigeMaalkategorier } from './maal-utils';
 import MaalKort from './MaalKort/MaalKort';
 import OpprettMaal from './OpprettMaal/OpprettMaal';
+
+const medAvtaleContext = (Component: React.ComponentType<any>) => {
+    return (props: any) => (
+        <AvtaleContext.Consumer>
+            {(context: any) => {
+                return <Component {...props} {...context} />;
+            }}
+        </AvtaleContext.Consumer>
+    );
+};
 
 class MaalSteg extends React.Component<Context> {
     state: {
@@ -28,16 +37,8 @@ class MaalSteg extends React.Component<Context> {
     };
 
     slettMaal = async () => {
-        try {
-            await this.props.slettMaal(this.state.maalRad);
-            this.lukkModal();
-        } catch (error) {
-            if (error instanceof ApiError) {
-                this.props.visFeilmelding(error.message);
-            } else {
-                throw error;
-            }
-        }
+        await this.props.slettMaal(this.state.maalRad);
+        this.lukkModal();
     };
 
     valgteMaalkategorier = (): any => {
@@ -56,8 +57,8 @@ class MaalSteg extends React.Component<Context> {
                 ledigeMaalkategorier={finnLedigeMaalkategorier(this.valgteMaalkategorier())}
                 lagreMaal={this.props.lagreMaal}
                 mellomLagretMaal={this.props.mellomLagring}
-                setMellomLagring={this.props.mellomLagreMaal}
-                fjernMellomLagring={this.props.setMellomLagreMaalTom}
+                setMellomLagring={this.props.setMellomLagring}
+                fjernMellomLagring={() => this.props.setMellomLagring(undefined)}
             />
             {this.props.avtale.maal.map(maal => (
                 <MaalKort
@@ -82,4 +83,4 @@ class MaalSteg extends React.Component<Context> {
     );
 }
 
-export default medContext(MaalSteg);
+export default medAvtaleContext(MaalSteg);

@@ -1,55 +1,62 @@
-import { Context, medContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { FordelAvtaleVeileder } from '@/AvtaleSide/steg/GodkjenningSteg/FordelAvtaleVeileder';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
+import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
-import { AltAvtaleinnhold } from '@/types/avtale';
+import { Avtaleinnhold } from '@/types/avtale';
 import * as React from 'react';
-import { createElement, FunctionComponent } from 'react';
+import { createElement, FunctionComponent, useContext } from 'react';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import Godkjenning from './Godkjenning';
-import VersjoneringKomponent from './Versjonering/VersjoneringKomponent';
-import { UtkastStatus } from '@/AvtaleSide/steg/GodkjenningSteg/UtkastStatus';
+import { UfordeltStatusArbeidsgiverDeltaker } from './UfordeltStatusArbeidsgiverDeltaker';
 
 interface Props {
-    oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
+    oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
 }
 
-const GodkjenningSteg: React.FunctionComponent<Props & Context> = props => (
-    <>
-        {props.avtale.status === 'Utkast' ? (
-            <UtkastStatus />
-        ) : (
-            <AvtaleStatus avtale={props.avtale} rolle={props.rolle} />
-        )}
-        <Innholdsboks>
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                }}
-            >
-                <SkjemaTittel>
-                    {props.avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-                </SkjemaTittel>
+const GodkjenningSteg: React.FunctionComponent<Props> = props => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { avtale, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
 
-                {props.avtale.erLaast && <SkrivUtKnapp />}
-            </div>
+    const skalViseGodkjenning = !innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt);
 
-            <Avtaleparter {...props.avtale} />
-            {createElement(props.oppsummering, { avtaleinnhold: props.avtale })}
-        </Innholdsboks>
-        {props.avtale.status !== 'Utkast' && (
-            <Godkjenning
-                avtale={props.avtale}
-                rolle={props.rolle}
-                endreGodkjenning={props.godkjenn}
-                godkjennPaVegne={props.godkjennPaVegne}
-            />
-        )}
-        <VersjoneringKomponent laasOpp={props.laasOpp} avtale={props.avtale} rolle={props.rolle} />
-    </>
-);
+    return (
+        <>
+            {avtale.erUfordelt && innloggetBruker.rolle !== 'VEILEDER' && <UfordeltStatusArbeidsgiverDeltaker />}
+            {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
+            {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />}
+            <Innholdsboks>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                    }}
+                >
+                    <SkjemaTittel>
+                        {avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
+                    </SkjemaTittel>
 
-export default medContext(GodkjenningSteg);
+                    {avtale.erLaast && <SkrivUtKnapp />}
+                </div>
+
+                <Avtaleparter {...avtale} />
+                {createElement(props.oppsummering, { avtaleinnhold: avtale })}
+            </Innholdsboks>
+            {skalViseGodkjenning && (
+                <Godkjenning
+                    avtale={avtale}
+                    rolle={innloggetBruker.rolle}
+                    endreGodkjenning={godkjenn}
+                    godkjennPaVegne={godkjennPaVegne}
+                />
+            )}
+            <VersjoneringKomponent laasOpp={laasOpp} avtale={avtale} rolle={innloggetBruker.rolle} />
+        </>
+    );
+};
+
+export default GodkjenningSteg;

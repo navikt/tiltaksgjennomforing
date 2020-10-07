@@ -1,5 +1,5 @@
 import { ReactComponent as BurgerMenyIkon } from '@/assets/ikoner/burgermeny.svg';
-import { AvtaleContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/AvtaleProvider';
 import HendelseIkon from '@/komponenter/HendelseIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hendelseTekst } from '@/messages';

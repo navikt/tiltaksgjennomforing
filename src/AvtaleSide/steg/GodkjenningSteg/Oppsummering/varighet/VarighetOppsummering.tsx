@@ -13,7 +13,7 @@ const formaterDato = (dato: string): string => {
     return moment(dato).format('DD.MM.YYYY');
 };
 
-const harDato = (dato: string): string => {
+const harDato = (dato?: string): string => {
     return dato ? formaterDato(dato).toString() : '';
 };
 

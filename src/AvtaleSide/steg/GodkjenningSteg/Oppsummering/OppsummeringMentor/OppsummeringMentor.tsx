@@ -1,4 +1,4 @@
-import { MentorAvtaleinnhold } from '@/types/avtale';
+import { Avtaleinnhold } from '@/types/avtale';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
@@ -7,7 +7,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 
 interface Props {
-    avtaleinnhold: MentorAvtaleinnhold;
+    avtaleinnhold: Avtaleinnhold;
 }
 
 const OppsummeringMentor: FunctionComponent<Props> = props => (

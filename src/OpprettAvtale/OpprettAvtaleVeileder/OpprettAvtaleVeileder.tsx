@@ -7,9 +7,10 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
-import { pathTilOpprettAvtaleFullfort } from '@/paths';
-import RestService from '@/services/rest-service';
+import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
+import { hentBedriftBrreg, opprettAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
 import amplitude from '@/utils/amplitude';
@@ -21,16 +22,17 @@ import Lenke from 'nav-frontend-lenker';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
-import { RouterProps, withRouter } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
-const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
+const OpprettAvtaleVeileder: FunctionComponent = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
+    const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
         verdi => {
@@ -79,7 +81,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     const orgnrOnBlur = () => {
         if (validerBedriftNr()) {
-            RestService.hentBedriftBrreg(bedriftNr)
+            hentBedriftBrreg(bedriftNr)
                 .then(response => {
                     setBedriftNavn(response.bedriftNavn);
                     setBedriftNrFeil(undefined);
@@ -95,7 +97,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     const hvaMangler = () => {
         const feil = [];
-        if (lonnstilskuddToggle && !valgtTiltaksType) {
+        if (!valgtTiltaksType) {
             feil.push('avtaletype');
         }
         if (!validerFnr(deltakerFnr)) {
@@ -113,37 +115,26 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
-        if (!hvaSomManglerTekst) {
-            const avtale = await RestService.opprettAvtale(
-                deltakerFnr,
-                bedriftNr,
-                valgtTiltaksType || 'ARBEIDSTRENING'
-            );
+        if (!hvaSomManglerTekst && valgtTiltaksType) {
+            const avtale = await opprettAvtale(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-            props.history.push(pathTilOpprettAvtaleFullfort(avtale.id));
+            history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
         } else {
             throw new UfullstendigError(hvaSomManglerTekst);
         }
     };
 
-    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType>();
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
 
     const featureToggleContext = useContext(FeatureToggleContext);
 
-    const lonnstilskuddToggle = featureToggleContext[Feature.Lonnstilskudd];
-
-    if (lonnstilskuddToggle === undefined) return null;
-
     const mentorToggle = featureToggleContext[Feature.Mentor];
 
-    const tittel = lonnstilskuddToggle || mentorToggle ? 'Opprett avtale' : 'Opprett avtale om arbeidstrening';
-
     const enabledFeatureToggleRadioPanel = () => {
-        if (!lonnstilskuddToggle && !mentorToggle) return null;
-
         return (
-            <Innholdsboks className={cls.element('innholdsboks')}>
-                <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
+            <Innholdsboks>
+                <Systemtittel>Velg type avtale</Systemtittel>
+                <VerticalSpacer rem={1} />
                 <div className={cls.element('tiltakstypeWrapper')}>
                     <RadioPanel
                         name="tiltakstype"
@@ -152,24 +143,20 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
                         checked={valgtTiltaksType === 'ARBEIDSTRENING'}
                         onChange={() => setTiltaksType('ARBEIDSTRENING')}
                     />
-                    {lonnstilskuddToggle && (
-                        <>
-                            <RadioPanel
-                                name="tiltakstype"
-                                label="Midlertidig lønnstilskudd"
-                                value="MIDLERTIDIG_LONNSTILSKUDD"
-                                checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                                onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
-                            />
-                            <RadioPanel
-                                name="tiltakstype"
-                                label="Varig lønnstilskudd"
-                                value="VARIG_LONNSTILSKUDD"
-                                checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                                onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
-                            />
-                        </>
-                    )}
+                    <RadioPanel
+                        name="tiltakstype"
+                        label="Midlertidig lønnstilskudd"
+                        value="MIDLERTIDIG_LONNSTILSKUDD"
+                        checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
+                        onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                    />
+                    <RadioPanel
+                        name="tiltakstype"
+                        label="Varig lønnstilskudd"
+                        value="VARIG_LONNSTILSKUDD"
+                        checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
+                        onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
+                    />
                     {mentorToggle && (
                         <RadioPanel
                             name="tiltakstype"
@@ -186,10 +173,14 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
 
     return (
         <div className="opprett-avtale">
-            <Innholdstittel className="opprett-avtale__tittel">{tittel}</Innholdstittel>
+            <VerticalSpacer rem={1} />
+            <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
+            <VerticalSpacer rem={2} />
             {enabledFeatureToggleRadioPanel()}
-            <Innholdsboks className={cls.element('innholdsboks')}>
-                <Systemtittel className={cls.element('innholdstittel')}>Knytt avtalen til andre parter</Systemtittel>
+            <VerticalSpacer rem={2} />
+            <Innholdsboks>
+                <Systemtittel>Knytt avtalen til andre parter</Systemtittel>
+                <VerticalSpacer rem={1} />
                 <div className="opprett-avtale__input-wrapper">
                     <div className="opprett-avtale__kandidat-fnr">
                         <Input
@@ -217,6 +208,7 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
                     </div>
                 </div>
             </Innholdsboks>
+            <VerticalSpacer rem={2} />
             <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
                 <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
                     Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved NAV.
@@ -228,8 +220,8 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
                     tilganger til enkeltrettigheter for de ulike avtalene:
                     <ul>
                         <li>Avtale om arbeidstrening</li>
-                        {lonnstilskuddToggle && <li>Avtale om midlertidig lønnstilskudd</li>}
-                        {lonnstilskuddToggle && <li>Avtale om varig lønnstilskudd</li>}
+                        <li>Avtale om midlertidig lønnstilskudd</li>
+                        <li>Avtale om varig lønnstilskudd</li>
                     </ul>
                     <p>
                         <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/" target="_blank">
@@ -256,4 +248,4 @@ const OpprettAvtaleVeileder: FunctionComponent<RouterProps> = props => {
     );
 };
 
-export default withRouter(OpprettAvtaleVeileder);
+export default OpprettAvtaleVeileder;

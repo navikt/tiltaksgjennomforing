@@ -5,7 +5,7 @@ import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg
 import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
 import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/gjenoppretteAvtaleIkon.svg';
-import { ReactComponent as Veileder } from '@/assets/ikoner/veileder.svg';
+import { ReactComponent as VeilederIkon } from '@/assets/ikoner/veileder.svg';
 import { HendelseType } from '@/types/hendelse';
 import React, { FunctionComponent } from 'react';
 
@@ -29,7 +29,8 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     DELT_MED_DELTAKER: <></>,
     SMS_VARSLING_FEILET: <></>,
     GJENOPPRETTET: <GjenopprettIkon />,
-    NY_VEILEDER: <Veileder />,
+    NY_VEILEDER: <VeilederIkon />,
+    AVTALE_FORDELT: <VeilederIkon />,
 };
 
 const HendelseIkon: FunctionComponent<Props> = props => {

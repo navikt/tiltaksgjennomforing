@@ -1,31 +1,32 @@
-import { medContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import * as React from 'react';
+import { FunctionComponent, useContext } from 'react';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
-import { Arbeidsgiverinfo, Avtaleparter, Bedriftinfo, Deltakerinfo, Veilederinfo } from '@/types/avtale';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
-const KontaktinfoSteg = (
-    props: InputStegProps<Avtaleparter & Deltakerinfo & Bedriftinfo & Arbeidsgiverinfo & Veilederinfo>
-) => (
-    <Innholdsboks>
-        <DeltakerinfoDel {...props} />
-        <VerticalSpacer thirtyTwoPx={true} />
-        <ArbeidsgiverinfoDel {...props} />
-        <VerticalSpacer thirtyTwoPx={true} />
-        <VeilederinfoDel {...props} />
-        <VerticalSpacer thirtyTwoPx={true} />
-        <LagreKnapp
-            className="kontaktinfo-steg__lagre-knapp"
-            lagre={props.lagreAvtale}
-            label={'Lagre'}
-            suksessmelding={'Avtale lagret'}
-        />
-    </Innholdsboks>
-);
+const KontaktinfoSteg: FunctionComponent = () => {
+    const { lagreAvtale } = useContext(AvtaleContext);
 
-export default medContext(KontaktinfoSteg);
+    return (
+        <Innholdsboks>
+            <DeltakerinfoDel />
+            <VerticalSpacer thirtyTwoPx={true} />
+            <ArbeidsgiverinfoDel />
+            <VerticalSpacer thirtyTwoPx={true} />
+            <VeilederinfoDel />
+            <VerticalSpacer thirtyTwoPx={true} />
+            <LagreKnapp
+                className="kontaktinfo-steg__lagre-knapp"
+                lagre={lagreAvtale}
+                label={'Lagre'}
+                suksessmelding={'Avtale lagret'}
+            />
+        </Innholdsboks>
+    );
+};
+
+export default KontaktinfoSteg;

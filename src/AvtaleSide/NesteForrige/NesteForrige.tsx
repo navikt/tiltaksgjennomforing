@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import { Context, medContext } from '@/AvtaleContext';
+import { AvtaleContext } from '@/AvtaleProvider';
 import { pathTilStegIAvtale } from '@/paths';
+import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
+import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
+import * as React from 'react';
+import { FunctionComponent, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { StegInfo } from '../AvtaleSide';
 import './NesteForrige.less';
-import { Link } from 'react-router-dom';
-import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
-import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
 
 export interface Props {
     avtaleSteg: StegInfo[];
@@ -31,15 +31,19 @@ const finnNesteSteg = (alleSteg: StegInfo[], steg: StegInfo) => {
     }
 };
 
-const NesteForrige: FunctionComponent<Props & Context> = props => {
+const NesteForrige: FunctionComponent<Props> = props => {
+    const avtaleContext = useContext(AvtaleContext);
     const forrigeSteg = finnForrigeSteg(props.avtaleSteg, props.aktivtSteg);
     const nesteSteg = finnNesteSteg(props.avtaleSteg, props.aktivtSteg);
     return (
         <div className="nesteforrige">
             {forrigeSteg && (
                 <Link
-                    to={pathTilStegIAvtale(props.avtale.id, forrigeSteg.id)}
-                    onClick={() => props.endretSteg()}
+                    to={{
+                        pathname: pathTilStegIAvtale(avtaleContext.avtale.id, forrigeSteg.id),
+                        search: window.location.search,
+                    }}
+                    onClick={avtaleContext.endretSteg}
                     className="lenke"
                 >
                     <VenstreChevron />
@@ -48,9 +52,12 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
             )}
             {nesteSteg && (
                 <Link
-                    to={pathTilStegIAvtale(props.avtale.id, nesteSteg.id)}
+                    to={{
+                        pathname: pathTilStegIAvtale(avtaleContext.avtale.id, nesteSteg.id),
+                        search: window.location.search,
+                    }}
                     className="nesteforrige__nesteknapp lenke"
-                    onClick={() => props.endretSteg()}
+                    onClick={avtaleContext.endretSteg}
                 >
                     Neste
                     <HoyreChevron />
@@ -60,4 +67,4 @@ const NesteForrige: FunctionComponent<Props & Context> = props => {
     );
 };
 
-export default medContext(NesteForrige);
+export default NesteForrige;

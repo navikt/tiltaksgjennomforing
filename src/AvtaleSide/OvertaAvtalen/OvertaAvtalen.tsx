@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
 import { ReactComponent as OvertaAvtalenSVG } from '@/assets/ikoner/overtaAvtalen.svg';
-import Lenke from 'nav-frontend-lenker';
-import BEMHelper from '@/utils/bem';
-import './overtaAvtalen.less';
 import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
+import UfordeltModusModal from '@/AvtaleSide/OvertaAvtalen/UfordeltModusModal';
+import BEMHelper from '@/utils/bem';
+import Lenke from 'nav-frontend-lenker';
+import React, { useState } from 'react';
+import './overtaAvtalen.less';
 
 interface Props {
     erVeileder: boolean;
     forskjelligNavIdent: boolean;
+    erUfordelt: boolean;
 }
 
 const cls = BEMHelper('overtaavtalen');
@@ -23,7 +25,11 @@ const OvertaAvtalen = (props: Props) => {
                     Overta avtale
                 </Lenke>
             </div>
-            <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
+            {props.erUfordelt ? (
+                <UfordeltModusModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
+            ) : (
+                <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
+            )}
         </>
     ) : null;
 };

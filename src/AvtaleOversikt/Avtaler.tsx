@@ -1,20 +1,21 @@
+import AvtalekortMobil from '@/AvtaleOversikt/AvtalekortMobil';
+import AvtaleOversiktSkeleton from '@/AvtaleOversikt/AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
+import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
+import IngenAvtaler from '@/AvtaleOversikt/IngenAvtaler/IngenAvtaler';
+import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
+import { FeilVarselContext } from '@/FeilVarselProvider';
+import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
+import { Status } from '@/types/nettressurs';
+import Varsel from '@/types/varsel';
 import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
-import { Status } from '@/types/nettressurs';
-import AvtaleOversiktSkeleton from '@/AvtaleOversikt/AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
-import IngenAvtaler from '@/AvtaleOversikt/IngenAvtaler/IngenAvtaler';
-import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
-import AvtalekortMobil from '@/AvtaleOversikt/AvtalekortMobil';
-import { AvtalelisteRessurs } from '@/types/avtale';
-import { InnloggetBruker } from '@/InnloggingBoundary/useInnlogget';
-import { FeilVarselContext } from '@/FeilVarselProvider';
-import Varsel from '@/types/varsel';
-import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 
 type Props = {
     avtalelisteRessurs: AvtalelisteRessurs;
     innloggetBruker: InnloggetBruker;
     varsler: Varsel[];
+    sokekriterier: Partial<Avtale>;
 };
 
 export const Avtaler: FunctionComponent<Props> = props => {
@@ -25,7 +26,7 @@ export const Avtaler: FunctionComponent<Props> = props => {
     if (props.avtalelisteRessurs.status === Status.LasterInn) {
         return <AvtaleOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet && props.avtalelisteRessurs.data.length === 0) {
-        return <IngenAvtaler />;
+        return <IngenAvtaler sokekriterier={props.sokekriterier} />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet) {
         return layout.erNokPlassTilTabell ? (
             <AvtaleTabell

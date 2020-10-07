@@ -1,4 +1,4 @@
-import { AltAvtaleinnhold, TiltaksType } from './types/avtale';
+import { Avtaleinnhold, TiltaksType } from './types/avtale';
 import { HendelseType } from './types/hendelse';
 
 export const messages = {
@@ -10,7 +10,7 @@ export const messages = {
     ANNET: 'Annet',
 };
 
-export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
+export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     arbeidsgiverEtternavn: 'arbeidsgivers etternavn',
     arbeidsgiverFornavn: 'arbeidsgivers fornavn',
     arbeidsgiverKontonummer: 'arbeidsgivers kontonummer',
@@ -31,7 +31,6 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     mentorOppgaver: 'mentors oppgaver',
     mentorTimelonn: 'mentors timelønn',
     oppfolging: 'oppfølging',
-    oppgaver: 'oppgaver',
     sluttDato: 'sluttdato',
     startDato: 'startdato',
     stillingprosent: 'stillingsprosent',
@@ -42,6 +41,11 @@ export const avtaleFelterBokmal: { [key in keyof AltAvtaleinnhold]: string } = {
     veilederTlf: 'veileders telefonnummer',
     harFamilietilknytning: 'har deltaker familietilknytning til arbeidsgiver',
     familietilknytningForklaring: 'forklaring på familietilknytning',
+    feriepengerBelop: 'feriepenger opptjent',
+    otpBelop: 'obligatorisk tjenestepensjon',
+    arbeidsgiveravgiftBelop: 'arbeidsgiveravgift beløp',
+    sumLonnsutgifter: 'sum utgifter til lønnstilskudd',
+    sumLonnstilskudd: 'sum beløp til utbetaling',
 };
 
 export const hendelseTekst: { [key in HendelseType]: string } = {
@@ -61,6 +65,7 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     SMS_VARSLING_FEILET: 'Varsling på SMS har feilet',
     GJENOPPRETTET: 'Avtale gjenopprettet',
     NY_VEILEDER: 'Avtale tildelt ny veileder',
+    AVTALE_FORDELT: 'Avtale tildelt veileder',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {

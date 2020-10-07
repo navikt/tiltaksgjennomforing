@@ -7,11 +7,12 @@ import './PakrevdTextarea.less';
 interface Props {
     label: string;
     placeholder?: string;
-    verdi: string;
+    verdi?: string;
     feilmelding?: string;
     maxLengde: number;
     settVerdi: (verdi: string) => void;
     className?: string;
+    disabled?: boolean;
 }
 
 const PakrevdTextarea: React.FunctionComponent<Props> = props => {
@@ -23,6 +24,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
 
     return (
         <Textarea
+            disabled={props.disabled}
             placeholder={props.placeholder}
             feil={feil}
             label={props.label}

@@ -1,19 +1,20 @@
+import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import { messages } from '@/messages';
+import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 import * as React from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import AdvarselBannerHeroku from './AdvarselBannerHeroku/AdvarselBannerHeroku';
-import { AvtaleProvider } from './AvtaleContext';
+import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
-import AvtaleSide from './AvtaleSide/AvtaleSide';
+import AvtaleProvider from './AvtaleProvider';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import { FeilVarselProvider } from './FeilVarselProvider';
 import Informasjonsside from './Informasjonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
 import OpprettAvtaleVeileder from './OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import OpprettelseFullfort from './OpprettAvtale/OpprettelseFullfort/OpprettelseFullfort';
+import OpprettelseFullfortVeileder from './OpprettAvtale/OpprettelseFullfortVeileder/OpprettelseFullfortVeileder';
 import {
     basename,
     pathTilAvtale,
@@ -21,7 +22,8 @@ import {
     pathTilInformasjonssideUinnlogget,
     pathTilOpprettAvtale,
     pathTilOpprettAvtaleArbeidsgiver,
-    pathTilOpprettAvtaleFullfort,
+    pathTilOpprettAvtaleFullfortArbeidsgiver,
+    pathTilOpprettAvtaleFullfortVeileder,
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
@@ -33,7 +35,7 @@ class App extends React.Component {
         return (
             <IntlProvider locale="nb" messages={messages}>
                 <BrowserRouter basename={basename}>
-                    <AdvarselBannerHeroku />
+                    <AdvarselBannerTestversjon />
                     <FeatureToggleProvider>
                         <Switch>
                             <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
@@ -57,9 +59,14 @@ class App extends React.Component {
                                             component={OpprettAvtaleArbeidsgiver}
                                         />
                                         <Route
-                                            path={pathTilOpprettAvtaleFullfort(':avtaleId')}
+                                            path={pathTilOpprettAvtaleFullfortVeileder(':avtaleId')}
                                             exact={true}
-                                            component={OpprettelseFullfort}
+                                            component={OpprettelseFullfortVeileder}
+                                        />
+                                        <Route
+                                            path={pathTilOpprettAvtaleFullfortArbeidsgiver(':avtaleId')}
+                                            exact={true}
+                                            component={OpprettelseFullfortArbeidsgiver}
                                         />
                                         <AvtaleProvider>
                                             <Route
@@ -68,7 +75,7 @@ class App extends React.Component {
                                                     pathTilStegIAvtale(':avtaleId', ':stegPath'),
                                                 ]}
                                                 exact={true}
-                                                component={AvtaleSide}
+                                                component={AvtaleFetcher}
                                             />
                                         </AvtaleProvider>
                                     </RedirectEtterLogin>

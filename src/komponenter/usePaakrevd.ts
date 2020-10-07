@@ -2,7 +2,7 @@ import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmel
 import { Dispatch, SetStateAction, useState } from 'react';
 
 type UsePaakrevd = (
-    verdi: string,
+    verdi: string | undefined,
     label: string,
     feilmelding?: string
 ) => [SkjemaelementFeil | undefined, Dispatch<SetStateAction<SkjemaelementFeil | undefined>>, () => boolean];

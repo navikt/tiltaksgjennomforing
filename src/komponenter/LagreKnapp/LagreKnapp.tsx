@@ -1,6 +1,5 @@
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
-import { ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { handterFeil } from '@/utils/apiFeilUtils';
 import KnappBase, { Knapp } from 'nav-frontend-knapper';
 import React, { Component } from 'react';
 import './LagreKnapp.less';
@@ -43,13 +42,7 @@ class LagreKnapp extends Component<Props, State> {
             await this.props.lagre();
             this.visSuksessmelding();
         } catch (error) {
-            if (error instanceof FeilkodeError) {
-                this.visFeilmelding(Feilmeldinger[error.message as Feilkode]);
-            } else if (error instanceof ApiError || error instanceof UfullstendigError) {
-                this.visFeilmelding(error.message);
-            } else {
-                throw error;
-            }
+            handterFeil(error, this.visFeilmelding);
         } finally {
             if (this.state.isMounted) {
                 this.enableSpinner(false);

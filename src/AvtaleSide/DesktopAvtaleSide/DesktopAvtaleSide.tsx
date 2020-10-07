@@ -1,11 +1,11 @@
-import { Rolle } from '@/AvtaleContext';
+import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import { Avtale } from '@/types/avtale';
+import { Rolle } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import React from 'react';
 import { StegInfo } from '../AvtaleSide';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
-import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 
 interface Props {
     avtaleSteg: StegInfo[];

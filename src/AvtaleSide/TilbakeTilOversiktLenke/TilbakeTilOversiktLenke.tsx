@@ -1,31 +1,23 @@
-import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
-import React, { FunctionComponent, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { pathTilOversikt } from '@/paths';
-import { ApiError } from '@/types/errors';
-import { AvtaleContext } from '@/AvtaleContext';
+import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
+import React, { FunctionComponent } from 'react';
+import { Link } from 'react-router-dom';
 import './TilbakeTilOversiktLenke.less';
 
-const TilbakeTilOversiktLenke: FunctionComponent<{}> = () => {
-    const context = useContext(AvtaleContext);
+type Props = {
+    onClick?: () => void;
+    tekst?: string;
+};
 
-    const tilbakeTilOversikt = async () => {
-        if (context.harUlagredeEndringer()) {
-            try {
-                await context.lagreAvtale();
-            } catch (error) {
-                if (error instanceof ApiError) {
-                    return context.visFeilmelding(error.message);
-                }
-                throw error;
-            }
-        }
-    };
-
+const TilbakeTilOversiktLenke: FunctionComponent<Props> = props => {
     return (
-        <Link to={pathTilOversikt} className="lenke" onClick={tilbakeTilOversikt}>
+        <Link
+            to={{ pathname: pathTilOversikt, search: window.location.search }}
+            className="lenke"
+            onClick={props.onClick}
+        >
             <VenstreChevron className="tilbaketiloversikt__chevron" />
-            Tilbake til oversikt
+            {props.tekst || 'Tilbake til oversikt'}
         </Link>
     );
 };

@@ -5,7 +5,7 @@ import useValidering from '@/komponenter/useValidering';
 interface Props {
     className?: string;
     label: string;
-    verdi: string;
+    verdi?: string;
     feilmelding?: string;
     settVerdi: (verdi: string) => void;
 }
@@ -18,7 +18,7 @@ const TelefonnummerInput: React.FunctionComponent<Props> = props => {
             }
         },
         verdi => {
-            if (!/^\d{8}$/.test(verdi)) {
+            if (!/^\d{8}$/.test(verdi!)) {
                 return { feilmelding: 'Telefonnummer må bestå av 8 siffer' };
             }
         },

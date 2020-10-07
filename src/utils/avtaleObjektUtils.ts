@@ -1,5 +1,5 @@
-import { AltAvtaleinnhold, Avtale } from '@/types/avtale';
-const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
+import { Avtaleinnhold, Avtale } from '@/types/avtale';
+const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     arbeidsgiverEtternavn: '',
     arbeidsgiverFornavn: '',
     arbeidsgiverKontonummer: '',
@@ -13,7 +13,6 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     lonnstilskuddProsent: 0,
     maal: [],
     oppfolging: '',
-    oppgaver: [],
     sluttDato: '',
     startDato: '',
     stillingprosent: 0,
@@ -31,16 +30,21 @@ const tomtAvtaleInnholdInput: Required<AltAvtaleinnhold> = {
     mentorTimelonn: 0,
     harFamilietilknytning: false,
     familietilknytningForklaring: '',
+    feriepengerBelop: 0,
+    otpBelop: 0,
+    arbeidsgiveravgiftBelop: 0,
+    sumLonnsutgifter: 0,
+    sumLonnstilskudd: 0,
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {
     const newObj: any = {};
     Object.keys(avtale).forEach(key => {
         if (key in tomtAvtaleInnholdInput) {
-            newObj[key] = avtale[key as keyof AltAvtaleinnhold];
+            newObj[key] = avtale[key as keyof Avtaleinnhold];
         }
     });
-    return newObj as AltAvtaleinnhold;
+    return newObj as Avtaleinnhold;
 };
 
 export { lagAvtaleObjektMedKunInputFelter };

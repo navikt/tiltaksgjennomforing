@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Menyknapp } from 'nav-frontend-ikonknapper';
-import { UndertekstBold } from 'nav-frontend-typografi';
-import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
-import BEMHelper from '@/utils/bem';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { FeilVarselContext } from '@/FeilVarselProvider';
+import { ApiError } from '@/types/errors';
+import BEMHelper from '@/utils/bem';
+import { Menyknapp } from 'nav-frontend-ikonknapper';
+import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+import React, { useContext, useState } from 'react';
 
 const cls = BEMHelper('avtaleside');
 
@@ -19,9 +21,25 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
         return setDropdown(event.currentTarget);
     };
 
+    const { ulagredeEndringer, lagreAvtale } = useContext(AvtaleContext);
+    const visFeilmelding = useContext(FeilVarselContext);
+
+    const lagreEndringer = async () => {
+        if (ulagredeEndringer) {
+            try {
+                await lagreAvtale();
+            } catch (error) {
+                if (error instanceof ApiError) {
+                    return visFeilmelding(error.message);
+                }
+                throw error;
+            }
+        }
+    };
+
     return (
         <div className={cls.element('meny-wrapper')}>
-            <TilbakeTilOversiktLenke />
+            <TilbakeTilOversiktLenke onClick={lagreEndringer} />
             <Menyknapp
                 className={cls.element('popover-knapp')}
                 id="menyKnapp"
@@ -30,7 +48,7 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
                 aria-controls={dropdownId}
                 aria-haspopup="menu"
             >
-                <UndertekstBold>Dropdown Meny</UndertekstBold>
+                Meny
             </Menyknapp>
             <Popover
                 id={dropdownId}

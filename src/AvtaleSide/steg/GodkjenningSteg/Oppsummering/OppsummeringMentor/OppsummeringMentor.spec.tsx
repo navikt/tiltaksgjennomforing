@@ -1,20 +1,16 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
-import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
-import arbeidstreningAvtaleMock from '@/mocking/arbeidstrening-avtale-mock';
-import MaalOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/maalOppsummering/MaalOppsummering';
 import VarighetOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/varighet/VarighetOppsummering';
-import OppgaverOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppgaveOppsummering/OppgaverOppsummering';
 import Tilrettelegging from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/tilrettelegging/Tilrettelegging';
+import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
+import mentorAvtaleMock from '@/mocking/mentor-avtale-mock';
+import OmMentorOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OmMentorOppsummering';
 
-const wrapper = shallow(<OppsummeringArbeidstrening avtaleinnhold={arbeidstreningAvtaleMock} />);
+const wrapper = shallow(<OppsummeringMentor avtaleinnhold={mentorAvtaleMock} />);
 
-test('Skal rendre <MaalOppsummering>', () => {
-    expect(wrapper.find(MaalOppsummering)).toHaveLength(1);
-});
-test('Skal rendre <OppgaverOppsummering>', () => {
-    expect(wrapper.find(OppgaverOppsummering)).toHaveLength(1);
+test('Skal rendre <OmMentorOppsummering>', () => {
+    expect(wrapper.find(OmMentorOppsummering)).toHaveLength(1);
 });
 test('Skal rendre <VarighetOppsummering>', () => {
     expect(wrapper.find(VarighetOppsummering)).toHaveLength(1);

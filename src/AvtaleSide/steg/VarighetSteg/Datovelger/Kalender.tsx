@@ -6,8 +6,6 @@ import Navigasjonsbar from './Navigasjonsbar';
 import DatovelgerCaption from './DatovelgerCaption';
 import { datoIkkeTilbakeITid } from '@/utils/datoUtils';
 
-const today = new Date();
-
 interface Props {
     valgtDato: Date;
     velgDato: (dato: Date) => void;
@@ -63,7 +61,6 @@ class Kalender extends React.Component<Props> {
                     localeUtils={localeUtils}
                     firstDayOfWeek={1}
                     navbarElement={<Navigasjonsbar showPreviousButton={true} showNextButton={true} />}
-                    disabledDays={{ before: today }}
                     captionElement={<DatovelgerCaption date={this.props.valgtDato} />}
                     selectedDays={this.props.valgtDato}
                     initialMonth={this.props.valgtDato}

@@ -1,8 +1,8 @@
+import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import { validerOrgnr } from '@/utils/orgnrUtils';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/Filtrering';
-import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
-import { validerOrgnr } from '@/utils/orgnrUtils';
 import { SøkeInput } from './SøkeInput';
 
 // Ikke i bruk nå, men kan være relevant senere når AG også får filtreringsmulighet
