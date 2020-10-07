@@ -6,7 +6,7 @@ import './EksternLenke.less';
 
 const EksternLenke: React.FunctionComponent<Props> = props => {
     const onClick = (event: any) => {
-        amplitude.logEvent('#tiltak-infoside-ekstern-lenke-klikket', {
+        amplitude.logEvent('#tiltak-ekstern-lenke-klikket', {
             url: event.target.href,
         });
     };
