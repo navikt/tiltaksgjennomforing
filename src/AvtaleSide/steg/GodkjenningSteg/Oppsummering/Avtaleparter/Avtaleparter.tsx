@@ -13,7 +13,7 @@ const cls = BEMHelper('avtaleparter');
 
 interface Felt {
     felt: string;
-    verdi: string;
+    verdi?: string;
 }
 
 interface Props {

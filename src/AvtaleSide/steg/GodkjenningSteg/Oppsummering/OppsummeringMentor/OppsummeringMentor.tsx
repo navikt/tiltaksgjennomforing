@@ -1,4 +1,4 @@
-import { AltAvtaleinnhold, MentorAvtaleinnhold } from '@/types/avtale';
+import { Avtaleinnhold } from '@/types/avtale';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
@@ -7,11 +7,10 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 
 interface Props {
-    // Burde hatt typen MentorAvtaleinnhold, og droppet typesetting av prop under, men fikk problemer :/
-    avtaleinnhold: AltAvtaleinnhold;
+    avtaleinnhold: Avtaleinnhold;
 }
 
-const OppsummeringMentor: FunctionComponent<Props> = (props: { avtaleinnhold: MentorAvtaleinnhold }) => (
+const OppsummeringMentor: FunctionComponent<Props> = props => (
     <>
         <OmMentorOppsummering {...props.avtaleinnhold} />
         <VarighetOppsummering {...props.avtaleinnhold} />

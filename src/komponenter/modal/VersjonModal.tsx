@@ -2,7 +2,7 @@ import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsum
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import { AltAvtaleinnhold, AvtaleVersjon, TiltaksType } from '@/types/avtale';
+import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import Modal from 'nav-frontend-modal';
 import React from 'react';
 import './VersjonModal.less';
@@ -10,7 +10,7 @@ import './VersjonModal.less';
 interface Props {
     isOpen: boolean;
     lukkModal: () => void;
-    avtaleInnhold: AvtaleVersjon<AltAvtaleinnhold>;
+    avtaleInnhold: AvtaleVersjon;
     tiltakstype: TiltaksType;
 }
 

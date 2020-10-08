@@ -6,7 +6,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
-import { AltAvtaleinnhold } from '@/types/avtale';
+import { Avtaleinnhold } from '@/types/avtale';
 import * as React from 'react';
 import { createElement, FunctionComponent, useContext } from 'react';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
@@ -14,7 +14,7 @@ import Godkjenning from './Godkjenning';
 import { UfordeltStatusArbeidsgiverDeltaker } from './UfordeltStatusArbeidsgiverDeltaker';
 
 interface Props {
-    oppsummering: FunctionComponent<{ avtaleinnhold: AltAvtaleinnhold }>;
+    oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
 }
 
 const GodkjenningSteg: React.FunctionComponent<Props> = props => {

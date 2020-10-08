@@ -1,5 +1,5 @@
 import { FeilVarselContext } from '@/FeilVarselProvider';
-import { AltAvtaleinnhold, Avtale, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
+import { Avtale, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Maalkategori } from '@/types/maalkategorier';
@@ -8,9 +8,9 @@ import * as React from 'react';
 import { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import * as RestService from './services/rest-service';
-import { FellesAvtaleinnhold } from './types/avtale';
+import { Avtaleinnhold } from './types/avtale';
 
-export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale<FellesAvtaleinnhold>) => {
+export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
     return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
 
@@ -21,10 +21,10 @@ export interface TemporaryLagring {
 
 type SettAvtaleVerdi<K extends keyof Avtale> = (felt: K, verdi: Avtale[K]) => void;
 
-type SettFlereAvtaleVerdier = (endringer: Partial<Avtale>) => void;
+type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
 
 export interface Context {
-    avtale: Avtale<AltAvtaleinnhold>;
+    avtale: Avtale;
     overtaAvtale: () => Promise<void>;
     gjenopprettAvtale: () => Promise<void>;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;

@@ -40,3 +40,5 @@ export const formatterDato = (dato: string) => {
         return dato;
     }
 };
+
+export const erDatoTilbakeITid = (dato?: string) => moment(dato).diff(moment(), 'days') < 0;

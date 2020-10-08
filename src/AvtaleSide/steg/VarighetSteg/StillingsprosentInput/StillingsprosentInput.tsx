@@ -4,7 +4,7 @@ import useValidering from '@/komponenter/useValidering';
 
 interface Props {
     label: string;
-    verdi: number;
+    verdi?: number;
     settVerdi: (verdi: number) => void;
 }
 
@@ -16,7 +16,7 @@ const StillingsprosentInput = (props: Props) => {
             }
         },
         verdi => {
-            if (verdi <= 0 || verdi > 100) {
+            if (verdi! <= 0 || verdi! > 100) {
                 return {
                     feilmelding: 'Stillingsprosent må være mellom 1 og 100',
                 };

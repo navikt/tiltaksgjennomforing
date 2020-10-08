@@ -9,7 +9,7 @@ interface Props {
     avtale: Avtale;
 }
 
-const GodkjenningStatus: React.FunctionComponent<Props> = (props: Props) => {
+const GodkjenningStatus: React.FunctionComponent<Props> = props => {
     return (
         <Innholdsboks className="godkjenningstatus">
             <SkjemaTittel>Hvem har godkjent?</SkjemaTittel>

@@ -46,6 +46,7 @@ const relasjonHjelpetekst = (
 
 const Relasjoner: FunctionComponent = () => {
     const { avtale, settAvtaleVerdier }: InputStegProps<RelasjonerInfo> = useContext(AvtaleContext);
+
     const { rolle } = useContext(InnloggetBrukerContext);
     const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>();
     return (

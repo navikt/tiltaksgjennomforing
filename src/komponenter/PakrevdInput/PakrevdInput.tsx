@@ -4,7 +4,7 @@ import usePaakrevd from '@/komponenter/usePaakrevd';
 
 interface Props extends NavFrontendInputProps {
     label: string;
-    verdi: string | number;
+    verdi: string | number | undefined;
     feilmelding?: string;
     settVerdi: (verdi: string) => void;
 }

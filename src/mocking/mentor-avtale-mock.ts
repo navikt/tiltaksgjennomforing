@@ -1,6 +1,6 @@
-import { Avtale, MentorAvtaleinnhold } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 
-const mentorAvtaleMock: Avtale<MentorAvtaleinnhold> = {
+const mentorAvtaleMock: Avtale = {
     id: '6565e74d-66f3-44a1-8a3c-91fae6b450d3',
     opprettetTidspunkt: '',
     sistEndret: '',
@@ -57,6 +57,8 @@ const mentorAvtaleMock: Avtale<MentorAvtaleinnhold> = {
     avbruttDato: '',
     avbruttGrunn: '',
     erUfordelt: false,
+
+    maal: [],
 };
 
 export default mentorAvtaleMock;

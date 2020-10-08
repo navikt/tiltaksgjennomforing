@@ -6,8 +6,8 @@ import './GodkjenningRad.less';
 
 interface Props {
     godkjentAvtale: boolean;
-    fornavn: string;
-    etternavn: string;
+    fornavn?: string;
+    etternavn?: string;
     placeholderName: string;
     bedriftNavn?: string;
 }

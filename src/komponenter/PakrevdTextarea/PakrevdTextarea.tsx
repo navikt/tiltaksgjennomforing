@@ -7,7 +7,7 @@ import './PakrevdTextarea.less';
 interface Props {
     label: string;
     placeholder?: string;
-    verdi: string;
+    verdi?: string;
     feilmelding?: string;
     maxLengde: number;
     settVerdi: (verdi: string) => void;
