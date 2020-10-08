@@ -84,9 +84,10 @@ export interface Varighet {
 export interface Stilling {
     stillingstittel?: string;
     arbeidsoppgaver?: string;
-    stillingstype?: 'FAST' | 'MIDLERTIDIG';
+    stillingstype?: Stillingstype;
 }
 
+export type Stillingstype = 'FAST' | 'MIDLERTIDIG';
 export interface Beregningsgrunnlag {
     manedslonn?: number;
     feriepengesats?: number;
