@@ -1,4 +1,5 @@
 import { Avtaleinnhold, TiltaksType } from './types/avtale';
+import { Stillingstype } from './types/avtale';
 import { HendelseType } from './types/hendelse';
 
 export const messages = {
@@ -73,4 +74,9 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
     MENTOR: 'Mentor',
+};
+
+export const stillingstype: { [key in Stillingstype]: string } = {
+    FAST: 'Fast',
+    MIDLERTIDIG: 'Midlertidig',
 };

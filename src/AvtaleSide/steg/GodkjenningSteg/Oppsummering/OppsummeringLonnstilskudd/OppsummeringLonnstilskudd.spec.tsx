@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
-import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
+import StillingsOppsummeringLonnstilskudd from '../StillingsOppsummeringLonnstilskudd/StillingsOppsummeringLonnstilskudd';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import OppsummeringLonnstilskudd from './OppsummeringLonnstilskudd';
@@ -11,7 +11,7 @@ import OppsummeringLonnstilskudd from './OppsummeringLonnstilskudd';
 const wrapper = shallow(<OppsummeringLonnstilskudd avtaleinnhold={lonnstilskuddAvtaleMock} />);
 
 test('Skal rendre <StillingsOppsummering>', () => {
-    expect(wrapper.find(StillingsOppsummering)).toHaveLength(1);
+    expect(wrapper.find(StillingsOppsummeringLonnstilskudd)).toHaveLength(1);
 });
 test('Skal rendre <VarighetOppsummering>', () => {
     expect(wrapper.find(VarighetOppsummering)).toHaveLength(1);

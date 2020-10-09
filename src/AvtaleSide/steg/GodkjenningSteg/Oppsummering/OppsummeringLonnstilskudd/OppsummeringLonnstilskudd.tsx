@@ -3,7 +3,7 @@ import { Avtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import RelasjonerOppsummering from '../RelasjonerOppsummering/RelasjonerOppsummering';
-import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
+import StillingsOppsummeringLonnstilskudd from '../StillingsOppsummeringLonnstilskudd/StillingsOppsummeringLonnstilskudd';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 
@@ -14,7 +14,7 @@ interface Props {
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
     <>
         <RelasjonerOppsummering {...props.avtaleinnhold} />
-        <StillingsOppsummering {...props.avtaleinnhold} />
+        <StillingsOppsummeringLonnstilskudd {...props.avtaleinnhold} />
         <VarighetOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />

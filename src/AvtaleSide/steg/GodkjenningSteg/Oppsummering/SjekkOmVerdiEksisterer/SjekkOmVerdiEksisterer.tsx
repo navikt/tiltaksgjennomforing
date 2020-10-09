@@ -5,7 +5,7 @@ import { FunctionComponent } from 'react';
 
 const SjekkOmVerdiEksisterer: FunctionComponent<{
     verdi?: string;
-    formatertVerdi?: JSX.Element;
+    formatertVerdi?: JSX.Element | string;
     clsName?: string;
     label?: string;
 }> = props => {

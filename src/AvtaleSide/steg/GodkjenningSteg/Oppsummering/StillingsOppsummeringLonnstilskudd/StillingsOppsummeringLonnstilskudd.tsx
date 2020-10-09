@@ -4,6 +4,7 @@ import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import { stillingstype } from '@/messages';
 
 const StillingsOppsummering: FunctionComponent<Stilling> = props => (
     <Stegoppsummering tittel="Stilling">
@@ -13,6 +14,8 @@ const StillingsOppsummering: FunctionComponent<Stilling> = props => (
         <Element>Arbeidsoppgaver</Element>
         <SjekkOmVerdiEksisterer verdi={props.arbeidsoppgaver} />
         <VerticalSpacer sixteenPx={true} />
+        <Element>Stillingstype</Element>
+        <SjekkOmVerdiEksisterer verdi={props.stillingstype} formatertVerdi={stillingstype[props.stillingstype!]} />
     </Stegoppsummering>
 );
 
