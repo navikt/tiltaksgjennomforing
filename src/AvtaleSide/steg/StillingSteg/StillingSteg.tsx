@@ -1,32 +1,122 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Stilling } from '@/types/avtale';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { RadioPanel } from 'nav-frontend-skjema';
-import './StillingsSteg.less';
 import BEMHelper from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { AvtaleMetadata } from '@/types/avtale';
+import './StillingsSteg.less';
 
 const cls = BEMHelper('StillingsSteg');
 
-const StillingSteg: FunctionComponent = () => {
-    const avtaleContext: InputStegProps<Stilling & AvtaleMetadata> = useContext(AvtaleContext);
+export interface StillingsKategorier {
+    label: string;
+    styrk08: number;
+    konseptId: number;
+}
+
+const StillingSteg: FunctionComponent<{}> = () => {
+    const avtaleContext = useContext(AvtaleContext);
+    const [kategori, setKategorier] = useState<StillingsKategorier[] | undefined>(undefined);
+
+    enum StillingsStatus {
+        Stillingsfelt = 'Stillingsfelt',
+        Stillingslist = 'Stillingslist',
+    }
+
+    const getStillingskategorier = (type: string) => {
+        avtaleContext
+            .hentStillingskategorier(type)
+            .then((res: StillingsKategorier[]) => {
+                setKategorier(res);
+            })
+            .catch(err => console.warn('err', err));
+        avtaleContext.settAvtaleVerdi('stillingstittel', type);
+    };
+
+    useEffect(() => {
+        window.addEventListener('keydown', event => {
+            if (event.key === 'Tab' || event.key === 'ArrowDown') {
+                const element = document.activeElement;
+                if (
+                    element &&
+                    (element.id === StillingsStatus.Stillingsfelt || element.id === StillingsStatus.Stillingslist)
+                ) {
+                    // TODO skrive keyEvents
+                }
+            }
+        });
+    }, [StillingsStatus]);
+
+    const getInputverdi = () =>
+        avtaleContext.avtale.stillingstittel ? avtaleContext.avtale.stillingstittel.toLowerCase() : '';
+
+    const setInputverdi = (event: React.MouseEvent<HTMLAnchorElement | MouseEvent>, label: string) => {
+        event.preventDefault();
+        avtaleContext.settAvtaleVerdi('stillingstittel', label);
+        setKategorier(undefined);
+    };
+
+    const highlightPattern = (text: string, pattern: string) => {
+        const txtfragments = text.split(pattern);
+        if (txtfragments.length <= 1) {
+            return text;
+        }
+        const matches = text.match(pattern);
+
+        return txtfragments.reduce(
+            (arr: any, element: any, index: number) =>
+                matches && matches[index]
+                    ? [
+                          ...arr,
+                          element,
+                          <span className="typo-undertittel" key={index}>
+                              {matches[index]}
+                          </span>,
+                      ]
+                    : [...arr, element],
+            []
+        );
+    };
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Stilling</SkjemaTittel>
-            <PakrevdInput
-                label="Stillingstittel"
-                verdi={avtaleContext.avtale.stillingstittel || ''}
-                settVerdi={verdi => avtaleContext.settAvtaleVerdi('stillingstittel', verdi)}
-            />
+            <div className={cls.element('kategori-wrapper')}>
+                <PakrevdInput
+                    label="Stillingstittel"
+                    verdi={avtaleContext.avtale.stillingstittel || ''}
+                    settVerdi={verdi => getStillingskategorier(verdi)}
+                    id={StillingsStatus.Stillingsfelt}
+                />
+                {kategori && kategori.length > 0 && (
+                    <div className={cls.element('stillingskategorier')}>
+                        <ul>
+                            {kategori.map((kat, index) => {
+                                const tekst = highlightPattern(kat.label.toLowerCase(), getInputverdi());
+                                return (
+                                    <a
+                                        className={cls.element('kategori')}
+                                        key={index}
+                                        href="https://arbeidsgiver.nav.no/tiltaksgjennomforing"
+                                        onClick={event => setInputverdi(event, kat.label)}
+                                        role="button"
+                                        id={StillingsStatus.Stillingslist + index}
+                                    >
+                                        <li>
+                                            <span className="typo-normal">{tekst}</span>
+                                        </li>
+                                    </a>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                )}
+            </div>
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"
                 verdi={avtaleContext.avtale.arbeidsoppgaver || ''}

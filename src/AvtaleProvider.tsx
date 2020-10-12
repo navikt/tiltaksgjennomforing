@@ -42,6 +42,7 @@ export interface Context {
     slettMaal: (maal: Maal) => Promise<any>;
     laasOpp: () => Promise<any>;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
+    hentStillingskategorier: (kategori: string) => Promise<any>;
 }
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
@@ -194,6 +195,8 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale(avtale.id);
     };
 
+    const hentStillingskategorier = async (kategori: string) => await RestService.hentStillingskategorier(kategori);
+
     const avtaleContext: Context = {
         avtale,
         settAvtaleVerdi,
@@ -213,6 +216,7 @@ const AvtaleProvider: FunctionComponent = props => {
         ulagredeEndringer,
         mellomLagring,
         setMellomLagring,
+        hentStillingskategorier,
     };
 
     return (

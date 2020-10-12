@@ -1,4 +1,47 @@
 .StillingsSteg {
+    &__kategori-wrapper {
+        position: relative;
+    }
+
+    &__stillingskategorier {
+        position: absolute;
+        top: 5rem;
+        left: 0;
+        background-color: white;
+        z-index: 10000;
+        width: 100%;
+
+        ul {
+            margin-left: 0;
+            padding-left: 0.5rem;
+            max-height: 20rem;
+            overflow-x: scroll;
+        }
+    }
+
+    &__kategori {
+        text-decoration: none;
+        color: black;
+        width: 100%;
+        height: 100%;
+
+        &:focus {
+            li {
+                background-color: #c6c2bf;
+            }
+        }
+
+        li {
+            padding: 0.35rem;
+            list-style-type: none;
+
+            &:hover {
+                background-color: #c6c2bf;
+                cursor: pointer;
+            }
+        }
+    }
+
     &__stillingstype_radio {
         display: flex;
 

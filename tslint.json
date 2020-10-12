@@ -10,6 +10,8 @@
         "jsx-no-lambda": false,
         "member-access": false,
         "ordered-imports": false,
-        "max-line-length": [true, 120]
+        "max-line-length": [true, 120],
+        "object-literal-shorthand": false,
+        "no-console": [true, "log"]
     }
 }

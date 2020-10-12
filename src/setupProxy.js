@@ -68,6 +68,13 @@ module.exports = function(app) {
         res.json(process.env.ENABLE_INTERNAL_MENU === 'true');
     });
 
+    getProxyConfig = (path, target) => ({
+        changeOrigin: true,
+        pathRewrite: path,
+        target: target,
+        xfwd: true,
+    });
+
     const proxyConfig = {
         changeOrigin: true,
         pathRewrite: whitelist,
@@ -81,5 +88,12 @@ module.exports = function(app) {
         };
     }
 
-    app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
+    app.use('/tiltaksgjennomforing/api', proxy(getProxyConfig(whitelist, envProperties.APIGW_URL)));
+    app.use(
+        '/stillingstitler',
+        proxy({
+            changeOrigin: true,
+            target: 'https://arbeidsgiver.nav.no',
+        })
+    );
 };

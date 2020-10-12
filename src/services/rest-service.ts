@@ -8,6 +8,7 @@ import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
 import { FeilkodeError } from './../types/errors';
+import { StillingsKategorier } from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -272,6 +273,12 @@ export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Pr
         },
     });
     await handleResponse(response);
+};
+
+export const hentStillingskategorier = async (kategori: string): Promise<StillingsKategorier[]> => {
+    const response = await fetchGet(`/stillingstitler/search?q=${kategori}`);
+    await handleResponse(response);
+    return response.json();
 };
 
 export const overtaAvtale = async (avtaleId: string): Promise<void> => {

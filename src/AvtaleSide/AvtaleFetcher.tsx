@@ -6,9 +6,9 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-type Props = {
+interface Props {
     avtaleId: string;
-};
+}
 
 const AvtaleFetcher: FunctionComponent<Props> = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
