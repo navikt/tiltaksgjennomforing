@@ -1,4 +1,4 @@
-import { ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
+import { AdresseError, ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 export const handterFeil = (
@@ -9,6 +9,8 @@ export const handterFeil = (
     switch (error.constructor) {
         case FeilkodeError:
             visFeilmelding(Feilmeldinger[error.message as Feilkode]);
+            break;
+        case AdresseError:
             break;
         case ApiError:
         case UfullstendigError:

@@ -3,7 +3,7 @@ import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
-import { ApiError, AutentiseringError } from '@/types/errors';
+import { ApiError, AutentiseringError, AdresseError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
@@ -33,6 +33,9 @@ const handleResponse = async (response: Response) => {
             window.location.pathname.replace(basename, '') + window.location.search
         );
         throw new AutentiseringError('Er ikke logget inn.');
+    }
+    if (response.status === 412) {
+        throw new AdresseError();
     }
     if (response.status === 400 && response.headers.has('feilkode')) {
         throw new FeilkodeError(response.headers.get('feilkode')!);
