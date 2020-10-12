@@ -1,3 +1,4 @@
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
 import NavFrontendSpinner from 'nav-frontend-spinner';
@@ -15,7 +16,7 @@ type Props = {
 const AvtaleOversiktSkeleton: FunctionComponent<Props> = props => {
     return (
         <div>
-            <MediaQuery minWidth={940}>
+            <MediaQuery minWidth={881}>
                 <div className={classNames(cls.element('header'), cls.element('rad'))}>
                     <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
                     <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
@@ -26,13 +27,17 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = props => {
                     <div className={cls.element('status')}>Status</div>
                     <div className={cls.element('statusikon')}>&nbsp;</div>
                 </div>
-                <div className="avtaleoversiktskeleton__skeletonrader">
-                    <Skeleton width={816} height={68} />
-                    <Skeleton width={816} height={68} />
-                    <Skeleton width={816} height={68} />
+                <div>
+                    <VerticalSpacer rem={1} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={0.5} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={0.5} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={1} />
                 </div>
             </MediaQuery>
-            <MediaQuery maxWidth={939}>
+            <MediaQuery maxWidth={880}>
                 <div className="avtaleoversiktskeleton__spinner">
                     <NavFrontendSpinner type={'XXL'} />
                 </div>
