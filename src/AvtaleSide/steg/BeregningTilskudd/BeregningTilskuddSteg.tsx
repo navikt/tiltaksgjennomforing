@@ -174,7 +174,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     />
                     <KontonummerInput
                         bredde={'L'}
-                        label={'Kontonummer'}
+                        label={'Kontonummer til arbeidsgiver'}
                         value={avtale.arbeidsgiverKontonummer}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdi('arbeidsgiverKontonummer', event.target.value);
