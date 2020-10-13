@@ -48,29 +48,31 @@ const StillingSteg: FunctionComponent<{}> = () => {
     };
 
     useEffect(() => {
-        const toppenAvListen = () => counter.current === 0;
-        const setFocusInputStillingsFelt = () => setFocus(StillingsStatus.Stillingsfelt, 0);
+        const toppenAvListen = (): boolean => counter.current === 0;
+        const setFocusInputStillingsFelt = (): void => setFocus(StillingsStatus.Stillingsfelt, 0);
 
-        const setFocusListElementUp = () =>
+        const setFocusListElementUp = (): void =>
             setFocus(StillingsStatus.Stillingslist + (counter.current - 1), counter.current - 1);
-        const setFocusListElementDown = () =>
+        const setFocusListElementDown = (): void =>
             setFocus(StillingsStatus.Stillingslist + (counter.current + 1), counter.current + 1);
 
         const ArrowUpListEvent = () => (toppenAvListen() ? setFocusInputStillingsFelt() : setFocusListElementUp());
 
-        const pressArrowDownInputFelt = (elem: Element | null, event: KeyboardEvent) =>
+        const pressArrowDownOnInputFelt = (elem: Element | null, event: KeyboardEvent): boolean | null =>
             elem && elem.id === StillingsStatus.Stillingsfelt && event.key === 'ArrowDown';
-        const pressArrowKeyStillingList = (elem: Element | null) =>
+
+        const pressArrowKeyOnStillingList = (elem: Element | null): boolean | null =>
             elem && elem.id === StillingsStatus.Stillingslist + counter.current;
 
-        const listEventOnPressArrowKey = (event: KeyboardEvent) => {
+        const listEventOnPressArrowKey = (event: KeyboardEvent): void => {
             if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
                 const aktivtElement = document.activeElement;
-                if (pressArrowDownInputFelt(aktivtElement, event)) {
+
+                if (pressArrowDownOnInputFelt(aktivtElement, event)) {
                     event.preventDefault();
                     return setFocus(StillingsStatus.Stillingslist + 0, 0);
                 }
-                if (pressArrowKeyStillingList(aktivtElement)) {
+                if (pressArrowKeyOnStillingList(aktivtElement)) {
                     event.preventDefault();
                     return event.key === 'ArrowDown' ? setFocusListElementDown() : ArrowUpListEvent();
                 }
@@ -80,10 +82,10 @@ const StillingSteg: FunctionComponent<{}> = () => {
         return () => document.removeEventListener('keydown', listEventOnPressArrowKey);
     }, [StillingsStatus]);
 
-    const getInputverdi = () =>
+    const getInputverdi = (): string =>
         avtaleContext.avtale.stillingstittel ? avtaleContext.avtale.stillingstittel.toLowerCase() : '';
 
-    const setInputverdi = (event: React.MouseEvent<HTMLAnchorElement | MouseEvent>, label: string) => {
+    const setInputverdi = (event: React.MouseEvent<HTMLAnchorElement | MouseEvent>, label: string): void => {
         event.preventDefault();
         avtaleContext.settAvtaleVerdi('stillingstittel', label);
         setKategorier(undefined);
