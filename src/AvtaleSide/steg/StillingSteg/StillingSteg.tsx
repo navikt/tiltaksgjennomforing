@@ -49,30 +49,33 @@ const StillingSteg: FunctionComponent<{}> = () => {
 
     useEffect(() => {
         const toppenAvListen = () => counter.current === 0;
-        const setFocusStillingsFelt = () => setFocus(StillingsStatus.Stillingsfelt, 0);
+        const setFocusInputStillingsFelt = () => setFocus(StillingsStatus.Stillingsfelt, 0);
 
         const setFocusListElementUp = () =>
             setFocus(StillingsStatus.Stillingslist + (counter.current - 1), counter.current - 1);
         const setFocusListElementDown = () =>
             setFocus(StillingsStatus.Stillingslist + (counter.current + 1), counter.current + 1);
 
-        const ArrowUpListEvent = () => (toppenAvListen() ? setFocusStillingsFelt() : setFocusListElementUp());
+        const ArrowUpListEvent = () => (toppenAvListen() ? setFocusInputStillingsFelt() : setFocusListElementUp());
+
+        const pressArrowDownInputFelt = (elem: Element | null, event: KeyboardEvent) =>
+            elem && elem.id === StillingsStatus.Stillingsfelt && event.key === 'ArrowDown';
+        const pressArrowKeyStillingList = (elem: Element | null) =>
+            elem && elem.id === StillingsStatus.Stillingslist + counter.current;
 
         const listEventOnPressArrowKey = (event: KeyboardEvent) => {
             if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
                 const aktivtElement = document.activeElement;
-                if (aktivtElement && aktivtElement.id === StillingsStatus.Stillingsfelt && event.key === 'ArrowDown') {
+                if (pressArrowDownInputFelt(aktivtElement, event)) {
                     event.preventDefault();
                     return setFocus(StillingsStatus.Stillingslist + 0, 0);
                 }
-
-                if (aktivtElement && aktivtElement.id === StillingsStatus.Stillingslist + counter.current) {
+                if (pressArrowKeyStillingList(aktivtElement)) {
                     event.preventDefault();
                     return event.key === 'ArrowDown' ? setFocusListElementDown() : ArrowUpListEvent();
                 }
             }
         };
-
         document.addEventListener('keydown', listEventOnPressArrowKey);
         return () => document.removeEventListener('keydown', listEventOnPressArrowKey);
     }, [StillingsStatus]);
