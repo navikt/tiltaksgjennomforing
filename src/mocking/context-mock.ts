@@ -74,5 +74,4 @@ export const contextMock: Context = {
     ulagredeEndringer: false,
     mellomLagring: undefined,
     setMellomLagring: () => null,
-    hentStillingskategorier: () => Promise.resolve<object[]>([{}]),
 };
