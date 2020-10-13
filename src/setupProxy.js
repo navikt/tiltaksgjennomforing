@@ -82,11 +82,4 @@ module.exports = function(app) {
     }
 
     app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
-    app.use(
-        '/stillingstitler',
-        proxy({
-            changeOrigin: true,
-            target: 'https://arbeidsgiver.nav.no',
-        })
-    );
 };
