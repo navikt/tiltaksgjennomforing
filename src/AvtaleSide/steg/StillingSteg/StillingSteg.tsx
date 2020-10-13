@@ -4,7 +4,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useRef, useState } from 'react';
 import { RadioPanel } from 'nav-frontend-skjema';
 import BEMHelper from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -22,6 +22,7 @@ export interface StillingsKategorier {
 const StillingSteg: FunctionComponent<{}> = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [kategori, setKategorier] = useState<StillingsKategorier[] | undefined>(undefined);
+    const counter = useRef(0);
 
     enum StillingsStatus {
         Stillingsfelt = 'Stillingsfelt',
@@ -34,22 +35,46 @@ const StillingSteg: FunctionComponent<{}> = () => {
             .then((res: StillingsKategorier[]) => {
                 setKategorier(res);
             })
-            .catch(err => console.warn('err', err));
+            .catch(err => console.warn('feilet med henting av stillingsKategorier', err));
         avtaleContext.settAvtaleVerdi('stillingstittel', type);
     };
 
+    const setFocus = (id: string, count: number) => {
+        const elem = document.getElementById(id);
+        if (elem) {
+            elem.focus();
+            counter.current = count;
+        }
+    };
+
     useEffect(() => {
-        window.addEventListener('keydown', event => {
-            if (event.key === 'Tab' || event.key === 'ArrowDown') {
-                const element = document.activeElement;
-                if (
-                    element &&
-                    (element.id === StillingsStatus.Stillingsfelt || element.id === StillingsStatus.Stillingslist)
-                ) {
-                    // TODO skrive keyEvents
+        const toppenAvListen = () => counter.current === 0;
+        const setFocusStillingsFelt = () => setFocus(StillingsStatus.Stillingsfelt, 0);
+
+        const setFocusListElementUp = () =>
+            setFocus(StillingsStatus.Stillingslist + (counter.current - 1), counter.current - 1);
+        const setFocusListElementDown = () =>
+            setFocus(StillingsStatus.Stillingslist + (counter.current + 1), counter.current + 1);
+
+        const ArrowUpListEvent = () => (toppenAvListen() ? setFocusStillingsFelt() : setFocusListElementUp());
+
+        const listEventOnPressArrowKey = (event: KeyboardEvent) => {
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                const aktivtElement = document.activeElement;
+                if (aktivtElement && aktivtElement.id === StillingsStatus.Stillingsfelt && event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    return setFocus(StillingsStatus.Stillingslist + 0, 0);
+                }
+
+                if (aktivtElement && aktivtElement.id === StillingsStatus.Stillingslist + counter.current) {
+                    event.preventDefault();
+                    return event.key === 'ArrowDown' ? setFocusListElementDown() : ArrowUpListEvent();
                 }
             }
-        });
+        };
+
+        document.addEventListener('keydown', listEventOnPressArrowKey);
+        return () => document.removeEventListener('keydown', listEventOnPressArrowKey);
     }, [StillingsStatus]);
 
     const getInputverdi = () =>
@@ -92,6 +117,7 @@ const StillingSteg: FunctionComponent<{}> = () => {
                     verdi={avtaleContext.avtale.stillingstittel || ''}
                     settVerdi={verdi => getStillingskategorier(verdi)}
                     id={StillingsStatus.Stillingsfelt}
+                    autoComplete="off"
                 />
                 {kategori && kategori.length > 0 && (
                     <div className={cls.element('stillingskategorier')}>
@@ -106,6 +132,7 @@ const StillingSteg: FunctionComponent<{}> = () => {
                                         onClick={event => setInputverdi(event, kat.label)}
                                         role="button"
                                         id={StillingsStatus.Stillingslist + index}
+                                        onMouseOver={() => setFocus(StillingsStatus.Stillingslist + index, index)}
                                     >
                                         <li>
                                             <span className="typo-normal">{tekst}</span>
