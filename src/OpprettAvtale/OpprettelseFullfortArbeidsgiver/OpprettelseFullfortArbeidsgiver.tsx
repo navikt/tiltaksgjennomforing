@@ -25,8 +25,8 @@ const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentPro
                         Avtalen er opprettet
                     </Systemtittel>
                     <Normaltekst className="opprettelseFullfortArbeidsgiver__undertittel">
-                        For at arbeidsgiver og deltaker skal kunne fylle ut og godkjenne avtalen, må du kopiere og sende
-                        dem lenken under. De må da logge seg inn via ID-porten.
+                        For at deltaker skal kunne fylle ut og godkjenne avtalen, må du kopiere og sende lenken under.
+                        Deltakeren må da logge seg inn via ID-porten.
                     </Normaltekst>
                     <div className="opprettelseFullfortArbeidsgiver__lenkedeling">
                         <div className="opprettelseFullfortArbeidsgiver__lenke">
