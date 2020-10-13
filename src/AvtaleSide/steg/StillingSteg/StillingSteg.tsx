@@ -10,6 +10,7 @@ import BEMHelper from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './StillingsSteg.less';
+import { hentStillingskategorier } from '@/services/rest-service';
 
 const cls = BEMHelper('StillingsSteg');
 
@@ -30,8 +31,7 @@ const StillingSteg: FunctionComponent<{}> = () => {
     }
 
     const getStillingskategorier = (type: string) => {
-        avtaleContext
-            .hentStillingskategorier(type)
+        hentStillingskategorier(type)
             .then((res: StillingsKategorier[]) => {
                 setKategorier(res);
             })
