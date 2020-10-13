@@ -276,7 +276,7 @@ export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Pr
 };
 
 export const hentStillingskategorier = async (kategori: string): Promise<StillingsKategorier[]> => {
-    const response = await fetchGet(`/stillingstitler/search?q=${kategori}`);
+    const response = await fetch(`https://arbeidsgiver.nav.no/stillingstitler/search?q=${kategori}`);
     await handleResponse(response);
     return response.json();
 };
