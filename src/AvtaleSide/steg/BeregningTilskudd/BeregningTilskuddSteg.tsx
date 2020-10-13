@@ -156,6 +156,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 {lonnPerManedInkludertFastTillegHjelpetekst}
             </LesMerPanel>
+            <VerticalSpacer sixteenPx={true} />
             <Row className="">
                 <Column md="6">
                     <ValutaInput
