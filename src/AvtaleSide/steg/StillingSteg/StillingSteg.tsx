@@ -9,8 +9,9 @@ import { RadioPanel } from 'nav-frontend-skjema';
 import BEMHelper from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Normaltekst } from 'nav-frontend-typografi';
-import './StillingsSteg.less';
 import { hentStillingskategorier } from '@/services/rest-service';
+import debounce from 'lodash.debounce';
+import './StillingsSteg.less';
 
 const cls = BEMHelper('StillingsSteg');
 
@@ -31,11 +32,15 @@ const StillingSteg: FunctionComponent<{}> = () => {
     }
 
     const getStillingskategorier = (type: string) => {
-        hentStillingskategorier(type)
-            .then((res: StillingsKategorier[]) => {
-                setKategorier(res);
-            })
-            .catch(err => console.warn('feilet med henting av stillingsKategorier', err));
+        debounce(
+            () =>
+                hentStillingskategorier(type)
+                    .then((res: StillingsKategorier[]) => {
+                        setKategorier(res);
+                    })
+                    .catch(err => console.warn('feilet med henting av stillingsKategorier', err)),
+            150
+        )();
         avtaleContext.settAvtaleVerdi('stillingstittel', type);
     };
 
