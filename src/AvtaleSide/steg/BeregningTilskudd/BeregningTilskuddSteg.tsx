@@ -25,8 +25,35 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
+import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 
 const cls = BEMHelper('beregningTilskuddSteg');
+const lonnPerManedInkludertFastTillegHjelpetekst = (
+    <div>
+        Brutto lønn omregnes til fast gjennomsnittlig månedslønn. I refusjonsgrunnlaget inngår lønn for arbeid utført i
+        normalarbeidstiden inkludert faste tillegg. Overtidsbetaling og andre variable tillegg skal ikke tas med. Faste
+        tillegg er knyttet til personlige egenskaper, evner eller ansvar og utbetales regelmessig ved hver
+        lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
+        <VerticalSpacer eightPx={true} />
+        {
+            <ul>
+                <li>b-tillegg</li>
+                <li>stabiliseringstillegg</li>
+                <li>selektivt tillegg for sykepleiere</li>
+                <li>tillegg for ansvarsvakter, fagansvar og lederansvar</li>
+                <li>kvalifikasjons-/kompetansetillegg</li>
+            </ul>
+        }
+        <VerticalSpacer eightPx={true} />
+        Dette gjelder ikke:
+        {
+            <ul>
+                <li>skift-, turnus- og vakttillegg</li>
+                <li>offshoretillegg</li>
+            </ul>
+        }
+    </div>
+);
 
 const feriepengeAlternativer = () => {
     const satser = [0.12, 0.143, 0.102, 0.125];
@@ -126,7 +153,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             )}
 
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
-
+            <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
+                {lonnPerManedInkludertFastTillegHjelpetekst}
+            </LesMerPanel>
             <Row className="">
                 <Column md="6">
                     <ValutaInput
