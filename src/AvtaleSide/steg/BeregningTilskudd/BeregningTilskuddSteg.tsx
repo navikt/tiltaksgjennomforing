@@ -25,6 +25,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
+
 const cls = BEMHelper('beregningTilskuddSteg');
 
 const feriepengeAlternativer = () => {
@@ -124,7 +125,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </>
             )}
 
-            <Undertittel className={cls.element('lonn-tittel')}>Lønn</Undertittel>
+            <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
 
             <Row className="">
                 <Column md="6">
