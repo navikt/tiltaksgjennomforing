@@ -5,40 +5,33 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import { hentStillinger } from '@/services/rest-service';
 import { AvtaleMetadata, Stilling } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import debounce from 'lodash.debounce';
 import { RadioPanel } from 'nav-frontend-skjema';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import Select, { OptionProps, ValueType } from 'react-select';
+import Select, { FormatOptionLabelMeta, ValueType } from 'react-select';
 import './StillingsSteg.less';
 
 const cls = BEMHelper('StillingsSteg');
 
+type StillingOptions = {
+    label: string;
+    value: string;
+    konseptId: number;
+    styrk08: number;
+};
+
 const StillingSteg: FunctionComponent = () => {
+    const [stillinger, setStillinger] = useState<StillingOptions[]>();
+
     const avtaleContext: InputStegProps<Stilling & AvtaleMetadata> = useContext(AvtaleContext);
 
-    type Styrk = {
-        konseptId: number;
-        label: string;
-        styrk08: number;
-    };
-    type Options = {
-        label: string;
-        value: string;
-        konseptId: number;
-        styrk08: number;
-    };
-
-    const hentStillingerr = async (sok: string): Promise<Styrk[]> => {
-        const response = await fetch(`https://arbeidsgiver.nav.no/stillingstitler/search?q=${sok}`);
-        return await response.json();
-    };
-
-    const fetchStilling = (sok: string) => {
-        hentStillingerr(sok).then(data => {
-            const options: Options[] = data.map(opt => ({
+    const hentOgSettStillinger = (sok: string) => {
+        hentStillinger(sok).then(data => {
+            const options: StillingOptions[] = data.map(opt => ({
                 label: opt.label,
                 value: opt.label,
                 konseptId: opt.konseptId,
@@ -48,14 +41,10 @@ const StillingSteg: FunctionComponent = () => {
         });
     };
 
-    const hentStillinger = debounce(fetchStilling, 200);
+    const delayHentStilling = debounce(hentOgSettStillinger, 200);
 
-    const [stillinger, setStillinger] = useState<any>();
-
-    const onChange = (val: ValueType<Options>) => {
-        const values = val as Options;
-        console.log('values som blir satt på context:');
-        console.log(values);
+    const setValgtStilling = (val: ValueType<StillingOptions>) => {
+        const values = val as StillingOptions;
         avtaleContext.settAvtaleVerdier({
             stillingstittel: values?.label,
             stillingStyrk08: values?.styrk08,
@@ -63,7 +52,7 @@ const StillingSteg: FunctionComponent = () => {
         });
     };
 
-    const valgtStilling: Options | null = avtaleContext.avtale.stillingstittel
+    const valgtStilling: StillingOptions | null = avtaleContext.avtale.stillingstittel
         ? {
               label: avtaleContext.avtale.stillingstittel || '',
               konseptId: avtaleContext.avtale.stillingKonseptId || 0,
@@ -72,15 +61,31 @@ const StillingSteg: FunctionComponent = () => {
           }
         : null;
 
-    const visSokeMelding = (obj: { inputValue: string }) => {
-        if (obj.inputValue.length > 0) {
+    const visSokeMelding = (inputValue: string) => {
+        if (inputValue.length > 0) {
             return 'Finner ingen stillinger';
-        } else {
-            return null;
         }
+        return null;
     };
 
-    const MinOption = (props: OptionProps<Options>) => <Element>{props.label}</Element>;
+    const highlightPattern = (text: string, pattern: string) => {
+        const txtfragments = text.split(new RegExp(pattern, 'gi'));
+        if (txtfragments.length <= 1) {
+            return text;
+        }
+
+        const matches = text.match(new RegExp(pattern, 'gi'));
+
+        return txtfragments.reduce(
+            (arr: any, element: any, index: number) =>
+                matches && matches[index] ? [...arr, element, <b key={index}>{matches[index]}</b>] : [...arr, element],
+            []
+        );
+    };
+
+    const formatOptionLabel = (option: StillingOptions, labelMeta: FormatOptionLabelMeta<StillingOptions>) => {
+        return highlightPattern(option.label, labelMeta.inputValue);
+    };
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -90,14 +95,22 @@ const StillingSteg: FunctionComponent = () => {
             <VerticalSpacer rem={0.5} />
 
             <Select
-                //components={{ Option: MinOption }}
                 placeholder="Velg stilling"
-                noOptionsMessage={visSokeMelding}
+                noOptionsMessage={({ inputValue }) => visSokeMelding(inputValue)}
                 isClearable={true}
                 value={valgtStilling}
-                onChange={value => onChange(value)}
-                onInputChange={value => hentStillinger(value)}
+                onChange={value => setValgtStilling(value)}
+                onInputChange={value => delayHentStilling(value)}
                 options={stillinger}
+                formatOptionLabel={formatOptionLabel}
+                theme={theme => ({
+                    ...theme,
+                    colors: {
+                        ...theme.colors,
+                        neutral20: '#78706A',
+                        primary: '#254b6d',
+                    },
+                })}
             />
             <VerticalSpacer rem={2} />
 
