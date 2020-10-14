@@ -1,4 +1,4 @@
-import { Avtaleinnhold, Avtale } from '@/types/avtale';
+import { Avtale, Avtaleinnhold } from '@/types/avtale';
 const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     arbeidsgiverEtternavn: '',
     arbeidsgiverFornavn: '',
@@ -36,6 +36,8 @@ const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,
     stillingstype: 'FAST',
+    stillingKonseptId: 123,
+    stillingStyrk08: 1234,
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {

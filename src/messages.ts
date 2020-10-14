@@ -1,5 +1,4 @@
-import { Avtaleinnhold, TiltaksType } from './types/avtale';
-import { Stillingstype } from './types/avtale';
+import { Avtaleinnhold, Stillingstype, TiltaksType } from './types/avtale';
 import { HendelseType } from './types/hendelse';
 
 export const messages = {
@@ -47,6 +46,8 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     arbeidsgiveravgiftBelop: 'arbeidsgiveravgift beløp',
     sumLonnsutgifter: 'sum utgifter til lønnstilskudd',
     sumLonnstilskudd: 'sum beløp til utbetaling',
+    stillingKonseptId: '',
+    stillingStyrk08: '',
 };
 
 export const hendelseTekst: { [key in HendelseType]: string } = {
