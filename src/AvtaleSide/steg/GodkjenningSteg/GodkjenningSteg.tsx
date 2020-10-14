@@ -21,7 +21,8 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
 
-    const skalViseGodkjenning = !innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt);
+    const skalViseGodkjenning =
+        !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
     return (
         <>
