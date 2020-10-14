@@ -80,7 +80,8 @@ const StillingsTittelVelger: FunctionComponent<Props> = props => {
 
     return (
         <Select
-            placeholder="Velg stilling"
+            components={{ DropdownIndicator: null }}
+            placeholder="Skriv inn. For eksempel rørlegger"
             noOptionsMessage={({ inputValue }) => visSokeMelding(inputValue)}
             isClearable={true}
             value={valgtStilling}
@@ -94,6 +95,7 @@ const StillingsTittelVelger: FunctionComponent<Props> = props => {
                     ...theme.colors,
                     neutral20: '#78706A',
                     primary: '#254b6d',
+                    neutral80: 'black',
                 },
             })}
         />

@@ -21,7 +21,7 @@ const StillingSteg: FunctionComponent = () => {
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Stilling</SkjemaTittel>
-            <Normaltekst>Stillingstittel</Normaltekst>
+            <Normaltekst>Stilling/yrke (kun ett yrke kan legges inn)</Normaltekst>
             <VerticalSpacer rem={0.5} />
             <StillingsTittelVelger />
             <VerticalSpacer rem={2} />
