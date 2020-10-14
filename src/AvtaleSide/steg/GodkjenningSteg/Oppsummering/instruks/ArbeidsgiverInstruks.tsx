@@ -149,9 +149,11 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                     headerTekst={{ tekst: 'Sende inn krav om refusjon', typografiType: 'undertittel' }}
                 >
                     <p>
-                        Vi sender dere et brev til bedriftens innboks i Altinn om innvilget støtte for tiltaket. I
-                        brevet står det et beløp som viser hvor mye penger NAV holder av for en begrenset periode. Denne
-                        perioden kan være maksimalt tre måneder av gangen, uavhengig av tiltakets varighet.
+                        Vi sender dere et brev til bedriftens innboks i Altinn om innvilget støtte for tiltaket. For å
+                        kunne se tilskuddsbrevet i innboksen i Altinn må du ha fått tildelt enkeltrettigheten
+                        "Tilskuddsbrev NAV-tiltak" i Altinn. I brevet står det et beløp som viser hvor mye penger NAV
+                        holder av for en begrenset periode. Denne perioden kan være maksimalt tre måneder av gangen,
+                        uavhengig av tiltakets varighet.
                     </p>
 
                     <p>
