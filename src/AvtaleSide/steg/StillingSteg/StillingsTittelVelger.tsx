@@ -1,10 +1,7 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { hentStillinger } from '@/services/rest-service';
-import { Stilling } from '@/types/avtale';
 import debounce from 'lodash.debounce';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import Select, { FormatOptionLabelMeta, ValueType } from 'react-select';
+import React, { FunctionComponent, useState } from 'react';
+import Select, { FormatOptionLabelMeta } from 'react-select';
 import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
 
 export type StillingOptions = {
