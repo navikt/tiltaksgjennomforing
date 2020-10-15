@@ -5,8 +5,9 @@ import { Stilling } from '@/types/avtale';
 import debounce from 'lodash.debounce';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import Select, { FormatOptionLabelMeta, ValueType } from 'react-select';
+import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
 
-type StillingOptions = {
+export type StillingOptions = {
     label: string;
     value: string;
     konseptId: number;
@@ -16,7 +17,7 @@ type StillingOptions = {
 const StillingsTittelVelger: FunctionComponent = () => {
     const [stillinger, setStillinger] = useState<StillingOptions[]>();
 
-    const avtaleContext: InputStegProps<Stilling> = useContext(AvtaleContext);
+    const { valgtStilling, setValgtStilling } = useStillingFraContext();
 
     const hentOgSettStillinger = (sok: string) => {
         hentStillinger(sok).then(data => {
@@ -32,24 +33,6 @@ const StillingsTittelVelger: FunctionComponent = () => {
 
     const ANTALL_MILLISEKUNDER = 200;
     const delayHentStilling = debounce(hentOgSettStillinger, ANTALL_MILLISEKUNDER);
-
-    const setValgtStilling = (val: ValueType<StillingOptions>) => {
-        const values = val as StillingOptions;
-        avtaleContext.settAvtaleVerdier({
-            stillingstittel: values?.label,
-            stillingStyrk08: values?.styrk08,
-            stillingKonseptId: values?.konseptId,
-        });
-    };
-
-    const valgtStilling: StillingOptions | null = avtaleContext.avtale.stillingstittel
-        ? {
-              label: avtaleContext.avtale.stillingstittel || '',
-              konseptId: avtaleContext.avtale.stillingKonseptId || 0,
-              styrk08: avtaleContext.avtale.stillingStyrk08 || 0,
-              value: avtaleContext.avtale.stillingstittel || '',
-          }
-        : null;
 
     const visSokeMelding = (inputValue: string) => {
         if (inputValue.length > 0) {
