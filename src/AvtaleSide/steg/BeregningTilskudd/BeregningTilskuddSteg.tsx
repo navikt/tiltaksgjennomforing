@@ -35,23 +35,19 @@ const lonnPerManedInkludertFastTillegHjelpetekst = (
         tillegg er knyttet til personlige egenskaper, evner eller ansvar og utbetales regelmessig ved hver
         lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
         <VerticalSpacer eightPx={true} />
-        {
-            <ul>
-                <li>b-tillegg</li>
-                <li>stabiliseringstillegg</li>
-                <li>selektivt tillegg for sykepleiere</li>
-                <li>tillegg for ansvarsvakter, fagansvar og lederansvar</li>
-                <li>kvalifikasjons-/kompetansetillegg</li>
-            </ul>
-        }
+        <ul>
+            <li>b-tillegg</li>
+            <li>stabiliseringstillegg</li>
+            <li>selektivt tillegg for sykepleiere</li>
+            <li>tillegg for ansvarsvakter, fagansvar og lederansvar</li>
+            <li>kvalifikasjons-/kompetansetillegg</li>
+        </ul>
         <VerticalSpacer eightPx={true} />
         Dette gjelder ikke:
-        {
-            <ul>
-                <li>skift-, turnus- og vakttillegg</li>
-                <li>offshoretillegg</li>
-            </ul>
-        }
+        <ul>
+            <li>skift-, turnus- og vakttillegg</li>
+            <li>offshoretillegg</li>
+        </ul>
     </div>
 );
 
