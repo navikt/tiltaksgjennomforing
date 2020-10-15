@@ -1,12 +1,10 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { hentStillinger } from '@/services/rest-service';
-import { AvtaleMetadata, Stilling } from '@/types/avtale';
+import { Stilling } from '@/types/avtale';
 import debounce from 'lodash.debounce';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import Select, { FormatOptionLabelMeta, ValueType } from 'react-select';
-
-type Props = {};
 
 type StillingOptions = {
     label: string;
@@ -15,10 +13,10 @@ type StillingOptions = {
     styrk08: number;
 };
 
-const StillingsTittelVelger: FunctionComponent<Props> = props => {
+const StillingsTittelVelger: FunctionComponent = () => {
     const [stillinger, setStillinger] = useState<StillingOptions[]>();
 
-    const avtaleContext: InputStegProps<Stilling & AvtaleMetadata> = useContext(AvtaleContext);
+    const avtaleContext: InputStegProps<Stilling> = useContext(AvtaleContext);
 
     const hentOgSettStillinger = (sok: string) => {
         hentStillinger(sok).then(data => {
@@ -32,7 +30,8 @@ const StillingsTittelVelger: FunctionComponent<Props> = props => {
         });
     };
 
-    const delayHentStilling = debounce(hentOgSettStillinger, 200);
+    const ANTALL_MILLISEKUNDER = 200;
+    const delayHentStilling = debounce(hentOgSettStillinger, ANTALL_MILLISEKUNDER);
 
     const setValgtStilling = (val: ValueType<StillingOptions>) => {
         const values = val as StillingOptions;
