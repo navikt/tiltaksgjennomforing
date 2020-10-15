@@ -85,6 +85,8 @@ export interface Stilling {
     stillingstittel?: string;
     arbeidsoppgaver?: string;
     stillingstype?: Stillingstype;
+    stillingKonseptId?: number;
+    stillingStyrk08?: number;
 }
 
 export type Stillingstype = 'FAST' | 'MIDLERTIDIG';

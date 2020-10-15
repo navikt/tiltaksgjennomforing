@@ -6,6 +6,17 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(15, 10, 2020),
+        tittel: 'Predefinerte stillinger',
+        innhold: (
+            <>
+                For arbeidstrenings- og lønnstilskuddavtaler velges nå stilling ut fra predefinerte stillinger.
+                Stillingene man kan velge fra er de samme som på Arbeidsplassen. På sikt kan vi dermed lage bedre
+                statistikker over hvilke stillinger som benyttes ved arbeidsmarkedstiltak.
+            </>
+        ),
+    },
+    {
         dato: tilDato(2, 10, 2020),
         tittel: 'Virksomhetsmeny for arbeidsgiver',
         innhold: (

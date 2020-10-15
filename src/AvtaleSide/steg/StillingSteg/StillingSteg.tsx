@@ -3,16 +3,15 @@ import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Stilling } from '@/types/avtale';
-import React, { FunctionComponent, useContext } from 'react';
-import { RadioPanel } from 'nav-frontend-skjema';
-import './StillingsSteg.less';
-import BEMHelper from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import { AvtaleMetadata, Stilling } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { RadioPanel } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { AvtaleMetadata } from '@/types/avtale';
+import React, { FunctionComponent, useContext } from 'react';
+import './StillingsSteg.less';
+import StillingsTittelVelger from './StillingsTittelVelger';
 
 const cls = BEMHelper('StillingsSteg');
 
@@ -22,11 +21,10 @@ const StillingSteg: FunctionComponent = () => {
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Stilling</SkjemaTittel>
-            <PakrevdInput
-                label="Stillingstittel"
-                verdi={avtaleContext.avtale.stillingstittel || ''}
-                settVerdi={verdi => avtaleContext.settAvtaleVerdi('stillingstittel', verdi)}
-            />
+            <Normaltekst>Stilling/yrke (kun ett yrke kan legges inn)</Normaltekst>
+            <VerticalSpacer rem={0.5} />
+            <StillingsTittelVelger />
+            <VerticalSpacer rem={2} />
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"
                 verdi={avtaleContext.avtale.arbeidsoppgaver || ''}

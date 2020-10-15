@@ -3,7 +3,7 @@ import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
-import { ApiError, AutentiseringError, AdresseError } from '@/types/errors';
+import { AdresseError, ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
@@ -294,5 +294,16 @@ export type BeOmRettigheterUrler = {
 export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigheterUrler> => {
     const response = await fetch(`${API_URL}/be-om-altinn-rettighet-urler?orgNr=${orgNr}`, { method: 'GET' });
     await handleResponse(response);
+    return await response.json();
+};
+
+export interface Stillingskategori {
+    konseptId: number;
+    label: string;
+    styrk08: number;
+}
+
+export const hentStillinger = async (sok: string): Promise<Stillingskategori[]> => {
+    const response = await fetch(`https://arbeidsgiver.nav.no/stillingstitler/search?q=${sok}`);
     return await response.json();
 };
