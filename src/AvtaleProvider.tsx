@@ -90,10 +90,10 @@ const AvtaleProvider: FunctionComponent = props => {
     };
 
     /**
-     * @deprecated Bruk heller settAvtaleVerdier, som har bedre typesetting
+     * @deprecated Bruk heller settAvtaleVerdier.
      */
 
-    const settAvtaleVerdi = <T extends Avtale, K extends keyof T>(felt: K, verdi: T[K]) => {
+    const settAvtaleVerdi = <T extends Avtale, K extends keyof T>(felt: K, verdi: T[K]): Avtale | undefined => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
