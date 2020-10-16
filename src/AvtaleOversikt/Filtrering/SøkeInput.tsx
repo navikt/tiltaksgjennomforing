@@ -41,7 +41,9 @@ export const SøkeInput: FunctionComponent<Props> = props => {
     return (
         <>
             <Input
-                {...props}
+                label={props.label}
+                maxLength={props.maxLength}
+                placeholder={props.placeholder}
                 value={søkeord}
                 onChange={onChange}
                 onBlur={onBlur}
