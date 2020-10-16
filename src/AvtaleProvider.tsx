@@ -38,6 +38,7 @@ export interface Context {
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
     settAvtaleVerdi: SettAvtaleVerdi<any>;
+    settAvtaleVerdierOgLagre: SettFlereAvtaleVerdier;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<any>;
     laasOpp: () => Promise<any>;
@@ -114,6 +115,16 @@ const AvtaleProvider: FunctionComponent = props => {
         }
     };
 
+    const settAvtaleVerdierOgLagre = async (endringer: Partial<Avtale>) => {
+        if (noenHarGodkjentMenIkkeAlle(avtale)) {
+            setOpphevGodkjenningerModalIsOpen(true);
+        } else {
+            const nyAvtale = { ...avtale, ...endringer };
+            await lagreAvtale(nyAvtale);
+            hentAvtale(nyAvtale.id);
+            return nyAvtale;
+        }
+    };
     const laasOpp = async () => {
         await RestService.låsOppAvtale(avtale.id);
         sendToAmplitude('#tiltak-avtale-laastOpp');
@@ -197,6 +208,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const avtaleContext: Context = {
         avtale,
         settAvtaleVerdi,
+        settAvtaleVerdierOgLagre,
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         avbrytAvtale,
