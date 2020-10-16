@@ -152,8 +152,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         label={'Kontonummer til arbeidsgiver'}
                         value={avtale.arbeidsgiverKontonummer}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdierOgLagre({ arbeidsgiverKontonummer: event.target.value });
+                            settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
                         }}
+                        onBlur={() => lagreAvtale()}
                     />
                     <VisUtregningenPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
