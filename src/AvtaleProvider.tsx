@@ -9,6 +9,7 @@ import { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
+import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
     return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
@@ -22,6 +23,7 @@ export interface TemporaryLagring {
 type SettAvtaleVerdi<K extends keyof Avtale> = (felt: K, verdi: Avtale[K]) => void;
 
 type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
+type SettFlereAvtaleVerdierOgLagre = (endringer: Partial<Avtaleinnhold>) => Promise<void>;
 
 export interface Context {
     avtale: Avtale;
@@ -38,7 +40,7 @@ export interface Context {
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
     settAvtaleVerdi: SettAvtaleVerdi<any>;
-    settAvtaleVerdierOgLagre: SettFlereAvtaleVerdier;
+    settAvtaleVerdierOgLagre: SettFlereAvtaleVerdierOgLagre;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<any>;
     laasOpp: () => Promise<any>;
@@ -69,10 +71,14 @@ const AvtaleProvider: FunctionComponent = props => {
         if (noenHarGodkjentMenIkkeAlle(avtale) && !ulagredeEndringer) {
             // Du har de siste endringene
         } else {
-            const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
-            sendToAmplitude('#tiltak-avtale-lagret');
-            setAvtale({ ...avtale, ...lagretAvtale });
-            setUlagredeEndringer(false);
+            try {
+                const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
+                sendToAmplitude('#tiltak-avtale-lagret');
+                setAvtale({ ...avtale, ...lagretAvtale });
+                setUlagredeEndringer(false);
+            } catch (error) {
+                handterFeil(error, visFeilmelding);
+            }
         }
     };
 
@@ -122,7 +128,6 @@ const AvtaleProvider: FunctionComponent = props => {
             const nyAvtale = { ...avtale, ...endringer };
             await lagreAvtale(nyAvtale);
             hentAvtale(nyAvtale.id);
-            return nyAvtale;
         }
     };
     const laasOpp = async () => {

@@ -9,14 +9,14 @@ import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import BEMHelper from '@/utils/bem';
 import { lonnHundreProsent } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
-import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 const lonnPerManedInkludertFastTillegHjelpetekst = (
@@ -75,6 +75,14 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
         }
     };
 
+    const [disableFelter, setDisableFelter] = useState(false);
+
+    const endreVerdi = async (lagreFunk: () => Promise<void>) => {
+        setDisableFelter(true);
+        await lagreFunk();
+        setDisableFelter(false);
+    };
+
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
@@ -89,7 +97,10 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <LonnstilskuddProsent
                         tiltakstype={avtale.tiltakstype}
                         lonnstilskuddProsent={avtale.lonnstilskuddProsent}
-                        settLonnstilskuddProsent={verdi => settAvtaleVerdierOgLagre({ lonnstilskuddProsent: verdi })}
+                        //settLonnstilskuddProsent={verdi => settAvtaleVerdierOgLagre({ lonnstilskuddProsent: verdi })}
+                        settLonnstilskuddProsent={verdi =>
+                            endreVerdi(() => settAvtaleVerdierOgLagre({ lonnstilskuddProsent: verdi }))
+                        }
                     />
                     <VerticalSpacer sixteenPx={true} />
                 </>
@@ -122,6 +133,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         Velg sats for feriepenger som arbeidstaker skal ha
                     </Normaltekst>
                     <RadioPanelGruppeHorisontal
+                        disabled={disableFelter}
                         radios={feriepengeAlternativer()}
                         name="feriepengesats"
                         checked={avtale.feriepengesats + ''}
