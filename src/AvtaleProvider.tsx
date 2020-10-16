@@ -1,5 +1,5 @@
 import { FeilVarselContext } from '@/FeilVarselProvider';
-import { Avtale, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
+import { Avtale, Beregningsgrunnlag, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Maalkategori } from '@/types/maalkategorier';
@@ -23,7 +23,7 @@ export interface TemporaryLagring {
 type SettAvtaleVerdi<K extends keyof Avtale> = (felt: K, verdi: Avtale[K]) => void;
 
 type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
-type SettFlereAvtaleVerdierOgLagre = (endringer: Partial<Avtaleinnhold>) => Promise<void>;
+type SettOgLagreBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
 export interface Context {
     avtale: Avtale;
@@ -40,7 +40,7 @@ export interface Context {
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
     settAvtaleVerdi: SettAvtaleVerdi<any>;
-    settAvtaleVerdierOgLagre: SettFlereAvtaleVerdierOgLagre;
+    settOgLagreBeregningsverdier: SettOgLagreBeregningsverdier;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<any>;
     laasOpp: () => Promise<any>;
@@ -117,7 +117,7 @@ const AvtaleProvider: FunctionComponent = props => {
         }
     };
 
-    const settAvtaleVerdierOgLagre = async (endringer: Partial<Avtale>) => {
+    const settOgLagreBeregningsverdier = async (endringer: Partial<Beregningsgrunnlag>) => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
@@ -126,11 +126,7 @@ const AvtaleProvider: FunctionComponent = props => {
                 await lagreAvtale(nyAvtale);
                 hentAvtale(nyAvtale.id);
             } catch (error) {
-                if (error instanceof FeilkodeError && error.message === 'SAMTIDIGE_ENDRINGER') {
-                    visFeilmelding('Det skjedde en feil med siste endring, vennligst oppdater siden og prøv igjen.');
-                } else {
-                    handterFeil(error, visFeilmelding);
-                }
+                handterFeil(error, visFeilmelding);
             }
         }
     };
@@ -217,7 +213,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const avtaleContext: Context = {
         avtale,
         settAvtaleVerdi,
-        settAvtaleVerdierOgLagre,
+        settOgLagreBeregningsverdier,
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         avbrytAvtale,

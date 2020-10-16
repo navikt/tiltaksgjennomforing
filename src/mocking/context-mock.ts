@@ -57,7 +57,7 @@ const avtaleInnhold: Avtale = {
 
 export const contextMock: Context = {
     avtale: avtaleInnhold,
-    settAvtaleVerdierOgLagre: () => Promise.resolve(),
+    settOgLagreBeregningsverdier: () => Promise.resolve(),
     settAvtaleVerdi: () => null,
     settAvtaleVerdier: () => null,
     hentAvtale: () => Promise.resolve(),

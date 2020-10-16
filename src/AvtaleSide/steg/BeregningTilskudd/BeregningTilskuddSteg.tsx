@@ -64,7 +64,7 @@ const arbeidsgiveravgiftAlternativer = () => {
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, settAvtaleVerdierOgLagre, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
+    const { avtale, settOgLagreBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
     const parseFloatIfFloatable = (verdi: string) => {
         const floatedValue = parseFloat(verdi);
@@ -89,7 +89,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <LonnstilskuddProsent
                         tiltakstype={avtale.tiltakstype}
                         lonnstilskuddProsent={avtale.lonnstilskuddProsent}
-                        settLonnstilskuddProsent={verdi => settAvtaleVerdierOgLagre({ lonnstilskuddProsent: verdi })}
+                        settLonnstilskuddProsent={verdi =>
+                            settOgLagreBeregningsverdier({ lonnstilskuddProsent: verdi })
+                        }
                     />
                     <VerticalSpacer sixteenPx={true} />
                 </>
@@ -128,7 +130,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         checked={avtale.feriepengesats + ''}
                         legend=""
                         onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                            settAvtaleVerdierOgLagre({ feriepengesats: parseFloat(verdi) })
+                            settOgLagreBeregningsverdier({ feriepengesats: parseFloat(verdi) })
                         }
                     />
                     <VerticalSpacer twentyPx={true} />
@@ -144,7 +146,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         children=""
                         value={avtale.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                            settAvtaleVerdierOgLagre({ arbeidsgiveravgift: parseFloatIfFloatable(event.target.value) });
+                            settOgLagreBeregningsverdier({
+                                arbeidsgiveravgift: parseFloatIfFloatable(event.target.value),
+                            });
                         }}
                     />
                     <KontonummerInput
