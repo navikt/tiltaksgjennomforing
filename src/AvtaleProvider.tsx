@@ -1,5 +1,5 @@
 import { FeilVarselContext } from '@/FeilVarselProvider';
-import { Avtale, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
+import { Avtale, Beregningsgrunnlag, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Maalkategori } from '@/types/maalkategorier';
@@ -9,6 +9,7 @@ import { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
+import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
     return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
@@ -22,6 +23,7 @@ export interface TemporaryLagring {
 type SettAvtaleVerdi<K extends keyof Avtale> = (felt: K, verdi: Avtale[K]) => void;
 
 type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
+type SettOgLagreBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
 export interface Context {
     avtale: Avtale;
@@ -38,6 +40,7 @@ export interface Context {
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
     settAvtaleVerdi: SettAvtaleVerdi<any>;
+    settOgLagreBeregningsverdier: SettOgLagreBeregningsverdier;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<any>;
     laasOpp: () => Promise<any>;
@@ -114,6 +117,19 @@ const AvtaleProvider: FunctionComponent = props => {
         }
     };
 
+    const settOgLagreBeregningsverdier = async (endringer: Partial<Beregningsgrunnlag>) => {
+        if (noenHarGodkjentMenIkkeAlle(avtale)) {
+            setOpphevGodkjenningerModalIsOpen(true);
+        } else {
+            try {
+                const nyAvtale = { ...avtale, ...endringer };
+                await lagreAvtale(nyAvtale);
+                hentAvtale(nyAvtale.id);
+            } catch (error) {
+                handterFeil(error, visFeilmelding);
+            }
+        }
+    };
     const laasOpp = async () => {
         await RestService.låsOppAvtale(avtale.id);
         sendToAmplitude('#tiltak-avtale-laastOpp');
@@ -197,6 +213,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const avtaleContext: Context = {
         avtale,
         settAvtaleVerdi,
+        settOgLagreBeregningsverdier,
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         avbrytAvtale,

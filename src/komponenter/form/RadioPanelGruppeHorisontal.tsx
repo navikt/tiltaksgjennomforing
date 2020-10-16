@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { RadioPanel, RadioPanelGruppeProps, RadioProps } from 'nav-frontend-skjema/lib/radio-panel-gruppe';
+import * as React from 'react';
 
 const RadioPanelGruppeHorisontal = (props: RadioPanelGruppeProps) => {
     const { radios, name, checked, onChange } = props;
