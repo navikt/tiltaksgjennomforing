@@ -10,6 +10,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
+import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { lonnHundreProsent } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
@@ -64,7 +65,7 @@ const arbeidsgiveravgiftAlternativer = () => {
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, settAvtaleVerdierOgLagre, lagreAvtale } = useContext(AvtaleContext);
+    const { avtale, settAvtaleVerdierOgLagre, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
     const parseFloatIfFloatable = (verdi: string) => {
         const floatedValue = parseFloat(verdi);
@@ -77,9 +78,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
 
     const [disableFelter, setDisableFelter] = useState(false);
 
-    const endreVerdi = async (lagreFunk: () => Promise<void>) => {
+    const endreVerdi = async (endringer: Partial<Avtale>) => {
         setDisableFelter(true);
-        await lagreFunk();
+        await settAvtaleVerdierOgLagre(endringer);
         setDisableFelter(false);
     };
 
@@ -98,9 +99,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         tiltakstype={avtale.tiltakstype}
                         lonnstilskuddProsent={avtale.lonnstilskuddProsent}
                         //settLonnstilskuddProsent={verdi => settAvtaleVerdierOgLagre({ lonnstilskuddProsent: verdi })}
-                        settLonnstilskuddProsent={verdi =>
-                            endreVerdi(() => settAvtaleVerdierOgLagre({ lonnstilskuddProsent: verdi }))
-                        }
+                        settLonnstilskuddProsent={verdi => endreVerdi({ lonnstilskuddProsent: verdi })}
                     />
                     <VerticalSpacer sixteenPx={true} />
                 </>
@@ -119,8 +118,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         label="Månedslønn før skatt"
                         value={avtale.manedslonn}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdierOgLagre({ manedslonn: parseFloat(event.target.value) });
+                            settAvtaleVerdier({ manedslonn: parseFloat(event.target.value) });
                         }}
+                        onBlur={() => lagreAvtale()}
                         min={10000}
                         max={65000}
                     />

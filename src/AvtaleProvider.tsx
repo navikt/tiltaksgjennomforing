@@ -71,14 +71,10 @@ const AvtaleProvider: FunctionComponent = props => {
         if (noenHarGodkjentMenIkkeAlle(avtale) && !ulagredeEndringer) {
             // Du har de siste endringene
         } else {
-            try {
-                const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
-                sendToAmplitude('#tiltak-avtale-lagret');
-                setAvtale({ ...avtale, ...lagretAvtale });
-                setUlagredeEndringer(false);
-            } catch (error) {
-                handterFeil(error, visFeilmelding);
-            }
+            const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
+            sendToAmplitude('#tiltak-avtale-lagret');
+            setAvtale({ ...avtale, ...lagretAvtale });
+            setUlagredeEndringer(false);
         }
     };
 
@@ -125,9 +121,17 @@ const AvtaleProvider: FunctionComponent = props => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
-            const nyAvtale = { ...avtale, ...endringer };
-            await lagreAvtale(nyAvtale);
-            hentAvtale(nyAvtale.id);
+            try {
+                const nyAvtale = { ...avtale, ...endringer };
+                await lagreAvtale(nyAvtale);
+                hentAvtale(nyAvtale.id);
+            } catch (error) {
+                if (error instanceof FeilkodeError && error.message === 'SAMTIDIGE_ENDRINGER') {
+                    visFeilmelding('Det skjedde en feil med siste endring, vennligst oppdater siden og prøv igjen.');
+                } else {
+                    handterFeil(error, visFeilmelding);
+                }
+            }
         }
     };
     const laasOpp = async () => {
