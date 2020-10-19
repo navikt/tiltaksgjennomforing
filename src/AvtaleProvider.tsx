@@ -1,5 +1,5 @@
 import { FeilVarselContext } from '@/FeilVarselProvider';
-import { Avtale, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
+import { Avtale, Beregningsgrunnlag, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Maalkategori } from '@/types/maalkategorier';
@@ -10,6 +10,7 @@ import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerMod
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { LogReturn } from 'amplitude-js';
+import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
     return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
@@ -26,6 +27,7 @@ type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Av
 ) => void;
 
 type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
+type SettOgLagreBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
 export interface Context {
     avtale: Avtale;
@@ -41,6 +43,7 @@ export interface Context {
     lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
+    settOgLagreBeregningsverdier: SettOgLagreBeregningsverdier;
     settAvtaleVerdi: SettAvtaleVerdi;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<void>;
@@ -116,6 +119,20 @@ const AvtaleProvider: FunctionComponent = props => {
             setAvtale(nyAvtale);
             setUlagredeEndringer(true);
             return nyAvtale;
+        }
+    };
+
+    const settOgLagreBeregningsverdier = async (endringer: Partial<Beregningsgrunnlag>) => {
+        if (noenHarGodkjentMenIkkeAlle(avtale)) {
+            setOpphevGodkjenningerModalIsOpen(true);
+        } else {
+            try {
+                const nyAvtale = { ...avtale, ...endringer };
+                await lagreAvtale(nyAvtale);
+                hentAvtale(nyAvtale.id);
+            } catch (error) {
+                handterFeil(error, visFeilmelding);
+            }
         }
     };
 
@@ -212,7 +229,8 @@ const AvtaleProvider: FunctionComponent = props => {
 
     const avtaleContext: Context = {
         avtale,
-        settAvtaleVerdi: settAvtaleVerdi,
+        settAvtaleVerdi,
+        settOgLagreBeregningsverdier,
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         avbrytAvtale,
