@@ -21,7 +21,7 @@ export interface TemporaryLagring {
     maalTekst: string;
 }
 
-type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
+export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
     felt: K,
     verdi: T[K]
 ) => void;
