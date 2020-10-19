@@ -50,7 +50,7 @@ export const SøkeInput: FunctionComponent<Props> = props => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
-            {!props.hidden && <Søkeknapp onClick={utførSøk} />}
+            <Søkeknapp onClick={utførSøk} />
         </>
     );
 };

@@ -87,15 +87,16 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     onChange={endreSøketype}
                 />
             ))}
-            <SøkeInput
-                key={aktivSøketype}
-                label=""
-                placeholder={aktueltSøk.placeholder}
-                maxLength={aktueltSøk.maxLength}
-                utførSøk={aktueltSøk.utførSøk}
-                valider={aktueltSøk.validering}
-                hidden={skjulSøkefelt}
-            />
+            {!skjulSøkefelt && (
+                <SøkeInput
+                    key={aktivSøketype}
+                    label=""
+                    placeholder={aktueltSøk.placeholder}
+                    maxLength={aktueltSøk.maxLength}
+                    utførSøk={aktueltSøk.utførSøk}
+                    valider={aktueltSøk.validering}
+                />
+            )}
         </Filter>
     );
 };
