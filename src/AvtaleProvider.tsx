@@ -20,7 +20,10 @@ export interface TemporaryLagring {
     maalTekst: string;
 }
 
-type SettAvtaleVerdi<K extends keyof Avtale> = (felt: K, verdi: Avtale[K]) => void;
+type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
+    felt: K,
+    verdi: T[K]
+) => void;
 
 type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
 
@@ -38,7 +41,7 @@ export interface Context {
     lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
-    settAvtaleVerdi: SettAvtaleVerdi<keyof Avtale>;
+    settAvtaleVerdi: SettAvtaleVerdi;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<void>;
     laasOpp: () => Promise<void>;
@@ -91,11 +94,10 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale();
     };
 
-    /**
-     * @deprecated Bruk heller settAvtaleVerdier.
-     */
-
-    const settAvtaleVerdi = <T extends Avtale, K extends keyof T>(felt: K, verdi: T[K]): Avtale | undefined => {
+    const settAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
+        felt: K,
+        verdi: T[K]
+    ): Avtale | undefined => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
@@ -210,7 +212,7 @@ const AvtaleProvider: FunctionComponent = props => {
 
     const avtaleContext: Context = {
         avtale,
-        settAvtaleVerdi,
+        settAvtaleVerdi: settAvtaleVerdi,
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         avbrytAvtale,
