@@ -1,8 +1,9 @@
 import { Avtaleinnhold } from '@/types/avtale';
+import { SettAvtaleVerdi, SettFlereAvtaleVerdier } from '@/AvtaleProvider';
 
 export type InputStegProps<T extends Partial<Avtaleinnhold>> = {
     avtale: T;
-    settAvtaleVerdi: (felt: keyof T, verdi: any) => void;
-    settAvtaleVerdier: (endringer: Partial<T>) => void;
+    settAvtaleVerdi: SettAvtaleVerdi;
+    settAvtaleVerdier: SettFlereAvtaleVerdier;
     lagreAvtale: () => Promise<any>;
 };

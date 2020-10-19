@@ -69,7 +69,9 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 </div>
                 <VerticalSpacer sixteenPx={true} />
                 {props.rolle !== 'ARBEIDSGIVER' &&
-                    props.avtale.avbruttGrunn && props.avtale.avbrutt && `Årsak: ${props.avtale.avbruttGrunn}`}
+                    props.avtale.avbruttGrunn &&
+                    props.avtale.avbrutt &&
+                    `Årsak: ${props.avtale.avbruttGrunn}`}
             </MediaQuery>
             <MediaQuery maxWidth={767}>
                 <div className={cls.element('hovedIkonMobil')}>

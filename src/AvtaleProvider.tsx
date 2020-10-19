@@ -9,6 +9,7 @@ import { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
+import { LogReturn } from 'amplitude-js';
 import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
@@ -20,30 +21,33 @@ export interface TemporaryLagring {
     maalTekst: string;
 }
 
-type SettAvtaleVerdi<K extends keyof Avtale> = (felt: K, verdi: Avtale[K]) => void;
+export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
+    felt: K,
+    verdi: T[K]
+) => void;
 
-type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
+export type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
 type SettOgLagreBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
 export interface Context {
     avtale: Avtale;
     overtaAvtale: () => Promise<void>;
     gjenopprettAvtale: () => Promise<void>;
-    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
+    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
-    godkjenn: (godkjent: boolean) => Promise<any>;
-    godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
+    godkjenn: (godkjent: boolean) => Promise<void>;
+    godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
-    hentAvtale: (avtaleId: string) => Promise<any>;
-    lagreAvtale: () => Promise<any>;
-    lagreMaal: (maal: Maal) => Promise<any>;
+    hentAvtale: (avtaleId: string) => Promise<void>;
+    lagreAvtale: () => Promise<void>;
+    lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
-    settAvtaleVerdi: SettAvtaleVerdi<any>;
     settOgLagreBeregningsverdier: SettOgLagreBeregningsverdier;
+    settAvtaleVerdi: SettAvtaleVerdi;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
-    slettMaal: (maal: Maal) => Promise<any>;
-    laasOpp: () => Promise<any>;
+    slettMaal: (maal: Maal) => Promise<void>;
+    laasOpp: () => Promise<void>;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
@@ -56,18 +60,18 @@ const AvtaleProvider: FunctionComponent = props => {
     const visFeilmelding = useContext(FeilVarselContext);
     const [mellomLagring, setMellomLagring] = useState<TemporaryLagring>();
 
-    const sendToAmplitude = (eventName: string) =>
+    const sendToAmplitude = (eventName: string): LogReturn =>
         amplitude.logEvent(eventName, {
             tiltakstype: avtale.tiltakstype,
         });
 
-    const bekreftOpphevGodkjenninger = async () => {
+    const bekreftOpphevGodkjenninger = async (): Promise<void> => {
         await RestService.opphevGodkjenninger(avtale.id);
         await hentAvtale();
         setOpphevGodkjenningerModalIsOpen(false);
     };
 
-    const lagreAvtale = async (nyAvtale = avtale) => {
+    const lagreAvtale = async (nyAvtale = avtale): Promise<void> => {
         if (noenHarGodkjentMenIkkeAlle(avtale) && !ulagredeEndringer) {
             // Du har de siste endringene
         } else {
@@ -78,24 +82,25 @@ const AvtaleProvider: FunctionComponent = props => {
         }
     };
 
-    const hentAvtale = (avtaleId: string = avtale.id) => RestService.hentAvtale(avtaleId).then(setAvtale);
+    const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
+        RestService.hentAvtale(avtaleId).then(setAvtale);
 
-    const avbrytAvtale = async (avbruttDato: string, avbruttGrunn: string) => {
+    const avbrytAvtale = async (avbruttDato: string, avbruttGrunn: string): Promise<void> => {
         await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
         sendToAmplitude('#tiltak-avtale-avbrutt');
         await hentAvtale();
     };
 
-    const overtaAvtale = async () => {
+    const overtaAvtale = async (): Promise<void> => {
         await RestService.overtaAvtale(avtale.id);
         sendToAmplitude('#tiltak-avtale-overtatt');
         await hentAvtale();
     };
 
-    /**
-     * @deprecated Bruk heller settAvtaleVerdier, som har bedre typesetting
-     */
-    const settAvtaleVerdi = (felt: keyof Avtale, verdi: any) => {
+    const settAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
+        felt: K,
+        verdi: T[K]
+    ): Avtale | undefined => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
@@ -106,7 +111,7 @@ const AvtaleProvider: FunctionComponent = props => {
         }
     };
 
-    const settAvtaleVerdier = (endringer: Partial<Avtale>) => {
+    const settAvtaleVerdier = (endringer: Partial<Avtale>): Avtale | undefined => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
@@ -130,19 +135,20 @@ const AvtaleProvider: FunctionComponent = props => {
             }
         }
     };
-    const laasOpp = async () => {
+
+    const laasOpp = async (): Promise<void> => {
         await RestService.låsOppAvtale(avtale.id);
         sendToAmplitude('#tiltak-avtale-laastOpp');
         await hentAvtale(avtale.id);
     };
 
-    const gjenopprettAvtale = async () => {
+    const gjenopprettAvtale = async (): Promise<void> => {
         await RestService.gjenopprettAvtale(avtale.id);
         sendToAmplitude('#tiltak-avtale-gjenopprettet');
         await hentAvtale(avtale.id);
     };
 
-    const utforHandlingHvisRedigerbar = (callback: () => void) => {
+    const utforHandlingHvisRedigerbar = (callback: () => void): void => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
@@ -150,7 +156,7 @@ const AvtaleProvider: FunctionComponent = props => {
         }
     };
 
-    const lagreMaal = (maalTilLagring: Maal) => {
+    const lagreMaal = (maalTilLagring: Maal): Promise<void> => {
         const nyeMaal = avtale.maal.filter((maal: Maal) => maal.id !== maalTilLagring.id);
         nyeMaal.push(maalTilLagring);
         const nyAvtale = settAvtaleVerdi('maal', nyeMaal);
@@ -158,53 +164,64 @@ const AvtaleProvider: FunctionComponent = props => {
         return lagreAvtale(nyAvtale);
     };
 
-    const slettMaal = (maalTilSletting: Maal) => {
+    const slettMaal = (maalTilSletting: Maal): Promise<void> => {
         const nyeMaal = avtale.maal.filter((maal: Maal) => maal.id !== maalTilSletting.id);
         const nyAvtale = settAvtaleVerdi('maal', nyeMaal);
         sendToAmplitude('#tiltak-avtale-maal-slettet');
         return lagreAvtale(nyAvtale);
     };
 
-    const endretSteg = async () => {
+    const finnFeilkodeForFeilVedLagringAvtale = (
+        error: FeilkodeError | AutentiseringError | ApiError | Error
+    ): void => {
+        switch (error.constructor) {
+            case FeilkodeError:
+                return visFeilmelding(Feilmeldinger[error.message as Feilkode]);
+            case AutentiseringError:
+                return visFeilmelding('Innloggingen din har utløpt. Ta vare på endringene dine og oppfrisk siden.');
+            case ApiError:
+            case UfullstendigError:
+                return visFeilmelding(error.message);
+            default:
+                visFeilmelding('Det har skjedd en uventet feil');
+                throw error;
+        }
+    };
+
+    const finnFeilkodeForFeilVedHentingAvtale = (error: AutentiseringError | ApiError | Error): void => {
+        switch (error.constructor) {
+            case AutentiseringError:
+                return window.location.reload();
+            case ApiError:
+                return visFeilmelding(error.message);
+            default:
+                throw error;
+        }
+    };
+
+    const endretSteg = async (): Promise<void> => {
         if (ulagredeEndringer) {
             try {
                 await lagreAvtale();
             } catch (error) {
-                if (error instanceof FeilkodeError) {
-                    visFeilmelding(Feilmeldinger[error.message as Feilkode]);
-                } else if (error instanceof AutentiseringError) {
-                    // Ikke logget inn
-                    visFeilmelding('Innloggingen din har utløpt. Ta vare på endringene dine og oppfrisk siden.');
-                } else if (error instanceof ApiError || error instanceof UfullstendigError) {
-                    visFeilmelding(error.message);
-                } else {
-                    visFeilmelding('Det har skjedd en uventet feil');
-                    throw error;
-                }
+                finnFeilkodeForFeilVedLagringAvtale(error);
             }
         } else {
             try {
                 await hentAvtale(avtale.id);
             } catch (error) {
-                if (error instanceof AutentiseringError) {
-                    // Ikke logget inn
-                    window.location.reload();
-                } else if (error instanceof ApiError) {
-                    visFeilmelding(error.message);
-                } else {
-                    throw error;
-                }
+                finnFeilkodeForFeilVedHentingAvtale(error);
             }
         }
     };
 
-    const godkjenn = async () => {
+    const godkjenn = async (): Promise<void> => {
         await RestService.godkjennAvtale(avtale);
         sendToAmplitude('#tiltak-avtale-godkjent');
         await hentAvtale(avtale.id);
     };
 
-    const godkjennPaVegne = async (paVegneGrunn: GodkjentPaVegneGrunner) => {
+    const godkjennPaVegne = async (paVegneGrunn: GodkjentPaVegneGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
         await hentAvtale(avtale.id);

@@ -13,6 +13,11 @@ import { useContext } from 'react';
 
 const OmMentorSteg = () => {
     const avtaleContext: InputStegProps<Mentorinfo> = useContext(AvtaleContext);
+    const sjekkOgSettVerdi = (verdi: string | number | undefined): number | undefined => {
+        if (typeof verdi === 'number') {
+            return verdi;
+        }
+    };
 
     return (
         <Innholdsboks utfyller="veileder">
@@ -52,14 +57,18 @@ const OmMentorSteg = () => {
                         <PakrevdInput
                             label="Antall timer med mentor"
                             verdi={avtaleContext.avtale.mentorAntallTimer}
-                            settVerdi={verdi => avtaleContext.settAvtaleVerdi('mentorAntallTimer', verdi)}
+                            settVerdi={verdi =>
+                                avtaleContext.settAvtaleVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi))
+                            }
                         />
                     </Column>
                     <Column md="6">
                         <PakrevdInput
                             label="Timelønn"
                             verdi={avtaleContext.avtale.mentorTimelonn}
-                            settVerdi={verdi => avtaleContext.settAvtaleVerdi('mentorTimelonn', verdi)}
+                            settVerdi={verdi =>
+                                avtaleContext.settAvtaleVerdi('mentorTimelonn', sjekkOgSettVerdi(verdi))
+                            }
                         />
                     </Column>
                 </Row>

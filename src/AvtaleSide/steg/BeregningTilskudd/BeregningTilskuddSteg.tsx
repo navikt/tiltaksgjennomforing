@@ -19,6 +19,7 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 
 const cls = BEMHelper('beregningTilskuddSteg');
+
 const lonnPerManedInkludertFastTillegHjelpetekst = (
     <div>
         Brutto lønn omregnes til fast gjennomsnittlig månedslønn. I refusjonsgrunnlaget inngår lønn for arbeid utført i
