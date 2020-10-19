@@ -26,7 +26,7 @@ export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T ext
     verdi: T[K]
 ) => void;
 
-type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
+export type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
 type SettOgLagreBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
 export interface Context {
