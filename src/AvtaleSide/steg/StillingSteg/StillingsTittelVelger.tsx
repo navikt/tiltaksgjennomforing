@@ -1,8 +1,9 @@
+import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
 import { hentStillinger } from '@/services/rest-service';
+import { escapeRegExp } from '@/utils/stringUtils';
 import debounce from 'lodash.debounce';
 import React, { FunctionComponent, useState } from 'react';
 import Select, { FormatOptionLabelMeta } from 'react-select';
-import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
 
 export type StillingOptions = {
     label: string;
@@ -39,12 +40,12 @@ const StillingsTittelVelger: FunctionComponent = () => {
     };
 
     const highlightPattern = (text: string, pattern: string) => {
-        const txtfragments = text.split(new RegExp(pattern, 'gi'));
+        const txtfragments = text.split(new RegExp(escapeRegExp(pattern), 'gi'));
         if (txtfragments.length <= 1) {
             return text;
         }
 
-        const matches = text.match(new RegExp(pattern, 'gi'));
+        const matches = text.match(new RegExp(escapeRegExp(pattern), 'gi'));
 
         return txtfragments.reduce(
             (arr: any, element: any, index: number) =>
