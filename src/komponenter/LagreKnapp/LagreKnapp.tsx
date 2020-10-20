@@ -102,6 +102,7 @@ class LagreKnapp extends Component<Props, State> {
                     onClick={this.lagreKnappOnClick}
                     className={this.props.className}
                     spinner={this.state.spinner}
+                    disabled={this.state.spinner}
                 >
                     {this.props.label}
                 </Knapp>

@@ -58,6 +58,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const [opphevGodkjenningerModalIsOpen, setOpphevGodkjenningerModalIsOpen] = useState(false);
     const visFeilmelding = useContext(FeilVarselContext);
     const [mellomLagring, setMellomLagring] = useState<TemporaryLagring>();
+    const [underLagring, setUnderLagring] = useState(false);
 
     const sendToAmplitude = (eventName: string): LogReturn =>
         amplitude.logEvent(eventName, {
@@ -71,14 +72,19 @@ const AvtaleProvider: FunctionComponent = props => {
     };
 
     const lagreAvtale = async (nyAvtale = avtale): Promise<void> => {
-        if (noenHarGodkjentMenIkkeAlle(avtale) && !ulagredeEndringer) {
-            // Du har de siste endringene
-        } else {
-            const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
-            sendToAmplitude('#tiltak-avtale-lagret');
-            setAvtale({ ...avtale, ...lagretAvtale });
-            setUlagredeEndringer(false);
+        if (underLagring) {
+            return;
         }
+        if (noenHarGodkjentMenIkkeAlle(avtale) && !ulagredeEndringer) {
+            return;
+        }
+
+        setUnderLagring(true);
+        const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
+        sendToAmplitude('#tiltak-avtale-lagret');
+        setAvtale({ ...avtale, ...lagretAvtale });
+        setUlagredeEndringer(false);
+        setUnderLagring(false);
     };
 
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
