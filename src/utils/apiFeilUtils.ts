@@ -1,4 +1,4 @@
-import { AdresseError, ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
+import { AdresseError, ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 export const handterFeil = (
@@ -15,6 +15,9 @@ export const handterFeil = (
         case ApiError:
         case UfullstendigError:
             visFeilmelding(error.message || fallbackMelding);
+            break;
+        case AutentiseringError:
+            visFeilmelding('Innloggingen din har utløpt. Ta vare på endringene dine og oppfrisk siden.');
             break;
         default:
             visFeilmelding(fallbackMelding);

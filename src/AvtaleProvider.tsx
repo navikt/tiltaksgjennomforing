@@ -1,15 +1,14 @@
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import { Avtale, Beregningsgrunnlag, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
-import { ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
+import { LogReturn } from 'amplitude-js';
 import * as React from 'react';
 import { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
-import { LogReturn } from 'amplitude-js';
 import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
@@ -171,29 +170,12 @@ const AvtaleProvider: FunctionComponent = props => {
         return lagreAvtale(nyAvtale);
     };
 
-    const finnFeilkodeForFeilVedLagringAvtale = (
-        error: FeilkodeError | AutentiseringError | ApiError | Error
-    ): void => {
-        switch (error.constructor) {
-            case FeilkodeError:
-                return visFeilmelding(Feilmeldinger[error.message as Feilkode]);
-            case AutentiseringError:
-                return visFeilmelding('Innloggingen din har utløpt. Ta vare på endringene dine og oppfrisk siden.');
-            case ApiError:
-            case UfullstendigError:
-                return visFeilmelding(error.message);
-            default:
-                visFeilmelding('Det har skjedd en uventet feil');
-                throw error;
-        }
-    };
-
     const finnFeilkodeForFeilVedHentingAvtale = (error: AutentiseringError | ApiError | Error): void => {
         switch (error.constructor) {
             case AutentiseringError:
                 return window.location.reload();
             case ApiError:
-                return visFeilmelding(error.message);
+                return visFeilmelding(error.message || 'Det har skjedd en uventet feil');
             default:
                 throw error;
         }
@@ -204,7 +186,7 @@ const AvtaleProvider: FunctionComponent = props => {
             try {
                 await lagreAvtale();
             } catch (error) {
-                finnFeilkodeForFeilVedLagringAvtale(error);
+                handterFeil(error, visFeilmelding);
             }
         } else {
             try {
