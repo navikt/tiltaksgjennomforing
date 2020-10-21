@@ -101,6 +101,7 @@ export interface Beregningsgrunnlag {
     arbeidsgiveravgiftBelop?: number;
     sumLonnsutgifter?: number;
     sumLonnstilskudd?: number;
+    manedslonn100pst?: number;
 }
 
 export interface Kontonummer {
