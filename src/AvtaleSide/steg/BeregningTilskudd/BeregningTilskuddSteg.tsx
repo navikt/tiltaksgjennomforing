@@ -11,7 +11,6 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import BEMHelper from '@/utils/bem';
-import { lonnHundreProsent } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
@@ -172,7 +171,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 name="manedslonn100%"
                                 bredde="S"
                                 label="Lønn ved 100% stilling"
-                                value={lonnHundreProsent(avtale.sumLonnsutgifter, avtale.stillingprosent)}
+                                value={avtale.manedslonn100pst}
                             />
                         )}
                     <VerticalSpacer thirtyTwoPx={true} />

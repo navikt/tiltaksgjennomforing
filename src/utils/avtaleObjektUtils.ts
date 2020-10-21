@@ -35,6 +35,7 @@ const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     arbeidsgiveravgiftBelop: 0,
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,
+    manedslonn100pst: 0,
     stillingstype: 'FAST',
     stillingKonseptId: 123,
     stillingStyrk08: 1234,
