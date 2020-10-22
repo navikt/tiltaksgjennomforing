@@ -2,12 +2,15 @@ import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregnin
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 import { Element } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import HvaManglerOppsummering from '../HvaManglerOppsummering';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kontonummer> = props => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
+
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
             <Element>Kontonummer</Element> <SjekkOmVerdiEksisterer verdi={props.arbeidsgiverKontonummer} />
@@ -25,7 +28,17 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
                 <VerticalSpacer sixteenPx={true} />
                 <VisUtregningenPanel {...props} />
             </HvaManglerOppsummering>
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer twentyPx={true} />
+            {innloggetBruker.erNavAnsatt &&
+                props.manedslonn100pst &&
+                props.stillingprosent !== undefined &&
+                props.stillingprosent > 0 &&
+                props.stillingprosent < 100 && (
+                    <>
+                        <Element>Lønn ved 100% stilling</Element>
+                        {props.manedslonn100pst} kr
+                    </>
+                )}
         </Stegoppsummering>
     );
 };
