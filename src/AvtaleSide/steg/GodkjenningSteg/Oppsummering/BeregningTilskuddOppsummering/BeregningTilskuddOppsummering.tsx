@@ -6,13 +6,10 @@ import React, { FunctionComponent, useContext } from 'react';
 import HvaManglerOppsummering from '../HvaManglerOppsummering';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import ValutaInput from '@/komponenter/form/ValutaInput';
-import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kontonummer> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale } = useContext(AvtaleContext);
 
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
@@ -30,24 +27,18 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
             >
                 <VerticalSpacer sixteenPx={true} />
                 <VisUtregningenPanel {...props} />
-                <VerticalSpacer twentyPx={true} />
-
-                {innloggetBruker.erNavAnsatt &&
-                    avtale.manedslonn100pst &&
-                    avtale.stillingprosent !== undefined &&
-                    avtale.stillingprosent > 0 &&
-                    avtale.stillingprosent < 100 && (
-                        <ValutaInput
-                            disabled={true}
-                            name="manedslonn100%"
-                            bredde="S"
-                            label="Lønn ved 100% stilling"
-                            value={avtale.manedslonn100pst}
-                        />
-                    )}
-                <VerticalSpacer thirtyTwoPx={true} />
             </HvaManglerOppsummering>
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer twentyPx={true} />
+            {innloggetBruker.erNavAnsatt &&
+                props.manedslonn100pst &&
+                props.stillingprosent !== undefined &&
+                props.stillingprosent > 0 &&
+                props.stillingprosent < 100 && (
+                    <>
+                        <Element>Lønn ved 100% stilling</Element>
+                        {props.manedslonn100pst} kr
+                    </>
+                )}
         </Stegoppsummering>
     );
 };
