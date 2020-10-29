@@ -1,7 +1,7 @@
 {
     "ingress": "https://arbeidsgiver.labs.nais.io/tiltaksgjennomforing",
     "api-gw-url": "http://tiltaksgjennomforing-api",
-    "isso-login-url": "https://tiltak-fakelogin.labs.nais.io/login?iss=isso&NAVIdent=Z123456&domain=labs.nais.io&redirect=https://arbeidsgiver.labs.nais.io/tiltaksgjennomforing",
+    "isso-login-url": "https://tiltak-fakelogin.labs.nais.io/login?iss=isso&NAVident=Z123456&domain=labs.nais.io&redirect=https://arbeidsgiver.labs.nais.io/tiltaksgjennomforing",
     "selvbetjening-login-url": "https://tiltak-fakelogin.labs.nais.io/login?iss=selvbetjening&sub=30000000000&acr=Level4&domain=labs.nais.io&redirect=https://arbeidsgiver.labs.nais.io/tiltaksgjennomforing",
     "logout-url": "https://tiltak-fakelogin.labs.nais.io/logout?cookieName=selvbetjening-idtoken&cookieName=isso-idtoken&domain=labs.nais.io&redirect=https://arbeidsgiver.labs.nais.io/tiltaksgjennomforing",
     "vault-enabled": false,
