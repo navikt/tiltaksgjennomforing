@@ -14,6 +14,7 @@ import { hentBedriftBrreg, opprettAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
 import amplitude from '@/utils/amplitude';
+import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
@@ -88,7 +89,7 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
                 })
                 .catch(error => {
                     setBedriftNavn('');
-                    setBedriftNrFeil({ feilmelding: error.message });
+                    handterFeil(error, feilmelding => setBedriftNrFeil({ feilmelding: feilmelding }));
                 });
         } else {
             setBedriftNavn('');

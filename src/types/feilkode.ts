@@ -16,7 +16,10 @@ export type Feilkode =
     | 'IKKE_AKSEPTERT_UTKAST'
     | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD'
     | 'VARIGHET_FOR_LANG_MENTOR'
-    | 'VARIGHET_FOR_LANG_ARBEIDSTRENING';
+    | 'VARIGHET_FOR_LANG_ARBEIDSTRENING'
+    | 'ENHET_ER_JURIDISK'
+    | 'ENHET_ER_ORGLEDD'
+    | 'ENHET_FINNES_IKKE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -38,4 +41,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD: 'Avtalens varighet er maksimalt 24 måneder',
     VARIGHET_FOR_LANG_MENTOR: 'Avtalens varighet er maksimalt 36 måneder',
     VARIGHET_FOR_LANG_ARBEIDSTRENING: 'Avtalens varighet er maksimalt 18 måneder',
+    ENHET_ER_JURIDISK: 'Avtale må registreres på virksomhetens bedriftsnummer, ikke den juridiske enheten.',
+    ENHET_ER_ORGLEDD: 'Avtale må registreres på virksomhetens bedriftsnummer, ikke organisasjonsleddet.',
+    ENHET_FINNES_IKKE: 'Finnes ikke i Enhetsregisteret.',
 };
