@@ -18,7 +18,13 @@ const AvbryteAvtalen = (props: Props) => {
     return kanAvbrytes && erVeileder ? (
         <>
             <div className="avbryteavtalen">
-                <Lenke onClick={() => setAvbrytModalIsOpen(true)} href="#" className="avbryteavtalen__lenke">
+                <Lenke
+                    onClick={() => setAvbrytModalIsOpen(true)}
+                    href="#"
+                    className="avbryteavtalen__lenke"
+                    aria-label="lenke"
+                    aria-labelledby="lenke til modal. Avbryt avtale"
+                >
                     <AvbruttIkon className="avbryteavtalen__ikon" />
                     Avbryt avtale
                 </Lenke>

@@ -3,6 +3,7 @@ import BEMHelper from '@/utils/bem';
 import Modal from 'nav-frontend-modal';
 import React from 'react';
 import './UfordeltModusModal.less';
+import { setDomAttribute } from '@/utils/domAttributeUtils';
 
 const cls = BEMHelper('ufordelt-modal');
 
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const UfordeltModusModal = (props: Props) => {
+    setDomAttribute({ className: cls.element('modal'), attribute: 'aria-modal', value: props.isOpen });
     return (
         <Modal
             className={cls.element('modal')}

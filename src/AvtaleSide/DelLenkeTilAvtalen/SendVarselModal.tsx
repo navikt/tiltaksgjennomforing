@@ -11,6 +11,7 @@ import { Ingress, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import './SendVarselModal.less';
+import { setDomAttribute } from '@/utils/domAttributeUtils';
 
 interface Props {
     isOpen: boolean;
@@ -21,6 +22,7 @@ const cls = BEMHelper('kopierlenke');
 
 const SendVarselModal: React.FunctionComponent<Props> = props => {
     const { avtale } = useContext(AvtaleContext);
+    setDomAttribute({ className: cls.element('modal'), attribute: 'aria-modal', value: props.isOpen });
 
     return (
         <Modal

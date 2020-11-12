@@ -4,10 +4,11 @@ import BEMHelper from '@/utils/bem';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 import React, { useState } from 'react';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
+import { setDomAttribute } from '@/utils/domAttributeUtils';
 
 const cls = BEMHelper('bekreftelseModal');
 
@@ -22,7 +23,10 @@ interface Props {
 }
 
 const BekreftelseModal: React.FunctionComponent<Props> = props => {
+    const modalClassName = 'modal--overflow-visible';
     const [feilmelding, setFeilmelding] = useState<string>();
+    setDomAttribute({ className: modalClassName, attribute: 'aria-modal', value: props.modalIsOpen });
+
     if (typeof window !== 'undefined') {
         Modal.setAppElement('body');
     }
@@ -58,19 +62,39 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                     <div className={cls.element('knappRad')} />
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('tittel')}>
-                            <Systemtittel>{props.oversiktTekst}</Systemtittel>
+                            <Systemtittel title={props.oversiktTekst} aria-label="tittel">
+                                {props.oversiktTekst}
+                            </Systemtittel>
                         </div>
-                        <Normaltekst className={cls.element('varselTekst')}>{props.varselTekst}</Normaltekst>
+                        <div
+                            className={cls.element('varselTekst')}
+                            aria-label="tekst boks"
+                            aria-labelledby={'informasjon om valg'}
+                        >
+                            {props.varselTekst}
+                        </div>
                     </div>
-                    <div className={cls.element('knapper')}>
+                    <div
+                        className={cls.element('knapper')}
+                        aria-label="Knapp"
+                        aria-labelledby={'bekrefte valg av'.concat(props.oversiktTekst)}
+                    >
                         <KnappBase
-                            type={'hoved'}
+                            role="button"
+                            type="hoved"
                             className={cls.element('knapp lenkeknapp')}
                             onClick={() => bekreftKlikk()}
                         >
                             {props.bekreftelseTekst}
                         </KnappBase>
-                        <KnappBase type={'flat'} className={cls.element('knapp lenkeknapp')} onClick={props.lukkModal}>
+                        <KnappBase
+                            role="button"
+                            aria-label="Knapp"
+                            aria-labelledby={'Lukker dialog for'.concat(props.oversiktTekst)}
+                            type="flat"
+                            className={cls.element('knapp lenkeknapp')}
+                            onClick={props.lukkModal}
+                        >
                             {props.avbrytelseTekst}
                         </KnappBase>
                     </div>

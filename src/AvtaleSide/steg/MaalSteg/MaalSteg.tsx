@@ -49,38 +49,40 @@ class MaalSteg extends React.Component<Context> {
         this.setState({ modalIsOpen: false });
     };
 
-    render = () => (
-        <>
-            <OpprettMaal
-                {...this.props.avtale}
-                utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
-                ledigeMaalkategorier={finnLedigeMaalkategorier(this.valgteMaalkategorier())}
-                lagreMaal={this.props.lagreMaal}
-                mellomLagretMaal={this.props.mellomLagring}
-                setMellomLagring={this.props.setMellomLagring}
-                fjernMellomLagring={() => this.props.setMellomLagring(undefined)}
-            />
-            {this.props.avtale.maal.map(maal => (
-                <MaalKort
-                    ledigeMaalkategorier={finnLedigeMaalkategorier(this.valgteMaalkategorier())}
-                    maal={maal}
-                    key={maal.id}
-                    lagreMaal={this.props.lagreMaal}
-                    slettMaal={this.bekrefelsePaSlettRad}
+    render() {
+        return (
+            <div role="main">
+                <OpprettMaal
+                    {...this.props.avtale}
                     utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
+                    ledigeMaalkategorier={finnLedigeMaalkategorier(this.valgteMaalkategorier())}
+                    lagreMaal={this.props.lagreMaal}
+                    mellomLagretMaal={this.props.mellomLagring}
+                    setMellomLagring={this.props.setMellomLagring}
+                    fjernMellomLagring={() => this.props.setMellomLagring(undefined)}
                 />
-            ))}
-            <BekreftelseModal
-                modalIsOpen={this.state.modalIsOpen}
-                bekreftOnClick={this.slettMaal}
-                lukkModal={this.lukkModal}
-                varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
-                oversiktTekst="Slette mål"
-                bekreftelseTekst="Ja, slett mål"
-                avbrytelseTekst="avbryt"
-            />
-        </>
-    );
+                {this.props.avtale.maal.map(maal => (
+                    <MaalKort
+                        ledigeMaalkategorier={finnLedigeMaalkategorier(this.valgteMaalkategorier())}
+                        maal={maal}
+                        key={maal.id}
+                        lagreMaal={this.props.lagreMaal}
+                        slettMaal={this.bekrefelsePaSlettRad}
+                        utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
+                    />
+                ))}
+                <BekreftelseModal
+                    modalIsOpen={this.state.modalIsOpen}
+                    bekreftOnClick={this.slettMaal}
+                    lukkModal={this.lukkModal}
+                    varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
+                    oversiktTekst="Slette mål"
+                    bekreftelseTekst="Ja, slett mål"
+                    avbrytelseTekst="avbryt"
+                />
+            </div>
+        );
+    }
 }
 
 export default medAvtaleContext(MaalSteg);

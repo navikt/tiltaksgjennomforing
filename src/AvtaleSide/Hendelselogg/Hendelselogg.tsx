@@ -18,13 +18,15 @@ import 'nav-frontend-tabell-style';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './Hendelselogg.less';
+import { setDomAttribute } from '@/utils/domAttributeUtils';
 
 const cls = BEMHelper('hendelselogg');
 
 const Hendelselogg: FunctionComponent = () => {
-    const [hendelseLoggModalApen, setHendelseLoggModalApen] = useState(false);
+    const [hendelseLoggModalApen, setHendelseLoggModalApen] = useState<boolean>(false);
     const [hendelser, setHendelser] = useState<Nettressurs<Hendelse[]>>({ status: Status.IkkeLastet });
     const avtaleContext = useContext(AvtaleContext);
+    setDomAttribute({ className: cls.element('modal'), attribute: 'aria-modal', value: hendelseLoggModalApen });
 
     useEffect(() => {
         setHendelser({ status: Status.LasterInn });

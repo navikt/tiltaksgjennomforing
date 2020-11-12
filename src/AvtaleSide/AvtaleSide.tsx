@@ -15,11 +15,6 @@ import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
 
-interface MatchProps {
-    avtaleId: string;
-    stegPath: string;
-}
-
 const cls = BEMHelper('avtaleside');
 
 export type StegId =
@@ -40,7 +35,7 @@ export interface StegInfo {
     id: StegId;
 }
 
-const AvtaleSide: FunctionComponent = props => {
+const AvtaleSide: FunctionComponent = () => {
     const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const { avtale } = useContext(AvtaleContext);
@@ -75,17 +70,19 @@ const AvtaleSide: FunctionComponent = props => {
     return aktivtSteg ? (
         <>
             <VarselModal />
-            <Banner
-                byttetOrg={org => {
-                    if (avtale.bedriftNr !== org.OrganizationNumber) {
-                        history.push({
-                            pathname: pathTilOversikt,
-                            search: window.location.search,
-                        });
-                    }
-                }}
-                tekst={sideTittel}
-            />
+            <div role="menubar" aria-label="Bedriftsmeny" aria-labelledby="valg av bedrift en vil representere">
+                <Banner
+                    byttetOrg={org => {
+                        if (avtale.bedriftNr !== org.OrganizationNumber) {
+                            history.push({
+                                pathname: pathTilOversikt,
+                                search: window.location.search,
+                            });
+                        }
+                    }}
+                    tekst={sideTittel}
+                />
+            </div>
             <div className="avtaleside">
                 {erAvtaleLaast && (
                     <div className={cls.element('innhold')}>

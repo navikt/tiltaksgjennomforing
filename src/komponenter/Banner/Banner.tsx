@@ -22,13 +22,13 @@ const Banner: React.FunctionComponent<Props> = props => {
     switch (innloggetBruker.rolle) {
         case 'VEILEDER':
             return (
-                <div className="banner">
-                    <Innholdstittel>{props.tekst}</Innholdstittel>
+                <div className="banner" role="banner">
+                    <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
 
                     <div style={{ position: 'absolute', right: '1rem' }}>
                         <Nytt
                             onÅpneNyheter={() => amplitude.logEvent('#tiltak-nyheter-apnet')}
-                            åpneVedFørsteBesøk
+                            åpneVedFørsteBesøk={true}
                             nyheter={nyheter}
                             title="Nytt i tiltaksgjennomføring"
                             navn="Tiltaksgjennomføring"
@@ -38,19 +38,21 @@ const Banner: React.FunctionComponent<Props> = props => {
             );
         case 'ARBEIDSGIVER':
             return (
-                <Bedriftsmeny
-                    history={history}
-                    onOrganisasjonChange={org => {
-                        props.byttetOrg && props.byttetOrg(org);
-                    }}
-                    organisasjoner={innloggetBruker.altinnOrganisasjoner}
-                    sidetittel={props.tekst}
-                />
+                <div role="menubar" aria-label="Bedriftsmeny" aria-labelledby="valg av bedrift en vil representere">
+                    <Bedriftsmeny
+                        history={history}
+                        onOrganisasjonChange={org => {
+                            props.byttetOrg && props.byttetOrg(org);
+                        }}
+                        organisasjoner={innloggetBruker.altinnOrganisasjoner}
+                        sidetittel={props.tekst}
+                    />
+                </div>
             );
         case 'DELTAKER':
             return (
                 <div className="banner">
-                    <Innholdstittel>{props.tekst}</Innholdstittel>
+                    <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
                 </div>
             );
         default:
