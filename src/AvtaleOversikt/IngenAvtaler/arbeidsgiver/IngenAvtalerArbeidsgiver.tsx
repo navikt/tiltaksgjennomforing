@@ -60,7 +60,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
     return (
         <BoksMedTekstOgTilgangstabell
             {...fellesProps}
-            overskrift={`Finner ingen avtaler i ${valgtBedrift?.Name} (${valgtBedrift?.OrganizationNumber})`}
+            overskrift={`Finner ingen avtaler i ${bedriftNavnOgNummer}`}
             visTekst={true}
         />
     );
