@@ -139,7 +139,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                     </div>
                 </Innholdsboks>
 
-                <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border>
+                <Ekspanderbartpanel tittel={<Element>Slik fungerer løsningen</Element>} border>
                     <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
                         Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved
                         NAV.

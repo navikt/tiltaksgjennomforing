@@ -14,6 +14,8 @@ import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
@@ -128,6 +130,32 @@ const AvtaleOversikt: FunctionComponent = () => {
                             sokekriterier={søkekriterier}
                         />
                         <VerticalSpacer rem={1} />
+                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                            <>
+                                <Ekspanderbartpanel
+                                    tittel={
+                                        <div>
+                                            <Element>Finner du ikke avtalen du leter etter?</Element>
+                                            <Normaltekst>
+                                                Det kan være flere årsaker til dette. Les hva du kan gjøre.
+                                            </Normaltekst>
+                                        </div>
+                                    }
+                                >
+                                    <Element>Avtalen du leter etter er opprettet på en annen virksomhet</Element>
+                                    <Normaltekst>
+                                        Det kan være at avtalen du leter etter er opprettet på en annen virskomhet. Du
+                                        kan prøve å bytte virksomhet i virksomhetsvelgeren oppe til høyre på skjermen.
+                                    </Normaltekst>
+                                    <VerticalSpacer rem={1} />
+                                    <Element>
+                                        Du mangler tilgang til rett avtaletype for den virksomheten du har valgt.
+                                    </Element>
+                                    <Normaltekst>Da kan du be om tilgang i Altinn.</Normaltekst>
+                                </Ekspanderbartpanel>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
                         <LesMerOmLøsningen />
                     </section>
                 </div>
