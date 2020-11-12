@@ -21,7 +21,7 @@ import { validerOrgnr } from '@/utils/orgnrUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Lenke from 'nav-frontend-lenker';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
-import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Element, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
@@ -210,7 +210,7 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
                 </div>
             </Innholdsboks>
             <VerticalSpacer rem={2} />
-            <Ekspanderbartpanel tittel="Slik fungerer løsningen" tittelProps="element" border={true}>
+            <Ekspanderbartpanel tittel={<Element>Slik fungerer løsningen</Element>} border={true}>
                 <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
                     Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved NAV.
                 </EkspanderbartPanelRad>

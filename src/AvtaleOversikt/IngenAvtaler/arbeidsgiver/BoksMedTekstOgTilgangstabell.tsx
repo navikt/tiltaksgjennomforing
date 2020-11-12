@@ -9,6 +9,7 @@ import RammeMedIkonOgOverskrift from './RammeMedIkonOgOverskrift';
 
 interface Props {
     bedriftNr: string;
+    bedriftNavnOgNummer: string;
     tilganger: Tilganger;
     overskrift: string;
     visTekst: boolean;
@@ -26,7 +27,9 @@ const BoksMedTekstOgTilgangstabell: FunctionComponent<Props> = props => {
                     <VerticalSpacer rem={2} />
                 </>
             )}
-            <Element>Her ser du en oversikt over hvilke tiltakstyper du har tilgang til i denne virksomheten</Element>
+            <Element>
+                Her ser du en oversikt over hvilke tiltakstyper du har tilgang til i {props.bedriftNavnOgNummer}
+            </Element>
             <VerticalSpacer rem={0.5} />
             <Normaltekst>
                 Hvis du mangler tilgang kan du be om tilgang i Altinn.{' '}

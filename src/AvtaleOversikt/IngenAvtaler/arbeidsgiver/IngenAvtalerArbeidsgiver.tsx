@@ -18,15 +18,16 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
         return <DuManglerRettigheterIAltinn />;
     }
 
-    const fellesProps = { bedriftNr: props.bedriftNr, tilganger };
-    const valgtBedrift = altinnOrganisasjoner.find(o => o.OrganizationNumber === props.bedriftNr);
-    console.log(valgtBedrift);
+    const valgtBedrift = altinnOrganisasjoner.find(o => o.OrganizationNumber === props.bedriftNr)!;
+    const bedriftNavnOgNummer = `${valgtBedrift.Name} (${valgtBedrift.OrganizationNumber})`;
+
+    const fellesProps = { bedriftNr: props.bedriftNr, tilganger, bedriftNavnOgNummer: bedriftNavnOgNummer };
 
     if (!tilganger[props.bedriftNr] || tilganger[props.bedriftNr].length === 0) {
         return (
             <BoksMedTekstOgTilgangstabell
                 {...fellesProps}
-                overskrift={`Du mangler tilgang til alle tiltakstypene i ${valgtBedrift?.Name} (${valgtBedrift?.OrganizationNumber})`}
+                overskrift={`Du mangler tilgang til alle tiltakstypene i ${bedriftNavnOgNummer}`}
                 visTekst={false}
             />
         );
@@ -38,7 +39,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
             return (
                 <BoksMedTekstOgTilgangstabell
                     {...fellesProps}
-                    overskrift={`Finner ingen avtaler i ${valgtBedrift?.Name} (${valgtBedrift?.OrganizationNumber})`}
+                    overskrift={`Finner ingen avtaler i ${bedriftNavnOgNummer}`}
                     visTekst={true}
                 />
             );
@@ -46,7 +47,9 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
             return (
                 <BoksMedTekstOgTilgangstabell
                     {...fellesProps}
-                    overskrift={'Du mangler tilgang til ' + tiltakstypeTekst[props.tiltakstype]}
+                    overskrift={`Du mangler tilgang til ${
+                        tiltakstypeTekst[props.tiltakstype]
+                    } i ${bedriftNavnOgNummer}`}
                     visTekst={false}
                 />
             );
