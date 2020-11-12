@@ -85,6 +85,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     value={key}
                     checked={aktivSøketype === key}
                     onChange={endreSøketype}
+                    role="radio"
+                    aria-labelledby={value.label}
                 />
             ))}
             {!skjulSøkefelt && (
@@ -95,6 +97,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     maxLength={aktueltSøk.maxLength}
                     utførSøk={aktueltSøk.utførSøk}
                     valider={aktueltSøk.validering}
+                    aria-labelledby="søk etter fødselsnummer"
                 />
             )}
         </Filter>

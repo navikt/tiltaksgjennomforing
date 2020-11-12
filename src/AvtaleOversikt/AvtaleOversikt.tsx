@@ -74,17 +74,24 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     return (
         <>
-            <Banner
-                byttetOrg={org => {
-                    if (søkekriterier.bedriftNr !== org.OrganizationNumber) {
-                        setSøkekriterier({ bedriftNr: org.OrganizationNumber });
-                    }
-                }}
-                tekst="Tiltaksoversikt"
-            />
+            <div role="menubar" aria-label="Bedriftsmeny" aria-labelledby="valg av bedrift en vil representere">
+                <Banner
+                    byttetOrg={org => {
+                        if (søkekriterier.bedriftNr !== org.OrganizationNumber) {
+                            setSøkekriterier({ bedriftNr: org.OrganizationNumber });
+                        }
+                    }}
+                    tekst="Tiltaksoversikt"
+                />
+            </div>
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
+                <div
+                    style={layout.stylingAvFilterOgTabell}
+                    className={cls.element('filter-og-tabell')}
+                    aria-labelledby={cls.element('filter-og-tabell')}
+                    role="complementary"
+                >
                     {innloggetBruker.erNavAnsatt && (
                         <aside style={layout.stylingAvFilter}>
                             {innloggetBruker.erNavAnsatt && (
