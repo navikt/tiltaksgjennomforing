@@ -21,7 +21,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
     const valgtBedrift = altinnOrganisasjoner.find(o => o.OrganizationNumber === props.bedriftNr)!;
     const bedriftNavnOgNummer = `${valgtBedrift.Name} (${valgtBedrift.OrganizationNumber})`;
 
-    const fellesProps = { bedriftNr: props.bedriftNr, tilganger, bedriftNavnOgNummer: bedriftNavnOgNummer };
+    const fellesProps = { bedriftNr: props.bedriftNr, tilganger, bedriftNavnOgNummer };
 
     if (!tilganger[props.bedriftNr] || tilganger[props.bedriftNr].length === 0) {
         return (
