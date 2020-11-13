@@ -1,9 +1,8 @@
-/* tslint:disable:no-console */
 import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 
-const decoratorconfig = (fodselnr?: string, enhetnr?: string): DecoratorProps => {
+const decoratorconfig = (): DecoratorProps => {
     return {
-        appname: 'tiltaksgjennomføring',
+        appname: 'Tiltaksgjennomføring',
         toggles: {
             visVeileder: true,
         },
