@@ -50,7 +50,7 @@ class MaalSteg extends React.Component<Context> {
     };
 
     render = () => (
-        <>
+        <div role="main">
             <OpprettMaal
                 {...this.props.avtale}
                 utforHandlingHvisRedigerbar={this.props.utforHandlingHvisRedigerbar}
@@ -79,7 +79,7 @@ class MaalSteg extends React.Component<Context> {
                 bekreftelseTekst="Ja, slett mål"
                 avbrytelseTekst="avbryt"
             />
-        </>
+        </div>
     );
 }
 

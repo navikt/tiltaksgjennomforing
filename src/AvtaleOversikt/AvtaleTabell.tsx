@@ -19,7 +19,7 @@ const AvtaleTabell: FunctionComponent<{
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => (
-    <div className={cls.className}>
+    <div className={cls.className} role="main">
         <div className={classNames(cls.element('rad'), cls.element('header'))}>
             <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
             <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
@@ -30,43 +30,47 @@ const AvtaleTabell: FunctionComponent<{
             <div className={cls.element('status')}>Status</div>
             <div className={cls.element('statusikon')}>&nbsp;</div>
         </div>
-        {avtaler.map((avtale: Avtale) => {
-            const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
-            return (
-                <LenkepanelBase
-                    key={avtale.id}
-                    href={pathTilAvtale(avtale.id)}
-                    linkCreator={(props: any) => (
-                        <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
-                    )}
-                >
-                    {ulestVarsel && <span className="ulest-varsel-ikon" />}
-                    <div
-                        className={classNames(cls.element('rad'), {
-                            uthevet: ulestVarsel,
-                        })}
-                    >
-                        <div className={cls.element('deltakerOgBedrift')}>{avtale.bedriftNavn}</div>
-                        <div className={cls.element('deltakerOgBedrift')}>
-                            {avtale.deltakerFornavn || ''}&nbsp;
-                            {avtale.deltakerEtternavn || ''}
-                        </div>
-                        {innloggetBruker.erNavAnsatt && (
-                            <div className={cls.element('veileder')}>{avtale.veilederNavIdent || 'Ufordelt'}</div>
+        <div role="list">
+            {avtaler.map((avtale: Avtale) => {
+                const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
+                return (
+                    <LenkepanelBase
+                        key={avtale.id}
+                        href={pathTilAvtale(avtale.id)}
+                        linkCreator={(props: any) => (
+                            <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
                         )}
-                        <MediaQuery minWidth={576}>
-                            <div className={cls.element('opprettet')}>
-                                {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
+                        role="listitem"
+                        aria-labelledby={'rad avtalelenke '.concat(avtale.deltakerFnr)}
+                    >
+                        {ulestVarsel && <span className="ulest-varsel-ikon" />}
+                        <div
+                            className={classNames(cls.element('rad'), {
+                                uthevet: ulestVarsel,
+                            })}
+                        >
+                            <div className={cls.element('deltakerOgBedrift')}>{avtale.bedriftNavn}</div>
+                            <div className={cls.element('deltakerOgBedrift')}>
+                                {avtale.deltakerFornavn || ''}&nbsp;
+                                {avtale.deltakerEtternavn || ''}
                             </div>
-                        </MediaQuery>
-                        <div className={cls.element('statusikon')}>
-                            <StatusIkon status={avtale.status} />
+                            {innloggetBruker.erNavAnsatt && (
+                                <div className={cls.element('veileder')}>{avtale.veilederNavIdent || 'Ufordelt'}</div>
+                            )}
+                            <MediaQuery minWidth={576}>
+                                <div className={cls.element('opprettet')}>
+                                    {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
+                                </div>
+                            </MediaQuery>
+                            <div className={cls.element('statusikon')}>
+                                <StatusIkon status={avtale.status} />
+                            </div>
+                            <div className={cls.element('status')}>{avtale.status}</div>
                         </div>
-                        <div className={cls.element('status')}>{avtale.status}</div>
-                    </div>
-                </LenkepanelBase>
-            );
-        })}
+                    </LenkepanelBase>
+                );
+            })}
+        </div>
     </div>
 );
 

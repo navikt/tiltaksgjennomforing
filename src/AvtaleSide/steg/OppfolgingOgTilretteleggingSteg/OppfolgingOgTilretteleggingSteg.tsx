@@ -7,8 +7,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { Oppfolging, Tilrettelegging } from '@/types/avtale';
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
-import * as React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 const OppfolgingTilretteleggingSteg = () => {
     const avtaleContext: InputStegProps<Oppfolging & Tilrettelegging> = useContext(AvtaleContext);

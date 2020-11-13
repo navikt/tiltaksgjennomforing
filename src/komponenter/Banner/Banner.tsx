@@ -22,13 +22,13 @@ const Banner: React.FunctionComponent<Props> = props => {
     switch (innloggetBruker.rolle) {
         case 'VEILEDER':
             return (
-                <div className="banner">
-                    <Innholdstittel>{props.tekst}</Innholdstittel>
+                <div className="banner" role="banner">
+                    <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
 
                     <div style={{ position: 'absolute', right: '1rem' }}>
                         <Nytt
                             onÅpneNyheter={() => amplitude.logEvent('#tiltak-nyheter-apnet')}
-                            åpneVedFørsteBesøk
+                            åpneVedFørsteBesøk={true}
                             nyheter={nyheter}
                             title="Nytt i tiltaksgjennomføring"
                             navn="Tiltaksgjennomføring"
@@ -50,7 +50,7 @@ const Banner: React.FunctionComponent<Props> = props => {
         case 'DELTAKER':
             return (
                 <div className="banner">
-                    <Innholdstittel>{props.tekst}</Innholdstittel>
+                    <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
                 </div>
             );
         default:

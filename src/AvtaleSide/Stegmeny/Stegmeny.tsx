@@ -23,7 +23,11 @@ const Stegmeny: FunctionComponent<Props> = (props: Props) => {
         />
     ));
 
-    return <nav className="stegmeny">{stegLenker}</nav>;
+    return (
+        <nav className="stegmeny" role="navigation">
+            <div role="menu">{stegLenker}</div>
+        </nav>
+    );
 };
 
 export default Stegmeny;
