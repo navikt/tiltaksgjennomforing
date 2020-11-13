@@ -5,9 +5,6 @@
     "selvbetjening-login-url": "https://tiltak-fakelogin.labs.nais.io/login?iss=selvbetjening&aud=aud-selvbetjening&sub=20000000052&acr=Level4&domain=labs.nais.io&redirect=https://arbeidsgiver.labs.nais.io/tiltaksgjennomforing",
     "logout-url": "https://tiltak-fakelogin.labs.nais.io/logout?cookieName=selvbetjening-idtoken&cookieName=isso-idtoken&domain=labs.nais.io&redirect=https://arbeidsgiver.labs.nais.io/tiltaksgjennomforing",
     "vault-enabled": false,
-    "enable-internal-menu": true,
-    "decorator-external-script": "https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js",
-    "decorator-external-styling": "https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css",
     "namespace": "arbeidsgiver",
     "labs": true
 }
