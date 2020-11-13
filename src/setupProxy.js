@@ -61,7 +61,7 @@ module.exports = function(app) {
     });
 
     app.get('/tiltaksgjennomforing/skal-backupmeny-brukes', (req, res) => {
-        res.json(process.env.ENABLE_EXTERNAL_MENU !== 'true');
+        res.json(process.env.ENABLE_EXTERNAL_MENU !== 'true' && process.env.ENABLE_INTERNAL_MENU !== 'true');
     });
 
     app.get('/tiltaksgjennomforing/brukavInternflate', (req, res) => {
