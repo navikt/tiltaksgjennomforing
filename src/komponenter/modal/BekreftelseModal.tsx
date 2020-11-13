@@ -50,6 +50,8 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                 contentLabel={'bekrefte valgt handling'}
                 onRequestClose={props.lukkModal}
                 closeButton={false}
+                aria={{ modal: true }}
+                ariaHideApp={true}
             >
                 <div className={cls.element('topIconContainer')}>
                     <VarselTegnForModal width={'80px'} height={'80px'} />
@@ -64,13 +66,21 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                     </div>
                     <div className={cls.element('knapper')}>
                         <KnappBase
-                            type={'hoved'}
                             className={cls.element('knapp lenkeknapp')}
                             onClick={() => bekreftKlikk()}
+                            role="button"
+                            type="hoved"
                         >
                             {props.bekreftelseTekst}
                         </KnappBase>
-                        <KnappBase type={'flat'} className={cls.element('knapp lenkeknapp')} onClick={props.lukkModal}>
+                        <KnappBase
+                            role="button"
+                            aria-label="Knapp"
+                            aria-labelledby={'Lukker dialog for'.concat(props.oversiktTekst)}
+                            type="flat"
+                            className={cls.element('knapp lenkeknapp')}
+                            onClick={props.lukkModal}
+                        >
                             {props.avbrytelseTekst}
                         </KnappBase>
                     </div>

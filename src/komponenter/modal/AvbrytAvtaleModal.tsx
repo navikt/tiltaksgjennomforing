@@ -103,7 +103,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
             <SkjemaGruppe feil={datoFeil} title="Dato for avbrytelse">
                 <Datovelger
                     avgrensninger={{ minDato: DAGENS_DATO }}
-                    input={{ placeholder: 'dd.mm.åååå' }}
+                    input={{ placeholder: 'dd.mm.åååå', ariaLabel: 'textbox', ariaDescribedby: 'skriv inn dato felt' }}
                     valgtDato={avbruttDato}
                     onChange={dato => velgStartDato(dato)}
                 />
@@ -123,6 +123,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                                     onChange={event => {
                                         setAvbruttGrunn(event.currentTarget.value);
                                     }}
+                                    role="menuitemradio"
                                 />
                             );
                         })}

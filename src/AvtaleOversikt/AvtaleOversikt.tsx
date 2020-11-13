@@ -84,7 +84,12 @@ const AvtaleOversikt: FunctionComponent = () => {
             />
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                <div style={layout.stylingAvFilterOgTabell} className={cls.element('filter-og-tabell')}>
+                <div
+                    style={layout.stylingAvFilterOgTabell}
+                    className={cls.element('filter-og-tabell')}
+                    aria-labelledby={cls.element('filter-og-tabell')}
+                    role="complementary"
+                >
                     {innloggetBruker.erNavAnsatt && (
                         <aside style={layout.stylingAvFilter}>
                             {innloggetBruker.erNavAnsatt && (

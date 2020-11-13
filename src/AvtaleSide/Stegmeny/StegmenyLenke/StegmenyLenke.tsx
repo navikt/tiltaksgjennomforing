@@ -25,6 +25,8 @@ const StegmenyLenke: FunctionComponent<Props> = props => {
             to={{ pathname: props.url, search: window.location.search }}
             className={className}
             onClick={avtaleContext.endretSteg}
+            role="menuitem"
+            aria-labelledby={'navigere til steg'.concat(props.url)}
         >
             <img src={props.ferdig ? stegFullfortIkon : stegIkkeFullfortIkon} className="hidden" alt="status" />
             <span className="stegmenylenke__label">{props.label}</span>
