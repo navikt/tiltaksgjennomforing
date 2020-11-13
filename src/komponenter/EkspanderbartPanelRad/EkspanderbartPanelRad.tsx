@@ -1,7 +1,7 @@
-import React from 'react';
-import TypografiBase, { Normaltekst } from 'nav-frontend-typografi';
-import './EkspanderbartPanelRad.less';
 import BEMHelper from '@/utils/bem';
+import TypografiBase, { Normaltekst } from 'nav-frontend-typografi';
+import React from 'react';
+import './EkspanderbartPanelRad.less';
 
 interface Props {
     svgIkon: React.ReactNode;
@@ -24,7 +24,7 @@ const EkspanderbartPanelRad: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={cls.element(classname ? `element ${classname}` : 'element')}>
-            <div className={cls.element('icon')}>{svgIkon}</div>
+            <div className={cls.element('ikon')}>{svgIkon}</div>
             <div className={cls.element('tekst')}>
                 {header}
                 <Normaltekst>{children}</Normaltekst>

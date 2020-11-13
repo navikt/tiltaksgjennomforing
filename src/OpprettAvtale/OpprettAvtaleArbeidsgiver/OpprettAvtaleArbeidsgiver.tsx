@@ -1,6 +1,6 @@
-import { ReactComponent as AvtaleSignering } from '@/assets/ikoner/avtaleSignering.svg';
-import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check-stroke.svg';
-import { ReactComponent as DrofteMedAnsattePersonOpplysning } from '@/assets/ikoner/drofteMedAnsattePersonOpplysning.svg';
+import { ReactComponent as AvtaleparterIkon } from '@/assets/ikoner/avtaleparter.svg';
+import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check.svg';
+import { ReactComponent as MobilIkon } from '@/assets/ikoner/digitalAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
@@ -140,15 +140,21 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                 </Innholdsboks>
 
                 <Ekspanderbartpanel tittel={<Element>Slik fungerer løsningen</Element>} border>
-                    <EkspanderbartPanelRad svgIkon={<AvtaleSignering />}>
+                    <EkspanderbartPanelRad svgIkon={<MobilIkon />} headerTekst={{ tekst: 'Digital avtale' }}>
                         Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved
                         NAV.
                     </EkspanderbartPanelRad>
-                    <EkspanderbartPanelRad svgIkon={<DrofteMedAnsattePersonOpplysning />}>
+                    <EkspanderbartPanelRad
+                        svgIkon={<AvtaleparterIkon width="50" height="50" />}
+                        headerTekst={{ tekst: 'Tre parter' }}
+                    >
                         Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om innholdet
                         i avtalen.
                     </EkspanderbartPanelRad>
-                    <EkspanderbartPanelRad svgIkon={<CheckCircleIkon />}>
+                    <EkspanderbartPanelRad
+                        svgIkon={<CheckCircleIkon width="50" height="50" />}
+                        headerTekst={{ tekst: 'Godkjenning' }}
+                    >
                         Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at tiltaket kan starte.
                     </EkspanderbartPanelRad>
                 </Ekspanderbartpanel>
