@@ -5,7 +5,7 @@ import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
-import { Ingress, Innholdstittel, Undertittel } from 'nav-frontend-typografi';
+import { Ingress, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
@@ -24,9 +24,12 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
     if (innloggetPart === 'VEILEDER') {
         return (
             <div className={classNames(cls.element('ingenavtalerveileder'), 'innholdsboks')}>
-                <InfoIkon />
-                <VerticalSpacer sixteenPx={true} />
-                <Undertittel>Finner ingen avtaler</Undertittel>
+                <div style={{ display: 'flex' }}>
+                    <InfoIkon />
+                    <Undertittel style={{ marginLeft: '1rem' }}>Finner ingen avtaler</Undertittel>
+                </div>
+                <VerticalSpacer rem={1} />
+                <Normaltekst>Du har ingen avtaler som er tilknyttet deg enda.</Normaltekst>
             </div>
         );
     } else if (innloggetPart === 'DELTAKER') {
