@@ -22,17 +22,19 @@ const Banner: React.FunctionComponent<Props> = props => {
     switch (innloggetBruker.rolle) {
         case 'VEILEDER':
             return (
-                <div className="banner" role="banner">
-                    <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
+                <div className={'banner-veileder-container'}>
+                    <div className="banner-veileder" role="banner">
+                        <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
 
-                    <div style={{ position: 'absolute', right: '1rem' }}>
-                        <Nytt
-                            onÅpneNyheter={() => amplitude.logEvent('#tiltak-nyheter-apnet')}
-                            åpneVedFørsteBesøk={true}
-                            nyheter={nyheter}
-                            title="Nytt i tiltaksgjennomføring"
-                            navn="Tiltaksgjennomføring"
-                        />
+                        <div>
+                            <Nytt
+                                onÅpneNyheter={() => amplitude.logEvent('#tiltak-nyheter-apnet')}
+                                åpneVedFørsteBesøk={true}
+                                nyheter={nyheter}
+                                title="Nytt i tiltaksgjennomføring"
+                                navn="Tiltaksgjennomføring"
+                            />
+                        </div>
                     </div>
                 </div>
             );
