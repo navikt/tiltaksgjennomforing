@@ -22,7 +22,7 @@ import './Hendelselogg.less';
 const cls = BEMHelper('hendelselogg');
 
 const Hendelselogg: FunctionComponent = () => {
-    const [hendelseLoggModalApen, setHendelseLoggModalApen] = useState(false);
+    const [hendelseLoggModalApen, setHendelseLoggModalApen] = useState<boolean>(false);
     const [hendelser, setHendelser] = useState<Nettressurs<Hendelse[]>>({ status: Status.IkkeLastet });
     const avtaleContext = useContext(AvtaleContext);
 
@@ -63,6 +63,8 @@ const Hendelselogg: FunctionComponent = () => {
                 closeButton={true}
                 contentLabel="Hendelseloggmodal"
                 className={cls.element('modal')}
+                aria={{ modal: hendelseLoggModalApen }}
+                ariaHideApp={hendelseLoggModalApen}
             >
                 <Systemtittel>Hendelselogg</Systemtittel>
                 <VerticalSpacer rem={1} />

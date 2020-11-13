@@ -11,7 +11,7 @@ interface Props {
 
 const Innholdsboks: React.FunctionComponent<Props> = props => (
     <>
-        <div className={classnames('innholdsboks', props.className)}>
+        <div className={classnames('innholdsboks', props.className)} role="main">
             {props.utfyller && <UtfyllerBanner utfyller={props.utfyller} />}
             <div className="innholdsboks__innhold">{props.children}</div>
         </div>

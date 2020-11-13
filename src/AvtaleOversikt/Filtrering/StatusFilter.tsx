@@ -32,6 +32,8 @@ const StatusFilter: FunctionComponent<FiltreringProps> = props => {
                         setValgtStatus(nyStatus);
                         props.endreSøk({ status: nyStatus });
                     }}
+                    role="radio"
+                    aria-labelledby="filtere på oppgave status"
                 />
             ))}
         </Filter>

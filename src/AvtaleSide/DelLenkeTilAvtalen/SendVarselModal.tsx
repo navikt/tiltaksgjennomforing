@@ -29,6 +29,8 @@ const SendVarselModal: React.FunctionComponent<Props> = props => {
             closeButton={true}
             isOpen={props.isOpen}
             onRequestClose={() => props.lukkModal()}
+            aria={{ modal: props.isOpen }}
+            ariaHideApp={props.isOpen}
         >
             <Systemtittel>Del lenke til avtalen</Systemtittel>
             <VerticalSpacer sixteenPx={true} />

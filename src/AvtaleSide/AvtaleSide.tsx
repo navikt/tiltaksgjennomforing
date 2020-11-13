@@ -15,11 +15,6 @@ import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
 
-interface MatchProps {
-    avtaleId: string;
-    stegPath: string;
-}
-
 const cls = BEMHelper('avtaleside');
 
 export type StegId =
@@ -40,7 +35,7 @@ export interface StegInfo {
     id: StegId;
 }
 
-const AvtaleSide: FunctionComponent = props => {
+const AvtaleSide: FunctionComponent = () => {
     const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const { avtale } = useContext(AvtaleContext);

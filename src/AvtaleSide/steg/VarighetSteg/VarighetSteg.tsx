@@ -16,7 +16,7 @@ import { FunctionComponent, useContext } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 
-const VarighetSteg: FunctionComponent = props => {
+const VarighetSteg: FunctionComponent = () => {
     const avtaleContext: InputStegProps<Varighet> = useContext(AvtaleContext);
 
     const timerIUka = Number(((37.5 * (avtaleContext.avtale.stillingprosent || 0)) / 100).toFixed(2));
