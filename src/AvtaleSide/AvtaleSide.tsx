@@ -14,6 +14,7 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
+import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
 
 const cls = BEMHelper('avtaleside');
 
@@ -84,6 +85,7 @@ const AvtaleSide: FunctionComponent = () => {
             <div className="avtaleside">
                 {erAvtaleLaast && (
                     <div className={cls.element('innhold')}>
+                        <BannerVeileder tekst={sideTittel} />
                         <OppgaveLinje enableScreenSizeCheck={false} />
                         <VerticalSpacer sixteenPx={true} />
                         <VerticalSpacer sixteenPx={true} />
@@ -92,6 +94,7 @@ const AvtaleSide: FunctionComponent = () => {
                 )}
                 {!erAvtaleLaast && erDesktop && (
                     <DesktopAvtaleSide
+                        sidetittel={sideTittel}
                         avtaleSteg={avtaleSteg}
                         aktivtSteg={aktivtSteg}
                         rolle={innloggetBruker.rolle}

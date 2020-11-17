@@ -20,6 +20,7 @@ import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
 import ArbeidsgiverFiltrering from './Filtrering/ArbeidsgiverFiltrering';
+import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -82,6 +83,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                 }}
                 tekst="Tiltaksoversikt"
             />
+            <BannerVeileder tekst="Tiltaksoversikt" />
 
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 <div
