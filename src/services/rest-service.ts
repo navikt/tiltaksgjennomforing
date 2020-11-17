@@ -27,7 +27,7 @@ const fetchWithCredentials: (url: string, otherParams?: any) => Promise<Response
 };
 
 const handleResponse = async (response: Response) => {
-    if (response.status === 401) {
+    if (response.status === 401 || response.status === 403) {
         sessionStorage.setItem(
             SIDE_FOER_INNLOGGING,
             window.location.pathname.replace(basename, '') + window.location.search
