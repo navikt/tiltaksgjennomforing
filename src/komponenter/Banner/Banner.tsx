@@ -2,12 +2,9 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import amplitude from 'amplitude-js';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import nyheter from '../NyttIAppen/nyheter';
-import Nytt from '../NyttIAppen/Nytt';
 import './Banner.less';
 
 interface Props {
