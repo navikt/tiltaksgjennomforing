@@ -20,24 +20,6 @@ const Banner: React.FunctionComponent<Props> = props => {
     const history = useHistory();
 
     switch (innloggetBruker.rolle) {
-        case 'VEILEDER':
-            return (
-                <div className={'banner-veileder-container'}>
-                    <div className="banner-veileder" role="banner">
-                        <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
-
-                        <div>
-                            <Nytt
-                                onÅpneNyheter={() => amplitude.logEvent('#tiltak-nyheter-apnet')}
-                                åpneVedFørsteBesøk={true}
-                                nyheter={nyheter}
-                                title="Nytt i tiltaksgjennomføring"
-                                navn="Tiltaksgjennomføring"
-                            />
-                        </div>
-                    </div>
-                </div>
-            );
         case 'ARBEIDSGIVER':
             return (
                 <Bedriftsmeny

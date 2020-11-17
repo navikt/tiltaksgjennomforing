@@ -6,12 +6,14 @@ import React from 'react';
 import { StegInfo } from '../AvtaleSide';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
+import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
 
 interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
     rolle: Rolle;
     avtale: Avtale;
+    sidetittel: string;
 }
 
 const cls = BEMHelper('avtaleside');
@@ -19,6 +21,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
     return (
         <>
             <div className={cls.element('desktop')}>
+                <BannerVeileder tekst={props.sidetittel} />
                 <OppgaveLinje enableScreenSizeCheck={true} />
                 <div className={cls.element('container')}>
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
