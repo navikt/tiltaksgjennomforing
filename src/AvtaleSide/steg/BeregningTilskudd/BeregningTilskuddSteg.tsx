@@ -113,8 +113,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             settAvtaleVerdier({ manedslonn: parseFloat(event.target.value) });
                         }}
                         onBlur={() => lagreAvtale()}
-                        min={10000}
-                        max={65000}
+                        min={0}
                     />
                 </Column>
             </Row>
