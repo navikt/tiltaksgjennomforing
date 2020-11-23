@@ -9,10 +9,10 @@ const StillingsOppsummering: FunctionComponent<Stilling> = props => (
     <Stegoppsummering tittel="Stilling">
         <Element>Stillingstittel</Element>
         <SjekkOmVerdiEksisterer verdi={props.stillingstittel} />
-        <VerticalSpacer sixteenPx={true} />
+        <VerticalSpacer rem={2} />
         <Element>Arbeidsoppgaver</Element>
         <SjekkOmVerdiEksisterer verdi={props.arbeidsoppgaver} />
-        <VerticalSpacer sixteenPx={true} />
+        <VerticalSpacer rem={2} />
     </Stegoppsummering>
 );
 
