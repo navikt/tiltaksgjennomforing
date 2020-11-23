@@ -19,7 +19,8 @@ export type Feilkode =
     | 'VARIGHET_FOR_LANG_ARBEIDSTRENING'
     | 'ENHET_ER_JURIDISK'
     | 'ENHET_ER_ORGLEDD'
-    | 'ENHET_FINNES_IKKE';
+    | 'ENHET_FINNES_IKKE'
+    | 'IKKE_TILGANG_TIL_DELTAKER';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -44,4 +45,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_ER_JURIDISK: 'Avtale må registreres på virksomhetens bedriftsnummer, ikke den juridiske enheten.',
     ENHET_ER_ORGLEDD: 'Avtale må registreres på virksomhetens bedriftsnummer, ikke organisasjonsleddet.',
     ENHET_FINNES_IKKE: 'Finnes ikke i Enhetsregisteret.',
+    IKKE_TILGANG_TIL_DELTAKER: 'Du har ikke tilgang til deltaker',
 };
