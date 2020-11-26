@@ -20,7 +20,8 @@ export type Feilkode =
     | 'ENHET_ER_JURIDISK'
     | 'ENHET_ER_ORGLEDD'
     | 'ENHET_FINNES_IKKE'
-    | 'IKKE_TILGANG_TIL_DELTAKER';
+    | 'IKKE_TILGANG_TIL_DELTAKER'
+    | 'KAN_IKKE_GODKJENNE_AVTALE_KODE6';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -46,4 +47,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_ER_ORGLEDD: 'Avtale må registreres på virksomhetens bedriftsnummer, ikke organisasjonsleddet.',
     ENHET_FINNES_IKKE: 'Finnes ikke i Enhetsregisteret.',
     IKKE_TILGANG_TIL_DELTAKER: 'Du har ikke tilgang til deltaker',
+    KAN_IKKE_GODKJENNE_AVTALE_KODE6:
+        'Avtalen kan ikke godkjennes fordi deltaker har kode 6 gradering. Avtalen må tømmes og avbrytes.',
 };
