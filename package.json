@@ -20,7 +20,7 @@
         "@navikt/bedriftsmeny": "^2.2.0",
         "@navikt/fnrvalidator": "^1.1.3",
         "@navikt/navspa": "^1.0.3",
-        "@sentry/browser": "^5.7.1",
+        "@sentry/react": "^5.27.6",
         "@types/amplitude-js": "^4.4.4",
         "@types/lodash.debounce": "^4.0.6",
         "@types/react-modal": "^3.10.6",

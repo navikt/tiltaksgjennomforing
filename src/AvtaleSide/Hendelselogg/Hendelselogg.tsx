@@ -32,7 +32,7 @@ const Hendelselogg: FunctionComponent = () => {
         if (hendelseLoggModalApen) {
             hentHendelselogg(avtaleContext.avtale.id)
                 .then((data: Hendelse[]) => setHendelser({ status: Status.Lastet, data }))
-                .catch((error: Error) => setHendelser({ status: Status.Feil, error: error.message }));
+                .catch((error: Error) => setHendelser({ status: Status.Feil, error: error }));
         }
     }, [avtaleContext.avtale.id, hendelseLoggModalApen]);
 

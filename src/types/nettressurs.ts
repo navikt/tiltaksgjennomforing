@@ -26,7 +26,7 @@ export interface Lastet<T> {
 
 export interface Feil {
     status: Status.Feil;
-    error: string;
+    error: Error;
 }
 
 export type Nettressurs<T> = IkkeLastet | LasterInn | SenderInn<T> | Lastet<T> | Feil;

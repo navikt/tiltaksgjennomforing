@@ -6,6 +6,7 @@ import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
+import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
@@ -20,7 +21,6 @@ import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
 import ArbeidsgiverFiltrering from './Filtrering/ArbeidsgiverFiltrering';
-import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -59,7 +59,7 @@ const AvtaleOversikt: FunctionComponent = () => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
         hentAvtalerForInnloggetBruker(søkekriterier)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
-            .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error.message }));
+            .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error }));
     }, [søkekriterier]);
 
     const layout = useAvtaleOversiktLayout();

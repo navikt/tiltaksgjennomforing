@@ -8,6 +8,7 @@ on:
 
 env:
   IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
 jobs:
   bygg:

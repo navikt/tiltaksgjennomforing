@@ -1,5 +1,6 @@
 import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { useAsyncError } from '@/komponenter/useError';
 import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { hentInnloggetBruker } from '@/services/rest-service';
@@ -18,6 +19,7 @@ import './Innloggingsside.less';
 const cls = BEMHelper('innloggingsside');
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
+    const throwError = useAsyncError();
     const [, setCookie] = useCookies();
 
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
@@ -27,6 +29,8 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
         } catch (err) {
             if (err instanceof AutentiseringError) {
                 window.location.href = innloggingskilde.url;
+            } else {
+                throwError(err);
             }
         }
     };
