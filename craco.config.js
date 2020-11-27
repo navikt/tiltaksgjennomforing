@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const { defaults } = require('jest-config');
 const internflateDecoratorHtmlWebpackPlugin = require('./plugins/internflateDecoratorHtmlWebpackPlugin');
 const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
+const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 module.exports = {
     webpack: {
@@ -15,6 +16,17 @@ module.exports = {
             }),
             new EnvironmentPlugin({
                 GIT_COMMIT_HASH: 'local-dev',
+            }),
+            new SentryWebpackPlugin({
+                // sentry-cli configuration
+                authToken: process.env.SENTRY_AUTH_TOKEN,
+                url: 'https://sentry.gc.nav.no',
+                org: 'nav',
+                project: 'tiltaksgjennomforing',
+
+                // webpack specific configuration
+                include: './src',
+                ignore: ['node_modules', 'webpack.config.js'],
             }),
         ],
         alias: {
