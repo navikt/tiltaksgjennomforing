@@ -5,37 +5,18 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const { defaults } = require('jest-config');
 const internflateDecoratorHtmlWebpackPlugin = require('./plugins/internflateDecoratorHtmlWebpackPlugin');
 const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
-const SentryWebpackPlugin = require('@sentry/webpack-plugin');
-
-const webPackPlugins = [
-    new BundleAnalyzerPlugin({
-        analyzerMode: 'disabled',
-        openAnalyzer: false,
-    }),
-    new EnvironmentPlugin({
-        GIT_COMMIT_HASH: 'local-dev',
-    }),
-];
-if (process.env.SENTRY_AUTH_TOKEN) {
-    webPackPlugins.push(
-        new SentryWebpackPlugin({
-            // sentry-cli configuration
-            release: process.env.GIT_COMMIT_HASH || 'unknown',
-            authToken: process.env.SENTRY_AUTH_TOKEN,
-            url: 'https://sentry.gc.nav.no',
-            org: 'nav',
-            project: 'tiltaksgjennomforing',
-
-            // webpack specific configuration
-            include: '.',
-            ignore: ['node_modules', 'webpack.config.js'],
-        })
-    );
-}
 
 module.exports = {
     webpack: {
-        plugins: webPackPlugins,
+        plugins: [
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'disabled',
+                openAnalyzer: false,
+            }),
+            new EnvironmentPlugin({
+                GIT_COMMIT_HASH: 'local-dev',
+            }),
+        ],
         alias: {
             '@': path.resolve(__dirname, 'src/'),
         },
