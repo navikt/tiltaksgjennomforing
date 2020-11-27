@@ -3,7 +3,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "inlineSources": true,
-    "sourceRoot": "./src",
+    "sourceRoot": "/",
     "target": "es5",
     "lib": [
       "dom",

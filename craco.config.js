@@ -7,28 +7,34 @@ const internflateDecoratorHtmlWebpackPlugin = require('./plugins/internflateDeco
 const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
+const webPackPlugins = [
+    new BundleAnalyzerPlugin({
+        analyzerMode: 'disabled',
+        openAnalyzer: false,
+    }),
+    new EnvironmentPlugin({
+        GIT_COMMIT_HASH: 'local-dev',
+    }),
+];
+if (process.env.SENTRY_AUTH_TOKEN) {
+    webPackPlugins.push(
+        new SentryWebpackPlugin({
+            // sentry-cli configuration
+            authToken: process.env.SENTRY_AUTH_TOKEN,
+            url: 'https://sentry.gc.nav.no',
+            org: 'nav',
+            project: 'tiltaksgjennomforing',
+
+            // webpack specific configuration
+            include: '.',
+            ignore: ['node_modules', 'webpack.config.js'],
+        })
+    );
+}
+
 module.exports = {
     webpack: {
-        plugins: [
-            new BundleAnalyzerPlugin({
-                analyzerMode: 'disabled',
-                openAnalyzer: false,
-            }),
-            new EnvironmentPlugin({
-                GIT_COMMIT_HASH: 'local-dev',
-            }),
-            new SentryWebpackPlugin({
-                // sentry-cli configuration
-                authToken: process.env.SENTRY_AUTH_TOKEN,
-                url: 'https://sentry.gc.nav.no',
-                org: 'nav',
-                project: 'tiltaksgjennomforing',
-
-                // webpack specific configuration
-                include: './src',
-                ignore: ['node_modules', 'webpack.config.js'],
-            }),
-        ],
+        plugins: webPackPlugins,
         alias: {
             '@': path.resolve(__dirname, 'src/'),
         },
