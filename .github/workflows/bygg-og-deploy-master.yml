@@ -9,6 +9,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing
   IMAGE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing:${{ github.sha }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
 jobs:
   bygg:
