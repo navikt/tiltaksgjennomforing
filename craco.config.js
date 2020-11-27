@@ -20,6 +20,7 @@ if (process.env.SENTRY_AUTH_TOKEN) {
     webPackPlugins.push(
         new SentryWebpackPlugin({
             // sentry-cli configuration
+            release: process.env.GIT_COMMIT_HASH || 'unknown',
             authToken: process.env.SENTRY_AUTH_TOKEN,
             url: 'https://sentry.gc.nav.no',
             org: 'nav',
