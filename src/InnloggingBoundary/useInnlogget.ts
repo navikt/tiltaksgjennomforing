@@ -1,3 +1,4 @@
+import { useAsyncError } from '@/komponenter/useError';
 import { hentInnloggetBruker, hentInnloggingskilder } from '@/services/rest-service';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { InnloggetBruker, Innloggingskilde } from '@/types/innlogget-bruker';
@@ -13,6 +14,7 @@ export interface Innlogget {
 }
 
 const useInnlogget = (): Innlogget => {
+    const throwError = useAsyncError();
     const [innloggetBruker, setInnloggetBruker] = useState<InnloggetBruker | null>(null);
 
     const [innloggingskilder, setInnloggingskilder] = useState<Innloggingskilde[]>([]);
@@ -33,11 +35,11 @@ const useInnlogget = (): Innlogget => {
                 } else if (error instanceof ApiError) {
                     setFeilmelding(error.message);
                 } else {
-                    throw error;
+                    throwError(error);
                 }
             });
         hentInnloggingskilder().then(setInnloggingskilder);
-    }, []);
+    }, [throwError]);
 
     return { innloggetBruker, uinnlogget, innloggingskilder, feilmelding };
 };

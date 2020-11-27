@@ -1,5 +1,6 @@
 import decoratorconfig from '@/internflateDekorator/decoratorconfig';
 import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
+import { useAsyncError } from '@/komponenter/useError';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/rest-service';
@@ -27,10 +28,16 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
 const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     const [brukmeny, setbrukmeny] = useState<boolean>();
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
+    const throwError = useAsyncError();
+
     useEffect(() => {
-        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(setbrukmeny);
-        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes').then(setBrukBackupmeny);
-    }, []);
+        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate')
+            .then(setbrukmeny)
+            .catch(throwError);
+        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes')
+            .then(setBrukBackupmeny)
+            .catch(throwError);
+    }, [throwError]);
 
     const [cookies, setCookie] = useCookies();
     const sjekkOgSettCookie = (cookies: any) => {
