@@ -4,6 +4,7 @@ import { AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
 import { Datovelger } from 'nav-datovelger';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
@@ -26,6 +27,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
     const [datoFeil, setDatoFeil] = useState<undefined | SkjemaelementFeil>(undefined);
     const [avbruttGrunn, setAvbruttGrunn] = useState<AvbrytelseGrunn | string>('');
     const [avbruttDato, setAvbruttDato] = useState('');
+    const [feil, setFeil] = useState('');
 
     const avbruttGrunnSatt = () =>
         !avbruttGrunn || !avbruttDato || (avbruttGrunn === 'Annet' && !annetGrunn) || sjekkDato();
@@ -42,7 +44,12 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
     };
 
     const avbryttAvtalen = async (grunn: string) => {
-        return await props.avbrytAvtale(avbruttDato, grunn).then(() => props.lukkModal());
+        return await props
+            .avbrytAvtale(avbruttDato, grunn)
+            .then(() => props.lukkModal())
+            .catch(e => {
+                setFeil('Det oppstod en ukjent feil');
+            });
     };
 
     const bekreftAvbrytAvtale = async () => {
@@ -143,6 +150,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                     )}
                 </div>
             </div>
+            {feil && <AlertStripeAdvarsel>{feil}</AlertStripeAdvarsel>}
         </>
     );
 

@@ -20,7 +20,6 @@ export const handterFeil = (
             visFeilmelding('Innloggingen din har utløpt. Ta vare på endringene dine og oppfrisk siden.');
             break;
         default:
-            visFeilmelding(fallbackMelding);
             throw error;
     }
 };

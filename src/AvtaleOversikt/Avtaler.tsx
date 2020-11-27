@@ -8,6 +8,7 @@ import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Status } from '@/types/nettressurs';
 import Varsel from '@/types/varsel';
+import { handterFeil } from '@/utils/apiFeilUtils';
 import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
 
@@ -38,7 +39,7 @@ export const Avtaler: FunctionComponent<Props> = props => {
             <AvtalekortMobil avtaler={props.avtalelisteRessurs.data} varsler={props.varsler} />
         );
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
-        feilVarsel(props.avtalelisteRessurs.error);
+        handterFeil(props.avtalelisteRessurs.error, feilVarsel);
     }
     return null;
 };

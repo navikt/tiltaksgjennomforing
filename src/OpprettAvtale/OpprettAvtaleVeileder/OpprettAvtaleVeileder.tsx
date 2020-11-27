@@ -90,7 +90,8 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
                 .catch(error => {
                     setBedriftNavn('');
                     handterFeil(error, feilmelding => setBedriftNrFeil({ feilmelding: feilmelding }));
-                });
+                })
+                .catch(e => setBedriftNrFeil({ feilmelding: 'Det oppstod en uventet feil' }));
         } else {
             setBedriftNavn('');
         }

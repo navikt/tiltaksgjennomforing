@@ -42,7 +42,11 @@ class LagreKnapp extends Component<Props, State> {
             await this.props.lagre();
             this.visSuksessmelding();
         } catch (error) {
-            handterFeil(error, this.visFeilmelding);
+            try {
+                handterFeil(error, this.visFeilmelding);
+            } catch (error) {
+                this.visFeilmelding('Det skjedde en uventet feil');
+            }
         } finally {
             if (this.state.isMounted) {
                 this.enableSpinner(false);

@@ -1,6 +1,7 @@
 import { ReactComponent as ErrorIkon } from '@/assets/ikoner/error.svg';
 import { ReactComponent as SuccessIkon } from '@/assets/ikoner/success.svg';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { useAsyncError } from '@/komponenter/useError';
 import { tiltakstypeTekst } from '@/messages';
 import { BeOmRettigheterUrler, hentBeOmRettighetUrler } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
@@ -22,9 +23,12 @@ interface Props {
 
 const TilgangTabell: FunctionComponent<Props> = props => {
     const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrler>({});
+    const throwError = useAsyncError();
     useEffect(() => {
-        hentBeOmRettighetUrler(props.bedriftNr).then(setBeOmRettighetUrler);
-    }, [props.bedriftNr]);
+        hentBeOmRettighetUrler(props.bedriftNr)
+            .then(setBeOmRettighetUrler)
+            .catch(throwError);
+    }, [props.bedriftNr, throwError]);
 
     const harGodPlass = useMediaQuery({ minWidth: '40rem' });
 

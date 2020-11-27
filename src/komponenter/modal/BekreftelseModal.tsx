@@ -1,5 +1,4 @@
-import { ApiError, FeilkodeError, UfullstendigError } from '@/types/errors';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase from 'nav-frontend-knapper';
@@ -32,11 +31,10 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
         try {
             await props.bekreftOnClick();
         } catch (error) {
-            if (error instanceof FeilkodeError) {
-                setFeilmelding(Feilmeldinger[error.message as Feilkode]);
-            } else if (error instanceof ApiError || error instanceof UfullstendigError) {
-                setFeilmelding(error.message);
-            } else {
+            try {
+                handterFeil(error, setFeilmelding);
+            } catch (error) {
+                setFeilmelding('Det har skjedd en uventet feil');
                 throw error;
             }
         }

@@ -7,6 +7,7 @@ import { LogReturn } from 'amplitude-js';
 import * as React from 'react';
 import { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
+import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
@@ -53,6 +54,7 @@ export interface Context {
 export const AvtaleContext = React.createContext<Context>({} as Context);
 
 const AvtaleProvider: FunctionComponent = props => {
+    const throwError = useAsyncError();
     const [avtale, setAvtale] = useState<Avtale>({} as Avtale);
     const [ulagredeEndringer, setUlagredeEndringer] = useState(false);
     const [opphevGodkjenningerModalIsOpen, setOpphevGodkjenningerModalIsOpen] = useState(false);
@@ -88,7 +90,9 @@ const AvtaleProvider: FunctionComponent = props => {
     };
 
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
-        RestService.hentAvtale(avtaleId).then(setAvtale);
+        RestService.hentAvtale(avtaleId)
+            .then(setAvtale)
+            .catch(throwError);
 
     const avbrytAvtale = async (avbruttDato: string, avbruttGrunn: string): Promise<void> => {
         await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);

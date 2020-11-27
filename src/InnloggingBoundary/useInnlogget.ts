@@ -38,7 +38,9 @@ const useInnlogget = (): Innlogget => {
                     throwError(error);
                 }
             });
-        hentInnloggingskilder().then(setInnloggingskilder);
+        hentInnloggingskilder()
+            .then(setInnloggingskilder)
+            .catch(throwError);
     }, [throwError]);
 
     return { innloggetBruker, uinnlogget, innloggingskilder, feilmelding };
