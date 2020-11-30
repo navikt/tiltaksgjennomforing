@@ -33,6 +33,7 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     oppfolging: 'oppfølging',
     sluttDato: 'sluttdato',
     startDato: 'startdato',
+    tilskuddPeriode: 'tilskuddPeriode',
     stillingprosent: 'stillingsprosent',
     stillingstittel: 'stillingstittel',
     tilrettelegging: 'tilrettelegging',

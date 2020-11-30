@@ -4,6 +4,7 @@ import { hentFeatureToggles } from './services/rest-service';
 export enum Feature {
     Mentor = 'tag.tiltak.mentor',
     ArbeidsgiverOppretter = 'tag.tiltak.arbeidsgiver.oppretter',
+    VisningAvTilskuddsPerioder = 'tag.tiltak.viseTilskuddsPerioder',
 }
 
 export const alleFeatures = Object.values(Feature);

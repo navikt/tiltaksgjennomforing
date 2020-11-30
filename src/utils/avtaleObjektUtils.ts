@@ -36,6 +36,7 @@ const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,
     manedslonn100pst: 0,
+    tilskuddPeriode: [],
     stillingstype: 'FAST',
     stillingKonseptId: 123,
     stillingStyrk08: 1234,

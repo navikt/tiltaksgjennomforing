@@ -18,6 +18,7 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     Veilederinfo &
     MaalListe &
     Beregningsgrunnlag &
+    TilskuddsPerioder &
     Kontonummer &
     RelasjonerInfo &
     Mentorinfo;
@@ -102,6 +103,17 @@ export interface Beregningsgrunnlag {
     sumLonnsutgifter?: number;
     sumLonnstilskudd?: number;
     manedslonn100pst?: number;
+}
+
+export interface TilskuddsPerioder {
+    tilskuddPeriode: TilskuddsPeriode[];
+}
+
+export interface TilskuddsPeriode {
+    beløp: number;
+    id: string;
+    startDato: string;
+    sluttDato: string;
 }
 
 export interface Kontonummer {
