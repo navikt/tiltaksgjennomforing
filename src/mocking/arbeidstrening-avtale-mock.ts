@@ -1,4 +1,4 @@
-import { Avtale, Maal } from '@/types/avtale';
+import { Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -10,6 +10,15 @@ const maalListe: Maal[] = [
         id: '26cfdb72-1efd-11e9-ab14-d663bd873d93',
         kategori: 'ANNET',
         beskrivelse: 'Hadde vært fint med noe annet også',
+    },
+];
+
+const tilskuddsPeriode: TilskuddsPeriode[] = [
+    {
+        beløp: 0,
+        id: '',
+        startDato: '',
+        sluttDato: '',
     },
 ];
 
@@ -38,6 +47,8 @@ const arbeidstreningAvtaleMock: Avtale = {
     startDato: '2020-02-01',
     sluttDato: '2020-03-01',
     stillingprosent: 99,
+
+    tilskuddPeriode: tilskuddsPeriode,
 
     veilederNavIdent: 'Z123456',
     veilederFornavn: 'Karoline',

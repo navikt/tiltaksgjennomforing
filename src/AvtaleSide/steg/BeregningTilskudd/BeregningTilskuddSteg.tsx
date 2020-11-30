@@ -16,6 +16,8 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
+import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
+import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -174,6 +176,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             />
                         )}
                     <VerticalSpacer thirtyTwoPx={true} />
+                    <LesMerOmTilskuddsPerioder />
+                    <TilskuddsPerioder />
                     <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>

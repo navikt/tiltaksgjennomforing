@@ -30,6 +30,8 @@ const lonnstilskuddAvtaleMock: Avtale = {
     sluttDato: '2020-05-01',
     stillingprosent: 99,
 
+    tilskuddPeriode: [],
+
     veilederNavIdent: 'Z123456',
     veilederFornavn: 'Kåre',
     veilederEtternavn: 'Sandøy',

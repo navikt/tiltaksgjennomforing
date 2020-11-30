@@ -28,6 +28,7 @@ const avtaleInnhold: Avtale = {
     stillingprosent: 1,
     sumLonnstilskudd: 1,
     sumLonnsutgifter: 111,
+    tilskuddPeriode: [{ beløp: 10000, id: '123123', startDato: '', sluttDato: '' }],
     tilrettelegging: '',
     veilederEtternavn: '',
     veilederFornavn: '',
