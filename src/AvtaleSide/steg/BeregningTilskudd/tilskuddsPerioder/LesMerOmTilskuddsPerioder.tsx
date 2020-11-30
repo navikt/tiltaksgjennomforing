@@ -3,10 +3,13 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import BEMHelper from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('tilskuddsPerioder');
 
 const LesMerOmTilskuddsPerioder: FunctionComponent = () => {
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
     const [åpnet, setÅpnet] = useState<boolean>(false);
     const avtaleinnhold = useContext(AvtaleContext);
 
@@ -26,7 +29,7 @@ const LesMerOmTilskuddsPerioder: FunctionComponent = () => {
         </>
     );
 
-    return detErOpprettetTilskuddsPerioder() ? (
+    return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder() ? (
         <>
             <Undertittel className={cls.element('tittel')}>Perioder</Undertittel>
             <LesMerPanel lukkLabel="Lukk" åpneLabel="Viktig informasjon om perioder" onÅpne={() => setÅpnet(!åpnet)}>

@@ -4,10 +4,13 @@ import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi';
 import { AvtaleContext } from '@/AvtaleProvider';
 import moment from 'moment';
 import './tilskuddsPerioder.less';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('tilskuddsPerioder');
 
 const TilskuddsPerioder: FunctionComponent = () => {
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
     const avtaleinnhold = useContext(AvtaleContext);
 
     const detErOpprettetTilskuddsPerioder = () => avtaleinnhold.avtale.tilskuddPeriode.length > 0;
@@ -26,7 +29,7 @@ const TilskuddsPerioder: FunctionComponent = () => {
     const formattereTilNorskBeløp = (belop: number) =>
         new Intl.NumberFormat('no-IN', { maximumSignificantDigits: 3 }).format(belop);
 
-    return detErOpprettetTilskuddsPerioder() ? (
+    return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder() ? (
         <div className={cls.className}>
             <div className={cls.element('tabell')}>
                 <UndertekstBold className="periode">Periode</UndertekstBold>
