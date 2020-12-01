@@ -18,6 +18,7 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
+import ProsentInput from '@/komponenter/form/ProsentInput';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -136,7 +137,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     />
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
-                    <ValutaInput
+                    <ProsentInput
                         name="tjenestepensjon"
                         bredde="S"
                         label="Obligatorisk tjenestepensjon"
