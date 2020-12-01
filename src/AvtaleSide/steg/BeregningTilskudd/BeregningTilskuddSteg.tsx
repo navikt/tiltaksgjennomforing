@@ -136,7 +136,17 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     />
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
-                    2 %
+                    <ValutaInput
+                        name="tjenestepensjon"
+                        bredde="S"
+                        label="Obligatorisk tjenestepensjon"
+                        value={avtale.otpSats}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            settAvtaleVerdier({ otpSats: parseFloat(event.target.value) });
+                        }}
+                        onBlur={() => lagreAvtale()}
+                        min={0}
+                    />
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>
                     <SelectInput
