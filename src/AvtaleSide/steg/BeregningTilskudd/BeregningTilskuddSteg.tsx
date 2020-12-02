@@ -18,7 +18,7 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
-import ProsentInput from '@/komponenter/form/ProsentInput';
+import OtpProsentInput from './OtpProsentInput';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -137,16 +137,18 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     />
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
-                    <ProsentInput
+                    <OtpProsentInput
                         name="tjenestepensjon"
                         bredde="S"
-                        label="Obligatorisk tjenestepensjon"
+                        maxLength={2}
+                        max={30}
+                        min={2}
+                        label="Obligatorisk tjenestepensjon fra 2% - 30%"
                         value={avtale.otpSats}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdier({ otpSats: parseFloat(event.target.value) });
                         }}
                         onBlur={() => lagreAvtale()}
-                        min={0}
                     />
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>
