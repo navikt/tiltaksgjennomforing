@@ -3,7 +3,7 @@ import { NavFrontendInputProps } from 'nav-frontend-skjema';
 import { Input } from 'nav-frontend-skjema';
 
 export const toFormattedProsent = (value: any): string => {
-    return `${value} %`;
+    return `${value * 100} %`;
 };
 
 export const toLimit = (value: any, min?: number | string, max?: number | string): number => {
