@@ -1,12 +1,15 @@
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import { Beregningsgrunnlag, TiltaksType } from '@/types/avtale';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
-const radioer = [
-    { label: '40 %', value: '40' },
-    { label: '60 %', value: '60' },
-];
+const radioer = (erNavAnsatt: boolean) => {
+    return [
+        { label: '40 %', value: '40', disabled: !erNavAnsatt },
+        { label: '60 %', value: '60', disabled: !erNavAnsatt },
+    ];
+};
 
 type Props = {
     tiltakstype: TiltaksType;
@@ -15,10 +18,11 @@ type Props = {
 };
 
 const LonnstilskuddProsent: FunctionComponent<Props> = props => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
     if (props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
         return (
             <RadioPanelGruppeHorisontal
-                radios={radioer}
+                radios={radioer(innloggetBruker.erNavAnsatt)}
                 name="lonnstilskuddProsent"
                 checked={props.lonnstilskuddProsent + ''}
                 legend=""

@@ -1,6 +1,7 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { NavFrontendInputProps } from 'nav-frontend-skjema';
-import React from 'react';
+import React, { useContext } from 'react';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 export const formaterProsent = (value: any): string => {
     if (!value) {
@@ -10,6 +11,7 @@ export const formaterProsent = (value: any): string => {
 };
 
 const ProsentInput: React.FunctionComponent<NavFrontendInputProps> = props => {
+    const erNavAnsatt = useContext(InnloggetBrukerContext).erNavAnsatt;
     const { step = 1, max, min, ...other } = props;
     const validatorer = [
         (v: any) => {
@@ -36,6 +38,7 @@ const ProsentInput: React.FunctionComponent<NavFrontendInputProps> = props => {
             toFormatted={formaterProsent}
             max={max}
             min={min}
+            disabled={!erNavAnsatt}
             {...other}
         />
     );

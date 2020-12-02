@@ -8,6 +8,7 @@ const RadioPanelGruppeHorisontal = (props: RadioPanelGruppeProps) => {
             {radios.map((radio: RadioProps) => (
                 <RadioPanel
                     name={name}
+                    disabled={radio.disabled}
                     key={`${name}-${radio.value}`}
                     checked={checked === radio.value}
                     onChange={(event: React.SyntheticEvent<EventTarget>) => onChange(event, radio.value)}

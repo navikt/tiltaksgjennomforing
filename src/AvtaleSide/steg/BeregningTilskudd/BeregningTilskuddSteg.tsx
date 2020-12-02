@@ -18,6 +18,7 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
+import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -81,24 +82,20 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
             <VerticalSpacer sixteenPx={true} />
-
-            {innloggetBruker.erNavAnsatt && (
-                <>
-                    <Undertittel>Lønnstilskudd prosent</Undertittel>
-                    <Normaltekst className={cls.element('luft')}>
-                        Velg sats for refusjon som arbeidsgiver skal få tilbake
-                    </Normaltekst>
-                    <LonnstilskuddProsent
-                        tiltakstype={avtale.tiltakstype}
-                        lonnstilskuddProsent={avtale.lonnstilskuddProsent}
-                        settLonnstilskuddProsent={verdi =>
-                            settOgLagreBeregningsverdier({ lonnstilskuddProsent: verdi })
-                        }
-                    />
-                    <VerticalSpacer sixteenPx={true} />
-                </>
-            )}
-
+            <Undertittel>Lønnstilskudd prosent</Undertittel>
+            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                <PenFillIkon />
+                <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av NAV</Normaltekst>
+            </div>
+            <Normaltekst className={cls.element('luft')}>
+                Velg sats for refusjon som arbeidsgiver skal få tilbake
+            </Normaltekst>
+            <LonnstilskuddProsent
+                tiltakstype={avtale.tiltakstype}
+                lonnstilskuddProsent={avtale.lonnstilskuddProsent}
+                settLonnstilskuddProsent={verdi => settOgLagreBeregningsverdier({ lonnstilskuddProsent: verdi })}
+            />
+            <VerticalSpacer sixteenPx={true} />
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 {lonnPerManedInkludertFastTillegHjelpetekst}
