@@ -6,7 +6,7 @@ import { Input } from 'nav-frontend-skjema';
 export const toFormattedProsent = (value: any): string => `${value} %`;
 export const toLimit = (value: any, min?: number | string, max?: number | string): number => {
     if (!value || (min && value < min) || (max && value > max)) {
-        return 2.0;
+        return min !== undefined ? parseFloat(min.toString()) : 2.0;
     }
     return value;
 };
@@ -27,8 +27,8 @@ const OtpProsentInput: React.FunctionComponent<OtpProsentPros> = props => {
 
     const onBlurOverride = (event: React.FocusEvent<HTMLInputElement>) => {
         if (event.target.value === '') {
-            event.target.value = toFormattedProsent('2.0');
-            setVerdi(parseFloat('2.0'));
+            event.target.value = toFormattedProsent(min);
+            setVerdi(min);
         } else {
             event.target.value = toFormattedProsent(toLimit(parseFloat(event.target.value), min, max));
         }
@@ -52,15 +52,14 @@ const OtpProsentInput: React.FunctionComponent<OtpProsentPros> = props => {
             onChange(event);
         }
     };
-
     return (
         <Input
             onBlur={onBlurOverride}
             inputRef={inputRef}
-            value={verdi || ''}
+            value={verdi || 0}
             max={max}
             type="number"
-            placeholder={'2% - 30%'}
+            placeholder={'0% - 30%'}
             min={min}
             onChange={onChangeOverride}
             {...other}

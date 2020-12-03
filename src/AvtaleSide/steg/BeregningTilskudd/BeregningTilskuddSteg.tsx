@@ -141,7 +141,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         name="tjenestepensjon"
                         bredde="S"
                         max={30}
-                        min={2}
+                        min={0}
                         label="Obligatorisk tjenestepensjon fra 2% - 30%"
                         value={avtale.otpSats}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

@@ -72,11 +72,11 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         </MediaQuery>
                         <div>
                             Obligatorisk tjenestepensjon{' '}
-                            <MediaQuery maxWidth={699}>({(props.otpSats || 0.02) * 100} %)</MediaQuery>{' '}
+                            <MediaQuery maxWidth={699}>({(props.otpSats || 0.0) * 100} %)</MediaQuery>{' '}
                         </div>
                     </Column>
                     <Column md="3" sm="3" xs="3">
-                        <MediaQuery minWidth={700}>({(props.otpSats || 0.02) * 100}%)</MediaQuery>
+                        <MediaQuery minWidth={700}>({(props.otpSats || 0.0) * 100}%)</MediaQuery>
                     </Column>
                     <Column md="1" sm="1" xs="1">
                         +
