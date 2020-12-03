@@ -15,7 +15,7 @@ interface Props {
 const cls = BEMHelper('beregningTilskuddSteg');
 
 const OtpInputFelt: React.FunctionComponent<Props & NavFrontendInputProps> = props => {
-    const STANDARD_OTPSATS: string = '2.0';
+    const STANDARD_OTPSATS: string = '2.00';
 
     const { max, min, onBlur, ...other } = props;
     const context = useContext(AvtaleContext);
@@ -31,7 +31,7 @@ const OtpInputFelt: React.FunctionComponent<Props & NavFrontendInputProps> = pro
                 const konvertertOtpSats = otpSats * 100;
                 return konvertertOtpSats.toFixed(2).concat('%');
             }
-            return otpSats.toString().concat('%');
+            return otpSats.toFixed(2).concat('%');
         }
         return STANDARD_OTPSATS.concat('%');
     };
@@ -40,7 +40,7 @@ const OtpInputFelt: React.FunctionComponent<Props & NavFrontendInputProps> = pro
 
     const onInputBlurEvent = (event: React.FocusEvent<HTMLInputElement>) => {
         if (inputVerdi) {
-            setInputVerdi(inputVerdi.concat('%'));
+            setInputVerdi(fjernProsentTegn(inputVerdi).concat('%'));
         } else if (inputVerdi === '') {
             setInputVerdi(STANDARD_OTPSATS.concat('%'));
         }
