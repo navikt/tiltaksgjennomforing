@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Input } from 'nav-frontend-skjema';
+import React, { useContext, useState } from 'react';
+import { Input, NavFrontendInputProps } from 'nav-frontend-skjema';
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
 
@@ -9,21 +9,22 @@ interface Props {
     label: string;
     name: string;
     bredde?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
+    onBlur: () => void;
 }
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
-const OtpInputFelt: React.FunctionComponent<Props> = props => {
+const OtpInputFelt: React.FunctionComponent<Props & NavFrontendInputProps> = props => {
     const STANDARD_OTPSATS: string = '2.0';
 
-    const { max, min, ...other } = props;
+    const { max, min, onBlur, ...other } = props;
     const context = useContext(AvtaleContext);
 
     const fjernProsentTegn = (input: string): string => input.split('%')[0];
 
     const getOtpSats = (): string => (context.avtale.otpSats ? context.avtale.otpSats.toString() : STANDARD_OTPSATS);
 
-    const setInputVerdien = (): string => {
+    const setInputVerdiLokalt = (): string => {
         const otpSats = parseFloat(getOtpSats());
         if (otpSats && !isNaN(otpSats)) {
             if (otpSats < 1) {
@@ -35,44 +36,51 @@ const OtpInputFelt: React.FunctionComponent<Props> = props => {
         return STANDARD_OTPSATS.concat('%');
     };
 
-    const [inputVerdi, setInputVerdi] = useState<string | undefined>(setInputVerdien());
+    const [inputVerdi, setInputVerdi] = useState<string | undefined>(setInputVerdiLokalt());
 
-    useEffect(() => {
-        context.lagreAvtale();
-    }, [context.avtale.otpSats]);
-
-    const getInputVerdi = (): string => {
+    const onInputBlurEvent = (event: React.FocusEvent<HTMLInputElement>) => {
         if (inputVerdi) {
-            return fjernProsentTegn(inputVerdi);
+            setInputVerdi(inputVerdi.concat('%'));
+        } else if (inputVerdi === '') {
+            setInputVerdi(STANDARD_OTPSATS.concat('%'));
         }
-        return STANDARD_OTPSATS;
+        onBlur(event);
     };
 
-    const onInputBlurEvent = (): void => {
-        const nyProsentVerdi: number = validerNyProsentSats(getInputVerdi(), min, max);
-        context.settAvtaleVerdier({ otpSats: nyProsentVerdi / 100 });
-        setInputVerdi(nyProsentVerdi.toFixed(2).concat('%'));
-    };
-
-    const validerNyProsentSats = (nyProsentSats: string | undefined, minimum: number, maximum: number): number => {
+    const validerNyProsentSats = (nyProsentSats: string | undefined, minimum: number, maximum: number): boolean => {
         if (nyProsentSats) {
             const verdi = parseFloat(nyProsentSats);
             if (!isNaN(verdi) && verdi >= minimum && verdi <= maximum) {
-                return verdi;
+                return true;
             }
         }
-        return parseFloat(STANDARD_OTPSATS);
+        return false;
+    };
+
+    const setInputVerdien = (lokalverdi: string, avtaleverdi: string) => {
+        context.settAvtaleVerdier({ otpSats: parseFloat(avtaleverdi) / 100 });
+        setInputVerdi(lokalverdi);
     };
 
     const inputVerdiBleForandretEvent = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const validertInput = matchInputVerdiMedLovligVerdi(fjernProsentTegn(event.target.value));
-        if (validertInput) {
-            setInputVerdi(validertInput[0].replace(',', '.'));
+
+        if (validertInput && validertInput[0] !== '') {
+            const filtrertInputTall = validertInput[0].replace(',', '.');
+            if (validerNyProsentSats(filtrertInputTall, min, max)) {
+                return setInputVerdien(filtrertInputTall, filtrertInputTall);
+            }
+            return setInputVerdien(STANDARD_OTPSATS, STANDARD_OTPSATS);
+        } else if (event.target.value === '') {
+            return setInputVerdien(event.target.value, STANDARD_OTPSATS);
         }
     };
 
     const matchInputVerdiMedLovligVerdi = (inputVtallet: string): null | string[] => {
-        return inputVtallet.match(/^(([0-9]{1})|([0-2]{1})([0-9]{1})?|30$)?([,|\.]{1})?(([,|\.]{1}?)([0-9]{1,2}))?$/g);
+        const validereTallMellom0og30 = new RegExp(
+            /^(([0-9]{1})|([0-2]{1})([0-9]{1})?|30$)?([,|.]{1})?(([,|.]{1}?)([0-9]{1,2}))?$/g
+        );
+        return inputVtallet.match(validereTallMellom0og30);
     };
 
     return (

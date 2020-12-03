@@ -143,6 +143,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         max={30}
                         min={1}
                         label="Sats for obligatorisk tjenestepensjon (2% - 30%)"
+                        onBlur={() => lagreAvtale()}
                     />
 
                     <VerticalSpacer twentyPx={true} />
