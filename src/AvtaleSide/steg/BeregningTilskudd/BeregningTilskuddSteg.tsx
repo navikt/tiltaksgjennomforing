@@ -80,11 +80,10 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
-            <VerticalSpacer sixteenPx={true} />
+            <Undertittel>Lønnstilskudd prosent</Undertittel>
 
             {innloggetBruker.erNavAnsatt && (
                 <>
-                    <Undertittel>Lønnstilskudd prosent</Undertittel>
                     <Normaltekst className={cls.element('luft')}>
                         Velg sats for refusjon som arbeidsgiver skal få tilbake
                     </Normaltekst>
@@ -95,6 +94,18 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             settOgLagreBeregningsverdier({ lonnstilskuddProsent: verdi })
                         }
                     />
+                    <VerticalSpacer sixteenPx={true} />
+                </>
+            )}
+            {!innloggetBruker.erNavAnsatt && (
+                <>
+                    <Normaltekst className={cls.element('luft')}>
+                        {!avtale.lonnstilskuddProsent
+                            ? avtale.tiltakstype === 'VARIG_LONNSTILSKUDD'
+                                ? 'Her kan NAV sette en sats.'
+                                : 'Her kan NAV sette en sats på 40% eller 60%'
+                            : avtale.lonnstilskuddProsent + ' %'}
+                    </Normaltekst>
                     <VerticalSpacer sixteenPx={true} />
                 </>
             )}
