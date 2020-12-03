@@ -18,7 +18,7 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
-import OtpInputFelt from '@/AvtaleSide/steg/BeregningTilskudd/OtpInputFelt';
+import OtpProsentInput from './OtpProsentInput';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -137,15 +137,18 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     />
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
-                    <OtpInputFelt
+                    <OtpProsentInput
                         name="tjenestepensjon"
                         bredde="S"
                         max={30}
-                        min={1}
-                        label="Sats for obligatorisk tjenestepensjon (2% - 30%)"
+                        min={2}
+                        label="Obligatorisk tjenestepensjon fra 2% - 30%"
+                        value={avtale.otpSats}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            settAvtaleVerdier({ otpSats: parseFloat(event.target.value) / 100 });
+                        }}
                         onBlur={() => lagreAvtale()}
                     />
-
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>
                     <SelectInput
@@ -154,7 +157,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         options={arbeidsgiveravgiftAlternativer()}
                         label="Sats for arbeidsgiveravgift"
                         children=""
-                        value={avtale.arbeidsgiveravgift || ''}
+                        value={avtale.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                             settOgLagreBeregningsverdier({
                                 arbeidsgiveravgift: parseFloatIfFloatable(event.target.value),

@@ -1,11 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 import { NavFrontendInputProps } from 'nav-frontend-skjema';
 import { Input } from 'nav-frontend-skjema';
 
-export const toFormattedProsent = (value: any): string => {
-    return `${value * 100} %`;
-};
-
+export const toFormattedProsent = (value: any): string => `${value} %`;
 export const toLimit = (value: any, min?: number | string, max?: number | string): number => {
     if (!value || (min && value < min) || (max && value > max)) {
         return 2.0;
@@ -13,37 +11,57 @@ export const toLimit = (value: any, min?: number | string, max?: number | string
     return value;
 };
 
-const OtpProsentInput: React.FunctionComponent<NavFrontendInputProps> = props => {
+interface OtpProsentPros extends NavFrontendInputProps {
+    onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    value: number | string | undefined;
+    name: string;
+    max: number;
+    min: number;
+    label: string;
+}
+
+const OtpProsentInput: React.FunctionComponent<OtpProsentPros> = props => {
     const { value, max, min, onChange, onBlur, ...other } = props;
+    const [verdi, setVerdi] = useState(toLimit(value) * 100);
 
     const onBlurOverride = (event: React.FocusEvent<HTMLInputElement>) => {
-        event.target.value = toFormattedProsent(toLimit(event.target.value, min, max));
-        if (onBlur !== undefined) {
-            onBlur(event);
+        if (event.target.value === '') {
+            event.target.value = toFormattedProsent('2.0');
+            setVerdi(parseFloat('2.0'));
+        } else {
+            event.target.value = toFormattedProsent(toLimit(parseFloat(event.target.value), min, max));
         }
-    };
-
-    const onChangeOverride = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (onChange !== undefined) {
-            onChange(event);
-        }
+        onBlur(event);
     };
 
     const inputRef = (ref: HTMLInputElement | null) => {
         if (ref && document.activeElement !== ref) {
             ref.type = 'text';
-            ref.value = toFormattedProsent(toLimit(ref.value, min, max));
+            ref.value = toFormattedProsent(toLimit(parseFloat(ref.value), min, max));
+        }
+    };
+
+    const onChangeOverride = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const inputVtallet = event.target.value;
+        const validereTallMellom0og30 = new RegExp(
+            /^(([0-9]{1})|([0-2]{1})([0-9]{1})?|30$)?([,|.]{1})?(([,|.]{1}?)([0-9]{1,2}))?$/g
+        );
+        if (inputVtallet.match(validereTallMellom0og30)) {
+            setVerdi(parseFloat(event.target.value));
+            onChange(event);
         }
     };
 
     return (
         <Input
-            inputRef={inputRef}
-            value={value || ''}
-            max={max}
-            min={min}
-            type="number"
             onBlur={onBlurOverride}
+            inputRef={inputRef}
+            value={verdi || ''}
+            max={max}
+            type="number"
+            placeholder={'2% - 30%'}
+            min={min}
             onChange={onChangeOverride}
             {...other}
         />

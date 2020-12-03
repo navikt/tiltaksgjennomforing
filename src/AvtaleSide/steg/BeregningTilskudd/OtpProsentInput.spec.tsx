@@ -2,6 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import OtpProsentInput, { toFormattedProsent, toLimit } from './OtpProsentInput';
 
+test('Test at toFormattedProsent skriver default verdi 3.5% når det gis 3.5 som feltverdi', () => {
+    expect(toFormattedProsent(toLimit(parseFloat('3.5'), 2, 30))).toEqual('3.5 %');
+});
 test('Test at toFormattedProsent skriver default verdi 30% når det gis 3+ som feltverdi', () => {
     expect(toFormattedProsent(toLimit(30, 2, 30))).toEqual('30 %');
 });
