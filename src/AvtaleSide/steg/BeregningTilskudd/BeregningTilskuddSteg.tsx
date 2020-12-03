@@ -18,6 +18,7 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
+import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -81,6 +82,11 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
             <Undertittel>Lønnstilskudd prosent</Undertittel>
+            <VerticalSpacer fourPx={true} />
+            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                <PenFillIkon />
+                <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av NAV</Normaltekst>
+            </div>
 
             {innloggetBruker.erNavAnsatt && (
                 <>
@@ -97,18 +103,16 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </>
             )}
             {!innloggetBruker.erNavAnsatt && (
-                <>
-                    <Normaltekst className={cls.element('luft')}>
-                        {!avtale.lonnstilskuddProsent
-                            ? avtale.tiltakstype === 'VARIG_LONNSTILSKUDD'
-                                ? 'Her kan NAV sette en sats.'
-                                : 'Her kan NAV sette en sats på 40% eller 60%'
-                            : avtale.lonnstilskuddProsent + ' %'}
-                    </Normaltekst>
-                </>
+                <Normaltekst className={cls.element('luft')}>
+                    {!avtale.lonnstilskuddProsent
+                        ? avtale.tiltakstype === 'VARIG_LONNSTILSKUDD'
+                            ? 'Her kan NAV sette en sats.'
+                            : 'Her kan NAV sette en sats på 40% eller 60%'
+                        : avtale.lonnstilskuddProsent + ' %'}
+                </Normaltekst>
             )}
-            <VerticalSpacer sixteenPx={true} />
 
+            <VerticalSpacer sixteenPx={true} />
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 {lonnPerManedInkludertFastTillegHjelpetekst}
