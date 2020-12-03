@@ -40,7 +40,7 @@ const OtpInputFelt: React.FunctionComponent<Props & NavFrontendInputProps> = pro
 
     const onInputBlurEvent = (event: React.FocusEvent<HTMLInputElement>) => {
         if (inputVerdi) {
-            setInputVerdi(inputVerdi.concat('%'));
+            setInputVerdi(fjernProsentTegn(inputVerdi).concat('%'));
         } else if (inputVerdi === '') {
             setInputVerdi(STANDARD_OTPSATS.concat('%'));
         }
