@@ -28,7 +28,7 @@ const OtpInputFelt: React.FunctionComponent<Props> = props => {
         if (otpSats && !isNaN(otpSats)) {
             if (otpSats < 1) {
                 const konvertertOtpSats = otpSats * 100;
-                return konvertertOtpSats.toString().concat('%');
+                return konvertertOtpSats.toFixed(2).concat('%');
             }
             return otpSats.toString().concat('%');
         }
@@ -50,8 +50,8 @@ const OtpInputFelt: React.FunctionComponent<Props> = props => {
 
     const onInputBlurEvent = (): void => {
         const nyProsentVerdi: number = validerNyProsentSats(getInputVerdi(), min, max);
-        context.settAvtaleVerdier({ otpSats: nyProsentVerdi });
-        setInputVerdi(nyProsentVerdi.toString().concat('%'));
+        context.settAvtaleVerdier({ otpSats: nyProsentVerdi / 100 });
+        setInputVerdi(nyProsentVerdi.toFixed(2).concat('%'));
     };
 
     const validerNyProsentSats = (nyProsentSats: string | undefined, minimum: number, maximum: number): number => {
