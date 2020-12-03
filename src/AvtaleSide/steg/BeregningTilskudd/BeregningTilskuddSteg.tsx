@@ -82,11 +82,16 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
             <Undertittel>Lønnstilskudd prosent</Undertittel>
-            <VerticalSpacer fourPx={true} />
-            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                <PenFillIkon />
-                <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av NAV</Normaltekst>
-            </div>
+
+            {!avtale.lonnstilskuddProsent && (
+                <>
+                    <VerticalSpacer fourPx={true} />
+                    <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                        <PenFillIkon />
+                        <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av NAV</Normaltekst>
+                    </div>
+                </>
+            )}
 
             {innloggetBruker.erNavAnsatt && (
                 <>
