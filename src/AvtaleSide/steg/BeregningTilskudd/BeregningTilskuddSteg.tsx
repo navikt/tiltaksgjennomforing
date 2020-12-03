@@ -94,7 +94,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             settOgLagreBeregningsverdier({ lonnstilskuddProsent: verdi })
                         }
                     />
-                    <VerticalSpacer sixteenPx={true} />
                 </>
             )}
             {!innloggetBruker.erNavAnsatt && (
@@ -106,9 +105,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 : 'Her kan NAV sette en sats på 40% eller 60%'
                             : avtale.lonnstilskuddProsent + ' %'}
                     </Normaltekst>
-                    <VerticalSpacer sixteenPx={true} />
                 </>
             )}
+            <VerticalSpacer sixteenPx={true} />
 
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
