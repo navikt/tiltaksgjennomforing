@@ -3,15 +3,15 @@ import { useState } from 'react';
 import { NavFrontendInputProps } from 'nav-frontend-skjema';
 import { Input } from 'nav-frontend-skjema';
 
-export const toFormattedProsent = (value: any): string => `${value} %`;
-export const toLimit = (value: any, min?: number | string, max?: number | string): number => {
+export const tilVerdiMedProsentTegn = (value: any): string => `${value} %`;
+export const tilGrense = (value: any, min?: number | string, max?: number | string): number => {
     if (!value || (min && value < min) || (max && value > max)) {
         return min !== undefined ? parseFloat(min.toString()) : 2.0;
     }
     return value;
 };
 
-interface OtpProsentPros extends NavFrontendInputProps {
+interface OtpProsentProps extends NavFrontendInputProps {
     onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     value: number | string | undefined;
@@ -21,16 +21,16 @@ interface OtpProsentPros extends NavFrontendInputProps {
     label: string;
 }
 
-const OtpProsentInput: React.FunctionComponent<OtpProsentPros> = props => {
+const OtpProsentInput: React.FunctionComponent<OtpProsentProps> = props => {
     const { value, max, min, onChange, onBlur, ...other } = props;
-    const [verdi, setVerdi] = useState(toLimit(value) * 100);
+    const [verdi, setVerdi] = useState(tilGrense(value) * 100);
 
     const onBlurOverride = (event: React.FocusEvent<HTMLInputElement>) => {
         if (event.target.value === '') {
-            event.target.value = toFormattedProsent(min);
+            event.target.value = tilVerdiMedProsentTegn(min);
             setVerdi(min);
         } else {
-            event.target.value = toFormattedProsent(toLimit(parseFloat(event.target.value), min, max));
+            event.target.value = tilVerdiMedProsentTegn(tilGrense(parseFloat(event.target.value), min, max));
         }
         onBlur(event);
     };
@@ -38,7 +38,7 @@ const OtpProsentInput: React.FunctionComponent<OtpProsentPros> = props => {
     const inputRef = (ref: HTMLInputElement | null) => {
         if (ref && document.activeElement !== ref) {
             ref.type = 'text';
-            ref.value = toFormattedProsent(toLimit(parseFloat(ref.value), min, max));
+            ref.value = tilVerdiMedProsentTegn(tilGrense(parseFloat(ref.value), min, max));
         }
     };
 
