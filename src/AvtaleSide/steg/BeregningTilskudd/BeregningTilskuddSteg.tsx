@@ -161,7 +161,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         bredde="S"
                         max={30}
                         min={0}
-                        label="Obligatorisk tjenestepensjon fra 2% - 30%"
+                        label="Obligatorisk tjenestepensjon fra 0 - 30%"
                         value={avtale.otpSats}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdier({ otpSats: parseFloat(event.target.value) / 100 });
