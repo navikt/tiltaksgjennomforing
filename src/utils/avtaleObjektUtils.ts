@@ -1,4 +1,5 @@
 import { Avtale, Avtaleinnhold } from '@/types/avtale';
+
 const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     arbeidsgiverEtternavn: '',
     arbeidsgiverFornavn: '',
@@ -32,6 +33,7 @@ const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     familietilknytningForklaring: '',
     feriepengerBelop: 0,
     otpBelop: 0,
+    otpSats: 0,
     arbeidsgiveravgiftBelop: 0,
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,

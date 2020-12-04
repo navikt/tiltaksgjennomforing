@@ -98,6 +98,7 @@ export interface Beregningsgrunnlag {
     lonnstilskuddProsent?: number;
     stillingprosent?: number;
     feriepengerBelop?: number;
+    otpSats?: number;
     otpBelop?: number;
     arbeidsgiveravgiftBelop?: number;
     sumLonnsutgifter?: number;
