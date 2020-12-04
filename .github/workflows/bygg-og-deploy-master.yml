@@ -49,6 +49,9 @@ jobs:
       - name: Bygg (npm run build)
         run: npm run build
 
+      - name: Sett opp sentry release
+        run: npm run release
+
       - name: Bygg, tag og push Docker-image
         run: |
           docker build --tag $IMAGE --tag $IMAGE_BASE:latest .
