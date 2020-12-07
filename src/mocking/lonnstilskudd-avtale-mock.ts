@@ -61,6 +61,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     avbruttDato: '',
     avbruttGrunn: '',
     feriepengerBelop: 0,
+    otpSats: 0.02,
     otpBelop: 0,
     arbeidsgiveravgiftBelop: 0,
     sumLonnsutgifter: 0,
