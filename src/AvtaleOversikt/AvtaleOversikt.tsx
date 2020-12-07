@@ -16,7 +16,6 @@ import { Status } from '@/types/nettressurs';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Knapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -165,13 +164,6 @@ const AvtaleOversikt: FunctionComponent = () => {
                             </>
                         )}
                         <LesMerOmLøsningen />
-                        <Knapp
-                            onClick={() => {
-                                throw new Error('En feil');
-                            }}
-                        >
-                            Feiltestknapp
-                        </Knapp>
                     </section>
                 </div>
             </main>
