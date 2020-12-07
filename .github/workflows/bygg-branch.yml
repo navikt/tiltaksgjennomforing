@@ -29,6 +29,9 @@ jobs:
       - name: Bygg (npm run build)
         run: npm run build
 
+      - name: Sett opp sentry release
+        run: npm run release
+
       - name: Sjekk om branch er oppdatert mot master
         id: sjekk-mot-master
         run: |

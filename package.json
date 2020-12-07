@@ -5,6 +5,7 @@
     "homepage": "/tiltaksgjennomforing",
     "scripts": {
         "build": "cross-env GIT_COMMIT_HASH=$(git log -n 1 --pretty=format:'%h') craco build",
+        "release": "cross-env GIT_COMMIT_HASH=$(git log -n 1 --pretty=format:'%h') node sentry.js",
         "mock": "cross-env REACT_APP_MOCK=true npm start",
         "heroku": "node heroku.js",
         "server": "node server.js",
@@ -107,6 +108,7 @@
     },
     "devDependencies": {
         "@craco/craco": "^5.6.1",
+        "@sentry/cli": "^1.60.1",
         "@types/chai": "^4.2.4",
         "@types/classnames": "^2.2.7",
         "@types/enzyme": "^3.10.3",
