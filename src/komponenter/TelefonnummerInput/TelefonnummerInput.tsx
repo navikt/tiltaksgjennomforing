@@ -37,6 +37,7 @@ const TelefonnummerInput: React.FunctionComponent<Props> = props => {
             }}
             onBlur={sjekkInputfelt}
             type="tel"
+            maxLength={8}
         />
     );
 };
