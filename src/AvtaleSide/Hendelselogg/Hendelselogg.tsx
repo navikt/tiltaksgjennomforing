@@ -77,12 +77,12 @@ const Hendelselogg: FunctionComponent = () => {
                     </>
                 )}
                 {hendelser.status === Status.Lastet && hendelser.data.length > 0 && (
-                    <table className="tabell">
+                    <table className="tabell" aria-label="Hendelselogg">
                         <thead>
                             <tr>
-                                <th>Tidspunkt</th>
-                                <th>Hendelse</th>
-                                <th>Utført av</th>
+                                <th scope="col">Tidspunkt</th>
+                                <th scope="col">Hendelse</th>
+                                <th scope="col">Utført av</th>
                             </tr>
                         </thead>
                         <tbody>
