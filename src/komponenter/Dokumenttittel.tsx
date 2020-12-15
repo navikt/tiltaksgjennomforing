@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from 'react';
-import { Helmet } from 'react-helmet';
+import { FunctionComponent } from 'react';
 
 type Props = {
     tittel: string;
 };
 
 const Dokumenttittel: FunctionComponent<Props> = props => {
-    return <Helmet title={`${props.tittel} - NAV`} />;
+    document.title = `${props.tittel} - NAV`;
+    return null;
 };
 
 export default Dokumenttittel;
