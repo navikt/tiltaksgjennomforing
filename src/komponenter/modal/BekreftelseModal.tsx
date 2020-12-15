@@ -3,7 +3,7 @@ import BEMHelper from '@/utils/bem';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 import React, { useState } from 'react';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
@@ -60,7 +60,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                         <div className={cls.element('tittel')}>
                             <Systemtittel>{props.oversiktTekst}</Systemtittel>
                         </div>
-                        <Normaltekst className={cls.element('varselTekst')}>{props.varselTekst}</Normaltekst>
+                        <div className={cls.element('varselTekst')}>{props.varselTekst}</div>
                     </div>
                     <div className={cls.element('knapper')}>
                         <KnappBase
