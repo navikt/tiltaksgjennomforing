@@ -105,10 +105,10 @@ const Hendelselogg: FunctionComponent = () => {
                                     </td>
                                     <td role="cell">
                                         <div style={{ display: 'flex' }} aria-labelledby="hendelse">
-                                            <span className={cls.element('hendelse-ikon')}>
+                                            <span className={cls.element('hendelse-ikon')} aria-hidden="true">
                                                 <HendelseIkon hendelse={hendelse.hendelse} />
                                             </span>
-                                            <span>{hendelseTekst[hendelse.hendelse]}</span>
+                                            {hendelseTekst[hendelse.hendelse]}
                                         </div>
                                     </td>
                                     <td role="cell" aria-labelledby="utført_av">
