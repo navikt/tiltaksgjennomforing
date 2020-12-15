@@ -7,11 +7,12 @@ type Utfyller = 'arbeidsgiver' | 'veileder' | 'veileder_og_arbeidsgiver' | undef
 interface Props {
     className?: string;
     utfyller?: Utfyller;
+    ariaLabel?: string;
 }
 
 const Innholdsboks: React.FunctionComponent<Props> = props => (
     <>
-        <div className={classnames('innholdsboks', props.className)} role="main">
+        <div className={classnames('innholdsboks', props.className)} role="main" aria-label={props.ariaLabel}>
             {props.utfyller && <UtfyllerBanner utfyller={props.utfyller} />}
             <div className="innholdsboks__innhold">{props.children}</div>
         </div>
