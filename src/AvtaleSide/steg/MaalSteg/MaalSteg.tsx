@@ -48,7 +48,6 @@ class MaalSteg extends React.Component<Context> {
     lukkModal = () => {
         this.setState({ modalIsOpen: false });
     };
-
     render = () => (
         <div role="main">
             <OpprettMaal

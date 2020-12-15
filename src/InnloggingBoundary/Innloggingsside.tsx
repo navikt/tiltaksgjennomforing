@@ -37,7 +37,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
 
     const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde) => (
         <Hovedknapp
-            key={innlogginskilde.url}
+            key={innlogginskilde.part}
             className="innloggingsside__logginnKnapp"
             onClick={() => {
                 setCookie(INNLOGGET_PART, innlogginskilde.part);
@@ -64,13 +64,12 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         Dette er en digital avtale som skal brukes av deltaker, arbeidsgiver og NAV. For å se avtalene
                         du er en del av må du først logge på.
                     </Ingress>
+                    <VerticalSpacer rem={2} />
                     <Normaltekst>
-                        <p className={cls.element('lenke')}>
-                            <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
-                                Her kan du lese mer om hvordan løsningen fungerer
-                                <HoyreChevron className="tilbaketiloversikt__chevron" />
-                            </Link>
-                        </p>
+                        <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
+                            Her kan du lese mer om hvordan løsningen fungerer
+                            <HoyreChevron className="tilbaketiloversikt__chevron" />
+                        </Link>
                     </Normaltekst>
                 </div>
                 <VerticalSpacer thirtyTwoPx={true} />

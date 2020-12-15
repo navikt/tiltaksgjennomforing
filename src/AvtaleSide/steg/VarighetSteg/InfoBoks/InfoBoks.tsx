@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { ReactComponent as KalkulatorIkon } from '@/assets/ikoner/kalkulator.svg';
-import './InfoBoks.less';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import * as React from 'react';
+import './InfoBoks.less';
 
 interface InfoBoksProps {
     timerIUka: number;
@@ -24,10 +24,10 @@ const InfoBoks = (props: InfoBoksProps) => (
                 {props.dagerIUka <= 1 ? 'arbeidsdag' : 'arbeidsdager'} per uke
             </Normaltekst>
             {props.varighet && (
-                <Normaltekst>
+                <>
                     <VerticalSpacer eightPx={true} />
-                    Avtalen varer i {props.varighet}
-                </Normaltekst>
+                    <Normaltekst>Avtalen varer i {props.varighet}</Normaltekst>
+                </>
             )}
         </div>
     </div>
