@@ -2,12 +2,13 @@ import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
+import { Undertekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
+import BedriftsnummerEllerTelefon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/BedriftsnummerEllerTelefon';
 
 const cls = BEMHelper('avtaleparter');
 
@@ -39,15 +40,9 @@ export const Avtalepart: FunctionComponent<Props> = props => {
         innhold = (
             <>
                 <Undertittel>{props.navnFelter.map(felt => felt.verdi).join(' ')}</Undertittel>
-                <Normaltekst>
-                    {props.tilleggFelter
-                        .map(felt => storForbokstav(felt.felt) + ': ' + (felt.verdi || ''))
-                        .reduce(
-                            (beholder: any, element) =>
-                                beholder === null ? [element] : [...beholder, <br key={element} />, element],
-                            null
-                        )}
-                </Normaltekst>
+                {props.tilleggFelter.map((felt, index) => (
+                    <BedriftsnummerEllerTelefon key={index} felt={felt.felt} verdi={felt.verdi} />
+                ))}
             </>
         );
     }
