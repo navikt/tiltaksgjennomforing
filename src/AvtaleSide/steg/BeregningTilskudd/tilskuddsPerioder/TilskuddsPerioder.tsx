@@ -39,7 +39,11 @@ const TilskuddsPerioder: FunctionComponent = () => {
                 {avtaleinnhold.avtale.tilskuddPeriode.map((periode, index) => {
                     return (
                         <React.Fragment key={index}>
-                            <Normaltekst className="periode">
+                            <Normaltekst
+                                className="periode"
+                                aria-label={`Startdato ${periode.startDato} 
+                                         og sluttdato ${periode.sluttDato}`}
+                            >
                                 {setDatoTilOgFra(periode.startDato, periode.sluttDato)}
                             </Normaltekst>
                             <Normaltekst className="belop">{formattereTilNorskBeløp(periode.beløp)} kr</Normaltekst>
