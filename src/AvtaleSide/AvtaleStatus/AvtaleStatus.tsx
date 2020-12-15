@@ -52,7 +52,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
             <VarselIkon />
         );
     return (
-        <Innholdsboks className={cls.element('innholdsboks')}>
+        <Innholdsboks className={cls.element('innholdsboks')} ariaLabel={props.avtale.status}>
             <MediaQuery minWidth={768}>
                 <div className={cls.element('hovedIkon')}>
                     <StatusIkon

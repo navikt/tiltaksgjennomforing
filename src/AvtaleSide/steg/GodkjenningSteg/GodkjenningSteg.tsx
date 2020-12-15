@@ -29,7 +29,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
             {avtale.erUfordelt && innloggetBruker.rolle !== 'VEILEDER' && <UfordeltStatusArbeidsgiverDeltaker />}
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
             {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />}
-            <Innholdsboks>
+            <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div
                     style={{
                         display: 'flex',
