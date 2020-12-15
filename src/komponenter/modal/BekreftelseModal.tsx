@@ -18,12 +18,13 @@ interface Props {
     oversiktTekst: string;
     bekreftelseTekst: string;
     avbrytelseTekst: string;
+    descripedby?: string;
 }
 
 const BekreftelseModal: React.FunctionComponent<Props> = props => {
     const [feilmelding, setFeilmelding] = useState<string>();
     if (typeof window !== 'undefined') {
-        Modal.setAppElement('body');
+        Modal.setAppElement('#root');
     }
 
     const bekreftKlikk = async () => {
@@ -48,7 +49,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                 contentLabel={'bekrefte valgt handling'}
                 onRequestClose={props.lukkModal}
                 closeButton={false}
-                aria={{ modal: true }}
+                aria={{ modal: true, labelledby: props.oversiktTekst, describedby: props.descripedby }}
                 ariaHideApp={true}
             >
                 <div className={cls.element('topIconContainer')}>
@@ -58,7 +59,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                     <div className={cls.element('knappRad')} />
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('tittel')}>
-                            <Systemtittel>{props.oversiktTekst}</Systemtittel>
+                            <Systemtittel id={props.oversiktTekst}>{props.oversiktTekst}</Systemtittel>
                         </div>
                         <div className={cls.element('varselTekst')}>{props.varselTekst}</div>
                     </div>
@@ -73,7 +74,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                         </KnappBase>
                         <KnappBase
                             role="button"
-                            aria-label="Knapp"
+                            aria-label={props.avbrytelseTekst.concat(' og lukk modalen')}
                             aria-labelledby={'Lukker dialog for'.concat(props.oversiktTekst)}
                             type="flat"
                             className={cls.element('knapp lenkeknapp')}
