@@ -23,8 +23,15 @@ interface Props {
 
 const BekreftelseModal: React.FunctionComponent<Props> = props => {
     const [feilmelding, setFeilmelding] = useState<string>();
+    const setModalElement = () => {
+        if (document.getElementById('root')) {
+            return '#root';
+        }
+        return 'body';
+    };
+
     if (typeof window !== 'undefined') {
-        Modal.setAppElement('#root');
+        Modal.setAppElement(setModalElement());
     }
 
     const bekreftKlikk = async () => {
