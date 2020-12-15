@@ -6,7 +6,7 @@ type Props = {
 };
 
 const Dokumenttittel: FunctionComponent<Props> = props => {
-    return <Helmet title={props.tittel} />;
+    return <Helmet title={`${props.tittel} - NAV`} />;
 };
 
 export default Dokumenttittel;
