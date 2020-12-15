@@ -12,7 +12,7 @@ export type StillingOptions = {
     styrk08: number;
 };
 
-const StillingsTittelVelger: FunctionComponent = () => {
+const StillingsTittelVelger: FunctionComponent<{ id: string }> = props => {
     const [stillinger, setStillinger] = useState<StillingOptions[]>();
 
     const { valgtStilling, setValgtStilling } = useStillingFraContext();
@@ -60,6 +60,8 @@ const StillingsTittelVelger: FunctionComponent = () => {
 
     return (
         <Select
+            inputId={props.id}
+            aria-label="Stilling"
             components={{ DropdownIndicator: null }}
             placeholder="Skriv inn. For eksempel rørlegger"
             noOptionsMessage={({ inputValue }) => visSokeMelding(inputValue)}

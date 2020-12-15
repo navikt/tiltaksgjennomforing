@@ -21,9 +21,9 @@ const StillingSteg: FunctionComponent = () => {
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Stilling</SkjemaTittel>
-            <Normaltekst>Stilling/yrke (kun ett yrke kan legges inn)</Normaltekst>
+            <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
             <VerticalSpacer rem={0.5} />
-            <StillingsTittelVelger />
+            <StillingsTittelVelger id="stillinginput" />
             <VerticalSpacer rem={2} />
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"

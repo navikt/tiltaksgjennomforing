@@ -40,8 +40,6 @@ const PakrevdTextarea: React.FunctionComponent<Props> = props => {
             onBlur={sjekkInputfelt}
             textareaClass={classNames('pakrevd-textarea', props.className)}
             role="textbox"
-            aria-label="input felt"
-            aria-labelledby={props.label}
         />
     );
 };
