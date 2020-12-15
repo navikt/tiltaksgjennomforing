@@ -10,10 +10,10 @@ import { visSatsMedEttDesimal, visTalletEller0 } from '@/utils/lonnstilskuddUtre
 import classNames from 'classnames';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import Undertittel from 'nav-frontend-typografi/lib/undertittel';
 import React, { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './VisUtregningenPanel.less';
+import { Element } from 'nav-frontend-typografi';
 
 const cls = BEMHelper('visUtregningenPanel');
 
@@ -135,11 +135,11 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                 </Row>
                 <Row className={classNames(cls.element('rad'), cls.element('rad__oppsummering'))}>
                     <Column md="9" sm="9" xs="6" className={cls.element('tittel')}>
-                        <Undertittel> Sum lønnstilskudd per måned:</Undertittel>
+                        <Element> Sum lønnstilskudd per måned:</Element>
                     </Column>
 
                     <Column md="3" sm="3" xs="6" className={cls.element('column__siste')}>
-                        <Undertittel>{props.sumLonnstilskudd} kr</Undertittel>
+                        <Element>{props.sumLonnstilskudd} kr</Element>
                     </Column>
                 </Row>
             </Container>
