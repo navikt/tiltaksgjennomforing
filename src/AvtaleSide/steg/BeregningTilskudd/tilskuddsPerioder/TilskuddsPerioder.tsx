@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react';
 import BEMHelper from '@/utils/bem';
-import { Normaltekst, UndertekstBold } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import { AvtaleContext } from '@/AvtaleProvider';
 import moment from 'moment';
 import './tilskuddsPerioder.less';
@@ -32,9 +33,9 @@ const TilskuddsPerioder: FunctionComponent = () => {
     return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder() ? (
         <div className={cls.className}>
             <div className={cls.element('tabell')}>
-                <UndertekstBold className="periode">Periode</UndertekstBold>
-                <UndertekstBold className="belop">Beløp</UndertekstBold>
-                <UndertekstBold className="tid">Arbeidsgiver kan be om refusjon</UndertekstBold>
+                <Element className="periode">Periode</Element>
+                <Element className="belop">Beløp</Element>
+                <Element className="tid">Arbeidsgiver kan be om refusjon</Element>
                 {avtaleinnhold.avtale.tilskuddPeriode.map((periode, index) => {
                     return (
                         <React.Fragment key={index}>
