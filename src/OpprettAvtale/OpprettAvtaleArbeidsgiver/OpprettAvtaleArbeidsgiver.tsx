@@ -4,6 +4,7 @@ import { ReactComponent as MobilIkon } from '@/assets/ikoner/digitalAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
+import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -91,6 +92,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
 
     return (
         <>
+            <Dokumenttittel tittel="Opprett avtale" />
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
                 <Innholdsboks className={cls.element('innholdsboks')}>

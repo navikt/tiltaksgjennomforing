@@ -7,6 +7,7 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
+import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
@@ -75,6 +76,7 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     return (
         <>
+            <Dokumenttittel tittel="Tiltaksoversikt" />
             <Banner
                 byttetOrg={org => {
                     if (søkekriterier.bedriftNr !== org.OrganizationNumber) {

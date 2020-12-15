@@ -4,6 +4,7 @@ import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check.svg';
 import { ReactComponent as MobilIkon } from '@/assets/ikoner/digitalAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -175,6 +176,8 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
 
     return (
         <div className="opprett-avtale">
+            <Dokumenttittel tittel="Opprett avtale" />
+
             <VerticalSpacer rem={1} />
             <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
             <VerticalSpacer rem={2} />

@@ -2,6 +2,8 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
+import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
+import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
@@ -14,7 +16,6 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
-import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
 
 const cls = BEMHelper('avtaleside');
 
@@ -70,6 +71,7 @@ const AvtaleSide: FunctionComponent = () => {
 
     return aktivtSteg ? (
         <>
+            <Dokumenttittel tittel={sideTittel} />
             <VarselModal />
             <Banner
                 byttetOrg={org => {
