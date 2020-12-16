@@ -1,3 +1,4 @@
+import BedriftsnummerEllerTelefon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/BedriftsnummerEllerTelefon';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
@@ -8,7 +9,6 @@ import { FunctionComponent } from 'react';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
-import BedriftsnummerEllerTelefon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/BedriftsnummerEllerTelefon';
 
 const cls = BEMHelper('avtaleparter');
 
@@ -41,7 +41,9 @@ export const Avtalepart: FunctionComponent<Props> = props => {
             <>
                 <Undertittel>{props.navnFelter.map(felt => felt.verdi).join(' ')}</Undertittel>
                 {props.tilleggFelter.map((felt, index) => (
-                    <BedriftsnummerEllerTelefon key={index} felt={felt.felt} verdi={felt.verdi} />
+                    <React.Fragment key={index}>
+                        <BedriftsnummerEllerTelefon felt={felt.felt} verdi={felt.verdi} />
+                    </React.Fragment>
                 ))}
             </>
         );

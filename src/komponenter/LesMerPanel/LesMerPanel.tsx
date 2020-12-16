@@ -1,10 +1,10 @@
+import classNames from 'classnames';
+import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useState } from 'react';
-import InfoToggler from './InfoToggler/InfoToggler';
-import { Normaltekst } from 'nav-frontend-typografi';
-import './LesMerPanel.less';
 import { Collapse } from 'react-collapse';
-import classNames from 'classnames';
+import InfoToggler from './InfoToggler/InfoToggler';
+import './LesMerPanel.less';
 
 interface Props {
     åpneLabel: string;
@@ -30,7 +30,7 @@ const LesMerPanel: React.FunctionComponent<Props> = ({ åpneLabel, lukkLabel, ch
                     <Normaltekst tag="span">{åpen ? lukkLabel : åpneLabel}</Normaltekst>
                 </InfoToggler>
             </div>
-            <div className="les-mer-panel__innhold">
+            <div className="les-mer-panel__innhold" aria-expanded={åpen} aria-hidden={!åpen}>
                 <Collapse isOpened={åpen}>{children}</Collapse>
             </div>
         </div>
