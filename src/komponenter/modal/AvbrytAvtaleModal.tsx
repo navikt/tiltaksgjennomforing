@@ -116,7 +116,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                 />
             </SkjemaGruppe>
             <div className={cls.element('grunner-og-annet')}>
-                <div>
+                <div role="menu">
                     <VerticalSpacer twentyPx={true} />
                     <SkjemaGruppe title="Hvorfor avbrytes avtalen?" feil={grunnFeil}>
                         {grunner.map(grunn => {
@@ -139,7 +139,8 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                 <div>
                     {avbruttGrunn === 'Annet' && (
                         <PakrevdTextarea
-                            label=""
+                            label="tekstboks"
+                            labelledby="tekst felt for avbrytt grunn"
                             verdi={annetGrunn}
                             placeholder="Begrunnelse"
                             settVerdi={verdi => setAnnetGrunn(verdi)}
@@ -163,6 +164,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
             varselTekst={modalInnhold}
             bekreftelseTekst="Avbryt avtale"
             avbrytelseTekst="Behold avtale"
+            descripedby="dialogboks for avbrytte avtalen"
         />
     );
 };

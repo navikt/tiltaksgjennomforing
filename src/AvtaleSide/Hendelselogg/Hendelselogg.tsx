@@ -63,10 +63,16 @@ const Hendelselogg: FunctionComponent = () => {
                 closeButton={true}
                 contentLabel="Hendelseloggmodal"
                 className={cls.element('modal')}
-                aria={{ modal: hendelseLoggModalApen }}
+                aria={{
+                    modal: hendelseLoggModalApen,
+                    labelledby: 'heading',
+                    describedby: 'hendelselogg for endringsaktiviteter i applikasjonen',
+                }}
                 ariaHideApp={hendelseLoggModalApen}
             >
-                <Systemtittel>Hendelselogg</Systemtittel>
+                <Systemtittel role="heading" id="heading">
+                    Hendelselogg
+                </Systemtittel>
                 <VerticalSpacer rem={1} />
                 {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
                     <>
@@ -77,27 +83,37 @@ const Hendelselogg: FunctionComponent = () => {
                     </>
                 )}
                 {hendelser.status === Status.Lastet && hendelser.data.length > 0 && (
-                    <table className="tabell" aria-label="Hendelselogg">
+                    <table className="tabell" aria-label="tabell" aria-labelledby="Hendelselogg tabell" role="table">
                         <thead>
-                            <tr>
-                                <th scope="col">Tidspunkt</th>
-                                <th scope="col">Hendelse</th>
-                                <th scope="col">Utført av</th>
+                            <tr role="row">
+                                <th scope="col" role="columnheader" id="tidspunkt">
+                                    Tidspunkt
+                                </th>
+                                <th scope="col" role="columnheader" id="hendelse">
+                                    Hendelse
+                                </th>
+                                <th scope="col" role="columnheader" id="utført_av">
+                                    Utført av
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {hendelser.data.map((hendelse, index) => (
-                                <tr key={index}>
-                                    <td>{formaterTid(hendelse.tidspunkt)}</td>
-                                    <td>
-                                        <div style={{ display: 'flex' }}>
-                                            <span className={cls.element('hendelse-ikon')}>
+                                <tr key={index} role="row">
+                                    <td role="cell" aria-labelledby="tidspunkt">
+                                        {formaterTid(hendelse.tidspunkt)}
+                                    </td>
+                                    <td role="cell">
+                                        <div style={{ display: 'flex' }} aria-labelledby="hendelse">
+                                            <span className={cls.element('hendelse-ikon')} aria-hidden="true">
                                                 <HendelseIkon hendelse={hendelse.hendelse} />
                                             </span>
                                             {hendelseTekst[hendelse.hendelse]}
                                         </div>
                                     </td>
-                                    <td>{storForbokstav(hendelse.utførtAv)}</td>
+                                    <td role="cell" aria-labelledby="utført_av">
+                                        {storForbokstav(hendelse.utførtAv)}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
