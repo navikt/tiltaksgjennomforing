@@ -8,7 +8,7 @@ import BEMHelper from '@/utils/bem';
 import { Column, Row } from 'nav-frontend-grid';
 import Popover from 'nav-frontend-popover';
 import { RadioPanel } from 'nav-frontend-skjema';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
@@ -44,6 +44,16 @@ const relasjonHjelpetekst = (
     </div>
 );
 
+const harFamilieTilknttningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): string => {
+    switch (harFamilietilknytning) {
+        case true:
+            return 'Ja';
+        case false:
+        default:
+            return 'Nei';
+    }
+};
+
 const Relasjoner: FunctionComponent = () => {
     const { avtale, settAvtaleVerdier }: InputStegProps<RelasjonerInfo> = useContext(AvtaleContext);
 
@@ -60,9 +70,7 @@ const Relasjoner: FunctionComponent = () => {
                 </div>
                 <VerticalSpacer rem={1} />
 
-                <Normaltekst>
-                    Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?
-                </Normaltekst>
+                <Element>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Element>
                 <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                     {relasjonHjelpetekst}
                 </LesMerPanel>
@@ -75,39 +83,49 @@ const Relasjoner: FunctionComponent = () => {
                     className={cls.element('familietilknytning-valg')}
                     id="familevalg"
                 >
-                    <RadioPanel
-                        disabled={rolle === 'VEILEDER'}
-                        label="Ja"
-                        name="familievalg"
-                        checked={avtale.harFamilietilknytning === true}
-                        value="ja"
-                        onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
-                    />
-                    <RadioPanel
-                        disabled={rolle === 'VEILEDER'}
-                        label="Nei"
-                        name="familievalg"
-                        checked={avtale.harFamilietilknytning === false}
-                        value="nei"
-                        onChange={() => {
-                            settAvtaleVerdier({
-                                familietilknytningForklaring: undefined,
-                                harFamilietilknytning: false,
-                            });
-                        }}
-                    />
+                    {rolle === 'VEILEDER' ? (
+                        <Normaltekst>{harFamilieTilknttningSomJaNeiSvar(avtale.harFamilietilknytning)}</Normaltekst>
+                    ) : (
+                        <>
+                            <RadioPanel
+                                label="Ja"
+                                name="familievalg"
+                                checked={avtale.harFamilietilknytning === true}
+                                value="ja"
+                                onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
+                            />
+                            <RadioPanel
+                                label="Nei"
+                                name="familievalg"
+                                checked={avtale.harFamilietilknytning === false}
+                                value="nei"
+                                onChange={() => {
+                                    settAvtaleVerdier({
+                                        familietilknytningForklaring: undefined,
+                                        harFamilietilknytning: false,
+                                    });
+                                }}
+                            />
+                        </>
+                    )}
                 </div>
             </Column>
             {avtale.harFamilietilknytning && (
                 <Column md="12">
                     <VerticalSpacer sixteenPx={true} />
-                    <PakrevdTextarea
-                        disabled={rolle === 'VEILEDER'}
-                        label="Vennligst utdyp denne relasjonen"
-                        maxLengde={500}
-                        verdi={avtale.familietilknytningForklaring || ''}
-                        settVerdi={verdi => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
-                    />
+                    {rolle === 'VEILEDER' ? (
+                        <>
+                            <Element>Vennligst utdyp denne relasjonen</Element>
+                            <Normaltekst>{avtale.familietilknytningForklaring || ''}</Normaltekst>
+                        </>
+                    ) : (
+                        <PakrevdTextarea
+                            label="Vennligst utdyp denne relasjonen"
+                            maxLengde={500}
+                            verdi={avtale.familietilknytningForklaring || ''}
+                            settVerdi={verdi => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
+                        />
+                    )}
                 </Column>
             )}
             {rolle === 'VEILEDER' && (
