@@ -23,16 +23,21 @@ const AvbryteAvtalen = (props: Props) => {
                     href="#"
                     className="avbryteavtalen__lenke"
                     aria-label="Avbryt avtale"
+                    role="menuitem"
                 >
-                    <AvbruttIkon className="avbryteavtalen__ikon" />
+                    <div aria-hidden={true}>
+                        <AvbruttIkon className="avbryteavtalen__ikon" />
+                    </div>
                     Avbryt avtale
                 </Lenke>
             </div>
-            <AvbrytAvtaleModal
-                isOpen={avbrytModalIsOpen}
-                lukkModal={() => setAvbrytModalIsOpen(false)}
-                avbrytAvtale={props.avbrytAvtale}
-            />
+            <div aria-hidden={!avbrytModalIsOpen}>
+                <AvbrytAvtaleModal
+                    isOpen={avbrytModalIsOpen}
+                    lukkModal={() => setAvbrytModalIsOpen(false)}
+                    avbrytAvtale={props.avbrytAvtale}
+                />
+            </div>
         </>
     ) : null;
 };

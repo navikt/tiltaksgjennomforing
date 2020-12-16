@@ -29,7 +29,7 @@ const AvtalekortMobil: FunctionComponent<{
                         <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
                     )}
                 >
-                    {ulestVarsel && <span className={cls.element('ulest-varsel-ikon')} />}
+                    {ulestVarsel && <span aria-hidden={!ulestVarsel} className={cls.element('ulest-varsel-ikon')} />}
                     <div>
                         <Undertittel>
                             {avtale.deltakerFornavn || ''}&nbsp;

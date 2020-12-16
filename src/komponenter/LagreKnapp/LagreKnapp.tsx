@@ -20,12 +20,19 @@ interface Props {
 }
 
 class LagreKnapp extends Component<Props, State> {
-    state = {
-        suksessmelding: '',
-        feilmelding: '',
-        spinner: false,
-        isMounted: false,
-    };
+    private varselRef: any;
+
+    constructor(props: Props) {
+        super(props);
+        this.varselRef = React.createRef();
+
+        this.state = {
+            suksessmelding: '',
+            feilmelding: '',
+            spinner: false,
+            isMounted: false,
+        };
+    }
 
     componentDidMount() {
         this.setState({ isMounted: true });
@@ -33,8 +40,14 @@ class LagreKnapp extends Component<Props, State> {
 
     componentWillUnmount() {
         // eslint-disable-next-line
-        this.state.isMounted = false;
+        //  this.state.isMounted = false;
     }
+
+    setFocus = () => {
+        if (this.varselRef) {
+            this.varselRef.current.focus();
+        }
+    };
 
     lagreKnappOnClick = async () => {
         this.enableSpinner(true);
@@ -55,12 +68,14 @@ class LagreKnapp extends Component<Props, State> {
     };
 
     visFeilmelding = (feilmelding: string) => {
+        this.setFocus();
         this.setState({ feilmelding });
     };
 
     visSuksessmelding = () => {
         if (this.props.suksessmelding) {
             this.setState({ suksessmelding: this.props.suksessmelding });
+            this.setFocus();
         }
     };
 
@@ -82,10 +97,11 @@ class LagreKnapp extends Component<Props, State> {
                 {this.state.suksessmelding && (
                     <VarselKomponent
                         kanLukkes={false}
-                        timeout={5000}
+                        timeout={10000}
                         type={'suksess'}
                         onLukkVarsel={this.fjernSuksessmelding}
                         className={'lagreknapp__varsel'}
+                        varselRef={this.varselRef}
                     >
                         {this.state.suksessmelding}
                     </VarselKomponent>
@@ -96,6 +112,7 @@ class LagreKnapp extends Component<Props, State> {
                         type={'advarsel'}
                         onLukkVarsel={this.fjernFeilmelding}
                         className={'lagreknapp__varsel'}
+                        varselRef={this.varselRef}
                     >
                         {this.state.feilmelding}
                     </VarselKomponent>
