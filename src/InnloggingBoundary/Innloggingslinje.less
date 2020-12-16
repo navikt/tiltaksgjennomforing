@@ -12,6 +12,25 @@
         }
     }
 
+    &__navIkon {
+        width: 3.75rem;
+        height: 2.375rem;
+    }
+
+    .lenke {
+        &:focus {
+            background-color: white;
+        }
+        .innloggingslinje__navIkon {
+            svg {
+                width: 3.75rem;
+                height: 2.375rem;
+                fill: none;
+                stroke: none;
+            }
+        }
+    }
+
     &__innhold {
         margin: 0 auto;
         max-width: 61rem;
@@ -20,6 +39,21 @@
         align-items: center;
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .ekspanderbartPanel__tittel {
+        width: 100%;
+    }
+
+    &__mobileheader {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    }
+
+    &__brukernavn {
+        padding-right: 1rem;
     }
 
     .ekspanderbartPanel {

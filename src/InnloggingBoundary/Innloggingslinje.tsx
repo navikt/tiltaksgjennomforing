@@ -8,6 +8,7 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './Innloggingslinje.less';
+import Lenke from 'nav-frontend-lenker';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
@@ -23,16 +24,32 @@ const Innloggingslinje: FunctionComponent<Props> = props => {
         <div className="innloggingslinje">
             <div className="innloggingslinje__innhold">
                 <MediaQuery minWidth={577}>
-                    <div>
-                        <NavIkon />
-                    </div>
+                    <Lenke href="/tiltaksgjennomforing" ariaLabel="lenke til oversiktsiden">
+                        <div className={cls.element('navIkon')}>
+                            <NavIkon />
+                        </div>
+                    </Lenke>
                     <div className={cls.element('identitetogloggut')}>
-                        <EtikettLiten className={cls.element('identitetogloggut__identitet')}>{bruker}</EtikettLiten>
+                        <EtikettLiten
+                            className={cls.element('identitetogloggut__identitet')}
+                            aria-label="innlogget bruker id"
+                        >
+                            {bruker}
+                        </EtikettLiten>
                         <LoggUtKnapp />
                     </div>
                 </MediaQuery>
                 <MediaQuery maxWidth={576}>
-                    <Ekspanderbartpanel tittel={bruker}>
+                    <Ekspanderbartpanel
+                        tittel={
+                            <div className={cls.element('mobileheader')}>
+                                <NavIkon />
+                                <div className={cls.element('brukernavn')} aria-label="innlogget bruker id">
+                                    {bruker}
+                                </div>
+                            </div>
+                        }
+                    >
                         <div className={cls.className}>
                             <LoggUtKnapp />
                         </div>

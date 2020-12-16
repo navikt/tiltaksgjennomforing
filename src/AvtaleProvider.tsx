@@ -244,11 +244,13 @@ const AvtaleProvider: FunctionComponent = props => {
     return (
         <>
             <AvtaleContext.Provider value={avtaleContext}>{props.children}</AvtaleContext.Provider>
-            <OpphevGodkjenningerModal
-                modalIsOpen={opphevGodkjenningerModalIsOpen}
-                bekreftOpphevGodkjenninger={bekreftOpphevGodkjenninger}
-                lukkModal={() => setOpphevGodkjenningerModalIsOpen(false)}
-            />
+            <div aria-hidden={!opphevGodkjenningerModalIsOpen}>
+                <OpphevGodkjenningerModal
+                    modalIsOpen={opphevGodkjenningerModalIsOpen}
+                    bekreftOpphevGodkjenninger={bekreftOpphevGodkjenninger}
+                    lukkModal={() => setOpphevGodkjenningerModalIsOpen(false)}
+                />
+            </div>
         </>
     );
 };
