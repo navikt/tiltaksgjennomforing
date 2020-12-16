@@ -19,7 +19,11 @@ export const BedriftsnummerEllerTelefon: FunctionComponent<Props> = props => {
         return (
             <>
                 <Normaltekst key={props.key}>
-                    <Lenke key={props.key} href={'tel:' + props.verdi} aria-label={hentTallMedDotterOgMellomrom()}>
+                    <Lenke
+                        key={props.key}
+                        href={'tel:' + props.verdi}
+                        aria-label={`Telefon ${hentTallMedDotterOgMellomrom()}`}
+                    >
                         {storForbokstav(props.felt)} : {props.verdi}
                     </Lenke>
                 </Normaltekst>
@@ -28,7 +32,10 @@ export const BedriftsnummerEllerTelefon: FunctionComponent<Props> = props => {
     } else {
         return (
             <>
-                <Normaltekst key={props.key} aria-label={hentTallMedDotterOgMellomrom()}>
+                <Normaltekst
+                    key={props.key}
+                    aria-label={`${storForbokstav(props.felt)} ${hentTallMedDotterOgMellomrom()}`}
+                >
                     {storForbokstav(props.felt)} : {props.verdi}
                 </Normaltekst>
             </>
