@@ -52,8 +52,11 @@ const Hendelselogg: FunctionComponent = () => {
                 onClick={() => setHendelseLoggModalApen(true)}
                 href="#"
                 className={cls.element('menylenke')}
+                role="menuitem"
             >
-                <BurgerMenyIkon className={cls.element('burger-ikon')} />
+                <div aria-hidden={true}>
+                    <BurgerMenyIkon className={cls.element('burger-ikon')} />
+                </div>
                 Hendelselogg
             </Lenke>
 

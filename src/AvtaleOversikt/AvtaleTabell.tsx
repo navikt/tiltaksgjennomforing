@@ -43,7 +43,7 @@ const AvtaleTabell: FunctionComponent<{
                         role="listitem"
                         aria-labelledby={'rad avtalelenke '.concat(avtale.deltakerFnr)}
                     >
-                        {ulestVarsel && <span className="ulest-varsel-ikon" />}
+                        {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                         <div
                             className={classNames(cls.element('rad'), {
                                 uthevet: ulestVarsel,

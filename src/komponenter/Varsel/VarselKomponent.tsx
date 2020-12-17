@@ -10,6 +10,7 @@ interface Props {
     onLukkVarsel?: () => void;
     type: AlertStripeType;
     className?: string;
+    varselRef?: any;
 }
 
 interface State {
@@ -19,9 +20,13 @@ interface State {
 class VarselKomponent extends React.Component<Props, State> {
     private timerHandle: any;
 
-    state = {
-        display: true,
-    };
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            display: true,
+        };
+    }
 
     componentDidMount = (): void => {
         if (this.props.timeout) {
@@ -37,25 +42,31 @@ class VarselKomponent extends React.Component<Props, State> {
 
     lukkVarsel = () => {
         this.setState({ display: false });
-        this.props.onLukkVarsel && this.props.onLukkVarsel();
+        if (this.props.onLukkVarsel) {
+            this.props.onLukkVarsel();
+        }
     };
 
     render() {
         return (
-            this.state.display && (
-                <AlertStripe type={this.props.type} className={classNames('varsel', this.props.className)}>
-                    <div className="varsel__innhold">
-                        <div>{this.props.children}</div>
-                        {this.props.kanLukkes && (
-                            <Lukknapp
-                                bla={this.props.type === 'info'}
-                                onClick={this.lukkVarsel}
-                                className="varsel__innhold__lukknapp"
-                            />
-                        )}
+            <div>
+                {this.state.display && (
+                    <div ref={this.props.varselRef} id="varsel_innhold" tabIndex={this.state.display ? 0 : -1}>
+                        <AlertStripe type={this.props.type} className={classNames('varsel', this.props.className)}>
+                            <div className="varsel__innhold">
+                                <div>{this.props.children}</div>
+                                {this.props.kanLukkes && (
+                                    <Lukknapp
+                                        bla={this.props.type === 'info'}
+                                        onClick={this.lukkVarsel}
+                                        className="varsel__innhold__lukknapp"
+                                    />
+                                )}
+                            </div>
+                        </AlertStripe>
                     </div>
-                </AlertStripe>
-            )
+                )}
+            </div>
         );
     }
 }

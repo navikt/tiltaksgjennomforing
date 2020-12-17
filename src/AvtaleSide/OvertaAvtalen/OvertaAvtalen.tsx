@@ -20,8 +20,15 @@ const OvertaAvtalen = (props: Props) => {
     return props.erVeileder && props.forskjelligNavIdent ? (
         <>
             <div className={cls.className}>
-                <Lenke onClick={() => setOvertaModalIsOpen(true)} href="#" className={cls.element('lenke')}>
-                    <OvertaAvtalenSVG className={cls.element('ikon')} />
+                <Lenke
+                    onClick={() => setOvertaModalIsOpen(true)}
+                    href="#"
+                    className={cls.element('lenke')}
+                    role="menuitem"
+                >
+                    <div aria-hidden={true}>
+                        <OvertaAvtalenSVG className={cls.element('ikon')} />
+                    </div>
                     Overta avtale
                 </Lenke>
             </div>

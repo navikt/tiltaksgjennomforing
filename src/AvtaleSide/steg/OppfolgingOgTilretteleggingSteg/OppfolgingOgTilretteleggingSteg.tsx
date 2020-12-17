@@ -14,8 +14,8 @@ const OppfolgingTilretteleggingSteg = () => {
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>
-                Oppfølging
-                <HjelpetekstBase id="hjelpetekst" style={{ marginLeft: '0.5rem' }}>
+                <span style={{ marginLeft: '0.25rem' }}>Oppfølging</span>
+                <HjelpetekstBase id="hjelpetekst">
                     Eksempler på oppfølging kan være en oppfølgingssamtale etter første uke, faste møter hver måned
                     eller en avtalt dato for et møte.
                 </HjelpetekstBase>
@@ -29,8 +29,8 @@ const OppfolgingTilretteleggingSteg = () => {
             />
             <VerticalSpacer thirtyTwoPx={true} />
             <SkjemaTittel>
-                Tilrettelegging
-                <HjelpetekstBase id="hjelpetekst" style={{ marginLeft: '0.5rem' }}>
+                <span style={{ marginLeft: '0.25rem' }}>Tilrettelegging</span>
+                <HjelpetekstBase id="hjelpetekst">
                     Beskriv avtalt tilrettelegging av arbeidssituasjonen (for eksempel tilpasning i arbeidstid,
                     hjelpemidler, unngå enkelte typer arbeidsoppgaver mv.)
                 </HjelpetekstBase>

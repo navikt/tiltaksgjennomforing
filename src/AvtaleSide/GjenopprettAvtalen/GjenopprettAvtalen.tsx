@@ -13,7 +13,12 @@ const GjenopprettAvtalen: React.FunctionComponent<Props> = (props: Props) => {
     return props.erVeileder && props.kanGjenopprettes ? (
         <>
             <div className="avbryteavtalen">
-                <Lenke onClick={() => setApneGjenopprett(true)} href="#" className="avbryteavtalen__lenke">
+                <Lenke
+                    onClick={() => setApneGjenopprett(true)}
+                    href="#"
+                    className="avbryteavtalen__lenke"
+                    role="menuitem"
+                >
                     <Synchronize className="avbryteavtalen__ikon" />
                     Gjenopprett avtale
                 </Lenke>

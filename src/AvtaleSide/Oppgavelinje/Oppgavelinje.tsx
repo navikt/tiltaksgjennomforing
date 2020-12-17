@@ -44,7 +44,7 @@ const OppgaveLinje: React.FunctionComponent<Props> = props => {
             {isMobile && <OppgavelinjeMobil />}
             {!isMobile && (
                 <>
-                    <div className={cls.element('lenkerlinje')}>
+                    <div className={cls.element('lenkerlinje')} role="menu">
                         <TilbakeTilOversiktLenke onClick={lagreEndringer} />
                         <div className={cls.element('avbrytOgDelLenk')}>
                             <OppgaveLenker />
