@@ -63,14 +63,16 @@ class LagreKnapp extends Component<Props, State> {
     };
 
     visFeilmelding = (feilmelding: string) => {
-        this.setFocus();
-        this.setState({ feilmelding });
+        this.setState({ feilmelding }, () => {
+            this.setFocus();
+        });
     };
 
     visSuksessmelding = () => {
         if (this.props.suksessmelding) {
-            this.setState({ suksessmelding: this.props.suksessmelding });
-            this.setFocus();
+            this.setState({ suksessmelding: this.props.suksessmelding }, () => {
+                this.setFocus();
+            });
         }
     };
 
