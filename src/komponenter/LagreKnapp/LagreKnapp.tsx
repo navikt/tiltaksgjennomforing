@@ -38,11 +38,6 @@ class LagreKnapp extends Component<Props, State> {
         this.setState({ isMounted: true });
     }
 
-    componentWillUnmount() {
-        // eslint-disable-next-line
-        //  this.state.isMounted = false;
-    }
-
     setFocus = () => {
         if (this.varselRef) {
             this.varselRef.current.focus();
@@ -79,12 +74,23 @@ class LagreKnapp extends Component<Props, State> {
         }
     };
 
+    setFocusElement = (id: string): void => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.focus();
+        }
+    };
+
     fjernSuksessmelding = () => {
-        this.setState({ suksessmelding: '' });
+        this.setState({ suksessmelding: '' }, () => {
+            this.setFocusElement('lagre-knapp');
+        });
     };
 
     fjernFeilmelding = () => {
-        this.setState({ feilmelding: '' });
+        this.setState({ feilmelding: '' }, () => {
+            this.setFocusElement('lagre-knapp');
+        });
     };
 
     enableSpinner = (state: boolean) => {
@@ -97,7 +103,7 @@ class LagreKnapp extends Component<Props, State> {
                 {this.state.suksessmelding && (
                     <VarselKomponent
                         kanLukkes={false}
-                        timeout={10000}
+                        timeout={7500}
                         type={'suksess'}
                         onLukkVarsel={this.fjernSuksessmelding}
                         className={'lagreknapp__varsel'}
@@ -124,6 +130,7 @@ class LagreKnapp extends Component<Props, State> {
                     className={this.props.className}
                     spinner={this.state.spinner}
                     disabled={this.state.spinner}
+                    id="lagre-knapp"
                 >
                     {this.props.label}
                 </Knapp>
