@@ -105,7 +105,7 @@ class LagreKnapp extends Component<Props, State> {
                 {this.state.suksessmelding && (
                     <VarselKomponent
                         kanLukkes={false}
-                        timeout={7500}
+                        timeout={5000}
                         type={'suksess'}
                         onLukkVarsel={this.fjernSuksessmelding}
                         className={'lagreknapp__varsel'}
