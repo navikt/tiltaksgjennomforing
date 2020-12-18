@@ -5,7 +5,6 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import BEMHelper from '@/utils/bem';
-import { Column, Row } from 'nav-frontend-grid';
 import Popover from 'nav-frontend-popover';
 import { RadioPanel } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -82,7 +81,7 @@ const Relasjoner: FunctionComponent = () => {
                         )}
                     </div>
                     {avtale.harFamilietilknytning && (
-                        <Column md="12">
+                        <>
                             <VerticalSpacer sixteenPx={true} />
                             {rolle === 'VEILEDER' ? (
                                 <>
@@ -97,7 +96,7 @@ const Relasjoner: FunctionComponent = () => {
                                     settVerdi={verdi => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
                                 />
                             )}
-                        </Column>
+                        </>
                     )}
                     <>
                         {rolle === 'VEILEDER' && (

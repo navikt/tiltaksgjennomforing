@@ -1,9 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { Column, Container, Row } from 'nav-frontend-grid';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import * as React from 'react';
 import { useContext } from 'react';
