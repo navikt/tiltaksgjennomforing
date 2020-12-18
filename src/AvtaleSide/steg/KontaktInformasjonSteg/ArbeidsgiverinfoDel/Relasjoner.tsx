@@ -10,130 +10,109 @@ import Popover from 'nav-frontend-popover';
 import { RadioPanel } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import './Relasjoner.less';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import { RelasjonerInfo } from '@/types/avtale';
-
-const cls = BEMHelper('relasjoner');
-
-const relasjonHjelpetekst = (
-    <div className={cls.element('relasjon-hjelpetekst')}>
-        Du kan ikke få tilskudd til arbeidsmarkedstiltak for egne familiemedlemmer eller andre du har et nært forhold
-        til, med mindre særlige grunner foreligger.
-        <VerticalSpacer eightPx={true} />
-        Er det en nær relasjon mellom deg eller noen i virksomheten og arbeidstakeren skal du huke av for dette i boksen
-        under.
-        <VerticalSpacer eightPx={true} />
-        Du kan søke om oppstart av lønnstilskudd selv om du har en nær relasjon til arbeidstakeren, men du må oppgi at
-        det er en nær relasjon og utdype tilknytningen. NAV vil deretter vurdere om det foreligger særlige grunner for
-        likevel å innvilge tiltaket.
-        {
-            <ul>
-                <li>Den som fyller ut skjemaet og den meldingen gjelder er</li>
-                <li>Samme person</li>
-                <li>Ektefelle/partner/samboer/forlovet</li>
-                <li>Tidligere ektefelle/partner/samboer</li>
-                <li>Søsken/halvsøsken</li>
-                <li>Barn/barnebarn</li>
-                <li>Foreldre</li>
-                <li>Besteforeldre</li>
-                <li>Svogerskap</li>
-                <li>Annen nær personlig tilknytning</li>
-            </ul>
-        }
-    </div>
-);
-
-const harFamilieTilknttningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): string => {
-    switch (harFamilietilknytning) {
-        case true:
-            return 'Ja';
-        case false:
-        default:
-            return 'Nei';
-    }
-};
+import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
+import './Relasjoner.less';
 
 const Relasjoner: FunctionComponent = () => {
     const { avtale, settAvtaleVerdier }: InputStegProps<RelasjonerInfo> = useContext(AvtaleContext);
 
+    const cls = BEMHelper('relasjoner');
+
+    const harFamilieTilknttningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): string => {
+        switch (harFamilietilknytning) {
+            case true:
+                return 'Ja';
+            case false:
+            default:
+                return 'Nei';
+        }
+    };
+
     const { rolle } = useContext(InnloggetBrukerContext);
     const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>();
     return (
-        <Row className="">
-            <Column md="12">
-                <Undertittel>Relasjoner</Undertittel>
-                <VerticalSpacer rem={1} />
-                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <PenFillIkon />
-                    <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av arbeidsgiver</Normaltekst>
-                </div>
-                <VerticalSpacer rem={1} />
+        <>
+            <div>
+                <div className={cls.className}>
+                    <Undertittel>Relasjoner</Undertittel>
+                    <VerticalSpacer rem={1} />
+                    <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                        <PenFillIkon />
+                        <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av arbeidsgiver</Normaltekst>
+                    </div>
+                    <VerticalSpacer rem={1} />
 
-                <Element>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Element>
-                <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
-                    {relasjonHjelpetekst}
-                </LesMerPanel>
-                <VerticalSpacer eightPx={true} />
-            </Column>
-            <Column md="12">
-                <div
-                    onMouseOver={e => setPopoverAnker(e.currentTarget)}
-                    onMouseLeave={() => setPopoverAnker(undefined)}
-                    className={cls.element('familietilknytning-valg')}
-                    id="familevalg"
-                >
-                    {rolle === 'VEILEDER' ? (
-                        <Normaltekst>{harFamilieTilknttningSomJaNeiSvar(avtale.harFamilietilknytning)}</Normaltekst>
-                    ) : (
-                        <>
-                            <RadioPanel
-                                label="Ja"
-                                name="familievalg"
-                                checked={avtale.harFamilietilknytning === true}
-                                value="ja"
-                                onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
-                            />
-                            <RadioPanel
-                                label="Nei"
-                                name="familievalg"
-                                checked={avtale.harFamilietilknytning === false}
-                                value="nei"
-                                onChange={() => {
-                                    settAvtaleVerdier({
-                                        familietilknytningForklaring: undefined,
-                                        harFamilietilknytning: false,
-                                    });
-                                }}
-                            />
-                        </>
+                    <Element>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Element>
+                    <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
+                        <RelasjonHjelpetekst />
+                    </LesMerPanel>
+                    <VerticalSpacer eightPx={true} />
+                    <div
+                        onMouseOver={e => setPopoverAnker(e.currentTarget)}
+                        onMouseLeave={() => setPopoverAnker(undefined)}
+                        className={cls.element('familietilknytning-valg')}
+                        id="familevalg"
+                    >
+                        {rolle === 'VEILEDER' ? (
+                            <Normaltekst>{harFamilieTilknttningSomJaNeiSvar(avtale.harFamilietilknytning)}</Normaltekst>
+                        ) : (
+                            <>
+                                <RadioPanel
+                                    label="Ja"
+                                    name="familievalg"
+                                    checked={avtale.harFamilietilknytning === true}
+                                    value="ja"
+                                    onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
+                                />
+                                <RadioPanel
+                                    label="Nei"
+                                    name="familievalg"
+                                    checked={avtale.harFamilietilknytning === false}
+                                    value="nei"
+                                    onChange={() => {
+                                        settAvtaleVerdier({
+                                            familietilknytningForklaring: undefined,
+                                            harFamilietilknytning: false,
+                                        });
+                                    }}
+                                />
+                            </>
+                        )}
+                    </div>
+                    {avtale.harFamilietilknytning && (
+                        <Column md="12">
+                            <VerticalSpacer sixteenPx={true} />
+                            {rolle === 'VEILEDER' ? (
+                                <>
+                                    <Element>Vennligst utdyp denne relasjonen</Element>
+                                    <Normaltekst>{avtale.familietilknytningForklaring || ''}</Normaltekst>
+                                </>
+                            ) : (
+                                <PakrevdTextarea
+                                    label="Vennligst utdyp denne relasjonen"
+                                    maxLengde={500}
+                                    verdi={avtale.familietilknytningForklaring || ''}
+                                    settVerdi={verdi => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
+                                />
+                            )}
+                        </Column>
                     )}
+                    <>
+                        {rolle === 'VEILEDER' && (
+                            <Popover
+                                avstandTilAnker={16}
+                                onRequestClose={() => setPopoverAnker(undefined)}
+                                ankerEl={popoverAnker}
+                            >
+                                <div style={{ padding: '1rem' }}>Dette fylles ut av arbeidsgiver.</div>
+                            </Popover>
+                        )}
+                    </>
                 </div>
-            </Column>
-            {avtale.harFamilietilknytning && (
-                <Column md="12">
-                    <VerticalSpacer sixteenPx={true} />
-                    {rolle === 'VEILEDER' ? (
-                        <>
-                            <Element>Vennligst utdyp denne relasjonen</Element>
-                            <Normaltekst>{avtale.familietilknytningForklaring || ''}</Normaltekst>
-                        </>
-                    ) : (
-                        <PakrevdTextarea
-                            label="Vennligst utdyp denne relasjonen"
-                            maxLengde={500}
-                            verdi={avtale.familietilknytningForklaring || ''}
-                            settVerdi={verdi => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
-                        />
-                    )}
-                </Column>
-            )}
-            {rolle === 'VEILEDER' && (
-                <Popover avstandTilAnker={16} onRequestClose={() => setPopoverAnker(undefined)} ankerEl={popoverAnker}>
-                    <div style={{ padding: '1rem' }}>Dette fylles ut av arbeidsgiver.</div>
-                </Popover>
-            )}
-        </Row>
+            </div>
+        </>
     );
 };
 

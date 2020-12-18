@@ -7,16 +7,17 @@ import { FunctionComponent, useContext } from 'react';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
+import BEMHelper from '@/utils/bem';
+import './kontaktinfo.less';
 
 const KontaktinfoSteg: FunctionComponent = () => {
+    const cls = BEMHelper('kontaktinfo');
     const { lagreAvtale } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks>
             <DeltakerinfoDel />
-            <VerticalSpacer thirtyTwoPx={true} />
             <ArbeidsgiverinfoDel />
-            <VerticalSpacer thirtyTwoPx={true} />
             <VeilederinfoDel />
             <VerticalSpacer thirtyTwoPx={true} />
             <LagreKnapp
