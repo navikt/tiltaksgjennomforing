@@ -12,6 +12,7 @@ import { FeatureToggleProvider } from './FeatureToggleProvider';
 import { FeilVarselProvider } from './FeilVarselProvider';
 import Informasjonsside from './Informasjonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
+import { VarselOmNedetid } from './InnloggingBoundary/VarselOmNedetid';
 import ErrorBoundary from './komponenter/ErrorBoundary';
 import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
 import OpprettAvtaleVeileder from './OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
@@ -38,6 +39,7 @@ class App extends React.Component {
                 <IntlProvider locale="nb" messages={messages}>
                     <BrowserRouter basename={basename}>
                         <AdvarselBannerTestversjon />
+                        <VarselOmNedetid />
                         <FeatureToggleProvider>
                             <Switch>
                                 <Route

@@ -15,7 +15,6 @@ import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
-import { VarselOmNedetid } from './VarselOmNedetid';
 
 const cls = BEMHelper('innloggingsside');
 
@@ -51,7 +50,6 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
 
     return (
         <div className="wrapper">
-            <VarselOmNedetid />
             <div className={cls.className}>
                 <Koffert className={cls.element('koffertikon')} />
                 <MediaQuery minWidth={576}>
