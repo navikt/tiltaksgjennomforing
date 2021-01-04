@@ -1,75 +1,58 @@
-import { TemporaryLagring } from '@/AvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Godkjenninger, Maal } from '@/types/avtale';
+import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
 import { Knapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import './OpprettMaal.less';
+import { FunctionComponent, useContext, useState } from 'react';
+import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils';
 
-interface Props {
-    lagreMaal: (maal: Maal) => Promise<any>;
-    ledigeMaalkategorier: Maalkategori[];
-    mellomLagretMaal: TemporaryLagring | undefined;
-    setMellomLagring: (maalInput: TemporaryLagring) => void;
-    fjernMellomLagring: () => void;
-    utforHandlingHvisRedigerbar: (callback: () => void) => void;
-}
+const OpprettMaal: FunctionComponent = () => {
+    const context = useContext(AvtaleContext);
 
-class OpprettMaal extends React.Component<Props & Godkjenninger> {
-    erNoeMellomLagret = () => {
-        return (
-            this.props.mellomLagretMaal &&
-            this.props.mellomLagretMaal.maal !== undefined &&
-            this.props.mellomLagretMaal.maalTekst !== ''
-        );
+    const erNoeMellomLagret = (): boolean =>
+        !!context.mellomLagring && context.mellomLagring.maal !== undefined && context.mellomLagring.maalTekst !== '';
+
+    const [visRedigerMaal, setVisRedigerMaal] = useState<boolean>(erNoeMellomLagret());
+
+    const setRedigerMaal = (skalVises: boolean) => {
+        setVisRedigerMaal(skalVises);
     };
 
-    state = {
-        visRedigerMaal: this.erNoeMellomLagret(),
-    };
-
-    visRedigerMaal = (skalVises: boolean) => {
-        this.setState({ visRedigerMaal: skalVises });
-    };
-
-    nyttMaalOnClick = () => {
-        this.props.utforHandlingHvisRedigerbar(() => {
-            this.visRedigerMaal(true);
+    const nyttMaalOnClick = () => {
+        context.utforHandlingHvisRedigerbar(() => {
+            setRedigerMaal(true);
         });
     };
 
-    avbrytRedigering = () => {
-        this.visRedigerMaal(false);
+    const avsluttRedigering = () => {
+        setRedigerMaal(false);
     };
 
-    lagreMaal = async (maal: Maal) => {
-        await this.props.lagreMaal(maal);
-        this.avbrytRedigering();
+    const lagreMaal = async (maal: Maal) => {
+        await context.lagreMaal(maal);
+        avsluttRedigering();
     };
 
-    render() {
-        return (
-            <Innholdsboks utfyller="veileder">
-                <SkjemaTittel>Opprett mål</SkjemaTittel>
-                {this.state.visRedigerMaal ? (
-                    <RedigerMaal
-                        ledigeMaalkategorier={this.props.ledigeMaalkategorier}
-                        lagreMaal={this.lagreMaal}
-                        avbrytRedigering={this.avbrytRedigering}
-                        mellomLagretData={this.props.mellomLagretMaal}
-                        setMellomLagring={this.props.setMellomLagring}
-                        fjernMellomLagring={this.props.fjernMellomLagring}
-                    />
-                ) : (
-                    <Knapp className="opprett-maal__knapp" htmlType="button" onClick={this.nyttMaalOnClick}>
-                        + Legg til nytt mål
-                    </Knapp>
-                )}
-            </Innholdsboks>
-        );
-    }
-}
+    return (
+        <Innholdsboks utfyller="veileder">
+            <SkjemaTittel>Opprett mål</SkjemaTittel>
+            {visRedigerMaal ? (
+                <RedigerMaal
+                    ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.maal)}
+                    lagreMaal={lagreMaal}
+                    avbrytRedigering={avsluttRedigering}
+                />
+            ) : (
+                <Knapp className="opprett-maal__knapp" htmlType="button" onClick={nyttMaalOnClick}>
+                    + Legg til nytt mål
+                </Knapp>
+            )}
+        </Innholdsboks>
+    );
+};
 
 export default OpprettMaal;

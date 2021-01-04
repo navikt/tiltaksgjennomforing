@@ -1,5 +1,10 @@
 import { Maalkategori, maalkategorier } from '@/types/maalkategorier';
+import { Maal } from '@/types/avtale';
 
-export const finnLedigeMaalkategorier = (brukteKategorier: Maalkategori[]): Maalkategori[] => {
-    return maalkategorier.filter(kategori => kategori === 'ANNET' || !brukteKategorier.includes(kategori));
+export const finnLedigeMaalkategorier = (brukteKategorier: Maal[]): Maalkategori[] => {
+    const valgteMaalkategorier = (): Maalkategori[] => {
+        return brukteKategorier.map(maal => maal.kategori);
+    };
+
+    return maalkategorier.filter(kategori => kategori === 'ANNET' || !valgteMaalkategorier().includes(kategori));
 };

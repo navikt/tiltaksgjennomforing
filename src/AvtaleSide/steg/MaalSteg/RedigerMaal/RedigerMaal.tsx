@@ -1,4 +1,4 @@
-import { TemporaryLagring } from '@/AvtaleProvider';
+import { AvtaleContext, TemporaryLagring } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Maal } from '@/types/avtale';
 import { ApiError } from '@/types/errors';
@@ -7,186 +7,163 @@ import { Flatknapp } from 'nav-frontend-knapper';
 import { Select, Textarea } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import * as React from 'react';
-import { InjectedIntlProps, injectIntl } from 'react-intl';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 
 interface Props {
     lagreMaal: (maal: Maal) => Promise<any>;
     avbrytRedigering: () => void;
     defaultMaal?: Maal;
     ledigeMaalkategorier: Maalkategori[];
-    mellomLagretData?: TemporaryLagring;
-    setMellomLagring?: (maalInput: TemporaryLagring) => void;
-    fjernMellomLagring?: () => void;
 }
 
-interface State {
-    valgtKategori?: Maalkategori;
-    beskrivelse: string;
-    beskrivelseFeil?: SkjemaelementFeil;
-    valgtKategoriFeil?: SkjemaelementFeil;
-    erLagret: boolean;
-}
+const RedigerMaal: FunctionComponent<Props> = props => {
+    const context = useContext(AvtaleContext);
+    const { ledigeMaalkategorier } = props;
 
-class RedigerMaal extends React.Component<Props & InjectedIntlProps, State> {
-    state = {
-        valgtKategori: this.props.defaultMaal && this.props.defaultMaal.kategori,
-        beskrivelse: (this.props.defaultMaal && this.props.defaultMaal.beskrivelse) || '',
-        beskrivelseFeil: undefined,
-        valgtKategoriFeil: undefined,
-        erLagret: false,
-    };
+    const [valgtKategori, setValgtKategori] = useState<Maalkategori | undefined>(
+        props.defaultMaal && props.defaultMaal.kategori
+    );
+    const [beskrivelse, setBeskrivelse] = useState<string>((props.defaultMaal && props.defaultMaal.beskrivelse) || '');
+    const [beskrivelseFeil, setBeskrivelseFeil] = useState<SkjemaelementFeil | undefined>(undefined);
+    const [valgtKategoriFeil, setValgtKategoriFeil] = useState<SkjemaelementFeil | undefined>(undefined);
+    const [erLagret, setErLagret] = useState<boolean>(false);
 
-    componentDidMount(): void {
-        if (this.props.mellomLagretData) {
-            if (this.props.mellomLagretData.maalTekst !== '') {
-                this.setState({
-                    valgtKategori: this.props.mellomLagretData.maal,
-                    beskrivelse: this.props.mellomLagretData.maalTekst,
-                });
+    useEffect(
+        () => {
+            if (context.mellomLagring) {
+                if (context.mellomLagring.maalTekst !== '') {
+                    setValgtKategori(context.mellomLagring.maal);
+                    setBeskrivelse(context.mellomLagring.maalTekst);
+                }
             }
-        }
-    }
 
-    componentWillUnmount(): void {
-        const liste = this.props.ledigeMaalkategorier.filter(mal => mal !== this.state.valgtKategori);
-        if (this.state.beskrivelse !== '' && !this.state.erLagret) {
-            const tempMaal = {
-                maal: this.state.valgtKategori ? this.state.valgtKategori : liste[0],
-                maalTekst: this.state.beskrivelse,
+            return () => {
+                const liste = ledigeMaalkategorier.filter(mal => mal !== valgtKategori);
+                if (beskrivelse !== '' && !erLagret) {
+                    const tempMaal = {
+                        maal: valgtKategori ? valgtKategori : liste[0],
+                        maalTekst: beskrivelse,
+                    };
+                    if (context.setMellomLagring) {
+                        context.setMellomLagring(tempMaal);
+                    }
+                } else if (!valgtKategori && beskrivelse === '') {
+                    context.setMellomLagring(undefined);
+                }
             };
-            if (this.props.setMellomLagring) {
-                this.props.setMellomLagring(tempMaal);
-            }
-        } else if (!this.state.valgtKategori && this.state.beskrivelse === '') {
-            if (this.props.fjernMellomLagring) {
-                this.props.fjernMellomLagring();
-            }
-        }
-    }
+        },
+        [
+            /* beskrivelse,
+        erLagret,
+        valgtKategori,
+        fjernMellomLagring,
+        ledigeMaalkategorier,
+        setMellomLagring,
+        mellomLagretData,*/
+        ]
+    );
 
-    velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
-        this.setState({
-            valgtKategori: event.currentTarget.value as Maalkategori,
-        });
-
-        event.currentTarget.value
-            ? this.setState({ valgtKategoriFeil: undefined })
-            : this.setState({
-                  valgtKategoriFeil: {
+    const velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
+        setValgtKategori(event.currentTarget.value as Maalkategori);
+        setValgtKategoriFeil(
+            event.currentTarget.value
+                ? undefined
+                : {
                       feilmelding: 'En kategori må være valgt',
-                  },
-              });
+                  }
+        );
     };
 
-    settBeskrivelse = (event: any) => {
+    const settBeskrivelse = (event: any) => {
         if (event.currentTarget.value.length <= 1000) {
-            this.setState({
-                beskrivelse: event.currentTarget.value,
-            });
+            setBeskrivelse(event.currentTarget.value);
         }
-
-        event.currentTarget.value
-            ? this.setState({ beskrivelseFeil: undefined })
-            : this.setState({
-                  beskrivelseFeil: { feilmelding: 'Feltet kan ikke være tomt' },
-              });
+        setBeskrivelseFeil(event.currentTarget.value ? undefined : { feilmelding: 'Feltet kan ikke være tomt' });
     };
 
-    lagre = () => {
-        if (this.state.beskrivelse && this.state.valgtKategori) {
-            this.setState({ erLagret: true });
-            if (this.props.fjernMellomLagring) {
-                this.props.fjernMellomLagring();
-            }
-            return this.props.lagreMaal({
-                id: this.props.defaultMaal && this.props.defaultMaal.id,
-                kategori: this.state.valgtKategori,
-                beskrivelse: this.state.beskrivelse,
+    const lagre = () => {
+        if (beskrivelse && valgtKategori) {
+            setErLagret(true);
+            context.setMellomLagring(undefined);
+            return props.lagreMaal({
+                id: props.defaultMaal && props.defaultMaal.id,
+                kategori: valgtKategori,
+                beskrivelse: beskrivelse,
             });
         } else {
-            if (!this.state.beskrivelse) {
-                this.setState({
-                    beskrivelseFeil: {
-                        feilmelding: 'Feltet kan ikke være tomt',
-                    },
+            if (!beskrivelse) {
+                setBeskrivelseFeil({
+                    feilmelding: 'Feltet kan ikke være tomt',
                 });
             }
-            if (!this.state.valgtKategori) {
-                this.setState({
-                    valgtKategoriFeil: {
-                        feilmelding: 'En kategori må være valgt',
-                    },
-                });
+            if (!valgtKategori) {
+                setValgtKategoriFeil({ feilmelding: 'En kategori må være valgt' });
             }
             throw new ApiError('');
         }
     };
 
-    avbrytKnappOnClick = () => {
-        if (this.props.fjernMellomLagring) {
-            this.props.fjernMellomLagring();
-        }
-        this.setState({ erLagret: true }, () => {
-            this.props.avbrytRedigering();
-        });
+    const avbrytKnappOnClick = () => {
+        context.setMellomLagring(undefined);
+        setErLagret(true);
+        props.avbrytRedigering();
     };
 
-    lagTellerTekst = (antallTegn: number, maxLength: number) => {
+    const lagTellerTekst = (antallTegn: number, maxLength: number) => {
         return maxLength - antallTegn;
     };
 
-    genererKategoriListe = () => {
+    const genererKategoriListe = () => {
         const redigerComponentListe = [];
         redigerComponentListe.push(
-            <option value="" key="">
+            <option value="" key="nav.no">
                 Velg mål
             </option>
         );
-        if (this.state.valgtKategori) {
+        if (valgtKategori) {
             redigerComponentListe.push(
-                <option value={this.state.valgtKategori} key={this.state.valgtKategori}>
-                    {this.props.intl.formatMessage({ id: this.state.valgtKategori })}
+                <option value={valgtKategori} key={valgtKategori}>
+                    {valgtKategori}
                 </option>
             );
         }
-        const liste = this.props.ledigeMaalkategorier
-            .filter(mal => mal !== this.state.valgtKategori)
-            .map(mål => (
-                <option value={mål} key={mål}>
-                    {this.props.intl.formatMessage({ id: mål })}
+        // finnLedigeMaalkategorier(context.avtale.maal)
+        const liste = props.ledigeMaalkategorier
+            .filter(mal => mal !== valgtKategori)
+            .map((maalKategori, index) => (
+                <option value={maalKategori} key={index}>
+                    {maalKategori}
                 </option>
             ));
         redigerComponentListe.push(...liste);
         return redigerComponentListe;
     };
 
-    render() {
-        return (
-            <>
-                <Select
-                    className="rediger-maal__kategori-dropdown"
-                    label="Hva er målet med arbeidstreningen?"
-                    value={this.state.valgtKategori}
-                    onChange={this.velgKategori}
-                    feil={this.state.valgtKategoriFeil}
-                    onBlur={this.velgKategori}
-                >
-                    {this.genererKategoriListe()}
-                </Select>
-                <Textarea
-                    label="Beskriv målet"
-                    value={this.state.beskrivelse}
-                    onChange={this.settBeskrivelse}
-                    maxLength={1000}
-                    tellerTekst={this.lagTellerTekst}
-                    feil={this.state.beskrivelseFeil}
-                    onBlur={this.settBeskrivelse}
-                />
-                <LagreKnapp lagre={this.lagre} label={'Lagre mål'} className={'rediger-maal__lagre-knapp'} />
-                <Flatknapp onClick={this.avbrytKnappOnClick}>Avbryt</Flatknapp>
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <Select
+                className="rediger-maal__kategori-dropdown"
+                label="Hva er målet med arbeidstreningen?"
+                value={valgtKategori}
+                onChange={velgKategori}
+                feil={valgtKategoriFeil}
+                onBlur={velgKategori}
+            >
+                {genererKategoriListe()}
+            </Select>
+            <Textarea
+                label="Beskriv målet"
+                value={beskrivelse}
+                onChange={settBeskrivelse}
+                maxLength={1000}
+                tellerTekst={lagTellerTekst}
+                feil={beskrivelseFeil}
+                onBlur={settBeskrivelse}
+            />
+            <LagreKnapp lagre={lagre} label={'Lagre mål'} className={'rediger-maal__lagre-knapp'} />
+            <Flatknapp onClick={avbrytKnappOnClick}>Avbryt</Flatknapp>
+        </>
+    );
+};
 
-export default injectIntl(RedigerMaal);
+export default RedigerMaal;
