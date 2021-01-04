@@ -8,12 +8,17 @@ import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
 import { FeilkodeError } from './../types/errors';
+import { Variants } from './../types/unleash-variant';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
 const featureTogglePath = (features: Feature[]): string => {
     const query = features.map(feature => `feature=${feature}`).join('&');
     return `${API_URL}/feature?${query}`;
+};
+const featureToggleVariantPath = (features: Feature[]): string => {
+    const query = features.map(feature => `feature=${feature}`).join('&');
+    return `${API_URL}/feature/variant?${query}`;
 };
 
 const fetchGet: (url: string) => Promise<Response> = url => {
@@ -258,6 +263,11 @@ export const sjekkOmMenySkalBrukes = async (url: string): Promise<boolean> => {
 
 export const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
     const response = await fetchGet(featureTogglePath(featureToggles));
+    await handleResponse(response);
+    return await response.json();
+};
+export const hentFeatureTogglesVarianter = async (featureToggles: Feature[]): Promise<Variants> => {
+    const response = await fetchGet(featureToggleVariantPath(featureToggles));
     await handleResponse(response);
     return await response.json();
 };

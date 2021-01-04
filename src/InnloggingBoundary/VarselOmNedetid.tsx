@@ -1,36 +1,27 @@
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import AlertStripe from 'nav-frontend-alertstriper';
-import React, { FunctionComponent } from 'react';
+import { Feature } from '@/FeatureToggleProvider';
+import { hentFeatureTogglesVarianter } from '@/services/rest-service';
+import { Variant } from '@/types/unleash-variant';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
-type Spacing = 'fourPx' | 'eightPx' | 'sixteenPx' | 'twentyPx' | 'thirtyTwoPx';
+export const VarselOmNedetid: FunctionComponent = () => {
+    const [variant, setVariant] = useState<Variant>();
 
-type VarselOmNedetidProps =
-    | {
-          visVarselOmNedeTid: true;
-          visFraDato: Date;
-          visTilDato: Date;
-          varselTekst: string;
-          spaceTop?: Spacing;
-          spaceBottom?: Spacing;
-      }
-    | {
-          visVarselOmNedeTid: false;
-      };
+    useEffect(() => {
+        hentFeatureTogglesVarianter([Feature.VisNedetidBanner])
+            .then(varianter => {
+                setVariant(varianter[Feature.VisNedetidBanner]);
+            })
+            .catch(() => {});
+    }, []);
 
-export const VarselOmNedetid: FunctionComponent<VarselOmNedetidProps> = props => {
-    const dagensDato: Date = new Date();
-    if (!props.visVarselOmNedeTid || dagensDato > props.visTilDato || dagensDato < props.visFraDato) {
+    if (variant && variant.enabled) {
+        return (
+            <AlertStripeAdvarsel>
+                {variant.payload?.value || 'Vi opplever for tiden ustabilitet med løsningen for tiltaksgjennomføring'}
+            </AlertStripeAdvarsel>
+        );
+    } else {
         return null;
     }
-
-    const topSpacing = props.spaceTop ? { [props.spaceTop]: true } : undefined;
-    const bottomSpacing = props.spaceBottom ? { [props.spaceBottom]: true } : undefined;
-
-    return (
-        <div>
-            {props.spaceTop && <VerticalSpacer {...topSpacing} />}
-            <AlertStripe type={'advarsel'}> {props.varselTekst}</AlertStripe>
-            {props.spaceBottom && <VerticalSpacer {...bottomSpacing} />}
-        </div>
-    );
 };
