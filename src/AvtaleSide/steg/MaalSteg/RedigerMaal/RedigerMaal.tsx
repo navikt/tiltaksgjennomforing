@@ -32,22 +32,29 @@ const RedigerMaal: FunctionComponent<Props> = props => {
         () => {
             if (context.mellomLagring) {
                 if (context.mellomLagring.maalTekst !== '') {
+                    console.log('skal ikke sees på unmount');
                     setValgtKategori(context.mellomLagring.maal);
                     setBeskrivelse(context.mellomLagring.maalTekst);
                 }
             }
 
             return () => {
+                console.log('return on useEffect...');
                 const liste = ledigeMaalkategorier.filter(mal => mal !== valgtKategori);
+                console.log('beskrivelse er satt: ', beskrivelse);
+                console.log('state er ikke lagret enda ', !erLagret);
                 if (beskrivelse !== '' && !erLagret) {
                     const tempMaal = {
                         maal: valgtKategori ? valgtKategori : liste[0],
                         maalTekst: beskrivelse,
                     };
+                    console.log('temp mål: ', tempMaal);
                     if (context.setMellomLagring) {
+                        console.log('forbereder mellomlagring...');
                         context.setMellomLagring(tempMaal);
                     }
                 } else if (!valgtKategori && beskrivelse === '') {
+                    console.log('kategori og beskrivelse ikke satt');
                     context.setMellomLagring(undefined);
                 }
             };
@@ -141,6 +148,7 @@ const RedigerMaal: FunctionComponent<Props> = props => {
 
     return (
         <>
+            {console.log('beskrivelse på lokalstate: ', beskrivelse)}
             <Select
                 className="rediger-maal__kategori-dropdown"
                 label="Hva er målet med arbeidstreningen?"
