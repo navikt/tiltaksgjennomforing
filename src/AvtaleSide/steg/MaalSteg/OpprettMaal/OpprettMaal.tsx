@@ -12,10 +12,8 @@ import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils'
 
 const OpprettMaal: FunctionComponent = () => {
     const context = useContext(AvtaleContext);
-
     const erNoeMellomLagret = (): boolean =>
         !!context.mellomLagring && context.mellomLagring.maal !== undefined && context.mellomLagring.maalTekst !== '';
-
     const [visRedigerMaal, setVisRedigerMaal] = useState<boolean>(erNoeMellomLagret());
 
     const setRedigerMaal = (skalVises: boolean) => {
@@ -44,7 +42,7 @@ const OpprettMaal: FunctionComponent = () => {
                 <RedigerMaal
                     ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.maal)}
                     lagreMaal={lagreMaal}
-                    avbrytRedigering={avsluttRedigering}
+                    avsluttRedigering={avsluttRedigering}
                 />
             ) : (
                 <Knapp className="opprett-maal__knapp" htmlType="button" onClick={nyttMaalOnClick}>

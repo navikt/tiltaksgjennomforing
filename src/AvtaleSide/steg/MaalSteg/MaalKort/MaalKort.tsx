@@ -56,7 +56,7 @@ class MaalKort extends React.Component<Props, State> {
                         defaultMaal={this.props.maal}
                         ledigeMaalkategorier={this.props.ledigeMaalkategorier}
                         lagreMaal={this.lagreMaal}
-                        avbrytRedigering={this.avbrytEndreMaal}
+                        avsluttRedigering={this.avbrytEndreMaal}
                     />
                 ) : (
                     <LagretMaal maal={this.props.maal} endreOnClick={this.endreMaal} slettOnClick={this.slettMaal} />
