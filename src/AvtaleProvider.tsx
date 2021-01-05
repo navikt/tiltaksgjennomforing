@@ -59,7 +59,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const [ulagredeEndringer, setUlagredeEndringer] = useState(false);
     const [opphevGodkjenningerModalIsOpen, setOpphevGodkjenningerModalIsOpen] = useState(false);
     const visFeilmelding = useContext(FeilVarselContext);
-    const [mellomLagring, setMellomLagring] = useState<TemporaryLagring>();
+    const [mellomLagring, setMellomLagring] = useState<TemporaryLagring | undefined>(undefined);
     const [underLagring, setUnderLagring] = useState(false);
 
     const sendToAmplitude = (eventName: string): LogReturn =>

@@ -26,15 +26,17 @@ const MaalSteg: FunctionComponent = () => {
     return (
         <div role="main">
             <OpprettMaal />
-            {context.avtale.maal.map(maal => (
-                <MaalKort
-                    ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.maal)}
-                    maal={maal}
-                    key={maal.id}
-                    lagreMaal={context.lagreMaal}
-                    slettMaal={bekrefelsePaSlettRad}
-                    utforHandlingHvisRedigerbar={context.utforHandlingHvisRedigerbar}
-                />
+            {context.avtale.maal.map((maal, index) => (
+                <React.Fragment key={index}>
+                    <MaalKort
+                        ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.maal)}
+                        maal={maal}
+                        key={maal.id}
+                        lagreMaal={context.lagreMaal}
+                        slettMaal={bekrefelsePaSlettRad}
+                        utforHandlingHvisRedigerbar={context.utforHandlingHvisRedigerbar}
+                    />
+                </React.Fragment>
             ))}
             <BekreftelseModal
                 modalIsOpen={modalIsOpen}

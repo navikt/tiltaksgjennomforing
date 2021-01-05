@@ -28,18 +28,20 @@ const RedigerMaal: FunctionComponent<Props> = props => {
     const [valgtKategoriFeil, setValgtKategoriFeil] = useState<SkjemaelementFeil | undefined>(undefined);
     const [erLagret, setErLagret] = useState<boolean>(false);
 
-    useEffect(
-        () => {
-            if (context.mellomLagring) {
+    console.log('default maal', props.defaultMaal);
+
+    useEffect(() => {
+        /*     if (context.mellomLagring) {
                 if (context.mellomLagring.maalTekst !== '') {
                     console.log('skal ikke sees på unmount');
                     setValgtKategori(context.mellomLagring.maal);
                     setBeskrivelse(context.mellomLagring.maalTekst);
                 }
-            }
+            }*/
 
-            return () => {
-                console.log('return on useEffect...');
+        return () => {
+            console.log('return callback i useEffect: beskrivelse er: ', beskrivelse);
+            /* console.log('return on useEffect...');
                 const liste = ledigeMaalkategorier.filter(mal => mal !== valgtKategori);
                 console.log('beskrivelse er satt: ', beskrivelse);
                 console.log('state er ikke lagret enda ', !erLagret);
@@ -56,19 +58,23 @@ const RedigerMaal: FunctionComponent<Props> = props => {
                 } else if (!valgtKategori && beskrivelse === '') {
                     console.log('kategori og beskrivelse ikke satt');
                     context.setMellomLagring(undefined);
-                }
-            };
-        },
-        [
-            /* beskrivelse,
+                }*/
+        };
+    }, [
+        beskrivelse,
+        /* beskrivelse,
         erLagret,
         valgtKategori,
         fjernMellomLagring,
         ledigeMaalkategorier,
         setMellomLagring,
         mellomLagretData,*/
-        ]
-    );
+    ]);
+
+    const getFørsteKategori = () => {
+        const liste = ledigeMaalkategorier.filter(mal => mal !== valgtKategori);
+        return liste[0];
+    };
 
     const velgKategori = (event: React.FormEvent<HTMLSelectElement>) => {
         setValgtKategori(event.currentTarget.value as Maalkategori);
@@ -81,21 +87,38 @@ const RedigerMaal: FunctionComponent<Props> = props => {
         );
     };
 
-    const settBeskrivelse = (event: any) => {
+    const nySettValgtKategori = (event: React.FormEvent<HTMLSelectElement>) => {
+        context.setMellomLagring({
+            maal: event.currentTarget.value as Maalkategori,
+            maalTekst: context.mellomLagring?.maalTekst as string,
+        });
+    };
+
+    const nySettBeskrivelsen = (event: any) => {
         if (event.currentTarget.value.length <= 1000) {
+            context.setMellomLagring({
+                maal: context.mellomLagring?.maal,
+                maalTekst: event.currentTarget.value,
+            });
+        }
+    };
+
+    const settBeskrivelsen = (event: any) => {
+        if (event.currentTarget.value.length <= 1000) {
+            console.log('beskrivelse er: ', event.currentTarget.value);
             setBeskrivelse(event.currentTarget.value);
         }
         setBeskrivelseFeil(event.currentTarget.value ? undefined : { feilmelding: 'Feltet kan ikke være tomt' });
     };
 
     const lagre = () => {
-        if (beskrivelse && valgtKategori) {
+        if (/*beskrivelse && valgtKategori*/ context.mellomLagring?.maal && context.mellomLagring.maalTekst) {
             setErLagret(true);
-            context.setMellomLagring(undefined);
-            return props.lagreMaal({
+            props.avbrytRedigering();
+            return context.lagreMaal({
                 id: props.defaultMaal && props.defaultMaal.id,
-                kategori: valgtKategori,
-                beskrivelse: beskrivelse,
+                kategori: context.mellomLagring.maal,
+                beskrivelse: context.mellomLagring.maalTekst,
             });
         } else {
             if (!beskrivelse) {
@@ -106,7 +129,7 @@ const RedigerMaal: FunctionComponent<Props> = props => {
             if (!valgtKategori) {
                 setValgtKategoriFeil({ feilmelding: 'En kategori må være valgt' });
             }
-            throw new ApiError('');
+            throw new ApiError('En uventet feil har oppstått.');
         }
     };
 
@@ -148,25 +171,25 @@ const RedigerMaal: FunctionComponent<Props> = props => {
 
     return (
         <>
-            {console.log('beskrivelse på lokalstate: ', beskrivelse)}
+            {console.log('context val: ', context.mellomLagring)}
             <Select
                 className="rediger-maal__kategori-dropdown"
                 label="Hva er målet med arbeidstreningen?"
-                value={valgtKategori}
-                onChange={velgKategori}
+                value={context.mellomLagring?.maal}
+                onChange={nySettValgtKategori}
                 feil={valgtKategoriFeil}
-                onBlur={velgKategori}
+                onBlur={nySettValgtKategori}
             >
                 {genererKategoriListe()}
             </Select>
             <Textarea
                 label="Beskriv målet"
-                value={beskrivelse}
-                onChange={settBeskrivelse}
+                value={context.mellomLagring?.maalTekst || ''}
+                onChange={nySettBeskrivelsen}
                 maxLength={1000}
                 tellerTekst={lagTellerTekst}
                 feil={beskrivelseFeil}
-                onBlur={settBeskrivelse}
+                onBlur={nySettBeskrivelsen}
             />
             <LagreKnapp lagre={lagre} label={'Lagre mål'} className={'rediger-maal__lagre-knapp'} />
             <Flatknapp onClick={avbrytKnappOnClick}>Avbryt</Flatknapp>
