@@ -17,8 +17,9 @@ export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
 };
 
 export interface TemporaryLagring {
-    maal?: Maalkategori;
-    maalTekst: string;
+    id?: string;
+    kategori: Maalkategori;
+    beskrivelse: string;
 }
 
 export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(

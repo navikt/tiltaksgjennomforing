@@ -12,7 +12,7 @@ interface State {
 }
 
 interface Props {
-    lagre: () => Promise<any>;
+    lagre: () => Promise<any> | void;
     className?: string;
     suksessmelding?: string;
     label: React.ReactNode;

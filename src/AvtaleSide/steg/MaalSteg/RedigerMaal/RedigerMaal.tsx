@@ -1,4 +1,4 @@
-import { AvtaleContext, TemporaryLagring } from '@/AvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Maal } from '@/types/avtale';
 import { ApiError } from '@/types/errors';
@@ -7,10 +7,10 @@ import { Flatknapp } from 'nav-frontend-knapper';
 import { Select, Textarea } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import * as React from 'react';
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
+import MaalKategorier from '@/AvtaleSide/steg/MaalSteg/RedigerMaal/MaalKategorier';
 
 interface Props {
-    lagreMaal: (maal: Maal) => Promise<any>;
     avsluttRedigering: () => void;
     defaultMaal?: Maal;
     ledigeMaalkategorier: Maalkategori[];
@@ -18,102 +18,72 @@ interface Props {
 
 const RedigerMaal: FunctionComponent<Props> = props => {
     const context = useContext(AvtaleContext);
-    const { ledigeMaalkategorier } = props;
+    const { defaultMaal } = props;
 
-    const [valgtKategori, setValgtKategori] = useState<Maalkategori | undefined>(
-        props.defaultMaal && props.defaultMaal.kategori
-    );
+    const setMaal = () => {
+        if (defaultMaal) {
+            return defaultMaal;
+        } else if (!defaultMaal && context.mellomLagring) {
+            return context.mellomLagring;
+        }
+        return undefined;
+    };
+
+    const [valgtMaal, setValgtMaal] = useState<
+        { id?: string; kategori?: Maalkategori; beskrivelse?: string } | undefined
+    >(setMaal());
 
     const [beskrivelseFeil, setBeskrivelseFeil] = useState<SkjemaelementFeil | undefined>(undefined);
     const [valgtKategoriFeil, setValgtKategoriFeil] = useState<SkjemaelementFeil | undefined>(undefined);
 
-    console.log('default maal', props.defaultMaal);
-
-    useEffect(() => {
-        if (props.defaultMaal && props.defaultMaal.kategori !== context.mellomLagring?.maal) {
-            context.setMellomLagring({
-                maal: props.defaultMaal.kategori,
-                maalTekst: props.defaultMaal.beskrivelse,
-            });
-        }
-    }, []);
-
-    const getFørsteKategori = () => {
-        return ledigeMaalkategorier.find(mal => mal !== context.mellomLagring?.maal);
-    };
-
-    const nySettValgtKategori = (event: React.FormEvent<HTMLSelectElement>) => {
-        context.setMellomLagring({
-            maal: event.currentTarget.value as Maalkategori,
-            maalTekst: context.mellomLagring?.maalTekst as string,
+    const settValgtKategori = (event: React.FormEvent<HTMLSelectElement>) => {
+        const { value } = event.currentTarget;
+        setValgtMaal({
+            ...valgtMaal,
+            id: value,
+            kategori: value as Maalkategori,
         });
+        if (valgtMaal?.kategori && valgtMaal?.beskrivelse) {
+            context.setMellomLagring({ ...(valgtMaal as Maal), id: value, kategori: value as Maalkategori });
+        }
     };
 
-    const nySettBeskrivelsen = (event: any) => {
+    const settBeskrivelse = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         if (event.currentTarget.value.length <= 1000) {
-            context.setMellomLagring({
-                maal: context.mellomLagring?.maal,
-                maalTekst: event.currentTarget.value,
-            });
+            setValgtMaal({ ...valgtMaal, beskrivelse: event.currentTarget.value });
+            if (valgtMaal?.kategori && valgtMaal?.beskrivelse) {
+                context.setMellomLagring({ ...(valgtMaal as Maal), beskrivelse: event.currentTarget.value });
+            }
         }
     };
 
-    const lagre = () => {
-        if (context.mellomLagring?.maal && context.mellomLagring.maalTekst) {
-            props.avsluttRedigering();
-            const maal = {
-                id: props.defaultMaal && props.defaultMaal.id,
-                kategori: context.mellomLagring.maal,
-                beskrivelse: context.mellomLagring.maalTekst,
-            };
+    const lagreMaal = () => {
+        if (valgtMaal?.kategori && valgtMaal?.beskrivelse) {
             context.setMellomLagring(undefined);
-            return context.lagreMaal(maal);
-        } else {
-            if (!context.mellomLagring?.maalTekst) {
-                setBeskrivelseFeil({
-                    feilmelding: 'Feltet kan ikke være tomt',
-                });
-            }
-            if (!context.mellomLagring?.maal) {
-                setValgtKategoriFeil({ feilmelding: 'En kategori må være valgt' });
-            }
-            throw new ApiError('En uventet feil har oppstått.');
+            props.avsluttRedigering();
+            return context.lagreMaal(valgtMaal as Maal);
         }
+        return setFeilmelding();
     };
 
-    const avbrytKnappOnClick = () => {
-        context.setMellomLagring(undefined);
+    const setFeilmelding = (): void => {
+        if (!valgtMaal?.beskrivelse) {
+            return setBeskrivelseFeil({
+                feilmelding: 'Feltet kan ikke være tomt',
+            });
+        } else if (!valgtMaal.kategori) {
+            return setValgtKategoriFeil({ feilmelding: 'En kategori må være valgt' });
+        }
+        throw new ApiError('En uventet feil har oppstått.');
+    };
 
+    const avbrythandling = () => {
+        context.setMellomLagring(undefined);
         props.avsluttRedigering();
     };
 
-    const lagTellerTekst = (antallTegn: number, maxLength: number) => {
+    const tellerTekst = (antallTegn: number, maxLength: number) => {
         return maxLength - antallTegn;
-    };
-
-    const genererKategoriListe = (): React.ReactNode => {
-        const redigerComponentListe = [];
-        redigerComponentListe.push(
-            <option value="" key="nav.no">
-                Velg mål
-            </option>
-        );
-        if (context.mellomLagring?.maal) {
-            redigerComponentListe.push(
-                <option value={context.mellomLagring?.maal} key={context.mellomLagring?.maal}>
-                    {context.mellomLagring?.maal}
-                </option>
-            );
-        }
-        const liste = props.ledigeMaalkategorier
-            .filter(mal => mal !== context.mellomLagring?.maal)
-            .map((maalKategori, index) => (
-                <option value={maalKategori} key={index}>
-                    {maalKategori}
-                </option>
-            ));
-        redigerComponentListe.push(...liste);
-        return redigerComponentListe;
     };
 
     return (
@@ -121,24 +91,27 @@ const RedigerMaal: FunctionComponent<Props> = props => {
             <Select
                 className="rediger-maal__kategori-dropdown"
                 label="Hva er målet med arbeidstreningen?"
-                value={context.mellomLagring?.maal}
-                onChange={nySettValgtKategori}
+                value={valgtMaal?.kategori}
+                onChange={settValgtKategori}
                 feil={valgtKategoriFeil}
-                onBlur={nySettValgtKategori}
+                onBlur={settValgtKategori}
             >
-                {genererKategoriListe()}
+                <MaalKategorier
+                    ledigeMaalKategorier={props.ledigeMaalkategorier}
+                    valgtMaalKategori={valgtMaal?.kategori}
+                />
             </Select>
             <Textarea
                 label="Beskriv målet"
-                value={context.mellomLagring?.maalTekst || ''}
-                onChange={nySettBeskrivelsen}
+                value={valgtMaal?.beskrivelse || ''}
+                onChange={settBeskrivelse}
                 maxLength={1000}
-                tellerTekst={lagTellerTekst}
+                tellerTekst={tellerTekst}
                 feil={beskrivelseFeil}
-                onBlur={nySettBeskrivelsen}
+                onBlur={settBeskrivelse}
             />
-            <LagreKnapp lagre={lagre} label={'Lagre mål'} className={'rediger-maal__lagre-knapp'} />
-            <Flatknapp onClick={avbrytKnappOnClick}>Avbryt</Flatknapp>
+            <LagreKnapp lagre={lagreMaal} label={'Lagre mål'} className={'rediger-maal__lagre-knapp'} />
+            <Flatknapp onClick={avbrythandling}>Avbryt</Flatknapp>
         </>
     );
 };

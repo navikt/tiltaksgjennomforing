@@ -1,69 +1,66 @@
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Maal } from '@/types/avtale';
-import { Maalkategori } from '@/types/maalkategorier';
 import * as React from 'react';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import LagretMaal from './LagretMaal/LagretMaal';
 import './MaalKort.less';
+import { FunctionComponent, useContext, useState } from 'react';
+import { AvtaleContext } from '@/AvtaleProvider';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils';
 
 interface Props {
     maal: Maal;
-    slettMaal: (maal: Maal) => void;
-    lagreMaal: (maal: Maal) => Promise<any>;
-    ledigeMaalkategorier: Maalkategori[];
-    utforHandlingHvisRedigerbar: (callback: () => void) => void;
 }
 
-interface State {
-    iEndreModus: boolean;
-}
+const MaalKort: FunctionComponent<Props> = props => {
+    const context = useContext(AvtaleContext);
+    const [redigereMaalkort, setRedigereMaalkort] = useState<boolean>(false);
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
-class MaalKort extends React.Component<Props, State> {
-    state = {
-        iEndreModus: false,
-    };
-
-    settEndreModus = (modus: boolean) => {
-        this.setState({ iEndreModus: modus });
-    };
-
-    lagreMaal = async (maal: Maal) => {
-        await this.props.lagreMaal(maal);
-        this.settEndreModus(false);
-    };
-
-    endreMaal = () => {
-        this.props.utforHandlingHvisRedigerbar(() => {
-            this.settEndreModus(true);
+    const endreMaal = () => {
+        context.utforHandlingHvisRedigerbar(() => {
+            setRedigereMaalkort(true);
         });
     };
 
-    avbrytEndreMaal = () => {
-        this.settEndreModus(false);
+    const avsluttRedigering = () => {
+        setRedigereMaalkort(false);
     };
 
-    slettMaal = () => {
-        this.props.utforHandlingHvisRedigerbar(() => {
-            this.props.slettMaal(this.props.maal);
+    const slettMaal = async () => {
+        await context.slettMaal(props.maal);
+        setOpenModal(false);
+    };
+
+    const vertifiserSlettMaal = async () => {
+        context.utforHandlingHvisRedigerbar(() => {
+            slettMaal();
         });
     };
 
-    render() {
-        return (
-            <Innholdsboks className="maalkort">
-                {this.state.iEndreModus ? (
-                    <RedigerMaal
-                        defaultMaal={this.props.maal}
-                        ledigeMaalkategorier={this.props.ledigeMaalkategorier}
-                        lagreMaal={this.lagreMaal}
-                        avsluttRedigering={this.avbrytEndreMaal}
-                    />
-                ) : (
-                    <LagretMaal maal={this.props.maal} endreOnClick={this.endreMaal} slettOnClick={this.slettMaal} />
-                )}
-            </Innholdsboks>
-        );
-    }
-}
+    return (
+        <Innholdsboks className="maalkort">
+            {redigereMaalkort ? (
+                <RedigerMaal
+                    defaultMaal={props.maal}
+                    ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.maal)}
+                    avsluttRedigering={avsluttRedigering}
+                />
+            ) : (
+                <LagretMaal maal={props.maal} endreOnClick={endreMaal} slettOnClick={() => setOpenModal(true)} />
+            )}
+            <BekreftelseModal
+                modalIsOpen={openModal}
+                bekreftOnClick={vertifiserSlettMaal}
+                lukkModal={() => setOpenModal(false)}
+                varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
+                oversiktTekst="Slette mål"
+                bekreftelseTekst="Ja, slett mål"
+                avbrytelseTekst="avbryt"
+            />
+        </Innholdsboks>
+    );
+};
 
 export default MaalKort;
