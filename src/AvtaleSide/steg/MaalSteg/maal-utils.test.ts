@@ -1,12 +1,24 @@
 import * as chai from 'chai';
 import { finnLedigeMaalkategorier } from './maal-utils';
-import { Maalkategori, maalkategorier } from '@/types/maalkategorier';
+import { maalkategorier } from '@/types/maalkategorier';
+import { Maal } from '@/types/avtale';
 
 const expect = chai.expect;
 
 describe('Test av maal-utils', () => {
     it('Skal fjerne brukte målkategorier', () => {
-        const brukteKategorier: Maalkategori[] = ['UTPRØVING', 'ARBEIDSERFARING'];
+        const brukteKategorier: Maal[] = [
+            {
+                beskrivelse: '',
+                id: 'UTPRØVING',
+                kategori: 'UTPRØVING',
+            },
+            {
+                beskrivelse: '',
+                id: 'ARBEIDSERFARING',
+                kategori: 'ARBEIDSERFARING',
+            },
+        ];
         const ledigeMaalkategorier = finnLedigeMaalkategorier(brukteKategorier);
         expect(ledigeMaalkategorier).to.not.include('UTPRØVING');
         expect(ledigeMaalkategorier).to.not.include('ARBEIDSERFARING');
@@ -14,7 +26,13 @@ describe('Test av maal-utils', () => {
     });
 
     it('Skal ikke fjerne Annet-kategorien', () => {
-        const ledigeMaalkategorier = finnLedigeMaalkategorier(['ANNET']);
+        const ledigeMaalkategorier = finnLedigeMaalkategorier([
+            {
+                beskrivelse: '',
+                id: 'ANNET',
+                kategori: 'ANNET',
+            },
+        ]);
         expect(ledigeMaalkategorier).to.include('ANNET');
     });
 });

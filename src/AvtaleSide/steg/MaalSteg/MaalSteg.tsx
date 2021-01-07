@@ -1,5 +1,5 @@
-import { AvtaleContext } from '@/AvtaleProvider';
 import * as React from 'react';
+import { AvtaleContext } from '@/AvtaleProvider';
 import MaalKort from './MaalKort/MaalKort';
 import OppretteNyttMaal from './OpprettMaal/OppretteNyttMaal';
 import { FunctionComponent, useContext } from 'react';
