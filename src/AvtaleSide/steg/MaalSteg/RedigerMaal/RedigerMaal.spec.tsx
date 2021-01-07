@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import { Maalkategori } from '@/types/maalkategorier';
 
 test('Test that <RedigerMaal> renders correctly', () => {
-    const stub = jest.fn();
     const ledigeMaalKategorier = [
         'FÅ_JOBB_I_BEDRIFTEN',
         'ARBEIDSERFARING',
