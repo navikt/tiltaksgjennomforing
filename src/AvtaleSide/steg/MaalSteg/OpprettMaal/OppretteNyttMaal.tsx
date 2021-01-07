@@ -10,11 +10,10 @@ import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils'
 
 const OppretteNyttMaal: FunctionComponent = () => {
     const context = useContext(AvtaleContext);
+    const { mellomLagring } = context;
 
     const erNoeMellomLagret = (): boolean =>
-        !!context.mellomLagring &&
-        context.mellomLagring.kategori !== undefined &&
-        context.mellomLagring.beskrivelse !== '';
+        !!mellomLagring && mellomLagring.kategori && mellomLagring.beskrivelse !== '';
 
     const [visRedigerMaal, setVisRedigerMaal] = useState<boolean>(erNoeMellomLagret());
 
