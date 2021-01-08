@@ -7,11 +7,11 @@ import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
 import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
+import Avtaler from '@/AvtaleOversikt/Avtaler';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -62,7 +62,12 @@ const AvtaleOversikt: FunctionComponent = () => {
                     <aside style={layout.stylingAvFilter}>
                         <BeslutterFiltrering endreSøk={endreSøk} />
                     </aside>
-                    <Element>HELLO BESLUTTER</Element>
+                    <Avtaler
+                        avtalelisteRessurs={avtalelisteRessurs}
+                        innloggetBruker={innloggetBruker}
+                        varsler={varsler}
+                        sokekriterier={søkekriterier}
+                    />
                 </div>
             </main>
         </>
