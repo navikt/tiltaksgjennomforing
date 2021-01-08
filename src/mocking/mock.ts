@@ -27,6 +27,11 @@ fetchMock
             part: 'VEILEDER',
             url: '',
         },
+        {
+            tittel: 'Som NAV-beslutter',
+            part: 'BESLUTTER',
+            url: '',
+        },
     ])
     .get('/tiltaksgjennomforing/skal-backupmeny-brukes', 'true')
     .get(`${API_URL}/innlogget-bruker`, { identifikator: 'Z123456', erNavAnsatt: true })

@@ -46,11 +46,18 @@ module.exports = function(app) {
             );
         }
         if (envProperties.ISSO_LOGIN_URL) {
-            innloggingskilder.push({
-                tittel: 'Som NAV-veileder',
-                part: 'VEILEDER',
-                url: envProperties.ISSO_LOGIN_URL,
-            });
+            innloggingskilder.push(
+                {
+                    tittel: 'Som NAV-veileder',
+                    part: 'VEILEDER',
+                    url: envProperties.ISSO_LOGIN_URL,
+                },
+                {
+                    tittel: 'Som NAV-beslutter',
+                    part: 'BESLUTTER',
+                    url: envProperties.ISSO_LOGIN_URL,
+                }
+            );
         }
 
         res.json(innloggingskilder);
