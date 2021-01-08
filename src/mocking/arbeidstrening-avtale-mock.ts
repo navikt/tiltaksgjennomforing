@@ -19,7 +19,7 @@ const tilskuddsPeriode: TilskuddsPeriode[] = [
         id: '',
         startDato: '',
         sluttDato: '',
-        status: 'UBEHANDLET',
+        tilskuddPeriodeStatus: 'UBEHANDLET',
         godkjentTidspunkt: '',
     },
 ];
@@ -42,6 +42,9 @@ const arbeidstreningAvtaleMock: Avtale = {
     godkjentPaVegneAv: false,
 
     godkjentPaVegneGrunn: undefined,
+    beløp: 0,
+    godkjentTidspunkt: '',
+    tilskuddPeriodeStatus: 'UBEHANDLET',
 
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',

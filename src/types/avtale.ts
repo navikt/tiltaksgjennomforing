@@ -19,6 +19,7 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     MaalListe &
     Beregningsgrunnlag &
     TilskuddsPerioder &
+    TilskuddsPeriode &
     Kontonummer &
     RelasjonerInfo &
     Mentorinfo;
@@ -118,7 +119,7 @@ export interface TilskuddsPeriode {
     startDato: string;
     sluttDato: string;
     godkjentTidspunkt: string;
-    status: TilskuddPeriodeStatus;
+    tilskuddPeriodeStatus: TilskuddPeriodeStatus;
 }
 
 export interface Kontonummer {

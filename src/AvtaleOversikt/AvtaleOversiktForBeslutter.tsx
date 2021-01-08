@@ -1,5 +1,5 @@
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerVeileder';
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
@@ -15,10 +15,9 @@ import Avtaler from '@/AvtaleOversikt/Avtaler';
 
 const cls = BEMHelper('avtaleoversikt');
 
-const AvtaleOversikt: FunctionComponent = () => {
+const AvtaleOversiktForBeslutter: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const featureToggleContext = useContext(FeatureToggleContext);
-    const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
     const sokeKriterer = { beslutterNavIdent: innloggetBruker.identifikator };
     const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(sokeKriterer);
@@ -74,4 +73,4 @@ const AvtaleOversikt: FunctionComponent = () => {
     );
 };
 
-export default AvtaleOversikt;
+export default AvtaleOversiktForBeslutter;

@@ -27,7 +27,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
                     onChange={event => {
                         const nyTilskuddPeriode = event.currentTarget.value as TilskuddPeriodeStatus;
                         setValgtTilskuddPeriodeStatus(nyTilskuddPeriode);
-                        props.endreSøk({ status: nyTilskuddPeriode });
+                        props.endreSøk({ tilskuddPeriodeStatus: nyTilskuddPeriode });
                     }}
                     role="radio"
                     aria-labelledby="filtere på tiltakstype"
