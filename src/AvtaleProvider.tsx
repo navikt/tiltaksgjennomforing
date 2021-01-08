@@ -17,8 +17,9 @@ export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
 };
 
 export interface TemporaryLagring {
-    maal?: Maalkategori;
-    maalTekst: string;
+    id?: string;
+    kategori: Maalkategori;
+    beskrivelse: string;
 }
 
 export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
@@ -59,7 +60,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const [ulagredeEndringer, setUlagredeEndringer] = useState(false);
     const [opphevGodkjenningerModalIsOpen, setOpphevGodkjenningerModalIsOpen] = useState(false);
     const visFeilmelding = useContext(FeilVarselContext);
-    const [mellomLagring, setMellomLagring] = useState<TemporaryLagring>();
+    const [mellomLagring, setMellomLagring] = useState<TemporaryLagring | undefined>(undefined);
     const [underLagring, setUnderLagring] = useState(false);
 
     const sendToAmplitude = (eventName: string): LogReturn =>
