@@ -20,7 +20,7 @@ const RedigerMaal: FunctionComponent<Props> = props => {
     const context = useContext(AvtaleContext);
     const { defaultMaal } = props;
 
-    const setMaal = () => {
+    const initieltMaal = () => {
         if (defaultMaal) {
             return defaultMaal;
         } else if (!defaultMaal && context.mellomLagring) {
@@ -31,7 +31,7 @@ const RedigerMaal: FunctionComponent<Props> = props => {
 
     const [valgtMaal, setValgtMaal] = useState<
         { id?: string; kategori?: Maalkategori; beskrivelse?: string } | undefined
-    >(setMaal());
+    >(initieltMaal());
 
     const [beskrivelseFeil, setBeskrivelseFeil] = useState<SkjemaelementFeil | undefined>(undefined);
     const [valgtKategoriFeil, setValgtKategoriFeil] = useState<SkjemaelementFeil | undefined>(undefined);

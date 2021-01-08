@@ -33,7 +33,7 @@ const MaalKort: FunctionComponent<Props> = props => {
         setOpenModal(false);
     };
 
-    const vertifiserSlettMaal = async () => {
+    const verifiserSlettMaal = async () => {
         context.utforHandlingHvisRedigerbar(() => {
             slettMaal();
         });
@@ -52,7 +52,7 @@ const MaalKort: FunctionComponent<Props> = props => {
             )}
             <BekreftelseModal
                 modalIsOpen={openModal}
-                bekreftOnClick={vertifiserSlettMaal}
+                bekreftOnClick={verifiserSlettMaal}
                 lukkModal={() => setOpenModal(false)}
                 varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
                 oversiktTekst="Slette mål"
