@@ -48,11 +48,6 @@ const AvtaleOversikt: FunctionComponent = () => {
         setSøkekriterier({ ...søkekriterier, ...endredeSøkekriterier });
     };
 
-    const harTilgangerSomArbeidsgiver =
-        innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-        søkekriterier.bedriftNr &&
-        innloggetBruker.tilganger[søkekriterier.bedriftNr]?.length > 0;
-
     return (
         <>
             <BannerNAVAnsatt tekst="Tilskuddoversikt" />
