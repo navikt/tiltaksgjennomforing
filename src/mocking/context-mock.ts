@@ -72,6 +72,7 @@ export const contextMock: Context = {
     slettMaal: () => Promise.resolve(),
     endretSteg: () => Promise.resolve(),
     godkjenn: () => Promise.resolve(),
+    godkjennTilskudd: () => Promise.resolve(),
     godkjennPaVegne: () => Promise.resolve(),
     ulagredeEndringer: false,
     mellomLagring: undefined,

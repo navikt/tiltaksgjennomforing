@@ -8,6 +8,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
 import AvtaleProvider from './AvtaleProvider';
+import AvtaleSide from './AvtaleSide/AvtaleSide';
+import BeslutterSide from './BeslutterSide/BeslutterSide';
 import { FeatureToggleProvider } from './FeatureToggleProvider';
 import { FeilVarselProvider } from './FeilVarselProvider';
 import Informasjonsside from './Informasjonsside/Informasjonsside';
@@ -77,14 +79,32 @@ class App extends React.Component {
                                                 component={OpprettelseFullfortArbeidsgiver}
                                             />
                                             <AvtaleProvider>
-                                                <Route
-                                                    path={[
-                                                        pathTilAvtale(':avtaleId'),
-                                                        pathTilStegIAvtale(':avtaleId', ':stegPath'),
-                                                    ]}
-                                                    exact={true}
-                                                    component={AvtaleFetcher}
-                                                />
+                                                <Route path={pathTilAvtale(':avtaleId')}>
+                                                    <AvtaleFetcher>
+                                                        <Switch>
+                                                            <Route
+                                                                path={[
+                                                                    `${pathTilAvtale(':avtaleId')}/beslutte/`,
+                                                                    `${pathTilAvtale(
+                                                                        ':avtaleId'
+                                                                    )}/beslutte/:tilskuddsperiodeId`,
+                                                                ]}
+                                                                exact={true}
+                                                            >
+                                                                <BeslutterSide />
+                                                            </Route>
+                                                            <Route
+                                                                path={[
+                                                                    pathTilAvtale(':avtaleId'),
+                                                                    pathTilStegIAvtale(':avtaleId', ':stegPath'),
+                                                                ]}
+                                                                exact={true}
+                                                            >
+                                                                <AvtaleSide />
+                                                            </Route>
+                                                        </Switch>
+                                                    </AvtaleFetcher>
+                                                </Route>
                                             </AvtaleProvider>
                                         </RedirectEtterLogin>
                                     </InnloggingBoundary>

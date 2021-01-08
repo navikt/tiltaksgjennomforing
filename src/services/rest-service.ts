@@ -317,3 +317,8 @@ export const hentStillinger = async (sok: string): Promise<Stillingskategori[]> 
     const response = await fetch(`https://arbeidsgiver.nav.no/stillingstitler/search?q=${sok}`);
     return await response.json();
 };
+export const godkjennTilskuddsperiode = async (avtaleId: string, tilskuddPeriodeId: string) => {
+    const uri = `${API_URL}/avtaler/${avtaleId}/tilskuddsperiode/${tilskuddPeriodeId}/godkjenn`;
+    const response = await fetchPost(uri);
+    await handleResponse(response);
+};

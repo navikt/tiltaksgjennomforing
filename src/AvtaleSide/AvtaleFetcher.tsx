@@ -1,14 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import AvtaleSide from '@/AvtaleSide/AvtaleSide';
 import amplitude from '@/utils/amplitude';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-type Props = {
-    avtaleId: string;
-};
-
-const AvtaleFetcher: FunctionComponent<Props> = props => {
+const AvtaleFetcher: FunctionComponent = props => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
     const { avtaleId } = useParams();
     const { hentAvtale } = useContext(AvtaleContext);
@@ -30,7 +25,7 @@ const AvtaleFetcher: FunctionComponent<Props> = props => {
         return null;
     }
 
-    return <AvtaleSide />;
+    return <>{props.children}</>;
 };
 
 export default AvtaleFetcher;

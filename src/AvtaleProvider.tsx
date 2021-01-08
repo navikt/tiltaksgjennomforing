@@ -37,6 +37,7 @@ export interface Context {
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
     godkjenn: (godkjent: boolean) => Promise<void>;
+    godkjennTilskudd: (tilskuddPeriodeId: string) => Promise<void>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
     hentAvtale: (avtaleId: string) => Promise<void>;
@@ -214,6 +215,12 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale(avtale.id);
     };
 
+    const godkjennTilskudd = async (tilskuddPeriodeId: string): Promise<void> => {
+        await RestService.godkjennTilskuddsperiode(avtale.id, tilskuddPeriodeId);
+        sendToAmplitude('#tiltak-tilskudd-godkjent');
+        await hentAvtale(avtale.id);
+    };
+
     const godkjennPaVegne = async (paVegneGrunn: GodkjentPaVegneGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
@@ -237,6 +244,7 @@ const AvtaleProvider: FunctionComponent = props => {
         endretSteg,
         godkjenn,
         godkjennPaVegne,
+        godkjennTilskudd,
         ulagredeEndringer,
         mellomLagring,
         setMellomLagring,
