@@ -11,6 +11,7 @@ import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
+import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -63,6 +64,9 @@ const AvtaleOversikt: FunctionComponent = () => {
                     aria-labelledby={cls.element('filter-og-tabell')}
                     role="complementary"
                 >
+                    <aside style={layout.stylingAvFilter}>
+                        <VeilederFiltrering endreSøk={endreSøk} />
+                    </aside>
                     <Element>HELLO BESLUTTER</Element>
                 </div>
             </main>
