@@ -9,7 +9,7 @@ export interface Innloggingskilde {
 
 export type Tilganger = { [bedriftNr: string]: TiltaksType[] };
 
-export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'INGEN_ROLLE';
+export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'BESLUTTER' | 'INGEN_ROLLE';
 
 export interface InnloggetBruker {
     identifikator: string;
