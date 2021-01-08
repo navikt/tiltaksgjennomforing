@@ -11,7 +11,7 @@ import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
-import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -60,7 +60,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     role="complementary"
                 >
                     <aside style={layout.stylingAvFilter}>
-                        <VeilederFiltrering endreSøk={endreSøk} />
+                        <BeslutterFiltrering endreSøk={endreSøk} />
                     </aside>
                     <Element>HELLO BESLUTTER</Element>
                 </div>
