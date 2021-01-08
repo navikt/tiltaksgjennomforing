@@ -33,6 +33,7 @@ const mentorAvtaleMock: Avtale = {
     tilskuddPeriode: [],
 
     veilederNavIdent: 'Z123456',
+    beslutterNavIdent: 'Z321456',
     veilederFornavn: 'Nave',
     veilederEtternavn: 'Naversen',
     veilederTlf: '88888888',

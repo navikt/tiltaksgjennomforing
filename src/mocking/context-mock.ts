@@ -53,6 +53,7 @@ const avtaleInnhold: Avtale = {
     status: '',
     tiltakstype: 'ARBEIDSTRENING',
     veilederNavIdent: '',
+    beslutterNavIdent: '',
     versjoner: [],
 };
 

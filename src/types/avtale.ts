@@ -45,6 +45,7 @@ export interface Avtaleparter {
     bedriftNr: string;
     deltakerFnr: string;
     veilederNavIdent: string;
+    beslutterNavIdent: string;
 }
 
 export interface Bedriftinfo {

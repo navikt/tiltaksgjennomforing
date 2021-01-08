@@ -51,6 +51,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     tilskuddPeriode: tilskuddsPeriode,
 
     veilederNavIdent: 'Z123456',
+    beslutterNavIdent: 'Z234512',
     veilederFornavn: 'Karoline',
     veilederEtternavn: 'Jakobsen',
     veilederTlf: '88888888',

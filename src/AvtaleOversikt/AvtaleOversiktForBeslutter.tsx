@@ -20,7 +20,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
-    const sokeKriterer = { veilederNavIdent: innloggetBruker.identifikator };
+    const sokeKriterer = { beslutterNavIdent: innloggetBruker.identifikator };
     const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(sokeKriterer);
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);

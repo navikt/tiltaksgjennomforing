@@ -33,6 +33,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     tilskuddPeriode: [],
 
     veilederNavIdent: 'Z123456',
+    beslutterNavIdent: 'Z321456',
     veilederFornavn: 'Kåre',
     veilederEtternavn: 'Sandøy',
     veilederTlf: '88888888',
