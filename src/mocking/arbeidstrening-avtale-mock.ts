@@ -19,6 +19,8 @@ const tilskuddsPeriode: TilskuddsPeriode[] = [
         id: '',
         startDato: '',
         sluttDato: '',
+        status: 'UBEHANDLET',
+        godkjentTidspunkt: '',
     },
 ];
 
