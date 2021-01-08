@@ -11,7 +11,7 @@ interface Props {
     tekst: string;
 }
 
-const BannerVeileder: React.FunctionComponent<Props> = props => {
+const BannerNAVAnsatt: React.FunctionComponent<Props> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     return innloggetBruker.erNavAnsatt ? (
@@ -33,4 +33,4 @@ const BannerVeileder: React.FunctionComponent<Props> = props => {
     ) : null;
 };
 
-export default BannerVeileder;
+export default BannerNAVAnsatt;

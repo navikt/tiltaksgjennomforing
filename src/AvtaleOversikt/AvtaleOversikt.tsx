@@ -6,7 +6,7 @@ import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
-import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
+import BannerNAVAnsatt from '@/komponenter/Banner/BannerVeileder';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
@@ -92,7 +92,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         }}
                         tekst="Tiltaksoversikt"
                     />
-                    <BannerVeileder tekst="Tiltaksoversikt" />
+                    <BannerNAVAnsatt tekst="Tiltaksoversikt" />
 
                     <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                         <div
