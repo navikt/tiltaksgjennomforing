@@ -1,6 +1,7 @@
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { pathTilAvtale } from '@/paths';
 import { Avtale } from '@/types/avtale';
+import { TilskuddPeriodeStatus } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
@@ -12,12 +13,25 @@ import { default as React, FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
+import { EtikettInfo } from 'nav-frontend-etiketter';
 
 const cls = BEMHelper('avtaletabell');
 
 const hentLinkTilAvtale = (avtaleId: string, rolle: Rolle) => {
     return rolle === 'BESLUTTER' ? pathTilAvtale(avtaleId) + '/beslutte/' : pathTilAvtale(avtaleId);
 };
+
+const hentStatusKolonne = (avtale: Avtale, tilskuddPeriodeStatus: TilskuddPeriodeStatus, rolle: Rolle) => {
+    const status = rolle === 'BESLUTTER' ? tilskuddPeriodeStatus : avtale.status;
+    return (
+        <>
+            <div className={cls.element('statusikon')}>
+                {rolle === 'BESLUTTER' ? <EtikettInfo>{status}</EtikettInfo> : <StatusIkon status={status} />}
+            </div>
+        </>
+    );
+};
+
 const AvtaleTabell: FunctionComponent<{
     avtaler: Avtale[];
     varsler: Varsel[];
@@ -37,6 +51,7 @@ const AvtaleTabell: FunctionComponent<{
         <div role="list">
             {avtaler.map((avtale: Avtale) => {
                 const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
+
                 return (
                     <LenkepanelBase
                         key={avtale.id}
@@ -66,10 +81,7 @@ const AvtaleTabell: FunctionComponent<{
                                     {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                                 </div>
                             </MediaQuery>
-                            <div className={cls.element('statusikon')}>
-                                <StatusIkon status={avtale.status} />
-                            </div>
-                            <div className={cls.element('status')}>{avtale.status}</div>
+                            {hentStatusKolonne(avtale, avtale.tilskuddPeriodeStatus, innloggetBruker.rolle)}
                         </div>
                     </LenkepanelBase>
                 );
