@@ -1,4 +1,4 @@
-import { Avtaleinnhold, Stillingstype, TiltaksType } from './types/avtale';
+import { Avtaleinnhold, Stillingstype, TilskuddPeriodeStatus, TiltaksType } from './types/avtale';
 import { HendelseType } from './types/hendelse';
 
 export const messages = {
@@ -49,10 +49,6 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     sumLonnstilskudd: 'sum beløp til utbetaling',
     stillingKonseptId: '',
     stillingStyrk08: '',
-    godkjentTidspunkt: '',
-    tilskuddPeriodeStatus: '',
-    beløp: '',
-    id: '',
 };
 
 export const hendelseTekst: { [key in HendelseType]: string } = {
@@ -92,4 +88,10 @@ export const avtaleTittel = {
 export const stillingstype: { [key in Stillingstype]: string } = {
     FAST: 'Fast',
     MIDLERTIDIG: 'Midlertidig',
+};
+
+export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: string } = {
+    GODKJENT: 'Godkjent',
+    AVSLÅTT: 'Avslått',
+    UBEHANDLET: 'Ubehandlet',
 };

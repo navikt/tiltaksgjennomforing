@@ -42,10 +42,6 @@ const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     stillingstype: 'FAST',
     stillingKonseptId: 123,
     stillingStyrk08: 1234,
-    tilskuddPeriodeStatus: 'UBEHANDLET',
-    beløp: 0,
-    id: '',
-    godkjentTidspunkt: '',
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {

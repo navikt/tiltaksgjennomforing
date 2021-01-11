@@ -6,7 +6,7 @@ export type Avtale = Avbrytelse &
     Avtaleparter &
     Versjonering &
     Godkjenninger &
-    Avtaleinnhold;
+    Avtaleinnhold & { tilskuddPeriodeStatus: TilskuddPeriodeStatus };
 
 export type Avtaleinnhold = Arbeidsgiverinfo &
     Bedriftinfo &
@@ -19,7 +19,6 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     MaalListe &
     Beregningsgrunnlag &
     TilskuddsPerioder &
-    TilskuddsPeriode &
     Kontonummer &
     RelasjonerInfo &
     Mentorinfo;
@@ -119,7 +118,7 @@ export interface TilskuddsPeriode {
     startDato: string;
     sluttDato: string;
     godkjentTidspunkt: string;
-    tilskuddPeriodeStatus: TilskuddPeriodeStatus;
+    status: TilskuddPeriodeStatus;
 }
 
 export interface Kontonummer {

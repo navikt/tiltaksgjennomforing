@@ -69,8 +69,6 @@ const lonnstilskuddAvtaleMock: Avtale = {
     sumLonnstilskudd: 0,
     erUfordelt: false,
     tilskuddPeriodeStatus: 'UBEHANDLET',
-    beløp: 0,
-    godkjentTidspunkt: '',
 
     maal: [],
 };

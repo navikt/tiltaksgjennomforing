@@ -5,7 +5,7 @@ import BeslutterTilskuddsPerioder from '@/BeslutterSide/BeslutterTilskuddsperiod
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { avtaleTittel } from '@/messages';
+import { avtaleTittel, tilskuddsperiodeStatusTekst } from '@/messages';
 import { pathTilAvtale } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
@@ -52,7 +52,7 @@ const BeslutterSide: FunctionComponent = () => {
                     <Innholdsboks>
                         <div className={cls.element('tittel')}>
                             <Undertittel>Tilskudd som skal godkjennes</Undertittel>
-                            <EtikettInfo>Ubehandlet</EtikettInfo>
+                            <EtikettInfo>{tilskuddsperiodeStatusTekst[tilskuddsperiode.status]}</EtikettInfo>
                         </div>
                         <VerticalSpacer rem={2} />
                         <div className={cls.element('grid-container')}>
