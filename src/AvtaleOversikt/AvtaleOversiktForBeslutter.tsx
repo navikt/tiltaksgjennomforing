@@ -61,12 +61,14 @@ const AvtaleOversiktForBeslutter: FunctionComponent = () => {
                     <aside style={layout.stylingAvFilter}>
                         <BeslutterFiltrering endreSøk={endreSøk} />
                     </aside>
-                    <Avtaler
-                        avtalelisteRessurs={avtalelisteRessurs}
-                        innloggetBruker={innloggetBruker}
-                        varsler={varsler}
-                        sokekriterier={søkekriterier}
-                    />
+                    <section style={layout.stylingAvTabell}>
+                        <Avtaler
+                            avtalelisteRessurs={avtalelisteRessurs}
+                            innloggetBruker={innloggetBruker}
+                            varsler={varsler}
+                            sokekriterier={søkekriterier}
+                        />
+                    </section>
                 </div>
             </main>
         </>
