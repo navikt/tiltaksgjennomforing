@@ -21,23 +21,15 @@ const hentLinkTilAvtale = (avtaleId: string, rolle: Rolle) => {
     return rolle === 'BESLUTTER' ? pathTilAvtale(avtaleId) + '/beslutte/' : pathTilAvtale(avtaleId);
 };
 
-const hentStatusKolonner = (avtale: Avtale, tilskuddPeriodeStatus: TilskuddPeriodeStatus, rolle: Rolle) => {
-    if (rolle === 'BESLUTTER') {
-        return (
-            <div className={cls.element('status')}>
-                <EtikettInfo>{tilskuddPeriodeStatus}</EtikettInfo>
+const hentStatusKolonne = (avtale: Avtale, tilskuddPeriodeStatus: TilskuddPeriodeStatus, rolle: Rolle) => {
+    const status = rolle === 'BESLUTTER' ? tilskuddPeriodeStatus : avtale.status;
+    return (
+        <>
+            <div className={cls.element('statusikon')}>
+                {rolle === 'BESLUTTER' ? <EtikettInfo>{status}</EtikettInfo> : <StatusIkon status={status} />}
             </div>
-        );
-    } else {
-        return (
-            <>
-                <div className={cls.element('statusikon')}>
-                    <StatusIkon status={avtale.status} />
-                </div>
-                <div className={cls.element('status')}>{avtale.status}</div>
-            </>
-        );
-    }
+        </>
+    );
 };
 
 const AvtaleTabell: FunctionComponent<{
@@ -88,7 +80,7 @@ const AvtaleTabell: FunctionComponent<{
                                     {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                                 </div>
                             </MediaQuery>
-                            {hentStatusKolonner(avtale, avtale.tilskuddPeriodeStatus, innloggetBruker.rolle)}
+                            {hentStatusKolonne(avtale, avtale.tilskuddPeriodeStatus, innloggetBruker.rolle)}
                         </div>
                     </LenkepanelBase>
                 );

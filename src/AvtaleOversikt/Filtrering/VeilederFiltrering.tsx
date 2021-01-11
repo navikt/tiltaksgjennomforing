@@ -15,7 +15,7 @@ const VeilederFiltrering: FunctionComponent<FiltreringProps> = props => {
     return (
         <div className={cls.className}>
             <DeltakerOgBedriftFilter {...props} />
-            <TiltakstypeFilter {...props} />
+            <TiltakstypeFilter {...props} erBeslutter={false} />
             <StatusFilter {...props} />
         </div>
     );
