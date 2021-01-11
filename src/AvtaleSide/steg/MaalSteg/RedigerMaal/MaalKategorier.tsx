@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { Maalkategori } from '@/types/maalkategorier';
 import { AvtaleContext } from '@/AvtaleProvider';
+import { messages } from '@/messages';
 
 interface Props {
     valgtMaalKategori?: Maalkategori;
@@ -18,7 +19,7 @@ const MaalKategorier: FunctionComponent<Props> = props => {
     if (props.valgtMaalKategori) {
         redigerComponentListe.push(
             <option value={props.valgtMaalKategori} key={props.valgtMaalKategori}>
-                {props.valgtMaalKategori}
+                {messages[props.valgtMaalKategori]}
             </option>
         );
     }
@@ -26,7 +27,7 @@ const MaalKategorier: FunctionComponent<Props> = props => {
         .filter(mal => mal !== context.mellomLagring?.kategori)
         .map((maalKategori, index) => (
             <option value={maalKategori} key={index}>
-                {maalKategori}
+                {messages[maalKategori]}
             </option>
         ));
     redigerComponentListe.push(...liste);
