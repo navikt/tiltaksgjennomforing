@@ -1,5 +1,4 @@
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
-import { FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerVeileder';
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
@@ -17,7 +16,6 @@ const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversiktForBeslutter: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const featureToggleContext = useContext(FeatureToggleContext);
 
     const sokeKriterer = { beslutterNavIdent: innloggetBruker.identifikator };
     const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(sokeKriterer);
