@@ -1,6 +1,4 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
-import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilAvtale } from '@/paths';
@@ -14,6 +12,7 @@ import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-
 import React, { FunctionComponent, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import './BeslutterSide.less';
+import BeslutterTilskuddsPerioder from '@/BeslutterSide/BeslutterTilskuddsperioder';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -105,8 +104,7 @@ const BeslutterSide: FunctionComponent = () => {
                     <Ekspanderbartpanel tittel="Se avtalen">heh</Ekspanderbartpanel>
                     <VerticalSpacer rem={1} />
                     <Innholdsboks>
-                        <LesMerOmTilskuddsPerioder />
-                        <TilskuddsPerioder />
+                        <BeslutterTilskuddsPerioder />
                     </Innholdsboks>
                 </div>
             </div>
