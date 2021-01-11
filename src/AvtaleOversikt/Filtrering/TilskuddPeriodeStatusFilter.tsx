@@ -7,7 +7,9 @@ import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
 
 const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
-    const [valgtTilskuddPeriodeStatus, setValgtTilskuddPeriodeStatus] = useState<TilskuddPeriodeStatus | ''>('');
+    const [valgtTilskuddPeriodeStatus, setValgtTilskuddPeriodeStatus] = useState<TilskuddPeriodeStatus | ''>(
+        'UBEHANDLET'
+    );
 
     const alleTilskuddPeriodeStatus: OptionProps[] = [
         { value: 'UBEHANDLET', label: 'Ubehandlet' },
