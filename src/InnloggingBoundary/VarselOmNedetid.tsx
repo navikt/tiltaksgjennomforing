@@ -12,7 +12,7 @@ export const VarselOmNedetid: FunctionComponent = () => {
             .then(varianter => {
                 setVariant(varianter[Feature.VisNedetidBanner]);
             })
-            .catch(() => {});
+            .catch(() => void 0);
     }, []);
 
     if (variant && variant.enabled) {

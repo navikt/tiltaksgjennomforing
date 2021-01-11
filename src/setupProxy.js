@@ -4,6 +4,7 @@ const whitelist = require('./whitelist');
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 
 const envProperties = {
+    ENABLE_BESLUTTER: brukLokalLogin,
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
     APIGW_HEADER: process.env.APIGW_HEADER,
     ISSO_LOGIN_URL:
@@ -46,18 +47,18 @@ module.exports = function(app) {
             );
         }
         if (envProperties.ISSO_LOGIN_URL) {
-            innloggingskilder.push(
-                {
-                    tittel: 'Som NAV-veileder',
-                    part: 'VEILEDER',
-                    url: envProperties.ISSO_LOGIN_URL,
-                },
-                {
-                    tittel: 'Som NAV-beslutter',
+            innloggingskilder.push({
+                tittel: 'Som Veileder',
+                part: 'VEILEDER',
+                url: envProperties.ISSO_LOGIN_URL,
+            });
+            if (envProperties.ENABLE_BESLUTTER) {
+                innloggingskilder.push({
+                    tittel: 'Som Beslutter',
                     part: 'BESLUTTER',
                     url: envProperties.ISSO_LOGIN_URL,
-                }
-            );
+                });
+            }
         }
 
         res.json(innloggingskilder);

@@ -17,8 +17,9 @@ export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
 };
 
 export interface TemporaryLagring {
-    maal?: Maalkategori;
-    maalTekst: string;
+    id?: string;
+    kategori: Maalkategori;
+    beskrivelse: string;
 }
 
 export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
@@ -36,6 +37,7 @@ export interface Context {
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
     godkjenn: (godkjent: boolean) => Promise<void>;
+    godkjennTilskudd: (tilskuddPeriodeId: string) => Promise<void>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
     hentAvtale: (avtaleId: string) => Promise<void>;
@@ -59,7 +61,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const [ulagredeEndringer, setUlagredeEndringer] = useState(false);
     const [opphevGodkjenningerModalIsOpen, setOpphevGodkjenningerModalIsOpen] = useState(false);
     const visFeilmelding = useContext(FeilVarselContext);
-    const [mellomLagring, setMellomLagring] = useState<TemporaryLagring>();
+    const [mellomLagring, setMellomLagring] = useState<TemporaryLagring | undefined>(undefined);
     const [underLagring, setUnderLagring] = useState(false);
 
     const sendToAmplitude = (eventName: string): LogReturn =>
@@ -213,6 +215,12 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale(avtale.id);
     };
 
+    const godkjennTilskudd = async (tilskuddPeriodeId: string): Promise<void> => {
+        await RestService.godkjennTilskuddsperiode(avtale.id, tilskuddPeriodeId);
+        sendToAmplitude('#tiltak-tilskudd-godkjent');
+        await hentAvtale(avtale.id);
+    };
+
     const godkjennPaVegne = async (paVegneGrunn: GodkjentPaVegneGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
@@ -236,6 +244,7 @@ const AvtaleProvider: FunctionComponent = props => {
         endretSteg,
         godkjenn,
         godkjennPaVegne,
+        godkjennTilskudd,
         ulagredeEndringer,
         mellomLagring,
         setMellomLagring,

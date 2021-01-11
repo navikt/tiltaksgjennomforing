@@ -30,15 +30,21 @@ export const accurateHumanize = (duration: moment.Duration, accuracy: number = 2
         .map(({ value, key }) => moment.localeData().relativeTime(value, true, key as moment.RelativeTimeKey, true))
         .join(', ');
 };
-const NORSK_DATO_FORMAT = 'DD.MM.YYYY HH:mm';
-export const formatterDato = (dato: string) => {
+
+export const NORSK_DATO_OG_TID_FORMAT = 'DD.MM.YYYY HH:mm';
+export const NORSK_DATO_FORMAT = 'DD.MM.YYYY';
+
+export const formatterDato = (dato: string, format: string = NORSK_DATO_OG_TID_FORMAT) => {
     try {
-        const formattertDato = moment(dato).format(NORSK_DATO_FORMAT);
+        const formattertDato = moment(dato).format(format);
         return !formattertDato.includes('NaN') ? formattertDato : dato;
     } catch (e) {
         // Kunne ikke caste stringen til dato.
         return dato;
     }
+};
+export const formatterPeriode = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
+    return formatterDato(fra, format) + ' – ' + formatterDato(til, format);
 };
 
 export const erDatoTilbakeITid = (dato?: string) => moment(dato).diff(moment(), 'days') < 0;
