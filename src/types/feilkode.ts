@@ -1,26 +1,33 @@
 export type Feilkode =
-    | 'SAMTIDIGE_ENDRINGER'
     | 'ALT_MA_VAERE_FYLT_UT'
-    | 'IKKE_VALGT_PART'
-    | 'VEILEDER_SKAL_GODKJENNE_SIST'
-    | 'DELTAKER_HAR_GODKJENT'
     | 'ARBEIDSGIVER_SKAL_GODKJENNE_FOER_VEILEDER'
+    | 'DELTAKER_HAR_GODKJENT'
+    | 'ER_ALLEREDE_VEILEDER'
     | 'GODKJENT_PAA_VEGNE_GRUNN_MAA_VELGES'
     | 'GRUNN_TIL_AVBRYTELSE'
-    | 'UGYLDIG_TLF'
-    | 'KAN_IKKE_OPPHEVE'
+    | 'IKKE_VALGT_PART'
     | 'KAN_IKKE_ENDRE'
     | 'KAN_IKKE_LAASES_OPP'
-    | 'ER_ALLEREDE_VEILEDER'
+    | 'KAN_IKKE_OPPHEVE'
+    | 'SAMTIDIGE_ENDRINGER'
     | 'START_ETTER_SLUTT'
-    | 'IKKE_AKSEPTERT_UTKAST'
+    | 'UGYLDIG_TLF'
+    | 'IKKE_FORDELT'
     | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD'
-    | 'VARIGHET_FOR_LANG_MENTOR'
     | 'VARIGHET_FOR_LANG_ARBEIDSTRENING'
+    | 'VARIGHET_FOR_LANG_MENTOR'
+    | 'VEILEDER_SKAL_GODKJENNE_SIST'
+    | 'ALTINN_FEIL'
+    | 'GOSYS_FEIL'
     | 'ENHET_ER_JURIDISK'
     | 'ENHET_ER_ORGLEDD'
     | 'ENHET_FINNES_IKKE'
-    | 'IKKE_TILGANG_TIL_DELTAKER';
+    | 'IKKE_TILGANG_TIL_DELTAKER'
+    | 'KAN_IKKE_GODKJENNE_AVTALE_KODE6'
+    | 'KAN_IKKE_OPPRETTE_AVTALE_KODE6'
+    | 'TILSKUDDSPERIODE_ER_ALLEREDE_GODKJENT'
+    | 'TILSKUDDSPERIODE_KAN_KUN_GODKJENNES_VED_INNGAATT_AVTALE'
+    | 'TILSKUDDSPERIODE_GODKJENT_FOR_TIDLIG';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -38,7 +45,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_LAASES_OPP: 'Avtalen kan ikke låses opp',
     ER_ALLEREDE_VEILEDER: 'Innlogget bruker er allerede veileder på denne avtalen',
     START_ETTER_SLUTT: 'Startdato er etter sluttdato',
-    IKKE_AKSEPTERT_UTKAST: 'Kan ikke godkjenne før veileder har akseptert avtaleutkast',
     VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD: 'Avtalens varighet er maksimalt 24 måneder',
     VARIGHET_FOR_LANG_MENTOR: 'Avtalens varighet er maksimalt 36 måneder',
     VARIGHET_FOR_LANG_ARBEIDSTRENING: 'Avtalens varighet er maksimalt 18 måneder',
@@ -46,4 +52,12 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_ER_ORGLEDD: 'Avtale må registreres på virksomhetens bedriftsnummer, ikke organisasjonsleddet.',
     ENHET_FINNES_IKKE: 'Finnes ikke i Enhetsregisteret.',
     IKKE_TILGANG_TIL_DELTAKER: 'Du har ikke tilgang til deltaker',
+    ALTINN_FEIL: 'Feil ved oppslag mot altinn',
+    GOSYS_FEIL: '',
+    IKKE_FORDELT: 'Avtalen er ikke fordelt til en veileder',
+    KAN_IKKE_GODKJENNE_AVTALE_KODE6: 'Avtalen kan ikke godkjennes',
+    KAN_IKKE_OPPRETTE_AVTALE_KODE6: 'Avtalen kan ikke opprettes',
+    TILSKUDDSPERIODE_ER_ALLEREDE_GODKJENT: 'Tilskuddsperioden er allerede godkjent',
+    TILSKUDDSPERIODE_GODKJENT_FOR_TIDLIG: 'Tilskuddsperioden kan ikke godkjennes tidligere enn 2 uker før startdato',
+    TILSKUDDSPERIODE_KAN_KUN_GODKJENNES_VED_INNGAATT_AVTALE: 'Tilskuddsperioden kan kun godkjennes ved inngått avtale',
 };

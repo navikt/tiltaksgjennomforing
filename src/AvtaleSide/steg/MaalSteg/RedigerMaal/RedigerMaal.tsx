@@ -1,4 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import MaalKategorier from '@/AvtaleSide/steg/MaalSteg/RedigerMaal/MaalKategorier';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Maal } from '@/types/avtale';
 import { ApiError } from '@/types/errors';
@@ -8,7 +9,6 @@ import { Select, Textarea } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import * as React from 'react';
 import { FunctionComponent, useContext, useState } from 'react';
-import MaalKategorier from '@/AvtaleSide/steg/MaalSteg/RedigerMaal/MaalKategorier';
 
 interface Props {
     avsluttRedigering: () => void;
@@ -29,9 +29,7 @@ const RedigerMaal: FunctionComponent<Props> = props => {
         return undefined;
     };
 
-    const [valgtMaal, setValgtMaal] = useState<
-        { id?: string; kategori?: Maalkategori; beskrivelse?: string } | undefined
-    >(initieltMaal());
+    const [valgtMaal, setValgtMaal] = useState<Partial<Maal> | undefined>(initieltMaal());
 
     const [beskrivelseFeil, setBeskrivelseFeil] = useState<SkjemaelementFeil | undefined>(undefined);
     const [valgtKategoriFeil, setValgtKategoriFeil] = useState<SkjemaelementFeil | undefined>(undefined);
@@ -40,11 +38,10 @@ const RedigerMaal: FunctionComponent<Props> = props => {
         const { value } = event.currentTarget;
         setValgtMaal({
             ...valgtMaal,
-            id: value,
             kategori: value as Maalkategori,
         });
         if (valgtMaal?.kategori && valgtMaal?.beskrivelse) {
-            context.setMellomLagring({ ...(valgtMaal as Maal), id: value, kategori: value as Maalkategori });
+            context.setMellomLagring({ ...(valgtMaal as Maal), kategori: value as Maalkategori });
         }
     };
 
