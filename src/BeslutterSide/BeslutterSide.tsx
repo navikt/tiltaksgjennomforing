@@ -7,12 +7,14 @@ import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/dato
 import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { EtikettInfo } from 'nav-frontend-etiketter';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Knapp } from 'nav-frontend-knapper';
 import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import './BeslutterSide.less';
 import BeslutterTilskuddsPerioder from '@/BeslutterSide/BeslutterTilskuddsperioder';
+import { formatterProsent } from '@/utils/formatterProsent';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -21,20 +23,20 @@ const BeslutterSide: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const { tilskuddsperiodeId } = useParams();
 
-    const forsteTilskudd = avtaleContext.avtale.tilskuddPeriode.length
-        ? avtaleContext.avtale.tilskuddPeriode[0]
-        : undefined;
+    if (avtaleContext.avtale.tilskuddPeriode.length === 0) {
+        return <div>Ingen tilskuddsperioder</div>;
+    }
 
-    if (forsteTilskudd) {
-        if (!tilskuddsperiodeId) {
-            history.replace(`${pathTilAvtale(avtaleContext.avtale.id)}/beslutte/${forsteTilskudd.id}`);
-        }
-    } else {
+    if (!tilskuddsperiodeId) {
+        const tilskuddsperiode = avtaleContext.avtale.tilskuddPeriode[0];
+        history.replace(`${pathTilAvtale(avtaleContext.avtale.id)}/beslutte/${tilskuddsperiode.id}`);
         return null;
     }
 
-    if (!avtaleContext.avtale) {
-        return null;
+    const tilskuddsperiode = avtaleContext.avtale.tilskuddPeriode.find(periode => periode.id === tilskuddsperiodeId);
+
+    if (!tilskuddsperiode) {
+        throw Error('Ugyldig tilskuddsperiode');
     }
 
     return (
@@ -70,33 +72,36 @@ const BeslutterSide: FunctionComponent = () => {
                             </div>
                             <div>
                                 <Normaltekst>
-                                    {formatterPeriode(forsteTilskudd.startDato, forsteTilskudd.sluttDato)}
+                                    {formatterPeriode(tilskuddsperiode.startDato, tilskuddsperiode.sluttDato)}
                                 </Normaltekst>
                             </div>
                             <div>
                                 <Element>Frist</Element>
                             </div>
                             <div>
-                                <Normaltekst>{formatterDato(forsteTilskudd.startDato, NORSK_DATO_FORMAT)}</Normaltekst>
+                                <Normaltekst>
+                                    {formatterDato(tilskuddsperiode.startDato, NORSK_DATO_FORMAT)}
+                                </Normaltekst>
                             </div>
                             <div>
                                 <Element>Lønnstilskuddsprosent</Element>
                             </div>
                             <div>
-                                <Normaltekst>{avtaleContext.avtale.lonnstilskuddProsent}%</Normaltekst>
+                                <Normaltekst>{formatterProsent(avtaleContext.avtale.lonnstilskuddProsent)}</Normaltekst>
                             </div>
                             <div>
                                 <Element>Beløp</Element>
                             </div>
                             <div>
-                                <Normaltekst>{formatterPenger(forsteTilskudd.beløp)}</Normaltekst>
+                                <Normaltekst>{formatterPenger(tilskuddsperiode.beløp)}</Normaltekst>
                             </div>
                         </div>
                         <VerticalSpacer rem={2} />
                         <div>
-                            <Hovedknapp onClick={() => avtaleContext.godkjennTilskudd(forsteTilskudd.id)}>
-                                Godkjenn tilskudd
-                            </Hovedknapp>
+                            <LagreKnapp
+                                lagre={() => avtaleContext.godkjennTilskudd(tilskuddsperiode.id)}
+                                label="Godkjenn tilskudd"
+                            />
                             <Knapp style={{ marginLeft: '0.5rem' }}>Avslå</Knapp>
                         </div>
                     </Innholdsboks>
