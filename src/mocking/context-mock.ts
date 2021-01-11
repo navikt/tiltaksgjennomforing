@@ -28,7 +28,16 @@ const avtaleInnhold: Avtale = {
     stillingprosent: 1,
     sumLonnstilskudd: 1,
     sumLonnsutgifter: 111,
-    tilskuddPeriode: [{ beløp: 10000, id: '123123', startDato: '', sluttDato: '' }],
+    tilskuddPeriode: [
+        {
+            beløp: 10000,
+            id: '123123',
+            startDato: '',
+            sluttDato: '',
+            godkjentTidspunkt: '',
+            tilskuddPeriodeStatus: 'UBEHANDLET',
+        },
+    ],
     tilrettelegging: '',
     veilederEtternavn: '',
     veilederFornavn: '',
@@ -46,6 +55,9 @@ const avtaleInnhold: Avtale = {
     godkjentPaVegneAv: false,
     id: '',
     kanAvbrytes: true,
+    tilskuddPeriodeStatus: 'UBEHANDLET',
+    godkjentTidspunkt: '',
+    beløp: 0,
     kanGjenopprettes: false,
     kanLåsesOpp: false,
     opprettetTidspunkt: '',
@@ -53,6 +65,7 @@ const avtaleInnhold: Avtale = {
     status: '',
     tiltakstype: 'ARBEIDSTRENING',
     veilederNavIdent: '',
+    beslutterNavIdent: '',
     versjoner: [],
 };
 

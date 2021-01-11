@@ -2,6 +2,7 @@ import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { pathTilAvtale } from '@/paths';
 import { Avtale } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
+import { Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
@@ -14,6 +15,9 @@ import './AvtaleTabell.less';
 
 const cls = BEMHelper('avtaletabell');
 
+const hentLinkTilAvtale = (avtaleId: string, rolle: Rolle) => {
+    return rolle === 'BESLUTTER' ? pathTilAvtale(avtaleId) + '/beslutte/' : pathTilAvtale(avtaleId);
+};
 const AvtaleTabell: FunctionComponent<{
     avtaler: Avtale[];
     varsler: Varsel[];
@@ -36,7 +40,7 @@ const AvtaleTabell: FunctionComponent<{
                 return (
                     <LenkepanelBase
                         key={avtale.id}
-                        href={pathTilAvtale(avtale.id)}
+                        href={hentLinkTilAvtale(avtale.id, innloggetBruker.rolle)}
                         linkCreator={(props: any) => (
                             <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
                         )}

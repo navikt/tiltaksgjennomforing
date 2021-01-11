@@ -49,6 +49,10 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     sumLonnstilskudd: 'sum beløp til utbetaling',
     stillingKonseptId: '',
     stillingStyrk08: '',
+    godkjentTidspunkt: '',
+    tilskuddPeriodeStatus: '',
+    beløp: '',
+    id: '',
 };
 
 export const hendelseTekst: { [key in HendelseType]: string } = {

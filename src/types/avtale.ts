@@ -19,11 +19,13 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     MaalListe &
     Beregningsgrunnlag &
     TilskuddsPerioder &
+    TilskuddsPeriode &
     Kontonummer &
     RelasjonerInfo &
     Mentorinfo;
 
 export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD' | 'MENTOR';
+export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT';
 export type AvbrytelseGrunn =
     | 'Begynt i arbeid'
     | 'Fått tilbud om annet tiltak'
@@ -45,6 +47,7 @@ export interface Avtaleparter {
     bedriftNr: string;
     deltakerFnr: string;
     veilederNavIdent: string;
+    beslutterNavIdent: string;
 }
 
 export interface Bedriftinfo {
@@ -115,6 +118,8 @@ export interface TilskuddsPeriode {
     id: string;
     startDato: string;
     sluttDato: string;
+    godkjentTidspunkt: string;
+    tilskuddPeriodeStatus: TilskuddPeriodeStatus;
 }
 
 export interface Kontonummer {

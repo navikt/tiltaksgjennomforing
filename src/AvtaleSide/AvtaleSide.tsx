@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
-import BannerVeileder from '@/komponenter/Banner/BannerVeileder';
+import BannerNAVAnsatt from '@/komponenter/Banner/BannerVeileder';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilOversikt } from '@/paths';
@@ -87,7 +87,7 @@ const AvtaleSide: FunctionComponent = () => {
             <div className="avtaleside">
                 {erAvtaleLaast && (
                     <div className={cls.element('innhold')}>
-                        <BannerVeileder tekst={sideTittel} />
+                        <BannerNAVAnsatt tekst={sideTittel} />
                         <OppgaveLinje enableScreenSizeCheck={false} />
                         <VerticalSpacer sixteenPx={true} />
                         <VerticalSpacer sixteenPx={true} />

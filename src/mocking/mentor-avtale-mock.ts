@@ -31,8 +31,12 @@ const mentorAvtaleMock: Avtale = {
     stillingprosent: 99,
 
     tilskuddPeriode: [],
+    tilskuddPeriodeStatus: 'UBEHANDLET',
+    beløp: 0,
+    godkjentTidspunkt: '',
 
     veilederNavIdent: 'Z123456',
+    beslutterNavIdent: 'Z321456',
     veilederFornavn: 'Nave',
     veilederEtternavn: 'Naversen',
     veilederTlf: '88888888',

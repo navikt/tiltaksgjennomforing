@@ -33,6 +33,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     tilskuddPeriode: [],
 
     veilederNavIdent: 'Z123456',
+    beslutterNavIdent: 'Z321456',
     veilederFornavn: 'Kåre',
     veilederEtternavn: 'Sandøy',
     veilederTlf: '88888888',
@@ -67,6 +68,9 @@ const lonnstilskuddAvtaleMock: Avtale = {
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,
     erUfordelt: false,
+    tilskuddPeriodeStatus: 'UBEHANDLET',
+    beløp: 0,
+    godkjentTidspunkt: '',
 
     maal: [],
 };
