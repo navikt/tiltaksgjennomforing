@@ -15,6 +15,7 @@ export const BedriftFilter: FunctionComponent<FiltreringProps> = props => {
                 valider={(verdi: string) =>
                     !validerOrgnr(verdi) ? { feilmelding: 'Ugyldig bedriftsnummer' } : undefined
                 }
+                placeholder={'Skriv et bedriftsnummer'}
             />
         </Filter>
     );
