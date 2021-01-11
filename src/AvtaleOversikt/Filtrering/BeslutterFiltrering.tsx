@@ -9,7 +9,7 @@ const BeslutterFiltrering: FunctionComponent<FiltreringProps> = props => {
     return (
         <div className={cls.className}>
             <TilskuddPeriodeStatusFilter {...props} />
-            <TiltakstypeFilter {...props} />
+            <TiltakstypeFilter {...props} erBeslutter />
         </div>
     );
 };

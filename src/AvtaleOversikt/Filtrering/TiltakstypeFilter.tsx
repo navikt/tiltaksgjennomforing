@@ -1,13 +1,21 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { TiltaksType } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
 
-const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
+export type FiltreringMedBeslutterProps = { endreSøk: (søkekriterier: Partial<Avtale>) => void; erBeslutter: boolean };
+const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = props => {
     const [valgtTiltakstype, setValgtTiltakstype] = useState<TiltaksType | ''>('');
+
+    const alleTiltakstyperBeslutter: OptionProps[] = [
+        { value: '', label: 'Alle' },
+        //       { value: 'MENTOR', label: 'Mentor' },
+        { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
+        { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
+    ];
 
     const alleTiltakstyper: OptionProps[] = [
         { value: '', label: 'Alle' },
@@ -16,9 +24,11 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
     ];
 
+    const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
+
     return (
         <Filter tittel="Tiltakstype">
-            {alleTiltakstyper.map(tiltakstype => (
+            {tiltakstyper.map(tiltakstype => (
                 <Radio
                     key={tiltakstype.label}
                     label={tiltakstype.label}
