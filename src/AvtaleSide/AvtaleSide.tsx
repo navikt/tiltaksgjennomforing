@@ -5,6 +5,7 @@ import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerVeileder';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { avtaleTittel } from '@/messages';
 import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/stegUtils';
@@ -46,16 +47,9 @@ const AvtaleSide: FunctionComponent = () => {
     const history = useHistory();
     const { stegPath } = useParams();
 
-    const titler = {
-        ARBEIDSTRENING: 'Avtale om arbeidstrening',
-        MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
-        VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
-        MENTOR: 'Avtale om tilskudd til mentor',
-    };
-
     const erDesktop = windowSize > 767;
     const erAvtaleLaast = avtale.erLaast || avtale.avbrutt || innloggetBruker.rolle === 'DELTAKER';
-    const sideTittel = titler[avtale.tiltakstype] !== undefined ? titler[avtale.tiltakstype] : 'Avtale';
+    const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);
 

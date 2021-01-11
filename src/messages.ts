@@ -82,6 +82,13 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     MENTOR: 'Mentor',
 };
 
+export const avtaleTittel = {
+    ARBEIDSTRENING: 'Avtale om arbeidstrening',
+    MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
+    VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
+    MENTOR: 'Avtale om tilskudd til mentor',
+};
+
 export const stillingstype: { [key in Stillingstype]: string } = {
     FAST: 'Fast',
     MIDLERTIDIG: 'Midlertidig',
