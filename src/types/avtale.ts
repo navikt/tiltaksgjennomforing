@@ -117,7 +117,8 @@ export interface TilskuddsPeriode {
     id: string;
     startDato: string;
     sluttDato: string;
-    godkjentTidspunkt: string;
+    godkjentTidspunkt?: string;
+    godkjentAvNavIdent?: string;
     status: TilskuddPeriodeStatus;
 }
 
