@@ -1,13 +1,7 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { NavFrontendInputProps } from 'nav-frontend-skjema';
 import React from 'react';
-
-export const formaterProsent = (value: any): string => {
-    if (!value) {
-        return '';
-    }
-    return `${value} %`;
-};
+import { formatterProsent } from '@/utils/formatterProsent';
 
 const ProsentInput: React.FunctionComponent<NavFrontendInputProps> = props => {
     const { step = 1, max, min, ...other } = props;
@@ -19,12 +13,12 @@ const ProsentInput: React.FunctionComponent<NavFrontendInputProps> = props => {
         },
         (v: any) => {
             if (v && min && v < min) {
-                return { feilmelding: 'Må være over ' + formaterProsent(min) };
+                return { feilmelding: 'Må være over ' + formatterProsent(min) };
             }
         },
         (v: any) => {
             if (v && max && v > max) {
-                return { feilmelding: 'Må være under ' + formaterProsent(max) };
+                return { feilmelding: 'Må være under ' + formatterProsent(max) };
             }
         },
     ];
@@ -33,7 +27,7 @@ const ProsentInput: React.FunctionComponent<NavFrontendInputProps> = props => {
         <FormattedNumberInput
             step={step}
             validatorer={validatorer}
-            toFormatted={formaterProsent}
+            toFormatted={formatterProsent}
             max={max}
             min={min}
             {...other}

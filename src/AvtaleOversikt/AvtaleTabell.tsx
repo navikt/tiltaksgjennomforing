@@ -51,7 +51,6 @@ const AvtaleTabell: FunctionComponent<{
         <div role="list">
             {avtaler.map((avtale: Avtale) => {
                 const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
-
                 return (
                     <LenkepanelBase
                         key={avtale.id}

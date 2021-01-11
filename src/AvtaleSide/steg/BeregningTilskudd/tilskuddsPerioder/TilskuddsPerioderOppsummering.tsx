@@ -11,7 +11,7 @@ const TilskuddsPerioderOppsummering = () => {
     return visningAvtilskuddsPeriodeToggle ? (
         <>
             <Undertittel>Perioder for lønntilskudd</Undertittel>
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer rem={1} />
             <TilskuddsPerioder />
         </>
     ) : null;

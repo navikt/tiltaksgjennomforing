@@ -1,39 +1,49 @@
 import React, { FunctionComponent, useContext } from 'react';
-import BEMHelper from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
-import './tilskuddsPerioder.less';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
+import { formatterProsent } from '@/utils/formatterProsent';
+import { NavLink } from 'react-router-dom';
+import { pathTilAvtale } from '@/paths';
 
-const cls = BEMHelper('tilskuddsPerioder');
-
-const TilskuddsPerioder: FunctionComponent = () => {
+const BeslutterTilskuddsPerioder: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
-    const avtaleinnhold = useContext(AvtaleContext);
+    const { avtale } = useContext(AvtaleContext);
 
-    const detErOpprettetTilskuddsPerioder = avtaleinnhold.avtale.tilskuddPeriode.length > 0;
+    const detErOpprettetTilskuddsPerioder = avtale.tilskuddPeriode.length > 0;
 
     return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder ? (
-        <div className={cls.className}>
+        <div>
             <table className={'tabell'}>
                 <thead>
                     <tr>
                         <th>Periode</th>
                         <th>Beløp</th>
-                        <th>Arbeidsgiver kan be om refusjon</th>
+                        <th>Sats</th>
+                        <th>Frist</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {avtaleinnhold.avtale.tilskuddPeriode.map((periode, index) => {
+                    {avtale.tilskuddPeriode.map((periode, index) => {
                         return (
                             <tr key={index}>
                                 <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>
                                     {formatterPeriode(periode.startDato, periode.sluttDato)}
                                 </td>
                                 <td>{formatterPenger(periode.beløp)}</td>
+                                <td>{formatterProsent(avtale.lonnstilskuddProsent)}</td>
                                 <td>{formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}</td>
+                                <td>
+                                    <NavLink
+                                        to={`${pathTilAvtale(avtale.id)}/beslutte/${periode.id}`}
+                                        activeStyle={{ color: 'yellow' }}
+                                    >
+                                        Gå til
+                                    </NavLink>
+                                </td>
                             </tr>
                         );
                     })}
@@ -43,4 +53,4 @@ const TilskuddsPerioder: FunctionComponent = () => {
     ) : null;
 };
 
-export default TilskuddsPerioder;
+export default BeslutterTilskuddsPerioder;
