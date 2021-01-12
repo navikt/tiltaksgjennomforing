@@ -39,7 +39,7 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
 
     const logginnknapper = props.innloggingskilder
         .filter((innloggetkilde: Innloggingskilde) =>
-            viseBeslutterKnappToggle ? true : innloggetkilde.part !== 'BESLUTTER'
+            viseBeslutterKnappToggle ? innloggetkilde.part !== 'BESLUTTER' : true
         )
         .map((innlogginskilde: Innloggingskilde) => (
             <Hovedknapp
