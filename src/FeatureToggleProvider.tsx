@@ -6,6 +6,7 @@ export enum Feature {
     ArbeidsgiverOppretter = 'tag.tiltak.arbeidsgiver.oppretter',
     VisningAvTilskuddsPerioder = 'tag.tiltak.viseTilskuddsPerioder',
     VisNedetidBanner = 'tag.tiltak.visNedetidBanner',
+    ViseBeslutterKnapp = 'tag.tiltak.viseBeslutterLogin',
 }
 
 export const alleFeatures = Object.values(Feature);
