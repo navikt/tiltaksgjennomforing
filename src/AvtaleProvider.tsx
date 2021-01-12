@@ -1,5 +1,5 @@
 import { FeilVarselContext } from '@/FeilVarselProvider';
-import { Avtale, Beregningsgrunnlag, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
+import { Avslagsårsaker, Avtale, Beregningsgrunnlag, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
@@ -38,6 +38,11 @@ export interface Context {
     endretSteg: () => void;
     godkjenn: (godkjent: boolean) => Promise<void>;
     godkjennTilskudd: (tilskuddPeriodeId: string) => Promise<void>;
+    avslåTilskudd: (
+        tilskuddPeriodeId: string,
+        avslagsårsaker: Set<Avslagsårsaker>,
+        avslagsforklaring: string
+    ) => Promise<void>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
     hentAvtale: (avtaleId: string) => Promise<void>;
@@ -221,6 +226,16 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale(avtale.id);
     };
 
+    const avslåTilskudd = async (
+        tilskuddPeriodeId: string,
+        avslagsårsaker: Set<Avslagsårsaker>,
+        avslagsforklaring: string
+    ): Promise<void> => {
+        await RestService.avslåTilskuddsperiode(avtale.id, tilskuddPeriodeId, avslagsårsaker, avslagsforklaring);
+        sendToAmplitude('#tiltak-tilskudd-avslag');
+        await hentAvtale(avtale.id);
+    };
+
     const godkjennPaVegne = async (paVegneGrunn: GodkjentPaVegneGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
@@ -245,6 +260,7 @@ const AvtaleProvider: FunctionComponent = props => {
         godkjenn,
         godkjennPaVegne,
         godkjennTilskudd,
+        avslåTilskudd,
         ulagredeEndringer,
         mellomLagring,
         setMellomLagring,

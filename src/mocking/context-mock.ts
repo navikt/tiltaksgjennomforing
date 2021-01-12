@@ -1,5 +1,5 @@
 import { Context } from '@/AvtaleProvider';
-import { Avtale } from '@/types/avtale';
+import { Avslagsårsaker, Avtale } from '@/types/avtale';
 
 const avtaleInnhold: Avtale = {
     arbeidsgiverEtternavn: '',
@@ -36,6 +36,7 @@ const avtaleInnhold: Avtale = {
             sluttDato: '',
             godkjentTidspunkt: '',
             status: 'UBEHANDLET',
+            avslagsårsaker: new Set<Avslagsårsaker>(),
         },
     ],
     tilrettelegging: '',
@@ -84,6 +85,7 @@ export const contextMock: Context = {
     endretSteg: () => Promise.resolve(),
     godkjenn: () => Promise.resolve(),
     godkjennTilskudd: () => Promise.resolve(),
+    avslåTilskudd: () => Promise.resolve(),
     godkjennPaVegne: () => Promise.resolve(),
     ulagredeEndringer: false,
     mellomLagring: undefined,

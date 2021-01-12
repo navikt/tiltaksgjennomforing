@@ -1,7 +1,7 @@
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
-import { Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
+import { Avslagsårsaker, Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { AdresseError, ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -317,8 +317,28 @@ export const hentStillinger = async (sok: string): Promise<Stillingskategori[]> 
     const response = await fetch(`https://arbeidsgiver.nav.no/stillingstitler/search?q=${sok}`);
     return await response.json();
 };
+
 export const godkjennTilskuddsperiode = async (avtaleId: string, tilskuddPeriodeId: string) => {
     const uri = `${API_URL}/avtaler/${avtaleId}/tilskuddsperiode/${tilskuddPeriodeId}/godkjenn`;
     const response = await fetchPost(uri);
+    await handleResponse(response);
+};
+
+export const avslåTilskuddsperiode = async (
+    avtaleId: string,
+    tilskuddPeriodeId: string,
+    avslagsårsaker: Set<Avslagsårsaker>,
+    avslagsforklaring: string
+) => {
+    const uri = `${API_URL}/avtaler/${avtaleId}/tilskuddsperiode/${tilskuddPeriodeId}/avslag`;
+    const response = await fetchPost(uri, {
+        body: JSON.stringify({
+            avslagsårsaker,
+            avslagsforklaring,
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
     await handleResponse(response);
 };
