@@ -112,6 +112,8 @@ export interface TilskuddsPerioder {
     tilskuddPeriode: TilskuddsPeriode[];
 }
 
+export type Avslagsårsaker = 'FEIL_I_FAKTA' | 'FEIL_I_REGELFORSTÅELSE' | 'ANNET';
+
 export interface TilskuddsPeriode {
     beløp: number;
     id: string;
@@ -119,6 +121,10 @@ export interface TilskuddsPeriode {
     sluttDato: string;
     godkjentTidspunkt?: string;
     godkjentAvNavIdent?: string;
+    avslåttTidspunkt?: string;
+    avslåttAvNavIdent?: string;
+    avslagsforklaring?: string;
+    avslagsårsaker: Set<Avslagsårsaker>;
     status: TilskuddPeriodeStatus;
 }
 

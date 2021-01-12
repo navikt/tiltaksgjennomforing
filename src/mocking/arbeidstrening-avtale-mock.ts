@@ -1,4 +1,4 @@
-import { Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
+import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -21,6 +21,7 @@ const tilskuddsPeriode: TilskuddsPeriode[] = [
         sluttDato: '',
         status: 'UBEHANDLET',
         godkjentTidspunkt: '',
+        avslagsårsaker: new Set<Avslagsårsaker>(),
     },
 ];
 

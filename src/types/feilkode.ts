@@ -25,9 +25,11 @@ export type Feilkode =
     | 'IKKE_TILGANG_TIL_DELTAKER'
     | 'KAN_IKKE_GODKJENNE_AVTALE_KODE6'
     | 'KAN_IKKE_OPPRETTE_AVTALE_KODE6'
-    | 'TILSKUDDSPERIODE_ER_ALLEREDE_GODKJENT'
-    | 'TILSKUDDSPERIODE_KAN_KUN_GODKJENNES_VED_INNGAATT_AVTALE'
-    | 'TILSKUDDSPERIODE_GODKJENT_FOR_TIDLIG';
+    | 'TILSKUDDSPERIODE_ER_ALLEREDE_BEHANDLET'
+    | 'TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE'
+    | 'TILSKUDDSPERIODE_BEHANDLE_FOR_TIDLIG'
+    | 'TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD'
+    | 'TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -57,7 +59,9 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     IKKE_FORDELT: 'Avtalen er ikke fordelt til en veileder',
     KAN_IKKE_GODKJENNE_AVTALE_KODE6: 'Avtalen kan ikke godkjennes',
     KAN_IKKE_OPPRETTE_AVTALE_KODE6: 'Avtalen kan ikke opprettes',
-    TILSKUDDSPERIODE_ER_ALLEREDE_GODKJENT: 'Tilskuddsperioden er allerede godkjent',
-    TILSKUDDSPERIODE_GODKJENT_FOR_TIDLIG: 'Tilskuddsperioden kan ikke godkjennes tidligere enn 2 uker før startdato',
-    TILSKUDDSPERIODE_KAN_KUN_GODKJENNES_VED_INNGAATT_AVTALE: 'Tilskuddsperioden kan kun godkjennes ved inngått avtale',
+    TILSKUDDSPERIODE_ER_ALLEREDE_BEHANDLET: 'Tilskuddsperioden er allerede behandlet',
+    TILSKUDDSPERIODE_BEHANDLE_FOR_TIDLIG: 'Tilskuddsperioden kan ikke behandles tidligere enn 2 uker før startdato',
+    TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE: 'Tilskuddsperioden kan kun behandles ved inngått avtale',
+    TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD: 'Avslagsforklaring må fylles ut',
+    TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER: 'Minst én avslagsårsak må velges',
 };
