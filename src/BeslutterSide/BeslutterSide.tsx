@@ -14,7 +14,7 @@ import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Knapp } from 'nav-frontend-knapper';
 import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { TilskuddPeriodeStatus } from '../types/avtale';
 import './BeslutterSide.less';
@@ -26,6 +26,7 @@ const BeslutterSide: FunctionComponent = () => {
     const history = useHistory();
     const avtaleContext = useContext(AvtaleContext);
     const { tilskuddsperiodeId } = useParams();
+    const [clsName, setClsName] = useState<string>();
 
     if (avtaleContext.avtale.tilskuddPeriode.length === 0) {
         return <div>Ingen tilskuddsperioder</div>;
@@ -49,14 +50,21 @@ const BeslutterSide: FunctionComponent = () => {
         UBEHANDLET: 'Tilskudd som skal godkjennes',
     };
 
+    const fadeInOut = () => {
+        setClsName(cls.element('fade'));
+        setTimeout(() => {
+            setClsName(undefined);
+        }, 300);
+    };
+
     return (
         <>
             <VerticalSpacer rem={2} />
             <div className={cls.element('container')}>
                 <div className={cls.element('innhold')}>
-                    <div>
-                        <Innholdstittel>Tilskudd om midlertidig lønnstilskudd</Innholdstittel>
-                        <VerticalSpacer rem={1} />
+                    <Innholdstittel>Tilskudd om midlertidig lønnstilskudd</Innholdstittel>
+                    <VerticalSpacer rem={1} />
+                    <div className={clsName} style={{ transition: 'all 0.3s ease-in-out 0s' }}>
                         <Innholdsboks>
                             <div className={cls.element('tittel')}>
                                 <Undertittel>{tittel[tilskuddsperiode.status]}</Undertittel>
@@ -138,7 +146,7 @@ const BeslutterSide: FunctionComponent = () => {
                     </Ekspanderbartpanel>
                     <VerticalSpacer rem={1} />
                     <Innholdsboks>
-                        <BeslutterTilskuddsPerioder />
+                        <BeslutterTilskuddsPerioder startAnimering={fadeInOut} />
                     </Innholdsboks>
                 </div>
             </div>

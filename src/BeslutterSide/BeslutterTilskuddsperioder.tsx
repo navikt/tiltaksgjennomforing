@@ -8,7 +8,11 @@ import React, { FunctionComponent, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import EtikettStatus from './EtikettStatus';
 
-const BeslutterTilskuddsPerioder: FunctionComponent = () => {
+type Props = {
+    startAnimering: () => void;
+};
+
+const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
     const { avtale } = useContext(AvtaleContext);
@@ -45,6 +49,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent = () => {
                                     <NavLink
                                         to={`${pathTilAvtale(avtale.id)}/beslutte/${periode.id}`}
                                         activeStyle={{ display: 'none' }}
+                                        onClick={props.startAnimering}
                                     >
                                         Gå til
                                     </NavLink>
