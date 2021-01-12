@@ -16,7 +16,7 @@ import { EtikettInfo } from 'nav-frontend-etiketter';
 
 const cls = BEMHelper('avtaletabell');
 
-const hentStatusKolonner = (avtale: Avtale, rolle: Rolle) => {
+const hentAvtaleStatus = (avtale: Avtale, rolle: Rolle) => {
     if (rolle === 'BESLUTTER') {
         return (
             <div className={cls.element('status')}>
@@ -83,7 +83,7 @@ const AvtaleTabell: FunctionComponent<{
                                     {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                                 </div>
                             </MediaQuery>
-                            {hentStatusKolonner(avtale, innloggetBruker.rolle)}
+                            {hentAvtaleStatus(avtale, innloggetBruker.rolle)}
                         </div>
                     </LenkepanelBase>
                 );
