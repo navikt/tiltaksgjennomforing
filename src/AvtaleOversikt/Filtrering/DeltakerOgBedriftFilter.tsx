@@ -8,7 +8,7 @@ import { Radio } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import * as React from 'react';
 import { FormEvent, FunctionComponent, useContext, useState } from 'react';
-import { Feature } from '@/FeatureToggleProvider';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 type Validering = (verdi: string) => SkjemaelementFeil | undefined;
 
@@ -21,7 +21,8 @@ type Søketype = 'deltaker' | 'bedrift' | 'egne' | 'ufordelte';
 export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const arbeidsgiverOppretterToggle = Feature.ArbeidsgiverOppretter;
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
     const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false };
     const søk = {
