@@ -1,7 +1,6 @@
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { pathTilAvtale } from '@/paths';
 import { Avtale } from '@/types/avtale';
-import { TilskuddPeriodeStatus } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
@@ -17,11 +16,11 @@ import { EtikettInfo } from 'nav-frontend-etiketter';
 
 const cls = BEMHelper('avtaletabell');
 
-const hentStatusKolonner = (avtale: Avtale, tilskuddPeriodeStatus: TilskuddPeriodeStatus, rolle: Rolle) => {
+const hentStatusKolonner = (avtale: Avtale, rolle: Rolle) => {
     if (rolle === 'BESLUTTER') {
         return (
             <div className={cls.element('status')}>
-                <EtikettInfo>{tilskuddPeriodeStatus}</EtikettInfo>
+                <EtikettInfo>{avtale.tilskuddPeriodeStatus}</EtikettInfo>
             </div>
         );
     } else {
@@ -84,7 +83,7 @@ const AvtaleTabell: FunctionComponent<{
                                     {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                                 </div>
                             </MediaQuery>
-                            {hentStatusKolonner(avtale, avtale.tilskuddPeriodeStatus, innloggetBruker.rolle)}
+                            {hentStatusKolonner(avtale, innloggetBruker.rolle)}
                         </div>
                     </LenkepanelBase>
                 );
