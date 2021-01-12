@@ -17,10 +17,6 @@ import { EtikettInfo } from 'nav-frontend-etiketter';
 
 const cls = BEMHelper('avtaletabell');
 
-const hentLinkTilAvtale = (avtaleId: string, rolle: Rolle) => {
-    return rolle === 'BESLUTTER' ? pathTilAvtale(avtaleId) + '/beslutte/' : pathTilAvtale(avtaleId);
-};
-
 const hentStatusKolonner = (avtale: Avtale, tilskuddPeriodeStatus: TilskuddPeriodeStatus, rolle: Rolle) => {
     if (rolle === 'BESLUTTER') {
         return (
@@ -62,7 +58,7 @@ const AvtaleTabell: FunctionComponent<{
                 return (
                     <LenkepanelBase
                         key={avtale.id}
-                        href={hentLinkTilAvtale(avtale.id, innloggetBruker.rolle)}
+                        href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
                         linkCreator={(props: any) => (
                             <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
                         )}
