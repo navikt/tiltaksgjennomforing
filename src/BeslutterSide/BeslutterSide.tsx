@@ -1,6 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import BeslutterTilskuddsPerioder from '@/BeslutterSide/BeslutterTilskuddsperioder';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -62,6 +63,8 @@ const BeslutterSide: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <div className={cls.element('container')}>
                 <div className={cls.element('innhold')}>
+                    <TilbakeTilOversiktLenke />
+                    <VerticalSpacer rem={1} />
                     <Innholdstittel>Tilskudd om midlertidig lønnstilskudd</Innholdstittel>
                     <VerticalSpacer rem={1} />
                     <div className={clsName} style={{ transition: 'all 0.3s ease-in-out 0s' }}>
