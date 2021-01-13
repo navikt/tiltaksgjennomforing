@@ -11,16 +11,21 @@ import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Ingress, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
+import { useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
+import { Feature } from '@/FeatureToggleProvider';
+import { FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('innloggingsside');
 
 const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const throwError = useAsyncError();
     const [, setCookie] = useCookies();
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const viseBeslutterKnappToggle = featureToggleContext[Feature.ViseBeslutterKnapp];
 
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
         try {
@@ -35,18 +40,22 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
         }
     };
 
-    const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde) => (
-        <Hovedknapp
-            key={innlogginskilde.part}
-            className="innloggingsside__logginnKnapp"
-            onClick={() => {
-                setCookie(INNLOGGET_PART, innlogginskilde.part);
-                loginKlikk(innlogginskilde);
-            }}
-        >
-            {innlogginskilde.tittel}
-        </Hovedknapp>
-    ));
+    const logginnknapper = props.innloggingskilder
+        .filter((innloggetkilde: Innloggingskilde) =>
+            viseBeslutterKnappToggle ? true : innloggetkilde.part !== 'BESLUTTER'
+        )
+        .map((innlogginskilde: Innloggingskilde) => (
+            <Hovedknapp
+                key={innlogginskilde.part}
+                className="innloggingsside__logginnKnapp"
+                onClick={() => {
+                    setCookie(INNLOGGET_PART, innlogginskilde.part);
+                    loginKlikk(innlogginskilde);
+                }}
+            >
+                {innlogginskilde.tittel}
+            </Hovedknapp>
+        ));
 
     return (
         <div className="wrapper">
