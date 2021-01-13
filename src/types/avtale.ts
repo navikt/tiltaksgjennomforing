@@ -112,7 +112,7 @@ export interface TilskuddsPerioder {
     tilskuddPeriode: TilskuddsPeriode[];
 }
 
-export type Avslagsårsaker = 'FEIL_I_FAKTA' | 'FEIL_I_REGELFORSTÅELSE' | 'ANNET';
+export type Avslagsårsaker = 'FEIL_I_FAKTA' | 'FEIL_I_REGELFORSTÅELSE' | 'ANNET' | 'FEIL_I_PROSENTSATS';
 
 export interface TilskuddsPeriode {
     beløp: number;

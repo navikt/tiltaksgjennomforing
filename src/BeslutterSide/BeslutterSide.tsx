@@ -6,6 +6,7 @@ import BeslutterTilskuddsPerioder from '@/BeslutterSide/BeslutterTilskuddsperiod
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { avtaleTittel, tilskuddsperiodeAvslagTekst } from '@/messages';
 import { pathTilAvtale } from '@/paths';
 import BEMHelper from '@/utils/bem';
@@ -13,6 +14,8 @@ import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT, NORSK_DATO_OG_TID_F
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Knapp } from 'nav-frontend-knapper';
+import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
@@ -28,10 +31,9 @@ const BeslutterSide: FunctionComponent = () => {
     const { tilskuddsperiodeId } = useParams();
     const [clsName, setClsName] = useState<string>();
 
-    // eslint-disable-next-line
     const [avslagsforklaring, setAvslagsforklaring] = useState('');
-    // eslint-disable-next-line
     const [avslagsårsaker, setAvslagsårsaker] = useState(new Set<Avslagsårsaker>());
+    const [visAvslag, setVisAvslag] = useState(false);
 
     if (avtaleContext.avtale.tilskuddPeriode.length === 0) {
         return <div>Ingen tilskuddsperioder</div>;
@@ -131,19 +133,64 @@ const BeslutterSide: FunctionComponent = () => {
                                         lagre={() => avtaleContext.godkjennTilskudd(tilskuddsperiode.id)}
                                         label="Godkjenn tilskudd"
                                     />{' '}
+                                    <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>
+                                </div>
+                            )}
+
+                            <VerticalSpacer rem={1} />
+                            {visAvslag && (
+                                <div className={cls.element('avslag-boks')}>
+                                    <div className={cls.element('avslag-input')}>
+                                        <div>
+                                            <Element>Årsak til avslag</Element>
+                                            <VerticalSpacer rem={1} />
+                                            <SkjemaGruppe>
+                                                {Object.entries(tilskuddsperiodeAvslagTekst).map(([kode, tekst]) => {
+                                                    const avslagskode = kode as Avslagsårsaker;
+                                                    return (
+                                                        <Checkbox
+                                                            key={kode}
+                                                            label={tekst}
+                                                            checked={avslagsårsaker.has(avslagskode)}
+                                                            onChange={event => {
+                                                                const årsaker = new Set<Avslagsårsaker>(avslagsårsaker);
+                                                                if (event.currentTarget.checked) {
+                                                                    årsaker.add(avslagskode);
+                                                                } else {
+                                                                    årsaker.delete(avslagskode);
+                                                                }
+                                                                setAvslagsårsaker(årsaker);
+                                                            }}
+                                                        />
+                                                    );
+                                                })}
+                                            </SkjemaGruppe>
+                                        </div>
+                                        <div>
+                                            <PakrevdTextarea
+                                                className={cls.element('avslagsforklaring')}
+                                                label="Forklaring"
+                                                maxLengde={1000}
+                                                verdi={avslagsforklaring}
+                                                settVerdi={verdi => setAvslagsforklaring(verdi)}
+                                            />
+                                        </div>
+                                    </div>
+                                    <VerticalSpacer rem={1} />
                                     <LagreKnapp
-                                        lagre={() =>
-                                            avtaleContext.avslåTilskudd(
+                                        label="Send avslag"
+                                        lagre={async () => {
+                                            await avtaleContext.avslåTilskudd(
                                                 tilskuddsperiode.id,
                                                 avslagsårsaker,
                                                 avslagsforklaring
-                                            )
-                                        }
-                                        knapptype={'standard'}
-                                        label="Avslå"
+                                            );
+                                            setVisAvslag(false);
+                                        }}
                                     />
                                 </div>
                             )}
+
                             {tilskuddsperiode.status === 'GODKJENT' && (
                                 <Normaltekst>
                                     Tilskuddsperioden ble godkjent av <b>{tilskuddsperiode.godkjentAvNavIdent}</b> den{' '}

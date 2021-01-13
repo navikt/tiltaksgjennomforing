@@ -97,7 +97,8 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
 };
 
 export const tilskuddsperiodeAvslagTekst: { [key in Avslagsårsaker]: string } = {
-    ANNET: 'Annet',
     FEIL_I_FAKTA: 'Feil i fakta',
     FEIL_I_REGELFORSTÅELSE: 'Feil i regelforståelse',
+    FEIL_I_PROSENTSATS: 'Feil i prosentsats',
+    ANNET: 'Annet',
 };
