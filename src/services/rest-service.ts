@@ -318,19 +318,18 @@ export const hentStillinger = async (sok: string): Promise<Stillingskategori[]> 
     return await response.json();
 };
 
-export const godkjennTilskuddsperiode = async (avtaleId: string, tilskuddPeriodeId: string) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/tilskuddsperiode/${tilskuddPeriodeId}/godkjenn`;
+export const godkjennTilskuddsperiode = async (avtaleId: string) => {
+    const uri = `${API_URL}/avtaler/${avtaleId}/godkjenn-tilskuddsperiode`;
     const response = await fetchPost(uri);
     await handleResponse(response);
 };
 
 export const avslåTilskuddsperiode = async (
     avtaleId: string,
-    tilskuddPeriodeId: string,
     avslagsårsaker: Set<Avslagsårsaker>,
     avslagsforklaring: string
 ) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/tilskuddsperiode/${tilskuddPeriodeId}/avslag`;
+    const uri = `${API_URL}/avtaler/${avtaleId}/avslag-tilskuddsperiode`;
     const response = await fetchPost(uri, {
         body: JSON.stringify({
             avslagsårsaker,

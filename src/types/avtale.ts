@@ -6,7 +6,7 @@ export type Avtale = Avbrytelse &
     Avtaleparter &
     Versjonering &
     Godkjenninger &
-    Avtaleinnhold & { tilskuddPeriodeStatus: TilskuddPeriodeStatus };
+    Avtaleinnhold;
 
 export type Avtaleinnhold = Arbeidsgiverinfo &
     Bedriftinfo &
@@ -110,6 +110,7 @@ export interface Beregningsgrunnlag {
 
 export interface TilskuddsPerioder {
     tilskuddPeriode: TilskuddsPeriode[];
+    gjeldendeTilskuddsperiode?: TilskuddsPeriode;
 }
 
 export type Avslagsårsaker = 'FEIL_I_FAKTA' | 'FEIL_I_REGELFORSTÅELSE' | 'ANNET' | 'FEIL_I_PROSENTSATS';

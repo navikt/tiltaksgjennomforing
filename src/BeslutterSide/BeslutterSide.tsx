@@ -8,7 +8,6 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { avtaleTittel, tilskuddsperiodeAvslagTekst } from '@/messages';
-import { pathTilAvtale } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
@@ -18,7 +17,6 @@ import { Knapp } from 'nav-frontend-knapper';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
 import { Avslagsårsaker, TilskuddPeriodeStatus } from '../types/avtale';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
@@ -26,29 +24,16 @@ import EtikettStatus from './EtikettStatus';
 const cls = BEMHelper('beslutter-side');
 
 const BeslutterSide: FunctionComponent = () => {
-    const history = useHistory();
     const avtaleContext = useContext(AvtaleContext);
-    const { tilskuddsperiodeId } = useParams();
     const [clsName, setClsName] = useState<string>();
 
     const [avslagsforklaring, setAvslagsforklaring] = useState('');
     const [avslagsårsaker, setAvslagsårsaker] = useState(new Set<Avslagsårsaker>());
     const [visAvslag, setVisAvslag] = useState(false);
+    const { gjeldendeTilskuddsperiode } = avtaleContext.avtale;
 
-    if (avtaleContext.avtale.tilskuddPeriode.length === 0) {
+    if (!gjeldendeTilskuddsperiode) {
         return <div>Ingen tilskuddsperioder</div>;
-    }
-
-    if (!tilskuddsperiodeId) {
-        const tilskuddsperiode = avtaleContext.avtale.tilskuddPeriode[0];
-        history.replace(`${pathTilAvtale(avtaleContext.avtale.id)}/beslutte/${tilskuddsperiode.id}`);
-        return null;
-    }
-
-    const tilskuddsperiode = avtaleContext.avtale.tilskuddPeriode.find(periode => periode.id === tilskuddsperiodeId);
-
-    if (!tilskuddsperiode) {
-        throw Error('Ugyldig tilskuddsperiode');
     }
 
     const tittel: { [key in TilskuddPeriodeStatus]: string } = {
@@ -76,8 +61,8 @@ const BeslutterSide: FunctionComponent = () => {
                     <div className={clsName} style={{ transition: 'all 0.3s ease-in-out 0s' }}>
                         <Innholdsboks>
                             <div className={cls.element('tittel')}>
-                                <Undertittel>{tittel[tilskuddsperiode.status]}</Undertittel>
-                                <EtikettStatus tilskuddsperiodestatus={tilskuddsperiode.status} />
+                                <Undertittel>{tittel[gjeldendeTilskuddsperiode.status]}</Undertittel>
+                                <EtikettStatus tilskuddsperiodestatus={gjeldendeTilskuddsperiode.status} />
                             </div>
                             <VerticalSpacer rem={2} />
                             <div className={cls.element('grid-container')}>
@@ -100,7 +85,10 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {formatterPeriode(tilskuddsperiode.startDato, tilskuddsperiode.sluttDato)}
+                                        {formatterPeriode(
+                                            gjeldendeTilskuddsperiode.startDato,
+                                            gjeldendeTilskuddsperiode.sluttDato
+                                        )}
                                     </Normaltekst>
                                 </div>
                                 <div>
@@ -108,7 +96,7 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {formatterDato(tilskuddsperiode.startDato, NORSK_DATO_FORMAT)}
+                                        {formatterDato(gjeldendeTilskuddsperiode.startDato, NORSK_DATO_FORMAT)}
                                     </Normaltekst>
                                 </div>
                                 <div>
@@ -123,14 +111,14 @@ const BeslutterSide: FunctionComponent = () => {
                                     <Element>Beløp</Element>
                                 </div>
                                 <div>
-                                    <Normaltekst>{formatterPenger(tilskuddsperiode.beløp)}</Normaltekst>
+                                    <Normaltekst>{formatterPenger(gjeldendeTilskuddsperiode.beløp)}</Normaltekst>
                                 </div>
                             </div>
                             <VerticalSpacer rem={2} />
-                            {tilskuddsperiode.status === 'UBEHANDLET' && (
+                            {gjeldendeTilskuddsperiode.status === 'UBEHANDLET' && (
                                 <div>
                                     <LagreKnapp
-                                        lagre={() => avtaleContext.godkjennTilskudd(tilskuddsperiode.id)}
+                                        lagre={() => avtaleContext.godkjennTilskudd()}
                                         label="Godkjenn tilskudd"
                                     />{' '}
                                     <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>
@@ -180,34 +168,38 @@ const BeslutterSide: FunctionComponent = () => {
                                     <LagreKnapp
                                         label="Send avslag"
                                         lagre={async () => {
-                                            await avtaleContext.avslåTilskudd(
-                                                tilskuddsperiode.id,
-                                                avslagsårsaker,
-                                                avslagsforklaring
-                                            );
+                                            await avtaleContext.avslåTilskudd(avslagsårsaker, avslagsforklaring);
                                             setVisAvslag(false);
                                         }}
                                     />
                                 </div>
                             )}
 
-                            {tilskuddsperiode.status === 'GODKJENT' && (
+                            {gjeldendeTilskuddsperiode.status === 'GODKJENT' && (
                                 <Normaltekst>
-                                    Tilskuddsperioden ble godkjent av <b>{tilskuddsperiode.godkjentAvNavIdent}</b> den{' '}
-                                    {formatterDato(tilskuddsperiode.godkjentTidspunkt!, NORSK_DATO_OG_TID_FORMAT)}
+                                    Tilskuddsperioden ble godkjent av{' '}
+                                    <b>{gjeldendeTilskuddsperiode.godkjentAvNavIdent}</b> den{' '}
+                                    {formatterDato(
+                                        gjeldendeTilskuddsperiode.godkjentTidspunkt!,
+                                        NORSK_DATO_OG_TID_FORMAT
+                                    )}
                                 </Normaltekst>
                             )}
-                            {tilskuddsperiode.status === 'AVSLÅTT' && (
+                            {gjeldendeTilskuddsperiode.status === 'AVSLÅTT' && (
                                 <Normaltekst>
-                                    Tilskuddsperioden ble avslått av <b>{tilskuddsperiode.avslåttAvNavIdent}</b> den{' '}
-                                    {formatterDato(tilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)} med
-                                    følgende årsak(er):
+                                    Tilskuddsperioden ble avslått av{' '}
+                                    <b>{gjeldendeTilskuddsperiode.avslåttAvNavIdent}</b> den{' '}
+                                    {formatterDato(
+                                        gjeldendeTilskuddsperiode.avslåttTidspunkt!,
+                                        NORSK_DATO_OG_TID_FORMAT
+                                    )}{' '}
+                                    med følgende årsak(er):
                                     <ul>
-                                        {Array.from(tilskuddsperiode.avslagsårsaker).map(årsak => (
+                                        {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map(årsak => (
                                             <li>{tilskuddsperiodeAvslagTekst[årsak]}</li>
                                         ))}
                                     </ul>
-                                    med forklaringen: {tilskuddsperiode.avslagsforklaring}
+                                    med forklaringen: {gjeldendeTilskuddsperiode.avslagsforklaring}
                                 </Normaltekst>
                             )}
                         </Innholdsboks>

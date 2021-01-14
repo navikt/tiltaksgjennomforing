@@ -1,4 +1,4 @@
-import { Avtale, Avtaleinnhold } from '@/types/avtale';
+import { Avslagsårsaker, Avtale, Avtaleinnhold } from '@/types/avtale';
 
 const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     arbeidsgiverEtternavn: '',
@@ -39,6 +39,14 @@ const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     sumLonnstilskudd: 0,
     manedslonn100pst: 0,
     tilskuddPeriode: [],
+    gjeldendeTilskuddsperiode: {
+        avslagsårsaker: new Set<Avslagsårsaker>(),
+        status: 'UBEHANDLET',
+        id: '',
+        beløp: 0,
+        startDato: '',
+        sluttDato: '',
+    },
     stillingstype: 'FAST',
     stillingKonseptId: 123,
     stillingStyrk08: 1234,

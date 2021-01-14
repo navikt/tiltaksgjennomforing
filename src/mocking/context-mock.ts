@@ -56,7 +56,6 @@ const avtaleInnhold: Avtale = {
     godkjentPaVegneAv: false,
     id: '',
     kanAvbrytes: true,
-    tilskuddPeriodeStatus: 'UBEHANDLET',
     kanGjenopprettes: false,
     kanLåsesOpp: false,
     opprettetTidspunkt: '',

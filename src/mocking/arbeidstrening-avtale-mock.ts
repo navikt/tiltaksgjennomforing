@@ -43,7 +43,6 @@ const arbeidstreningAvtaleMock: Avtale = {
     godkjentPaVegneAv: false,
 
     godkjentPaVegneGrunn: undefined,
-    tilskuddPeriodeStatus: 'UBEHANDLET',
 
     oppfolging: 'Bruker og AG skal følges opp',
     tilrettelegging: 'AG skal tilrettelegge',

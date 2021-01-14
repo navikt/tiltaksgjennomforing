@@ -1,8 +1,7 @@
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { pathTilAvtale } from '@/paths';
 import { Avtale } from '@/types/avtale';
-import { InnloggetBruker } from '@/types/innlogget-bruker';
-import { Rolle } from '@/types/innlogget-bruker';
+import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import Varsel from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
@@ -12,7 +11,7 @@ import { default as React, FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
-import { EtikettInfo } from 'nav-frontend-etiketter';
+import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -20,7 +19,9 @@ const hentAvtaleStatus = (avtale: Avtale, rolle: Rolle) => {
     if (rolle === 'BESLUTTER') {
         return (
             <div className={cls.element('status')}>
-                <EtikettInfo>{avtale.tilskuddPeriodeStatus}</EtikettInfo>
+                {avtale.gjeldendeTilskuddsperiode && (
+                    <EtikettStatus tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status} />
+                )}
             </div>
         );
     } else {

@@ -1,11 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import { pathTilAvtale } from '@/paths';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
 import EtikettStatus from './EtikettStatus';
 
 type Props = {
@@ -44,15 +42,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
                                 <td>{formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}</td>
                                 <td>
                                     <EtikettStatus tilskuddsperiodestatus={periode.status} />
-                                </td>
-                                <td>
-                                    <NavLink
-                                        to={`${pathTilAvtale(avtale.id)}/beslutte/${periode.id}`}
-                                        activeStyle={{ display: 'none' }}
-                                        onClick={props.startAnimering}
-                                    >
-                                        Gå til
-                                    </NavLink>
                                 </td>
                             </tr>
                         );

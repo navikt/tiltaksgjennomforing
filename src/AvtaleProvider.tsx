@@ -37,12 +37,8 @@ export interface Context {
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
     godkjenn: (godkjent: boolean) => Promise<void>;
-    godkjennTilskudd: (tilskuddPeriodeId: string) => Promise<void>;
-    avslåTilskudd: (
-        tilskuddPeriodeId: string,
-        avslagsårsaker: Set<Avslagsårsaker>,
-        avslagsforklaring: string
-    ) => Promise<void>;
+    godkjennTilskudd: () => Promise<void>;
+    avslåTilskudd: (avslagsårsaker: Set<Avslagsårsaker>, avslagsforklaring: string) => Promise<void>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
     hentAvtale: (avtaleId: string) => Promise<void>;
@@ -220,18 +216,14 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale(avtale.id);
     };
 
-    const godkjennTilskudd = async (tilskuddPeriodeId: string): Promise<void> => {
-        await RestService.godkjennTilskuddsperiode(avtale.id, tilskuddPeriodeId);
+    const godkjennTilskudd = async (): Promise<void> => {
+        await RestService.godkjennTilskuddsperiode(avtale.id);
         sendToAmplitude('#tiltak-tilskudd-godkjent');
         await hentAvtale(avtale.id);
     };
 
-    const avslåTilskudd = async (
-        tilskuddPeriodeId: string,
-        avslagsårsaker: Set<Avslagsårsaker>,
-        avslagsforklaring: string
-    ): Promise<void> => {
-        await RestService.avslåTilskuddsperiode(avtale.id, tilskuddPeriodeId, avslagsårsaker, avslagsforklaring);
+    const avslåTilskudd = async (avslagsårsaker: Set<Avslagsårsaker>, avslagsforklaring: string): Promise<void> => {
+        await RestService.avslåTilskuddsperiode(avtale.id, avslagsårsaker, avslagsforklaring);
         sendToAmplitude('#tiltak-tilskudd-avslag');
         await hentAvtale(avtale.id);
     };
