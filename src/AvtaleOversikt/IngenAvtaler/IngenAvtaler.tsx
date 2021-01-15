@@ -29,7 +29,11 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
                     <Undertittel style={{ marginLeft: '1rem' }}>Finner ingen avtaler</Undertittel>
                 </div>
                 <VerticalSpacer rem={1} />
-                <Normaltekst>Du har ingen avtaler som er tilknyttet deg enda.</Normaltekst>
+                {props.sokekriterier.erUfordelt ? (
+                    <Normaltekst>Det finnes ingen ufordelte avtaler som du har tilgang til.</Normaltekst>
+                ) : (
+                    <Normaltekst>Du har ingen avtaler som er tilknyttet deg enda.</Normaltekst>
+                )}
             </div>
         );
     } else if (innloggetPart === 'DELTAKER') {
