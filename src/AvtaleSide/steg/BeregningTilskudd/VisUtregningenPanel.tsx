@@ -139,7 +139,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                     </Column>
 
                     <Column md="3" sm="3" xs="6" className={cls.element('column__siste')}>
-                        <Element>{props.sumLonnstilskudd} kr</Element>
+                        <Element>Inntil {props.sumLonnstilskudd} kr</Element>
                     </Column>
                 </Row>
             </Container>
