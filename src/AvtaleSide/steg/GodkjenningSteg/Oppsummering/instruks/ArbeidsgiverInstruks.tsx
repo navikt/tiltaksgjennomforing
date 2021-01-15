@@ -21,7 +21,7 @@ interface Props {
 }
 const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
     <>
-        {!props.erLaast && <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>}
+        {!props.erLaast && <Normaltekst>Når du godkjenner avtalen godtar du kravene fra NAV</Normaltekst>}
         <VeilederpanelMedUtklippstavle>
             <div className={cls.element('subheader')}>
                 <Element>Som arbeidsgiver må du</Element>

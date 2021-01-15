@@ -22,10 +22,10 @@ const UfyllerBanner: React.FunctionComponent<Props> = (props: Props) => {
         utfyllesAv = 'Fylles ut av NAV';
     } else if (props.utfyller === 'arbeidsgiver') {
         wrapperClass = cls.element('arbeidsgiver');
-        utfyllesAv = 'Fylles ut av arbeidsgiver';
+        utfyllesAv = 'Fylles ut av arbeidsgiveren';
     } else if (props.utfyller === 'veileder_og_arbeidsgiver') {
         wrapperClass = cls.element('begge');
-        utfyllesAv = 'Fylles ut av NAV og arbeidsgiver';
+        utfyllesAv = 'Fylles ut av NAV og arbeidsgiveren';
     } else {
         return null;
     }

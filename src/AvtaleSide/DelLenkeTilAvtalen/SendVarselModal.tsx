@@ -35,8 +35,8 @@ const SendVarselModal: React.FunctionComponent<Props> = props => {
             <Systemtittel>Del lenke til avtalen</Systemtittel>
             <VerticalSpacer sixteenPx={true} />
             <Ingress>
-                Lenke til avtalen kan sendes på SMS hvis telefonnummer er registrert på avtalen. Hvis det er ønskelig å
-                sende lenke til avtalen via andre kanaler, for eksempel Aktivitetsplanen eller epost, er det adressen
+                Lenke til avtalen kan sendes på SMS hvis telefonnummer er registrert i avtalen. Hvis det er ønskelig å
+                sende lenke til avtalen via andre kanaler, for eksempel aktivitetsplanen eller e-post, er det adressen
                 under som må benyttes.
             </Ingress>
 
@@ -45,16 +45,16 @@ const SendVarselModal: React.FunctionComponent<Props> = props => {
             <Undertittel>Send lenke på SMS</Undertittel>
             <VerticalSpacer eightPx={true} />
             <LagreKnapp
-                label="Send til arbeidsgiver"
+                label="Send til arbeidsgiveren"
                 lagre={() => delAvtaleMedAvtalepart(avtale.id, 'ARBEIDSGIVER')}
-                suksessmelding="SMS sendt til arbeidsgiver"
+                suksessmelding="SMS sendt til arbeidsgiveren"
                 knapptype={'standard'}
             />
             <VerticalSpacer eightPx={true} />
             <LagreKnapp
-                label="Send til deltaker"
+                label="Send til deltakeren"
                 lagre={() => delAvtaleMedAvtalepart(avtale.id, 'DELTAKER')}
-                suksessmelding="SMS sendt til deltaker"
+                suksessmelding="SMS sendt til deltakeren"
                 knapptype={'standard'}
             />
 

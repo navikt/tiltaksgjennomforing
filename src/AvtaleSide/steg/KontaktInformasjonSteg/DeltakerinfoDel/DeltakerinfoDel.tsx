@@ -15,7 +15,7 @@ const DeltakerinfoDel: FunctionComponent = () => {
     return (
         <>
             <div className={cls.element('container')}>
-                <SkjemaTittel>Informasjon om deltaker</SkjemaTittel>
+                <SkjemaTittel>Informasjon om deltakeren</SkjemaTittel>
                 <div className={cls.element('rad', 'single')}>
                     <Input label="Fødselsnummer" value={avtaleContext.avtale.deltakerFnr} disabled={true} />
                 </div>

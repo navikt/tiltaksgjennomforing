@@ -15,7 +15,7 @@ const ArbeidsgiverinfoDel = () => {
         <>
             <div className={cls.element('container')}>
                 <div className={cls.element('rad')}>
-                    <SkjemaTittel>Informasjon om arbeidsgiver</SkjemaTittel>
+                    <SkjemaTittel>Informasjon om arbeidsgiveren</SkjemaTittel>
                 </div>
                 <SkjemaGruppe title="Om bedriften" className={cls.element('skjemagruppe')}>
                     <div className={cls.element('rad')}>
