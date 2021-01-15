@@ -29,7 +29,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     id: '0',
     opprettetTidspunkt: '2020-01-01T00:00:00.000000',
     sistEndret: '2020-01-01T00:00:00.000000',
-
+    gjeldendeTilskuddsperiodeStatus: 'UBEHANDLET',
     godkjentAvDeltaker: false,
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
