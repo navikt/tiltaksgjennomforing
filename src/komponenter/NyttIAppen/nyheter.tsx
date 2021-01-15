@@ -32,7 +32,8 @@ const nyheter = [
         tittel: 'Overta avtale',
         innhold: (
             <>
-                Du kan nå overta en avtale fra en annen veileder dersom veilederen for eksempel blir syk. Funksjonen
+                Du kan nå overta en avtale fra en annen veileder dersom veilederen for eksempel blir syk. Du søker opp
+                avtalen du vil ta over enten via bedrift eller fødselsnummer på bruker. Funksjonen for å overta avtalen
                 finner du på verktøylinjen inne i avtalen. Avtalen beholder eventuelle godkjenninger når den blir
                 overtatt av en annen veileder.
             </>
