@@ -28,7 +28,7 @@ const AvbryteAvtalen = (props: Props) => {
                     <div aria-hidden={true}>
                         <AvbruttIkon className="avbryteavtalen__ikon" />
                     </div>
-                    Avbryt avtale
+                    Avbryt avtalen
                 </Lenke>
             </div>
             <div aria-hidden={!avbrytModalIsOpen}>

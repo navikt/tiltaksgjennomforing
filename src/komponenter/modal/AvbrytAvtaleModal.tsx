@@ -102,7 +102,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
         <>
             <div>
                 <Normaltekst>
-                    Når du avbryter avtalen, blir innholdet låst og den blir markert som "avbrutt" i din oversikt. Du
+                    Når du avbryter avtalen, blir innholdet låst, og den blir markert som "avbrutt" i din oversikt. Du
                     kan ikke redigere eller gjenopprette den etterpå.
                 </Normaltekst>
             </div>
@@ -160,7 +160,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
             bekreftOnClick={bekreftAvbrytAvtale}
             lukkModal={props.lukkModal}
             modalIsOpen={props.isOpen}
-            oversiktTekst="Avbryt avtale"
+            oversiktTekst="Avbryt avtalen"
             varselTekst={modalInnhold}
             bekreftelseTekst="Avbryt avtale"
             avbrytelseTekst="Behold avtale"

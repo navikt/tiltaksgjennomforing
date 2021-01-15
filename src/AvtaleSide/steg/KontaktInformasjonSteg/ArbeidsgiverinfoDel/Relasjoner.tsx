@@ -39,7 +39,7 @@ const Relasjoner: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                         <PenFillIkon />
-                        <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av arbeidsgiver</Normaltekst>
+                        <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av arbeidsgiveren</Normaltekst>
                     </div>
                     <VerticalSpacer rem={1} />
 

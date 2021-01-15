@@ -37,8 +37,8 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const godkjennPaVegneLabel = props.moderState.godkjentPaVegneAv
-        ? 'Jeg skal godkjenne på vegne av deltaker, fordi deltaker'
-        : 'Jeg skal godkjenne på vegne av deltaker';
+        ? 'Jeg skal godkjenne på vegne av deltakeren, fordi deltakeren'
+        : 'Jeg skal godkjenne på vegne av deltakeren';
 
     const deltakerInformertChanged = (checked: boolean) => {
         props.moderState.setPaVegneDeltakerInformert(checked);
@@ -99,7 +99,7 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
                     <SkjemaGruppe feil={props.moderState.feilDeltakerInformert}>
                         <Checkbox
                             className="godkjennPaVegneAv__deltakerInformert"
-                            label={'Deltaker er informert om kravene og godkjenner innholdet i avtalen.'}
+                            label={'Deltakeren er informert om kravene og godkjenner innholdet i avtalen.'}
                             onChange={event => deltakerInformertChanged(event.currentTarget.checked)}
                         />
                     </SkjemaGruppe>

@@ -19,7 +19,7 @@ interface Props {
 const DeltakerInstruks: FunctionComponent<Props> = props => {
     return (
         <>
-            {!props.erLaast && <Normaltekst>Når du godkjenner godtar du kravene fra NAV</Normaltekst>}
+            {!props.erLaast && <Normaltekst>Når du godkjenner avtalen godtar du kravene fra NAV</Normaltekst>}
             <VeilederpanelMedUtklippstavleIkon>
                 <div className={cls.element('subheader')}>
                     <Element>Som deltaker må du</Element>
@@ -33,12 +33,12 @@ const DeltakerInstruks: FunctionComponent<Props> = props => {
                     )}
                     <li>
                         <Normaltekst>
-                            vite at arbeidsgiver må forsikre deg og har ansvar for deg hvis du blir skadet på jobb,
-                            dette er fordi arbeidsgiver må følge arbeidsmiljølovens regler
+                            vite at arbeidsgiveren må forsikre deg og har ansvar for deg hvis du blir skadet på jobb,
+                            dette er fordi arbeidsgiveren må følge arbeidsmiljølovens regler
                         </Normaltekst>
                     </li>
                     <li>
-                        <Normaltekst>gi beskjed til arbeidsgiver hvis du er borte fra jobb</Normaltekst>
+                        <Normaltekst>gi beskjed til arbeidsgiveren din hvis du er borte fra jobben</Normaltekst>
                     </li>
                     {props.tiltakstype === 'ARBEIDSTRENING' && (
                         <li>

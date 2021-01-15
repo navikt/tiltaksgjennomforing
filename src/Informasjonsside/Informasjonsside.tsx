@@ -40,8 +40,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                 typografiType: 'undertittel',
             }}
         >
-            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp et tiltak, oppretter NAV en digital
-            avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV når denne er klar til innlogging.
+            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
+            avtale. Deltakeren og arbeidsgiveren vil få tilsendt en lenke fra NAV når avtalen er klar og de kan logge
+            inn.
         </EkspanderbartPanelRad>
     );
 
@@ -58,12 +59,12 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
             <Element>NAV oppretter en avtale</Element>
             <Normaltekst>
                 {' '}
-                Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte opp et tiltak, oppretter NAV en
-                digital avtale. Deltager og arbeidsgiver vil få tilsendt en lenke fra NAV når denne er klar til
-                innlogging.
+                Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
+                avtale. Deltageren og arbeidsgiveren vil få tilsendt en lenke fra NAV når avtalen er klar og de kan
+                logge inn.
             </Normaltekst>
             <VerticalSpacer rem={1} />
-            <Element>Arbeidsgiver oppretter en avtale</Element>
+            <Element>Arbeidsgiveren oppretter en avtale</Element>
             <Normaltekst>
                 Arbeidsgiveren kan også opprette en avtale selv. Når avtalen er opprettet kan arbeidsgiveren begynne å
                 fylle ut avtalen.
@@ -97,9 +98,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Deltaker, arbeidsgiver og NAV fyller ut, ser over og godkjenner avtalen i samme løsning i
-                            sanntid. Når innholdet i avtalen er ferdig utfylt skal alle parter godkjenne avtalen. Hvem
-                            som godkjenner avtalen først av arbeidsgiver eller deltaker har ikke noe å si. NAV skal
+                            Deltakeren, arbeidsgiveren og NAV fyller ut, ser over og godkjenner avtalen i samme løsning
+                            i sanntid. Når innholdet i avtalen er ferdig utfylt skal alle parter godkjenne avtalen. Hvem
+                            som godkjenner avtalen først av arbeidsgiveren eller deltakeren har ikke noe å si. NAV skal
                             alltid godkjenne avtalen til slutt, og først da kan tiltaket starte.
                         </EkspanderbartPanelRad>
 
@@ -113,9 +114,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Deltaker og arbeidsgiver logger seg inn i avtalen via ID-porten. Tilgang for arbeidsgiver
-                            styres gjennom Altinn. For at en arbeidsgiver kan representere en bedrift må personen gis
-                            følgende tilganger til enkeltrettigheter for de ulike avtalene:
+                            Deltakeren og arbeidsgiveren logger seg inn i avtalen via ID-porten. Tilgangen for
+                            arbeidsgiveren styres gjennom Altinn. For at en arbeidsgiver kan representere en bedrift, må
+                            personen gis følgende tilganger til enkeltrettigheter for de ulike avtalene:
                             <ul>
                                 <li>Avtale om arbeidstrening</li>
                                 <li>Avtale om midlertidig lønnstilskudd</li>
@@ -124,12 +125,12 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             <br />
                             <span className={cls.element('lenke')}>
                                 <Lenke onClick={() => setVideoModalOpen(true)} href="#">
-                                    Se video om hvordan tilgang i Altinn styres her.
+                                    Se video om hvordan tilgang i Altinn styres.
                                 </Lenke>
                             </span>
                             <span className={cls.element('lenke')}>
                                 <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
-                                    Finn mer informasjon om roller og rettigheter på Altinn.no
+                                    Finn informasjon om roller og rettigheter på Altinn.no
                                 </EksternLenke>
                             </span>
                             <AltinnVideoModal isOpen={isVideoModalOpen} lukkModal={() => setVideoModalOpen(false)} />
@@ -155,7 +156,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Hvis det gjøres endringer i avtalen underveis i tiltaket lagrer NAV den forrige, godkjente
+                            Hvis det gjøres endringer i avtalen underveis i tiltaket, lagrer NAV den forrige, godkjente
                             versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan alle tre
                             parter se utviklingen og vurdere måloppnåelse i etterkant.
                         </EkspanderbartPanelRad>

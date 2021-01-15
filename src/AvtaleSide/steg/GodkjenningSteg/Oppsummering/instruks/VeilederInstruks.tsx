@@ -21,7 +21,7 @@ const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = props 
         </div>
         <div className={cls.element('instrukslist')}>
             <Normaltekst>
-                Etter at avtalen er godkjent ligger oppgaven «Forbered tiltaksgjennomføring{' '}
+                Etter at avtalen er godkjent, ligger oppgaven «Forbered tiltaksgjennomføring{' '}
                 {navnPåTiltakstype[props.tiltakstype]}» på kontorets arbeidsbenk i Arena som du må fullføre.
             </Normaltekst>
         </div>
