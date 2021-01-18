@@ -80,7 +80,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const oversiktTekt = innloggetBruker.rolle === 'BESLUTTER' ? 'Tilskuddsoversikt' : 'Tiltaksoversikt';
     return (
         <>
-            <Dokumenttittel tittel="Tiltaksoversikt" />
+            <Dokumenttittel tittel={oversiktTekt} />
             <Banner
                 byttetOrg={org => {
                     if (søkekriterier.bedriftNr !== org.OrganizationNumber) {
