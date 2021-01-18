@@ -22,7 +22,7 @@ import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
 import ArbeidsgiverFiltrering from './Filtrering/ArbeidsgiverFiltrering';
-import AvtaleOversiktForBeslutter from '@/AvtaleOversikt/AvtaleOversiktForBeslutter';
+import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -38,7 +38,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             case 'VEILEDER':
                 return { veilederNavIdent: innloggetBruker.identifikator };
             case 'BESLUTTER':
-                return { beslutterNavIdent: innloggetBruker.identifikator };
+                return { beslutterNavIdent: innloggetBruker.identifikator, tilskuddPeriodeStatus: 'UBEHANDLET' };
             case 'DELTAKER':
             default:
                 return {};
@@ -77,115 +77,109 @@ const AvtaleOversikt: FunctionComponent = () => {
         søkekriterier.bedriftNr &&
         innloggetBruker.tilganger[søkekriterier.bedriftNr]?.length > 0;
 
+    const oversiktTekt = innloggetBruker.rolle === 'BESLUTTER' ? 'Tilskuddsoversikt' : 'Tiltaksoversikt';
     return (
         <>
-            {innloggetBruker.rolle === 'BESLUTTER' ? (
-                <AvtaleOversiktForBeslutter />
-            ) : (
-                <>
-                    <Dokumenttittel tittel="Tiltaksoversikt" />
-                    <Banner
-                        byttetOrg={org => {
-                            if (søkekriterier.bedriftNr !== org.OrganizationNumber) {
-                                setSøkekriterier({ bedriftNr: org.OrganizationNumber });
-                            }
-                        }}
-                        tekst="Tiltaksoversikt"
-                    />
-                    <BannerNAVAnsatt tekst="Tiltaksoversikt" />
+            <Dokumenttittel tittel={oversiktTekt} />
+            <Banner
+                byttetOrg={org => {
+                    if (søkekriterier.bedriftNr !== org.OrganizationNumber) {
+                        setSøkekriterier({ bedriftNr: org.OrganizationNumber });
+                    }
+                }}
+                tekst="Tiltaksoversikt"
+            />
 
-                    <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                        <div
-                            style={layout.stylingAvFilterOgTabell}
-                            className={cls.element('filter-og-tabell')}
-                            aria-labelledby={cls.element('filter-og-tabell')}
-                            role="complementary"
-                        >
+            <BannerNAVAnsatt tekst={oversiktTekt} />
+
+            <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
+                <div
+                    style={layout.stylingAvFilterOgTabell}
+                    className={cls.element('filter-og-tabell')}
+                    aria-labelledby={cls.element('filter-og-tabell')}
+                    role="complementary"
+                >
+                    {innloggetBruker.erNavAnsatt && innloggetBruker.rolle !== 'BESLUTTER' && (
+                        <aside style={layout.stylingAvFilter}>
                             {innloggetBruker.erNavAnsatt && (
-                                <aside style={layout.stylingAvFilter}>
-                                    {innloggetBruker.erNavAnsatt && (
-                                        <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                            <LenkeKnapp
-                                                path={pathTilOpprettAvtale}
-                                                style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
-                                            >
-                                                <PlussIkon
-                                                    style={{ width: '24', height: '24', marginRight: '0.5rem' }}
-                                                />
-                                                Opprett ny avtale
-                                            </LenkeKnapp>
-                                        </div>
-                                    )}
-                                    <VeilederFiltrering endreSøk={endreSøk} />
-                                </aside>
+                                <div style={{ margin: '0.2rem 0 1rem 0' }}>
+                                    <LenkeKnapp
+                                        path={pathTilOpprettAvtale}
+                                        style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
+                                    >
+                                        <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                        Opprett ny avtale
+                                    </LenkeKnapp>
+                                </div>
                             )}
-                            {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-                                innloggetBruker.altinnOrganisasjoner.length > 0 &&
-                                innloggetBruker.tilganger[søkekriterier.bedriftNr!] && (
-                                    <aside style={layout.stylingAvFilter}>
-                                        {arbeidsgiverOppretterToggle && harTilgangerSomArbeidsgiver && (
-                                            <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                                <LenkeKnapp
-                                                    path={pathTilOpprettAvtaleArbeidsgiver}
-                                                    style={{
-                                                        paddingLeft: '1.5rem',
-                                                        paddingRight: '1.5rem',
-                                                    }}
-                                                >
-                                                    <PlussIkon
-                                                        style={{ width: '24', height: '24', marginRight: '0.5rem' }}
-                                                    />
-                                                    Opprett ny avtale
-                                                </LenkeKnapp>
-                                            </div>
-                                        )}
-                                        <ArbeidsgiverFiltrering endreSøk={endreSøk} />
-                                    </aside>
-                                )}
-                            <section style={layout.stylingAvTabell}>
-                                <Avtaler
-                                    avtalelisteRessurs={avtalelisteRessurs}
-                                    innloggetBruker={innloggetBruker}
-                                    varsler={varsler}
-                                    sokekriterier={søkekriterier}
-                                />
-                                <VerticalSpacer rem={1} />
-                                {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
-                                    <>
-                                        <Ekspanderbartpanel
-                                            tittel={
-                                                <div>
-                                                    <Element>Finner du ikke avtalen du leter etter?</Element>
-                                                    <Normaltekst>
-                                                        Det kan være flere årsaker til dette. Les hva du kan gjøre.
-                                                    </Normaltekst>
-                                                </div>
-                                            }
+                            <VeilederFiltrering endreSøk={endreSøk} />
+                        </aside>
+                    )}
+
+                    {innloggetBruker.rolle === 'BESLUTTER' && (
+                        <aside style={layout.stylingAvFilter}>
+                            <BeslutterFiltrering endreSøk={endreSøk} />
+                        </aside>
+                    )}
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
+                        innloggetBruker.altinnOrganisasjoner.length > 0 &&
+                        innloggetBruker.tilganger[søkekriterier.bedriftNr!] && (
+                            <aside style={layout.stylingAvFilter}>
+                                {arbeidsgiverOppretterToggle && harTilgangerSomArbeidsgiver && (
+                                    <div style={{ margin: '0.2rem 0 1rem 0' }}>
+                                        <LenkeKnapp
+                                            path={pathTilOpprettAvtaleArbeidsgiver}
+                                            style={{
+                                                paddingLeft: '1.5rem',
+                                                paddingRight: '1.5rem',
+                                            }}
                                         >
-                                            <Element>
-                                                Avtalen du leter etter er opprettet på en annen virksomhet
-                                            </Element>
-                                            <Normaltekst>
-                                                Det kan være at avtalen du leter etter er opprettet på en annen
-                                                virskomhet. Du kan prøve å bytte virksomhet i virksomhetsvelgeren oppe
-                                                til høyre på skjermen.
-                                            </Normaltekst>
-                                            <VerticalSpacer rem={1} />
-                                            <Element>
-                                                Du mangler tilgang til rett avtaletype for den virksomheten du har
-                                                valgt.
-                                            </Element>
-                                            <Normaltekst>Da kan du be om tilgang i Altinn.</Normaltekst>
-                                        </Ekspanderbartpanel>
-                                        <VerticalSpacer rem={1} />
-                                    </>
+                                            <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                            Opprett ny avtale
+                                        </LenkeKnapp>
+                                    </div>
                                 )}
-                                <LesMerOmLøsningen />
-                            </section>
-                        </div>
-                    </main>
-                </>
-            )}
+                                <ArbeidsgiverFiltrering endreSøk={endreSøk} />
+                            </aside>
+                        )}
+                    <section style={layout.stylingAvTabell}>
+                        <Avtaler
+                            avtalelisteRessurs={avtalelisteRessurs}
+                            innloggetBruker={innloggetBruker}
+                            varsler={varsler}
+                            sokekriterier={søkekriterier}
+                        />
+                        <VerticalSpacer rem={1} />
+                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                            <>
+                                <Ekspanderbartpanel
+                                    tittel={
+                                        <div>
+                                            <Element>Finner du ikke avtalen du leter etter?</Element>
+                                            <Normaltekst>
+                                                Det kan være flere årsaker til dette. Les hva du kan gjøre.
+                                            </Normaltekst>
+                                        </div>
+                                    }
+                                >
+                                    <Element>Avtalen du leter etter er opprettet på en annen virksomhet</Element>
+                                    <Normaltekst>
+                                        Det kan være at avtalen du leter etter er opprettet på en annen virskomhet. Du
+                                        kan prøve å bytte virksomhet i virksomhetsvelgeren oppe til høyre på skjermen.
+                                    </Normaltekst>
+                                    <VerticalSpacer rem={1} />
+                                    <Element>
+                                        Du mangler tilgang til rett avtaletype for den virksomheten du har valgt.
+                                    </Element>
+                                    <Normaltekst>Da kan du be om tilgang i Altinn.</Normaltekst>
+                                </Ekspanderbartpanel>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
+                        <LesMerOmLøsningen />
+                    </section>
+                </div>
+            </main>
         </>
     );
 };

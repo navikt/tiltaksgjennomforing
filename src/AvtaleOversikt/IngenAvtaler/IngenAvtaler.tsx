@@ -36,6 +36,16 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
                 )}
             </div>
         );
+    } else if (innloggetPart === 'BESLUTTER') {
+        return (
+            <div className={classNames(cls.element('ingenavtalerveileder'), 'innholdsboks')}>
+                <div style={{ display: 'flex' }}>
+                    <InfoIkon />
+                    <Undertittel style={{ marginLeft: '1rem' }}>Finner ingen avtaler</Undertittel>
+                </div>
+                <VerticalSpacer rem={1} />
+            </div>
+        );
     } else if (innloggetPart === 'DELTAKER') {
         return (
             <Innholdsboks>
