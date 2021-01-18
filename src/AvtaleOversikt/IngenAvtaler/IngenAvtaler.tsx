@@ -10,7 +10,6 @@ import React, { FunctionComponent } from 'react';
 import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './arbeidsgiver/IngenAvtalerArbeidsgiver';
-import { tilskuddsperiodeStatusTekst } from '@/messages';
 
 const cls = BEMHelper('ingenAvtaler');
 
@@ -41,11 +40,6 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
                     <Undertittel style={{ marginLeft: '1rem' }}>Finner ingen avtaler</Undertittel>
                 </div>
                 <VerticalSpacer rem={1} />
-                <Normaltekst>
-                    Ingen avtaler med status{' '}
-                    {tilskuddsperiodeStatusTekst[props.sokekriterier.gjeldendeTilskuddsperiode?.status!]} å finne for
-                    din enhet.
-                </Normaltekst>
             </div>
         );
     } else if (innloggetPart === 'DELTAKER') {
