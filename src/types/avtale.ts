@@ -6,7 +6,6 @@ export type Avtale = Avbrytelse &
     Avtaleparter &
     Versjonering &
     Godkjenninger &
-    Tilskuddsperiodestatus &
     Avtaleinnhold;
 
 export type Avtaleinnhold = Arbeidsgiverinfo &

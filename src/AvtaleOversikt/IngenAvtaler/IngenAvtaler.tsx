@@ -42,8 +42,9 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
                 </div>
                 <VerticalSpacer rem={1} />
                 <Normaltekst>
-                    Ingen avtaler med status {tilskuddsperiodeStatusTekst[props.sokekriterier.tilskuddPeriodeStatus!]} å
-                    finne for din enhet.
+                    Ingen avtaler med status{' '}
+                    {tilskuddsperiodeStatusTekst[props.sokekriterier.gjeldendeTilskuddsperiode?.status!]} å finne for
+                    din enhet.
                 </Normaltekst>
             </div>
         );
