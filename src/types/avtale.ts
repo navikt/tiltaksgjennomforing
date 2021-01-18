@@ -49,10 +49,6 @@ export interface Avtaleparter {
     beslutterNavIdent: string;
 }
 
-export interface Tilskuddsperiodestatus {
-    tilskuddPeriodeStatus?: TilskuddPeriodeStatus;
-}
-
 export interface Bedriftinfo {
     bedriftNavn: string;
 }
