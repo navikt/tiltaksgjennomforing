@@ -77,7 +77,7 @@ const AvtaleOversikt: FunctionComponent = () => {
         søkekriterier.bedriftNr &&
         innloggetBruker.tilganger[søkekriterier.bedriftNr]?.length > 0;
 
-    const oversiktTekt = innloggetBruker.rolle === 'BESLUTTER' ? 'Tilskuddoversikt' : 'Tiltaksoversikt';
+    const oversiktTekt = innloggetBruker.rolle === 'BESLUTTER' ? 'Tilskuddsoversikt' : 'Tiltaksoversikt';
     return (
         <>
             <Dokumenttittel tittel="Tiltaksoversikt" />
