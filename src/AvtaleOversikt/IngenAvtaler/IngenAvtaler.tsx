@@ -21,7 +21,7 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
     const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
 
-    if (innloggetPart === 'VEILEDER') {
+    if (innloggetPart === 'VEILEDER' || innloggetPart === 'BESLUTTER') {
         return (
             <div className={classNames(cls.element('ingenavtalerveileder'), 'innholdsboks')}>
                 <div style={{ display: 'flex' }}>
