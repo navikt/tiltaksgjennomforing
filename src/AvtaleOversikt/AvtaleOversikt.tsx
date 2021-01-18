@@ -38,7 +38,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             case 'VEILEDER':
                 return { veilederNavIdent: innloggetBruker.identifikator };
             case 'BESLUTTER':
-                return { beslutterNavIdent: innloggetBruker.identifikator };
+                return { beslutterNavIdent: innloggetBruker.identifikator, tilskuddPeriodeStatus: 'UBEHANDLET' };
             case 'DELTAKER':
             default:
                 return {};
