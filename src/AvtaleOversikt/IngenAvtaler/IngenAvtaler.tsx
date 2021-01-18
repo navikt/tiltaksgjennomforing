@@ -10,6 +10,7 @@ import React, { FunctionComponent } from 'react';
 import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './arbeidsgiver/IngenAvtalerArbeidsgiver';
+import { tilskuddsperiodeStatusTekst } from '@/messages';
 
 const cls = BEMHelper('ingenAvtaler');
 
@@ -21,7 +22,7 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
     const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
 
-    if (innloggetPart === 'VEILEDER' || innloggetPart === 'BESLUTTER') {
+    if (innloggetPart === 'VEILEDER') {
         return (
             <div className={classNames(cls.element('ingenavtalerveileder'), 'innholdsboks')}>
                 <div style={{ display: 'flex' }}>
@@ -30,6 +31,20 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
                 </div>
                 <VerticalSpacer rem={1} />
                 <Normaltekst>Du har ingen avtaler som er tilknyttet deg enda.</Normaltekst>
+            </div>
+        );
+    } else if (innloggetPart === 'BESLUTTER') {
+        return (
+            <div className={classNames(cls.element('ingenavtalerveileder'), 'innholdsboks')}>
+                <div style={{ display: 'flex' }}>
+                    <InfoIkon />
+                    <Undertittel style={{ marginLeft: '1rem' }}>Finner ingen avtaler</Undertittel>
+                </div>
+                <VerticalSpacer rem={1} />
+                <Normaltekst>
+                    Ingen avtaler med status {tilskuddsperiodeStatusTekst[props.sokekriterier.tilskuddPeriodeStatus!]} å
+                    finne for din enhet.
+                </Normaltekst>
             </div>
         );
     } else if (innloggetPart === 'DELTAKER') {

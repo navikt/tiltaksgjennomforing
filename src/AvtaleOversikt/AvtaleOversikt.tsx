@@ -31,7 +31,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
-    const sokeKriterer = () => {
+    const sokeKriterer = (): Partial<Avtale> => {
         switch (innloggetBruker.rolle) {
             case 'ARBEIDSGIVER':
                 return { bedriftNr: new URLSearchParams(window.location.search).get('bedrift')! };

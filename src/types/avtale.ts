@@ -51,7 +51,7 @@ export interface Avtaleparter {
 }
 
 export interface Tilskuddsperiodestatus {
-    gjeldendeTilskuddsperiodeStatus?: TilskuddPeriodeStatus;
+    tilskuddPeriodeStatus?: TilskuddPeriodeStatus;
 }
 
 export interface Bedriftinfo {
