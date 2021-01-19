@@ -1,17 +1,18 @@
 import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
+import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import { RelasjonerInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import { EtikettFokus } from 'nav-frontend-etiketter';
 import Popover from 'nav-frontend-popover';
 import { RadioPanel } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
-import { RelasjonerInfo } from '@/types/avtale';
-import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
 import './Relasjoner.less';
 
 const Relasjoner: FunctionComponent = () => {
@@ -19,13 +20,14 @@ const Relasjoner: FunctionComponent = () => {
 
     const cls = BEMHelper('relasjoner');
 
-    const harFamilieTilknttningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): string => {
+    const harFamilieTilknttningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): JSX.Element => {
         switch (harFamilietilknytning) {
             case true:
-                return 'Ja';
+                return <Normaltekst>Ja</Normaltekst>;
             case false:
+                return <Normaltekst>Nei</Normaltekst>;
             default:
-                return 'Nei';
+                return <EtikettFokus>Ikke fylt ut</EtikettFokus>;
         }
     };
 
