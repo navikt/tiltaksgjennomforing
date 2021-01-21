@@ -1,10 +1,11 @@
-import React, { FunctionComponent, useContext } from 'react';
-import BEMHelper from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
-import './tilskuddsPerioder.less';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
+import React, { FunctionComponent, useContext } from 'react';
+import './tilskuddsPerioder.less';
 
 const cls = BEMHelper('tilskuddsPerioder');
 
@@ -21,6 +22,7 @@ const TilskuddsPerioder: FunctionComponent = () => {
                 <thead>
                     <tr>
                         <th>Periode</th>
+                        <th>Prosent</th>
                         <th>Beløp</th>
                         <th>Arbeidsgiver kan be om refusjon</th>
                     </tr>
@@ -32,6 +34,7 @@ const TilskuddsPerioder: FunctionComponent = () => {
                                 <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>
                                     {formatterPeriode(periode.startDato, periode.sluttDato)}
                                 </td>
+                                <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                 <td>{formatterPenger(periode.beløp)}</td>
                                 <td>{formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}</td>
                             </tr>

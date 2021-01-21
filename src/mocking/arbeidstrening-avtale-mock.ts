@@ -22,6 +22,7 @@ const tilskuddsPeriode: TilskuddsPeriode[] = [
         status: 'UBEHANDLET',
         godkjentTidspunkt: '',
         avslagsårsaker: new Set<Avslagsårsaker>(),
+        lonnstilskuddProsent: 60,
     },
 ];
 
