@@ -12,7 +12,11 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 type Validering = (verdi: string) => SkjemaelementFeil | undefined;
 
+const navIdentValidering: Validering = verdi =>
+    !verdi.match(/\w\d{6}/) ? { feilmelding: 'Ugyldig NAV-ident' } : undefined;
+
 const fnrValidering: Validering = verdi => (!validerFnr(verdi) ? { feilmelding: 'Ugyldig fødselsnummer' } : undefined);
+
 const orgNrValidering: Validering = verdi =>
     !validerOrgnr(verdi) ? { feilmelding: 'Ugyldig bedriftsnummer' } : undefined;
 
@@ -32,6 +36,13 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             maxLength: 0,
             validering: () => undefined,
             utførSøk: () => props.endreSøk({ ...tomt, veilederNavIdent: innloggetBruker.identifikator }),
+        },
+        veileder: {
+            placeholder: 'NAV-ident',
+            label: 'På en veileder',
+            maxLength: 7,
+            validering: navIdentValidering,
+            utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, veilederNavIdent: søkeord }),
         },
         deltaker: {
             placeholder: 'Fødselsnummer',
@@ -69,16 +80,16 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     const aktueltSøk = søk[aktivSøketype];
     const skjulSøkefelt: boolean = aktivSøketype === 'egne' || aktivSøketype === 'ufordelte';
 
-    const søkEntries = () => {
+    const søkEntries = (() => {
         if (arbeidsgiverOppretterToggle) {
             return Object.entries(søk);
         }
         return Object.entries(søk).splice(0, 3);
-    };
+    })();
 
     return (
-        <Filter tittel={'Vis avtaler'}>
-            {søkEntries().map(([key, value]) => (
+        <Filter tittel="Vis avtaler">
+            {søkEntries.map(([key, value]) => (
                 <Radio
                     label={value.label}
                     name={'aktivSøketype'}
@@ -99,7 +110,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     utførSøk={aktueltSøk.utførSøk}
                     valider={aktueltSøk.validering}
                     role="searchbox"
-                    aria-labelledby="søk etter fødselsnummer"
+                    aria-labelledby={'søk etter ' + aktueltSøk.placeholder}
                 />
             )}
         </Filter>

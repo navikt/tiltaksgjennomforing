@@ -6,10 +6,11 @@ import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
 import { Ingress, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './arbeidsgiver/IngenAvtalerArbeidsgiver';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const cls = BEMHelper('ingenAvtaler');
 
@@ -20,6 +21,7 @@ type Props = {
 const IngenAvtaler: FunctionComponent<Props> = props => {
     const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
+    const innloggetBruker = useContext(InnloggetBrukerContext);
 
     if (innloggetPart === 'VEILEDER') {
         return (
@@ -29,10 +31,10 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
                     <Undertittel style={{ marginLeft: '1rem' }}>Finner ingen avtaler</Undertittel>
                 </div>
                 <VerticalSpacer rem={1} />
-                {props.sokekriterier.erUfordelt ? (
-                    <Normaltekst>Det finnes ingen ufordelte avtaler som du har tilgang til.</Normaltekst>
+                {props.sokekriterier.veilederNavIdent === innloggetBruker.identifikator ? (
+                    <Normaltekst>Du har ingen avtaler som er tilknyttet deg.</Normaltekst>
                 ) : (
-                    <Normaltekst>Du har ingen avtaler som er tilknyttet deg enda.</Normaltekst>
+                    <Normaltekst>Finner ingen avtaler som passer med valgt filter.</Normaltekst>
                 )}
             </div>
         );
