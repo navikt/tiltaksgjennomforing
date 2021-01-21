@@ -11,7 +11,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
-import { pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
+import { pathTilAvtale } from '@/paths';
 import { opprettAvtaleArbeidsgiver } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
@@ -78,7 +78,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
             const avtale = await opprettAvtaleArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType!);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             history.push({
-                pathname: pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id),
+                pathname: pathTilAvtale(avtale.id),
                 search: window.location.search,
             });
         } else {
@@ -165,8 +165,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                     <Element>Dette skjer etter at du har opprettet avtalen</Element>
                     <Normaltekst>
                         <ul>
-                            <li> Du kan begynne å fylle ut avtalen.</li>
-                            <li> Du kan invitere deltaker ved å sende lenken til avtalen.</li>
+                            <li>Du kan begynne å fylle ut avtalen.</li>
                             <li>
                                 Avtalen blir tilgjengelig for veilederne på NAV kontoret til deltakeren. Når avtalen har
                                 blitt fordelt til en veileder vil du se kontaktinformasjonen til denne veilederen inne i
