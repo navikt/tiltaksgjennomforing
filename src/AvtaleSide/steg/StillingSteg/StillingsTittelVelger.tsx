@@ -54,7 +54,7 @@ const StillingsTittelVelger: FunctionComponent<{ id: string }> = props => {
         );
     };
 
-    const formatOptionLabel = (option: StillingOptions, labelMeta: FormatOptionLabelMeta<StillingOptions>) => {
+    const formatOptionLabel = (option: StillingOptions, labelMeta: FormatOptionLabelMeta<StillingOptions, boolean>) => {
         return highlightPattern(option.label, labelMeta.inputValue);
     };
 
