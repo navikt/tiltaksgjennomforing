@@ -8,7 +8,7 @@ import { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelV
 export default () => {
     const avtaleContext: InputStegProps<Stilling> = useContext(AvtaleContext);
 
-    const setValgtStilling = (val: ValueType<StillingOptions>) => {
+    const setValgtStilling = (val: ValueType<StillingOptions, boolean>) => {
         const values = val as StillingOptions;
         avtaleContext.settAvtaleVerdier({
             stillingstittel: values?.label,
