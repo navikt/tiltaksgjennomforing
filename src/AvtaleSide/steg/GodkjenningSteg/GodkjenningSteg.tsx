@@ -11,7 +11,8 @@ import * as React from 'react';
 import { createElement, FunctionComponent, useContext } from 'react';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import Godkjenning from './Godkjenning';
-import { UfordeltStatusArbeidsgiverDeltaker } from './UfordeltStatusArbeidsgiverDeltaker';
+import { UfordeltStatusArbeidsgiver } from './UfordeltStatusArbeidsgiver';
+import { UfordeltStatusDeltaker } from '@/AvtaleSide/steg/GodkjenningSteg/UfordeltStatusDeltaker';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -26,7 +27,8 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            {avtale.erUfordelt && innloggetBruker.rolle !== 'VEILEDER' && <UfordeltStatusArbeidsgiverDeltaker />}
+            {avtale.erUfordelt && innloggetBruker.rolle === 'ARBEIDSGIVER' && <UfordeltStatusArbeidsgiver />}
+            {avtale.erUfordelt && innloggetBruker.rolle === 'DELTAKER' && <UfordeltStatusDeltaker />}
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
             {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />}
             <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
