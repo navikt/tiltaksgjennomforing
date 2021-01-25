@@ -127,6 +127,7 @@ export interface TilskuddsPeriode {
     avslagsforklaring?: string;
     avslagsårsaker: Set<Avslagsårsaker>;
     status: TilskuddPeriodeStatus;
+    lonnstilskuddProsent: number;
 }
 
 export interface Kontonummer {

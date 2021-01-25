@@ -46,6 +46,7 @@ const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
         beløp: 0,
         startDato: '',
         sluttDato: '',
+        lonnstilskuddProsent: 60,
     },
     stillingstype: 'FAST',
     stillingKonseptId: 123,

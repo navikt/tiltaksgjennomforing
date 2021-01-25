@@ -104,7 +104,7 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {formatterProsent(avtaleContext.avtale.lonnstilskuddProsent)}
+                                        {formatterProsent(gjeldendeTilskuddsperiode.lonnstilskuddProsent)}
                                     </Normaltekst>
                                 </div>
                                 <div>

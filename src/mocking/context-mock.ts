@@ -37,6 +37,7 @@ const avtaleInnhold: Avtale = {
             godkjentTidspunkt: '',
             status: 'UBEHANDLET',
             avslagsårsaker: new Set<Avslagsårsaker>(),
+            lonnstilskuddProsent: 60,
         },
     ],
     tilrettelegging: '',
