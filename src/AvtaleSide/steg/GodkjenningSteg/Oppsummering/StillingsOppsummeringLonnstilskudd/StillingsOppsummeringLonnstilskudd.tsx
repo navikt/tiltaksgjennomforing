@@ -7,7 +7,7 @@ import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 
-const StillingsOppsummering: FunctionComponent<Stilling> = props => (
+const StillingsOppsummeringLonnstilskudd: FunctionComponent<Stilling> = props => (
     <Stegoppsummering tittel="Stilling" ikon={<StillingIkon />}>
         <Element>Stillingstittel</Element>
         <SjekkOmVerdiEksisterer verdi={props.stillingstittel} />
@@ -20,4 +20,4 @@ const StillingsOppsummering: FunctionComponent<Stilling> = props => (
     </Stegoppsummering>
 );
 
-export default StillingsOppsummering;
+export default StillingsOppsummeringLonnstilskudd;
