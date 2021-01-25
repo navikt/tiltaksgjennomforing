@@ -20,11 +20,11 @@ const useAntallUlesteNyheter = (nyheter: Nyhet[], onFørsteBesøk: () => void): 
             const localStorageValue = window.localStorage.getItem(LOCAL_STORAGE_KEY);
 
             if (localStorageValue) {
-                const antallLesteFraLocalStorage = Number.parseInt(JSON.parse(localStorageValue));
-                const antallUlesteNyheter = hentAntallUlesteNyheter(nyheter, antallLesteFraLocalStorage);
+                const antallLesteFraLocalStorage = Number.parseInt(JSON.parse(localStorageValue), 10);
+                const mineAntallUlesteNyheter = hentAntallUlesteNyheter(nyheter, antallLesteFraLocalStorage);
 
-                setAntallUlesteNyheter(antallUlesteNyheter);
-                setAntallUlesteVedSidelast(antallUlesteNyheter);
+                setAntallUlesteNyheter(mineAntallUlesteNyheter);
+                setAntallUlesteVedSidelast(mineAntallUlesteNyheter);
             } else {
                 onFørsteBesøk();
                 setAntallUlesteNyheter(1);
@@ -33,8 +33,7 @@ const useAntallUlesteNyheter = (nyheter: Nyhet[], onFørsteBesøk: () => void): 
         } catch (error) {
             console.error('Kunne ikke hente fra local storage:', error);
         }
-        // eslint-disable-next-line
-    }, [nyheter]);
+    }, [nyheter, onFørsteBesøk]);
 
     const markerSomLest = () => {
         setAntallUlesteNyheter(0);

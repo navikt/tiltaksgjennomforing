@@ -2,7 +2,7 @@ import React from 'react';
 
 const VarselTegnForModal = ({ width, height }: { width: string; height: string }) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 64 64">
+        <svg xmlns="https://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 64 64">
             <g fill="none" fillRule="evenodd">
                 <circle cx="32" cy="32" r="32" fill="#FFD399" />
                 <g fill="#515658">
