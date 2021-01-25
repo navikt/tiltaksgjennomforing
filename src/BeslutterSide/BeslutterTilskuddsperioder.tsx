@@ -38,7 +38,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
                                     {formatterPeriode(periode.startDato, periode.sluttDato)}
                                 </td>
                                 <td>{formatterPenger(periode.beløp)}</td>
-                                <td>{formatterProsent(avtale.lonnstilskuddProsent)}</td>
+                                <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                 <td>{formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}</td>
                                 <td>
                                     <EtikettStatus tilskuddsperiodestatus={periode.status} />
