@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useContext } from 'react';
 import BEMHelper from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
-import './tilskuddsPerioder.less';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';

@@ -6,7 +6,7 @@ import React from 'react';
 import { StegInfo } from '../AvtaleSide';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
-import BannerNAVAnsatt from '@/komponenter/Banner/BannerVeileder';
+import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 
 interface Props {
     avtaleSteg: StegInfo[];
