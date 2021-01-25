@@ -6,6 +6,23 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(21, 1, 2021),
+        tittel: 'Nå kan også arbeidsgiveren opprette digitale tiltaksavtaler',
+        innhold: (
+            <>
+                <p>
+                    Avtaler som arbeidsgiveren oppretter vises under «ufordelte» avtaler. Veilederen overtar avtalen ved
+                    å klikke seg inn i avtalen og velge «overta avtale».
+                </p>
+                <p>
+                    <EksternLenke href="https://navno.sharepoint.com/sites/intranett-produktomrader-og-utvikling/SitePages/N%C3%A5-kan-ogs%C3%A5-arbeidsgiveren-opprette-avtale-i-digital-l%C3%B8sning-om-tiltaksavtaler.aspx">
+                        Les mer om ny funksjonalitet og rutiner på Navet.
+                    </EksternLenke>
+                </p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(15, 10, 2020),
         tittel: 'Predefinerte stillinger',
         innhold: (

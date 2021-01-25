@@ -5,7 +5,7 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import GodkjenningsLinjeArbeidsgiverDeltaker from './GodkjenningsLinjeArbeidsgiverDeltaker';
 
-export const UfordeltStatusArbeidsgiverDeltaker: FunctionComponent = () => {
+export const UfordeltStatusArbeidsgiver: FunctionComponent = () => {
     return (
         <Innholdsboks>
             <div style={{ textAlign: 'center' }}>

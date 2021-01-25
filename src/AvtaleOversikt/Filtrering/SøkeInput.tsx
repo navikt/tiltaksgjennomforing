@@ -26,7 +26,7 @@ export const SøkeInput: FunctionComponent<Props> = props => {
     };
 
     const onChange = (event: FormEvent<HTMLInputElement>) => {
-        setSøkeord(event.currentTarget.value);
+        setSøkeord(event.currentTarget.value.toUpperCase());
         setSkjemaelementfeil(undefined);
     };
 
