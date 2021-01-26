@@ -32,7 +32,7 @@ type Props = {};
 
 const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
-    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
 
@@ -74,8 +74,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
 
     const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
-        if (!hvaSomManglerTekst) {
-            const avtale = await opprettAvtaleArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType!);
+        if (!hvaSomManglerTekst && valgtTiltaksType) {
+            const avtale = await opprettAvtaleArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             history.push({
                 pathname: pathTilAvtale(avtale.id),
@@ -141,7 +141,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                     </div>
                 </Innholdsboks>
 
-                <Ekspanderbartpanel tittel={<Element>Slik fungerer løsningen</Element>} border>
+                <Ekspanderbartpanel tittel={<Element>Slik fungerer løsningen</Element>} border={true}>
                     <EkspanderbartPanelRad svgIkon={<MobilIkon />} headerTekst={{ tekst: 'Digital avtale' }}>
                         Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved
                         NAV.

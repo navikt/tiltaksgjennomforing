@@ -18,7 +18,7 @@ const TelefonnummerInput: React.FunctionComponent<Props> = props => {
             }
         },
         verdi => {
-            if (!/^\d{8}$/.test(verdi!)) {
+            if (verdi && !/^\d{8}$/.test(verdi)) {
                 return { feilmelding: 'Telefonnummer må bestå av 8 siffer' };
             }
         },

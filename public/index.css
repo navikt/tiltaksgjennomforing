@@ -46,6 +46,9 @@ html {
     /* 3 */
     -webkit-text-size-adjust: 100%;
     /* 3 */
+
+    font-size: 16px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 /* Sections
    ========================================================================== */
@@ -86,12 +89,7 @@ main {
     /* 1 */
     display: block;
 }
-/**
- * Add the correct margin in IE 8.
- */
-figure {
-    margin: 1em 40px;
-}
+
 /**
  * 1. Add the correct box sizing in Firefox.
  * 2. Show the overflow in Edge and IE.
@@ -109,7 +107,7 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-    font-family: monospace, monospace;
+    font-family: monospace;
     /* 1 */
     font-size: 1em;
     /* 2 */
@@ -153,13 +151,7 @@ b,
 strong {
     font-weight: inherit;
 }
-/**
- * Add the correct font weight in Chrome, Edge, and Safari.
- */
-b,
-strong {
-    font-weight: bolder;
-}
+
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
@@ -167,7 +159,7 @@ strong {
 code,
 kbd,
 samp {
-    font-family: monospace, monospace;
+    font-family: monospace;
     /* 1 */
     font-size: 1em;
     /* 2 */
@@ -229,6 +221,7 @@ audio:not([controls]) {
  */
 img {
     border-style: none;
+    vertical-align: middle;
 }
 /**
  * Hide the overflow in IE.
@@ -493,10 +486,7 @@ template {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-html {
-    font-size: 16px;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
+
 input,
 button,
 select,
@@ -508,9 +498,7 @@ textarea {
 figure {
     margin: 0;
 }
-img {
-    vertical-align: middle;
-}
+
 .img-responsive {
     display: block;
     max-width: 100%;
