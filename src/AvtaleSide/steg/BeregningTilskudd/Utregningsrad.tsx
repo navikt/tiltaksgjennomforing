@@ -28,11 +28,8 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
     const setLabelSats = (sats?: number) => (sats ? <Normaltekst>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null);
 
     const parseVerdi = (verdi: string | number) => {
-        if (typeof verdi === 'string') {
-            const parsedNumb = parseInt(verdi, 10);
-            return !isNaN(parsedNumb) && !props.ikkePenger ? `${formatterPenger(parsedNumb)}` : verdi;
-        }
-        return formatterPenger(verdi);
+        const verdiSomNumber = parseInt(verdi.toString(), 10);
+        return !isNaN(verdiSomNumber) && !props.ikkePenger ? `${formatterPenger(verdiSomNumber)}` : verdi;
     };
 
     return (

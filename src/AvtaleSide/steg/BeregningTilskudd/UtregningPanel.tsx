@@ -10,11 +10,11 @@ import { ReactComponent as StillingsprosentIkon } from '@/assets/ikoner/stilling
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import React, { FunctionComponent } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
-import { formatterPenger } from '@/utils/PengeUtils';
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
     return (

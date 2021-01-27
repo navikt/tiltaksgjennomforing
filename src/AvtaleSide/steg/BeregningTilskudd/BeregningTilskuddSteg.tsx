@@ -192,7 +192,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }}
                         onBlur={() => lagreAvtale()}
                     />
-                    {/* <VisUtregningenPanel {...avtale} /> */}
                     <UtregningPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
                     {innloggetBruker.erNavAnsatt &&

@@ -1,4 +1,5 @@
-import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
+import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
 import { Element } from 'nav-frontend-typografi';
@@ -6,7 +7,6 @@ import React, { FunctionComponent, useContext } from 'react';
 import HvaManglerOppsummering from '../HvaManglerOppsummering';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kontonummer> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -26,7 +26,7 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
                 }}
             >
                 <VerticalSpacer sixteenPx={true} />
-                <VisUtregningenPanel {...props} />
+                <UtregningPanel {...props} />
             </HvaManglerOppsummering>
             <VerticalSpacer twentyPx={true} />
             {innloggetBruker.erNavAnsatt &&
