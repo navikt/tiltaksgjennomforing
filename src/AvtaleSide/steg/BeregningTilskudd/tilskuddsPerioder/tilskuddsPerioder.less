@@ -1,5 +1,33 @@
 .tilskuddsPerioder {
+    margin: 1.5rem 0;
+    .tabell td,
+    .tabell th {
+        width: 25%;
+        display: table-cell;
+        padding: 0.5rem 0;
+        text-align: center;
+
+        &:nth-child(2),
+        &:nth-child(3) {
+            padding: 0.5rem 0.125rem;
+        }
+    }
+
+    .tabell thead tr th {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     th {
         max-width: 10rem;
+    }
+
+    @media (min-width: 768px) {
+        margin: 1rem 0;
+        .tabell td,
+        .tabell th {
+            text-align: unset;
+            width: unset;
+            padding: 1rem;
+        }
     }
 }
