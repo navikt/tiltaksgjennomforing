@@ -1,0 +1,63 @@
+.utregningspanel {
+    &__ikon-placeholder {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-right: 0.5rem;
+    }
+
+    &__operator {
+        line-height: 1.5625rem;
+        color: #979797;
+    }
+
+    &__utregning-rad {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        height: 3.5rem;
+        border-bottom: 1px solid #c6c2bf;
+
+        svg {
+            min-width: 1.25rem;
+            min-height: 1.25rem;
+            margin-right: 0.5rem;
+            //padding-bottom: 0.275rem;
+        }
+
+        &--tykkbunn {
+            border-bottom: 1.25px solid #3e3832;
+        }
+    }
+
+    &__utregning-label,
+    &__label-innhold {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        // padding-right: 0.5rem;
+    }
+
+    &__utregning-label {
+        justify-content: space-between;
+    }
+
+    &__utregning-verdi svg {
+        padding-bottom: 0.275rem;
+        // min-width: 0.875rem;
+        // min-height: 0.875rem;
+        // margin-right: 0.5rem;
+        // padding-top: 0.375rem;
+    }
+
+    &__utregning-verdi {
+        width: 75%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    &__sum {
+        margin-left: 1rem;
+        text-align: end;
+        min-width: 5rem;
+    }
+}

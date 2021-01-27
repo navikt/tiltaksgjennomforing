@@ -106,6 +106,8 @@ export interface Beregningsgrunnlag {
     sumLonnsutgifter?: number;
     sumLonnstilskudd?: number;
     manedslonn100pst?: number;
+    datoForRedusertProsent?: string;
+    sumLønnstilskuddRedusert?: number;
 }
 
 export interface TilskuddsPerioder {

@@ -1,5 +1,7 @@
+import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
-import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
+import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
+import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
@@ -16,10 +18,8 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
-import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
-import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
-import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import OtpProsentInput from './OtpProsentInput';
+import UtregningPanel from './UtregningPanel';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -192,7 +192,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }}
                         onBlur={() => lagreAvtale()}
                     />
-                    <VisUtregningenPanel {...avtale} />
+                    {/* <VisUtregningenPanel {...avtale} /> */}
+                    <UtregningPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
                     {innloggetBruker.erNavAnsatt &&
                         avtale.stillingprosent !== undefined &&
