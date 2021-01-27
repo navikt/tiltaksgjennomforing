@@ -51,6 +51,8 @@ const tomtAvtaleInnholdInput: Required<Avtaleinnhold> = {
     stillingstype: 'FAST',
     stillingKonseptId: 123,
     stillingStyrk08: 1234,
+    datoForRedusertProsent: '',
+    sumLønnstilskuddRedusert: 0,
 };
 
 const lagAvtaleObjektMedKunInputFelter = (avtale: Avtale) => {

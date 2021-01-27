@@ -13,6 +13,7 @@
         "max-line-length": [true, 120],
         "interface-over-type-literal": false,
         "object-literal-shorthand": false,
-        "no-console": [true, "log"]
+        "no-console": [true, "log"],
+        "jsx-boolean-value": false
     }
 }

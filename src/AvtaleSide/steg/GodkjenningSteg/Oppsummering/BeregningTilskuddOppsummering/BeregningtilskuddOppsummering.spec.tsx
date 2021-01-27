@@ -1,4 +1,4 @@
-import VisUtregningenPanel from '@/AvtaleSide/steg/BeregningTilskudd/VisUtregningenPanel';
+import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 import { shallow } from 'enzyme';
 import React from 'react';
@@ -18,5 +18,5 @@ test('Skal rendre Stegoppsummering og HvaManglerOppsummering', () => {
 
 test('Skal rendre VisUtreningPanel', () => {
     const wrapper = shallow(<BeregningTilskuddOppsummering {...lonnstilskuddAvtaleMock} />);
-    expect(wrapper.find(VisUtregningenPanel)).toHaveLength(1);
+    expect(wrapper.find(UtregningPanel)).toHaveLength(1);
 });
