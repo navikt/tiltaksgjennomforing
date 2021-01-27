@@ -27,12 +27,12 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
 
     const setLabelSats = (sats?: number) => (sats ? <Normaltekst>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null);
 
-    const parseVerdi = (verdi: string) => {
-        if (!isNaN(parseFloat(verdi))) {
-            return formatterPenger(parseFloat(verdi));
-        } else {
-            return verdi;
+    const parseVerdi = (verdi: string | number) => {
+        if (typeof verdi === 'string') {
+            const parsedNumb = parseInt(verdi, 10);
+            return !isNaN(parsedNumb) && !props.ikkePenger ? `${formatterPenger(parsedNumb)}` : verdi;
         }
+        return formatterPenger(verdi);
     };
 
     return (
@@ -49,8 +49,7 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
             <div className={cls.element('utregning-verdi')}>
                 {setOperator(props.verdiOperator)}
                 <TypografiBase type={props.tekstType || 'normaltekst'} className={cls.element('sum')}>
-                    {props.ikkePenger ? props.verdi : parseVerdi}
-                    {/* {props.ikkePenger ? props.verdi : formatterPenger(props.verdi)} */}
+                    {parseVerdi(props.verdi)}
                 </TypografiBase>
             </div>
         </div>

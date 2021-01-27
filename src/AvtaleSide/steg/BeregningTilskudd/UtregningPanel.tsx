@@ -14,6 +14,8 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import React, { FunctionComponent } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
+import { Element } from 'nav-frontend-typografi';
+import { formatterPenger } from '@/utils/PengeUtils';
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
     return (
@@ -58,7 +60,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                     labelTekst="Sum utgifter"
                     verdiOperator={<ErlikTegn />}
                     verdi={props.sumLonnsutgifter || 0}
-                    borderTykk
+                    borderTykk={true}
                 />
                 <Utregningsrad
                     labelTekst={props.datoForRedusertProsent ? `Fastsatt refusjon frem til` : 'Fastsatt refusjon'}
@@ -75,8 +77,8 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                 <Utregningsrad
                     labelTekst="Sum lønnstilskudd per måned"
                     tekstType="element"
-                    verdi={props.sumLonnstilskudd || 0}
-                    borderTykk
+                    verdi={`Inntil ${formatterPenger(props.sumLonnstilskudd || 0)}`}
+                    borderTykk={true}
                 />
                 {props.datoForRedusertProsent && (
                     <>
@@ -91,7 +93,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         <Utregningsrad
                             labelTekst="Sum lønnstilskudd per måned"
                             tekstType="element"
-                            verdi={props.sumLønnstilskuddRedusert || 0}
+                            verdi={`Inntil ${props.sumLønnstilskuddRedusert || 0} kr`}
                             borderTykk
                         />
                     </>
