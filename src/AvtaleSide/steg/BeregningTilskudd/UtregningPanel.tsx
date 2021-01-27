@@ -15,11 +15,13 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import React, { FunctionComponent } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
+import BEMHelper from '@/utils/bem';
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
+    const cls = BEMHelper('utregningspanel');
     return (
         <Ekspanderbartpanel tittel="Utregningen" apen>
-            <div>
+            <div className={cls.element('wrapper')}>
                 <Utregningsrad
                     labelIkon={<StillingsprosentIkon />}
                     labelTekst="Stillingsprosent"

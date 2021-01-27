@@ -25,7 +25,8 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
     const setOperator = (operator?: string | ReactNode) =>
         operator ? <Systemtittel className={cls.element('operator')}>{operator}</Systemtittel> : null;
 
-    const setLabelSats = (sats?: number) => (sats ? <Normaltekst>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null);
+    const setLabelSats = (sats?: number) =>
+        sats ? <Normaltekst className={cls.element('label-sats')}>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null;
 
     const parseVerdi = (verdi: string | number) => {
         const verdiSomNumber = parseInt(verdi.toString(), 10);
