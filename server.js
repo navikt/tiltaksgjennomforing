@@ -21,8 +21,8 @@ const setStaticPath = slufix =>
     server.use(basePath.concat(slufix), express.static(path.join(__dirname, 'build'.concat(slufix))));
 
 const serveAppWithMenu = app => {
-    staticPaths.forEach(path => {
-        setStaticPath(path);
+    staticPaths.forEach(staticpath => {
+        setStaticPath(staticpath);
     });
     server.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) => {
         res.send(app);

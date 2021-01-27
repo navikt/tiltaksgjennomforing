@@ -52,7 +52,7 @@ class LagreKnapp extends Component<Props, State> {
         } catch (error) {
             try {
                 handterFeil(error, this.visFeilmelding);
-            } catch (error) {
+            } catch (er) {
                 this.visFeilmelding('Det skjedde en uventet feil');
             }
         } finally {

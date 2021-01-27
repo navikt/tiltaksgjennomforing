@@ -21,7 +21,7 @@ import { FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('innloggingsside');
 
-const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
+const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const throwError = useAsyncError();
     const [, setCookie] = useCookies();
     const featureToggleContext = useContext(FeatureToggleContext);
@@ -90,4 +90,4 @@ const Innloggingside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     );
 };
 
-export default Innloggingside;
+export default Innloggingsside;

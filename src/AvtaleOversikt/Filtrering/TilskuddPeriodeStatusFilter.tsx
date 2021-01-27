@@ -6,7 +6,7 @@ import { Radio } from 'nav-frontend-skjema';
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
 
-const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
+const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = props => {
     const [valgtTilskuddPeriodeStatus, setValgtTilskuddPeriodeStatus] = useState<TilskuddPeriodeStatus | ''>(
         'UBEHANDLET'
     );
@@ -39,4 +39,4 @@ const TiltakstypeFilter: FunctionComponent<FiltreringProps> = props => {
     );
 };
 
-export default TiltakstypeFilter;
+export default TilskuddPeriodeStatusFilter;

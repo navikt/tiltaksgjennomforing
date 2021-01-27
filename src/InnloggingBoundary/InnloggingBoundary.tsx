@@ -40,8 +40,8 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     }, [throwError]);
 
     const [cookies, setCookie] = useCookies();
-    const sjekkOgSettCookie = (cookies: any) => {
-        if (!cookies[INNLOGGET_PART]) {
+    const sjekkOgSettCookie = (currentCookie: any) => {
+        if (!currentCookie[INNLOGGET_PART]) {
             const urlParametere = new URLSearchParams(props.location.search);
 
             const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
