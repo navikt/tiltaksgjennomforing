@@ -14,7 +14,6 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import React, { FunctionComponent } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
-import { Element } from 'nav-frontend-typografi';
 import { formatterPenger } from '@/utils/PengeUtils';
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
