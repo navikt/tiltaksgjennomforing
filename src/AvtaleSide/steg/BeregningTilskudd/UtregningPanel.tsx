@@ -52,7 +52,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                 <Utregningsrad
                     labelTekst="Arbeidsgiveravgift"
                     labelIkon={<ArbeidsgiveravgiftIkon />}
-                    verdiOperator={<ErlikTegn />}
+                    verdiOperator={<PlussTegn />}
                     labelSats={props.arbeidsgiveravgift}
                     verdi={props.arbeidsgiveravgiftBelop || 0}
                 />

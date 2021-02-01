@@ -24,4 +24,5 @@ export type HendelseType =
     | 'OPPRETTET_AV_ARBEIDSGIVER'
     | 'LÅST_OPP'
     | 'NY_VEILEDER'
-    | 'AVTALE_FORDELT';
+    | 'AVTALE_FORDELT'
+    | 'TILSKUDDSPERIODE_AVSLATT';
