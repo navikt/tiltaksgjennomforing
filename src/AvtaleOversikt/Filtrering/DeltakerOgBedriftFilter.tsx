@@ -29,7 +29,9 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     const featureToggleContext = useContext(FeatureToggleContext);
     const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
-    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false };
+    const navEnhetValgt = props.navEnheter?.length !== 0 ? props.navEnheter?.sort()![0] : '';
+
+    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
     const søk = {
         egne: {
             placeholder: '',
@@ -64,7 +66,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             label: 'Ufordelte',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => props.endreSøk({ ...tomt, navEnhet: props.navEnheter![0] }),
+            utførSøk: () => props.endreSøk({ ...tomt, navEnhet: navEnhetValgt }),
         },
     };
 
@@ -125,7 +127,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     }}
                     aria-labelledby="filtere på NAV enhet"
                 >
-                    {props.navEnheter?.map((enhet, index) => (
+                    {props.navEnheter?.sort().map((enhet, index) => (
                         <option key={index} value={enhet}>
                             {enhet}
                         </option>
