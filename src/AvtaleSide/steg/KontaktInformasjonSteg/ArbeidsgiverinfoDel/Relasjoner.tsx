@@ -57,7 +57,7 @@ const Relasjoner: FunctionComponent = () => {
                         id="familevalg"
                     >
                         {rolle === 'VEILEDER' ? (
-                            <Normaltekst>{harFamilieTilknttningSomJaNeiSvar(avtale.harFamilietilknytning)}</Normaltekst>
+                            <div>{harFamilieTilknttningSomJaNeiSvar(avtale.harFamilietilknytning)}</div>
                         ) : (
                             <>
                                 <RadioPanel

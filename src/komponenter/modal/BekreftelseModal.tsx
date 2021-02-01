@@ -41,9 +41,9 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
         } catch (error) {
             try {
                 handterFeil(error, setFeilmelding);
-            } catch (error) {
+            } catch (err) {
                 setFeilmelding('Det har skjedd en uventet feil');
-                throw error;
+                throw err;
             }
         }
     };
