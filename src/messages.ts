@@ -69,6 +69,7 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     GJENOPPRETTET: 'Avtale gjenopprettet',
     NY_VEILEDER: 'Avtale tildelt ny veileder',
     AVTALE_FORDELT: 'Avtale tildelt veileder',
+    TILSKUDDSPERIODE_AVSLATT: 'Avtalen din er avslått. Det blir ikke noe jobb på deg',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
