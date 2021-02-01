@@ -10,7 +10,10 @@ import './Filtrering.less';
 const cls = BEMHelper('filtrering');
 
 export type FiltreringProps = {
-    endreSøk: (søkekriterier: Partial<Avtale> & { tilskuddPeriodeStatus?: TilskuddPeriodeStatus }) => void;
+    navEnheter?: string[];
+    endreSøk: (
+        søkekriterier: Partial<Avtale> & { tilskuddPeriodeStatus?: TilskuddPeriodeStatus; navEnhet?: string }
+    ) => void;
 };
 
 const VeilederFiltrering: FunctionComponent<FiltreringProps> = props => {

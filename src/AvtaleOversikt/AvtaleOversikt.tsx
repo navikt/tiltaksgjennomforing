@@ -112,7 +112,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                                     </LenkeKnapp>
                                 </div>
                             )}
-                            <VeilederFiltrering endreSøk={endreSøk} />
+                            <VeilederFiltrering endreSøk={endreSøk} navEnheter={innloggetBruker.navEnheter} />
                         </aside>
                     )}
 
