@@ -8,7 +8,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { avtaleTittel } from '@/messages';
 import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
-import hentAvtaleSteg from '@/utils/stegUtils';
+import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import * as React from 'react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';

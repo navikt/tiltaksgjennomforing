@@ -9,7 +9,7 @@ import { Oppfolging, Tilrettelegging } from '@/types/avtale';
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
 import React, { useContext } from 'react';
 
-const OppfolgingTilretteleggingSteg = () => {
+const OppfolgingOgTilretteleggingSteg = () => {
     const avtaleContext: InputStegProps<Oppfolging & Tilrettelegging> = useContext(AvtaleContext);
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -48,4 +48,4 @@ const OppfolgingTilretteleggingSteg = () => {
     );
 };
 
-export default OppfolgingTilretteleggingSteg;
+export default OppfolgingOgTilretteleggingSteg;

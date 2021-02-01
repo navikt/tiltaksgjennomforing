@@ -1,4 +1,4 @@
-import hentAvtaleSteg from './stegUtils';
+import hentAvtaleSteg from './hentAvtaleSteg';
 
 test('test riktig antall steg for arbeidstrening', () => {
     const avtaleSteg = hentAvtaleSteg.ARBEIDSTRENING;
