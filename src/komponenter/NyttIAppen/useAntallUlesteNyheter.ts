@@ -33,7 +33,8 @@ const useAntallUlesteNyheter = (nyheter: Nyhet[], onFørsteBesøk: () => void): 
         } catch (error) {
             console.error('Kunne ikke hente fra local storage:', error);
         }
-    }, [nyheter, onFørsteBesøk]);
+        // eslint-disable-next-line
+    }, [nyheter]);
 
     const markerSomLest = () => {
         setAntallUlesteNyheter(0);
