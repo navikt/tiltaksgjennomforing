@@ -5,6 +5,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio } from 'nav-frontend-skjema';
+import { Select } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import * as React from 'react';
 import { FormEvent, FunctionComponent, useContext, useState } from 'react';
@@ -28,7 +29,9 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     const featureToggleContext = useContext(FeatureToggleContext);
     const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
-    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false };
+    const navEnhetValgt = props.navEnheter?.length !== 0 ? props.navEnheter?.sort()![0] : '';
+
+    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
     const søk = {
         egne: {
             placeholder: '',
@@ -63,7 +66,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             label: 'Ufordelte',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => props.endreSøk({ ...tomt, erUfordelt: true }),
+            utførSøk: () => props.endreSøk({ ...tomt, navEnhet: navEnhetValgt }),
         },
     };
 
@@ -78,7 +81,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     };
 
     const aktueltSøk = søk[aktivSøketype];
-    const skjulSøkefelt: boolean = aktivSøketype === 'egne' || aktivSøketype === 'ufordelte';
+    const visSøkefelt: boolean = aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte';
+    const visNAVEnheterVelgeren: boolean = aktivSøketype === 'ufordelte';
 
     const søkEntries = (() => {
         if (arbeidsgiverOppretterToggle) {
@@ -101,7 +105,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     aria-labelledby={value.label}
                 />
             ))}
-            {!skjulSøkefelt && (
+            {visSøkefelt && (
                 <SøkeInput
                     key={aktivSøketype}
                     label=""
@@ -112,6 +116,23 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     role="searchbox"
                     aria-labelledby={'søk etter ' + aktueltSøk.placeholder}
                 />
+            )}
+            {visNAVEnheterVelgeren && (
+                <Select
+                    label=""
+                    name={'enheter'}
+                    onChange={event => {
+                        const nyEnhet = event.currentTarget.value;
+                        props.endreSøk({ ...tomt, navEnhet: nyEnhet });
+                    }}
+                    aria-label="filtere på NAV enhet"
+                >
+                    {props.navEnheter?.sort().map((enhet, index) => (
+                        <option key={index} value={enhet}>
+                            Enhet {enhet}
+                        </option>
+                    ))}
+                </Select>
             )}
         </Filter>
     );

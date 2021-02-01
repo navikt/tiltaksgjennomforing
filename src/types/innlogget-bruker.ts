@@ -17,6 +17,7 @@ export interface InnloggetBruker {
     altinnOrganisasjoner: AltinnOrganisasjon[];
     rolle: Rolle;
     tilganger: Tilganger;
+    navEnheter: string[];
 }
 
 export interface Organisasjon {
