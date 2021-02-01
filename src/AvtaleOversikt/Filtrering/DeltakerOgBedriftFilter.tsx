@@ -81,8 +81,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     };
 
     const aktueltSøk = søk[aktivSøketype];
-    const visSøkefelt: boolean = aktivSøketype === 'egne';
-    const visNAVEnhetVelgeren: boolean = aktivSøketype === 'ufordelte';
+    const visSøkefelt: boolean = aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte';
+    const visNAVEnheterVelgeren: boolean = aktivSøketype === 'ufordelte';
 
     const søkEntries = (() => {
         if (arbeidsgiverOppretterToggle) {
@@ -105,7 +105,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     aria-labelledby={value.label}
                 />
             ))}
-            {!visNAVEnhetVelgeren && !visSøkefelt && (
+            {visSøkefelt && (
                 <SøkeInput
                     key={aktivSøketype}
                     label=""
@@ -117,7 +117,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     aria-labelledby={'søk etter ' + aktueltSøk.placeholder}
                 />
             )}
-            {visNAVEnhetVelgeren && (
+            {visNAVEnheterVelgeren && (
                 <Select
                     label=""
                     name={'enheter'}
@@ -125,11 +125,11 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                         const nyEnhet = event.currentTarget.value;
                         props.endreSøk({ ...tomt, navEnhet: nyEnhet });
                     }}
-                    aria-labelledby="filtere på NAV enhet"
+                    aria-label="filtere på NAV enhet"
                 >
                     {props.navEnheter?.sort().map((enhet, index) => (
                         <option key={index} value={enhet}>
-                            {enhet}
+                            Enhet {enhet}
                         </option>
                     ))}
                 </Select>
