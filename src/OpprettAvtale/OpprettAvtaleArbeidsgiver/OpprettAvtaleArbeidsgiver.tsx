@@ -11,7 +11,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
-import { pathTilAvtale } from '@/paths';
+import { pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
 import { opprettAvtaleArbeidsgiver } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
@@ -78,7 +78,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
             const avtale = await opprettAvtaleArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             history.push({
-                pathname: pathTilAvtale(avtale.id),
+                pathname: pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id),
                 search: window.location.search,
             });
         } else {
@@ -150,8 +150,13 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                         svgIkon={<AvtaleparterIkon width="50" height="50" />}
                         headerTekst={{ tekst: 'Tre parter' }}
                     >
-                        Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om innholdet
-                        i avtalen.
+                        <Normaltekst>Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen.</Normaltekst>
+                        <Normaltekst>
+                            Når du har opprettet avtalen kan du starte å fylle den ut, samtidig som den blir
+                            tilgjengelig for veileder på NAV-kontoret til deltakeren. Tiltaket kan starte når veileder
+                            har fordelt avtalen og godkjent den. I avtalene om midlertidig og varig lønnstilskudd er det
+                            noe informasjon som veileder må fylle ut før den kan godkjennes.
+                        </Normaltekst>
                     </EkspanderbartPanelRad>
                     <EkspanderbartPanelRad
                         svgIkon={<CheckCircleIkon width="50" height="50" />}

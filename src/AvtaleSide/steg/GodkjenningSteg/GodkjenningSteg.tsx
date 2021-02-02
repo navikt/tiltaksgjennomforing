@@ -1,6 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { FordelAvtaleVeileder } from '@/AvtaleSide/steg/GodkjenningSteg/FordelAvtaleVeileder';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
+import { UfordeltStatusDeltaker } from '@/AvtaleSide/steg/GodkjenningSteg/UfordeltStatusDeltaker';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
@@ -12,7 +13,6 @@ import { createElement, FunctionComponent, useContext } from 'react';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import Godkjenning from './Godkjenning';
 import { UfordeltStatusArbeidsgiver } from './UfordeltStatusArbeidsgiver';
-import { UfordeltStatusDeltaker } from '@/AvtaleSide/steg/GodkjenningSteg/UfordeltStatusDeltaker';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -27,7 +27,9 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            {avtale.erUfordelt && innloggetBruker.rolle === 'ARBEIDSGIVER' && <UfordeltStatusArbeidsgiver />}
+            {avtale.erUfordelt && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                <UfordeltStatusArbeidsgiver tiltakstype={avtale.tiltakstype} />
+            )}
             {avtale.erUfordelt && innloggetBruker.rolle === 'DELTAKER' && <UfordeltStatusDeltaker />}
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
             {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />}
