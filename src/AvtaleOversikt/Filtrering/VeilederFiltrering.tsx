@@ -6,6 +6,7 @@ import BEMHelper from '@/utils/bem';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import './Filtrering.less';
+import Sortering from '@/AvtaleOversikt/Sortering';
 
 const cls = BEMHelper('filtrering');
 
@@ -19,6 +20,7 @@ export type FiltreringProps = {
 const VeilederFiltrering: FunctionComponent<FiltreringProps> = props => {
     return (
         <div className={cls.className}>
+            <Sortering endreSøk={props.endreSøk} />
             <DeltakerOgBedriftFilter {...props} />
             <TiltakstypeFilter {...props} erBeslutter={false} />
             <StatusFilter {...props} />

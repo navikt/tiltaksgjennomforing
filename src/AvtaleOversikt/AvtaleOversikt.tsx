@@ -25,6 +25,10 @@ import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering
 
 const cls = BEMHelper('avtaleoversikt');
 
+export type Søkekriterier = Partial<Avtale> & {
+    sorteringskolonne?: keyof Avtale;
+};
+
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
@@ -42,7 +46,7 @@ const AvtaleOversikt: FunctionComponent = () => {
         }
     };
 
-    const [søkekriterier, setSøkekriterier] = useState<Partial<Avtale>>(sokeKriterer());
+    const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>(sokeKriterer());
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
 
@@ -65,7 +69,7 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const layout = useAvtaleOversiktLayout();
 
-    const endreSøk = (endredeSøkekriterier: Partial<Avtale>) => {
+    const endreSøk = (endredeSøkekriterier: Søkekriterier) => {
         setSøkekriterier({ ...søkekriterier, ...endredeSøkekriterier });
     };
 
@@ -96,7 +100,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     aria-labelledby={cls.element('filter-og-tabell')}
                     role="complementary"
                 >
-                    {innloggetBruker.erNavAnsatt && innloggetBruker.rolle !== 'BESLUTTER' && (
+                    {innloggetBruker.rolle === 'VEILEDER' && (
                         <aside style={layout.stylingAvFilter}>
                             {innloggetBruker.erNavAnsatt && (
                                 <div style={{ margin: '0.2rem 0 1rem 0' }}>
@@ -112,7 +116,6 @@ const AvtaleOversikt: FunctionComponent = () => {
                             <VeilederFiltrering endreSøk={endreSøk} navEnheter={innloggetBruker.navEnheter} />
                         </aside>
                     )}
-
                     {innloggetBruker.rolle === 'BESLUTTER' && (
                         <aside style={layout.stylingAvFilter}>
                             <BeslutterFiltrering endreSøk={endreSøk} />
