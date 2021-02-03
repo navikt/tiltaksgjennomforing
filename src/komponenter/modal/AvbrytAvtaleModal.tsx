@@ -1,3 +1,4 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvbrytelseGrunn } from '@/types/avtale';
@@ -8,7 +9,7 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvbrytAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
 
@@ -26,11 +27,12 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
     const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
     const [datoFeil, setDatoFeil] = useState<undefined | SkjemaelementFeil>(undefined);
     const [avbruttGrunn, setAvbruttGrunn] = useState<AvbrytelseGrunn | string>('');
-    const [avbruttDato, setAvbruttDato] = useState('');
     const [feil, setFeil] = useState('');
+    const avtaleContext = useContext(AvtaleContext);
+    const [avbruttDato, setAvbruttDato] = useState(avtaleContext.avtale.startDato || DAGENS_DATO);
 
     const avbruttGrunnSatt = () =>
-        !avbruttGrunn || !avbruttDato || (avbruttGrunn === 'Annet' && !annetGrunn) || sjekkDato();
+        !avbruttGrunn || !avbruttDato || (avbruttGrunn === 'Annet' && !annetGrunn) || avbruttDatoErOverEttÅrTilbake();
 
     const sjekkOgSetAvbryttGrunn = (grunn: boolean, setfeil: () => void) => {
         if (grunn) {
@@ -38,9 +40,9 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
         }
     };
 
-    const sjekkDato = (): boolean => {
-        const datodifferanse = moment(avbruttDato).diff(DAGENS_DATO);
-        return isNaN(datodifferanse) || datodifferanse < 0;
+    const avbruttDatoErOverEttÅrTilbake = (): boolean => {
+        const årsDifferanse = Math.abs(moment(avbruttDato).diff(DAGENS_DATO, 'years'));
+        return årsDifferanse >= 1;
     };
 
     const avbryttAvtalen = async (grunn: string) => {
@@ -57,8 +59,11 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
             sjekkOgSetAvbryttGrunn(!avbruttGrunn, () => {
                 setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
             });
-            sjekkOgSetAvbryttGrunn(!avbruttDato || sjekkDato(), () => {
+            sjekkOgSetAvbryttGrunn(!avbruttDato, () => {
                 setDatoFeil({ feilmelding: 'Vennligst velg gyldig dato' });
+            });
+            sjekkOgSetAvbryttGrunn(avbruttDatoErOverEttÅrTilbake(), () => {
+                setDatoFeil({ feilmelding: 'Dato kan ikke overstige ett år tilbake i tid' });
             });
             return;
         }
@@ -69,16 +74,11 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
     };
 
     const velgStartDato = (dato: string | undefined) => {
+        setDatoFeil(undefined);
         if (dato) {
             setAvbruttDato(dato);
         }
     };
-
-    useEffect(() => {
-        if (props.isOpen) {
-            velgStartDato(DAGENS_DATO);
-        }
-    }, [props.isOpen]);
 
     useEffect(() => {
         if (avbruttGrunn) {
@@ -109,7 +109,6 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
             <VerticalSpacer sixteenPx={true} />
             <SkjemaGruppe feil={datoFeil} title="Dato for avbrytelse">
                 <Datovelger
-                    avgrensninger={{ minDato: DAGENS_DATO }}
                     input={{ placeholder: 'dd.mm.åååå', ariaLabel: 'textbox', ariaDescribedby: 'skriv inn dato felt' }}
                     valgtDato={avbruttDato}
                     onChange={dato => velgStartDato(dato)}

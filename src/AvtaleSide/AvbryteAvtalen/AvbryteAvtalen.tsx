@@ -1,9 +1,9 @@
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/Avbryte-avtale.svg';
+import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
 import Lenke from 'nav-frontend-lenker';
 import * as React from 'react';
-import './AvbryteAvtalen.less';
-import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
 import { useState } from 'react';
+import './AvbryteAvtalen.less';
 
 interface Props {
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
@@ -31,13 +31,15 @@ const AvbryteAvtalen = (props: Props) => {
                     Avbryt avtalen
                 </Lenke>
             </div>
-            <div aria-hidden={!avbrytModalIsOpen}>
-                <AvbrytAvtaleModal
-                    isOpen={avbrytModalIsOpen}
-                    lukkModal={() => setAvbrytModalIsOpen(false)}
-                    avbrytAvtale={props.avbrytAvtale}
-                />
-            </div>
+            {avbrytModalIsOpen && (
+                <div aria-hidden={!avbrytModalIsOpen}>
+                    <AvbrytAvtaleModal
+                        isOpen={avbrytModalIsOpen}
+                        lukkModal={() => setAvbrytModalIsOpen(false)}
+                        avbrytAvtale={props.avbrytAvtale}
+                    />
+                </div>
+            )}
         </>
     ) : null;
 };
