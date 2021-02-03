@@ -29,7 +29,8 @@ export type Feilkode =
     | 'TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE'
     | 'TILSKUDDSPERIODE_BEHANDLE_FOR_TIDLIG'
     | 'TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD'
-    | 'TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER';
+    | 'TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER'
+    | 'LONNSTILSKUDD_PROSENT_ER_UGYLDIG';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -64,4 +65,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE: 'Tilskuddsperioden kan kun behandles ved inngått avtale',
     TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD: 'Avslagsforklaring må fylles ut',
     TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER: 'Minst én avslagsårsak må velges',
+    LONNSTILSKUDD_PROSENT_ER_UGYLDIG: 'Ugyldig lønnstilskudd prosent',
 };
