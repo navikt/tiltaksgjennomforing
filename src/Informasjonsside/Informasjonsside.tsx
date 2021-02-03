@@ -28,21 +28,6 @@ const tilbakeTilOversikt = (pathName: string) => {
 const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
 
-    const veilederOppretter = (
-        <EkspanderbartPanelRad
-            classname={cls.element('info')}
-            svgIkon={<Keyboard className={cls.element('SubIkon')} />}
-            headerTekst={{
-                tekst: 'NAV oppretter en avtale',
-                typografiType: 'undertittel',
-            }}
-        >
-            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
-            avtale. Deltakeren og arbeidsgiveren vil få tilsendt en lenke fra NAV når avtalen er klar og de kan logge
-            inn.
-        </EkspanderbartPanelRad>
-    );
-
     const veilederOgArbeidsgiverOppretter = (
         <EkspanderbartPanelRad
             classname={cls.element('info')}
