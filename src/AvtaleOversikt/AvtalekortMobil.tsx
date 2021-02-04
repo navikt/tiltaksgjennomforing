@@ -8,7 +8,7 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import './AvtalekortMobil.less';
 import BEMHelper from '@/utils/bem';
 import { Avtale } from '@/types/avtale';
-import Varsel from '@/types/varsel';
+import { Varsel } from '@/types/varsel';
 import moment from 'moment';
 
 const cls = BEMHelper('avtalekortMobil');

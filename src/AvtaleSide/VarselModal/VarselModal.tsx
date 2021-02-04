@@ -10,7 +10,7 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './VarselModal.less';
-import Varsel from '@/types/varsel';
+import { Varsel } from '@/types/varsel';
 
 const cls = BEMHelper('varsel-modal');
 
@@ -20,11 +20,14 @@ const VarselModal: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
 
     useEffect(() => {
-        RestService.hentUlesteAvtaleVarsler(avtale.id).then(hentedeVarsler => {
-            if (hentedeVarsler.length > 0) {
+        RestService.hentAvtaleVarsler(avtale.id).then(hentedeVarsler => {
+            const varselSomSkalIModal = hentedeVarsler
+                .filter(varsel => varsel.varslbarStatus === 'VARSEL')
+                .filter(varsel => !varsel.lest);
+            if (varselSomSkalIModal.length > 0) {
                 setVarselModalApen(true);
             }
-            setVarsler(hentedeVarsler);
+            setVarsler(varselSomSkalIModal);
         });
     }, [avtale.id]);
 

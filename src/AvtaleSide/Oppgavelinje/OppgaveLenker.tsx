@@ -6,6 +6,7 @@ import Hendelselogg from '@/AvtaleSide/Hendelselogg/Hendelselogg';
 import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import React, { useContext } from 'react';
+import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale, avbrytAvtale } = useContext(AvtaleContext);
@@ -25,6 +26,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
             <AvbryteAvtalen avbrytAvtale={avbrytAvtale} kanAvbrytes={avtale.kanAvbrytes} erVeileder={erVeileder} />
             {erVeileder && <DelLenkeTilAvtalen />}
             <Hendelselogg />
+            <Varsellogg />
         </>
     );
 };

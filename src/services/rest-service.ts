@@ -6,7 +6,7 @@ import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { AdresseError, ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
-import Varsel from '@/types/varsel';
+import { Varsel } from '@/types/varsel';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
 
@@ -225,13 +225,13 @@ export const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> 
 };
 
 export const hentUlesteVarsler = async (): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler?lest=false`);
+    const response = await fetchGet(`${API_URL}/varsler`);
     await handleResponse(response);
     return await response.json();
 };
 
-export const hentUlesteAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler?avtaleId=${avtaleId}&lest=false`);
+export const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler/logg-varsler?avtaleId=${avtaleId}`);
     await handleResponse(response);
     return await response.json();
 };

@@ -25,4 +25,5 @@ export type HendelseType =
     | 'LÅST_OPP'
     | 'NY_VEILEDER'
     | 'AVTALE_FORDELT'
-    | 'TILSKUDDSPERIODE_AVSLATT';
+    | 'TILSKUDDSPERIODE_AVSLATT'
+    | 'TILSKUDDSPERIODE_GODKJENT';

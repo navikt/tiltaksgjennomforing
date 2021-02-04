@@ -2,7 +2,7 @@ import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { pathTilAvtale } from '@/paths';
 import { Avtale } from '@/types/avtale';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
-import Varsel from '@/types/varsel';
+import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
 import moment from 'moment';
