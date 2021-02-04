@@ -9,7 +9,6 @@ import { Select } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import * as React from 'react';
 import { FormEvent, FunctionComponent, useContext, useState } from 'react';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 type Validering = (verdi: string) => SkjemaelementFeil | undefined;
 
@@ -26,8 +25,6 @@ type Søketype = 'deltaker' | 'bedrift' | 'egne' | 'ufordelte';
 export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
     const navEnhetValgt = props.navEnheter?.length !== 0 ? props.navEnheter?.sort()![0] : '';
 
@@ -84,16 +81,9 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     const visSøkefelt: boolean = aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte';
     const visNAVEnheterVelgeren: boolean = aktivSøketype === 'ufordelte';
 
-    const søkEntries = (() => {
-        if (arbeidsgiverOppretterToggle) {
-            return Object.entries(søk);
-        }
-        return Object.entries(søk).splice(0, 3);
-    })();
-
     return (
         <Filter tittel="Vis avtaler">
-            {søkEntries.map(([key, value]) => (
+            {Object.entries(søk).map(([key, value]) => (
                 <Radio
                     label={value.label}
                     name={'aktivSøketype'}

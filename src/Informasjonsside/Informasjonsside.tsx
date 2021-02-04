@@ -4,7 +4,6 @@ import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale
 import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
 import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import Banner from '@/komponenter/Banner/Banner';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
@@ -13,7 +12,7 @@ import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import Lenke from 'nav-frontend-lenker';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import './informasjonsside.less';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -27,24 +26,7 @@ const tilbakeTilOversikt = (pathName: string) => {
     }
 };
 const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
-
-    const veilederOppretter = (
-        <EkspanderbartPanelRad
-            classname={cls.element('info')}
-            svgIkon={<Keyboard className={cls.element('SubIkon')} />}
-            headerTekst={{
-                tekst: 'NAV oppretter en avtale',
-                typografiType: 'undertittel',
-            }}
-        >
-            Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
-            avtale. Deltakeren og arbeidsgiveren vil få tilsendt en lenke fra NAV når avtalen er klar og de kan logge
-            inn.
-        </EkspanderbartPanelRad>
-    );
 
     const veilederOgArbeidsgiverOppretter = (
         <EkspanderbartPanelRad
@@ -104,7 +86,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                             alltid godkjenne avtalen til slutt, og først da kan tiltaket starte.
                         </EkspanderbartPanelRad>
 
-                        {arbeidsgiverOppretterToggle ? veilederOgArbeidsgiverOppretter : veilederOppretter}
+                        {veilederOgArbeidsgiverOppretter}
 
                         <EkspanderbartPanelRad
                             classname={cls.element('info')}

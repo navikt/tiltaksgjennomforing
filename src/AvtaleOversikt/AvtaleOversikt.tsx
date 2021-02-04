@@ -3,7 +3,6 @@ import Avtaler from '@/AvtaleOversikt/Avtaler';
 import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
@@ -28,8 +27,6 @@ const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const arbeidsgiverOppretterToggle = featureToggleContext[Feature.ArbeidsgiverOppretter];
 
     const sokeKriterer = () => {
         switch (innloggetBruker.rolle) {
@@ -125,7 +122,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         innloggetBruker.altinnOrganisasjoner.length > 0 &&
                         innloggetBruker.tilganger[søkekriterier.bedriftNr!] && (
                             <aside style={layout.stylingAvFilter}>
-                                {arbeidsgiverOppretterToggle && harTilgangerSomArbeidsgiver && (
+                                {harTilgangerSomArbeidsgiver && (
                                     <div style={{ margin: '0.2rem 0 1rem 0' }}>
                                         <LenkeKnapp
                                             path={pathTilOpprettAvtaleArbeidsgiver}

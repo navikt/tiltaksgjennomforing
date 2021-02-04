@@ -3,7 +3,6 @@ import { hentFeatureToggles } from './services/rest-service';
 
 export enum Feature {
     Mentor = 'tag.tiltak.mentor',
-    ArbeidsgiverOppretter = 'tag.tiltak.arbeidsgiver.oppretter',
     VisningAvTilskuddsPerioder = 'tag.tiltak.viseTilskuddsPerioder',
     VisNedetidBanner = 'tag.tiltak.visNedetidBanner',
     ViseBeslutterKnapp = 'tag.tiltak.viseBeslutterLogin',
