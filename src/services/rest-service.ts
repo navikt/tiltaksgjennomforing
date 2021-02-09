@@ -225,13 +225,19 @@ export const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> 
 };
 
 export const hentUlesteVarsler = async (): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler`);
+    const response = await fetchGet(`${API_URL}/varsler/oversikt`);
     await handleResponse(response);
     return await response.json();
 };
 
-export const hentAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler/logg-varsler?avtaleId=${avtaleId}`);
+export const hentUlesteBjelleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler/avtale-modal?avtaleId=${avtaleId}`);
+    await handleResponse(response);
+    return await response.json();
+};
+
+export const hentVarsellogg = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler/avtale-logg?avtaleId=${avtaleId}`);
     await handleResponse(response);
     return await response.json();
 };

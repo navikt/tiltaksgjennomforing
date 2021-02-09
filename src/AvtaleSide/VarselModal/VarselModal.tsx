@@ -20,10 +20,8 @@ const VarselModal: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
 
     useEffect(() => {
-        RestService.hentAvtaleVarsler(avtale.id).then(hentedeVarsler => {
-            const varselSomSkalIModal = hentedeVarsler
-                .filter(varsel => varsel.varslbarStatus === 'VARSEL')
-                .filter(varsel => !varsel.lest);
+        RestService.hentUlesteBjelleVarsler(avtale.id).then(hentedeVarsler => {
+            const varselSomSkalIModal = hentedeVarsler.filter(varsel => varsel.bjelle).filter(varsel => !varsel.lest);
             if (varselSomSkalIModal.length > 0) {
                 setVarselModalApen(true);
             }
@@ -38,7 +36,7 @@ const VarselModal: FunctionComponent = () => {
     };
     const lukkeOgSeHendelselogg = async () => {
         await lukkOgLesVarsler();
-        document.getElementById('hendelselogglenke')?.click();
+        document.getElementById('varsellogglenke')?.click();
     };
 
     return (
@@ -58,9 +56,9 @@ const VarselModal: FunctionComponent = () => {
                             <td>
                                 <div style={{ display: 'flex' }}>
                                     <span className={cls.element('hendelse-ikon')}>
-                                        <HendelseIkon hendelse={v.varslbarHendelseType} />
+                                        <HendelseIkon hendelse={v.hendelseType} />
                                     </span>
-                                    {v.varslingstekst}
+                                    {v.tekst}
                                 </div>
                             </td>
                             <td style={{ textAlign: 'end' }}>{moment(v.tidspunkt).fromNow()}</td>

@@ -2,7 +2,7 @@ import { ReactComponent as BurgerMenyIkon } from '@/assets/ikoner/burgermeny.svg
 import { AvtaleContext } from '@/AvtaleProvider';
 import HendelseIkon from '@/komponenter/HendelseIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { hentAvtaleVarsler } from '@/services/rest-service';
+import { hentVarsellogg } from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import { Nettressurs, Status } from '@/types/nettressurs';
 import BEMHelper from '@/utils/bem';
@@ -29,7 +29,7 @@ const Varsellogg: FunctionComponent = () => {
         setVarsler({ status: Status.LasterInn });
         // Hent nye varselr når loggen åpnes.
         if (varselLoggModalApen) {
-            hentAvtaleVarsler(avtaleContext.avtale.id)
+            hentVarsellogg(avtaleContext.avtale.id)
                 .then((data: Varsel[]) => setVarsler({ status: Status.Lastet, data }))
                 .catch((error: Error) => setVarsler({ status: Status.Feil, error: error }));
         }
@@ -108,9 +108,9 @@ const Varsellogg: FunctionComponent = () => {
                                     <td role="cell">
                                         <div style={{ display: 'flex' }} aria-labelledby="varsel">
                                             <span className={cls.element('varsel-ikon')} aria-hidden="true">
-                                                <HendelseIkon hendelse={varsel.varslbarHendelseType} />
+                                                <HendelseIkon hendelse={varsel.hendelseType} />
                                             </span>
-                                            {varsel.varslingstekst}
+                                            {varsel.tekst}
                                         </div>
                                     </td>
                                     <td role="cell" aria-labelledby="utført_av">
