@@ -76,11 +76,14 @@ const AvtaleProvider: FunctionComponent = props => {
         setOpphevGodkjenningerModalIsOpen(false);
     };
 
-    const lagreAvtale = async (nyAvtale = avtale): Promise<void> => {
+    const lagreAvtale = async (nyAvtale = avtale, forceLagring = false): Promise<void> => {
         if (underLagring) {
             return;
         }
         if (noenHarGodkjentMenIkkeAlle(avtale) && !ulagredeEndringer) {
+            return;
+        }
+        if (!forceLagring && !ulagredeEndringer) {
             return;
         }
 
@@ -140,8 +143,7 @@ const AvtaleProvider: FunctionComponent = props => {
         } else {
             try {
                 const nyAvtale = { ...avtale, ...endringer };
-                await lagreAvtale(nyAvtale);
-                hentAvtale(nyAvtale.id);
+                await lagreAvtale(nyAvtale, true);
             } catch (error) {
                 handterFeil(error, visFeilmelding);
             }
