@@ -69,7 +69,7 @@ const VarighetSteg: FunctionComponent = () => {
                 <VerticalSpacer thirtyTwoPx={true} />
                 <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
                 <VerticalSpacer thirtyTwoPx={true} />
-                <LagreKnapp label={'Lagre'} lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'} />
+                <LagreKnapp label={'Lagre'} lagre={avtaleContext.sjekkOgLagreAvtale} suksessmelding={'Avtale lagret'} />
             </Container>
         </Innholdsboks>
     );

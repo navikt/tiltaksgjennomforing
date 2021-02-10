@@ -42,7 +42,7 @@ export interface Context {
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
     hentAvtale: (avtaleId: string) => Promise<void>;
-    lagreAvtale: () => Promise<void>;
+    sjekkOgLagreAvtale: () => Promise<void>;
     lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
@@ -74,6 +74,13 @@ const AvtaleProvider: FunctionComponent = props => {
         await RestService.opphevGodkjenninger(avtale.id);
         await hentAvtale();
         setOpphevGodkjenningerModalIsOpen(false);
+    };
+
+    const sjekkOgLagreAvtale = async (nyAvtale = avtale): Promise<void> => {
+        if (!ulagredeEndringer) {
+            return;
+        }
+        lagreAvtale(nyAvtale);
     };
 
     const lagreAvtale = async (nyAvtale = avtale): Promise<void> => {
@@ -141,7 +148,6 @@ const AvtaleProvider: FunctionComponent = props => {
             try {
                 const nyAvtale = { ...avtale, ...endringer };
                 await lagreAvtale(nyAvtale);
-                hentAvtale(nyAvtale.id);
             } catch (error) {
                 handterFeil(error, visFeilmelding);
             }
@@ -173,14 +179,14 @@ const AvtaleProvider: FunctionComponent = props => {
         nyeMaal.push(maalTilLagring);
         const nyAvtale = settAvtaleVerdi('maal', nyeMaal);
         sendToAmplitude('#tiltak-avtale-maal-lagret');
-        return lagreAvtale(nyAvtale);
+        return sjekkOgLagreAvtale(nyAvtale);
     };
 
     const slettMaal = (maalTilSletting: Maal): Promise<void> => {
         const nyeMaal = avtale.maal.filter((maal: Maal) => maal.id !== maalTilSletting.id);
         const nyAvtale = settAvtaleVerdi('maal', nyeMaal);
         sendToAmplitude('#tiltak-avtale-maal-slettet');
-        return lagreAvtale(nyAvtale);
+        return sjekkOgLagreAvtale(nyAvtale);
     };
 
     const finnFeilkodeForFeilVedHentingAvtale = (error: AutentiseringError | ApiError | Error): void => {
@@ -197,7 +203,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const endretSteg = async (): Promise<void> => {
         if (ulagredeEndringer) {
             try {
-                await lagreAvtale();
+                await sjekkOgLagreAvtale();
             } catch (error) {
                 handterFeil(error, visFeilmelding);
             }
@@ -241,7 +247,7 @@ const AvtaleProvider: FunctionComponent = props => {
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         avbrytAvtale,
-        lagreAvtale,
+        sjekkOgLagreAvtale,
         overtaAvtale,
         laasOpp,
         gjenopprettAvtale,

@@ -43,7 +43,7 @@ const OppfolgingOgTilretteleggingSteg = () => {
                 feilmelding="Beskrivelse av tilrettelegging er påkrevd"
             />
             <VerticalSpacer thirtyTwoPx={true} />
-            <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+            <LagreKnapp lagre={avtaleContext.sjekkOgLagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
         </Innholdsboks>
     );
 };

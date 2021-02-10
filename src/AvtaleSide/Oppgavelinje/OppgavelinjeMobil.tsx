@@ -21,13 +21,13 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
         return setDropdown(event.currentTarget);
     };
 
-    const { ulagredeEndringer, lagreAvtale } = useContext(AvtaleContext);
+    const { ulagredeEndringer, sjekkOgLagreAvtale } = useContext(AvtaleContext);
     const visFeilmelding = useContext(FeilVarselContext);
 
     const lagreEndringer = async () => {
         if (ulagredeEndringer) {
             try {
-                await lagreAvtale();
+                await sjekkOgLagreAvtale();
             } catch (error) {
                 if (error instanceof ApiError) {
                     return visFeilmelding(error.message);

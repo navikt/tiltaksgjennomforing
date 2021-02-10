@@ -56,7 +56,7 @@ const StillingSteg: FunctionComponent = () => {
                     <VerticalSpacer rem={2} />
                 </>
             )}
-            <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+            <LagreKnapp lagre={avtaleContext.sjekkOgLagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
         </Innholdsboks>
     );
 };

@@ -5,11 +5,11 @@ import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
-import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import './kontaktinfo.less';
+import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 
 const KontaktinfoSteg: FunctionComponent = () => {
-    const { lagreAvtale } = useContext(AvtaleContext);
+    const { sjekkOgLagreAvtale } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks>
@@ -18,7 +18,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
             <VeilederinfoDel />
             <LagreKnapp
                 className="kontaktinfo-steg__lagre-knapp"
-                lagre={lagreAvtale}
+                lagre={sjekkOgLagreAvtale}
                 label={'Lagre'}
                 suksessmelding={'Avtale lagret'}
             />

@@ -68,7 +68,7 @@ const arbeidsgiveravgiftAlternativer = () => {
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, settOgLagreBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
+    const { avtale, settOgLagreBeregningsverdier, sjekkOgLagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
     const parseFloatIfFloatable = (verdi: string) => {
         const floatedValue = parseFloat(verdi);
@@ -134,7 +134,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdier({ manedslonn: parseFloat(event.target.value) });
                         }}
-                        onBlur={() => lagreAvtale()}
+                        onBlur={() => sjekkOgLagreAvtale()}
                         min={0}
                     />
                 </Column>
@@ -166,7 +166,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdier({ otpSats: parseFloat(event.target.value) / 100 });
                         }}
-                        onBlur={() => lagreAvtale()}
+                        onBlur={() => sjekkOgLagreAvtale()}
                     />
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>
@@ -190,7 +190,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
                         }}
-                        onBlur={() => lagreAvtale()}
+                        onBlur={() => sjekkOgLagreAvtale()}
                     />
                     <UtregningPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
@@ -209,7 +209,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <VerticalSpacer thirtyTwoPx={true} />
                     <LesMerOmTilskuddsPerioder />
                     <TilskuddsPerioder />
-                    <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+                    <LagreKnapp lagre={sjekkOgLagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>
         </Innholdsboks>
