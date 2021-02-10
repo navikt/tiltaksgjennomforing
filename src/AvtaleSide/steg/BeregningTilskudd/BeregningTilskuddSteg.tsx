@@ -68,7 +68,7 @@ const arbeidsgiveravgiftAlternativer = () => {
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, settOgLagreBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
+    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
     const parseFloatIfFloatable = (verdi: string) => {
         const floatedValue = parseFloat(verdi);
@@ -103,7 +103,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         tiltakstype={avtale.tiltakstype}
                         lonnstilskuddProsent={avtale.lonnstilskuddProsent}
                         settLonnstilskuddProsent={verdi =>
-                            settOgLagreBeregningsverdier({ lonnstilskuddProsent: verdi })
+                            settOgKalkulerBeregningsverdier({ lonnstilskuddProsent: verdi })
                         }
                     />
                 </>
@@ -134,7 +134,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdier({ manedslonn: parseFloat(event.target.value) });
                         }}
-                        onBlur={() => lagreAvtale()}
+                        onBlur={() => settOgKalkulerBeregningsverdier(avtale)}
                         min={0}
                     />
                 </Column>
@@ -151,7 +151,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         checked={avtale.feriepengesats + ''}
                         legend=""
                         onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                            settOgLagreBeregningsverdier({ feriepengesats: parseFloat(verdi) })
+                            settOgKalkulerBeregningsverdier({ feriepengesats: parseFloat(verdi) })
                         }
                     />
                     <VerticalSpacer twentyPx={true} />
@@ -177,11 +177,11 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         label="Sats for arbeidsgiveravgift"
                         children=""
                         value={avtale.arbeidsgiveravgift}
-                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                            settOgLagreBeregningsverdier({
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                            settOgKalkulerBeregningsverdier({
                                 arbeidsgiveravgift: parseFloatIfFloatable(event.target.value),
-                            });
-                        }}
+                            })
+                        }
                     />
                     <KontonummerInput
                         bredde={'L'}

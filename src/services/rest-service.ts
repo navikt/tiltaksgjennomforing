@@ -107,6 +107,20 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     return await hentAvtale(avtale.id);
 };
 
+export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {
+    const response = await fetchWithCredentials(`${API_URL}/avtaler/${avtale.id}/dry-run`, {
+        method: 'PUT',
+        body: JSON.stringify(avtale),
+        headers: {
+            'Content-Type': 'application/json',
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
+
+    await handleResponse(response);
+    return response.json();
+};
+
 export const opprettAvtale = async (
     deltakerFnr: string,
     bedriftNr: string,
