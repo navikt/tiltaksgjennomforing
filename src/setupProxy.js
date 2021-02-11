@@ -10,7 +10,7 @@ const envProperties = {
     ISSO_LOGIN_URL:
         process.env.ISSO_LOGIN_URL ||
         (brukLokalLogin &&
-            '/tiltaksgjennomforing/fakelogin/login?iss=isso&aud=aud-isso&NAVident=F888888&domain=localhost&redirect=http://localhost:3000/tiltaksgjennomforing'),
+            '/tiltaksgjennomforing/fakelogin/login?iss=isso&aud=aud-isso&NAVident=Z123456&domain=localhost&redirect=http://localhost:3000/tiltaksgjennomforing'),
     SELVBETJENING_LOGIN_URL:
         process.env.SELVBETJENING_LOGIN_URL ||
         (brukLokalLogin &&

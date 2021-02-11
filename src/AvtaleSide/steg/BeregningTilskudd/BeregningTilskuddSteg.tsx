@@ -20,6 +20,7 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import OtpProsentInput from './OtpProsentInput';
 import UtregningPanel from './UtregningPanel';
+import { gjorKontonummeroppslag } from '../../../services/rest-service';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -68,7 +69,9 @@ const arbeidsgiveravgiftAlternativer = () => {
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
+    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier, hentAvtale } = useContext(
+        AvtaleContext
+    );
 
     const parseFloatIfFloatable = (verdi: string) => {
         const floatedValue = parseFloat(verdi);
@@ -192,6 +195,16 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }}
                         onBlur={() => lagreAvtale()}
                     />
+                    <LagreKnapp
+                        label={'hent kontonummer opplysninger fra Altinn'}
+                        lagre={async () => {
+                            await gjorKontonummeroppslag(avtale);
+                            await hentAvtale(avtale.id);
+                        }}
+                    >
+                        Hent kontonummer fra A-meldingen
+                    </LagreKnapp>
+                    <VerticalSpacer thirtyTwoPx={true} />
                     <UtregningPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
                     {innloggetBruker.erNavAnsatt &&

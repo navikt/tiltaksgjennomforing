@@ -226,6 +226,12 @@ export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     return response.json();
 };
 
+export const gjorKontonummeroppslag = async (avtale: Avtale): Promise<Avtale> => {
+    const response = await fetchPost(`${API_URL}/avtaler/${avtale.id}/set-kontonummer-for-arbeidsgiver`);
+    await handleResponse(response);
+    return hentAvtale(avtale.id);
+};
+
 export const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
     const response = await fetchGet('/tiltaksgjennomforing/innloggingskilder');
     await handleResponse(response);
