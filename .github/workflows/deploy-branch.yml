@@ -3,8 +3,7 @@ on:
   repository_dispatch:
     types: [deploy-command]
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/tiltaksgjennomforing
+  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       
 jobs:
@@ -38,9 +37,6 @@ jobs:
         run: |
           git fetch origin master
           git merge-base --is-ancestor origin/master $COMMIT
-
-      - name: Sett miljøvariabel IMAGE
-        run: echo "IMAGE=$IMAGE_BASE:$COMMIT" >> $GITHUB_ENV
 
       - name: Deploy til dev-sbs
         uses: nais/deploy/actions/deploy@v1
