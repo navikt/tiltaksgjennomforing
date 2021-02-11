@@ -202,7 +202,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             await hentAvtale(avtale.id);
                         }}
                     >
-                        Hent kontonummer fra A-meldingen
+                        Hent kontonummeropplysninger fra Altinn
                     </LagreKnapp>
                     <VerticalSpacer thirtyTwoPx={true} />
                     <UtregningPanel {...avtale} />
