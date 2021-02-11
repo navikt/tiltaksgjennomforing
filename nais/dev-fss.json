@@ -7,5 +7,5 @@
     "enable-internal-menu": true,
     "decorator-external-script": "https://internarbeidsflatedecorator-q0.nais.preprod.local/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js",
     "decorator-external-styling": "https://internarbeidsflatedecorator-q0.nais.preprod.local/internarbeidsflatedecorator/v2.1/static/css/main.css",
-    "namespace": "arbeidsgiver"
+    "namespace": "default"
 }
