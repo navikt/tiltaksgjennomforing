@@ -48,6 +48,7 @@ jobs:
           PRINT_PAYLOAD: true
           VARS: nais/dev-sbs.json
           REF: ${{ env.COMMIT }}
+          IMAGE: ${{ IMAGE }}
 
       - name: Deploy til dev-fss
         uses: nais/deploy/actions/deploy@v1
@@ -59,6 +60,7 @@ jobs:
           PRINT_PAYLOAD: true
           VARS: nais/dev-fss.json
           REF: ${{ env.COMMIT }}
+          IMAGE: ${{ IMAGE }}
           
       - name: Oppdater kommentar med deployment status ved feil
         if: failure()
