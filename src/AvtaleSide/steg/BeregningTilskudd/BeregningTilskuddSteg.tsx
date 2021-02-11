@@ -84,7 +84,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
-            <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
+            <SkjemaTittel>Beregning av lønnstilskudd _</SkjemaTittel>
             <Undertittel>Lønnstilskudd prosent</Undertittel>
 
             {!avtale.lonnstilskuddProsent && (
