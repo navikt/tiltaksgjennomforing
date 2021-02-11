@@ -196,7 +196,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         onBlur={() => lagreAvtale()}
                     />
                     <LagreKnapp
-                        label={'hent kontonummer opplysninger fra Altinn'}
+                        label={'hent kontonummeropplysninger fra Altinn'}
                         lagre={async () => {
                             await gjorKontonummeroppslag(avtale);
                             await hentAvtale(avtale.id);
