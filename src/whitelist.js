@@ -4,6 +4,7 @@ const whitelistPaths = [
     'feature',
     'organisasjoner',
     'varsler',
+    'bjelle-varsler',
     'hendelselogg',
     'be-om-altinn-rettighet-urler',
 ];
