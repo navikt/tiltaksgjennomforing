@@ -5,15 +5,16 @@ const brukLokalLogin = process.env.NODE_ENV === 'development';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
+    FAKELOGIN_UR: 'https://tiltak-fakelogin.labs.nais.io',
     APIGW_HEADER: process.env.APIGW_HEADER,
     ISSO_LOGIN_URL:
         process.env.ISSO_LOGIN_URL ||
         (brukLokalLogin &&
-            '/tiltaksgjennomforing/api/local/isso-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
+            '/tiltaksgjennomforing/fakelogin/login?iss=isso&aud=aud-isso&NAVident=F888888&domain=localhost&redirect=http://localhost:3000/tiltaksgjennomforing'),
     SELVBETJENING_LOGIN_URL:
         process.env.SELVBETJENING_LOGIN_URL ||
         (brukLokalLogin &&
-            '/tiltaksgjennomforing/api/local/selvbetjening-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
+            '/tiltaksgjennomforing/fakelogin/login?iss=selvbetjening&aud=aud-selvbetjening&sub=20000000052&acr=Level4&domain=localhost&redirect=http://localhost:3000/tiltaksgjennomforing'),
     LOGOUT_URL:
         process.env.LOGOUT_URL ||
         (brukLokalLogin &&
@@ -81,6 +82,15 @@ module.exports = function(app) {
         xfwd: true,
     };
 
+    const options = {
+        target: envProperties.FAKELOGIN_UR,
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+            '^/tiltaksgjennomforing/fakelogin/': 'https://tiltak-fakelogin.labs.nais.io/', // rewrite path
+        },
+    };
+
     if (envProperties.APIGW_HEADER) {
         proxyConfig.headers = {
             'x-nav-apiKey': envProperties.APIGW_HEADER,
@@ -88,4 +98,5 @@ module.exports = function(app) {
     }
 
     app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
+    app.use('/tiltaksgjennomforing/fakelogin', proxy(options));
 };
