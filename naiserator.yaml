@@ -41,6 +41,8 @@ spec:
     {{#if labs}}
     accessPolicy:
       outbound:
+        external:
+          - host: https://tiltak-fakelogin.labs.nais.io
         rules:
           - application: tiltaksgjennomforing-api
     {{/if}}
