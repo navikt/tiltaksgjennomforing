@@ -186,24 +186,33 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             })
                         }
                     />
-                    <KontonummerInput
-                        bredde={'L'}
-                        label={'Kontonummer til arbeidsgiver'}
-                        value={avtale.arbeidsgiverKontonummer}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
-                        }}
-                        onBlur={() => lagreAvtale()}
-                    />
-                    <LagreKnapp
-                        label={'hent kontonummeropplysninger fra Altinn'}
-                        lagre={async () => {
-                            await gjorKontonummeroppslag(avtale);
-                            await hentAvtale(avtale.id);
-                        }}
-                    >
-                        Hent kontonummeropplysninger fra Altinn
-                    </LagreKnapp>
+                    <Row className="">
+                        <Column md="7">
+                            <KontonummerInput
+                                bredde={'L'}
+                                label={'Kontonummer til arbeidsgiver'}
+                                value={avtale.arbeidsgiverKontonummer}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
+                                }}
+                                onBlur={() => lagreAvtale()}
+                            />
+                        </Column>
+                        <Column md="3">
+                            <VerticalSpacer thirtyTwoPx={true} />
+                            <LagreKnapp
+                                label={'hent fra Altinn'}
+                                lagre={async () => {
+                                    await gjorKontonummeroppslag(avtale);
+                                    await hentAvtale(avtale.id);
+                                }}
+                            >
+                                {' '}
+                                Hent fra Altinn
+                            </LagreKnapp>
+                        </Column>
+                    </Row>
+
                     <VerticalSpacer thirtyTwoPx={true} />
                     <UtregningPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
