@@ -47,14 +47,16 @@ const setCache = output => {
 };
 
 const getMenu = () => {
-    fetch(url, { method: 'GET' }).then((error, response, body) => {
-        if (!error && response.statusCode >= 200 && response.statusCode < 400) {
-            const { document } = new JSDOM(body).window;
+    fetch(url, { method: 'GET' })
+        .then(response => response.text())
+        .then(data => {
+            const { document } = new JSDOM(data).window;
             readfile(injectExternalMenu, document);
-        } else {
+        })
+        .catch(err => {
+            console.warn('failed to fetch decorator. cause: ', err);
             checkBackupCache();
-        }
-    });
+        });
 };
 
 const getMenuAndServeApp = callback => {
