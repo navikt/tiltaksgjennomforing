@@ -17,6 +17,7 @@ interface Props {
     suksessmelding?: string;
     label: React.ReactNode;
     disabled?: boolean;
+    hidden?: boolean;
     knapptype?: typeof KnappBase.defaultProps.type;
 }
 
@@ -127,6 +128,7 @@ class LagreKnapp extends Component<Props, State> {
                     </VarselKomponent>
                 )}
                 <Knapp
+                    hidden={this.props.hidden}
                     type={this.props.knapptype || 'hoved'}
                     htmlType="button"
                     onClick={this.lagreKnappOnClick}
