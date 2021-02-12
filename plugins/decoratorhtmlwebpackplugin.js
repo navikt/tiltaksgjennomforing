@@ -1,5 +1,5 @@
 const jsdom = require('jsdom');
-const request = require('request');
+const fetch = require('node-fetch');
 
 const { JSDOM } = jsdom;
 const url =
@@ -51,7 +51,7 @@ const getElement = (document, id) => {
 };
 
 const getMenu = plugin => {
-    request({ method: 'GET', uri: url }, (error, response, body) => {
+    fetch(url, { method: 'GET' }).then((error, response, body) => {
         if (!error && response.statusCode >= 200 && response.statusCode < 400) {
             const { document } = new JSDOM(body).window;
             addElements(plugin, true, document);
