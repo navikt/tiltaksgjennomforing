@@ -187,7 +187,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }
                     />
                     <Row className="">
-                        <Column md="7">
+                        <Column md="6">
                             <KontonummerInput
                                 bredde={'L'}
                                 label={'Kontonummer til arbeidsgiver'}
@@ -201,14 +201,14 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         <Column md="3">
                             <VerticalSpacer thirtyTwoPx={true} />
                             <LagreKnapp
-                                label={'hent fra Altinn'}
+                                label={'hent Kontonummer'}
                                 lagre={async () => {
                                     await gjorKontonummeroppslag(avtale);
                                     await hentAvtale(avtale.id);
                                 }}
                             >
                                 {' '}
-                                Hent fra Altinn
+                                Hent fra Kontonummer
                             </LagreKnapp>
                         </Column>
                     </Row>
