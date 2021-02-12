@@ -227,7 +227,9 @@ export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
 };
 
 export const gjorKontonummeroppslag = async (avtale: Avtale): Promise<void> => {
-    const response = await fetchPost(`${API_URL}/avtaler/${avtale.id}/set-kontonummer-for-arbeidsgiver`);
+    const response = await fetchPost(
+        `${API_URL}/avtaler/${avtale.id}/set-kontonummer-for-arbeidsgiver-fra-kontoregister`
+    );
     await handleResponse(response);
 };
 

@@ -16,6 +16,7 @@ interface Props {
     className?: string;
     suksessmelding?: string;
     label: React.ReactNode;
+    disabled?: boolean;
     knapptype?: typeof KnappBase.defaultProps.type;
 }
 
@@ -131,7 +132,7 @@ class LagreKnapp extends Component<Props, State> {
                     onClick={this.lagreKnappOnClick}
                     className={this.props.className}
                     spinner={this.state.spinner}
-                    disabled={this.state.spinner}
+                    disabled={this.state.spinner || this.props.disabled}
                     id="lagre-knapp"
                 >
                     {this.props.label}
