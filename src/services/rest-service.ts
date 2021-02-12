@@ -230,7 +230,7 @@ export const hentUlesteVarsler = async (): Promise<Varsel[]> => {
     return await response.json();
 };
 
-export const hentUlesteBjelleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
+export const hentUlesteBjelleVarslerForAvtale = async (avtaleId: string): Promise<Varsel[]> => {
     const response = await fetchGet(`${API_URL}/varsler/avtale-modal?avtaleId=${avtaleId}`);
     await handleResponse(response);
     return await response.json();
@@ -246,11 +246,6 @@ export const hentHendelselogg = async (avtaleId: string): Promise<Hendelse[]> =>
     const response = await fetchGet(`${API_URL}/hendelselogg?avtaleId=${avtaleId}`);
     await handleResponse(response);
     return await response.json();
-};
-
-export const settVarselTilLest = async (varselId: string): Promise<void> => {
-    const response = await fetchPost(`${API_URL}/varsler/${varselId}/sett-til-lest`);
-    await handleResponse(response);
 };
 
 export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<void> => {

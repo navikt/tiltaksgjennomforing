@@ -1,12 +1,10 @@
 import { ReactComponent as BurgerMenyIkon } from '@/assets/ikoner/burgermeny.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
-import HendelseIkon from '@/komponenter/HendelseIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentVarsellogg } from '@/services/rest-service';
-import { Varsel } from '@/types/varsel';
 import { Nettressurs, Status } from '@/types/nettressurs';
+import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { formatterDato } from '@/utils/datoUtils';
 import moment from 'moment';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
@@ -16,7 +14,7 @@ import 'nav-frontend-tabell-style';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './Varsellogg.less';
-import { storForbokstav } from '@/utils/stringUtils';
+import VarselTabell from './VarselTabell';
 
 const cls = BEMHelper('varsellogg');
 
@@ -34,15 +32,6 @@ const Varsellogg: FunctionComponent = () => {
                 .catch((error: Error) => setVarsler({ status: Status.Feil, error: error }));
         }
     }, [avtaleContext.avtale.id, varselLoggModalApen]);
-
-    const formaterTid = (tidspunkt: string) => {
-        const antallTimerSiden = moment(moment()).diff(tidspunkt, 'hours');
-        if (antallTimerSiden > 12) {
-            return formatterDato(tidspunkt);
-        } else {
-            return moment(tidspunkt).fromNow();
-        }
-    };
 
     return (
         <>
@@ -79,48 +68,12 @@ const Varsellogg: FunctionComponent = () => {
                 {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
                     <>
                         <AlertStripeInfo>
-                            Denne avtalen ble opprettet før hendelssloggen ble innført og vil være mangelfull.
+                            Denne avtalen ble opprettet før hendelsesloggen ble innført og vil være mangelfull.
                         </AlertStripeInfo>
                         <VerticalSpacer rem={1} />
                     </>
                 )}
-                {varsler.status === Status.Lastet && varsler.data.length > 0 && (
-                    <table className="tabell" aria-label="tabell" aria-labelledby="Varsellogg tabell" role="table">
-                        <thead>
-                            <tr role="row">
-                                <th scope="col" role="columnheader" id="tidspunkt">
-                                    Tidspunkt
-                                </th>
-                                <th scope="col" role="columnheader" id="varsel">
-                                    Varsel
-                                </th>
-                                <th scope="col" role="columnheader" id="utført_av">
-                                    Utført av
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {varsler.data.map((varsel, index) => (
-                                <tr key={index} role="row">
-                                    <td role="cell" aria-labelledby="tidspunkt">
-                                        {formaterTid(varsel.tidspunkt)}
-                                    </td>
-                                    <td role="cell">
-                                        <div style={{ display: 'flex' }} aria-labelledby="varsel">
-                                            <span className={cls.element('varsel-ikon')} aria-hidden="true">
-                                                <HendelseIkon hendelse={varsel.hendelseType} />
-                                            </span>
-                                            {varsel.tekst}
-                                        </div>
-                                    </td>
-                                    <td role="cell" aria-labelledby="utført_av">
-                                        {storForbokstav(varsel.utførtAv)}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
+                {varsler.status === Status.Lastet && varsler.data.length > 0 && <VarselTabell varsler={varsler.data} />}
                 {varsler.status === Status.LasterInn && (
                     <NavFrontendSpinner type="XL" className={cls.element('spinner')} />
                 )}
