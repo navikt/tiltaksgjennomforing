@@ -198,6 +198,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 onBlur={() => lagreAvtale()}
                             />
                         </Column>
+
                         <Column md="3">
                             <VerticalSpacer thirtyTwoPx={true} />
                             <LagreKnapp
