@@ -93,8 +93,8 @@ module.exports = function(app) {
     });
 
     app.get('/tiltaksgjennomforing/fakelogout', async (req, res) => {
-        res.clearCookie('selvbetjening-idtoken', { domain: req.query.domain });
-        res.clearCookie('isso-idtoken', { domain: req.query.domain });
+        res.clearCookie('selvbetjening-idtoken');
+        res.clearCookie('isso-idtoken');
         res.redirect('/tiltaksgjennomforing');
     });
 
