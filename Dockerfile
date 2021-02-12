@@ -6,8 +6,9 @@ RUN npm install -g helmet@3.21.3
 RUN npm install -g http-proxy-middleware@0.21.0
 RUN npm install -g node-cache@4.2.0
 RUN npm install -g jsdom@16.4.0
-RUN npm install -g request@2.88.2
 RUN npm install -g fs-extra@8.1.0
+RUN npm install -g node-fetch@2.6.1
+
 WORKDIR /app
 COPY server/ ./server
 COPY ./src/setupProxy.js ./src/setupProxy.js
