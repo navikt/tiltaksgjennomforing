@@ -31,7 +31,8 @@ export type Feilkode =
     | 'TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD'
     | 'TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER'
     | 'LONNSTILSKUDD_PROSENT_ER_UGYLDIG'
-    | 'KONTOREGISTER_FEIL';
+    | 'KONTOREGISTER_FEIL'
+    | 'KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -68,4 +69,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER: 'Minst én avslagsårsak må velges',
     LONNSTILSKUDD_PROSENT_ER_UGYLDIG: 'Ugyldig lønnstilskudd prosent',
     KONTOREGISTER_FEIL: 'Feil ved oppslag til kontoregister',
+    KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET: 'Finner ikke bedrift hos kontonummerregister',
 };
