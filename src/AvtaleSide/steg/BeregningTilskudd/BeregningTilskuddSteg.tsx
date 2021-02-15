@@ -21,8 +21,7 @@ import LonnstilskuddProsent from './LonnstilskuddProsent';
 import OtpProsentInput from './OtpProsentInput';
 import UtregningPanel from './UtregningPanel';
 import { gjorKontonummeroppslag } from '../../../services/rest-service';
-import { Feature } from '@/FeatureToggleProvider';
-import { FeatureToggleContext } from '@/FeatureToggleProvider';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
