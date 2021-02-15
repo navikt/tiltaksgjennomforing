@@ -20,6 +20,8 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import OtpProsentInput from './OtpProsentInput';
 import UtregningPanel from './UtregningPanel';
+import { gjorKontonummeroppslag } from '../../../services/rest-service';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -68,7 +70,12 @@ const arbeidsgiveravgiftAlternativer = () => {
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const visningAvKnappHentKontonummerForArbeidsgiver =
+        featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
+    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier, hentAvtale } = useContext(
+        AvtaleContext
+    );
 
     const parseFloatIfFloatable = (verdi: string) => {
         const floatedValue = parseFloat(verdi);
@@ -183,15 +190,36 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             })
                         }
                     />
-                    <KontonummerInput
-                        bredde={'L'}
-                        label={'Kontonummer til arbeidsgiver'}
-                        value={avtale.arbeidsgiverKontonummer}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
-                        }}
-                        onBlur={() => lagreAvtale()}
-                    />
+                    <Row className="">
+                        <Column md="6">
+                            <KontonummerInput
+                                bredde={'L'}
+                                label={'Kontonummer til arbeidsgiver'}
+                                value={avtale.arbeidsgiverKontonummer}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
+                                }}
+                                onBlur={() => lagreAvtale()}
+                            />
+                        </Column>
+
+                        <Column md="3">
+                            <VerticalSpacer thirtyTwoPx={true} />
+                            <LagreKnapp
+                                hidden={!visningAvKnappHentKontonummerForArbeidsgiver}
+                                label={'hent Kontonummer'}
+                                lagre={async () => {
+                                    await gjorKontonummeroppslag(avtale);
+                                    await hentAvtale(avtale.id);
+                                }}
+                            >
+                                {' '}
+                                Hent fra Kontonummer
+                            </LagreKnapp>
+                        </Column>
+                    </Row>
+
+                    <VerticalSpacer thirtyTwoPx={true} />
                     <UtregningPanel {...avtale} />
                     <VerticalSpacer twentyPx={true} />
                     {innloggetBruker.erNavAnsatt &&
