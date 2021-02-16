@@ -112,4 +112,3 @@ jobs:
               issue_number: ${{ github.event.client_payload.github.payload.issue.number }},
               labels: ['dev-fss']
             });
-
