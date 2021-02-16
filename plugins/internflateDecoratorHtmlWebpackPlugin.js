@@ -1,5 +1,4 @@
 const jsdom = require('jsdom');
-const request = require('request');
 
 const { JSDOM } = jsdom;
 const styles =

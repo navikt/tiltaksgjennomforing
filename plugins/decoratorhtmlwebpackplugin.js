@@ -1,9 +1,8 @@
 const jsdom = require('jsdom');
-const request = require('request');
+const fetch = require('node-fetch');
 
 const { JSDOM } = jsdom;
-const url =
-    'https://appres.nav.no/common-html/v4/navno?header-withmenu=true&styles=true&scripts=true&footer-withmenu=true';
+const url = 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb';
 const htmlinsert = [
     { inject: 'styles', from: 'styles' },
     { inject: 'scripts', from: 'scripts' },
@@ -51,14 +50,16 @@ const getElement = (document, id) => {
 };
 
 const getMenu = plugin => {
-    request({ method: 'GET', uri: url }, (error, response, body) => {
-        if (!error && response.statusCode >= 200 && response.statusCode < 400) {
-            const { document } = new JSDOM(body).window;
+    fetch(url, { method: 'GET' })
+        .then(response => response.text())
+        .then(data => {
+            const { document } = new JSDOM(data).window;
             addElements(plugin, true, document);
-        } else {
+        })
+        .catch(err => {
+            console.warn('failed to fetch decorator. cause: ', err);
             enablebackup(plugin);
-        }
-    });
+        });
 };
 
 module.exports = decoratorHtmlWebpackPlugin;

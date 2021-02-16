@@ -87,6 +87,7 @@
         "nav-frontend-veilederpanel": "^0.1.18",
         "nav-frontend-veilederpanel-style": "^0.0.21",
         "node-cache": "4.2.0",
+        "node-fetch": "2.6.1",
         "prop-types": "^15.7.2",
         "react": "^16.14.0",
         "react-app-polyfill": "^0.2.1",
@@ -103,7 +104,6 @@
         "react-responsive": "^8.0.3",
         "react-router-dom": "^5.1.2",
         "react-select": "^3.1.0",
-        "request": "^2.88.2",
         "url-search-params-polyfill": "^7.0.1"
     },
     "devDependencies": {

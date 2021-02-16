@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const request = require('request');
+const fetch = require('node-fetch');
 const jsdom = require('jsdom');
 const NodeCache = require('node-cache');
 const server = require('../server');
@@ -47,14 +47,16 @@ const setCache = output => {
 };
 
 const getMenu = () => {
-    request({ method: 'GET', uri: url }, (error, response, body) => {
-        if (!error && response.statusCode >= 200 && response.statusCode < 400) {
-            const { document } = new JSDOM(body).window;
+    fetch(url, { method: 'GET' })
+        .then(response => response.text())
+        .then(data => {
+            const { document } = new JSDOM(data).window;
             readfile(injectExternalMenu, document);
-        } else {
+        })
+        .catch(err => {
+            console.warn('failed to fetch decorator. cause: ', err);
             checkBackupCache();
-        }
-    });
+        });
 };
 
 const getMenuAndServeApp = callback => {

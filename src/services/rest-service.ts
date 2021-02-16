@@ -107,6 +107,20 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     return await hentAvtale(avtale.id);
 };
 
+export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {
+    const response = await fetchWithCredentials(`${API_URL}/avtaler/${avtale.id}/dry-run`, {
+        method: 'PUT',
+        body: JSON.stringify(avtale),
+        headers: {
+            'Content-Type': 'application/json',
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
+
+    await handleResponse(response);
+    return response.json();
+};
+
 export const opprettAvtale = async (
     deltakerFnr: string,
     bedriftNr: string,
@@ -210,6 +224,13 @@ export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     const response = await fetchGet(`${API_URL}/innlogget-bruker`);
     await handleResponse(response);
     return response.json();
+};
+
+export const gjorKontonummeroppslag = async (avtale: Avtale): Promise<void> => {
+    const response = await fetchPost(
+        `${API_URL}/avtaler/${avtale.id}/set-kontonummer-for-arbeidsgiver-fra-kontoregister`
+    );
+    await handleResponse(response);
 };
 
 export const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {

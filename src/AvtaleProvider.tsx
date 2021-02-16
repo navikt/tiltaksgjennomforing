@@ -28,7 +28,7 @@ export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T ext
 ) => void;
 
 export type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
-type SettOgLagreBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
+type SettOgKalkulerBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
 export interface Context {
     avtale: Avtale;
@@ -46,7 +46,7 @@ export interface Context {
     lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
-    settOgLagreBeregningsverdier: SettOgLagreBeregningsverdier;
+    settOgKalkulerBeregningsverdier: SettOgKalkulerBeregningsverdier;
     settAvtaleVerdi: SettAvtaleVerdi;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<void>;
@@ -76,11 +76,14 @@ const AvtaleProvider: FunctionComponent = props => {
         setOpphevGodkjenningerModalIsOpen(false);
     };
 
-    const lagreAvtale = async (nyAvtale = avtale): Promise<void> => {
+    const lagreAvtale = async (nyAvtale = avtale, forceLagring = false): Promise<void> => {
         if (underLagring) {
             return;
         }
         if (noenHarGodkjentMenIkkeAlle(avtale) && !ulagredeEndringer) {
+            return;
+        }
+        if (!forceLagring && !ulagredeEndringer) {
             return;
         }
 
@@ -134,14 +137,15 @@ const AvtaleProvider: FunctionComponent = props => {
         }
     };
 
-    const settOgLagreBeregningsverdier = async (endringer: Partial<Beregningsgrunnlag>) => {
+    const settOgKalkulerBeregningsverdier = async (endringer: Partial<Beregningsgrunnlag>) => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             try {
                 const nyAvtale = { ...avtale, ...endringer };
-                await lagreAvtale(nyAvtale);
-                hentAvtale(nyAvtale.id);
+                settAvtaleVerdier(nyAvtale);
+                const etterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
+                settAvtaleVerdier(etterDryRun);
             } catch (error) {
                 handterFeil(error, visFeilmelding);
             }
@@ -237,7 +241,7 @@ const AvtaleProvider: FunctionComponent = props => {
     const avtaleContext: Context = {
         avtale,
         settAvtaleVerdi,
-        settOgLagreBeregningsverdier,
+        settOgKalkulerBeregningsverdier,
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         avbrytAvtale,

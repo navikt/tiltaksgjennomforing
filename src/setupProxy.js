@@ -1,4 +1,5 @@
 const proxy = require('http-proxy-middleware');
+const fetch = require('node-fetch');
 const whitelist = require('./whitelist');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
@@ -6,18 +7,10 @@ const brukLokalLogin = process.env.NODE_ENV === 'development';
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
     APIGW_HEADER: process.env.APIGW_HEADER,
-    ISSO_LOGIN_URL:
-        process.env.ISSO_LOGIN_URL ||
-        (brukLokalLogin &&
-            '/tiltaksgjennomforing/api/local/isso-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
+    ISSO_LOGIN_URL: process.env.ISSO_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/isso'),
     SELVBETJENING_LOGIN_URL:
-        process.env.SELVBETJENING_LOGIN_URL ||
-        (brukLokalLogin &&
-            '/tiltaksgjennomforing/api/local/selvbetjening-login?redirect=http://localhost:3000/tiltaksgjennomforing'),
-    LOGOUT_URL:
-        process.env.LOGOUT_URL ||
-        (brukLokalLogin &&
-            '/tiltaksgjennomforing/api/local/logout?redirect=http://localhost:3000/tiltaksgjennomforing'),
+        process.env.SELVBETJENING_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/selvbetjening'),
+    LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
 };
 
 if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
@@ -80,6 +73,30 @@ module.exports = function(app) {
         target: envProperties.APIGW_URL,
         xfwd: true,
     };
+
+    app.get('/tiltaksgjennomforing/fakelogin/isso', async (req, res) => {
+        const navIdent = req.headers['isso-id'] || 'Z123456';
+        const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=isso&aud=aud-isso&NAVident=${navIdent}`;
+        const response = await fetch(url);
+        const data = await response.text();
+        res.cookie('isso-idtoken', data);
+        res.redirect('/tiltaksgjennomforing');
+    });
+
+    app.get('/tiltaksgjennomforing/fakelogin/selvbetjening', async (req, res) => {
+        const subject = req.headers['selvbetjening-id'] || '20000000052';
+        const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=selvbetjening&aud=aud-selvbetjening&sub=${subject}&acr=Level4`;
+        const response = await fetch(url);
+        const data = await response.text();
+        res.cookie('selvbetjening-idtoken', data);
+        res.redirect('/tiltaksgjennomforing');
+    });
+
+    app.get('/tiltaksgjennomforing/fakelogout', async (req, res) => {
+        res.clearCookie('selvbetjening-idtoken');
+        res.clearCookie('isso-idtoken');
+        res.redirect('/tiltaksgjennomforing');
+    });
 
     if (envProperties.APIGW_HEADER) {
         proxyConfig.headers = {
