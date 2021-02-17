@@ -16,6 +16,7 @@ import Informasjonsside from './Informasjonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import { VarselOmNedetid } from './InnloggingBoundary/VarselOmNedetid';
 import ErrorBoundary from './komponenter/ErrorBoundary';
+import Slettemerk from './komponenter/Slettemerk';
 import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
 import OpprettAvtaleVeileder from './OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import OpprettelseFullfortVeileder from './OpprettAvtale/OpprettelseFullfortVeileder/OpprettelseFullfortVeileder';
@@ -92,6 +93,9 @@ class App extends React.Component {
                                                                 exact={true}
                                                             >
                                                                 <BeslutterSide />
+                                                            </Route>
+                                                            <Route exact path={`${pathTilAvtale(':avtaleId')}/slett`}>
+                                                                <Slettemerk />
                                                             </Route>
                                                             <Route
                                                                 path={[
