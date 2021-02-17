@@ -362,3 +362,9 @@ export const avslåTilskuddsperiode = async (
     });
     await handleResponse(response);
 };
+
+export const slettemerkAvtale = async (avtaleId: string) => {
+    const uri = `${API_URL}/avtaler/${avtaleId}/slettemerk`;
+    const response = await fetchPost(uri);
+    await handleResponse(response);
+};
