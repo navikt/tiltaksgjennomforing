@@ -45,7 +45,7 @@ const Varsellogg: FunctionComponent = () => {
                 <div aria-hidden={true}>
                     <BurgerMenyIkon className={cls.element('burger-ikon')} />
                 </div>
-                Varsellogg
+                Hendelselogg
             </Lenke>
 
             <Modal
@@ -62,7 +62,7 @@ const Varsellogg: FunctionComponent = () => {
                 ariaHideApp={varselLoggModalApen}
             >
                 <Systemtittel role="heading" id="heading">
-                    Varsellogg
+                    Hendelselogg
                 </Systemtittel>
                 <VerticalSpacer rem={1} />
                 {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
@@ -78,7 +78,7 @@ const Varsellogg: FunctionComponent = () => {
                     <NavFrontendSpinner type="XL" className={cls.element('spinner')} />
                 )}
                 {varsler.status === Status.Feil && (
-                    <Normaltekst>Klarte ikke hente varsellogg. Prøv igjen senere.</Normaltekst>
+                    <Normaltekst>Klarte ikke hente hendelselogg. Prøv igjen senere.</Normaltekst>
                 )}
             </Modal>
         </>

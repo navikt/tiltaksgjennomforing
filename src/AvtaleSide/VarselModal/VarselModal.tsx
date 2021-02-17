@@ -5,7 +5,7 @@ import * as RestService from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import VarselTabell from '../Varsellogg/VarselTabell';
 import './VarselModal.less';
@@ -16,6 +16,10 @@ const VarselModal: FunctionComponent = () => {
     const [varselModalApen, setVarselModalApen] = useState(false);
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { avtale } = useContext(AvtaleContext);
+
+    const harOpprettetHendelse =
+        varsler.find(v => v.hendelseType === 'OPPRETTET' || v.hendelseType === 'OPPRETTET_AV_ARBEIDSGIVER') !==
+        undefined;
 
     useEffect(() => {
         RestService.hentUlesteBjelleVarslerForAvtale(avtale.id).then(hentedeVarsler => {
@@ -31,6 +35,7 @@ const VarselModal: FunctionComponent = () => {
         await RestService.settAlleVarselerTilLest(varselIder);
         setVarselModalApen(false);
     };
+
     const lukkeOgSeHendelselogg = async () => {
         await lukkOgLesVarsler();
         document.getElementById('varsellogglenke')?.click();
@@ -44,7 +49,14 @@ const VarselModal: FunctionComponent = () => {
             onRequestClose={lukkOgLesVarsler}
             className={cls.element('modal')}
         >
-            <Systemtittel>Det har skjedd endringer i avtalen</Systemtittel>
+            <Systemtittel>{harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}</Systemtittel>
+            <VerticalSpacer rem={1} />
+            <Normaltekst>
+                {harOpprettetHendelse
+                    ? 'Tabellen under viser hendelser som har skjedd på avtalen. '
+                    : 'Tabellen under viser hendelser som har skjedd siden sist gang du åpnet avtalen. '}
+                Hendelseloggen finner du igjen under menyen på toppen av avtalen.
+            </Normaltekst>
             <VerticalSpacer rem={2} />
             <VarselTabell varsler={varsler} />
             <VerticalSpacer rem={2} />
@@ -52,7 +64,9 @@ const VarselModal: FunctionComponent = () => {
                 <Hovedknapp style={{ marginRight: '1rem' }} onClick={lukkOgLesVarsler}>
                     Lukk
                 </Hovedknapp>
-                <Knapp onClick={lukkeOgSeHendelselogg}>Se alle endringer</Knapp>
+                {!harOpprettetHendelse && (
+                    <Knapp onClick={lukkeOgSeHendelselogg}>Se alle hendelser for denne avtalen</Knapp>
+                )}
             </div>
         </IkonModal>
     );
