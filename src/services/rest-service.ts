@@ -6,7 +6,7 @@ import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { AdresseError, ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
-import Varsel from '@/types/varsel';
+import { Varsel } from '@/types/varsel';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
 
@@ -246,13 +246,19 @@ export const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> 
 };
 
 export const hentUlesteVarsler = async (): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/bjelle-varsler?lest=false`);
+    const response = await fetchGet(`${API_URL}/varsler/oversikt`);
     await handleResponse(response);
     return await response.json();
 };
 
-export const hentUlesteAvtaleVarsler = async (avtaleId: string): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/bjelle-varsler?avtaleId=${avtaleId}&lest=false`);
+export const hentUlesteBjelleVarslerForAvtale = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler/avtale-modal?avtaleId=${avtaleId}`);
+    await handleResponse(response);
+    return await response.json();
+};
+
+export const hentVarsellogg = async (avtaleId: string): Promise<Varsel[]> => {
+    const response = await fetchGet(`${API_URL}/varsler/avtale-logg?avtaleId=${avtaleId}`);
     await handleResponse(response);
     return await response.json();
 };
@@ -263,13 +269,8 @@ export const hentHendelselogg = async (avtaleId: string): Promise<Hendelse[]> =>
     return await response.json();
 };
 
-export const settVarselTilLest = async (varselId: string): Promise<void> => {
-    const response = await fetchPost(`${API_URL}/bjelle-varsler/${varselId}/sett-til-lest`);
-    await handleResponse(response);
-};
-
 export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<void> => {
-    const uri = `${API_URL}/bjelle-varsler/sett-alle-til-lest`;
+    const uri = `${API_URL}/varsler/sett-alle-til-lest`;
     const response = await fetchPost(uri, {
         body: JSON.stringify(varselIder),
         headers: { 'Content-Type': 'application/json' },

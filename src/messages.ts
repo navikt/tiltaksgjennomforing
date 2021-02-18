@@ -70,6 +70,7 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     NY_VEILEDER: 'Avtale tildelt ny veileder',
     AVTALE_FORDELT: 'Avtale tildelt veileder',
     TILSKUDDSPERIODE_AVSLATT: 'Avtalen din er avslått. Det blir ikke noe jobb på deg',
+    TILSKUDDSPERIODE_GODKJENT: 'Tilskuddsperiode godkjent',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {

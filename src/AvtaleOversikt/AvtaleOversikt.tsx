@@ -13,7 +13,7 @@ import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths'
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
-import Varsel from '@/types/varsel';
+import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';

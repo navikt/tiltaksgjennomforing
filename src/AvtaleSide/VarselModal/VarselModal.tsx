@@ -1,16 +1,14 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import HendelseIkon from '@/komponenter/HendelseIkon';
 import IkonModal from '@/komponenter/IkonModal/IkonModal';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import * as RestService from '@/services/rest-service';
-import { settAlleVarselerTilLest } from '@/services/rest-service';
+import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import moment from 'moment';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import VarselTabell from '../Varsellogg/VarselTabell';
 import './VarselModal.less';
-import Varsel from '@/types/varsel';
 
 const cls = BEMHelper('varsel-modal');
 
@@ -19,8 +17,12 @@ const VarselModal: FunctionComponent = () => {
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { avtale } = useContext(AvtaleContext);
 
+    const harOpprettetHendelse =
+        varsler.find(v => v.hendelseType === 'OPPRETTET' || v.hendelseType === 'OPPRETTET_AV_ARBEIDSGIVER') !==
+        undefined;
+
     useEffect(() => {
-        RestService.hentUlesteAvtaleVarsler(avtale.id).then(hentedeVarsler => {
+        RestService.hentUlesteBjelleVarslerForAvtale(avtale.id).then(hentedeVarsler => {
             if (hentedeVarsler.length > 0) {
                 setVarselModalApen(true);
             }
@@ -30,12 +32,13 @@ const VarselModal: FunctionComponent = () => {
 
     const lukkOgLesVarsler = async () => {
         const varselIder = varsler.map(v => v.id);
-        await settAlleVarselerTilLest(varselIder);
+        await RestService.settAlleVarselerTilLest(varselIder);
         setVarselModalApen(false);
     };
+
     const lukkeOgSeHendelselogg = async () => {
         await lukkOgLesVarsler();
-        document.getElementById('hendelselogglenke')?.click();
+        document.getElementById('varsellogglenke')?.click();
     };
 
     return (
@@ -46,31 +49,24 @@ const VarselModal: FunctionComponent = () => {
             onRequestClose={lukkOgLesVarsler}
             className={cls.element('modal')}
         >
-            <Systemtittel>Det har skjedd endringer i avtalen</Systemtittel>
+            <Systemtittel>{harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}</Systemtittel>
+            <VerticalSpacer rem={1} />
+            <Normaltekst>
+                {harOpprettetHendelse
+                    ? 'Tabellen under viser hendelser som har skjedd på avtalen. '
+                    : 'Tabellen under viser hendelser som har skjedd siden sist gang du åpnet avtalen. '}
+                Hendelseloggen finner du igjen under menyen på toppen av avtalen.
+            </Normaltekst>
             <VerticalSpacer rem={2} />
-            <table className="tabell">
-                <tbody>
-                    {varsler.map(v => (
-                        <tr key={v.id}>
-                            <td>
-                                <div style={{ display: 'flex' }}>
-                                    <span className={cls.element('hendelse-ikon')}>
-                                        <HendelseIkon hendelse={v.varslbarHendelseType} />
-                                    </span>
-                                    {v.varslingstekst}
-                                </div>
-                            </td>
-                            <td style={{ textAlign: 'end' }}>{moment(v.tidspunkt).fromNow()}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <VarselTabell varsler={varsler} />
             <VerticalSpacer rem={2} />
             <div>
                 <Hovedknapp style={{ marginRight: '1rem' }} onClick={lukkOgLesVarsler}>
                     Lukk
                 </Hovedknapp>
-                <Knapp onClick={lukkeOgSeHendelselogg}>Se alle endringer</Knapp>
+                {!harOpprettetHendelse && (
+                    <Knapp onClick={lukkeOgSeHendelselogg}>Se alle hendelser for denne avtalen</Knapp>
+                )}
             </div>
         </IkonModal>
     );

@@ -1,11 +1,15 @@
 import { HendelseType } from '@/types/hendelse';
 import { Moment } from 'moment';
+import { Rolle } from '@/types/innlogget-bruker';
 
-export default interface Varsel {
+export interface Varsel {
     id: string;
     lest: boolean;
-    varslingstekst: string;
+    tekst: string;
     avtaleId: string;
-    tidspunkt: Moment;
-    varslbarHendelseType: HendelseType;
+    tidspunkt: string;
+    hendelseType: HendelseType;
+    bjelle: boolean;
+    mottaker: Rolle;
+    utførtAv: Rolle;
 }
