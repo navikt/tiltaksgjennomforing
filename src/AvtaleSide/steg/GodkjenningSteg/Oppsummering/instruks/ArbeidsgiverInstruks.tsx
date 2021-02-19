@@ -1,18 +1,18 @@
 import { ReactComponent as AnsatteIkon } from '@/assets/ikoner/ansatte.svg';
 import { ReactComponent as LovIkon } from '@/assets/ikoner/lov.svg';
 import { ReactComponent as PersonOpplysningIkon } from '@/assets/ikoner/personopplysninger.svg';
+import { ReactComponent as SedlerIkon } from '@/assets/ikoner/sedler.svg';
 import { ReactComponent as SkadeIkon } from '@/assets/ikoner/skade.svg';
 import { ReactComponent as SkjoldIkon } from '@/assets/ikoner/skjold.svg';
-import { ReactComponent as SedlerIkon } from '@/assets/ikoner/sedler.svg';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { TiltaksType } from '@/types/avtale';
 
 const cls = BEMHelper('instruks');
 interface Props {
@@ -27,6 +27,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                 <Element>Som arbeidsgiver må du</Element>
             </div>
             <ul>
+                <li>
+                    <Normaltekst> følge opp deltaker underveis i perioden</Normaltekst>
+                </li>
                 <li>
                     <Normaltekst>følge arbeidsmiljøloven</Normaltekst>
                 </li>
@@ -138,9 +141,10 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
 
                 <p>
                     Dere kan ikke sende taushetsbelagte og sensitive personopplysninger til NAV på usikret epost. Dere
-                    må slette alle personopplysningene om deltakeren senest innen 12 uker etter at tiltaket er
-                    avsluttet.
+                    må slette alle personopplysningene som dere ikke har selvstendig behandlingsansvar for om
+                    deltakeren, senest innen 12 uker etter at tiltaket er avsluttet.
                 </p>
+                <p>12 uker etter avsluttet tiltak vil du som arbeidsgiver ikke lenger har tilgang til avtalen</p>
             </EkspanderbartPanelRad>
 
             {(props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'VARIG_LONNSTILSKUDD') && (

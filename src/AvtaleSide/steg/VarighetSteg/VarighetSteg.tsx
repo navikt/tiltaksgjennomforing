@@ -11,6 +11,7 @@ import 'moment/locale/nb';
 import { Datovelger } from 'nav-datovelger';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Column, Container, Row } from 'nav-frontend-grid';
+import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
@@ -30,6 +31,11 @@ const VarighetSteg: FunctionComponent = () => {
                 <Row className="">
                     <Column md="12">
                         <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
+                        <Normaltekst>
+                            Fyll ut startdato og forventet sluttdato. Hvor lenge det er behov for tilskudd vil vurderes
+                            underveis i perioden.
+                        </Normaltekst>
+                        <VerticalSpacer rem={2} />
                     </Column>
                 </Row>
                 <Row className="">
@@ -42,7 +48,7 @@ const VarighetSteg: FunctionComponent = () => {
                         />
                     </Column>
                     <Column md="6">
-                        <label className="skjemaelement__label">Sluttdato</label>
+                        <label className="skjemaelement__label">Forventet sluttdato</label>
                         <Datovelger
                             input={{ placeholder: 'dd.mm.åååå' }}
                             valgtDato={avtaleContext.avtale.sluttDato}
