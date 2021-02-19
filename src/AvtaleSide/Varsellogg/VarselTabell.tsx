@@ -4,7 +4,7 @@ import { formatterDato } from '@/utils/datoUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import moment from 'moment';
 import React, { FunctionComponent, useState } from 'react';
-import { NedChevron, OppChevron } from 'nav-frontend-chevron';
+import { Checkbox } from 'nav-frontend-skjema';
 
 type Props = {
     varsler: Varsel[];
@@ -34,6 +34,7 @@ const VarselTabell: FunctionComponent<Props> = props => {
             return 0;
         });
 
+    let finnesMinstEnSomSkjules = false;
     for (let i = 1; i < sortertListe.length; i++) {
         const forrigeVarsel = sortertListe[i - 1];
         const gjeldendeVarsel = sortertListe[i];
@@ -44,12 +45,21 @@ const VarselTabell: FunctionComponent<Props> = props => {
         ) {
             gjeldendeVarsel.antallLike = forrigeVarsel.antallLike + 1;
             forrigeVarsel.skalSkjules = true;
+            finnesMinstEnSomSkjules = true;
         }
     }
 
     return (
         <>
-            {/*<Knapp onClick={() => setKomprimer(!komprimer)}>Vis alt</Knapp>*/}
+            {finnesMinstEnSomSkjules && (
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Checkbox
+                        label="Skjul like hendelser"
+                        checked={komprimer}
+                        onClick={() => setKomprimer(!komprimer)}
+                    />
+                </div>
+            )}
             <table className="tabell" aria-label="tabell" aria-labelledby="Varsellogg tabell" role="table">
                 <thead>
                     <tr role="row">
@@ -78,16 +88,17 @@ const VarselTabell: FunctionComponent<Props> = props => {
                                             <HendelseIkon hendelse={varsel.hendelseType} />
                                         </span>
                                         {varsel.tekst} &nbsp;
-                                        {varsel.antallLike > 1 && komprimer && (
-                                            <em onClick={() => setKomprimer(!komprimer)}>
-                                                ({varsel.antallLike} ganger <OppChevron />)
-                                            </em>
-                                        )}
-                                        {varsel.antallLike > 1 && !varsel.skalSkjules && !komprimer && (
-                                            <em onClick={() => setKomprimer(!komprimer)}>
-                                                (Skjul like hendelser <NedChevron />)
-                                            </em>
-                                        )}
+                                        {/*{varsel.antallLike > 1 && komprimer && (*/}
+                                        {/*    <>...</>*/}
+                                        {/*    // <em onClick={() => setKomprimer(!komprimer)}>*/}
+                                        {/*    //     ({varsel.antallLike} ganger <OppChevron />)*/}
+                                        {/*    // </em>*/}
+                                        {/*)}*/}
+                                        {/*{varsel.antallLike > 1 && !varsel.skalSkjules && !komprimer && (*/}
+                                        {/*    <em onClick={() => setKomprimer(!komprimer)}>*/}
+                                        {/*        (Skjul like hendelser <NedChevron />)*/}
+                                        {/*    </em>*/}
+                                        {/*)}*/}
                                     </div>
                                 </td>
                                 <td role="cell" aria-labelledby="utført_av">
