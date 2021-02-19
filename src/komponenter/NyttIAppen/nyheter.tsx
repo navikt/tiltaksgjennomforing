@@ -6,6 +6,17 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(19, 2, 2021),
+        tittel: 'Endring av prosentsats midlertidig lønnstilskudd',
+        innhold: (
+            <p>
+                Endring av prosentsats for lønnstilskuddet etter henholdsvis seks og tolv måneder, foregår automatisk ut
+                fra periode som legges inn i avtalen (også ved forlengelser). Det beregnes da to perioder som vises i
+                beregningssteget og i oversikten.
+            </p>
+        ),
+    },
+    {
         dato: tilDato(21, 1, 2021),
         tittel: 'Nå kan også arbeidsgiveren opprette digitale tiltaksavtaler',
         innhold: (
