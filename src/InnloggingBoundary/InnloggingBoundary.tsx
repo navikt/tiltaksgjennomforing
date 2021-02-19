@@ -9,10 +9,10 @@ import NAVSPA from '@navikt/navspa';
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
+import { useHistory } from 'react-router';
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
@@ -26,10 +26,11 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     navEnheter: [],
 });
 
-const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
+const InnloggingBoundary: FunctionComponent = props => {
     const [brukmeny, setbrukmeny] = useState<boolean>();
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
     const throwError = useAsyncError();
+    const history = useHistory();
 
     useEffect(() => {
         sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate')
@@ -41,23 +42,20 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     }, [throwError]);
 
     const [cookies, setCookie] = useCookies();
-    const sjekkOgSettCookie = (currentCookie: any) => {
-        if (!currentCookie[INNLOGGET_PART]) {
-            const urlParametere = new URLSearchParams(props.location.search);
-
-            const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
-            if (innloggetPart && ['ARBEIDSGIVER', 'DELTAKER', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
-                setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
-                urlParametere.delete('part');
-                props.history.replace(props.location.pathname + '?' + urlParametere.toString());
-            } else {
-                return <Innloggingside innloggingskilder={innloggingskilder} />;
-            }
-        }
-    };
-
-    sjekkOgSettCookie(cookies);
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
+
+    if (!cookies[INNLOGGET_PART]) {
+        const urlParametere = new URLSearchParams(window.location.search);
+
+        const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
+        if (['ARBEIDSGIVER', 'DELTAKER', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
+            setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
+            urlParametere.delete('part');
+            history.replace({ search: urlParametere.toString() });
+        } else {
+            return <Innloggingside innloggingskilder={innloggingskilder} />;
+        }
+    }
 
     if (uinnlogget) {
         return <Innloggingside innloggingskilder={innloggingskilder} />;
@@ -83,4 +81,4 @@ const InnloggingBoundary: FunctionComponent<RouteComponentProps> = props => {
     }
 };
 
-export default withRouter(InnloggingBoundary);
+export default InnloggingBoundary;

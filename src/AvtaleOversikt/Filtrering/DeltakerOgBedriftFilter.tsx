@@ -4,8 +4,7 @@ import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering'
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Radio } from 'nav-frontend-skjema';
-import { Select } from 'nav-frontend-skjema';
+import { Radio, Select } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import * as React from 'react';
 import { FormEvent, FunctionComponent, useContext, useState } from 'react';
