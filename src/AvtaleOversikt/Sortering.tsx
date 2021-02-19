@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Avtale } from '@/types/avtale';
 import { Select } from 'nav-frontend-skjema';
 import { Søkekriterier } from '@/AvtaleOversikt/AvtaleOversikt';
