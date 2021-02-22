@@ -19,11 +19,15 @@ const formaterTid = (tidspunkt: string) => {
     }
 };
 
+const UtgråetTekst: FunctionComponent<{ grå: boolean }> = ({ children, grå }) => (
+    <span style={{ color: grå ? 'grey' : undefined }}>{children}</span>
+);
+
 const VarselTabell: FunctionComponent<Props> = props => {
     const [komprimer, setKomprimer] = useState(true);
 
     const sortertListe = props.varsler
-        .map(v => ({ ...v, antallLike: 1, skalSkjules: false }))
+        .map(v => ({ ...v, antallLike: 1, skjules: false }))
         .sort((a, b) => {
             if (a.tidspunkt < b.tidspunkt) {
                 return -1;
@@ -44,7 +48,7 @@ const VarselTabell: FunctionComponent<Props> = props => {
             forrigeVarsel.utførtAv === gjeldendeVarsel.utførtAv
         ) {
             gjeldendeVarsel.antallLike = forrigeVarsel.antallLike + 1;
-            forrigeVarsel.skalSkjules = true;
+            forrigeVarsel.skjules = true;
             finnesMinstEnSomSkjules = true;
         }
     }
@@ -54,8 +58,8 @@ const VarselTabell: FunctionComponent<Props> = props => {
             {finnesMinstEnSomSkjules && (
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Checkbox
-                        label="Skjul like hendelser"
-                        checked={komprimer}
+                        label="Vis alle hendelser"
+                        checked={!komprimer}
                         onClick={() => setKomprimer(!komprimer)}
                     />
                 </div>
@@ -76,33 +80,22 @@ const VarselTabell: FunctionComponent<Props> = props => {
                 </thead>
                 <tbody>
                     {sortertListe
-                        .filter(v => !v.skalSkjules || !komprimer)
-                        .map((varsel, index) => (
-                            <tr key={index} role="row">
+                        .filter(v => !v.skjules || !komprimer)
+                        .map(varsel => (
+                            <tr key={varsel.id} role="row">
                                 <td role="cell" aria-labelledby="tidspunkt">
-                                    {formaterTid(varsel.tidspunkt)}
+                                    <UtgråetTekst grå={varsel.skjules}>{formaterTid(varsel.tidspunkt)}</UtgråetTekst>
                                 </td>
                                 <td role="cell">
                                     <div style={{ display: 'flex' }} aria-labelledby="varsel">
                                         <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
                                             <HendelseIkon hendelse={varsel.hendelseType} />
                                         </span>
-                                        {varsel.tekst} &nbsp;
-                                        {/*{varsel.antallLike > 1 && komprimer && (*/}
-                                        {/*    <>...</>*/}
-                                        {/*    // <em onClick={() => setKomprimer(!komprimer)}>*/}
-                                        {/*    //     ({varsel.antallLike} ganger <OppChevron />)*/}
-                                        {/*    // </em>*/}
-                                        {/*)}*/}
-                                        {/*{varsel.antallLike > 1 && !varsel.skalSkjules && !komprimer && (*/}
-                                        {/*    <em onClick={() => setKomprimer(!komprimer)}>*/}
-                                        {/*        (Skjul like hendelser <NedChevron />)*/}
-                                        {/*    </em>*/}
-                                        {/*)}*/}
+                                        <UtgråetTekst grå={varsel.skjules}>{varsel.tekst}</UtgråetTekst>
                                     </div>
                                 </td>
                                 <td role="cell" aria-labelledby="utført_av">
-                                    {storForbokstav(varsel.utførtAv)}
+                                    <UtgråetTekst grå={varsel.skjules}>{storForbokstav(varsel.utførtAv)}</UtgråetTekst>
                                 </td>
                             </tr>
                         ))}
