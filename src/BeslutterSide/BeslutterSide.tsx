@@ -37,9 +37,11 @@ const BeslutterSide: FunctionComponent = () => {
     }
 
     const tittel: { [key in TilskuddPeriodeStatus]: string } = {
-        AVSLÅTT: 'Tilskudd er avslått',
-        GODKJENT: 'Tilskudd er godkjent',
-        UBEHANDLET: 'Tilskudd som skal godkjennes',
+        AVSLÅTT: 'Tilskuddsperiode er avslått',
+        GODKJENT: 'Tilskuddsperiode er godkjent',
+        UBEHANDLET: 'Tilskuddsperiode som skal godkjennes',
+        ANNULLERT: 'Tilskuddsperiode annullert',
+        UTBETALT: 'Tilskuddsperiode utbetalt',
     };
 
     const fadeInOut = () => {

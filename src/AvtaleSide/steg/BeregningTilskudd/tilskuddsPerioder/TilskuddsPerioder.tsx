@@ -6,6 +6,7 @@ import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext } from 'react';
 import './tilskuddsPerioder.less';
+import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 
 const cls = BEMHelper('tilskuddsPerioder');
 
@@ -25,6 +26,7 @@ const TilskuddsPerioder: FunctionComponent = () => {
                         <th>Prosent</th>
                         <th>Beløp</th>
                         <th>Arbeidsgiver kan be om refusjon</th>
+                        <th />
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +39,9 @@ const TilskuddsPerioder: FunctionComponent = () => {
                                 <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                 <td>{formatterPenger(periode.beløp)}</td>
                                 <td>{formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}</td>
+                                <td>
+                                    <EtikettStatus tilskuddsperiodestatus={periode.status} />
+                                </td>
                             </tr>
                         );
                     })}

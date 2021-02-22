@@ -10,6 +10,8 @@ type Props = {
 const etikettStatus: { [key in TilskuddPeriodeStatus]: EtikettBaseProps['type'] } = {
     AVSLÅTT: 'advarsel',
     GODKJENT: 'suksess',
+    UTBETALT: 'suksess',
+    ANNULLERT: 'advarsel',
     UBEHANDLET: 'info',
 };
 

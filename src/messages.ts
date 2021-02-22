@@ -96,6 +96,8 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
     GODKJENT: 'Godkjent',
     AVSLÅTT: 'Avslått',
     UBEHANDLET: 'Ubehandlet',
+    UTBETALT: 'Utbetalt',
+    ANNULLERT: 'Annullert',
 };
 
 export const tilskuddsperiodeAvslagTekst: { [key in Avslagsårsaker]: string } = {
