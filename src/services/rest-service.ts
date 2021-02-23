@@ -10,6 +10,7 @@ import { Varsel } from '@/types/varsel';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -19,6 +20,8 @@ const api = axios.create({
     withCredentials: true,
     headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache', 'Content-Type': 'application/json' },
 });
+
+axiosRetry(api, { retries: 3 });
 
 api.interceptors.response.use(
     response => response,
