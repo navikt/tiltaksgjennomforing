@@ -16,7 +16,6 @@ export const API_URL = '/tiltaksgjennomforing/api';
 
 const api = axios.create({
     baseURL: '/tiltaksgjennomforing/api',
-    timeout: 10000,
     withCredentials: true,
     headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache', 'Content-Type': 'application/json' },
 });

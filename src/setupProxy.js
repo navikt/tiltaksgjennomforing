@@ -72,6 +72,7 @@ module.exports = function(app) {
         pathRewrite: whitelist,
         target: envProperties.APIGW_URL,
         xfwd: true,
+        proxyTimeout: 10000,
     };
 
     app.get('/tiltaksgjennomforing/fakelogin/isso', async (req, res) => {
