@@ -11,7 +11,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
-import { hentBedriftBrreg, opprettAvtale } from '@/services/rest-service';
+import { hentBedriftBrreg, opprettAvtaleSomVeileder } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
 import amplitude from '@/utils/amplitude';
@@ -119,7 +119,7 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
     const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
         if (!hvaSomManglerTekst && valgtTiltaksType) {
-            const avtale = await opprettAvtale(deltakerFnr, bedriftNr, valgtTiltaksType);
+            const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
         } else {

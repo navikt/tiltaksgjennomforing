@@ -3,64 +3,53 @@ import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { Avslagsårsaker, Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
-import { AdresseError, ApiError, AutentiseringError } from '@/types/errors';
+import { ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
-import { InnloggetBruker, Innloggingskilde, Rolle } from '@/types/innlogget-bruker';
+import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
+import axios from 'axios';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
-const featureTogglePath = (features: Feature[]): string => {
-    const query = features.map(feature => `feature=${feature}`).join('&');
-    return `${API_URL}/feature?${query}`;
-};
-const featureToggleVariantPath = (features: Feature[]): string => {
-    const query = features.map(feature => `feature=${feature}`).join('&');
-    return `${API_URL}/feature/variant?${query}`;
-};
+const api = axios.create({
+    baseURL: '/tiltaksgjennomforing/api',
+    timeout: 10000,
+    withCredentials: true,
+    headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache', 'Content-Type': 'application/json' },
+});
 
-const fetchGet: (url: string) => Promise<Response> = url => {
-    return fetchWithCredentials(url, { headers: { Pragma: 'no-cache' } });
-};
-const fetchPost: (url: string, otherParams?: any) => Promise<Response> = (url, otherParams) => {
-    return fetchWithCredentials(url, { method: 'POST', ...otherParams });
-};
-const fetchWithCredentials: (url: string, otherParams?: any) => Promise<Response> = (url, otherParams) => {
-    return fetch(url, { credentials: 'same-origin', ...otherParams });
-};
-
-const handleResponse = async (response: Response) => {
-    if (response.status === 401 || response.status === 403) {
-        sessionStorage.setItem(
-            SIDE_FOER_INNLOGGING,
-            window.location.pathname.replace(basename, '') + window.location.search
-        );
-        throw new AutentiseringError('Er ikke logget inn.');
-    }
-    if (response.status === 412) {
-        throw new AdresseError();
-    }
-    if (response.status === 400 && response.headers.has('feilkode')) {
-        throw new FeilkodeError(response.headers.get('feilkode')!);
-    }
-
-    if (response.status >= 400 && response.status < 500) {
-        const error = await response.json();
-        throw new ApiError(error.message);
-    }
-    if (!response.ok) {
+api.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response?.status === 401 || error.response?.status === 403) {
+            sessionStorage.setItem(
+                SIDE_FOER_INNLOGGING,
+                window.location.pathname.replace(basename, '') + window.location.search
+            );
+            throw new AutentiseringError('Er ikke logget inn.');
+        }
+        if (error.response?.status === 400 && error.response?.headers.feilkode) {
+            throw new FeilkodeError(error.response?.headers.feilkode);
+        }
         throw new ApiError('Feil ved kontakt mot baksystem.');
     }
+);
+
+const featureTogglePath = (features: Feature[]): string => {
+    const query = features.map(feature => `feature=${feature}`).join('&');
+    return `/feature?${query}`;
+};
+
+const featureToggleVariantPath = (features: Feature[]): string => {
+    const query = features.map(feature => `feature=${feature}`).join('&');
+    return `/feature/variant?${query}`;
 };
 
 export const hentAvtale = async (id: string): Promise<Avtale> => {
-    const response = await fetchGet(`${API_URL}/avtaler/${id}`);
-    await handleResponse(response);
-
-    const avtale = await response.json();
-    return { ...avtale, id: `${avtale.id}` };
+    const response = await api.get<Avtale>(`/avtaler/${id}`);
+    return response.data;
 };
 
 const removeEmpty = (obj: any) => {
@@ -70,15 +59,13 @@ const removeEmpty = (obj: any) => {
 
 export const hentAvtalerForInnloggetBruker = async (søkekriterier: Partial<Avtale>): Promise<Avtale[]> => {
     const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
-    const response = await fetchGet(`${API_URL}/avtaler?${queryParam}`);
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
+    return response.data;
 };
 
 export const hentAvtaleStatusDetaljer = async (avtaleId: string): Promise<AvtaleStatusDetaljer> => {
-    const response = await fetchGet(`${API_URL}/avtaler/${avtaleId}/status-detaljer`);
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get<AvtaleStatusDetaljer>(`/avtaler/${avtaleId}/status-detaljer`);
+    return response.data;
 };
 
 export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
@@ -94,34 +81,25 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
         }
     }
 
-    const response = await fetchWithCredentials(`${API_URL}/avtaler/${avtale.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(avtale),
+    await api.put(`/avtaler/${avtale.id}`, avtale, {
         headers: {
-            'Content-Type': 'application/json',
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
 
-    await handleResponse(response);
     return await hentAvtale(avtale.id);
 };
 
 export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {
-    const response = await fetchWithCredentials(`${API_URL}/avtaler/${avtale.id}/dry-run`, {
-        method: 'PUT',
-        body: JSON.stringify(avtale),
+    const response = await api.put(`/avtaler/${avtale.id}/dry-run`, avtale, {
         headers: {
-            'Content-Type': 'application/json',
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
-
-    await handleResponse(response);
-    return response.json();
+    return response.data;
 };
 
-export const opprettAvtale = async (
+export const opprettAvtaleSomVeileder = async (
     deltakerFnr: string,
     bedriftNr: string,
     tiltakstype: TiltaksType
@@ -129,7 +107,7 @@ export const opprettAvtale = async (
     return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype);
 };
 
-export const opprettAvtaleArbeidsgiver = async (
+export const opprettAvtaleSomArbeidsgiver = async (
     deltakerFnr: string,
     bedriftNr: string,
     tiltakstype: TiltaksType
@@ -143,180 +121,120 @@ const opprettAvtalen = async (
     bedriftNr: string,
     tiltakstype: TiltaksType
 ): Promise<Avtale> => {
-    const postResponse = await fetchPost(`${API_URL}${url}`, {
-        body: JSON.stringify({
-            deltakerFnr,
-            bedriftNr,
-            tiltakstype,
-        }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
+    const postResponse = await api.post(`${url}`, {
+        deltakerFnr,
+        bedriftNr,
+        tiltakstype,
     });
-    await handleResponse(postResponse);
-    const getResponse = await fetchGet(`${API_URL}${postResponse.headers.get('Location')}`);
-    await handleResponse(getResponse);
-    const avtale: Avtale = await getResponse.json();
-    return { ...avtale, id: `${avtale.id}` };
+    const getResponse = await api.get<Avtale>(`${postResponse.headers.location}`);
+    return getResponse.data;
 };
 
 export const hentRolle = async (avtaleId: string): Promise<Rolle> => {
-    const response = await fetchGet(`${API_URL}/avtaler/${avtaleId}/rolle`);
-    await handleResponse(response);
-    return response.json();
+    const response = await api.get(`/avtaler/${avtaleId}/rolle`);
+    return response.data;
 };
 
 export const godkjennAvtale = async (avtale: Avtale) => {
-    const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn`;
+    const uri = `/avtaler/${avtale.id}/godkjenn`;
 
-    const response = await fetchPost(uri, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
+    await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
 
-    await handleResponse(response);
     return hentAvtale(avtale.id);
 };
 
 export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => {
-    const uri = `${API_URL}/avtaler/${avtale.id}/godkjenn-paa-vegne-av`;
-    const response = await fetchPost(uri, {
-        body: JSON.stringify(paVegneGrunn),
+    const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av`;
+    await api.post(uri, paVegneGrunn, {
         headers: {
-            'Content-Type': 'application/json',
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
-    await handleResponse(response);
     return hentAvtale(avtale.id);
 };
 
 export const opphevGodkjenninger = async (avtaleId: string) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/opphev-godkjenninger`;
-    const response = await fetchPost(uri);
-    await handleResponse(response);
+    await api.post(`/avtaler/${avtaleId}/opphev-godkjenninger`);
     return hentAvtale(avtaleId);
 };
 
 export const gjenopprettAvtale = async (id: string) => {
-    const uri = `${API_URL}/avtaler/${id}/gjenopprett`;
-
-    const response = await fetchPost(uri, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-    await handleResponse(response);
+    await api.post(`/avtaler/${id}/gjenopprett`);
 };
 
 export const avbrytAvtale = async (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => {
-    const uri = `${API_URL}/avtaler/${avtale.id}/avbryt`;
-    const response = await fetchPost(uri, {
-        body: JSON.stringify({ avbruttDato: avbruttDato, avbruttGrunn: avbruttGrunn }),
-        headers: {
-            'Content-Type': 'application/json',
-            'If-Unmodified-Since': avtale.sistEndret,
-        },
-    });
-    await handleResponse(response);
+    const uri = `/avtaler/${avtale.id}/avbryt`;
+    await api.post(
+        uri,
+        { avbruttDato: avbruttDato, avbruttGrunn: avbruttGrunn },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
     return hentAvtale(avtale.id);
 };
 
 export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
-    const response = await fetchGet(`${API_URL}/innlogget-bruker`);
-    await handleResponse(response);
-    return response.json();
+    const response = await api.get<InnloggetBruker>(`/innlogget-bruker`);
+    return response.data;
 };
 
 export const gjorKontonummeroppslag = async (avtale: Avtale): Promise<void> => {
-    const response = await fetchPost(
-        `${API_URL}/avtaler/${avtale.id}/set-kontonummer-for-arbeidsgiver-fra-kontoregister`
-    );
-    await handleResponse(response);
-};
-
-export const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
-    const response = await fetchGet('/tiltaksgjennomforing/innloggingskilder');
-    await handleResponse(response);
-    return await response.json();
+    await api.post(`/avtaler/${avtale.id}/set-kontonummer-for-arbeidsgiver-fra-kontoregister`);
 };
 
 export const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {
-    const response = await fetchGet(`${API_URL}/organisasjoner?bedriftNr=${bedriftNr}`);
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get(`/organisasjoner?bedriftNr=${bedriftNr}`);
+    return response.data;
 };
 
 export const hentUlesteVarsler = async (): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler/oversikt`);
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get(`/varsler/oversikt`);
+    return response.data;
 };
 
 export const hentUlesteBjelleVarslerForAvtale = async (avtaleId: string): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler/avtale-modal?avtaleId=${avtaleId}`);
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get(`/varsler/avtale-modal?avtaleId=${avtaleId}`);
+    return response.data;
 };
 
 export const hentVarsellogg = async (avtaleId: string): Promise<Varsel[]> => {
-    const response = await fetchGet(`${API_URL}/varsler/avtale-logg?avtaleId=${avtaleId}`);
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get(`/varsler/avtale-logg?avtaleId=${avtaleId}`);
+    return response.data;
 };
 
 export const hentHendelselogg = async (avtaleId: string): Promise<Hendelse[]> => {
-    const response = await fetchGet(`${API_URL}/hendelselogg?avtaleId=${avtaleId}`);
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get(`/hendelselogg?avtaleId=${avtaleId}`);
+    return response.data;
 };
 
 export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<void> => {
-    const uri = `${API_URL}/varsler/sett-alle-til-lest`;
-    const response = await fetchPost(uri, {
-        body: JSON.stringify(varselIder),
-        headers: { 'Content-Type': 'application/json' },
-    });
-    await handleResponse(response);
-};
-
-export const sjekkOmMenySkalBrukes = async (url: string): Promise<boolean> => {
-    const response = await fetchGet(url);
-    return await response.json();
+    const uri = `/varsler/sett-alle-til-lest`;
+    await api.post(uri, varselIder);
 };
 
 export const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
-    const response = await fetchGet(featureTogglePath(featureToggles));
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get(featureTogglePath(featureToggles));
+
+    return response.data;
 };
 export const hentFeatureTogglesVarianter = async (featureToggles: Feature[]): Promise<Variants> => {
-    const response = await fetchGet(featureToggleVariantPath(featureToggles));
-    await handleResponse(response);
-    return await response.json();
+    const response = await api.get(featureToggleVariantPath(featureToggles));
+    return response.data;
 };
 
 export const låsOppAvtale = async (avtaleId: string): Promise<void> => {
-    const response = await fetchPost(`${API_URL}/avtaler/${avtaleId}/laas-opp`);
-    await handleResponse(response);
+    await api.post(`/avtaler/${avtaleId}/laas-opp`);
 };
 
 export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
-    const response = await fetchPost(`${API_URL}/avtaler/${avtaleId}/del-med-avtalepart`, {
-        body: JSON.stringify(rolle),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    await handleResponse(response);
+    await api.post(`/avtaler/${avtaleId}/del-med-avtalepart`, JSON.stringify(rolle));
 };
 
 export const overtaAvtale = async (avtaleId: string): Promise<void> => {
-    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/overta`, { method: 'PUT' });
-    await handleResponse(response);
-};
-
-export const aksepterUtkast = async (avtaleId: string): Promise<void> => {
-    const response = await fetch(`${API_URL}/avtaler/${avtaleId}/aksepter-utkast`, { method: 'POST' });
-    await handleResponse(response);
+    await api.put(`/avtaler/${avtaleId}/overta`);
 };
 
 export type BeOmRettigheterUrler = {
@@ -324,26 +242,13 @@ export type BeOmRettigheterUrler = {
 };
 
 export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigheterUrler> => {
-    const response = await fetch(`${API_URL}/be-om-altinn-rettighet-urler?orgNr=${orgNr}`, { method: 'GET' });
-    await handleResponse(response);
-    return await response.json();
-};
-
-export interface Stillingskategori {
-    konseptId: number;
-    label: string;
-    styrk08: number;
-}
-
-export const hentStillinger = async (sok: string): Promise<Stillingskategori[]> => {
-    const response = await fetch(`https://arbeidsgiver.nav.no/stillingstitler/search?q=${sok}`);
-    return await response.json();
+    const response = await api.get<BeOmRettigheterUrler>(`/be-om-altinn-rettighet-urler?orgNr=${orgNr}`);
+    return response.data;
 };
 
 export const godkjennTilskuddsperiode = async (avtaleId: string) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/godkjenn-tilskuddsperiode`;
-    const response = await fetchPost(uri);
-    await handleResponse(response);
+    const uri = `/avtaler/${avtaleId}/godkjenn-tilskuddsperiode`;
+    await api.post(uri);
 };
 
 export const avslåTilskuddsperiode = async (
@@ -351,21 +256,14 @@ export const avslåTilskuddsperiode = async (
     avslagsårsaker: Set<Avslagsårsaker>,
     avslagsforklaring: string
 ) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/avslag-tilskuddsperiode`;
-    const response = await fetchPost(uri, {
-        body: JSON.stringify({
-            avslagsårsaker,
-            avslagsforklaring,
-        }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
+    const uri = `/avtaler/${avtaleId}/avslag-tilskuddsperiode`;
+    await api.post(uri, {
+        avslagsårsaker,
+        avslagsforklaring,
     });
-    await handleResponse(response);
 };
 
 export const slettemerkAvtale = async (avtaleId: string) => {
-    const uri = `${API_URL}/avtaler/${avtaleId}/slettemerk`;
-    const response = await fetchPost(uri);
-    await handleResponse(response);
+    const uri = `/avtaler/${avtaleId}/slettemerk`;
+    await api.post(uri);
 };

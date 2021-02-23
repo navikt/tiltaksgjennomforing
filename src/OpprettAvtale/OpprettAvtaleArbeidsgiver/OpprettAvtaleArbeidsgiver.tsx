@@ -12,7 +12,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
 import { pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
-import { opprettAvtaleArbeidsgiver } from '@/services/rest-service';
+import { opprettAvtaleSomArbeidsgiver } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
 import amplitude from '@/utils/amplitude';
@@ -75,7 +75,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
     const opprettAvtaleKlikk = async () => {
         const hvaSomManglerTekst = hvaMangler();
         if (!hvaSomManglerTekst && valgtTiltaksType) {
-            const avtale = await opprettAvtaleArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
+            const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             history.push({
                 pathname: pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id),

@@ -1,5 +1,5 @@
 import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
-import { hentStillinger } from '@/services/rest-service';
+import { hentStillinger } from '@/services/stillingsok';
 import { escapeRegExp } from '@/utils/stringUtils';
 import debounce from 'lodash.debounce';
 import React, { FunctionComponent, useState } from 'react';

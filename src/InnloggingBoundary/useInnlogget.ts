@@ -1,5 +1,6 @@
 import { useAsyncError } from '@/komponenter/useError';
-import { hentInnloggetBruker, hentInnloggingskilder } from '@/services/rest-service';
+import { hentInnloggetBruker } from '@/services/rest-service';
+import { hentInnloggingskilder } from '@/services/internt';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { InnloggetBruker, Innloggingskilde } from '@/types/innlogget-bruker';
 import amplitude from '@/utils/amplitude';

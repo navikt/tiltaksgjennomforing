@@ -101,7 +101,6 @@ module.exports = function(app) {
     if (envProperties.APIGW_HEADER) {
         proxyConfig.headers = {
             'x-nav-apiKey': envProperties.APIGW_HEADER,
-            Connection: 'keep-alive',
         };
     }
 

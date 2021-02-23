@@ -3,7 +3,7 @@ import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 import { useAsyncError } from '@/komponenter/useError';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import { sjekkOmMenySkalBrukes } from '@/services/rest-service';
+import { sjekkOmMenySkalBrukes } from '@/services/internt';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import NAVSPA from '@navikt/navspa';
 import * as React from 'react';
