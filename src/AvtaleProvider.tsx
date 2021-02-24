@@ -96,9 +96,7 @@ const AvtaleProvider: FunctionComponent = props => {
     };
 
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
-        RestService.hentAvtale(avtaleId)
-            .then(setAvtale)
-            .catch(throwError);
+        RestService.hentAvtale(avtaleId).then(setAvtale);
 
     const avbrytAvtale = async (avbruttDato: string, avbruttGrunn: string): Promise<void> => {
         await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
@@ -194,7 +192,7 @@ const AvtaleProvider: FunctionComponent = props => {
             case ApiError:
                 return visFeilmelding(error.message || 'Det har skjedd en uventet feil');
             default:
-                throw error;
+                throwError(error);
         }
     };
 
