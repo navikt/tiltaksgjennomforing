@@ -1,14 +1,10 @@
 import { ReactComponent as AnsatteIkon } from '@/assets/ikoner/ansatte.svg';
-import { ReactComponent as LovIkon } from '@/assets/ikoner/lov.svg';
-import { ReactComponent as PersonOpplysningIkon } from '@/assets/ikoner/personopplysninger.svg';
-import { ReactComponent as SedlerIkon } from '@/assets/ikoner/sedler.svg';
-import { ReactComponent as SkadeIkon } from '@/assets/ikoner/skade.svg';
-import { ReactComponent as SkjoldIkon } from '@/assets/ikoner/skjold.svg';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import { Bandage, Calender, Law, Money, Passport, SocialAid } from '@navikt/ds-icons';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
@@ -54,8 +50,24 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
         </VeilederpanelMedUtklippstavle>
 
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
+            {props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' && (
+                <EkspanderbartPanelRad
+                    svgIkon={<Calender width="2.25rem" height="2.25rem" />}
+                    headerTekst={{ tekst: 'Oppfølging og varighet', typografiType: 'undertittel' }}
+                >
+                    <p>
+                        Oppfølging og varighet Du som arbeidsgiver og NAV skal følge opp deltaker. Din oppgave er å
+                        følge opp i det daglige arbeidet og se at arbeidet er i tråd med avtalen som er inngått.
+                        Varigheten på tilskuddet skal vurderes ut fra deltakers behov. Tilskuddet reguleres av{' '}
+                        <EksternLenke href="https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_9">
+                            forskrift for arbeidsmarkedstiltak
+                        </EksternLenke>
+                    </p>
+                </EkspanderbartPanelRad>
+            )}
+
             <EkspanderbartPanelRad
-                svgIkon={<LovIkon />}
+                svgIkon={<Law width="2.25rem" height="2.25rem" />}
                 headerTekst={{ tekst: 'Arbeidsmiljøloven', typografiType: 'undertittel' }}
             >
                 {props.tiltakstype === 'ARBEIDSTRENING' && (
@@ -77,7 +89,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
             </EkspanderbartPanelRad>
 
             <EkspanderbartPanelRad
-                svgIkon={<SkjoldIkon />}
+                svgIkon={<SocialAid width="2.25rem" height="2.25rem" />}
                 headerTekst={{
                     tekst: 'Yrkesskadeforsikring og skadeerstatning',
                     typografiType: 'undertittel',
@@ -100,7 +112,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
             </EkspanderbartPanelRad>
 
             <EkspanderbartPanelRad
-                svgIkon={<SkadeIkon />}
+                svgIkon={<Bandage width="2.25rem" height="2.25rem" />}
                 headerTekst={{
                     tekst: 'Folketrygdloven: egenmelding og sykmelding',
                     typografiType: 'undertittel',
@@ -129,7 +141,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
             )}
 
             <EkspanderbartPanelRad
-                svgIkon={<PersonOpplysningIkon />}
+                svgIkon={<Passport width="2.25rem" height="2.25rem" />}
                 headerTekst={{ tekst: 'Behandling av personopplysninger', typografiType: 'undertittel' }}
             >
                 <p>
@@ -149,7 +161,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
 
             {(props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
                 <EkspanderbartPanelRad
-                    svgIkon={<SedlerIkon />}
+                    svgIkon={<Money width="2.25rem" height="2.25rem" />}
                     headerTekst={{ tekst: 'Sende inn krav om refusjon', typografiType: 'undertittel' }}
                 >
                     <p>
