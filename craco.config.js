@@ -44,6 +44,7 @@ module.exports = {
             moduleNameMapper: {
                 '^@/(.*)$': '<rootDir>/src/$1',
             },
+            transformIgnorePatterns: ['<rootDir>/node_modules/(?!@navikt/ds-icons)'],
         },
     },
 };
