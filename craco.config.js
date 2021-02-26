@@ -51,7 +51,6 @@ module.exports = {
             // transform: {
             //     '^.+\\.(css|less)$': '<rootDir>/src/mocking/styleMock.js',
             // },
-            setupFiles: ['<rootDir>/src/spec_helper.ts'],
         },
     },
 };
