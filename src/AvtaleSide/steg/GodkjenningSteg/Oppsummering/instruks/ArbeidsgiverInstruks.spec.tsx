@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 import ArbeidsgiverInstruks from './ArbeidsgiverInstruks';
 
 test('Test that <ArbeidsgiverInstruks> renders correctly', () => {
