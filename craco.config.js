@@ -44,13 +44,13 @@ module.exports = {
             moduleNameMapper: {
                 '^@/(.*)$': '<rootDir>/src/$1',
                 // '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-                '\\.(css|less)$': '<rootDir>/src/mocking/styleMock.js',
+                // '\\.(css|less)$': '<rootDir>/src/mocking/styleMock.js',
                 //'<rootDir>/src/mocking/fileMock.js',
             },
             //transformIgnorePatterns: ['<rootDir>/node_modules/(?!@navikt/ds-icons)'],
-            transform: {
-                '^.+\\.(css|less)$': '<rootDir>/src/mocking/styleMock.js',
-            },
+            // transform: {
+            //     '^.+\\.(css|less)$': '<rootDir>/src/mocking/styleMock.js',
+            // },
             setupFiles: ['<rootDir>/src/spec_helper.ts'],
         },
     },
