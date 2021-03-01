@@ -138,7 +138,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                 <div>
                     {avbruttGrunn === 'Annet' && (
                         <PakrevdTextarea
-                            label="tekstboks"
+                            label=""
                             labelledby="tekst felt for avbrytt grunn"
                             verdi={annetGrunn}
                             placeholder="Begrunnelse"
