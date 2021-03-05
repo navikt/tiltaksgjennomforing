@@ -123,9 +123,7 @@ const Godkjenning: FunctionComponent<Props> = props => {
             });
             kanLagres = false;
         }
-        if (!kanLagres) {
-            throw new UfullstendigError();
-        }
+        return kanLagres;
     };
     return (
         <Innholdsboks className="godkjenning">
@@ -163,7 +161,9 @@ const Godkjenning: FunctionComponent<Props> = props => {
                 lagre={() => {
                     if (bekreftet && bekreftetArbeidsAvtale) {
                         if (godkjentPaVegneAv) {
-                            validerGodkjentPaVegne();
+                            if (!validerGodkjentPaVegne()) {
+                                return;
+                            }
                             return props.godkjennPaVegne(godkjentPaVegneGrunn);
                         }
                         return props.endreGodkjenning(true);
