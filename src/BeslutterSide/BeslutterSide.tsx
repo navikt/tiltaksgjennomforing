@@ -40,6 +40,8 @@ const BeslutterSide: FunctionComponent = () => {
         AVSLÅTT: 'Tilskudd er avslått',
         GODKJENT: 'Tilskudd er godkjent',
         UBEHANDLET: 'Tilskudd som skal godkjennes',
+        UTBETALT: 'Tilskudd er utbetalt',
+        ANNULLERT: 'Tilskudd er annullert',
     };
 
     const fadeInOut = () => {
