@@ -6,13 +6,15 @@ import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonerin
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
 import { Avtaleinnhold } from '@/types/avtale';
 import * as React from 'react';
 import { createElement, FunctionComponent, useContext } from 'react';
 import AvtaleStatus from '../../AvtaleStatus/AvtaleStatus';
 import Godkjenning from './Godkjenning';
 import { UfordeltStatusArbeidsgiver } from './UfordeltStatusArbeidsgiver';
+import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -21,6 +23,8 @@ interface Props {
 const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
+    const featureToggles = useContext(FeatureToggleContext);
+    const lagreSomPdfFeatureToggle = featureToggles[Feature.LagreSomPdf];
 
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
@@ -45,7 +49,8 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
                         {avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
                     </SkjemaTittel>
 
-                    {avtale.erLaast && <SkrivUtKnapp />}
+                    {avtale.erLaast && lagreSomPdfFeatureToggle && <LagreSomPdfKnapp avtaleId={avtale.id} />}
+                    {avtale.erLaast && !lagreSomPdfFeatureToggle && <SkrivUtKnapp />}
                 </div>
 
                 <Avtaleparter {...avtale} />
