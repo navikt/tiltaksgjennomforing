@@ -17,6 +17,7 @@ import { FunctionComponent, useContext } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext: InputStegProps<Varighet> = useContext(AvtaleContext);
@@ -66,7 +67,9 @@ const VarighetSteg: FunctionComponent = () => {
                     erDatoTilbakeITid(avtaleContext.avtale.sluttDato)) && (
                     <>
                         <VerticalSpacer rem={1} />
-                        <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>
+                        {(innloggetBruker.erNavAnsatt && (
+                            <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>
+                        )) || <SkjemaelementFeilmelding feil={{ feilmelding: 'Dato kan ikke være tilbake i tid' }} />}
                     </>
                 )}
                 <Row>
