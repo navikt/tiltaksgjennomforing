@@ -16,15 +16,19 @@ import * as React from 'react';
 import { FunctionComponent, useContext } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext: InputStegProps<Varighet> = useContext(AvtaleContext);
+    const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const timerIUka = Number(((37.5 * (avtaleContext.avtale.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
     const duration = moment(avtaleContext.avtale.sluttDato).diff(avtaleContext.avtale.startDato, 'days');
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
+    const arbgiverDatoGrense = innloggetBruker.erNavAnsatt ? {} : { minDato: new Date().toISOString() };
+
     return (
         <Innholdsboks utfyller="arbeidsgiver">
             <Container fluid={true}>
@@ -32,8 +36,8 @@ const VarighetSteg: FunctionComponent = () => {
                     <Column md="12">
                         <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
                         <Normaltekst>
-                            Fyll ut startdato og forventet sluttdato. Hvor lenge det er behov for tilskudd vil vurderes
-                            underveis i perioden.
+                            Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato. Hvor
+                            lenge det er behov for tilskudd vil vurderes underveis i perioden.
                         </Normaltekst>
                         <VerticalSpacer rem={2} />
                     </Column>
@@ -44,6 +48,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datovelger
                             input={{ placeholder: 'dd.mm.åååå' }}
                             valgtDato={avtaleContext.avtale.startDato}
+                            avgrensninger={arbgiverDatoGrense}
                             onChange={dato => avtaleContext.settAvtaleVerdier({ startDato: dato })}
                         />
                     </Column>
@@ -52,6 +57,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datovelger
                             input={{ placeholder: 'dd.mm.åååå' }}
                             valgtDato={avtaleContext.avtale.sluttDato}
+                            avgrensninger={arbgiverDatoGrense}
                             onChange={dato => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
                         />
                     </Column>
