@@ -4,7 +4,7 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Bandage, Calender, Law, Money, Passport, SocialAid } from '@navikt/ds-icons';
+import { Bandage, Calender, Law, Money, Passport, SocialAid } from '@navikt/ds-icons/cjs';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
