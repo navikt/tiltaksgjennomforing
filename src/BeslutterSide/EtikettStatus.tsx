@@ -9,8 +9,10 @@ type Props = {
 
 const etikettStatus: { [key in TilskuddPeriodeStatus]: EtikettBaseProps['type'] } = {
     AVSLÅTT: 'advarsel',
+    ANNULLERT: 'fokus',
     GODKJENT: 'suksess',
     UBEHANDLET: 'info',
+    UTBETALT: 'suksess',
 };
 
 const EtikettStatus: FunctionComponent<Props> = props => {
