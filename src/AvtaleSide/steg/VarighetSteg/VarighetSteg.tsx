@@ -4,7 +4,7 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Varighet } from '@/types/avtale';
+import { AvtaleMetadata, Varighet } from '@/types/avtale';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import moment from 'moment';
 import 'moment/locale/nb';
@@ -20,7 +20,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
 const VarighetSteg: FunctionComponent = () => {
-    const avtaleContext: InputStegProps<Varighet> = useContext(AvtaleContext);
+    const avtaleContext: InputStegProps<Varighet & AvtaleMetadata> = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const timerIUka = Number(((37.5 * (avtaleContext.avtale.stillingprosent || 0)) / 100).toFixed(2));
@@ -28,7 +28,9 @@ const VarighetSteg: FunctionComponent = () => {
 
     const duration = moment(avtaleContext.avtale.sluttDato).diff(avtaleContext.avtale.startDato, 'days');
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
-    const arbgiverDatoGrense = innloggetBruker.erNavAnsatt ? {} : { minDato: new Date().toISOString() };
+
+    const validerDatoForArbeidsgiver = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
+    const arbgiverDatoGrense = validerDatoForArbeidsgiver ? { minDato: new Date().toISOString() } : {};
 
     return (
         <Innholdsboks utfyller="arbeidsgiver">
@@ -67,9 +69,9 @@ const VarighetSteg: FunctionComponent = () => {
                     erDatoTilbakeITid(avtaleContext.avtale.sluttDato)) && (
                     <>
                         <VerticalSpacer rem={1} />
-                        {(innloggetBruker.erNavAnsatt && (
-                            <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>
-                        )) || <SkjemaelementFeilmelding feil={{ feilmelding: 'Dato kan ikke være tilbake i tid' }} />}
+                        {(validerDatoForArbeidsgiver && (
+                            <SkjemaelementFeilmelding feil={{ feilmelding: 'Dato kan ikke være tilbake i tid' }} />
+                        )) || <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>}
                     </>
                 )}
                 <Row>
