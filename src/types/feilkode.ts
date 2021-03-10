@@ -16,6 +16,7 @@ export type Feilkode =
     | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD'
     | 'VARIGHET_FOR_LANG_ARBEIDSTRENING'
     | 'VARIGHET_FOR_LANG_MENTOR'
+    | 'VARIGHET_DATO_TILBAKE_I_TID'
     | 'VEILEDER_SKAL_GODKJENNE_SIST'
     | 'ALTINN_FEIL'
     | 'GOSYS_FEIL'
@@ -51,6 +52,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_LAASES_OPP: 'Avtalen kan ikke låses opp',
     ER_ALLEREDE_VEILEDER: 'Innlogget bruker er allerede veileder på denne avtalen',
     START_ETTER_SLUTT: 'Startdato er etter sluttdato',
+    VARIGHET_DATO_TILBAKE_I_TID: 'Dato på varighet er tilbake i tid',
     VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD: 'Avtalens varighet er maksimalt 24 måneder',
     VARIGHET_FOR_LANG_MENTOR: 'Avtalens varighet er maksimalt 36 måneder',
     VARIGHET_FOR_LANG_ARBEIDSTRENING: 'Avtalens varighet er maksimalt 18 måneder',
