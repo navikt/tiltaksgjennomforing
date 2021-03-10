@@ -1,7 +1,6 @@
 import { File } from '@navikt/ds-icons/cjs';
 import { Knapp } from 'nav-frontend-knapper';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 const LagreSomPdfKnapp: FunctionComponent<{ avtaleId: string }> = props => {
     const href = `/tiltaksgjennomforing/api/avtaler/${props.avtaleId}/pdf`;
