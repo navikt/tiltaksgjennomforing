@@ -75,7 +75,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                     verdi={props.lonnstilskuddProsent || 0}
                 />
                 <Utregningsrad
-                    labelTekst="Sum lønnstilskudd per måned"
+                    labelTekst="Sum tilskudd per måned"
                     tekstType="element"
                     verdi={`Inntil ${formatterPenger(props.sumLonnstilskudd || 0)}`}
                 />
@@ -90,7 +90,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                             verdi={props.lonnstilskuddProsent ? props.lonnstilskuddProsent - 10 : 0}
                         />
                         <Utregningsrad
-                            labelTekst="Sum lønnstilskudd per måned"
+                            labelTekst="Sum tilskudd per måned"
                             tekstType="element"
                             verdi={`Inntil ${formatterPenger(props.sumLønnstilskuddRedusert || 0)}`}
                         />

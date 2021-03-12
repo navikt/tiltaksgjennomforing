@@ -3,11 +3,6 @@ import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHoris
 import { Beregningsgrunnlag, TiltaksType } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 
-const radioer = [
-    { label: '40 %', value: '40' },
-    { label: '60 %', value: '60' },
-];
-
 type Props = {
     tiltakstype: TiltaksType;
     lonnstilskuddProsent: Beregningsgrunnlag['lonnstilskuddProsent'];
@@ -18,7 +13,10 @@ const LonnstilskuddProsent: FunctionComponent<Props> = props => {
     if (props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
         return (
             <RadioPanelGruppeHorisontal
-                radios={radioer}
+                radios={[
+                    { label: '40 %', value: '40' },
+                    { label: '60 %', value: '60' },
+                ]}
                 name="lonnstilskuddProsent"
                 checked={props.lonnstilskuddProsent + ''}
                 legend=""
@@ -39,6 +37,21 @@ const LonnstilskuddProsent: FunctionComponent<Props> = props => {
                 }}
                 min={0}
                 max={75}
+            />
+        );
+    } else if (props.tiltakstype === 'SOMMERJOBB') {
+        return (
+            <RadioPanelGruppeHorisontal
+                radios={[
+                    { label: '50 %', value: '50' },
+                    { label: '75 %', value: '75' },
+                ]}
+                name="lonnstilskuddProsent"
+                checked={props.lonnstilskuddProsent + ''}
+                legend=""
+                onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                    props.settLonnstilskuddProsent(parseInt(verdi))
+                }
             />
         );
     } else {

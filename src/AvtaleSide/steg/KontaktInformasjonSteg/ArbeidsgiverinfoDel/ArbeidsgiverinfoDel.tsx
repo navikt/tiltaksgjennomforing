@@ -50,9 +50,9 @@ const ArbeidsgiverinfoDel = () => {
                         />
                     </div>
                     <div className={cls.element('rad')}>
-                        {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtale.tiltakstype) && (
-                            <Relasjoner />
-                        )}
+                        {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
+                            avtale.tiltakstype
+                        ) && <Relasjoner />}
                     </div>
                 </SkjemaGruppe>
             </div>

@@ -88,8 +88,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
-            <SkjemaTittel>Beregning av lønnstilskudd</SkjemaTittel>
-            <Undertittel>Lønnstilskudd prosent</Undertittel>
+            <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
+            <Undertittel>Tilskuddsprosent</Undertittel>
 
             {!avtale.lonnstilskuddProsent && (
                 <>
@@ -117,11 +117,15 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             )}
             {!innloggetBruker.erNavAnsatt && (
                 <Normaltekst className={cls.element('luft')}>
-                    {!avtale.lonnstilskuddProsent
-                        ? avtale.tiltakstype === 'VARIG_LONNSTILSKUDD'
-                            ? 'Her kan NAV sette en sats.'
-                            : 'Her kan NAV sette en sats på 40% eller 60%'
-                        : avtale.lonnstilskuddProsent + ' %'}
+                    {avtale.lonnstilskuddProsent && avtale.lonnstilskuddProsent + ' %'}
+                    {!avtale.lonnstilskuddProsent && (
+                        <>
+                            {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && 'Her kan NAV sette en sats.'}
+                            {avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' &&
+                                'Her kan NAV sette en sats på 40% eller 60%'}
+                            {avtale.tiltakstype === 'SOMMERJOBB' && 'Her kan NAV sette en sats på 50% eller 75%'}
+                        </>
+                    )}
                 </Normaltekst>
             )}
 

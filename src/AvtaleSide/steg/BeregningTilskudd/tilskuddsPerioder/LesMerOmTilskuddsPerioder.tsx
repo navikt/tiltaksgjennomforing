@@ -14,17 +14,21 @@ const LesMerOmTilskuddsPerioder: FunctionComponent = () => {
     const [åpnet, setÅpnet] = useState<boolean>(false);
     const avtaleinnhold = useContext(AvtaleContext);
 
-    const detErOpprettetTilskuddsPerioder = () => avtaleinnhold.avtale.tilskuddPeriode.length > 0;
+    const erOpprettetTilskuddsPerioder = avtaleinnhold.avtale.tilskuddPeriode.length > 0;
+    const erOpprettetFlereEnnEnTilskuddsPeriode = avtaleinnhold.avtale.tilskuddPeriode.length > 1;
 
-    return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder() ? (
+    return visningAvtilskuddsPeriodeToggle && erOpprettetTilskuddsPerioder ? (
         <>
             <Undertittel className={cls.element('tittel')}>Perioder</Undertittel>
             <VerticalSpacer rem={1} />
             <LesMerPanel lukkLabel="Lukk" åpneLabel="Viktig informasjon om perioder" onÅpne={() => setÅpnet(!åpnet)}>
-                <Normaltekst>
-                    Lønnstilskudd blir godkjent av NAV for én og én periode av gangen. Hver periode kan maksimalt vare i
-                    tre måneder.
-                </Normaltekst>
+                {erOpprettetFlereEnnEnTilskuddsPeriode && (
+                    <Normaltekst>
+                        Lønnstilskudd blir godkjent av NAV for én og én periode av gangen. Hver periode kan maksimalt
+                        vare i tre måneder.
+                    </Normaltekst>
+                )}
+
                 <Normaltekst>
                     Som arbeidsgiver må du søke refusjon for hver enkelt periode for å få pengene som er satt av. Du kan
                     først be om refusjon etter at perioden er over. I listen under kan du se datoer for når du kan søke
