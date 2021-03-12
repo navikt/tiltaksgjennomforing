@@ -8,6 +8,7 @@ export enum Feature {
     VisNedetidBanner = 'tag.tiltak.visNedetidBanner',
     ViseBeslutterKnapp = 'tag.tiltak.viseBeslutterLogin',
     LagreSomPdf = 'tag.tiltak.lagreSomPdf',
+    Sommerjobb = 'tag.tiltak.sommerjobb',
 }
 
 export const alleFeatures = Object.values(Feature);

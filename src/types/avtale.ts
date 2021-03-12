@@ -23,7 +23,12 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     RelasjonerInfo &
     Mentorinfo;
 
-export type TiltaksType = 'ARBEIDSTRENING' | 'MIDLERTIDIG_LONNSTILSKUDD' | 'VARIG_LONNSTILSKUDD' | 'MENTOR';
+export type TiltaksType =
+    | 'ARBEIDSTRENING'
+    | 'MIDLERTIDIG_LONNSTILSKUDD'
+    | 'VARIG_LONNSTILSKUDD'
+    | 'MENTOR'
+    | 'SOMMERJOBB';
 export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'UTBETALT';
 export type AvbrytelseGrunn =
     | 'Begynt i arbeid'
