@@ -7,7 +7,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { avtaleTittel, tilskuddsperiodeAvslagTekst } from '@/messages';
+import { avtaleTittel, tilskuddsperiodeAvslagTekst, tiltakstypeTekst } from '@/messages';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
@@ -58,7 +58,7 @@ const BeslutterSide: FunctionComponent = () => {
                 <div className={cls.element('innhold')}>
                     <TilbakeTilOversiktLenke />
                     <VerticalSpacer rem={1} />
-                    <Innholdstittel>Tilskudd om midlertidig lønnstilskudd</Innholdstittel>
+                    <Innholdstittel>Tilskudd om {tiltakstypeTekst[avtaleContext.avtale.tiltakstype]}</Innholdstittel>
                     <VerticalSpacer rem={1} />
                     <div className={clsName} style={{ transition: 'all 0.3s ease-in-out 0s' }}>
                         <Innholdsboks>
