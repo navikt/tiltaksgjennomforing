@@ -78,6 +78,7 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
     MENTOR: 'Mentor',
+    SOMMERJOBB: 'Sommerjobb',
 };
 
 export const avtaleTittel = {
@@ -85,6 +86,7 @@ export const avtaleTittel = {
     MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
     MENTOR: 'Avtale om tilskudd til mentor',
+    SOMMERJOBB: 'Avtale om sommerjobb',
 };
 
 export const stillingstype: { [key in Stillingstype]: string } = {

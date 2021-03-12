@@ -34,7 +34,10 @@ export type Feilkode =
     | 'LONNSTILSKUDD_PROSENT_ER_UGYLDIG'
     | 'KONTOREGISTER_FEIL'
     | 'KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET'
-    | 'IKKE_ADMIN_TILGANG';
+    | 'IKKE_ADMIN_TILGANG'
+    | 'SOMMERJOBB_FOR_TIDLIG'
+    | 'SOMMERJOBB_FOR_SENT'
+    | 'SOMMERJOBB_FOR_LANG_VARIGHET';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -74,4 +77,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KONTOREGISTER_FEIL: 'Feil ved oppslag til kontoregister',
     KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET: 'Finner ikke bedrift hos kontonummerregister',
     IKKE_ADMIN_TILGANG: 'Du har ikke tilgang til denne administrator-funksjonaliteten',
+    SOMMERJOBB_FOR_TIDLIG: 'Sommerjobb kan ikke starte før 01.06',
+    SOMMERJOBB_FOR_SENT: 'Sommerjobb kan ikke vare lenger enn til 31.08',
+    SOMMERJOBB_FOR_LANG_VARIGHET: 'Sommerjobb kan ikke vare lenger enn 4 uker',
 };

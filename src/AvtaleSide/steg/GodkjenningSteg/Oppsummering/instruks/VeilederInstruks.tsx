@@ -12,6 +12,7 @@ const navnPåTiltakstype = {
     MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
     MENTOR: 'Mentor',
+    SOMMERJOBB: 'Sommerjobb',
 };
 
 const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = props => (

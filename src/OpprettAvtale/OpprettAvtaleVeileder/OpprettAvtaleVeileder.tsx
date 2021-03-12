@@ -133,46 +133,53 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
 
-    const enabledFeatureToggleRadioPanel = () => {
-        return (
-            <Innholdsboks>
-                <Systemtittel>Velg type avtale</Systemtittel>
-                <VerticalSpacer rem={1} />
-                <div className={cls.element('tiltakstypeWrapper')}>
+    const radiopaneler = (
+        <Innholdsboks>
+            <Systemtittel>Velg type avtale</Systemtittel>
+            <VerticalSpacer rem={1} />
+            <div className={cls.element('tiltakstypeWrapper')}>
+                <RadioPanel
+                    name="tiltakstype"
+                    label="Arbeidstrening"
+                    value="ARBEIDSTRENING"
+                    checked={valgtTiltaksType === 'ARBEIDSTRENING'}
+                    onChange={() => setTiltaksType('ARBEIDSTRENING')}
+                />
+                <RadioPanel
+                    name="tiltakstype"
+                    label="Midlertidig lønnstilskudd"
+                    value="MIDLERTIDIG_LONNSTILSKUDD"
+                    checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
+                    onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                />
+                <RadioPanel
+                    name="tiltakstype"
+                    label="Varig lønnstilskudd"
+                    value="VARIG_LONNSTILSKUDD"
+                    checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
+                    onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
+                />
+                {mentorToggle && (
                     <RadioPanel
                         name="tiltakstype"
-                        label="Arbeidstrening"
-                        value="ARBEIDSTRENING"
-                        checked={valgtTiltaksType === 'ARBEIDSTRENING'}
-                        onChange={() => setTiltaksType('ARBEIDSTRENING')}
+                        label="Mentor"
+                        value="MENTOR"
+                        checked={valgtTiltaksType === 'MENTOR'}
+                        onChange={() => setTiltaksType('MENTOR')}
                     />
+                )}
+                {true && (
                     <RadioPanel
                         name="tiltakstype"
-                        label="Midlertidig lønnstilskudd"
-                        value="MIDLERTIDIG_LONNSTILSKUDD"
-                        checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                        onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                        label="Sommerjobb"
+                        value="SOMMERJOBB"
+                        checked={valgtTiltaksType === 'SOMMERJOBB'}
+                        onChange={() => setTiltaksType('SOMMERJOBB')}
                     />
-                    <RadioPanel
-                        name="tiltakstype"
-                        label="Varig lønnstilskudd"
-                        value="VARIG_LONNSTILSKUDD"
-                        checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                        onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
-                    />
-                    {mentorToggle && (
-                        <RadioPanel
-                            name="tiltakstype"
-                            label="Mentor"
-                            value="MENTOR"
-                            checked={valgtTiltaksType === 'MENTOR'}
-                            onChange={() => setTiltaksType('MENTOR')}
-                        />
-                    )}
-                </div>
-            </Innholdsboks>
-        );
-    };
+                )}
+            </div>
+        </Innholdsboks>
+    );
 
     return (
         <div className="opprett-avtale">
@@ -181,7 +188,7 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
             <VerticalSpacer rem={1} />
             <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
             <VerticalSpacer rem={2} />
-            {enabledFeatureToggleRadioPanel()}
+            {radiopaneler}
             <VerticalSpacer rem={2} />
             <Innholdsboks>
                 <Systemtittel>Knytt avtalen til andre parter</Systemtittel>

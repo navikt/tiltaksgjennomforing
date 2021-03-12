@@ -111,6 +111,7 @@ const hentAvtaleSteg = {
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MENTOR: mentorSteg,
+    SOMMERJOBB: lonnstilskuddSteg,
 };
 
 export default hentAvtaleSteg;
