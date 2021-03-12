@@ -6,6 +6,17 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(11, 3, 2021),
+        tittel: 'Mulig å laste ned en PDF av avtalen',
+        innhold: (
+            <p>
+                Etter at avtale er godkjent av alle parter kan man nå laste ned en PDF-versjon av avtalen. Link til å
+                laste ned PDF-en ligger på oppsummeringssiden til avtalen. Både deltaker, arbeidsgiver og NAV har
+                tilgang til denne linken.
+            </p>
+        ),
+    },
+    {
         dato: tilDato(19, 2, 2021),
         tittel: 'Endring av prosentsats midlertidig lønnstilskudd',
         innhold: (
