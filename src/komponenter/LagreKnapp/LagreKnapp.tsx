@@ -51,6 +51,7 @@ class LagreKnapp extends Component<Props, State> {
         try {
             await this.props.lagre();
             this.visSuksessmelding();
+            this.fjernFeilmelding();
         } catch (error) {
             try {
                 handterFeil(error, this.visFeilmelding);
