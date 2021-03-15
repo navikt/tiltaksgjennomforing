@@ -88,11 +88,17 @@ const AvtaleProvider: FunctionComponent = props => {
         }
 
         setUnderLagring(true);
-        const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
-        sendToAmplitude('#tiltak-avtale-lagret');
-        setAvtale({ ...avtale, ...lagretAvtale });
-        setUlagredeEndringer(false);
-        setUnderLagring(false);
+        try {
+            const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
+            sendToAmplitude('#tiltak-avtale-lagret');
+            setAvtale({ ...avtale, ...lagretAvtale });
+            setUlagredeEndringer(false);
+            setUnderLagring(false);
+        } catch (error) {
+            throw error;
+        } finally {
+            setUnderLagring(false);
+        }
     };
 
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
