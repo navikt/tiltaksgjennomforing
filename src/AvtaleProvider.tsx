@@ -41,7 +41,7 @@ export interface Context {
     avslåTilskudd: (avslagsårsaker: Set<Avslagsårsaker>, avslagsforklaring: string) => Promise<void>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
-    hentAvtale: (avtaleId: string) => Promise<void>;
+    hentAvtale: (avtaleId?: string) => Promise<void>;
     lagreAvtale: () => Promise<void>;
     lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;

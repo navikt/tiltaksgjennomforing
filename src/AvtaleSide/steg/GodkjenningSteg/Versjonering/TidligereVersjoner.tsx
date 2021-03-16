@@ -1,3 +1,4 @@
+import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
 import { Versjonering } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
@@ -41,6 +42,7 @@ const TidligereVersjoner: React.FunctionComponent<Versjonering> = props => {
         <>
             {versjonLenker.length > 0 && (
                 <>
+                    <SkjemaUndertittel>Tidligere versjoner av avtalen</SkjemaUndertittel>
                     <div>{versjonLenker}</div>
                     <VersjonModal
                         isOpen={isOpen}

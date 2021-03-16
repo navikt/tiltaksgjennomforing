@@ -61,11 +61,12 @@ const avtaleInnhold: Avtale = {
     kanLåsesOpp: false,
     opprettetTidspunkt: '',
     sistEndret: '',
-    status: '',
+    status: 'PÅBEGYNT',
     tiltakstype: 'ARBEIDSTRENING',
     veilederNavIdent: '',
     beslutterNavIdent: '',
     versjoner: [],
+    statusSomEnum: 'GJENNOMFØRES',
 };
 
 export const contextMock: Context = {

@@ -39,6 +39,14 @@ export type AvbrytelseGrunn =
     | 'Annet'
     | '';
 
+export type AvtaleStatus =
+    | 'AVBRUTT'
+    | 'PÅBEGYNT'
+    | 'MANGLER_GODKJENNING'
+    | 'KLAR_FOR_OPPSTART'
+    | 'GJENNOMFØRES'
+    | 'AVSLUTTET';
+
 export interface AvtaleMetadata {
     id: string;
     opprettetTidspunkt: string;
@@ -163,7 +171,8 @@ export interface Godkjenninger {
     godkjentAvDeltaker: boolean;
     godkjentAvArbeidsgiver: boolean;
     godkjentAvVeileder: boolean;
-    status: string;
+    status: AvtaleStatus;
+    statusSomEnum: AvtaleStatus;
     godkjentPaVegneAv: boolean;
     godkjentPaVegneGrunn?: GodkjentPaVegneGrunner;
     erLaast: boolean;

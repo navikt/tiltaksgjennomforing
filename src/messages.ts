@@ -1,4 +1,11 @@
-import { Avslagsårsaker, Avtaleinnhold, Stillingstype, TilskuddPeriodeStatus, TiltaksType } from './types/avtale';
+import {
+    Avslagsårsaker,
+    Avtaleinnhold,
+    AvtaleStatus,
+    Stillingstype,
+    TilskuddPeriodeStatus,
+    TiltaksType,
+} from './types/avtale';
 import { HendelseType } from './types/hendelse';
 
 export const messages = {
@@ -100,6 +107,15 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
     UBEHANDLET: 'Ubehandlet',
     UTBETALT: 'Utbetalt',
     ANNULLERT: 'Annullert',
+};
+
+export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
+    AVBRUTT: 'Avbrutt',
+    PÅBEGYNT: 'Påbegynt',
+    MANGLER_GODKJENNING: 'Mangler godkjenning',
+    KLAR_FOR_OPPSTART: 'Klar for oppstart',
+    GJENNOMFØRES: 'Gjennomføres',
+    AVSLUTTET: 'Avsluttet',
 };
 
 export const tilskuddsperiodeAvslagTekst: { [key in Avslagsårsaker]: string } = {

@@ -34,7 +34,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
     erLaast: false,
-    status: 'Påbegynt',
+    status: 'PÅBEGYNT',
     kanAvbrytes: true,
     kanLåsesOpp: false,
     kanGjenopprettes: false,
@@ -77,6 +77,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     avbruttDato: '',
     avbruttGrunn: '',
     erUfordelt: false,
+    statusSomEnum: 'GJENNOMFØRES',
 };
 
 export default arbeidstreningAvtaleMock;

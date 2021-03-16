@@ -9,7 +9,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
     erLaast: false,
-    status: 'Påbegynt',
+    status: 'PÅBEGYNT',
     kanAvbrytes: true,
     kanLåsesOpp: false,
     kanGjenopprettes: false,
@@ -68,6 +68,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     sumLonnsutgifter: 0,
     sumLonnstilskudd: 0,
     erUfordelt: false,
+    statusSomEnum: 'GJENNOMFØRES',
 
     maal: [],
 };

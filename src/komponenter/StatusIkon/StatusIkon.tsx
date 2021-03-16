@@ -4,11 +4,12 @@ import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
+import { AvtaleStatus } from '@/types/avtale';
 import { Rolle } from '@/types/innlogget-bruker';
 import React, { CSSProperties, FunctionComponent } from 'react';
 
 interface Props {
-    status: string;
+    status: AvtaleStatus;
     rolle?: Rolle;
     godkjentAvInnloggetBruker?: boolean;
     andrePartnerHarGodkjent?: boolean;
@@ -18,21 +19,21 @@ interface Props {
 
 const StatusIkon: FunctionComponent<Props> = props => {
     switch (props.status) {
-        case 'Påbegynt':
+        case 'PÅBEGYNT':
             return <PabegyntIkon style={props.style} />;
-        case 'Klar for oppstart':
+        case 'KLAR_FOR_OPPSTART':
             return <CheckIkon style={props.style} />;
-        case 'Mangler godkjenning':
+        case 'MANGLER_GODKJENNING':
             if (props.godkjentAvInnloggetBruker || (props.rolle === 'VEILEDER' && !props.andrePartnerHarGodkjent)) {
                 return <PabegyntIkon style={props.style} />;
             } else {
                 return <ProblemIkon style={props.style} />;
             }
-        case 'Avbrutt':
+        case 'AVBRUTT':
             return <AvbruttIkon style={props.style} />;
-        case 'Avsluttet':
+        case 'AVSLUTTET':
             return <InaktivIkon style={props.style} />;
-        case 'Gjennomføres':
+        case 'GJENNOMFØRES':
             return <GjennomforesIkon style={props.style} />;
         default:
             return null;

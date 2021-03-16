@@ -1,36 +1,39 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
+import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import { avtaleStatusTekst } from '@/messages';
+import { AvtaleStatus } from '@/types/avtale';
+import { Radio } from 'nav-frontend-skjema';
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
-import { OptionProps } from '@/komponenter/form/SelectInput';
-import { Radio } from 'nav-frontend-skjema';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+
+type SokeType = AvtaleStatus | '';
 
 const StatusFilter: FunctionComponent<FiltreringProps> = props => {
-    const [valgtStatus, setValgtStatus] = useState('');
+    const [valgtStatus, setValgtStatus] = useState<SokeType>('');
 
-    const statuser: OptionProps[] = [
-        { value: '', label: 'Alle' },
-        { value: 'PÅBEGYNT', label: 'Påbegynt' },
-        { value: 'MANGLER_GODKJENNING', label: 'Mangler godkjenning' },
-        { value: 'KLAR_FOR_OPPSTART', label: 'Klar for oppstart' },
-        { value: 'GJENNOMFØRES', label: 'Gjennomføres' },
-        { value: 'AVSLUTTET', label: 'Avsluttet' },
-        { value: 'AVBRUTT', label: 'Avbrutt' },
+    const alleStatuser: SokeType[] = [
+        '',
+        'PÅBEGYNT',
+        'MANGLER_GODKJENNING',
+        'KLAR_FOR_OPPSTART',
+        'GJENNOMFØRES',
+        'AVSLUTTET',
+        'AVBRUTT',
     ];
 
     return (
         <Filter tittel="Status">
-            {statuser.map(s => (
+            {alleStatuser.map(s => (
                 <Radio
-                    key={s.label}
-                    label={s.label}
+                    key={s}
+                    label={s === '' ? 'Alle' : avtaleStatusTekst[s]}
                     name={'status'}
-                    value={s.value}
-                    checked={s.value === valgtStatus}
+                    value={s}
+                    checked={s === valgtStatus}
                     onChange={event => {
-                        const nyStatus = event.currentTarget.value;
+                        const nyStatus = event.currentTarget.value as SokeType;
                         setValgtStatus(nyStatus);
-                        props.endreSøk({ status: nyStatus });
+                        props.endreSøk({ status: nyStatus || undefined });
                     }}
                     role="radio"
                     aria-labelledby="filtere på oppgave status"
