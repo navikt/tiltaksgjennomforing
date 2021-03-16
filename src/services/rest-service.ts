@@ -55,7 +55,7 @@ export const hentAvtale = async (id: string): Promise<Avtale> => {
 };
 
 const removeEmpty = (obj: any) => {
-    Object.keys(obj).forEach(k => !obj[k] && obj[k] !== undefined && delete obj[k]);
+    Object.keys(obj).forEach(k => !obj[k] && delete obj[k]);
     return obj;
 };
 
