@@ -1,12 +1,13 @@
 import { ReactComponent as ArkIkon } from '@/assets/ikoner/ark.svg';
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/avbrutt-avtale.svg';
 import { ReactComponent as EndretIkon } from '@/assets/ikoner/endret.svg';
+import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/gjenoppretteAvtaleIkon.svg';
 import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg';
 import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
-import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/gjenoppretteAvtaleIkon.svg';
 import { ReactComponent as VeilederIkon } from '@/assets/ikoner/veileder.svg';
 import { HendelseType } from '@/types/hendelse';
+import { Calender } from '@navikt/ds-icons/cjs';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
@@ -33,6 +34,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     AVTALE_FORDELT: <VeilederIkon />,
     TILSKUDDSPERIODE_AVSLATT: <OpphevetIkon />,
     TILSKUDDSPERIODE_GODKJENT: <GodkjentIkon />,
+    AVTALE_FORLENGET: <Calender />,
 };
 
 const HendelseIkon: FunctionComponent<Props> = props => {
