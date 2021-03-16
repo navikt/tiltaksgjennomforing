@@ -1,13 +1,11 @@
-import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
 import TidligereVersjoner from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/TidligereVersjoner';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Versjonering } from '@/types/avtale';
 import { Rolle } from '@/types/innlogget-bruker';
 import * as React from 'react';
 import MediaQuery from 'react-responsive';
+import BehandleAvtale from '../BehandleAvtale';
 
 interface Props {
     rolle: Rolle;
@@ -16,30 +14,21 @@ interface Props {
 }
 
 const VersjoneringKomponent: React.FunctionComponent<Props> = props => {
-    const tidligereVersjoner = props.avtale.versjoner.length > 1 && (
-        <>
-            <SkjemaUndertittel>Tidligere versjoner av avtalen</SkjemaUndertittel>
-            <TidligereVersjoner {...props.avtale} />
-        </>
-    );
+    const harTidligereVersjoner = props.avtale.versjoner.length > 1;
 
-    const behandleAvtale = props.rolle === 'VEILEDER' && props.avtale.kanLåsesOpp && (
-        <>
-            <SkjemaTittel>Behandle avtale</SkjemaTittel>
-            <LaasOppKnapp laasOpp={props.laasOpp} />
-            <VerticalSpacer thirtyTwoPx={true} />
-        </>
-    );
-
-    if (!tidligereVersjoner && !behandleAvtale) {
+    if (props.rolle !== 'VEILEDER' && !harTidligereVersjoner) {
+        return null;
+    }
+    if (!props.avtale.kanLåsesOpp && !harTidligereVersjoner) {
         return null;
     }
 
     return (
         <MediaQuery print={false}>
             <Innholdsboks>
-                {behandleAvtale}
-                {tidligereVersjoner}
+                {props.rolle === 'VEILEDER' && <BehandleAvtale />}
+                <VerticalSpacer rem={2} />
+                {harTidligereVersjoner && <TidligereVersjoner {...props.avtale} />}
             </Innholdsboks>
         </MediaQuery>
     );

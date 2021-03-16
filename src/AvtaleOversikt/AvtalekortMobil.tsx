@@ -1,15 +1,16 @@
-import React, { FunctionComponent } from 'react';
-import { Undertittel, Normaltekst, Ingress } from 'nav-frontend-typografi';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { pathTilAvtale } from '@/paths';
-import { Link } from 'react-router-dom';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel';
-import './AvtalekortMobil.less';
-import BEMHelper from '@/utils/bem';
+import { avtaleStatusTekst } from '@/messages';
+import { pathTilAvtale } from '@/paths';
 import { Avtale } from '@/types/avtale';
 import { Varsel } from '@/types/varsel';
+import BEMHelper from '@/utils/bem';
 import moment from 'moment';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import { Link } from 'react-router-dom';
+import './AvtalekortMobil.less';
 
 const cls = BEMHelper('avtalekortMobil');
 
@@ -40,9 +41,9 @@ const AvtalekortMobil: FunctionComponent<{
                         <VerticalSpacer eightPx={true} />
                         <Normaltekst>Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}</Normaltekst>
                         <div className={cls.element('status')}>
-                            <StatusIkon status={avtale.status} />
+                            <StatusIkon status={avtale.statusSomEnum} />
 
-                            <div className={cls.element('statustekst')}>{avtale.status}</div>
+                            <div className={cls.element('statustekst')}>{avtaleStatusTekst[avtale.statusSomEnum]}</div>
                         </div>
                     </div>
                 </LenkepanelBase>

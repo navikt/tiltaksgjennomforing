@@ -7,10 +7,10 @@ import { ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
-import { FeilkodeError } from './../types/errors';
-import { Variants } from './../types/unleash-variant';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import { FeilkodeError } from './../types/errors';
+import { Variants } from './../types/unleash-variant';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -55,7 +55,7 @@ export const hentAvtale = async (id: string): Promise<Avtale> => {
 };
 
 const removeEmpty = (obj: any) => {
-    Object.keys(obj).forEach(k => !obj[k] && obj[k] !== undefined && delete obj[k]);
+    Object.keys(obj).forEach(k => !obj[k] && delete obj[k]);
     return obj;
 };
 
@@ -268,4 +268,17 @@ export const avslåTilskuddsperiode = async (
 export const slettemerkAvtale = async (avtaleId: string) => {
     const uri = `/avtaler/${avtaleId}/slettemerk`;
     await api.post(uri);
+};
+
+export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {
+    const uri = `/avtaler/${avtale.id}/forleng`;
+    await api.post(
+        uri,
+        { sluttDato },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
 };

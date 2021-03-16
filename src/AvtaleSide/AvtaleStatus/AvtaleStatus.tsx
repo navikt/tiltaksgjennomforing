@@ -38,7 +38,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
     const part1Ikon =
         avtaleStatusDetaljer.part1Status === true ? (
             <CheckIkon />
-        ) : props.avtale.status === 'Påbegynt' ? (
+        ) : props.avtale.statusSomEnum === 'PÅBEGYNT' ? (
             <PabegyntIkon />
         ) : (
             <VarselIkon />
@@ -46,19 +46,19 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
     const part2Ikon =
         avtaleStatusDetaljer.part2Status === true ? (
             <CheckIkon />
-        ) : props.avtale.status === 'Påbegynt' ? (
+        ) : props.avtale.statusSomEnum === 'PÅBEGYNT' ? (
             <PabegyntIkon />
         ) : (
             <VarselIkon />
         );
     return (
-        <Innholdsboks className={cls.element('innholdsboks')} ariaLabel={props.avtale.status}>
+        <Innholdsboks className={cls.element('innholdsboks')} ariaLabel={props.avtale.statusSomEnum}>
             <MediaQuery minWidth={768}>
                 <div className={cls.element('hovedIkon')}>
                     <StatusIkon
                         style={{ width: '40px', height: '40px' }}
                         rolle={props.rolle}
-                        status={props.avtale.status}
+                        status={props.avtale.statusSomEnum}
                         godkjentAvInnloggetBruker={avtaleStatusDetaljer.godkjentAvInnloggetBruker}
                         andrePartnerHarGodkjent={avtaleStatusDetaljer.part1Status && avtaleStatusDetaljer.part2Status}
                         className={cls.element('hovedIkon__justerStorrelse')}
@@ -81,7 +81,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                     <div>
                         <StatusIkon
                             rolle={props.rolle}
-                            status={props.avtale.status}
+                            status={props.avtale.statusSomEnum}
                             className={cls.element('hovedIkonMobil__justerStorrelse')}
                         />
                     </div>

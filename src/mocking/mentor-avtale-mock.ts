@@ -9,7 +9,7 @@ const mentorAvtaleMock: Avtale = {
     godkjentAvArbeidsgiver: false,
     godkjentAvVeileder: false,
     erLaast: false,
-    status: '',
+    status: 'PÅBEGYNT',
     kanAvbrytes: true,
     kanLåsesOpp: false,
     kanGjenopprettes: false,
@@ -60,6 +60,7 @@ const mentorAvtaleMock: Avtale = {
     avbruttDato: '',
     avbruttGrunn: '',
     erUfordelt: false,
+    statusSomEnum: 'GJENNOMFØRES',
 
     maal: [],
 };

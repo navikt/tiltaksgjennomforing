@@ -9,6 +9,7 @@ export enum Feature {
     ViseBeslutterKnapp = 'tag.tiltak.viseBeslutterLogin',
     LagreSomPdf = 'tag.tiltak.lagreSomPdf',
     Sommerjobb = 'tag.tiltak.sommerjobb',
+    BehandleAvtale = 'tag.tiltak.behandleAvtale',
 }
 
 export const alleFeatures = Object.values(Feature);
