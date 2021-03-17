@@ -2,6 +2,7 @@ import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
 import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
 import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
@@ -16,12 +17,11 @@ import BEMHelper from '@/utils/bem';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
+import { gjorKontonummeroppslag } from '../../../services/rest-service';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import OtpProsentInput from './OtpProsentInput';
 import UtregningPanel from './UtregningPanel';
-import { gjorKontonummeroppslag } from '../../../services/rest-service';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -240,7 +240,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         )}
                     <VerticalSpacer thirtyTwoPx={true} />
                     <LesMerOmTilskuddsPerioder />
-                    <TilskuddsPerioder />
+                    <TilskuddsPerioder tilskuddsperioder={avtale.tilskuddPeriode} />
                     <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>

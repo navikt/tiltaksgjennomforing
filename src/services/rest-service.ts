@@ -282,3 +282,16 @@ export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {
         }
     );
 };
+export const forlengAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
+    const uri = `/avtaler/${avtale.id}/forleng-dry-run`;
+    const response = await api.post(
+        uri,
+        { sluttDato },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
+    return response.data;
+};

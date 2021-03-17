@@ -1,5 +1,5 @@
-import { AvtaleContext } from '@/AvtaleProvider';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { TilskuddsPeriode } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
@@ -9,12 +9,15 @@ import './tilskuddsPerioder.less';
 
 const cls = BEMHelper('tilskuddsPerioder');
 
-const TilskuddsPerioder: FunctionComponent = () => {
+type Props = {
+    tilskuddsperioder: TilskuddsPeriode[];
+};
+
+const TilskuddsPerioder: FunctionComponent<Props> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
-    const avtaleinnhold = useContext(AvtaleContext);
 
-    const detErOpprettetTilskuddsPerioder = avtaleinnhold.avtale.tilskuddPeriode.length > 0;
+    const detErOpprettetTilskuddsPerioder = props.tilskuddsperioder.length > 0;
 
     return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder ? (
         <div className={cls.className}>
@@ -28,7 +31,7 @@ const TilskuddsPerioder: FunctionComponent = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {avtaleinnhold.avtale.tilskuddPeriode.map((periode, index) => {
+                    {props.tilskuddsperioder.map((periode, index) => {
                         return (
                             <tr key={index}>
                                 <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>

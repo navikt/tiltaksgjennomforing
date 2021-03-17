@@ -4,7 +4,7 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
 
@@ -19,6 +19,7 @@ interface Props {
     bekreftelseTekst: string;
     avbrytelseTekst: string;
     descripedby?: string;
+    style?: CSSProperties;
 }
 
 const BekreftelseModal: React.FunctionComponent<Props> = props => {
@@ -51,6 +52,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
     return (
         <div className={cls.className}>
             <Modal
+                style={{ content: props.style }}
                 isOpen={props.modalIsOpen}
                 className="modal--overflow-visible"
                 contentLabel={'bekrefte valgt handling'}
