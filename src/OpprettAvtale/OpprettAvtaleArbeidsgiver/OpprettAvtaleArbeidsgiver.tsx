@@ -129,15 +129,17 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr]?.map(t => (
-                            <RadioPanel
-                                name="tiltakstype"
-                                label={tiltakstypeTekst[t]}
-                                value={t}
-                                checked={valgtTiltaksType === t}
-                                onChange={() => setTiltaksType(t)}
-                            />
-                        ))}
+                        {innloggetBruker.tilganger[valgtBedriftNr]
+                            ?.filter(t => t !== 'SOMMERJOBB')
+                            .map(t => (
+                                <RadioPanel
+                                    name="tiltakstype"
+                                    label={tiltakstypeTekst[t]}
+                                    value={t}
+                                    checked={valgtTiltaksType === t}
+                                    onChange={() => setTiltaksType(t)}
+                                />
+                            ))}
                     </div>
                 </Innholdsboks>
 
