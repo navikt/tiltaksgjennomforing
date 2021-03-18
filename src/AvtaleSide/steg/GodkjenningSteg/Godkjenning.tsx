@@ -157,6 +157,17 @@ const Godkjenning: FunctionComponent<Props> = props => {
                     <VerticalSpacer sixteenPx={true} />
                 </>
             )}
+            {props.rolle === 'ARBEIDSGIVER' &&
+                props.avtale.felterSomIkkeErFyltUt.length === 1 &&
+                props.avtale.felterSomIkkeErFyltUt[0] === 'lonnstilskuddProsent' && (
+                    <>
+                        <AlertStripeAdvarsel>
+                            Du har fylt ut alt du kan. Før du kan godkjenne må veileder sette lønnstilskuddprosent.
+                            Avtalen er tilgjengelig for veileder nå.
+                        </AlertStripeAdvarsel>
+                        <VerticalSpacer sixteenPx={true} />
+                    </>
+                )}
             <LagreKnapp
                 lagre={() => {
                     if (bekreftet && bekreftetArbeidsAvtale) {

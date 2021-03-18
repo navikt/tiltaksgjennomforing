@@ -71,6 +71,8 @@ const lonnstilskuddAvtaleMock: Avtale = {
     statusSomEnum: 'GJENNOMFØRES',
 
     maal: [],
+
+    felterSomIkkeErFyltUt: [],
 };
 
 export default lonnstilskuddAvtaleMock;

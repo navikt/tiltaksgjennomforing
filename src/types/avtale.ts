@@ -176,6 +176,7 @@ export interface Godkjenninger {
     godkjentPaVegneAv: boolean;
     godkjentPaVegneGrunn?: GodkjentPaVegneGrunner;
     erLaast: boolean;
+    felterSomIkkeErFyltUt: (keyof Avtaleinnhold)[];
 }
 
 export interface Avbrytelse {

@@ -63,6 +63,8 @@ const mentorAvtaleMock: Avtale = {
     statusSomEnum: 'GJENNOMFØRES',
 
     maal: [],
+
+    felterSomIkkeErFyltUt: [],
 };
 
 export default mentorAvtaleMock;

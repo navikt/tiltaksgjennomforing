@@ -78,6 +78,8 @@ const arbeidstreningAvtaleMock: Avtale = {
     avbruttGrunn: '',
     erUfordelt: false,
     statusSomEnum: 'GJENNOMFØRES',
+
+    felterSomIkkeErFyltUt: [],
 };
 
 export default arbeidstreningAvtaleMock;
