@@ -60,7 +60,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
                 <Godkjenning
                     avtale={avtale}
                     rolle={innloggetBruker.rolle}
-                    endreGodkjenning={godkjenn}
+                    godkjenn={godkjenn}
                     godkjennPaVegne={godkjennPaVegne}
                 />
             )}

@@ -19,7 +19,7 @@ import VeilederInstruks from './Oppsummering/instruks/VeilederInstruks';
 interface Props {
     avtale: Avtale;
     rolle: Rolle;
-    endreGodkjenning: (godkjent: boolean) => Promise<any>;
+    godkjenn: () => Promise<any>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<any>;
 }
 
@@ -149,7 +149,7 @@ const Godkjenning: FunctionComponent<Props> = props => {
             {erVeileder && !props.avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAv godkjentPaVegneGrunn={godkjentPaVegneGrunn} moderState={paVegneState} />
             )}
-            {props.avtale.harFamilietilknytning && (
+            {props.rolle !== 'ARBEIDSGIVER' && props.avtale.harFamilietilknytning && (
                 <>
                     <AlertStripeAdvarsel>
                         OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
@@ -157,19 +157,17 @@ const Godkjenning: FunctionComponent<Props> = props => {
                     <VerticalSpacer sixteenPx={true} />
                 </>
             )}
-            {props.rolle === 'ARBEIDSGIVER' &&
-                props.avtale.felterSomIkkeErFyltUt.length === 1 &&
-                props.avtale.felterSomIkkeErFyltUt[0] === 'lonnstilskuddProsent' && (
-                    <>
-                        <AlertStripeAdvarsel>
-                            Du har fylt ut alt du kan. Før du kan godkjenne må veileder sette lønnstilskuddprosent.
-                            Avtalen er tilgjengelig for veileder nå.
-                        </AlertStripeAdvarsel>
-                        <VerticalSpacer sixteenPx={true} />
-                    </>
-                )}
             <LagreKnapp
                 lagre={() => {
+                    if (
+                        props.rolle === 'ARBEIDSGIVER' &&
+                        props.avtale.felterSomIkkeErFyltUt.length === 1 &&
+                        props.avtale.felterSomIkkeErFyltUt[0] === 'lonnstilskuddProsent'
+                    ) {
+                        throw new UfullstendigError(
+                            'Før du kan godkjenne må veileder sette lønnstilskuddprosent. Avtalen er tilgjengelig for veileder nå.'
+                        );
+                    }
                     if (bekreftet && bekreftetArbeidsAvtale) {
                         if (godkjentPaVegneAv) {
                             if (!validerGodkjentPaVegne()) {
@@ -177,7 +175,7 @@ const Godkjenning: FunctionComponent<Props> = props => {
                             }
                             return props.godkjennPaVegne(godkjentPaVegneGrunn);
                         }
-                        return props.endreGodkjenning(true);
+                        return props.godkjenn();
                     } else {
                         throw new UfullstendigError(feilmeldingManglerBekreftelse());
                     }

@@ -36,7 +36,7 @@ export interface Context {
     gjenopprettAvtale: () => Promise<void>;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
-    godkjenn: (godkjent: boolean) => Promise<void>;
+    godkjenn: () => Promise<void>;
     godkjennTilskudd: () => Promise<void>;
     avslåTilskudd: (avslagsårsaker: Set<Avslagsårsaker>, avslagsforklaring: string) => Promise<void>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
