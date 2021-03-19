@@ -85,7 +85,7 @@ module.exports = function(app) {
     });
 
     app.get('/tiltaksgjennomforing/fakelogin/selvbetjening', async (req, res) => {
-        const subject = req.headers['selvbetjening-id'] || '20000000052';
+        const subject = req.headers['selvbetjening-id'] || '23090170716';
         const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=selvbetjening&aud=aud-selvbetjening&sub=${subject}&acr=Level4`;
         const response = await fetch(url);
         const data = await response.text();

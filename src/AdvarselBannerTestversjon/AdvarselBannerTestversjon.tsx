@@ -22,7 +22,7 @@ const AdvarselBannerTestversjon = () => {
                     arbeidsgiver.nav.no/tiltaksgjennomforing.
                     <LesMerPanel åpneLabel="Slik tester du registrering av avtaler" lukkLabel="Lukk">
                         For å teste hele flyten, kan du logge inn som veileder, opprette en avtale på fnr:
-                        <b>20000000052</b> og bedriftnr: <b>999999999</b>.
+                        <b>23090170716</b> og bedriftnr: <b>999999999</b>.
                         <br />
                         Vi ber også om at du ikke registrer ekte data i denne løsningen, da dette er en åpen
                         testversjon.
