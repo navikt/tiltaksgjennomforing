@@ -9,8 +9,7 @@ import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import { handterFeil } from '@/utils/apiFeilUtils';
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 
 type Props = {
     avtalelisteRessurs: AvtalelisteRessurs;
