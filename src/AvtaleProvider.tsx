@@ -4,8 +4,7 @@ import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
 import { LogReturn } from 'amplitude-js';
-import * as React from 'react';
-import { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
@@ -94,8 +93,6 @@ const AvtaleProvider: FunctionComponent = props => {
             setAvtale({ ...avtale, ...lagretAvtale });
             setUlagredeEndringer(false);
             setUnderLagring(false);
-        } catch (error) {
-            throw error;
         } finally {
             setUnderLagring(false);
         }
