@@ -24,6 +24,8 @@ const EndreTilskudssberegning: FunctionComponent = () => {
         //...
     };
 
+    //Test
+
     const endreBeregningInnhold = (
         <>
             <Undertittel>Månedslønn</Undertittel>
