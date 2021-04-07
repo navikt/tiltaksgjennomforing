@@ -26,11 +26,13 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
         operator ? <Systemtittel className={cls.element('operator')}>{operator}</Systemtittel> : null;
 
     const setLabelSats = (sats?: number) =>
-        sats ? <Normaltekst className={cls.element('label-sats')}>({visSatsMedEttDesimal(sats)}%)</Normaltekst> : null;
+        sats !== undefined && sats !== null ? (
+            <Normaltekst className={cls.element('label-sats')}>({visSatsMedEttDesimal(sats)}%)</Normaltekst>
+        ) : null;
 
     const parseVerdi = (verdi: string | number) => {
         const verdiSomNumber = parseInt(verdi.toString(), 10);
-        return !isNaN(verdiSomNumber) && !props.ikkePenger ? `${formatterPenger(verdiSomNumber)}` : verdi;
+        return !isNaN(verdiSomNumber) && !props.ikkePenger ? formatterPenger(verdiSomNumber) : verdi;
     };
 
     return (

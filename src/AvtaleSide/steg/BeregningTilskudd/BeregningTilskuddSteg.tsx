@@ -20,8 +20,8 @@ import React, { FunctionComponent, useContext } from 'react';
 import { gjorKontonummeroppslag } from '../../../services/rest-service';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
-import OtpProsentInput from './OtpProsentInput';
 import UtregningPanel from './UtregningPanel';
+import ProsentInput from '@/komponenter/form/ProsentInput';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -141,6 +141,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         name="manedslonn"
                         bredde="S"
                         label="Månedslønn før skatt"
+                        autoComplete={'off'}
                         value={avtale.manedslonn}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settAvtaleVerdier({ manedslonn: parseFloat(event.target.value) });
@@ -167,18 +168,27 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     />
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
-                    <OtpProsentInput
-                        name="tjenestepensjon"
-                        bredde="S"
-                        max={30}
-                        min={0}
-                        label="Obligatorisk tjenestepensjon fra 0 - 30%"
-                        value={avtale.otpSats}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdier({ otpSats: parseFloat(event.target.value) / 100 });
-                        }}
-                        onBlur={() => lagreAvtale()}
-                    />
+                    <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                        <ProsentInput
+                            name="tjenestepensjon"
+                            bredde="S"
+                            label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
+                            min={0}
+                            max={30}
+                            autoComplete={'off'}
+                            value={
+                                avtale.otpSats !== undefined && avtale.otpSats !== null
+                                    ? (avtale.otpSats * 100).toFixed(0)
+                                    : ''
+                            }
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                settOgKalkulerBeregningsverdier({
+                                    otpSats:
+                                        event.target.value === '' ? undefined : parseFloat(event.target.value) / 100,
+                                })
+                            }
+                        />
+                    </div>
                     <VerticalSpacer twentyPx={true} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>
                     <SelectInput
