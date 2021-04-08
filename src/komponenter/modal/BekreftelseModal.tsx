@@ -28,7 +28,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
 
     useEffect(() => {
         setVarselInnhold(props.varselTekst);
-    });
+    }, [props.varselTekst]);
 
     const setModalElement = () => {
         if (document.getElementById('root')) {
