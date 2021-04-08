@@ -283,6 +283,7 @@ export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning
     );
     return response.data;
 };
+
 export const oppdateretilskuddsBeregningDryRun = async (
     avtale: Avtale,
     endreBeregning: EndreBeregning
