@@ -30,7 +30,6 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
         }
         return 'body';
     };
-
     if (typeof window !== 'undefined') {
         Modal.setAppElement(setModalElement());
     }

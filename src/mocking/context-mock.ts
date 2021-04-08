@@ -80,6 +80,7 @@ export const contextMock: Context = {
     lagreAvtale: () => Promise.resolve(),
     overtaAvtale: () => Promise.resolve(),
     laasOpp: () => Promise.resolve(),
+    settNyAvtale: () => void 0,
     gjenopprettAvtale: () => Promise.resolve(),
     utforHandlingHvisRedigerbar: () => Promise.resolve(),
     lagreMaal: () => Promise.resolve(),

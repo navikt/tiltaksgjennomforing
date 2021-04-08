@@ -8,6 +8,7 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndringsTilskuddUtregningPanel';
 import { AvtaleContext } from '@/AvtaleProvider';
 import OtpProsentInput from '@/AvtaleSide/steg/BeregningTilskudd/OtpProsentInput';
+import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag,
@@ -25,13 +26,22 @@ const mapAvgiftSatser = (satser: number[]) =>
 
 const EndreTilskudssberegning: FunctionComponent = () => {
     const context = useContext(AvtaleContext);
+    const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift } = context.avtale;
     const [modalApen, setModalApen] = useState(false);
-    const [nyBeregning, setNyBeregning] = useState<EndreBeregning>({});
+    const [nyBeregning, setNyBeregning] = useState<EndreBeregning>({
+        manedslonn: manedslonn,
+        otpSats: otpSats,
+        feriepengesats: feriepengesats,
+        arbeidsgiveravgift: arbeidsgiveravgift,
+    });
 
-    const endreBeregning = async () => {
-        /*
-        // TODO : Legge til bekreftelse på utført handling. Lagre og oppdatere nye verdier til backend.
-        * */
+    const endreBeregning = async (): Promise<void> => {
+        try {
+            const oppdatertAvtale = await oppdateretilskuddsBeregning(context.avtale, nyBeregning);
+            context.settNyAvtale(oppdatertAvtale);
+        } catch (err) {
+            console.warn('feilet med å lagre oppdaterte beregninger: ', err);
+        }
     };
 
     const settNyBeregningsverdi = async <K extends keyof EndreBeregning, V extends EndreBeregning>(
@@ -93,7 +103,6 @@ const EndreTilskudssberegning: FunctionComponent = () => {
     return (
         <>
             <div>
-                {console.log('nyBeregning: ', nyBeregning)}
                 <Knapp onClick={() => setModalApen(true)}>Endre tilskuddsberegning</Knapp>
             </div>
 
