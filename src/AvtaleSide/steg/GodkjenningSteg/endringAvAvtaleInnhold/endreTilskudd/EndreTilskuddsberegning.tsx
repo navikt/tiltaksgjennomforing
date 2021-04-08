@@ -42,7 +42,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
 
     const endreBeregning = async (): Promise<void> => {
         try {
-            const oppdatertAvtale = await oppdateretilskuddsBeregning(context.avtale, nyBeregning);
+            await oppdateretilskuddsBeregning(context.avtale, nyBeregning);
         } catch (err) {
             console.warn('feilet med å lagre oppdaterte beregninger: ', err);
         }
