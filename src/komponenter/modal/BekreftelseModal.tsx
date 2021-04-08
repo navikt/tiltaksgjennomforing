@@ -4,7 +4,7 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import VarselTegnForModal from './VarselTegnForModal';
 import './bekreftelseModal.less';
 
@@ -24,6 +24,12 @@ interface Props {
 
 const BekreftelseModal: React.FunctionComponent<Props> = props => {
     const [feilmelding, setFeilmelding] = useState<string>();
+    const [varselInnhold, setVarselInnhold] = useState<string | JSX.Element>(<div />);
+
+    useEffect(() => {
+        setVarselInnhold(props.varselTekst);
+    });
+
     const setModalElement = () => {
         if (document.getElementById('root')) {
             return '#root';
@@ -69,7 +75,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                         <div className={cls.element('tittel')}>
                             <Systemtittel id={props.oversiktTekst}>{props.oversiktTekst}</Systemtittel>
                         </div>
-                        <div className={cls.element('varselTekst')}>{props.varselTekst}</div>
+                        <div className={cls.element('varselTekst')}>{varselInnhold}</div>
                     </div>
                     <div className={cls.element('knapper')}>
                         <KnappBase
