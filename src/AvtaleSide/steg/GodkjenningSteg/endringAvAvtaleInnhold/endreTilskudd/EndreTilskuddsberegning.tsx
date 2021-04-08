@@ -11,6 +11,9 @@ import OtpProsentInput from '@/AvtaleSide/steg/BeregningTilskudd/OtpProsentInput
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 
+import './EndreTilskuddsberegning.less';
+import { Normaltekst } from 'nav-frontend-typografi';
+
 export type EndreBeregning = Pick<
     Beregningsgrunnlag,
     'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift'
@@ -26,7 +29,7 @@ const mapAvgiftSatser = (satser: number[]) =>
     }));
 
 const EndreTilskuddsberegning: FunctionComponent = () => {
-    const bem = BEMHelper('endreTilskuddsBeregning');
+    const cls = BEMHelper('endreTilskuddsBeregning');
     const context = useContext(AvtaleContext);
     const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift } = context.avtale;
     const [modalApen, setModalApen] = useState(false);
@@ -58,7 +61,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
     };
 
     const endreBeregningInnhold = (
-        <>
+        <div className={cls.className}>
             <ValutaInput
                 name="manedslonn"
                 bredde="S"
@@ -67,15 +70,21 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 onChange={event => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
                 min={0}
             />
-            <RadioPanelGruppeHorisontal
-                radios={mapAvgiftSatser(ferieSatser)}
-                name="feriepengesats"
-                checked={nyBeregning.feriepengesats + ''}
-                legend=""
-                onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                    settNyBeregningsverdi('feriepengesats', parseFloat(verdi))
-                }
-            />
+            <div className={cls.element('radioPanel')}>
+                <Normaltekst className={cls.element('radioPanel', 'tittel')}>
+                    Velg sats for feriepenger som arbeidstaker skal ha
+                </Normaltekst>
+                <RadioPanelGruppeHorisontal
+                    radios={mapAvgiftSatser(ferieSatser)}
+                    name="feriepengesats"
+                    checked={nyBeregning.feriepengesats + ''}
+                    legend=""
+                    onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                        settNyBeregningsverdi('feriepengesats', parseFloat(verdi))
+                    }
+                />
+            </div>
+
             <OtpProsentInput
                 name="tjenestepensjon"
                 bredde="S"
@@ -99,10 +108,10 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     settNyBeregningsverdi('arbeidsgiveravgift', parseFloat(event.target.value))
                 }
             />
-            <div className={bem.element('panel')}>
+            <div className={cls.element('panel')}>
                 <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={context.avtale} />
             </div>
-        </>
+        </div>
     );
 
     return (

@@ -53,7 +53,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
             <Modal
                 style={{ content: props.style }}
                 isOpen={props.modalIsOpen}
-                className="modal--overflow-visible"
+                className="modal__wrapper"
                 contentLabel={'bekrefte valgt handling'}
                 onRequestClose={props.lukkModal}
                 closeButton={false}
