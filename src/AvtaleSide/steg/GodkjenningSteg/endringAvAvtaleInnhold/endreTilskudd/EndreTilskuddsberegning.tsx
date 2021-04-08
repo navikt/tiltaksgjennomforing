@@ -9,6 +9,7 @@ import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/en
 import { AvtaleContext } from '@/AvtaleProvider';
 import OtpProsentInput from '@/AvtaleSide/steg/BeregningTilskudd/OtpProsentInput';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
+import BEMHelper from '@/utils/bem';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag,
@@ -24,7 +25,8 @@ const mapAvgiftSatser = (satser: number[]) =>
         value: sats.toString(),
     }));
 
-const EndreTilskudssberegning: FunctionComponent = () => {
+const EndreTilskuddsberegning: FunctionComponent = () => {
+    const bem = BEMHelper('endreTilskuddsBeregning');
     const context = useContext(AvtaleContext);
     const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift } = context.avtale;
     const [modalApen, setModalApen] = useState(false);
@@ -42,6 +44,7 @@ const EndreTilskudssberegning: FunctionComponent = () => {
         } catch (err) {
             console.warn('feilet med å lagre oppdaterte beregninger: ', err);
         }
+        setModalApen(false);
     };
 
     const settNyBeregningsverdi = async <K extends keyof EndreBeregning, V extends EndreBeregning>(
@@ -96,7 +99,9 @@ const EndreTilskudssberegning: FunctionComponent = () => {
                     settNyBeregningsverdi('arbeidsgiveravgift', parseFloat(event.target.value))
                 }
             />
-            <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={context.avtale} />
+            <div className={bem.element('panel')}>
+                <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={context.avtale} />
+            </div>
         </>
     );
 
@@ -119,4 +124,4 @@ const EndreTilskudssberegning: FunctionComponent = () => {
     );
 };
 
-export default EndreTilskudssberegning;
+export default EndreTilskuddsberegning;

@@ -11,7 +11,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
-import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskudssberegning';
+import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 

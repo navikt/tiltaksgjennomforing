@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
-import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskudssberegning';
+import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Avtale } from '@/types/avtale';
 import { oppdateretilskuddsBeregningDryRun } from '@/services/rest-service';
 
