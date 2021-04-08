@@ -15,12 +15,15 @@ import { UfordeltStatusArbeidsgiver } from './UfordeltStatusArbeidsgiver';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
+import BEMHelper from '@/utils/bem';
+import './GodkjenningSteg.less';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
 }
 
 const GodkjenningSteg: React.FunctionComponent<Props> = props => {
+    const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
     const featureToggles = useContext(FeatureToggleContext);
@@ -30,7 +33,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
     return (
-        <>
+        <div className={cls.className}>
             {avtale.erUfordelt && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
                 <UfordeltStatusArbeidsgiver tiltakstype={avtale.tiltakstype} />
             )}
@@ -38,13 +41,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
             {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />}
             <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                    }}
-                >
+                <div className={cls.element('wrapper')}>
                     <SkjemaTittel>
                         {avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
                     </SkjemaTittel>
@@ -65,7 +62,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
                 />
             )}
             <VersjoneringKomponent laasOpp={laasOpp} avtale={avtale} rolle={innloggetBruker.rolle} />
-        </>
+        </div>
     );
 };
 

@@ -271,8 +271,8 @@ export const slettemerkAvtale = async (avtaleId: string) => {
     await api.post(uri);
 };
 
-export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<Avtale> => {
-    const response = await api.post(
+export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {
+    await api.post(
         `/avtaler/${avtale.id}/endre-tilskuddsberegning`,
         { ...endreBeregning },
         {
@@ -281,7 +281,6 @@ export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning
             },
         }
     );
-    return response.data;
 };
 
 export const oppdateretilskuddsBeregningDryRun = async (

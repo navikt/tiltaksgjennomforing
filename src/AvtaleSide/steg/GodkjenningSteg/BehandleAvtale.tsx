@@ -23,15 +23,7 @@ const BehandleAvtale: FunctionComponent = () => {
             <SkjemaTittel>Behandle avtale</SkjemaTittel>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 {behandleAvtaleToggle && (
-                    <>
-                        {status === 'KLAR_FOR_OPPSTART' && <LaasOppKnapp laasOpp={avtaleContext.laasOpp} />}
-                        {status === 'GJENNOMFØRES' && (
-                            <>
-                                <ForlengAvtale />
-                                {erLønnstilskudd && <EndreTilskudssberegning />}
-                            </>
-                        )}
-                    </>
+                    <>{status === 'KLAR_FOR_OPPSTART' && <LaasOppKnapp laasOpp={avtaleContext.laasOpp} />}</>
                 )}
                 {!behandleAvtaleToggle && kanLåsesOpp && <LaasOppKnapp laasOpp={avtaleContext.laasOpp} />}
             </div>

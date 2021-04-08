@@ -5,8 +5,8 @@ import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { CSSProperties, useState } from 'react';
-import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
+import './bekreftelseModal.less';
 
 const cls = BEMHelper('bekreftelseModal');
 

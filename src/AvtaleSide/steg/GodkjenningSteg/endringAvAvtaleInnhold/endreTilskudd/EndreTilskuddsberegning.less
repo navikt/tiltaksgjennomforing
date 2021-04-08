@@ -1,10 +1,32 @@
 .endreTilskuddsBeregning {
+    .opprett-avtale__tiltakstypeWrapper {
+        margin: 0.5rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        .inputPanel {
+            margin-bottom: 0.5rem;
+            margin-right: 0.25rem;
+            flex: 0 43%;
+        }
+    }
+    &__lenke {
+        display: flex;
+        align-items: center;
+    }
+    &__ikon {
+        margin-right: 0.5rem;
+    }
     &__radioPanel {
         &--tittel {
-            padding: 0.5rem 0;
+            padding: 0.5rem 0 0.25rem 0;
         }
     }
 
-    &__panel {
+    @media (min-width: 768px) {
+        .opprett-avtale__tiltakstypeWrapper {
+            .inputPanel {
+                flex: 0 45%;
+            }
+        }
     }
 }

@@ -3,16 +3,16 @@ import SelectInput from '@/komponenter/form/SelectInput';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Beregningsgrunnlag } from '@/types/avtale';
-import { Knapp } from 'nav-frontend-knapper';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndringsTilskuddUtregningPanel';
 import { AvtaleContext } from '@/AvtaleProvider';
 import OtpProsentInput from '@/AvtaleSide/steg/BeregningTilskudd/OtpProsentInput';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-
-import './EndreTilskuddsberegning.less';
 import { Normaltekst } from 'nav-frontend-typografi';
+import './EndreTilskuddsberegning.less';
+import Lenke from 'nav-frontend-lenker';
+import { Task } from '@navikt/ds-icons/cjs';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag,
@@ -43,11 +43,11 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
     const endreBeregning = async (): Promise<void> => {
         try {
             const oppdatertAvtale = await oppdateretilskuddsBeregning(context.avtale, nyBeregning);
-            context.settNyAvtale(oppdatertAvtale);
         } catch (err) {
             console.warn('feilet med å lagre oppdaterte beregninger: ', err);
         }
         setModalApen(false);
+        await context.hentAvtale(context.avtale.id);
     };
 
     const settNyBeregningsverdi = async <K extends keyof EndreBeregning, V extends EndreBeregning>(
@@ -64,7 +64,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
         <div className={cls.className}>
             <ValutaInput
                 name="manedslonn"
-                bredde="S"
+                bredde="M"
                 label="Månedslønn før skatt"
                 value={nyBeregning.manedslonn}
                 onChange={event => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
@@ -87,7 +87,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
 
             <OtpProsentInput
                 name="tjenestepensjon"
-                bredde="S"
+                bredde="M"
                 max={30}
                 min={0}
                 label="Obligatorisk tjenestepensjon fra 0 - 30%"
@@ -99,7 +99,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
             />
             <SelectInput
                 name="arbeidsgiveravgift"
-                bredde="s"
+                bredde="m"
                 options={mapAvgiftSatser(arbeidsgiveravgiftSatser)}
                 label="Sats for arbeidsgiveravgift"
                 children=""
@@ -116,10 +116,20 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
 
     return (
         <>
-            <div>
-                <Knapp onClick={() => setModalApen(true)}>Endre tilskuddsberegning</Knapp>
-            </div>
-
+            <Lenke
+                onClick={event => {
+                    event.stopPropagation();
+                    setModalApen(true);
+                }}
+                href="#"
+                role="menuitem"
+                className={cls.element('lenke')}
+            >
+                <div aria-hidden={true}>
+                    <Task className={cls.element('ikon')} />
+                </div>
+                Endre tilskuddsberegning
+            </Lenke>
             <BekreftelseModal
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"

@@ -41,7 +41,6 @@ export interface Context {
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
     hentAvtale: (avtaleId?: string) => Promise<void>;
-    settNyAvtale: (nyAvtale: Avtale) => void;
     lagreAvtale: () => Promise<void>;
     lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
@@ -97,10 +96,6 @@ const AvtaleProvider: FunctionComponent = props => {
         } finally {
             setUnderLagring(false);
         }
-    };
-
-    const settNyAvtale = (nyAvtale: Avtale): void => {
-        setAvtale({ ...avtale, ...nyAvtale });
     };
 
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
@@ -250,7 +245,6 @@ const AvtaleProvider: FunctionComponent = props => {
         settOgKalkulerBeregningsverdier,
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
-        settNyAvtale,
         avbrytAvtale,
         lagreAvtale,
         overtaAvtale,
