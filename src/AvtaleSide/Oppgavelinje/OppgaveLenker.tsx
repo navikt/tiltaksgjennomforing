@@ -9,10 +9,13 @@ import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
 import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForlengAvtale';
 import EndreTilskudssberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import BehandleAvtale from '@/AvtaleSide/steg/GodkjenningSteg/BehandleAvtale';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale, avbrytAvtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const behandleAvtaleToggle = featureToggleContext[Feature.BehandleAvtale];
 
     const status = avtale.statusSomEnum;
     const erLønnstilskudd =
@@ -37,7 +40,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     <BehandleAvtale />
                 </>
             )}
-            {status === 'GJENNOMFØRES' && erVeileder && (
+            {status === 'GJENNOMFØRES' && erVeileder && behandleAvtaleToggle && (
                 <>
                     <ForlengAvtale />
                     {erLønnstilskudd && <EndreTilskudssberegning />}
