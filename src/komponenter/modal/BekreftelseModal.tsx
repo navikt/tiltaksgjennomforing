@@ -4,9 +4,9 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
-import React, { CSSProperties, useState } from 'react';
-import './bekreftelseModal.less';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import VarselTegnForModal from './VarselTegnForModal';
+import './bekreftelseModal.less';
 
 const cls = BEMHelper('bekreftelseModal');
 
@@ -24,13 +24,18 @@ interface Props {
 
 const BekreftelseModal: React.FunctionComponent<Props> = props => {
     const [feilmelding, setFeilmelding] = useState<string>();
+    const [varselInnhold, setVarselInnhold] = useState<string | JSX.Element>(<div />);
+
+    useEffect(() => {
+        setVarselInnhold(props.varselTekst);
+    }, [props.varselTekst]);
+
     const setModalElement = () => {
         if (document.getElementById('root')) {
             return '#root';
         }
         return 'body';
     };
-
     if (typeof window !== 'undefined') {
         Modal.setAppElement(setModalElement());
     }
@@ -54,7 +59,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
             <Modal
                 style={{ content: props.style }}
                 isOpen={props.modalIsOpen}
-                className="modal--overflow-visible"
+                className="modal__wrapper"
                 contentLabel={'bekrefte valgt handling'}
                 onRequestClose={props.lukkModal}
                 closeButton={false}
@@ -70,7 +75,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                         <div className={cls.element('tittel')}>
                             <Systemtittel id={props.oversiktTekst}>{props.oversiktTekst}</Systemtittel>
                         </div>
-                        <div className={cls.element('varselTekst')}>{props.varselTekst}</div>
+                        <div className={cls.element('varselTekst')}>{varselInnhold}</div>
                     </div>
                     <div className={cls.element('knapper')}>
                         <KnappBase

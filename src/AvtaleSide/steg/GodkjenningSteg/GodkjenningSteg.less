@@ -1,0 +1,22 @@
+.godkjenningSteg {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        & > .knapp {
+            margin-bottom: 0.5rem;
+        }
+    }
+    @media (min-width: 768px) {
+        &__wrapper {
+            justify-content: space-between;
+            flex-direction: row;
+
+            & > .knapp {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

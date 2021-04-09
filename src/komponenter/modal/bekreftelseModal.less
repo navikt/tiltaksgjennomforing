@@ -1,4 +1,4 @@
-@mobile-breakpoint: 576px;
+@mobile-breakpoint: 768px;
 @button-height: 46px;
 
 .ReactModal__Content,
@@ -9,13 +9,15 @@
     min-width: 320px;
 
     @media (min-height: 710px) {
-        &--overflow-visible {
+        &__wrapper {
             overflow: visible;
         }
     }
 
     .bekreftelseModal {
         &__body {
+            max-height: 40rem;
+            overflow-y: scroll;
             display: flex;
             flex-direction: column;
             padding: 0 0 1rem 0;
@@ -24,16 +26,13 @@
                 margin-bottom: 1.5rem;
             }
         }
-
         &__innhold {
             margin: 1.5rem 0 2rem 0;
         }
-
         &__tittel {
             text-align: center;
             padding-bottom: 1rem;
         }
-
         &__varselTekst {
             padding: 0 1rem;
         }
@@ -51,7 +50,6 @@
                 outline: none;
                 box-shadow: 0 0 0 3px #ffbd66;
             }
-
             span {
                 max-width: 100%;
                 overflow: hidden;
@@ -64,7 +62,6 @@
             justify-content: flex-end;
             margin-bottom: 0.5rem;
         }
-
         &__topIconContainer {
             display: flex;
             justify-content: center;
@@ -83,7 +80,6 @@
             .knapp {
                 overflow: hidden;
             }
-
             .knapp:not(:last-child) {
                 margin-bottom: 1rem;
             }
@@ -99,6 +95,10 @@
                     margin-bottom: 0rem;
                     margin-right: 1rem;
                 }
+            }
+
+            &__body {
+                max-height: 48rem;
             }
         }
     }

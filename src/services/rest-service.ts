@@ -11,6 +11,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
+import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -268,6 +269,34 @@ export const avslåTilskuddsperiode = async (
 export const slettemerkAvtale = async (avtaleId: string) => {
     const uri = `/avtaler/${avtaleId}/slettemerk`;
     await api.post(uri);
+};
+
+export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {
+    await api.post(
+        `/avtaler/${avtale.id}/endre-tilskuddsberegning`,
+        { ...endreBeregning },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
+};
+
+export const oppdateretilskuddsBeregningDryRun = async (
+    avtale: Avtale,
+    endreBeregning: EndreBeregning
+): Promise<Avtale> => {
+    const response = await api.post(
+        `/avtaler/${avtale.id}/endre-tilskuddsberegning-dry-run`,
+        { ...endreBeregning },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
+    return response.data;
 };
 
 export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {

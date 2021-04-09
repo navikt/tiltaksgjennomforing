@@ -5,9 +5,10 @@ import { forlengAvtale, forlengAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
 import moment from 'moment';
 import { Datovelger } from 'nav-datovelger';
-import { Knapp } from 'nav-frontend-knapper';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import TilskuddsPerioder from '../BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
+import Lenke from 'nav-frontend-lenker';
+import { Notes } from '@navikt/ds-icons/cjs';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -60,7 +61,23 @@ const ForlengAvtale: FunctionComponent = () => {
     return (
         <>
             <div>
-                <Knapp onClick={() => setModalApen(true)}>Forleng avtale</Knapp>
+                <Lenke
+                    onClick={event => {
+                        event.stopPropagation();
+                        setModalApen(true);
+                    }}
+                    href="#"
+                    role="menuitem"
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    <div aria-hidden={true}>
+                        <Notes style={{ marginRight: '0.5rem' }} />
+                    </div>
+                    Forleng avtale
+                </Lenke>
             </div>
 
             <BekreftelseModal
