@@ -6,13 +6,13 @@ import { Beregningsgrunnlag } from '@/types/avtale';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndringsTilskuddUtregningPanel';
 import { AvtaleContext } from '@/AvtaleProvider';
-import OtpProsentInput from '@/AvtaleSide/steg/BeregningTilskudd/OtpProsentInput';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './EndreTilskuddsberegning.less';
 import Lenke from 'nav-frontend-lenker';
 import { Task } from '@navikt/ds-icons/cjs';
+import ProsentInput from '@/komponenter/form/ProsentInput';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag,
@@ -85,17 +85,24 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 />
             </div>
 
-            <OtpProsentInput
+            <ProsentInput
                 name="tjenestepensjon"
-                bredde="M"
-                max={30}
+                bredde="S"
+                label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
                 min={0}
-                label="Obligatorisk tjenestepensjon fra 0 - 30%"
-                value={nyBeregning.otpSats}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    settNyBeregningsverdi('otpSats', parseFloat(event.target.value) / 100)
+                max={30}
+                autoComplete={'off'}
+                value={
+                    nyBeregning.otpSats !== undefined && nyBeregning.otpSats !== null
+                        ? (nyBeregning.otpSats * 100).toFixed(0)
+                        : ''
                 }
-                onBlur={() => void 0}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    settNyBeregningsverdi(
+                        'otpSats',
+                        event.target.value === '' ? undefined : parseFloat(event.target.value) / 100
+                    )
+                }
             />
             <SelectInput
                 name="arbeidsgiveravgift"
