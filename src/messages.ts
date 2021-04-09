@@ -51,6 +51,7 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     familietilknytningForklaring: 'forklaring på familietilknytning',
     feriepengerBelop: 'feriepenger opptjent',
     otpBelop: 'obligatorisk tjenestepensjon',
+    otpSats: 'obligatorisk tjenestepensjon',
     arbeidsgiveravgiftBelop: 'arbeidsgiveravgift beløp',
     sumLonnsutgifter: 'sum utgifter til lønnstilskudd',
     sumLonnstilskudd: 'sum beløp til utbetaling',
