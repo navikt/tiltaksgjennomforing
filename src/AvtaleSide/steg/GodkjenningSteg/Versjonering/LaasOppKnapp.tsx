@@ -5,7 +5,7 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import './LaasOppKnapp.less';
 import Lenke from 'nav-frontend-lenker';
-import { Unlocked } from '@navikt/ds-icons';
+import { Unlocked } from '@navikt/ds-icons/cjs';
 
 type Props = {
     laasOpp: () => Promise<any>;
