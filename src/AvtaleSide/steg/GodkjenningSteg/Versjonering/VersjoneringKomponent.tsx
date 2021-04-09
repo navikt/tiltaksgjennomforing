@@ -1,11 +1,9 @@
 import TidligereVersjoner from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/TidligereVersjoner';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Versjonering } from '@/types/avtale';
 import { Rolle } from '@/types/innlogget-bruker';
 import * as React from 'react';
 import MediaQuery from 'react-responsive';
-import BehandleAvtale from '../BehandleAvtale';
 
 interface Props {
     rolle: Rolle;
@@ -23,14 +21,12 @@ const VersjoneringKomponent: React.FunctionComponent<Props> = props => {
         return null;
     }
 
-    return (
+    return harTidligereVersjoner ? (
         <MediaQuery print={false}>
             <Innholdsboks>
-                {props.rolle === 'VEILEDER' && <BehandleAvtale />}
-                <VerticalSpacer rem={2} />
-                {harTidligereVersjoner && <TidligereVersjoner {...props.avtale} />}
+                <TidligereVersjoner {...props.avtale} />
             </Innholdsboks>
         </MediaQuery>
-    );
+    ) : null;
 };
 export default VersjoneringKomponent;

@@ -8,6 +8,7 @@ import React, { useContext } from 'react';
 import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
 import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForlengAvtale';
 import EndreTilskudssberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
+import BehandleAvtale from '@/AvtaleSide/steg/GodkjenningSteg/BehandleAvtale';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale, avbrytAvtale } = useContext(AvtaleContext);
@@ -30,7 +31,12 @@ const OppgaveLenker: React.FunctionComponent = () => {
             />
             <GjenopprettAvtalen erVeileder={erVeileder} kanGjenopprettes={avtale.kanGjenopprettes} />
             <AvbryteAvtalen avbrytAvtale={avbrytAvtale} kanAvbrytes={avtale.kanAvbrytes} erVeileder={erVeileder} />
-            {erVeileder && <DelLenkeTilAvtalen />}
+            {erVeileder && (
+                <>
+                    <DelLenkeTilAvtalen />
+                    <BehandleAvtale />
+                </>
+            )}
             {status === 'GJENNOMFØRES' && erVeileder && (
                 <>
                     <ForlengAvtale />

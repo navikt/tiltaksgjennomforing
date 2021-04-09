@@ -6,6 +6,7 @@ import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg
 import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
 import { ReactComponent as VeilederIkon } from '@/assets/ikoner/veileder.svg';
+import { ReactComponent as PengeIkon } from '@/assets/ikoner/manedsLonn.svg';
 import { HendelseType } from '@/types/hendelse';
 import { Calender } from '@navikt/ds-icons/cjs';
 import React, { FunctionComponent } from 'react';
@@ -35,6 +36,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     TILSKUDDSPERIODE_AVSLATT: <OpphevetIkon />,
     TILSKUDDSPERIODE_GODKJENT: <GodkjentIkon />,
     AVTALE_FORLENGET: <Calender />,
+    TILSKUDDSBEREGNING_ENDRET: <PengeIkon />,
 };
 
 const HendelseIkon: FunctionComponent<Props> = props => {

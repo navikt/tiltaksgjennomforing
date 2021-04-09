@@ -1,11 +1,11 @@
 import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import BEMHelper from '@/utils/bem';
-import { Knapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import './LaasOppKnapp.less';
+import Lenke from 'nav-frontend-lenker';
+import { Unlocked } from '@navikt/ds-icons';
 
 type Props = {
     laasOpp: () => Promise<any>;
@@ -22,17 +22,13 @@ const LaasOppKnapp: FunctionComponent<Props> = props => {
 
     const varselTekst = (
         <>
-            <VerticalSpacer sixteenPx={true} />
             <span className={cls.element('modal-nb-tekst')}>
                 <VarselIkon />
                 <Element>NB: Alle parter må godkjenne på nytt</Element>
             </span>
-
-            <VerticalSpacer sixteenPx={true} />
-            <Normaltekst>
+            <Normaltekst className={cls.element('modal-footer-tekst')}>
                 Nåværende versjon av avtalen vil du finne du under "tidligere versjoner av avtalen".
             </Normaltekst>
-            <VerticalSpacer twentyPx={true} />
         </>
     );
 
@@ -42,11 +38,21 @@ const LaasOppKnapp: FunctionComponent<Props> = props => {
     };
 
     return (
-        <>
-            <Knapp type={'standard'} onClick={låsOppAvtaleklikk}>
+        <div className={cls.className}>
+            <Lenke
+                onClick={event => {
+                    event.stopPropagation();
+                    låsOppAvtaleklikk();
+                }}
+                href="#"
+                role="menuitem"
+                className={cls.element('lenke')}
+            >
+                <div aria-hidden={true}>
+                    <Unlocked className={cls.element('ikon')} />
+                </div>
                 Lås opp avtalen
-            </Knapp>
-
+            </Lenke>
             <BekreftelseModal
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre avtale"
@@ -56,7 +62,7 @@ const LaasOppKnapp: FunctionComponent<Props> = props => {
                 oversiktTekst="Endre avtale"
                 varselTekst={varselTekst}
             />
-        </>
+        </div>
     );
 };
 export default LaasOppKnapp;

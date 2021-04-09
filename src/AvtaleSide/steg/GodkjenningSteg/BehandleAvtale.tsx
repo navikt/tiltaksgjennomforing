@@ -1,7 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import React, { FunctionComponent, useContext } from 'react';
 
 const BehandleAvtale: FunctionComponent = () => {
@@ -13,15 +12,10 @@ const BehandleAvtale: FunctionComponent = () => {
     const behandleAvtaleToggle = featureToggleContext[Feature.BehandleAvtale];
 
     return (
-        <div>
-            <SkjemaTittel>Behandle avtale</SkjemaTittel>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {behandleAvtaleToggle && (
-                    <>{status === 'KLAR_FOR_OPPSTART' && <LaasOppKnapp laasOpp={avtaleContext.laasOpp} />}</>
-                )}
-                {!behandleAvtaleToggle && kanLåsesOpp && <LaasOppKnapp laasOpp={avtaleContext.laasOpp} />}
-            </div>
-        </div>
+        <>
+            {behandleAvtaleToggle && status === 'KLAR_FOR_OPPSTART' && <LaasOppKnapp laasOpp={avtaleContext.laasOpp} />}
+            {!behandleAvtaleToggle && kanLåsesOpp && <LaasOppKnapp laasOpp={avtaleContext.laasOpp} />}
+        </>
     );
 };
 
