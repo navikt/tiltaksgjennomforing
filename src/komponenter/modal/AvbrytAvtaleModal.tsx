@@ -84,9 +84,6 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
         if (avbruttGrunn) {
             setGrunnFeil(undefined);
         }
-        if (avbruttGrunn === 'Annet') {
-            document.querySelector<HTMLElement>('.pakrevd-textarea')!.focus();
-        }
     }, [avbruttGrunn]);
 
     const grunner: AvbrytelseGrunn[] = [
@@ -141,7 +138,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                             label=""
                             labelledby="tekst felt for avbrytt grunn"
                             verdi={annetGrunn}
-                            placeholder="Begrunnelse"
+                            placeholder="Begrunnelse (påkrevd)"
                             settVerdi={verdi => setAnnetGrunn(verdi)}
                             maxLengde={500}
                             feilmelding="Begrunnelse er påkrevd"
