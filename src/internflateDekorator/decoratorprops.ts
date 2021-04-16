@@ -2,20 +2,39 @@ export interface DecoratorProps {
     appname: string; // Navn på applikasjon
     fnr?: FnrContextvalue; // Konfigurasjon av fødselsnummer-kontekst
     enhet?: EnhetContextvalue; // Konfigurasjon av enhet-kontekst
-    toggles?: TogglesConfig; // Konfigurasjon av hvilke elementer som skal vises i dekoratøren
+    toggles: Toggles; // Konfigurasjon av hvilke elementer som skal vises i dekoratøren
     markup?: Markup; // Ekstra innhold i dekoratøren, kan brukes om man trenger å legge en knapp innenfor dekoratøren
 
-    /* Manuell overstyring av urlene til BFFs.
-     Gjør alle kall til relativt path, og trenger derfor proxy oppsett. Default: false */
-    useProxy?: boolean;
+    /* Konfigurasjn av tilkobling til contextholder. true; use default.
+    Om man sender inn objekt så kan man overstyre url og om enhet skal generere bekreftelsemodal.
+    Om den ikke settes vil man ikke bruke contextholder.*/
+    contextholder?: true | Contextholder;
 
-    /* Manuell innsending av JWT, settes som Authorization-header.
-     Om null sendes cookies vha credentials: 'include' */
-    accessToken?: string;
+    urler?: {
+        // Konfigurasjon av url til aktoerregisteret om man har behov for å sende via en proxy eller ligende.
+        // Default-verdien tar hensyn til miljø og kaller direkte mot app.adeo.no/aktoerregister
+        aktoerregister?: string;
+    };
+
+    /* Callback-funksjon for når man skal bytte bruker
+     (blir kalt etter bekreftelse-modal, eller ved direkte søk i søkefeltet)*/
+    onSok(fnr: string): void;
+
+    /* Callback-funksjon for når man skal bytte enhet
+     (blir kalt etter beksreftelse-modal, eller ved direkte endring i enhets-dropdown)*/
+    onEnhetChange(enhet: string): void;
 }
 
-export interface TogglesConfig {
-    visVeileder?: boolean; // Styrer om man skal vise informasjon om innlogget veileder
+interface Toggles {
+    visVeilder: boolean;
+    visSokefelt: boolean;
+    visEnhetVelger: boolean;
+    visEnhet: boolean;
+}
+
+interface Contextholder {
+    url?: string;
+    promptBeforeEnhetChange?: boolean; // Kan settes om man ikke ønsker bekreftelse-modal ved enhets-endringer
 }
 
 export interface Markup {
