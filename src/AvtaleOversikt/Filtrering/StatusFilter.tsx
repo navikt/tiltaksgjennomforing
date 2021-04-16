@@ -4,12 +4,15 @@ import { avtaleStatusTekst } from '@/messages';
 import { AvtaleStatus } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 type SokeType = AvtaleStatus | '';
 
 const StatusFilter: FunctionComponent<FiltreringProps> = props => {
     const [valgtStatus, setValgtStatus] = useState<SokeType>('');
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const annullerAvtaleToggle = featureToggleContext[Feature.AnnullerAvtale];
 
     const alleStatuser: SokeType[] = [
         '',
@@ -20,6 +23,10 @@ const StatusFilter: FunctionComponent<FiltreringProps> = props => {
         'AVSLUTTET',
         'AVBRUTT',
     ];
+
+    if (annullerAvtaleToggle) {
+        alleStatuser.push('ANNULLERT');
+    }
 
     return (
         <Filter tittel="Status">

@@ -24,6 +24,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     GODKJENT_AV_VEILEDER: <GodkjentIkon />,
     GODKJENT_PAA_VEGNE_AV: <GodkjentIkon />,
     LÅST_OPP: <LastOppIkon />,
+    ANNULLERT: <AvbruttIkon />,
     AVBRUTT: <AvbruttIkon />,
     GODKJENNINGER_OPPHEVET_AV_ARBEIDSGIVER: <OpphevetIkon />,
     GODKJENNINGER_OPPHEVET_AV_VEILEDER: <OpphevetIkon />,

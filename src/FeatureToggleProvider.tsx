@@ -10,6 +10,7 @@ export enum Feature {
     LagreSomPdf = 'tag.tiltak.lagreSomPdf',
     Sommerjobb = 'tag.tiltak.sommerjobb',
     BehandleAvtale = 'tag.tiltak.behandleAvtale',
+    AnnullerAvtale = 'tag.tiltak.annullerAvtale',
 }
 
 export const alleFeatures = Object.values(Feature);

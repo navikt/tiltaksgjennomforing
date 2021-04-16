@@ -10,12 +10,15 @@ import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForlengAvtale';
 import EndreTilskudssberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import BehandleAvtale from '@/AvtaleSide/steg/GodkjenningSteg/BehandleAvtale';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
+import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
 
 const OppgaveLenker: React.FunctionComponent = () => {
-    const { avtale, avbrytAvtale } = useContext(AvtaleContext);
+    const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const featureToggleContext = useContext(FeatureToggleContext);
     const behandleAvtaleToggle = featureToggleContext[Feature.BehandleAvtale];
+    const annullerAvtaleToggle = featureToggleContext[Feature.AnnullerAvtale];
 
     const status = avtale.statusSomEnum;
     const erLønnstilskudd =
@@ -33,7 +36,8 @@ const OppgaveLenker: React.FunctionComponent = () => {
                 erUfordelt={avtale.erUfordelt}
             />
             <GjenopprettAvtalen erVeileder={erVeileder} kanGjenopprettes={avtale.kanGjenopprettes} />
-            <AvbryteAvtalen avbrytAvtale={avbrytAvtale} kanAvbrytes={avtale.kanAvbrytes} erVeileder={erVeileder} />
+            {!annullerAvtaleToggle && erVeileder && avtale.kanAvbrytes && <AvbryteAvtalen />}
+            {annullerAvtaleToggle && erVeileder && avtale.kanAvbrytes && <AnnullerAvtalen />}
             {erVeileder && (
                 <>
                     <DelLenkeTilAvtalen />
@@ -42,6 +46,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
             )}
             {status === 'GJENNOMFØRES' && erVeileder && behandleAvtaleToggle && (
                 <>
+                    <ForkortAvtale />
                     <ForlengAvtale />
                     {erLønnstilskudd && <EndreTilskudssberegning />}
                 </>

@@ -176,7 +176,19 @@ export const avbrytAvtale = async (avtale: Avtale, avbruttDato: string, avbruttG
             },
         }
     );
-    return hentAvtale(avtale.id);
+};
+
+export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => {
+    const uri = `/avtaler/${avtale.id}/annuller`;
+    await api.post(
+        uri,
+        { annullertGrunn },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
 };
 
 export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
@@ -313,6 +325,32 @@ export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {
 };
 export const forlengAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
     const uri = `/avtaler/${avtale.id}/forleng-dry-run`;
+    const response = await api.post(
+        uri,
+        { sluttDato },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
+    return response.data;
+};
+
+export const forkortAvtale = async (avtale: Avtale, sluttDato: string) => {
+    const uri = `/avtaler/${avtale.id}/forkort`;
+    await api.post(
+        uri,
+        { sluttDato },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
+};
+export const forkortAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
+    const uri = `/avtaler/${avtale.id}/forkort-dry-run`;
     const response = await api.post(
         uri,
         { sluttDato },

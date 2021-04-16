@@ -76,6 +76,7 @@ export const contextMock: Context = {
     settAvtaleVerdi: () => null,
     settAvtaleVerdier: () => null,
     hentAvtale: () => Promise.resolve(),
+    annullerAvtale: () => Promise.resolve(),
     avbrytAvtale: () => Promise.resolve(),
     lagreAvtale: () => Promise.resolve(),
     overtaAvtale: () => Promise.resolve(),

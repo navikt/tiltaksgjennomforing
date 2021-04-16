@@ -70,6 +70,7 @@ export const hendelseTekst: { [key in HendelseType]: string } = {
     GODKJENNINGER_OPPHEVET_AV_VEILEDER: 'Avtalens godkjenninger er opphevet',
     DELT_MED_ARBEIDSGIVER: 'Avtale delt med arbeidsgiver',
     DELT_MED_DELTAKER: 'Avtale delt med deltaker',
+    ANNULLERT: 'Avtale annullert av veileder',
     AVBRUTT: 'Avtale avbrutt av veileder',
     LÅST_OPP: 'Avtale låst opp av veileder',
     ENDRET: 'Avtale endret',
@@ -113,6 +114,7 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
 };
 
 export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
+    ANNULLERT: 'Annullert',
     AVBRUTT: 'Avbrutt',
     PÅBEGYNT: 'Påbegynt',
     MANGLER_GODKJENNING: 'Mangler godkjenning',

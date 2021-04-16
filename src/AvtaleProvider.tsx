@@ -33,6 +33,7 @@ export interface Context {
     avtale: Avtale;
     overtaAvtale: () => Promise<void>;
     gjenopprettAvtale: () => Promise<void>;
+    annullerAvtale: (annullerGrunn: string) => Promise<void>;
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
     godkjenn: () => Promise<void>;
@@ -100,6 +101,12 @@ const AvtaleProvider: FunctionComponent = props => {
 
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
         RestService.hentAvtale(avtaleId).then(setAvtale);
+
+    const annullerAvtale = async (annullerGrunn: string): Promise<void> => {
+        await RestService.annullerAvtale(avtale, annullerGrunn);
+        sendToAmplitude('#tiltak-avtale-annullert');
+        await hentAvtale();
+    };
 
     const avbrytAvtale = async (avbruttDato: string, avbruttGrunn: string): Promise<void> => {
         await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
@@ -245,6 +252,7 @@ const AvtaleProvider: FunctionComponent = props => {
         settOgKalkulerBeregningsverdier,
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
+        annullerAvtale,
         avbrytAvtale,
         lagreAvtale,
         overtaAvtale,

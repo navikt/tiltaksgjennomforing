@@ -5,17 +5,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import './AvbryteAvtalen.less';
 
-interface Props {
-    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
-    kanAvbrytes: boolean;
-    erVeileder: boolean;
-}
-
-const AvbryteAvtalen = (props: Props) => {
-    const { kanAvbrytes, erVeileder } = props;
+const AvbryteAvtalen = () => {
     const [avbrytModalIsOpen, setAvbrytModalIsOpen] = useState<boolean>(false);
 
-    return kanAvbrytes && erVeileder ? (
+    return (
         <>
             <div className="avbryteavtalen">
                 <Lenke
@@ -33,15 +26,11 @@ const AvbryteAvtalen = (props: Props) => {
             </div>
             {avbrytModalIsOpen && (
                 <div aria-hidden={!avbrytModalIsOpen}>
-                    <AvbrytAvtaleModal
-                        isOpen={avbrytModalIsOpen}
-                        lukkModal={() => setAvbrytModalIsOpen(false)}
-                        avbrytAvtale={props.avbrytAvtale}
-                    />
+                    <AvbrytAvtaleModal isOpen={avbrytModalIsOpen} lukkModal={() => setAvbrytModalIsOpen(false)} />
                 </div>
             )}
         </>
-    ) : null;
+    );
 };
 
 export default AvbryteAvtalen;

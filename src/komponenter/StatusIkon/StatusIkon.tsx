@@ -29,6 +29,8 @@ const StatusIkon: FunctionComponent<Props> = props => {
             } else {
                 return <ProblemIkon style={props.style} />;
             }
+        case 'ANNULLERT':
+            return <AvbruttIkon style={props.style} />;
         case 'AVBRUTT':
             return <AvbruttIkon style={props.style} />;
         case 'AVSLUTTET':

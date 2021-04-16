@@ -1,7 +1,8 @@
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
 
-export type Avtale = Avbrytelse &
+export type Avtale = Annullering &
+    Avbrytelse &
     Readonly<AvtaleMetadata> &
     Avtaleparter &
     Versjonering &
@@ -31,6 +32,7 @@ export type TiltaksType =
     | 'SOMMERJOBB';
 export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'UTBETALT';
 export type AvbrytelseGrunn =
+    | 'Feilregistrering'
     | 'Begynt i arbeid'
     | 'Fått tilbud om annet tiltak'
     | 'Syk'
@@ -40,6 +42,7 @@ export type AvbrytelseGrunn =
     | '';
 
 export type AvtaleStatus =
+    | 'ANNULLERT'
     | 'AVBRUTT'
     | 'PÅBEGYNT'
     | 'MANGLER_GODKJENNING'
@@ -177,6 +180,11 @@ export interface Godkjenninger {
     godkjentPaVegneGrunn?: GodkjentPaVegneGrunner;
     erLaast: boolean;
     felterSomIkkeErFyltUt: (keyof Avtaleinnhold)[];
+}
+
+export interface Annullering {
+    annullertTidspunkt?: string;
+    annullertGrunn?: string;
 }
 
 export interface Avbrytelse {

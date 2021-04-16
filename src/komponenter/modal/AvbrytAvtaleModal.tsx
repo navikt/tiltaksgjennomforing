@@ -16,7 +16,6 @@ import BekreftelseModal from './BekreftelseModal';
 interface Props {
     isOpen: boolean;
     lukkModal: () => void;
-    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<any>;
 }
 
 const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
@@ -46,7 +45,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
     };
 
     const avbryttAvtalen = async (grunn: string) => {
-        return await props
+        return await avtaleContext
             .avbrytAvtale(avbruttDato, grunn)
             .then(() => props.lukkModal())
             .catch(e => {
