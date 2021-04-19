@@ -337,11 +337,11 @@ export const forlengAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Pr
     return response.data;
 };
 
-export const forkortAvtale = async (avtale: Avtale, sluttDato: string) => {
+export const forkortAvtale = async (avtale: Avtale, sluttDato: string, grunn: string, annetGrunn?: string) => {
     const uri = `/avtaler/${avtale.id}/forkort`;
     await api.post(
         uri,
-        { sluttDato },
+        { sluttDato, grunn, annetGrunn },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
