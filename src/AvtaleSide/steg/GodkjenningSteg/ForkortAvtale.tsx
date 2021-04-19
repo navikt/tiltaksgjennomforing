@@ -1,17 +1,20 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { forkortAvtale, forkortAvtaleDryRun } from '@/services/rest-service';
-import { AvbrytelseGrunn, TilskuddsPeriode } from '@/types/avtale';
+import { TilskuddsPeriode } from '@/types/avtale';
+import { handterFeil } from '@/utils/apiFeilUtils';
+import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
 import { Datovelger } from 'nav-datovelger';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import TilskuddsPerioder from '../BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
+import AlertStripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
-import { Notes } from '@navikt/ds-icons/cjs';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import { Element } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext, useState } from 'react';
+import TilskuddsPerioder from '../BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 
 const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -21,12 +24,16 @@ const ForkortAvtale: FunctionComponent = () => {
     const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
     const [grunn, setGrunn] = useState<string>('');
     const [annetGrunn, setAnnetGrunn] = useState<string>();
+    const [datoFeil, setDatoFeil] = useState<string | undefined>(undefined);
 
-    const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>(
-        avtaleContext.avtale.tilskuddPeriode
-    );
+    const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
     const forkort = async () => {
+        const grunnIkkeSatt = (grunn === 'Annet' && !annetGrunn) || !grunn;
+        if (grunnIkkeSatt) {
+            setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
+        }
+
         if (sluttDato) {
             await forkortAvtale(avtaleContext.avtale, sluttDato, grunn, annetGrunn);
             await avtaleContext.hentAvtale();
@@ -36,24 +43,30 @@ const ForkortAvtale: FunctionComponent = () => {
     const onDatoChange = async (dato: string | undefined) => {
         setsluttDato(dato);
         if (dato) {
-            const nyAvtale = await forkortAvtaleDryRun(avtaleContext.avtale, dato);
-            setTilskuddsperioder(nyAvtale.tilskuddPeriode);
+            try {
+                const nyAvtale = await forkortAvtaleDryRun(avtaleContext.avtale, dato);
+                setTilskuddsperioder(nyAvtale.tilskuddPeriode);
+            } catch (error) {
+                handterFeil(error, setDatoFeil);
+            }
         }
     };
 
     const forkorteTekst = (
         <>
-            <label className="skjemaelement__label">Velg ny sluttdato for avtalen</label>
-            <Datovelger
-                input={{ placeholder: 'dd.mm.åååå' }}
-                valgtDato={sluttDato}
-                avgrensninger={{
-                    maksDato: moment(avtaleContext.avtale.sluttDato)
-                        .subtract(1, 'days')
-                        .format('YYYY-MM-DD'),
-                }}
-                onChange={dato => onDatoChange(dato)}
-            />
+            <SkjemaGruppe feil={datoFeil ? { feilmelding: datoFeil } : undefined} title="Velg ny sluttdato for avtalen">
+                <Datovelger
+                    input={{ placeholder: 'dd.mm.åååå' }}
+                    valgtDato={sluttDato}
+                    avgrensninger={{
+                        maksDato: moment(avtaleContext.avtale.sluttDato)
+                            .subtract(1, 'days')
+                            .format('YYYY-MM-DD'),
+                        minDato: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD'),
+                    }}
+                    onChange={dato => onDatoChange(dato)}
+                />
+            </SkjemaGruppe>
             <VerticalSpacer rem={1} />
             <SkjemaGruppe title="Hvorfor forkortes avtalen?" feil={grunnFeil}>
                 {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Annet'].map(g => (
@@ -65,6 +78,7 @@ const ForkortAvtale: FunctionComponent = () => {
                         checked={g === grunn}
                         onChange={event => {
                             setGrunn(event.currentTarget.value);
+                            setGrunnFeil(undefined);
                         }}
                         role="menuitemradio"
                     />
@@ -82,7 +96,18 @@ const ForkortAvtale: FunctionComponent = () => {
                 />
             )}
             <VerticalSpacer rem={1} />
-            <TilskuddsPerioder tilskuddsperioder={tilskuddsperioder} />
+            {tilskuddsperioder.length > 0 && (
+                <>
+                    <VerticalSpacer rem={2} />
+                    <div style={{ border: '1px solid lightblue', borderRadius: '4px', padding: '0.5rem' }}>
+                        <VerticalSpacer rem={1} />
+                        <AlertStripe type="info" form="inline">
+                            <Element>Slik vil tilskuddsperiodene fordele seg etter forkortelsen</Element>
+                        </AlertStripe>
+                        <TilskuddsPerioder tilskuddsperioder={tilskuddsperioder} />
+                    </div>
+                </>
+            )}
         </>
     );
 

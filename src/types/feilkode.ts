@@ -40,7 +40,10 @@ export type Feilkode =
     | 'SOMMERJOBB_FOR_LANG_VARIGHET'
     | 'IKKE_GAMMEL_NOK'
     | 'FOR_GAMMEL'
-    | 'FEIL_OTP_SATS';
+    | 'FEIL_OTP_SATS'
+    | 'KAN_IKKE_FORKORTE_ETTER_SLUTTDATO'
+    | 'KAN_IKKE_FORKORTE_FOR_STARTDATO'
+    | 'KAN_IKKE_FORKORTE_IKKE_GODKJENT_AVTALE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -86,4 +89,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     IKKE_GAMMEL_NOK: 'Deltaker må være fylt 16 år',
     FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
     FEIL_OTP_SATS: 'Sats for obligatorisk tjenestepensjon må være mellom 0 og 30 %.',
+    KAN_IKKE_FORKORTE_ETTER_SLUTTDATO: 'Avtalen kan ikke forkortes til etter sluttdato',
+    KAN_IKKE_FORKORTE_FOR_STARTDATO: 'Avtalen kan ikke forkortes til før startdato',
+    KAN_IKKE_FORKORTE_IKKE_GODKJENT_AVTALE: 'Kan ikke forkorte avtalen før den er godkjent',
 };
