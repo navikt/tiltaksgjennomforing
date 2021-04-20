@@ -43,7 +43,8 @@ export type Feilkode =
     | 'FEIL_OTP_SATS'
     | 'KAN_IKKE_FORKORTE_ETTER_SLUTTDATO'
     | 'KAN_IKKE_FORKORTE_FOR_STARTDATO'
-    | 'KAN_IKKE_FORKORTE_IKKE_GODKJENT_AVTALE';
+    | 'KAN_IKKE_FORKORTE_IKKE_GODKJENT_AVTALE'
+    | 'KAN_IKKE_FORKORTE_GRUNN_MANGLER';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -92,4 +93,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_FORKORTE_ETTER_SLUTTDATO: 'Avtalen kan ikke forkortes til etter sluttdato',
     KAN_IKKE_FORKORTE_FOR_STARTDATO: 'Avtalen kan ikke forkortes til før startdato',
     KAN_IKKE_FORKORTE_IKKE_GODKJENT_AVTALE: 'Kan ikke forkorte avtalen før den er godkjent',
+    KAN_IKKE_FORKORTE_GRUNN_MANGLER: 'Grunn for forkortelse må velges',
 };

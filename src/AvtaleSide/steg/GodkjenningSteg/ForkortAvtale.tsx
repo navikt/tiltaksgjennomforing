@@ -20,41 +20,38 @@ const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
 
     const [modalApen, setModalApen] = useState(false);
-    const [sluttDato, setsluttDato] = useState<string | undefined>();
-    const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
+    const [sluttDato, setSluttDato] = useState<string | undefined>();
+    const [datoFeil, setDatoFeil] = useState<SkjemaelementFeil>();
     const [grunn, setGrunn] = useState<string>('');
     const [annetGrunn, setAnnetGrunn] = useState<string>();
-    const [datoFeil, setDatoFeil] = useState<string | undefined>(undefined);
 
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
     const forkort = async () => {
-        const grunnIkkeSatt = (grunn === 'Annet' && !annetGrunn) || !grunn;
-        if (grunnIkkeSatt) {
-            setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
+        if (!sluttDato) {
+            setDatoFeil({ feilmelding: 'Dato må fylles ut' });
+            return;
         }
-
-        if (sluttDato) {
-            await forkortAvtale(avtaleContext.avtale, sluttDato, grunn, annetGrunn);
-            await avtaleContext.hentAvtale();
-            lukkModal();
-        }
+        await forkortAvtale(avtaleContext.avtale, sluttDato, grunn, annetGrunn);
+        await avtaleContext.hentAvtale();
+        lukkModal();
     };
     const onDatoChange = async (dato: string | undefined) => {
-        setsluttDato(dato);
+        setSluttDato(dato);
+        setDatoFeil(undefined);
         if (dato) {
             try {
                 const nyAvtale = await forkortAvtaleDryRun(avtaleContext.avtale, dato);
                 setTilskuddsperioder(nyAvtale.tilskuddPeriode);
             } catch (error) {
-                handterFeil(error, setDatoFeil);
+                handterFeil(error, feilmelding => setDatoFeil({ feilmelding }));
             }
         }
     };
 
     const forkorteTekst = (
         <>
-            <SkjemaGruppe feil={datoFeil ? { feilmelding: datoFeil } : undefined} title="Velg ny sluttdato for avtalen">
+            <SkjemaGruppe feil={datoFeil} title="Velg ny sluttdato for avtalen">
                 <Datovelger
                     input={{ placeholder: 'dd.mm.åååå' }}
                     valgtDato={sluttDato}
@@ -68,7 +65,7 @@ const ForkortAvtale: FunctionComponent = () => {
                 />
             </SkjemaGruppe>
             <VerticalSpacer rem={1} />
-            <SkjemaGruppe title="Hvorfor forkortes avtalen?" feil={grunnFeil}>
+            <SkjemaGruppe title="Hvorfor forkortes avtalen?">
                 {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Annet'].map(g => (
                     <Radio
                         key={g}
@@ -78,7 +75,7 @@ const ForkortAvtale: FunctionComponent = () => {
                         checked={g === grunn}
                         onChange={event => {
                             setGrunn(event.currentTarget.value);
-                            setGrunnFeil(undefined);
+                            setAnnetGrunn(undefined);
                         }}
                         role="menuitemradio"
                     />
@@ -114,7 +111,7 @@ const ForkortAvtale: FunctionComponent = () => {
     const lukkModal = () => {
         setModalApen(false);
         setTilskuddsperioder(avtaleContext.avtale.tilskuddPeriode);
-        setsluttDato(undefined);
+        setSluttDato(undefined);
     };
 
     return (
