@@ -32,6 +32,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
         props.avtale.godkjentAvVeileder,
         props.avtale.avbrutt,
         props.avtale.annullertTidspunkt,
+        props.avtale.sluttDato,
     ]);
     if (!avtaleStatusDetaljer) {
         return null;

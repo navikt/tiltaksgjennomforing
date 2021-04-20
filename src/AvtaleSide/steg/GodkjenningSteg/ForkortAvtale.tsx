@@ -66,7 +66,7 @@ const ForkortAvtale: FunctionComponent = () => {
             </SkjemaGruppe>
             <VerticalSpacer rem={1} />
             <SkjemaGruppe title="Hvorfor forkortes avtalen?">
-                {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Annet'].map(g => (
+                {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'].map(g => (
                     <Radio
                         key={g}
                         label={g}
