@@ -70,10 +70,8 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                     <Innholdstittel>{avtaleStatusDetaljer.header} </Innholdstittel>
                 </div>
                 <VerticalSpacer sixteenPx={true} />
-                {props.rolle !== 'ARBEIDSGIVER' &&
-                    props.avtale.avbruttGrunn &&
-                    props.avtale.avbrutt &&
-                    `Årsak: ${props.avtale.avbruttGrunn}`}
+                {props.avtale.avbruttGrunn && `Årsak: ${props.avtale.avbruttGrunn}`}
+                {props.avtale.annullertGrunn && `Årsak: ${props.avtale.annullertGrunn}`}
             </MediaQuery>
             <MediaQuery maxWidth={767}>
                 <div className={cls.element('hovedIkonMobil')}>
@@ -90,12 +88,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 </div>
             </MediaQuery>
             <Normaltekst className={cls.element('infotekst')} tag="div">
-                <p>
-                    {' '}
-                    {props.avtale.godkjentAvVeileder
-                        ? 'Avtalen er godkjent av alle parter og låst. ' + avtaleStatusDetaljer.infoDel1
-                        : avtaleStatusDetaljer.infoDel1}
-                </p>
+                <p>{avtaleStatusDetaljer.infoDel1}</p>
                 <p>{avtaleStatusDetaljer.infoDel2}</p>
             </Normaltekst>
             <div className={cls.element('andreParter')}>
