@@ -34,7 +34,7 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = props => {
 
         const grunn = annullertGrunn === 'Annet' ? annetGrunn : annullertGrunn;
 
-        return await avtaleContext.annullerAvtale(grunn).then(() => props.lukkModal());
+        return avtaleContext.annullerAvtale(grunn).then(() => props.lukkModal());
     };
 
     useEffect(() => {

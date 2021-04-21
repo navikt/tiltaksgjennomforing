@@ -1,11 +1,10 @@
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/Avbryte-avtale.svg';
 import AnnullerAvtaleModal from '@/komponenter/modal/AnnullerAvtaleModal';
 import Lenke from 'nav-frontend-lenker';
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './AnnullerAvtalen.less';
 
-const AnnullereAvtalen = () => {
+const AnnullerAvtalen = () => {
     const [annullerModalIsOpen, setAnnullerModalIsOpen] = useState<boolean>(false);
 
     return (
@@ -33,4 +32,4 @@ const AnnullereAvtalen = () => {
     );
 };
 
-export default AnnullereAvtalen;
+export default AnnullerAvtalen;
