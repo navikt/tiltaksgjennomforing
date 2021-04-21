@@ -1,9 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import moment from 'moment';
 import 'moment/locale/nb';
@@ -19,6 +21,9 @@ import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const featuretoggleContext = useContext(FeatureToggleContext);
+
+    const dagerPerUkeToggle = featuretoggleContext[Feature.AntallDagerPerUke];
 
     const timerIUka = Number(((37.5 * (avtaleContext.avtale.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
@@ -77,13 +82,32 @@ const VarighetSteg: FunctionComponent = () => {
                 <Row>
                     <Column md="12"></Column>
                 </Row>
-                <VerticalSpacer sixteenPx={true} />
+                <VerticalSpacer rem={1} />
                 <StillingsprosentInput
                     label="Hvilken stillingsprosent skal deltakeren ha?"
                     verdi={avtaleContext.avtale.stillingprosent}
                     settVerdi={verdi => avtaleContext.settAvtaleVerdi('stillingprosent', verdi)}
                 />
-                <VerticalSpacer thirtyTwoPx={true} />
+                <VerticalSpacer rem={1} />
+                {dagerPerUkeToggle && (
+                    <PakrevdInput
+                        bredde="S"
+                        label="Antall dager per uke"
+                        type="number"
+                        max={7}
+                        verdi={avtaleContext.avtale.antallDagerPerUke}
+                        settVerdi={eventVerdi => {
+                            const verdi = parseInt(eventVerdi);
+                            if (verdi > 0 && verdi < 8) {
+                                avtaleContext.settAvtaleVerdi('antallDagerPerUke', verdi);
+                            } else {
+                                avtaleContext.settAvtaleVerdi('antallDagerPerUke', undefined);
+                            }
+                        }}
+                    />
+                )}
+
+                <VerticalSpacer rem={2} />
                 <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
                 <VerticalSpacer thirtyTwoPx={true} />
                 <LagreKnapp label={'Lagre'} lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'} />

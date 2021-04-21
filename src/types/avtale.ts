@@ -98,6 +98,7 @@ export interface Varighet {
     startDato?: string;
     sluttDato?: string;
     stillingprosent?: number;
+    antallDagerPerUke?: number;
 }
 
 export interface Stilling {
