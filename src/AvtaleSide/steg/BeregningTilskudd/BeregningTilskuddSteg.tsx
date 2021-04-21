@@ -17,7 +17,7 @@ import BEMHelper from '@/utils/bem';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
-import { gjorKontonummeroppslag } from '../../../services/rest-service';
+import { gjorKontonummeroppslag } from '@/services/rest-service';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import UtregningPanel from './UtregningPanel';
@@ -25,38 +25,12 @@ import ProsentInput from '@/komponenter/form/ProsentInput';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
-const lonnPerManedInkludertFastTillegHjelpetekst = (
-    <div>
-        Brutto lønn omregnes til fast gjennomsnittlig månedslønn. I refusjonsgrunnlaget inngår lønn for arbeid utført i
-        normalarbeidstiden inkludert faste tillegg. Overtidsbetaling og andre variable tillegg skal ikke tas med. Faste
-        tillegg er knyttet til personlige egenskaper, evner eller ansvar og utbetales regelmessig ved hver
-        lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
-        <VerticalSpacer eightPx={true} />
-        <ul>
-            <li>b-tillegg</li>
-            <li>stabiliseringstillegg</li>
-            <li>selektivt tillegg for sykepleiere</li>
-            <li>tillegg for ansvarsvakter, fagansvar og lederansvar</li>
-            <li>kvalifikasjons-/kompetansetillegg</li>
-        </ul>
-        <VerticalSpacer eightPx={true} />
-        Dette gjelder ikke:
-        <ul>
-            <li>skift-, turnus- og vakttillegg</li>
-            <li>offshoretillegg</li>
-        </ul>
-    </div>
-);
+const feriepengeAlternativer = [0.12, 0.143, 0.102, 0.125].map((sats: number) => ({
+    label: (sats * 100).toFixed(1) + ' %',
+    value: sats.toString(),
+}));
 
-const feriepengeAlternativer = () => {
-    const satser = [0.12, 0.143, 0.102, 0.125];
-    return satser.map((sats: number) => ({
-        label: (sats * 100).toFixed(1) + ' %',
-        value: sats.toString(),
-    }));
-};
-
-const arbeidsgiveravgiftAlternativer = () => {
+const arbeidsgiveravgiftAlternativer = (() => {
     const satser = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
     const satserVerdier = [{ label: 'Velg', value: '' }];
     satser.forEach((sats: number) =>
@@ -66,7 +40,7 @@ const arbeidsgiveravgiftAlternativer = () => {
         })
     );
     return satserVerdier;
-};
+})();
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -98,6 +72,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         <PenFillIkon />
                         <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av NAV</Normaltekst>
                     </div>
+                    <VerticalSpacer rem={0.5} />
                 </>
             )}
 
@@ -117,8 +92,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             )}
             {!innloggetBruker.erNavAnsatt && (
                 <Normaltekst className={cls.element('luft')}>
-                    {avtale.lonnstilskuddProsent && avtale.lonnstilskuddProsent + ' %'}
-                    {!avtale.lonnstilskuddProsent && (
+                    {avtale.lonnstilskuddProsent ? (
+                        avtale.lonnstilskuddProsent + ' %'
+                    ) : (
                         <>
                             {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && 'Her kan NAV sette en sats.'}
                             {avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' &&
@@ -132,7 +108,26 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <VerticalSpacer sixteenPx={true} />
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
-                {lonnPerManedInkludertFastTillegHjelpetekst}
+                <div>
+                    Brutto lønn omregnes til fast gjennomsnittlig månedslønn. I refusjonsgrunnlaget inngår lønn for
+                    arbeid utført i normalarbeidstiden inkludert faste tillegg. Overtidsbetaling og andre variable
+                    tillegg skal ikke tas med. Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og
+                    utbetales regelmessig ved hver lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
+                    <VerticalSpacer eightPx={true} />
+                    <ul>
+                        <li>b-tillegg</li>
+                        <li>stabiliseringstillegg</li>
+                        <li>selektivt tillegg for sykepleiere</li>
+                        <li>tillegg for ansvarsvakter, fagansvar og lederansvar</li>
+                        <li>kvalifikasjons-/kompetansetillegg</li>
+                    </ul>
+                    <VerticalSpacer eightPx={true} />
+                    Dette gjelder ikke:
+                    <ul>
+                        <li>skift-, turnus- og vakttillegg</li>
+                        <li>offshoretillegg</li>
+                    </ul>
+                </div>
             </LesMerPanel>
             <VerticalSpacer sixteenPx={true} />
             <Row className="">
@@ -158,7 +153,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         Velg sats for feriepenger som arbeidstaker skal ha
                     </Normaltekst>
                     <RadioPanelGruppeHorisontal
-                        radios={feriepengeAlternativer()}
+                        radios={feriepengeAlternativer}
                         name="feriepengesats"
                         checked={avtale.feriepengesats + ''}
                         legend=""
@@ -194,7 +189,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <SelectInput
                         name="arbeidsgiveravgift"
                         bredde="s"
-                        options={arbeidsgiveravgiftAlternativer()}
+                        options={arbeidsgiveravgiftAlternativer}
                         label="Sats for arbeidsgiveravgift"
                         children=""
                         value={avtale.arbeidsgiveravgift}
@@ -227,7 +222,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                     await hentAvtale(avtale.id);
                                 }}
                             >
-                                {' '}
                                 Hent fra Kontonummer
                             </LagreKnapp>
                         </Column>

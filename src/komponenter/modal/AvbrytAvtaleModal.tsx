@@ -44,11 +44,11 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
         return årsDifferanse >= 1;
     };
 
-    const avbryttAvtalen = async (grunn: string) => {
-        return await avtaleContext
+    const avbrytAvtalen = async (grunn: string) => {
+        return avtaleContext
             .avbrytAvtale(avbruttDato, grunn)
             .then(() => props.lukkModal())
-            .catch(e => {
+            .catch(() => {
                 setFeil('Det oppstod en ukjent feil');
             });
     };
@@ -67,9 +67,9 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
             return;
         }
         if (avbruttGrunn === 'Annet' && annetGrunn) {
-            return avbryttAvtalen(annetGrunn);
+            return avbrytAvtalen(annetGrunn);
         }
-        return avbryttAvtalen(avbruttGrunn);
+        return avbrytAvtalen(avbruttGrunn);
     };
 
     const velgStartDato = (dato: string | undefined) => {
