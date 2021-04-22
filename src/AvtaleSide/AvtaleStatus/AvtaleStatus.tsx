@@ -69,7 +69,7 @@ const AvtaleStatus: React.FunctionComponent<Props> = (props: Props) => {
                 <div className={cls.element('header')}>
                     <Innholdstittel>{avtaleStatusDetaljer.header} </Innholdstittel>
                 </div>
-                <VerticalSpacer sixteenPx={true} />
+                <VerticalSpacer rem={1} />
                 {props.avtale.avbruttGrunn && `Årsak: ${props.avtale.avbruttGrunn}`}
                 {props.avtale.annullertGrunn && `Årsak: ${props.avtale.annullertGrunn}`}
             </MediaQuery>

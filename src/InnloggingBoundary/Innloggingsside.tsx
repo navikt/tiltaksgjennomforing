@@ -62,12 +62,12 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             <div className={cls.className}>
                 <Koffert className={cls.element('koffertikon')} />
                 <MediaQuery minWidth={576}>
-                    <VerticalSpacer thirtyTwoPx={true} />
+                    <VerticalSpacer rem={2} />
                 </MediaQuery>
                 <div className={cls.element('tittel')}>
                     <Sidetittel>Tiltaksgjennomføring</Sidetittel>
                 </div>
-                <VerticalSpacer thirtyTwoPx={true} />
+                <VerticalSpacer rem={2} />
                 <div className={cls.element('infotekst')}>
                     <Ingress>
                         Dette er en digital avtale som skal brukes av deltakeren, arbeidsgiveren og NAV. For å se
@@ -81,9 +81,9 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         </Link>
                     </Normaltekst>
                 </div>
-                <VerticalSpacer thirtyTwoPx={true} />
+                <VerticalSpacer rem={2} />
                 <Systemtittel>Logg inn</Systemtittel>
-                <VerticalSpacer thirtyTwoPx={true} />
+                <VerticalSpacer rem={2} />
                 <div className={'innloggingsside__loginKnapper'}>{logginnknapper}</div>
             </div>
         </div>

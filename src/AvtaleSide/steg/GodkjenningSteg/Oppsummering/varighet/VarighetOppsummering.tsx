@@ -27,7 +27,7 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({ startDato, sluttDat
                     <Column md="4" sm="6" xs="6">
                         <Element>Startdato</Element>
                         <SjekkOmVerdiEksisterer verdi={harDato(startDato)} />
-                        <VerticalSpacer sixteenPx={true} />
+                        <VerticalSpacer rem={1} />
                     </Column>
                     <Column md="4" sm="6" xs="6">
                         <Element>Sluttdato</Element>

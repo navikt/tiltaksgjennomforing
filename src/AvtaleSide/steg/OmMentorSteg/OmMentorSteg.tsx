@@ -40,7 +40,7 @@ const OmMentorSteg = () => {
                     </Column>
                 </Row>
             </Container>
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
             <Container fluid={true}>
                 <PakrevdTextarea
                     label="Arbeidsoppgaver til mentor"
@@ -50,7 +50,7 @@ const OmMentorSteg = () => {
                     feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                 />
             </Container>
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
             <Container fluid={true}>
                 <Row className="begge__tekst">
                     <Column md="6">
@@ -73,7 +73,7 @@ const OmMentorSteg = () => {
                     </Column>
                 </Row>
             </Container>
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
             <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
         </Innholdsboks>
     );

@@ -33,24 +33,24 @@ const SendVarselModal: React.FunctionComponent<Props> = props => {
             ariaHideApp={props.isOpen}
         >
             <Systemtittel>Del lenke til avtalen</Systemtittel>
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer rem={1} />
             <Ingress>
                 Lenke til avtalen kan sendes på SMS hvis telefonnummer er registrert i avtalen. Hvis det er ønskelig å
                 sende lenke til avtalen via andre kanaler, for eksempel aktivitetsplanen eller e-post, er det adressen
                 under som må benyttes.
             </Ingress>
 
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
 
             <Undertittel>Send lenke på SMS</Undertittel>
-            <VerticalSpacer eightPx={true} />
+            <VerticalSpacer rem={0.5} />
             <LagreKnapp
                 label="Send til arbeidsgiveren"
                 lagre={() => delAvtaleMedAvtalepart(avtale.id, 'ARBEIDSGIVER')}
                 suksessmelding="SMS sendt til arbeidsgiveren"
                 knapptype={'standard'}
             />
-            <VerticalSpacer eightPx={true} />
+            <VerticalSpacer rem={0.5} />
             <LagreKnapp
                 label="Send til deltakeren"
                 lagre={() => delAvtaleMedAvtalepart(avtale.id, 'DELTAKER')}
@@ -58,7 +58,7 @@ const SendVarselModal: React.FunctionComponent<Props> = props => {
                 knapptype={'standard'}
             />
 
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
 
             <Undertittel>Send lenke manuelt</Undertittel>
             <div className={cls.element('lenkedeling')}>

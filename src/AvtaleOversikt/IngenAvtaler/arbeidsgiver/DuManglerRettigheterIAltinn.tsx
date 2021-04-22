@@ -33,12 +33,12 @@ const DuManglerRettigheterIAltinn: FunctionComponent = () => {
                 <Normaltekst>
                     Det er virksomheten din som må gi deg tilgang. Tilgang kan delegeres av personer som selv har
                     tilgang, dersom de også har rollen Tilgangsstyring.
-                    <VerticalSpacer sixteenPx={true} />
+                    <VerticalSpacer rem={1} />
                     <div>
                         I store virksomheter er det vanlig at HR-personell har fått tilgangsstyring fra ledelsen for å
                         kunne delegere Altinn-roller på vegne av virksomheten. Hvis tilgangsstyring ikke er delegert til
                         HR-personell må man få tildelt tilgang fra daglig leder eller andre fra eiersiden.
-                        <VerticalSpacer twentyPx={true} />
+                        <VerticalSpacer rem={1.25} />
                         <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
                             Les mer om roller og rettigheter på Altinn.no
                         </EksternLenke>

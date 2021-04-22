@@ -14,7 +14,7 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
             <Element>Kontonummer</Element> <SjekkOmVerdiEksisterer verdi={props.arbeidsgiverKontonummer} />
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer rem={1} />
             <Element>Utregning</Element>
             <HvaManglerOppsummering
                 avhengigFelter={{
@@ -26,10 +26,10 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
                     manedslonn: props.manedslonn,
                 }}
             >
-                <VerticalSpacer sixteenPx={true} />
+                <VerticalSpacer rem={1} />
                 <UtregningPanel {...props} />
             </HvaManglerOppsummering>
-            <VerticalSpacer twentyPx={true} />
+            <VerticalSpacer rem={1.25} />
             {innloggetBruker.erNavAnsatt &&
                 props.manedslonn100pst &&
                 props.stillingprosent !== undefined &&

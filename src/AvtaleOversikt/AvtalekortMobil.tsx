@@ -36,9 +36,9 @@ const AvtalekortMobil: FunctionComponent<{
                             {avtale.deltakerFornavn || ''}&nbsp;
                             {avtale.deltakerEtternavn || ''}
                         </Undertittel>
-                        <VerticalSpacer eightPx={true} />
+                        <VerticalSpacer rem={0.5} />
                         <Ingress>{avtale.bedriftNavn}</Ingress>
-                        <VerticalSpacer eightPx={true} />
+                        <VerticalSpacer rem={0.5} />
                         <Normaltekst>Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}</Normaltekst>
                         <div className={cls.element('status')}>
                             <StatusIkon status={avtale.statusSomEnum} />

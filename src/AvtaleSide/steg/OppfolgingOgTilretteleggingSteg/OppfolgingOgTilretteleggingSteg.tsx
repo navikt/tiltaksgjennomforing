@@ -27,7 +27,7 @@ const OppfolgingOgTilretteleggingSteg = () => {
                 maxLengde={1000}
                 feilmelding="Beskrivelse av oppfølgingen er påkrevd"
             />
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
             <SkjemaTittel>
                 <span style={{ marginLeft: '0.25rem' }}>Tilrettelegging</span>
                 <HjelpetekstBase id="hjelpetekst">
@@ -42,7 +42,7 @@ const OppfolgingOgTilretteleggingSteg = () => {
                 maxLengde={1000}
                 feilmelding="Beskrivelse av tilrettelegging er påkrevd"
             />
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
             <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
         </Innholdsboks>
     );

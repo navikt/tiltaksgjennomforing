@@ -49,7 +49,7 @@ const Relasjoner: FunctionComponent = () => {
                     <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                         <RelasjonHjelpetekst />
                     </LesMerPanel>
-                    <VerticalSpacer eightPx={true} />
+                    <VerticalSpacer rem={0.5} />
                     <div
                         onMouseOver={e => setPopoverAnker(e.currentTarget)}
                         onMouseLeave={() => setPopoverAnker(undefined)}
@@ -84,7 +84,7 @@ const Relasjoner: FunctionComponent = () => {
                     </div>
                     {avtale.harFamilietilknytning && (
                         <>
-                            <VerticalSpacer sixteenPx={true} />
+                            <VerticalSpacer rem={1} />
                             {rolle === 'VEILEDER' ? (
                                 <>
                                     <Element>Vennligst utdyp denne relasjonen</Element>

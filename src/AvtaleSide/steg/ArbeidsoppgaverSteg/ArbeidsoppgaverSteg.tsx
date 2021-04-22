@@ -19,7 +19,7 @@ const ArbeidsoppgaverSteg: FunctionComponent = props => {
             <Normaltekst>
                 Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal utføre hos dere under arbeidstreningen.
             </Normaltekst>
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
             <PakrevdTextarea
                 label=""
                 verdi={avtaleContext.avtale.arbeidsoppgaver || ''}
@@ -27,7 +27,7 @@ const ArbeidsoppgaverSteg: FunctionComponent = props => {
                 maxLengde={1000}
                 feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
             />
-            <VerticalSpacer thirtyTwoPx={true} />
+            <VerticalSpacer rem={2} />
             <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
         </Innholdsboks>
     );

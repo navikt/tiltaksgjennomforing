@@ -67,7 +67,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
 
             {!avtale.lonnstilskuddProsent && (
                 <>
-                    <VerticalSpacer fourPx={true} />
+                    <VerticalSpacer rem={0.25} />
                     <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                         <PenFillIkon />
                         <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av NAV</Normaltekst>
@@ -105,7 +105,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </Normaltekst>
             )}
 
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer rem={1} />
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 <div>
@@ -113,7 +113,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     arbeid utført i normalarbeidstiden inkludert faste tillegg. Overtidsbetaling og andre variable
                     tillegg skal ikke tas med. Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og
                     utbetales regelmessig ved hver lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
-                    <VerticalSpacer eightPx={true} />
+                    <VerticalSpacer rem={0.5} />
                     <ul>
                         <li>b-tillegg</li>
                         <li>stabiliseringstillegg</li>
@@ -121,7 +121,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         <li>tillegg for ansvarsvakter, fagansvar og lederansvar</li>
                         <li>kvalifikasjons-/kompetansetillegg</li>
                     </ul>
-                    <VerticalSpacer eightPx={true} />
+                    <VerticalSpacer rem={0.5} />
                     Dette gjelder ikke:
                     <ul>
                         <li>skift-, turnus- og vakttillegg</li>
@@ -129,7 +129,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     </ul>
                 </div>
             </LesMerPanel>
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer rem={1} />
             <Row className="">
                 <Column md="6">
                     <ValutaInput
@@ -161,7 +161,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             settOgKalkulerBeregningsverdier({ feriepengesats: parseFloat(verdi) })
                         }
                     />
-                    <VerticalSpacer twentyPx={true} />
+                    <VerticalSpacer rem={1.25} />
                     <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
                     <div style={{ display: 'flex', alignItems: 'baseline' }}>
                         <ProsentInput
@@ -184,7 +184,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             }
                         />
                     </div>
-                    <VerticalSpacer twentyPx={true} />
+                    <VerticalSpacer rem={1.25} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>
                     <SelectInput
                         name="arbeidsgiveravgift"
@@ -213,7 +213,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         </Column>
 
                         <Column md="3">
-                            <VerticalSpacer thirtyTwoPx={true} />
+                            <VerticalSpacer rem={2} />
                             <LagreKnapp
                                 hidden={!visningAvKnappHentKontonummerForArbeidsgiver}
                                 label={'hent Kontonummer'}
@@ -227,9 +227,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         </Column>
                     </Row>
 
-                    <VerticalSpacer thirtyTwoPx={true} />
+                    <VerticalSpacer rem={2} />
                     <UtregningPanel {...avtale} />
-                    <VerticalSpacer twentyPx={true} />
+                    <VerticalSpacer rem={1.25} />
                     {innloggetBruker.erNavAnsatt &&
                         avtale.stillingprosent !== undefined &&
                         avtale.stillingprosent > 0 &&
@@ -242,7 +242,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 value={avtale.manedslonn100pst}
                             />
                         )}
-                    <VerticalSpacer thirtyTwoPx={true} />
+                    <VerticalSpacer rem={2} />
                     <LesMerOmTilskuddsPerioder />
                     <TilskuddsPerioder tilskuddsperioder={avtale.tilskuddPeriode} />
                     <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />

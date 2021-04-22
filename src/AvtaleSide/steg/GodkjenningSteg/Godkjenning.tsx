@@ -154,7 +154,7 @@ const Godkjenning: FunctionComponent<Props> = props => {
                     <AlertStripeAdvarsel>
                         OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
                     </AlertStripeAdvarsel>
-                    <VerticalSpacer sixteenPx={true} />
+                    <VerticalSpacer rem={1} />
                 </>
             )}
             <LagreKnapp

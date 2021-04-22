@@ -84,8 +84,8 @@ const AvtaleSide: FunctionComponent = () => {
                     <div className={cls.element('innhold')}>
                         <BannerNAVAnsatt tekst={sideTittel} />
                         <OppgaveLinje enableScreenSizeCheck={false} />
-                        <VerticalSpacer sixteenPx={true} />
-                        <VerticalSpacer sixteenPx={true} />
+                        <VerticalSpacer rem={1} />
+                        <VerticalSpacer rem={1} />
                         {aktivtSteg.komponent}
                     </div>
                 )}

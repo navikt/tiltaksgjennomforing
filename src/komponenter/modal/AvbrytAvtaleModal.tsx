@@ -102,7 +102,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                     kan ikke redigere eller gjenopprette den etterpå.
                 </Normaltekst>
             </div>
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer rem={1} />
             <SkjemaGruppe feil={datoFeil} title="Dato for avbrytelse">
                 <Datovelger
                     input={{ placeholder: 'dd.mm.åååå', ariaLabel: 'textbox', ariaDescribedby: 'skriv inn dato felt' }}
@@ -112,7 +112,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
             </SkjemaGruppe>
             <div className={cls.element('grunner-og-annet')}>
                 <div role="menu">
-                    <VerticalSpacer twentyPx={true} />
+                    <VerticalSpacer rem={1.25} />
                     <SkjemaGruppe title="Hvorfor avbrytes avtalen?" feil={grunnFeil}>
                         {grunner.map(grunn => {
                             return (

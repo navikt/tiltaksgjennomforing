@@ -37,7 +37,7 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = props => {
                         <Column md="12" sm="12" xs="12">
                             <Element className={cls.element('label')}>Arbeidsoppgaver</Element>
                             <SjekkOmVerdiEksisterer verdi={props.mentorOppgaver} />
-                            <VerticalSpacer sixteenPx={true} />
+                            <VerticalSpacer rem={1} />
                         </Column>
                     </Row>
                     <Row className={''}>

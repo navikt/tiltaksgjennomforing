@@ -56,10 +56,10 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = props => {
                     Du kan ikke redigere eller gjenopprette den etterpå.
                 </Normaltekst>
             </div>
-            <VerticalSpacer sixteenPx={true} />
+            <VerticalSpacer rem={1} />
             <div className={cls.element('grunner-og-annet')}>
                 <div role="menu">
-                    <VerticalSpacer twentyPx={true} />
+                    <VerticalSpacer rem={1.25} />
                     <SkjemaGruppe title="Hvorfor annulleres avtalen?" feil={grunnFeil}>
                         {[
                             'Feilregistrering',

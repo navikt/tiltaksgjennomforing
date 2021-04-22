@@ -53,7 +53,7 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
             <Innholdsboks>
                 <div className={cls.element('tekst')}>
                     <Innholdstittel>Ingen avtaler</Innholdstittel>
-                    <VerticalSpacer sixteenPx={true} />
+                    <VerticalSpacer rem={1} />
                     <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
                 </div>
             </Innholdsboks>
