@@ -6,6 +6,18 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(22, 4, 2021),
+        tittel: 'Nytt felt for antall dager i tiltak per uke',
+        innhold: (
+            <>
+                <p>
+                    Det er nå lagt til et nytt felt for antall dager i tiltaket som må fylles ut for alle tiltakstyper.
+                    Dette feltet ligger under steget varighet.
+                </p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(11, 3, 2021),
         tittel: 'Mulig å laste ned en PDF av avtalen',
         innhold: (
