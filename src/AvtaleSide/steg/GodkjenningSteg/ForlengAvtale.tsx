@@ -6,18 +6,16 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import moment from 'moment';
 import { Datovelger } from 'nav-datovelger';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import TilskuddsPerioder from '../BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import Lenke from 'nav-frontend-lenker';
 import { Notes } from '@navikt/ds-icons/cjs';
+import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
 
     const [modalApen, setModalApen] = useState(false);
     const [sluttDato, setsluttDato] = useState<string | undefined>();
-    const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>(
-        avtaleContext.avtale.tilskuddPeriode
-    );
+    const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
     const forleng = async () => {
         if (sluttDato) {
@@ -48,7 +46,7 @@ const ForlengAvtale: FunctionComponent = () => {
                 onChange={dato => onDatoChange(dato)}
             />
             <VerticalSpacer rem={2} />
-            <TilskuddsPerioder tilskuddsperioder={tilskuddsperioder} />
+            <SlikVilTilskuddsperioderSeUt tilskuddsperioder={tilskuddsperioder} />
         </>
     );
 

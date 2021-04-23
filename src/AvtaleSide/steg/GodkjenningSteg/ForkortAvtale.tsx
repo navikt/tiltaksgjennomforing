@@ -8,13 +8,11 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
 import { Datovelger } from 'nav-datovelger';
-import AlertStripe from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import TilskuddsPerioder from '../BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
+import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
 
 const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -92,19 +90,8 @@ const ForkortAvtale: FunctionComponent = () => {
                     feilmelding="Begrunnelse er påkrevd"
                 />
             )}
-            <VerticalSpacer rem={1} />
-            {tilskuddsperioder.length > 0 && (
-                <>
-                    <VerticalSpacer rem={2} />
-                    <div style={{ border: '1px solid lightblue', borderRadius: '4px', padding: '0.5rem' }}>
-                        <VerticalSpacer rem={1} />
-                        <AlertStripe type="info" form="inline">
-                            <Element>Slik vil tilskuddsperiodene fordele seg etter forkortelsen</Element>
-                        </AlertStripe>
-                        <TilskuddsPerioder tilskuddsperioder={tilskuddsperioder} />
-                    </div>
-                </>
-            )}
+            <VerticalSpacer rem={2} />
+            <SlikVilTilskuddsperioderSeUt tilskuddsperioder={tilskuddsperioder} />
         </>
     );
 
