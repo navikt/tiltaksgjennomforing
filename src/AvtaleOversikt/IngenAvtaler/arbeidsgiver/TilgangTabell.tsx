@@ -8,10 +8,11 @@ import { TiltaksType } from '@/types/avtale';
 import { Tilganger } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import * as React from 'react';
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import './TilgangTabell.less';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+
+const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
 
 const cls = BEMHelper('tilgangtabell');
 
@@ -23,13 +24,6 @@ interface Props {
 const TilgangTabell: FunctionComponent<Props> = props => {
     const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrler>({});
     const throwError = useAsyncError();
-    const sommerjobbToggle = useContext(FeatureToggleContext)[Feature.Sommerjobb];
-
-    const alleTilganger: TiltaksType[] = ['ARBEIDSTRENING', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'];
-    if (sommerjobbToggle) {
-        alleTilganger.push('SOMMERJOBB');
-    }
-
     useEffect(() => {
         hentBeOmRettighetUrler(props.bedriftNr)
             .then(setBeOmRettighetUrler)
