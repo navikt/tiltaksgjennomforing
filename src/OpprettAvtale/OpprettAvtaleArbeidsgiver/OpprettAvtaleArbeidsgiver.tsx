@@ -25,6 +25,7 @@ import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -35,6 +36,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
+    const sommerjobbToggle = useContext(FeatureToggleContext)[Feature.Sommerjobb];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
         verdi => {
@@ -130,7 +132,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
                         {innloggetBruker.tilganger[valgtBedriftNr]
-                            ?.filter(t => t !== 'SOMMERJOBB')
+                            ?.filter(t => t !== 'SOMMERJOBB' || sommerjobbToggle)
                             .map(t => (
                                 <RadioPanel
                                     name="tiltakstype"
