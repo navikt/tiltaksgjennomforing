@@ -7,7 +7,7 @@ import BEMHelper from '@/utils/bem';
 import Lenke from 'nav-frontend-lenker';
 import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState, useContext } from 'react';
-import { Neutral } from '@navikt/ds-icons';
+import { Neutral } from '@navikt/ds-icons/cjs';
 
 import './EndreKontaktInformasjon.less';
 
