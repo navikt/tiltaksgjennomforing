@@ -1,14 +1,7 @@
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
-import {
-    Avslagsårsaker,
-    Avtale,
-    Bedriftinfo,
-    EndreKontaktInfo,
-    GodkjentPaVegneGrunner,
-    TiltaksType,
-} from '@/types/avtale';
+import { Avslagsårsaker, Avtale, Bedriftinfo, GodkjentPaVegneGrunner, TiltaksType } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -294,18 +287,6 @@ export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning
     await api.post(
         `/avtaler/${avtale.id}/endre-tilskuddsberegning`,
         { ...endreBeregning },
-        {
-            headers: {
-                'If-Unmodified-Since': avtale.sistEndret,
-            },
-        }
-    );
-};
-
-export const oppdatereKontaktInformasjon = async (avtale: Avtale, endreKontatInfo: EndreKontaktInfo): Promise<void> => {
-    await api.post(
-        `/avtaler/${avtale.id}/endre-kontaktinfo`,
-        { ...endreKontatInfo },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
