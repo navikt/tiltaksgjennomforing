@@ -1,10 +1,9 @@
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Element } from 'nav-frontend-typografi';
-import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import React, { FunctionComponent } from 'react';
 import { TilskuddsPeriode } from '@/types/avtale';
-import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formatterPeriode } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { tilskuddsperiodeStatusTekst } from '@/messages';
@@ -14,7 +13,7 @@ interface Props {
 }
 
 const SlikVilTilskuddsperioderSeUt: FunctionComponent<Props> = ({ tilskuddsperioder }) => {
-    if (tilskuddsperioder.length == 0) {
+    if (tilskuddsperioder.length === 0) {
         return null;
     }
     return (
