@@ -18,6 +18,8 @@ import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
 import BEMHelper from '@/utils/bem';
 import './GodkjenningSteg.less';
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -33,7 +35,10 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
-    const harAvslåttTilskuddsperiode = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
+    const skalViseAvslåttTilskuddsperiode =
+        avtale.erLaast &&
+        innloggetBruker.rolle === 'VEILEDER' &&
+        avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
 
     return (
         <div className={cls.className}>
@@ -42,8 +47,17 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
             )}
             {avtale.erUfordelt && innloggetBruker.rolle === 'DELTAKER' && <UfordeltStatusDeltaker />}
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
-            {innloggetBruker.rolle === 'VEILEDER' && harAvslåttTilskuddsperiode && <TilskuddsperioderAvslått />}
-            {!avtale.erUfordelt && !harAvslåttTilskuddsperiode && (
+            {avtale.statusSomEnum === 'MANGLER_GODKJENNING' && avtale.versjoner.length > 1 && (
+                <>
+                    <AlertStripeInfo>
+                        Avtalen må godkjennes på nytt igjen av alle parter, fordi det har blitt gjort endringer siden
+                        første godkjenning. Hva som er endret kan du se i hendelseloggen.
+                    </AlertStripeInfo>
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
+            {skalViseAvslåttTilskuddsperiode && <TilskuddsperioderAvslått />}
+            {!avtale.erUfordelt && !skalViseAvslåttTilskuddsperiode && (
                 <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />
             )}
             <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>

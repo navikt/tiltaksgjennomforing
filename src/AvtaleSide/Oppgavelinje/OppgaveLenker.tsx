@@ -45,7 +45,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     <BehandleAvtale />
                 </>
             )}
-            {status === 'GJENNOMFØRES' && erVeileder && behandleAvtaleToggle && (
+            {(status === 'GJENNOMFØRES' || status === 'KLAR_FOR_OPPSTART') && erVeileder && behandleAvtaleToggle && (
                 <>
                     <ForkortAvtale />
                     <ForlengAvtale />
