@@ -11,7 +11,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
-import { Avtale, AvtalelisteRessurs } from '@/types/avtale';
+import { AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
@@ -20,13 +20,9 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
 import ArbeidsgiverFiltrering from './Filtrering/ArbeidsgiverFiltrering';
-import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
+import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
 
 const cls = BEMHelper('avtaleoversikt');
-
-export type Søkekriterier = Partial<Avtale> & {
-    sorteringskolonne?: keyof Avtale;
-};
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -37,8 +33,6 @@ const AvtaleOversikt: FunctionComponent = () => {
                 return { bedriftNr: new URLSearchParams(window.location.search).get('bedrift')! };
             case 'VEILEDER':
                 return { veilederNavIdent: innloggetBruker.identifikator };
-            case 'BESLUTTER':
-                return { beslutterNavIdent: innloggetBruker.identifikator, tilskuddPeriodeStatus: 'UBEHANDLET' };
             case 'DELTAKER':
             default:
                 return {};
@@ -77,7 +71,7 @@ const AvtaleOversikt: FunctionComponent = () => {
         søkekriterier.bedriftNr &&
         innloggetBruker.tilganger[søkekriterier.bedriftNr]?.length > 0;
 
-    const oversiktTekt = innloggetBruker.rolle === 'BESLUTTER' ? 'Tilskuddsoversikt' : 'Tiltaksoversikt';
+    const oversiktTekt = 'Tiltaksoversikt';
     return (
         <>
             <Dokumenttittel tittel={oversiktTekt} />
@@ -87,7 +81,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         setSøkekriterier({ bedriftNr: org.OrganizationNumber });
                     }
                 }}
-                tekst="Tiltaksoversikt"
+                tekst={oversiktTekt}
             />
 
             <BannerNAVAnsatt tekst={oversiktTekt} />
@@ -101,23 +95,16 @@ const AvtaleOversikt: FunctionComponent = () => {
                 >
                     {innloggetBruker.rolle === 'VEILEDER' && (
                         <aside style={layout.stylingAvFilter}>
-                            {innloggetBruker.erNavAnsatt && (
-                                <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                    <LenkeKnapp
-                                        path={pathTilOpprettAvtale}
-                                        style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
-                                    >
-                                        <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
-                                        Opprett ny avtale
-                                    </LenkeKnapp>
-                                </div>
-                            )}
+                            <div style={{ margin: '0.2rem 0 1rem 0' }}>
+                                <LenkeKnapp
+                                    path={pathTilOpprettAvtale}
+                                    style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
+                                >
+                                    <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                    Opprett ny avtale
+                                </LenkeKnapp>
+                            </div>
                             <VeilederFiltrering endreSøk={endreSøk} navEnheter={innloggetBruker.navEnheter} />
-                        </aside>
-                    )}
-                    {innloggetBruker.rolle === 'BESLUTTER' && (
-                        <aside style={layout.stylingAvFilter}>
-                            <BeslutterFiltrering endreSøk={endreSøk} />
                         </aside>
                     )}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' &&

@@ -22,24 +22,25 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
             <table className={'tabell'}>
                 <thead>
                     <tr>
+                        <th>Nr</th>
                         <th>Periode</th>
                         <th>Beløp</th>
                         <th>Sats</th>
-                        <th>Frist</th>
+                        <th>Kan besluttes f.o.m.</th>
                         <th>Status</th>
-                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     {avtale.tilskuddPeriode.map((periode, index) => {
                         return (
                             <tr key={index}>
+                                <td>{periode.løpenummer}</td>
                                 <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>
                                     {formatterPeriode(periode.startDato, periode.sluttDato)}
                                 </td>
                                 <td>{formatterPenger(periode.beløp)}</td>
                                 <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
-                                <td>{formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}</td>
+                                <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                 <td>
                                     <EtikettStatus tilskuddsperiodestatus={periode.status} />
                                 </td>

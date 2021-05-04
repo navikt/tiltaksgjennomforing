@@ -30,6 +30,7 @@ const avtaleInnhold: Avtale = {
     sumLonnsutgifter: 111,
     tilskuddPeriode: [
         {
+            løpenummer: 1,
             beløp: 10000,
             id: '123123',
             startDato: '',
@@ -38,6 +39,8 @@ const avtaleInnhold: Avtale = {
             status: 'UBEHANDLET',
             avslagsårsaker: new Set<Avslagsårsaker>(),
             lonnstilskuddProsent: 60,
+            kanBesluttesFom: '2021-01-01',
+            aktiv: true,
         },
     ],
     tilrettelegging: '',
@@ -93,4 +96,5 @@ export const contextMock: Context = {
     ulagredeEndringer: false,
     mellomLagring: undefined,
     setMellomLagring: () => null,
+    sendTilbakeTilBeslutter: () => Promise.resolve(),
 };

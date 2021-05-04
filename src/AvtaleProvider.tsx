@@ -52,6 +52,7 @@ export interface Context {
     slettMaal: (maal: Maal) => Promise<void>;
     laasOpp: () => Promise<void>;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
+    sendTilbakeTilBeslutter: () => Promise<void>;
 }
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
@@ -246,6 +247,11 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale(avtale.id);
     };
 
+    const sendTilbakeTilBeslutter = async () => {
+        await RestService.sendTilbakeTilBeslutter(avtale);
+        await hentAvtale(avtale.id);
+    };
+
     const avtaleContext: Context = {
         avtale,
         settAvtaleVerdi,
@@ -269,6 +275,7 @@ const AvtaleProvider: FunctionComponent = props => {
         ulagredeEndringer,
         mellomLagring,
         setMellomLagring,
+        sendTilbakeTilBeslutter,
     };
 
     return (

@@ -15,6 +15,7 @@ const maalListe: Maal[] = [
 
 const tilskuddsPeriode: TilskuddsPeriode[] = [
     {
+        løpenummer: 1,
         beløp: 0,
         id: '',
         startDato: '',
@@ -23,6 +24,8 @@ const tilskuddsPeriode: TilskuddsPeriode[] = [
         godkjentTidspunkt: '',
         avslagsårsaker: new Set<Avslagsårsaker>(),
         lonnstilskuddProsent: 60,
+        kanBesluttesFom: '2021-01-01',
+        aktiv: true,
     },
 ];
 

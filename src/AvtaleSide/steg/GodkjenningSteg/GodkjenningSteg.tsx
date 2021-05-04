@@ -17,6 +17,7 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
 import BEMHelper from '@/utils/bem';
 import './GodkjenningSteg.less';
+import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -32,6 +33,8 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
+    const harAvslåttTilskuddsperiode = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
+
     return (
         <div className={cls.className}>
             {avtale.erUfordelt && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
@@ -39,7 +42,10 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
             )}
             {avtale.erUfordelt && innloggetBruker.rolle === 'DELTAKER' && <UfordeltStatusDeltaker />}
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
-            {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />}
+            {innloggetBruker.rolle === 'VEILEDER' && harAvslåttTilskuddsperiode && <TilskuddsperioderAvslått />}
+            {!avtale.erUfordelt && !harAvslåttTilskuddsperiode && (
+                <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />
+            )}
             <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>

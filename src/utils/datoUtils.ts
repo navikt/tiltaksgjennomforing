@@ -36,6 +36,9 @@ export const NORSK_DATO_FORMAT = 'DD.MM.YYYY';
 
 export const formatterDato = (dato: string, format: string = NORSK_DATO_OG_TID_FORMAT) => {
     try {
+        if (dato === '-999999999-01-01') {
+            return '';
+        }
         const formattertDato = moment(dato).format(format);
         return !formattertDato.includes('NaN') ? formattertDato : dato;
     } catch (e) {
