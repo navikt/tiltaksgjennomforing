@@ -12,6 +12,7 @@ import BehandleAvtale from '@/AvtaleSide/steg/GodkjenningSteg/BehandleAvtale';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
 import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
+import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreKontaktInfo/EndreKontaktInformasjon';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -49,6 +50,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     <ForkortAvtale />
                     <ForlengAvtale />
                     {erLønnstilskudd && <EndreTilskudssberegning />}
+                    <EndreKontaktInformasjon />
                 </>
             )}
             <Varsellogg />

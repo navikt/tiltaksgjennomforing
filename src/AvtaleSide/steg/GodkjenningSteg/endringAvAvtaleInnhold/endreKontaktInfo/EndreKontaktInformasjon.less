@@ -1,0 +1,49 @@
+.endreKontaktInformasjon {
+    &__inputfelter {
+        display: flex;
+        flex-direction: column;
+        &:nth-child(2) {
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        & > .skjemaelement {
+            width: 100%;
+        }
+    }
+
+    &__lenke {
+        display: flex;
+        align-items: center;
+    }
+    &__ikon {
+        margin-right: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+        display: flex;
+        flex-direction: column;
+
+        &__tittel {
+            margin-top: 1rem;
+        }
+
+        &__inputfelter {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            flex: 0 45%;
+            &:nth-child(2) {
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            & > .skjemaelement {
+                width: 45%;
+                &:nth-child(1) {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+}
