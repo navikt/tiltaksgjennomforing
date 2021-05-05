@@ -52,7 +52,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
             [key]: verdi,
         }));
     };
-    //slett meg
+
     const endreKontaktInformasjonInnhold = (
         <div className={cls.className}>
             <div className={cls.element('tittel')}>

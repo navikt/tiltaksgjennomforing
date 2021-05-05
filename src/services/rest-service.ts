@@ -7,6 +7,7 @@ import {
     Bedriftinfo,
     EndreKontaktInfo,
     GodkjentPaVegneGrunner,
+    Stilling,
     TiltaksType,
 } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
@@ -306,6 +307,18 @@ export const oppdatereKontaktInformasjon = async (avtale: Avtale, endreKontatInf
     await api.post(
         `/avtaler/${avtale.id}/endre-kontaktinfo`,
         { ...endreKontatInfo },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
+};
+
+export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStillingInfo: Stilling): Promise<void> => {
+    await api.post(
+        `/avtaler/${avtale.id}/endre-stillingbeskrivelse`,
+        { ...endreStillingInfo },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
