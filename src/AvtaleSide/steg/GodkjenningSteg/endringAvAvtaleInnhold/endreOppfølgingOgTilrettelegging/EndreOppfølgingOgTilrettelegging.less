@@ -1,0 +1,45 @@
+.endreOppfølgingOgTilrettelegging {
+    &__ikon {
+        margin-right: 0.5rem;
+    }
+
+    &__lenke {
+        display: flex;
+        align-items: center;
+    }
+
+    &__tittel {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1rem;
+    }
+
+    &__helptextikon {
+        margin: 0.3rem 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+        width: 30rem;
+        display: flex;
+        flex-direction: column;
+
+        &__tittel {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 1rem;
+        }
+
+        &__helptextikon {
+            margin: 0.3rem 0.5rem;
+        }
+
+        &__textareafelt {
+            display: flex;
+            flex-wrap: nowrap;
+
+            & > .textarea__container {
+                width: 100%;
+            }
+        }
+    }
+}

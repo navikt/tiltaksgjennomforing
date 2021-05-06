@@ -6,6 +6,7 @@ import {
     Avtale,
     Bedriftinfo,
     EndreKontaktInfo,
+    EndreOppfølgingOgTilretteleggingInfo,
     GodkjentPaVegneGrunner,
     TiltaksType,
 } from '@/types/avtale';
@@ -290,10 +291,13 @@ export const slettemerkAvtale = async (avtaleId: string) => {
     await api.post(uri);
 };
 
-export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {
+export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
+    avtale: Avtale,
+    endreOppfølgingOgTilretteleggingInfo: EndreOppfølgingOgTilretteleggingInfo
+): Promise<void> => {
     await api.post(
-        `/avtaler/${avtale.id}/endre-tilskuddsberegning`,
-        { ...endreBeregning },
+        `/avtaler/${avtale.id}/endre-oppfølging-og-tilrettelegging`,
+        { ...endreOppfølgingOgTilretteleggingInfo },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
@@ -306,6 +310,18 @@ export const oppdatereKontaktInformasjon = async (avtale: Avtale, endreKontatInf
     await api.post(
         `/avtaler/${avtale.id}/endre-kontaktinfo`,
         { ...endreKontatInfo },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
+};
+
+export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {
+    await api.post(
+        `/avtaler/${avtale.id}/endre-tilskuddsberegning`,
+        { ...endreBeregning },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
