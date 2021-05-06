@@ -4,7 +4,7 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import BEMHelper from '@/utils/bem';
 import Lenke from 'nav-frontend-lenker';
 import { EndreOppfølgingOgTilretteleggingInfo } from '@/types/avtale';
-import { Neutral, Helptext, MeetingRoom } from '@navikt/ds-icons/cjs';
+import { Helptext, MeetingRoom } from '@navikt/ds-icons/cjs';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { oppdatereOppfølgingOgTilretteleggingInformasjon } from '@/services/rest-service';
 
