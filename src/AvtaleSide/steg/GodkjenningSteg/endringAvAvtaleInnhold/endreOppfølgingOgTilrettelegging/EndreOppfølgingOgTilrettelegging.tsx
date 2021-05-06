@@ -4,7 +4,7 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import BEMHelper from '@/utils/bem';
 import Lenke from 'nav-frontend-lenker';
 import { EndreOppfølgingOgTilretteleggingInfo } from '@/types/avtale';
-import { Helptext, MeetingRoom } from '@navikt/ds-icons/cjs';
+import { MeetingRoom } from '@navikt/ds-icons/cjs';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { oppdatereOppfølgingOgTilretteleggingInformasjon } from '@/services/rest-service';
 
@@ -52,7 +52,6 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
             <div className={cls.element('oppfølging')}>
                 <div className={cls.element('tittel')}>
                     <Undertittel>Oppfølging</Undertittel>
-                    <Helptext className={cls.element('helptextikon')} />
                 </div>
                 <div className={cls.element('textareafelt')}>
                     <PakrevdTextarea
@@ -67,7 +66,6 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
             </div>
             <div className={cls.element('tittel')}>
                 <Undertittel>Tilrettelegging</Undertittel>
-                <Helptext className={cls.element('helptextikon')} />
             </div>
             <div className={cls.element('textareafelt')}>
                 <PakrevdTextarea
