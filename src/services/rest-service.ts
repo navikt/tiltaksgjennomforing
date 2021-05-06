@@ -291,18 +291,6 @@ export const slettemerkAvtale = async (avtaleId: string) => {
     await api.post(uri);
 };
 
-export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {
-    await api.post(
-        `/avtaler/${avtale.id}/endre-tilskuddsberegning`,
-        { ...endreBeregning },
-        {
-            headers: {
-                'If-Unmodified-Since': avtale.sistEndret,
-            },
-        }
-    );
-};
-
 export const oppdatereKontaktInformasjon = async (avtale: Avtale, endreKontatInfo: EndreKontaktInfo): Promise<void> => {
     await api.post(
         `/avtaler/${avtale.id}/endre-kontaktinfo`,
@@ -319,6 +307,18 @@ export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStilling
     await api.post(
         `/avtaler/${avtale.id}/endre-stillingbeskrivelse`,
         { ...endreStillingInfo },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        }
+    );
+};
+
+export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {
+    await api.post(
+        `/avtaler/${avtale.id}/endre-tilskuddsberegning`,
+        { ...endreBeregning },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
