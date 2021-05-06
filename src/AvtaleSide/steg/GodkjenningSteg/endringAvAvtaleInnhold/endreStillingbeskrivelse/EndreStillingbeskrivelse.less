@@ -1,12 +1,17 @@
 .endreStillingbeskrivelse {
-    display: flex;
+    &__ikon {
+        margin-right: 0.5rem;
+    }
 
     &__lenke {
         display: flex;
         align-items: center;
     }
-    &__ikon {
-        margin-right: 0.5rem;
+
+    &__tittel {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1rem;
     }
 
     @media (min-width: 768px) {
@@ -16,44 +21,29 @@
         height: 31rem;
 
         &__tittel {
-            margin-top: 1rem;
+            margin-top: 100px;
         }
 
         &__inputfelt {
-            display: flex;
-            //width: 100%;
-            flex: 10% 100%;
+            margin-top: 1.5rem;
+
+            & > .skjemaelement__input {
+                width: 100%;
+            }
         }
 
         &__textareafelt {
+            margin-top: 1.5rem;
             display: flex;
-            flex: 100% 50%;
-            flex-basis: auto;
-            //width: 100%;
-            //height: 90;
-        }
+            height: 30rem;
 
-        /*
-
-        
-
-        &__inputfelter {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            flex: 0 45%;
-            &:nth-child(2) {
-                margin-top: 1.5rem;
-                margin-bottom: 1rem;
+            & > .textarea__container {
+                width: 100%;
             }
 
-            & > .skjemaelement {
-                width: 45%;
-                &:nth-child(1) {
-                    margin-right: 0.5rem;
-                }
+            .skjemaelement__input {
+                height: 20rem !important;
             }
         }
-        */
     }
 }
