@@ -2,7 +2,7 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import BEMHelper from '@/utils/bem';
-import { Applicant } from '@navikt/ds-icons/cjs';
+import { DialogDots } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { Stilling } from '@/types/avtale';
@@ -74,9 +74,9 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 className={cls.element('lenke')}
             >
                 <div aria-hidden={true}>
-                    <Applicant className={cls.element('ikon')} />
+                    <DialogDots className={cls.element('ikon')} />
                 </div>
-                Endre stillingsbeskrivelse
+                Endre Stillingsbeskrivelse
             </Lenke>
             <BekreftelseModal
                 avbrytelseTekst="Avbryt"
