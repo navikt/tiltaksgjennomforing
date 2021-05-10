@@ -7,49 +7,44 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import React, { useContext } from 'react';
 import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
 import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForlengAvtale';
-import EndreTilskudssberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import BehandleAvtale from '@/AvtaleSide/steg/GodkjenningSteg/BehandleAvtale';
+import EndreTilskuddsberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
 import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
 import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreKontaktInfo/EndreKontaktInformasjon';
+import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
 
 const OppgaveLenker: React.FunctionComponent = () => {
-    const { avtale } = useContext(AvtaleContext);
+    const { avtale, laasOpp } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const featureToggleContext = useContext(FeatureToggleContext);
     const behandleAvtaleToggle = featureToggleContext[Feature.BehandleAvtale];
     const annullerAvtaleToggle = featureToggleContext[Feature.AnnullerAvtale];
 
-    const status = avtale.statusSomEnum;
     const erLønnstilskudd =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB';
-    const erNavIdenterLike: boolean = innloggetBruker.identifikator === avtale.veilederNavIdent;
-    const erVeileder: boolean = innloggetBruker.rolle === 'VEILEDER';
+    const erNavIdenterLike = innloggetBruker.identifikator === avtale.veilederNavIdent;
+    const erVeileder = innloggetBruker.rolle === 'VEILEDER';
+
+    if (!erVeileder) {
+        return <Varsellogg />;
+    }
 
     return (
         <>
-            <OvertaAvtalen
-                erVeileder={erVeileder}
-                forskjelligNavIdent={!erNavIdenterLike}
-                erUfordelt={avtale.erUfordelt}
-            />
-            <GjenopprettAvtalen erVeileder={erVeileder} kanGjenopprettes={avtale.kanGjenopprettes} />
-            {!annullerAvtaleToggle && erVeileder && avtale.kanAvbrytes && <AvbryteAvtalen />}
-            {annullerAvtaleToggle && erVeileder && avtale.kanAvbrytes && <AnnullerAvtalen />}
-            {erVeileder && (
-                <>
-                    <DelLenkeTilAvtalen />
-                    <BehandleAvtale />
-                </>
-            )}
-            {status === 'GJENNOMFØRES' && erVeileder && behandleAvtaleToggle && (
+            <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
+            <GjenopprettAvtalen kanGjenopprettes={avtale.kanGjenopprettes} />
+            {!annullerAvtaleToggle && avtale.kanAvbrytes && <AvbryteAvtalen />}
+            {annullerAvtaleToggle && avtale.kanAvbrytes && <AnnullerAvtalen />}
+            <DelLenkeTilAvtalen />
+            {!behandleAvtaleToggle && avtale.kanLåsesOpp && <LaasOppKnapp laasOpp={laasOpp} />}
+            {behandleAvtaleToggle && avtale.erLaast && (
                 <>
                     <ForkortAvtale />
                     <ForlengAvtale />
-                    {erLønnstilskudd && <EndreTilskudssberegning />}
+                    {erLønnstilskudd && <EndreTilskuddsberegning />}
                     <EndreKontaktInformasjon />
                 </>
             )}

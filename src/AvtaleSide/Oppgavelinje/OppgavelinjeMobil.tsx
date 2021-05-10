@@ -11,11 +11,11 @@ import React, { useContext, useState } from 'react';
 const cls = BEMHelper('avtaleside');
 
 const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
-    const dropdownId = 'menyvalg';
     const [dropdown, setDropdown] = useState<HTMLElement | undefined>(undefined);
-    const IsDropdownDefined = () => dropdown !== undefined;
+    const isDropdownDefined = dropdown !== undefined;
+
     const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-        if (IsDropdownDefined()) {
+        if (isDropdownDefined) {
             return setDropdown(undefined);
         }
         return setDropdown(event.currentTarget);
@@ -45,13 +45,13 @@ const OppgavelinjeMobil: React.FunctionComponent<{}> = () => {
                 id="menyKnapp"
                 onClick={e => toggleMenu(e)}
                 aria-expanded={dropdown !== undefined}
-                aria-controls={dropdownId}
+                aria-controls={'menyvalg'}
                 aria-haspopup="menu"
             >
                 Meny
             </Menyknapp>
             <Popover
-                id={dropdownId}
+                id={'menyvalg'}
                 ankerEl={dropdown}
                 onRequestClose={() => setDropdown(undefined)}
                 orientering={PopoverOrientering.UnderVenstre}

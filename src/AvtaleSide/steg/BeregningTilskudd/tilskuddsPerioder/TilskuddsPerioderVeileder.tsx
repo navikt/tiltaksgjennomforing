@@ -1,49 +1,48 @@
-import { AvtaleContext } from '@/AvtaleProvider';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { TilskuddsPeriode } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { formatterPeriode } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext } from 'react';
-import EtikettStatus from './EtikettStatus';
+import './tilskuddsPerioder.less';
+import { tilskuddsperiodeStatusTekst } from '@/messages';
+
+const cls = BEMHelper('tilskuddsPerioder');
 
 type Props = {
-    startAnimering: () => void;
+    tilskuddsperioder: TilskuddsPeriode[];
 };
 
-const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
+const TilskuddsPerioderVeileder: FunctionComponent<Props> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
-    const { avtale } = useContext(AvtaleContext);
 
-    const detErOpprettetTilskuddsPerioder = avtale.tilskuddPeriode.length > 0;
+    const detErOpprettetTilskuddsPerioder = props.tilskuddsperioder.length > 0;
 
     return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder ? (
-        <div>
+        <div className={cls.className}>
             <table className={'tabell'}>
                 <thead>
                     <tr>
                         <th>Nr</th>
                         <th>Periode</th>
+                        <th>Prosent</th>
                         <th>Beløp</th>
-                        <th>Sats</th>
-                        <th>Kan besluttes f.o.m.</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {avtale.tilskuddPeriode.map((periode, index) => {
+                    {props.tilskuddsperioder.map(periode => {
                         return (
-                            <tr key={index}>
+                            <tr key={periode.id}>
                                 <td>{periode.løpenummer}</td>
                                 <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>
                                     {formatterPeriode(periode.startDato, periode.sluttDato)}
                                 </td>
-                                <td>{formatterPenger(periode.beløp)}</td>
                                 <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
-                                <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
-                                <td>
-                                    <EtikettStatus tilskuddsperiodestatus={periode.status} />
-                                </td>
+                                <td>{formatterPenger(periode.beløp)}</td>
+                                <td>{tilskuddsperiodeStatusTekst[periode.status]}</td>
                             </tr>
                         );
                     })}
@@ -53,4 +52,4 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
     ) : null;
 };
 
-export default BeslutterTilskuddsPerioder;
+export default TilskuddsPerioderVeileder;

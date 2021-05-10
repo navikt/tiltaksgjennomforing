@@ -59,11 +59,11 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
-    ARBEIDSTRENING: 'Arbeidstrening',
-    MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
-    VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
-    MENTOR: 'Mentor',
-    SOMMERJOBB: 'Sommerjobb',
+    ARBEIDSTRENING: 'arbeidstrening',
+    MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
+    VARIG_LONNSTILSKUDD: 'varig lønnstilskudd',
+    MENTOR: 'mentor',
+    SOMMERJOBB: 'sommerjobb',
 };
 
 export const avtaleTittel = {

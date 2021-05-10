@@ -6,7 +6,6 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import * as nb from 'react-intl/locale-data/nb';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
-import AvtaleOversikt from './AvtaleOversikt/AvtaleOversikt';
 import AvtaleProvider from './AvtaleProvider';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import BeslutterSide from './BeslutterSide/BeslutterSide';
@@ -32,6 +31,7 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import Oversikt from '@/Oversikt';
 
 addLocaleData(nb);
 
@@ -53,7 +53,7 @@ class App extends React.Component {
                                 <FeilVarselProvider>
                                     <InnloggingBoundary>
                                         <RedirectEtterLogin>
-                                            <Route path="/" exact={true} component={AvtaleOversikt} />
+                                            <Route path="/" exact={true} component={Oversikt} />
                                             <Route
                                                 path={pathTilInformasjonssideInnlogget}
                                                 exact={true}

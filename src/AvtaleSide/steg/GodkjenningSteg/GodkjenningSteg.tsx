@@ -17,6 +17,9 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import SkrivUtKnapp from '@/komponenter/SkrivUtKnapp/SkrivUtKnapp';
 import BEMHelper from '@/utils/bem';
 import './GodkjenningSteg.less';
+import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -32,6 +35,14 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
+    const skalViseAvslåttTilskuddsperiode =
+        avtale.erLaast &&
+        innloggetBruker.rolle === 'VEILEDER' &&
+        avtale.tilskuddPeriode.find(
+            t => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer
+        ) &&
+        avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
+
     return (
         <div className={cls.className}>
             {avtale.erUfordelt && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
@@ -39,7 +50,19 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
             )}
             {avtale.erUfordelt && innloggetBruker.rolle === 'DELTAKER' && <UfordeltStatusDeltaker />}
             {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
-            {!avtale.erUfordelt && <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />}
+            {avtale.statusSomEnum === 'MANGLER_GODKJENNING' && avtale.versjoner.length > 1 && (
+                <>
+                    <AlertStripeInfo>
+                        Avtalen må godkjennes på nytt igjen av alle parter, fordi det har blitt gjort endringer siden
+                        første godkjenning. Hva som er endret kan du se i hendelseloggen.
+                    </AlertStripeInfo>
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
+            {skalViseAvslåttTilskuddsperiode && <TilskuddsperioderAvslått />}
+            {!avtale.erUfordelt && !skalViseAvslåttTilskuddsperiode && (
+                <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />
+            )}
             <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>

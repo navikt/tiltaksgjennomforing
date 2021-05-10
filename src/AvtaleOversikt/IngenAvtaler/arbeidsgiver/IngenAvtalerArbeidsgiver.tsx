@@ -5,6 +5,7 @@ import { TiltaksType } from '@/types/avtale';
 import React, { FunctionComponent, useContext } from 'react';
 import BoksMedTekstOgTilgangstabell from './BoksMedTekstOgTilgangstabell';
 import './IngenAvtalerArbeidsgiver.less';
+import { storForbokstav } from '@/utils/stringUtils';
 
 type Props = {
     bedriftNr?: string;
@@ -47,9 +48,9 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
             return (
                 <BoksMedTekstOgTilgangstabell
                     {...fellesProps}
-                    overskrift={`Du mangler tilgang til ${
+                    overskrift={`Du mangler tilgang til ${storForbokstav(
                         tiltakstypeTekst[props.tiltakstype]
-                    } i ${bedriftNavnOgNummer}`}
+                    )} i ${bedriftNavnOgNummer}`}
                     visTekst={false}
                 />
             );

@@ -12,6 +12,7 @@ import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import './TilgangTabell.less';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { storForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('tilgangtabell');
 
@@ -48,7 +49,7 @@ const TilgangTabell: FunctionComponent<Props> = props => {
 
                         return (
                             <tr key={tiltakstype}>
-                                <td>{tiltakstypeTekst[tiltakstype]}</td>
+                                <td>{storForbokstav(tiltakstypeTekst[tiltakstype])}</td>
                                 <td>
                                     <span style={{ display: 'flex', alignItems: 'center' }}>
                                         {harTilgangTilTiltakstype ? (

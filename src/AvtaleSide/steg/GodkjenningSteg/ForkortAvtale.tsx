@@ -91,7 +91,10 @@ const ForkortAvtale: FunctionComponent = () => {
                 />
             )}
             <VerticalSpacer rem={2} />
-            <SlikVilTilskuddsperioderSeUt tilskuddsperioder={tilskuddsperioder} />
+            <SlikVilTilskuddsperioderSeUt
+                overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forkortes"
+                tilskuddsperioder={tilskuddsperioder}
+            />
         </>
     );
 
