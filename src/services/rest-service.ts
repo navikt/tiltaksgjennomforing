@@ -296,7 +296,7 @@ export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
     endreOppfølgingOgTilretteleggingInfo: EndreOppfølgingOgTilretteleggingInfo
 ): Promise<void> => {
     await api.post(
-        `/avtaler/${avtale.id}/endre-oppfølging-og-tilrettelegging`,
+        `/avtaler/${avtale.id}/endre-oppfolging-og-tilrettelegging`,
         { ...endreOppfølgingOgTilretteleggingInfo },
         {
             headers: {

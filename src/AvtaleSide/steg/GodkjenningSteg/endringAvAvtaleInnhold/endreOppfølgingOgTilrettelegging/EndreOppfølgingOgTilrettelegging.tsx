@@ -25,12 +25,8 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
     });
 
     const endreOppfølgingOgTilretteleggingInformasjon = async (): Promise<void> => {
-        try {
             await oppdatereOppfølgingOgTilretteleggingInformasjon(context.avtale, oppfølgingOgTilretteleggingInfo);
-        } catch (err) {
-            console.warn('feilet med å lagre oppdaterte beregninger: ', err);
-        }
-        setModalApen(false);
+            setModalApen(false);
         await context.hentAvtale(context.avtale.id);
     };
 
@@ -57,10 +53,9 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                     <PakrevdTextarea
                         label="Beskriv hvilken oppfølging dere har avtalt"
                         verdi={oppfølgingOgTilretteleggingInfo.oppfolging}
-                        placeholder="Begrunnelse (påkrevd)"
                         settVerdi={verdi => settNyOppfølgingOgTilretteleggingInformasjon('oppfolging', verdi)}
                         maxLengde={500}
-                        feilmelding="Begrunnelse er påkrevd"
+                        feilmelding="Oppfølging er påkrevd"
                     />
                 </div>
             </div>
@@ -71,10 +66,9 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                 <PakrevdTextarea
                     label="Beskriv hvilken tilrettelegging dere har avtalt"
                     verdi={oppfølgingOgTilretteleggingInfo.tilrettelegging}
-                    placeholder="Begrunnelse (påkrevd)"
                     settVerdi={verdi => settNyOppfølgingOgTilretteleggingInformasjon('tilrettelegging', verdi)}
                     maxLengde={500}
-                    feilmelding="Begrunnelse er påkrevd"
+                    feilmelding="Tilrettelegging er påkrevd"
                 />
             </div>
         </div>
