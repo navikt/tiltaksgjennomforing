@@ -9,7 +9,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { avtaleTittel, tilskuddsperiodeAvslagTekst, tiltakstypeTekst } from '@/messages';
 import BEMHelper from '@/utils/bem';
-import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
+import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -17,7 +17,7 @@ import { Knapp } from 'nav-frontend-knapper';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { Avslagsårsaker, TilskuddPeriodeStatus } from '../types/avtale';
+import { Avslagsårsaker, TilskuddPeriodeStatus } from '@/types/avtale';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
 
@@ -37,11 +37,11 @@ const BeslutterSide: FunctionComponent = () => {
     }
 
     const tittel: { [key in TilskuddPeriodeStatus]: string } = {
-        AVSLÅTT: 'Tilskudd er avslått',
-        GODKJENT: 'Tilskudd er godkjent',
-        UBEHANDLET: 'Tilskudd som skal godkjennes',
-        UTBETALT: 'Tilskudd er utbetalt',
-        ANNULLERT: 'Tilskudd er annullert',
+        AVSLÅTT: 'Tilskuddsperiode er avslått',
+        GODKJENT: 'Tilskuddsperiode er godkjent',
+        UBEHANDLET: 'Tilskuddsperiode som skal godkjennes',
+        UTBETALT: 'Tilskuddsperiode er utbetalt',
+        ANNULLERT: 'Tilskuddsperiode er annullert',
     };
 
     const fadeInOut = () => {
@@ -94,15 +94,7 @@ const BeslutterSide: FunctionComponent = () => {
                                     </Normaltekst>
                                 </div>
                                 <div>
-                                    <Element>Frist</Element>
-                                </div>
-                                <div>
-                                    <Normaltekst>
-                                        {formatterDato(gjeldendeTilskuddsperiode.startDato, NORSK_DATO_FORMAT)}
-                                    </Normaltekst>
-                                </div>
-                                <div>
-                                    <Element>Lønnstilskuddsprosent</Element>
+                                    <Element>Tilskuddsprosent</Element>
                                 </div>
                                 <div>
                                     <Normaltekst>
@@ -121,7 +113,7 @@ const BeslutterSide: FunctionComponent = () => {
                                 <div>
                                     <LagreKnapp
                                         lagre={() => avtaleContext.godkjennTilskudd()}
-                                        label="Godkjenn tilskudd"
+                                        label="Godkjenn tilskuddsperiode"
                                     />{' '}
                                     <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>
                                 </div>

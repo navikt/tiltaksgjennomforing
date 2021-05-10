@@ -26,6 +26,7 @@ import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'rea
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { storForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -136,7 +137,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                             .map(t => (
                                 <RadioPanel
                                     name="tiltakstype"
-                                    label={tiltakstypeTekst[t]}
+                                    label={storForbokstav(tiltakstypeTekst[t])}
                                     value={t}
                                     checked={valgtTiltaksType === t}
                                     onChange={() => setTiltaksType(t)}

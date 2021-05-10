@@ -1,7 +1,6 @@
 import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
 import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
-import TilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioder';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
@@ -22,6 +21,8 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import UtregningPanel from './UtregningPanel';
 import ProsentInput from '@/komponenter/form/ProsentInput';
+import TilskuddsPerioderVeileder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderVeileder';
+import TilskuddsPerioderArbeidsgiver from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderArbeidsgiver';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -244,7 +245,13 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         )}
                     <VerticalSpacer rem={2} />
                     <LesMerOmTilskuddsPerioder />
-                    <TilskuddsPerioder tilskuddsperioder={avtale.tilskuddPeriode} />
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                        <TilskuddsPerioderArbeidsgiver tilskuddsperioder={avtale.tilskuddPeriode} />
+                    )}
+                    {innloggetBruker.rolle === 'VEILEDER' && (
+                        <TilskuddsPerioderVeileder tilskuddsperioder={avtale.tilskuddPeriode} />
+                    )}
+                    <VerticalSpacer rem={2} />
                     <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>

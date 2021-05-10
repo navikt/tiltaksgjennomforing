@@ -5,15 +5,33 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
+import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { tilskuddsperiodeAvslagTekst } from '@/messages';
+import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 
-const TilskuddsperioderAvslått: FunctionComponent = () => {
-    const avtaleContext = useContext(AvtaleContext);
-    const gjeldendeTilskuddsperiode = avtaleContext.avtale.gjeldendeTilskuddsperiode;
-    if (!gjeldendeTilskuddsperiode) {
+const TilskuddsperioderAvslått: FunctionComponent = props => {
+    const { avtale, sendTilbakeTilBeslutter } = useContext(AvtaleContext);
+    const gjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
+    const avslåttTilskuddsperiode = avtale.tilskuddPeriode.find(
+        t => t.status === 'AVSLÅTT' && avtale.gjeldendeTilskuddsperiode?.løpenummer
+    );
+    if (!avslåttTilskuddsperiode) {
         return null;
     }
+
+    const avslåttBegrunnelse = (
+        <Normaltekst>
+            Tilskuddsperioden ble avslått av {avslåttTilskuddsperiode.avslåttAvNavIdent} den{' '}
+            {formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_FORMAT)} med følgende årsak(er):
+            <ul>
+                {Array.from(avslåttTilskuddsperiode.avslagsårsaker).map(årsak => (
+                    <li>{tilskuddsperiodeAvslagTekst[årsak]}</li>
+                ))}
+            </ul>
+            med forklaringen: {avslåttTilskuddsperiode.avslagsforklaring}
+        </Normaltekst>
+    );
+
     return (
         <Innholdsboks>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -22,29 +40,48 @@ const TilskuddsperioderAvslått: FunctionComponent = () => {
                 </div>
                 <VerticalSpacer rem={1} />
                 <div>
-                    <Innholdstittel>Tilskuddsperiode avslått av beslutter</Innholdstittel>
+                    <Innholdstittel>
+                        {gjeldendeTilskuddsperiodeAvslått
+                            ? 'Tilskuddsperiode avslått av beslutter'
+                            : 'Venter på godkjenning fra beslutter'}
+                    </Innholdstittel>
                 </div>
             </div>
             <VerticalSpacer rem={2} />
-            <Normaltekst>
-                Tilskuddsperioden ble avslått av <b>{gjeldendeTilskuddsperiode.avslåttAvNavIdent}</b> den{' '}
-                {formatterDato(gjeldendeTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)} med følgende
-                årsak(er):
-                <ul>
-                    {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map(årsak => (
-                        <li>{tilskuddsperiodeAvslagTekst[årsak]}</li>
-                    ))}
-                </ul>
-                med forklaringen: {gjeldendeTilskuddsperiode.avslagsforklaring}
-            </Normaltekst>
-            <VerticalSpacer rem={1} />
-            <Normaltekst>Gjør de nødvendige endringene på avtalen og send tilbake til beslutter.</Normaltekst>
-            <VerticalSpacer rem={1} />
-            <hr />
-            <VerticalSpacer rem={1} />
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <LagreKnapp lagre={avtaleContext.sendTilbakeTilBeslutter} label={'Send tilbake til beslutter'} />
-            </div>
+            {gjeldendeTilskuddsperiodeAvslått ? (
+                <>
+                    {avslåttBegrunnelse}
+                    <VerticalSpacer rem={1} />
+                    <Normaltekst>
+                        Gjør du endringer på avtalen vil beslutter kunne godkjenne tilskuddsperioden på nytt. Hvis
+                        avtalen allikevel er riktig utfylt kan den sendes tilbake til beslutter uendret.
+                    </Normaltekst>
+                    <VerticalSpacer rem={1} />
+                    <hr />
+                    <VerticalSpacer rem={1} />
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <LagreKnapp
+                            knapptype="standard"
+                            lagre={sendTilbakeTilBeslutter}
+                            label="Send tilbake til beslutter uendret"
+                        />
+                    </div>
+                </>
+            ) : (
+                <>
+                    <Normaltekst>
+                        Beslutter har nå muligheten til å godkjenne tilskuddsperioden. Du kan gjøre flere endringer om
+                        det er nødvendig før beslutter godkjenner.
+                    </Normaltekst>
+                    <VerticalSpacer rem={1} />
+                    <LesMerPanel
+                        åpneLabel="Vis begrunnelse på tidligere avslått tilskuddsperiode"
+                        lukkLabel="Skjul begrunnelse på tidligere avslått tilskuddsperiode"
+                    >
+                        {avslåttBegrunnelse}
+                    </LesMerPanel>
+                </>
+            )}
         </Innholdsboks>
     );
 };

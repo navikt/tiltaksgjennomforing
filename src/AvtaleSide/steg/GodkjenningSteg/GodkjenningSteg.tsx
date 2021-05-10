@@ -38,7 +38,10 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const skalViseAvslåttTilskuddsperiode =
         avtale.erLaast &&
         innloggetBruker.rolle === 'VEILEDER' &&
-        avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
+        avtale.tilskuddPeriode.find(
+            t => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer
+        ) &&
+        avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
 
     return (
         <div className={cls.className}>
