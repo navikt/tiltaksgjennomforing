@@ -40,7 +40,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
             {annullerAvtaleToggle && avtale.kanAvbrytes && <AnnullerAvtalen />}
             <DelLenkeTilAvtalen />
             {!behandleAvtaleToggle && avtale.kanLåsesOpp && <LaasOppKnapp laasOpp={laasOpp} />}
-            {behandleAvtaleToggle && (
+            {behandleAvtaleToggle && avtale.erLaast && (
                 <>
                     <ForkortAvtale />
                     <ForlengAvtale />
