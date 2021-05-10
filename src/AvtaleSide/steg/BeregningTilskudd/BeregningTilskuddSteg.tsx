@@ -23,6 +23,7 @@ import UtregningPanel from './UtregningPanel';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import TilskuddsPerioderVeileder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderVeileder';
 import TilskuddsPerioderArbeidsgiver from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderArbeidsgiver';
+import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -51,15 +52,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier, hentAvtale } = useContext(
         AvtaleContext
     );
-
-    const parseFloatIfFloatable = (verdi: string) => {
-        const floatedValue = parseFloat(verdi);
-        if (!isNaN(floatedValue)) {
-            return parseFloat(verdi);
-        } else {
-            return undefined;
-        }
-    };
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
