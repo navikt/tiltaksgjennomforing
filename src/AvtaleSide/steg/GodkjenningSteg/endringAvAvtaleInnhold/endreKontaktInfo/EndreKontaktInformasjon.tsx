@@ -34,11 +34,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
     });
 
     const endreKontaktInformasjon = async (): Promise<void> => {
-        try {
-            await oppdatereKontaktInformasjon(context.avtale, kontaktInfo);
-        } catch (err) {
-            console.warn('feilet med å lagre oppdaterte beregninger: ', err);
-        }
+        await oppdatereKontaktInformasjon(context.avtale, kontaktInfo);
         setModalApen(false);
         await context.hentAvtale(context.avtale.id);
     };
@@ -52,7 +48,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
             [key]: verdi,
         }));
     };
-    //slett meg
+
     const endreKontaktInformasjonInnhold = (
         <div className={cls.className}>
             <div className={cls.element('tittel')}>

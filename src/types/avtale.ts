@@ -221,3 +221,4 @@ export interface Versjonering {
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
 
 export type EndreKontaktInfo = Veilederinfo & Arbeidsgiverinfo;
+export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;

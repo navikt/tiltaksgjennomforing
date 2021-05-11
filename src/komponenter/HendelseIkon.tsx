@@ -39,6 +39,8 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     AVTALE_FORLENGET: <Calender />,
     AVTALE_FORKORTET: <Calender />,
     TILSKUDDSBEREGNING_ENDRET: <PengeIkon />,
+    KONTAKTINFORMASJON_ENDRET: <></>,
+    OPPFØLGING_OG_TILRETTELEGGING_ENDRET: <></>,
 };
 
 const HendelseIkon: FunctionComponent<Props> = props => {
