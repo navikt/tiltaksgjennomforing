@@ -24,11 +24,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     });
 
     const endreStilling = async (): Promise<void> => {
-        try {
-            await oppdatereStillingbeskrivelse(context.avtale, stillingInfo);
-        } catch (err) {
-            console.warn('feilet med å lagre oppdaterte beregninger: ', err);
-        }
+        await oppdatereStillingbeskrivelse(context.avtale, stillingInfo);
         setModalApen(false);
         await context.hentAvtale(context.avtale.id);
     };
@@ -53,10 +49,9 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 <PakrevdTextarea
                     label="Beskriv arbeidsoppgavene som inngår i stillingen"
                     verdi={stillingInfo.arbeidsoppgaver}
-                    placeholder="Begrunnelse (påkrevd)"
                     settVerdi={verdi => settNyStillingInformasjon('arbeidsoppgaver', verdi)}
                     maxLengde={500}
-                    feilmelding="Begrunnelse er påkrevd"
+                    feilmelding="arbeidsoppgave er påkrevd"
                 />
             </div>
         </div>
