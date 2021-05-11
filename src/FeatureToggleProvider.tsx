@@ -11,6 +11,7 @@ export enum Feature {
     Sommerjobb = 'tag.tiltak.sommerjobb',
     BehandleAvtale = 'tag.tiltak.behandleAvtale',
     AnnullerAvtale = 'tag.tiltak.annullerAvtale',
+    AvtaleStatusRefactor = 'tag.tiltak.avtaleStatusRefactor',
 }
 
 export const alleFeatures = Object.values(Feature);

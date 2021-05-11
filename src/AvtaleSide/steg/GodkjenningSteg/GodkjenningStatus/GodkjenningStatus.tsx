@@ -1,9 +1,9 @@
 import React from 'react';
 import './GodkjenningStatus.less';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Avtale } from '@/types/avtale';
 import GodkjenningRad from './GodkjenningRad/GodkjenningRad';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import { Undertittel } from 'nav-frontend-typografi';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     avtale: Avtale;
@@ -11,8 +11,9 @@ interface Props {
 
 const GodkjenningStatus: React.FunctionComponent<Props> = props => {
     return (
-        <Innholdsboks className="godkjenningstatus">
-            <SkjemaTittel>Hvem har godkjent?</SkjemaTittel>
+        <div className="godkjenningstatus">
+            <Undertittel>Hvem har godkjent?</Undertittel>
+            <VerticalSpacer rem={0.5} />
             <div className="godkjenningstatus__rader">
                 <GodkjenningRad
                     godkjentAvtale={props.avtale.godkjentAvDeltaker}
@@ -28,13 +29,13 @@ const GodkjenningStatus: React.FunctionComponent<Props> = props => {
                     placeholderName="Arbeidsgiver"
                 />
                 <GodkjenningRad
-                    godkjentAvtale={props.avtale.godkjentAvVeileder}
+                    godkjentAvtale={props.avtale.avtaleInngått}
                     fornavn={props.avtale.veilederFornavn}
                     etternavn={props.avtale.veilederEtternavn}
-                    placeholderName="Veileder i NAV"
+                    placeholderName="NAV"
                 />
             </div>
-        </Innholdsboks>
+        </div>
     );
 };
 

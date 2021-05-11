@@ -175,9 +175,10 @@ export interface Tilrettelegging {
 }
 
 export interface Godkjenninger {
-    godkjentAvDeltaker: boolean;
-    godkjentAvArbeidsgiver: boolean;
-    godkjentAvVeileder: boolean;
+    godkjentAvDeltaker?: string;
+    godkjentAvArbeidsgiver?: string;
+    godkjentAvVeileder?: string;
+    avtaleInngått?: string;
     status: AvtaleStatus;
     statusSomEnum: AvtaleStatus;
     godkjentPaVegneAv: boolean;

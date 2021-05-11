@@ -3,9 +3,10 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 import CheckIkon from '@/assets/ikoner/check.svg';
 import VarselIkon from '@/assets/ikoner/varsel.svg';
 import './GodkjenningRad.less';
+import { formatterDato } from '@/utils/datoUtils';
 
 interface Props {
-    godkjentAvtale: boolean;
+    godkjentAvtale?: string;
     fornavn?: string;
     etternavn?: string;
     placeholderName: string;
@@ -13,27 +14,37 @@ interface Props {
 }
 
 const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
-    const godkjentStatus: string = props.godkjentAvtale ? 'Avtale godkjent' : 'Må godkjenne';
+    const godkjentStatus: string = props.godkjentAvtale
+        ? 'Godkjent ' + formatterDato(props.godkjentAvtale)
+        : 'Må godkjenne';
 
-    const fulltNavn = () => {
-        const navn = [props.fornavn, props.etternavn].filter(Boolean).join(' ');
+    const navn = [props.fornavn, props.etternavn].filter(Boolean).join(' ');
 
+    const representerer = (() => {
         if (navn) {
-            if (props.placeholderName === 'Veileder i NAV') {
-                return 'NAV v/ ' + navn;
+            if (props.placeholderName === 'NAV') {
+                return 'NAV';
             } else if (props.placeholderName === 'Arbeidsgiver') {
-                return props.bedriftNavn + ' v/ ' + navn;
+                return props.bedriftNavn;
             } else {
-                return navn;
+                return undefined;
             }
-        } else {
-            return props.placeholderName;
         }
-    };
+    })();
 
     return (
         <div>
-            <Normaltekst tag={'span'}>{fulltNavn()}</Normaltekst>
+            <Normaltekst tag={'span'}>
+                {representerer ? (
+                    <>
+                        {representerer}
+                        <br />
+                        v/ {navn}
+                    </>
+                ) : (
+                    navn
+                )}
+            </Normaltekst>
             <span className="godkjenningsrad__status">
                 <Element tag={'span'}>{godkjentStatus}</Element>
                 <img

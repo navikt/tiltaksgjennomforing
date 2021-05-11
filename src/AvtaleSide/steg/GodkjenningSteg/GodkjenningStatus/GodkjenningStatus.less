@@ -1,23 +1,17 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .godkjenningstatus {
+    padding: 1rem;
     border: 2px solid @navBlaLighten60;
 
     &__rader {
-        margin-bottom: 1.5rem;
-        margin-top: 1.5rem;
-
         > div:not(:last-child) {
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
             border-bottom: 1px solid #e7e9e9;
         }
         > div:last-child {
-            padding-top: 1.5rem;
+            padding-top: 0.5rem;
         }
-    }
-
-    @media print {
-        display: none;
     }
 }

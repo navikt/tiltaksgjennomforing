@@ -20,6 +20,7 @@ import './GodkjenningSteg.less';
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import NyAvtaleStatus from '@/AvtaleSide/NyAvtaleStatus/NyAvtaleStatus';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -31,6 +32,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const { avtale, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
     const featureToggles = useContext(FeatureToggleContext);
     const lagreSomPdfFeatureToggle = featureToggles[Feature.LagreSomPdf];
+    const avtaleStatusRefactorToggle = featureToggles[Feature.AvtaleStatusRefactor];
 
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
@@ -45,23 +47,29 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={cls.className}>
-            {avtale.erUfordelt && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
-                <UfordeltStatusArbeidsgiver tiltakstype={avtale.tiltakstype} />
-            )}
-            {avtale.erUfordelt && innloggetBruker.rolle === 'DELTAKER' && <UfordeltStatusDeltaker />}
-            {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
-            {avtale.statusSomEnum === 'MANGLER_GODKJENNING' && avtale.versjoner.length > 1 && (
+            {avtaleStatusRefactorToggle ? (
+                <NyAvtaleStatus />
+            ) : (
                 <>
-                    <AlertStripeInfo>
-                        Avtalen må godkjennes på nytt igjen av alle parter, fordi det har blitt gjort endringer siden
-                        første godkjenning. Hva som er endret kan du se i hendelseloggen.
-                    </AlertStripeInfo>
-                    <VerticalSpacer rem={1} />
+                    {avtale.erUfordelt && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                        <UfordeltStatusArbeidsgiver tiltakstype={avtale.tiltakstype} />
+                    )}
+                    {avtale.erUfordelt && innloggetBruker.rolle === 'DELTAKER' && <UfordeltStatusDeltaker />}
+                    {avtale.erUfordelt && innloggetBruker.rolle === 'VEILEDER' && <FordelAvtaleVeileder />}
+                    {avtale.statusSomEnum === 'MANGLER_GODKJENNING' && avtale.versjoner.length > 1 && (
+                        <>
+                            <AlertStripeInfo>
+                                Avtalen må godkjennes på nytt igjen av alle parter, fordi det har blitt gjort endringer
+                                siden første godkjenning.
+                            </AlertStripeInfo>
+                            <VerticalSpacer rem={1} />
+                        </>
+                    )}
+                    {skalViseAvslåttTilskuddsperiode && <TilskuddsperioderAvslått />}
+                    {!avtale.erUfordelt && !skalViseAvslåttTilskuddsperiode && (
+                        <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />
+                    )}
                 </>
-            )}
-            {skalViseAvslåttTilskuddsperiode && <TilskuddsperioderAvslått />}
-            {!avtale.erUfordelt && !skalViseAvslåttTilskuddsperiode && (
-                <AvtaleStatus avtale={avtale} rolle={innloggetBruker.rolle} />
             )}
             <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>

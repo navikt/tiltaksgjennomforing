@@ -16,23 +16,23 @@ test('Godkjent av ingen', () => {
 
 test('Godkjent av noen, men ikke alle', () => {
     const avtale = arbeidstreningAvtaleMock;
-    avtale.godkjentAvDeltaker = true;
+    avtale.godkjentAvDeltaker = '2021-01-01T00:00:00.000';
     const godkjentAvDeltaker = noenHarGodkjentMenIkkeAlle(avtale);
     expect(godkjentAvDeltaker).toBe(true);
 });
 
 test('Godkjent av deltaker og ag, men ikke alle', () => {
     const avtale = arbeidstreningAvtaleMock;
-    avtale.godkjentAvDeltaker = true;
-    avtale.godkjentAvArbeidsgiver = true;
+    avtale.godkjentAvDeltaker = '2021-01-01T00:00:00.000';
+    avtale.godkjentAvArbeidsgiver = '2021-01-01T00:00:00.000';
     const godkjentDeltakerOgArbeidsgiver = noenHarGodkjentMenIkkeAlle(avtale);
     expect(godkjentDeltakerOgArbeidsgiver).toBe(true);
 });
 test('Godkjent av alle', () => {
     const avtale = arbeidstreningAvtaleMock;
-    avtale.godkjentAvDeltaker = true;
-    avtale.godkjentAvArbeidsgiver = true;
-    avtale.godkjentAvVeileder = true;
+    avtale.godkjentAvDeltaker = '2021-01-01T00:00:00.000';
+    avtale.godkjentAvArbeidsgiver = '2021-01-01T00:00:00.000';
+    avtale.godkjentAvVeileder = '2021-01-01T00:00:00.000';
     const godkjnetAvAlle = noenHarGodkjentMenIkkeAlle(avtale);
     expect(godkjnetAvAlle).toBe(false);
 });

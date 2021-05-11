@@ -5,9 +5,9 @@ const lonnstilskuddAvtaleMock: Avtale = {
     opprettetTidspunkt: '2020-01-02T00:00:00.000000',
     sistEndret: '2020-01-03T00:00:00.000000',
 
-    godkjentAvDeltaker: false,
-    godkjentAvArbeidsgiver: false,
-    godkjentAvVeileder: false,
+    godkjentAvDeltaker: '',
+    godkjentAvArbeidsgiver: '',
+    godkjentAvVeileder: '',
     erLaast: false,
     status: 'PÅBEGYNT',
     kanAvbrytes: true,

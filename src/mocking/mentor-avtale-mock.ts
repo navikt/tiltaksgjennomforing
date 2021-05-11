@@ -5,9 +5,9 @@ const mentorAvtaleMock: Avtale = {
     opprettetTidspunkt: '',
     sistEndret: '',
 
-    godkjentAvDeltaker: false,
-    godkjentAvArbeidsgiver: false,
-    godkjentAvVeileder: false,
+    godkjentAvDeltaker: '',
+    godkjentAvArbeidsgiver: '',
+    godkjentAvVeileder: '',
     erLaast: false,
     status: 'PÅBEGYNT',
     kanAvbrytes: true,

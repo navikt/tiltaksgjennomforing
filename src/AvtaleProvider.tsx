@@ -12,7 +12,7 @@ import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
-    return (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
+    return Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
 
 export interface TemporaryLagring {
