@@ -20,6 +20,7 @@ import axiosRetry from 'axios-retry';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
+import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -68,7 +69,7 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
-export const hentAvtalerForInnloggetBruker = async (søkekriterier: Partial<Avtale>): Promise<Avtale[]> => {
+export const hentAvtalerForInnloggetBruker = async (søkekriterier: Søkekriterier): Promise<Avtale[]> => {
     const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
     const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
     return response.data;
@@ -384,6 +385,7 @@ export const forkortAvtale = async (avtale: Avtale, sluttDato: string, grunn: st
         }
     );
 };
+
 export const forkortAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
     const uri = `/avtaler/${avtale.id}/forkort-dry-run`;
     const response = await api.post(
@@ -395,5 +397,11 @@ export const forkortAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Pr
             },
         }
     );
+    return response.data;
+};
+
+export const sendTilbakeTilBeslutter = async (avtale: Avtale) => {
+    const uri = `/avtaler/${avtale.id}/send-tilbake-til-beslutter`;
+    const response = await api.post(uri);
     return response.data;
 };

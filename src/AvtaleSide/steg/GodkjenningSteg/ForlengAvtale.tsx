@@ -46,7 +46,10 @@ const ForlengAvtale: FunctionComponent = () => {
                 onChange={dato => onDatoChange(dato)}
             />
             <VerticalSpacer rem={2} />
-            <SlikVilTilskuddsperioderSeUt tilskuddsperioder={tilskuddsperioder} />
+            <SlikVilTilskuddsperioderSeUt
+                overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"
+                tilskuddsperioder={tilskuddsperioder}
+            />
         </>
     );
 

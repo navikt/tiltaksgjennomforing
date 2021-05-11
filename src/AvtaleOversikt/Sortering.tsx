@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Avtale } from '@/types/avtale';
 import { Select } from 'nav-frontend-skjema';
-import { Søkekriterier } from '@/AvtaleOversikt/AvtaleOversikt';
+import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
 
 interface Props {
     endreSøk: (søkekriterier: Søkekriterier) => void;
