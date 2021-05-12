@@ -4,13 +4,12 @@ import Lenke from 'nav-frontend-lenker';
 import GjenopprettModal from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettModal';
 
 interface Props {
-    erVeileder: boolean;
     kanGjenopprettes: boolean;
 }
 
 const GjenopprettAvtalen: React.FunctionComponent<Props> = (props: Props) => {
     const [apneGjenopprett, setApneGjenopprett] = useState<boolean>(false);
-    return props.erVeileder && props.kanGjenopprettes ? (
+    return props.kanGjenopprettes ? (
         <>
             <div className="avbryteavtalen">
                 <Lenke

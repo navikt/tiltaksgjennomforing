@@ -136,6 +136,7 @@ export type Avslagsårsaker = 'FEIL_I_FAKTA' | 'FEIL_I_REGELFORSTÅELSE' | 'ANNE
 
 export interface TilskuddsPeriode {
     beløp: number;
+    løpenummer: number;
     id: string;
     startDato: string;
     sluttDato: string;
@@ -147,6 +148,8 @@ export interface TilskuddsPeriode {
     avslagsårsaker: Set<Avslagsårsaker>;
     status: TilskuddPeriodeStatus;
     lonnstilskuddProsent: number;
+    kanBesluttesFom: string;
+    aktiv: boolean;
 }
 
 export interface Kontonummer {
@@ -218,3 +221,4 @@ export interface Versjonering {
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
 
 export type EndreKontaktInfo = Veilederinfo & Arbeidsgiverinfo;
+export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;

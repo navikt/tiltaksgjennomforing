@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import './overtaAvtalen.less';
 
 interface Props {
-    erVeileder: boolean;
     forskjelligNavIdent: boolean;
     erUfordelt: boolean;
 }
@@ -17,7 +16,7 @@ const cls = BEMHelper('overtaavtalen');
 const OvertaAvtalen = (props: Props) => {
     const [overtaModalIsOpen, setOvertaModalIsOpen] = useState<boolean>(false);
 
-    return props.erVeileder && props.forskjelligNavIdent ? (
+    return props.forskjelligNavIdent ? (
         <>
             <div className={cls.className}>
                 <Lenke

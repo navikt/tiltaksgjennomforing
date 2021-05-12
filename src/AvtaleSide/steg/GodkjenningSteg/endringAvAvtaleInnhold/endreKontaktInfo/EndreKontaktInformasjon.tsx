@@ -6,7 +6,7 @@ import { EndreKontaktInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import Lenke from 'nav-frontend-lenker';
 import { Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { Neutral } from '@navikt/ds-icons/cjs';
 
 import './EndreKontaktInformasjon.less';
@@ -34,11 +34,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
     });
 
     const endreKontaktInformasjon = async (): Promise<void> => {
-        try {
-            await oppdatereKontaktInformasjon(context.avtale, kontaktInfo);
-        } catch (err) {
-            console.warn('feilet med å lagre oppdaterte beregninger: ', err);
-        }
+        await oppdatereKontaktInformasjon(context.avtale, kontaktInfo);
         setModalApen(false);
         await context.hentAvtale(context.avtale.id);
     };
@@ -52,6 +48,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
             [key]: verdi,
         }));
     };
+
     const endreKontaktInformasjonInnhold = (
         <div className={cls.className}>
             <div className={cls.element('tittel')}>
@@ -111,7 +108,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 <div aria-hidden={true}>
                     <Neutral className={cls.element('ikon')} />
                 </div>
-                Endre Kontaktinformasjon
+                Endre kontaktinformasjon
             </Lenke>
             <BekreftelseModal
                 avbrytelseTekst="Avbryt"

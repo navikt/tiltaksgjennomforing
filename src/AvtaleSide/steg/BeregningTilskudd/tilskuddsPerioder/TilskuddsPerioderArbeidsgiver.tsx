@@ -13,7 +13,7 @@ type Props = {
     tilskuddsperioder: TilskuddsPeriode[];
 };
 
-const TilskuddsPerioder: FunctionComponent<Props> = props => {
+const TilskuddsPerioderArbeidsgiver: FunctionComponent<Props> = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
 
@@ -24,29 +24,33 @@ const TilskuddsPerioder: FunctionComponent<Props> = props => {
             <table className={'tabell'}>
                 <thead>
                     <tr>
+                        <th>Nr</th>
                         <th>Periode</th>
                         <th>Prosent</th>
                         <th>Beløp</th>
-                        <th>Arbeidsgiver kan be om refusjon</th>
+                        <th>Kan be om refusjon</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {props.tilskuddsperioder.map((periode, index) => {
-                        return (
-                            <tr key={index}>
-                                <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>
-                                    {formatterPeriode(periode.startDato, periode.sluttDato)}
-                                </td>
-                                <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
-                                <td>{formatterPenger(periode.beløp)}</td>
-                                <td>{formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}</td>
-                            </tr>
-                        );
-                    })}
+                    {props.tilskuddsperioder
+                        .filter(t => t.aktiv)
+                        .map((periode, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{periode.løpenummer}</td>
+                                    <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>
+                                        {formatterPeriode(periode.startDato, periode.sluttDato)}
+                                    </td>
+                                    <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
+                                    <td>{formatterPenger(periode.beløp)}</td>
+                                    <td>{formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}</td>
+                                </tr>
+                            );
+                        })}
                 </tbody>
             </table>
         </div>
     ) : null;
 };
 
-export default TilskuddsPerioder;
+export default TilskuddsPerioderArbeidsgiver;
