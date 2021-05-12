@@ -1,0 +1,49 @@
+.endreStillingbeskrivelse {
+    &__ikon {
+        margin-right: 0.5rem;
+    }
+
+    &__lenke {
+        display: flex;
+        align-items: center;
+    }
+
+    &__tittel {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        width: 30rem;
+        height: 31rem;
+
+        &__tittel {
+            margin-top: 100px;
+        }
+
+        &__inputfelt {
+            margin-top: 1.5rem;
+
+            & > .skjemaelement__input {
+                width: 100%;
+            }
+        }
+
+        &__textareafelt {
+            margin-top: 1.5rem;
+            display: flex;
+            height: 30rem;
+
+            & > .textarea__container {
+                width: 100%;
+            }
+
+            .skjemaelement__input {
+                height: 20rem !important;
+            }
+        }
+    }
+}

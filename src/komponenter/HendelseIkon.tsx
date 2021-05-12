@@ -39,6 +39,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     AVTALE_FORLENGET: <Calender />,
     AVTALE_FORKORTET: <Calender />,
     TILSKUDDSBEREGNING_ENDRET: <PengeIkon />,
+    STILLINGSBESKRIVELSE_ENDRET: <></>,
     KONTAKTINFORMASJON_ENDRET: <></>,
     OPPFØLGING_OG_TILRETTELEGGING_ENDRET: <></>,
 };

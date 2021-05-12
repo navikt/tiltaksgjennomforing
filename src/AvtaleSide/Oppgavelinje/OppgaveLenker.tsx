@@ -12,6 +12,7 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
 import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
 import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreKontaktInfo/EndreKontaktInformasjon';
+import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
 import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
 
@@ -47,6 +48,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     <ForlengAvtale />
                     {erLønnstilskudd && <EndreTilskuddsberegning />}
                     <EndreKontaktInformasjon />
+                    <EndreStillingbeskrivelse />
                     <EndreOppfølgingOgTilrettelegging />
                 </>
             )}
