@@ -71,12 +71,12 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 <div aria-hidden={true}>
                     <DialogDots className={cls.element('ikon')} />
                 </div>
-                Endre Stillingsbeskrivelse
+                Endre stillingsbeskrivelse
             </Lenke>
             <BekreftelseModal
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
-                oversiktTekst="Endre Stilling"
+                oversiktTekst="Endre stilling"
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreStilling}
                 lukkModal={() => setModalApen(false)}

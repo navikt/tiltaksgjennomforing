@@ -44,12 +44,12 @@ const OppgaveLenker: React.FunctionComponent = () => {
             {!behandleAvtaleToggle && avtale.kanLåsesOpp && <LaasOppKnapp laasOpp={laasOpp} />}
             {behandleAvtaleToggle && avtale.erLaast && (
                 <>
+                    <EndreKontaktInformasjon />
                     <ForkortAvtale />
                     <ForlengAvtale />
-                    {erLønnstilskudd && <EndreTilskuddsberegning />}
-                    <EndreKontaktInformasjon />
                     <EndreStillingbeskrivelse />
                     <EndreOppfølgingOgTilrettelegging />
+                    {erLønnstilskudd && <EndreTilskuddsberegning />}
                 </>
             )}
             <Varsellogg />
