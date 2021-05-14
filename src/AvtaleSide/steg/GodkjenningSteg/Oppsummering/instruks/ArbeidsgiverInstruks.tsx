@@ -50,15 +50,15 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
         </VeilederpanelMedUtklippstavle>
 
         <Ekspanderbartpanel border={true} tittel="Les mer om kravene">
-            {props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' && (
+            {(props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'SOMMERJOBB') && (
                 <EkspanderbartPanelRad
                     svgIkon={<Calender width="2.25rem" height="2.25rem" />}
                     headerTekst={{ tekst: 'Oppfølging og varighet', typografiType: 'undertittel' }}
                 >
                     <p>
-                        Oppfølging og varighet Du som arbeidsgiver og NAV skal følge opp deltaker. Din oppgave er å
-                        følge opp i det daglige arbeidet og se at arbeidet er i tråd med avtalen som er inngått.
-                        Varigheten på tilskuddet skal vurderes ut fra deltakers behov. Tilskuddet reguleres av{' '}
+                        Du som arbeidsgiver og NAV skal følge opp deltaker. Din oppgave er å følge opp i det daglige
+                        arbeidet og se at arbeidet er i tråd med avtalen som er inngått. Varigheten på tilskuddet skal
+                        vurderes ut fra deltakers behov. Tilskuddet reguleres av{' '}
                         <EksternLenke href="https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_9">
                             forskrift for arbeidsmarkedstiltak
                         </EksternLenke>
@@ -78,7 +78,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                         bestemmelser.
                     </p>
                 )}
-                {(props.tiltakstype === 'VARIG_LONNSTILSKUDD' || props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') && (
+                {(props.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+                    props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+                    props.tiltakstype === 'SOMMERJOBB') && (
                     <p>Deltakeren er ansatt og dere skal følge arbeidsmiljølovens bestemmelser.</p>
                 )}
                 <p>
@@ -187,6 +189,49 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                         ene året.
                     </p>
                 </EkspanderbartPanelRad>
+            )}
+
+            {props.tiltakstype === 'SOMMERJOBB' && (
+                <>
+                    <EkspanderbartPanelRad
+                        svgIkon={<Money width="2.25rem" height="2.25rem" />}
+                        headerTekst={{ tekst: 'Sende inn krav om refusjon', typografiType: 'undertittel' }}
+                    >
+                        <p>
+                            Når tiltaket er over, vil NAV sende dere et ferdig utregnet forslag til refusjon. Refusjonen
+                            regnes ut på bakgrunn av innhold i avtalen og innrapporterte inntekter i A-meldingen. Har
+                            dere mindre lønnsutgifter enn avtalt, blir også støtten redusert. Tilskuddet behandles
+                            automatisk og utbetales etterskuddsvis, etter at dere har godkjent refusjonen. Vi kan
+                            kontrollere om pengene som blir utbetalt blir brukt riktig.
+                        </p>
+                        <p>
+                            For å behandle refusjonen må du logge deg inn i refusjonsløsningen: {''}
+                            <EksternLenke href={'https://tiltak-refusjon.nav.no.'}>
+                                https://tiltak-refusjon.nav.no.
+                            </EksternLenke>
+                            Tilgangen styres via Altinn og du må ha tilgangen “inntektsmelding” for å kunne sende inn
+                            refusjonskrav.
+                        </p>
+                        <p>
+                            Siste frist for å sende inn kravet er senest to måneder etter at perioden er over. Hvis
+                            fristen ikke holdes, trekkes tilskuddet som er innvilget og dere får ikke utbetalt støtte.
+                        </p>
+                    </EkspanderbartPanelRad>
+                    <EkspanderbartPanelRad
+                        svgIkon={<Law width="2.25rem" height="2.25rem" />}
+                        headerTekst={{ tekst: 'Sende inn krav om refusjon', typografiType: 'undertittel' }}
+                    >
+                        <EksternLenke href={'https://tiltak-refusjon.nav.no.'}>
+                            Forskrift om arbeidsmarkedstiltak kapittel 8
+                        </EksternLenke>
+                        <EksternLenke href={'https://tiltak-refusjon.nav.no.'}>
+                            Utfyllende regler til forskriften
+                        </EksternLenke>
+                        <EksternLenke href={'https://tiltak-refusjon.nav.no.'}>
+                            https://tiltak-refusjon.nav.no.
+                        </EksternLenke>
+                    </EkspanderbartPanelRad>
+                </>
             )}
         </Ekspanderbartpanel>
     </>
