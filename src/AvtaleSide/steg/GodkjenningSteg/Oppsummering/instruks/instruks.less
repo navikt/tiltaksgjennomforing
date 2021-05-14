@@ -4,19 +4,19 @@
         padding: 0 0 0 0;
     }
 
-    &__instrukslist {
-        margin-top: 1rem;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
     &__instrukslistsvg {
         display: none;
         @media (min-width: @screen-sm-min) {
             display: block;
             margin-right: 1rem;
         }
+    }
+
+    &__kravomrefusjonlinker {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        margin-left: -1rem;
     }
 
     @media print {
@@ -33,14 +33,6 @@
     .instruks {
         &__subheader {
             padding: 0 0 0 1.25rem;
-        }
-
-        &__instrukslist {
-            margin-top: 1rem;
-            margin-left: 1.25rem;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
         }
     }
 }

@@ -9,7 +9,7 @@ interface Props {
     avtale: Avtale;
 }
 const EndringsTilskuddUtregningPanel: FunctionComponent<Props> = props => {
-    const { manedslonn, feriepengesats, arbeidsgiveravgift, otpSats } = props.endreBeregning;
+    const { manedslonn, feriepengesats, arbeidsgiveravgift, otpSats, stillingprosent } = props.endreBeregning;
     const [nyAvtale, settNyAvtale] = useState<Avtale>(props.avtale);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const EndringsTilskuddUtregningPanel: FunctionComponent<Props> = props => {
                 feriepengesats={feriepengesats}
                 arbeidsgiveravgift={arbeidsgiveravgift}
                 otpSats={otpSats}
-                stillingprosent={nyAvtale.stillingprosent}
+                stillingprosent={stillingprosent}
                 otpBelop={nyAvtale.otpBelop}
                 arbeidsgiveravgiftBelop={nyAvtale.arbeidsgiveravgiftBelop}
                 feriepengerBelop={nyAvtale.feriepengerBelop}
