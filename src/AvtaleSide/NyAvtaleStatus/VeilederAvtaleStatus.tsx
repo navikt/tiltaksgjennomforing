@@ -135,8 +135,8 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                     body={
                         <>
                             <Normaltekst>
-                                Avtale ble inngått {formatterDato(avtale.godkjentAvVeileder!, NORSK_DATO_FORMAT)}.
-                                Tiltaket starter {formatterDato(avtale.startDato!, NORSK_DATO_FORMAT)}.
+                                Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
+                                starter {formatterDato(avtale.startDato!, NORSK_DATO_FORMAT)}.
                             </Normaltekst>
                             <VerticalSpacer rem={1} />
                             <Normaltekst>
@@ -153,8 +153,8 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                     body={
                         <>
                             <Normaltekst>
-                                Avtale ble inngått {formatterDato(avtale.godkjentAvVeileder!, NORSK_DATO_FORMAT)}.
-                                Tiltaket starter {formatterDato(avtale.startDato!, NORSK_DATO_FORMAT)}.
+                                Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
+                                starter {formatterDato(avtale.startDato!, NORSK_DATO_FORMAT)}.
                             </Normaltekst>
                             <VerticalSpacer rem={1} />
                             <Normaltekst>

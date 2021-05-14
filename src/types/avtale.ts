@@ -185,6 +185,7 @@ export interface Godkjenninger {
     godkjentPaVegneGrunn?: GodkjentPaVegneGrunner;
     erLaast: boolean;
     felterSomIkkeErFyltUt: (keyof Avtaleinnhold)[];
+    ikrafttredelsestidspunkt?: string;
 }
 
 export interface Annullering {

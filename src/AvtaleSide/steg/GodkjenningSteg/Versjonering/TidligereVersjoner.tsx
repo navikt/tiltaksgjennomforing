@@ -32,7 +32,7 @@ const TidligereVersjoner: React.FunctionComponent<Versjonering> = props => {
                     <div className={cls.element('rad')}>
                         <Element>Versjon {avtaleVersjon.versjon}</Element>
                         <div className={cls.element('dato')}>
-                            {moment(avtaleVersjon.godkjentAvVeileder as moment.MomentInput).format('DD.MM.YYYY')}
+                            {moment(avtaleVersjon.ikrafttredelsestidspunkt as moment.MomentInput).format('DD.MM.YYYY')}
                         </div>
                     </div>
                 </LenkepanelBase>
