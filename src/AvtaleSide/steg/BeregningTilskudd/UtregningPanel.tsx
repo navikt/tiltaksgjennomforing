@@ -9,18 +9,19 @@ import { ReactComponent as ProsentTegn } from '@/assets/ikoner/prosentTegn.svg';
 import { ReactComponent as StillingsprosentIkon } from '@/assets/ikoner/stillingsprosent.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
-import BEMHelper from '@/utils/bem';
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
     const cls = BEMHelper('utregningspanel');
     return (
-        <Ekspanderbartpanel tittel="Utregningen" apen>
+        <Ekspanderbartpanel tittel={<Element>Tilskudd for en måned</Element>} apen>
             <div className={cls.element('wrapper')}>
                 <Utregningsrad
                     labelIkon={<StillingsprosentIkon />}
@@ -75,7 +76,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                     verdi={props.lonnstilskuddProsent || 0}
                 />
                 <Utregningsrad
-                    labelTekst="Sum tilskudd per måned"
+                    labelTekst="Sum tilskudd for en måned"
                     tekstType="element"
                     verdi={`Inntil ${formatterPenger(props.sumLonnstilskudd || 0)}`}
                 />
@@ -90,7 +91,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                             verdi={props.lonnstilskuddProsent ? props.lonnstilskuddProsent - 10 : 0}
                         />
                         <Utregningsrad
-                            labelTekst="Sum tilskudd per måned"
+                            labelTekst="Sum tilskudd for en måned"
                             tekstType="element"
                             verdi={`Inntil ${formatterPenger(props.sumLønnstilskuddRedusert || 0)}`}
                         />

@@ -1,9 +1,9 @@
 import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
-import LesMerOmTilskuddsPerioder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/LesMerOmTilskuddsPerioder';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
+import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
@@ -12,18 +12,18 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
-import BEMHelper from '@/utils/bem';
-import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
 import { gjorKontonummeroppslag } from '@/services/rest-service';
+import BEMHelper from '@/utils/bem';
+import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
+import { Column, Row } from 'nav-frontend-grid';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
+import TilskuddsPeriodeBoks from './tilskuddsPerioder/TilskuddsPeriodeBoks';
+import TilskuddsPerioderVeileder from './tilskuddsPerioder/TilskuddsPerioderVeileder';
 import UtregningPanel from './UtregningPanel';
-import ProsentInput from '@/komponenter/form/ProsentInput';
-import TilskuddsPerioderVeileder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderVeileder';
-import TilskuddsPerioderArbeidsgiver from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderArbeidsgiver';
-import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -52,6 +52,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier, hentAvtale } = useContext(
         AvtaleContext
     );
+    const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -219,7 +220,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             </LagreKnapp>
                         </Column>
                     </Row>
-
                     <VerticalSpacer rem={2} />
                     <UtregningPanel {...avtale} />
                     <VerticalSpacer rem={1.25} />
@@ -236,12 +236,32 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             />
                         )}
                     <VerticalSpacer rem={2} />
-                    <LesMerOmTilskuddsPerioder />
+                    {/* <LesMerOmTilskuddsPerioder /> */}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
-                        <TilskuddsPerioderArbeidsgiver tilskuddsperioder={avtale.tilskuddPeriode} />
+                        <TilskuddsPeriodeBoks tilskuddsperioder={avtale.tilskuddPeriode} />
                     )}
                     {innloggetBruker.rolle === 'VEILEDER' && (
                         <TilskuddsPerioderVeileder tilskuddsperioder={avtale.tilskuddPeriode} />
+                    )}{' '}
+                    <VerticalSpacer rem={2} />
+                    {visningAvtilskuddsPeriodeToggle && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                        <>
+                            <Undertittel>Refusjon</Undertittel>
+                            <VerticalSpacer rem={1} />
+                            <Normaltekst>
+                                Som arbeidsgiver må du søke om refusjon. Du kan først søke etter at perioden er over.
+                                Når tiltaket er over, vil NAV sende dere et ferdig utregnet forslag til refusjon.
+                                Refusjonen regnes ut på bakgrunn av innhold i avtalen og innrapporterte inntekter i
+                                A-meldingen.
+                            </Normaltekst>
+                            <VerticalSpacer rem={1} />
+                            {avtale.tilskuddPeriode.length > 0 && (
+                                <Element>
+                                    Du kan søke om refusjon fra{' '}
+                                    {formatterDato(avtale.tilskuddPeriode[0].sluttDato, NORSK_DATO_FORMAT)}
+                                </Element>
+                            )}
+                        </>
                     )}
                     <VerticalSpacer rem={2} />
                     <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
