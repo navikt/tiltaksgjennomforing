@@ -1,5 +1,6 @@
 import { ReactComponent as AnsatteIkon } from '@/assets/ikoner/ansatte.svg';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
@@ -9,6 +10,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
+import './instruks.less';
 
 const cls = BEMHelper('instruks');
 interface Props {
@@ -25,25 +27,31 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
             <ul>
                 <li>
                     <Normaltekst> følge opp deltaker underveis i perioden</Normaltekst>
+                    <VerticalSpacer rem={0.5} />
                 </li>
                 <li>
                     <Normaltekst>følge arbeidsmiljøloven</Normaltekst>
+                    <VerticalSpacer rem={0.5} />
                 </li>
                 <li>
                     <Normaltekst>ha forsikring for deltaker</Normaltekst>
+                    <VerticalSpacer rem={0.5} />
                 </li>
                 <li>
                     <Normaltekst>følge folketrygdlovens regler for egenmelding og sykmelding</Normaltekst>
+                    <VerticalSpacer rem={0.5} />
                 </li>
                 <li>
                     <Normaltekst>
                         behandle personopplysninger til deltaker på en forsvarlig måte og slette opplysningene etter at
                         tiltaket er ferdig
                     </Normaltekst>
+                    <VerticalSpacer rem={0.5} />
                 </li>
                 {props.tiltakstype !== 'ARBEIDSTRENING' && (
                     <li>
                         <Normaltekst>sende inn refusjonskrav i tide</Normaltekst>
+                        <VerticalSpacer rem={0.5} />
                     </li>
                 )}
             </ul>
@@ -205,10 +213,6 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                             kontrollere om pengene som blir utbetalt blir brukt riktig.
                         </p>
                         <p>
-                            For å behandle refusjonen må du logge deg inn i refusjonsløsningen: {''}
-                            <EksternLenke href={'https://tiltak-refusjon.nav.no.'}>
-                                https://tiltak-refusjon.nav.no.
-                            </EksternLenke>
                             Tilgangen styres via Altinn og du må ha tilgangen “inntektsmelding” for å kunne sende inn
                             refusjonskrav.
                         </p>
@@ -221,15 +225,21 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                         svgIkon={<Law width="2.25rem" height="2.25rem" />}
                         headerTekst={{ tekst: 'Sende inn krav om refusjon', typografiType: 'undertittel' }}
                     >
-                        <EksternLenke href={'https://tiltak-refusjon.nav.no.'}>
-                            Forskrift om arbeidsmarkedstiltak kapittel 8
-                        </EksternLenke>
-                        <EksternLenke href={'https://tiltak-refusjon.nav.no.'}>
-                            Utfyllende regler til forskriften
-                        </EksternLenke>
-                        <EksternLenke href={'https://tiltak-refusjon.nav.no.'}>
-                            https://tiltak-refusjon.nav.no.
-                        </EksternLenke>
+                        <div className={cls.element('kravomrefusjonlinker')}>
+                            <EksternLenke href={'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_8'}>
+                                Forskrift om arbeidsmarkedstiltak kapittel 8
+                            </EksternLenke>
+                            <EksternLenke href={'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_10'}>
+                                Utfyllende regler til forskriften
+                            </EksternLenke>
+                            <EksternLenke
+                                href={
+                                    'https://www.nav.no/no/person/arbeid/tilskudd-til-sommerjobb#kort-om-tilskudd-til-sommerjobb'
+                                }
+                            >
+                                Krav og vilkår til sommerjobb
+                            </EksternLenke>
+                        </div>
                     </EkspanderbartPanelRad>
                 </>
             )}
