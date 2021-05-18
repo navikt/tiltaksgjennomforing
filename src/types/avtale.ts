@@ -212,7 +212,18 @@ export interface RelasjonerInfo {
     familietilknytningForklaring?: string;
 }
 
-export type AvtaleVersjon = Avtaleinnhold & { versjon: number } & Godkjenninger;
+export type InnholdType =
+    | 'INNGÅ'
+    | 'LÅSE_OPP'
+    | 'FORLENGE'
+    | 'FORKORTE'
+    | 'ENDRE_TILSKUDDSBEREGNING'
+    | 'ENDRE_STILLING'
+    | 'ENDRE_KONTAKTINFO'
+    | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
+    | 'ANNULLERE';
+
+export type AvtaleVersjon = Avtaleinnhold & { versjon: number; innholdType?: InnholdType } & Godkjenninger;
 
 export interface Versjonering {
     versjoner: AvtaleVersjon[];

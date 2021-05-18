@@ -2,6 +2,7 @@ import {
     Avslagsårsaker,
     Avtaleinnhold,
     AvtaleStatus,
+    InnholdType,
     Stillingstype,
     TilskuddPeriodeStatus,
     TiltaksType,
@@ -102,4 +103,16 @@ export const tilskuddsperiodeAvslagTekst: { [key in Avslagsårsaker]: string } =
     FEIL_I_REGELFORSTÅELSE: 'Feil i regelforståelse',
     FEIL_I_PROSENTSATS: 'Feil i prosentsats',
     ANNET: 'Annet',
+};
+
+export const innholdTypeTekst: { [key in InnholdType]: string } = {
+    INNGÅ: 'inngåelse, godkjent av alle parter',
+    LÅSE_OPP: 'endring, godkjent av alle parter',
+    FORLENGE: 'forlenget av veileder',
+    FORKORTE: 'forkortet av veileder',
+    ENDRE_TILSKUDDSBEREGNING: 'endret tilskuddsberegning av veileder',
+    ENDRE_STILLING: 'endring av stillingsinformasjon av veileder',
+    ENDRE_KONTAKTINFO: 'endring av kontaktinformasjon av veileder',
+    ENDRE_OPPFØLGING_OG_TILRETTELEGGING: 'endring av oppfølging/tilrettelegging av veileder',
+    ANNULLERE: '',
 };

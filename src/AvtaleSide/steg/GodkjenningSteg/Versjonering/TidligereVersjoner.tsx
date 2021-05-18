@@ -8,6 +8,7 @@ import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useState } from 'react';
 import './TidligereVersjoner.less';
+import { innholdTypeTekst } from '@/messages';
 
 const cls = BEMHelper('tidligereVersjoner');
 
@@ -15,34 +16,34 @@ const TidligereVersjoner: React.FunctionComponent<Versjonering> = props => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
-    const versjonLenker = props.versjoner
-        .slice(0, -1)
-        .reverse()
-        .map(avtaleVersjon => {
-            return (
-                <LenkepanelBase
-                    key={avtaleVersjon.versjon}
-                    href={'#'}
-                    onClick={() => {
-                        setCurrentVersjon(avtaleVersjon.versjon);
-                        setOpen(true);
-                    }}
-                    border={true}
-                >
-                    <div className={cls.element('rad')}>
-                        <Element>Versjon {avtaleVersjon.versjon}</Element>
-                        <div className={cls.element('dato')}>
-                            {moment(avtaleVersjon.ikrafttredelsestidspunkt as moment.MomentInput).format('DD.MM.YYYY')}
-                        </div>
+    const versjonLenker = props.versjoner.reverse().map(avtaleVersjon => {
+        return (
+            <LenkepanelBase
+                key={avtaleVersjon.versjon}
+                href={'#'}
+                onClick={() => {
+                    setCurrentVersjon(avtaleVersjon.versjon);
+                    setOpen(true);
+                }}
+                border={true}
+            >
+                <div className={cls.element('rad')}>
+                    <Element>
+                        Versjon {avtaleVersjon.versjon}
+                        {avtaleVersjon.innholdType && <> - {innholdTypeTekst[avtaleVersjon.innholdType]}</>}
+                    </Element>
+                    <div className={cls.element('dato')}>
+                        {moment(avtaleVersjon.ikrafttredelsestidspunkt as moment.MomentInput).format('DD.MM.YYYY')}
                     </div>
-                </LenkepanelBase>
-            );
-        });
+                </div>
+            </LenkepanelBase>
+        );
+    });
     return (
         <>
             {versjonLenker.length > 0 && (
                 <>
-                    <SkjemaUndertittel>Tidligere versjoner av avtalen</SkjemaUndertittel>
+                    <SkjemaUndertittel>Alle versjoner av avtalen</SkjemaUndertittel>
                     <div>{versjonLenker}</div>
                     <VersjonModal
                         isOpen={isOpen}
