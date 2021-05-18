@@ -4,7 +4,7 @@ import { useAsyncError } from '@/komponenter/useError';
 import { pathTilInformasjonssideUinnlogget } from '@/paths';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { hentInnloggetBruker } from '@/services/rest-service';
-import { AutentiseringError } from '@/types/errors';
+import { AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Innloggingskilde } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import { HoyreChevron } from 'nav-frontend-chevron';
@@ -18,6 +18,8 @@ import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
 import { Feature } from '@/FeatureToggleProvider';
 import { FeatureToggleContext } from '@/FeatureToggleProvider';
+import { FeilVarselContext } from '@/FeilVarselProvider';
+import { handterFeil } from '@/utils/apiFeilUtils';
 
 const cls = BEMHelper('innloggingsside');
 
@@ -25,6 +27,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const throwError = useAsyncError();
     const [, setCookie] = useCookies();
     const featureToggleContext = useContext(FeatureToggleContext);
+    const visFeilmelding = useContext(FeilVarselContext);
     const viseBeslutterKnappToggle = featureToggleContext[Feature.ViseBeslutterKnapp];
 
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
@@ -32,7 +35,9 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             await hentInnloggetBruker();
             window.location.reload();
         } catch (err) {
-            if (err instanceof AutentiseringError) {
+            if (err instanceof FeilkodeError) {
+                handterFeil(err, visFeilmelding, 'Kunne ikke logge på grunn av uventet feil');
+            } else if (err instanceof AutentiseringError) {
                 window.location.href = innloggingskilde.url;
             } else {
                 throwError(err);
