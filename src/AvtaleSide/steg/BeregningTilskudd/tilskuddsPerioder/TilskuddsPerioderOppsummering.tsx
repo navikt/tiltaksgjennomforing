@@ -13,7 +13,7 @@ const TilskuddsPerioderOppsummering = () => {
     const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
     const { avtale } = useContext(AvtaleContext);
 
-    return visningAvtilskuddsPeriodeToggle ? (
+    return visningAvtilskuddsPeriodeToggle && avtale.tilskuddPeriode.length > 0 ? (
         <>
             <Undertittel>Tilskuddsperioder</Undertittel>
             <VerticalSpacer rem={1} />
