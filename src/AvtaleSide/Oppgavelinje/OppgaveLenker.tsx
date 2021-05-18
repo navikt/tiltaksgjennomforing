@@ -38,10 +38,13 @@ const OppgaveLenker: React.FunctionComponent = () => {
         <>
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
             <GjenopprettAvtalen kanGjenopprettes={avtale.kanGjenopprettes} />
-            {!annullerAvtaleToggle && avtale.kanAvbrytes && <AvbryteAvtalen />}
-            {annullerAvtaleToggle && avtale.kanAvbrytes && <AnnullerAvtalen />}
+            {!annullerAvtaleToggle && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanAvbrytes && <AvbryteAvtalen />}
+            {annullerAvtaleToggle && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanAvbrytes && <AnnullerAvtalen />}
+            {avtale.tiltakstype === 'SOMMERJOBB' && <AnnullerAvtalen />}
             <DelLenkeTilAvtalen />
-            {!behandleAvtaleToggle && avtale.kanLåsesOpp && <LaasOppKnapp laasOpp={laasOpp} />}
+            {!behandleAvtaleToggle && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanLåsesOpp && (
+                <LaasOppKnapp laasOpp={laasOpp} />
+            )}
             {behandleAvtaleToggle && avtale.erLaast && (
                 <>
                     <EndreKontaktInformasjon />
