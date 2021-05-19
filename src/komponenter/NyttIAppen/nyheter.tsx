@@ -6,6 +6,20 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(19, 5, 2021),
+        tittel: 'Avtale om sommerjobb lansert ⛱',
+        innhold: (
+            <>
+                <p>Det er nå mulig å opprette avtaler om sommerjobb.</p>
+                <p>
+                    <EksternLenke href="https://navno.sharepoint.com/sites/intranett-produktomrader-og-utvikling/SitePages/Digital-avtale-om-tilskudd-til-sommerjobb.aspx">
+                        Les mer om sommerjobb på navet.
+                    </EksternLenke>
+                </p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(22, 4, 2021),
         tittel: 'Nytt felt for antall dager i tiltak per uke',
         innhold: (
