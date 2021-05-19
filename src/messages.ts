@@ -2,7 +2,7 @@ import {
     Avslagsårsaker,
     Avtaleinnhold,
     AvtaleStatus,
-    InnholdType,
+    AvtaleVersjon,
     Stillingstype,
     TilskuddPeriodeStatus,
     TiltaksType,
@@ -105,14 +105,28 @@ export const tilskuddsperiodeAvslagTekst: { [key in Avslagsårsaker]: string } =
     ANNET: 'Annet',
 };
 
-export const innholdTypeTekst: { [key in InnholdType]: string } = {
-    INNGÅ: 'inngåelse, godkjent av alle parter',
-    LÅSE_OPP: 'endring, godkjent av alle parter',
-    FORLENGE: 'forlenget av veileder',
-    FORKORTE: 'forkortet av veileder',
-    ENDRE_TILSKUDDSBEREGNING: 'endret tilskuddsberegning av veileder',
-    ENDRE_STILLING: 'endring av stillingsinformasjon av veileder',
-    ENDRE_KONTAKTINFO: 'endring av kontaktinformasjon av veileder',
-    ENDRE_OPPFØLGING_OG_TILRETTELEGGING: 'endring av oppfølging/tilrettelegging av veileder',
-    ANNULLERE: '',
+export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = avtaleVersjon => {
+    if (!avtaleVersjon.innholdType) {
+        return '';
+    }
+    switch (avtaleVersjon.innholdType) {
+        case 'INNGÅ':
+            return 'inngåelse, godkjent av alle parter';
+        case 'LÅSE_OPP':
+            return avtaleVersjon.avtaleInngått ? 'endring, godkjent av alle parter' : 'endring, ikke godkjent ennå';
+        case 'FORLENGE':
+            return 'forlenget av veileder';
+        case 'FORKORTE':
+            return 'forkortet av veileder';
+        case 'ENDRE_TILSKUDDSBEREGNING':
+            return 'endret tilskuddsberegning av veileder';
+        case 'ENDRE_STILLING':
+            return 'endring av stillingsinformasjon av veileder';
+        case 'ENDRE_KONTAKTINFO':
+            return 'endring av kontaktinformasjon av veileder';
+        case 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING':
+            return 'endring av oppfølging/tilrettelegging av veileder';
+        case 'ANNULLERE':
+            return '';
+    }
 };

@@ -30,10 +30,11 @@ const TidligereVersjoner: React.FunctionComponent<Versjonering> = props => {
                 <div className={cls.element('rad')}>
                     <Element>
                         Versjon {avtaleVersjon.versjon}
-                        {avtaleVersjon.innholdType && <> - {innholdTypeTekst[avtaleVersjon.innholdType]}</>}
+                        {avtaleVersjon.innholdType && <> - {innholdTypeTekst(avtaleVersjon)}</>}
                     </Element>
                     <div className={cls.element('dato')}>
-                        {moment(avtaleVersjon.ikrafttredelsestidspunkt as moment.MomentInput).format('DD.MM.YYYY')}
+                        {avtaleVersjon.ikrafttredelsestidspunkt &&
+                            moment(avtaleVersjon.ikrafttredelsestidspunkt as moment.MomentInput).format('DD.MM.YYYY')}
                     </div>
                 </div>
             </LenkepanelBase>
