@@ -217,6 +217,7 @@ export type InnholdType =
     | 'LÅSE_OPP'
     | 'FORLENGE'
     | 'FORKORTE'
+    | 'ENDRE_MÅL'
     | 'ENDRE_TILSKUDDSBEREGNING'
     | 'ENDRE_STILLING'
     | 'ENDRE_KONTAKTINFO'

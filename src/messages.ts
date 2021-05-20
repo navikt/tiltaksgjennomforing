@@ -118,14 +118,16 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = avtale
             return 'forlenget av veileder';
         case 'FORKORTE':
             return 'forkortet av veileder';
+        case 'ENDRE_MÅL':
+            return 'mål endret av veileder';
         case 'ENDRE_TILSKUDDSBEREGNING':
-            return 'endret tilskuddsberegning av veileder';
+            return 'tilskuddsberegning endret av veileder';
         case 'ENDRE_STILLING':
-            return 'endring av stillingsinformasjon av veileder';
+            return 'stillingsinformasjon endret av veileder';
         case 'ENDRE_KONTAKTINFO':
-            return 'endring av kontaktinformasjon av veileder';
+            return 'kontaktinformasjon endret av veileder';
         case 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING':
-            return 'endring av oppfølging/tilrettelegging av veileder';
+            return 'oppfølging/tilrettelegging endret av veileder';
         case 'ANNULLERE':
             return '';
     }
