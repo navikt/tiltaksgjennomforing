@@ -1,22 +1,69 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import { Avtale } from '@/types/avtale';
+import { Maalkategori } from '@/types/maalkategorier';
 import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
-import MaalKort from './MaalKort/MaalKort';
-import AlleMål from './MaalNy/AlleMål';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import EtMaal from './MaalNy/EtMaal';
+import { useMål } from './MaalNy/maalUtils';
 import OpprettMaal from './MaalNy/OpprettMaal';
-import OppretteNyttMaal from './OpprettMaal/OppretteNyttMaal';
 
 const MaalSteg: FunctionComponent = () => {
-    const context = useContext(AvtaleContext);
+    const avtaleContext = useContext(AvtaleContext);
+    const [avtalee, setAvtalee] = useState<Avtale>();
+
+    const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.maal);
+
+    useEffect(() => {
+        console.log(målListe);
+        setAvtalee(avtaleContext.avtale);
+    }, [avtaleContext.avtale.maal]);
+
+    const nyttMål = (beskrivelse: string, kategori: Maalkategori) => {
+        const nyMålListe = leggTilMål(beskrivelse, kategori);
+        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+    };
+    const slett = (id: string) => {
+        const nyMålListe = sletteMål(id);
+        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+    };
+    const endre = (id: string, beskrivelse: string, kategori: Maalkategori) => {
+        const nyMålListe = endreMål(id, beskrivelse, kategori);
+        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+    };
 
     return (
         <div role="main">
-            <OppretteNyttMaal />
-            <OpprettMaal />
-            {context.avtale.maal.map((maal, index) => (
+            <div>
+                {/* <OppretteNyttMaal /> */}
+                {/* {context.avtale.maal.map((maal, index) => (
                 <MaalKort key={index} maal={maal} />
+            ))} */}
+                {/* {målListe.map(maal => (
+                <EtMaal maal={maal} slettMål={sletteMål} målListe={målListe} />
+            ))} */}
+                {/* <OpprettMaal
+                målListe={avtaleContext.avtale.maal}
+                leggTilMål={nyttMål}
+                ledigeMålkategorier={ledigeMålkategorier}
+            /> */}
+                {/* <AlleMål
+                målListe={målListe}
+                endreMål={endreMål}
+                sletteMål={sletteMål}
+                ledigeMålkategorier={ledigeMålkategorier}
+            /> */}
+            </div>
+
+            <OpprettMaal målListe={målListe} leggTilMål={nyttMål} ledigeMålkategorier={ledigeMålkategorier} />
+            {målListe.map(maal => (
+                <EtMaal
+                    key={maal.beskrivelse}
+                    maal={maal}
+                    slett={slett}
+                    endre={endre}
+                    ledigeMålkategorier={ledigeMålkategorier}
+                />
             ))}
-            <AlleMål />
         </div>
     );
 };

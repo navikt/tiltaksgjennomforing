@@ -1,24 +1,22 @@
-import { AvtaleContext } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { messages } from '@/messages';
-import { oppdatereMålInformasjon } from '@/services/rest-service';
+import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
 import { Flatknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useMål } from './maalUtils';
+import React, { FunctionComponent, useState } from 'react';
 
-type Props = {};
+type Props = {
+    målListe: Maal[];
+    leggTilMål: (beskrivelse: string, kategori: Maalkategori) => void;
+    ledigeMålkategorier: Maalkategori[];
+};
 
 const OpprettMaal: FunctionComponent<Props> = props => {
-    const avtaleContext = useContext(AvtaleContext);
-
     const [leggertilMål, setLeggertilMål] = useState(false);
-
-    const { ledigeMålkategorier, leggTilMål, målListe } = useMål(avtaleContext.avtale.maal);
 
     const [beskrivelse, setBeskrivelse] = useState<string | undefined>();
     const [kategori, setKategori] = useState<Maalkategori>();
@@ -28,15 +26,11 @@ const OpprettMaal: FunctionComponent<Props> = props => {
             //set en feil - noe mangler
             return;
         }
-        leggTilMål(beskrivelse, kategori);
-        //oppdatereMålInformasjon(avtaleContext.avtale, målListe).then(() => setLeggertilMål(false));
+        props.leggTilMål(beskrivelse, kategori);
+        setLeggertilMål(false);
+        setBeskrivelse(undefined);
+        setKategori(undefined);
     };
-
-    useEffect(() => {
-        if (målListe.find(mal => mal.kategori === kategori)) {
-            oppdatereMålInformasjon(avtaleContext.avtale, målListe).then(() => setLeggertilMål(false));
-        }
-    }, [målListe]);
 
     return (
         <Innholdsboks>
@@ -50,7 +44,7 @@ const OpprettMaal: FunctionComponent<Props> = props => {
                         label="Hva er målet med arbeidstreningen?"
                     >
                         <option value="">Velg mål</option>
-                        {ledigeMålkategorier.sort().map(kat => (
+                        {props.ledigeMålkategorier.sort().map(kat => (
                             <option key={kat} value={kat}>
                                 {messages[kat]}
                             </option>

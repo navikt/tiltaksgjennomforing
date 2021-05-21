@@ -1,4 +1,3 @@
-import { AvtaleContext } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -9,25 +8,39 @@ import { Maalkategori } from '@/types/maalkategorier';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import { useMål } from './maalUtils';
+import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
     maal: Maal;
+    slett: (id: string) => void;
+    endre: (id: string, beskrivelse: string, kategori: Maalkategori) => void;
+    ledigeMålkategorier: Maalkategori[];
 };
 
 const EtMaal: FunctionComponent<Props> = props => {
     const [endrerMaal, setEndrerMaal] = useState(false);
 
-    const avtaleContext = useContext(AvtaleContext);
-    const { ledigeMålkategorier } = useMål(avtaleContext.avtale.maal);
-
     const [beskrivelse, setBeskrivelse] = useState<string | undefined>(props.maal.beskrivelse);
     const [kategori, setKategori] = useState<Maalkategori>(props.maal.kategori);
 
-    const sorteMaalkategorier = ledigeMålkategorier;
-    sorteMaalkategorier.push(kategori);
+    const sorteMaalkategorier = props.ledigeMålkategorier;
     sorteMaalkategorier.sort();
+
+    const slettMål = () => {
+        if (props.maal.id) {
+            props.slett(props.maal.id);
+        } else {
+            console.log('kunne ikke slette pga manglende id', props.maal);
+        }
+    };
+    const endreMål = () => {
+        if (props.maal.id) {
+            props.endre(props.maal.id, beskrivelse!, kategori);
+            setEndrerMaal(false);
+        } else {
+            console.log('kunne ikke endre pga manglende id', props.maal);
+        }
+    };
 
     return (
         <Innholdsboks>
@@ -38,6 +51,7 @@ const EtMaal: FunctionComponent<Props> = props => {
                         label="Hva er målet med arbeidstreningen?"
                         value={kategori}
                     >
+                        <option value={kategori}>{messages[kategori]}</option>
                         {sorteMaalkategorier.map(kat => (
                             <option key={kat} value={kat}>
                                 {messages[kat]}
@@ -53,7 +67,7 @@ const EtMaal: FunctionComponent<Props> = props => {
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
-                        <Hovedknapp>Lagre</Hovedknapp>
+                        <Hovedknapp onClick={endreMål}>Lagre</Hovedknapp>
                         <Flatknapp onClick={() => setEndrerMaal(false)} style={{ marginLeft: '1rem' }}>
                             Avbryt
                         </Flatknapp>
@@ -71,7 +85,7 @@ const EtMaal: FunctionComponent<Props> = props => {
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
                         <KnappMedIkon onClick={() => setEndrerMaal(true)} label="Endre" ikonType="blyant" />
-                        <KnappMedIkon onClick={() => null} label="Slett" ikonType="soppelkasse" />
+                        <KnappMedIkon onClick={slettMål} label="Slett" ikonType="soppelkasse" />
                     </div>
                 </div>
             )}

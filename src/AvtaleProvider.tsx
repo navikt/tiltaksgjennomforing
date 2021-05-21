@@ -26,7 +26,7 @@ export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T ext
     verdi: T[K]
 ) => void;
 
-export type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>) => void;
+export type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
 type SettOgKalkulerBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
 export interface Context {
@@ -87,7 +87,6 @@ const AvtaleProvider: FunctionComponent = props => {
         if (!forceLagring && !ulagredeEndringer) {
             return;
         }
-
         setUnderLagring(true);
         try {
             const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
@@ -135,13 +134,14 @@ const AvtaleProvider: FunctionComponent = props => {
         }
     };
 
-    const settAvtaleVerdier = (endringer: Partial<Avtale>): Avtale | undefined => {
+    const settAvtaleVerdier = (endringer: Partial<Avtale>, lagre = false): Avtale | undefined => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             const nyAvtale = { ...avtale, ...endringer };
             setAvtale(nyAvtale);
             setUlagredeEndringer(true);
+            if (lagre) lagreAvtale(nyAvtale, true);
             return nyAvtale;
         }
     };
