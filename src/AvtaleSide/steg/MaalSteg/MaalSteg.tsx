@@ -1,22 +1,15 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Avtale } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
 import * as React from 'react';
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import EtMaal from './MaalNy/EtMaal';
 import { useMål } from './MaalNy/maalUtils';
 import OpprettMaal from './MaalNy/OpprettMaal';
 
 const MaalSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
-    const [avtalee, setAvtalee] = useState<Avtale>();
 
     const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.maal);
-
-    useEffect(() => {
-        console.log(målListe);
-        setAvtalee(avtaleContext.avtale);
-    }, [avtaleContext.avtale.maal]);
 
     const nyttMål = (beskrivelse: string, kategori: Maalkategori) => {
         const nyMålListe = leggTilMål(beskrivelse, kategori);
@@ -55,7 +48,7 @@ const MaalSteg: FunctionComponent = () => {
             </div>
 
             <OpprettMaal målListe={målListe} leggTilMål={nyttMål} ledigeMålkategorier={ledigeMålkategorier} />
-            {målListe.map(maal => (
+            {avtaleContext.avtale.maal.map(maal => (
                 <EtMaal
                     key={maal.beskrivelse}
                     maal={maal}
