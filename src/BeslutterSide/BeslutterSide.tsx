@@ -112,7 +112,9 @@ const BeslutterSide: FunctionComponent = () => {
                             {gjeldendeTilskuddsperiode.status === 'UBEHANDLET' && (
                                 <div>
                                     <LagreKnapp
-                                        lagre={() => avtaleContext.godkjennTilskudd()}
+                                        lagre={() =>
+                                            avtaleContext.godkjennTilskudd(avtaleContext.avtale.enhetOppfolging || '')
+                                        }
                                         label="Godkjenn tilskuddsperiode"
                                     />{' '}
                                     <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>

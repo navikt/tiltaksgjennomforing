@@ -271,9 +271,9 @@ export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigh
     return response.data;
 };
 
-export const godkjennTilskuddsperiode = async (avtaleId: string) => {
+export const godkjennTilskuddsperiode = async (avtaleId: string, enhet: string) => {
     const uri = `/avtaler/${avtaleId}/godkjenn-tilskuddsperiode`;
-    await api.post(uri);
+    await api.post(uri, { enhet });
 };
 
 export const avslåTilskuddsperiode = async (
