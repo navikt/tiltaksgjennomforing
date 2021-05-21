@@ -20,6 +20,8 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import { Avslagsårsaker, TilskuddPeriodeStatus } from '@/types/avtale';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
+import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -27,6 +29,11 @@ const BeslutterSide: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [clsName, setClsName] = useState<string>();
 
+    const [enhet, setEnhet] = useState(
+        avtaleContext.avtale.enhetOppfolging || avtaleContext.avtale.enhetGeografisk || ''
+    );
+
+    const [enhetFeil, setEnhetFeil] = useState<SkjemaelementFeil>();
     const [avslagsforklaring, setAvslagsforklaring] = useState('');
     const [avslagsårsaker, setAvslagsårsaker] = useState(new Set<Avslagsårsaker>());
     const [visAvslag, setVisAvslag] = useState(false);
@@ -107,14 +114,45 @@ const BeslutterSide: FunctionComponent = () => {
                                 <div>
                                     <Normaltekst>{formatterPenger(gjeldendeTilskuddsperiode.beløp)}</Normaltekst>
                                 </div>
+                                <div>
+                                    <Element>Geografisk enhet</Element>
+                                </div>
+                                <div>
+                                    <Normaltekst>
+                                        {avtaleContext.avtale.enhetGeografisk || <em>Ikke satt</em>}
+                                    </Normaltekst>
+                                </div>
+                                <div>
+                                    <Element>Oppfølgingsenhet</Element>
+                                </div>
+                                <div>
+                                    <Normaltekst>
+                                        {avtaleContext.avtale.enhetOppfolging || <em>Ikke satt</em>}
+                                    </Normaltekst>
+                                </div>
                             </div>
                             <VerticalSpacer rem={2} />
                             {gjeldendeTilskuddsperiode.status === 'UBEHANDLET' && (
                                 <div>
+                                    <PakrevdInput
+                                        bredde="S"
+                                        label="Kostnadssted"
+                                        verdi={enhet}
+                                        settVerdi={verdi => setEnhet(verdi)}
+                                        maxLength={4}
+                                        feil={enhetFeil}
+                                    />
+                                    <VerticalSpacer rem={1} />
                                     <LagreKnapp
-                                        lagre={() =>
-                                            avtaleContext.godkjennTilskudd(avtaleContext.avtale.enhetOppfolging || '')
-                                        }
+                                        lagre={() => {
+                                            if (!enhet.match(/\d{4}/)) {
+                                                setEnhetFeil({
+                                                    feilmelding: 'Enhet må bestå av 4 siffer',
+                                                });
+                                                return;
+                                            }
+                                            return avtaleContext.godkjennTilskudd(enhet);
+                                        }}
                                         label="Godkjenn tilskuddsperiode"
                                     />{' '}
                                     <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>
@@ -175,10 +213,13 @@ const BeslutterSide: FunctionComponent = () => {
                                 <Normaltekst>
                                     Tilskuddsperioden ble godkjent av{' '}
                                     <b>{gjeldendeTilskuddsperiode.godkjentAvNavIdent}</b> den{' '}
-                                    {formatterDato(
-                                        gjeldendeTilskuddsperiode.godkjentTidspunkt!,
-                                        NORSK_DATO_OG_TID_FORMAT
-                                    )}
+                                    <b>
+                                        {formatterDato(
+                                            gjeldendeTilskuddsperiode.godkjentTidspunkt!,
+                                            NORSK_DATO_OG_TID_FORMAT
+                                        )}
+                                    </b>
+                                    . Kostnadssted: <b>{gjeldendeTilskuddsperiode.enhet}</b>.
                                 </Normaltekst>
                             )}
                             {gjeldendeTilskuddsperiode.status === 'AVSLÅTT' && (
