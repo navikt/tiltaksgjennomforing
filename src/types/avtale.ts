@@ -152,6 +152,7 @@ export interface TilskuddsPeriode {
     lonnstilskuddProsent: number;
     kanBesluttesFom: string;
     aktiv: boolean;
+    enhet?: string;
 }
 
 export interface Kontonummer {
