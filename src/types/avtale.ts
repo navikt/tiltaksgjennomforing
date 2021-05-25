@@ -56,6 +56,8 @@ export interface AvtaleMetadata {
     sistEndret: string;
     tiltakstype: TiltaksType;
     erUfordelt: boolean;
+    enhetGeografisk?: string;
+    enhetOppfolging?: string;
 }
 
 export interface Avtaleparter {
@@ -150,6 +152,7 @@ export interface TilskuddsPeriode {
     lonnstilskuddProsent: number;
     kanBesluttesFom: string;
     aktiv: boolean;
+    enhet?: string;
 }
 
 export interface Kontonummer {
@@ -217,6 +220,7 @@ export type InnholdType =
     | 'LÅSE_OPP'
     | 'FORLENGE'
     | 'FORKORTE'
+    | 'ENDRE_MÅL'
     | 'ENDRE_TILSKUDDSBEREGNING'
     | 'ENDRE_STILLING'
     | 'ENDRE_KONTAKTINFO'

@@ -37,7 +37,7 @@ export interface Context {
     avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
     godkjenn: () => Promise<void>;
-    godkjennTilskudd: () => Promise<void>;
+    godkjennTilskudd: (enhet: string) => Promise<void>;
     avslåTilskudd: (avslagsårsaker: Set<Avslagsårsaker>, avslagsforklaring: string) => Promise<void>;
     godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
     ulagredeEndringer: boolean;
@@ -229,8 +229,8 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale(avtale.id);
     };
 
-    const godkjennTilskudd = async (): Promise<void> => {
-        await RestService.godkjennTilskuddsperiode(avtale.id);
+    const godkjennTilskudd = async (enhet: string): Promise<void> => {
+        await RestService.godkjennTilskuddsperiode(avtale.id, enhet);
         sendToAmplitude('#tiltak-tilskudd-godkjent');
         await hentAvtale(avtale.id);
     };

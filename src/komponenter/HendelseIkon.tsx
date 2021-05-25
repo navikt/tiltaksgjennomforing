@@ -38,10 +38,11 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     TILSKUDDSPERIODE_GODKJENT: <GodkjentIkon />,
     AVTALE_FORLENGET: <Calender />,
     AVTALE_FORKORTET: <Calender />,
+    MÅL_ENDRET: <EndretIkon />,
     TILSKUDDSBEREGNING_ENDRET: <PengeIkon />,
-    STILLINGSBESKRIVELSE_ENDRET: <></>,
-    KONTAKTINFORMASJON_ENDRET: <></>,
-    OPPFØLGING_OG_TILRETTELEGGING_ENDRET: <></>,
+    STILLINGSBESKRIVELSE_ENDRET: <EndretIkon />,
+    KONTAKTINFORMASJON_ENDRET: <EndretIkon />,
+    OPPFØLGING_OG_TILRETTELEGGING_ENDRET: <EndretIkon />,
     AVTALE_INNGÅTT: <GodkjentIkon />,
 };
 
