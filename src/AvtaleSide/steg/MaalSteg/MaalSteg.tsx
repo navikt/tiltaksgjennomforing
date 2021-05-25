@@ -1,4 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Maalkategori } from '@/types/maalkategorier';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EtMaal from './MaalNy/EtMaal';
@@ -7,7 +8,7 @@ import OpprettMaal from './MaalNy/OpprettMaal';
 
 const MaalSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
-    const [iRedigersmodus, setIRedigersmodus] = useState(false);
+    const [iRedigermodus, setIRedigermodus] = useState(false);
 
     const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.maal);
 
@@ -46,18 +47,20 @@ const MaalSteg: FunctionComponent = () => {
                 ledigeMålkategorier={ledigeMålkategorier}
             /> */}
             </div>
+            <Innholdsboks utfyller="veileder">
+                <OpprettMaal
+                    iRedigermodus={iRedigermodus}
+                    setIRedigermodus={setIRedigermodus}
+                    målListe={målListe}
+                    leggTilMål={nyttMål}
+                    ledigeMålkategorier={ledigeMålkategorier}
+                />
+            </Innholdsboks>
 
-            <OpprettMaal
-                iRegideringsmodus={iRedigersmodus}
-                setIRedigeringsmodus={setIRedigersmodus}
-                målListe={målListe}
-                leggTilMål={nyttMål}
-                ledigeMålkategorier={ledigeMålkategorier}
-            />
             {avtaleContext.avtale.maal.map((maal, index) => (
                 <EtMaal
-                    iRegideringsmodus={iRedigersmodus}
-                    setIRedigeringsmodus={setIRedigersmodus}
+                    iRegideringsmodus={iRedigermodus}
+                    setIRedigeringsmodus={setIRedigermodus}
                     key={maal.beskrivelse}
                     maal={maal}
                     slett={() => slett(index)}

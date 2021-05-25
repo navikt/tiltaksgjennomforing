@@ -28,7 +28,7 @@ export const useMål = (initiellMålListe: Maal[]) => {
         return nyMålListe;
     };
 
-    const ledigeMålkategorier = finnLedigeMaalkategorier(målListe);
+    const ledigeMålkategorier = finnLedigeMaalkategorier(målListe).sort();
 
     const sletteMål = (index: number) => {
         //const nyMålListe = målListe.filter(m => m.id !== id);

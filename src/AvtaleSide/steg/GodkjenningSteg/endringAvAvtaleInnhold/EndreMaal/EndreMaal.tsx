@@ -1,5 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VarselTegnForModal from '@/komponenter/modal/VarselTegnForModal';
 import { oppdatereMålInformasjon } from '@/services/rest-service';
 import { Maalkategori } from '@/types/maalkategorier';
@@ -17,7 +18,6 @@ import OpprettMaal from '../../../MaalSteg/MaalNy/OpprettMaal';
 const EndreMaal: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
     const avtaleContext = useContext(AvtaleContext);
-    //const [maal, setMaal] = useState(avtaleContext.avtale.maal);
     const [iRedigersmodus, setIRedigersmodus] = useState(false);
 
     const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.maal);
@@ -36,12 +36,13 @@ const EndreMaal: FunctionComponent = () => {
     const endreMaalInnnhold = (
         <>
             <OpprettMaal
-                iRegideringsmodus={iRedigersmodus}
-                setIRedigeringsmodus={setIRedigersmodus}
+                iRedigermodus={iRedigersmodus}
+                setIRedigermodus={setIRedigersmodus}
                 målListe={målListe}
                 leggTilMål={leggTilMål}
                 ledigeMålkategorier={ledigeMålkategorier}
             />
+            <VerticalSpacer rem={3} />
             {målListe.map((maal, index) => (
                 <div key={index} style={{ border: '1px solid #C6C2BF', borderRadius: '5px', marginBottom: '1rem' }}>
                     <EtMaal
@@ -79,17 +80,6 @@ const EndreMaal: FunctionComponent = () => {
                     Endre mål
                 </Lenke>
             </div>
-
-            {/* <BekreftelseModal
-                style={{ maxWidth: '100%', minHeight: '20rem', minWidth: '40rem' }}
-                avbrytelseTekst="Avbryt"
-                bekreftelseTekst="Lagre målendringer"
-                oversiktTekst="Endre mål"
-                modalIsOpen={modalApen}
-                bekreftOnClick={lagreEndredeMaal}
-                lukkModal={lukkModal}
-                varselTekst={endreMaalInnnhold}
-            /> */}
 
             <div className={'bekreftelseModal'}>
                 <Modal
@@ -134,7 +124,6 @@ const EndreMaal: FunctionComponent = () => {
                             </KnappBase>
                         </div>
                     </div>
-                    {/* {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>} */}
                 </Modal>
             </div>
         </>

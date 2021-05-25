@@ -1,4 +1,3 @@
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { messages } from '@/messages';
@@ -10,8 +9,8 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
-    setIRedigeringsmodus: (iModus: boolean) => void;
-    iRegideringsmodus: boolean;
+    setIRedigermodus: (iModus: boolean) => void;
+    iRedigermodus: boolean;
     målListe: Maal[];
     leggTilMål: (beskrivelse: string, kategori: Maalkategori) => void;
     ledigeMålkategorier: Maalkategori[];
@@ -30,13 +29,13 @@ const OpprettMaal: FunctionComponent<Props> = props => {
         }
         props.leggTilMål(beskrivelse, kategori);
         setLeggertilMål(false);
-        props.setIRedigeringsmodus!(false);
+        props.setIRedigermodus(false);
         setBeskrivelse(undefined);
         setKategori(undefined);
     };
 
     return (
-        <Innholdsboks>
+        <div>
             <Systemtittel>Opprett mål</Systemtittel>
             <VerticalSpacer rem={2} />
 
@@ -47,7 +46,7 @@ const OpprettMaal: FunctionComponent<Props> = props => {
                         label="Hva er målet med arbeidstreningen?"
                     >
                         <option value="">Velg mål</option>
-                        {props.ledigeMålkategorier.sort().map(kat => (
+                        {props.ledigeMålkategorier.map(kat => (
                             <option key={kat} value={kat}>
                                 {messages[kat]}
                             </option>
@@ -66,7 +65,7 @@ const OpprettMaal: FunctionComponent<Props> = props => {
                         <Flatknapp
                             style={{ marginLeft: '1rem' }}
                             onClick={() => {
-                                props.setIRedigeringsmodus!(false);
+                                props.setIRedigermodus(false);
                                 setLeggertilMål(false);
                             }}
                         >
@@ -76,16 +75,16 @@ const OpprettMaal: FunctionComponent<Props> = props => {
                 </div>
             ) : (
                 <Knapp
-                    disabled={props.iRegideringsmodus}
+                    disabled={props.iRedigermodus}
                     onClick={() => {
-                        props.setIRedigeringsmodus!(true);
+                        props.setIRedigermodus(true);
                         setLeggertilMål(true);
                     }}
                 >
                     + Legg til nytt mål
                 </Knapp>
             )}
-        </Innholdsboks>
+        </div>
     );
 };
 

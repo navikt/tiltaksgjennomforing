@@ -101,7 +101,7 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
         },
     });
 
-    return await hentAvtale(avtale.id);
+    return hentAvtale(avtale.id);
 };
 
 export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {

@@ -33,7 +33,7 @@ const EtMaal: FunctionComponent<Props> = props => {
     };
     const endreMål = () => {
         props.endre(beskrivelse!, kategori);
-        props.setIRedigeringsmodus!(false);
+        props.setIRedigeringsmodus(false);
         setEndrerMaal(false);
     };
 
@@ -66,7 +66,7 @@ const EtMaal: FunctionComponent<Props> = props => {
                         <Flatknapp
                             onClick={() => {
                                 setEndrerMaal(false);
-                                props.setIRedigeringsmodus!(false);
+                                props.setIRedigeringsmodus(false);
                             }}
                             style={{ marginLeft: '1rem' }}
                         >
@@ -89,7 +89,7 @@ const EtMaal: FunctionComponent<Props> = props => {
                             <KnappMedIkon
                                 onClick={() => {
                                     setEndrerMaal(true);
-                                    props.setIRedigeringsmodus!(true);
+                                    props.setIRedigeringsmodus(true);
                                 }}
                                 label="Endre"
                                 ikonType="blyant"
