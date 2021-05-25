@@ -1,9 +1,14 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VarselTegnForModal from '@/komponenter/modal/VarselTegnForModal';
 import { oppdatereMålInformasjon } from '@/services/rest-service';
 import { Maalkategori } from '@/types/maalkategorier';
+import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
+import KnappBase from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
+import Modal from 'nav-frontend-modal';
+import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EtMaal from '../../../MaalSteg/MaalNy/EtMaal';
 import { useMål } from '../../../MaalSteg/MaalNy/maalUtils';
@@ -13,6 +18,7 @@ const EndreMaal: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
     const avtaleContext = useContext(AvtaleContext);
     //const [maal, setMaal] = useState(avtaleContext.avtale.maal);
+    const [iRedigersmodus, setIRedigersmodus] = useState(false);
 
     const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.maal);
 
@@ -25,12 +31,22 @@ const EndreMaal: FunctionComponent = () => {
         setModalApen(false);
     };
 
+    const cls = BEMHelper('bekreftelseModal');
+
     const endreMaalInnnhold = (
         <>
-            <OpprettMaal målListe={målListe} leggTilMål={leggTilMål} ledigeMålkategorier={ledigeMålkategorier} />
+            <OpprettMaal
+                iRegideringsmodus={iRedigersmodus}
+                setIRedigeringsmodus={setIRedigersmodus}
+                målListe={målListe}
+                leggTilMål={leggTilMål}
+                ledigeMålkategorier={ledigeMålkategorier}
+            />
             {målListe.map((maal, index) => (
                 <div key={index} style={{ border: '1px solid #C6C2BF', borderRadius: '5px', marginBottom: '1rem' }}>
                     <EtMaal
+                        iRegideringsmodus={iRedigersmodus}
+                        setIRedigeringsmodus={setIRedigersmodus}
                         key={maal.beskrivelse}
                         maal={maal}
                         slett={() => sletteMål(index)}
@@ -64,7 +80,7 @@ const EndreMaal: FunctionComponent = () => {
                 </Lenke>
             </div>
 
-            <BekreftelseModal
+            {/* <BekreftelseModal
                 style={{ maxWidth: '100%', minHeight: '20rem', minWidth: '40rem' }}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Lagre målendringer"
@@ -73,7 +89,54 @@ const EndreMaal: FunctionComponent = () => {
                 bekreftOnClick={lagreEndredeMaal}
                 lukkModal={lukkModal}
                 varselTekst={endreMaalInnnhold}
-            />
+            /> */}
+
+            <div className={'bekreftelseModal'}>
+                <Modal
+                    style={{ content: { maxWidth: '100%', minHeight: '20rem', minWidth: '40rem' } }}
+                    isOpen={modalApen}
+                    className="modal__wrapper"
+                    contentLabel={'bekrefte valgt handling'}
+                    onRequestClose={lukkModal}
+                    closeButton={false}
+                    aria={{ modal: true, labelledby: 'Endre mål' }}
+                    ariaHideApp={true}
+                >
+                    <div className={cls.element('topIconContainer')}>
+                        <VarselTegnForModal width={'80px'} height={'80px'} />
+                    </div>
+                    <div style={{ maxHeight: '80rem' }} className={cls.element('body')}>
+                        <div className={cls.element('knappRad')} />
+                        <div className={cls.element('innhold')}>
+                            <div className={cls.element('tittel')}>
+                                <Systemtittel id={'Endre mål'}>{'Endre mål'}</Systemtittel>
+                            </div>
+                            <div className={cls.element('varselTekst')}>{endreMaalInnnhold}</div>
+                        </div>
+                        <div className={cls.element('knapper')}>
+                            <div>
+                                <LagreKnapp
+                                    disabled={iRedigersmodus}
+                                    className={cls.element('knapp lenkeknapp')}
+                                    lagre={() => lagreEndredeMaal()}
+                                    label="Lagre målendringer"
+                                />
+                            </div>
+                            <KnappBase
+                                role="button"
+                                aria-label={'Avbryt'.concat(' og lukk modalen')}
+                                aria-labelledby={'Lukker dialog for'.concat('Endre mål')}
+                                type="flat"
+                                className={cls.element('knapp lenkeknapp')}
+                                onClick={lukkModal}
+                            >
+                                {'Avbryt'}
+                            </KnappBase>
+                        </div>
+                    </div>
+                    {/* {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>} */}
+                </Modal>
+            </div>
         </>
     );
 };

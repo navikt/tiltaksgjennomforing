@@ -10,6 +10,8 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
+    setIRedigeringsmodus: (iModus: boolean) => void;
+    iRegideringsmodus: boolean;
     målListe: Maal[];
     leggTilMål: (beskrivelse: string, kategori: Maalkategori) => void;
     ledigeMålkategorier: Maalkategori[];
@@ -28,6 +30,7 @@ const OpprettMaal: FunctionComponent<Props> = props => {
         }
         props.leggTilMål(beskrivelse, kategori);
         setLeggertilMål(false);
+        props.setIRedigeringsmodus!(false);
         setBeskrivelse(undefined);
         setKategori(undefined);
     };
@@ -60,13 +63,27 @@ const OpprettMaal: FunctionComponent<Props> = props => {
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
                         <Hovedknapp onClick={lagreMål}>Lagre mål</Hovedknapp>
-                        <Flatknapp style={{ marginLeft: '1rem' }} onClick={() => setLeggertilMål(false)}>
+                        <Flatknapp
+                            style={{ marginLeft: '1rem' }}
+                            onClick={() => {
+                                props.setIRedigeringsmodus!(false);
+                                setLeggertilMål(false);
+                            }}
+                        >
                             Avbryt
                         </Flatknapp>
                     </div>
                 </div>
             ) : (
-                <Knapp onClick={() => setLeggertilMål(true)}>+ Legg til nytt mål</Knapp>
+                <Knapp
+                    disabled={props.iRegideringsmodus}
+                    onClick={() => {
+                        props.setIRedigeringsmodus!(true);
+                        setLeggertilMål(true);
+                    }}
+                >
+                    + Legg til nytt mål
+                </Knapp>
             )}
         </Innholdsboks>
     );

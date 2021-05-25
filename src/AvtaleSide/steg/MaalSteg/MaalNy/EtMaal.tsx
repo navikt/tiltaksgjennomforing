@@ -11,6 +11,8 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
+    setIRedigeringsmodus: (iModus: boolean) => void;
+    iRegideringsmodus: boolean;
     maal: Maal;
     slett: () => void;
     endre: (beskrivelse: string, kategori: Maalkategori) => void;
@@ -31,6 +33,8 @@ const EtMaal: FunctionComponent<Props> = props => {
     };
     const endreMål = () => {
         props.endre(beskrivelse!, kategori);
+        props.setIRedigeringsmodus!(false);
+        setEndrerMaal(false);
     };
 
     return (
@@ -59,7 +63,13 @@ const EtMaal: FunctionComponent<Props> = props => {
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
                         <Hovedknapp onClick={endreMål}>Ok</Hovedknapp>
-                        <Flatknapp onClick={() => setEndrerMaal(false)} style={{ marginLeft: '1rem' }}>
+                        <Flatknapp
+                            onClick={() => {
+                                setEndrerMaal(false);
+                                props.setIRedigeringsmodus!(false);
+                            }}
+                            style={{ marginLeft: '1rem' }}
+                        >
                             Avbryt
                         </Flatknapp>
                     </div>
@@ -74,10 +84,19 @@ const EtMaal: FunctionComponent<Props> = props => {
                     <VerticalSpacer rem={1} />
                     <div style={{ borderTop: '1px solid #C6C2BF' }} />
                     <VerticalSpacer rem={1} />
-                    <div style={{ display: 'flex' }}>
-                        <KnappMedIkon onClick={() => setEndrerMaal(true)} label="Endre" ikonType="blyant" />
-                        <KnappMedIkon onClick={slettMål} label="Slett" ikonType="soppelkasse" />
-                    </div>
+                    {props.iRegideringsmodus !== true && (
+                        <div style={{ display: 'flex' }}>
+                            <KnappMedIkon
+                                onClick={() => {
+                                    setEndrerMaal(true);
+                                    props.setIRedigeringsmodus!(true);
+                                }}
+                                label="Endre"
+                                ikonType="blyant"
+                            />
+                            <KnappMedIkon onClick={slettMål} label="Slett" ikonType="soppelkasse" />
+                        </div>
+                    )}
                 </div>
             )}
         </Innholdsboks>
