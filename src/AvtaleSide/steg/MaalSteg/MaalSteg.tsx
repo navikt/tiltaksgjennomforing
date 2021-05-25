@@ -1,7 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Maalkategori } from '@/types/maalkategorier';
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import EtMaal from './MaalNy/EtMaal';
 import { useMål } from './MaalNy/maalUtils';
 import OpprettMaal from './MaalNy/OpprettMaal';
@@ -15,12 +14,12 @@ const MaalSteg: FunctionComponent = () => {
         const nyMålListe = leggTilMål(beskrivelse, kategori);
         avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
     };
-    const slett = (id: string) => {
-        const nyMålListe = sletteMål(id);
+    const slett = (index: number) => {
+        const nyMålListe = sletteMål(index);
         avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
     };
-    const endre = (id: string, beskrivelse: string, kategori: Maalkategori) => {
-        const nyMålListe = endreMål(id, beskrivelse, kategori);
+    const endre = (index: number, beskrivelse: string, kategori: Maalkategori) => {
+        const nyMålListe = endreMål(index, beskrivelse, kategori);
         avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
     };
 
@@ -48,12 +47,12 @@ const MaalSteg: FunctionComponent = () => {
             </div>
 
             <OpprettMaal målListe={målListe} leggTilMål={nyttMål} ledigeMålkategorier={ledigeMålkategorier} />
-            {avtaleContext.avtale.maal.map(maal => (
+            {avtaleContext.avtale.maal.map((maal, index) => (
                 <EtMaal
                     key={maal.beskrivelse}
                     maal={maal}
-                    slett={slett}
-                    endre={endre}
+                    slett={() => slett(index)}
+                    endre={(beskrivelse: string, kategori: Maalkategori) => endre(index, beskrivelse, kategori)}
                     ledigeMålkategorier={ledigeMålkategorier}
                 />
             ))}

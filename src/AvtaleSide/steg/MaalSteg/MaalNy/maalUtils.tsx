@@ -17,11 +17,10 @@ export const useMål = (initiellMålListe: Maal[]) => {
         return nyMålListe;
     };
 
-    const endreMål = (id: string, beskrivelse: string, kategori: Maalkategori) => {
+    const endreMål = (index: number, beskrivelse: string, kategori: Maalkategori) => {
         const nyMålListe = [...målListe];
-        const index = nyMålListe.findIndex(mål => mål.id === id);
+        //const index = nyMålListe.findIndex(mål => mål.id === id);
         nyMålListe[index] = {
-            id: id,
             beskrivelse: beskrivelse,
             kategori: kategori,
         };
@@ -31,8 +30,10 @@ export const useMål = (initiellMålListe: Maal[]) => {
 
     const ledigeMålkategorier = finnLedigeMaalkategorier(målListe);
 
-    const sletteMål = (id: string) => {
-        const nyMålListe = målListe.filter(m => m.id !== id);
+    const sletteMål = (index: number) => {
+        //const nyMålListe = målListe.filter(m => m.id !== id);
+        const nyMålListe = [...målListe];
+        nyMålListe.splice(index, index + 1);
         setMålListe(nyMålListe);
         return nyMålListe;
     };

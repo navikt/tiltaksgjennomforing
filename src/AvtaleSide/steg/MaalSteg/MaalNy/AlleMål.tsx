@@ -2,7 +2,6 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
 import React, { FunctionComponent, useContext } from 'react';
-import EtMaal from './EtMaal';
 
 type Props = {
     målListe: Maal[];
@@ -11,6 +10,7 @@ type Props = {
     ledigeMålkategorier: Maalkategori[];
 };
 
+//IKKE I BRUK
 const AlleMål: FunctionComponent<Props> = props => {
     const avtaleContext = useContext(AvtaleContext);
     //const { sletteMål, endreMål, målListe } = useMål(avtaleContext.avtale.maal);
@@ -35,13 +35,14 @@ const AlleMål: FunctionComponent<Props> = props => {
     return (
         <>
             {props.målListe.map(maal => (
-                <EtMaal
-                    key={maal.beskrivelse}
-                    maal={maal}
-                    slett={slett}
-                    endre={endre}
-                    ledigeMålkategorier={props.ledigeMålkategorier}
-                />
+                <></>
+                // <EtMaal
+                //     key={maal.beskrivelse}
+                //     maal={maal}
+                //     slett={slett}
+                //     endre={endre}
+                //     ledigeMålkategorier={props.ledigeMålkategorier}
+                // />
             ))}
         </>
     );

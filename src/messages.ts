@@ -126,6 +126,8 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = avtale
             return 'endring av kontaktinformasjon av veileder';
         case 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING':
             return 'endring av oppfølging/tilrettelegging av veileder';
+        case 'ENDRE_MÅL':
+            return 'endring av mål av veileder';
         case 'ANNULLERE':
             return '';
     }

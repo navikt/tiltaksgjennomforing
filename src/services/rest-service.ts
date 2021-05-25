@@ -421,9 +421,5 @@ export const sendTilbakeTilBeslutter = async (avtale: Avtale) => {
 };
 
 export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/endre-maal`, maal, {
-        headers: {
-            'If-Unmodified-Since': avtale.sistEndret,
-        },
-    });
+    await api.post(`/avtaler/${avtale.id}/endre-maal`, { maal: maal });
 };

@@ -221,6 +221,7 @@ export type InnholdType =
     | 'ENDRE_STILLING'
     | 'ENDRE_KONTAKTINFO'
     | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
+    | 'ENDRE_MÅL'
     | 'ANNULLERE';
 
 export type AvtaleVersjon = Avtaleinnhold & { versjon: number; innholdType?: InnholdType } & Godkjenninger;

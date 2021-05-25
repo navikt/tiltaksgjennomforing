@@ -12,8 +12,8 @@ import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
     maal: Maal;
-    slett: (id: string) => void;
-    endre: (id: string, beskrivelse: string, kategori: Maalkategori) => void;
+    slett: () => void;
+    endre: (beskrivelse: string, kategori: Maalkategori) => void;
     ledigeMålkategorier: Maalkategori[];
 };
 
@@ -27,19 +27,10 @@ const EtMaal: FunctionComponent<Props> = props => {
     sorteMaalkategorier.sort();
 
     const slettMål = () => {
-        if (props.maal.id) {
-            props.slett(props.maal.id);
-        } else {
-            console.log('kunne ikke slette pga manglende id', props.maal);
-        }
+        props.slett();
     };
     const endreMål = () => {
-        if (props.maal.id) {
-            props.endre(props.maal.id, beskrivelse!, kategori);
-            setEndrerMaal(false);
-        } else {
-            console.log('kunne ikke endre pga manglende id', props.maal);
-        }
+        props.endre(beskrivelse!, kategori);
     };
 
     return (
@@ -67,7 +58,7 @@ const EtMaal: FunctionComponent<Props> = props => {
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
-                        <Hovedknapp onClick={endreMål}>Lagre</Hovedknapp>
+                        <Hovedknapp onClick={endreMål}>Ok</Hovedknapp>
                         <Flatknapp onClick={() => setEndrerMaal(false)} style={{ marginLeft: '1rem' }}>
                             Avbryt
                         </Flatknapp>

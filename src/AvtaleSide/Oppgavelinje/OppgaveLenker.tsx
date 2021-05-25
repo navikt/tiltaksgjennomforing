@@ -1,20 +1,21 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
 import AvbryteAvtalen from '@/AvtaleSide/AvbryteAvtalen/AvbryteAvtalen';
 import DelLenkeTilAvtalen from '@/AvtaleSide/DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
 import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
+import EndreTilskuddsberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
+import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
+import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForlengAvtale';
+import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
+import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import React, { useContext } from 'react';
-import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
-import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForlengAvtale';
-import EndreTilskuddsberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
-import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
 import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreKontaktInfo/EndreKontaktInformasjon';
-import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
+import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/EndreMaal';
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
-import LaasOppKnapp from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/LaasOppKnapp';
+import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale, laasOpp } = useContext(AvtaleContext);
@@ -27,6 +28,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB';
+    const erArbeidstrening = avtale.tiltakstype === 'ARBEIDSTRENING';
     const erNavIdenterLike = innloggetBruker.identifikator === avtale.veilederNavIdent;
     const erVeileder = innloggetBruker.rolle === 'VEILEDER';
 
@@ -48,6 +50,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
             {behandleAvtaleToggle && avtale.erLaast && (
                 <>
                     <EndreKontaktInformasjon />
+                    {erArbeidstrening && <EndreMaal />}
                     <ForkortAvtale />
                     <ForlengAvtale />
                     <EndreStillingbeskrivelse />
