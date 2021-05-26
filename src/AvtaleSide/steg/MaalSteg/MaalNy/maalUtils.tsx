@@ -19,7 +19,6 @@ export const useMål = (initiellMålListe: Maal[]) => {
 
     const endreMål = (index: number, beskrivelse: string, kategori: Maalkategori) => {
         const nyMålListe = [...målListe];
-        //const index = nyMålListe.findIndex(mål => mål.id === id);
         nyMålListe[index] = {
             beskrivelse: beskrivelse,
             kategori: kategori,
@@ -31,7 +30,6 @@ export const useMål = (initiellMålListe: Maal[]) => {
     const ledigeMålkategorier = finnLedigeMaalkategorier(målListe).sort();
 
     const sletteMål = (index: number) => {
-        //const nyMålListe = målListe.filter(m => m.id !== id);
         const nyMålListe = [...målListe];
         nyMålListe.splice(index, index + 1);
         setMålListe(nyMålListe);
