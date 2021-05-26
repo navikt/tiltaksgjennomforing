@@ -1,17 +1,52 @@
-import * as React from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
-import MaalKort from './MaalKort/MaalKort';
-import OppretteNyttMaal from './OpprettMaal/OppretteNyttMaal';
-import { FunctionComponent, useContext } from 'react';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import { Maalkategori } from '@/types/maalkategorier';
+import React, { FunctionComponent, useContext, useState } from 'react';
+import EtMaal from './MaalNy/EtMaal';
+import { useMål } from './MaalNy/maalUtils';
+import OpprettMaal from './MaalNy/OpprettMaal';
 
 const MaalSteg: FunctionComponent = () => {
-    const context = useContext(AvtaleContext);
+    const avtaleContext = useContext(AvtaleContext);
+    const [iRedigermodus, setIRedigermodus] = useState(false);
+
+    const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.maal);
+
+    const nyttMål = (beskrivelse: string, kategori: Maalkategori) => {
+        const nyMålListe = leggTilMål(beskrivelse, kategori);
+        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+    };
+    const slett = (index: number) => {
+        const nyMålListe = sletteMål(index);
+        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+    };
+    const endre = (index: number, beskrivelse: string, kategori: Maalkategori) => {
+        const nyMålListe = endreMål(index, beskrivelse, kategori);
+        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+    };
 
     return (
         <div role="main">
-            <OppretteNyttMaal />
-            {context.avtale.maal.map((maal, index) => (
-                <MaalKort key={index} maal={maal} />
+            <Innholdsboks utfyller="veileder">
+                <OpprettMaal
+                    iRedigermodus={iRedigermodus}
+                    setIRedigermodus={setIRedigermodus}
+                    målListe={målListe}
+                    leggTilMål={nyttMål}
+                    ledigeMålkategorier={ledigeMålkategorier}
+                />
+            </Innholdsboks>
+
+            {avtaleContext.avtale.maal.map((maal, index) => (
+                <EtMaal
+                    iRegideringsmodus={iRedigermodus}
+                    setIRedigeringsmodus={setIRedigermodus}
+                    key={maal.beskrivelse}
+                    maal={maal}
+                    slett={() => slett(index)}
+                    endre={(beskrivelse: string, kategori: Maalkategori) => endre(index, beskrivelse, kategori)}
+                    ledigeMålkategorier={ledigeMålkategorier}
+                />
             ))}
         </div>
     );

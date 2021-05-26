@@ -49,7 +49,8 @@ export type Feilkode =
     | 'KAN_IKKE_ENDRE_STILLINGSBESKRIVELSE_GRUNN_MANGLER'
     | 'KAN_IKKE_ENDRE_KONTAKTINFO_GRUNN_MANGLER'
     | 'KAN_IKKE_ENDRE_OPPFØLGING_OG_TILRETTELEGGING_GRUNN_MANGLER'
-    | 'MANGLER_AD_GRUPPE_BESLUTTER';
+    | 'MANGLER_AD_GRUPPE_BESLUTTER'
+    | 'KAN_IKKE_ENDRE_MAAL_TOM_LISTE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -103,6 +104,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_ENDRE_STILLINGSBESKRIVELSE_GRUNN_MANGLER: 'Alle felt må være utfylt',
     KAN_IKKE_ENDRE_KONTAKTINFO_GRUNN_MANGLER: 'Alle felt må være utfylt',
     KAN_IKKE_ENDRE_OPPFØLGING_OG_TILRETTELEGGING_GRUNN_MANGLER: 'Alle felt må være utfylt',
+    KAN_IKKE_ENDRE_MAAL_TOM_LISTE: 'Du må ha minst ett mål',
     MANGLER_AD_GRUPPE_BESLUTTER:
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
 };

@@ -1,3 +1,5 @@
+import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
+import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
@@ -8,6 +10,7 @@ import {
     EndreKontaktInfo,
     EndreOppfølgingOgTilretteleggingInfo,
     GodkjentPaVegneGrunner,
+    Maal,
     Stilling,
     TiltaksType,
 } from '@/types/avtale';
@@ -20,8 +23,6 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
-import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -100,7 +101,7 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
         },
     });
 
-    return await hentAvtale(avtale.id);
+    return hentAvtale(avtale.id);
 };
 
 export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {
@@ -417,4 +418,8 @@ export const sendTilbakeTilBeslutter = async (avtale: Avtale) => {
     const uri = `/avtaler/${avtale.id}/send-tilbake-til-beslutter`;
     const response = await api.post(uri);
     return response.data;
+};
+
+export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Promise<void> => {
+    await api.post(`/avtaler/${avtale.id}/endre-maal`, { maal: maal });
 };
