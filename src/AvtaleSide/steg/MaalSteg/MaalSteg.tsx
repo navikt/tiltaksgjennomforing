@@ -27,26 +27,6 @@ const MaalSteg: FunctionComponent = () => {
 
     return (
         <div role="main">
-            <div>
-                {/* <OppretteNyttMaal /> */}
-                {/* {context.avtale.maal.map((maal, index) => (
-                <MaalKort key={index} maal={maal} />
-            ))} */}
-                {/* {målListe.map(maal => (
-                <EtMaal maal={maal} slettMål={sletteMål} målListe={målListe} />
-            ))} */}
-                {/* <OpprettMaal
-                målListe={avtaleContext.avtale.maal}
-                leggTilMål={nyttMål}
-                ledigeMålkategorier={ledigeMålkategorier}
-            /> */}
-                {/* <AlleMål
-                målListe={målListe}
-                endreMål={endreMål}
-                sletteMål={sletteMål}
-                ledigeMålkategorier={ledigeMålkategorier}
-            /> */}
-            </div>
             <Innholdsboks utfyller="veileder">
                 <OpprettMaal
                     iRedigermodus={iRedigermodus}

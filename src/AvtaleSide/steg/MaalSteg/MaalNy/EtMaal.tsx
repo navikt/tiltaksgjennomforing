@@ -22,7 +22,7 @@ type Props = {
 const EtMaal: FunctionComponent<Props> = props => {
     const [endrerMaal, setEndrerMaal] = useState(false);
 
-    const [beskrivelse, setBeskrivelse] = useState<string | undefined>(props.maal.beskrivelse);
+    const [beskrivelse, setBeskrivelse] = useState<string>(props.maal.beskrivelse);
     const [kategori, setKategori] = useState<Maalkategori>(props.maal.kategori);
 
     const sorteMaalkategorier = props.ledigeMålkategorier;
@@ -32,7 +32,7 @@ const EtMaal: FunctionComponent<Props> = props => {
         props.slett();
     };
     const endreMål = () => {
-        props.endre(beskrivelse!, kategori);
+        props.endre(beskrivelse, kategori);
         props.setIRedigeringsmodus(false);
         setEndrerMaal(false);
     };
