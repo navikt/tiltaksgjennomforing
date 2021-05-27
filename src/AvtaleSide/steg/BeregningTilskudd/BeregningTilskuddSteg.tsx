@@ -14,16 +14,14 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import { gjorKontonummeroppslag } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
-import TilskuddsPeriodeBoks from './tilskuddsPerioder/TilskuddsPeriodeBoks';
-import TilskuddsPerioderVeileder from './tilskuddsPerioder/TilskuddsPerioderVeileder';
 import UtregningPanel from './UtregningPanel';
+import TilskuddperiodeBokser from './TilskuddperiodeBokser';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -69,7 +67,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </>
             )}
 
-            {innloggetBruker.erNavAnsatt ? (
+            {innloggetBruker.erNavAnsatt && (
                 <>
                     <Normaltekst className={cls.element('luft')}>
                         Velg sats for refusjon som arbeidsgiver skal få tilbake
@@ -82,7 +80,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }
                     />
                 </>
-            ) : (
+            )}
+            {!innloggetBruker.erNavAnsatt && (
                 <Normaltekst className={cls.element('luft')}>
                     {avtale.lonnstilskuddProsent ? (
                         avtale.lonnstilskuddProsent + ' %'
@@ -234,32 +233,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             />
                         )}
                     <VerticalSpacer rem={2} />
-                    {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
-                        <TilskuddsPeriodeBoks tilskuddsperioder={avtale.tilskuddPeriode} />
-                    )}
-                    {innloggetBruker.rolle === 'VEILEDER' && (
-                        <TilskuddsPerioderVeileder tilskuddsperioder={avtale.tilskuddPeriode} />
-                    )}{' '}
-                    <VerticalSpacer rem={2} />
-                    {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
-                        <>
-                            <Undertittel>Refusjon</Undertittel>
-                            <VerticalSpacer rem={1} />
-                            <Normaltekst>
-                                Som arbeidsgiver må du søke om refusjon. Du kan først søke etter at perioden er over.
-                                Når tiltaket er over, vil NAV sende dere et ferdig utregnet forslag til refusjon.
-                                Refusjonen regnes ut på bakgrunn av innhold i avtalen og innrapporterte inntekter i
-                                A-meldingen.
-                            </Normaltekst>
-                            <VerticalSpacer rem={1} />
-                            {avtale.tilskuddPeriode.length > 0 && (
-                                <Element>
-                                    Du kan søke om refusjon fra{' '}
-                                    {formatterDato(avtale.tilskuddPeriode[0].sluttDato, NORSK_DATO_FORMAT)}
-                                </Element>
-                            )}
-                        </>
-                    )}
+                    <TilskuddperiodeBokser />
                     <VerticalSpacer rem={2} />
                     <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
