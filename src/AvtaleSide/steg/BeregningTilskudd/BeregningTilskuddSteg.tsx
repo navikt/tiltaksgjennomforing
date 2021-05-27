@@ -69,7 +69,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </>
             )}
 
-            {innloggetBruker.erNavAnsatt && (
+            {innloggetBruker.erNavAnsatt ? (
                 <>
                     <Normaltekst className={cls.element('luft')}>
                         Velg sats for refusjon som arbeidsgiver skal få tilbake
@@ -82,8 +82,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }
                     />
                 </>
-            )}
-            {!innloggetBruker.erNavAnsatt && (
+            ) : (
                 <Normaltekst className={cls.element('luft')}>
                     {avtale.lonnstilskuddProsent ? (
                         avtale.lonnstilskuddProsent + ' %'

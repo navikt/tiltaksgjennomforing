@@ -10,16 +10,13 @@ interface Props {
 }
 
 const Gjennomføres: FunctionComponent<Props> = ({ avtale }) => {
-    // Når data er migrert skal alltid datoen være avtale.avtaleInngått
-    const avtaleInngått = avtale.avtaleInngått || avtale.godkjentAvVeileder;
-
     return (
         <StatusPanel
             ikon={CheckIkon}
             header="Tiltaket gjennomføres"
             body={
                 <Normaltekst>
-                    Avtale ble inngått {formatterDato(avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket startet{' '}
+                    Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket startet{' '}
                     {formatterDato(avtale.startDato!, NORSK_DATO_FORMAT)}.
                 </Normaltekst>
             }
