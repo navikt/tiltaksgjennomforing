@@ -22,7 +22,6 @@ const OppgaveLenker: React.FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const featureToggleContext = useContext(FeatureToggleContext);
     const behandleAvtaleToggle = featureToggleContext[Feature.BehandleAvtale];
-    const annullerAvtaleToggle = featureToggleContext[Feature.AnnullerAvtale];
 
     const erLønnstilskudd =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
@@ -40,8 +39,8 @@ const OppgaveLenker: React.FunctionComponent = () => {
         <>
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
             <GjenopprettAvtalen kanGjenopprettes={avtale.kanGjenopprettes} />
-            {!annullerAvtaleToggle && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanAvbrytes && <AvbryteAvtalen />}
-            {annullerAvtaleToggle && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanAvbrytes && <AnnullerAvtalen />}
+            {!behandleAvtaleToggle && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanAvbrytes && <AvbryteAvtalen />}
+            {behandleAvtaleToggle && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanAvbrytes && <AnnullerAvtalen />}
             {avtale.tiltakstype === 'SOMMERJOBB' && <AnnullerAvtalen />}
             <DelLenkeTilAvtalen />
             {!behandleAvtaleToggle && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanLåsesOpp && (
