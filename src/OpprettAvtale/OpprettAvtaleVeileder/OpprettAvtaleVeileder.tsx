@@ -132,7 +132,6 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
     const featureToggleContext = useContext(FeatureToggleContext);
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
-    const sommerjobbToggle = featureToggleContext[Feature.Sommerjobb];
 
     const radiopaneler = (
         <Innholdsboks>
@@ -169,15 +168,13 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
                         onChange={() => setTiltaksType('MENTOR')}
                     />
                 )}
-                {sommerjobbToggle && (
-                    <RadioPanel
-                        name="tiltakstype"
-                        label="Sommerjobb"
-                        value="SOMMERJOBB"
-                        checked={valgtTiltaksType === 'SOMMERJOBB'}
-                        onChange={() => setTiltaksType('SOMMERJOBB')}
-                    />
-                )}
+                <RadioPanel
+                    name="tiltakstype"
+                    label="Sommerjobb"
+                    value="SOMMERJOBB"
+                    checked={valgtTiltaksType === 'SOMMERJOBB'}
+                    onChange={() => setTiltaksType('SOMMERJOBB')}
+                />
             </div>
         </Innholdsboks>
     );

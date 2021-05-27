@@ -52,7 +52,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier, hentAvtale } = useContext(
         AvtaleContext
     );
-    const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -236,7 +235,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             />
                         )}
                     <VerticalSpacer rem={2} />
-                    {/* <LesMerOmTilskuddsPerioder /> */}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
                         <TilskuddsPeriodeBoks tilskuddsperioder={avtale.tilskuddPeriode} />
                     )}
@@ -244,7 +242,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         <TilskuddsPerioderVeileder tilskuddsperioder={avtale.tilskuddPeriode} />
                     )}{' '}
                     <VerticalSpacer rem={2} />
-                    {visningAvtilskuddsPeriodeToggle && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
                         <>
                             <Undertittel>Refusjon</Undertittel>
                             <VerticalSpacer rem={1} />

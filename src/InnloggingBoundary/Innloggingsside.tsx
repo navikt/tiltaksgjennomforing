@@ -16,8 +16,6 @@ import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
-import { Feature } from '@/FeatureToggleProvider';
-import { FeatureToggleContext } from '@/FeatureToggleProvider';
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import { handterFeil } from '@/utils/apiFeilUtils';
 
@@ -26,9 +24,7 @@ const cls = BEMHelper('innloggingsside');
 const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const throwError = useAsyncError();
     const [, setCookie] = useCookies();
-    const featureToggleContext = useContext(FeatureToggleContext);
     const visFeilmelding = useContext(FeilVarselContext);
-    const viseBeslutterKnappToggle = featureToggleContext[Feature.ViseBeslutterKnapp];
 
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
         try {
@@ -45,22 +41,18 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
         }
     };
 
-    const logginnknapper = props.innloggingskilder
-        .filter((innloggetkilde: Innloggingskilde) =>
-            viseBeslutterKnappToggle ? true : innloggetkilde.part !== 'BESLUTTER'
-        )
-        .map((innlogginskilde: Innloggingskilde) => (
-            <Hovedknapp
-                key={innlogginskilde.part}
-                className="innloggingsside__logginnKnapp"
-                onClick={() => {
-                    setCookie(INNLOGGET_PART, innlogginskilde.part, { path: '/tiltaksgjennomforing' });
-                    loginKlikk(innlogginskilde);
-                }}
-            >
-                {innlogginskilde.tittel}
-            </Hovedknapp>
-        ));
+    const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde) => (
+        <Hovedknapp
+            key={innlogginskilde.part}
+            className="innloggingsside__logginnKnapp"
+            onClick={() => {
+                setCookie(INNLOGGET_PART, innlogginskilde.part, { path: '/tiltaksgjennomforing' });
+                loginKlikk(innlogginskilde);
+            }}
+        >
+            {innlogginskilde.tittel}
+        </Hovedknapp>
+    ));
 
     return (
         <div className="wrapper">

@@ -25,19 +25,15 @@ import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { storForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
-type Props = {};
-
-const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
+const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
-    const sommerjobbToggle = useContext(FeatureToggleContext)[Feature.Sommerjobb];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
         verdi => {
@@ -132,17 +128,15 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent<Props> = props => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr]
-                            ?.filter(t => t !== 'SOMMERJOBB' || sommerjobbToggle)
-                            .map(t => (
-                                <RadioPanel
-                                    name="tiltakstype"
-                                    label={storForbokstav(tiltakstypeTekst[t])}
-                                    value={t}
-                                    checked={valgtTiltaksType === t}
-                                    onChange={() => setTiltaksType(t)}
-                                />
-                            ))}
+                        {innloggetBruker.tilganger[valgtBedriftNr].map(t => (
+                            <RadioPanel
+                                name="tiltakstype"
+                                label={storForbokstav(tiltakstypeTekst[t])}
+                                value={t}
+                                checked={valgtTiltaksType === t}
+                                onChange={() => setTiltaksType(t)}
+                            />
+                        ))}
                     </div>
                 </Innholdsboks>
 

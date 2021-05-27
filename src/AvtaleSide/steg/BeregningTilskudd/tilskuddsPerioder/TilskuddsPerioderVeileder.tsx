@@ -1,10 +1,9 @@
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { TilskuddsPeriode } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterPeriode } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 import './tilskuddsPerioder.less';
 import { tilskuddsperiodeStatusTekst } from '@/messages';
 
@@ -15,12 +14,9 @@ type Props = {
 };
 
 const TilskuddsPerioderVeileder: FunctionComponent<Props> = props => {
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
-
     const detErOpprettetTilskuddsPerioder = props.tilskuddsperioder.length > 0;
 
-    return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder ? (
+    return detErOpprettetTilskuddsPerioder ? (
         <div className={cls.className}>
             <table className={'tabell'}>
                 <thead>

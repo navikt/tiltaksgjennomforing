@@ -1,5 +1,4 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
@@ -11,13 +10,11 @@ type Props = {
 };
 
 const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const visningAvtilskuddsPeriodeToggle = featureToggleContext[Feature.VisningAvTilskuddsPerioder];
     const { avtale } = useContext(AvtaleContext);
 
     const detErOpprettetTilskuddsPerioder = avtale.tilskuddPeriode.length > 0;
 
-    return visningAvtilskuddsPeriodeToggle && detErOpprettetTilskuddsPerioder ? (
+    return detErOpprettetTilskuddsPerioder ? (
         <div>
             <table className={'tabell'}>
                 <thead>

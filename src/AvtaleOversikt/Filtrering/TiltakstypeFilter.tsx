@@ -1,7 +1,6 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { OptionProps } from '@/komponenter/form/SelectInput';
-import { TiltaksType } from '@/types/avtale';
-import { Avtale } from '@/types/avtale';
+import { Avtale, TiltaksType } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
 import * as React from 'react';
 import { FunctionComponent, useContext, useState } from 'react';
@@ -16,6 +15,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = props 
         { value: '', label: 'Alle' },
         { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
+        { value: 'SOMMERJOBB', label: 'Sommerjobb' },
     ];
 
     const alleTiltakstyper: OptionProps[] = [
@@ -23,16 +23,12 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = props 
         { value: 'ARBEIDSTRENING', label: 'Arbeidstrening' },
         { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
+        { value: 'SOMMERJOBB', label: 'Sommerjobb' },
     ];
 
     if (featureToggles[Feature.Mentor]) {
         alleTiltakstyperBeslutter.push({ value: 'MENTOR', label: 'Mentor' });
         alleTiltakstyper.push({ value: 'MENTOR', label: 'Mentor' });
-    }
-
-    if (featureToggles[Feature.Sommerjobb]) {
-        alleTiltakstyperBeslutter.push({ value: 'SOMMERJOBB', label: 'Sommerjobb' });
-        alleTiltakstyper.push({ value: 'SOMMERJOBB', label: 'Sommerjobb' });
     }
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
