@@ -1,4 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
@@ -12,7 +13,6 @@ import Lenke from 'nav-frontend-lenker';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
 
 const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -100,7 +100,7 @@ const ForkortAvtale: FunctionComponent = () => {
 
     const lukkModal = () => {
         setModalApen(false);
-        setTilskuddsperioder(avtaleContext.avtale.tilskuddPeriode);
+        setTilskuddsperioder([]);
         setSluttDato(undefined);
     };
 
@@ -127,7 +127,7 @@ const ForkortAvtale: FunctionComponent = () => {
             </div>
 
             <BekreftelseModal
-                style={{ maxWidth: '100%', minHeight: '20rem' }}
+                style={{ maxWidth: '100%' }}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Forkort"
                 oversiktTekst="Forkort avtale"

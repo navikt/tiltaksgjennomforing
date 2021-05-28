@@ -23,7 +23,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const behandleAvtaleToggle = featureToggleContext[Feature.BehandleAvtale];
 
-    const erLønnstilskudd =
+    const harØkonomi =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB';
@@ -54,7 +54,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     <ForlengAvtale />
                     <EndreStillingbeskrivelse />
                     <EndreOppfølgingOgTilrettelegging />
-                    {erLønnstilskudd && <EndreTilskuddsberegning />}
+                    {harØkonomi && <EndreTilskuddsberegning />}
                 </>
             )}
             <Varsellogg />

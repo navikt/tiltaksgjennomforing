@@ -1,15 +1,14 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import { oppdatereStillingbeskrivelse } from '@/services/rest-service';
+import { Stilling } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { DialogDots } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { Stilling } from '@/types/avtale';
-
 import './EndreStillingbeskrivelse.less';
-import { AvtaleContext } from '@/AvtaleProvider';
-import { oppdatereStillingbeskrivelse } from '@/services/rest-service';
 
 const EndreStillingbeskrivelse: FunctionComponent = () => {
     const cls = BEMHelper('endreStillingbeskrivelse');
@@ -74,6 +73,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 Endre stillingsbeskrivelse
             </Lenke>
             <BekreftelseModal
+                style={{ minWidth: '35rem' }}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
                 oversiktTekst="Endre stilling"

@@ -1,14 +1,14 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { forlengAvtale, forlengAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
+import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
 import { Datovelger } from 'nav-datovelger';
-import React, { FunctionComponent, useContext, useState } from 'react';
 import Lenke from 'nav-frontend-lenker';
-import { Notes } from '@navikt/ds-icons/cjs';
-import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
+import React, { FunctionComponent, useContext, useState } from 'react';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -33,7 +33,7 @@ const ForlengAvtale: FunctionComponent = () => {
     };
 
     const forlengeTekst = (
-        <>
+        <div style={{ minHeight: '20rem' }}>
             <label className="skjemaelement__label">Velg ny sluttdato for avtalen</label>
             <Datovelger
                 input={{ placeholder: 'dd.mm.åååå' }}
@@ -50,12 +50,12 @@ const ForlengAvtale: FunctionComponent = () => {
                 overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"
                 tilskuddsperioder={tilskuddsperioder}
             />
-        </>
+        </div>
     );
 
     const lukkModal = () => {
         setModalApen(false);
-        setTilskuddsperioder(avtaleContext.avtale.tilskuddPeriode);
+        setTilskuddsperioder([]);
         setsluttDato(undefined);
     };
 

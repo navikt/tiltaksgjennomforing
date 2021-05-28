@@ -17,7 +17,8 @@
     .bekreftelseModal {
         &__body {
             max-height: 40rem;
-            overflow-y: scroll;
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
             display: flex;
             flex-direction: column;
             padding: 0 0 1rem 0;
@@ -96,10 +97,6 @@
                     margin-bottom: 0rem;
                     margin-right: 1rem;
                 }
-            }
-
-            &__body {
-                max-height: 48rem;
             }
         }
     }

@@ -1,15 +1,14 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import BEMHelper from '@/utils/bem';
-import Lenke from 'nav-frontend-lenker';
-import { EndreOppfølgingOgTilretteleggingInfo } from '@/types/avtale';
-import { MeetingRoom } from '@navikt/ds-icons/cjs';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { oppdatereOppfølgingOgTilretteleggingInformasjon } from '@/services/rest-service';
-
-import './EndreOppfølgingOgTilrettelegging.less';
+import { EndreOppfølgingOgTilretteleggingInfo } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { MeetingRoom } from '@navikt/ds-icons/cjs';
+import Lenke from 'nav-frontend-lenker';
 import { Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext, useState } from 'react';
+import './EndreOppfølgingOgTilrettelegging.less';
 
 const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
     const cls = BEMHelper('endreOppfølgingOgTilrettelegging');
@@ -25,8 +24,8 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
     });
 
     const endreOppfølgingOgTilretteleggingInformasjon = async (): Promise<void> => {
-            await oppdatereOppfølgingOgTilretteleggingInformasjon(context.avtale, oppfølgingOgTilretteleggingInfo);
-            setModalApen(false);
+        await oppdatereOppfølgingOgTilretteleggingInformasjon(context.avtale, oppfølgingOgTilretteleggingInfo);
+        setModalApen(false);
         await context.hentAvtale(context.avtale.id);
     };
 
@@ -91,6 +90,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                 Endre oppfølging og tilrettelegging
             </Lenke>
             <BekreftelseModal
+                style={{ minWidth: '35rem' }}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
                 oversiktTekst="Endre oppfølging og tilrettelegging"
