@@ -1,10 +1,9 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { Avtale, TiltaksType } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
-import * as React from 'react';
-import { FunctionComponent, useContext, useState } from 'react';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import React, { FunctionComponent, useContext, useState } from 'react';
 
 export type FiltreringMedBeslutterProps = { endreSøk: (søkekriterier: Partial<Avtale>) => void; erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = props => {

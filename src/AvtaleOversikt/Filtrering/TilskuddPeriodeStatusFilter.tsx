@@ -3,8 +3,7 @@ import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering'
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { TilskuddPeriodeStatus } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
-import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = props => {
     const [valgtTilskuddPeriodeStatus, setValgtTilskuddPeriodeStatus] = useState<TilskuddPeriodeStatus | ''>(

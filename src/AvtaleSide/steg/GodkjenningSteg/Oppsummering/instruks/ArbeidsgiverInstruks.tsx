@@ -8,8 +8,7 @@ import BEMHelper from '@/utils/bem';
 import { Bandage, Calender, Law, Money, Passport, SocialAid } from '@navikt/ds-icons/cjs';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import './instruks.less';
 
 const cls = BEMHelper('instruks');

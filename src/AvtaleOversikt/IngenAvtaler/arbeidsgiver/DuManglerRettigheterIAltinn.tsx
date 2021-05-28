@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import RammeMedIkonOgOverskrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/RammeMedIkonOgOverskrift';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import BEMHelper from '@/utils/bem';
-import RammeMedIkonOgOverskrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver/RammeMedIkonOgOverskrift';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 

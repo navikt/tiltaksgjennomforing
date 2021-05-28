@@ -1,8 +1,7 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import { storForbokstav } from '@/utils/stringUtils';
 import Lenke from 'nav-frontend-lenker';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { storForbokstav } from '@/utils/stringUtils';
+import React, { FunctionComponent } from 'react';
 
 interface Props {
     felt: string;

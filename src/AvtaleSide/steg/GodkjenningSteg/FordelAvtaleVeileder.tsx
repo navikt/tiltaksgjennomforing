@@ -5,8 +5,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 
 export const FordelAvtaleVeileder: FunctionComponent = () => {
     const { overtaAvtale, avtale } = useContext(AvtaleContext);

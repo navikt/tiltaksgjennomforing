@@ -1,10 +1,9 @@
 import { Avtaleinnhold } from '@/types/avtale';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
-import OmMentorOppsummering from './OmMentorOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
+import OmMentorOppsummering from './OmMentorOppsummering';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;

@@ -1,13 +1,12 @@
+import { MaalListe } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import BEMHelper from '@/utils/bem';
-import { MaalListe } from '@/types/avtale';
-import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import './MaalOppsummering.less';
-import MaalIkon from './MaalIkon';
+import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
+import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import MaalIkon from './MaalIkon';
+import './MaalOppsummering.less';
 
 const cls = BEMHelper('mål');
 

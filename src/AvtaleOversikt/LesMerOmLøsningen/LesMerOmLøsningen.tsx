@@ -3,8 +3,7 @@ import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
 import { Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import './LesMerOmLøsningen.less';
 

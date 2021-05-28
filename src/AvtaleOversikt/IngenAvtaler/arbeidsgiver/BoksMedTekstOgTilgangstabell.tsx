@@ -3,8 +3,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { Tilganger } from '@/types/innlogget-bruker';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import RammeMedIkonOgOverskrift from './RammeMedIkonOgOverskrift';
 
 interface Props {

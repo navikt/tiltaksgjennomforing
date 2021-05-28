@@ -1,12 +1,11 @@
 import { DeltakerOgBedriftFilter } from '@/AvtaleOversikt/Filtrering/DeltakerOgBedriftFilter';
 import StatusFilter from '@/AvtaleOversikt/Filtrering/StatusFilter';
 import TiltakstypeFilter from '@/AvtaleOversikt/Filtrering/TiltakstypeFilter';
+import Sortering from '@/AvtaleOversikt/Sortering';
 import { Avtale, TilskuddPeriodeStatus } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import './Filtrering.less';
-import Sortering from '@/AvtaleOversikt/Sortering';
 
 const cls = BEMHelper('filtrering');
 

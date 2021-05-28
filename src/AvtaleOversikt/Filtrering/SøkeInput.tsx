@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { FormEvent, FunctionComponent, useState } from 'react';
-import { Input } from 'nav-frontend-skjema';
-import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import useValidering from '@/komponenter/useValidering';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { Søkeknapp } from 'nav-frontend-ikonknapper';
+import { Input } from 'nav-frontend-skjema';
 import { NavFrontendInputProps } from 'nav-frontend-skjema/lib/input';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import React, { FormEvent, FunctionComponent, useState } from 'react';
 
 type Props = NavFrontendInputProps & {
     utførSøk: (søkeord: string) => void;

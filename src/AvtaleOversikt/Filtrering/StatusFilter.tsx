@@ -3,8 +3,7 @@ import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering'
 import { avtaleStatusTekst } from '@/messages';
 import { AvtaleStatus } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
-import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 type SokeType = AvtaleStatus | '';
 

@@ -7,11 +7,10 @@ import { BeOmRettigheterUrler, hentBeOmRettighetUrler } from '@/services/rest-se
 import { TiltaksType } from '@/types/avtale';
 import { Tilganger } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
-import * as React from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { storForbokstav } from '@/utils/stringUtils';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import './TilgangTabell.less';
-import { storForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('tilgangtabell');
 

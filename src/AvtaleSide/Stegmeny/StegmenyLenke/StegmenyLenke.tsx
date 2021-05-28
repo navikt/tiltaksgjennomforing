@@ -1,8 +1,7 @@
 import stegFullfortIkon from '@/assets/ikoner/check.svg';
 import stegIkkeFullfortIkon from '@/assets/ikoner/steg-ikke-fullfort.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './StegmenyLenke.less';
 

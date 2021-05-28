@@ -1,8 +1,7 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import { Systemtittel } from 'nav-frontend-typografi';
 import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Systemtittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 interface Props {

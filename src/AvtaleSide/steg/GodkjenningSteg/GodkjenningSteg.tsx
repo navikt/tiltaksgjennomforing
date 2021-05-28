@@ -1,17 +1,16 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import NyAvtaleStatus from '@/AvtaleSide/NyAvtaleStatus/NyAvtaleStatus';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Avtaleinnhold } from '@/types/avtale';
-import * as React from 'react';
-import { createElement, FunctionComponent, useContext } from 'react';
-import Godkjenning from './Godkjenning';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
+import { Avtaleinnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import React, { createElement, FunctionComponent, useContext } from 'react';
+import Godkjenning from './Godkjenning';
 import './GodkjenningSteg.less';
-import NyAvtaleStatus from '@/AvtaleSide/NyAvtaleStatus/NyAvtaleStatus';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;

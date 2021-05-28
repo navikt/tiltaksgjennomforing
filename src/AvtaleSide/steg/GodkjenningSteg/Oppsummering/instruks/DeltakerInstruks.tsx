@@ -1,18 +1,17 @@
 import { ReactComponent as RettighetsHammerIkon } from '@/assets/ikoner/lov.svg';
+import { ReactComponent as Passport } from '@/assets/ikoner/passport.svg';
 import { ReactComponent as SendEmail } from '@/assets/ikoner/sende-email.svg';
 import { ReactComponent as Syk } from '@/assets/ikoner/syk.svg';
-import { ReactComponent as Passport } from '@/assets/ikoner/passport.svg';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
+import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import './instruks.less';
-import { TiltaksType } from '@/types/avtale';
 import Lenke from 'nav-frontend-lenker';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
+import './instruks.less';
 
 const cls = BEMHelper('instruks');
 interface Props {

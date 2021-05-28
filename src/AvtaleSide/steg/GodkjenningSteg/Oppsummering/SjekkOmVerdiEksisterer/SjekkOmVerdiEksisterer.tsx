@@ -1,7 +1,6 @@
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 const SjekkOmVerdiEksisterer: FunctionComponent<{
     verdi?: string;

@@ -1,8 +1,7 @@
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/Avbryte-avtale.svg';
 import AvbrytAvtaleModal from '@/komponenter/modal/AvbrytAvtaleModal';
 import Lenke from 'nav-frontend-lenker';
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './AvbryteAvtalen.less';
 
 const AvbryteAvtalen = () => {
