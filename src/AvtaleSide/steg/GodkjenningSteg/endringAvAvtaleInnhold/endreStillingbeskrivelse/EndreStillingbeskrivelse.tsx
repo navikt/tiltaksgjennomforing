@@ -56,6 +56,11 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
         </div>
     );
 
+    const lukkModal = () => {
+        setModalApen(false);
+        setStillingInfo(context.avtale);
+    };
+
     return (
         <>
             <Lenke
@@ -79,7 +84,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 oversiktTekst="Endre stilling"
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreStilling}
-                lukkModal={() => setModalApen(false)}
+                lukkModal={lukkModal}
                 varselTekst={endreStillingInnhold}
             />
         </>

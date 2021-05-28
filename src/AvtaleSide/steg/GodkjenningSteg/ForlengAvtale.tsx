@@ -9,12 +9,16 @@ import moment from 'moment';
 import { Datovelger } from 'nav-datovelger';
 import Lenke from 'nav-frontend-lenker';
 import React, { FunctionComponent, useContext, useState } from 'react';
+import { handterFeil } from '@/utils/apiFeilUtils';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
 
     const [modalApen, setModalApen] = useState(false);
-    const [sluttDato, setsluttDato] = useState<string | undefined>();
+    const [sluttDato, setSluttDato] = useState<string | undefined>();
+    const [feil, setFeil] = useState<SkjemaelementFeil>();
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
     const forleng = async () => {
@@ -25,26 +29,35 @@ const ForlengAvtale: FunctionComponent = () => {
         }
     };
     const onDatoChange = async (dato: string | undefined) => {
-        setsluttDato(dato);
+        setSluttDato(dato);
         if (dato) {
-            const nyAvtale = await forlengAvtaleDryRun(avtaleContext.avtale, dato);
-            setTilskuddsperioder(nyAvtale.tilskuddPeriode);
+            try {
+                const nyAvtale = await forlengAvtaleDryRun(avtaleContext.avtale, dato);
+                setTilskuddsperioder(nyAvtale.tilskuddPeriode);
+                setFeil(undefined);
+            } catch (e) {
+                handterFeil(e, feilmelding => {
+                    setFeil({ feilmelding });
+                });
+            }
         }
     };
 
     const forlengeTekst = (
         <div style={{ minHeight: '20rem' }}>
-            <label className="skjemaelement__label">Velg ny sluttdato for avtalen</label>
-            <Datovelger
-                input={{ placeholder: 'dd.mm.åååå' }}
-                valgtDato={sluttDato}
-                avgrensninger={{
-                    minDato: moment(avtaleContext.avtale.sluttDato)
-                        .add(1, 'days')
-                        .format('YYYY-MM-DD'),
-                }}
-                onChange={dato => onDatoChange(dato)}
-            />
+            <SkjemaGruppe feil={feil}>
+                <label className="skjemaelement__label">Velg ny sluttdato for avtalen</label>
+                <Datovelger
+                    input={{ placeholder: 'dd.mm.åååå' }}
+                    valgtDato={sluttDato}
+                    avgrensninger={{
+                        minDato: moment(avtaleContext.avtale.sluttDato)
+                            .add(1, 'days')
+                            .format('YYYY-MM-DD'),
+                    }}
+                    onChange={dato => onDatoChange(dato)}
+                />
+            </SkjemaGruppe>
             <VerticalSpacer rem={2} />
             <SlikVilTilskuddsperioderSeUt
                 overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"
@@ -56,7 +69,8 @@ const ForlengAvtale: FunctionComponent = () => {
     const lukkModal = () => {
         setModalApen(false);
         setTilskuddsperioder([]);
-        setsluttDato(undefined);
+        setSluttDato(undefined);
+        setFeil(undefined);
     };
 
     return (

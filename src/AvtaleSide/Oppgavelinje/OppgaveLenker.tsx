@@ -15,7 +15,6 @@ import React, { useContext } from 'react';
 import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreKontaktInfo/EndreKontaktInformasjon';
 import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/EndreMaal';
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
-import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale, laasOpp } = useContext(AvtaleContext);
@@ -52,7 +51,8 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     {erArbeidstrening && <EndreMaal />}
                     <ForkortAvtale />
                     <ForlengAvtale />
-                    <EndreStillingbeskrivelse />
+                    {/* Endre stilling er kommentert ut inntil den er fikset */}
+                    {/*<EndreStillingbeskrivelse />*/}
                     <EndreOppfølgingOgTilrettelegging />
                     {harØkonomi && <EndreTilskuddsberegning />}
                 </>
