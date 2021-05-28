@@ -1,12 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Knapp } from 'nav-frontend-knapper';
-import * as React from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import './OpprettMaal.less';
-import { FunctionComponent, useContext, useState } from 'react';
-import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils';
 
 const OppretteNyttMaal: FunctionComponent = () => {
     const context = useContext(AvtaleContext);

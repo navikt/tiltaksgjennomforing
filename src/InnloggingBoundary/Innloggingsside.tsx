@@ -1,4 +1,5 @@
 import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { useAsyncError } from '@/komponenter/useError';
 import { pathTilInformasjonssideUinnlogget } from '@/paths';
@@ -6,18 +7,16 @@ import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { hentInnloggetBruker } from '@/services/rest-service';
 import { AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Innloggingskilde } from '@/types/innlogget-bruker';
+import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { HoyreChevron } from 'nav-frontend-chevron';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Ingress, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
-import { FeilVarselContext } from '@/FeilVarselProvider';
-import { handterFeil } from '@/utils/apiFeilUtils';
 
 const cls = BEMHelper('innloggingsside');
 

@@ -1,13 +1,12 @@
+import { AvtaleContext } from '@/AvtaleProvider';
+import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Maal } from '@/types/avtale';
-import * as React from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import LagretMaal from './LagretMaal/LagretMaal';
 import './MaalKort.less';
-import { FunctionComponent, useContext, useState } from 'react';
-import { AvtaleContext } from '@/AvtaleProvider';
-import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils';
 
 interface Props {
     maal: Maal;

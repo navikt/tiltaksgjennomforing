@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Collapse } from 'react-collapse';
 import InfoToggler from './InfoToggler/InfoToggler';
 import './LesMerPanel.less';

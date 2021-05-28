@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import TekstMedLinjeskift from '@/komponenter/TekstMedLinjeskift';
 import { Oppfolging } from '@/types/avtale';
+import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import OppfolgingIkon from './OppfolgingIkon';
-import TekstMedLinjeskift from '@/komponenter/TekstMedLinjeskift';
 
 const OppfolgingOppsummering: FunctionComponent<Oppfolging> = ({ oppfolging }) => (
     <Stegoppsummering ikon={<OppfolgingIkon />} tittel="Oppfølging">

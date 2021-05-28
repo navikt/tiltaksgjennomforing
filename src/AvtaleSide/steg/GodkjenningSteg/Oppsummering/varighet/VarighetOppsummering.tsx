@@ -1,13 +1,12 @@
-import moment from 'moment';
-import { Element } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Varighet } from '@/types/avtale';
+import moment from 'moment';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import { Element } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import VarighetIkon from './VarighetIkon';
-import { Column, Container, Row } from 'nav-frontend-grid';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const formaterDato = (dato: string): string => {
     return moment(dato).format('DD.MM.YYYY');

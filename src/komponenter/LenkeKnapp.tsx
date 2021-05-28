@@ -1,6 +1,5 @@
 import { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
-import * as React from 'react';
-import { CSSProperties, FunctionComponent } from 'react';
+import React, { CSSProperties, FunctionComponent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 type Props = {

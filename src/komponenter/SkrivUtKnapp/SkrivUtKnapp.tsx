@@ -1,8 +1,7 @@
 import { ReactComponent as PrinterSvg } from '@/assets/ikoner/printer.svg';
 import BEMHelper from '@/utils/bem';
 import { Knapp } from 'nav-frontend-knapper';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import './SkrivUtKnapp.less';
 
 const printAvtale = () => {

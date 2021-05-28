@@ -1,14 +1,13 @@
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
+import { innholdTypeTekst } from '@/messages';
 import { Versjonering } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
 import { Element } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './TidligereVersjoner.less';
-import { innholdTypeTekst } from '@/messages';
 
 const cls = BEMHelper('tidligereVersjoner');
 

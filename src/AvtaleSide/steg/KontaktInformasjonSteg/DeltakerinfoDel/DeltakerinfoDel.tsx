@@ -4,10 +4,9 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Avtaleparter, Deltakerinfo } from '@/types/avtale';
-import { Input } from 'nav-frontend-skjema';
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
 import BEMHelper from '@/utils/bem';
+import { Input } from 'nav-frontend-skjema';
+import React, { FunctionComponent, useContext } from 'react';
 
 const DeltakerinfoDel: FunctionComponent = () => {
     const cls = BEMHelper('kontaktinfo');

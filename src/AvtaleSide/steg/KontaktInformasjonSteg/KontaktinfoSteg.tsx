@@ -1,12 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import * as React from 'react';
-import { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
-import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import './kontaktinfo.less';
+import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 
 const KontaktinfoSteg: FunctionComponent = () => {
     const { lagreAvtale } = useContext(AvtaleContext);

@@ -1,8 +1,7 @@
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import GodkjenningsLinjeArbeidsgiverDeltaker from './GodkjenningsLinjeArbeidsgiverDeltaker';
 
 export const UfordeltStatusDeltaker: FunctionComponent = () => {

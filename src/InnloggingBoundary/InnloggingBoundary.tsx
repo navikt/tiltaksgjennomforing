@@ -6,13 +6,12 @@ import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/internt';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import NAVSPA from '@navikt/navspa';
-import * as React from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
-import { useHistory } from 'react-router';
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');

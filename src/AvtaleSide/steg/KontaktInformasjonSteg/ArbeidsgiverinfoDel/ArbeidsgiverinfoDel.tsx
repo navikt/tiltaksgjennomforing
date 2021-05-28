@@ -2,11 +2,10 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import * as React from 'react';
-import { useContext } from 'react';
-import Relasjoner from './Relasjoner';
 import BEMHelper from '@/utils/bem';
+import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import React, { useContext } from 'react';
+import Relasjoner from './Relasjoner';
 
 const ArbeidsgiverinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');

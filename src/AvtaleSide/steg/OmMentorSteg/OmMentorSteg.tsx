@@ -8,8 +8,7 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { Mentorinfo } from '@/types/avtale';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import * as React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 const OmMentorSteg = () => {
     const avtaleContext: InputStegProps<Mentorinfo> = useContext(AvtaleContext);
