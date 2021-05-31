@@ -1,5 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import StillingsTittelVelger from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
+import StillingsTittelVelger, { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
@@ -56,6 +56,18 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
         </div>
     );
 
+    const lukkModal = () => {
+        const values: StillingOptions = {
+            konseptId: avtaleContext.avtale.stillingKonseptId || 0,
+            label: avtaleContext.avtale.stillingstittel || '',
+            styrk08: avtaleContext.avtale.stillingStyrk08 || 0,
+            value: avtaleContext.avtale.stillingstittel || '',
+        };
+        setValgtStilling(values);
+        setArbeidsoppgaver(avtaleContext.avtale.arbeidsoppgaver);
+        setModalApen(false);
+    };
+
     return (
         <>
             <Lenke
@@ -79,7 +91,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 oversiktTekst="Endre stilling"
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreStilling}
-                lukkModal={() => setModalApen(false)}
+                lukkModal={lukkModal}
                 varselTekst={endreStillingInnhold}
             />
         </>
