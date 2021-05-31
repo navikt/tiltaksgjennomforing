@@ -15,6 +15,9 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
     const cls = BEMHelper('endreKontaktInformasjon');
     const context = useContext(AvtaleContext);
     const {
+        deltakerFornavn,
+        deltakerEtternavn,
+        deltakerTlf,
         veilederFornavn,
         veilederEtternavn,
         veilederTlf,
@@ -25,6 +28,9 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
 
     const [kontaktInfo, setKontaktInfo] = useState<EndreKontaktInfo>({
+        deltakerFornavn: deltakerFornavn,
+        deltakerEtternavn: deltakerEtternavn,
+        deltakerTlf: deltakerTlf,
         veilederFornavn: veilederFornavn,
         veilederEtternavn: veilederEtternavn,
         veilederTlf: veilederTlf,
@@ -51,6 +57,26 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
 
     const endreKontaktInformasjonInnhold = (
         <div className={cls.className}>
+            <div className={cls.element('tittel')}>
+                <Undertittel>Informasjon om deltaker</Undertittel>
+                <div className={cls.element('inputfelter')}>
+                    <PakrevdInput
+                        label="Fornavn"
+                        verdi={kontaktInfo.deltakerFornavn}
+                        settVerdi={verdi => settNyKontaktInformasjon('deltakerFornavn', verdi)}
+                    />
+                    <PakrevdInput
+                        label="Etternavn"
+                        verdi={kontaktInfo.deltakerEtternavn}
+                        settVerdi={verdi => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
+                    />
+                    <PakrevdInput
+                        label="Telefonnummer "
+                        verdi={kontaktInfo.deltakerTlf}
+                        settVerdi={verdi => settNyKontaktInformasjon('deltakerTlf', verdi)}
+                    />
+                </div>
+            </div>
             <div className={cls.element('tittel')}>
                 <Undertittel>Informasjon om veileder</Undertittel>
                 <div className={cls.element('inputfelter')}>
