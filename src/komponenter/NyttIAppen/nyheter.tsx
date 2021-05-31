@@ -6,6 +6,51 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(31, 5, 2021),
+        tittel: 'Annullering erstatter avbryt',
+        innhold: (
+            <>
+                <p>
+                    «Avbryt» er nå erstattet med «Annullering» som skal brukes når en avtale er feilregistrert eller
+                    hvis avtalen ikke ble noe av. Ved å oppgi annulleringsgrunnen "feilregistrering" vil avtalen
+                    forsvinne fra oversikten og ikke lenger være synlig for deltakeren og arbeidsgiveren.
+                </p>
+
+                <p>Er tilskuddsperioden godkjent og avtalen annulleres, vil midlene frigjøres</p>
+
+                <p>Hvis tiltaket skal avsluttes før tiden, skal man bruke "forkort avtale" funksjonen i menyen.</p>
+            </>
+        ),
+    },
+    {
+        dato: tilDato(31, 5, 2021),
+        tittel: 'Nå kan inngåtte avtaler endres uten at deltaker og arbeidsgiver må godkjenne på nytt',
+        innhold: (
+            <>
+                <p>
+                    "Lås opp avtale" er fjernet og erstattet med en rekke nye endringsfunksjoner i menyen. Endringer via
+                    denne menyen krever ikke ny godkjenning fra deltaker eller arbeidsgiver. Det vil også bli opprettet
+                    en ny versjon ved endring, slik at man kan se hvordan avtalen så ut før endringen ble utført.
+                </p>
+
+                <p>
+                    Følgende endringer er endringer som påvirker tilsagnet:
+                    <ul>
+                        <li>endringer i avtaleperioden</li>
+                        <li>endre tilskuddsberegningen</li>
+                    </ul>
+                    Disse endringene vil bli gjeldende på fremtidige tilskuddsperioder som ikke er godkjent av
+                    beslutter.
+                </p>
+
+                <p>
+                    Det er planlagt å varsle på sms til deltaker og arbeidsgiver ved nye endringer, men dette er ikke
+                    klart helt enda.
+                </p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(19, 5, 2021),
         tittel: 'Avtale om sommerjobb lansert ⛱',
         innhold: (
