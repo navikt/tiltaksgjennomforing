@@ -1,6 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import StillingsTittelVelger from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { oppdatereStillingbeskrivelse } from '@/services/rest-service';
@@ -35,7 +36,13 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     const endreStillingInnhold = (
         <div className={cls.className}>
             <div className={cls.element('inputfelt')}>
-                <StillingsTittelVelger id="" valgtStilling={valgtStilling} setValgtStilling={setValgtStilling} />
+                <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
+                <VerticalSpacer rem={0.5} />
+                <StillingsTittelVelger
+                    id="stillinginput"
+                    valgtStilling={valgtStilling}
+                    setValgtStilling={setValgtStilling}
+                />
             </div>
             <div className={cls.element('textareafelt')}>
                 <PakrevdTextarea
