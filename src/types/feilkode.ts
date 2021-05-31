@@ -31,6 +31,7 @@ export type Feilkode =
     | 'TILSKUDDSPERIODE_BEHANDLE_FOR_TIDLIG'
     | 'TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD'
     | 'TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER'
+    | 'TILSKUDDSPERIODE_IKKE_GODKJENNE_EGNE'
     | 'LONNSTILSKUDD_PROSENT_ER_UGYLDIG'
     | 'KONTOREGISTER_FEIL'
     | 'KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET'
@@ -86,6 +87,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE: 'Tilskuddsperioden kan kun behandles ved inngått avtale',
     TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD: 'Avslagsforklaring må fylles ut',
     TILSKUDDSPERIODE_INGEN_AVSLAGSAARSAKER: 'Minst én avslagsårsak må velges',
+    TILSKUDDSPERIODE_IKKE_GODKJENNE_EGNE: 'Du kan ikke godkjenne tilskuddsperioder for egne avtaler',
     LONNSTILSKUDD_PROSENT_ER_UGYLDIG: 'Ugyldig lønnstilskudd prosent',
     KONTOREGISTER_FEIL: 'Feil ved oppslag til kontoregister',
     KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET: 'Finner ikke bedrift hos kontonummerregister',
