@@ -1,5 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -18,12 +19,18 @@ const cls = BEMHelper('StillingsSteg');
 const StillingSteg: FunctionComponent = () => {
     const avtaleContext: InputStegProps<Stilling & AvtaleMetadata> = useContext(AvtaleContext);
 
+    const { valgtStilling, setValgtStilling } = useStillingFraContext();
+
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Stilling</SkjemaTittel>
             <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
             <VerticalSpacer rem={0.5} />
-            <StillingsTittelVelger id="stillinginput" />
+            <StillingsTittelVelger
+                id="stillinginput"
+                valgtStilling={valgtStilling}
+                setValgtStilling={setValgtStilling}
+            />
             <VerticalSpacer rem={2} />
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"

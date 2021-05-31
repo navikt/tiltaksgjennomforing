@@ -1,9 +1,8 @@
-import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
 import { hentStillinger } from '@/services/stillingsok';
 import { escapeRegExp } from '@/utils/stringUtils';
 import debounce from 'lodash.debounce';
 import React, { FunctionComponent, useState } from 'react';
-import Select, { FormatOptionLabelMeta } from 'react-select';
+import Select, { FormatOptionLabelMeta, ValueType } from 'react-select';
 
 export type StillingOptions = {
     label: string;
@@ -12,10 +11,16 @@ export type StillingOptions = {
     styrk08: number;
 };
 
-const StillingsTittelVelger: FunctionComponent<{ id: string }> = props => {
+type Props = {
+    id: string;
+    valgtStilling: StillingOptions | null;
+    setValgtStilling: (val: ValueType<StillingOptions, boolean>) => void;
+};
+
+const StillingsTittelVelger: FunctionComponent<Props> = props => {
     const [stillinger, setStillinger] = useState<StillingOptions[]>();
 
-    const { valgtStilling, setValgtStilling } = useStillingFraContext();
+    //const { valgtStilling, setValgtStilling } = useStillingFraContext();
 
     const hentOgSettStillinger = (sok: string) => {
         hentStillinger(sok).then(data => {
@@ -66,8 +71,8 @@ const StillingsTittelVelger: FunctionComponent<{ id: string }> = props => {
             placeholder="Skriv inn. For eksempel rørlegger"
             noOptionsMessage={({ inputValue }) => visSokeMelding(inputValue)}
             isClearable={true}
-            value={valgtStilling}
-            onChange={value => setValgtStilling(value)}
+            value={props.valgtStilling}
+            onChange={value => props.setValgtStilling(value)}
             onInputChange={value => delayHentStilling(value)}
             options={stillinger}
             formatOptionLabel={formatOptionLabel}

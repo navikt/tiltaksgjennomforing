@@ -1,6 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import StillingsTittelVelger from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
+import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { oppdatereStillingbeskrivelse } from '@/services/rest-service';
 import { Stilling } from '@/types/avtale';
@@ -14,52 +15,39 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     const cls = BEMHelper('endreStillingbeskrivelse');
     const [modalApen, setModalApen] = useState(false);
 
-    const context = useContext(AvtaleContext);
-    const { stillingstittel, arbeidsoppgaver } = context.avtale;
+    const avtaleContext = useContext(AvtaleContext);
 
-    const [stillingInfo, setStillingInfo] = useState<Stilling>({
-        stillingstittel: stillingstittel,
-        arbeidsoppgaver: arbeidsoppgaver,
-    });
+    const { valgtStilling, setValgtStilling } = useStilling(avtaleContext.avtale);
+    const [arbeidsoppgaver, setArbeidsoppgaver] = useState(avtaleContext.avtale.arbeidsoppgaver);
 
     const endreStilling = async (): Promise<void> => {
-        await oppdatereStillingbeskrivelse(context.avtale, stillingInfo);
+        const stillingInfo: Stilling = {
+            stillingstittel: valgtStilling?.value,
+            stillingKonseptId: valgtStilling?.konseptId,
+            stillingStyrk08: valgtStilling?.styrk08,
+            arbeidsoppgaver: arbeidsoppgaver,
+        };
+        await oppdatereStillingbeskrivelse(avtaleContext.avtale, stillingInfo);
+        await avtaleContext.hentAvtale(avtaleContext.avtale.id);
         setModalApen(false);
-        await context.hentAvtale(context.avtale.id);
-    };
-
-    const settNyStillingInformasjon = async <K extends keyof Stilling, V extends Stilling>(key: K, verdi: V[K]) => {
-        await setStillingInfo(prevState => ({
-            ...prevState,
-            [key]: verdi,
-        }));
     };
 
     const endreStillingInnhold = (
         <div className={cls.className}>
             <div className={cls.element('inputfelt')}>
-                <PakrevdInput
-                    label="Stilling/yrkestype (kun ett yrke kan legges inn)"
-                    verdi={stillingInfo.stillingstittel}
-                    settVerdi={verdi => settNyStillingInformasjon('stillingstittel', verdi)}
-                />
+                <StillingsTittelVelger id="" valgtStilling={valgtStilling} setValgtStilling={setValgtStilling} />
             </div>
             <div className={cls.element('textareafelt')}>
                 <PakrevdTextarea
                     label="Beskriv arbeidsoppgavene som inngår i stillingen"
-                    verdi={stillingInfo.arbeidsoppgaver}
-                    settVerdi={verdi => settNyStillingInformasjon('arbeidsoppgaver', verdi)}
+                    verdi={arbeidsoppgaver}
+                    settVerdi={verdi => setArbeidsoppgaver(verdi)}
                     maxLengde={500}
                     feilmelding="arbeidsoppgave er påkrevd"
                 />
             </div>
         </div>
     );
-
-    const lukkModal = () => {
-        setModalApen(false);
-        setStillingInfo(context.avtale);
-    };
 
     return (
         <>
@@ -84,7 +72,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 oversiktTekst="Endre stilling"
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreStilling}
-                lukkModal={lukkModal}
+                lukkModal={() => setModalApen(false)}
                 varselTekst={endreStillingInnhold}
             />
         </>
