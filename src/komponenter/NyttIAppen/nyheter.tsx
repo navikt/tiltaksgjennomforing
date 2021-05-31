@@ -11,12 +11,12 @@ const nyheter = [
         innhold: (
             <>
                 <p>
-                    «Avbryt» er nå erstattet med «Annullering» som skal brukes når en avtale er feilregistrert eller
+                    "Avbryt" er nå erstattet med "Annullering" som skal brukes når en avtale er feilregistrert eller
                     hvis avtalen ikke ble noe av. Ved å oppgi annulleringsgrunnen "feilregistrering" vil avtalen
                     forsvinne fra oversikten og ikke lenger være synlig for deltakeren og arbeidsgiveren.
                 </p>
 
-                <p>Er tilskuddsperioden godkjent og avtalen annulleres, vil midlene frigjøres</p>
+                <p>Er tilskuddsperioden godkjent og avtalen annulleres, vil midlene frigjøres.</p>
 
                 <p>Hvis tiltaket skal avsluttes før tiden, skal man bruke "forkort avtale" funksjonen i menyen.</p>
             </>
