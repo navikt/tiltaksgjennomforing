@@ -52,7 +52,6 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     {erArbeidstrening && <EndreMaal />}
                     <ForkortAvtale />
                     <ForlengAvtale />
-                    {/* Endre stilling er kommentert ut inntil den er fikset */}
                     <EndreStillingbeskrivelse />
                     <EndreOppfølgingOgTilrettelegging />
                     {harØkonomi && <EndreTilskuddsberegning />}

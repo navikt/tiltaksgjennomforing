@@ -29,7 +29,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
             arbeidsoppgaver: arbeidsoppgaver,
         };
         await oppdatereStillingbeskrivelse(avtaleContext.avtale, stillingInfo);
-        await avtaleContext.hentAvtale(avtaleContext.avtale.id);
+        await avtaleContext.hentAvtale();
         setModalApen(false);
     };
 
