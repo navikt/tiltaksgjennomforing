@@ -20,8 +20,6 @@ type Props = {
 const StillingsTittelVelger: FunctionComponent<Props> = props => {
     const [stillinger, setStillinger] = useState<StillingOptions[]>();
 
-    //const { valgtStilling, setValgtStilling } = useStillingFraContext();
-
     const hentOgSettStillinger = (sok: string) => {
         hentStillinger(sok).then(data => {
             const options: StillingOptions[] = data.map(opt => ({
