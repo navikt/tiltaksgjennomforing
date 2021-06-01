@@ -2,7 +2,6 @@ import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
@@ -12,7 +11,6 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
-import { gjorKontonummeroppslag } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
@@ -22,6 +20,8 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import UtregningPanel from './UtregningPanel';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
+import { Money } from '@navikt/ds-icons';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -190,31 +190,21 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             })
                         }
                     />
+                    <VerticalSpacer rem={2} />
                     <Row className="">
-                        <Column md="6">
-                            <KontonummerInput
-                                bredde={'L'}
-                                label={'Kontonummer til arbeidsgiver'}
-                                value={avtale.arbeidsgiverKontonummer}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
-                                }}
-                                onBlur={() => lagreAvtale()}
-                            />
+                        <Column md="1">
+                            <Money />
                         </Column>
-
-                        <Column md="3">
-                            <VerticalSpacer rem={2} />
-                            <LagreKnapp
-                                hidden={!visningAvKnappHentKontonummerForArbeidsgiver}
-                                label={'hent Kontonummer'}
-                                lagre={async () => {
-                                    await gjorKontonummeroppslag(avtale);
-                                    await hentAvtale(avtale.id);
-                                }}
-                            >
-                                Hent fra Kontonummer
-                            </LagreKnapp>
+                        <Column md="10">
+                            <Normaltekst>
+                                <strong>Kontonummer: </strong>
+                                {avtale.arbeidsgiverKontonummer}
+                            </Normaltekst>
+                            <Normaltekst>
+                                Hvis kontonummeret ikke stemmer så må det oppdateres hos{' '}
+                                <EksternLenke href="https://altinn.no">Altinn.</EksternLenke>
+                                Når du har oppdatert kontonummeret må du oppdatere denne siden med (Ctrl+R)
+                            </Normaltekst>
                         </Column>
                     </Row>
                     <VerticalSpacer rem={2} />
