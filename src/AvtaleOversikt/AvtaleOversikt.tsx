@@ -92,6 +92,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     className={cls.element('filter-og-tabell')}
                     aria-labelledby={cls.element('filter-og-tabell')}
                     role="complementary"
+                    id={cls.element('filter-og-tabell')}
                 >
                     {innloggetBruker.rolle === 'VEILEDER' && (
                         <aside style={layout.stylingAvFilter}>

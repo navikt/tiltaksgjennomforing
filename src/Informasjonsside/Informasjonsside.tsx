@@ -31,7 +31,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
     const veilederOgArbeidsgiverOppretter = (
         <EkspanderbartPanelRad
             classname={cls.element('info')}
-            svgIkon={<Keyboard className={cls.element('SubIkon')} />}
+            svgIkon={<Keyboard role="presentation" focusable="false" className={cls.element('SubIkon')} />}
             headerTekst={{
                 tekst: 'NAV eller arbeidsgiver oppretter en avtale',
                 typografiType: 'undertittel',
@@ -74,7 +74,13 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
 
                         <EkspanderbartPanelRad
                             classname={cls.element('info')}
-                            svgIkon={<DigitalAvtale className={cls.element('SubIkon')} />}
+                            svgIkon={
+                                <DigitalAvtale
+                                    role="presentation"
+                                    focusable="false"
+                                    className={cls.element('SubIkon')}
+                                />
+                            }
                             headerTekst={{
                                 tekst: 'Flere parter i samme digitale løsning',
                                 typografiType: 'undertittel',
@@ -90,7 +96,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
 
                         <EkspanderbartPanelRad
                             classname={cls.element('info')}
-                            svgIkon={<Altinn className={cls.element('SubIkon')} />}
+                            svgIkon={
+                                <Altinn role="presentation" focusable="false" className={cls.element('SubIkon')} />
+                            }
                             headerTekst={{
                                 tekst: 'Tilgang og innlogging til avtalen',
                                 typografiType: 'undertittel',
@@ -120,7 +128,13 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
 
                         <EkspanderbartPanelRad
                             classname={cls.element('info')}
-                            svgIkon={<DynamiskAvtale className={cls.element('SubIkon')} />}
+                            svgIkon={
+                                <DynamiskAvtale
+                                    role="presentation"
+                                    focusable="false"
+                                    className={cls.element('SubIkon')}
+                                />
+                            }
                             headerTekst={{
                                 tekst: 'En dynamisk avtale',
                                 typografiType: 'undertittel',
@@ -132,7 +146,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
 
                         <EkspanderbartPanelRad
                             classname={cls.element('info')}
-                            svgIkon={<Historikk className={cls.element('SubIkon')} />}
+                            svgIkon={
+                                <Historikk role="presentation" focusable="false" className={cls.element('SubIkon')} />
+                            }
                             headerTekst={{
                                 tekst: 'Avtalens historikk',
                                 typografiType: 'undertittel',

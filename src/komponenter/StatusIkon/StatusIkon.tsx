@@ -20,23 +20,23 @@ interface Props {
 const StatusIkon: FunctionComponent<Props> = props => {
     switch (props.status) {
         case 'PÅBEGYNT':
-            return <PabegyntIkon style={props.style} />;
+            return <PabegyntIkon focusable="false" style={props.style} />;
         case 'KLAR_FOR_OPPSTART':
-            return <CheckIkon style={props.style} />;
+            return <CheckIkon focusable="false" style={props.style} />;
         case 'MANGLER_GODKJENNING':
             if (props.godkjentAvInnloggetBruker || (props.rolle === 'VEILEDER' && !props.andrePartnerHarGodkjent)) {
-                return <PabegyntIkon style={props.style} />;
+                return <PabegyntIkon focusable="false" style={props.style} />;
             } else {
-                return <ProblemIkon style={props.style} />;
+                return <ProblemIkon focusable="false" style={props.style} />;
             }
         case 'ANNULLERT':
-            return <AvbruttIkon style={props.style} />;
+            return <AvbruttIkon focusable="false" style={props.style} />;
         case 'AVBRUTT':
-            return <AvbruttIkon style={props.style} />;
+            return <AvbruttIkon focusable="false" style={props.style} />;
         case 'AVSLUTTET':
-            return <InaktivIkon style={props.style} />;
+            return <InaktivIkon focusable="false" style={props.style} />;
         case 'GJENNOMFØRES':
-            return <GjennomforesIkon style={props.style} />;
+            return <GjennomforesIkon focusable="false" style={props.style} />;
         default:
             return null;
     }

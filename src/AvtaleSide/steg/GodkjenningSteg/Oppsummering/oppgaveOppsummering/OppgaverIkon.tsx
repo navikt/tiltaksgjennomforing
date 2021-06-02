@@ -1,7 +1,14 @@
 import React from 'react';
 
 const OppgaverIkon = () => (
-    <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <svg
+        xmlns="https://www.w3.org/2000/svg"
+        role="presentation"
+        focusable="false"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+    >
         <g fill="none" fillRule="evenodd" transform="translate(3)">
             <rect width="18" height="22" y="2" fill="#D8A25C" rx="1.008" />
             <path fill="#E7E9E9" d="M2 4h14v18H2z" />

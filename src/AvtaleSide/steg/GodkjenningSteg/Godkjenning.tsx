@@ -125,7 +125,7 @@ const Godkjenning: FunctionComponent<Props> = props => {
         return kanLagres;
     };
     return (
-        <Innholdsboks className="godkjenning">
+        <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             {instruks(props.rolle, props.avtale)}
             {!slipperBekrefteArbeidsavtale && (

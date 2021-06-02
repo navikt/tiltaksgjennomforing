@@ -25,7 +25,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
     return (
-        <div className={cls.className}>
+        <div className={cls.className} role={'main'}>
             <NyAvtaleStatus />
             <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>

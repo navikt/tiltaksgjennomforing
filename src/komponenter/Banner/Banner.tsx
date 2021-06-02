@@ -31,7 +31,9 @@ const Banner: React.FunctionComponent<Props> = props => {
         case 'DELTAKER':
             return (
                 <div className="banner">
-                    <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
+                    <Innholdstittel role="heading" aria-level={1}>
+                        {props.tekst}
+                    </Innholdstittel>
                 </div>
             );
         default:
