@@ -11,7 +11,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Knapp } from 'nav-frontend-knapper';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
-import { gjorKontonummeroppslag } from '@/services/rest-service';
+import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
@@ -209,11 +209,15 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         <Column md="10">
                             <Knapp
                                 onClick={async () => {
-                                    await gjorKontonummeroppslag(avtale);
-                                    await hentAvtale(avtale.id);
+                                    settAvtaleVerdier(
+                                        {
+                                            arbeidsgiverKontonummer: await hentKontonummerForArbeidsgiver(avtale.id),
+                                        },
+                                        true
+                                    );
                                 }}
                             >
-                                Hent fra Kontonummer
+                                Hent kontonummer fra Altinn
                             </Knapp>
                         </Column>
                     </Row>
