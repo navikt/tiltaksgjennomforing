@@ -219,9 +219,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 {avtale.arbeidsgiverKontonummer}
                             </Normaltekst>
                             <Normaltekst>
-                                Hvis kontonummeret ikke stemmer så må det oppdateres hos
+                                Hvis kontonummeret ikke stemmer så må det oppdateres hos{' '}
                                 <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
-                                    {' '}
                                     Altinn.
                                 </EksternLenke>
                             </Normaltekst>
