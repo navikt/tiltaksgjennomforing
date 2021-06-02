@@ -6,12 +6,15 @@ import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/internt';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import NAVSPA from '@navikt/navspa';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
+import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
+import ByttTilBeslutter from '@/InnloggingBoundary/ByttTilBeslutter';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
@@ -30,6 +33,7 @@ const InnloggingBoundary: FunctionComponent = props => {
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
     const throwError = useAsyncError();
     const history = useHistory();
+    const featureToggles = useContext(FeatureToggleContext);
 
     useEffect(() => {
         sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate')
@@ -64,6 +68,12 @@ const InnloggingBoundary: FunctionComponent = props => {
             <>
                 {brukmeny && <InternflateDecorator {...dekoratorConfig} />}
                 <Innloggingslinje brukBackupmeny={brukBackupmeny} innloggetBruker={innloggetBruker} />
+                {featureToggles[Feature.ByttVisningBeslutterVeileder] &&
+                    innloggetBruker.rolle === 'VEILEDER' &&
+                    innloggetBruker.kanVæreBeslutter && <ByttTilBeslutter />}
+                {featureToggles[Feature.ByttVisningBeslutterVeileder] && innloggetBruker.rolle === 'BESLUTTER' && (
+                    <ByttTilVeileder />
+                )}
                 <InnloggetBrukerContext.Provider value={innloggetBruker}>
                     {props.children}
                 </InnloggetBrukerContext.Provider>
