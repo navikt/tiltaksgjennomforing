@@ -11,6 +11,7 @@ import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, useContext } from 'react';
 import Godkjenning from './Godkjenning';
 import './GodkjenningSteg.less';
+import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -45,6 +46,11 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
                     godkjenn={godkjenn}
                     godkjennPaVegne={godkjennPaVegne}
                 />
+            )}
+            {avtale.tilskuddPeriode.length > 0 && (
+                <Innholdsboks>
+                    <TilskuddsPerioderOppsummering />
+                </Innholdsboks>
             )}
             <VersjoneringKomponent laasOpp={laasOpp} avtale={avtale} rolle={innloggetBruker.rolle} />
         </div>
