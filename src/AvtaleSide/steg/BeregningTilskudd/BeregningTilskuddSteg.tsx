@@ -1,5 +1,6 @@
 import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
@@ -23,6 +24,7 @@ import UtregningPanel from './UtregningPanel';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
 import { Money } from '@navikt/ds-icons';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import KontonummerInput from '@/komponenter/form/KontonummerInput';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -45,6 +47,10 @@ const arbeidsgiveravgiftAlternativer = (() => {
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const featureToggleContext = useContext(FeatureToggleContext);
+    const visningAvKnappHentKontonummerForArbeidsgiver =
+        featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
+
     const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier, hentAvtale } = useContext(
         AvtaleContext
     );
@@ -189,22 +195,39 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }
                     />
                     <VerticalSpacer rem={2} />
-                    <Row className="">
+                    <Row className="" hidden={visningAvKnappHentKontonummerForArbeidsgiver}>
+                        <Column md="12">
+                            <KontonummerInput
+                                bredde={'L'}
+                                label={'Kontonummer til arbeidsgiver'}
+                                value={avtale.arbeidsgiverKontonummer}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                    settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
+                                }}
+                                onBlur={() => lagreAvtale()}
+                            />
+                        </Column>
+                    </Row>
+
+                    <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
                         <Column md="1">
                             <Money />
                         </Column>
-                        <Column md="10">
+                        <Column md="11">
                             <Normaltekst>
                                 <strong>Kontonummer: </strong>
                                 {avtale.arbeidsgiverKontonummer}
                             </Normaltekst>
                             <Normaltekst>
-                                Hvis kontonummeret ikke stemmer så må det oppdateres host
-                                <EksternLenke href="https://altinn.no"> Altinn.</EksternLenke>
+                                Hvis kontonummeret ikke stemmer så må det oppdateres hos
+                                <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
+                                    {' '}
+                                    Altinn.
+                                </EksternLenke>
                             </Normaltekst>
                         </Column>
                     </Row>
-                    <Row className="">
+                    <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
                         <Column md="1" />
                         <Column md="10">
                             <Knapp
