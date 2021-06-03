@@ -6,9 +6,7 @@ import { ReactComponent as ManedslonnIkon } from '@/assets/ikoner/manedsLonn.svg
 import { ReactComponent as ObligTjenestePensjonIkon } from '@/assets/ikoner/obligTjenestepensjon.svg';
 import { ReactComponent as PlussTegn } from '@/assets/ikoner/plussTegn.svg';
 import { ReactComponent as ProsentTegn } from '@/assets/ikoner/prosentTegn.svg';
-import StillingsprosentIkon from '@/assets/ikoner/StillingsprosentIkon';
-//import { ReactComponent as StillingsprosentIkon } from '@/assets/ikoner/stillingsprosent.svg';
-
+import { ReactComponent as StillingsprosentIkon } from '@/assets/ikoner/stillingsprosent.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
@@ -27,9 +25,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
             <div className={cls.element('wrapper')}>
                 <Utregningsrad
                     labelIkon={<StillingsprosentIkon />}
-                    //labelIkon={<StillingsprosentIkon role="presentation" focusable="false" />}
                     labelTekst="Stillingsprosent"
-                    //verdiOperator={<PlussTegn/>}
                     verdiOperator={<ProsentTegn />}
                     verdi={props.stillingprosent || 0}
                     ikkePenger
