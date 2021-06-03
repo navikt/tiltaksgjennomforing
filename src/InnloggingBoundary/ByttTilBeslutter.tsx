@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { Knapp } from 'nav-frontend-knapper';
 
-const ByttTilVeileder: FunctionComponent = () => {
+const ByttTilBeslutter: FunctionComponent = () => {
     const [, setCookie] = useCookies([INNLOGGET_PART]);
 
     const onClick = () => {
@@ -27,4 +27,4 @@ const ByttTilVeileder: FunctionComponent = () => {
     );
 };
 
-export default ByttTilVeileder;
+export default ByttTilBeslutter;
