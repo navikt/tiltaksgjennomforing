@@ -1,5 +1,4 @@
 import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
-import { EndreStilling } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { basename } from '@/paths';
@@ -12,7 +11,9 @@ import {
     EndreOppfølgingOgTilretteleggingInfo,
     GodkjentPaVegneGrunner,
     Maal,
+    Stilling,
     TiltaksType,
+    Varighet,
 } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
@@ -321,16 +322,9 @@ export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
     );
 };
 
+export type EndreStilling = Stilling & Pick<Varighet, 'stillingprosent' | 'antallDagerPerUke'>;
 export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStillingInfo: EndreStilling): Promise<void> => {
-    await api.post(
-        `/avtaler/${avtale.id}/endre-stillingbeskrivelse`,
-        { ...endreStillingInfo },
-        {
-            headers: {
-                'If-Unmodified-Since': avtale.sistEndret,
-            },
-        }
-    );
+    await api.post(`/avtaler/${avtale.id}/endre-stillingbeskrivelse`, endreStillingInfo);
 };
 
 export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {

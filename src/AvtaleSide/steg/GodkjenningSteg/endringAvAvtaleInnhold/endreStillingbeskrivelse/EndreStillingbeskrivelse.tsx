@@ -6,15 +6,12 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { oppdatereStillingbeskrivelse } from '@/services/rest-service';
-import { Stilling, Varighet } from '@/types/avtale';
+import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { DialogDots } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreStillingbeskrivelse.less';
-
-export type EndreStilling = Stilling & Pick<Varighet, 'stillingprosent' | 'antallDagerPerUke'>;
 
 const EndreStillingbeskrivelse: FunctionComponent = () => {
     const cls = BEMHelper('endreStillingbeskrivelse');
