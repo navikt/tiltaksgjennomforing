@@ -1,24 +1,22 @@
+import { AvtaleContext } from '@/AvtaleProvider';
+import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndringsTilskuddUtregningPanel';
+import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import { Beregningsgrunnlag, Varighet } from '@/types/avtale';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndringsTilskuddUtregningPanel';
-import { AvtaleContext } from '@/AvtaleProvider';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
+import { Beregningsgrunnlag, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Normaltekst } from 'nav-frontend-typografi';
-import './EndreTilskuddsberegning.less';
-import Lenke from 'nav-frontend-lenker';
 import { Task } from '@navikt/ds-icons/cjs';
-import ProsentInput from '@/komponenter/form/ProsentInput';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
+import Lenke from 'nav-frontend-lenker';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext, useState } from 'react';
+import './EndreTilskuddsberegning.less';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag & Varighet,
-    'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift' | 'stillingprosent' | 'antallDagerPerUke'
+    'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift' | 'stillingprosent'
 >;
 
 const arbeidsgiveravgiftSatser = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
@@ -33,22 +31,13 @@ const mapAvgiftSatser = (satser: number[]) =>
 const EndreTilskuddsberegning: FunctionComponent = () => {
     const cls = BEMHelper('endreTilskuddsBeregning');
     const context = useContext(AvtaleContext);
-    const {
-        manedslonn,
-        feriepengesats,
-        otpSats,
-        arbeidsgiveravgift,
-        stillingprosent,
-        antallDagerPerUke,
-    } = context.avtale;
+    const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift } = context.avtale;
     const [modalApen, setModalApen] = useState(false);
     const [nyBeregning, setNyBeregning] = useState<EndreBeregning>({
         manedslonn: manedslonn,
         otpSats: otpSats,
         feriepengesats: feriepengesats,
         arbeidsgiveravgift: arbeidsgiveravgift,
-        stillingprosent: stillingprosent,
-        antallDagerPerUke: antallDagerPerUke,
     });
 
     const endreBeregning = async (): Promise<void> => {
@@ -73,28 +62,6 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
 
     const endreBeregningInnhold = (
         <div className={cls.className}>
-            <div className={cls.element('topinputrad')}>
-                <StillingsprosentInput
-                    label="Stillingsprosent"
-                    verdi={nyBeregning.stillingprosent}
-                    settVerdi={verdi => settNyBeregningsverdi('stillingprosent', verdi)}
-                />
-                <PakrevdInput
-                    bredde="S"
-                    label="Antall dager per uke"
-                    type="number"
-                    max={7}
-                    verdi={nyBeregning.antallDagerPerUke}
-                    settVerdi={eventVerdi => {
-                        const verdi = parseInt(eventVerdi);
-                        if (verdi > 0 && verdi < 8) {
-                            settNyBeregningsverdi('antallDagerPerUke', verdi);
-                        } else {
-                            settNyBeregningsverdi('antallDagerPerUke', undefined);
-                        }
-                    }}
-                />
-            </div>
             <ValutaInput
                 name="manedslonn"
                 bredde="M"
