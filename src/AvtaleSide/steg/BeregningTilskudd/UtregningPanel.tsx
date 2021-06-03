@@ -6,7 +6,9 @@ import { ReactComponent as ManedslonnIkon } from '@/assets/ikoner/manedsLonn.svg
 import { ReactComponent as ObligTjenestePensjonIkon } from '@/assets/ikoner/obligTjenestepensjon.svg';
 import { ReactComponent as PlussTegn } from '@/assets/ikoner/plussTegn.svg';
 import { ReactComponent as ProsentTegn } from '@/assets/ikoner/prosentTegn.svg';
-import { ReactComponent as StillingsprosentIkon } from '@/assets/ikoner/stillingsprosent.svg';
+import StillingsprosentIkon from '@/assets/ikoner/StillingsprosentIkon';
+//import { ReactComponent as StillingsprosentIkon } from '@/assets/ikoner/stillingsprosent.svg';
+
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
@@ -25,41 +27,43 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
             <div className={cls.element('wrapper')}>
                 <Utregningsrad
                     labelIkon={<StillingsprosentIkon />}
+                    //labelIkon={<StillingsprosentIkon role="presentation" focusable="false" />}
                     labelTekst="Stillingsprosent"
-                    verdiOperator={<ProsentTegn />}
+                    //verdiOperator={<PlussTegn/>}
+                    verdiOperator={<ProsentTegn role="presentation" focusable="false" />}
                     verdi={props.stillingprosent || 0}
                     ikkePenger
                 />
                 <Utregningsrad
-                    labelIkon={<ManedslonnIkon />}
+                    labelIkon={<ManedslonnIkon role="presentation" focusable="false" />}
                     labelTekst="Månedslønn"
-                    verdiOperator={<PlussTegn />}
+                    verdiOperator={<PlussTegn role="presentation" focusable="false" />}
                     verdi={props.manedslonn || 0}
                 />
                 <Utregningsrad
-                    labelIkon={<FeriepengerIkon />}
+                    labelIkon={<FeriepengerIkon role="presentation" focusable="false" />}
                     labelTekst="Feriepenger"
                     labelSats={props.feriepengesats}
-                    verdiOperator={<PlussTegn />}
+                    verdiOperator={<PlussTegn role="presentation" focusable="false" />}
                     verdi={props.feriepengerBelop || 0}
                 />
                 <Utregningsrad
-                    labelIkon={<ObligTjenestePensjonIkon />}
+                    labelIkon={<ObligTjenestePensjonIkon role="presentation" focusable="false" />}
                     labelTekst="Obligatorisk tjenestepensjon"
                     labelSats={props.otpSats}
-                    verdiOperator={<PlussTegn />}
+                    verdiOperator={<PlussTegn role="presentation" focusable="false" />}
                     verdi={props.otpBelop || 0}
                 />
                 <Utregningsrad
                     labelTekst="Arbeidsgiveravgift"
-                    labelIkon={<ArbeidsgiveravgiftIkon />}
-                    verdiOperator={<PlussTegn />}
+                    labelIkon={<ArbeidsgiveravgiftIkon role="presentation" focusable="false" />}
+                    verdiOperator={<PlussTegn role="presentation" focusable="false" />}
                     labelSats={props.arbeidsgiveravgift}
                     verdi={props.arbeidsgiveravgiftBelop || 0}
                 />
                 <Utregningsrad
                     labelTekst="Sum utgifter"
-                    verdiOperator={<ErlikTegn />}
+                    verdiOperator={<ErlikTegn role="presentation" focusable="false" />}
                     verdi={props.sumLonnsutgifter || 0}
                     borderTykk={true}
                 />
@@ -70,9 +74,9 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                             ? formatterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)
                             : null
                     }
-                    labelIkon={<GraphRefusjonAvLonnIkon />}
+                    labelIkon={<GraphRefusjonAvLonnIkon role="presentation" focusable="false" />}
                     ikkePenger
-                    verdiOperator={<ProsentTegn />}
+                    verdiOperator={<ProsentTegn role="presentation" focusable="false" />}
                     verdi={props.lonnstilskuddProsent || 0}
                 />
                 <Utregningsrad
@@ -85,9 +89,9 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         <Utregningsrad
                             labelTekst={`Fastsatt refusjon fra og med`}
                             midtrekkeTekst={formatterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}
-                            labelIkon={<GraphRefusjonAvLonnIkon />}
+                            labelIkon={<GraphRefusjonAvLonnIkon role="presentation" focusable="false" />}
                             ikkePenger
-                            verdiOperator={<ProsentTegn />}
+                            verdiOperator={<ProsentTegn role="presentation" focusable="false" />}
                             verdi={props.lonnstilskuddProsent ? props.lonnstilskuddProsent - 10 : 0}
                         />
                         <Utregningsrad
