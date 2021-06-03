@@ -35,7 +35,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                     ikkePenger
                 />
                 <Utregningsrad
-                    labelIkon={<ManedslonnIkon role="presentation" focusable="false" />}
+                    labelIkon={<ManedslonnIkon />}
                     labelTekst="Månedslønn"
                     verdiOperator={<PlussTegn role="presentation" focusable="false" />}
                     verdi={props.manedslonn || 0}
