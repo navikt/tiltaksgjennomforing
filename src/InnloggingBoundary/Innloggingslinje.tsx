@@ -3,12 +3,11 @@ import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import Lenke from 'nav-frontend-lenker';
 import { EtikettLiten } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './Innloggingslinje.less';
-import Lenke from 'nav-frontend-lenker';
 
 type Props = {
     innloggetBruker: InnloggetBruker;

@@ -89,12 +89,15 @@ const Godkjenning: FunctionComponent<Props> = props => {
         setPaVegneDeltakerInformert,
     };
 
-    const feilmeldingManglerBekreftelse = (): string =>
-        !bekreftet && !bekreftetArbeidsAvtale
-            ? feilmeldinger.arbeidsavtaleOgBekreftelseMangler
-            : !bekreftetArbeidsAvtale
-            ? feilmeldinger.arbeidsavtaleMaInnga
-            : feilmeldinger.bekreftelse;
+    const feilmeldingManglerBekreftelse = () => {
+        if (!bekreftet && !bekreftetArbeidsAvtale) {
+            return feilmeldinger.arbeidsavtaleOgBekreftelseMangler;
+        } else if (!bekreftetArbeidsAvtale) {
+            return feilmeldinger.arbeidsavtaleMaInnga;
+        } else {
+            return feilmeldinger.bekreftelse;
+        }
+    };
 
     if (harGodkjentSelv(props.avtale, props.rolle)) {
         return null;
