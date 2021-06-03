@@ -62,7 +62,7 @@ const Nytt: FunctionComponent<Props> = props => {
 
     return (
         <div className="nytt">
-            <button ref={buttonRef} onClick={toggleNyheter} className="nytt__knapp">
+            <button ref={buttonRef} onClick={toggleNyheter} className="nytt__knapp" aria-label={'Oppdatere'}>
                 <Ikon navn={navn} />
                 {antallUlesteNyheter > 0 && <div className="nytt__notifikasjon" />}
             </button>

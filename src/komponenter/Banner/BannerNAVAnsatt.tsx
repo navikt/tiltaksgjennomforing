@@ -17,7 +17,10 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = props => {
     return innloggetBruker.erNavAnsatt ? (
         <div className={'banner-veileder-container'}>
             <div className="banner-veileder" role="banner">
-                <Innholdstittel role="heading">{props.tekst}</Innholdstittel>
+                <Innholdstittel role="heading" aria-level={1}>
+                    {' '}
+                    {props.tekst}
+                </Innholdstittel>
 
                 <div>
                     <Nytt

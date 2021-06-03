@@ -47,7 +47,6 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = props 
                         props.endreSøk({ tiltakstype: nyTiltakstype });
                     }}
                     role="radio"
-                    aria-labelledby="filtere på tiltakstype"
                 />
             ))}
         </Filter>

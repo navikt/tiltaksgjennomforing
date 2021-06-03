@@ -26,7 +26,7 @@ const StatusFilter: FunctionComponent<FiltreringProps> = props => {
             {alleStatuser.map(s => (
                 <Radio
                     key={s}
-                    label={s === '' ? 'Alle' : avtaleStatusTekst[s]}
+                    label={s === '' ? 'Alle Statuser' : avtaleStatusTekst[s]}
                     name={'status'}
                     value={s}
                     checked={s === valgtStatus}
@@ -36,7 +36,6 @@ const StatusFilter: FunctionComponent<FiltreringProps> = props => {
                         props.endreSøk({ status: nyStatus || undefined });
                     }}
                     role="radio"
-                    aria-labelledby="filtere på oppgave status"
                 />
             ))}
         </Filter>
