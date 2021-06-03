@@ -2,5 +2,5 @@
 for i in $(git diff  --cached --diff-filter=AMR --name-only|grep .svg)
 do
   echo "Minifiserer og gir unik id til svg: $i"
-  svgo --disable=removeNonInheritableGroupAttrs --enable=prefixIds --disable=removeViewBox --disable=removeEmptyAttrs --disable=removeUnknownsAndDefaults  --disable=removeEditorsNSData $i
+  svgo --disable=removeNonInheritableGroupAttrs --enable=prefixIds --disable=removeViewBox --disable=removeEmptyAttrs --disable=removeUnknownsAndDefaults   $i
 done
