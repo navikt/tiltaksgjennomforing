@@ -1,4 +1,5 @@
 import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
+import { EndreStilling } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { basename } from '@/paths';
@@ -11,7 +12,6 @@ import {
     EndreOppfølgingOgTilretteleggingInfo,
     GodkjentPaVegneGrunner,
     Maal,
-    Stilling,
     TiltaksType,
 } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
@@ -321,7 +321,7 @@ export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
     );
 };
 
-export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStillingInfo: Stilling): Promise<void> => {
+export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStillingInfo: EndreStilling): Promise<void> => {
     await api.post(
         `/avtaler/${avtale.id}/endre-stillingbeskrivelse`,
         { ...endreStillingInfo },
