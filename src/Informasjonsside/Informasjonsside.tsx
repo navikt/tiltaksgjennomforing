@@ -103,6 +103,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 <li>Avtale om arbeidstrening</li>
                                 <li>Avtale om midlertidig lønnstilskudd</li>
                                 <li>Avtale om varig lønnstilskudd</li>
+                                <li>Avtale om sommerjobb</li>
                             </ul>
                             <br />
                             <span className={cls.element('lenke')}>
@@ -126,8 +127,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Hvis innholdet i avtalen
-                            blir endret etter at tiltaket har startet, må alle parter godkjenne avtalen på nytt.
+                            Innholdet i avtalen kan endres gjennom hele perioden for tiltaket.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
