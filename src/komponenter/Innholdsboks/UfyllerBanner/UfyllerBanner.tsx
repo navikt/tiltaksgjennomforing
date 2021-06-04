@@ -34,9 +34,7 @@ const UfyllerBanner: React.FunctionComponent<Props> = (props: Props) => {
         <div className={classnames(cls.className, wrapperClass)}>
             <div className="utfyllerBanner">
                 <UtfyllingsIkon className="utfyllerBanner__utfyllingsIkon" />
-                <Normaltekst className="utfyllerBanner__fyllesUtAvTekst" aria-label={`Dette steget ${utfyllesAv}`}>
-                    {utfyllesAv}
-                </Normaltekst>
+                <Normaltekst className="utfyllerBanner__fyllesUtAvTekst">{utfyllesAv}</Normaltekst>
             </div>
         </div>
     );
