@@ -6,13 +6,7 @@ import './IkonModal.less';
 
 const IkonModal: FunctionComponent<ModalProps> = props => (
     <Modal {...props} className={classNames('ikonmodal', props.className)}>
-        <InfoIkonGul
-            role="presentation"
-            focusable="false"
-            height="80px"
-            width="80px"
-            style={{ margin: '-72px auto 1rem auto' }}
-        />
+        <InfoIkonGul height="80px" width="80px" style={{ margin: '-72px auto 1rem auto' }} />
         {props.children}
     </Modal>
 );
