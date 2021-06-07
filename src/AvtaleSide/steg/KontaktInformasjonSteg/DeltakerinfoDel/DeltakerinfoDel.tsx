@@ -21,12 +21,12 @@ const DeltakerinfoDel: FunctionComponent = () => {
 
                 <div className={cls.element('rad')}>
                     <PakrevdInput
-                        label="Fornavn"
+                        label="Deltager sitt fornavn"
                         verdi={avtaleContext.avtale.deltakerFornavn}
                         settVerdi={verdi => avtaleContext.settAvtaleVerdi('deltakerFornavn', verdi)}
                     />
                     <PakrevdInput
-                        label="Etternavn"
+                        label="Deltager sitt etternavn"
                         verdi={avtaleContext.avtale.deltakerEtternavn}
                         settVerdi={verdi => avtaleContext.settAvtaleVerdi('deltakerEtternavn', verdi)}
                     />
@@ -34,7 +34,7 @@ const DeltakerinfoDel: FunctionComponent = () => {
 
                 <div className={cls.element('rad')}>
                     <TelefonnummerInput
-                        label="Telefonnummer"
+                        label="Deltager sitt telefonnummer"
                         verdi={avtaleContext.avtale.deltakerTlf}
                         settVerdi={verdi => avtaleContext.settAvtaleVerdi('deltakerTlf', verdi)}
                     />

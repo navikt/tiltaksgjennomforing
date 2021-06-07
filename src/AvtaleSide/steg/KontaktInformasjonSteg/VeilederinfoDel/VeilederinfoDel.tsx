@@ -17,19 +17,19 @@ const VeilederinfoDel = () => {
                 <SkjemaTittel>Kontaktperson i NAV</SkjemaTittel>
                 <div className={cls.element('rad')}>
                     <PakrevdInput
-                        label="Fornavn"
+                        label="Veileder sitt fornavn"
                         verdi={avtaleContext.avtale.veilederFornavn}
                         settVerdi={verdi => avtaleContext.settAvtaleVerdi('veilederFornavn', verdi)}
                     />
                     <PakrevdInput
-                        label="Etternavn"
+                        label="Veileder sitt etternavn"
                         verdi={avtaleContext.avtale.veilederEtternavn}
                         settVerdi={verdi => avtaleContext.settAvtaleVerdi('veilederEtternavn', verdi)}
                     />
                 </div>
                 <div className={cls.element('rad')}>
                     <TelefonnummerInput
-                        label="Telefonnummer"
+                        label="Veileder sitt telefonnummer"
                         verdi={avtaleContext.avtale.veilederTlf}
                         settVerdi={verdi => avtaleContext.settAvtaleVerdi('veilederTlf', verdi)}
                     />

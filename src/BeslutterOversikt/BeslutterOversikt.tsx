@@ -49,7 +49,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                 <div
                     style={layout.stylingAvFilterOgTabell}
                     className={cls.element('filter-og-tabell')}
-                    aria-labelledby={cls.element('filter-og-tabell')}
+                    aria-label={'filter og tabell'}
                     role="complementary"
                 >
                     <aside style={layout.stylingAvFilter}>

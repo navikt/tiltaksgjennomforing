@@ -20,6 +20,7 @@ const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = props =>
         <Filter tittel="Status">
             {alleTilskuddPeriodeStatus.map(tilskuddPeriodeStatus => (
                 <Radio
+                    id={tilskuddPeriodeStatus.label}
                     key={tilskuddPeriodeStatus.label}
                     label={tilskuddPeriodeStatus.label}
                     name={'tilskuddPeriodeStatus'}
@@ -31,8 +32,7 @@ const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = props =>
                         props.endreSøk({ tilskuddPeriodeStatus: nyTilskuddPeriode });
                     }}
                     role="radio"
-                    aria-labelledby={`Status ${tilskuddPeriodeStatus.label}`}
-                    //aria-labelledby="filtere på tiltakstype"
+                    aria-labelledby={tilskuddPeriodeStatus.label}
                 />
             ))}
         </Filter>

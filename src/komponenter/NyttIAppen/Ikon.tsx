@@ -5,7 +5,7 @@ type Props = {
 };
 
 const Ikon = ({ navn }: Props) => (
-    <svg className="nytt__ikon" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <svg className="nytt__ikon" focusable="false" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 32 32">
         <title>Nytt i {navn}</title>
         <path
             d="M28 3.8a4 4 0 014 4v14a4 4 0 01-4 4H17v2h5.1a1 1 0 110 2.1h-12a1 1 0 110-2.1h5.1v-2H4a4 4 0 01-4-4v-6a1 1 0 011-1.1 1.2 1.2 0 011 1.2v3.9h28v-12a2 2 0 00-2-2H15.2a1 1 0 010-2.1zm0 20a2 2 0 002-2H2a2 2 0 002 2z"
