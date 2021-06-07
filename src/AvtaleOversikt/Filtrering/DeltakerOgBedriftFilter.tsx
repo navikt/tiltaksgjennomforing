@@ -90,7 +90,6 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     checked={aktivSøketype === key}
                     onChange={endreSøketype}
                     role="radio"
-                    aria-labelledby={value.label}
                 />
             ))}
             {visSøkefelt && (
@@ -102,7 +101,6 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     utførSøk={aktueltSøk.utførSøk}
                     valider={aktueltSøk.validering}
                     role="searchbox"
-                    aria-labelledby={'søk etter ' + aktueltSøk.placeholder}
                 />
             )}
             {visNAVEnheterVelgeren && (

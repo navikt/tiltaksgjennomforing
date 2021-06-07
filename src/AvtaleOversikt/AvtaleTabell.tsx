@@ -42,7 +42,7 @@ const AvtaleTabell: FunctionComponent<{
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => (
-    <div className={cls.className} role="main">
+    <div className={cls.className}>
         <div className={classNames(cls.element('rad'), cls.element('header'))}>
             <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
             <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
@@ -58,13 +58,14 @@ const AvtaleTabell: FunctionComponent<{
                 const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
                 return (
                     <LenkepanelBase
+                        id={avtale.id}
                         key={avtale.id}
                         href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
                         linkCreator={(props: any) => (
                             <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
                         )}
                         role="listitem"
-                        aria-labelledby={'rad avtalelenke '.concat(avtale.deltakerFnr)}
+                        aria-labelledby={avtale.id}
                     >
                         {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                         <div

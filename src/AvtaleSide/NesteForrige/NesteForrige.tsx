@@ -45,7 +45,8 @@ const NesteForrige: FunctionComponent<Props> = props => {
                     onClick={avtaleContext.endretSteg}
                     className="lenke"
                     role="link"
-                    aria-labelledby={'link til forrige steg '.concat(forrigeSteg.label)}
+                    id="forrige"
+                    aria-labelledby="forrige"
                 >
                     <VenstreChevron />
                     Forrige
@@ -60,7 +61,8 @@ const NesteForrige: FunctionComponent<Props> = props => {
                     className="nesteforrige__nesteknapp lenke"
                     onClick={avtaleContext.endretSteg}
                     role="link"
-                    aria-labelledby={'link til neste steg '.concat(nesteSteg.label)}
+                    id="neste"
+                    aria-labelledby="neste"
                 >
                     Neste
                     <HoyreChevron />

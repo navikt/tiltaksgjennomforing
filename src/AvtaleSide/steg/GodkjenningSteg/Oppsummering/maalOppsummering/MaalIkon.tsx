@@ -2,7 +2,14 @@ import React from 'react';
 
 const MaalIkon = () => {
     return (
-        <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <svg
+            xmlns="https://www.w3.org/2000/svg"
+            role="presentation"
+            focusable="false"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+        >
             <g fill="none" fillRule="evenodd">
                 <path fill="#78706A" d="M12 0a.75.75 0 0 1 .75.75V24h-1.5V.75A.75.75 0 0 1 12 0z" />
                 <path

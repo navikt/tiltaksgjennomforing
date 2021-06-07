@@ -19,13 +19,15 @@ const StegmenyLenke: FunctionComponent<Props> = props => {
     if (props.aktiv) {
         className += ' aktiv';
     }
+
     return (
         <Link
             to={{ pathname: props.url, search: window.location.search }}
             className={className}
             onClick={avtaleContext.endretSteg}
             role="menuitem"
-            aria-labelledby={'navigere til steg'.concat(props.url)}
+            id={props.label?.replaceAll(' ', '')}
+            aria-labelledby={`stegmeny ${props.label?.replaceAll(' ', '')}`}
         >
             <img src={props.ferdig ? stegFullfortIkon : stegIkkeFullfortIkon} className="hidden" alt="status" />
             <span className="stegmenylenke__label">{props.label}</span>

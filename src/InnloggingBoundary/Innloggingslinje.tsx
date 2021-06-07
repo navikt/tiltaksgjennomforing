@@ -29,12 +29,7 @@ const Innloggingslinje: FunctionComponent<Props> = props => {
                         </div>
                     </Lenke>
                     <div className={cls.element('identitetogloggut')}>
-                        <EtikettLiten
-                            className={cls.element('identitetogloggut__identitet')}
-                            aria-label="innlogget bruker id"
-                        >
-                            {bruker}
-                        </EtikettLiten>
+                        <EtikettLiten className={cls.element('identitetogloggut__identitet')}>{bruker}</EtikettLiten>
                         <LoggUtKnapp />
                     </div>
                 </MediaQuery>

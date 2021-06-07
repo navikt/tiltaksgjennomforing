@@ -61,7 +61,7 @@ const Varsellogg: FunctionComponent = () => {
                 }}
                 ariaHideApp={varselLoggModalApen}
             >
-                <Systemtittel role="heading" id="heading">
+                <Systemtittel role="heading" id="heading" aria-level={1}>
                     Hendelselogg
                 </Systemtittel>
                 <VerticalSpacer rem={1} />

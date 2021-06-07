@@ -10,7 +10,7 @@ const StatusPanel: React.FunctionComponent<{
 }> = ({ ikon, header, body }) => {
     const Ikon = ikon;
     return (
-        <Innholdsboks>
+        <Innholdsboks ariaLabel={header}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                 <Ikon style={{ height: '40px', width: '40px' }} />
                 <VerticalSpacer rem={1} />

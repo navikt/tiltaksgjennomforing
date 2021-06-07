@@ -23,7 +23,7 @@ const Stegmeny: FunctionComponent<Props> = (props: Props) => {
     ));
 
     return (
-        <nav className="stegmeny" role="navigation">
+        <nav id="stegmeny" className="stegmeny" role="navigation">
             <div role="menu">{stegLenker}</div>
         </nav>
     );

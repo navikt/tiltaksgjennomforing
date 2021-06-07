@@ -13,7 +13,7 @@ const EksternLenke: React.FunctionComponent<Props> = props => {
     return (
         <Lenke target="_blank" onClick={onClick} {...props}>
             {props.children}
-            <TilEkstern className="ekstern-lenke-icon" />
+            <TilEkstern focusable="false" className="ekstern-lenke-icon" />
         </Lenke>
     );
 };

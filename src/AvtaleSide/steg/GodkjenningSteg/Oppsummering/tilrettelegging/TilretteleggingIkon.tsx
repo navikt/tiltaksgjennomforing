@@ -2,7 +2,14 @@ import React from 'react';
 
 const TilretteleggingIkon = () => {
     return (
-        <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <svg
+            xmlns="https://www.w3.org/2000/svg"
+            role="presentation"
+            focusable="false"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+        >
             <g fill="none" fillRule="evenodd">
                 <circle cx="12" cy="12" r="12" fill="#E0DAE7" />
                 <path
