@@ -51,9 +51,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const visningAvKnappHentKontonummerForArbeidsgiver =
         featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
 
-    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier, hentAvtale } = useContext(
-        AvtaleContext
-    );
+    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
