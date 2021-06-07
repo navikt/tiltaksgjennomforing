@@ -89,7 +89,6 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
                         <KnappBase
                             role="button"
                             aria-label={props.avbrytelseTekst.concat(' og lukk modalen')}
-                            aria-labelledby={'Lukker dialog for'.concat(props.oversiktTekst)}
                             type="flat"
                             className={cls.element('knapp lenkeknapp')}
                             onClick={props.lukkModal}

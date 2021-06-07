@@ -18,7 +18,6 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = props => {
         <div className={'banner-veileder-container'}>
             <div className="banner-veileder" role="banner">
                 <Innholdstittel role="heading" aria-level={1}>
-                    {' '}
                     {props.tekst}
                 </Innholdstittel>
 

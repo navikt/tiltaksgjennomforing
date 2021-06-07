@@ -47,7 +47,6 @@ const NesteForrige: FunctionComponent<Props> = props => {
                     role="link"
                     id="forrige"
                     aria-labelledby="forrige"
-                    //aria-labelledby={'link til forrige steg '.concat(forrigeSteg.label)}
                 >
                     <VenstreChevron />
                     Forrige
@@ -64,7 +63,6 @@ const NesteForrige: FunctionComponent<Props> = props => {
                     role="link"
                     id="neste"
                     aria-labelledby="neste"
-                    //aria-labelledby={'link til neste steg '.concat(nesteSteg.label)}
                 >
                     Neste
                     <HoyreChevron />

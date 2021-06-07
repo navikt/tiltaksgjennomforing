@@ -17,14 +17,14 @@ const AnnullerAvtalen = () => {
                     aria-label="Annuller avtale"
                     role="menuitem"
                 >
-                    <div aria-hidden={true}>
+                    <div /*aria-hidden={true}*/>
                         <AvbruttIkon className="annulleravtalen__ikon" />
                     </div>
                     Annuller avtalen
                 </Lenke>
             </div>
             {annullerModalIsOpen && (
-                <div aria-hidden={!annullerModalIsOpen}>
+                <div /*aria-hidden={!annullerModalIsOpen}*/>
                     <AnnullerAvtaleModal isOpen={annullerModalIsOpen} lukkModal={() => setAnnullerModalIsOpen(false)} />
                 </div>
             )}

@@ -31,10 +31,7 @@ export const BedriftsnummerEllerTelefon: FunctionComponent<Props> = props => {
     } else {
         return (
             <>
-                <Normaltekst
-                    key={props.key}
-                    //aria-label={`${storForbokstav(props.felt)} ${hentTallMedDotterOgMellomrom()}`}
-                >
+                <Normaltekst key={props.key}>
                     {storForbokstav(props.felt)} : {props.verdi}
                 </Normaltekst>
             </>
