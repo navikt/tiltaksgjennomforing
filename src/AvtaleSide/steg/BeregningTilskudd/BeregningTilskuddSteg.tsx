@@ -22,7 +22,7 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import UtregningPanel from './UtregningPanel';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
-import { Money } from '@navikt/ds-icons';
+import { Money } from '@navikt/ds-icons/cjs';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 
