@@ -12,6 +12,8 @@ import { useHistory } from 'react-router';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
+import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
+import ByttTilBeslutter from '@/InnloggingBoundary/ByttTilBeslutter';
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
@@ -64,6 +66,8 @@ const InnloggingBoundary: FunctionComponent = props => {
             <>
                 {brukmeny && <InternflateDecorator {...dekoratorConfig} />}
                 <Innloggingslinje brukBackupmeny={brukBackupmeny} innloggetBruker={innloggetBruker} />
+                {innloggetBruker.rolle === 'VEILEDER' && innloggetBruker.kanVæreBeslutter && <ByttTilBeslutter />}
+                {innloggetBruker.rolle === 'BESLUTTER' && <ByttTilVeileder />}
                 <InnloggetBrukerContext.Provider value={innloggetBruker}>
                     {props.children}
                 </InnloggetBrukerContext.Provider>

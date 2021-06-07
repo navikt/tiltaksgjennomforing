@@ -18,6 +18,7 @@ export interface InnloggetBruker {
     rolle: Rolle;
     tilganger: Tilganger;
     navEnheter: string[];
+    kanVæreBeslutter?: boolean;
 }
 
 export interface Organisasjon {

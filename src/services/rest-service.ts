@@ -13,6 +13,7 @@ import {
     Maal,
     Stilling,
     TiltaksType,
+    Varighet,
 } from '@/types/avtale';
 import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
@@ -322,16 +323,9 @@ export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
     );
 };
 
-export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStillingInfo: Stilling): Promise<void> => {
-    await api.post(
-        `/avtaler/${avtale.id}/endre-stillingbeskrivelse`,
-        { ...endreStillingInfo },
-        {
-            headers: {
-                'If-Unmodified-Since': avtale.sistEndret,
-            },
-        }
-    );
+export type EndreStilling = Stilling & Pick<Varighet, 'stillingprosent' | 'antallDagerPerUke'>;
+export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStillingInfo: EndreStilling): Promise<void> => {
+    await api.post(`/avtaler/${avtale.id}/endre-stillingbeskrivelse`, endreStillingInfo);
 };
 
 export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {

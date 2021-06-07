@@ -46,15 +46,17 @@ const serveAppWithOutMenu = () => {
 };
 
 // HAR MILJOØVARIABLER BASERT PÅ (PROD|DEV)-SBS / (PROD|DEV)-FSS
-process.env.ENABLE_EXTERNAL_MENU
-    ? serverUtils.getMenuAndServeApp(() => {
-          serverUtils.getMenu();
-      })
-    : process.env.ENABLE_INTERNAL_MENU
-    ? serverUtils.getMenuAndServeApp(() => {
-          serverUtils.readfile(serverUtils.injectInternalMenu);
-      })
-    : serveAppWithOutMenu();
+if (process.env.ENABLE_EXTERNAL_MENU) {
+    serverUtils.getMenuAndServeApp(() => {
+        serverUtils.getMenu();
+    });
+} else if (process.env.ENABLE_INTERNAL_MENU) {
+    serverUtils.getMenuAndServeApp(() => {
+        serverUtils.readfile(serverUtils.injectInternalMenu);
+    });
+} else {
+    serveAppWithOutMenu();
+}
 
 module.exports.serveAppWithOutMenu = serveAppWithOutMenu;
 module.exports.serveAppWithMenu = serveAppWithMenu;

@@ -31,8 +31,8 @@ const TilskuddperiodeBokser: FunctionComponent = () => {
                         >
                             <Normaltekst>
                                 Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum tilskudd
-                                for en måned" på snitt antall dager i en måned (30,43) og ganger med antall dager i
-                                perioden.
+                                for en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og ganger med
+                                antall dager i perioden.
                             </Normaltekst>
                             <VerticalSpacer rem={2} />
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>

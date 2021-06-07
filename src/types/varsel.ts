@@ -1,5 +1,4 @@
 import { HendelseType } from '@/types/hendelse';
-import { Moment } from 'moment';
 import { Rolle } from '@/types/innlogget-bruker';
 
 export interface Varsel {

@@ -16,7 +16,11 @@ const cls = BEMHelper('overtaavtalen');
 const OvertaAvtalen = (props: Props) => {
     const [overtaModalIsOpen, setOvertaModalIsOpen] = useState<boolean>(false);
 
-    return props.forskjelligNavIdent ? (
+    if (!props.forskjelligNavIdent) {
+        return null;
+    }
+
+    return (
         <>
             <div className={cls.className}>
                 <Lenke
@@ -37,7 +41,7 @@ const OvertaAvtalen = (props: Props) => {
                 <OvertaAvtaleModal isOpen={overtaModalIsOpen} lukkModal={() => setOvertaModalIsOpen(false)} />
             )}
         </>
-    ) : null;
+    );
 };
 
 export default OvertaAvtalen;
