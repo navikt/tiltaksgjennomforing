@@ -7,7 +7,6 @@ import RelasjonerOppsummering from '../RelasjonerOppsummering/RelasjonerOppsumme
 import StillingsOppsummeringLonnstilskudd from '../StillingsOppsummeringLonnstilskudd/StillingsOppsummeringLonnstilskudd';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
-import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -22,7 +21,6 @@ const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
         <BeregningTilskuddOppsummering {...props.avtaleinnhold} />
-        <TilskuddsPerioderOppsummering />
     </>
 );
 

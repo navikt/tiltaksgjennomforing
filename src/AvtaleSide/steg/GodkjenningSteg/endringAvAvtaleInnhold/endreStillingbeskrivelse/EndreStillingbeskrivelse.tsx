@@ -1,11 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import StillingsTittelVelger, { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
+import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { oppdatereStillingbeskrivelse } from '@/services/rest-service';
-import { Stilling } from '@/types/avtale';
+import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { DialogDots } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
@@ -20,13 +21,17 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
 
     const { valgtStilling, setValgtStilling } = useStilling(avtaleContext.avtale);
     const [arbeidsoppgaver, setArbeidsoppgaver] = useState(avtaleContext.avtale.arbeidsoppgaver);
+    const [stillingsprosent, setStillingsprosent] = useState(avtaleContext.avtale.stillingprosent);
+    const [antallDagerPerUke, setAntallDagerPerUke] = useState(avtaleContext.avtale.antallDagerPerUke);
 
     const endreStilling = async (): Promise<void> => {
-        const stillingInfo: Stilling = {
+        const stillingInfo: EndreStilling = {
             stillingstittel: valgtStilling?.value,
             stillingKonseptId: valgtStilling?.konseptId,
             stillingStyrk08: valgtStilling?.styrk08,
             arbeidsoppgaver: arbeidsoppgaver,
+            stillingprosent: stillingsprosent,
+            antallDagerPerUke: antallDagerPerUke,
         };
         await oppdatereStillingbeskrivelse(avtaleContext.avtale, stillingInfo);
         await avtaleContext.hentAvtale();
@@ -34,8 +39,9 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     };
 
     const endreStillingInnhold = (
-        <div className={cls.className}>
-            <div className={cls.element('inputfelt')}>
+        <div>
+            <VerticalSpacer rem={2} />
+            <div>
                 <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
                 <VerticalSpacer rem={0.5} />
                 <StillingsTittelVelger
@@ -44,13 +50,37 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                     setValgtStilling={setValgtStilling}
                 />
             </div>
-            <div className={cls.element('textareafelt')}>
+            <VerticalSpacer rem={2} />
+            <div>
                 <PakrevdTextarea
                     label="Beskriv arbeidsoppgavene som inngår i stillingen"
                     verdi={arbeidsoppgaver}
                     settVerdi={verdi => setArbeidsoppgaver(verdi)}
                     maxLengde={500}
                     feilmelding="arbeidsoppgave er påkrevd"
+                />
+            </div>
+            <VerticalSpacer rem={2} />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <StillingsprosentInput
+                    label="Stillingsprosent"
+                    verdi={stillingsprosent}
+                    settVerdi={verdi => setStillingsprosent(verdi)}
+                />
+                <PakrevdInput
+                    bredde="S"
+                    label="Antall dager per uke"
+                    type="number"
+                    max={7}
+                    verdi={antallDagerPerUke}
+                    settVerdi={eventVerdi => {
+                        const verdi = parseInt(eventVerdi);
+                        if (verdi > 0 && verdi < 8) {
+                            setAntallDagerPerUke(verdi);
+                        } else {
+                            setAntallDagerPerUke(undefined);
+                        }
+                    }}
                 />
             </div>
         </div>

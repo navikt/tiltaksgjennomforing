@@ -7,8 +7,7 @@ import { Maalkategori } from '@/types/maalkategorier';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Select, Textarea } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import * as React from 'react';
-import { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 
 interface Props {
     avsluttRedigering: () => void;

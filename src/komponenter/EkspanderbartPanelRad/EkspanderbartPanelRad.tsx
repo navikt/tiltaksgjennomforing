@@ -17,9 +17,7 @@ const cls = BEMHelper('howto');
 const EkspanderbartPanelRad: React.FunctionComponent<Props> = props => {
     const { svgIkon, headerTekst, classname, children } = props;
     const header = headerTekst ? (
-        <TypografiBase type={headerTekst.typografiType ? headerTekst.typografiType : 'element'}>
-            {headerTekst.tekst}
-        </TypografiBase>
+        <TypografiBase type={headerTekst.typografiType || 'element'}>{headerTekst.tekst}</TypografiBase>
     ) : null;
 
     return (
