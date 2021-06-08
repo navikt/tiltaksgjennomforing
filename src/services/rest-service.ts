@@ -208,8 +208,9 @@ export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     return response.data;
 };
 
-export const gjorKontonummeroppslag = async (avtale: Avtale): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/set-kontonummer-for-arbeidsgiver-fra-kontoregister`);
+export const hentKontonummerForArbeidsgiver = async (avtaleId: string): Promise<string> => {
+    const response = await api.get(`/avtaler/${avtaleId}/kontonummer-arbeidsgiver`);
+    return response.data;
 };
 
 export const hentBedriftBrreg = async (bedriftNr: string): Promise<Bedriftinfo> => {

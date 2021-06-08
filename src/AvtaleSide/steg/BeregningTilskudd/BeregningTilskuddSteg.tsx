@@ -2,7 +2,6 @@ import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
@@ -10,9 +9,10 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import { Knapp } from 'nav-frontend-knapper';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
-import { gjorKontonummeroppslag } from '@/services/rest-service';
+import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { Column, Row } from 'nav-frontend-grid';
@@ -22,6 +22,9 @@ import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import UtregningPanel from './UtregningPanel';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
+import { Money } from '@navikt/ds-icons/cjs';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import KontonummerInput from '@/komponenter/form/KontonummerInput';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -47,9 +50,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvKnappHentKontonummerForArbeidsgiver =
         featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
-    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier, hentAvtale } = useContext(
-        AvtaleContext
-    );
+
+    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -190,8 +192,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             })
                         }
                     />
-                    <Row className="">
-                        <Column md="6">
+                    <VerticalSpacer rem={2} />
+                    <Row className="" hidden={visningAvKnappHentKontonummerForArbeidsgiver}>
+                        <Column md="12">
                             <KontonummerInput
                                 bredde={'L'}
                                 label={'Kontonummer til arbeidsgiver'}
@@ -202,19 +205,40 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 onBlur={() => lagreAvtale()}
                             />
                         </Column>
+                    </Row>
 
-                        <Column md="3">
-                            <VerticalSpacer rem={2} />
-                            <LagreKnapp
-                                hidden={!visningAvKnappHentKontonummerForArbeidsgiver}
-                                label={'hent Kontonummer'}
-                                lagre={async () => {
-                                    await gjorKontonummeroppslag(avtale);
-                                    await hentAvtale(avtale.id);
+                    <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
+                        <Column md="1">
+                            <Money />
+                        </Column>
+                        <Column md="11">
+                            <Normaltekst>
+                                <strong>Kontonummer: </strong>
+                                {avtale.arbeidsgiverKontonummer}
+                            </Normaltekst>
+                            <Normaltekst>
+                                Hvis kontonummeret ikke stemmer så må det oppdateres hos{' '}
+                                <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
+                                    Altinn.
+                                </EksternLenke>
+                            </Normaltekst>
+                        </Column>
+                    </Row>
+                    <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
+                        <Column md="1" />
+                        <Column md="10">
+                            <Knapp
+                                onClick={async () => {
+                                    settAvtaleVerdier(
+                                        {
+                                            arbeidsgiverKontonummer: await hentKontonummerForArbeidsgiver(avtale.id),
+                                        },
+                                        true
+                                    );
                                 }}
                             >
-                                Hent fra Kontonummer
-                            </LagreKnapp>
+                                Hent kontonummer fra Altinn
+                            </Knapp>
                         </Column>
                     </Row>
                     <VerticalSpacer rem={2} />
