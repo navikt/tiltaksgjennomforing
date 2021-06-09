@@ -10,6 +10,7 @@ interface Props {
     aktiv: boolean;
     ferdig: boolean;
     url: string;
+    id: string;
 }
 
 const StegmenyLenke: FunctionComponent<Props> = props => {
@@ -26,8 +27,8 @@ const StegmenyLenke: FunctionComponent<Props> = props => {
             className={className}
             onClick={avtaleContext.endretSteg}
             role="menuitem"
-            id={props.label?.replaceAll(' ', '')}
-            aria-labelledby={`stegmeny ${props.label?.replaceAll(' ', '')}`}
+            id={props.id}
+            aria-labelledby={props.id}
         >
             <img src={props.ferdig ? stegFullfortIkon : stegIkkeFullfortIkon} className="hidden" alt="status" />
             <span className="stegmenylenke__label">{props.label}</span>
