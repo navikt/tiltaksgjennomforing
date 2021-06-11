@@ -82,7 +82,11 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     const endreSøketype = (event: FormEvent<HTMLInputElement>) => {
         const nySøketype = event.currentTarget.value as Søketype;
         setAktivSøketype(nySøketype);
-        if (nySøketype === 'egne' || nySøketype === 'ufordelte' || nySøketype === 'fordeltePrEnhet') {
+
+        if (nySøketype === 'egne' || nySøketype === 'ufordelte') {
+            søk[nySøketype].utførSøk();
+        } else if (nySøketype === 'fordeltePrEnhet') {
+            props.endreSøk({ ...tomt, veilederNavIdent: innloggetBruker.identifikator, navEnhet: navEnhetValgt });
             søk[nySøketype].utførSøk();
         }
     };
@@ -90,7 +94,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
     const aktueltSøk = søk[aktivSøketype];
     const visSøkefelt: boolean =
         aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte' && aktivSøketype !== 'fordeltePrEnhet';
-    const avtalePrEnhet: boolean = aktivSøketype === 'ufordelte' || aktivSøketype === 'fordeltePrEnhet';
+    const avtalePrEnhet: boolean = aktivSøketype === 'fordeltePrEnhet';
+    const ufordelt: boolean = aktivSøketype === 'ufordelte';
 
     return (
         <Filter tittel="Vis avtaler">
@@ -117,6 +122,27 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                 />
             )}
             {avtalePrEnhet && (
+                <Select
+                    label=""
+                    name={aktueltSøk.key}
+                    onChange={event => {
+                        const nyEnhet = event.currentTarget.value;
+                        props.endreSøk({
+                            ...tomt,
+                            veilederNavIdent: innloggetBruker.identifikator,
+                            navEnhet: nyEnhet,
+                        });
+                    }}
+                    aria-label="filtere på NAV enhet"
+                >
+                    {props.navEnheter?.sort().map((enhet, index) => (
+                        <option key={index} value={enhet}>
+                            Enhet {enhet}
+                        </option>
+                    ))}
+                </Select>
+            )}
+            {ufordelt && (
                 <Select
                     label=""
                     name={aktueltSøk.key}
