@@ -83,10 +83,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
         const nySøketype = event.currentTarget.value as Søketype;
         setAktivSøketype(nySøketype);
 
-        if (nySøketype === 'egne' || nySøketype === 'ufordelte') {
-            søk[nySøketype].utførSøk();
-        } else if (nySøketype === 'fordeltePrEnhet') {
-            props.endreSøk({ ...tomt, veilederNavIdent: innloggetBruker.identifikator, navEnhet: navEnhetValgt });
+        if (nySøketype === 'egne' || nySøketype === 'ufordelte' || nySøketype === 'fordeltePrEnhet') {
             søk[nySøketype].utførSøk();
         }
     };
