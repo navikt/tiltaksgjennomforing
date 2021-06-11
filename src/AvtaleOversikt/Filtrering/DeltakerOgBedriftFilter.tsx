@@ -88,6 +88,13 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
         }
     };
 
+    const getNavEnhetOptions = () =>
+        props.navEnheter?.sort().map((enhet, index) => (
+            <option key={index} value={enhet}>
+                Enhet {enhet}
+            </option>
+        ));
+
     const aktueltSøk = søk[aktivSøketype];
     const visSøkefelt: boolean =
         aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte' && aktivSøketype !== 'fordeltePrEnhet';
@@ -132,11 +139,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     }}
                     aria-label="filtere på NAV enhet"
                 >
-                    {props.navEnheter?.sort().map((enhet, index) => (
-                        <option key={index} value={enhet}>
-                            Enhet {enhet}
-                        </option>
-                    ))}
+                    {getNavEnhetOptions()}
                 </Select>
             )}
             {ufordelt && (
@@ -149,11 +152,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     }}
                     aria-label="filtere på NAV enhet"
                 >
-                    {props.navEnheter?.sort().map((enhet, index) => (
-                        <option key={index} value={enhet}>
-                            Enhet {enhet}
-                        </option>
-                    ))}
+                    {getNavEnhetOptions()}
                 </Select>
             )}
         </Filter>
