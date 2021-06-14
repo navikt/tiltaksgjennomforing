@@ -9,11 +9,9 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import React, { FunctionComponent, useState } from 'react';
+import GodkjennPaVegneAv from '../Oppsummering/GodkjennPaVegneAv/GodkjennPaVegneAv';
+import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 import './Godkjenning.less';
-import GodkjennPaVegneAv from './Oppsummering/GodkjennPaVegneAv/GodkjennPaVegneAv';
-import ArbeidsgiverInstruks from './Oppsummering/instruks/ArbeidsgiverInstruks';
-import DeltakerInstruks from './Oppsummering/instruks/DeltakerInstruks';
-import VeilederInstruks from './Oppsummering/instruks/VeilederInstruks';
 
 interface Props {
     avtale: Avtale;
@@ -32,17 +30,6 @@ const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
             return avtale.godkjentAvVeileder;
         default:
             return false;
-    }
-};
-
-const instruks = (rolle: Rolle, avtale: Avtale) => {
-    switch (rolle) {
-        case 'DELTAKER':
-            return <DeltakerInstruks erLaast={avtale.erLaast} tiltakstype={avtale.tiltakstype} />;
-        case 'ARBEIDSGIVER':
-            return <ArbeidsgiverInstruks erLaast={avtale.erLaast} tiltakstype={avtale.tiltakstype} />;
-        case 'VEILEDER':
-            return <VeilederInstruks tiltakstype={avtale.tiltakstype} />;
     }
 };
 
@@ -130,7 +117,7 @@ const Godkjenning: FunctionComponent<Props> = props => {
     return (
         <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
-            {instruks(props.rolle, props.avtale)}
+            <GodkjenningInstruks />
             {!slipperBekrefteArbeidsavtale && (
                 <BekreftCheckboksPanel
                     onChange={() => setBekreftetArbeidsAvtale(!bekreftetArbeidsAvtale)}
