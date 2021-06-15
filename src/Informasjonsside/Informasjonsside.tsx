@@ -41,8 +41,8 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
             <Element>NAV oppretter en avtale</Element>
             <Normaltekst>
                 {' '}
-                Når deltageren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
-                avtale. Deltageren og arbeidsgiveren vil få tilsendt en lenke fra NAV når avtalen er klar og de kan
+                Når deltakeren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
+                avtale. Deltakeren og arbeidsgiveren vil få tilsendt en lenke fra NAV når avtalen er klar og de kan
                 logge inn.
             </Normaltekst>
             <VerticalSpacer rem={1} />
