@@ -30,19 +30,25 @@ const GodkjenningVeileder: FunctionComponent = () => {
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
 
-            {kunGodkjentAvArbeidsgiver && (
+            {avtaleContext.avtale.tiltakstype !== 'SOMMERJOBB' && !avtaleContext.avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAvDeltaker
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {kunGodkjentAvDeltaker && (
+            {avtaleContext.avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvArbeidsgiver && (
+                <GodkjennPaVegneAvDeltaker
+                    skalGodkjennesPaVegne={skalGodkjennesPaVegne}
+                    setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
+                />
+            )}
+            {avtaleContext.avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvDeltaker && (
                 <GodkjennPaVegneAvArbeidsgiver
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {ikkeGodkjentAvNoen && (
+            {avtaleContext.avtale.tiltakstype === 'SOMMERJOBB' && ikkeGodkjentAvNoen && (
                 <GodkjennPaVegneAvBeggeParter
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
