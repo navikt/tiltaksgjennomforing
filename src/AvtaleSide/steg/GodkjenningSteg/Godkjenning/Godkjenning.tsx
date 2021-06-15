@@ -1,17 +1,11 @@
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale, GodkjentPaVegneGrunner } from '@/types/avtale';
-import { UfullstendigError } from '@/types/errors';
 import { Rolle } from '@/types/innlogget-bruker';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import React, { FunctionComponent, useState } from 'react';
-import GodkjennPaVegneAv from '../Oppsummering/GodkjennPaVegneAv/GodkjennPaVegneAv';
-import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 import './Godkjenning.less';
+import GodkjenningArbeidsgiver from './GodkjenningArbeidsgiver';
+import GodkjenningDeltaker from './GodkjenningDeltaker';
+import GodkjenningVeileder from './GodkjenningVeileder';
 
 interface Props {
     avtale: Avtale;
@@ -115,7 +109,12 @@ const Godkjenning: FunctionComponent<Props> = props => {
         return kanLagres;
     };
     return (
-        <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
+        <>
+            {props.rolle === 'VEILEDER' && <GodkjenningVeileder />}
+            {props.rolle === 'ARBEIDSGIVER' && <GodkjenningArbeidsgiver />}
+            {props.rolle === 'DELTAKER' && <GodkjenningDeltaker />}
+            <div>
+                {/* <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
             {!slipperBekrefteArbeidsavtale && (
@@ -171,7 +170,9 @@ const Godkjenning: FunctionComponent<Props> = props => {
                 }}
                 label=" Godkjenn avtalen"
             />
-        </Innholdsboks>
+        </Innholdsboks> */}
+            </div>
+        </>
     );
 };
 

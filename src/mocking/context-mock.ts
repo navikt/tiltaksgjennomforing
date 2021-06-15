@@ -97,4 +97,5 @@ export const contextMock: Context = {
     mellomLagring: undefined,
     setMellomLagring: () => null,
     sendTilbakeTilBeslutter: () => Promise.resolve(),
+    godkjennPaVegneAvArbeidsgiver: () => Promise.resolve(),
 };

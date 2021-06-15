@@ -209,6 +209,11 @@ export interface GodkjentPaVegneGrunner {
     reservert: boolean;
     digitalKompetanse: boolean;
 }
+export interface GodkjentPaVegneAvArbeidsgiverGrunner {
+    klarerIkkeGiFaTilgang: boolean;
+    vetIkkeHvemSomKanGiTilgang: boolean;
+    farIkkeTilgangPersonvern: boolean;
+}
 
 export interface RelasjonerInfo {
     harFamilietilknytning?: boolean;

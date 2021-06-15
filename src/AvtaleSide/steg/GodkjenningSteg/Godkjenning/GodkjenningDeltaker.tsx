@@ -5,7 +5,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { UfullstendigError } from '@/types/errors';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
-import { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 
 const GodkjenningDeltaker: FunctionComponent = () => {

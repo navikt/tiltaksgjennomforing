@@ -5,7 +5,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { UfullstendigError } from '@/types/errors';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
-import { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 
 const GodkjenningArbeidsgiver: FunctionComponent = () => {
@@ -17,15 +17,6 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
     const [bekreftetArbeidsAvtale, setBekreftetArbeidsAvtale] = useState<boolean>(false);
     const [bekreftetGodkjennerInnholdet, setBekreftetGodkjennerInnholdet] = useState(false);
 
-    const sjekkOmLønnstilskuddprosentErfyltUt = () => {
-        const felterSomIkkeErFyltUt = avtaleContext.avtale.felterSomIkkeErFyltUt;
-        if (felterSomIkkeErFyltUt.length === 1 && felterSomIkkeErFyltUt[0] === 'lonnstilskuddProsent') {
-            throw new UfullstendigError(
-                'Før du kan godkjenne må veileder sette lønnstilskuddprosent. Avtalen er tilgjengelig for veileder nå.'
-            );
-        }
-    };
-
     const feilmeldingManglerBekreftelse = () => {
         if (!bekreftetGodkjennerInnholdet && !bekreftetArbeidsAvtale) {
             return 'Det må bekreftes at arbeidsavtale er inngått og at du forstår kravene før du kan godkjenne.';
@@ -36,11 +27,20 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
         }
     };
 
+    const sjekkOmLønnstilskuddprosentErfyltUt = () => {
+        const felterSomIkkeErFyltUt = avtaleContext.avtale.felterSomIkkeErFyltUt;
+        if (felterSomIkkeErFyltUt.length === 1 && felterSomIkkeErFyltUt[0] === 'lonnstilskuddProsent') {
+            throw new UfullstendigError(
+                'Før du kan godkjenne må veileder sette lønnstilskuddprosent. Avtalen er tilgjengelig for veileder nå.'
+            );
+        }
+    };
+
     const godkjennAvtalen = () => {
         sjekkOmLønnstilskuddprosentErfyltUt();
 
         if (bekreftetGodkjennerInnholdet && bekreftetArbeidsAvtale) {
-            avtaleContext.godkjenn();
+            return avtaleContext.godkjenn();
         } else {
             throw new UfullstendigError(feilmeldingManglerBekreftelse());
         }

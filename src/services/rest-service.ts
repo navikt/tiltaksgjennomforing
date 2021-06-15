@@ -22,6 +22,7 @@ import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import { GodkjentPaVegneAvArbeidsgiverGrunner } from './../types/avtale';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
 
@@ -165,6 +166,14 @@ export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: Godkje
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
+    return hentAvtale(avtale.id);
+};
+export const godkjennAvtalePaVegneAvArbeidsgiver = async (
+    avtale: Avtale,
+    paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner
+) => {
+    const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av-arbeidsgiver`;
+    await api.post(uri, paVegneGrunn);
     return hentAvtale(avtale.id);
 };
 

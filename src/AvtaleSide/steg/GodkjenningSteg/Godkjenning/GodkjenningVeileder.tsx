@@ -3,27 +3,48 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { GodkjentPaVegneGrunner } from '@/types/avtale';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { FunctionComponent, useContext, useState } from 'react';
-import GodkjennPaVegneAv from '../Oppsummering/GodkjennPaVegneAv/GodkjennPaVegneAv';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
+import GodkjennPaVegneAvArbeidsgiver from './GodkjennPaVegneAvArbeidsgiver';
+import GodkjennPaVegneAvDeltaker from './GodkjennPaVegneAvDeltaker';
 
 const GodkjenningVeileder: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
-    const [godkjentPaVegneGrunn, setGodkjentPaVegneGrunn] = useState<GodkjentPaVegneGrunner>(initState);
+
+    const [skalGodkjennesPaVegne, setskalGodkjennesPaVegne] = useState(false);
 
     const godkjennAvtalen = () => {
-        console.log('hehe');
+        return avtaleContext.godkjenn();
     };
+
+    const [godkjenningFunksjon, setGodkjenningFunksjon] = useState(godkjennAvtalen);
+
+    const kunGodkjentAvDeltaker =
+        avtaleContext.avtale.godkjentAvDeltaker && !avtaleContext.avtale.godkjentAvArbeidsgiver;
+    const kunGodkjentAvArbeidsgiver =
+        avtaleContext.avtale.godkjentAvArbeidsgiver && !avtaleContext.avtale.godkjentAvDeltaker;
+    const ikkeGodkjentAvNoen = !avtaleContext.avtale.godkjentAvDeltaker && !avtaleContext.avtale.godkjentAvArbeidsgiver;
 
     return (
         <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
 
-            {!avtaleContext.avtale.godkjentAvDeltaker && (
-                <GodkjennPaVegneAv godkjentPaVegneGrunn={godkjentPaVegneGrunn} moderState={paVegneState} />
+            {kunGodkjentAvArbeidsgiver && (
+                <GodkjennPaVegneAvDeltaker
+                    setGodkjenningFunksjon={setGodkjenningFunksjon}
+                    setskalGodkjennesPaVegne={setskalGodkjennesPaVegne}
+                />
+            )}
+            {kunGodkjentAvDeltaker && (
+                <GodkjennPaVegneAvArbeidsgiver setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />
+            )}
+            {ikkeGodkjentAvNoen && (
+                <>
+                    <GodkjennPaVegneAvDeltaker setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />
+                    <GodkjennPaVegneAvArbeidsgiver setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />
+                </>
             )}
 
             {avtaleContext.avtale.harFamilietilknytning && (
@@ -35,7 +56,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
                 </>
             )}
 
-            <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />
+            {<LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
         </Innholdsboks>
     );
 };
