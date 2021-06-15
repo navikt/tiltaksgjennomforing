@@ -6,7 +6,6 @@ import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useStat
 
 type Props = {
     setskalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
-    setGodkjenningFunksjon: Dispatch<SetStateAction<any>>;
 };
 
 const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
@@ -51,7 +50,6 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
                 onChange={e => {
                     props.setskalGodkjennesPaVegne(e.currentTarget.checked);
                     setGodkjennPaVegneAvDeltaker(e.currentTarget.checked);
-                    props.setGodkjenningFunksjon(godkjennAvtalen);
                 }}
             />
 

@@ -3,10 +3,10 @@ import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/avbrutt-avtale.sv
 import { ReactComponent as EndretIkon } from '@/assets/ikoner/endret.svg';
 import { ReactComponent as GjenopprettIkon } from '@/assets/ikoner/gjenoppretteAvtaleIkon.svg';
 import { ReactComponent as LastOppIkon } from '@/assets/ikoner/hengelas-apen.svg';
+import { ReactComponent as PengeIkon } from '@/assets/ikoner/manedsLonn.svg';
 import { ReactComponent as OpphevetIkon } from '@/assets/ikoner/opphevet-godkjenninger.svg';
 import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/sirkel-check.svg';
 import { ReactComponent as VeilederIkon } from '@/assets/ikoner/veileder.svg';
-import { ReactComponent as PengeIkon } from '@/assets/ikoner/manedsLonn.svg';
 import { HendelseType } from '@/types/hendelse';
 import { Calender } from '@navikt/ds-icons/cjs';
 import React, { FunctionComponent } from 'react';
@@ -23,6 +23,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     GODKJENT_AV_DELTAKER: <GodkjentIkon />,
     GODKJENT_AV_VEILEDER: <GodkjentIkon />,
     GODKJENT_PAA_VEGNE_AV: <GodkjentIkon />,
+    GODKJENT_PAA_VEGNE_AV_ARBEIDSGIVER: <GodkjentIkon />,
     LÅST_OPP: <LastOppIkon />,
     ANNULLERT: <AvbruttIkon />,
     AVBRUTT: <AvbruttIkon />,
