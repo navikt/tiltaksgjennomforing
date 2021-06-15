@@ -85,7 +85,6 @@ const AvtaleOversikt: FunctionComponent = () => {
             />
 
             <BannerNAVAnsatt tekst={oversiktTekt} />
-
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 <div
                     style={layout.stylingAvFilterOgTabell}
