@@ -39,14 +39,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
                 <Avtaleparter {...avtale} />
                 {createElement(props.oppsummering, { avtaleinnhold: avtale })}
             </Innholdsboks>
-            {skalViseGodkjenning && (
-                <Godkjenning
-                    avtale={avtale}
-                    rolle={innloggetBruker.rolle}
-                    godkjenn={godkjenn}
-                    godkjennPaVegne={godkjennPaVegne}
-                />
-            )}
+            {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {avtale.tilskuddPeriode.length > 0 && (
                 <Innholdsboks>
                     <TilskuddsPerioderOppsummering />
