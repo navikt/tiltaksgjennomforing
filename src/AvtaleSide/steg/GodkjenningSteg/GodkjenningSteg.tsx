@@ -20,7 +20,7 @@ interface Props {
 const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
+    const { avtale, laasOpp } = useContext(AvtaleContext);
 
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));

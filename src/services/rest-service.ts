@@ -9,7 +9,8 @@ import {
     Bedriftinfo,
     EndreKontaktInfo,
     EndreOppfølgingOgTilretteleggingInfo,
-    GodkjentPaVegneGrunner,
+    GodkjentPaVegneAvDeltakerGrunner,
+    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
     Maal,
     Stilling,
     TiltaksType,
@@ -159,7 +160,7 @@ export const godkjennAvtale = async (avtale: Avtale) => {
     return hentAvtale(avtale.id);
 };
 
-export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => {
+export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => {
     const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av`;
     await api.post(uri, paVegneGrunn, {
         headers: {
@@ -173,6 +174,14 @@ export const godkjennAvtalePaVegneAvArbeidsgiver = async (
     paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner
 ) => {
     const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av-arbeidsgiver`;
+    await api.post(uri, paVegneGrunn);
+    return hentAvtale(avtale.id);
+};
+export const godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver = async (
+    avtale: Avtale,
+    paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner
+) => {
+    const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av-deltaker-og-arbeidsgiver`;
     await api.post(uri, paVegneGrunn);
     return hentAvtale(avtale.id);
 };

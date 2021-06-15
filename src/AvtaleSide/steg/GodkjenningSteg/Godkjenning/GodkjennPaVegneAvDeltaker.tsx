@@ -3,6 +3,9 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
+import GodkjennPåVegneAvDeltakerCheckboxer from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/GodkjennPåVegneAvDeltakerCheckboxer';
 
 type Props = {
     setskalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
@@ -15,16 +18,21 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
         ? 'Jeg skal godkjenne på vegne av deltakeren, fordi deltakeren'
         : 'Jeg skal godkjenne på vegne av deltakeren';
 
-    const [ikkeBankId, setIkkeBankId] = useState(false);
-    const [reservert, setReservert] = useState(false);
-    const [digitalKompetanse, setDigitalKompetanse] = useState(false);
+    const [godkjentPåVegneAvGrunner, setGodkjentPåVegneAvGrunner] = useState<GodkjentPaVegneAvDeltakerGrunner>({
+        digitalKompetanse: false,
+        reservert: false,
+        ikkeBankId: false,
+    });
 
-    const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<SkjemaelementFeil | undefined>();
+    const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<SkjemaelementFeil>();
     const [deltakerInformert, setDeltakerInformert] = useState(false);
-    const [feilDeltakerInformert, setFeilDeltakerInformert] = useState<SkjemaelementFeil | undefined>();
+    const [feilDeltakerInformert, setFeilDeltakerInformert] = useState<SkjemaelementFeil>();
 
     const godkjennAvtalen = () => {
-        const valgtMinstEnGrunn = ikkeBankId || reservert || digitalKompetanse;
+        const valgtMinstEnGrunn =
+            godkjentPåVegneAvGrunner.ikkeBankId ||
+            godkjentPåVegneAvGrunner.reservert ||
+            godkjentPåVegneAvGrunner.digitalKompetanse;
         if (!valgtMinstEnGrunn) {
             setFeilmeldingGrunn({ feilmelding: 'Oppgi minst én grunn for godkjenning på vegne av deltaker' });
             return;
@@ -39,7 +47,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
         } else {
             setFeilDeltakerInformert(undefined);
         }
-        return avtaleContext.godkjennPaVegne({ digitalKompetanse, ikkeBankId, reservert });
+        return avtaleContext.godkjennPaVegneAvDeltaker(godkjentPåVegneAvGrunner!);
     };
 
     return (
@@ -56,23 +64,12 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
             {godkjennPaVegneAvDeltaker && (
                 <>
                     <div style={{ marginLeft: '1rem' }}>
-                        <SkjemaGruppe feil={feilmeldingGrunn}>
-                            <Checkbox
-                                label="ikke BankID"
-                                checked={ikkeBankId}
-                                onChange={event => setIkkeBankId(event.currentTarget.checked)}
-                            />
-                            <Checkbox
-                                label="har reservert seg mot digitale tjenester"
-                                checked={reservert}
-                                onChange={event => setReservert(event.currentTarget.checked)}
-                            />
-                            <Checkbox
-                                label="mangler digital kompetanse"
-                                checked={digitalKompetanse}
-                                onChange={event => setDigitalKompetanse(event.currentTarget.checked)}
-                            />
-                        </SkjemaGruppe>
+                        <GodkjennPåVegneAvDeltakerCheckboxer
+                            godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunner}
+                            setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunner}
+                            feilmeldingGrunn={feilmeldingGrunn}
+                            setFeilmeldingGrunn={setFeilmeldingGrunn}
+                        />
                     </div>
                     <VerticalSpacer rem={1} />
                     <SkjemaGruppe feil={feilDeltakerInformert}>
@@ -84,6 +81,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
                     </SkjemaGruppe>
                 </>
             )}
+            {godkjennPaVegneAvDeltaker && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
             <VerticalSpacer rem={1} />
         </>
     );

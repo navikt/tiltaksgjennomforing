@@ -84,7 +84,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = props => {
                     <VerticalSpacer rem={1} />
                     <SkjemaGruppe feil={feilArbeidsgiverInformert}>
                         <Checkbox
-                            label="Deltakeren er informert om kravene og godkjenner innholdet i avtalen."
+                            label="Arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen."
                             checked={arbeidsgiverInformert}
                             onChange={() => setArbeidsgiverInformert(!arbeidsgiverInformert)}
                         />

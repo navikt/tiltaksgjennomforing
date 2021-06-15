@@ -92,10 +92,11 @@ export const contextMock: Context = {
     godkjenn: () => Promise.resolve(),
     godkjennTilskudd: () => Promise.resolve(),
     avslåTilskudd: () => Promise.resolve(),
-    godkjennPaVegne: () => Promise.resolve(),
+    godkjennPaVegneAvDeltaker: () => Promise.resolve(),
+    godkjennPaVegneAvArbeidsgiver: () => Promise.resolve(),
+    godkjennPaVegneAvDeltakerOgArbeidsgiver: () => Promise.resolve(),
     ulagredeEndringer: false,
     mellomLagring: undefined,
     setMellomLagring: () => null,
     sendTilbakeTilBeslutter: () => Promise.resolve(),
-    godkjennPaVegneAvArbeidsgiver: () => Promise.resolve(),
 };

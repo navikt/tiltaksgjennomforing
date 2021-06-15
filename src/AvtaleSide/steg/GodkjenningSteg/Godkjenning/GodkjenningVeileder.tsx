@@ -8,6 +8,7 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 import GodkjennPaVegneAvArbeidsgiver from './GodkjennPaVegneAvArbeidsgiver';
 import GodkjennPaVegneAvDeltaker from './GodkjennPaVegneAvDeltaker';
+import GodkjennPaVegneAvBeggeParter from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/GodkjennPaVegneAvBeggeParter';
 
 const GodkjenningVeileder: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -35,12 +36,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
             {kunGodkjentAvDeltaker && (
                 <GodkjennPaVegneAvArbeidsgiver setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />
             )}
-            {ikkeGodkjentAvNoen && (
-                <>
-                    <GodkjennPaVegneAvDeltaker setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />
-                    <GodkjennPaVegneAvArbeidsgiver setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />
-                </>
-            )}
+            {ikkeGodkjentAvNoen && <GodkjennPaVegneAvBeggeParter setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />}
 
             {avtaleContext.avtale.harFamilietilknytning && (
                 <>
