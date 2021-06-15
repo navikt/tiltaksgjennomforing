@@ -8,13 +8,14 @@ import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
 import GodkjennPåVegneAvDeltakerCheckboxer from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/GodkjennPåVegneAvDeltakerCheckboxer';
 
 type Props = {
-    setskalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
+    skalGodkjennesPaVegne: boolean;
+    setSkalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
 };
 
 const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
     const avtaleContext = useContext(AvtaleContext);
-    const [godkjennPaVegneAvDeltaker, setGodkjennPaVegneAvDeltaker] = useState(false);
-    const godkjennPaVegneLabel = godkjennPaVegneAvDeltaker
+
+    const godkjennPaVegneLabel = props.skalGodkjennesPaVegne
         ? 'Jeg skal godkjenne på vegne av deltakeren, fordi deltakeren'
         : 'Jeg skal godkjenne på vegne av deltakeren';
 
@@ -35,35 +36,36 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
             godkjentPåVegneAvGrunner.digitalKompetanse;
         if (!valgtMinstEnGrunn) {
             setFeilmeldingGrunn({ feilmelding: 'Oppgi minst én grunn for godkjenning på vegne av deltaker' });
-            return;
         } else {
             setFeilmeldingGrunn(undefined);
         }
+
         if (!deltakerInformert) {
             setFeilDeltakerInformert({
                 feilmelding: 'Deltaker må være informert om kravene og godkjenne innholdet i avtalen.',
             });
-            return;
         } else {
             setFeilDeltakerInformert(undefined);
         }
-        return avtaleContext.godkjennPaVegneAvDeltaker(godkjentPåVegneAvGrunner!);
+
+        if (feilmeldingGrunn === undefined && feilDeltakerInformert === undefined) {
+            return avtaleContext.godkjennPaVegneAvDeltaker(godkjentPåVegneAvGrunner);
+        }
     };
 
     return (
         <>
             <Checkbox
                 label={godkjennPaVegneLabel}
-                checked={godkjennPaVegneAvDeltaker}
+                checked={props.skalGodkjennesPaVegne}
                 onChange={e => {
-                    props.setskalGodkjennesPaVegne(e.currentTarget.checked);
-                    setGodkjennPaVegneAvDeltaker(e.currentTarget.checked);
+                    props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
             />
 
-            {godkjennPaVegneAvDeltaker && (
+            {props.skalGodkjennesPaVegne && (
                 <>
-                    <div style={{ marginLeft: '1rem' }}>
+                    <div style={{ marginLeft: '2rem' }}>
                         <GodkjennPåVegneAvDeltakerCheckboxer
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunner}
                             setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunner}
@@ -81,7 +83,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
                     </SkjemaGruppe>
                 </>
             )}
-            {godkjennPaVegneAvDeltaker && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
+            {props.skalGodkjennesPaVegne && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
             <VerticalSpacer rem={1} />
         </>
     );

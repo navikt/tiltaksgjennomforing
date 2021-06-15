@@ -13,7 +13,7 @@ import GodkjennPaVegneAvBeggeParter from '@/AvtaleSide/steg/GodkjenningSteg/Godk
 const GodkjenningVeileder: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
 
-    const [skalGodkjennesPaVegne, setskalGodkjennesPaVegne] = useState(false);
+    const [skalGodkjennesPaVegne, setSkalGodkjennesPaVegne] = useState(false);
 
     const godkjennAvtalen = () => {
         return avtaleContext.godkjenn();
@@ -31,12 +31,23 @@ const GodkjenningVeileder: FunctionComponent = () => {
             <GodkjenningInstruks />
 
             {kunGodkjentAvArbeidsgiver && (
-                <GodkjennPaVegneAvDeltaker setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />
+                <GodkjennPaVegneAvDeltaker
+                    skalGodkjennesPaVegne={skalGodkjennesPaVegne}
+                    setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
+                />
             )}
             {kunGodkjentAvDeltaker && (
-                <GodkjennPaVegneAvArbeidsgiver setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />
+                <GodkjennPaVegneAvArbeidsgiver
+                    skalGodkjennesPaVegne={skalGodkjennesPaVegne}
+                    setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
+                />
             )}
-            {ikkeGodkjentAvNoen && <GodkjennPaVegneAvBeggeParter setskalGodkjennesPaVegne={setskalGodkjennesPaVegne} />}
+            {ikkeGodkjentAvNoen && (
+                <GodkjennPaVegneAvBeggeParter
+                    skalGodkjennesPaVegne={skalGodkjennesPaVegne}
+                    setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
+                />
+            )}
 
             {avtaleContext.avtale.harFamilietilknytning && (
                 <>

@@ -10,15 +10,15 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { AvtaleContext } from '@/AvtaleProvider';
 
 type Props = {
-    setskalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
+    skalGodkjennesPaVegne: boolean;
+    setSkalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
 };
 
 const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
     const avtaleContext = useContext(AvtaleContext);
 
-    const [godkjennPaVegneAvBegge, setGodkjennPaVegneAvBegge] = useState(false);
-    const godkjennPaVegneLabel = godkjennPaVegneAvBegge
-        ? 'Jeg skal godkjenne på vegne av deltaker og arbeidsgiver, fordi deltakeren og arbeidsgiveren'
+    const godkjennPaVegneLabel = props.skalGodkjennesPaVegne
+        ? 'Jeg skal godkjenne på vegne av deltakeren og arbeidsgiveren fordi:'
         : 'Jeg skal godkjenne på vegne av deltakeren og arbeidsgiveren';
 
     const [godkjentPåVegneAvGrunnerDeltaker, setGodkjentPåVegneAvGrunnerDeltaker] = useState<
@@ -39,10 +39,8 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
     const [feilmeldingGrunnDeltaker, setFeilmeldingGrunnDeltaker] = useState<SkjemaelementFeil>();
     const [feilmeldingGrunnArbeidsgiver, setFeilmeldingGrunnArbeidsgiver] = useState<SkjemaelementFeil>();
 
-    const [deltakerInformert, setDeltakerInformert] = useState(false);
-    const [feilDeltakerInformert, setFeilDeltakerInformert] = useState<SkjemaelementFeil>();
-    const [arbeidsgiverInformert, setArbeidsgiverInformert] = useState(false);
-    const [feilArbeidsgiverInformert, setFeilArbeidsgiverInformert] = useState<SkjemaelementFeil>();
+    const [erInformert, setErInformert] = useState(false);
+    const [feilErInformert, setFeilErInformert] = useState<SkjemaelementFeil>();
 
     const godkjennAvtalen = () => {
         const valgtMinstEnGrunnDeltaker =
@@ -51,19 +49,9 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
             godkjentPåVegneAvGrunnerDeltaker.digitalKompetanse;
         if (!valgtMinstEnGrunnDeltaker) {
             setFeilmeldingGrunnDeltaker({ feilmelding: 'Oppgi minst én grunn for godkjenning på vegne av deltaker' });
-            return;
         } else {
             setFeilmeldingGrunnDeltaker(undefined);
         }
-        if (!deltakerInformert) {
-            setFeilDeltakerInformert({
-                feilmelding: 'Deltaker må være informert om kravene og godkjenne innholdet i avtalen.',
-            });
-            return;
-        } else {
-            setFeilDeltakerInformert(undefined);
-        }
-
         const valgtMinstEnGrunnArbeidsgiver =
             godkjentPåVegneAvGrunnerArbeidsgiver.klarerIkkeGiFaTilgang ||
             godkjentPåVegneAvGrunnerArbeidsgiver.vetIkkeHvemSomKanGiTilgang ||
@@ -72,17 +60,20 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
             setFeilmeldingGrunnArbeidsgiver({
                 feilmelding: 'Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver',
             });
-            return;
         } else {
             setFeilmeldingGrunnArbeidsgiver(undefined);
         }
-        if (!arbeidsgiverInformert) {
-            setFeilArbeidsgiverInformert({
-                feilmelding: 'Arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.',
+
+        if (!erInformert) {
+            setFeilErInformert({
+                feilmelding: 'Deltaker og arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.',
             });
-            return;
         } else {
-            setFeilArbeidsgiverInformert(undefined);
+            setFeilErInformert(undefined);
+        }
+
+        if (feilmeldingGrunnDeltaker || feilmeldingGrunnArbeidsgiver || feilErInformert) {
+            return;
         }
 
         return avtaleContext.godkjennPaVegneAvDeltakerOgArbeidsgiver({
@@ -95,16 +86,15 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
         <>
             <Checkbox
                 label={godkjennPaVegneLabel}
-                checked={godkjennPaVegneAvBegge}
+                checked={props.skalGodkjennesPaVegne}
                 onChange={e => {
-                    props.setskalGodkjennesPaVegne(e.currentTarget.checked);
-                    setGodkjennPaVegneAvBegge(e.currentTarget.checked);
+                    props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
             />
-            {godkjennPaVegneAvBegge && (
+            {props.skalGodkjennesPaVegne && (
                 <>
-                    <div style={{ marginLeft: '1rem' }}>
-                        <Element>Deltaker:</Element>
+                    <div style={{ marginLeft: '2rem' }}>
+                        <Element>Deltaker</Element>
                         <VerticalSpacer rem={0.5} />
                         <GodkjennPåVegneAvDeltakerCheckboxer
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunnerDeltaker}
@@ -113,7 +103,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
                             setFeilmeldingGrunn={setFeilmeldingGrunnDeltaker}
                         />
                         <VerticalSpacer rem={1} />
-                        <Element>Arbeidsgiver:</Element>
+                        <Element>Arbeidsgiver</Element>
                         <VerticalSpacer rem={0.5} />
                         <GodkjennPåVegneAvArbeidsgiverCheckboxer
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunnerArbeidsgiver}
@@ -123,22 +113,16 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
                         />
                     </div>
                     <VerticalSpacer rem={1} />
-                    <SkjemaGruppe feil={feilDeltakerInformert}>
+                    <SkjemaGruppe feil={feilErInformert}>
                         <Checkbox
-                            label="Deltakeren er informert om kravene og godkjenner innholdet i avtalen."
-                            checked={deltakerInformert}
-                            onChange={() => setDeltakerInformert(!deltakerInformert)}
+                            label="Deltakeren og arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen."
+                            checked={erInformert}
+                            onChange={() => setErInformert(!erInformert)}
                         />
                     </SkjemaGruppe>
                     <VerticalSpacer rem={1} />
-                    <SkjemaGruppe feil={feilArbeidsgiverInformert}>
-                        <Checkbox
-                            label="Arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen."
-                            checked={arbeidsgiverInformert}
-                            onChange={() => setArbeidsgiverInformert(!arbeidsgiverInformert)}
-                        />
-                    </SkjemaGruppe>
-                    {godkjennPaVegneAvBegge && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
+                    {props.skalGodkjennesPaVegne && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
+                    <VerticalSpacer rem={1} />
                 </>
             )}
         </>

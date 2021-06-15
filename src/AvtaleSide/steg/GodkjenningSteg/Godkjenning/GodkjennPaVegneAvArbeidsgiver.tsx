@@ -6,15 +6,14 @@ import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmel
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 
 type Props = {
-    setskalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
+    skalGodkjennesPaVegne: boolean;
+    setSkalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
 };
 
 const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = props => {
     const avtaleContext = useContext(AvtaleContext);
 
-    const [godkjennPaVegneAvArbeidsgiver, setGodkjennPaVegneAvArbeidsgiver] = useState(false);
-
-    const godkjennPaVegneLabel = godkjennPaVegneAvArbeidsgiver
+    const godkjennPaVegneLabel = props.skalGodkjennesPaVegne
         ? 'Jeg skal godkjenne på vegne av arbeidsgiver, fordi arbeidsgiveren'
         : 'Jeg skal godkjenne på vegne av arbeidsgiver';
 
@@ -53,16 +52,15 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = props => {
         <>
             <Checkbox
                 label={godkjennPaVegneLabel}
-                checked={godkjennPaVegneAvArbeidsgiver}
+                checked={props.skalGodkjennesPaVegne}
                 onChange={e => {
-                    props.setskalGodkjennesPaVegne(e.currentTarget.checked);
-                    setGodkjennPaVegneAvArbeidsgiver(e.currentTarget.checked);
+                    props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
             />
 
-            {godkjennPaVegneAvArbeidsgiver && (
+            {props.skalGodkjennesPaVegne && (
                 <>
-                    <div style={{ marginLeft: '1rem' }}>
+                    <div style={{ marginLeft: '2rem' }}>
                         <SkjemaGruppe feil={feilmeldingGrunn}>
                             <Checkbox
                                 label="klarer ikke få eller gi tilgang"
@@ -93,7 +91,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = props => {
             )}
             <VerticalSpacer rem={1} />
 
-            {godkjennPaVegneAvArbeidsgiver && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
+            {props.skalGodkjennesPaVegne && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
             <VerticalSpacer rem={1} />
         </>
     );

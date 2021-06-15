@@ -14,7 +14,7 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = props => 
     return (
         <SkjemaGruppe feil={props.feilmeldingGrunn}>
             <Checkbox
-                label="ikke BankID"
+                label="har ikke BankID"
                 checked={props.godkjentPåVegneAvGrunner.ikkeBankId}
                 onChange={event =>
                     props.setGodkjentPåVegneAvGrunner({
