@@ -18,7 +18,7 @@ const fnrValidering: Validering = verdi => (!validerFnr(verdi) ? { feilmelding: 
 const orgNrValidering: Validering = verdi =>
     !validerOrgnr(verdi) ? { feilmelding: 'Ugyldig bedriftsnummer' } : undefined;
 
-type Søketype = 'deltaker' | 'bedrift' | 'egne' | 'fordeltePrEnhet' | 'ufordelte';
+type Søketype = 'deltaker' | 'bedrift' | 'egne' | 'avtaleVedEnhet' | 'ufordelte';
 
 export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props => {
     const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
@@ -60,7 +60,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             validering: orgNrValidering,
             utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, bedriftNr: søkeord }),
         },
-        fordeltePrEnhet: {
+        avtaleVedEnhet: {
             key: 'fordeltEnhet',
             placeholder: '',
             label: 'På en enhet',
@@ -83,22 +83,21 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
         const nySøketype = event.currentTarget.value as Søketype;
         setAktivSøketype(nySøketype);
 
-        if (nySøketype === 'egne' || nySøketype === 'ufordelte' || nySøketype === 'fordeltePrEnhet') {
+        if (nySøketype === 'egne' || nySøketype === 'ufordelte' || nySøketype === 'avtaleVedEnhet') {
             søk[nySøketype].utførSøk();
         }
     };
 
-    const getNavEnhetOptions = () =>
-        props.navEnheter?.sort().map((enhet, index) => (
-            <option key={index} value={enhet}>
-                Enhet {enhet}
-            </option>
-        ));
+    const getNavEnhetOptions = props.navEnheter?.sort().map((enhet, index) => (
+        <option key={index} value={enhet}>
+            Enhet {enhet}
+        </option>
+    ));
 
     const aktueltSøk = søk[aktivSøketype];
     const visSøkefelt: boolean =
-        aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte' && aktivSøketype !== 'fordeltePrEnhet';
-    const avtalePrEnhet: boolean = aktivSøketype === 'fordeltePrEnhet';
+        aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte' && aktivSøketype !== 'avtaleVedEnhet';
+    const avtalePrEnhet: boolean = aktivSøketype === 'avtaleVedEnhet';
     const ufordelt: boolean = aktivSøketype === 'ufordelte';
 
     return (
@@ -139,7 +138,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     }}
                     aria-label="filtere på NAV enhet"
                 >
-                    {getNavEnhetOptions()}
+                    {getNavEnhetOptions}
                 </Select>
             )}
             {ufordelt && (
@@ -152,7 +151,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     }}
                     aria-label="filtere på NAV enhet"
                 >
-                    {getNavEnhetOptions()}
+                    {getNavEnhetOptions}
                 </Select>
             )}
         </Filter>
