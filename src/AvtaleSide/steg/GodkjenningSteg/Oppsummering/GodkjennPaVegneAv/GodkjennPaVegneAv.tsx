@@ -2,16 +2,16 @@ import React, { Dispatch, SetStateAction, useReducer } from 'react';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import './GodkjennPaVegneAv.less';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { GodkjentPaVegneGrunner } from '@/types/avtale';
+import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
 
-type Grunner = GodkjentPaVegneGrunner;
+type Grunner = GodkjentPaVegneAvDeltakerGrunner;
 
 type GodkjennPaVegneAvProps = {
-    godkjentPaVegneGrunn: GodkjentPaVegneGrunner;
+    godkjentPaVegneGrunn: GodkjentPaVegneAvDeltakerGrunner;
     moderState: {
         godkjentPaVegneAv: boolean;
         setGodkjentPaVegneAv: Dispatch<SetStateAction<boolean>>;
-        setGodkjentPaVegneGrunn: Dispatch<SetStateAction<GodkjentPaVegneGrunner>>;
+        setGodkjentPaVegneGrunn: Dispatch<SetStateAction<GodkjentPaVegneAvDeltakerGrunner>>;
         feilIngenGrunn: SkjemaelementFeil | undefined;
         setFeilIngenGrunn: Dispatch<SetStateAction<SkjemaelementFeil | undefined>>;
         feilDeltakerInformert: SkjemaelementFeil | undefined;
@@ -21,7 +21,7 @@ type GodkjennPaVegneAvProps = {
     };
 };
 
-const initialState: GodkjentPaVegneGrunner = {
+const initialState: GodkjentPaVegneAvDeltakerGrunner = {
     ikkeBankId: false,
     reservert: false,
     digitalKompetanse: false,

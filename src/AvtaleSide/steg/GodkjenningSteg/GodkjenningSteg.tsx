@@ -1,5 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import NyAvtaleStatus from '@/AvtaleSide/NyAvtaleStatus/NyAvtaleStatus';
+import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -9,9 +10,8 @@ import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
 import { Avtaleinnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, useContext } from 'react';
-import Godkjenning from './Godkjenning';
+import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
-import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -20,7 +20,7 @@ interface Props {
 const GodkjenningSteg: React.FunctionComponent<Props> = props => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, laasOpp, godkjennPaVegne, godkjenn } = useContext(AvtaleContext);
+    const { avtale, laasOpp } = useContext(AvtaleContext);
 
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
@@ -39,14 +39,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
                 <Avtaleparter {...avtale} />
                 {createElement(props.oppsummering, { avtaleinnhold: avtale })}
             </Innholdsboks>
-            {skalViseGodkjenning && (
-                <Godkjenning
-                    avtale={avtale}
-                    rolle={innloggetBruker.rolle}
-                    godkjenn={godkjenn}
-                    godkjennPaVegne={godkjennPaVegne}
-                />
-            )}
+            {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {avtale.tilskuddPeriode.length > 0 && (
                 <Innholdsboks>
                     <TilskuddsPerioderOppsummering />

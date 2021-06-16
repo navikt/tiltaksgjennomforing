@@ -1,5 +1,13 @@
 import { FeilVarselContext } from '@/FeilVarselProvider';
-import { Avslagsårsaker, Avtale, Beregningsgrunnlag, GodkjentPaVegneGrunner, Maal } from '@/types/avtale';
+import {
+    Avslagsårsaker,
+    Avtale,
+    Beregningsgrunnlag,
+    GodkjentPaVegneAvArbeidsgiverGrunner,
+    GodkjentPaVegneAvDeltakerGrunner,
+    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
+    Maal,
+} from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
@@ -39,7 +47,11 @@ export interface Context {
     godkjenn: () => Promise<void>;
     godkjennTilskudd: (enhet: string) => Promise<void>;
     avslåTilskudd: (avslagsårsaker: Set<Avslagsårsaker>, avslagsforklaring: string) => Promise<void>;
-    godkjennPaVegne: (paVegneGrunn: GodkjentPaVegneGrunner) => Promise<void>;
+    godkjennPaVegneAvDeltaker: (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => Promise<void>;
+    godkjennPaVegneAvArbeidsgiver: (paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner) => Promise<void>;
+    godkjennPaVegneAvDeltakerOgArbeidsgiver: (
+        paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner
+    ) => Promise<void>;
     ulagredeEndringer: boolean;
     hentAvtale: (avtaleId?: string) => Promise<void>;
     lagreAvtale: () => Promise<void>;
@@ -241,9 +253,21 @@ const AvtaleProvider: FunctionComponent = props => {
         await hentAvtale(avtale.id);
     };
 
-    const godkjennPaVegne = async (paVegneGrunn: GodkjentPaVegneGrunner): Promise<void> => {
+    const godkjennPaVegneAvDeltaker = async (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
+        await hentAvtale(avtale.id);
+    };
+    const godkjennPaVegneAvArbeidsgiver = async (paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner): Promise<void> => {
+        await RestService.godkjennAvtalePaVegneAvArbeidsgiver(avtale, paVegneGrunn);
+        sendToAmplitude('#tiltak-avtale-godkjent-pavegneav-ag');
+        await hentAvtale(avtale.id);
+    };
+    const godkjennPaVegneAvDeltakerOgArbeidsgiver = async (
+        paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner
+    ): Promise<void> => {
+        await RestService.godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver(avtale, paVegneGrunn);
+        sendToAmplitude('#tiltak-avtale-godkjent-pavegneav-deltaker-og-ag');
         await hentAvtale(avtale.id);
     };
 
@@ -269,7 +293,9 @@ const AvtaleProvider: FunctionComponent = props => {
         slettMaal,
         endretSteg,
         godkjenn,
-        godkjennPaVegne,
+        godkjennPaVegneAvDeltaker,
+        godkjennPaVegneAvArbeidsgiver,
+        godkjennPaVegneAvDeltakerOgArbeidsgiver,
         godkjennTilskudd,
         avslåTilskudd,
         ulagredeEndringer,

@@ -9,7 +9,8 @@ import {
     Bedriftinfo,
     EndreKontaktInfo,
     EndreOppfølgingOgTilretteleggingInfo,
-    GodkjentPaVegneGrunner,
+    GodkjentPaVegneAvDeltakerGrunner,
+    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
     Maal,
     Stilling,
     TiltaksType,
@@ -22,6 +23,7 @@ import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import { GodkjentPaVegneAvArbeidsgiverGrunner } from './../types/avtale';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
 
@@ -158,13 +160,29 @@ export const godkjennAvtale = async (avtale: Avtale) => {
     return hentAvtale(avtale.id);
 };
 
-export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneGrunner) => {
+export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => {
     const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av`;
     await api.post(uri, paVegneGrunn, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
+    return hentAvtale(avtale.id);
+};
+export const godkjennAvtalePaVegneAvArbeidsgiver = async (
+    avtale: Avtale,
+    paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner
+) => {
+    const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av-arbeidsgiver`;
+    await api.post(uri, paVegneGrunn);
+    return hentAvtale(avtale.id);
+};
+export const godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver = async (
+    avtale: Avtale,
+    paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner
+) => {
+    const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av-deltaker-og-arbeidsgiver`;
+    await api.post(uri, paVegneGrunn);
     return hentAvtale(avtale.id);
 };
 

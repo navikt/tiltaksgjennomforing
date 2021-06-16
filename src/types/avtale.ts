@@ -185,7 +185,7 @@ export interface Godkjenninger {
     status: AvtaleStatus;
     statusSomEnum: AvtaleStatus;
     godkjentPaVegneAv: boolean;
-    godkjentPaVegneGrunn?: GodkjentPaVegneGrunner;
+    godkjentPaVegneGrunn?: GodkjentPaVegneAvDeltakerGrunner;
     erLaast: boolean;
     felterSomIkkeErFyltUt: (keyof Avtaleinnhold)[];
     ikrafttredelsestidspunkt?: string;
@@ -204,10 +204,20 @@ export interface Avbrytelse {
     avbruttGrunn: AvbrytelseGrunn;
 }
 
-export interface GodkjentPaVegneGrunner {
+export interface GodkjentPaVegneAvDeltakerGrunner {
     ikkeBankId: boolean;
     reservert: boolean;
     digitalKompetanse: boolean;
+}
+export interface GodkjentPaVegneAvArbeidsgiverGrunner {
+    klarerIkkeGiFaTilgang: boolean;
+    vetIkkeHvemSomKanGiTilgang: boolean;
+    farIkkeTilgangPersonvern: boolean;
+}
+
+export interface GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner {
+    godkjentPaVegneAvDeltakerGrunn: GodkjentPaVegneAvDeltakerGrunner;
+    godkjentPaVegneAvArbeidsgiverGrunn: GodkjentPaVegneAvArbeidsgiverGrunner;
 }
 
 export interface RelasjonerInfo {
