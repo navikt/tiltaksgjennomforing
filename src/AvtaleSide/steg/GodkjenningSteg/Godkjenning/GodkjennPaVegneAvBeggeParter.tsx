@@ -49,6 +49,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
             godkjentPåVegneAvGrunnerDeltaker.digitalKompetanse;
         if (!valgtMinstEnGrunnDeltaker) {
             setFeilmeldingGrunnDeltaker({ feilmelding: 'Oppgi minst én grunn for godkjenning på vegne av deltaker' });
+            return;
         } else {
             setFeilmeldingGrunnDeltaker(undefined);
         }
@@ -60,6 +61,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
             setFeilmeldingGrunnArbeidsgiver({
                 feilmelding: 'Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver',
             });
+            return;
         } else {
             setFeilmeldingGrunnArbeidsgiver(undefined);
         }
@@ -68,12 +70,9 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = props => {
             setFeilErInformert({
                 feilmelding: 'Deltaker og arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.',
             });
+            return;
         } else {
             setFeilErInformert(undefined);
-        }
-
-        if (feilmeldingGrunnDeltaker || feilmeldingGrunnArbeidsgiver || feilErInformert) {
-            return;
         }
 
         return avtaleContext.godkjennPaVegneAvDeltakerOgArbeidsgiver({

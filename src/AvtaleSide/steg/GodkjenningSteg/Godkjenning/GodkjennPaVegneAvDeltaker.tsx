@@ -36,6 +36,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
             godkjentPåVegneAvGrunner.digitalKompetanse;
         if (!valgtMinstEnGrunn) {
             setFeilmeldingGrunn({ feilmelding: 'Oppgi minst én grunn for godkjenning på vegne av deltaker' });
+            return;
         } else {
             setFeilmeldingGrunn(undefined);
         }
@@ -44,13 +45,12 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
             setFeilDeltakerInformert({
                 feilmelding: 'Deltaker må være informert om kravene og godkjenne innholdet i avtalen.',
             });
+            return;
         } else {
             setFeilDeltakerInformert(undefined);
         }
 
-        if (feilmeldingGrunn === undefined && feilDeltakerInformert === undefined) {
-            return avtaleContext.godkjennPaVegneAvDeltaker(godkjentPåVegneAvGrunner);
-        }
+        return avtaleContext.godkjennPaVegneAvDeltaker(godkjentPåVegneAvGrunner);
     };
 
     return (
