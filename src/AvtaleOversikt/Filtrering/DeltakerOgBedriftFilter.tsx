@@ -66,8 +66,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             label: 'På en enhet',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () =>
-                props.endreSøk({ ...tomt, veilederNavIdent: innloggetBruker.identifikator, navEnhet: navEnhetValgt }),
+            utførSøk: () => props.endreSøk({ ...tomt, navEnhet: navEnhetValgt }),
         },
         ufordelte: {
             key: 'utfordelt',
@@ -75,7 +74,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             label: 'Ufordelte',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => props.endreSøk({ ...tomt, navEnhet: navEnhetValgt }),
+            utførSøk: () => props.endreSøk({ ...tomt, navEnhet: navEnhetValgt, erUfordelt: true }),
         },
     };
 
@@ -131,8 +130,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     onChange={event => {
                         const nyEnhet = event.currentTarget.value;
                         props.endreSøk({
-                            ...tomt,
-                            veilederNavIdent: innloggetBruker.identifikator,
+                            ...aktueltSøk.utførSøk,
                             navEnhet: nyEnhet,
                         });
                     }}
@@ -147,7 +145,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                     name={aktueltSøk.key}
                     onChange={event => {
                         const nyEnhet = event.currentTarget.value;
-                        props.endreSøk({ ...aktueltSøk.utførSøk, navEnhet: nyEnhet });
+                        props.endreSøk({ ...aktueltSøk.utførSøk, navEnhet: nyEnhet, erUfordelt: true });
                     }}
                     aria-label="filtere på NAV enhet"
                 >
