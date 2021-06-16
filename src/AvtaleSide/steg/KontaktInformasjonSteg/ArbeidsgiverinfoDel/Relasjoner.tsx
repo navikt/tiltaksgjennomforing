@@ -14,13 +14,14 @@ import { RadioPanel } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
+import { tiltakstypeTekst } from '@/messages';
+
+const cls = BEMHelper('relasjoner');
 
 const Relasjoner: FunctionComponent = () => {
-    const { avtale, settAvtaleVerdier }: InputStegProps<RelasjonerInfo> = useContext(AvtaleContext);
+    const { avtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
-    const cls = BEMHelper('relasjoner');
-
-    const harFamilieTilknttningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): JSX.Element => {
+    const harFamilietilknytningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): JSX.Element => {
         switch (harFamilietilknytning) {
             case true:
                 return <Normaltekst>Ja</Normaltekst>;
@@ -56,8 +57,8 @@ const Relasjoner: FunctionComponent = () => {
                         className={cls.element('familietilknytning-valg')}
                         id="familevalg"
                     >
-                        {rolle === 'VEILEDER' ? (
-                            <div>{harFamilieTilknttningSomJaNeiSvar(avtale.harFamilietilknytning)}</div>
+                        {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
+                            <div>{harFamilietilknytningSomJaNeiSvar(avtale.harFamilietilknytning)}</div>
                         ) : (
                             <>
                                 <RadioPanel
