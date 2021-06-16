@@ -1,12 +1,10 @@
 import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { RelasjonerInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { EtikettFokus } from 'nav-frontend-etiketter';
 import Popover from 'nav-frontend-popover';
@@ -14,7 +12,6 @@ import { RadioPanel } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
-import { tiltakstypeTekst } from '@/messages';
 
 const cls = BEMHelper('relasjoner');
 
