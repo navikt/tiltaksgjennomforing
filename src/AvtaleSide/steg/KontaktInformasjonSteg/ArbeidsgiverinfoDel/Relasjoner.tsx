@@ -1,12 +1,10 @@
 import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { RelasjonerInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { EtikettFokus } from 'nav-frontend-etiketter';
 import Popover from 'nav-frontend-popover';
@@ -15,12 +13,12 @@ import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
 
+const cls = BEMHelper('relasjoner');
+
 const Relasjoner: FunctionComponent = () => {
-    const { avtale, settAvtaleVerdier }: InputStegProps<RelasjonerInfo> = useContext(AvtaleContext);
+    const { avtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
-    const cls = BEMHelper('relasjoner');
-
-    const harFamilieTilknttningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): JSX.Element => {
+    const harFamilietilknytningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): JSX.Element => {
         switch (harFamilietilknytning) {
             case true:
                 return <Normaltekst>Ja</Normaltekst>;
@@ -56,8 +54,8 @@ const Relasjoner: FunctionComponent = () => {
                         className={cls.element('familietilknytning-valg')}
                         id="familevalg"
                     >
-                        {rolle === 'VEILEDER' ? (
-                            <div>{harFamilieTilknttningSomJaNeiSvar(avtale.harFamilietilknytning)}</div>
+                        {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
+                            <div>{harFamilietilknytningSomJaNeiSvar(avtale.harFamilietilknytning)}</div>
                         ) : (
                             <>
                                 <RadioPanel
@@ -85,7 +83,7 @@ const Relasjoner: FunctionComponent = () => {
                     {avtale.harFamilietilknytning && (
                         <>
                             <VerticalSpacer rem={1} />
-                            {rolle === 'VEILEDER' ? (
+                            {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
                                 <>
                                     <Element>Vennligst utdyp denne relasjonen</Element>
                                     <Normaltekst>{avtale.familietilknytningForklaring || ''}</Normaltekst>
