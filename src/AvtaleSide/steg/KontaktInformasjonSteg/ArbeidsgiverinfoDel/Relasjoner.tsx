@@ -86,7 +86,7 @@ const Relasjoner: FunctionComponent = () => {
                     {avtale.harFamilietilknytning && (
                         <>
                             <VerticalSpacer rem={1} />
-                            {rolle === 'VEILEDER' ? (
+                            {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
                                 <>
                                     <Element>Vennligst utdyp denne relasjonen</Element>
                                     <Normaltekst>{avtale.familietilknytningForklaring || ''}</Normaltekst>
