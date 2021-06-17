@@ -18,13 +18,17 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
     const [bekreftetGodkjennerInnholdet, setBekreftetGodkjennerInnholdet] = useState(false);
 
     const feilmeldingManglerBekreftelse = () => {
-        if (!bekreftetGodkjennerInnholdet && !bekreftetArbeidsAvtale) {
-            return 'Det må bekreftes at arbeidsavtale er inngått og at du forstår kravene før du kan godkjenne.';
-        } else if (!bekreftetArbeidsAvtale) {
-            return 'Du må bekrefte at det er inngått arbeidsavtale';
+        if (!erLønnstilskudd) {
+            if (!bekreftetGodkjennerInnholdet) {
+                return 'Du må bekrefte at du forstår kravene før du kan godkjenne.';
+            }
         } else {
-            return 'Du må bekrefte at du forstår kravene før du kan godkjenne.';
+            if (!bekreftetGodkjennerInnholdet || !bekreftetArbeidsAvtale) {
+                return 'Det må bekreftes at arbeidsavtale er inngått og at du forstår kravene før du kan godkjenne.';
+            }
         }
+
+        return '';
     };
 
     const sjekkOmLønnstilskuddprosentErfyltUt = () => {
@@ -38,11 +42,11 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
 
     const godkjennAvtalen = () => {
         sjekkOmLønnstilskuddprosentErfyltUt();
-
-        if (bekreftetGodkjennerInnholdet && bekreftetArbeidsAvtale) {
+        const feilmelding = feilmeldingManglerBekreftelse();
+        if (!feilmelding) {
             return avtaleContext.godkjenn();
         } else {
-            throw new UfullstendigError(feilmeldingManglerBekreftelse());
+            throw new UfullstendigError(feilmelding);
         }
     };
 
