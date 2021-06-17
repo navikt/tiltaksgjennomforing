@@ -12,7 +12,11 @@ const cls = BEMHelper('filtrering');
 export type FiltreringProps = {
     navEnheter?: string[];
     endreSøk: (
-        søkekriterier: Partial<Avtale> & { tilskuddPeriodeStatus?: TilskuddPeriodeStatus; navEnhet?: string }
+        søkekriterier: Partial<Avtale> & {
+            tilskuddPeriodeStatus?: TilskuddPeriodeStatus;
+            navEnhet?: string;
+            avtaleNr?: number;
+        }
     ) => void;
 };
 

@@ -60,6 +60,14 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
             validering: orgNrValidering,
             utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, bedriftNr: søkeord }),
         },
+        avtaleNr: {
+            key: 'avtalenr',
+            placeholder: 'avtale nummer',
+            label: 'På et avtaleNr',
+            maxLength: 6,
+            validering: () => void 0,
+            utførSøk: (søkeord: number) => props.endreSøk({ ...tomt, avtaleNr: søkeord }),
+        },
         avtaleVedEnhet: {
             key: 'fordeltEnhet',
             placeholder: '',
