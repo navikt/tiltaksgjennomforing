@@ -6,6 +6,22 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(16, 6, 2021),
+        tittel: 'Godkjenning på vegne av arbeidsgiver for sommerjobb',
+        innhold: (
+            <>
+                <p>
+                    Det er nå mulig å godkjenne avtaler om sommerjobb på vegne av arbeidsgiver på samme måte som man
+                    godkjenner på vegne av deltaker.
+                </p>
+                <p>
+                    Dette er ment som en siste utvei, og skal kun benyttes som i unntakstilfeller der det er større
+                    problemer for arbeidsgiver å få tilgang. Arbeidsgiver må likevel få tilgang for å få refusjon.
+                </p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(31, 5, 2021),
         tittel: 'Annullering erstatter avbryt',
         innhold: (
