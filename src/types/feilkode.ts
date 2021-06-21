@@ -46,6 +46,7 @@ export type Feilkode =
     | 'KAN_IKKE_FORKORTE_FOR_STARTDATO'
     | 'KAN_IKKE_FORKORTE_IKKE_GODKJENT_AVTALE'
     | 'KAN_IKKE_FORKORTE_GRUNN_MANGLER'
+    | 'KAN_IKKE_FORLENGE_FEIL_SLUTTDATO'
     | 'KAN_IKKE_ANNULLERES_ALLEREDE_ANNULLERT'
     | 'KAN_IKKE_ENDRE_STILLINGSBESKRIVELSE_GRUNN_MANGLER'
     | 'KAN_IKKE_ENDRE_KONTAKTINFO_GRUNN_MANGLER'
@@ -100,6 +101,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FEIL_OTP_SATS: 'Sats for obligatorisk tjenestepensjon må være mellom 0 og 30 %.',
     KAN_IKKE_FORKORTE_ETTER_SLUTTDATO: 'Avtalen kan ikke forkortes til etter sluttdato',
     KAN_IKKE_FORKORTE_FOR_STARTDATO: 'Avtalen kan ikke forkortes til før startdato',
+    KAN_IKKE_FORLENGE_FEIL_SLUTTDATO: 'Avtalen kan ikke forlenges til før sluttdato',
     KAN_IKKE_FORKORTE_IKKE_GODKJENT_AVTALE: 'Kan ikke forkorte avtalen før den er godkjent',
     KAN_IKKE_FORKORTE_GRUNN_MANGLER: 'Grunn for forkortelse må velges',
     KAN_IKKE_ANNULLERES_ALLEREDE_ANNULLERT: 'Avtalen kan ikke annulleres siden den allerede er annullert',
