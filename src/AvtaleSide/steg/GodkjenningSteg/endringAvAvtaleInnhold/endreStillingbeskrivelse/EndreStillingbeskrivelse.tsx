@@ -1,6 +1,4 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import StillingsTittelVelger, { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
-import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
@@ -19,16 +17,15 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
 
     const avtaleContext = useContext(AvtaleContext);
 
-    const { valgtStilling, setValgtStilling } = useStilling(avtaleContext.avtale);
+    // const { valgtStilling, setValgtStilling } = useStilling(avtaleContext.avtale);
+    const [stillingstittel, setStillingstittel] = useState(avtaleContext.avtale.arbeidsoppgaver);
     const [arbeidsoppgaver, setArbeidsoppgaver] = useState(avtaleContext.avtale.arbeidsoppgaver);
     const [stillingsprosent, setStillingsprosent] = useState(avtaleContext.avtale.stillingprosent);
     const [antallDagerPerUke, setAntallDagerPerUke] = useState(avtaleContext.avtale.antallDagerPerUke);
 
     const endreStilling = async (): Promise<void> => {
         const stillingInfo: EndreStilling = {
-            stillingstittel: valgtStilling?.value,
-            stillingKonseptId: valgtStilling?.konseptId,
-            stillingStyrk08: valgtStilling?.styrk08,
+            stillingstittel: stillingstittel,
             arbeidsoppgaver: arbeidsoppgaver,
             stillingprosent: stillingsprosent,
             antallDagerPerUke: antallDagerPerUke,
@@ -42,12 +39,10 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
         <div>
             <VerticalSpacer rem={2} />
             <div>
-                <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
-                <VerticalSpacer rem={0.5} />
-                <StillingsTittelVelger
-                    id="stillinginput"
-                    valgtStilling={valgtStilling}
-                    setValgtStilling={setValgtStilling}
+                <PakrevdInput
+                    label={'Stilling/yrke (kun ett yrke kan legges inn)'}
+                    verdi={stillingstittel}
+                    settVerdi={setStillingstittel}
                 />
             </div>
             <VerticalSpacer rem={2} />
@@ -87,13 +82,13 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     );
 
     const lukkModal = () => {
-        const values: StillingOptions = {
-            konseptId: avtaleContext.avtale.stillingKonseptId || 0,
-            label: avtaleContext.avtale.stillingstittel || '',
-            styrk08: avtaleContext.avtale.stillingStyrk08 || 0,
-            value: avtaleContext.avtale.stillingstittel || '',
-        };
-        setValgtStilling(values);
+        // const values: StillingOptions = {
+        //     konseptId: avtaleContext.avtale.stillingKonseptId || 0,
+        //     label: avtaleContext.avtale.stillingstittel || '',
+        //     styrk08: avtaleContext.avtale.stillingStyrk08 || 0,
+        //     value: avtaleContext.avtale.stillingstittel || '',
+        // };
+        setStillingstittel(avtaleContext.avtale.stillingstittel);
         setArbeidsoppgaver(avtaleContext.avtale.arbeidsoppgaver);
         setModalApen(false);
     };
