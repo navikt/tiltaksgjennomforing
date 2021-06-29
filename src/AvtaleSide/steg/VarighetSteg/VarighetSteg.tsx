@@ -38,7 +38,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
                         <Normaltekst>
                             Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato. Hvor
-                            lenge det er behov for tilskudd vil vurderes underveis i perioden.
+                            lenge det er behov for tiltaket vil vurderes underveis i perioden.
                         </Normaltekst>
                         <VerticalSpacer rem={2} />
                     </Column>
