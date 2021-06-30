@@ -4,6 +4,7 @@
     "isso-login-url": "/tiltaksgjennomforing/fakelogin/isso",
     "selvbetjening-login-url": "/tiltaksgjennomforing/fakelogin/selvbetjening",
     "logout-url": "/tiltaksgjennomforing/fakelogout?domain=labs.nais.io",
+    "stillingstitler-url": "https://tiltak-stillingstitler.nav.no",
     "vault-enabled": false,
     "namespace": "arbeidsgiver",
     "labs": true

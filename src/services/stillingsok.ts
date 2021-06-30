@@ -5,6 +5,6 @@ export interface Stillingskategori {
 }
 
 export const hentStillinger = async (sok: string): Promise<Stillingskategori[]> => {
-    const response = await fetch(`https://arbeidsgiver.nav.no/stillingstitler/search?q=${sok}`);
+    const response = await fetch(`/tiltaksgjennomforing/stillingstitler?q=${sok}`);
     return response.json();
 };

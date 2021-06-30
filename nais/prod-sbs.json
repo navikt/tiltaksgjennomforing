@@ -6,5 +6,6 @@
     "vault-enabled": true,
     "enable-external-menu": true,
     "decorator-external-url": "https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb",
+    "stillingstitler-url": "https://tiltak-stillingstitler.dev.nav.no",
     "namespace": "default"
 }
