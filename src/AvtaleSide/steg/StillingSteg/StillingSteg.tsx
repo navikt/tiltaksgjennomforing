@@ -1,5 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
+import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -11,28 +12,25 @@ import { RadioPanel } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './StillingsSteg.less';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import StillingsTittelVelger from './StillingsTittelVelger';
 
 const cls = BEMHelper('StillingsSteg');
 
 const StillingSteg: FunctionComponent = () => {
     const avtaleContext: InputStegProps<Stilling & AvtaleMetadata> = useContext(AvtaleContext);
 
+    const { valgtStilling, setValgtStilling } = useStillingFraContext();
+
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Stilling</SkjemaTittel>
-            {/*<label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>*/}
-            {/*<VerticalSpacer rem={0.5} />*/}
-            <PakrevdInput
-                label={'Stilling/yrke (kun ett yrke kan legges inn)'}
-                verdi={avtaleContext.avtale.stillingstittel}
-                settVerdi={verdi => avtaleContext.settAvtaleVerdier({ stillingstittel: verdi })}
+            <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
+            <VerticalSpacer rem={0.5} />
+            <StillingsTittelVelger
+                id="stillinginput"
+                valgtStilling={valgtStilling}
+                setValgtStilling={setValgtStilling}
             />
-            {/*<StillingsTittelVelger*/}
-            {/*    id="stillinginput"*/}
-            {/*    valgtStilling={valgtStilling}*/}
-            {/*    setValgtStilling={setValgtStilling}*/}
-            {/*/>*/}
             <VerticalSpacer rem={2} />
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"
