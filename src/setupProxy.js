@@ -11,6 +11,7 @@ const envProperties = {
     SELVBETJENING_LOGIN_URL:
         process.env.SELVBETJENING_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/selvbetjening'),
     LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
+    STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.dev.nav.no/',
 };
 
 if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
@@ -67,14 +68,6 @@ module.exports = function(app) {
         res.json(process.env.ENABLE_INTERNAL_MENU === 'true');
     });
 
-    const proxyConfig = {
-        changeOrigin: true,
-        pathRewrite: whitelist,
-        target: envProperties.APIGW_URL,
-        xfwd: true,
-        proxyTimeout: 10000,
-    };
-
     app.get('/tiltaksgjennomforing/fakelogin/isso', async (req, res) => {
         const navIdent = req.headers['isso-id'] || 'Z123456';
         const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=isso&aud=aud-isso&NAVident=${navIdent}`;
@@ -99,11 +92,30 @@ module.exports = function(app) {
         res.redirect('/tiltaksgjennomforing');
     });
 
+    const apiProxyConfig = {
+        changeOrigin: true,
+        pathRewrite: whitelist,
+        target: envProperties.APIGW_URL,
+        xfwd: true,
+        proxyTimeout: 10000,
+    };
+
     if (envProperties.APIGW_HEADER) {
-        proxyConfig.headers = {
+        apiProxyConfig.headers = {
             'x-nav-apiKey': envProperties.APIGW_HEADER,
         };
     }
 
-    app.use('/tiltaksgjennomforing/api', proxy(proxyConfig));
+    app.use('/tiltaksgjennomforing/api', proxy(apiProxyConfig));
+
+    app.use(
+        '/tiltaksgjennomforing/stillingstitler',
+        proxy({
+            changeOrigin: true,
+            pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
+            target: envProperties.STILLINGSTITLER_URL,
+            xfwd: true,
+            proxyTimeout: 10000,
+        })
+    );
 };
