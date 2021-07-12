@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
 import { Normaltekst } from 'nav-frontend-typografi';
-import StatusPanel from '@/AvtaleSide/NyAvtaleStatus/StatusPanel';
+import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import { formatterDato } from '@/utils/datoUtils';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import Avsluttet from '@/AvtaleSide/NyAvtaleStatus/Avsluttet';
-import KlarForOppstart from '@/AvtaleSide/NyAvtaleStatus/KlarForOppstart';
-import Gjennomføres from '@/AvtaleSide/NyAvtaleStatus/Gjennomføres';
+import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
+import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
+import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';

@@ -17,23 +17,10 @@ const GodkjenningStatus: React.FunctionComponent<Props> = props => {
             <div className="godkjenningstatus__rader">
                 <GodkjenningRad
                     godkjentAvtale={props.avtale.godkjentAvDeltaker}
-                    fornavn={props.avtale.deltakerFornavn}
-                    etternavn={props.avtale.deltakerEtternavn}
-                    placeholderName="Deltaker"
+                    navn={`${props.avtale.deltakerFornavn} ${props.avtale.deltakerEtternavn}`}
                 />
-                <GodkjenningRad
-                    godkjentAvtale={props.avtale.godkjentAvArbeidsgiver}
-                    fornavn={props.avtale.arbeidsgiverFornavn}
-                    etternavn={props.avtale.arbeidsgiverEtternavn}
-                    bedriftNavn={props.avtale.bedriftNavn}
-                    placeholderName="Arbeidsgiver"
-                />
-                <GodkjenningRad
-                    godkjentAvtale={props.avtale.avtaleInngått}
-                    fornavn={props.avtale.veilederFornavn}
-                    etternavn={props.avtale.veilederEtternavn}
-                    placeholderName="NAV"
-                />
+                <GodkjenningRad godkjentAvtale={props.avtale.godkjentAvArbeidsgiver} navn={props.avtale.bedriftNavn} />
+                <GodkjenningRad godkjentAvtale={props.avtale.avtaleInngått} navn="NAV" />
             </div>
         </div>
     );

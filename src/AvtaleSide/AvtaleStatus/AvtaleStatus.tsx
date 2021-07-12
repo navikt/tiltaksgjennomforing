@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useContext } from 'react';
-import VeilederAvtaleStatus from '@/AvtaleSide/NyAvtaleStatus/VeilederAvtaleStatus';
-import DeltakerAvtaleStatus from '@/AvtaleSide/NyAvtaleStatus/DeltakerAvtaleStatus';
-import ArbeidsgiverAvtaleStatus from '@/AvtaleSide/NyAvtaleStatus/ArbeidsgiverAvtaleStatus';
+import VeilederAvtaleStatus from '@/AvtaleSide/AvtaleStatus/VeilederAvtaleStatus';
+import DeltakerAvtaleStatus from '@/AvtaleSide/AvtaleStatus/DeltakerAvtaleStatus';
+import ArbeidsgiverAvtaleStatus from '@/AvtaleSide/AvtaleStatus/ArbeidsgiverAvtaleStatus';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
-const NyAvtaleStatus: FunctionComponent = () => {
+const AvtaleStatus: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     switch (innloggetBruker.rolle) {
@@ -19,4 +19,4 @@ const NyAvtaleStatus: FunctionComponent = () => {
     }
 };
 
-export default NyAvtaleStatus;
+export default AvtaleStatus;

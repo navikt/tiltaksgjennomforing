@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
 import { Normaltekst } from 'nav-frontend-typografi';
-import StatusPanel from '@/AvtaleSide/NyAvtaleStatus/StatusPanel';
+import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import Avsluttet from '@/AvtaleSide/NyAvtaleStatus/Avsluttet';
-import Gjennomføres from '@/AvtaleSide/NyAvtaleStatus/Gjennomføres';
+import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
+import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { AvtaleContext } from '@/AvtaleProvider';

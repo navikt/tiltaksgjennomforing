@@ -7,10 +7,7 @@ import { formatterDato } from '@/utils/datoUtils';
 
 interface Props {
     godkjentAvtale?: string;
-    fornavn?: string;
-    etternavn?: string;
-    placeholderName: string;
-    bedriftNavn?: string;
+    navn: string;
 }
 
 const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
@@ -18,33 +15,11 @@ const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
         ? 'Godkjent ' + formatterDato(props.godkjentAvtale)
         : 'Må godkjenne';
 
-    const navn = [props.fornavn, props.etternavn].filter(Boolean).join(' ');
-
-    const representerer = (() => {
-        if (navn) {
-            if (props.placeholderName === 'NAV') {
-                return 'NAV';
-            } else if (props.placeholderName === 'Arbeidsgiver') {
-                return props.bedriftNavn;
-            } else {
-                return undefined;
-            }
-        }
-    })();
+    const navn = props.navn;
 
     return (
         <div>
-            <Normaltekst tag={'span'}>
-                {representerer ? (
-                    <>
-                        {representerer}
-                        <br />
-                        v/ {navn}
-                    </>
-                ) : (
-                    navn
-                )}
-            </Normaltekst>
+            <Normaltekst tag={'span'}>{navn}</Normaltekst>
             <span className="godkjenningsrad__status">
                 <Element tag={'span'}>{godkjentStatus}</Element>
                 <img

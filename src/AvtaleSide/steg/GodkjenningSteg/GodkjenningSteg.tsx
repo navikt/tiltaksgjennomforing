@@ -1,5 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import NyAvtaleStatus from '@/AvtaleSide/NyAvtaleStatus/NyAvtaleStatus';
+import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
@@ -27,7 +27,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={cls.className} role={'main'}>
-            <NyAvtaleStatus />
+            <AvtaleStatus />
             <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>

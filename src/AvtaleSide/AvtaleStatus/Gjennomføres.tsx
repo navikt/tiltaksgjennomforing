@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Avtale } from '@/types/avtale';
-import StatusPanel from '@/AvtaleSide/NyAvtaleStatus/StatusPanel';
+import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';

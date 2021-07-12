@@ -15,10 +15,6 @@ const GodkjenningVeileder: FunctionComponent = () => {
 
     const [skalGodkjennesPaVegne, setSkalGodkjennesPaVegne] = useState(false);
 
-    const godkjennAvtalen = () => {
-        return avtaleContext.godkjenn();
-    };
-
     const kunGodkjentAvDeltaker =
         avtaleContext.avtale.godkjentAvDeltaker && !avtaleContext.avtale.godkjentAvArbeidsgiver;
     const kunGodkjentAvArbeidsgiver =
@@ -64,7 +60,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
                 </>
             )}
 
-            {!skalGodkjennesPaVegne && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
+            {!skalGodkjennesPaVegne && <LagreKnapp lagre={avtaleContext.godkjenn} label="Godkjenn avtalen" />}
         </Innholdsboks>
     );
 };
