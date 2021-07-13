@@ -13,7 +13,7 @@ import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '@/uti
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Knapp } from 'nav-frontend-knapper';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
@@ -22,6 +22,8 @@ import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -33,6 +35,7 @@ const BeslutterSide: FunctionComponent = () => {
         avtaleContext.avtale.enhetOppfolging || avtaleContext.avtale.enhetGeografisk || ''
     );
 
+    const [godkjennModalÅpen, setGodkjennModalÅpen] = useState(false);
     const [enhetFeil, setEnhetFeil] = useState<SkjemaelementFeil>();
     const [avslagsforklaring, setAvslagsforklaring] = useState('');
     const [avslagsårsaker, setAvslagsårsaker] = useState(new Set<Avslagsårsaker>());
@@ -143,21 +146,35 @@ const BeslutterSide: FunctionComponent = () => {
                                         feil={enhetFeil}
                                     />
                                     <VerticalSpacer rem={1} />
-                                    <LagreKnapp
-                                        lagre={() => {
+                                    <Hovedknapp
+                                        onClick={() => {
                                             if (!enhet.match(/\d{4}/)) {
                                                 setEnhetFeil({
                                                     feilmelding: 'Enhet må bestå av 4 siffer',
                                                 });
                                                 return;
                                             }
-                                            return avtaleContext.godkjennTilskudd(enhet);
+                                            setGodkjennModalÅpen(true);
                                         }}
-                                        label="Godkjenn tilskuddsperiode"
-                                    />{' '}
+                                    >
+                                        Godkjenn tilskuddsperiode
+                                    </Hovedknapp>
+                                    <HorizontalSpacer rem={1} />
                                     <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>
                                 </div>
                             )}
+                            <BekreftelseModal
+                                bekreftOnClick={async () => {
+                                    await avtaleContext.godkjennTilskudd(enhet);
+                                    setGodkjennModalÅpen(false);
+                                }}
+                                modalIsOpen={godkjennModalÅpen}
+                                oversiktTekst="Godkjenn tilskuddsperiode"
+                                varselTekst="Du kan ikke gjøre endringer etter at du har godkjent tilskuddsperioden."
+                                bekreftelseTekst="Godkjenn tilskuddsperiode"
+                                avbrytelseTekst="Avbryt"
+                                lukkModal={() => setGodkjennModalÅpen(false)}
+                            />
 
                             <VerticalSpacer rem={1} />
                             {visAvslag && (
