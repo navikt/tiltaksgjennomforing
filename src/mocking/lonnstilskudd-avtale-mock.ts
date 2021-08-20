@@ -73,6 +73,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     maal: [],
 
     felterSomIkkeErFyltUt: [],
+    avtaleNr: 1,
 };
 
 export default lonnstilskuddAvtaleMock;

@@ -71,6 +71,7 @@ const avtaleInnhold: Avtale = {
     versjoner: [],
     statusSomEnum: 'GJENNOMFØRES',
     felterSomIkkeErFyltUt: [],
+    avtaleNr: 1,
 };
 
 export const contextMock: Context = {

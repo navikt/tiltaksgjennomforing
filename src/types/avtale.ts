@@ -52,6 +52,7 @@ export type AvtaleStatus =
 
 export interface AvtaleMetadata {
     id: string;
+    avtaleNr: number;
     opprettetTidspunkt: string;
     sistEndret: string;
     tiltakstype: TiltaksType;

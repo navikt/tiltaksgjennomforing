@@ -65,6 +65,7 @@ const mentorAvtaleMock: Avtale = {
     maal: [],
 
     felterSomIkkeErFyltUt: [],
+    avtaleNr: 1,
 };
 
 export default mentorAvtaleMock;

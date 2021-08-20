@@ -83,6 +83,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     statusSomEnum: 'GJENNOMFØRES',
 
     felterSomIkkeErFyltUt: [],
+    avtaleNr: 1,
 };
 
 export default arbeidstreningAvtaleMock;
