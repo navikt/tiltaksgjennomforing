@@ -68,6 +68,7 @@ const AvtaleSide: FunctionComponent = () => {
             <Dokumenttittel tittel={sideTittel} />
             <VarselModal />
             <Banner
+                undertittel={'Avtalenummer: ' + avtale.avtaleNr}
                 byttetOrg={org => {
                     if (avtale.bedriftNr !== org.OrganizationNumber) {
                         history.push({

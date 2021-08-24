@@ -2,14 +2,16 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Innholdstittel, UndertekstBold } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import VerticalSpacer from '../layout/VerticalSpacer';
 import './Banner.less';
 
 interface Props {
     tekst: string;
     byttetOrg?: (org: Organisasjon) => void;
+    undertittel?: string;
 }
 
 const Banner: React.FunctionComponent<Props> = props => {
@@ -34,6 +36,12 @@ const Banner: React.FunctionComponent<Props> = props => {
                     <Innholdstittel role="heading" aria-level={1}>
                         {props.tekst}
                     </Innholdstittel>
+                    {props.undertittel && (
+                        <>
+                            <VerticalSpacer rem={0.5} />
+                            <UndertekstBold>{props.undertittel}</UndertekstBold>
+                        </>
+                    )}
                 </div>
             );
         default:
