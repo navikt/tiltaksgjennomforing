@@ -5,9 +5,13 @@ import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/Tilbak
 import BeslutterTilskuddsPerioder from '@/BeslutterSide/BeslutterTilskuddsperioder';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { avtaleTittel, tilskuddsperiodeAvslagTekst, tiltakstypeTekst } from '@/messages';
+import { Avslagsårsaker, TilskuddPeriodeStatus } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
@@ -15,15 +19,11 @@ import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { Avslagsårsaker, TilskuddPeriodeStatus } from '@/types/avtale';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -78,6 +78,12 @@ const BeslutterSide: FunctionComponent = () => {
                             </div>
                             <VerticalSpacer rem={2} />
                             <div className={cls.element('grid-container')}>
+                                <div>
+                                    <Element>Avtalenummer</Element>
+                                </div>
+                                <div>
+                                    <Normaltekst>{avtaleContext.avtale.avtaleNr}</Normaltekst>
+                                </div>
                                 <div>
                                     <Element>Deltaker</Element>
                                 </div>
