@@ -8,7 +8,7 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import moment from 'moment';
 import 'moment/locale/nb';
-import { Datovelger } from 'nav-datovelger';
+import { Datepicker } from 'nav-datovelger';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
@@ -28,7 +28,7 @@ const VarighetSteg: FunctionComponent = () => {
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
-    const arbgiverDatoGrense = erArbeidsgiverOgUfordelt ? { minDato: new Date().toISOString() } : {};
+    const arbgiverDatoGrense = erArbeidsgiverOgUfordelt ? { minDate: new Date().toISOString() } : {};
 
     return (
         <Innholdsboks utfyller="arbeidsgiver">
@@ -46,20 +46,20 @@ const VarighetSteg: FunctionComponent = () => {
                 <Row className="">
                     <Column md="6">
                         <label className="skjemaelement__label">Startdato</label>
-                        <Datovelger
-                            input={{ placeholder: 'dd.mm.åååå' }}
-                            valgtDato={avtaleContext.avtale.startDato}
-                            avgrensninger={arbgiverDatoGrense}
-                            onChange={dato => avtaleContext.settAvtaleVerdier({ startDato: dato })}
+                        <Datepicker
+                            inputProps={{ placeholder: 'dd.mm.åååå' }}
+                            value={avtaleContext.avtale.startDato}
+                            limitations={arbgiverDatoGrense}
+                            onChange={(dato) => avtaleContext.settAvtaleVerdier({ startDato: dato })}
                         />
                     </Column>
                     <Column md="6">
                         <label className="skjemaelement__label">Forventet sluttdato</label>
-                        <Datovelger
-                            input={{ placeholder: 'dd.mm.åååå' }}
-                            valgtDato={avtaleContext.avtale.sluttDato}
-                            avgrensninger={arbgiverDatoGrense}
-                            onChange={dato => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
+                        <Datepicker
+                            inputProps={{ placeholder: 'dd.mm.åååå' }}
+                            value={avtaleContext.avtale.sluttDato}
+                            limitations={arbgiverDatoGrense}
+                            onChange={(dato) => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
                         />
                     </Column>
                 </Row>
@@ -68,7 +68,7 @@ const VarighetSteg: FunctionComponent = () => {
                     <>
                         <VerticalSpacer rem={1} />
                         {erArbeidsgiverOgUfordelt && (
-                            <SkjemaelementFeilmelding feil={{ feilmelding: 'Dato kan ikke være tilbake i tid' }} />
+                            <SkjemaelementFeilmelding>Dato kan ikke være tilbake i tid</SkjemaelementFeilmelding>
                         )}
                         {!erArbeidsgiverOgUfordelt && avtaleContext.avtale.versjoner.length === 1 && (
                             <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>
@@ -82,7 +82,7 @@ const VarighetSteg: FunctionComponent = () => {
                 <StillingsprosentInput
                     label="Hvilken stillingsprosent skal deltakeren ha?"
                     verdi={avtaleContext.avtale.stillingprosent}
-                    settVerdi={verdi => avtaleContext.settAvtaleVerdi('stillingprosent', verdi)}
+                    settVerdi={(verdi) => avtaleContext.settAvtaleVerdi('stillingprosent', verdi)}
                 />
                 <VerticalSpacer rem={1} />
                 <PakrevdInput
@@ -91,7 +91,7 @@ const VarighetSteg: FunctionComponent = () => {
                     type="number"
                     max={7}
                     verdi={avtaleContext.avtale.antallDagerPerUke}
-                    settVerdi={eventVerdi => {
+                    settVerdi={(eventVerdi) => {
                         const verdi = parseInt(eventVerdi);
                         if (verdi > 0 && verdi < 8) {
                             avtaleContext.settAvtaleVerdi('antallDagerPerUke', verdi);

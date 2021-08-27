@@ -44,7 +44,7 @@ const AvtaleSide: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
     const history = useHistory();
-    const { stegPath } = useParams();
+    const { stegPath } = useParams<any>();
 
     const erDesktop = windowSize > 767;
     const erAvtaleLaast =
@@ -60,7 +60,7 @@ const AvtaleSide: FunctionComponent = () => {
 
     useEffect(() => {
         const getFilterType = () => (!erAvtaleLaast ? stegPath : 'godkjenning');
-        setAktivtSteg(avtaleSteg.find(steg => steg.id === getFilterType()) || avtaleSteg[0]);
+        setAktivtSteg(avtaleSteg.find((steg) => steg.id === getFilterType()) || avtaleSteg[0]);
     }, [stegPath, avtaleSteg, erAvtaleLaast]);
 
     return aktivtSteg ? (
@@ -69,7 +69,7 @@ const AvtaleSide: FunctionComponent = () => {
             <VarselModal />
             <Banner
                 undertittel={'Avtalenummer: ' + avtale.avtaleNr}
-                byttetOrg={org => {
+                byttetOrg={(org) => {
                     if (avtale.bedriftNr !== org.OrganizationNumber) {
                         history.push({
                             pathname: pathTilOversikt,

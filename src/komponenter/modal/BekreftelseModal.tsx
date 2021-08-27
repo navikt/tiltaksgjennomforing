@@ -5,8 +5,8 @@ import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { CSSProperties, useEffect, useState } from 'react';
-import VarselTegnForModal from './VarselTegnForModal';
 import './bekreftelseModal.less';
+import VarselTegnForModal from './VarselTegnForModal';
 
 const cls = BEMHelper('bekreftelseModal');
 
@@ -22,7 +22,7 @@ interface Props {
     style?: CSSProperties;
 }
 
-const BekreftelseModal: React.FunctionComponent<Props> = props => {
+const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const [feilmelding, setFeilmelding] = useState<string>();
     const [varselInnhold, setVarselInnhold] = useState<string | JSX.Element>(<div />);
 
@@ -44,7 +44,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = props => {
         setFeilmelding(undefined);
         try {
             await props.bekreftOnClick();
-        } catch (error) {
+        } catch (error: any) {
             try {
                 handterFeil(error, setFeilmelding);
             } catch (err) {

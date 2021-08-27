@@ -1,22 +1,21 @@
-import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { GodkjentPaVegneAvArbeidsgiverGrunner } from '@/types/avtale';
+import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
 
 interface Props {
     godkjentPåVegneAvGrunner: GodkjentPaVegneAvArbeidsgiverGrunner;
     setGodkjentPåVegneAvGrunner: Dispatch<SetStateAction<GodkjentPaVegneAvArbeidsgiverGrunner>>;
-    feilmeldingGrunn: SkjemaelementFeil | undefined;
-    setFeilmeldingGrunn: Dispatch<SetStateAction<SkjemaelementFeil | undefined>>;
+    feilmeldingGrunn: string | undefined;
+    setFeilmeldingGrunn: Dispatch<SetStateAction<string | undefined>>;
 }
 
-const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = props => {
+const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = (props) => {
     return (
         <SkjemaGruppe feil={props.feilmeldingGrunn}>
             <Checkbox
                 label="klarer ikke få eller gi tilgang"
                 checked={props.godkjentPåVegneAvGrunner.klarerIkkeGiFaTilgang}
-                onChange={event =>
+                onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
                         ...props.godkjentPåVegneAvGrunner,
                         klarerIkkeGiFaTilgang: event.currentTarget.checked,
@@ -26,7 +25,7 @@ const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = props
             <Checkbox
                 label="vet ikke hvem som kan gi tilgang"
                 checked={props.godkjentPåVegneAvGrunner.vetIkkeHvemSomKanGiTilgang}
-                onChange={event =>
+                onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
                         ...props.godkjentPåVegneAvGrunner,
                         vetIkkeHvemSomKanGiTilgang: event.currentTarget.checked,
@@ -36,7 +35,7 @@ const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = props
             <Checkbox
                 label="får ikke tilgang på grunn av personvern"
                 checked={props.godkjentPåVegneAvGrunner.farIkkeTilgangPersonvern}
-                onChange={event =>
+                onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
                         ...props.godkjentPåVegneAvGrunner,
                         farIkkeTilgangPersonvern: event.currentTarget.checked,

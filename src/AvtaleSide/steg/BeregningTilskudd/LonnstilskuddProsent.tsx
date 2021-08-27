@@ -9,7 +9,7 @@ type Props = {
     settLonnstilskuddProsent: (lonnstilskuddProsent: Beregningsgrunnlag['lonnstilskuddProsent']) => void;
 };
 
-const LonnstilskuddProsent: FunctionComponent<Props> = props => {
+const LonnstilskuddProsent: FunctionComponent<Props> = (props) => {
     if (props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
         return (
             <RadioPanelGruppeHorisontal
@@ -32,7 +32,7 @@ const LonnstilskuddProsent: FunctionComponent<Props> = props => {
                 bredde="S"
                 label=""
                 value={props.lonnstilskuddProsent}
-                onChange={event => {
+                onChange={(event: any) => {
                     props.settLonnstilskuddProsent(parseInt(event.target.value));
                 }}
                 min={0}

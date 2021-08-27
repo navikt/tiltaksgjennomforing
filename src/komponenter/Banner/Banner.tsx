@@ -28,7 +28,9 @@ const Banner: React.FunctionComponent<Props> = props => {
                     }}
                     organisasjoner={innloggetBruker.altinnOrganisasjoner}
                     sidetittel={props.tekst}
-                />
+                >
+                    <UndertekstBold>Avtalenummer: 345</UndertekstBold>
+                </Bedriftsmeny>
             );
         case 'DELTAKER':
             return (

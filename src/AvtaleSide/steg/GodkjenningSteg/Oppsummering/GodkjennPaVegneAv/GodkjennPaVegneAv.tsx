@@ -1,8 +1,7 @@
-import React, { Dispatch, SetStateAction, useReducer } from 'react';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import './GodkjennPaVegneAv.less';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
+import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import React, { Dispatch, SetStateAction, useReducer } from 'react';
+import './GodkjennPaVegneAv.less';
 
 type Grunner = GodkjentPaVegneAvDeltakerGrunner;
 
@@ -12,10 +11,10 @@ type GodkjennPaVegneAvProps = {
         godkjentPaVegneAv: boolean;
         setGodkjentPaVegneAv: Dispatch<SetStateAction<boolean>>;
         setGodkjentPaVegneGrunn: Dispatch<SetStateAction<GodkjentPaVegneAvDeltakerGrunner>>;
-        feilIngenGrunn: SkjemaelementFeil | undefined;
-        setFeilIngenGrunn: Dispatch<SetStateAction<SkjemaelementFeil | undefined>>;
-        feilDeltakerInformert: SkjemaelementFeil | undefined;
-        setfeilDeltakerInformert: Dispatch<SetStateAction<SkjemaelementFeil | undefined>>;
+        feilIngenGrunn: string | undefined;
+        setFeilIngenGrunn: Dispatch<SetStateAction<string | undefined>>;
+        feilDeltakerInformert: string | undefined;
+        setfeilDeltakerInformert: Dispatch<SetStateAction<string | undefined>>;
         paVegneDeltakerInformert: boolean;
         setPaVegneDeltakerInformert: Dispatch<SetStateAction<boolean>>;
     };
@@ -58,7 +57,7 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
             <Checkbox
                 label={godkjennPaVegneLabel}
                 checked={props.moderState.godkjentPaVegneAv}
-                onChange={event => {
+                onChange={(event) => {
                     nullstillValg(event.currentTarget.checked);
                 }}
             />
@@ -68,7 +67,7 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
                         <Checkbox
                             label={'ikke har BankID'}
                             checked={props.godkjentPaVegneGrunn.ikkeBankId}
-                            onChange={event =>
+                            onChange={(event) =>
                                 dispatch({
                                     ...state,
                                     ikkeBankId: event.currentTarget.checked,
@@ -78,7 +77,7 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
                         <Checkbox
                             label={'har reservert seg mot digitale tjenester'}
                             checked={props.godkjentPaVegneGrunn.reservert}
-                            onChange={event =>
+                            onChange={(event) =>
                                 dispatch({
                                     ...state,
                                     reservert: event.currentTarget.checked,
@@ -88,7 +87,7 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
                         <Checkbox
                             label={'mangler digital kompetanse'}
                             checked={props.godkjentPaVegneGrunn.digitalKompetanse}
-                            onChange={event =>
+                            onChange={(event) =>
                                 dispatch({
                                     ...state,
                                     digitalKompetanse: event.currentTarget.checked,
@@ -100,7 +99,7 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
                         <Checkbox
                             className="godkjennPaVegneAv__deltakerInformert"
                             label={'Deltakeren er informert om kravene og godkjenner innholdet i avtalen.'}
-                            onChange={event => deltakerInformertChanged(event.currentTarget.checked)}
+                            onChange={(event) => deltakerInformertChanged(event.currentTarget.checked)}
                         />
                     </SkjemaGruppe>
                 </>

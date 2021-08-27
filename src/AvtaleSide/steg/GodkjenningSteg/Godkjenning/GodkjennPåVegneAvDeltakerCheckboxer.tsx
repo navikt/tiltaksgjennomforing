@@ -1,22 +1,21 @@
-import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
+import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
 
 interface Props {
     godkjentPåVegneAvGrunner: GodkjentPaVegneAvDeltakerGrunner;
     setGodkjentPåVegneAvGrunner: Dispatch<SetStateAction<GodkjentPaVegneAvDeltakerGrunner>>;
-    feilmeldingGrunn: SkjemaelementFeil | undefined;
-    setFeilmeldingGrunn: Dispatch<SetStateAction<SkjemaelementFeil | undefined>>;
+    feilmeldingGrunn: string | undefined;
+    setFeilmeldingGrunn: Dispatch<SetStateAction<string | undefined>>;
 }
 
-const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = props => {
+const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) => {
     return (
         <SkjemaGruppe feil={props.feilmeldingGrunn}>
             <Checkbox
                 label="har ikke BankID"
                 checked={props.godkjentPåVegneAvGrunner.ikkeBankId}
-                onChange={event =>
+                onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
                         ...props.godkjentPåVegneAvGrunner,
                         ikkeBankId: event.currentTarget.checked,
@@ -26,7 +25,7 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = props => 
             <Checkbox
                 label="har reservert seg mot digitale tjenester"
                 checked={props.godkjentPåVegneAvGrunner.reservert}
-                onChange={event =>
+                onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
                         ...props.godkjentPåVegneAvGrunner,
                         reservert: event.currentTarget.checked,
@@ -36,7 +35,7 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = props => 
             <Checkbox
                 label="mangler digital kompetanse"
                 checked={props.godkjentPåVegneAvGrunner.digitalKompetanse}
-                onChange={event =>
+                onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
                         ...props.godkjentPåVegneAvGrunner,
                         digitalKompetanse: event.currentTarget.checked,

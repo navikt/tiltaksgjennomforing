@@ -1,4 +1,4 @@
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const fetch = require('node-fetch');
 const whitelist = require('./whitelist');
 
@@ -106,11 +106,11 @@ module.exports = function(app) {
         };
     }
 
-    app.use('/tiltaksgjennomforing/api', proxy(apiProxyConfig));
+    app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
 
     app.use(
         '/tiltaksgjennomforing/stillingstitler',
-        proxy({
+        createProxyMiddleware({
             changeOrigin: true,
             pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
             target: envProperties.STILLINGSTITLER_URL,

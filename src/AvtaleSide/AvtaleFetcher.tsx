@@ -3,9 +3,9 @@ import amplitude from '@/utils/amplitude';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const AvtaleFetcher: FunctionComponent = props => {
+const AvtaleFetcher: FunctionComponent = (props) => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
-    const { avtaleId } = useParams();
+    const { avtaleId } = useParams<any>();
     const { hentAvtale } = useContext(AvtaleContext);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const AvtaleFetcher: FunctionComponent = props => {
                 setLastetOk(true);
                 amplitude.logEvent('#tiltak-avtale-lastet');
             })
-            .catch(error => {
+            .catch((error) => {
                 setLastetOk(false);
                 amplitude.logEvent('#tiltak-avtale-lastet-feilet');
             });

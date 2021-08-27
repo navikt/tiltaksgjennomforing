@@ -3,8 +3,8 @@ import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { EtikettInfo } from 'nav-frontend-etiketter';
 import Lenke from 'nav-frontend-lenker';
-import { EtikettLiten } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './Innloggingslinje.less';
@@ -16,7 +16,7 @@ type Props = {
 
 const cls = BEMHelper('innloggingslinje');
 
-const Innloggingslinje: FunctionComponent<Props> = props => {
+const Innloggingslinje: FunctionComponent<Props> = (props) => {
     const bruker = props.innloggetBruker.identifikator;
 
     return props.brukBackupmeny ? (
@@ -29,7 +29,9 @@ const Innloggingslinje: FunctionComponent<Props> = props => {
                         </div>
                     </Lenke>
                     <div className={cls.element('identitetogloggut')}>
-                        <EtikettLiten className={cls.element('identitetogloggut__identitet')}>{bruker}</EtikettLiten>
+                        <EtikettInfo className={cls.element('identitetogloggut__identitet')} mini>
+                            {bruker}
+                        </EtikettInfo>
                         <LoggUtKnapp />
                     </div>
                 </MediaQuery>

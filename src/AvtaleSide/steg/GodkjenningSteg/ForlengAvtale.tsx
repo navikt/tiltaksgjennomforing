@@ -4,21 +4,20 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { forlengAvtale, forlengAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
+import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
-import { Datovelger } from 'nav-datovelger';
+import { Datepicker } from 'nav-datovelger';
 import Lenke from 'nav-frontend-lenker';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import { handterFeil } from '@/utils/apiFeilUtils';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import React, { FunctionComponent, useContext, useState } from 'react';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
 
     const [modalApen, setModalApen] = useState(false);
     const [sluttDato, setSluttDato] = useState<string | undefined>();
-    const [feil, setFeil] = useState<SkjemaelementFeil>();
+    const [feil, setFeil] = useState<string>();
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
     const forleng = async () => {
@@ -35,9 +34,9 @@ const ForlengAvtale: FunctionComponent = () => {
                 const nyAvtale = await forlengAvtaleDryRun(avtaleContext.avtale, dato);
                 setTilskuddsperioder(nyAvtale.tilskuddPeriode);
                 setFeil(undefined);
-            } catch (e) {
-                handterFeil(e, feilmelding => {
-                    setFeil({ feilmelding });
+            } catch (e: any) {
+                handterFeil(e, (feilmelding) => {
+                    setFeil(feilmelding);
                 });
             }
         }
@@ -47,15 +46,13 @@ const ForlengAvtale: FunctionComponent = () => {
         <div style={{ minHeight: '20rem' }}>
             <SkjemaGruppe feil={feil}>
                 <label className="skjemaelement__label">Velg ny sluttdato for avtalen</label>
-                <Datovelger
-                    input={{ placeholder: 'dd.mm.åååå' }}
-                    valgtDato={sluttDato}
-                    avgrensninger={{
-                        minDato: moment(avtaleContext.avtale.sluttDato)
-                            .add(1, 'days')
-                            .format('YYYY-MM-DD'),
+                <Datepicker
+                    inputProps={{ placeholder: 'dd.mm.åååå' }}
+                    value={sluttDato}
+                    limitations={{
+                        minDate: moment(avtaleContext.avtale.sluttDato).add(1, 'days').format('YYYY-MM-DD'),
                     }}
-                    onChange={dato => onDatoChange(dato)}
+                    onChange={(dato) => onDatoChange(dato)}
                 />
             </SkjemaGruppe>
             <VerticalSpacer rem={2} />
@@ -77,7 +74,7 @@ const ForlengAvtale: FunctionComponent = () => {
         <>
             <div>
                 <Lenke
-                    onClick={event => {
+                    onClick={(event) => {
                         event.stopPropagation();
                         setModalApen(true);
                     }}

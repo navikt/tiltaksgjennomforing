@@ -8,7 +8,7 @@ import VerticalSpacer from './layout/VerticalSpacer';
 
 const Slettemerk: FunctionComponent = () => {
     const [suksess, setSuksess] = useState(false);
-    const { avtaleId } = useParams();
+    const { avtaleId } = useParams<any>();
 
     const slettemerk = () => {
         return slettemerkAvtale(avtaleId).then(() => {

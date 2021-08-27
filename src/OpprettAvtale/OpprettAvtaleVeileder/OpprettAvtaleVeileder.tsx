@@ -30,36 +30,34 @@ import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
-const OpprettAvtaleVeileder: FunctionComponent = props => {
+const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
-        verdi => {
+        (verdi) => {
             if (!verdi) {
-                return { feilmelding: 'Fødselsnummer er påkrevd' };
+                return 'Fødselsnummer er påkrevd';
             }
         },
-        verdi => {
+        (verdi) => {
             if (!validerFnr(verdi)) {
-                return { feilmelding: 'Ugyldig fødselsnummer' };
+                return 'Ugyldig fødselsnummer';
             }
         },
     ]);
 
     const [bedriftNrFeil, setBedriftNrFeil, validerBedriftNr] = useValidering(bedriftNr, [
-        verdi => {
+        (verdi) => {
             if (!verdi) {
-                return { feilmelding: 'Bedriftsnummer er påkrevd' };
+                return 'Bedriftsnummer er påkrevd';
             }
         },
-        verdi => {
+        (verdi) => {
             if (!validerOrgnr(verdi)) {
-                return {
-                    feilmelding: 'Ugyldig bedriftsnummer',
-                };
+                return 'Ugyldig bedriftsnummer';
             }
         },
     ]);
@@ -84,15 +82,15 @@ const OpprettAvtaleVeileder: FunctionComponent = props => {
     const orgnrOnBlur = () => {
         if (validerBedriftNr()) {
             hentBedriftBrreg(bedriftNr)
-                .then(response => {
+                .then((response) => {
                     setBedriftNavn(response.bedriftNavn);
                     setBedriftNrFeil(undefined);
                 })
-                .catch(error => {
+                .catch((error) => {
                     setBedriftNavn('');
-                    handterFeil(error, feilmelding => setBedriftNrFeil({ feilmelding: feilmelding }));
+                    handterFeil(error, (feilmelding) => setBedriftNrFeil(feilmelding));
                 })
-                .catch(e => setBedriftNrFeil({ feilmelding: 'Det oppstod en uventet feil' }));
+                .catch((e) => setBedriftNrFeil('Det oppstod en uventet feil'));
         } else {
             setBedriftNavn('');
         }

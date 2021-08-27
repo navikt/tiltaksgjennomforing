@@ -54,7 +54,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
         key: K,
         verdi: V[K]
     ) => {
-        await setNyBeregning(prevState => ({
+        await setNyBeregning((prevState) => ({
             ...prevState,
             [key]: verdi,
         }));
@@ -67,7 +67,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 bredde="M"
                 label="Månedslønn før skatt"
                 value={nyBeregning.manedslonn}
-                onChange={event => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
+                onChange={(event: any) => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
                 min={0}
             />
             <div className={cls.element('radioPanel')}>
@@ -124,7 +124,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
     return (
         <>
             <Lenke
-                onClick={event => {
+                onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
                 }}

@@ -5,22 +5,19 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, Select } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import React, { FormEvent, FunctionComponent, useContext, useState } from 'react';
 
-type Validering = (verdi: string) => SkjemaelementFeil | undefined;
+type Validering = (verdi: string) => string | undefined;
 
-const navIdentValidering: Validering = verdi =>
-    !verdi.match(/\w\d{6}/) ? { feilmelding: 'Ugyldig NAV-ident' } : undefined;
+const navIdentValidering: Validering = (verdi) => (!verdi.match(/\w\d{6}/) ? 'Ugyldig NAV-ident' : undefined);
 
-const fnrValidering: Validering = verdi => (!validerFnr(verdi) ? { feilmelding: 'Ugyldig fødselsnummer' } : undefined);
+const fnrValidering: Validering = (verdi) => (!validerFnr(verdi) ? 'Ugyldig fødselsnummer' : undefined);
 
-const orgNrValidering: Validering = verdi =>
-    !validerOrgnr(verdi) ? { feilmelding: 'Ugyldig bedriftsnummer' } : undefined;
+const orgNrValidering: Validering = (verdi) => (!validerOrgnr(verdi) ? 'Ugyldig bedriftsnummer' : undefined);
 
 type Søketype = 'deltaker' | 'bedrift' | 'egne' | 'avtaleVedEnhet' | 'ufordelte';
 
-export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props => {
+export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (props) => {
     const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
@@ -135,7 +132,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                 <Select
                     label=""
                     name={aktueltSøk.key}
-                    onChange={event => {
+                    onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
                         props.endreSøk({
                             ...aktueltSøk.utførSøk,
@@ -151,7 +148,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = props
                 <Select
                     label=""
                     name={aktueltSøk.key}
-                    onChange={event => {
+                    onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
                         props.endreSøk({ ...aktueltSøk.utførSøk, navEnhet: nyEnhet, erUfordelt: true });
                     }}

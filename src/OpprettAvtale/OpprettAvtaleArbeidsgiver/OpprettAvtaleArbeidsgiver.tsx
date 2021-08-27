@@ -18,6 +18,7 @@ import { UfullstendigError } from '@/types/errors';
 import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
+import { storForbokstav } from '@/utils/stringUtils';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Input, RadioPanel } from 'nav-frontend-skjema';
@@ -25,7 +26,6 @@ import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
-import { storForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -36,14 +36,14 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
-        verdi => {
+        (verdi) => {
             if (!verdi) {
-                return { feilmelding: 'Fødselsnummer er påkrevd' };
+                return 'Fødselsnummer er påkrevd';
             }
         },
-        verdi => {
+        (verdi) => {
             if (!validerFnr(verdi)) {
-                return { feilmelding: 'Ugyldig fødselsnummer' };
+                return 'Ugyldig fødselsnummer';
             }
         },
     ]);
@@ -86,8 +86,9 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     };
 
     const valgtBedriftNr = new URLSearchParams(window.location.search).get('bedrift')!;
-    const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(org => org.OrganizationNumber === valgtBedriftNr)
-        ?.Name;
+    const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(
+        (org) => org.OrganizationNumber === valgtBedriftNr
+    )?.Name;
 
     return (
         <>
@@ -128,7 +129,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr].map(t => (
+                        {innloggetBruker.tilganger[valgtBedriftNr].map((t) => (
                             <RadioPanel
                                 name="tiltakstype"
                                 label={storForbokstav(tiltakstypeTekst[t])}

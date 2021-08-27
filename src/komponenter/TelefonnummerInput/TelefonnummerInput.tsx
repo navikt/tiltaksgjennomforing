@@ -1,6 +1,6 @@
+import useValidering from '@/komponenter/useValidering';
 import { Input } from 'nav-frontend-skjema';
 import React from 'react';
-import useValidering from '@/komponenter/useValidering';
 
 interface Props {
     className?: string;
@@ -10,16 +10,16 @@ interface Props {
     settVerdi: (verdi: string) => void;
 }
 
-const TelefonnummerInput: React.FunctionComponent<Props> = props => {
+const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
     const [feil, setFeil, sjekkInputfelt] = useValidering(props.verdi, [
-        verdi => {
+        (verdi) => {
             if (!verdi) {
-                return { feilmelding: 'Telefonnummer er påkrevd' };
+                return 'Telefonnummer er påkrevd';
             }
         },
-        verdi => {
+        (verdi) => {
             if (verdi && !/^\d{8}$/.test(verdi)) {
-                return { feilmelding: 'Telefonnummer må bestå av 8 siffer' };
+                return 'Telefonnummer må bestå av 8 siffer';
             }
         },
     ]);
@@ -30,7 +30,7 @@ const TelefonnummerInput: React.FunctionComponent<Props> = props => {
             label={props.label}
             value={props.verdi || ''}
             feil={feil}
-            onChange={event => {
+            onChange={(event) => {
                 const verdi = event.target.value.replace(/\D/g, '');
                 props.settVerdi(verdi);
                 setFeil(undefined);

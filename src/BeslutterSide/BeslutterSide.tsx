@@ -19,7 +19,6 @@ import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './BeslutterSide.less';
@@ -36,7 +35,7 @@ const BeslutterSide: FunctionComponent = () => {
     );
 
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState(false);
-    const [enhetFeil, setEnhetFeil] = useState<SkjemaelementFeil>();
+    const [enhetFeil, setEnhetFeil] = useState<string>();
     const [avslagsforklaring, setAvslagsforklaring] = useState('');
     const [avslagsårsaker, setAvslagsårsaker] = useState(new Set<Avslagsårsaker>());
     const [visAvslag, setVisAvslag] = useState(false);
@@ -147,7 +146,7 @@ const BeslutterSide: FunctionComponent = () => {
                                         bredde="S"
                                         label="Kostnadssted"
                                         verdi={enhet}
-                                        settVerdi={verdi => setEnhet(verdi)}
+                                        settVerdi={(verdi) => setEnhet(verdi)}
                                         maxLength={4}
                                         feil={enhetFeil}
                                     />
@@ -155,9 +154,7 @@ const BeslutterSide: FunctionComponent = () => {
                                     <Hovedknapp
                                         onClick={() => {
                                             if (!enhet.match(/\d{4}/)) {
-                                                setEnhetFeil({
-                                                    feilmelding: 'Enhet må bestå av 4 siffer',
-                                                });
+                                                setEnhetFeil('Enhet må bestå av 4 siffer');
                                                 return;
                                             }
                                             setGodkjennModalÅpen(true);
@@ -197,7 +194,7 @@ const BeslutterSide: FunctionComponent = () => {
                                                             key={kode}
                                                             label={tekst}
                                                             checked={avslagsårsaker.has(avslagskode)}
-                                                            onChange={event => {
+                                                            onChange={(event) => {
                                                                 const årsaker = new Set<Avslagsårsaker>(avslagsårsaker);
                                                                 if (event.currentTarget.checked) {
                                                                     årsaker.add(avslagskode);
@@ -217,7 +214,7 @@ const BeslutterSide: FunctionComponent = () => {
                                                 label="Forklaring"
                                                 maxLengde={1000}
                                                 verdi={avslagsforklaring}
-                                                settVerdi={verdi => setAvslagsforklaring(verdi)}
+                                                settVerdi={(verdi) => setAvslagsforklaring(verdi)}
                                             />
                                         </div>
                                     </div>
@@ -255,7 +252,7 @@ const BeslutterSide: FunctionComponent = () => {
                                     )}{' '}
                                     med følgende årsak(er):
                                     <ul>
-                                        {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map(årsak => (
+                                        {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map((årsak) => (
                                             <li>{tilskuddsperiodeAvslagTekst[årsak]}</li>
                                         ))}
                                     </ul>

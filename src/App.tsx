@@ -1,9 +1,9 @@
 import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import { messages } from '@/messages';
 import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
+import Oversikt from '@/Oversikt';
 import * as React from 'react';
-import { addLocaleData, IntlProvider } from 'react-intl';
-import * as nb from 'react-intl/locale-data/nb';
+import { IntlProvider } from 'react-intl';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import AvtaleProvider from './AvtaleProvider';
@@ -31,9 +31,10 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import Oversikt from '@/Oversikt';
 
-addLocaleData(nb);
+//TODO: addLocaleData brukes for støtte av formater i gamle IE versjoner. Denner er deprecated
+// se mer for ny måte: https://formatjs.io/docs/react-intl/upgrade-guide-3x/#migrate-to-using-native-intl-apis
+//addLocaleData(nb);
 
 class App extends React.Component {
     render() {

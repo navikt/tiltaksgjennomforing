@@ -69,7 +69,7 @@ export interface Context {
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
 
-const AvtaleProvider: FunctionComponent = props => {
+const AvtaleProvider: FunctionComponent = (props) => {
     const throwError = useAsyncError();
     const [avtale, setAvtale] = useState<Avtale>({} as Avtale);
     const [ulagredeEndringer, setUlagredeEndringer] = useState(false);
@@ -167,7 +167,7 @@ const AvtaleProvider: FunctionComponent = props => {
                 settAvtaleVerdier(nyAvtale);
                 const etterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
                 settAvtaleVerdier(etterDryRun);
-            } catch (error) {
+            } catch (error: any) {
                 handterFeil(error, visFeilmelding);
             }
         }
@@ -223,13 +223,13 @@ const AvtaleProvider: FunctionComponent = props => {
         if (ulagredeEndringer) {
             try {
                 await lagreAvtale();
-            } catch (error) {
+            } catch (error: any) {
                 handterFeil(error, visFeilmelding);
             }
         } else {
             try {
                 await hentAvtale(avtale.id);
-            } catch (error) {
+            } catch (error: any) {
                 finnFeilkodeForFeilVedHentingAvtale(error);
             }
         }

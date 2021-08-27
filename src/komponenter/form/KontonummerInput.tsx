@@ -1,7 +1,7 @@
-import { NavFrontendInputProps } from 'nav-frontend-skjema';
-import React from 'react';
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { fromFormatted } from '@/komponenter/form/utils/form-utils';
+import { InputProps } from 'nav-frontend-skjema';
+import React from 'react';
 
 export const formaterKontonummer = (value: any): string => {
     if (!value) {
@@ -10,16 +10,16 @@ export const formaterKontonummer = (value: any): string => {
     return [value.substring(0, 4), value.substring(4, 6), value.substring(6, 11)].join(' ');
 };
 
-const KontonummerInput: React.FunctionComponent<NavFrontendInputProps> = props => {
+const KontonummerInput: React.FunctionComponent<InputProps> = (props) => {
     const validatorer = [
         (v: string) => {
             if (!v) {
-                return { feilmelding: 'Feltet er påkrevd' };
+                return 'Feltet er påkrevd';
             }
         },
         (v: string) => {
             if (v && fromFormatted(v).length !== 11) {
-                return { feilmelding: 'Kontonummer må være 11 siffer' };
+                return 'Kontonummer må være 11 siffer';
             }
         },
     ];
