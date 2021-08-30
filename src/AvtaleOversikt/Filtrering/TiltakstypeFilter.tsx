@@ -1,12 +1,13 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { OptionProps } from '@/komponenter/form/SelectInput';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale, TiltaksType } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { Fragment, FunctionComponent, useContext, useState } from 'react';
 
 export type FiltreringMedBeslutterProps = { endreSøk: (søkekriterier: Partial<Avtale>) => void; erBeslutter: boolean };
-const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = props => {
+const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
     const [valgtTiltakstype, setValgtTiltakstype] = useState<TiltaksType | ''>('');
     const featureToggles = useContext(FeatureToggleContext);
 
@@ -34,20 +35,22 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = props 
 
     return (
         <Filter tittel="Tiltakstype">
-            {tiltakstyper.map(tiltakstype => (
-                <Radio
-                    key={tiltakstype.label}
-                    label={tiltakstype.label}
-                    name={'tiltakstype'}
-                    value={tiltakstype.value}
-                    checked={tiltakstype.value === valgtTiltakstype}
-                    onChange={event => {
-                        const nyTiltakstype = event.currentTarget.value as TiltaksType;
-                        setValgtTiltakstype(nyTiltakstype);
-                        props.endreSøk({ tiltakstype: nyTiltakstype });
-                    }}
-                    role="radio"
-                />
+            {tiltakstyper.map((tiltakstype) => (
+                <Fragment key={tiltakstype.label}>
+                    <Radio
+                        label={tiltakstype.label}
+                        name={'tiltakstype'}
+                        value={tiltakstype.value}
+                        checked={tiltakstype.value === valgtTiltakstype}
+                        onChange={(event) => {
+                            const nyTiltakstype = event.currentTarget.value as TiltaksType;
+                            setValgtTiltakstype(nyTiltakstype);
+                            props.endreSøk({ tiltakstype: nyTiltakstype });
+                        }}
+                        role="radio"
+                    />
+                    <VerticalSpacer rem={1} />
+                </Fragment>
             ))}
         </Filter>
     );

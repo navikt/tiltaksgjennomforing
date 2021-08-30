@@ -2,10 +2,11 @@ import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
 import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, Select } from 'nav-frontend-skjema';
-import React, { FormEvent, FunctionComponent, useContext, useState } from 'react';
+import React, { FormEvent, Fragment, FunctionComponent, useContext, useState } from 'react';
 
 type Validering = (verdi: string) => string | undefined;
 
@@ -59,8 +60,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
         },
         avtaleNr: {
             key: 'avtalenr',
-            placeholder: 'avtale nummer',
-            label: 'På et avtaleNr',
+            placeholder: 'Avtalenummer',
+            label: 'På et avtalenummer',
             maxLength: 6,
             validering: () => void 0,
             utførSøk: (søkeord: number) => props.endreSøk({ ...tomt, avtaleNr: søkeord }),
@@ -107,15 +108,17 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
     return (
         <Filter tittel="Vis avtaler">
             {Object.entries(søk).map(([key, value]) => (
-                <Radio
-                    label={value.label}
-                    name={'aktivSøketype'}
-                    key={key}
-                    value={key}
-                    checked={aktivSøketype === key}
-                    onChange={endreSøketype}
-                    role="radio"
-                />
+                <Fragment key={key}>
+                    <Radio
+                        label={value.label}
+                        name={'aktivSøketype'}
+                        value={key}
+                        checked={aktivSøketype === key}
+                        onChange={endreSøketype}
+                        role="radio"
+                    />
+                    <VerticalSpacer rem={1} />
+                </Fragment>
             ))}
             {visSøkefelt && (
                 <SøkeInput

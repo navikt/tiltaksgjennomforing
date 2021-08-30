@@ -21,7 +21,7 @@ const ArbeidsgiverinfoDel = () => {
                         <PakrevdInput
                             label="Bedriftens navn"
                             verdi={avtale.bedriftNavn}
-                            settVerdi={verdi => settAvtaleVerdi('bedriftNavn', verdi)}
+                            settVerdi={(verdi) => settAvtaleVerdi('bedriftNavn', verdi)}
                         />
 
                         <Input label="Bedriftsnummer" value={avtale.bedriftNr} disabled={true} />
@@ -32,12 +32,12 @@ const ArbeidsgiverinfoDel = () => {
                         <PakrevdInput
                             label="Arbeidsgiver sitt fornavn"
                             verdi={avtale.arbeidsgiverFornavn}
-                            settVerdi={verdi => settAvtaleVerdi('arbeidsgiverFornavn', verdi)}
+                            settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverFornavn', verdi)}
                         />
                         <PakrevdInput
                             label="Arbeidsgiver sitt etternavn"
                             verdi={avtale.arbeidsgiverEtternavn}
-                            settVerdi={verdi => settAvtaleVerdi('arbeidsgiverEtternavn', verdi)}
+                            settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverEtternavn', verdi)}
                         />
                     </div>
 
@@ -45,7 +45,7 @@ const ArbeidsgiverinfoDel = () => {
                         <TelefonnummerInput
                             label="Arbeidsgiver sitt telefonnummer"
                             verdi={avtale.arbeidsgiverTlf}
-                            settVerdi={verdi => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
+                            settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
                         />
                     </div>
                     <div className={cls.element('rad')}>

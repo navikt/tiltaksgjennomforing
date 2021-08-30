@@ -4,6 +4,7 @@ import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
 import ValutaInput from '@/komponenter/form/ValutaInput';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import { Beregningsgrunnlag, Varighet } from '@/types/avtale';
@@ -104,6 +105,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     )
                 }
             />
+            <VerticalSpacer rem={1} />
             <SelectInput
                 name="arbeidsgiveravgift"
                 bredde="m"
@@ -115,6 +117,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     settNyBeregningsverdi('arbeidsgiveravgift', parseFloat(event.target.value))
                 }
             />
+            <VerticalSpacer rem={1} />
             <div className={cls.element('panel')}>
                 <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={context.avtale} />
             </div>

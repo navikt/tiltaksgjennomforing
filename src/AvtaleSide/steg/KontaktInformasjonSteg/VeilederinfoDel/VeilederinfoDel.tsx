@@ -1,6 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Veilederinfo } from '@/types/avtale';
@@ -19,19 +20,20 @@ const VeilederinfoDel = () => {
                     <PakrevdInput
                         label="Veileder sitt fornavn"
                         verdi={avtaleContext.avtale.veilederFornavn}
-                        settVerdi={verdi => avtaleContext.settAvtaleVerdi('veilederFornavn', verdi)}
+                        settVerdi={(verdi) => avtaleContext.settAvtaleVerdi('veilederFornavn', verdi)}
                     />
                     <PakrevdInput
                         label="Veileder sitt etternavn"
                         verdi={avtaleContext.avtale.veilederEtternavn}
-                        settVerdi={verdi => avtaleContext.settAvtaleVerdi('veilederEtternavn', verdi)}
+                        settVerdi={(verdi) => avtaleContext.settAvtaleVerdi('veilederEtternavn', verdi)}
                     />
                 </div>
+                <VerticalSpacer rem={1} />
                 <div className={cls.element('rad')}>
                     <TelefonnummerInput
                         label="Veileder sitt telefonnummer"
                         verdi={avtaleContext.avtale.veilederTlf}
-                        settVerdi={verdi => avtaleContext.settAvtaleVerdi('veilederTlf', verdi)}
+                        settVerdi={(verdi) => avtaleContext.settAvtaleVerdi('veilederTlf', verdi)}
                     />
                 </div>
             </div>

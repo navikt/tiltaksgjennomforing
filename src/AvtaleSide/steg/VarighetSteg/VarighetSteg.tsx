@@ -48,7 +48,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <label className="skjemaelement__label">Startdato</label>
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.startDato}
+                            value={avtaleContext.avtale.startDato || undefined}
                             limitations={arbgiverDatoGrense}
                             onChange={(dato) => avtaleContext.settAvtaleVerdier({ startDato: dato })}
                         />
@@ -57,7 +57,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <label className="skjemaelement__label">Forventet sluttdato</label>
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.sluttDato}
+                            value={avtaleContext.avtale.sluttDato || undefined}
                             limitations={arbgiverDatoGrense}
                             onChange={(dato) => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
                         />

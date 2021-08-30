@@ -1,11 +1,12 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import { OptionProps } from '@/komponenter/form/SelectInput';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { TilskuddPeriodeStatus } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
-import React, { FunctionComponent, useState } from 'react';
+import React, { Fragment, FunctionComponent, useState } from 'react';
 
-const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = props => {
+const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = (props) => {
     const [valgtTilskuddPeriodeStatus, setValgtTilskuddPeriodeStatus] = useState<TilskuddPeriodeStatus | ''>(
         'UBEHANDLET'
     );
@@ -18,22 +19,24 @@ const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = props =>
 
     return (
         <Filter tittel="Status">
-            {alleTilskuddPeriodeStatus.map(tilskuddPeriodeStatus => (
-                <Radio
-                    id={tilskuddPeriodeStatus.label}
-                    key={tilskuddPeriodeStatus.label}
-                    label={tilskuddPeriodeStatus.label}
-                    name={'tilskuddPeriodeStatus'}
-                    value={tilskuddPeriodeStatus.value}
-                    checked={tilskuddPeriodeStatus.value === valgtTilskuddPeriodeStatus}
-                    onChange={event => {
-                        const nyTilskuddPeriode = event.currentTarget.value as TilskuddPeriodeStatus;
-                        setValgtTilskuddPeriodeStatus(nyTilskuddPeriode);
-                        props.endreSøk({ tilskuddPeriodeStatus: nyTilskuddPeriode });
-                    }}
-                    role="radio"
-                    aria-labelledby={tilskuddPeriodeStatus.label}
-                />
+            {alleTilskuddPeriodeStatus.map((tilskuddPeriodeStatus) => (
+                <Fragment key={tilskuddPeriodeStatus.label}>
+                    <Radio
+                        id={tilskuddPeriodeStatus.label}
+                        label={tilskuddPeriodeStatus.label}
+                        name={'tilskuddPeriodeStatus'}
+                        value={tilskuddPeriodeStatus.value}
+                        checked={tilskuddPeriodeStatus.value === valgtTilskuddPeriodeStatus}
+                        onChange={(event) => {
+                            const nyTilskuddPeriode = event.currentTarget.value as TilskuddPeriodeStatus;
+                            setValgtTilskuddPeriodeStatus(nyTilskuddPeriode);
+                            props.endreSøk({ tilskuddPeriodeStatus: nyTilskuddPeriode });
+                        }}
+                        role="radio"
+                        aria-labelledby={tilskuddPeriodeStatus.label}
+                    />
+                    <VerticalSpacer rem={1} />
+                </Fragment>
             ))}
         </Filter>
     );

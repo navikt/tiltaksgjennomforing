@@ -3,8 +3,8 @@ import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { EtikettInfo } from 'nav-frontend-etiketter';
 import Lenke from 'nav-frontend-lenker';
+import { Undertekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './Innloggingslinje.less';
@@ -29,9 +29,7 @@ const Innloggingslinje: FunctionComponent<Props> = (props) => {
                         </div>
                     </Lenke>
                     <div className={cls.element('identitetogloggut')}>
-                        <EtikettInfo className={cls.element('identitetogloggut__identitet')} mini>
-                            {bruker}
-                        </EtikettInfo>
+                        <Undertekst className={cls.element('identitetogloggut__identitet')}>{bruker}</Undertekst>
                         <LoggUtKnapp />
                     </div>
                 </MediaQuery>

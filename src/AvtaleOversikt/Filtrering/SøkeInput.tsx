@@ -1,3 +1,4 @@
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import { Input, InputProps } from 'nav-frontend-skjema';
@@ -47,6 +48,7 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
+            <VerticalSpacer rem={1} />
             <Søkeknapp onClick={utførSøk} />
         </>
     );
