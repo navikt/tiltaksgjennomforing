@@ -96,7 +96,6 @@ module.exports = function(app) {
         changeOrigin: true,
         pathRewrite: whitelist,
         target: envProperties.APIGW_URL,
-        xfwd: true,
         proxyTimeout: 10000,
     };
 
@@ -114,7 +113,6 @@ module.exports = function(app) {
             changeOrigin: true,
             pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
             target: envProperties.STILLINGSTITLER_URL,
-            xfwd: true,
             proxyTimeout: 10000,
         })
     );
