@@ -1,13 +1,13 @@
 # Tiltaksgjennomføring
 
-Starte via NPM med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-api også kjører lokalt).
-`npm start`
+Starte via Yarn med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-api også kjører lokalt).
+`yarn start`
 
 Starte med mocket backend
-`npm run mock`
+`yarn run mock`
 
 Starte med ordinær backend
-`npm run server`
+`yarn run server`
 
 Bygg image
 `docker build -t tiltaksgjennomforing .`
@@ -23,7 +23,7 @@ CircleCI bygger og pusher Docker image. For å deploye må man sette opp Kuberne
 
 ### Testing
 
-Vi bruker jest for å teste. `npm test` kjører testene og setter dem i watch modus.
+Vi bruker jest for å teste. `yarn test` kjører testene og setter dem i watch modus.
 
 Enkle regler for testing her:
 

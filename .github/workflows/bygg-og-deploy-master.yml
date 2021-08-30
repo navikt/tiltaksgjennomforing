@@ -38,17 +38,17 @@ jobs:
       - name: Sjekk ut kode
         uses: actions/checkout@v2
 
-      - name: Installer avhengigheter (npm ci)
-        run: npm ci --no-optional
+      - name: Installer avhengigheter
+        run: yarn install --frozen-lockfile
 
-      - name: Kjør tester (npm test)
-        run: npm test
+      - name: Kjør tester
+        run: yarn test
 
-      - name: Bygg (npm run build)
-        run: npm run build
+      - name: Bygg
+        run: yarn run build
 
       - name: Sett opp sentry release
-        run: npm run release
+        run: yarn run release
 
       - name: Bygg, tag og push Docker-image
         run: |
