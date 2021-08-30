@@ -5,7 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 export const SIDE_FOER_INNLOGGING = 'side-foer-innlogging';
 export const INNLOGGET_PART = 'innlogget-part';
 
-const RedirectEtterLogin: FunctionComponent<RouteComponentProps> = props => {
+const RedirectEtterLogin: FunctionComponent<RouteComponentProps> = (props) => {
     const redirectTilSideFoerInnlogging = () => {
         const sideFoerInnlogging = sessionStorage.getItem(SIDE_FOER_INNLOGGING);
         if (typeof sideFoerInnlogging === 'string') {
@@ -14,6 +14,7 @@ const RedirectEtterLogin: FunctionComponent<RouteComponentProps> = props => {
             props.history.push(sideFoerInnlogging);
         }
     };
+    //eslint-disable-next-line
     useEffect(redirectTilSideFoerInnlogging, []);
     return <>{props.children}</>;
 };
