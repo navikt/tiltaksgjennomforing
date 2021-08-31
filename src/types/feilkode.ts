@@ -94,7 +94,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET: 'Finner ikke bedrift hos kontonummerregister',
     IKKE_ADMIN_TILGANG: 'Du har ikke tilgang til denne administrator-funksjonaliteten',
     SOMMERJOBB_FOR_TIDLIG: 'Sommerjobb kan ikke starte før 01.06',
-    SOMMERJOBB_FOR_SENT: 'Sommerjobb kan ikke vare lenger enn til 31.08',
+    SOMMERJOBB_FOR_SENT: 'Sommerjobb kan ikke starte etter 31.08',
     SOMMERJOBB_FOR_LANG_VARIGHET: 'Sommerjobb kan ikke vare lenger enn 4 uker',
     IKKE_GAMMEL_NOK: 'Deltaker må være fylt 16 år',
     FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
