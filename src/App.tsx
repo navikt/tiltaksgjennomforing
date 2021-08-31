@@ -2,6 +2,9 @@ import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import { messages } from '@/messages';
 import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 import Oversikt from '@/Oversikt';
+// IE Support
+import '@formatjs/intl-pluralrules/locale-data/nb';
+import '@formatjs/intl-pluralrules/polyfill';
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
