@@ -5,6 +5,8 @@ import Oversikt from '@/Oversikt';
 // IE Support
 import '@formatjs/intl-pluralrules/locale-data/nb';
 import '@formatjs/intl-pluralrules/polyfill';
+import '@formatjs/intl-relativetimeformat/locale-data/nb';
+import '@formatjs/intl-relativetimeformat/polyfill';
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
