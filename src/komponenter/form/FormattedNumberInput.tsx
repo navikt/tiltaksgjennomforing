@@ -1,17 +1,16 @@
-import { Input, NavFrontendInputProps } from 'nav-frontend-skjema';
-import React from 'react';
 import { fromFormatted, toNumberOnFocus } from '@/komponenter/form/utils/form-utils';
 import useValidering from '@/komponenter/useValidering';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { Input, InputProps } from 'nav-frontend-skjema';
+import React from 'react';
 
 const DEFAULT_INPUT_MAX_LENGTH = 524288;
 
-interface FormattedNumberInputProps extends NavFrontendInputProps {
+interface FormattedNumberInputProps extends InputProps {
     toFormatted: (value: any) => string;
-    validatorer: Array<(value: any) => SkjemaelementFeil | undefined>;
+    validatorer: Array<(value: any) => string | undefined>;
 }
 
-const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> = props => {
+const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> = (props) => {
     const { value, validatorer, toFormatted, onChange, maxLength, max, ...other } = props;
     const [feil, settFeil, sjekkInputfelt] = useValidering(value, validatorer);
     const maximumLength = maxLength ? maxLength : DEFAULT_INPUT_MAX_LENGTH;

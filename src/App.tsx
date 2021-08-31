@@ -1,9 +1,14 @@
 import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import { messages } from '@/messages';
 import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
+import Oversikt from '@/Oversikt';
+// IE Support
+import '@formatjs/intl-pluralrules/locale-data/nb';
+import '@formatjs/intl-pluralrules/polyfill';
+import '@formatjs/intl-relativetimeformat/locale-data/nb';
+import '@formatjs/intl-relativetimeformat/polyfill';
 import * as React from 'react';
-import { addLocaleData, IntlProvider } from 'react-intl';
-import * as nb from 'react-intl/locale-data/nb';
+import { IntlProvider } from 'react-intl';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import AvtaleProvider from './AvtaleProvider';
@@ -31,9 +36,6 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import Oversikt from '@/Oversikt';
-
-addLocaleData(nb);
 
 class App extends React.Component {
     render() {

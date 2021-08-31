@@ -5,14 +5,14 @@ import { validerFnr } from '@/utils/fnrUtils';
 import React, { FunctionComponent } from 'react';
 
 // Ikke i bruk nå, men kan være relevant senere når AG også får filtreringsmulighet
-export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = props => {
+export const FødselsnummerFilter: FunctionComponent<FiltreringProps> = (props) => {
     return (
         <Filter tittel="Søk på deltaker">
             <SøkeInput
                 label="Fødselsnummer"
                 maxLength={11}
-                utførSøk={søkeord => props.endreSøk({ deltakerFnr: søkeord })}
-                valider={verdi => (!validerFnr(verdi) ? { feilmelding: 'Ugyldig fødselsnummer' } : undefined)}
+                utførSøk={(søkeord: string) => props.endreSøk({ deltakerFnr: søkeord })}
+                valider={(verdi: string) => (!validerFnr(verdi) ? 'Ugyldig fødselsnummer' : undefined)}
             />
         </Filter>
     );

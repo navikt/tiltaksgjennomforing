@@ -14,7 +14,7 @@ interface Props {
     undertittel?: string;
 }
 
-const Banner: React.FunctionComponent<Props> = props => {
+const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
 
@@ -23,12 +23,18 @@ const Banner: React.FunctionComponent<Props> = props => {
             return (
                 <Bedriftsmeny
                     history={history}
-                    onOrganisasjonChange={org => {
+                    onOrganisasjonChange={(org) => {
                         props.byttetOrg && props.byttetOrg(org);
                     }}
                     organisasjoner={innloggetBruker.altinnOrganisasjoner}
                     sidetittel={props.tekst}
-                />
+                >
+                    {props.undertittel && (
+                        <div style={{ position: 'relative', left: '-52rem', top: '2rem' }}>
+                            <UndertekstBold>{props.undertittel}</UndertekstBold>
+                        </div>
+                    )}
+                </Bedriftsmeny>
             );
         case 'DELTAKER':
             return (

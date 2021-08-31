@@ -3,7 +3,7 @@ import { Stilling } from '@/types/avtale';
 import { useState } from 'react';
 import { ValueType } from 'react-select';
 
-export default (defaultVerdier: Stilling) => {
+const useStilling = (defaultVerdier: Stilling) => {
     const [stilling, setStilling] = useState<Stilling>(defaultVerdier);
 
     const setValgtStilling = (val: ValueType<StillingOptions, boolean>) => {
@@ -17,12 +17,14 @@ export default (defaultVerdier: Stilling) => {
 
     const valgtStilling: StillingOptions | null = stilling?.stillingstittel
         ? {
-              label: stilling.stillingstittel || '',
-              konseptId: stilling.stillingKonseptId || 0,
-              styrk08: stilling.stillingStyrk08 || 0,
-              value: stilling.stillingstittel || '',
-          }
+            label: stilling.stillingstittel || '',
+            konseptId: stilling.stillingKonseptId || 0,
+            styrk08: stilling.stillingStyrk08 || 0,
+            value: stilling.stillingstittel || '',
+        }
         : null;
 
     return { valgtStilling, setValgtStilling };
 };
+
+export default useStilling;

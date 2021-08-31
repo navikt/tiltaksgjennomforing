@@ -35,13 +35,14 @@ const StillingSteg: FunctionComponent = () => {
             <PakrevdTextarea
                 label="Beskriv arbeidsoppgavene som inngår i stillingen"
                 verdi={avtaleContext.avtale.arbeidsoppgaver || ''}
-                settVerdi={verdi => avtaleContext.settAvtaleVerdi('arbeidsoppgaver', verdi)}
+                settVerdi={(verdi) => avtaleContext.settAvtaleVerdi('arbeidsoppgaver', verdi)}
                 maxLengde={1000}
                 feilmelding="Beskrivelse av arbeidsoppgavene er påkrevd"
             />
             {(avtaleContext.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
                 avtaleContext.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
                 <>
+                    <VerticalSpacer rem={1} />
                     <Normaltekst>Er stillingen fast eller midlertidig</Normaltekst>
                     <VerticalSpacer rem={0.5} />
                     <div className={cls.element('stillingstype_radio')}>

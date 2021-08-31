@@ -4,10 +4,9 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
-import { Datovelger } from 'nav-datovelger';
+import { Datepicker } from 'nav-datovelger';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvbrytAvtaleModal.less';
@@ -21,10 +20,10 @@ interface Props {
 const DAGENS_DATO = moment().format(moment.HTML5_FMT.DATE);
 const cls = BEMHelper('avbryt-avtale-modal');
 
-const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
+const AvbrytAvtaleModal: FunctionComponent<Props> = (props) => {
     const [annetGrunn, setAnnetGrunn] = useState('');
-    const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
-    const [datoFeil, setDatoFeil] = useState<undefined | SkjemaelementFeil>(undefined);
+    const [grunnFeil, setGrunnFeil] = useState<undefined | string>(undefined);
+    const [datoFeil, setDatoFeil] = useState<undefined | string>(undefined);
     const [avbruttGrunn, setAvbruttGrunn] = useState<AvbrytelseGrunn | string>('');
     const [feil, setFeil] = useState('');
     const avtaleContext = useContext(AvtaleContext);
@@ -56,13 +55,13 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
     const bekreftAvbrytAvtale = async () => {
         if (avbruttGrunnSatt()) {
             sjekkOgSetAvbryttGrunn(!avbruttGrunn, () => {
-                setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
+                setGrunnFeil('Vennligst velg en grunn');
             });
             sjekkOgSetAvbryttGrunn(!avbruttDato, () => {
-                setDatoFeil({ feilmelding: 'Vennligst velg gyldig dato' });
+                setDatoFeil('Vennligst velg gyldig dato');
             });
             sjekkOgSetAvbryttGrunn(avbruttDatoErOverEttÅrTilbake(), () => {
-                setDatoFeil({ feilmelding: 'Dato kan ikke overstige ett år tilbake i tid' });
+                setDatoFeil('Dato kan ikke overstige ett år tilbake i tid');
             });
             return;
         }
@@ -104,17 +103,17 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
             </div>
             <VerticalSpacer rem={1} />
             <SkjemaGruppe feil={datoFeil} title="Dato for avbrytelse">
-                <Datovelger
-                    input={{ placeholder: 'dd.mm.åååå', ariaLabel: 'textbox', ariaDescribedby: 'skriv inn dato felt' }}
-                    valgtDato={avbruttDato}
-                    onChange={dato => velgStartDato(dato)}
+                <Datepicker
+                    inputProps={{ placeholder: 'dd.mm.åååå' }}
+                    value={avbruttDato}
+                    onChange={(dato) => velgStartDato(dato)}
                 />
             </SkjemaGruppe>
             <div className={cls.element('grunner-og-annet')}>
                 <div role="menu">
                     <VerticalSpacer rem={1.25} />
                     <SkjemaGruppe title="Hvorfor avbrytes avtalen?" feil={grunnFeil}>
-                        {grunner.map(grunn => {
+                        {grunner.map((grunn) => {
                             return (
                                 <Radio
                                     key={grunn}
@@ -122,7 +121,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                                     name="avbrytelsegrunn"
                                     value={grunn}
                                     checked={avbruttGrunn === grunn}
-                                    onChange={event => {
+                                    onChange={(event) => {
                                         setAvbruttGrunn(event.currentTarget.value);
                                     }}
                                     role="menuitemradio"
@@ -138,7 +137,7 @@ const AvbrytAvtaleModal: FunctionComponent<Props> = props => {
                             labelledby="tekst felt for avbrytt grunn"
                             verdi={annetGrunn}
                             placeholder="Begrunnelse (påkrevd)"
-                            settVerdi={verdi => setAnnetGrunn(verdi)}
+                            settVerdi={(verdi) => setAnnetGrunn(verdi)}
                             maxLengde={500}
                             feilmelding="Begrunnelse er påkrevd"
                             className={cls.element('pakrevd-text-area')}

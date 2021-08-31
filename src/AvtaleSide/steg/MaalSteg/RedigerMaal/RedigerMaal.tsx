@@ -6,7 +6,6 @@ import { ApiError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Select, Textarea } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import React, { FunctionComponent, useContext, useState } from 'react';
 
 interface Props {
@@ -15,7 +14,7 @@ interface Props {
     ledigeMaalkategorier: Maalkategori[];
 }
 
-const RedigerMaal: FunctionComponent<Props> = props => {
+const RedigerMaal: FunctionComponent<Props> = (props) => {
     const context = useContext(AvtaleContext);
     const { defaultMaal } = props;
 
@@ -30,8 +29,8 @@ const RedigerMaal: FunctionComponent<Props> = props => {
 
     const [valgtMaal, setValgtMaal] = useState<Partial<Maal> | undefined>(initieltMaal());
 
-    const [beskrivelseFeil, setBeskrivelseFeil] = useState<SkjemaelementFeil | undefined>(undefined);
-    const [valgtKategoriFeil, setValgtKategoriFeil] = useState<SkjemaelementFeil | undefined>(undefined);
+    const [beskrivelseFeil, setBeskrivelseFeil] = useState<string | undefined>(undefined);
+    const [valgtKategoriFeil, setValgtKategoriFeil] = useState<string | undefined>(undefined);
 
     const settValgtKategori = (event: React.FormEvent<HTMLSelectElement>) => {
         const { value } = event.currentTarget;
@@ -64,11 +63,9 @@ const RedigerMaal: FunctionComponent<Props> = props => {
 
     const setFeilmelding = (): void => {
         if (!valgtMaal?.beskrivelse) {
-            return setBeskrivelseFeil({
-                feilmelding: 'Feltet kan ikke være tomt',
-            });
+            return setBeskrivelseFeil('Feltet kan ikke være tomt');
         } else if (!valgtMaal.kategori) {
-            return setValgtKategoriFeil({ feilmelding: 'En kategori må være valgt' });
+            return setValgtKategoriFeil('En kategori må være valgt');
         }
         throw new ApiError('En uventet feil har oppstått.');
     };

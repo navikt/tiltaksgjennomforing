@@ -1,16 +1,15 @@
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
-import { Input } from 'nav-frontend-skjema';
-import { NavFrontendInputProps } from 'nav-frontend-skjema/lib/input';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
+import { Input, InputProps } from 'nav-frontend-skjema';
 import React, { FormEvent, FunctionComponent, useState } from 'react';
 
-type Props = NavFrontendInputProps & {
+type Props = InputProps & {
     utførSøk: (søkeord: string) => void;
-    valider: (verdi: string) => SkjemaelementFeil | undefined;
+    valider: (verdi: string) => string | undefined;
 };
 
-export const SøkeInput: FunctionComponent<Props> = props => {
+export const SøkeInput: FunctionComponent<Props> = (props) => {
     const [søkeord, setSøkeord] = useState<string>('');
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
@@ -49,6 +48,7 @@ export const SøkeInput: FunctionComponent<Props> = props => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
+            <VerticalSpacer rem={1} />
             <Søkeknapp onClick={utførSøk} />
         </>
     );

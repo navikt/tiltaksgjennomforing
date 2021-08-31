@@ -1,4 +1,4 @@
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const fetch = require('node-fetch');
 const whitelist = require('./whitelist');
 
@@ -11,7 +11,7 @@ const envProperties = {
     SELVBETJENING_LOGIN_URL:
         process.env.SELVBETJENING_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/selvbetjening'),
     LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
-    STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.dev.nav.no/',
+    STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.dev-gcp.nais.io/',
 };
 
 if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
@@ -96,7 +96,6 @@ module.exports = function(app) {
         changeOrigin: true,
         pathRewrite: whitelist,
         target: envProperties.APIGW_URL,
-        xfwd: true,
         proxyTimeout: 10000,
     };
 
@@ -106,15 +105,14 @@ module.exports = function(app) {
         };
     }
 
-    app.use('/tiltaksgjennomforing/api', proxy(apiProxyConfig));
+    app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
 
     app.use(
         '/tiltaksgjennomforing/stillingstitler',
-        proxy({
+        createProxyMiddleware({
             changeOrigin: true,
             pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
             target: envProperties.STILLINGSTITLER_URL,
-            xfwd: true,
             proxyTimeout: 10000,
         })
     );

@@ -1,17 +1,17 @@
-import { RadioPanel, RadioPanelGruppeProps, RadioProps } from 'nav-frontend-skjema/lib/radio-panel-gruppe';
+import { RadioPanel, RadioPanelGruppeProps } from 'nav-frontend-skjema';
 import * as React from 'react';
 
 const RadioPanelGruppeHorisontal = (props: RadioPanelGruppeProps) => {
     const { radios, name, checked, onChange } = props;
     return (
         <div className="opprett-avtale__tiltakstypeWrapper">
-            {radios.map((radio: RadioProps) => (
+            {radios.map((radio) => (
                 <RadioPanel
+                    {...radio}
                     name={name}
                     key={`${name}-${radio.value}`}
                     checked={checked === radio.value}
                     onChange={(event: React.SyntheticEvent<EventTarget>) => onChange(event, radio.value)}
-                    {...radio}
                 />
             ))}
         </div>

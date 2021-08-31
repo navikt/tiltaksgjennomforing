@@ -3,13 +3,12 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvbrytAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
-import AlertStripe from 'nav-frontend-alertstriper';
 
 interface Props {
     isOpen: boolean;
@@ -18,9 +17,9 @@ interface Props {
 
 const cls = BEMHelper('avbryt-avtale-modal');
 
-const AnnullerAvtaleModal: FunctionComponent<Props> = props => {
+const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
     const [annetGrunn, setAnnetGrunn] = useState('');
-    const [grunnFeil, setGrunnFeil] = useState<undefined | SkjemaelementFeil>(undefined);
+    const [grunnFeil, setGrunnFeil] = useState<undefined | string>(undefined);
     const [annullertGrunn, setAnnullertGrunn] = useState<AvbrytelseGrunn | string>('');
     const avtaleContext = useContext(AvtaleContext);
 
@@ -28,7 +27,7 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = props => {
         const annullertGrunnIkkeSatt = !annullertGrunn || (annullertGrunn === 'Annet' && !annetGrunn);
 
         if (annullertGrunnIkkeSatt) {
-            setGrunnFeil({ feilmelding: 'Vennligst velg en grunn' });
+            setGrunnFeil('Vennligst velg en grunn');
             return;
         }
 
@@ -68,14 +67,14 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = props => {
                             'Syk',
                             'Ikke møtt',
                             'Annet',
-                        ].map(grunn => (
+                        ].map((grunn) => (
                             <Radio
                                 key={grunn}
                                 label={grunn}
                                 name="avbrytelsegrunn"
                                 value={grunn}
                                 checked={annullertGrunn === grunn}
-                                onChange={event => {
+                                onChange={(event) => {
                                     setAnnullertGrunn(event.currentTarget.value);
                                 }}
                                 role="menuitemradio"
@@ -89,7 +88,7 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = props => {
                             label=""
                             verdi={annetGrunn}
                             placeholder="Begrunnelse (påkrevd)"
-                            settVerdi={verdi => setAnnetGrunn(verdi)}
+                            settVerdi={(verdi) => setAnnetGrunn(verdi)}
                             maxLengde={500}
                             feilmelding="Begrunnelse er påkrevd"
                             className={cls.element('pakrevd-text-area')}

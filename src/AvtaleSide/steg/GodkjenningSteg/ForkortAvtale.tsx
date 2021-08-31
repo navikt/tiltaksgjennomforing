@@ -8,10 +8,9 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
-import { Datovelger } from 'nav-datovelger';
+import { Datepicker } from 'nav-datovelger';
 import Lenke from 'nav-frontend-lenker';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import React, { FunctionComponent, useContext, useState } from 'react';
 
 const ForkortAvtale: FunctionComponent = () => {
@@ -19,7 +18,7 @@ const ForkortAvtale: FunctionComponent = () => {
 
     const [modalApen, setModalApen] = useState(false);
     const [sluttDato, setSluttDato] = useState<string | undefined>();
-    const [datoFeil, setDatoFeil] = useState<SkjemaelementFeil>();
+    const [datoFeil, setDatoFeil] = useState<string>();
     const [grunn, setGrunn] = useState<string>('');
     const [annetGrunn, setAnnetGrunn] = useState<string>();
 
@@ -27,7 +26,7 @@ const ForkortAvtale: FunctionComponent = () => {
 
     const forkort = async () => {
         if (!sluttDato) {
-            setDatoFeil({ feilmelding: 'Dato må fylles ut' });
+            setDatoFeil('Dato må fylles ut');
             return;
         }
         await forkortAvtale(avtaleContext.avtale, sluttDato, grunn, annetGrunn);
@@ -41,8 +40,8 @@ const ForkortAvtale: FunctionComponent = () => {
             try {
                 const nyAvtale = await forkortAvtaleDryRun(avtaleContext.avtale, dato);
                 setTilskuddsperioder(nyAvtale.tilskuddPeriode);
-            } catch (error) {
-                handterFeil(error, feilmelding => setDatoFeil({ feilmelding }));
+            } catch (error: any) {
+                handterFeil(error, (feilmelding) => setDatoFeil(feilmelding));
             }
         }
     };
@@ -50,34 +49,34 @@ const ForkortAvtale: FunctionComponent = () => {
     const forkorteTekst = (
         <>
             <SkjemaGruppe feil={datoFeil} title="Velg ny sluttdato for avtalen">
-                <Datovelger
-                    input={{ placeholder: 'dd.mm.åååå' }}
-                    valgtDato={sluttDato}
-                    avgrensninger={{
-                        maksDato: moment(avtaleContext.avtale.sluttDato)
-                            .subtract(1, 'days')
-                            .format('YYYY-MM-DD'),
-                        minDato: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD'),
+                <Datepicker
+                    inputProps={{ placeholder: 'dd.mm.åååå' }}
+                    value={sluttDato}
+                    limitations={{
+                        maxDate: moment(avtaleContext.avtale.sluttDato).subtract(1, 'days').format('YYYY-MM-DD'),
+                        minDate: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD'),
                     }}
-                    onChange={dato => onDatoChange(dato)}
+                    onChange={(dato) => onDatoChange(dato)}
                 />
             </SkjemaGruppe>
             <VerticalSpacer rem={1} />
             <SkjemaGruppe title="Hvorfor forkortes avtalen?">
-                {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'].map(g => (
-                    <Radio
-                        key={g}
-                        label={g}
-                        name="grunn"
-                        value={g}
-                        checked={g === grunn}
-                        onChange={event => {
-                            setGrunn(event.currentTarget.value);
-                            setAnnetGrunn(undefined);
-                        }}
-                        role="menuitemradio"
-                    />
-                ))}
+                {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'].map(
+                    (g) => (
+                        <Radio
+                            key={g}
+                            label={g}
+                            name="grunn"
+                            value={g}
+                            checked={g === grunn}
+                            onChange={(event) => {
+                                setGrunn(event.currentTarget.value);
+                                setAnnetGrunn(undefined);
+                            }}
+                            role="menuitemradio"
+                        />
+                    )
+                )}
             </SkjemaGruppe>
             <VerticalSpacer rem={1} />
             {grunn === 'Annet' && (
@@ -85,7 +84,7 @@ const ForkortAvtale: FunctionComponent = () => {
                     label=""
                     verdi={annetGrunn}
                     placeholder="Begrunnelse (påkrevd)"
-                    settVerdi={verdi => setAnnetGrunn(verdi)}
+                    settVerdi={(verdi) => setAnnetGrunn(verdi)}
                     maxLengde={500}
                     feilmelding="Begrunnelse er påkrevd"
                 />
@@ -108,7 +107,7 @@ const ForkortAvtale: FunctionComponent = () => {
         <>
             <div>
                 <Lenke
-                    onClick={event => {
+                    onClick={(event) => {
                         event.stopPropagation();
                         setModalApen(true);
                     }}

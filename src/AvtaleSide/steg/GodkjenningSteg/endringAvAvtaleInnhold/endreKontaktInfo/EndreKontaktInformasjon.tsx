@@ -4,11 +4,10 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import { Neutral } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
 import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { Neutral } from '@navikt/ds-icons/cjs';
-
 import './EndreKontaktInformasjon.less';
 
 const EndreKontaktInformasjon: FunctionComponent = () => {
@@ -49,7 +48,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         key: K,
         verdi: V[K]
     ) => {
-        await setKontaktInfo(prevState => ({
+        await setKontaktInfo((prevState) => ({
             ...prevState,
             [key]: verdi,
         }));
@@ -63,17 +62,17 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     <PakrevdInput
                         label="Fornavn"
                         verdi={kontaktInfo.deltakerFornavn}
-                        settVerdi={verdi => settNyKontaktInformasjon('deltakerFornavn', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('deltakerFornavn', verdi)}
                     />
                     <PakrevdInput
                         label="Etternavn"
                         verdi={kontaktInfo.deltakerEtternavn}
-                        settVerdi={verdi => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
                     />
                     <PakrevdInput
                         label="Telefonnummer "
                         verdi={kontaktInfo.deltakerTlf}
-                        settVerdi={verdi => settNyKontaktInformasjon('deltakerTlf', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
                     />
                 </div>
             </div>
@@ -83,17 +82,17 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     <PakrevdInput
                         label="Fornavn"
                         verdi={kontaktInfo.veilederFornavn}
-                        settVerdi={verdi => settNyKontaktInformasjon('veilederFornavn', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('veilederFornavn', verdi)}
                     />
                     <PakrevdInput
                         label="Etternavn"
                         verdi={kontaktInfo.veilederEtternavn}
-                        settVerdi={verdi => settNyKontaktInformasjon('veilederEtternavn', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
                     />
                     <PakrevdInput
                         label="Telefonnummer "
                         verdi={kontaktInfo.veilederTlf}
-                        settVerdi={verdi => settNyKontaktInformasjon('veilederTlf', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
                     />
                 </div>
             </div>
@@ -103,17 +102,17 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     <PakrevdInput
                         label="Fornavn"
                         verdi={kontaktInfo.arbeidsgiverFornavn}
-                        settVerdi={verdi => settNyKontaktInformasjon('arbeidsgiverFornavn', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverFornavn', verdi)}
                     />
                     <PakrevdInput
                         label="Etternavn"
                         verdi={kontaktInfo.arbeidsgiverEtternavn}
-                        settVerdi={verdi => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
                     />
                     <PakrevdInput
                         label="Telefonnummer"
                         verdi={kontaktInfo.arbeidsgiverTlf}
-                        settVerdi={verdi => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
                     />
                 </div>
             </div>
@@ -123,7 +122,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
     return (
         <>
             <Lenke
-                onClick={event => {
+                onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
                 }}

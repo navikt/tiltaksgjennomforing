@@ -1,6 +1,6 @@
-import { NavFrontendInputProps } from 'nav-frontend-skjema';
-import React from 'react';
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
+import { InputProps } from 'nav-frontend-skjema';
+import React from 'react';
 
 export const formaterValuta = (value: any): string => {
     const numericValue = parseFloat(value);
@@ -18,22 +18,22 @@ export const formaterValuta = (value: any): string => {
     return formatter.format(numericValue);
 };
 
-const ValutaInput: React.FunctionComponent<NavFrontendInputProps> = props => {
+const ValutaInput: React.FunctionComponent<InputProps> = (props) => {
     const { max, min, ...other } = props;
     const validatorer = [
         (v: any) => {
             if (!v) {
-                return { feilmelding: 'Feltet er påkrevd' };
+                return 'Feltet er påkrevd';
             }
         },
         (v: any) => {
             if (v && min && v < min) {
-                return { feilmelding: 'Må være over ' + formaterValuta(min) };
+                return 'Må være over ' + formaterValuta(min);
             }
         },
         (v: any) => {
             if (v && max && v > max) {
-                return { feilmelding: 'Må være under ' + formaterValuta(max) };
+                return 'Må være under ' + formaterValuta(max);
             }
         },
     ];

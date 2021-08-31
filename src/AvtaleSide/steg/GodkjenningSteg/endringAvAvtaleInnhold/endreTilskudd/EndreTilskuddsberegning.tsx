@@ -4,6 +4,7 @@ import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
 import ValutaInput from '@/komponenter/form/ValutaInput';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import { Beregningsgrunnlag, Varighet } from '@/types/avtale';
@@ -54,7 +55,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
         key: K,
         verdi: V[K]
     ) => {
-        await setNyBeregning(prevState => ({
+        await setNyBeregning((prevState) => ({
             ...prevState,
             [key]: verdi,
         }));
@@ -67,7 +68,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 bredde="M"
                 label="Månedslønn før skatt"
                 value={nyBeregning.manedslonn}
-                onChange={event => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
+                onChange={(event: any) => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
                 min={0}
             />
             <div className={cls.element('radioPanel')}>
@@ -104,6 +105,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     )
                 }
             />
+            <VerticalSpacer rem={1} />
             <SelectInput
                 name="arbeidsgiveravgift"
                 bredde="m"
@@ -115,6 +117,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     settNyBeregningsverdi('arbeidsgiveravgift', parseFloat(event.target.value))
                 }
             />
+            <VerticalSpacer rem={1} />
             <div className={cls.element('panel')}>
                 <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={context.avtale} />
             </div>
@@ -124,7 +127,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
     return (
         <>
             <Lenke
-                onClick={event => {
+                onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
                 }}

@@ -1,18 +1,17 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { SkjemaelementFeil } from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
 import GodkjennPåVegneAvDeltakerCheckboxer from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/GodkjennPåVegneAvDeltakerCheckboxer';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
+import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 
 type Props = {
     skalGodkjennesPaVegne: boolean;
     setSkalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
 };
 
-const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
+const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
     const avtaleContext = useContext(AvtaleContext);
 
     const godkjennPaVegneLabel = props.skalGodkjennesPaVegne
@@ -25,9 +24,9 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
         ikkeBankId: false,
     });
 
-    const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<SkjemaelementFeil>();
+    const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<string>();
     const [deltakerInformert, setDeltakerInformert] = useState(false);
-    const [feilDeltakerInformert, setFeilDeltakerInformert] = useState<SkjemaelementFeil>();
+    const [feilDeltakerInformert, setFeilDeltakerInformert] = useState<string>();
 
     const godkjennAvtalen = () => {
         const valgtMinstEnGrunn =
@@ -35,16 +34,14 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
             godkjentPåVegneAvGrunner.reservert ||
             godkjentPåVegneAvGrunner.digitalKompetanse;
         if (!valgtMinstEnGrunn) {
-            setFeilmeldingGrunn({ feilmelding: 'Oppgi minst én grunn for godkjenning på vegne av deltaker' });
+            setFeilmeldingGrunn('Oppgi minst én grunn for godkjenning på vegne av deltaker');
             return;
         } else {
             setFeilmeldingGrunn(undefined);
         }
 
         if (!deltakerInformert) {
-            setFeilDeltakerInformert({
-                feilmelding: 'Deltaker må være informert om kravene og godkjenne innholdet i avtalen.',
-            });
+            setFeilDeltakerInformert('Deltaker må være informert om kravene og godkjenne innholdet i avtalen.');
             return;
         } else {
             setFeilDeltakerInformert(undefined);
@@ -58,7 +55,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = props => {
             <Checkbox
                 label={godkjennPaVegneLabel}
                 checked={props.skalGodkjennesPaVegne}
-                onChange={e => {
+                onChange={(e) => {
                     props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
             />
