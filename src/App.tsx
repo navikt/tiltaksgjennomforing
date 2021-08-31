@@ -37,10 +37,6 @@ import {
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
 
-//TODO: addLocaleData brukes for støtte av formater i gamle IE versjoner. Denner er deprecated
-// se mer for ny måte: https://formatjs.io/docs/react-intl/upgrade-guide-3x/#migrate-to-using-native-intl-apis
-//addLocaleData(nb);
-
 class App extends React.Component {
     render() {
         return (
