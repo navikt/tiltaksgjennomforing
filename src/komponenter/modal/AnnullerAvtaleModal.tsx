@@ -98,7 +98,7 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
             </div>
             {annullertGrunn === 'Feilregistrering' && (
                 <AlertStripe type="advarsel" form="inline">
-                    Ved årsak <em>Feilregistrering</em> blir avtalen skjult for deltaker og arbeidsgiver
+                    Ved årsak <em>Feilregistrering</em> blir avtalen skjult for alle avtaleparter
                 </AlertStripe>
             )}
         </>
