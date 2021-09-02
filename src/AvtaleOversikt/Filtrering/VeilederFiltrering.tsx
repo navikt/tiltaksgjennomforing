@@ -22,7 +22,6 @@ export type FiltreringProps = {
 };
 
 const VeilederFiltrering: FunctionComponent<FiltreringProps> = (props) => {
-    console.log('props:', props);
     return (
         <div className={cls.className}>
             <Sortering endreSøk={props.endreSøk} />
