@@ -1,5 +1,5 @@
 import { EtikettInfo } from 'nav-frontend-etiketter';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { Nyhet } from './Nytt';
 
@@ -26,9 +26,7 @@ const Artikkel: FunctionComponent<Props> = ({ nyhet, ulest }) => {
                 {printDato(nyhet.dato)}
             </EtikettInfo>
             <Undertittel className="nytt__artikkeltittel">{nyhet.tittel}</Undertittel>
-            <Normaltekst className="nytt__artikkelinnhold" tag="section">
-                {nyhet.innhold}
-            </Normaltekst>
+            <div className="typo-normal nytt__artikkelinnhold">{nyhet.innhold}</div>
         </article>
     );
 };
