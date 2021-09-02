@@ -17,11 +17,11 @@ const useStilling = (defaultVerdier: Stilling) => {
 
     const valgtStilling: StillingOptions | null = stilling?.stillingstittel
         ? {
-            label: stilling.stillingstittel || '',
-            konseptId: stilling.stillingKonseptId || 0,
-            styrk08: stilling.stillingStyrk08 || 0,
-            value: stilling.stillingstittel || '',
-        }
+              label: stilling.stillingstittel || '',
+              konseptId: stilling.stillingKonseptId || 0,
+              styrk08: stilling.stillingStyrk08 || 0,
+              value: stilling.stillingstittel || '',
+          }
         : null;
 
     return { valgtStilling, setValgtStilling };

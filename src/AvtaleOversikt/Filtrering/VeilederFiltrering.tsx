@@ -6,11 +6,12 @@ import { Avtale, TilskuddPeriodeStatus } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import React, { FunctionComponent } from 'react';
 import './Filtrering.less';
+import { NavEnhet } from '@/types/innlogget-bruker';
 
 const cls = BEMHelper('filtrering');
 
 export type FiltreringProps = {
-    navEnheter?: string[];
+    navEnheter?: NavEnhet[];
     endreSøk: (
         søkekriterier: Partial<Avtale> & {
             tilskuddPeriodeStatus?: TilskuddPeriodeStatus;
@@ -20,7 +21,8 @@ export type FiltreringProps = {
     ) => void;
 };
 
-const VeilederFiltrering: FunctionComponent<FiltreringProps> = props => {
+const VeilederFiltrering: FunctionComponent<FiltreringProps> = (props) => {
+    console.log('props:', props);
     return (
         <div className={cls.className}>
             <Sortering endreSøk={props.endreSøk} />

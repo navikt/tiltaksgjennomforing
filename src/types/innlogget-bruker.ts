@@ -7,6 +7,11 @@ export interface Innloggingskilde {
     url: string;
 }
 
+export interface NavEnhet {
+    verdi: string;
+    navn: string;
+}
+
 export type Tilganger = { [bedriftNr: string]: TiltaksType[] };
 
 export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'BESLUTTER' | 'INGEN_ROLLE';
@@ -17,7 +22,7 @@ export interface InnloggetBruker {
     altinnOrganisasjoner: AltinnOrganisasjon[];
     rolle: Rolle;
     tilganger: Tilganger;
-    navEnheter: string[];
+    navEnheter: NavEnhet[];
     kanVæreBeslutter?: boolean;
 }
 
