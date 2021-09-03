@@ -58,7 +58,9 @@ export interface AvtaleMetadata {
     tiltakstype: TiltaksType;
     erUfordelt: boolean;
     enhetGeografisk?: string;
+    enhetsnavnGeografisk?: string;
     enhetOppfolging?: string;
+    enhetsnavnOppfolging?: string;
 }
 
 export interface Avtaleparter {

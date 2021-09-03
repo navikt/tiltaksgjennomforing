@@ -11,7 +11,7 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { avtaleTittel, tilskuddsperiodeAvslagTekst, tiltakstypeTekst } from '@/messages';
-import { Avslagsårsaker, TilskuddPeriodeStatus } from '@/types/avtale';
+import { Avslagsårsaker, Avtale, TilskuddPeriodeStatus } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
@@ -58,6 +58,17 @@ const BeslutterSide: FunctionComponent = () => {
         setTimeout(() => {
             setClsName(undefined);
         }, 300);
+    };
+
+    const setEnhetOppfolging = (enhetsnr: keyof Avtale, enhetsNavn: keyof Avtale) => {
+        if (avtaleContext.avtale[enhetsnr]) {
+            const nr = avtaleContext.avtale[enhetsnr];
+            return typeof avtaleContext.avtale[enhetsNavn] === 'string' &&
+                (avtaleContext.avtale[enhetsNavn] as string).length > 0
+                ? (avtaleContext.avtale[enhetsNavn] as string).concat(' - ').concat(nr as string)
+                : nr;
+        }
+        return <em>Ikke satt</em>;
     };
 
     return (
@@ -127,7 +138,7 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {avtaleContext.avtale.enhetGeografisk || <em>Ikke satt</em>}
+                                        {setEnhetOppfolging('enhetGeografisk', 'enhetsnavnGeografisk')}
                                     </Normaltekst>
                                 </div>
                                 <div>
@@ -135,7 +146,7 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {avtaleContext.avtale.enhetOppfolging || <em>Ikke satt</em>}
+                                        {setEnhetOppfolging('enhetOppfolging', 'enhetsnavnOppfolging')}
                                     </Normaltekst>
                                 </div>
                             </div>
