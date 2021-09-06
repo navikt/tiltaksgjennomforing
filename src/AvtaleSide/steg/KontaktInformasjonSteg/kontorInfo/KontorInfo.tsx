@@ -4,7 +4,7 @@ import './kontorInfo.less';
 import BEMHelper from '@/utils/bem';
 
 import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
-import SetEnhet from '@/utils/SetEnhet';
+import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 
 const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
     oppsummeringside,
@@ -23,13 +23,13 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
             <div className={cls.element('info-rad')}>
                 <Normaltekst>Geografisk enhet</Normaltekst>
                 <Undertittel>
-                    <SetEnhet enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />
+                    <HentNavEnhetFraContext enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />
                 </Undertittel>
             </div>
             <div className={cls.element('info-rad')}>
                 <Normaltekst>Oppfølingsenhet</Normaltekst>
                 <Undertittel>
-                    <SetEnhet enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
+                    <HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
                 </Undertittel>
             </div>
         </div>

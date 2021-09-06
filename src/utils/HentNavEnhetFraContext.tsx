@@ -7,7 +7,7 @@ interface Props {
     enhetsNavn: keyof Avtale;
 }
 
-const SetEnhet: FunctionComponent<Props> = (props: Props) => {
+const HentNavEnhetFraContext: FunctionComponent<Props> = (props: Props) => {
     const { avtale } = useContext(AvtaleContext);
     const { enhetsnr, enhetsNavn } = props;
     if (avtale[enhetsnr]) {
@@ -20,4 +20,4 @@ const SetEnhet: FunctionComponent<Props> = (props: Props) => {
     }
     return <em>Ikke Oppgitt</em>;
 };
-export default SetEnhet;
+export default HentNavEnhetFraContext;
