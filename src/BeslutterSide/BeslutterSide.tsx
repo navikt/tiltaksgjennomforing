@@ -23,7 +23,7 @@ import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
-import { SetEnhet } from '@/utils/enhetUtils';
+import SetEnhet from '@/utils/SetEnhet';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -127,13 +127,17 @@ const BeslutterSide: FunctionComponent = () => {
                                     <Element>Geografisk enhet</Element>
                                 </div>
                                 <div>
-                                    <Normaltekst>{SetEnhet('enhetGeografisk', 'enhetsnavnGeografisk')}</Normaltekst>
+                                    <Normaltekst>
+                                        <SetEnhet enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />
+                                    </Normaltekst>
                                 </div>
                                 <div>
                                     <Element>Oppfølgingsenhet</Element>
                                 </div>
                                 <div>
-                                    <Normaltekst>{SetEnhet('enhetOppfolging', 'enhetsnavnOppfolging')}</Normaltekst>
+                                    <Normaltekst>
+                                        <SetEnhet enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
+                                    </Normaltekst>
                                 </div>
                             </div>
                             <VerticalSpacer rem={2} />

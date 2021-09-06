@@ -2,8 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import './kontorInfo.less';
 import BEMHelper from '@/utils/bem';
-import { SetEnhet } from '@/utils/enhetUtils';
+
 import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
+import SetEnhet from '@/utils/SetEnhet';
 
 const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
     oppsummeringside,
@@ -21,11 +22,15 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
             </div>
             <div className={cls.element('info-rad')}>
                 <Normaltekst>Geografisk enhet</Normaltekst>
-                <Undertittel>{SetEnhet('enhetGeografisk', 'enhetsnavnGeografisk')}</Undertittel>
+                <Undertittel>
+                    <SetEnhet enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />
+                </Undertittel>
             </div>
             <div className={cls.element('info-rad')}>
                 <Normaltekst>Oppfølingsenhet</Normaltekst>
-                <Undertittel>{SetEnhet('enhetOppfolging', 'enhetsnavnOppfolging')}</Undertittel>
+                <Undertittel>
+                    <SetEnhet enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
+                </Undertittel>
             </div>
         </div>
     );
