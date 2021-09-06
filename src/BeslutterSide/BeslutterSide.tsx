@@ -11,7 +11,7 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { avtaleTittel, tilskuddsperiodeAvslagTekst, tiltakstypeTekst } from '@/messages';
-import { Avslagsårsaker, Avtale, TilskuddPeriodeStatus } from '@/types/avtale';
+import { Avslagsårsaker, TilskuddPeriodeStatus } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
@@ -23,6 +23,7 @@ import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
+import { SetEnhet } from '@/utils/enhetUtils';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -58,17 +59,6 @@ const BeslutterSide: FunctionComponent = () => {
         setTimeout(() => {
             setClsName(undefined);
         }, 300);
-    };
-
-    const setEnhetOppfolging = (enhetsnr: keyof Avtale, enhetsNavn: keyof Avtale) => {
-        if (avtaleContext.avtale[enhetsnr]) {
-            const nr = avtaleContext.avtale[enhetsnr];
-            return typeof avtaleContext.avtale[enhetsNavn] === 'string' &&
-                (avtaleContext.avtale[enhetsNavn] as string).length > 0
-                ? (avtaleContext.avtale[enhetsNavn] as string).concat(' - ').concat(nr as string)
-                : nr;
-        }
-        return <em>Ikke satt</em>;
     };
 
     return (
@@ -137,17 +127,13 @@ const BeslutterSide: FunctionComponent = () => {
                                     <Element>Geografisk enhet</Element>
                                 </div>
                                 <div>
-                                    <Normaltekst>
-                                        {setEnhetOppfolging('enhetGeografisk', 'enhetsnavnGeografisk')}
-                                    </Normaltekst>
+                                    <Normaltekst>{SetEnhet('enhetGeografisk', 'enhetsnavnGeografisk')}</Normaltekst>
                                 </div>
                                 <div>
                                     <Element>Oppfølgingsenhet</Element>
                                 </div>
                                 <div>
-                                    <Normaltekst>
-                                        {setEnhetOppfolging('enhetOppfolging', 'enhetsnavnOppfolging')}
-                                    </Normaltekst>
+                                    <Normaltekst>{SetEnhet('enhetOppfolging', 'enhetsnavnOppfolging')}</Normaltekst>
                                 </div>
                             </div>
                             <VerticalSpacer rem={2} />
@@ -263,8 +249,8 @@ const BeslutterSide: FunctionComponent = () => {
                                     )}{' '}
                                     med følgende årsak(er):
                                     <ul>
-                                        {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map((årsak) => (
-                                            <li>{tilskuddsperiodeAvslagTekst[årsak]}</li>
+                                        {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map((årsak, index) => (
+                                            <li key={index}>{tilskuddsperiodeAvslagTekst[årsak]}</li>
                                         ))}
                                     </ul>
                                     med forklaringen: {gjeldendeTilskuddsperiode.avslagsforklaring}
