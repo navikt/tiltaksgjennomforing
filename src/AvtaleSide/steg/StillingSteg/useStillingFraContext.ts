@@ -19,11 +19,11 @@ const useStillingFraContext = () => {
 
     const valgtStilling: StillingOptions | null = avtaleContext.avtale.stillingstittel
         ? {
-            label: avtaleContext.avtale.stillingstittel || '',
-            konseptId: avtaleContext.avtale.stillingKonseptId || 0,
-            styrk08: avtaleContext.avtale.stillingStyrk08 || 0,
-            value: avtaleContext.avtale.stillingstittel || '',
-        }
+              label: avtaleContext.avtale.stillingstittel || '',
+              konseptId: avtaleContext.avtale.stillingKonseptId || 0,
+              styrk08: avtaleContext.avtale.stillingStyrk08 || 0,
+              value: avtaleContext.avtale.stillingstittel || '',
+          }
         : null;
 
     return { valgtStilling, setValgtStilling };

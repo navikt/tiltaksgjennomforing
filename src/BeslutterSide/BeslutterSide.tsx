@@ -23,6 +23,7 @@ import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
+import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -127,7 +128,10 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {avtaleContext.avtale.enhetGeografisk || <em>Ikke satt</em>}
+                                        <HentNavEnhetFraContext
+                                            enhetsnr="enhetGeografisk"
+                                            enhetsNavn="enhetsnavnGeografisk"
+                                        />
                                     </Normaltekst>
                                 </div>
                                 <div>
@@ -135,7 +139,10 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {avtaleContext.avtale.enhetOppfolging || <em>Ikke satt</em>}
+                                        <HentNavEnhetFraContext
+                                            enhetsnr="enhetOppfolging"
+                                            enhetsNavn="enhetsnavnOppfolging"
+                                        />
                                     </Normaltekst>
                                 </div>
                             </div>
@@ -252,8 +259,8 @@ const BeslutterSide: FunctionComponent = () => {
                                     )}{' '}
                                     med følgende årsak(er):
                                     <ul>
-                                        {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map((årsak) => (
-                                            <li>{tilskuddsperiodeAvslagTekst[årsak]}</li>
+                                        {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map((årsak, index) => (
+                                            <li key={index}>{tilskuddsperiodeAvslagTekst[årsak]}</li>
                                         ))}
                                     </ul>
                                     med forklaringen: {gjeldendeTilskuddsperiode.avslagsforklaring}

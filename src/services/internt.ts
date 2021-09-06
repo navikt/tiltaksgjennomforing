@@ -6,7 +6,6 @@ const api = axios.create({
     headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache', 'Content-Type': 'application/json' },
 });
 
-
 export const hentInnloggingskilder = async (): Promise<Innloggingskilde[]> => {
     const response = await api.get<Innloggingskilde[]>(`/tiltaksgjennomforing/innloggingskilder`);
     return response.data;

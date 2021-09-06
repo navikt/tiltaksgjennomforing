@@ -22,7 +22,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
     const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    const navEnhetValgt = props.navEnheter?.length !== 0 ? props.navEnheter?.sort()![0] : '';
+    const navEnhetValgt = props.navEnheter?.length !== 0 ? props.navEnheter?.sort()![0].verdi : '';
 
     const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
     const søk = {
@@ -94,8 +94,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
     };
 
     const getNavEnhetOptions = props.navEnheter?.sort().map((enhet, index) => (
-        <option key={index} value={enhet}>
-            Enhet {enhet}
+        <option key={index} value={enhet.verdi}>
+            {enhet.navn} ({enhet.verdi})
         </option>
     ));
 

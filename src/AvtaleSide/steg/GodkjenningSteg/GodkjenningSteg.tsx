@@ -12,12 +12,13 @@ import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
+import KontorInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/KontorInfo';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
 }
 
-const GodkjenningSteg: React.FunctionComponent<Props> = props => {
+const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale, laasOpp } = useContext(AvtaleContext);
@@ -35,7 +36,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = props => {
                     </SkjemaTittel>
                     {avtale.erLaast && <LagreSomPdfKnapp avtaleId={avtale.id} />}
                 </div>
-
+                <KontorInfo oppsummeringside={true} />
                 <Avtaleparter {...avtale} />
                 {createElement(props.oppsummering, { avtaleinnhold: avtale })}
             </Innholdsboks>

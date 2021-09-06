@@ -49,7 +49,7 @@ const nyheter = [
                     en ny versjon ved endring, slik at man kan se hvordan avtalen så ut før endringen ble utført.
                 </p>
 
-                <p>
+                <div>
                     Følgende endringer er endringer som påvirker tilsagnet:
                     <ul>
                         <li>endringer i avtaleperioden</li>
@@ -57,7 +57,7 @@ const nyheter = [
                     </ul>
                     Disse endringene vil bli gjeldende på fremtidige tilskuddsperioder som ikke er godkjent av
                     beslutter.
-                </p>
+                </div>
 
                 <p>
                     Det er planlagt å varsle på sms til deltaker og arbeidsgiver ved nye endringer, men dette er ikke
