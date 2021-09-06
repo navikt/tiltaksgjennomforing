@@ -53,7 +53,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                         label="Beskriv hvilken oppfølging dere har avtalt"
                         verdi={oppfølgingOgTilretteleggingInfo.oppfolging}
                         settVerdi={verdi => settNyOppfølgingOgTilretteleggingInformasjon('oppfolging', verdi)}
-                        maxLengde={500}
+                        maxLengde={1000}
                         feilmelding="Oppfølging er påkrevd"
                     />
                 </div>
@@ -66,7 +66,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                     label="Beskriv hvilken tilrettelegging dere har avtalt"
                     verdi={oppfølgingOgTilretteleggingInfo.tilrettelegging}
                     settVerdi={verdi => settNyOppfølgingOgTilretteleggingInformasjon('tilrettelegging', verdi)}
-                    maxLengde={500}
+                    maxLengde={1000}
                     feilmelding="Tilrettelegging er påkrevd"
                 />
             </div>
