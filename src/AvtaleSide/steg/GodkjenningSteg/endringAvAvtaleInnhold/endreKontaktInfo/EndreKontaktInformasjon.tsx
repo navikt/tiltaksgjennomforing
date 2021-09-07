@@ -1,6 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
@@ -69,7 +70,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.deltakerEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
                     />
-                    <PakrevdInput
+                    <TelefonnummerInput
                         label="Telefonnummer "
                         verdi={kontaktInfo.deltakerTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
@@ -89,7 +90,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.veilederEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
                     />
-                    <PakrevdInput
+                    <TelefonnummerInput
                         label="Telefonnummer "
                         verdi={kontaktInfo.veilederTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
@@ -109,7 +110,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.arbeidsgiverEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
                     />
-                    <PakrevdInput
+                    <TelefonnummerInput
                         label="Telefonnummer"
                         verdi={kontaktInfo.arbeidsgiverTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
