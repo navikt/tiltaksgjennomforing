@@ -61,9 +61,9 @@ const StillingSteg: FunctionComponent = () => {
                             value="midlertidig"
                         />
                     </div>
-                    <VerticalSpacer rem={2} />
                 </>
             )}
+            <VerticalSpacer rem={2} />
             <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
         </Innholdsboks>
     );
