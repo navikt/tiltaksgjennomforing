@@ -16,12 +16,11 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
     const { oppfolging, tilrettelegging } = context.avtale;
     const [modalApen, setModalApen] = useState(false);
 
-    const [oppfølgingOgTilretteleggingInfo, setOppfølgingOgTilretteleggingInfo] = useState<
-        EndreOppfølgingOgTilretteleggingInfo
-    >({
-        oppfolging: oppfolging,
-        tilrettelegging: tilrettelegging,
-    });
+    const [oppfølgingOgTilretteleggingInfo, setOppfølgingOgTilretteleggingInfo] =
+        useState<EndreOppfølgingOgTilretteleggingInfo>({
+            oppfolging: oppfolging,
+            tilrettelegging: tilrettelegging,
+        });
 
     const endreOppfølgingOgTilretteleggingInformasjon = async (): Promise<void> => {
         await oppdatereOppfølgingOgTilretteleggingInformasjon(context.avtale, oppfølgingOgTilretteleggingInfo);
@@ -36,7 +35,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
         key: K,
         verdi: V[K]
     ) => {
-        await setOppfølgingOgTilretteleggingInfo(prevState => ({
+        await setOppfølgingOgTilretteleggingInfo((prevState) => ({
             ...prevState,
             [key]: verdi,
         }));
@@ -52,7 +51,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                     <PakrevdTextarea
                         label="Beskriv hvilken oppfølging dere har avtalt"
                         verdi={oppfølgingOgTilretteleggingInfo.oppfolging}
-                        settVerdi={verdi => settNyOppfølgingOgTilretteleggingInformasjon('oppfolging', verdi)}
+                        settVerdi={(verdi) => settNyOppfølgingOgTilretteleggingInformasjon('oppfolging', verdi)}
                         maxLengde={1000}
                         feilmelding="Oppfølging er påkrevd"
                     />
@@ -65,7 +64,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                 <PakrevdTextarea
                     label="Beskriv hvilken tilrettelegging dere har avtalt"
                     verdi={oppfølgingOgTilretteleggingInfo.tilrettelegging}
-                    settVerdi={verdi => settNyOppfølgingOgTilretteleggingInformasjon('tilrettelegging', verdi)}
+                    settVerdi={(verdi) => settNyOppfølgingOgTilretteleggingInformasjon('tilrettelegging', verdi)}
                     maxLengde={1000}
                     feilmelding="Tilrettelegging er påkrevd"
                 />
@@ -76,7 +75,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
     return (
         <>
             <Lenke
-                onClick={event => {
+                onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
                 }}
