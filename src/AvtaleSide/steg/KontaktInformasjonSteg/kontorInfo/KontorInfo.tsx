@@ -27,7 +27,7 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
                 </Undertittel>
             </div>
             <div className={cls.element('info-rad')}>
-                <Normaltekst>Oppfølingsenhet</Normaltekst>
+                <Normaltekst>Oppfølgingsenhet</Normaltekst>
                 <Undertittel>
                     <HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
                 </Undertittel>
