@@ -5,7 +5,6 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
-import './oppdatereKostnadssted.less';
 import { oppdatereKostnadsstedet } from '@/services/rest-service';
 
 export interface Kostnadssted {
