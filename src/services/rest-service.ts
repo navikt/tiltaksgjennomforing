@@ -26,6 +26,7 @@ import axiosRetry from 'axios-retry';
 import { GodkjentPaVegneAvArbeidsgiverGrunner } from './../types/avtale';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
+import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -38,8 +39,8 @@ const api = axios.create({
 axiosRetry(api, { retries: 3 });
 
 api.interceptors.response.use(
-    response => response,
-    error => {
+    (response) => response,
+    (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
@@ -55,12 +56,12 @@ api.interceptors.response.use(
 );
 
 const featureTogglePath = (features: Feature[]): string => {
-    const query = features.map(feature => `feature=${feature}`).join('&');
+    const query = features.map((feature) => `feature=${feature}`).join('&');
     return `/feature?${query}`;
 };
 
 const featureToggleVariantPath = (features: Feature[]): string => {
-    const query = features.map(feature => `feature=${feature}`).join('&');
+    const query = features.map((feature) => `feature=${feature}`).join('&');
     return `/feature/variant?${query}`;
 };
 
@@ -70,7 +71,7 @@ export const hentAvtale = async (id: string): Promise<Avtale> => {
 };
 
 const removeEmpty = (obj: any) => {
-    Object.keys(obj).forEach(k => !obj[k] && delete obj[k]);
+    Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
     return obj;
 };
 
@@ -277,6 +278,11 @@ export const låsOppAvtale = async (avtaleId: string): Promise<void> => {
 
 export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
     await api.post(`/avtaler/${avtaleId}/del-med-avtalepart`, JSON.stringify(rolle));
+};
+
+export const oppdatereKostnadsstedet = async (avtaleId: string, kostnadssted: Kostnadssted): Promise<Kostnadssted> => {
+    const response = await api.post(`avtaler/${avtaleId}/bytt-kostnadssted`, JSON.stringify(kostnadssted));
+    return response.data;
 };
 
 export const overtaAvtale = async (avtaleId: string): Promise<void> => {
