@@ -16,6 +16,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     versjoner: [],
     avbrutt: false,
     godkjentPaVegneAv: false,
+    erAnnullertEllerAvbrutt: false,
 
     godkjentPaVegneGrunn: {
         ikkeBankId: false,
