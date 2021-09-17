@@ -9,39 +9,43 @@ import { oppdatereKostnadsstedet } from '@/services/rest-service';
 
 export interface Kostnadssted {
     enhet: string;
-    navn?: string;
+    enhetsnavn?: string;
 }
 
 const OppdatereKostnadssted: FunctionComponent = () => {
     const cls = BEMHelper('oppdatere-kostnadssted');
     const { avtale } = useContext(AvtaleContext);
+    const [feilmelding, setFeilmelding] = useState<string | undefined>(undefined);
+
     const finnKostnadssted = (): Kostnadssted => {
         const tilskuddsEnhet = avtale.tilskuddPeriode.find((periode) => periode.enhet !== null);
         if (tilskuddsEnhet?.enhet) {
-            return { enhet: tilskuddsEnhet.enhet, navn: undefined };
+            return { enhet: tilskuddsEnhet.enhet, enhetsnavn: tilskuddsEnhet.enhetsnavn ?? '' };
         } else if (avtale.enhetOppfolging) {
-            return { enhet: avtale.enhetOppfolging, navn: avtale.enhetsnavnOppfolging };
+            return { enhet: avtale.enhetOppfolging, enhetsnavn: avtale.enhetsnavnOppfolging ?? '' };
         } else if (avtale.enhetGeografisk) {
-            return { enhet: avtale.enhetGeografisk, navn: avtale.enhetsnavnGeografisk };
+            return { enhet: avtale.enhetGeografisk, enhetsnavn: avtale.enhetsnavnGeografisk ?? '' };
         }
-        return { enhet: '', navn: '' };
+        return { enhet: '', enhetsnavn: '' };
     };
     const [kostnadssted, setKostnadssted] = useState<Kostnadssted>(finnKostnadssted());
     const [nyttKostnadssted, setNyttKostnadssted] = useState<Kostnadssted>(kostnadssted);
 
     const sendInnNyttKostnadssted = async () => {
+        setFeilmelding(undefined);
         try {
-            const reponse = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
-            setKostnadssted(reponse);
+            const enhet = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
+            setKostnadssted(enhet);
         } catch (err) {
+            setFeilmelding((err as any).toString().split(':')?.[1]);
             console.warn('oppdatering av kostnadssted feilet. ', err);
         }
     };
 
-    return (
+    return avtale.gjeldendeTilskuddsperiode ? (
         <div className={cls.className}>
             <Undertittel>Kostnadssted</Undertittel>
-            <SkjemaGruppe>
+            <SkjemaGruppe feil={feilmelding}>
                 <div className={cls.element('input-wrapper')}>
                     <Input
                         value={nyttKostnadssted.enhet}
@@ -49,24 +53,21 @@ const OppdatereKostnadssted: FunctionComponent = () => {
                             setNyttKostnadssted((prevState) => ({
                                 ...prevState,
                                 enhet: event.target.value,
-                                navn: undefined,
+                                enhetsnavn: undefined,
                             }))
                         }
                         bredde="S"
                     />
-                    <Knapp
-                        mini={true}
-                        onClick={() => void 0 /* bytt med sendInnNyttKostnadssted() naar backend er koblet paa*/}
-                    >
+                    <Knapp mini={true} onClick={sendInnNyttKostnadssted}>
                         Oppdater
                     </Knapp>
                 </div>
                 <Normaltekst className={cls.element('input-undertekst')}>
                     <span>Kostnadssted er valgt til </span>
-                    <span>{kostnadssted.navn ? kostnadssted.navn : kostnadssted.enhet}</span>
+                    <span>{kostnadssted.enhetsnavn ?? 'test'}</span>
                 </Normaltekst>
             </SkjemaGruppe>
         </div>
-    );
+    ) : null;
 };
 export default OppdatereKostnadssted;

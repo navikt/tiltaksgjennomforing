@@ -281,7 +281,7 @@ export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Pr
 };
 
 export const oppdatereKostnadsstedet = async (avtaleId: string, kostnadssted: Kostnadssted): Promise<Kostnadssted> => {
-    const response = await api.post(`avtaler/${avtaleId}/bytt-kostnadssted`, JSON.stringify(kostnadssted));
+    const response = await api.post(`avtaler/${avtaleId}/endre-kostnadssted`, JSON.stringify(kostnadssted));
     return response.data;
 };
 

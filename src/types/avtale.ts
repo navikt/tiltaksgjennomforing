@@ -156,6 +156,7 @@ export interface TilskuddsPeriode {
     kanBesluttesFom: string;
     aktiv: boolean;
     enhet?: string;
+    enhetsnavn?: string;
 }
 
 export interface Kontonummer {
