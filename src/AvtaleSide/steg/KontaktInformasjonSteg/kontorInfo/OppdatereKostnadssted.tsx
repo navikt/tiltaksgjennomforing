@@ -34,7 +34,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
     const sendInnNyttKostnadssted = async () => {
         setFeilmelding(undefined);
         try {
-            const enhet = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
+            const enhet: Kostnadssted = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
             setKostnadssted(enhet);
         } catch (err) {
             setFeilmelding((err as any).toString().split(':')?.[1]);
@@ -64,7 +64,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
                 </div>
                 <Normaltekst className={cls.element('input-undertekst')}>
                     <span>Kostnadssted er valgt til </span>
-                    <span>{kostnadssted.enhetsnavn ?? 'test'}</span>
+                    <span>{kostnadssted.enhetsnavn ?? 'enhetsnavn ikke funnet'}</span>
                 </Normaltekst>
             </SkjemaGruppe>
         </div>
