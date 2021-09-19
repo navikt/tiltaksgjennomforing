@@ -44,6 +44,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     versjoner: [],
     avbrutt: false,
     godkjentPaVegneAv: false,
+    erAnnullertEllerAvbrutt: false,
 
     godkjentPaVegneGrunn: undefined,
 
