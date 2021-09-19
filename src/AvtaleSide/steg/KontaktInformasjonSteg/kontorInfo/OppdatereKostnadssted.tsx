@@ -6,6 +6,7 @@ import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
 import { oppdatereKostnadsstedet } from '@/services/rest-service';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 export interface Kostnadssted {
     enhet: string;
@@ -18,15 +19,16 @@ const OppdatereKostnadssted: FunctionComponent = () => {
     const [feilmelding, setFeilmelding] = useState<string | undefined>(undefined);
 
     const finnKostnadssted = (): Kostnadssted => {
-        const tilskuddsEnhet = avtale.tilskuddPeriode.find((periode) => periode.enhet !== null);
-        if (tilskuddsEnhet?.enhet) {
-            return { enhet: tilskuddsEnhet.enhet, enhetsnavn: tilskuddsEnhet.enhetsnavn ?? '' };
+        if (avtale.gjeldendeTilskuddsperiode?.enhet) {
+            return {
+                enhet: avtale.gjeldendeTilskuddsperiode.enhet,
+                enhetsnavn: avtale.gjeldendeTilskuddsperiode.enhetsnavn ?? '',
+            };
         } else if (avtale.enhetOppfolging) {
             return { enhet: avtale.enhetOppfolging, enhetsnavn: avtale.enhetsnavnOppfolging ?? '' };
-        } else if (avtale.enhetGeografisk) {
-            return { enhet: avtale.enhetGeografisk, enhetsnavn: avtale.enhetsnavnGeografisk ?? '' };
+        } else {
+            return { enhet: avtale.enhetGeografisk ?? '', enhetsnavn: avtale.enhetsnavnGeografisk ?? '' };
         }
-        return { enhet: '', enhetsnavn: '' };
     };
     const [kostnadssted, setKostnadssted] = useState<Kostnadssted>(finnKostnadssted());
     const [nyttKostnadssted, setNyttKostnadssted] = useState<Kostnadssted>(kostnadssted);
@@ -37,7 +39,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
             const enhet: Kostnadssted = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
             setKostnadssted(enhet);
         } catch (err) {
-            setFeilmelding((err as any).toString().split(':')?.[1]);
+            setFeilmelding((err as any).toString().split(':')?.[1].trim());
             console.warn('oppdatering av kostnadssted feilet. ', err);
         }
     };
@@ -45,7 +47,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
     return avtale.gjeldendeTilskuddsperiode ? (
         <div className={cls.className}>
             <Undertittel>Kostnadssted</Undertittel>
-            <SkjemaGruppe feil={feilmelding}>
+            <SkjemaGruppe feil={Feilmeldinger[feilmelding as Feilkode]}>
                 <div className={cls.element('input-wrapper')}>
                     <Input
                         value={nyttKostnadssted.enhet}
@@ -63,8 +65,8 @@ const OppdatereKostnadssted: FunctionComponent = () => {
                     </Knapp>
                 </div>
                 <Normaltekst className={cls.element('input-undertekst')}>
-                    <span>Kostnadssted er valgt til </span>
-                    <span>{kostnadssted.enhetsnavn ?? 'enhetsnavn ikke funnet'}</span>
+                    <span>{kostnadssted.enhetsnavn ? 'Kostnadssted er valgt til ' : ''}</span>
+                    <span>{kostnadssted.enhetsnavn ?? 'Enhetsnavn ikke funnet'}</span>
                 </Normaltekst>
             </SkjemaGruppe>
         </div>

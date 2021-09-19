@@ -27,6 +27,7 @@ export type Feilkode =
     | 'KAN_IKKE_GODKJENNE_AVTALE_KODE6'
     | 'KAN_IKKE_OPPRETTE_AVTALE_KODE6'
     | 'TILSKUDDSPERIODE_ER_ALLEREDE_BEHANDLET'
+    | 'TILSKUDDSPERIODE_ER_IKKE_SATT'
     | 'TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE'
     | 'TILSKUDDSPERIODE_BEHANDLE_FOR_TIDLIG'
     | 'TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD'
@@ -84,6 +85,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_GODKJENNE_AVTALE_KODE6: 'Avtalen kan ikke godkjennes',
     KAN_IKKE_OPPRETTE_AVTALE_KODE6: 'Avtalen kan ikke opprettes',
     TILSKUDDSPERIODE_ER_ALLEREDE_BEHANDLET: 'Tilskuddsperioden er allerede behandlet',
+    TILSKUDDSPERIODE_ER_IKKE_SATT: 'Avtalen mangler tilskudsperiode',
     TILSKUDDSPERIODE_BEHANDLE_FOR_TIDLIG: 'Tilskuddsperioden kan ikke behandles tidligere enn 2 uker før startdato',
     TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE: 'Tilskuddsperioden kan kun behandles ved inngått avtale',
     TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD: 'Avslagsforklaring må fylles ut',
