@@ -43,7 +43,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
             console.warn('oppdatering av kostnadssted feilet. ', err);
         }
     };
-    const visningEnhetsnavn = kostnadssted.enhetsnavn ? 'Kostnadssted er valgt til ' : '';
+    const visningEnhetsnavntekst = kostnadssted.enhetsnavn ? 'Kostnadssted er valgt til ' : '';
 
     return avtale.gjeldendeTilskuddsperiode ? (
         <div className={cls.className}>
@@ -66,8 +66,8 @@ const OppdatereKostnadssted: FunctionComponent = () => {
                     </Knapp>
                 </div>
                 <Normaltekst className={cls.element('input-undertekst')}>
-                    <span>{kostnadssted.enhetsnavn ? 'Kostnadssted er valgt til ' : ''}</span>
-                    <span>{visningEnhetsnavn}</span>
+                    <span>{visningEnhetsnavntekst}</span>
+                    <span>{kostnadssted.enhetsnavn ?? 'Enhetsnavn ikke funnet'}</span>
                 </Normaltekst>
             </SkjemaGruppe>
         </div>
