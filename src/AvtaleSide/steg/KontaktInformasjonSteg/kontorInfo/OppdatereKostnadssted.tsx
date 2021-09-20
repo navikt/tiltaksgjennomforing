@@ -39,10 +39,11 @@ const OppdatereKostnadssted: FunctionComponent = () => {
             const enhet: Kostnadssted = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
             setKostnadssted(enhet);
         } catch (err) {
-            setFeilmelding((err as any).toString().split(':')?.[1].trim());
+            setFeilmelding((err as string).toString().split(':')?.[1].trim());
             console.warn('oppdatering av kostnadssted feilet. ', err);
         }
     };
+    const visningEnhetsnavn = kostnadssted.enhetsnavn ? 'Kostnadssted er valgt til ' : '';
 
     return avtale.gjeldendeTilskuddsperiode ? (
         <div className={cls.className}>
@@ -66,7 +67,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
                 </div>
                 <Normaltekst className={cls.element('input-undertekst')}>
                     <span>{kostnadssted.enhetsnavn ? 'Kostnadssted er valgt til ' : ''}</span>
-                    <span>{kostnadssted.enhetsnavn ?? 'Enhetsnavn ikke funnet'}</span>
+                    <span>{visningEnhetsnavn}</span>
                 </Normaltekst>
             </SkjemaGruppe>
         </div>
