@@ -90,7 +90,8 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     if (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder) {
         if (
             window.confirm(
-                'En av partene i avtalen har godkjent. Ved å lagre endringer oppheves godkjenningene. Ønsker du å fortsette?'
+                'En av partene i avtalen har godkjent. ' +
+                    'Ved å lagre endringer oppheves godkjenningene. Ønsker du å fortsette?'
             )
         ) {
             await opphevGodkjenninger(avtale.id);
@@ -98,13 +99,11 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
             return Promise.reject();
         }
     }
-
     await api.put(`/avtaler/${avtale.id}`, avtale, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
-
     return hentAvtale(avtale.id);
 };
 
@@ -280,7 +279,7 @@ export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Pr
     await api.post(`/avtaler/${avtaleId}/del-med-avtalepart`, JSON.stringify(rolle));
 };
 
-export const oppdatereKostnadsstedet = async (avtaleId: string, kostnadssted: Kostnadssted): Promise<Kostnadssted> => {
+export const oppdatereKostnadsstedet = async (avtaleId: string, kostnadssted: Kostnadssted): Promise<Avtale> => {
     const response = await api.post(`avtaler/${avtaleId}/endre-kostnadssted`, JSON.stringify(kostnadssted));
     return response.data;
 };

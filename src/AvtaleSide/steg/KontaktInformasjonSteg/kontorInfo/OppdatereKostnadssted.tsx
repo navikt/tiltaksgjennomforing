@@ -7,6 +7,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
 import { oppdatereKostnadsstedet } from '@/services/rest-service';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { Avtale } from '@/types/avtale';
 
 export interface Kostnadssted {
     enhet: string;
@@ -15,7 +16,7 @@ export interface Kostnadssted {
 
 const OppdatereKostnadssted: FunctionComponent = () => {
     const cls = BEMHelper('oppdatere-kostnadssted');
-    const { avtale } = useContext(AvtaleContext);
+    const { avtale, oppdatereAvtaleContext } = useContext(AvtaleContext);
     const [feilmelding, setFeilmelding] = useState<string | undefined>(undefined);
 
     const finnKostnadssted = (): Kostnadssted => {
@@ -30,14 +31,14 @@ const OppdatereKostnadssted: FunctionComponent = () => {
             return { enhet: avtale.enhetGeografisk ?? '', enhetsnavn: avtale.enhetsnavnGeografisk ?? '' };
         }
     };
-    const [kostnadssted, setKostnadssted] = useState<Kostnadssted>(finnKostnadssted());
+    const [kostnadssted] = useState<Kostnadssted>(finnKostnadssted());
     const [nyttKostnadssted, setNyttKostnadssted] = useState<Kostnadssted>(kostnadssted);
 
     const sendInnNyttKostnadssted = async () => {
         setFeilmelding(undefined);
         try {
-            const enhet: Kostnadssted = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
-            setKostnadssted(enhet);
+            const oppdatertAvtale: Avtale = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
+            oppdatereAvtaleContext(oppdatertAvtale);
         } catch (err) {
             setFeilmelding((err as string).toString().split(':')?.[1].trim());
             console.warn('oppdatering av kostnadssted feilet. ', err);

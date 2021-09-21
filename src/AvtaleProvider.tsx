@@ -65,6 +65,7 @@ export interface Context {
     laasOpp: () => Promise<void>;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
     sendTilbakeTilBeslutter: () => Promise<void>;
+    oppdatereAvtaleContext: (oppdatertAvtale: Avtale) => void;
 }
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
@@ -111,6 +112,8 @@ const AvtaleProvider: FunctionComponent = (props) => {
         }
     };
 
+    const oppdatereAvtaleContext = (oppdatertAvtale: Avtale): void => setAvtale(oppdatertAvtale);
+
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
         RestService.hentAvtale(avtaleId).then(setAvtale);
 
@@ -153,7 +156,9 @@ const AvtaleProvider: FunctionComponent = (props) => {
             const nyAvtale = { ...avtale, ...endringer };
             setAvtale(nyAvtale);
             setUlagredeEndringer(true);
-            if (lagre) lagreAvtale(nyAvtale, true);
+            if (lagre) {
+                lagreAvtale(nyAvtale, true);
+            }
             return nyAvtale;
         }
     };
@@ -302,6 +307,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         mellomLagring,
         setMellomLagring,
         sendTilbakeTilBeslutter,
+        oppdatereAvtaleContext,
     };
 
     return (
