@@ -10,7 +10,7 @@ import { useFilter } from '@/AvtaleOversikt/NyFiltrering/useFilter';
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
-    const [filtre, setFilter] = useFilter();
+    const { filtre, endreFilter } = useFilter();
     const featureToggles = useContext(FeatureToggleContext);
 
     const alleTiltakstyperBeslutter: OptionProps[] = [
@@ -42,10 +42,13 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
                         label={tiltakstype.label}
                         name={'tiltakstype'}
                         value={tiltakstype.value}
-                        checked={tiltakstype.value === filtre.tiltakstype || tiltakstype.value === "" && filtre.tiltakstype === undefined}
+                        checked={
+                            tiltakstype.value === filtre.tiltakstype ||
+                            (tiltakstype.value === '' && filtre.tiltakstype === undefined)
+                        }
                         onChange={(event) => {
                             const nyTiltakstype = event.currentTarget.value as TiltaksType;
-                            setFilter({ tiltakstype: nyTiltakstype });
+                            endreFilter({ tiltakstype: nyTiltakstype });
                         }}
                         role="radio"
                     />

@@ -6,13 +6,10 @@ import { Radio } from 'nav-frontend-skjema';
 import React, { Fragment, FunctionComponent } from 'react';
 import { useFilter } from '@/AvtaleOversikt/NyFiltrering/useFilter';
 
-type SokeType = AvtaleStatus | '';
-
 const StatusFilter: FunctionComponent = () => {
-    const [filtre, setFilter] = useFilter();
+    const {filtre, endreFilter} = useFilter();
 
-    const alleStatuser: SokeType[] = [
-        '',
+    const alleStatuser: AvtaleStatus[] = [
         'PÅBEGYNT',
         'MANGLER_GODKJENNING',
         'KLAR_FOR_OPPSTART',
@@ -24,16 +21,26 @@ const StatusFilter: FunctionComponent = () => {
 
     return (
         <Filter tittel="Status">
+            <Radio
+                label={"Alle"}
+                name={'status'}
+                value={""}
+                checked={filtre.status === undefined}
+                onChange={() => {
+                    endreFilter({ status: undefined});
+                }}
+                role="radio"
+            />
             {alleStatuser.map((s) => (
                 <Fragment key={s}>
                     <Radio
-                        label={s === '' ? 'Alle statuser' : avtaleStatusTekst[s]}
+                        label={avtaleStatusTekst[s]}
                         name={'status'}
                         value={s}
-                        checked={s === filtre.status || s === "" && filtre.status === undefined}
+                        checked={s === filtre.status}
                         onChange={(event) => {
-                            const nyStatus = event.currentTarget.value as SokeType;
-                            setFilter({ status: nyStatus || '' });
+                            const nyStatus = event.currentTarget.value as AvtaleStatus;
+                            endreFilter({ status: nyStatus});
                         }}
                         role="radio"
                     />

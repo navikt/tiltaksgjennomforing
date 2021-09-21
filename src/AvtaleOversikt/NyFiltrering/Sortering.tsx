@@ -12,7 +12,7 @@ const options: { verdi: keyof Avtale; tekst: string }[] = [
 ];
 
 const Sortering: FunctionComponent = () => {
-    const [filtre, setFilter] = useFilter();
+    const { filtre, endreFilter } = useFilter();
 
     return (
         <Select
@@ -20,7 +20,7 @@ const Sortering: FunctionComponent = () => {
             value={filtre.sorteringskolonne}
             onChange={(event) => {
                 const nySorteringskolonne = event.target.value as keyof Avtale;
-                setFilter({ sorteringskolonne: nySorteringskolonne });
+                endreFilter({ sorteringskolonne: nySorteringskolonne });
             }}
         >
             {options.map((o) => (

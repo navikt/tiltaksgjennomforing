@@ -1,26 +1,36 @@
-import { useEffect, useState } from 'react';
-import { useHistory } from "react-router";
+import { useCallback, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
+import { SøkekriterierContext } from '@/Oversikt';
 
 export const useFilter = () => {
-
-    const [filtre, setFiltre] = useState<any>({});
+    const [filtre, setFiltre] = useContext(SøkekriterierContext);
     const history = useHistory();
 
-    useEffect(() => {
+    const parseWindowLocationSearch = useCallback(() => {
+        console.log('parseWindowLocationSearch');
         const params: any = {};
         for (let [k, v] of new URLSearchParams(window.location.search)) {
             params[k] = v;
         }
-        setFiltre(params)
-    }, [window.location.search])
+        setFiltre(params);
+    }, [setFiltre]);
 
+    useEffect(() => {
+        window.addEventListener('load', parseWindowLocationSearch);
 
-    const endreFilter = (f: any) => {
-        const nyeFiltre = {...filtre, ...f}
-        Object.keys(nyeFiltre).forEach(k => !nyeFiltre[k] && delete nyeFiltre[k]);
-        history.push("?" + new URLSearchParams(nyeFiltre).toString())
-        setFiltre(nyeFiltre)
-    }
+        return () => {
+            window.removeEventListener('load', parseWindowLocationSearch);
+        };
+    }, [parseWindowLocationSearch]);
 
-    return [filtre, endreFilter];
+    const endreFilter = (endring: Søkekriterier) => {
+        // Type 'any' fordi Object.keys ikke skjønner at 'k' er en key av Søkekriterier
+        const nyeFiltre: any = { ...filtre, ...endring };
+        Object.keys(nyeFiltre).forEach((k) => !nyeFiltre[k] && delete nyeFiltre[k]);
+        history.push('?' + new URLSearchParams(nyeFiltre).toString());
+        parseWindowLocationSearch();
+    };
+
+    return { filtre, endreFilter };
 };

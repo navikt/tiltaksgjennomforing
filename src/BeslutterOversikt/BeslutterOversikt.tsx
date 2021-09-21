@@ -61,7 +61,6 @@ const BeslutterOversikt: FunctionComponent = () => {
                             avtalelisteRessurs={avtalelisteRessurs}
                             innloggetBruker={innloggetBruker}
                             varsler={[]}
-                            sokekriterier={søkekriterier}
                         />
                         <VerticalSpacer rem={10} />
                     </section>

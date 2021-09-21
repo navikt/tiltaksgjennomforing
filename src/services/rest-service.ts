@@ -16,7 +16,6 @@ import {
     TiltaksType,
     Varighet,
 } from '@/types/avtale';
-import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
@@ -38,8 +37,8 @@ const api = axios.create({
 axiosRetry(api, { retries: 3 });
 
 api.interceptors.response.use(
-    response => response,
-    error => {
+    (response) => response,
+    (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
@@ -55,12 +54,12 @@ api.interceptors.response.use(
 );
 
 const featureTogglePath = (features: Feature[]): string => {
-    const query = features.map(feature => `feature=${feature}`).join('&');
+    const query = features.map((feature) => `feature=${feature}`).join('&');
     return `/feature?${query}`;
 };
 
 const featureToggleVariantPath = (features: Feature[]): string => {
-    const query = features.map(feature => `feature=${feature}`).join('&');
+    const query = features.map((feature) => `feature=${feature}`).join('&');
     return `/feature/variant?${query}`;
 };
 
@@ -70,18 +69,13 @@ export const hentAvtale = async (id: string): Promise<Avtale> => {
 };
 
 const removeEmpty = (obj: any) => {
-    Object.keys(obj).forEach(k => !obj[k] && delete obj[k]);
+    Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
     return obj;
 };
 
 export const hentAvtalerForInnloggetBruker = async (søkekriterier: Søkekriterier): Promise<Avtale[]> => {
     const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
     const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
-    return response.data;
-};
-
-export const hentAvtaleStatusDetaljer = async (avtaleId: string): Promise<AvtaleStatusDetaljer> => {
-    const response = await api.get<AvtaleStatusDetaljer>(`/avtaler/${avtaleId}/status-detaljer`);
     return response.data;
 };
 

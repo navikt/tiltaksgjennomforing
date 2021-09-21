@@ -32,7 +32,7 @@ const finnAktivSøketype: (filtre: any) => Søketype = (filtre: any) => {
 };
 
 export const DeltakerOgBedriftFilter: FunctionComponent = () => {
-    const [filtre, setFilter] = useFilter();
+    const {filtre, endreFilter} = useFilter();
     const [aktivSøketype, setAktivSøketype] = useState<Søketype>(finnAktivSøketype(filtre));
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
@@ -51,7 +51,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             label: 'Tilknyttet meg',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => setFilter({ ...tomt, veilederNavIdent: innloggetBruker.identifikator }),
+            utførSøk: () => endreFilter({ ...tomt, veilederNavIdent: innloggetBruker.identifikator }),
         },
         veileder: {
             key: 'veileder',
@@ -59,7 +59,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             label: 'På en veileder',
             maxLength: 7,
             validering: navIdentValidering,
-            utførSøk: (søkeord: string) => setFilter({ ...tomt, veilederNavIdent: søkeord }),
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, veilederNavIdent: søkeord }),
         },
         deltaker: {
             key: 'deltaker',
@@ -67,7 +67,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             label: 'På en deltaker',
             maxLength: 11,
             validering: fnrValidering,
-            utførSøk: (søkeord: string) => setFilter({ ...tomt, deltakerFnr: søkeord }),
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, deltakerFnr: søkeord }),
         },
         bedrift: {
             key: 'bedrift',
@@ -75,7 +75,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             label: 'På en bedrift',
             maxLength: 9,
             validering: orgNrValidering,
-            utførSøk: (søkeord: string) => setFilter({ ...tomt, bedriftNr: søkeord }),
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, bedriftNr: søkeord }),
         },
         avtaleNr: {
             key: 'avtalenr',
@@ -83,7 +83,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             label: 'På et avtalenummer',
             maxLength: 6,
             validering: () => void 0,
-            utførSøk: (søkeord: string) => setFilter({ ...tomt, avtaleNr: søkeord }),
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, avtaleNr: Number.parseInt(søkeord) }), // Uheldig parse :/
         },
         avtaleVedEnhet: {
             key: 'fordeltEnhet',
@@ -91,7 +91,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             label: 'På en enhet',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => setFilter({ ...tomt, navEnhet: innloggetBruker.navEnheter[0] }),
+            utførSøk: () => endreFilter({ ...tomt, navEnhet: innloggetBruker.navEnheter[0].verdi }),
         },
         ufordelte: {
             key: 'utfordelt',
@@ -99,7 +99,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             label: 'Ufordelte',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => setFilter({ ...tomt, navEnhet: innloggetBruker.navEnheter[0], erUfordelt: true }),
+            utførSøk: () => endreFilter({ ...tomt, navEnhet: innloggetBruker.navEnheter[0].verdi, erUfordelt: true }),
         },
     };
 
@@ -156,8 +156,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
                     name={aktueltSøk.key}
                     onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
-                        setFilter({
-                            ...aktueltSøk.utførSøk,
+                        endreFilter({
                             navEnhet: nyEnhet,
                         });
                     }}
@@ -172,7 +171,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
                     name={aktueltSøk.key}
                     onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
-                        setFilter({ ...aktueltSøk.utførSøk, navEnhet: nyEnhet, erUfordelt: true });
+                        endreFilter({ navEnhet: nyEnhet, erUfordelt: true });
                     }}
                     aria-label="filtere på NAV enhet"
                 >
