@@ -136,6 +136,8 @@ export interface Beregningsgrunnlag {
 export interface TilskuddsPerioder {
     tilskuddPeriode: TilskuddsPeriode[];
     gjeldendeTilskuddsperiode?: TilskuddsPeriode;
+    enhetKostnadssted?: string;
+    enhetsnavnKostnadssted?: string;
 }
 
 export type Avslagsårsaker = 'FEIL_I_FAKTA' | 'FEIL_I_REGELFORSTÅELSE' | 'ANNET' | 'FEIL_I_PROSENTSATS';

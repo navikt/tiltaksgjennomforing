@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './oppdatereKostnadssted.less';
 import { AvtaleContext } from '@/AvtaleProvider';
@@ -8,6 +8,7 @@ import { Knapp } from 'nav-frontend-knapper';
 import { oppdatereKostnadsstedet } from '@/services/rest-service';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Avtale } from '@/types/avtale';
+import { finnKostnadssted } from '@/utils/kostnadsstedUtils';
 
 export interface Kostnadssted {
     enhet: string;
@@ -18,30 +19,25 @@ const OppdatereKostnadssted: FunctionComponent = () => {
     const cls = BEMHelper('oppdatere-kostnadssted');
     const { avtale, oppdatereAvtaleContext } = useContext(AvtaleContext);
     const [feilmelding, setFeilmelding] = useState<string | undefined>(undefined);
-
-    const finnKostnadssted = (): Kostnadssted => {
-        if (avtale.gjeldendeTilskuddsperiode?.enhet) {
-            return {
-                enhet: avtale.gjeldendeTilskuddsperiode.enhet,
-                enhetsnavn: avtale.gjeldendeTilskuddsperiode.enhetsnavn ?? '',
-            };
-        } else if (avtale.enhetOppfolging) {
-            return { enhet: avtale.enhetOppfolging, enhetsnavn: avtale.enhetsnavnOppfolging ?? '' };
-        } else {
-            return { enhet: avtale.enhetGeografisk ?? '', enhetsnavn: avtale.enhetsnavnGeografisk ?? '' };
-        }
-    };
-    const [kostnadssted] = useState<Kostnadssted>(finnKostnadssted());
+    const [kostnadssted, setKostnadssted] = useState<Kostnadssted>(finnKostnadssted(avtale));
     const [nyttKostnadssted, setNyttKostnadssted] = useState<Kostnadssted>(kostnadssted);
+
+    useEffect(() => {
+        setKostnadssted(finnKostnadssted(avtale));
+    }, [avtale]);
 
     const sendInnNyttKostnadssted = async () => {
         setFeilmelding(undefined);
-        try {
-            const oppdatertAvtale: Avtale = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
-            oppdatereAvtaleContext(oppdatertAvtale);
-        } catch (err) {
-            setFeilmelding((err as string).toString().split(':')?.[1].trim());
-            console.warn('oppdatering av kostnadssted feilet. ', err);
+        if (nyttKostnadssted.enhet !== kostnadssted.enhet) {
+            try {
+                const oppdatertAvtale: Avtale = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
+                oppdatereAvtaleContext(oppdatertAvtale);
+            } catch (err) {
+                setFeilmelding((err as string).toString().split(':')?.[1].trim());
+                console.warn('oppdatering av kostnadssted feilet. ', err);
+            }
+        } else {
+            setFeilmelding('KOSTNADSSTED_LIK_OPPFOLGINGSENHET');
         }
     };
     const visningEnhetsnavntekst = kostnadssted.enhetsnavn ? 'Kostnadssted er valgt til ' : '';
