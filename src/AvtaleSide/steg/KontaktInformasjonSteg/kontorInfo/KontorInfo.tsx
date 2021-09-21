@@ -2,9 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import './kontorInfo.less';
 import BEMHelper from '@/utils/bem';
-
 import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
+import OppdatereKostnadssted from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 
 const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
     oppsummeringside,
@@ -32,6 +32,7 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
                     <HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
                 </Undertittel>
             </div>
+            {!oppsummeringside && <OppdatereKostnadssted />}
         </div>
     );
 };

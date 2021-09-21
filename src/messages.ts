@@ -57,6 +57,8 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     sumLonnstilskudd: 'sum beløp til utbetaling',
     stillingKonseptId: '',
     stillingStyrk08: '',
+    enhetKostnadssted: 'enhetKostnadssted',
+    enhetsnavnKostnadssted: 'enhetsnavnKostnadssted',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
@@ -105,7 +107,7 @@ export const tilskuddsperiodeAvslagTekst: { [key in Avslagsårsaker]: string } =
     ANNET: 'Annet',
 };
 
-export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = avtaleVersjon => {
+export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtaleVersjon) => {
     if (!avtaleVersjon.innholdType) {
         return '';
     }

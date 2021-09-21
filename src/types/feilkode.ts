@@ -27,6 +27,7 @@ export type Feilkode =
     | 'KAN_IKKE_GODKJENNE_AVTALE_KODE6'
     | 'KAN_IKKE_OPPRETTE_AVTALE_KODE6'
     | 'TILSKUDDSPERIODE_ER_ALLEREDE_BEHANDLET'
+    | 'TILSKUDDSPERIODE_ER_IKKE_SATT'
     | 'TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE'
     | 'TILSKUDDSPERIODE_BEHANDLE_FOR_TIDLIG'
     | 'TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD'
@@ -52,7 +53,8 @@ export type Feilkode =
     | 'KAN_IKKE_ENDRE_KONTAKTINFO_GRUNN_MANGLER'
     | 'KAN_IKKE_ENDRE_OPPFØLGING_OG_TILRETTELEGGING_GRUNN_MANGLER'
     | 'MANGLER_AD_GRUPPE_BESLUTTER'
-    | 'KAN_IKKE_ENDRE_MAAL_TOM_LISTE';
+    | 'KAN_IKKE_ENDRE_MAAL_TOM_LISTE'
+    | 'KOSTNADSSTED_LIK_OPPFOLGINGSENHET';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -84,6 +86,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_GODKJENNE_AVTALE_KODE6: 'Avtalen kan ikke godkjennes',
     KAN_IKKE_OPPRETTE_AVTALE_KODE6: 'Avtalen kan ikke opprettes',
     TILSKUDDSPERIODE_ER_ALLEREDE_BEHANDLET: 'Tilskuddsperioden er allerede behandlet',
+    TILSKUDDSPERIODE_ER_IKKE_SATT: 'Avtalen mangler tilskudsperiode',
     TILSKUDDSPERIODE_BEHANDLE_FOR_TIDLIG: 'Tilskuddsperioden kan ikke behandles tidligere enn 2 uker før startdato',
     TILSKUDDSPERIODE_KAN_KUN_BEHANDLES_VED_INNGAATT_AVTALE: 'Tilskuddsperioden kan kun behandles ved inngått avtale',
     TILSKUDDSPERIODE_AVSLAGSFORKLARING_PAAKREVD: 'Avslagsforklaring må fylles ut',
@@ -109,6 +112,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_ENDRE_KONTAKTINFO_GRUNN_MANGLER: 'Alle felt må være utfylt',
     KAN_IKKE_ENDRE_OPPFØLGING_OG_TILRETTELEGGING_GRUNN_MANGLER: 'Alle felt må være utfylt',
     KAN_IKKE_ENDRE_MAAL_TOM_LISTE: 'Du må ha minst ett mål',
+    KOSTNADSSTED_LIK_OPPFOLGINGSENHET:
+        'Kostnadssted blir satt lik oppfølgingsenhet ved avtale inngåelse, trengs derfor ikke settes.',
     MANGLER_AD_GRUPPE_BESLUTTER:
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
 };

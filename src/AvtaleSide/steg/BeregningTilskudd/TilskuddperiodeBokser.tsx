@@ -18,9 +18,9 @@ const TilskuddperiodeBokser: FunctionComponent = () => {
     return (
         <>
             {avtale.tilskuddPeriode
-                .filter(tp => tp.aktiv)
-                .map(periode => (
-                    <>
+                .filter((tp) => tp.aktiv)
+                .map((periode, index) => (
+                    <React.Fragment key={index}>
                         <Ekspanderbartpanel
                             tittel={
                                 <Element>
@@ -41,7 +41,7 @@ const TilskuddperiodeBokser: FunctionComponent = () => {
                             </div>
                         </Ekspanderbartpanel>
                         <VerticalSpacer rem={1} />
-                    </>
+                    </React.Fragment>
                 ))}
             <VerticalSpacer rem={2} />
             {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
