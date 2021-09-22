@@ -2,14 +2,15 @@ import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtale, TiltaksType } from '@/types/avtale';
+import { TiltaksType } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
-import React, { Fragment, FunctionComponent, useContext, useState } from 'react';
+import React, { Fragment, FunctionComponent, useContext } from 'react';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
-export type FiltreringMedBeslutterProps = { endreSøk: (søkekriterier: Partial<Avtale>) => void; erBeslutter: boolean };
+export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
-    const [valgtTiltakstype, setValgtTiltakstype] = useState<TiltaksType | ''>('');
     const featureToggles = useContext(FeatureToggleContext);
+    const { endreFilter, filtre } = useFilter();
 
     const alleTiltakstyperBeslutter: OptionProps[] = [
         { value: '', label: 'Alle' },
@@ -41,11 +42,13 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
                         label={tiltakstype.label}
                         name={'tiltakstype'}
                         value={tiltakstype.value}
-                        checked={tiltakstype.value === valgtTiltakstype}
+                        checked={
+                            tiltakstype.value === filtre.tiltakstype ||
+                            (tiltakstype.value === '' && filtre.tiltakstype === undefined)
+                        }
                         onChange={(event) => {
                             const nyTiltakstype = event.currentTarget.value as TiltaksType;
-                            setValgtTiltakstype(nyTiltakstype);
-                            props.endreSøk({ tiltakstype: nyTiltakstype });
+                            endreFilter({ tiltakstype: nyTiltakstype });
                         }}
                         role="radio"
                     />

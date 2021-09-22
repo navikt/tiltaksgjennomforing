@@ -11,16 +11,14 @@ import BEMHelper from '@/utils/bem';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import '../AvtaleOversikt/AvtaleOversikt.less';
 import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
-import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 const cls = BEMHelper('avtaleoversikt');
 
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>({
-        tilskuddPeriodeStatus: 'UBEHANDLET',
-    });
+    const { filtre } = useFilter();
 
     const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<AvtalelisteRessurs>({
         status: Status.IkkeLastet,
@@ -28,16 +26,12 @@ const BeslutterOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
-        hentAvtalerForInnloggetBruker(søkekriterier)
+        hentAvtalerForInnloggetBruker(filtre)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
             .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error }));
-    }, [søkekriterier]);
+    }, [filtre]);
 
     const layout = useAvtaleOversiktLayout();
-
-    const endreSøk = (endredeSøkekriterier: Søkekriterier) => {
-        setSøkekriterier({ ...søkekriterier, ...endredeSøkekriterier });
-    };
 
     return (
         <>
@@ -53,7 +47,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                     role="complementary"
                 >
                     <aside style={layout.stylingAvFilter}>
-                        <BeslutterFiltrering endreSøk={endreSøk} />
+                        <BeslutterFiltrering />
                     </aside>
 
                     <section style={layout.stylingAvTabell}>

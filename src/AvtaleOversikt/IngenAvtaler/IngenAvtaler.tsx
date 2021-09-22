@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './arbeidsgiver/IngenAvtalerArbeidsgiver';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 const cls = BEMHelper('ingenAvtaler');
 
@@ -17,6 +18,7 @@ const IngenAvtaler: FunctionComponent = () => {
     const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { filtre } = useFilter();
 
     if (innloggetPart === 'VEILEDER') {
         return (
@@ -26,11 +28,11 @@ const IngenAvtaler: FunctionComponent = () => {
                     <Undertittel style={{ marginLeft: '1rem' }}>Finner ingen avtaler</Undertittel>
                 </div>
                 <VerticalSpacer rem={1} />
-                {/*{props.sokekriterier.veilederNavIdent === innloggetBruker.identifikator ? (*/}
-                {/*    <Normaltekst>Du har ingen avtaler som er tilknyttet deg.</Normaltekst>*/}
-                {/*) : (*/}
-                <Normaltekst>Finner ingen avtaler som passer med valgt filter.</Normaltekst>
-                {/*)}*/}
+                {filtre.veilederNavIdent === innloggetBruker.identifikator ? (
+                    <Normaltekst>Du har ingen avtaler som er tilknyttet deg.</Normaltekst>
+                ) : (
+                    <Normaltekst>Finner ingen avtaler som passer med valgt filter.</Normaltekst>
+                )}
             </div>
         );
     } else if (innloggetPart === 'BESLUTTER') {

@@ -1,6 +1,6 @@
 import { ReactComponent as PlussIkon } from '@/assets/ikoner/pluss-tegn.svg';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
-import VeilederFiltrering from '@/AvtaleOversikt/NyFiltrering/VeilederFiltrering';
+import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -8,7 +8,7 @@ import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
-import { pathTilOpprettAvtale } from '@/paths';
+import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
@@ -18,7 +18,9 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
-import { useFilter } from '@/AvtaleOversikt/NyFiltrering/useFilter';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import Banner from '@/komponenter/Banner/Banner';
+import ArbeidsgiverFiltrering from "@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering";
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -48,23 +50,23 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const layout = useAvtaleOversiktLayout();
 
-    // const harTilgangerSomArbeidsgiver =
-    //     innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-    //     søkekriterier.bedriftNr &&
-    //     innloggetBruker.tilganger[søkekriterier.bedriftNr]?.length > 0;
+    const harTilgangerSomArbeidsgiver =
+        innloggetBruker.rolle === 'ARBEIDSGIVER' &&
+        filtre.bedriftNr &&
+        innloggetBruker.tilganger[filtre.bedriftNr]?.length > 0;
 
     const oversiktTekt = 'Tiltaksoversikt';
     return (
         <>
             <Dokumenttittel tittel={oversiktTekt} />
-            {/*<Banner*/}
-            {/*    byttetOrg={(org) => {*/}
-            {/*        if (søkekriterier.bedriftNr !== org.OrganizationNumber) {*/}
-            {/*            setSøkekriterier({ bedriftNr: org.OrganizationNumber });*/}
-            {/*        }*/}
-            {/*    }}*/}
-            {/*    tekst={oversiktTekt}*/}
-            {/*/>*/}
+            <Banner
+                byttetOrg={(org) => {
+                    if (filtre.bedriftNr !== org.OrganizationNumber) {
+                        endreFilter({ bedriftNr: org.OrganizationNumber });
+                    }
+                }}
+                tekst={oversiktTekt}
+            />
 
             <BannerNAVAnsatt tekst={oversiktTekt} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
@@ -89,27 +91,27 @@ const AvtaleOversikt: FunctionComponent = () => {
                             <VeilederFiltrering />
                         </aside>
                     )}
-                    {/*{innloggetBruker.rolle === 'ARBEIDSGIVER' &&*/}
-                    {/*    innloggetBruker.altinnOrganisasjoner.length > 0 &&*/}
-                    {/*    innloggetBruker.tilganger[søkekriterier.bedriftNr!] && (*/}
-                    {/*        <aside style={layout.stylingAvFilter}>*/}
-                    {/*            {harTilgangerSomArbeidsgiver && (*/}
-                    {/*                <div style={{ margin: '0.2rem 0 1rem 0' }}>*/}
-                    {/*                    <LenkeKnapp*/}
-                    {/*                        path={pathTilOpprettAvtaleArbeidsgiver}*/}
-                    {/*                        style={{*/}
-                    {/*                            paddingLeft: '1.5rem',*/}
-                    {/*                            paddingRight: '1.5rem',*/}
-                    {/*                        }}*/}
-                    {/*                    >*/}
-                    {/*                        <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />*/}
-                    {/*                        Opprett ny avtale*/}
-                    {/*                    </LenkeKnapp>*/}
-                    {/*                </div>*/}
-                    {/*            )}*/}
-                    {/*            <ArbeidsgiverFiltrering endreSøk={endreSøk} />*/}
-                    {/*        </aside>*/}
-                    {/*    )}*/}
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
+                        innloggetBruker.altinnOrganisasjoner.length > 0 &&
+                        innloggetBruker.tilganger[filtre.bedriftNr!] && (
+                            <aside style={layout.stylingAvFilter}>
+                                {harTilgangerSomArbeidsgiver && (
+                                    <div style={{ margin: '0.2rem 0 1rem 0' }}>
+                                        <LenkeKnapp
+                                            path={pathTilOpprettAvtaleArbeidsgiver}
+                                            style={{
+                                                paddingLeft: '1.5rem',
+                                                paddingRight: '1.5rem',
+                                            }}
+                                        >
+                                            <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                            Opprett ny avtale
+                                        </LenkeKnapp>
+                                    </div>
+                                )}
+                                <ArbeidsgiverFiltrering />
+                            </aside>
+                        )}
                     <section style={layout.stylingAvTabell}>
                         <Avtaler
                             avtalelisteRessurs={avtalelisteRessurs}

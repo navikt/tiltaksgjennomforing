@@ -1,12 +1,13 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, Select } from 'nav-frontend-skjema';
 import React, { FormEvent, Fragment, FunctionComponent, useContext, useState } from 'react';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 
 type Validering = (verdi: string) => string | undefined;
 
@@ -16,93 +17,115 @@ const fnrValidering: Validering = (verdi) => (!validerFnr(verdi) ? 'Ugyldig fød
 
 const orgNrValidering: Validering = (verdi) => (!validerOrgnr(verdi) ? 'Ugyldig bedriftsnummer' : undefined);
 
-type Søketype = 'deltaker' | 'bedrift' | 'egne' | 'avtaleVedEnhet' | 'ufordelte';
+type Søketype = 'deltaker' | 'veileder' | 'bedrift' | 'egne' | 'avtaleVedEnhet' | 'ufordelte' | 'avtaleNr';
 
-export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (props) => {
-    const [aktivSøketype, setAktivSøketype] = useState<Søketype>('egne');
+export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { endreFilter, filtre } = useFilter();
 
-    const navEnhetValgt = props.navEnheter?.length !== 0 ? props.navEnheter?.sort()![0].verdi : '';
+    const aktivSøketypeFraFiltre = (filtre: Filtrering) => {
+        if (filtre.veilederNavIdent !== undefined && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
+            return 'veileder';
+        }
+        if (filtre.erUfordelt !== undefined) {
+            return 'ufordelte';
+        }
+        if (filtre.deltakerFnr !== undefined) {
+            return 'deltaker';
+        }
+        if (filtre.navEnhet !== undefined) {
+            return 'avtaleVedEnhet';
+        }
+        if (filtre.bedriftNr !== undefined) {
+            return 'bedrift';
+        }
+        if (filtre.avtaleNr !== undefined) {
+            return 'avtaleNr';
+        }
+        return 'egne';
+    };
+    const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre(filtre));
 
     const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
-    const søk = {
+    const søk: { [k in Søketype]: any } = {
         egne: {
-            key: 'egetsok',
             placeholder: '',
             label: 'Tilknyttet meg',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => props.endreSøk({ ...tomt, veilederNavIdent: innloggetBruker.identifikator }),
+            utførSøk: () => endreFilter({ ...tomt, veilederNavIdent: innloggetBruker.identifikator }),
         },
         veileder: {
-            key: 'veileder',
             placeholder: 'NAV-ident',
             label: 'På en veileder',
             maxLength: 7,
             validering: navIdentValidering,
-            utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, veilederNavIdent: søkeord }),
+            søkeinput: filtre.veilederNavIdent,
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, veilederNavIdent: søkeord }),
         },
         deltaker: {
-            key: 'deltaker',
             placeholder: 'Fødselsnummer',
             label: 'På en deltaker',
             maxLength: 11,
             validering: fnrValidering,
-            utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, deltakerFnr: søkeord }),
+            søkeinput: filtre.deltakerFnr,
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, deltakerFnr: søkeord }),
         },
         bedrift: {
-            key: 'bedrift',
             placeholder: 'Bedriftsnummer',
             label: 'På en bedrift',
             maxLength: 9,
             validering: orgNrValidering,
-            utførSøk: (søkeord: string) => props.endreSøk({ ...tomt, bedriftNr: søkeord }),
+            søkeinput: filtre.bedriftNr,
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, bedriftNr: søkeord }),
         },
         avtaleNr: {
-            key: 'avtalenr',
             placeholder: 'Avtalenummer',
             label: 'På et avtalenummer',
             maxLength: 6,
             validering: () => void 0,
-            utførSøk: (søkeord: number) => props.endreSøk({ ...tomt, avtaleNr: søkeord }),
+            søkeinput: filtre.avtaleNr,
+            utførSøk: (søkeord: number) => endreFilter({ ...tomt, avtaleNr: søkeord }),
         },
         avtaleVedEnhet: {
-            key: 'fordeltEnhet',
             placeholder: '',
             label: 'På en enhet',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => props.endreSøk({ ...tomt, navEnhet: navEnhetValgt }),
+            select: filtre.navEnhet,
+            utførSøk: () => endreFilter({ ...tomt, navEnhet: innloggetBruker.navEnheter[0].verdi }),
         },
         ufordelte: {
-            key: 'utfordelt',
             placeholder: '',
             label: 'Ufordelte',
             maxLength: 0,
             validering: () => undefined,
-            utførSøk: () => props.endreSøk({ ...tomt, navEnhet: navEnhetValgt, erUfordelt: true }),
+            select: filtre.navEnhet,
+            utførSøk: () => endreFilter({ ...tomt, navEnhet: innloggetBruker.navEnheter[0].verdi, erUfordelt: true }),
         },
     };
 
     const endreSøketype = (event: FormEvent<HTMLInputElement>) => {
         const nySøketype = event.currentTarget.value as Søketype;
-        setAktivSøketype(nySøketype);
-
+        setAktivSøkeType(nySøketype);
         if (nySøketype === 'egne' || nySøketype === 'ufordelte' || nySøketype === 'avtaleVedEnhet') {
             søk[nySøketype].utførSøk();
         }
     };
 
-    const getNavEnhetOptions = props.navEnheter?.sort().map((enhet, index) => (
+    const navEnhetOptions = innloggetBruker.navEnheter.sort().map((enhet, index) => (
         <option key={index} value={enhet.verdi}>
             {enhet.navn} ({enhet.verdi})
         </option>
     ));
 
     const aktueltSøk = søk[aktivSøketype];
-    const visSøkefelt: boolean =
-        aktivSøketype !== 'egne' && aktivSøketype !== 'ufordelte' && aktivSøketype !== 'avtaleVedEnhet';
-    const avtalePrEnhet: boolean = aktivSøketype === 'avtaleVedEnhet';
+    const visSøkefelt =
+        aktivSøketype === 'deltaker' ||
+        aktivSøketype === 'bedrift' ||
+        aktivSøketype === 'veileder' ||
+        aktivSøketype === 'avtaleNr';
+    const avtalePrEnhet = aktivSøketype === 'avtaleVedEnhet';
     const ufordelt: boolean = aktivSøketype === 'ufordelte';
 
     return (
@@ -128,6 +151,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
                     maxLength={aktueltSøk.maxLength}
                     utførSøk={aktueltSøk.utførSøk}
                     valider={aktueltSøk.validering}
+                    defaultVerdi={aktueltSøk.søkeinput}
                     role="searchbox"
                 />
             )}
@@ -137,14 +161,13 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
                     name={aktueltSøk.key}
                     onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
-                        props.endreSøk({
-                            ...aktueltSøk.utførSøk,
+                        endreFilter({
                             navEnhet: nyEnhet,
                         });
                     }}
                     aria-label="filtere på NAV enhet"
                 >
-                    {getNavEnhetOptions}
+                    {navEnhetOptions}
                 </Select>
             )}
             {ufordelt && (
@@ -153,11 +176,11 @@ export const DeltakerOgBedriftFilter: FunctionComponent<FiltreringProps> = (prop
                     name={aktueltSøk.key}
                     onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
-                        props.endreSøk({ ...aktueltSøk.utførSøk, navEnhet: nyEnhet, erUfordelt: true });
+                        endreFilter({ navEnhet: nyEnhet });
                     }}
                     aria-label="filtere på NAV enhet"
                 >
-                    {getNavEnhetOptions}
+                    {navEnhetOptions}
                 </Select>
             )}
         </Filter>

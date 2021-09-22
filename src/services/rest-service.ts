@@ -1,4 +1,3 @@
-import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { basename } from '@/paths';
@@ -22,9 +21,10 @@ import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { GodkjentPaVegneAvArbeidsgiverGrunner } from './../types/avtale';
+import { GodkjentPaVegneAvArbeidsgiverGrunner } from '@/types/avtale';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
+import { Filtrering } from "@/AvtaleOversikt/Filtrering/filtrering";
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -73,7 +73,7 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
-export const hentAvtalerForInnloggetBruker = async (søkekriterier: Søkekriterier): Promise<Avtale[]> => {
+export const hentAvtalerForInnloggetBruker = async (søkekriterier: Filtrering): Promise<Avtale[]> => {
     const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
     const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
     return response.data;
