@@ -113,7 +113,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_ENDRE_OPPFØLGING_OG_TILRETTELEGGING_GRUNN_MANGLER: 'Alle felt må være utfylt',
     KAN_IKKE_ENDRE_MAAL_TOM_LISTE: 'Du må ha minst ett mål',
     KOSTNADSSTED_LIK_OPPFOLGINGSENHET:
-        'Kostnadssted blir satt lik oppfølgingsenhet ved avtale inngåelse, trengs derfor ikke settes.',
+        'Kostnadssted blir satt lik oppfølgingsenhet ved avtaleinngåelse, trengs derfor ikke settes.',
     MANGLER_AD_GRUPPE_BESLUTTER:
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
 };

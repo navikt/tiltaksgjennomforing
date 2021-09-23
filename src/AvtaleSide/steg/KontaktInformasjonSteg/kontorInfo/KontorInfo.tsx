@@ -18,7 +18,7 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
         <div className={cls.className}>
             <div className={cls.element('ingress', oppsummeringside ? 'oppsummering' : '')}>
                 {ikon()}
-                <Systemtittel>Nav Kontor</Systemtittel>
+                <Systemtittel>NAV-kontor</Systemtittel>
             </div>
             <div className={cls.element('info-rad')}>
                 <Normaltekst>Geografisk enhet</Normaltekst>
