@@ -46,7 +46,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     };
     const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre(filtre));
 
-    const tomt = { deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
+    const tomt = { avtaleNr: undefined, deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
     const søk: { [k in Søketype]: any } = {
         egne: {
             placeholder: '',
@@ -159,6 +159,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
                 <Select
                     label=""
                     name={aktueltSøk.key}
+                    value={aktueltSøk.select}
                     onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
                         endreFilter({
@@ -174,6 +175,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
                 <Select
                     label=""
                     name={aktueltSøk.key}
+                    value={aktueltSøk.select}
                     onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
                         endreFilter({ navEnhet: nyEnhet });
