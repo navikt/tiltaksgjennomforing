@@ -18,6 +18,6 @@ const HentNavEnhetFraContext: FunctionComponent<Props> = (props: Props) => {
             <>{nr}</>
         );
     }
-    return <em>Ikke Oppgitt</em>;
+    return <em>Ikke oppgitt</em>;
 };
 export default HentNavEnhetFraContext;

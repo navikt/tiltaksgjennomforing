@@ -85,6 +85,9 @@ const arbeidstreningAvtaleMock: Avtale = {
 
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,
+
+    enhetKostnadssted: undefined,
+    enhetsnavnKostnadssted: undefined,
 };
 
 export default arbeidstreningAvtaleMock;

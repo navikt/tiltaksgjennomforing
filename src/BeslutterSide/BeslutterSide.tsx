@@ -32,7 +32,10 @@ const BeslutterSide: FunctionComponent = () => {
     const [clsName, setClsName] = useState<string>();
 
     const [enhet, setEnhet] = useState(
-        avtaleContext.avtale.enhetOppfolging || avtaleContext.avtale.enhetGeografisk || ''
+        avtaleContext.avtale.gjeldendeTilskuddsperiode?.enhet ||
+            avtaleContext.avtale.enhetOppfolging ||
+            avtaleContext.avtale.enhetGeografisk ||
+            ''
     );
 
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState(false);

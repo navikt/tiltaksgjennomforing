@@ -21,7 +21,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
         avtale.erLaast &&
         !avtale.erAnnullertEllerAvbrutt &&
         avtale.tilskuddPeriode.find(
-            t => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer
+            (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer
         ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
 

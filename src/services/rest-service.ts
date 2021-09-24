@@ -8,6 +8,7 @@ import {
     Bedriftinfo,
     EndreKontaktInfo,
     EndreOppfølgingOgTilretteleggingInfo,
+    GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
     GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
     Maal,
@@ -21,9 +22,9 @@ import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { GodkjentPaVegneAvArbeidsgiverGrunner } from '@/types/avtale';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
+import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { Filtrering } from "@/AvtaleOversikt/Filtrering/filtrering";
 
 export const API_URL = '/tiltaksgjennomforing/api';
@@ -83,7 +84,8 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
     if (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder) {
         if (
             window.confirm(
-                'En av partene i avtalen har godkjent. Ved å lagre endringer oppheves godkjenningene. Ønsker du å fortsette?'
+                'En av partene i avtalen har godkjent. ' +
+                    'Ved å lagre endringer oppheves godkjenningene. Ønsker du å fortsette?'
             )
         ) {
             await opphevGodkjenninger(avtale.id);
@@ -271,6 +273,11 @@ export const låsOppAvtale = async (avtaleId: string): Promise<void> => {
 
 export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
     await api.post(`/avtaler/${avtaleId}/del-med-avtalepart`, JSON.stringify(rolle));
+};
+
+export const oppdatereKostnadsstedet = async (avtaleId: string, kostnadssted: Kostnadssted): Promise<Avtale> => {
+    const response = await api.post(`avtaler/${avtaleId}/endre-kostnadssted`, JSON.stringify(kostnadssted));
+    return response.data;
 };
 
 export const overtaAvtale = async (avtaleId: string): Promise<void> => {

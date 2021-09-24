@@ -75,7 +75,7 @@ const avtaleInnhold: Avtale = {
     avtaleNr: 1,
 };
 
-export const contextMock: Context = {
+export const contextMock: Partial<Context> = {
     avtale: avtaleInnhold,
     settOgKalkulerBeregningsverdier: () => Promise.resolve(),
     settAvtaleVerdi: () => null,
