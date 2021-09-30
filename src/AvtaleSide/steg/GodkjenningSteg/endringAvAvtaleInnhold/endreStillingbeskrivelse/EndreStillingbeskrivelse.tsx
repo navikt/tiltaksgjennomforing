@@ -1,16 +1,16 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import StillingsTittelVelger, { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
+import {AvtaleContext} from '@/AvtaleProvider';
+import StillingsTittelVelger, {StillingOptions} from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
+import {EndreStilling, oppdatereStillingbeskrivelse} from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { DialogDots } from '@navikt/ds-icons/cjs';
+import {DialogDots} from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import './EndreStillingbeskrivelse.less';
 
 const EndreStillingbeskrivelse: FunctionComponent = () => {
@@ -118,7 +118,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 style={{ minWidth: '35rem' }}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
-                oversiktTekst="Endre stilling"
+                oversiktTekst="Endre stillingsbeskrivelse"
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreStilling}
                 lukkModal={lukkModal}
