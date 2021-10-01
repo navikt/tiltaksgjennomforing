@@ -10,7 +10,7 @@ import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 
 const GodkjenningArbeidsgiver: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
-    const erLønnstilskudd = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(
+    const erLønnstilskuddEllerSommerjobb = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
         avtaleContext.avtale.tiltakstype
     );
 
@@ -18,7 +18,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
     const [bekreftetGodkjennerInnholdet, setBekreftetGodkjennerInnholdet] = useState(false);
 
     const feilmeldingManglerBekreftelse = () => {
-        if (!erLønnstilskudd) {
+        if (!erLønnstilskuddEllerSommerjobb) {
             if (!bekreftetGodkjennerInnholdet) {
                 return 'Du må bekrefte at du forstår kravene før du kan godkjenne.';
             }
@@ -55,7 +55,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
 
-            {erLønnstilskudd && (
+            {erLønnstilskuddEllerSommerjobb && (
                 <BekreftCheckboksPanel
                     onChange={() => setBekreftetArbeidsAvtale(!bekreftetArbeidsAvtale)}
                     checked={bekreftetArbeidsAvtale}
