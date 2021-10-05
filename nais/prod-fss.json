@@ -7,6 +7,5 @@
     "enable-internal-menu": true,
     "decorator-external-script": "https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js",
     "decorator-external-styling": "https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2.1/static/css/main.css",
-    "stillingstitler-url": "https://tiltak-stillingstitler.prod-gcp.nais.io",
-    "namespace": "default"
+    "stillingstitler-url": "https://tiltak-stillingstitler.prod-gcp.nais.io"
 }
