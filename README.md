@@ -17,10 +17,6 @@ Kjør container
 
 Åpnes i browser: [http://localhost:3000/tiltaksgjennomforing](http://localhost:3000/tiltaksgjennomforing)
 
-### Deploy på NAIS
-
-CircleCI bygger og pusher Docker image. For å deploye må man sette opp Kubernetes/kubectl konfigurasjon lokalt (se: https://github.com/navikt/kubeconfigs/), finne versjonsnummer på image i Docker hub, og så kjøre kommandoen: `kubectl apply -f nais-[miljø].yaml`
-
 ### Testing
 
 Vi bruker jest for å teste. `yarn test` kjører testene og setter dem i watch modus.
