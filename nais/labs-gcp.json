@@ -6,6 +6,5 @@
     "logout-url": "/tiltaksgjennomforing/fakelogout?domain=labs.nais.io",
     "stillingstitler-url": "https://tiltak-stillingstitler.dev-gcp.nais.io",
     "vault-enabled": false,
-    "namespace": "arbeidsgiver",
     "labs": true
 }
