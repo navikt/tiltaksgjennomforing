@@ -3,7 +3,7 @@ on:
   repository_dispatch:
     types: [deploy-command]
 env:
-  IMAGE_BASE: ghcr.io/${{ github.repository }}
+  IMAGE_BASE: ghcr.io/${{ github.repository }}/tiltaksgjennomforing
   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       
 jobs:
