@@ -7,7 +7,6 @@ import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, Select } from 'nav-frontend-skjema';
 import React, { FormEvent, Fragment, FunctionComponent, useContext, useState } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 
 type Validering = (verdi: string) => string | undefined;
 
@@ -23,7 +22,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { endreFilter, filtre } = useFilter();
 
-    const aktivSøketypeFraFiltre = (filtre: Filtrering) => {
+    const aktivSøketypeFraFiltre = () => {
         if (filtre.veilederNavIdent !== undefined && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
         }
@@ -44,9 +43,16 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
         }
         return 'egne';
     };
-    const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre(filtre));
+    const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre());
 
-    const tomt = { avtaleNr: undefined, deltakerFnr: '', bedriftNr: '', veilederNavIdent: '', erUfordelt: false, navEnhet: '' };
+    const tomt = {
+        avtaleNr: undefined,
+        deltakerFnr: '',
+        bedriftNr: '',
+        veilederNavIdent: '',
+        erUfordelt: false,
+        navEnhet: '',
+    };
     const søk: { [k in Søketype]: any } = {
         egne: {
             placeholder: '',

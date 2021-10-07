@@ -2,6 +2,7 @@ import { useCallback, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { FiltreringContext } from "@/AvtaleOversikt/Filtrering/FiltreringProvider";
 import { Filtrering } from "@/AvtaleOversikt/Filtrering/filtrering";
+import _ from 'lodash';
 
 export const useFilter = () => {
     const [filtre, setFiltre] = useContext(FiltreringContext);
@@ -12,8 +13,10 @@ export const useFilter = () => {
         for (let [k, v] of new URLSearchParams(window.location.search)) {
             params[k] = v;
         }
-        setFiltre(params);
-    }, [setFiltre]);
+        if (!_.isEqual(params, filtre)) {
+            setFiltre(params);
+        }
+    }, [setFiltre, filtre]);
 
     useEffect(() => {
         window.addEventListener('load', parseWindowLocationSearch);
