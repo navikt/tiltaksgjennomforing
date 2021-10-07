@@ -3,7 +3,7 @@ import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 
 export const FiltreringContext = createContext<[Filtrering, React.Dispatch<React.SetStateAction<Filtrering>>]>([
     {},
-    () => void,
+    () => null,
 ]);
 
 export const FiltreringProvider: FunctionComponent = (props) => {
