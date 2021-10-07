@@ -27,14 +27,16 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                         props.byttetOrg && props.byttetOrg(org);
                     }}
                     organisasjoner={innloggetBruker.altinnOrganisasjoner}
-                    sidetittel={props.tekst}
-                >
-                    {props.undertittel && (
-                        <div style={{ position: 'relative', left: '-52rem', top: '2rem' }}>
-                            <UndertekstBold>{props.undertittel}</UndertekstBold>
-                        </div>
-                    )}
-                </Bedriftsmeny>
+                    sidetittel={
+                        <>
+                            <Innholdstittel>{props.tekst}</Innholdstittel>
+
+                            {props.undertittel && (
+                                <UndertekstBold style={{ marginTop: '0.25rem' }}>{props.undertittel}</UndertekstBold>
+                            )}
+                        </>
+                    }
+                />
             );
         case 'DELTAKER':
             return (
