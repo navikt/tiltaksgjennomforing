@@ -2,7 +2,6 @@ import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
 import { Ingress, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -11,17 +10,15 @@ import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './arbeidsgiver/IngenAvtalerArbeidsgiver';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 const cls = BEMHelper('ingenAvtaler');
 
-type Props = {
-    sokekriterier: Partial<Avtale>;
-};
-
-const IngenAvtaler: FunctionComponent<Props> = props => {
+const IngenAvtaler: FunctionComponent = () => {
     const [cookies] = useCookies();
     const innloggetPart = cookies[INNLOGGET_PART];
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { filtre } = useFilter();
 
     if (innloggetPart === 'VEILEDER') {
         return (
@@ -31,7 +28,7 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
                     <Undertittel style={{ marginLeft: '1rem' }}>Finner ingen avtaler</Undertittel>
                 </div>
                 <VerticalSpacer rem={1} />
-                {props.sokekriterier.veilederNavIdent === innloggetBruker.identifikator ? (
+                {filtre.veilederNavIdent === innloggetBruker.identifikator ? (
                     <Normaltekst>Du har ingen avtaler som er tilknyttet deg.</Normaltekst>
                 ) : (
                     <Normaltekst>Finner ingen avtaler som passer med valgt filter.</Normaltekst>
@@ -59,7 +56,7 @@ const IngenAvtaler: FunctionComponent<Props> = props => {
             </Innholdsboks>
         );
     } else if (innloggetPart === 'ARBEIDSGIVER') {
-        return <IngenAvtalerArbeidsgiver {...props.sokekriterier} />;
+        return <IngenAvtalerArbeidsgiver bedriftNr={filtre.bedrift} tiltakstype={filtre.tiltakstype} />;
     } else {
         return null;
     }

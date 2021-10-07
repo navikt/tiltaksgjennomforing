@@ -8,7 +8,7 @@ const ByttTilBeslutter: FunctionComponent = () => {
 
     const onClick = () => {
         setCookie(INNLOGGET_PART, 'BESLUTTER', { path: '/tiltaksgjennomforing' });
-        window.location.pathname = '/tiltaksgjennomforing';
+        window.location.href = '/tiltaksgjennomforing';
     };
     return (
         <div

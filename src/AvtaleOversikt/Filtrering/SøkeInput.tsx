@@ -7,10 +7,11 @@ import React, { FormEvent, FunctionComponent, useState } from 'react';
 type Props = InputProps & {
     utførSøk: (søkeord: string) => void;
     valider: (verdi: string) => string | undefined;
+    defaultVerdi?: string;
 };
 
 export const SøkeInput: FunctionComponent<Props> = (props) => {
-    const [søkeord, setSøkeord] = useState<string>('');
+    const [søkeord, setSøkeord] = useState<string>(props.defaultVerdi || "");
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
     const utførSøk = () => {

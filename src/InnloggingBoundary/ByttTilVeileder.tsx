@@ -8,7 +8,7 @@ const ByttTilVeileder: FunctionComponent = () => {
 
     const onClick = () => {
         setCookie(INNLOGGET_PART, 'VEILEDER', { path: '/tiltaksgjennomforing' });
-        window.location.pathname = '/tiltaksgjennomforing';
+        window.location.href = '/tiltaksgjennomforing';
     };
     return (
         <div

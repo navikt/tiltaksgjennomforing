@@ -1,15 +1,13 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
-import { FiltreringProps } from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { TilskuddPeriodeStatus } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
-import React, { Fragment, FunctionComponent, useState } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
-const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = (props) => {
-    const [valgtTilskuddPeriodeStatus, setValgtTilskuddPeriodeStatus] = useState<TilskuddPeriodeStatus | ''>(
-        'UBEHANDLET'
-    );
+const TilskuddPeriodeStatusFilter: FunctionComponent = (props) => {
+    const { endreFilter, filtre } = useFilter();
 
     const alleTilskuddPeriodeStatus: OptionProps[] = [
         { value: 'UBEHANDLET', label: 'Ubehandlet' },
@@ -26,11 +24,13 @@ const TilskuddPeriodeStatusFilter: FunctionComponent<FiltreringProps> = (props) 
                         label={tilskuddPeriodeStatus.label}
                         name={'tilskuddPeriodeStatus'}
                         value={tilskuddPeriodeStatus.value}
-                        checked={tilskuddPeriodeStatus.value === valgtTilskuddPeriodeStatus}
+                        checked={
+                            tilskuddPeriodeStatus.value === filtre.tilskuddPeriodeStatus ||
+                            (filtre.tilskuddPeriodeStatus === undefined && tilskuddPeriodeStatus.value === 'UBEHANDLET')
+                        }
                         onChange={(event) => {
                             const nyTilskuddPeriode = event.currentTarget.value as TilskuddPeriodeStatus;
-                            setValgtTilskuddPeriodeStatus(nyTilskuddPeriode);
-                            props.endreSøk({ tilskuddPeriodeStatus: nyTilskuddPeriode });
+                            endreFilter({ tilskuddPeriodeStatus: nyTilskuddPeriode });
                         }}
                         role="radio"
                         aria-labelledby={tilskuddPeriodeStatus.label}

@@ -4,7 +4,6 @@ import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -19,33 +18,22 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
-import ArbeidsgiverFiltrering from './Filtrering/ArbeidsgiverFiltrering';
-import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import Banner from '@/komponenter/Banner/Banner';
+import ArbeidsgiverFiltrering from "@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering";
 
 const cls = BEMHelper('avtaleoversikt');
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    const sokeKriterer = () => {
-        switch (innloggetBruker.rolle) {
-            case 'ARBEIDSGIVER':
-                return { bedriftNr: new URLSearchParams(window.location.search).get('bedrift')! };
-            case 'VEILEDER':
-                return { veilederNavIdent: innloggetBruker.identifikator };
-            case 'DELTAKER':
-            default:
-                return {};
-        }
-    };
-
-    const [søkekriterier, setSøkekriterier] = useState<Søkekriterier>(sokeKriterer());
-
     const [varsler, setVarsler] = useState<Varsel[]>([]);
 
     const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<AvtalelisteRessurs>({
         status: Status.IkkeLastet,
     });
+
+    const { filtre, parseWindowLocationSearch } = useFilter();
 
     useEffect(() => {
         hentUlesteVarsler()
@@ -55,31 +43,25 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
-        hentAvtalerForInnloggetBruker(søkekriterier)
+        hentAvtalerForInnloggetBruker(filtre)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
             .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error }));
-    }, [søkekriterier]);
+    }, [filtre]);
 
     const layout = useAvtaleOversiktLayout();
 
-    const endreSøk = (endredeSøkekriterier: Søkekriterier) => {
-        setSøkekriterier({ ...søkekriterier, ...endredeSøkekriterier });
-    };
-
     const harTilgangerSomArbeidsgiver =
         innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-        søkekriterier.bedriftNr &&
-        innloggetBruker.tilganger[søkekriterier.bedriftNr]?.length > 0;
+        filtre.bedrift &&
+        innloggetBruker.tilganger[filtre.bedrift]?.length > 0;
 
     const oversiktTekt = 'Tiltaksoversikt';
     return (
         <>
             <Dokumenttittel tittel={oversiktTekt} />
             <Banner
-                byttetOrg={org => {
-                    if (søkekriterier.bedriftNr !== org.OrganizationNumber) {
-                        setSøkekriterier({ bedriftNr: org.OrganizationNumber });
-                    }
+                byttetOrg={() => {
+                    parseWindowLocationSearch();
                 }}
                 tekst={oversiktTekt}
             />
@@ -104,12 +86,12 @@ const AvtaleOversikt: FunctionComponent = () => {
                                     Opprett ny avtale
                                 </LenkeKnapp>
                             </div>
-                            <VeilederFiltrering endreSøk={endreSøk} navEnheter={innloggetBruker.navEnheter} />
+                            <VeilederFiltrering />
                         </aside>
                     )}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
                         innloggetBruker.altinnOrganisasjoner.length > 0 &&
-                        innloggetBruker.tilganger[søkekriterier.bedriftNr!] && (
+                        innloggetBruker.tilganger[filtre.bedrift!] && (
                             <aside style={layout.stylingAvFilter}>
                                 {harTilgangerSomArbeidsgiver && (
                                     <div style={{ margin: '0.2rem 0 1rem 0' }}>
@@ -125,7 +107,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                                         </LenkeKnapp>
                                     </div>
                                 )}
-                                <ArbeidsgiverFiltrering endreSøk={endreSøk} />
+                                <ArbeidsgiverFiltrering />
                             </aside>
                         )}
                     <section style={layout.stylingAvTabell}>
@@ -133,7 +115,6 @@ const AvtaleOversikt: FunctionComponent = () => {
                             avtalelisteRessurs={avtalelisteRessurs}
                             innloggetBruker={innloggetBruker}
                             varsler={varsler}
-                            sokekriterier={søkekriterier}
                         />
                         <VerticalSpacer rem={1} />
                         {innloggetBruker.rolle === 'ARBEIDSGIVER' && (

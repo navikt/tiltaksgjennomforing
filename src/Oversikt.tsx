@@ -2,14 +2,15 @@ import React, { FunctionComponent, useContext } from 'react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BeslutterOversikt from '@/BeslutterOversikt/BeslutterOversikt';
 import AvtaleOversikt from '@/AvtaleOversikt/AvtaleOversikt';
+import { FiltreringProvider } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 
 const Oversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    if (innloggetBruker.rolle === 'BESLUTTER') {
-        return <BeslutterOversikt />;
-    } else {
-        return <AvtaleOversikt />;
-    }
+    return (
+        <FiltreringProvider>
+            {innloggetBruker.rolle === 'BESLUTTER' ? <BeslutterOversikt /> : <AvtaleOversikt />}
+        </FiltreringProvider>
+    );
 };
 
 export default Oversikt;

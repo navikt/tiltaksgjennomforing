@@ -1,4 +1,3 @@
-import { Søkekriterier } from '@/AvtaleOversikt/Filtrering/søkekriterier';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { basename } from '@/paths';
@@ -9,6 +8,7 @@ import {
     Bedriftinfo,
     EndreKontaktInfo,
     EndreOppfølgingOgTilretteleggingInfo,
+    GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
     GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
     Maal,
@@ -16,17 +16,16 @@ import {
     TiltaksType,
     Varighet,
 } from '@/types/avtale';
-import AvtaleStatusDetaljer from '@/types/avtale-status-detaljer';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { GodkjentPaVegneAvArbeidsgiverGrunner } from './../types/avtale';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
 import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -75,14 +74,11 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
-export const hentAvtalerForInnloggetBruker = async (søkekriterier: Søkekriterier): Promise<Avtale[]> => {
-    const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
+export const hentAvtalerForInnloggetBruker = async (søkekriterier: Filtrering): Promise<Avtale[]> => {
+    // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
+    const søkekriterierFiltrert = { bedriftNr: søkekriterier.bedrift, ...søkekriterier, bedrift: undefined };
+    const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
     const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
-    return response.data;
-};
-
-export const hentAvtaleStatusDetaljer = async (avtaleId: string): Promise<AvtaleStatusDetaljer> => {
-    const response = await api.get<AvtaleStatusDetaljer>(`/avtaler/${avtaleId}/status-detaljer`);
     return response.data;
 };
 
@@ -99,11 +95,13 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
             return Promise.reject();
         }
     }
+
     await api.put(`/avtaler/${avtale.id}`, avtale, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
+
     return hentAvtale(avtale.id);
 };
 
