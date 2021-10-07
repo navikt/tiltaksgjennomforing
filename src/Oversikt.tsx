@@ -8,7 +8,7 @@ const Oversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     return (
         <FiltreringProvider>
-            ({innloggetBruker.rolle === 'BESLUTTER' ? <BeslutterOversikt /> : <AvtaleOversikt />})
+            {innloggetBruker.rolle === 'BESLUTTER' ? <BeslutterOversikt /> : <AvtaleOversikt />}
         </FiltreringProvider>
     );
 };
