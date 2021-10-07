@@ -1726,11 +1726,12 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@navikt/bedriftsmeny@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@navikt/bedriftsmeny/-/bedriftsmeny-3.2.0.tgz#e252a1adb86b7b6d438960c2aa15d918ecda3aeb"
-  integrity sha512-j5b++L3fKCLD/hFjWum2XnxyQ0OlnUsiFF7Fp+YExaMh0LobA2d8ANwDhMd9MIBpcRPuFpSbUvTrhALstqdW5w==
+"@navikt/bedriftsmeny@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@navikt/bedriftsmeny/-/bedriftsmeny-3.4.0.tgz#daf5bcea561a132dfcd6d5697232f7385d69e83f"
+  integrity sha512-n+ch0RExhWureI4nF3bVPMSAysv9WAlruepQ2ecpRRHTK06JZuMeUAP3nerQIr3FjnJefvTBbMpNVY1v3WXf0w==
   dependencies:
+    "@types/amplitude-js" "^8.0.1"
     fuzzysort "^1.1.4"
 
 "@navikt/ds-icons@^0.5.2":
