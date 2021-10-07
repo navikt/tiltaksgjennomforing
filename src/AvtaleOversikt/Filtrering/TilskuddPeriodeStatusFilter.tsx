@@ -24,7 +24,10 @@ const TilskuddPeriodeStatusFilter: FunctionComponent = (props) => {
                         label={tilskuddPeriodeStatus.label}
                         name={'tilskuddPeriodeStatus'}
                         value={tilskuddPeriodeStatus.value}
-                        checked={tilskuddPeriodeStatus.value === filtre.tilskuddPeriodeStatus}
+                        checked={
+                            tilskuddPeriodeStatus.value === filtre.tilskuddPeriodeStatus ||
+                            (filtre.tilskuddPeriodeStatus === undefined && tilskuddPeriodeStatus.value === 'UBEHANDLET')
+                        }
                         onChange={(event) => {
                             const nyTilskuddPeriode = event.currentTarget.value as TilskuddPeriodeStatus;
                             endreFilter({ tilskuddPeriodeStatus: nyTilskuddPeriode });

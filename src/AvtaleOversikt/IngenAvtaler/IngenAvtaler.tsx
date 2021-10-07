@@ -56,7 +56,7 @@ const IngenAvtaler: FunctionComponent = () => {
             </Innholdsboks>
         );
     } else if (innloggetPart === 'ARBEIDSGIVER') {
-        return <IngenAvtalerArbeidsgiver />;
+        return <IngenAvtalerArbeidsgiver bedriftNr={filtre.bedrift} tiltakstype={filtre.tiltakstype} />;
     } else {
         return null;
     }

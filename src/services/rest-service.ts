@@ -25,7 +25,7 @@ import axiosRetry from 'axios-retry';
 import { FeilkodeError } from './../types/errors';
 import { Variants } from './../types/unleash-variant';
 import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
-import { Filtrering } from "@/AvtaleOversikt/Filtrering/filtrering";
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -75,7 +75,9 @@ const removeEmpty = (obj: any) => {
 };
 
 export const hentAvtalerForInnloggetBruker = async (søkekriterier: Filtrering): Promise<Avtale[]> => {
-    const queryParam = new URLSearchParams(removeEmpty(søkekriterier));
+    // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
+    const søkekriterierFiltrert = { bedriftNr: søkekriterier.bedrift, ...søkekriterier, bedrift: undefined };
+    const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
     const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
     return response.data;
 };

@@ -24,12 +24,12 @@ export const useFilter = () => {
     }, [parseWindowLocationSearch]);
 
     const endreFilter = (endring: Filtrering) => {
-        // Type 'any' fordi Object.keys ikke skjønner at 'k' er en key av Søkekriterier
+        // Type 'any' fordi Object.keys ikke skjønner at 'k' er en key av Filtrering
         const nyeFiltre: any = { ...filtre, ...endring };
         Object.keys(nyeFiltre).forEach((k) => !nyeFiltre[k] && delete nyeFiltre[k]);
         history.push('?' + new URLSearchParams(nyeFiltre).toString());
         parseWindowLocationSearch();
     };
 
-    return { filtre, endreFilter };
+    return { filtre, endreFilter, parseWindowLocationSearch };
 };

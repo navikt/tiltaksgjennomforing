@@ -33,7 +33,7 @@ const AvtaleOversikt: FunctionComponent = () => {
         status: Status.IkkeLastet,
     });
 
-    const { filtre, endreFilter } = useFilter();
+    const { filtre, parseWindowLocationSearch } = useFilter();
 
     useEffect(() => {
         hentUlesteVarsler()
@@ -52,18 +52,16 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const harTilgangerSomArbeidsgiver =
         innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-        filtre.bedriftNr &&
-        innloggetBruker.tilganger[filtre.bedriftNr]?.length > 0;
+        filtre.bedrift &&
+        innloggetBruker.tilganger[filtre.bedrift]?.length > 0;
 
     const oversiktTekt = 'Tiltaksoversikt';
     return (
         <>
             <Dokumenttittel tittel={oversiktTekt} />
             <Banner
-                byttetOrg={(org) => {
-                    if (filtre.bedriftNr !== org.OrganizationNumber) {
-                        endreFilter({ bedriftNr: org.OrganizationNumber });
-                    }
+                byttetOrg={() => {
+                    parseWindowLocationSearch();
                 }}
                 tekst={oversiktTekt}
             />
@@ -93,7 +91,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     )}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
                         innloggetBruker.altinnOrganisasjoner.length > 0 &&
-                        innloggetBruker.tilganger[filtre.bedriftNr!] && (
+                        innloggetBruker.tilganger[filtre.bedrift!] && (
                             <aside style={layout.stylingAvFilter}>
                                 {harTilgangerSomArbeidsgiver && (
                                     <div style={{ margin: '0.2rem 0 1rem 0' }}>
