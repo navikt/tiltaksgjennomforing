@@ -18,7 +18,7 @@ const TidligereVersjoner: React.FunctionComponent<Versjonering> = props => {
     const versjonLenker = props.versjoner.reverse().map(avtaleVersjon => {
         return (
             <LenkepanelBase
-                key={avtaleVersjon.versjon}
+                key={avtaleVersjon.id}
                 href={'#'}
                 onClick={() => {
                     setCurrentVersjon(avtaleVersjon.versjon);

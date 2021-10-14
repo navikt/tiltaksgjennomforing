@@ -244,7 +244,7 @@ export type InnholdType =
     | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
     | 'ANNULLERE';
 
-export type AvtaleVersjon = Avtaleinnhold & { versjon: number; innholdType?: InnholdType } & Godkjenninger;
+export type AvtaleVersjon = Avtaleinnhold & { id: string, versjon: number; innholdType?: InnholdType } & Godkjenninger;
 
 export interface Versjonering {
     versjoner: AvtaleVersjon[];
