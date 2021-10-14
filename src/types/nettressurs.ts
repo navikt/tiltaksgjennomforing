@@ -3,6 +3,7 @@ export enum Status {
     'LasterInn',
     'SenderInn',
     'Lastet',
+    'Sendt',
     'Feil',
 }
 
@@ -24,9 +25,13 @@ export interface Lastet<T> {
     data: T;
 }
 
+export interface Sendt {
+    status: Status.Sendt;
+}
+
 export interface Feil {
     status: Status.Feil;
     error: Error;
 }
 
-export type Nettressurs<T> = IkkeLastet | LasterInn | SenderInn<T> | Lastet<T> | Feil;
+export type Nettressurs<T> = IkkeLastet | LasterInn | SenderInn<T> | Lastet<T> | Sendt | Feil;

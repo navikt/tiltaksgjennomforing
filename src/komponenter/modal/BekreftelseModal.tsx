@@ -1,10 +1,10 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import KnappBase from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { CSSProperties, useEffect, useState } from 'react';
+import LagreOgAvbrytKnapp from '../LagreOgAvbrytKnapp';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
 
@@ -78,23 +78,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                         <div className={cls.element('varselTekst')}>{varselInnhold}</div>
                     </div>
                     <div className={cls.element('knapper')}>
-                        <KnappBase
-                            className={cls.element('knapp lenkeknapp')}
-                            onClick={() => bekreftKlikk()}
-                            role="button"
-                            type="hoved"
-                        >
-                            {props.bekreftelseTekst}
-                        </KnappBase>
-                        <KnappBase
-                            role="button"
-                            aria-label={props.avbrytelseTekst.concat(' og lukk modalen')}
-                            type="flat"
-                            className={cls.element('knapp lenkeknapp')}
-                            onClick={props.lukkModal}
-                        >
-                            {props.avbrytelseTekst}
-                        </KnappBase>
+                        <LagreOgAvbrytKnapp lagreFunksjon={() => bekreftKlikk()} lagreTekst={props.bekreftelseTekst} avbryt={() => props.lukkModal()} />
                     </div>
                 </div>
                 {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>}
