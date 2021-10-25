@@ -85,6 +85,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
                     props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
             />
+            <VerticalSpacer rem={1} />
             {props.skalGodkjennesPaVegne && (
                 <>
                     <div style={{ marginLeft: '2rem' }}>

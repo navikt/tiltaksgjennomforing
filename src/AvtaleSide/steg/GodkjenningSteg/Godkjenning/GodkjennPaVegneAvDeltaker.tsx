@@ -62,6 +62,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
 
             {props.skalGodkjennesPaVegne && (
                 <>
+                    <VerticalSpacer rem={1} />
                     <div style={{ marginLeft: '2rem' }}>
                         <GodkjennPåVegneAvDeltakerCheckboxer
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunner}
