@@ -16,7 +16,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
-import { genererFnrDatoStringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
+import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -35,7 +35,7 @@ const VarighetSteg: FunctionComponent = () => {
 
     useEffect(() => {
         if (tiltakstype === 'SOMMERJOBB' && startDato) {
-            const isoDato: VellykketGenerertIsoDatoString = genererFnrDatoStringFraFnr(deltakerFnr);
+            const isoDato: VellykketGenerertIsoDatoString = genererFnrdatostringFraFnr(deltakerFnr);
             if (isoDato.vellykketgenerering) {
                 const momentDato = moment(isoDato.isoDatostring).add(30, 'years').format('YYYY-MM-DD');
                 if (moment(startDato).diff(momentDato) >= 0) {

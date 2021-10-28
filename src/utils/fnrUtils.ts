@@ -40,7 +40,7 @@ const validerFnr = (verdi: string): boolean => {
     return k1 === parseInt(fodselsnr.charAt(9), 10) && k2 === parseInt(fodselsnr.charAt(10), 10);
 };
 
-const erDNumber = (n: number) => n > 40 && n < 72;
+const isDNumber = (n: number) => n > 40 && n < 72;
 
 const hentAarhundreTilFnrFraAarOgKsiffer = (kSiffer: number, fodselAar: number): GyldigAarhundre => {
     switch (true) {
@@ -66,7 +66,7 @@ const lagDatoString = (isoDatoVerdier: number[]): string => {
         .join('-');
 };
 
-const genererFnrDatoStringFraFnr = (fnr: string): VellykketGenerertIsoDatoString => {
+const genererFnrdatostringFraFnr = (fnr: string): VellykketGenerertIsoDatoString => {
     try {
         const dag = parseInt(fnr.substring(0, 2), 10);
         const mnd = parseInt(fnr.substring(2, 4), 10);
@@ -78,7 +78,7 @@ const genererFnrDatoStringFraFnr = (fnr: string): VellykketGenerertIsoDatoString
             const isoDatoStringFraFnr = lagDatoString([
                 gyldigAarhundre.aarhundre * 100 + aar,
                 mnd,
-                erDNumber(dag) ? dag - 40 : dag,
+                isDNumber(dag) ? dag - 40 : dag,
             ]);
             return { isoDatostring: isoDatoStringFraFnr, vellykketgenerering: true };
         }
@@ -88,4 +88,4 @@ const genererFnrDatoStringFraFnr = (fnr: string): VellykketGenerertIsoDatoString
     return { isoDatostring: '', vellykketgenerering: false };
 };
 
-export { validerFnr, genererFnrDatoStringFraFnr };
+export { validerFnr, genererFnrdatostringFraFnr };
