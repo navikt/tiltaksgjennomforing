@@ -40,9 +40,9 @@ const validerFnr = (verdi: string): boolean => {
     return k1 === parseInt(fodselsnr.charAt(9), 10) && k2 === parseInt(fodselsnr.charAt(10), 10);
 };
 
-const isDNumber = (n: number) => n > 40 && n < 72;
+const erDNumber = (n: number) => n > 40 && n < 72;
 
-const hentAarhundreTilFnr = (kSiffer: number, fodselAar: number): GyldigAarhundre => {
+const hentAarhundreTilFnrFraAarOgKsiffer = (kSiffer: number, fodselAar: number): GyldigAarhundre => {
     switch (true) {
         case kSiffer >= 0 && kSiffer <= 499:
             return { aarhundre: 19, gyldig: true };
@@ -66,19 +66,19 @@ const lagDatoString = (isoDatoVerdier: number[]): string => {
         .join('-');
 };
 
-const genererFnrDatoStringFraFnr = (n: string): VellykketGenerertIsoDatoString => {
+const genererFnrDatoStringFraFnr = (fnr: string): VellykketGenerertIsoDatoString => {
     try {
-        const dag = parseInt(n.substring(0, 2), 10);
-        const mnd = parseInt(n.substring(2, 4), 10);
-        const aar = parseInt(n.substring(4, 6), 10);
-        const kontrollsiffer = parseInt(n.substring(6, 9), 10);
-        const gyldigAarhundre = hentAarhundreTilFnr(kontrollsiffer, aar);
+        const dag = parseInt(fnr.substring(0, 2), 10);
+        const mnd = parseInt(fnr.substring(2, 4), 10);
+        const aar = parseInt(fnr.substring(4, 6), 10);
+        const kontrollsiffer = parseInt(fnr.substring(6, 9), 10);
+        const gyldigAarhundre = hentAarhundreTilFnrFraAarOgKsiffer(kontrollsiffer, aar);
 
         if (gyldigAarhundre.gyldig) {
             const isoDatoStringFraFnr = lagDatoString([
                 gyldigAarhundre.aarhundre * 100 + aar,
                 mnd,
-                isDNumber(dag) ? dag - 40 : dag,
+                erDNumber(dag) ? dag - 40 : dag,
             ]);
             return { isoDatostring: isoDatoStringFraFnr, vellykketgenerering: true };
         }
