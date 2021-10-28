@@ -39,10 +39,8 @@ const VarighetSteg: FunctionComponent = () => {
             if (isoDato.vellykketgenerering) {
                 const momentDato = moment(isoDato.isoDatostring).add(30, 'years').format('YYYY-MM-DD');
                 if (moment(startDato).diff(momentDato) >= 0) {
-                    console.log('feil trenger varsel');
                     setSommerjobbDeltakerOver30VedStartdato(true);
                 } else {
-                    console.log('OK ');
                     setSommerjobbDeltakerOver30VedStartdato(false);
                 }
             }
