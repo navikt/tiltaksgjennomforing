@@ -11,11 +11,11 @@ import './TidligereVersjoner.less';
 
 const cls = BEMHelper('tidligereVersjoner');
 
-const TidligereVersjoner: React.FunctionComponent<Versjonering> = props => {
+const TidligereVersjoner: React.FunctionComponent<Versjonering> = (props) => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
-    const versjonLenker = props.versjoner.reverse().map(avtaleVersjon => {
+    const versjonLenker = props.versjoner.reverse().map((avtaleVersjon) => {
         return (
             <LenkepanelBase
                 key={avtaleVersjon.id}

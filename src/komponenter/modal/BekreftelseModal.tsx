@@ -78,7 +78,11 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                         <div className={cls.element('varselTekst')}>{varselInnhold}</div>
                     </div>
                     <div className={cls.element('knapper')}>
-                        <LagreOgAvbrytKnapp lagreFunksjon={() => bekreftKlikk()} lagreTekst={props.bekreftelseTekst} avbryt={() => props.lukkModal()} />
+                        <LagreOgAvbrytKnapp
+                            lagreFunksjon={() => bekreftKlikk()}
+                            lagreTekst={props.bekreftelseTekst}
+                            avbryt={() => props.lukkModal()}
+                        />
                     </div>
                 </div>
                 {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>}

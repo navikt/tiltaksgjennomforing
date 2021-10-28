@@ -11,7 +11,7 @@ type Props = InputProps & {
 };
 
 export const SøkeInput: FunctionComponent<Props> = (props) => {
-    const [søkeord, setSøkeord] = useState<string>(props.defaultVerdi || "");
+    const [søkeord, setSøkeord] = useState<string>(props.defaultVerdi || '');
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
     const utførSøk = () => {
