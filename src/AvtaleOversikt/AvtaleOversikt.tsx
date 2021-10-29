@@ -20,7 +20,7 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import './AvtaleOversikt.less';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import Banner from '@/komponenter/Banner/Banner';
-import ArbeidsgiverFiltrering from "@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering";
+import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
 
 const cls = BEMHelper('avtaleoversikt');
 

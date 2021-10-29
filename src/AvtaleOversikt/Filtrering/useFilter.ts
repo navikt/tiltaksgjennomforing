@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { FiltreringContext } from "@/AvtaleOversikt/Filtrering/FiltreringProvider";
-import { Filtrering } from "@/AvtaleOversikt/Filtrering/filtrering";
+import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import _ from 'lodash';
 
 export const useFilter = () => {

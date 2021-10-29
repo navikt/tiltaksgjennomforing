@@ -42,6 +42,7 @@ export type Feilkode =
     | 'SOMMERJOBB_FOR_LANG_VARIGHET'
     | 'IKKE_GAMMEL_NOK'
     | 'FOR_GAMMEL'
+    | 'FOR_GAMMEL_FRA_OPPSTARTDATO'
     | 'FEIL_OTP_SATS'
     | 'KAN_IKKE_FORKORTE_ETTER_SLUTTDATO'
     | 'KAN_IKKE_FORKORTE_FOR_STARTDATO'
@@ -101,6 +102,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     SOMMERJOBB_FOR_LANG_VARIGHET: 'Sommerjobb kan ikke vare lenger enn 4 uker',
     IKKE_GAMMEL_NOK: 'Deltaker må være fylt 16 år',
     FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
+    FOR_GAMMEL_FRA_OPPSTARTDATO: 'Deltaker kan ikke ha fylt 30 år før startdatoen til dette tiltaket',
     FEIL_OTP_SATS: 'Sats for obligatorisk tjenestepensjon må være mellom 0 og 30 %.',
     KAN_IKKE_FORKORTE_ETTER_SLUTTDATO: 'Avtalen kan ikke forkortes til etter sluttdato',
     KAN_IKKE_FORKORTE_FOR_STARTDATO: 'Avtalen kan ikke forkortes til før startdato',
