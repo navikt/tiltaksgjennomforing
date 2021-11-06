@@ -30,6 +30,21 @@ const VarighetSteg: FunctionComponent = () => {
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
     const arbgiverDatoGrense = erArbeidsgiverOgUfordelt ? { minDate: new Date().toISOString() } : {};
 
+    //Først sjekke tiltakstype
+    //SÅ sjekke kvelifiseringsgruppe  minDate: avtaleContext.avtale.startDato, minDate: avtaleContext.avtale.startDato,
+
+
+    const kvalifiseringsgruppeMaxDato = () => {
+        if(avtaleContext.avtale.startDato !== null){
+            if(avtaleContext.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' && avtaleContext.avtale.kvalifiseringsgruppe === 'BFORM'){
+                //return { maxDate: moment(avtaleContext.avtale.startDato).add(12, 'months').format('YYYY-MM-DD')}
+                return { maxDate: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD') }
+            } 
+        }
+        return { maxDate: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD') }
+        //return { maxDate: moment(avtaleContext.avtale.startDato).add(24, 'months').format('YYYY-MM-DD')}
+    }
+
     return (
         <Innholdsboks utfyller="arbeidsgiver">
             <Container fluid={true}>
@@ -49,6 +64,10 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.startDato || undefined}
+                            /*limitations={{
+                                minDate: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD'),
+                                maxDate: moment(avtaleContext.avtale.sluttDato).format('YYYY-MM-DD'),
+                            }}*/
                             limitations={arbgiverDatoGrense}
                             onChange={(dato) => avtaleContext.settAvtaleVerdier({ startDato: dato })}
                         />
@@ -58,7 +77,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.sluttDato || undefined}
-                            limitations={arbgiverDatoGrense}
+                            limitations={() => kvalifiseringsgruppeMaxDato}
                             onChange={(dato) => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
                         />
                     </Column>

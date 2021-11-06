@@ -13,6 +13,7 @@ export type Feilkode =
     | 'START_ETTER_SLUTT'
     | 'UGYLDIG_TLF'
     | 'IKKE_FORDELT'
+    | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_FORTI_PROSENT'
     | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD'
     | 'VARIGHET_FOR_LANG_ARBEIDSTRENING'
     | 'VARIGHET_FOR_LANG_MENTOR'
@@ -73,6 +74,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ER_ALLEREDE_VEILEDER: 'Innlogget bruker er allerede veileder på denne avtalen',
     START_ETTER_SLUTT: 'Startdato er etter sluttdato',
     VARIGHET_DATO_TILBAKE_I_TID: 'Dato på varighet er tilbake i tid',
+    VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_FORTI_PROSENT: 'Avtalens varighet er maksimalt 12 måneder',
     VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD: 'Avtalens varighet er maksimalt 24 måneder',
     VARIGHET_FOR_LANG_MENTOR: 'Avtalens varighet er maksimalt 36 måneder',
     VARIGHET_FOR_LANG_ARBEIDSTRENING: 'Avtalens varighet er maksimalt 18 måneder',

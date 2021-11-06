@@ -45,7 +45,6 @@ const arbeidstreningAvtaleMock: Avtale = {
     avbrutt: false,
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,
-
     godkjentPaVegneGrunn: undefined,
 
     oppfolging: 'Bruker og AG skal følges opp',
@@ -88,6 +87,8 @@ const arbeidstreningAvtaleMock: Avtale = {
 
     enhetKostnadssted: undefined,
     enhetsnavnKostnadssted: undefined,
+
+    kvalifiseringsgruppe: 'BATT',
 };
 
 export default arbeidstreningAvtaleMock;

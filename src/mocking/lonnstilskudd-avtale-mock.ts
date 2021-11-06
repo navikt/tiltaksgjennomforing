@@ -18,6 +18,8 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,
 
+    kvalifiseringsgruppe : 'BATT',
+
     godkjentPaVegneGrunn: {
         ikkeBankId: false,
         reservert: false,

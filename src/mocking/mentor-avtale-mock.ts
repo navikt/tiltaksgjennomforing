@@ -64,6 +64,8 @@ const mentorAvtaleMock: Avtale = {
 
     maal: [],
 
+    kvalifiseringsgruppe: 'BATT',
+
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,
     erAnnullertEllerAvbrutt: false,

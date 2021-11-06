@@ -62,6 +62,7 @@ export interface AvtaleMetadata {
     enhetOppfolging?: string;
     enhetsnavnOppfolging?: string;
     erAnnullertEllerAvbrutt: boolean;
+    kvalifiseringsgruppe: string;
 }
 
 export interface Avtaleparter {
@@ -244,7 +245,7 @@ export type InnholdType =
     | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
     | 'ANNULLERE';
 
-export type AvtaleVersjon = Avtaleinnhold & { id: string, versjon: number; innholdType?: InnholdType } & Godkjenninger;
+export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
 
 export interface Versjonering {
     versjoner: AvtaleVersjon[];

@@ -16,6 +16,7 @@ const avtaleInnhold: Avtale = {
     feriepengerBelop: 1,
     feriepengesats: 100,
     harFamilietilknytning: false,
+    kvalifiseringsgruppe: 'BATT',
     maal: [{ beskrivelse: '', kategori: 'ANNET', id: '' }],
     mentorAntallTimer: 1,
     mentorEtternavn: '',
