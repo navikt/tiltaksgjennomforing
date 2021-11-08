@@ -16,6 +16,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
+import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -28,22 +29,6 @@ const VarighetSteg: FunctionComponent = () => {
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
-    const arbgiverDatoGrense = erArbeidsgiverOgUfordelt ? { minDate: new Date().toISOString() } : {};
-
-    //Først sjekke tiltakstype
-    //SÅ sjekke kvelifiseringsgruppe  minDate: avtaleContext.avtale.startDato, minDate: avtaleContext.avtale.startDato,
-
-
-    const kvalifiseringsgruppeMaxDato = () => {
-        if(avtaleContext.avtale.startDato !== null){
-            if(avtaleContext.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' && avtaleContext.avtale.kvalifiseringsgruppe === 'BFORM'){
-                //return { maxDate: moment(avtaleContext.avtale.startDato).add(12, 'months').format('YYYY-MM-DD')}
-                return { maxDate: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD') }
-            } 
-        }
-        return { maxDate: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD') }
-        //return { maxDate: moment(avtaleContext.avtale.startDato).add(24, 'months').format('YYYY-MM-DD')}
-    }
 
     return (
         <Innholdsboks utfyller="arbeidsgiver">
@@ -64,11 +49,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.startDato || undefined}
-                            /*limitations={{
-                                minDate: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD'),
-                                maxDate: moment(avtaleContext.avtale.sluttDato).format('YYYY-MM-DD'),
-                            }}*/
-                            limitations={arbgiverDatoGrense}
+                            limitations={AvtaleMinMaxDato()}
                             onChange={(dato) => avtaleContext.settAvtaleVerdier({ startDato: dato })}
                         />
                     </Column>
@@ -77,7 +58,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.sluttDato || undefined}
-                            limitations={() => kvalifiseringsgruppeMaxDato}
+                            limitations={AvtaleMinMaxDato()}
                             onChange={(dato) => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
                         />
                     </Column>
