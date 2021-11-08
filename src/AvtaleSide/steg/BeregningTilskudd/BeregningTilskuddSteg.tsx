@@ -25,6 +25,7 @@ import TilskuddperiodeBokser from './TilskuddperiodeBokser';
 import { Money } from '@navikt/ds-icons/cjs';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
+import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -56,48 +57,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
-            <Undertittel>Tilskuddsprosent</Undertittel>
-
-            {!avtale.lonnstilskuddProsent && (
-                <>
-                    <VerticalSpacer rem={0.25} />
-                    <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                        <PenFillIkon />
-                        <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av NAV</Normaltekst>
-                    </div>
-                    <VerticalSpacer rem={0.5} />
-                </>
-            )}
-
-            {innloggetBruker.erNavAnsatt && (
-                <>
-                    <Normaltekst className={cls.element('luft')}>
-                        Velg sats for refusjon som arbeidsgiver skal få tilbake
-                    </Normaltekst>
-                    <LonnstilskuddProsent
-                        tiltakstype={avtale.tiltakstype}
-                        lonnstilskuddProsent={avtale.lonnstilskuddProsent}
-                        settLonnstilskuddProsent={verdi =>
+            <KvalifiseringsgruppeSats settLonnstilskuddProsent={(verdi) =>
                             settOgKalkulerBeregningsverdier({ lonnstilskuddProsent: verdi })
-                        }
-                    />
-                </>
-            )}
-            {!innloggetBruker.erNavAnsatt && (
-                <Normaltekst className={cls.element('luft')}>
-                    {avtale.lonnstilskuddProsent ? (
-                        avtale.lonnstilskuddProsent + ' %'
-                    ) : (
-                        <>
-                            {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && 'Her kan NAV sette en sats.'}
-                            {avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' &&
-                                'Her kan NAV sette en sats på 40% eller 60%'}
-                            {avtale.tiltakstype === 'SOMMERJOBB' && 'Her kan NAV sette en sats på 50% eller 75%'}
-                        </>
-                    )}
-                </Normaltekst>
-            )}
-
+                        }/>
             <VerticalSpacer rem={1} />
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">

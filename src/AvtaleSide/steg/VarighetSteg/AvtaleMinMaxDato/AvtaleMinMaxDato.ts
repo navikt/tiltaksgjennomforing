@@ -2,13 +2,16 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { DatepickerLimitations } from 'nav-datovelger';
 import moment from 'moment';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const avtaleContext = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     if (avtaleContext.avtale.startDato !== null) {
+        console.log('tiltakstype', avtaleContext.avtale.tiltakstype);
+        console.log('kvalifiseringsgruppe', avtaleContext.avtale.kvalifiseringsgruppe);
+
         if (avtaleContext.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
             return {
                 minDate: innloggetBruker.erNavAnsatt ? undefined : new Date().toISOString(),
@@ -26,9 +29,8 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
             };
         }
         if (avtaleContext.avtale.tiltakstype === 'SOMMERJOBB') {
-            console.log('SOMMERJOBB');
             return {
-                minDate: new Date(1, 6, 2021).toISOString(),
+                minDate: new Date(new Date().getFullYear(), 5, 2).toISOString(),
                 maxDate: moment(avtaleContext.avtale.startDato).add(4, 'weeks').format('YYYY-MM-DD'),
             };
         }
