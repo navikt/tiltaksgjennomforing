@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { DatepickerLimitations } from 'nav-datovelger';
 import moment from 'moment';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const avtaleContext = useContext(AvtaleContext);

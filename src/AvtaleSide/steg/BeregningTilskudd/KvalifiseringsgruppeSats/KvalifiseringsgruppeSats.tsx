@@ -4,6 +4,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import ProsentInput from '@/komponenter/form/ProsentInput';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     settLonnstilskuddProsent: (lonnstilskuddProsent: Beregningsgrunnlag['lonnstilskuddProsent']) => void;
@@ -13,21 +14,14 @@ const KvalifiseringsgruppeSats: FunctionComponent<Props> = ({ settLonnstilskuddP
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    console.log('tiltakstype', avtale.tiltakstype);
-    console.log('kvalifiseringsgruppe', avtale.kvalifiseringsgruppe);
-
     return (
         <>
-            <Undertittel>Tilskuddsprosent</Undertittel>
             {innloggetBruker.erNavAnsatt ? (
                 <>
-                    {(avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || avtale.tiltakstype === 'SOMMERJOBB') && (
-                        <>
-                            <Normaltekst>{avtale.lonnstilskuddProsent}</Normaltekst>
-                        </>
-                    )}
                     {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && (
                         <>
+                            <Undertittel>Tilskuddsprosent</Undertittel>
+                            <VerticalSpacer rem={1.25} />
                             <ProsentInput
                                 name="lonnstilskuddProsent"
                                 bredde="S"
@@ -39,6 +33,7 @@ const KvalifiseringsgruppeSats: FunctionComponent<Props> = ({ settLonnstilskuddP
                                 min={0}
                                 max={75}
                             />
+                            <VerticalSpacer rem={1} />
                         </>
                     )}
                 </>
@@ -56,6 +51,7 @@ const KvalifiseringsgruppeSats: FunctionComponent<Props> = ({ settLonnstilskuddP
                             </>
                         )}
                     </Normaltekst>
+                    <VerticalSpacer rem={1} />
                 </>
             )}
         </>

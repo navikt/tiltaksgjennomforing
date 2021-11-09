@@ -1,4 +1,3 @@
-import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -19,7 +18,6 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
-import LonnstilskuddProsent from './LonnstilskuddProsent';
 import UtregningPanel from './UtregningPanel';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
 import { Money } from '@navikt/ds-icons/cjs';
@@ -60,7 +58,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <KvalifiseringsgruppeSats settLonnstilskuddProsent={(verdi) =>
                             settOgKalkulerBeregningsverdier({ lonnstilskuddProsent: verdi })
                         }/>
-            <VerticalSpacer rem={1} />
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 <div>

@@ -18,7 +18,7 @@ import React, { FunctionComponent } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
 
-const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
+const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     const cls = BEMHelper('utregningspanel');
     return (
         <Ekspanderbartpanel tittel={<Element>Tilskudd for en måned</Element>} apen>
@@ -64,7 +64,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                     borderTykk={true}
                 />
                 <Utregningsrad
-                    labelTekst={props.datoForRedusertProsent ? `Fastsatt refusjon frem til` : 'Fastsatt refusjon'}
+                    labelTekst={props.datoForRedusertProsent ? `Tilskuddsprosent frem til` : 'Tilskuddsprosent'}
                     midtrekkeTekst={
                         props.datoForRedusertProsent
                             ? formatterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)
@@ -83,7 +83,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                 {props.datoForRedusertProsent && (
                     <>
                         <Utregningsrad
-                            labelTekst={`Fastsatt refusjon fra og med`}
+                            labelTekst={`Tilskuddsprosent fra og med`}
                             midtrekkeTekst={formatterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}
                             labelIkon={<GraphRefusjonAvLonnIkon />}
                             ikkePenger
