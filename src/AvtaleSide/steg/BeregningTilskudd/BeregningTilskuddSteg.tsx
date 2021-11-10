@@ -49,15 +49,12 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvKnappHentKontonummerForArbeidsgiver =
         featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
-
     const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
-            <KvalifiseringsgruppeSats settLonnstilskuddProsent={(verdi) =>
-                            settOgKalkulerBeregningsverdier({ lonnstilskuddProsent: verdi })
-                        }/>
+            <KvalifiseringsgruppeSats />
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 <div>

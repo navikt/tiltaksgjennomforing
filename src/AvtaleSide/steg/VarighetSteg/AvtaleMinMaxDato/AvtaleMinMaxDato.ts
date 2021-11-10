@@ -1,40 +1,43 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { DatepickerLimitations } from 'nav-datovelger';
-import moment from 'moment';
+import moment, { DurationInputArg2 } from 'moment';
 import { useContext } from 'react';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
-    const avtaleContext = useContext(AvtaleContext);
+    const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    if (avtaleContext.avtale.startDato !== null) {
-        console.log('tiltakstype', avtaleContext.avtale.tiltakstype);
-        console.log('kvalifiseringsgruppe', avtaleContext.avtale.kvalifiseringsgruppe);
+    const erTiltakstype = (tiltakstype: string): boolean => tiltakstype === avtale.tiltakstype;
 
-        if (avtaleContext.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') {
+    const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): string =>
+        moment(avtale.startDato).add(1, 'years').format('YYYY-MM-DD');
+
+    if (avtale.startDato) {
+        if (erTiltakstype('MIDLERTIDIG_LONNSTILSKUDD')) {
             return {
                 minDate: innloggetBruker.erNavAnsatt ? undefined : new Date().toISOString(),
                 maxDate:
-                    avtaleContext.avtale.kvalifiseringsgruppe === 'BFORM' ||
-                    avtaleContext.avtale.kvalifiseringsgruppe === null
-                        ? moment(avtaleContext.avtale.startDato).add(1, 'years').format('YYYY-MM-DD')
-                        : moment(avtaleContext.avtale.startDato).add(2, 'years').format('YYYY-MM-DD'),
+                    avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
+                    avtale.kvalifiseringsgruppe === null
+                        ? startdatoPluss(1, 'years')
+                        : startdatoPluss(2, 'years'),
             };
         }
-        if (avtaleContext.avtale.tiltakstype === 'ARBEIDSTRENING') {
+        if (erTiltakstype('ARBEIDSTRENING')) {
             return {
                 minDate: innloggetBruker.erNavAnsatt ? undefined : new Date().toISOString(),
-                maxDate: moment(avtaleContext.avtale.startDato).add(18, 'months').format('YYYY-MM-DD'),
+                maxDate: startdatoPluss(18, 'months'),
             };
         }
-        if (avtaleContext.avtale.tiltakstype === 'SOMMERJOBB') {
+        if (erTiltakstype('SOMMERJOBB')) {
             return {
                 minDate: new Date(new Date().getFullYear(), 5, 2).toISOString(),
-                maxDate: moment(avtaleContext.avtale.startDato).add(4, 'weeks').format('YYYY-MM-DD'),
+                maxDate: startdatoPluss(4, 'weeks'),
             };
         }
-        if (avtaleContext.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') {
+        if (erTiltakstype('VARIG_LONNSTILSKUDD')) {
             return {
                 minDate: innloggetBruker.erNavAnsatt ? undefined : new Date().toISOString(),
                 maxDate: undefined,
