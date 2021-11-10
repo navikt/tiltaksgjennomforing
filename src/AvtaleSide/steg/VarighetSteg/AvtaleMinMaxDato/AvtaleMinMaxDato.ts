@@ -6,30 +6,30 @@ import { useContext } from 'react';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
+    const INGEN_DATO_SPERRE = undefined;
+    const DAGENSDATO = new Date().toISOString();
+
     const { avtale } = useContext(AvtaleContext);
-    const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { erNavAnsatt } = useContext(InnloggetBrukerContext);
 
     const erTiltakstype = (tiltakstype: string): boolean => tiltakstype === avtale.tiltakstype;
 
     const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): string =>
-        moment(avtale.startDato).add(1, 'years').format('YYYY-MM-DD');
+        moment(avtale.startDato).add(megde, tidsEnhet).format('YYYY-MM-DD');
 
     if (avtale.startDato) {
         if (erTiltakstype('MIDLERTIDIG_LONNSTILSKUDD')) {
             return {
-                minDate: innloggetBruker.erNavAnsatt ? undefined : new Date().toISOString(),
+                minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO,
                 maxDate:
                     avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
-                    avtale.kvalifiseringsgruppe === null
+                    !avtale.kvalifiseringsgruppe
                         ? startdatoPluss(1, 'years')
                         : startdatoPluss(2, 'years'),
             };
         }
         if (erTiltakstype('ARBEIDSTRENING')) {
-            return {
-                minDate: innloggetBruker.erNavAnsatt ? undefined : new Date().toISOString(),
-                maxDate: startdatoPluss(18, 'months'),
-            };
+            return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: startdatoPluss(18, 'months') };
         }
         if (erTiltakstype('SOMMERJOBB')) {
             return {
@@ -38,14 +38,8 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
             };
         }
         if (erTiltakstype('VARIG_LONNSTILSKUDD')) {
-            return {
-                minDate: innloggetBruker.erNavAnsatt ? undefined : new Date().toISOString(),
-                maxDate: undefined,
-            };
+            return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
         }
     }
-    return {
-        minDate: innloggetBruker.erNavAnsatt ? undefined : new Date().toISOString(),
-        maxDate: undefined,
-    };
+    return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
 };
