@@ -37,9 +37,6 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
                 maxDate: startdatoPluss(4, 'weeks'),
             };
         }
-        if (erTiltakstype('VARIG_LONNSTILSKUDD')) {
-            return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
-        }
     }
     return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
 };
