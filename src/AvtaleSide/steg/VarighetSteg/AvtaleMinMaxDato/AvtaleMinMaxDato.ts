@@ -3,7 +3,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { DatepickerLimitations } from 'nav-datovelger';
 import moment, { DurationInputArg2 } from 'moment';
 import { useContext } from 'react';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const INGEN_DATO_SPERRE = undefined;
