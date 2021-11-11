@@ -9,6 +9,19 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
+    const settTekstTilLonntilskuddProsent = () => {
+        switch (avtale.tiltakstype) {
+            case 'VARIG_LONNSTILSKUDD':
+                return <>Her kan NAV sette en sats.</>;
+            case 'MIDLERTIDIG_LONNSTILSKUDD':
+                return <>Her kan NAV sette en sats på 40% eller 60%</>;
+            case 'SOMMERJOBB':
+                return <>Her kan NAV sette en sats på 50% eller 75%</>;
+            default:
+                return null;
+        }
+    };
+
     return innloggetBruker.erNavAnsatt ? (
         <>
             {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && (
@@ -35,16 +48,9 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
     ) : (
         <>
             <Normaltekst>
-                {avtale.lonnstilskuddProsent ? (
-                    avtale.lonnstilskuddProsent + ' %'
-                ) : (
-                    <>
-                        {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && 'Her kan NAV sette en sats.'}
-                        {avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' &&
-                            'Her kan NAV sette en sats på 40% eller 60%'}
-                        {avtale.tiltakstype === 'SOMMERJOBB' && 'Her kan NAV sette en sats på 50% eller 75%'}
-                    </>
-                )}
+                {avtale.lonnstilskuddProsent
+                    ? avtale.lonnstilskuddProsent ?? '0' + ' %'
+                    : { settTekstTilLonntilskuddProsent }}
             </Normaltekst>
             <VerticalSpacer rem={1} />
         </>
