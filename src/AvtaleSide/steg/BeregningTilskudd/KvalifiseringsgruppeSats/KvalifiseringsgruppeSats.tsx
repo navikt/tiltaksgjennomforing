@@ -49,7 +49,7 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
         <>
             <Normaltekst>
                 {avtale.lonnstilskuddProsent
-                    ? avtale.lonnstilskuddProsent ?? '0' + ' %'
+                    ? (avtale.lonnstilskuddProsent ?? '0').toString() + ' %'
                     : { settTekstTilLonntilskuddProsent }}
             </Normaltekst>
             <VerticalSpacer rem={1} />
