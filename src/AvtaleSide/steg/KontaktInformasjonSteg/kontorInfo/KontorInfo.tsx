@@ -10,14 +10,24 @@ import {
     hentKvalifiseringsgruppeTekst,
     sjekkKvalifiseringsgruppeOppMotTiltakstype,
 } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {
+    hentFormidlingsgruppeTekst,
+    sjekkOmGyldigFormidlingsgruppe,
+} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
 const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
     oppsummeringside,
 }: {
     oppsummeringside: boolean;
 }) => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const { tiltakstype, kvalifiseringsgruppe } = avtale;
+    if (innloggetBruker.rolle !== 'VEILEDER') {
+        return null;
+    }
+
+    const { tiltakstype, kvalifiseringsgruppe, formidlingsgruppe } = avtale;
     const cls = BEMHelper('kontorinfo');
     const ikon = () => (oppsummeringside ? <NavIkon className="kontorinfo__ikon" width={28} height={28} /> : null);
 
@@ -46,7 +56,14 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
                     {kvalifiseringsgruppe ? hentKvalifiseringsgruppeTekst(kvalifiseringsgruppe) : <em>Ikke oppgitt</em>}
                 </Undertittel>
             </div>
+            <div className={cls.element('info-rad')}>
+                <Normaltekst>Formidlingsgruppe</Normaltekst>
+                <Undertittel>
+                    {formidlingsgruppe ? hentFormidlingsgruppeTekst(formidlingsgruppe) : <em>Ikke oppgitt</em>}
+                </Undertittel>
+            </div>
             {sjekkKvalifiseringsgruppeOppMotTiltakstype(tiltakstype, kvalifiseringsgruppe)}
+            {sjekkOmGyldigFormidlingsgruppe(formidlingsgruppe)}
         </div>
     );
 };

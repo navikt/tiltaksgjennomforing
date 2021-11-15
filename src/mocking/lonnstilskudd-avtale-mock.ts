@@ -1,4 +1,6 @@
 import { Avtale } from '@/types/avtale';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
 const lonnstilskuddAvtaleMock: Avtale = {
     id: '1',
@@ -18,7 +20,8 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,
 
-    kvalifiseringsgruppe : 'BATT',
+    kvalifiseringsgruppe: Kvalifiseringsgruppe.SPESIELT_TILPASSET_INNSATS,
+    formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
 
     godkjentPaVegneGrunn: {
         ikkeBankId: false,

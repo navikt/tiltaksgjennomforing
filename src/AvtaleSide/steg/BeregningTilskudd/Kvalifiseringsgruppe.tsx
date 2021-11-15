@@ -64,23 +64,29 @@ const hentListeMedGyldigeGrupperForTiltak = (tiltakstype: string) => {
                 Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS,
                 Kvalifiseringsgruppe.VARIG_TILPASSET_INNSATS,
             ],
-            tiltakstype
+            'Kvalifiseringsgruppe/Servicegruppe',
+            hentKvalifiseringsgruppeTekst
         );
     } else if (tiltakstype === 'VARIG_LONNSTILSKUDD') {
-        return genererGyldigListeMedlemmer([Kvalifiseringsgruppe.VARIG_TILPASSET_INNSATS], tiltakstype);
+        return genererGyldigListeMedlemmer(
+            [Kvalifiseringsgruppe.VARIG_TILPASSET_INNSATS],
+            'Kvalifiseringsgruppe/Servicegruppe',
+            hentKvalifiseringsgruppeTekst
+        );
     }
     return null;
 };
 
-const genererGyldigListeMedlemmer = (
-    kvalifiseringsliste: Kvalifiseringsgruppe[],
-    tiltakstype: string
+export const genererGyldigListeMedlemmer = (
+    medlemsliste: string[],
+    gruppeTypeTekst: string,
+    callbackHenttekst: (key: string) => string
 ): React.ReactNode => (
     <>
-        Kvalifiseringsgruppe/Servicegruppe tillatt:
+        {gruppeTypeTekst} tillatt:
         <ul>
-            {kvalifiseringsliste.map((type, index) => (
-                <li key={index}>{hentKvalifiseringsgruppeTekst(type)}</li>
+            {medlemsliste.map((type, index) => (
+                <li key={index}>{callbackHenttekst(type)}</li>
             ))}
         </ul>
     </>
