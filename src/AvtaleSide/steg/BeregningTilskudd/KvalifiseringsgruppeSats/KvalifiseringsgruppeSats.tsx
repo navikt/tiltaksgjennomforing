@@ -12,11 +12,11 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
     const settTekstTilLonntilskuddProsent = () => {
         switch (avtale.tiltakstype) {
             case 'VARIG_LONNSTILSKUDD':
-                return <>Her kan NAV sette en sats.</>;
+                return <p>Her kan NAV sette en sats.</p>;
             case 'MIDLERTIDIG_LONNSTILSKUDD':
-                return <>Her kan NAV sette en sats på 40% eller 60%</>;
+                return <p>Her kan NAV sette en sats på 40% eller 60%</p>;
             case 'SOMMERJOBB':
-                return <>Her kan NAV sette en sats på 50% eller 75%</>;
+                return <p>Her kan NAV sette en sats på 50% eller 75%</p>;
             default:
                 return null;
         }
@@ -50,7 +50,7 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
             <Normaltekst>
                 {avtale.lonnstilskuddProsent
                     ? (avtale.lonnstilskuddProsent ?? '0').toString() + ' %'
-                    : { settTekstTilLonntilskuddProsent }}
+                    : settTekstTilLonntilskuddProsent()}
             </Normaltekst>
             <VerticalSpacer rem={1} />
         </>
