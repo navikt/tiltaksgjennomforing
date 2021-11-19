@@ -9,18 +9,20 @@ import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import moment from 'moment';
 import 'moment/locale/nb';
 import { Datepicker } from 'nav-datovelger';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
+import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
 import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { startDato, deltakerFnr, tiltakstype } = avtaleContext.avtale;
 
     const timerIUka = Number(((37.5 * (avtaleContext.avtale.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
@@ -29,6 +31,21 @@ const VarighetSteg: FunctionComponent = () => {
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
+    const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
+
+    useEffect(() => {
+        if (tiltakstype === 'SOMMERJOBB' && startDato) {
+            const isoDato: VellykketGenerertIsoDatoString = genererFnrdatostringFraFnr(deltakerFnr);
+            if (isoDato.vellykketgenerering) {
+                const momentDato = moment(isoDato.isoDatostring).add(30, 'years').format('YYYY-MM-DD');
+                if (moment(startDato).diff(momentDato) >= 0) {
+                    setSommerjobbDeltakerOver30VedStartdato(true);
+                } else {
+                    setSommerjobbDeltakerOver30VedStartdato(false);
+                }
+            }
+        }
+    }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato]);
 
     return (
         <Innholdsboks utfyller="arbeidsgiver">
@@ -63,6 +80,15 @@ const VarighetSteg: FunctionComponent = () => {
                         />
                     </Column>
                 </Row>
+                {sommerjobbDeltakerOver30VedStartdato && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <AlertStripeAdvarsel>
+                            Deltaker kan ikke ha fylt 30år før startdatoen. Det vil ikke være mulig å starte opp
+                            avtalen.
+                        </AlertStripeAdvarsel>
+                    </>
+                )}
                 {(erDatoTilbakeITid(avtaleContext.avtale.startDato) ||
                     erDatoTilbakeITid(avtaleContext.avtale.sluttDato)) && (
                     <>
@@ -76,7 +102,7 @@ const VarighetSteg: FunctionComponent = () => {
                     </>
                 )}
                 <Row>
-                    <Column md="12"></Column>
+                    <Column md="12">{''}</Column>
                 </Row>
                 <VerticalSpacer rem={1} />
                 <StillingsprosentInput
@@ -92,7 +118,7 @@ const VarighetSteg: FunctionComponent = () => {
                     max={7}
                     verdi={avtaleContext.avtale.antallDagerPerUke}
                     settVerdi={(eventVerdi) => {
-                        const verdi = parseInt(eventVerdi);
+                        const verdi = parseInt(eventVerdi, 10);
                         if (verdi > 0 && verdi < 8) {
                             avtaleContext.settAvtaleVerdi('antallDagerPerUke', verdi);
                         } else {

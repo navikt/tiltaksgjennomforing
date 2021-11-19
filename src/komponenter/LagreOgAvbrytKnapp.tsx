@@ -16,7 +16,6 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
     const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
     const [feilmelding, setFeilmelding] = useState('');
 
-
     // Fjerner ikke-standard knapp-props før de spreades inn i KnappBase.
     const knappBaseProps: KnappBaseProps = _.omit(props, ['lagreFunksjon', 'avbryt']);
 
@@ -48,7 +47,9 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
                     onClick={onClick}
                     type="hoved"
                     {...knappBaseProps}
-                >{props.lagreTekst}</KnappBase>
+                >
+                    {props.lagreTekst}
+                </KnappBase>
                 <Knapp onClick={props.avbryt}>Avbryt</Knapp>
             </div>
             {oppslag.status === Status.Feil && (

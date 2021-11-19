@@ -1,16 +1,16 @@
-import {AvtaleContext} from '@/AvtaleProvider';
-import StillingsTittelVelger, {StillingOptions} from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
+import { AvtaleContext } from '@/AvtaleProvider';
+import StillingsTittelVelger, { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import {EndreStilling, oppdatereStillingbeskrivelse} from '@/services/rest-service';
+import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import {DialogDots} from '@navikt/ds-icons/cjs';
+import { DialogDots } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
-import React, {FunctionComponent, useContext, useState} from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreStillingbeskrivelse.less';
 
 const EndreStillingbeskrivelse: FunctionComponent = () => {
@@ -55,7 +55,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 <PakrevdTextarea
                     label="Beskriv arbeidsoppgavene som inngår i stillingen"
                     verdi={arbeidsoppgaver}
-                    settVerdi={verdi => setArbeidsoppgaver(verdi)}
+                    settVerdi={(verdi) => setArbeidsoppgaver(verdi)}
                     maxLengde={500}
                     feilmelding="arbeidsoppgave er påkrevd"
                 />
@@ -65,7 +65,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 <StillingsprosentInput
                     label="Stillingsprosent"
                     verdi={stillingsprosent}
-                    settVerdi={verdi => setStillingsprosent(verdi)}
+                    settVerdi={(verdi) => setStillingsprosent(verdi)}
                 />
                 <PakrevdInput
                     bredde="S"
@@ -73,7 +73,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                     type="number"
                     max={7}
                     verdi={antallDagerPerUke}
-                    settVerdi={eventVerdi => {
+                    settVerdi={(eventVerdi) => {
                         const verdi = parseInt(eventVerdi);
                         if (verdi > 0 && verdi < 8) {
                             setAntallDagerPerUke(verdi);
@@ -101,7 +101,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     return (
         <>
             <Lenke
-                onClick={event => {
+                onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
                 }}
