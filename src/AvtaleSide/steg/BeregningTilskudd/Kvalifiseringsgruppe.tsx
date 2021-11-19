@@ -47,9 +47,11 @@ const hentFeilMeldingForUgyldingKvalifiseringsgruppe = (kode: string): React.Rea
     if (tekst) {
         return (
             <>
-                Kandidat er registrert med kvalifiserinsgruppe
+                Kandidat er registrert med servicegruppe
                 <em>{' ' + tekst + '. '}</em>
-                Denne gruppen kvalifiserer ikke til Arbeidstiltaket.
+                Denne gruppen kvalifiserer ikke til dette tiltaket.
+                Sjekk at innsatsbehovet stemmer.
+                Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.
             </>
         );
     }

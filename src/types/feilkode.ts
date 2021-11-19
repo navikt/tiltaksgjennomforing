@@ -55,7 +55,13 @@ export type Feilkode =
     | 'KAN_IKKE_ENDRE_OPPFØLGING_OG_TILRETTELEGGING_GRUNN_MANGLER'
     | 'MANGLER_AD_GRUPPE_BESLUTTER'
     | 'KAN_IKKE_ENDRE_MAAL_TOM_LISTE'
-    | 'KOSTNADSSTED_LIK_OPPFOLGINGSENHET';
+    | 'KOSTNADSSTED_LIK_OPPFOLGINGSENHET'
+    | 'KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL'
+    | 'KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
+    | 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET'
+    | 'FORMIDLINGSGRUPPE_IKKE_RETTIGHET'
+    | 'HENTING_AV_INNSATS_BEHOV_FEILET';
+
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -118,4 +124,9 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Kostnadssted blir satt lik oppfølgingsenhet ved avtaleinngåelse, trengs derfor ikke settes.',
     MANGLER_AD_GRUPPE_BESLUTTER:
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
+    KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
+    KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
+    KVALIFISERINGSGRUPPE_IKKE_RETTIGHET: 'Deltageren er registrert med en kvalifiserings gruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.',
+    FORMIDLINGSGRUPPE_IKKE_RETTIGHET: 'Deltageren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette Arbeidstiltaket.',
+    HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov'
 };
