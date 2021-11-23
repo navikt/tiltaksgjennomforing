@@ -7,6 +7,7 @@ const whitelistPaths = [
     'bjelle-varsler',
     'hendelselogg',
     'be-om-altinn-rettighet-urler',
+    'kodeverk'
 ];
 
 if (process.env.NODE_ENV === 'development') {
