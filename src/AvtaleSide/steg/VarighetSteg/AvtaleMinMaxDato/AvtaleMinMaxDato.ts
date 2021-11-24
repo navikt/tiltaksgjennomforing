@@ -17,26 +17,31 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): string =>
         moment(avtale.startDato).add(megde, tidsEnhet).format('YYYY-MM-DD');
 
+    const settdatoBegrensningTiltakstype = (tiltakstype: string) => {
+        switch (tiltakstype) {
+            case 'MIDLERTIDIG_LONNSTILSKUDD':
+                return {
+                    minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO,
+                    maxDate:
+                        avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
+                        !avtale.kvalifiseringsgruppe
+                            ? startdatoPluss(1, 'years')
+                            : startdatoPluss(2, 'years'),
+                };
+            case 'ARBEIDSTRENING':
+                return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: startdatoPluss(18, 'months') };
+            case 'SOMMERJOBB':
+                return {
+                    minDate: new Date(new Date().getFullYear(), 5, 2).toISOString(),
+                    maxDate: startdatoPluss(4, 'weeks'),
+                };
+            default:
+                return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
+        }
+    }
+
     if (avtale.startDato) {
-        if (erTiltakstype('MIDLERTIDIG_LONNSTILSKUDD')) {
-            return {
-                minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO,
-                maxDate:
-                    avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
-                    !avtale.kvalifiseringsgruppe
-                        ? startdatoPluss(1, 'years')
-                        : startdatoPluss(2, 'years'),
-            };
-        }
-        if (erTiltakstype('ARBEIDSTRENING')) {
-            return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: startdatoPluss(18, 'months') };
-        }
-        if (erTiltakstype('SOMMERJOBB')) {
-            return {
-                minDate: new Date(new Date().getFullYear(), 5, 2).toISOString(),
-                maxDate: startdatoPluss(4, 'weeks'),
-            };
-        }
+        settdatoBegrensningTiltakstype(avtale.tiltakstype);
     }
     return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
 };
