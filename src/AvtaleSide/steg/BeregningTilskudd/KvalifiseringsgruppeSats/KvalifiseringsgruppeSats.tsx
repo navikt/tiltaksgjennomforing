@@ -22,6 +22,12 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
         }
     };
 
+    const settLonnstilskuddsprosent = () => {
+        return avtale.lonnstilskuddProsent
+            ? (avtale.lonnstilskuddProsent ?? '0').toString() + ' %'
+            : settTekstTilLonntilskuddProsent()
+    }
+
     return innloggetBruker.erNavAnsatt ? (
         <>
             {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && (
@@ -48,9 +54,7 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
     ) : (
         <>
             <Normaltekst>
-                {avtale.lonnstilskuddProsent
-                    ? (avtale.lonnstilskuddProsent ?? '0').toString() + ' %'
-                    : settTekstTilLonntilskuddProsent()}
+                {settLonnstilskuddsprosent()}
             </Normaltekst>
             <VerticalSpacer rem={1} />
         </>
