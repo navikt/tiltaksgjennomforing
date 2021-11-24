@@ -12,36 +12,45 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const { avtale } = useContext(AvtaleContext);
     const { erNavAnsatt } = useContext(InnloggetBrukerContext);
 
-    const erTiltakstype = (tiltakstype: string): boolean => tiltakstype === avtale.tiltakstype;
-
     const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): string =>
         moment(avtale.startDato).add(megde, tidsEnhet).format('YYYY-MM-DD');
+
+    const settdatoMidlertidligLonnstilskudd = () => ({
+        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO,
+        maxDate: avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
+        !avtale.kvalifiseringsgruppe
+            ? startdatoPluss(1, 'years')
+            : startdatoPluss(2, 'years'),
+    });
+
+    const settdatoArbeidstrening = () => ({
+        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: startdatoPluss(18, 'months'),
+    });
+
+    const settdatoSommerjobb = () => ({
+        minDate: new Date(new Date().getFullYear(), 5, 2).toISOString(),
+        maxDate: startdatoPluss(4, 'weeks'),
+    });
+
+    const settdatoDefaultVerdi = () => ({
+        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE,
+    });
 
     const settdatoBegrensningTiltakstype = (tiltakstype: string) => {
         switch (tiltakstype) {
             case 'MIDLERTIDIG_LONNSTILSKUDD':
-                return {
-                    minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO,
-                    maxDate:
-                        avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
-                        !avtale.kvalifiseringsgruppe
-                            ? startdatoPluss(1, 'years')
-                            : startdatoPluss(2, 'years'),
-                };
+                return settdatoMidlertidligLonnstilskudd();
             case 'ARBEIDSTRENING':
-                return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: startdatoPluss(18, 'months') };
+                return settdatoArbeidstrening();
             case 'SOMMERJOBB':
-                return {
-                    minDate: new Date(new Date().getFullYear(), 5, 2).toISOString(),
-                    maxDate: startdatoPluss(4, 'weeks'),
-                };
+                return settdatoSommerjobb();
             default:
-                return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
+                return settdatoDefaultVerdi();
         }
-    }
+    };
 
     if (avtale.startDato) {
         settdatoBegrensningTiltakstype(avtale.tiltakstype);
     }
-    return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
+    return settdatoDefaultVerdi();
 };
