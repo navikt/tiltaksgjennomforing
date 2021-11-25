@@ -15,7 +15,7 @@ export enum Kvalifiseringsgruppe {
 
 export const sjekkKvalifiseringsgruppeOppMotTiltakstype = (tiltakstype: string, kvalifiseringsgruppe: string) => {
     if (
-        (tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' &&
+        ((tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'SOMMERJOBB') &&
             !erGyldingKvalifiseringForMidlertidiglonnstilskudd(kvalifiseringsgruppe)) ||
         (tiltakstype === 'VARIG_LONNSTILSKUDD' && !erGyldingKvalifiseringForVariglonntilskudd(kvalifiseringsgruppe))
     ) {
