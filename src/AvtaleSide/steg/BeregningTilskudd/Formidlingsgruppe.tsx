@@ -1,5 +1,6 @@
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { genererGyldigListeMedlemmer } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { FunctionComponent } from 'react';
 
 export enum Formidlingsgruppe {
     ARBEIDSSOKER = 'ARBS', // Person er tilgjengelig for alt søk etter   arbeidskraft, ordinær og vikar
@@ -26,7 +27,12 @@ const ugyldigFormidlingsgruppe = (formidlingsgruppe: Formidlingsgruppe): boolean
     }
 };
 
-export const sjekkOmGyldigFormidlingsgruppe = (formidlingsgruppe: Formidlingsgruppe) => {
+interface Props {
+    formidlingsgruppe: Formidlingsgruppe;
+}
+
+export const SjekkOmGyldigFormidlingsgruppe: FunctionComponent<Props> = (props) => {
+    const { formidlingsgruppe } = props;
     if (ugyldigFormidlingsgruppe(formidlingsgruppe)) {
         return (
             <AlertStripeAdvarsel>

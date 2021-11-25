@@ -8,17 +8,17 @@ import OppdatereKostnadssted from '@/AvtaleSide/steg/KontaktInformasjonSteg/kont
 import { AvtaleContext } from '@/AvtaleProvider';
 import {
     hentKvalifiseringsgruppeTekst,
-    sjekkKvalifiseringsgruppeOppMotTiltakstype,
+    SjekkKvalifiseringsgruppeOppMotTiltakstype,
 } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import {
     hentFormidlingsgruppeTekst,
-    sjekkOmGyldigFormidlingsgruppe,
+    SjekkOmGyldigFormidlingsgruppe,
 } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
 const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
-    oppsummeringside,
-}: {
+                                                                          oppsummeringside,
+                                                                      }: {
     oppsummeringside: boolean;
 }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -29,7 +29,7 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
 
     const { tiltakstype, kvalifiseringsgruppe, formidlingsgruppe } = avtale;
     const cls = BEMHelper('kontorinfo');
-    const ikon = () => (oppsummeringside ? <NavIkon className="kontorinfo__ikon" width={28} height={28} /> : null);
+    const ikon = () => (oppsummeringside ? <NavIkon className='kontorinfo__ikon' width={28} height={28} /> : null);
 
     return (
         <div className={cls.className}>
@@ -40,13 +40,13 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
             <div className={cls.element('info-rad')}>
                 <Normaltekst>Geografisk enhet</Normaltekst>
                 <Undertittel>
-                    <HentNavEnhetFraContext enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />
+                    <HentNavEnhetFraContext enhetsnr='enhetGeografisk' enhetsNavn='enhetsnavnGeografisk' />
                 </Undertittel>
             </div>
             <div className={cls.element('info-rad')}>
                 <Normaltekst>Oppfølgingsenhet</Normaltekst>
                 <Undertittel>
-                    <HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
+                    <HentNavEnhetFraContext enhetsnr='enhetOppfolging' enhetsNavn='enhetsnavnOppfolging' />
                 </Undertittel>
             </div>
             {!oppsummeringside && <OppdatereKostnadssted />}
@@ -62,8 +62,11 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
                     {formidlingsgruppe ? hentFormidlingsgruppeTekst(formidlingsgruppe) : <em>Ikke oppgitt</em>}
                 </Undertittel>
             </div>
-            {!avtale.avtaleInngått && sjekkKvalifiseringsgruppeOppMotTiltakstype(tiltakstype, kvalifiseringsgruppe)}
-            {!avtale.avtaleInngått && sjekkOmGyldigFormidlingsgruppe(formidlingsgruppe)}
+            {!avtale.avtaleInngått &&
+            <SjekkKvalifiseringsgruppeOppMotTiltakstype
+                tiltakstype={tiltakstype}
+                kvalifiseringsgruppe={kvalifiseringsgruppe} />}
+            {!avtale.avtaleInngått && <SjekkOmGyldigFormidlingsgruppe formidlingsgruppe={formidlingsgruppe} />}
         </div>
     );
 };

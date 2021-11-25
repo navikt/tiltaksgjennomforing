@@ -1,4 +1,5 @@
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { FunctionComponent } from 'react';
 
 export enum Kvalifiseringsgruppe {
     SPESIELT_TILPASSET_INNSATS = 'BATT', // Personen har nedsatt arbeidsevne og har et identifisert behov.
@@ -13,7 +14,13 @@ export enum Kvalifiseringsgruppe {
     SYKMELDT_UTEN_ARBEIDSGIVER = 'VURDU', // Sykmeldt uten arbeidsgiver
 }
 
-export const sjekkKvalifiseringsgruppeOppMotTiltakstype = (tiltakstype: string, kvalifiseringsgruppe: string) => {
+interface Props {
+    tiltakstype: string;
+    kvalifiseringsgruppe: string;
+}
+
+export const SjekkKvalifiseringsgruppeOppMotTiltakstype:FunctionComponent<Props> = (props) => {
+    const { tiltakstype, kvalifiseringsgruppe } = props;
     if (
         ((tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'SOMMERJOBB') &&
             !erGyldingKvalifiseringForMidlertidiglonnstilskudd(kvalifiseringsgruppe)) ||
