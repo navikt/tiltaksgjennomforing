@@ -1,5 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import KontorInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/KontorInfo';
+import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import React, { FunctionComponent, useContext } from 'react';
@@ -13,7 +13,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
 
     return (
         <Innholdsboks>
-            <KontorInfo oppsummeringside={false} />
+            <DeltakerInfo oppsummeringside={false} />
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
             <VeilederinfoDel />

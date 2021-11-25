@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
-import './kontorInfo.less';
+import './deltakerInfo.less';
 import BEMHelper from '@/utils/bem';
 import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
@@ -16,7 +16,7 @@ import {
     SjekkOmGyldigFormidlingsgruppe,
 } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
-const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
+const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
                                                                           oppsummeringside,
                                                                       }: {
     oppsummeringside: boolean;
@@ -28,14 +28,14 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
     }
 
     const { tiltakstype, kvalifiseringsgruppe, formidlingsgruppe } = avtale;
-    const cls = BEMHelper('kontorinfo');
+    const cls = BEMHelper('deltakerinfo');
     const ikon = () => (oppsummeringside ? <NavIkon className='kontorinfo__ikon' width={28} height={28} /> : null);
 
     return (
         <div className={cls.className}>
             <div className={cls.element('ingress', oppsummeringside ? 'oppsummering' : '')}>
                 {ikon()}
-                <Systemtittel>NAV-kontor</Systemtittel>
+                <Systemtittel>Om deltakeren</Systemtittel>
             </div>
             <div className={cls.element('info-rad')}>
                 <Normaltekst>Geografisk enhet</Normaltekst>
@@ -70,4 +70,4 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
         </div>
     );
 };
-export default KontorInfo;
+export default DeltakerInfo;
