@@ -62,8 +62,8 @@ const KontorInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
                     {formidlingsgruppe ? hentFormidlingsgruppeTekst(formidlingsgruppe) : <em>Ikke oppgitt</em>}
                 </Undertittel>
             </div>
-            {sjekkKvalifiseringsgruppeOppMotTiltakstype(tiltakstype, kvalifiseringsgruppe)}
-            {sjekkOmGyldigFormidlingsgruppe(formidlingsgruppe)}
+            {!avtale.avtaleInngått && sjekkKvalifiseringsgruppeOppMotTiltakstype(tiltakstype, kvalifiseringsgruppe)}
+            {!avtale.avtaleInngått && sjekkOmGyldigFormidlingsgruppe(formidlingsgruppe)}
         </div>
     );
 };

@@ -128,7 +128,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
     KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
     KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
-    KVALIFISERINGSGRUPPE_IKKE_RETTIGHET: 'Deltageren er registrert med en kvalifiserings gruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.',
-    FORMIDLINGSGRUPPE_IKKE_RETTIGHET: 'Deltageren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette Arbeidstiltaket.',
+    KVALIFISERINGSGRUPPE_IKKE_RETTIGHET: 'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.',
+    FORMIDLINGSGRUPPE_IKKE_RETTIGHET: 'Deltakeren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette tiltaket.',
     HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov'
 };
