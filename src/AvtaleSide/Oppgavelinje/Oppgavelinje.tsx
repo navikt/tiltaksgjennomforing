@@ -41,17 +41,19 @@ const OppgaveLinje: React.FunctionComponent = () => {
         }
     };
 
+    const visKunHendelseslog = avtaleContext.avtale.annullertTidspunkt || innloggetBruker.rolle !== 'VEILEDER';
+
     return (
         <>
             <VerticalSpacer rem={1} />
             <div className={cls.element('meny-wrapper')}>
                 <TilbakeTilOversiktLenke onClick={lagreEndringer} />
-                {(innloggetBruker.rolle !== 'VEILEDER' || avtaleContext.avtale.annullertTidspunkt) && (
+                {visKunHendelseslog && (
                     <div>
                         <Varsellogg />
                     </div>
                 )}
-                {innloggetBruker.rolle === 'VEILEDER' && !avtaleContext.avtale.annullertTidspunkt && (
+                {!visKunHendelseslog && (
                     <>
                         <Menyknapp
                             className={cls.element('popover-knapp')}
