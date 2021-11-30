@@ -1,30 +1,31 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
-import OppgavelinjeMobil from '@/AvtaleSide/Oppgavelinje/OppgavelinjeMobil';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { FeilVarselContext } from '@/FeilVarselProvider';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
-import React, { useContext, useEffect, useState } from 'react';
-
-interface Props {
-    enableScreenSizeCheck: boolean;
-}
+import { Menyknapp } from 'nav-frontend-ikonknapper';
+import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+import React, { useContext, useState } from 'react';
+import Varsellogg from '../Varsellogg/Varsellogg';
 
 const cls = BEMHelper('avtaleside');
 
-const OppgaveLinje: React.FunctionComponent<Props> = props => {
-    const checksize: boolean = props.enableScreenSizeCheck ? window.innerWidth < 768 : !props.enableScreenSizeCheck;
-    const [isMobile, setIsMobile] = useState<boolean>(checksize);
+const OppgaveLinje: React.FunctionComponent = () => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
+    const [dropdown, setDropdown] = useState<HTMLElement | undefined>(undefined);
+
+    const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (dropdown) {
+            return setDropdown(undefined);
+        }
+        return setDropdown(event.currentTarget);
+    };
+
     const { ulagredeEndringer, lagreAvtale } = useContext(AvtaleContext);
     const visFeilmelding = useContext(FeilVarselContext);
-
-    useEffect(() => {
-        document.addEventListener('resize', () => setIsMobile(checksize));
-        return () => {
-            document.removeEventListener('resize', () => setIsMobile(checksize));
-        };
-    }, [props.enableScreenSizeCheck, checksize]);
 
     const lagreEndringer = async () => {
         if (ulagredeEndringer) {
@@ -41,17 +42,41 @@ const OppgaveLinje: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            {isMobile && <OppgavelinjeMobil />}
-            {!isMobile && (
-                <>
-                    <div className={cls.element('lenkerlinje')} role="menu">
-                        <TilbakeTilOversiktLenke onClick={lagreEndringer} />
-                        <div className={cls.element('avbrytOgDelLenk')}>
-                            <OppgaveLenker />
-                        </div>
+            <VerticalSpacer rem={1} />
+            <div className={cls.element('meny-wrapper')}>
+                <TilbakeTilOversiktLenke onClick={lagreEndringer} />
+                {innloggetBruker.rolle !== 'VEILEDER' && (
+                    <div>
+                        <Varsellogg />
                     </div>
-                </>
-            )}
+                )}
+                {innloggetBruker.rolle === 'VEILEDER' && (
+                    <>
+                        <Menyknapp
+                            className={cls.element('popover-knapp')}
+                            id="menyKnapp"
+                            onClick={(e) => toggleMenu(e)}
+                            aria-expanded={dropdown !== undefined}
+                            aria-controls={'menyvalg'}
+                            aria-haspopup="menu"
+                        >
+                            Meny
+                        </Menyknapp>
+                        <Popover
+                            id={'menyvalg'}
+                            ankerEl={dropdown}
+                            onRequestClose={() => setDropdown(undefined)}
+                            orientering={PopoverOrientering.UnderVenstre}
+                            autoFokus={false}
+                            tabIndex={-1}
+                            utenPil={true}
+                        >
+                            <OppgaveLenker />
+                        </Popover>
+                    </>
+                )}
+            </div>
+            <VerticalSpacer rem={1} />
         </>
     );
 };
