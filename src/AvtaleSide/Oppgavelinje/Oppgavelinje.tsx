@@ -15,6 +15,7 @@ const cls = BEMHelper('avtaleside');
 
 const OppgaveLinje: React.FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const avtaleContext = useContext(AvtaleContext);
     const [dropdown, setDropdown] = useState<HTMLElement | undefined>(undefined);
 
     const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,12 +46,12 @@ const OppgaveLinje: React.FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <div className={cls.element('meny-wrapper')}>
                 <TilbakeTilOversiktLenke onClick={lagreEndringer} />
-                {innloggetBruker.rolle !== 'VEILEDER' && (
+                {(innloggetBruker.rolle !== 'VEILEDER' || avtaleContext.avtale.annullertTidspunkt) && (
                     <div>
                         <Varsellogg />
                     </div>
                 )}
-                {innloggetBruker.rolle === 'VEILEDER' && (
+                {innloggetBruker.rolle === 'VEILEDER' && !avtaleContext.avtale.annullertTidspunkt && (
                     <>
                         <Menyknapp
                             className={cls.element('popover-knapp')}
