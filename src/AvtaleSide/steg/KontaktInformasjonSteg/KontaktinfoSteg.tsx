@@ -1,6 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import KontorInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/KontorInfo';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import React, { FunctionComponent, useContext } from 'react';
@@ -11,11 +10,10 @@ import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 
 const KontaktinfoSteg: FunctionComponent = () => {
     const { lagreAvtale } = useContext(AvtaleContext);
-    const innloggetBruker = useContext(InnloggetBrukerContext);
 
     return (
         <Innholdsboks>
-            {innloggetBruker.rolle === 'VEILEDER' && <KontorInfo oppsummeringside={false} />}
+            <DeltakerInfo oppsummeringside={false} />
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
             <VeilederinfoDel />

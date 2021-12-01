@@ -1,5 +1,7 @@
 import { Context } from '@/AvtaleProvider';
 import { Avslagsårsaker, Avtale } from '@/types/avtale';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
 const avtaleInnhold: Avtale = {
     arbeidsgiverEtternavn: '',
@@ -16,6 +18,8 @@ const avtaleInnhold: Avtale = {
     feriepengerBelop: 1,
     feriepengesats: 100,
     harFamilietilknytning: false,
+    kvalifiseringsgruppe: Kvalifiseringsgruppe.SPESIELT_TILPASSET_INNSATS,
+    formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
     maal: [{ beskrivelse: '', kategori: 'ANNET', id: '' }],
     mentorAntallTimer: 1,
     mentorEtternavn: '',

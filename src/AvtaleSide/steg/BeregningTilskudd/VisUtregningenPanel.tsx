@@ -17,7 +17,7 @@ import { Element } from 'nav-frontend-typografi';
 
 const cls = BEMHelper('visUtregningenPanel');
 
-const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
+const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     return (
         <Ekspanderbartpanel border={true} tittel={'Utregningen'} apen={true}>
             <Container fluid={true}>
@@ -127,7 +127,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = props => {
                         <MediaQuery minWidth={700}>
                             <GraphRefusjonAvLonnIkon className={cls.element('ikon')} />
                         </MediaQuery>
-                        <div>Fastsatt refusjon</div>
+                        <div>Fastsatt tilskudds prosent</div>
                     </Column>
                     <Column md="6" sm="3" xs="6" className={cls.element('column__siste')}>
                         {props.lonnstilskuddProsent || 0} %
