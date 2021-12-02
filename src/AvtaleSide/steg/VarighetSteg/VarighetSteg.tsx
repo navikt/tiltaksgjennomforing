@@ -17,6 +17,7 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
+import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -30,7 +31,6 @@ const VarighetSteg: FunctionComponent = () => {
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
-    const arbgiverDatoGrense = erArbeidsgiverOgUfordelt ? { minDate: new Date().toISOString() } : {};
     const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.startDato || undefined}
-                            limitations={arbgiverDatoGrense}
+                            limitations={AvtaleMinMaxDato()}
                             onChange={(dato) => avtaleContext.settAvtaleVerdier({ startDato: dato })}
                         />
                     </Column>
@@ -75,7 +75,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.sluttDato || undefined}
-                            limitations={arbgiverDatoGrense}
+                            limitations={AvtaleMinMaxDato()}
                             onChange={(dato) => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
                         />
                     </Column>

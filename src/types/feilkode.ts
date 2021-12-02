@@ -13,6 +13,7 @@ export type Feilkode =
     | 'START_ETTER_SLUTT'
     | 'UGYLDIG_TLF'
     | 'IKKE_FORDELT'
+    | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_FORTI_PROSENT'
     | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD'
     | 'VARIGHET_FOR_LANG_ARBEIDSTRENING'
     | 'VARIGHET_FOR_LANG_MENTOR'
@@ -55,7 +56,13 @@ export type Feilkode =
     | 'KAN_IKKE_ENDRE_OPPFØLGING_OG_TILRETTELEGGING_GRUNN_MANGLER'
     | 'MANGLER_AD_GRUPPE_BESLUTTER'
     | 'KAN_IKKE_ENDRE_MAAL_TOM_LISTE'
-    | 'KOSTNADSSTED_LIK_OPPFOLGINGSENHET';
+    | 'KOSTNADSSTED_LIK_OPPFOLGINGSENHET'
+    | 'KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL'
+    | 'KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
+    | 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET'
+    | 'FORMIDLINGSGRUPPE_IKKE_RETTIGHET'
+    | 'HENTING_AV_INNSATS_BEHOV_FEILET';
+
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -74,6 +81,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ER_ALLEREDE_VEILEDER: 'Innlogget bruker er allerede veileder på denne avtalen',
     START_ETTER_SLUTT: 'Startdato er etter sluttdato',
     VARIGHET_DATO_TILBAKE_I_TID: 'Dato på varighet er tilbake i tid',
+    VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_FORTI_PROSENT: 'Avtalens varighet er maksimalt 12 måneder',
     VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD: 'Avtalens varighet er maksimalt 24 måneder',
     VARIGHET_FOR_LANG_MENTOR: 'Avtalens varighet er maksimalt 36 måneder',
     VARIGHET_FOR_LANG_ARBEIDSTRENING: 'Avtalens varighet er maksimalt 18 måneder',
@@ -118,4 +126,9 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Kostnadssted blir satt lik oppfølgingsenhet ved avtaleinngåelse, trengs derfor ikke settes.',
     MANGLER_AD_GRUPPE_BESLUTTER:
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
+    KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
+    KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
+    KVALIFISERINGSGRUPPE_IKKE_RETTIGHET: 'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.',
+    FORMIDLINGSGRUPPE_IKKE_RETTIGHET: 'Deltakeren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette tiltaket.',
+    HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov'
 };

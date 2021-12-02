@@ -6,6 +6,22 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(1, 12, 2021),
+        tittel: 'Henting av innsatsbehov for kandidat',
+        innhold: (
+            <>
+                <p>
+                    Nå henter avtaleløsningen innsatsbehovet. Det medfører at kandidaten trenger riktig
+                    kvalifiseringsgruppe og formidlingsgruppe i arena for å kunne opprette og inngå avtaler.
+                </p>
+                <p>
+                    Er innsatsbehovet til kandidaten feil, vennligst registrer nytt oppfølgingsbehov som samsvarer med
+                    reglene rundt gitt tiltak.
+                </p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(16, 6, 2021),
         tittel: 'Godkjenning på vegne av arbeidsgiver for sommerjobb',
         innhold: (

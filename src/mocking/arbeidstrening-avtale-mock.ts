@@ -1,4 +1,6 @@
 import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
 const maalListe: Maal[] = [
     {
@@ -45,7 +47,6 @@ const arbeidstreningAvtaleMock: Avtale = {
     avbrutt: false,
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,
-
     godkjentPaVegneGrunn: undefined,
 
     oppfolging: 'Bruker og AG skal følges opp',
@@ -88,6 +89,9 @@ const arbeidstreningAvtaleMock: Avtale = {
 
     enhetKostnadssted: undefined,
     enhetsnavnKostnadssted: undefined,
+
+    kvalifiseringsgruppe: Kvalifiseringsgruppe.SPESIELT_TILPASSET_INNSATS,
+    formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
 };
 
 export default arbeidstreningAvtaleMock;

@@ -3,7 +3,7 @@ import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
-import KontorInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/KontorInfo';
+import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
@@ -36,7 +36,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     </SkjemaTittel>
                     {avtale.erLaast && <LagreSomPdfKnapp avtaleId={avtale.id} />}
                 </div>
-                {innloggetBruker.rolle === 'VEILEDER' && <KontorInfo oppsummeringside={true} />}
+                {innloggetBruker.rolle === 'VEILEDER' && <DeltakerInfo oppsummeringside={true} />}
                 <Avtaleparter {...avtale} />
                 {createElement(props.oppsummering, { avtaleinnhold: avtale })}
             </Innholdsboks>
