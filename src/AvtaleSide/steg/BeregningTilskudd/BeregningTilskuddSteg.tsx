@@ -1,6 +1,6 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {AvtaleContext} from '@/AvtaleProvider';
+import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
@@ -17,7 +17,6 @@ import {parseFloatIfFloatable} from '@/utils/lonnstilskuddUtregningUtils';
 import {Column, Row} from 'nav-frontend-grid';
 import {Normaltekst, Undertittel} from 'nav-frontend-typografi';
 import React, {FunctionComponent, useContext} from 'react';
-import {useState} from "react";
 import './BeregningTilskuddSteg.less';
 import UtregningPanel from './UtregningPanel';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
