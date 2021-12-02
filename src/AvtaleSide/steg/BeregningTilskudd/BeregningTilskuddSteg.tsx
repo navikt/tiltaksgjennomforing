@@ -1,7 +1,7 @@
-import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
-import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {ReactComponent as PenFillIkon} from '@/assets/ikoner/pencil-fill.svg';
+import {AvtaleContext} from '@/AvtaleProvider';
+import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
@@ -9,20 +9,21 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { Knapp } from 'nav-frontend-knapper';
+import {Knapp} from 'nav-frontend-knapper';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
-import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
+import {hentKontonummerForArbeidsgiver} from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
-import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import {parseFloatIfFloatable} from '@/utils/lonnstilskuddUtregningUtils';
+import {Column, Row} from 'nav-frontend-grid';
+import {Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext} from 'react';
+import {useState} from "react";
 import './BeregningTilskuddSteg.less';
 import LonnstilskuddProsent from './LonnstilskuddProsent';
 import UtregningPanel from './UtregningPanel';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
-import { Money } from '@navikt/ds-icons/cjs';
+import {Money} from '@navikt/ds-icons/cjs';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 
@@ -47,6 +48,7 @@ const arbeidsgiveravgiftAlternativer = (() => {
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const [txt, settTxt] = useState("")
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvKnappHentKontonummerForArbeidsgiver =
         featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
@@ -157,16 +159,17 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <VerticalSpacer rem={1.25} />
                     <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
                     <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                        <ProsentInput
+                        {<ProsentInput
                             name="tjenestepensjon"
                             bredde="S"
                             label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
                             min={0}
                             max={30}
+                            maxLength={4}
                             autoComplete={'off'}
                             value={
                                 avtale.otpSats !== undefined && avtale.otpSats !== null
-                                    ? (avtale.otpSats * 100).toFixed(0)
+                                    ? (avtale.otpSats * 100).toFixed(2)
                                     : ''
                             }
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -175,7 +178,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                         event.target.value === '' ? undefined : parseFloat(event.target.value) / 100,
                                 })
                             }
-                        />
+                        />}
                     </div>
                     <VerticalSpacer rem={1.25} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>

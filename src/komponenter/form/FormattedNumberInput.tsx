@@ -1,6 +1,6 @@
-import { fromFormatted, toNumberOnFocus } from '@/komponenter/form/utils/form-utils';
+import {toNumberOnFocus} from '@/komponenter/form/utils/form-utils';
 import useValidering from '@/komponenter/useValidering';
-import { Input, InputProps } from 'nav-frontend-skjema';
+import {Input, InputProps} from 'nav-frontend-skjema';
 import React from 'react';
 
 const DEFAULT_INPUT_MAX_LENGTH = 524288;
@@ -10,22 +10,41 @@ interface FormattedNumberInputProps extends InputProps {
     validatorer: Array<(value: any) => string | undefined>;
 }
 
+/**
+ ////  Testet via: FormattedNumberInput.spec.txs ///
+ */
 const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> = (props) => {
-    const { value, validatorer, toFormatted, onChange, maxLength, max, ...other } = props;
+    const {value, validatorer, toFormatted, onChange, maxLength, max, ...other} = props;
+    const [tallVerdi, setVerdi] = React.useState(value);
     const [feil, settFeil, sjekkInputfelt] = useValidering(value, validatorer);
+
     const maximumLength = maxLength ? maxLength : DEFAULT_INPUT_MAX_LENGTH;
     const onChangeOverride = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let numericValue = 0;
-        if (event.target.value !== '') {
-            numericValue = parseFloat(fromFormatted(event.target.value));
+        const originalVerdi = event.target.value.replace(",", ".")
+        if (originalVerdi.length === 0) {
+            applyOnChange(event);
+            setVerdi("")
+            return
         }
+        const numericValue = parseFloat(originalVerdi)
         const underMax = max ? max >= numericValue : true;
-        if (numericValue.toString().length <= maximumLength && underMax) {
-            if (onChange !== undefined) {
-                onChange(event);
-            }
+        const erTallInnenforGrense = () => numericValue.toString().length <= maximumLength && underMax;
+        if (erTallInnenforGrense()) {
+            event.target.value = numericValue + ""
+            applyOnChange(event);
+            setVerdi(numericValue)
+        } else {
+            event.target.value = max + ""
+            applyOnChange(event);
+            setVerdi(max)
         }
     };
+
+    const applyOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (onChange) {
+            onChange(event)
+        }
+    }
 
     const onBlur = (event: React.SyntheticEvent<HTMLInputElement>) => {
         settFeil(undefined);
@@ -45,7 +64,7 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
             inputRef={inputRef}
             feil={feil}
             onBlur={onBlur}
-            value={value || ''}
+            value={tallVerdi || ''}
             maxLength={maxLength}
             max={max}
             onChange={onChangeOverride}

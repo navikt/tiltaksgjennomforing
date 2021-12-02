@@ -1,10 +1,10 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
-import { formatterProsent } from '@/utils/formatterProsent';
-import { InputProps } from 'nav-frontend-skjema';
+import {formatterProsent} from '@/utils/formatterProsent';
+import {InputProps} from 'nav-frontend-skjema';
 import React from 'react';
 
 const ProsentInput: React.FunctionComponent<InputProps> = (props) => {
-    const { step = 1, max, min, ...other } = props;
+    const {step = 1, max, min, ...other} = props;
     const validatorer = [
         (v: any) => {
             if (!v) {
@@ -27,6 +27,7 @@ const ProsentInput: React.FunctionComponent<InputProps> = (props) => {
         <FormattedNumberInput
             step={step}
             validatorer={validatorer}
+            maxLength={3}
             toFormatted={formatterProsent}
             max={max}
             min={min}
