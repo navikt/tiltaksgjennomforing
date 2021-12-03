@@ -12,8 +12,7 @@ import {
 } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import {
-    hentFormidlingsgruppeTekst,
-    SjekkOmGyldigFormidlingsgruppe,
+    hentFormidlingsgruppeTekst
 } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
 const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
@@ -66,7 +65,6 @@ const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
             <SjekkKvalifiseringsgruppeOppMotTiltakstype
                 tiltakstype={tiltakstype}
                 kvalifiseringsgruppe={kvalifiseringsgruppe} />}
-            {!avtale.avtaleInngått && <SjekkOmGyldigFormidlingsgruppe formidlingsgruppe={formidlingsgruppe} />}
         </div>
     );
 };
