@@ -11,8 +11,9 @@ const nyheter = [
         innhold: (
             <>
                 <p>
-                    Nå henter avtaleløsningen innsatsbehovet. Det medfører at kandidaten trenger riktig
-                    kvalifiseringsgruppe og formidlingsgruppe i arena for å kunne opprette og inngå avtaler.
+                    Nå henter avtaleløsningen innsatsbehovet til deltaker. Det medfører at deltaker trenger
+                    riktig innsatsbehov i Arena for å kunne opprette og inngå avtaler. For midlertidig lønnstilskudd
+                    vil nå prosentsatsen settes automatisk ut fra deltakers innsatsbehov.
                 </p>
                 <p>
                     Er innsatsbehovet til kandidaten feil, vennligst registrer nytt oppfølgingsbehov som samsvarer med
