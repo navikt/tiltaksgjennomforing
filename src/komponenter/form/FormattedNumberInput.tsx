@@ -22,27 +22,24 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
     const onChangeOverride = (event: React.ChangeEvent<HTMLInputElement>) => {
         const originalVerdi = event.target.value.replace(",", ".")
         if (originalVerdi.length === 0) {
-            applyOnChange(event);
-            setVerdi("")
+            applyOnChange(event, "");
             return
         }
         const numericValue = parseFloat(originalVerdi)
         const underMax = max ? max >= numericValue : true;
         const erTallInnenforGrense = () => numericValue.toString().length <= maximumLength && underMax;
         if (erTallInnenforGrense()) {
-            event.target.value = numericValue + ""
-            applyOnChange(event);
-            setVerdi(numericValue)
+            applyOnChange(event, numericValue.toString());
         } else {
-            event.target.value = max + ""
-            applyOnChange(event);
-            setVerdi(max)
+            applyOnChange(event, max + "");
         }
     };
 
-    const applyOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const applyOnChange = (event: React.ChangeEvent<HTMLInputElement>, targetValue: string) => {
         if (onChange) {
+            event.target.value = targetValue
             onChange(event)
+            setVerdi(targetValue)
         }
     }
 
