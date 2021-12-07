@@ -1,5 +1,7 @@
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
+import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 
 export type Avtale = Annullering &
     Avbrytelse &
@@ -63,6 +65,8 @@ export interface AvtaleMetadata {
     enhetOppfolging?: string;
     enhetsnavnOppfolging?: string;
     erAnnullertEllerAvbrutt: boolean;
+    kvalifiseringsgruppe: Kvalifiseringsgruppe;
+    formidlingsgruppe: Formidlingsgruppe;
 }
 
 export interface Avtaleparter {

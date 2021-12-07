@@ -83,7 +83,7 @@ const AvtaleSide: FunctionComponent = () => {
                 {erAvtaleLaast && (
                     <div className={cls.element('innhold')}>
                         <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
-                        <OppgaveLinje enableScreenSizeCheck={false} />
+                        <OppgaveLinje  />
                         <VerticalSpacer rem={1} />
                         <VerticalSpacer rem={1} />
                         {aktivtSteg.komponent}

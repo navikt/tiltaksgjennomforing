@@ -1,7 +1,6 @@
-import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
-import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {AvtaleContext} from '@/AvtaleProvider';
+import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
@@ -9,22 +8,22 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { Knapp } from 'nav-frontend-knapper';
+import {Knapp} from 'nav-frontend-knapper';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
-import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
+import {hentKontonummerForArbeidsgiver} from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
-import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import {parseFloatIfFloatable} from '@/utils/lonnstilskuddUtregningUtils';
+import {Column, Row} from 'nav-frontend-grid';
+import {Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext} from 'react';
 import './BeregningTilskuddSteg.less';
-import LonnstilskuddProsent from './LonnstilskuddProsent';
 import UtregningPanel from './UtregningPanel';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
-import { Money } from '@navikt/ds-icons/cjs';
+import {Money} from '@navikt/ds-icons/cjs';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
+import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -50,55 +49,12 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvKnappHentKontonummerForArbeidsgiver =
         featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
-
     const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
-            <Undertittel>Tilskuddsprosent</Undertittel>
-
-            {!avtale.lonnstilskuddProsent && (
-                <>
-                    <VerticalSpacer rem={0.25} />
-                    <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                        <PenFillIkon />
-                        <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av NAV</Normaltekst>
-                    </div>
-                    <VerticalSpacer rem={0.5} />
-                </>
-            )}
-
-            {innloggetBruker.erNavAnsatt && (
-                <>
-                    <Normaltekst className={cls.element('luft')}>
-                        Velg sats for refusjon som arbeidsgiver skal få tilbake
-                    </Normaltekst>
-                    <LonnstilskuddProsent
-                        tiltakstype={avtale.tiltakstype}
-                        lonnstilskuddProsent={avtale.lonnstilskuddProsent}
-                        settLonnstilskuddProsent={verdi =>
-                            settOgKalkulerBeregningsverdier({ lonnstilskuddProsent: verdi })
-                        }
-                    />
-                </>
-            )}
-            {!innloggetBruker.erNavAnsatt && (
-                <Normaltekst className={cls.element('luft')}>
-                    {avtale.lonnstilskuddProsent ? (
-                        avtale.lonnstilskuddProsent + ' %'
-                    ) : (
-                        <>
-                            {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && 'Her kan NAV sette en sats.'}
-                            {avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' &&
-                                'Her kan NAV sette en sats på 40% eller 60%'}
-                            {avtale.tiltakstype === 'SOMMERJOBB' && 'Her kan NAV sette en sats på 50% eller 75%'}
-                        </>
-                    )}
-                </Normaltekst>
-            )}
-
-            <VerticalSpacer rem={1} />
+            <KvalifiseringsgruppeSats />
             <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 <div>
@@ -157,16 +113,17 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <VerticalSpacer rem={1.25} />
                     <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
                     <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                        <ProsentInput
+                        {<ProsentInput
                             name="tjenestepensjon"
                             bredde="S"
                             label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
                             min={0}
                             max={30}
+                            maxLength={4}
                             autoComplete={'off'}
                             value={
                                 avtale.otpSats !== undefined && avtale.otpSats !== null
-                                    ? (avtale.otpSats * 100).toFixed(0)
+                                    ? (avtale.otpSats * 100).toFixed(2)
                                     : ''
                             }
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -175,7 +132,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                         event.target.value === '' ? undefined : parseFloat(event.target.value) / 100,
                                 })
                             }
-                        />
+                        />}
                     </div>
                     <VerticalSpacer rem={1.25} />
                     <Undertittel>Arbeidsgiveravgift</Undertittel>

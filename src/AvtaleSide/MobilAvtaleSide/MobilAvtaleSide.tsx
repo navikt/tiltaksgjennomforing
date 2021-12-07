@@ -18,7 +18,7 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            <OppgaveLinje enableScreenSizeCheck={true} />
+            <OppgaveLinje />
             <form>{ekspanderbartPanel}</form>
         </>
     );

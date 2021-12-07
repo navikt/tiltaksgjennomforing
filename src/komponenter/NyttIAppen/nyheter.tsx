@@ -6,6 +6,23 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(1, 12, 2021),
+        tittel: 'Henting av innsatsbehov for kandidat',
+        innhold: (
+            <>
+                <p>
+                    Nå henter avtaleløsningen innsatsbehovet til deltaker. Det medfører at deltaker trenger
+                    riktig innsatsbehov i Arena for å kunne opprette og inngå avtaler. For midlertidig lønnstilskudd
+                    vil nå prosentsatsen settes automatisk ut fra deltakers innsatsbehov.
+                </p>
+                <p>
+                    Er innsatsbehovet til kandidaten feil, vennligst registrer nytt oppfølgingsbehov som samsvarer med
+                    reglene rundt gitt tiltak.
+                </p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(16, 6, 2021),
         tittel: 'Godkjenning på vegne av arbeidsgiver for sommerjobb',
         innhold: (

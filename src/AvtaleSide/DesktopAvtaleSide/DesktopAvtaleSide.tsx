@@ -22,7 +22,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
         <>
             <div className={cls.element('desktop')}>
                 <BannerNAVAnsatt tekst={props.sidetittel} undertittel={`Avtalenummer: ${props.avtale.avtaleNr}`} />
-                <OppgaveLinje enableScreenSizeCheck={true} />
+                <OppgaveLinje />
                 <div className={cls.element('container')}>
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     <div className={cls.element('innhold')}>

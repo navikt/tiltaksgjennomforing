@@ -3,38 +3,28 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { DatepickerLimitations } from 'nav-datovelger';
 import moment, { DurationInputArg2 } from 'moment';
 import { useContext } from 'react';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
-
     const INGEN_DATO_SPERRE = undefined;
     const DAGENSDATO = new Date().toISOString();
-    const veilederEtterregistreringGrense = moment(new Date).subtract(7,'days').format('YYYY-MM-DD');
 
     const { avtale } = useContext(AvtaleContext);
-    const { erNavAnsatt, rolle, kanVæreBeslutter } = useContext(InnloggetBrukerContext);
-
-    const rolleStartdato = () => {
-        if(rolle === 'ARBEIDSGIVER'){
-            return DAGENSDATO;
-        }
-        if(rolle === 'VEILEDER' && !kanVæreBeslutter){
-            return veilederEtterregistreringGrense;
-        }
-        if(rolle === 'VEILEDER' && kanVæreBeslutter){
-            return INGEN_DATO_SPERRE;
-        }
-    }
+    const { erNavAnsatt } = useContext(InnloggetBrukerContext);
 
     const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): string =>
         moment(avtale.startDato).add(megde, tidsEnhet).format('YYYY-MM-DD');
 
     const settdatoMidlertidligLonnstilskudd = () => ({
-        minDate: rolleStartdato(),
-        maxDate: startdatoPluss(2,'years')
+        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO,
+        maxDate: avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
+        !avtale.kvalifiseringsgruppe
+            ? startdatoPluss(1, 'years')
+            : startdatoPluss(2, 'years'),
     });
 
     const settdatoArbeidstrening = () => ({
-        minDate: rolleStartdato(), maxDate: startdatoPluss(18, 'months'),
+        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: startdatoPluss(18, 'months'),
     });
 
     const settdatoSommerjobb = () => ({
@@ -43,7 +33,7 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     });
 
     const settdatoDefaultVerdi = () => ({
-        minDate: rolleStartdato(), maxDate: INGEN_DATO_SPERRE,
+        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE,
     });
 
     const settdatoBegrensningTiltakstype = (tiltakstype: string) => {
@@ -55,13 +45,12 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
             case 'SOMMERJOBB':
                 return settdatoSommerjobb();
             default:
-                return { minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE };
+                return settdatoDefaultVerdi();
         }
+    };
+
+    if (avtale.startDato) {
+        settdatoBegrensningTiltakstype(avtale.tiltakstype);
     }
-
-if (avtale.startDato) {
-    settdatoBegrensningTiltakstype(avtale.tiltakstype);
-}
-
-return settdatoDefaultVerdi();
+    return settdatoDefaultVerdi();
 };
