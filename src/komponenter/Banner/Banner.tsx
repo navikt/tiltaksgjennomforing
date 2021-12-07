@@ -1,10 +1,11 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import Bedriftsmeny from '@navikt/bedriftsmeny';
+import useTimeout from '@/utils/useTimeout';
 import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
+import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { Innholdstittel, UndertekstBold } from 'nav-frontend-typografi';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import './Banner.less';
@@ -30,7 +31,12 @@ const miljo = (() => {
 
 const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const [visNotifikasjoner, setVisNotifikasjoner] = useState(false);
     const history = useHistory();
+
+    useTimeout(() => {
+        setVisNotifikasjoner(true);
+    }, 1000);
 
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
@@ -51,7 +57,7 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                         </>
                     }
                 >
-                    <NotifikasjonWidget miljo={miljo}/>
+                    {visNotifikasjoner && <NotifikasjonWidget miljo={miljo} />}
                 </Bedriftsmeny>
             );
         case 'DELTAKER':
