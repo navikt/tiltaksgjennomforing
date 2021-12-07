@@ -88,6 +88,9 @@ const arbeidstreningAvtaleMock: Avtale = {
 
     enhetKostnadssted: undefined,
     enhetsnavnKostnadssted: undefined,
+
+    erGodkjentForEtterregistrering: false,
+
 };
 
 export default arbeidstreningAvtaleMock;

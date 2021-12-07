@@ -22,7 +22,8 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     TilskuddsPerioder &
     Kontonummer &
     RelasjonerInfo &
-    Mentorinfo;
+    Mentorinfo &
+    Etterregistrering;
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'
@@ -131,6 +132,10 @@ export interface Beregningsgrunnlag {
     manedslonn100pst?: number;
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
+}
+
+export interface Etterregistrering {
+    erGodkjentForEtterregistrering: boolean
 }
 
 export interface TilskuddsPerioder {

@@ -75,6 +75,8 @@ const lonnstilskuddAvtaleMock: Avtale = {
 
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,
+
+    erGodkjentForEtterregistrering: false,
 };
 
 export default lonnstilskuddAvtaleMock;

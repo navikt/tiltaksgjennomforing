@@ -18,6 +18,7 @@ import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
+import {setOmAvtalenKanEtterregistreres} from "./services/rest-service";
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
     return Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
@@ -66,6 +67,7 @@ export interface Context {
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
     sendTilbakeTilBeslutter: () => Promise<void>;
     oppdatereAvtaleContext: (oppdatertAvtale: Avtale) => void;
+    setOmAvtalenKanEtterregistreres: () => Promise<void>
 }
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
@@ -258,6 +260,11 @@ const AvtaleProvider: FunctionComponent = (props) => {
         await hentAvtale(avtale.id);
     };
 
+    const setOmAvtalenKanEtterregistreres = async (): Promise<void> => {
+        await RestService.setOmAvtalenKanEtterregistreres(avtale.id);
+        await hentAvtale(avtale.id);
+    }
+
     const godkjennPaVegneAvDeltaker = async (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
@@ -308,6 +315,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         setMellomLagring,
         sendTilbakeTilBeslutter,
         oppdatereAvtaleContext,
+        setOmAvtalenKanEtterregistreres
     };
 
     return (

@@ -300,6 +300,11 @@ export const godkjennTilskuddsperiode = async (avtaleId: string, enhet: string) 
     await api.post(uri, { enhet });
 };
 
+export const setOmAvtalenKanEtterregistreres = async (avtaleId: string) => {
+    const uri = `/avtaler/${avtaleId}/set-om-avtalen-kan-etterregistreres`;
+    await api.post(uri)
+}
+
 export const avslåTilskuddsperiode = async (
     avtaleId: string,
     avslagsårsaker: Set<Avslagsårsaker>,

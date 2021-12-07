@@ -67,6 +67,8 @@ const mentorAvtaleMock: Avtale = {
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,
     erAnnullertEllerAvbrutt: false,
+
+    erGodkjentForEtterregistrering: false,
 };
 
 export default mentorAvtaleMock;
