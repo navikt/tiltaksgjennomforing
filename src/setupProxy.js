@@ -96,7 +96,7 @@ module.exports = function(app) {
         changeOrigin: true,
         pathRewrite: whitelist,
         target: envProperties.APIGW_URL,
-        proxyTimeout: 10000,
+        proxyTimeout: 30000,
     };
 
     if (envProperties.APIGW_HEADER) {
