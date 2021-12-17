@@ -1,4 +1,5 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
@@ -13,6 +14,19 @@ interface Props {
     byttetOrg?: (org: Organisasjon) => void;
     undertittel?: string;
 }
+
+const miljo = (() => {
+    switch (window.location.hostname) {
+        case 'arbeidsgiver.nav.no':
+            return 'prod';
+        case 'arbeidsgiver-q.nav.no':
+            return 'dev';
+        case 'arbeidsgiver.labs.nais.io':
+            return 'labs';
+        default:
+            return 'local';
+    }
+})();
 
 const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -36,7 +50,9 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                             )}
                         </>
                     }
-                />
+                >
+                    <NotifikasjonWidget miljo={miljo} />
+                </Bedriftsmeny>
             );
         case 'DELTAKER':
             return (
