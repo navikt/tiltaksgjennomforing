@@ -10,17 +10,17 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
-import { AvtalelisteRessurs } from '@/types/avtale';
-import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import Banner from '@/komponenter/Banner/Banner';
 import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
+import { Knapp } from 'nav-frontend-knapper';
+import { useLaster } from '@/utils/useLaster';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -28,25 +28,18 @@ const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
-
-    const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<AvtalelisteRessurs>({
-        status: Status.IkkeLastet,
-    });
-
     const { filtre, parseWindowLocationSearch } = useFilter();
+
+    const { kanLasteMer, lasterMer, lastMer, nettressurs } = useLaster(
+        useCallback((skip, limit) => hentAvtalerForInnloggetBruker(filtre, skip, limit), [filtre]),
+        50
+    );
 
     useEffect(() => {
         hentUlesteVarsler()
             .then(setVarsler)
             .catch(() => setVarsler([]));
     }, []);
-
-    useEffect(() => {
-        setAvtalelisteRessurs({ status: Status.LasterInn });
-        hentAvtalerForInnloggetBruker(filtre)
-            .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
-            .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error }));
-    }, [filtre]);
 
     const layout = useAvtaleOversiktLayout();
 
@@ -112,7 +105,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         )}
                     <section style={layout.stylingAvTabell}>
                         <Avtaler
-                            avtalelisteRessurs={avtalelisteRessurs}
+                            avtalelisteRessurs={nettressurs}
                             innloggetBruker={innloggetBruker}
                             varsler={varsler}
                         />
@@ -144,6 +137,17 @@ const AvtaleOversikt: FunctionComponent = () => {
                             </>
                         )}
                         <LesMerOmLøsningen />
+                        {kanLasteMer && (
+                            <>
+                                <VerticalSpacer rem={3} />
+                                <div style={{textAlign: "center"}}>
+                                    <Knapp title="Last inn mer" onClick={lastMer} spinner={lasterMer} disabled={lasterMer}>
+                                        Last inn flere avtaler ...
+                                    </Knapp>
+                                </div>
+                                <VerticalSpacer rem={3} />
+                            </>
+                        )}
                     </section>
                 </div>
             </main>

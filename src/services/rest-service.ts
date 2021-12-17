@@ -74,9 +74,9 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
-export const hentAvtalerForInnloggetBruker = async (søkekriterier: Filtrering): Promise<Avtale[]> => {
+export const hentAvtalerForInnloggetBruker = async (søkekriterier: Filtrering, skip: number = 0, limit: number = 10000000): Promise<Avtale[]> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
-    const søkekriterierFiltrert = { bedriftNr: søkekriterier.bedrift, ...søkekriterier, bedrift: undefined };
+    const søkekriterierFiltrert = { bedriftNr: søkekriterier.bedrift, ...søkekriterier, bedrift: undefined, skip, limit };
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
     const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
     return response.data;
