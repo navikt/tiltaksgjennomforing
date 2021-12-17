@@ -25,7 +25,7 @@
     "@amplitude/types" "^1.8.2"
     tslib "^1.9.3"
 
-"@apollo/client@3":
+"@apollo/client@3.5.5":
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.5.5.tgz#ce331403ee5f099e595430890f9b510c8435c932"
   integrity sha512-EiQstc8VjeqosS2h21bwY9fhL3MCRRmACtRrRh2KYpp9vkDyx5pUfMnN3swgiBVYw1twdXg9jHmyZa1gZlvlog==
@@ -1836,20 +1836,20 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@navikt/arbeidsgiver-notifikasjon-widget@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-1.0.0.tgz#1b2d3b270deb02a66315caeb186e9ab31453e05e"
-  integrity sha512-Z6dZ2OuhOfusWzNX+Gd73CEEDUTYWlLYQXLrsIEaN9FBaRyIUpTYZptnIzJzmdVJy1e9jrAdPAJ/OBKuqX1l+w==
+"@navikt/arbeidsgiver-notifikasjon-widget@^1.0.1-rc1":
+  version "1.0.1-rc1"
+  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-1.0.1-rc1.tgz#98ed25d075baf3f2be23eb9327cb2a5fff0f32bf"
+  integrity sha512-K2z3VWsukLKZ9Wo1FwZH3GtcX6tflT4IVdLoDH+NLQLsQHvHCgebIJh1Z7TirdRpLyNQ/u4sf0vqlC6d/9yKbA==
   dependencies:
-    "@apollo/client" "3"
-    "@navikt/ds-css" "0"
-    "@navikt/ds-icons" "0"
-    "@navikt/ds-react" "0"
-    amplitude-js "^8.8.0"
+    "@apollo/client" "3.5.5"
+    "@navikt/ds-css" "0.12.5"
+    "@navikt/ds-icons" "0.7.0"
+    "@navikt/ds-react" "0.14.1"
+    amplitude-js "^8.12.0"
     classnames "2"
-    graphql "^15.5.1"
+    graphql "^15.7.2"
     nav-frontend-core "6"
-    nav-frontend-popover "2"
+    nav-frontend-popover "2.0.3"
     nav-frontend-popover-style "2"
     nav-frontend-typografi "4"
     nav-frontend-typografi-style "2"
@@ -1863,15 +1863,15 @@
     "@types/amplitude-js" "^8.0.1"
     fuzzysort "^1.1.4"
 
-"@navikt/ds-css@0":
-  version "0.11.5"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-0.11.5.tgz#bae977f8a100aa9a5e589d4c4a83d1b3004026c1"
-  integrity sha512-aS/pDpJBSxjASbjoNpca0FKJudbGuWt9zFKhLR17SIsR7BrQ4twP8/2AqLR0eyQVKlFACDX1+PeTqppDlpn4nA==
+"@navikt/ds-css@0.12.5":
+  version "0.12.5"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-0.12.5.tgz#a853f1e3357dd0611899246fe7c3f814d547a617"
+  integrity sha512-MHqRadtiyNCtGo/eVn1xn/SQT+fkIlNSEPfRIjLthpIdNHZ1Y4edQR66nnc74u9qyxeVCC4/y15zcXOct9hNMg==
 
-"@navikt/ds-icons@0", "@navikt/ds-icons@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.6.3.tgz#95dd8b7568ce770736859014cffa1571739323b7"
-  integrity sha512-sNmgP8a/V8PLccewcEc7+fy+HfA6vDf1zDbgbQ0ypW/OMf6rGsg43EoCnU/txuuh5cRWbmzbbTQnoNHHmUT58w==
+"@navikt/ds-icons@0.7.0", "@navikt/ds-icons@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.7.0.tgz#0ac3e539f7e3a9161cfc2e9038376abcfba3b4d9"
+  integrity sha512-i6Sdn/8iAjDx2SJRI9QpbVaMWaZzGHjxoCnnegu+gcbmKuKqIM7/HNogjKJ6prxAv6uRkc5GYev8k3pGNua1Nw==
   dependencies:
     uuid "^8.3.2"
 
@@ -1880,13 +1880,13 @@
   resolved "https://registry.npmjs.org/@navikt/ds-icons/-/ds-icons-0.5.2.tgz"
   integrity sha512-e4bqKbUaWNQ8UewrmJPM1Z43ylMD+uYZJwo3+DOWQKUW1Y5U7ucvVSO0lNtYO1gADXgGiTF2LjCPZbw7BhmdSQ==
 
-"@navikt/ds-react@0":
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.13.3.tgz#fa45aa25d4f7b835fd491d9be23d609f404dc980"
-  integrity sha512-pKxFzwUbTvHIOVGy2H7eG5Cn4iu9hWkygw6JjVBD1ncSARDkdu/zS8xDzy1cvtAlJmsg/CaenV0UES6thgV1Ng==
+"@navikt/ds-react@0.14.1":
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.14.1.tgz#0d9937b258cabf248d5f955b82840dcd7d0ae0ad"
+  integrity sha512-ttUidC1CLVXU9R42SBJ9KlTw1chn39Cn/KuEa509nz3oMcsv07hAAqpGi79nrGSCfnOaw0uMRIYfDvvG7bWbjA==
   dependencies:
     "@material-ui/core" "^4.12.3"
-    "@navikt/ds-icons" "^0.6.3"
+    "@navikt/ds-icons" "^0.7.0"
     "@popperjs/core" "^2.10.1"
     classnames "^2.2.6"
     react-collapse "^5.1.0"
@@ -3075,17 +3075,7 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.npmjs.org/amdefine/-/amdefine-1.0.1.tgz"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-amplitude-js@^8.5.0:
-  version "8.5.0"
-  resolved "https://registry.npmjs.org/amplitude-js/-/amplitude-js-8.5.0.tgz"
-  integrity sha512-qRt5JghdluTGyaSGJ4Ae1DKX5ObZj46OJPTlI66ewxFCyOPbkxeO22LybIfxDoL6ZylnXVIuICNp0BbzZ6A4tg==
-  dependencies:
-    "@amplitude/ua-parser-js" "0.7.24"
-    "@amplitude/utils" "^1.0.5"
-    blueimp-md5 "^2.10.0"
-    query-string "5"
-
-amplitude-js@^8.8.0:
+amplitude-js@^8.12.0:
   version "8.13.1"
   resolved "https://registry.yarnpkg.com/amplitude-js/-/amplitude-js-8.13.1.tgz#0ae654a5bdfb434e17e55aa40a34775a902e97dd"
   integrity sha512-cjKtq+t51jyN5XrnXtZW05jSGRDZKtHVqx/BIuP+b1baBgWqFZ2P5GKEH2DqCWhZqwwkaBkAw+E7tanohYqLMw==
@@ -3093,6 +3083,16 @@ amplitude-js@^8.8.0:
     "@amplitude/ua-parser-js" "0.7.26"
     "@amplitude/utils" "^1.0.5"
     "@babel/runtime" "^7.3.4"
+    blueimp-md5 "^2.10.0"
+    query-string "5"
+
+amplitude-js@^8.5.0:
+  version "8.5.0"
+  resolved "https://registry.npmjs.org/amplitude-js/-/amplitude-js-8.5.0.tgz"
+  integrity sha512-qRt5JghdluTGyaSGJ4Ae1DKX5ObZj46OJPTlI66ewxFCyOPbkxeO22LybIfxDoL6ZylnXVIuICNp0BbzZ6A4tg==
+  dependencies:
+    "@amplitude/ua-parser-js" "0.7.24"
+    "@amplitude/utils" "^1.0.5"
     blueimp-md5 "^2.10.0"
     query-string "5"
 
@@ -6612,7 +6612,7 @@ graphql-tag@^2.12.3:
   dependencies:
     tslib "^2.1.0"
 
-graphql@^15.5.1:
+graphql@^15.7.2:
   version "15.8.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.8.0.tgz#33410e96b012fa3bdb1091cc99a94769db212b38"
   integrity sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==
@@ -9204,15 +9204,15 @@ nav-frontend-popover-style@2, nav-frontend-popover-style@2.0.1:
   resolved "https://registry.yarnpkg.com/nav-frontend-popover-style/-/nav-frontend-popover-style-2.0.1.tgz#7d908daa02d6d0de90e9cc46e87d49fe72337431"
   integrity sha512-b8ctzSOZp30WDIH1YOzdsq/DehG+FjSvWLvcAMVqvfGaUeue6BcB45jI9PUlxqwoN7YG+xfhrRPzIeB/1z8zRg==
 
-nav-frontend-popover@2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/nav-frontend-popover/-/nav-frontend-popover-2.0.3.tgz#1d9b6421ffbeb05d7a25ec70aca47230045aa26a"
-  integrity sha512-OBEk9K+6O2Nysn/OKL02ctUOVOxLm0wInOHqIucfsq+uXta438FhW2GDEkTVIGk6qFwmmf7n5bTlw3vDWsMJQA==
-
 nav-frontend-popover@2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/nav-frontend-popover/-/nav-frontend-popover-2.0.2.tgz"
   integrity sha512-hdtm+j3iJ4sPucrP647ru79fAuIhxNYqqDVjLEunC9HgEQ+dH2IrwqmEReZOh1rquqJLYXPw1/zrHCXylTexIQ==
+
+nav-frontend-popover@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/nav-frontend-popover/-/nav-frontend-popover-2.0.3.tgz#1d9b6421ffbeb05d7a25ec70aca47230045aa26a"
+  integrity sha512-OBEk9K+6O2Nysn/OKL02ctUOVOxLm0wInOHqIucfsq+uXta438FhW2GDEkTVIGk6qFwmmf7n5bTlw3vDWsMJQA==
 
 nav-frontend-skjema-style@^3.0.1:
   version "3.0.1"
