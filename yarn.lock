@@ -1836,10 +1836,10 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@navikt/arbeidsgiver-notifikasjon-widget@^1.0.1-rc1":
-  version "1.0.1-rc1"
-  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-1.0.1-rc1.tgz#98ed25d075baf3f2be23eb9327cb2a5fff0f32bf"
-  integrity sha512-K2z3VWsukLKZ9Wo1FwZH3GtcX6tflT4IVdLoDH+NLQLsQHvHCgebIJh1Z7TirdRpLyNQ/u4sf0vqlC6d/9yKbA==
+"@navikt/arbeidsgiver-notifikasjon-widget@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-1.0.1.tgz#8daaad3d7d220d5d95f421d6f6d624cf41eafe61"
+  integrity sha512-DpvVeY0ccal6wRrRZQOfmJWLpF/Jw+ouuQ3YmSWeSgn5DH2r6FVr7nLKXrp5cfjLM2dDDrnR9Wyx2hcs4R0gzw==
   dependencies:
     "@apollo/client" "3.5.5"
     "@navikt/ds-css" "0.12.5"
