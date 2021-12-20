@@ -8,6 +8,7 @@ import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalif
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const INGEN_DATO_SPERRE = undefined;
     const DAGENSDATO = new Date().toISOString();
+    const TEST = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString();
 
     const { avtale } = useContext(AvtaleContext);
     const { erNavAnsatt } = useContext(InnloggetBrukerContext);
@@ -16,7 +17,7 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
         moment(avtale.startDato).add(megde, tidsEnhet).format('YYYY-MM-DD');
 
     const settdatoMidlertidligLonnstilskudd = () => ({
-        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO,
+        minDate: erNavAnsatt ? TEST : DAGENSDATO,
         maxDate: avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
         !avtale.kvalifiseringsgruppe
             ? startdatoPluss(1, 'years')
@@ -33,7 +34,9 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     });
 
     const settdatoDefaultVerdi = () => ({
-        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: INGEN_DATO_SPERRE,
+        minDate: erNavAnsatt ?
+            avtale.erGodkjentForEtterregistrering ? INGEN_DATO_SPERRE : TEST :
+            DAGENSDATO, maxDate: INGEN_DATO_SPERRE,
     });
 
     const settdatoBegrensningTiltakstype = (tiltakstype: string) => {

@@ -64,6 +64,8 @@ const BeslutterSide: FunctionComponent = () => {
         }, 300);
     };
 
+    console.log("avtaleContext", avtaleContext)
+
     return (
         <>
             <VerticalSpacer rem={2} />
@@ -174,8 +176,6 @@ const BeslutterSide: FunctionComponent = () => {
                                     </Hovedknapp>
                                     <HorizontalSpacer rem={1} />
                                     <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>
-                                    <VerticalSpacer rem={1} />
-                                    <Knapp onClick={async () => { await avtaleContext.avtalenKanEtterregistreres()}}> Godkjenn etterregistrering  </Knapp>
                                 </div>
                             )}
                             <BekreftelseModal

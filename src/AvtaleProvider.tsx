@@ -66,7 +66,6 @@ export interface Context {
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
     sendTilbakeTilBeslutter: () => Promise<void>;
     oppdatereAvtaleContext: (oppdatertAvtale: Avtale) => void;
-    avtalenKanEtterregistreres: () => Promise<void>
 }
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
@@ -105,7 +104,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         try {
             const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
             sendToAmplitude('#tiltak-avtale-lagret');
-            setAvtale({ ...avtale, ...lagretAvtale });
+            setAvtale({...avtale, ...lagretAvtale});
             setUlagredeEndringer(false);
             setUnderLagring(false);
         } finally {
@@ -117,7 +116,10 @@ const AvtaleProvider: FunctionComponent = (props) => {
 
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
         RestService.hentAvtale(avtaleId).then(setAvtale);
-
+/*
+    const hentAvtaleInfo = (avtaleNr: number = avtale.avtaleNr): Promise<void> =>
+        RestService.hentAvtaleInfo(avtaleNr).then();
+*/
     const annullerAvtale = async (annullerGrunn: string): Promise<void> => {
         await RestService.annullerAvtale(avtale, annullerGrunn);
         sendToAmplitude('#tiltak-avtale-annullert');
@@ -259,11 +261,6 @@ const AvtaleProvider: FunctionComponent = (props) => {
         await hentAvtale(avtale.id);
     };
 
-    const avtalenKanEtterregistreres = async (): Promise<void> => {
-        await RestService.setOmAvtalenKanEtterregistreres(avtale.id);
-        await hentAvtale(avtale.id);
-    }
-
     const godkjennPaVegneAvDeltaker = async (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
         sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
@@ -313,8 +310,8 @@ const AvtaleProvider: FunctionComponent = (props) => {
         mellomLagring,
         setMellomLagring,
         sendTilbakeTilBeslutter,
-        oppdatereAvtaleContext,
-        avtalenKanEtterregistreres
+        oppdatereAvtaleContext
+
     };
 
     return (

@@ -14,6 +14,8 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
     const [søkeord, setSøkeord] = useState<string>(props.defaultVerdi || '');
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
+    console.log('søkeord', søkeord);
+
     const utførSøk = () => {
         if (valider()) {
             props.utførSøk(søkeord);
@@ -25,11 +27,13 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
     };
 
     const onChange = (event: FormEvent<HTMLInputElement>) => {
+
         setSøkeord(event.currentTarget.value.toUpperCase());
         setSkjemaelementfeil(undefined);
     };
 
     const enterKlikk = (event: any) => {
+
         if (event.key === 'Enter') {
             const nyttSøkeord = event.currentTarget.value;
             setSøkeord(nyttSøkeord);
