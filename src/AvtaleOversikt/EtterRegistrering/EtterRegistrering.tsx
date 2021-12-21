@@ -10,6 +10,7 @@ import { AlertStripeFeil, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import BEMHelper from '@/utils/bem';
 import './EtterRegistrering.less';
 import InfoRad from '@/AvtaleOversikt/EtterRegistrering/InfoRad';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 
 interface EtterRegistreringInfo {
     open: boolean;
@@ -80,7 +81,7 @@ const EtterRegistrering: FunctionComponent = () => {
             >
                 <div className={cls.element('modal')}>
                     <Systemtittel className={cls.element('header')}>
-                        Søk opp avtalenr for godkjenning av etterregistrering.
+                        Søk opp avtalenummer for godkjenning av etterregistrering
                     </Systemtittel>
                     <Element className={cls.element('sokfelt-tag')}>Skriv inn avtalenummeret du vil søke på</Element>
                     <div className={cls.element('input-sok')}>
@@ -104,10 +105,10 @@ const EtterRegistrering: FunctionComponent = () => {
                     </div>
 
                     <div className={transitionAvtaleInfoWrapper()}>
-                        <Ingress className={cls.element('ingress')}>Avtale-nr {info.avtaleInfo.avtaleNr}</Ingress>
+                        <Ingress className={cls.element('ingress')}>Avtalenummer {info.avtaleInfo.avtaleNr}</Ingress>
                         <InfoRad
                             klasseNavn={cls.element('rad-info')}
-                            radInfo="Bedrift Navn:"
+                            radInfo="Bedriftnavn:"
                             radVerdi={info.avtaleInfo.bedriftNavn}
                         />
                         <InfoRad
@@ -122,7 +123,7 @@ const EtterRegistrering: FunctionComponent = () => {
                         />
                         <InfoRad
                             klasseNavn={cls.element('rad-info')}
-                            radInfo="TiltaksType:"
+                            radInfo="Tiltak:"
                             radVerdi={navnPåTiltakstype[info.avtaleInfo.tiltakstype]}
                         />
 
@@ -130,11 +131,14 @@ const EtterRegistrering: FunctionComponent = () => {
                             <AlertStripeInfo>Avtalen er godkjent for etterregistrering</AlertStripeInfo>
                         )}
                         <div>
-                            <Knapp onClick={() => AvtaleKanEtterrgistreres()}>
-                                {info.avtaleInfo.erGodkjentForEtterregistrering
-                                    ? 'Fjern Etterregistrering'
-                                    : 'Godkjen for etterregistrering'}
-                            </Knapp>
+                            <LagreKnapp
+                                lagre={() => AvtaleKanEtterrgistreres()}
+                                label={
+                                    info.avtaleInfo.erGodkjentForEtterregistrering
+                                        ? 'Fjern Etterregistrering'
+                                        : 'Godkjenn for etterregistrering'
+                                }
+                            />
                         </div>
                     </div>
 
