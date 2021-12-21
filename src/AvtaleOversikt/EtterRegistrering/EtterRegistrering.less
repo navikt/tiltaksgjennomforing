@@ -39,12 +39,17 @@
         margin-bottom: 0.75rem;
     }
 
+    &__lagreKnapp {
+        margin-top: 0.75rem;
+    }
+
     &__input-sok {
         display: flex;
-        min-width: calc(100% - 5rem);
+        flex-direction: column;
+         // min-width: calc(100% - 5rem);
 
         & > .skjemaelement {
-            min-width: calc(75% - 2rem);
+         // min-width: calc(88.5% - 2rem);
             &:nth-child(1) {
                 margin-right: 0.75rem;
             }
@@ -54,6 +59,28 @@
             max-height: 2.5rem;
             border-radius: 4px;
             margin-top: 0 !important;
+        }
+    }
+
+    @media(min-width: 768px) {
+
+        &__input-sok {
+            display: flex;
+            flex-direction: row;
+            min-width: calc(100% - 5rem);
+
+            & > .skjemaelement {
+                min-width: calc(88.5% - 2rem);
+                &:nth-child(1) {
+                    margin-right: 0.75rem;
+                }
+            }
+
+            & > .knapp {
+                max-height: 2.5rem;
+                border-radius: 4px;
+                margin-top: 0 !important;
+            }
         }
     }
 }

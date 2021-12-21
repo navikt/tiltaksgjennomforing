@@ -130,13 +130,13 @@ const EtterRegistrering: FunctionComponent = () => {
                         {info.avtaleInfo.erGodkjentForEtterregistrering && (
                             <AlertStripeInfo>Avtalen er godkjent for etterregistrering</AlertStripeInfo>
                         )}
-                        <div>
+                        <div className={cls.element('lagreKnapp')} >
                             <LagreKnapp
                                 lagre={() => AvtaleKanEtterrgistreres()}
                                 label={
                                     info.avtaleInfo.erGodkjentForEtterregistrering
-                                        ? 'Fjern Etterregistrering'
-                                        : 'Godkjenn for etterregistrering'
+                                        ? 'Fjern'
+                                        : 'Godkjenn'
                                 }
                             />
                         </div>
