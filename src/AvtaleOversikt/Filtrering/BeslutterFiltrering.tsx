@@ -4,7 +4,7 @@ import TilskuddPeriodeStatusFilter from '@/AvtaleOversikt/Filtrering/TilskuddPer
 import BEMHelper from '@/utils/bem';
 import { BedriftFilter } from '@/AvtaleOversikt/Filtrering/BedriftFilter';
 import Sortering from '@/AvtaleOversikt/Sortering';
-import EtterRegistrering from "@/AvtaleOversikt/EtterRegistrering";
+import EtterRegistrering from "@/AvtaleOversikt/EtterRegistrering/EtterRegistrering";
 
 const cls = BEMHelper('filtrering');
 const BeslutterFiltrering: FunctionComponent = () => {
