@@ -137,5 +137,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov',
     FINNER_IKKE_AVTALE_PÅ_AVTALENUMMER: 'Finner ingen avtale på det avtalenummeret',
     FORTIDLIG_STARTDATO: 'Avtalen må godkjennes for etterregistrering av beslutter',
-    KAN_IKKE_MERKES_FOR_ETTERREGISTREING_AVTALE_INNGATT: 'Avtalen kan ikke etterrregistreres siden den er allerede inngått.'
+    KAN_IKKE_MERKES_FOR_ETTERREGISTREING_AVTALE_INNGATT:
+        'Avtalen kan ikke etterrregistreres siden den er allerede inngått.',
 };

@@ -1,7 +1,8 @@
 .etterRegistrering {
     &__modal {
-        width: 40rem;
-        padding: 2.5rem;
+        width: 16rem;
+
+        padding: 2.5rem 0.5rem 0.5rem;
         height: 100%;
         min-height: 14rem;
 
@@ -46,12 +47,10 @@
     &__input-sok {
         display: flex;
         flex-direction: column;
-         // min-width: calc(100% - 5rem);
 
         & > .skjemaelement {
-         // min-width: calc(88.5% - 2rem);
             &:nth-child(1) {
-                margin-right: 0.75rem;
+                margin-bottom: 0.75rem;
             }
         }
 
@@ -62,7 +61,11 @@
         }
     }
 
-    @media(min-width: 768px) {
+    @media (min-width: 768px) {
+        &__modal {
+            width: 40rem;
+            padding: 2.5rem;
+        }
 
         &__input-sok {
             display: flex;
@@ -72,6 +75,7 @@
             & > .skjemaelement {
                 min-width: calc(88.5% - 2rem);
                 &:nth-child(1) {
+                    margin-bottom: 0;
                     margin-right: 0.75rem;
                 }
             }
