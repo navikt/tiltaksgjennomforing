@@ -136,5 +136,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov',
     FORTIDLIG_STARTDATO: 'Avtalen må godkjennes for etterregistrering av beslutter',
     KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT:
-        'Avtalen kan ikke etterrregistreres siden den er allerede godkjent.',
+        'Kan ikke endre etterregistrering etter at avtalen er godkjent.',
 };
