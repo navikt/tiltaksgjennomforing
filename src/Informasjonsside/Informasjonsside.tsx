@@ -141,7 +141,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Innholdet i avtalen kan endres gjennom hele perioden for tiltaket.
+                            Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Etter at avtalen er godkjent av alle parter, må endringer gå gjennom veileder.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad
