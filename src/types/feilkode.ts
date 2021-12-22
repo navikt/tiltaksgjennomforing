@@ -62,7 +62,6 @@ export type Feilkode =
     | 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET'
     | 'FORMIDLINGSGRUPPE_IKKE_RETTIGHET'
     | 'HENTING_AV_INNSATS_BEHOV_FEILET'
-    | 'FINNER_IKKE_AVTALE_PÅ_AVTALENUMMER'
     | 'FORTIDLIG_STARTDATO'
     | 'KAN_IKKE_MERKES_FOR_ETTERREGISTREING_AVTALE_INNGATT';
 
@@ -135,7 +134,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FORMIDLINGSGRUPPE_IKKE_RETTIGHET:
         'Deltakeren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette tiltaket.',
     HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov',
-    FINNER_IKKE_AVTALE_PÅ_AVTALENUMMER: 'Finner ingen avtale på det avtalenummeret',
     FORTIDLIG_STARTDATO: 'Avtalen må godkjennes for etterregistrering av beslutter',
     KAN_IKKE_MERKES_FOR_ETTERREGISTREING_AVTALE_INNGATT:
         'Avtalen kan ikke etterrregistreres siden den er allerede inngått.',
