@@ -47,9 +47,6 @@ const VarighetSteg: FunctionComponent = () => {
         }
     }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato]);
 
-    console.log(AvtaleMinMaxDato())
-
-
     return (
         <Innholdsboks utfyller="arbeidsgiver">
             <Container fluid={true}>

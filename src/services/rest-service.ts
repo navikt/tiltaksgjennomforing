@@ -66,15 +66,8 @@ const featureToggleVariantPath = (features: Feature[]): string => {
 
 export const hentAvtale = async (id: string): Promise<Avtale> => {
     const response = await api.get<Avtale>(`/avtaler/${id}`);
-    console.log("response", response);
     return response.data;
 };
-
-export const hentAvtaleInfo = async (avtaleNr: number): Promise<Avtale> => {
-    const response = await api.get<Avtale>(`/avtaler/${avtaleNr}/info`);
-    console.log("response", response);
-    return response.data;
-}
 
 const removeEmpty = (obj: any) => {
     Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
@@ -310,9 +303,7 @@ export const godkjennTilskuddsperiode = async (avtaleId: string, enhet: string) 
 export const setOmAvtalenKanEtterregistreres = async (avtaleId: string): Promise<Avtale> =>  {
     const uri = `/avtaler/${avtaleId}/set-om-avtalen-kan-etterregistreres`;
     const response = await api.post(uri)
-    console.log("response2", response);
     return response.data;
-
 }
 
 export const avslåTilskuddsperiode = async (

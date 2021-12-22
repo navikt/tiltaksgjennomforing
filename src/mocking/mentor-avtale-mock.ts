@@ -73,7 +73,7 @@ const mentorAvtaleMock: Avtale = {
     avtaleNr: 1,
     erAnnullertEllerAvbrutt: false,
 
-    erGodkjentForEtterregistrering: false,
+    godkjentForEtterregistrering: false,
 };
 
 export default mentorAvtaleMock;

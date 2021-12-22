@@ -139,7 +139,7 @@ export interface Beregningsgrunnlag {
 }
 
 export interface Etterregistrering {
-    erGodkjentForEtterregistrering: boolean
+    godkjentForEtterregistrering: boolean
 }
 
 export interface TilskuddsPerioder {

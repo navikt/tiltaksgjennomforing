@@ -94,7 +94,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     kvalifiseringsgruppe: Kvalifiseringsgruppe.SPESIELT_TILPASSET_INNSATS,
     formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
 
-    erGodkjentForEtterregistrering: false,
+    godkjentForEtterregistrering: false,
 
 };
 

@@ -64,8 +64,6 @@ const BeslutterSide: FunctionComponent = () => {
         }, 300);
     };
 
-    console.log("avtaleContext", avtaleContext)
-
     return (
         <>
             <VerticalSpacer rem={2} />

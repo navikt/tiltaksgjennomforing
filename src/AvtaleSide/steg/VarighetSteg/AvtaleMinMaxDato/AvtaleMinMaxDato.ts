@@ -35,7 +35,7 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
 
     const settdatoDefaultVerdi = () => ({
         minDate: erNavAnsatt ?
-            avtale.erGodkjentForEtterregistrering ? INGEN_DATO_SPERRE : TEST :
+            avtale.godkjentForEtterregistrering ? INGEN_DATO_SPERRE : TEST :
             DAGENSDATO, maxDate: INGEN_DATO_SPERRE,
     });
 

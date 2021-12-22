@@ -5,57 +5,39 @@ import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
 import * as RestService from '@/services/rest-service';
 import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
 import { Avtale } from '@/types/avtale';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { AlertStripeFeil, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import BEMHelper from '@/utils/bem';
 import './EtterRegistrering.less';
 import InfoRad from '@/AvtaleOversikt/EtterRegistrering/InfoRad';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 
-interface EtterRegistreringInfo {
-    open: boolean;
-    feilmelding: string | undefined;
-    avtaleInfo: Avtale;
-    spinner: boolean;
-}
+import { tiltakstypeTekst } from '@/messages';
 
 const EtterRegistrering: FunctionComponent = () => {
     const cls = BEMHelper('etterRegistrering');
 
-    const [info, setInfo] = useState<EtterRegistreringInfo>({
-        open: false,
-        feilmelding: undefined,
-        avtaleInfo: {} as Avtale,
-        spinner: false,
-    });
+    const [open, setOpen] = useState(false);
+    const [feilmelding, setFeilmelding] = useState<string>();
+    const [avtale, setAvtale] = useState<Avtale>()
+    const [spinner, setSpinner] = useState(false);
 
     const hentAvtaleInfo = async (avtaleNr: number): Promise<void> => {
-        setInfo({ ...info, spinner: true });
-        try {
-            const response = await RestService.hentAvtaleInfo(avtaleNr);
-            setInfo({ ...info, avtaleInfo: response });
-            setTimeoutOnFunction(() => setInfo({ ...info, avtaleInfo: response, spinner: false }));
-        } catch (error: any) {
-            setInfo({
-                ...info,
-                feilmelding: Feilmeldinger[(error as string).toString().split(':')?.[1].trim() as Feilkode],
-                spinner: false,
-            });
-        }
-    };
-
-    const navnPåTiltakstype = {
-        ARBEIDSTRENING: 'Arbeidstrening',
-        MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
-        VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
-        MENTOR: 'Mentor',
-        SOMMERJOBB: 'Sommerjobb',
+        setSpinner(true);
+            const response = await RestService.hentAvtalerForInnloggetBruker({avtaleNr});
+            if(response.length === 1) {
+                setTimeoutOnFunction(() => {setAvtale(response[0])
+                    setSpinner(false)});
+            }
+            else {
+                setFeilmelding('Finner ingen avtale på det avtalenummeret')
+                setSpinner(false);
+            }
     };
 
     const AvtaleKanEtterrgistreres = async (): Promise<void> => {
-        if (info.avtaleInfo.id) {
-            const data = await RestService.setOmAvtalenKanEtterregistreres(info.avtaleInfo.id);
-            setInfo({ ...info, avtaleInfo: data });
+        if (avtale) {
+            const response = await RestService.setOmAvtalenKanEtterregistreres(avtale.id);
+            setAvtale(response)
         }
     };
 
@@ -66,15 +48,19 @@ const EtterRegistrering: FunctionComponent = () => {
     };
 
     const transitionAvtaleInfoWrapper = (): string =>
-        info.avtaleInfo.avtaleNr ? cls.element('avtale-info-wrapper') : cls.element('avtale-info-wrapper', 'skjule');
+        avtale ? cls.element('avtale-info-wrapper') : cls.element('avtale-info-wrapper', 'skjule');
+
 
     return (
         <div className={cls.className}>
-            <Knapp onClick={() => setInfo({ ...info, open: !info.open })}>Etterregistrering</Knapp>
+            <Knapp onClick={() => setOpen(!open)}>Etterregistrering</Knapp>
             <Modal
-                isOpen={info.open}
+                isOpen={open}
                 onRequestClose={() => {
-                    setInfo({ ...info, open: false, avtaleInfo: {} as Avtale, feilmelding: undefined, spinner: false });
+                    setOpen(false);
+                    setAvtale(undefined)
+                    setFeilmelding(undefined)
+                    setSpinner(false)
                 }}
                 closeButton={true}
                 contentLabel="Min modalrute"
@@ -88,7 +74,7 @@ const EtterRegistrering: FunctionComponent = () => {
                         <SøkeInput
                             maxLength={5}
                             utførSøk={(søkeord) => {
-                                setInfo({ ...info, spinner: true });
+                                setSpinner(true);
                                 hentAvtaleInfo(Number(søkeord));
                             }}
                             valider={(verdi: string) =>
@@ -96,49 +82,52 @@ const EtterRegistrering: FunctionComponent = () => {
                                     ? undefined
                                     : 'Avtalenummer kan kun inneholde tall, maks fem tegn'
                             }
-                            onChangeCallback={() =>
-                                setInfo({ ...info, avtaleInfo: {} as Avtale, feilmelding: undefined })
+                            onChangeCallback={() => {
+                                setAvtale(undefined);
+                                setFeilmelding(undefined)
+                            }
                             }
                             placeholder={'Skriv et avtalenummer'}
-                            buttonSpinner={info.spinner}
+                            buttonSpinner={spinner}
                         />
                     </div>
-
+                    {avtale &&
                     <div className={transitionAvtaleInfoWrapper()}>
-                        <Ingress className={cls.element('ingress')}>Avtalenummer {info.avtaleInfo.avtaleNr}</Ingress>
+                        <Ingress className={cls.element('ingress')}>Avtalenummer {avtale.avtaleNr}</Ingress>
                         <InfoRad
                             klasseNavn={cls.element('rad-info')}
                             radInfo="Bedriftnavn:"
-                            radVerdi={info.avtaleInfo.bedriftNavn}
+                            radVerdi={avtale.bedriftNavn}
                         />
                         <InfoRad
                             klasseNavn={cls.element('rad-info')}
                             radInfo="Bedriftsnummer:"
-                            radVerdi={info.avtaleInfo.bedriftNr}
+                            radVerdi={avtale.bedriftNr}
                         />
                         <InfoRad
                             klasseNavn={cls.element('rad-info')}
                             radInfo="Navn:"
-                            radVerdi={`${info.avtaleInfo.deltakerFornavn} ${info.avtaleInfo.deltakerEtternavn}`}
+                            radVerdi={`${avtale.deltakerFornavn} ${avtale.deltakerEtternavn}`}
                         />
                         <InfoRad
                             klasseNavn={cls.element('rad-info')}
                             radInfo="Tiltak:"
-                            radVerdi={navnPåTiltakstype[info.avtaleInfo.tiltakstype]}
+                            radVerdi={tiltakstypeTekst[avtale.tiltakstype]}
                         />
 
-                        {info.avtaleInfo.erGodkjentForEtterregistrering && (
+                        {avtale.godkjentForEtterregistrering && (
                             <AlertStripeInfo>Avtalen er godkjent for etterregistrering</AlertStripeInfo>
                         )}
                         <div className={cls.element('lagreKnapp')}>
                             <LagreKnapp
                                 lagre={() => AvtaleKanEtterrgistreres()}
-                                label={info.avtaleInfo.erGodkjentForEtterregistrering ? 'Fjern' : 'Godkjenn'}
+                                label={avtale.godkjentForEtterregistrering ? 'Fjern' : 'Godkjenn'}
                             />
                         </div>
                     </div>
+                    }
 
-                    {info.feilmelding && <AlertStripeFeil>{info.feilmelding}</AlertStripeFeil>}
+                    {feilmelding && <AlertStripeFeil>{feilmelding}</AlertStripeFeil>}
                 </div>
             </Modal>
         </div>
