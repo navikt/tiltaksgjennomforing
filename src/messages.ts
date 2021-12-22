@@ -58,8 +58,8 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     stillingKonseptId: '',
     stillingStyrk08: '',
     enhetKostnadssted: 'enhetKostnadssted',
-    enhetsnavnKostnadssted: 'enhetsnavnKostnadssted',
-    godkjentForEtterregistrering: 'er avtalen godkjent for etterregistrering'
+    enhetsnavnKostnadssted: 'enhetsnavnKostnadssted'
+
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {

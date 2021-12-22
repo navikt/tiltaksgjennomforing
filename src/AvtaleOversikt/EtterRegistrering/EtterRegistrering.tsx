@@ -5,7 +5,7 @@ import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
 import * as RestService from '@/services/rest-service';
 import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
 import { Avtale } from '@/types/avtale';
-import { AlertStripeFeil, AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import BEMHelper from '@/utils/bem';
 import './EtterRegistrering.less';
 import InfoRad from '@/AvtaleOversikt/EtterRegistrering/InfoRad';
@@ -18,26 +18,27 @@ const EtterRegistrering: FunctionComponent = () => {
 
     const [open, setOpen] = useState(false);
     const [feilmelding, setFeilmelding] = useState<string>();
-    const [avtale, setAvtale] = useState<Avtale>()
+    const [avtale, setAvtale] = useState<Avtale>();
     const [spinner, setSpinner] = useState(false);
 
     const hentAvtaleInfo = async (avtaleNr: number): Promise<void> => {
         setSpinner(true);
-            const response = await RestService.hentAvtalerForInnloggetBruker({avtaleNr});
-            if(response.length === 1) {
-                setTimeoutOnFunction(() => {setAvtale(response[0])
-                    setSpinner(false)});
-            }
-            else {
-                setFeilmelding('Finner ingen avtale på det avtalenummeret')
+        const response = await RestService.hentAvtalerForInnloggetBruker({ avtaleNr });
+        if (response.length === 1) {
+            setTimeoutOnFunction(() => {
+                setAvtale(response[0]);
                 setSpinner(false);
-            }
+            });
+        } else {
+            setFeilmelding('Finner ingen avtale på det avtalenummeret');
+            setSpinner(false);
+        }
     };
 
     const AvtaleKanEtterrgistreres = async (): Promise<void> => {
         if (avtale) {
             const response = await RestService.setOmAvtalenKanEtterregistreres(avtale.id);
-            setAvtale(response)
+            setAvtale(response);
         }
     };
 
@@ -50,7 +51,6 @@ const EtterRegistrering: FunctionComponent = () => {
     const transitionAvtaleInfoWrapper = (): string =>
         avtale ? cls.element('avtale-info-wrapper') : cls.element('avtale-info-wrapper', 'skjule');
 
-
     return (
         <div className={cls.className}>
             <Knapp onClick={() => setOpen(!open)}>Etterregistrering</Knapp>
@@ -58,9 +58,9 @@ const EtterRegistrering: FunctionComponent = () => {
                 isOpen={open}
                 onRequestClose={() => {
                     setOpen(false);
-                    setAvtale(undefined)
-                    setFeilmelding(undefined)
-                    setSpinner(false)
+                    setAvtale(undefined);
+                    setFeilmelding(undefined);
+                    setSpinner(false);
                 }}
                 closeButton={true}
                 contentLabel="Min modalrute"
@@ -84,48 +84,46 @@ const EtterRegistrering: FunctionComponent = () => {
                             }
                             onChangeCallback={() => {
                                 setAvtale(undefined);
-                                setFeilmelding(undefined)
-                            }
-                            }
+                                setFeilmelding(undefined);
+                            }}
                             placeholder={'Skriv et avtalenummer'}
                             buttonSpinner={spinner}
                         />
                     </div>
-                    {avtale &&
-                    <div className={transitionAvtaleInfoWrapper()}>
-                        <Ingress className={cls.element('ingress')}>Avtalenummer {avtale.avtaleNr}</Ingress>
-                        <InfoRad
-                            klasseNavn={cls.element('rad-info')}
-                            radInfo="Bedriftnavn:"
-                            radVerdi={avtale.bedriftNavn}
-                        />
-                        <InfoRad
-                            klasseNavn={cls.element('rad-info')}
-                            radInfo="Bedriftsnummer:"
-                            radVerdi={avtale.bedriftNr}
-                        />
-                        <InfoRad
-                            klasseNavn={cls.element('rad-info')}
-                            radInfo="Navn:"
-                            radVerdi={`${avtale.deltakerFornavn} ${avtale.deltakerEtternavn}`}
-                        />
-                        <InfoRad
-                            klasseNavn={cls.element('rad-info')}
-                            radInfo="Tiltak:"
-                            radVerdi={tiltakstypeTekst[avtale.tiltakstype]}
-                        />
-
-                        {avtale.godkjentForEtterregistrering && (
-                            <AlertStripeInfo>Avtalen er godkjent for etterregistrering</AlertStripeInfo>
-                        )}
-                        <div className={cls.element('lagreKnapp')}>
-                            <LagreKnapp
-                                lagre={() => AvtaleKanEtterrgistreres()}
-                                label={avtale.godkjentForEtterregistrering ? 'Fjern' : 'Godkjenn'}
+                    {avtale && (
+                        <div className={transitionAvtaleInfoWrapper()}>
+                            <Ingress className={cls.element('ingress')}>Avtalenummer {avtale.avtaleNr}</Ingress>
+                            <InfoRad
+                                klasseNavn={cls.element('rad-info')}
+                                radInfo="Bedriftnavn:"
+                                radVerdi={avtale.bedriftNavn}
                             />
+                            <InfoRad
+                                klasseNavn={cls.element('rad-info')}
+                                radInfo="Bedriftsnummer:"
+                                radVerdi={avtale.bedriftNr}
+                            />
+                            <InfoRad
+                                klasseNavn={cls.element('rad-info')}
+                                radInfo="Navn:"
+                                radVerdi={`${avtale.deltakerFornavn} ${avtale.deltakerEtternavn}`}
+                            />
+                            <InfoRad
+                                klasseNavn={cls.element('rad-info')}
+                                radInfo="Tiltak:"
+                                radVerdi={tiltakstypeTekst[avtale.tiltakstype]}
+                            />
+
+                            <div className={cls.element('lagreKnapp')}>
+                                <LagreKnapp
+                                    lagre={() => AvtaleKanEtterrgistreres()}
+                                    label={avtale.godkjentForEtterregistrering ? 'Fjern' : 'Godkjenn'}
+                                    suksessmelding={avtale.godkjentForEtterregistrering ? 'Avtalen er godkjent for etterregistrering' :'Fjernet etterregistrering på avtale'}
+
+                                />
+                            </div>
                         </div>
-                    </div>
-                    }
+                    )}
 
                     {feilmelding && <AlertStripeFeil>{feilmelding}</AlertStripeFeil>}
                 </div>

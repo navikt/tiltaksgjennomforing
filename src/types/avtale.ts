@@ -24,8 +24,7 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     TilskuddsPerioder &
     Kontonummer &
     RelasjonerInfo &
-    Mentorinfo &
-    Etterregistrering;
+    Mentorinfo;
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'
@@ -67,6 +66,7 @@ export interface AvtaleMetadata {
     erAnnullertEllerAvbrutt: boolean;
     kvalifiseringsgruppe: Kvalifiseringsgruppe;
     formidlingsgruppe: Formidlingsgruppe;
+    godkjentForEtterregistrering: boolean;
 }
 
 export interface Avtaleparter {
@@ -136,10 +136,6 @@ export interface Beregningsgrunnlag {
     manedslonn100pst?: number;
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
-}
-
-export interface Etterregistrering {
-    godkjentForEtterregistrering: boolean
 }
 
 export interface TilskuddsPerioder {

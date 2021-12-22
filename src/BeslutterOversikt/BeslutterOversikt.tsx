@@ -4,7 +4,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { hentAvtalerForInnloggetBruker } from '@/services/rest-service';
+import {hentAvtalerForInnloggetBeslutter} from '@/services/rest-service';
 import { AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import BEMHelper from '@/utils/bem';
@@ -26,7 +26,7 @@ const BeslutterOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         setAvtalelisteRessurs({ status: Status.LasterInn });
-        hentAvtalerForInnloggetBruker(filtre)
+        hentAvtalerForInnloggetBeslutter(filtre)
             .then((data: any) => setAvtalelisteRessurs({ status: Status.Lastet, data }))
             .catch((error: any) => setAvtalelisteRessurs({ status: Status.Feil, error: error }));
     }, [filtre]);

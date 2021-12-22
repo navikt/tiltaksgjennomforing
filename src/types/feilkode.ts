@@ -63,7 +63,7 @@ export type Feilkode =
     | 'FORMIDLINGSGRUPPE_IKKE_RETTIGHET'
     | 'HENTING_AV_INNSATS_BEHOV_FEILET'
     | 'FORTIDLIG_STARTDATO'
-    | 'KAN_IKKE_MERKES_FOR_ETTERREGISTREING_AVTALE_INNGATT';
+    | 'KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -135,6 +135,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Deltakeren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette tiltaket.',
     HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov',
     FORTIDLIG_STARTDATO: 'Avtalen må godkjennes for etterregistrering av beslutter',
-    KAN_IKKE_MERKES_FOR_ETTERREGISTREING_AVTALE_INNGATT:
-        'Avtalen kan ikke etterrregistreres siden den er allerede inngått.',
+    KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT:
+        'Avtalen kan ikke etterrregistreres siden den er allerede godkjent.',
 };

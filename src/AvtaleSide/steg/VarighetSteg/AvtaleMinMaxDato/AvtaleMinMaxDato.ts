@@ -8,16 +8,17 @@ import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalif
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const INGEN_DATO_SPERRE = undefined;
     const DAGENSDATO = new Date().toISOString();
-    const TEST = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString();
+    const EN_UKE_SIDEN = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString();
 
     const { avtale } = useContext(AvtaleContext);
-    const { erNavAnsatt } = useContext(InnloggetBrukerContext);
+    const {  rolle } = useContext(InnloggetBrukerContext);
+    const erVeileder = rolle === "VEILEDER";
 
     const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): string =>
         moment(avtale.startDato).add(megde, tidsEnhet).format('YYYY-MM-DD');
 
     const settdatoMidlertidligLonnstilskudd = () => ({
-        minDate: erNavAnsatt ? TEST : DAGENSDATO,
+        minDate: erVeileder ? EN_UKE_SIDEN : DAGENSDATO,
         maxDate: avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS ||
         !avtale.kvalifiseringsgruppe
             ? startdatoPluss(1, 'years')
@@ -25,7 +26,7 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     });
 
     const settdatoArbeidstrening = () => ({
-        minDate: erNavAnsatt ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: startdatoPluss(18, 'months'),
+        minDate: erVeileder ? INGEN_DATO_SPERRE : DAGENSDATO, maxDate: startdatoPluss(18, 'months'),
     });
 
     const settdatoSommerjobb = () => ({
@@ -34,8 +35,8 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     });
 
     const settdatoDefaultVerdi = () => ({
-        minDate: erNavAnsatt ?
-            avtale.godkjentForEtterregistrering ? INGEN_DATO_SPERRE : TEST :
+        minDate: erVeileder ?
+            avtale.godkjentForEtterregistrering ? INGEN_DATO_SPERRE : EN_UKE_SIDEN :
             DAGENSDATO, maxDate: INGEN_DATO_SPERRE,
     });
 
