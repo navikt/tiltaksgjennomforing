@@ -78,7 +78,7 @@ const EtterRegistrering: FunctionComponent = () => {
                                 hentAvtaleInfo(Number(søkeord));
                             }}
                             valider={(verdi: string) =>
-                                verdi.match(/^[0-9]{1,5}$/)
+                                verdi.match(/^\d{1,5}$/)
                                     ? undefined
                                     : 'Avtalenummer kan kun inneholde tall, maks fem tegn'
                             }
