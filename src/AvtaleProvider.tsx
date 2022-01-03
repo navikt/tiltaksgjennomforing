@@ -116,10 +116,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
 
     const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
         RestService.hentAvtale(avtaleId).then(setAvtale);
-/*
-    const hentAvtaleInfo = (avtaleNr: number = avtale.avtaleNr): Promise<void> =>
-        RestService.hentAvtaleInfo(avtaleNr).then();
-*/
+
     const annullerAvtale = async (annullerGrunn: string): Promise<void> => {
         await RestService.annullerAvtale(avtale, annullerGrunn);
         sendToAmplitude('#tiltak-avtale-annullert');
