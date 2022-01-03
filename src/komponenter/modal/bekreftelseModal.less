@@ -1,102 +1,110 @@
 @mobile-breakpoint: 768px;
 @button-height: 46px;
 
-.ReactModal__Content,
-.ReactModal__Content--after-open,
-.modal {
+.bekreftelseModal {
+  &__modal-container {
     padding: 1rem 1rem;
     max-width: 530px;
     min-width: 320px;
+  }
 
-    @media (min-height: 710px) {
-        &__wrapper {
-            overflow: visible;
-        }
+  &__body {
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 1rem 0;
+
+    .innhold {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__innhold {
+    margin: 1.5rem 0 2rem 0;
+  }
+
+  &__tittel {
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  &__varselTekst {
+    padding: 0 1rem;
+  }
+
+  &__lenkeknapp {
+    padding: 0 1rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: @button-height;
+    justify-content: center;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px #ffbd66;
     }
 
-    .bekreftelseModal {
-        &__body {
-            overflow-y: auto;
-            max-height: calc(100vh - 150px);
-            display: flex;
-            flex-direction: column;
-            padding: 0 0 1rem 0;
-
-            .innhold {
-                margin-bottom: 1.5rem;
-            }
-        }
-        &__innhold {
-            margin: 1.5rem 0 2rem 0;
-        }
-        &__tittel {
-            text-align: center;
-            padding-bottom: 1rem;
-        }
-        &__varselTekst {
-            padding: 0 1rem;
-        }
-
-        &__lenkeknapp {
-            padding: 0 1rem;
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            height: @button-height;
-            justify-content: center;
-            width: 100%;
-
-            &:focus {
-                outline: none;
-                box-shadow: 0 0 0 3px #ffbd66;
-            }
-            span {
-                max-width: 100%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
-
-        &__knappRad {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 0.5rem;
-        }
-        &__topIconContainer {
-            display: flex;
-            justify-content: center;
-            margin: -3.3rem auto 0 auto;
-            @media (max-height: 710px) {
-                display: none;
-            }
-        }
-
-        &__knapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-
-            .knapp {
-                overflow: hidden;
-            }
-            .knapp:not(:last-child) {
-                margin-bottom: 1rem;
-            }
-        }
-
-        @media (min-width: @mobile-breakpoint) {
-            &__knapper {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: flex-end;
-
-                .knapp:not(:last-child) {
-                    margin-bottom: 0rem;
-                    margin-right: 1rem;
-                }
-            }
-        }
+    span {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+  }
+
+  &__knappRad {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+  }
+
+  &__topIconContainer {
+    display: flex;
+    justify-content: center;
+    margin: -3.3rem auto 0 auto;
+    @media (max-height: 710px) {
+      display: none;
+    }
+  }
+
+  &__knapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .knapp {
+      overflow: hidden;
+    }
+
+    .knapp:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (min-width: @mobile-breakpoint) {
+    &__knapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-end;
+
+      .knapp:not(:last-child) {
+        margin-bottom: 0rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
+.ReactModal__Content,
+.ReactModal__Content--after-open,
+.modal {
+  @media (min-height: 710px) {
+    &__wrapper {
+      overflow: visible;
+    }
+  }
 }

@@ -77,6 +77,7 @@ const avtaleInnhold: Avtale = {
     statusSomEnum: 'GJENNOMFØRES',
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,
+    godkjentForEtterregistrering: false,
 };
 
 export const contextMock: Partial<Context> = {
