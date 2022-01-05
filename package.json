@@ -110,6 +110,7 @@
         "react-responsive": "^8.2.0",
         "react-router-dom": "^5.2.0",
         "react-select": "^4.3.1",
+        "swr": "^1.1.1",
         "url-search-params-polyfill": "^8.1.1"
     },
     "devDependencies": {

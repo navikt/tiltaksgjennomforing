@@ -10,7 +10,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
 import { Avtaleinnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import React, { createElement, FunctionComponent, useContext } from 'react';
+import React, { createElement, FunctionComponent, useContext, Suspense } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 
@@ -18,10 +18,11 @@ interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
 }
 
+
 const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale, laasOpp } = useContext(AvtaleContext);
+    const { avtale } = useContext(AvtaleContext);
 
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
@@ -29,24 +30,28 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className} role={'main'}>
             <AvtaleStatus />
-            <Innholdsboks ariaLabel={avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
+            <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>
-                        {avtale.erLaast ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
+                        {avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
                     </SkjemaTittel>
-                    {avtale.erLaast && <LagreSomPdfKnapp avtaleId={avtale.id} />}
+                    {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
                 </div>
                 {innloggetBruker.rolle === 'VEILEDER' && <DeltakerInfo oppsummeringside={true} />}
                 <Avtaleparter {...avtale} />
                 {createElement(props.oppsummering, { avtaleinnhold: avtale })}
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
+
             {avtale.tilskuddPeriode.length > 0 && (
                 <Innholdsboks>
                     <TilskuddsPerioderOppsummering />
                 </Innholdsboks>
             )}
-            <VersjoneringKomponent laasOpp={laasOpp} avtale={avtale} rolle={innloggetBruker.rolle} />
+            <Suspense fallback={null}>
+
+            <VersjoneringKomponent avtale={avtale} rolle={innloggetBruker.rolle} />
+            </Suspense>
         </div>
     );
 };

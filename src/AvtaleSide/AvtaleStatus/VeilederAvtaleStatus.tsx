@@ -18,7 +18,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
     const { avtale, overtaAvtale } = useContext(AvtaleContext);
 
     const skalViseAvslåttTilskuddsperiode =
-        avtale.erLaast &&
+        avtale.godkjentAvVeileder &&
         !avtale.erAnnullertEllerAvbrutt &&
         avtale.tilskuddPeriode.find(
             (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer

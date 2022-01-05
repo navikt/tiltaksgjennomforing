@@ -24,9 +24,9 @@ interface Props {
     skjulHvaMangler: boolean;
 }
 
-export const Avtalepart: FunctionComponent<Props> = props => {
+export const Avtalepart: FunctionComponent<Props> = (props) => {
     const alleFelter = props.navnFelter.concat(props.tilleggFelter);
-    const hvaMangler = props.skjulHvaMangler ? [] : alleFelter.filter(felt => !felt.verdi).map(felt => felt.felt);
+    const hvaMangler = props.skjulHvaMangler ? [] : alleFelter.filter((felt) => !felt.verdi).map((felt) => felt.felt);
 
     let innhold;
     if (hvaMangler.length > 0) {
@@ -38,7 +38,7 @@ export const Avtalepart: FunctionComponent<Props> = props => {
     } else {
         innhold = (
             <>
-                <Undertittel>{props.navnFelter.map(felt => felt.verdi).join(' ')}</Undertittel>
+                <Undertittel>{props.navnFelter.map((felt) => felt.verdi).join(' ')}</Undertittel>
                 {props.tilleggFelter.map((felt, index) => (
                     <React.Fragment key={index}>
                         <BedriftsnummerEllerTelefon felt={felt.felt} verdi={felt.verdi} />
@@ -69,72 +69,75 @@ const Avtaleparter: FunctionComponent<Avtale> = ({
     arbeidsgiverTlf,
     bedriftNr,
     bedriftNavn,
-    erLaast,
-}) => (
-    <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
-        <div>
-            <Avtalepart
-                navnFelter={[
-                    { felt: 'fornavn', verdi: deltakerFornavn },
-                    { felt: 'etternavn', verdi: deltakerEtternavn },
-                ]}
-                tilleggFelter={[
-                    {
-                        felt: 'fødselsnummer',
-                        verdi: deltakerFnr,
-                    },
-                    {
-                        felt: 'telefon',
-                        verdi: deltakerTlf,
-                    },
-                ]}
-                overskrift="Deltaker"
-                borderFarge="farge-gronn"
-                skjulHvaMangler={erLaast}
-            />
-            <Avtalepart
-                navnFelter={[
-                    {
-                        felt: 'bedriftnavn',
-                        verdi: bedriftNavn,
-                    },
-                    {
-                        felt: 'fornavn',
-                        verdi: arbeidsgiverFornavn && 'v/ ' + arbeidsgiverFornavn,
-                    },
-                    { felt: 'etternavn', verdi: arbeidsgiverEtternavn },
-                ]}
-                tilleggFelter={[
-                    {
-                        felt: 'bedriftsnummer',
-                        verdi: bedriftNr,
-                    },
-                    {
-                        felt: 'telefon',
-                        verdi: arbeidsgiverTlf,
-                    },
-                ]}
-                overskrift="Arbeidsgiver"
-                borderFarge="farge-graa"
-                skjulHvaMangler={erLaast}
-            />
-            <Avtalepart
-                navnFelter={[
-                    { felt: 'fornavn', verdi: veilederFornavn },
-                    { felt: 'etternavn', verdi: veilederEtternavn },
-                ]}
-                tilleggFelter={[
-                    {
-                        felt: 'telefon',
-                        verdi: veilederTlf,
-                    },
-                ]}
-                overskrift="NAV-veileder"
-                borderFarge="farge-lysblaa"
-                skjulHvaMangler={erLaast}
-            />
-        </div>
-    </Stegoppsummering>
-);
+    godkjentAvVeileder,
+}) => {
+    const erLåst = Boolean(godkjentAvVeileder);
+    return (
+        <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
+            <div>
+                <Avtalepart
+                    navnFelter={[
+                        { felt: 'fornavn', verdi: deltakerFornavn },
+                        { felt: 'etternavn', verdi: deltakerEtternavn },
+                    ]}
+                    tilleggFelter={[
+                        {
+                            felt: 'fødselsnummer',
+                            verdi: deltakerFnr,
+                        },
+                        {
+                            felt: 'telefon',
+                            verdi: deltakerTlf,
+                        },
+                    ]}
+                    overskrift="Deltaker"
+                    borderFarge="farge-gronn"
+                    skjulHvaMangler={erLåst}
+                />
+                <Avtalepart
+                    navnFelter={[
+                        {
+                            felt: 'bedriftnavn',
+                            verdi: bedriftNavn,
+                        },
+                        {
+                            felt: 'fornavn',
+                            verdi: arbeidsgiverFornavn && 'v/ ' + arbeidsgiverFornavn,
+                        },
+                        { felt: 'etternavn', verdi: arbeidsgiverEtternavn },
+                    ]}
+                    tilleggFelter={[
+                        {
+                            felt: 'bedriftsnummer',
+                            verdi: bedriftNr,
+                        },
+                        {
+                            felt: 'telefon',
+                            verdi: arbeidsgiverTlf,
+                        },
+                    ]}
+                    overskrift="Arbeidsgiver"
+                    borderFarge="farge-graa"
+                    skjulHvaMangler={erLåst}
+                />
+                <Avtalepart
+                    navnFelter={[
+                        { felt: 'fornavn', verdi: veilederFornavn },
+                        { felt: 'etternavn', verdi: veilederEtternavn },
+                    ]}
+                    tilleggFelter={[
+                        {
+                            felt: 'telefon',
+                            verdi: veilederTlf,
+                        },
+                    ]}
+                    overskrift="NAV-veileder"
+                    borderFarge="farge-lysblaa"
+                    skjulHvaMangler={erLåst}
+                />
+            </div>
+        </Stegoppsummering>
+    );
+};
 
 export default Avtaleparter;

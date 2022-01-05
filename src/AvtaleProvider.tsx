@@ -37,12 +37,11 @@ export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T ext
 export type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
 type SettOgKalkulerBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
+
 export interface Context {
     avtale: Avtale;
     overtaAvtale: () => Promise<void>;
-    gjenopprettAvtale: () => Promise<void>;
     annullerAvtale: (annullerGrunn: string) => Promise<void>;
-    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
     godkjenn: () => Promise<void>;
     godkjennTilskudd: (enhet: string) => Promise<void>;
@@ -62,7 +61,6 @@ export interface Context {
     settAvtaleVerdi: SettAvtaleVerdi;
     settAvtaleVerdier: SettFlereAvtaleVerdier;
     slettMaal: (maal: Maal) => Promise<void>;
-    laasOpp: () => Promise<void>;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
     sendTilbakeTilBeslutter: () => Promise<void>;
     oppdatereAvtaleContext: (oppdatertAvtale: Avtale) => void;
@@ -123,12 +121,6 @@ const AvtaleProvider: FunctionComponent = (props) => {
         await hentAvtale();
     };
 
-    const avbrytAvtale = async (avbruttDato: string, avbruttGrunn: string): Promise<void> => {
-        await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
-        sendToAmplitude('#tiltak-avtale-avbrutt');
-        await hentAvtale();
-    };
-
     const overtaAvtale = async (): Promise<void> => {
         await RestService.overtaAvtale(avtale.id);
         sendToAmplitude('#tiltak-avtale-overtatt');
@@ -176,18 +168,6 @@ const AvtaleProvider: FunctionComponent = (props) => {
                 handterFeil(error, visFeilmelding);
             }
         }
-    };
-
-    const laasOpp = async (): Promise<void> => {
-        await RestService.låsOppAvtale(avtale.id);
-        sendToAmplitude('#tiltak-avtale-laastOpp');
-        await hentAvtale(avtale.id);
-    };
-
-    const gjenopprettAvtale = async (): Promise<void> => {
-        await RestService.gjenopprettAvtale(avtale.id);
-        sendToAmplitude('#tiltak-avtale-gjenopprettet');
-        await hentAvtale(avtale.id);
     };
 
     const utforHandlingHvisRedigerbar = (callback: () => void): void => {
@@ -288,11 +268,8 @@ const AvtaleProvider: FunctionComponent = (props) => {
         settAvtaleVerdier: settAvtaleVerdier,
         hentAvtale,
         annullerAvtale,
-        avbrytAvtale,
         lagreAvtale,
         overtaAvtale,
-        laasOpp,
-        gjenopprettAvtale,
         utforHandlingHvisRedigerbar,
         lagreMaal,
         slettMaal,

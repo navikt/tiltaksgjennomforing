@@ -1,7 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
 import DelLenkeTilAvtalen from '@/AvtaleSide/DelLenkeTilAvtalen/DelLenkeTilAvtalen';
-import GjenopprettAvtalen from '@/AvtaleSide/GjenopprettAvtalen/GjenopprettAvtalen';
 import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
 import EndreTilskuddsberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
@@ -33,11 +32,9 @@ const OppgaveLenker: React.FunctionComponent = () => {
     return (
         <>
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
-            <GjenopprettAvtalen kanGjenopprettes={avtale.kanGjenopprettes} />
-            {avtale.tiltakstype !== 'SOMMERJOBB' && avtale.kanAvbrytes && <AnnullerAvtalen />}
-            {avtale.tiltakstype === 'SOMMERJOBB' && <AnnullerAvtalen />}
+            <AnnullerAvtalen />
             <DelLenkeTilAvtalen />
-            {avtale.erLaast && (
+            {avtale.avtaleInngått && (
                 <>
                     <EndreKontaktInformasjon />
                     {erArbeidstrening && <EndreMaal />}

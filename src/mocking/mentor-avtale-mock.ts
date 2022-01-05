@@ -15,7 +15,6 @@ const mentorAvtaleMock: Avtale = {
     kanAvbrytes: true,
     kanLåsesOpp: false,
     kanGjenopprettes: false,
-    versjoner: [],
     avbrutt: false,
     godkjentPaVegneAv: false,
 

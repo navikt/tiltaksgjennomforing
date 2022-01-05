@@ -7,7 +7,6 @@ export type Avtale = Annullering &
     Avbrytelse &
     Readonly<AvtaleMetadata> &
     Avtaleparter &
-    Versjonering &
     Godkjenninger &
     Avtaleinnhold;
 
@@ -197,7 +196,6 @@ export interface Godkjenninger {
     statusSomEnum: AvtaleStatus;
     godkjentPaVegneAv: boolean;
     godkjentPaVegneGrunn?: GodkjentPaVegneAvDeltakerGrunner;
-    erLaast: boolean;
     felterSomIkkeErFyltUt: (keyof Avtaleinnhold)[];
     ikrafttredelsestidspunkt?: string;
 }
@@ -208,8 +206,6 @@ export interface Annullering {
 }
 
 export interface Avbrytelse {
-    kanAvbrytes: boolean;
-    kanGjenopprettes: boolean;
     avbrutt: boolean;
     avbruttDato: string;
     avbruttGrunn: AvbrytelseGrunn;
@@ -249,12 +245,6 @@ export type InnholdType =
     | 'ANNULLERE';
 
 export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
-
-export interface Versjonering {
-    versjoner: AvtaleVersjon[];
-    kanLåsesOpp: boolean;
-    tiltakstype: TiltaksType;
-}
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
 

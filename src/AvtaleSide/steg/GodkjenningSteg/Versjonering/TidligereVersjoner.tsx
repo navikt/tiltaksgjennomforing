@@ -1,7 +1,7 @@
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
 import { innholdTypeTekst } from '@/messages';
-import { Versjonering } from '@/types/avtale';
+import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
@@ -11,7 +11,8 @@ import './TidligereVersjoner.less';
 
 const cls = BEMHelper('tidligereVersjoner');
 
-const TidligereVersjoner: React.FunctionComponent<Versjonering> = (props) => {
+const TidligereVersjoner: React.FunctionComponent<{versjoner: AvtaleVersjon[], tiltakstype: TiltaksType}> = (props) => {
+
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 

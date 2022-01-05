@@ -96,9 +96,7 @@ const VarighetSteg: FunctionComponent = () => {
                         {erArbeidsgiverOgUfordelt && (
                             <SkjemaelementFeilmelding>Dato kan ikke være tilbake i tid</SkjemaelementFeilmelding>
                         )}
-                        {!erArbeidsgiverOgUfordelt && avtaleContext.avtale.versjoner.length === 1 && (
-                            <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>
-                        )}
+                        {!erArbeidsgiverOgUfordelt && <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>}
                     </>
                 )}
                 <Row>

@@ -7,7 +7,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import './AvbrytAvtaleModal.less';
+import './AnnullerAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
     lukkModal: () => void;
 }
 
-const cls = BEMHelper('avbryt-avtale-modal');
+const cls = BEMHelper('annuller-avtale-modal');
 
 const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
     const [annetGrunn, setAnnetGrunn] = useState('');

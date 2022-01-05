@@ -22,10 +22,11 @@ import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { FeilkodeError } from './../types/errors';
-import { Variants } from './../types/unleash-variant';
+import { FeilkodeError } from '@/types/errors';
+import { Variants } from '@/types/unleash-variant';
 import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
+import { mutate } from "swr";
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
@@ -145,11 +146,6 @@ const opprettAvtalen = async (
     return getResponse.data;
 };
 
-export const hentRolle = async (avtaleId: string): Promise<Rolle> => {
-    const response = await api.get(`/avtaler/${avtaleId}/rolle`);
-    return response.data;
-};
-
 export const godkjennAvtale = async (avtale: Avtale) => {
     const uri = `/avtaler/${avtale.id}/godkjenn`;
 
@@ -167,6 +163,7 @@ export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: Godkje
     });
     return hentAvtale(avtale.id);
 };
+
 export const godkjennAvtalePaVegneAvArbeidsgiver = async (
     avtale: Avtale,
     paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner
@@ -175,6 +172,7 @@ export const godkjennAvtalePaVegneAvArbeidsgiver = async (
     await api.post(uri, paVegneGrunn);
     return hentAvtale(avtale.id);
 };
+
 export const godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver = async (
     avtale: Avtale,
     paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner
@@ -187,23 +185,6 @@ export const godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver = async (
 export const opphevGodkjenninger = async (avtaleId: string) => {
     await api.post(`/avtaler/${avtaleId}/opphev-godkjenninger`);
     return hentAvtale(avtaleId);
-};
-
-export const gjenopprettAvtale = async (id: string) => {
-    await api.post(`/avtaler/${id}/gjenopprett`);
-};
-
-export const avbrytAvtale = async (avtale: Avtale, avbruttDato: string, avbruttGrunn: string) => {
-    const uri = `/avtaler/${avtale.id}/avbryt`;
-    await api.post(
-        uri,
-        { avbruttDato: avbruttDato, avbruttGrunn: avbruttGrunn },
-        {
-            headers: {
-                'If-Unmodified-Since': avtale.sistEndret,
-            },
-        }
-    );
 };
 
 export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => {
@@ -269,10 +250,6 @@ export const hentFeatureTogglesVarianter = async (featureToggles: Feature[]): Pr
     return response.data;
 };
 
-export const låsOppAvtale = async (avtaleId: string): Promise<void> => {
-    await api.post(`/avtaler/${avtaleId}/laas-opp`);
-};
-
 export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
     await api.post(`/avtaler/${avtaleId}/del-med-avtalepart`, JSON.stringify(rolle));
 };
@@ -327,6 +304,7 @@ export const oppdatereKontaktInformasjon = async (avtale: Avtale, endreKontatInf
             },
         }
     );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
 export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
@@ -342,11 +320,13 @@ export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
             },
         }
     );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
 export type EndreStilling = Stilling & Pick<Varighet, 'stillingprosent' | 'antallDagerPerUke'>;
 export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStillingInfo: EndreStilling): Promise<void> => {
     await api.post(`/avtaler/${avtale.id}/endre-stillingbeskrivelse`, endreStillingInfo);
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
 export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {
@@ -359,6 +339,7 @@ export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning
             },
         }
     );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
 export const oppdateretilskuddsBeregningDryRun = async (
@@ -388,6 +369,7 @@ export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {
             },
         }
     );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 export const forlengAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
     const uri = `/avtaler/${avtale.id}/forleng-dry-run`;
@@ -414,6 +396,7 @@ export const forkortAvtale = async (avtale: Avtale, sluttDato: string, grunn: st
             },
         }
     );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
 export const forkortAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
@@ -438,4 +421,5 @@ export const sendTilbakeTilBeslutter = async (avtale: Avtale) => {
 
 export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Promise<void> => {
     await api.post(`/avtaler/${avtale.id}/endre-maal`, { maal: maal });
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
