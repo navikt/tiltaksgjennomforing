@@ -91,7 +91,7 @@ export interface RefusjonKontaktpersoninfo {
     refusjonKontaktpersonFornavn?: string;
     refusjonKontaktpersonEtternavn?: string;
     refusjonKontaktpersonTlf?: string;
-    // refusjonKontaktperson?: Kontaktperson;
+
 }
 
 export interface Deltakerinfo {
@@ -174,12 +174,6 @@ export interface TilskuddsPeriode {
     aktiv: boolean;
     enhet?: string;
     enhetsnavn?: string;
-}
-
-export interface Kontaktperson {
-    refusjonKontaktpersonFornavn?: string;
-    refusjonKontaktpersonEtternavn?: string;
-    refusjonKontaktpersonTlf?: string;
 }
 
 export interface Kontonummer {

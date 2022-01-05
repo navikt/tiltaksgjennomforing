@@ -4,17 +4,32 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Knapp} from "nav-frontend-knapper";
 import Relasjoner from "@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/Relasjoner";
 import {Normaltekst} from "nav-frontend-typografi";
-import {Kontaktperson, RefusjonKontaktpersoninfo} from "@/types/avtale";
 
 const KontaktpersonRefusjoninfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
     const { avtale, settAvtaleVerdi } = useContext(AvtaleContext);
     const [ekstraKontaktperson, setEkstraKontaktperson] = useState(false);
-    const [ønskerVarslingOmRefusjon, setØnskerVarslingOmRefusjon] = useState(false)
+    const [ønskerVarslingOmRefusjon, setØnskerVarslingOmRefusjon] = useState(true);
+    const [alertStripe, setAlertStripe] = useState(false);
+    const [disabledCheckbox, setDisabledCheckbox] = useState(true);
+
+
+    useEffect(() => {
+
+        if(avtale.refusjonKontaktpersonFornavn && avtale.refusjonKontaktpersonEtternavn &&
+            avtale.refusjonKontaktpersonTlf){
+            setDisabledCheckbox(false);
+        }
+        else{
+            setDisabledCheckbox(true);
+        }
+
+    },[avtale.refusjonKontaktpersonFornavn, avtale.refusjonKontaktpersonEtternavn, avtale.refusjonKontaktpersonTlf ])
+
 
     return (
         <>
@@ -29,6 +44,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                             label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
                             checked={ønskerVarslingOmRefusjon}
                             onChange={() => setØnskerVarslingOmRefusjon(!ønskerVarslingOmRefusjon)}
+                            disabled={disabledCheckbox}
                         />
                     </div>
 
