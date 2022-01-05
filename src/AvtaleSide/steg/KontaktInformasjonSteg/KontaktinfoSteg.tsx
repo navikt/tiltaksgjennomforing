@@ -7,6 +7,7 @@ import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import './kontaktinfo.less';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
+import KontaktpersonRefusjoninfoDel from './KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 
 const KontaktinfoSteg: FunctionComponent = () => {
     const { lagreAvtale } = useContext(AvtaleContext);
@@ -16,6 +17,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
             <DeltakerInfo oppsummeringside={false} />
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
+            <KontaktpersonRefusjoninfoDel />
             <VeilederinfoDel />
             <LagreKnapp
                 className="kontaktinfo-steg__lagre-knapp"
