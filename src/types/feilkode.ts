@@ -61,7 +61,8 @@ export type Feilkode =
     | 'KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
     | 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET'
     | 'FORMIDLINGSGRUPPE_IKKE_RETTIGHET'
-    | 'HENTING_AV_INNSATS_BEHOV_FEILET';
+    | 'HENTING_AV_INNSATS_BEHOV_FEILET'
+    | 'AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE'
 
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
@@ -130,5 +131,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
     KVALIFISERINGSGRUPPE_IKKE_RETTIGHET: 'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.',
     FORMIDLINGSGRUPPE_IKKE_RETTIGHET: 'Deltakeren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette tiltaket.',
-    HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov'
+    HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov',
+    AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE: 'Avtalen inneholder utbetalt tilskuddsperiode. Avtalen kan derfor ikke annulleres.'
 };
