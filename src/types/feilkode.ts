@@ -139,5 +139,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FORTIDLIG_STARTDATO: 'Avtalen må godkjennes for etterregistrering av beslutter',
     KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT:
         'Kan ikke endre etterregistrering etter at avtalen er godkjent.',
-    AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE: 'Avtalen inneholder utbetalt tilskuddsperiode. Avtalen kan derfor ikke annulleres.'
+    AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE: 'Avtalen inneholder utbetalte tilskuddsperiode(er). Avtalen kan derfor ikke annulleres.'
 };
