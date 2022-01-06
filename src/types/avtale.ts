@@ -66,6 +66,7 @@ export interface AvtaleMetadata {
     erAnnullertEllerAvbrutt: boolean;
     kvalifiseringsgruppe: Kvalifiseringsgruppe;
     formidlingsgruppe: Formidlingsgruppe;
+    godkjentForEtterregistrering: boolean;
 }
 
 export interface Avtaleparter {

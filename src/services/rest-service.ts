@@ -74,11 +74,39 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
-export const hentAvtalerForInnloggetBruker = async (søkekriterier: Filtrering, skip: number = 0, limit: number = 10000000): Promise<Avtale[]> => {
+export const hentAvtalerForInnloggetBruker = async (
+    søkekriterier: Filtrering,
+    skip: number = 0,
+    limit: number = 10000000
+): Promise<Avtale[]> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
-    const søkekriterierFiltrert = { bedriftNr: søkekriterier.bedrift, ...søkekriterier, bedrift: undefined, skip, limit };
+    const søkekriterierFiltrert = {
+        bedriftNr: søkekriterier.bedrift,
+        ...søkekriterier,
+        bedrift: undefined,
+        skip,
+        limit,
+    };
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
     const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
+    return response.data;
+};
+
+export const hentAvtalerForInnloggetBeslutter = async (
+    søkekriterier: Filtrering,
+    skip: number = 0,
+    limit: number = 10000000
+): Promise<Avtale[]> => {
+    // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
+    const søkekriterierFiltrert = {
+        bedriftNr: søkekriterier.bedrift,
+        ...søkekriterier,
+        bedrift: undefined,
+        skip,
+        limit,
+    };
+    const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
+    const response = await api.get<Avtale[]>(`/avtaler/beslutter?${queryParam}`);
     return response.data;
 };
 
@@ -298,6 +326,12 @@ export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigh
 export const godkjennTilskuddsperiode = async (avtaleId: string, enhet: string) => {
     const uri = `/avtaler/${avtaleId}/godkjenn-tilskuddsperiode`;
     await api.post(uri, { enhet });
+};
+
+export const setOmAvtalenKanEtterregistreres = async (avtaleId: string): Promise<Avtale> => {
+    const uri = `/avtaler/${avtaleId}/set-om-avtalen-kan-etterregistreres`;
+    const response = await api.post(uri);
+    return response.data;
 };
 
 export const avslåTilskuddsperiode = async (
