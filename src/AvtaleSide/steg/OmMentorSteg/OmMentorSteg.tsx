@@ -1,17 +1,15 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { InputStegProps } from '@/AvtaleSide/input-steg-props';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Mentorinfo } from '@/types/avtale';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import React, { useContext } from 'react';
 
 const OmMentorSteg = () => {
-    const avtaleContext: InputStegProps<Mentorinfo> = useContext(AvtaleContext);
+    const avtaleContext = useContext(AvtaleContext);
     const sjekkOgSettVerdi = (verdi: string | number | undefined): number | undefined => {
         if (typeof verdi === 'number') {
             return verdi;
@@ -26,15 +24,15 @@ const OmMentorSteg = () => {
                     <Column md="6">
                         <PakrevdInput
                             label="Fornavn"
-                            verdi={avtaleContext.avtale.mentorFornavn}
-                            settVerdi={verdi => avtaleContext.settAvtaleVerdi('mentorFornavn', verdi)}
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorFornavn}
+                            settVerdi={verdi => avtaleContext.settAvtaleInnholdVerdi('mentorFornavn', verdi)}
                         />
                     </Column>
                     <Column md="6">
                         <PakrevdInput
                             label="Etternavn"
-                            verdi={avtaleContext.avtale.mentorEtternavn}
-                            settVerdi={verdi => avtaleContext.settAvtaleVerdi('mentorEtternavn', verdi)}
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}
+                            settVerdi={verdi => avtaleContext.settAvtaleInnholdVerdi('mentorEtternavn', verdi)}
                         />
                     </Column>
                 </Row>
@@ -43,8 +41,8 @@ const OmMentorSteg = () => {
             <Container fluid={true}>
                 <PakrevdTextarea
                     label="Arbeidsoppgaver til mentor"
-                    verdi={avtaleContext.avtale.mentorOppgaver}
-                    settVerdi={verdi => avtaleContext.settAvtaleVerdi('mentorOppgaver', verdi)}
+                    verdi={avtaleContext.avtale.gjeldendeInnhold.mentorOppgaver}
+                    settVerdi={verdi => avtaleContext.settAvtaleInnholdVerdi('mentorOppgaver', verdi)}
                     maxLengde={1000}
                     feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                 />
@@ -55,18 +53,18 @@ const OmMentorSteg = () => {
                     <Column md="6">
                         <PakrevdInput
                             label="Antall timer med mentor"
-                            verdi={avtaleContext.avtale.mentorAntallTimer}
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer}
                             settVerdi={verdi =>
-                                avtaleContext.settAvtaleVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi))
+                                avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi))
                             }
                         />
                     </Column>
                     <Column md="6">
                         <PakrevdInput
                             label="Timelønn"
-                            verdi={avtaleContext.avtale.mentorTimelonn}
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn}
                             settVerdi={verdi =>
-                                avtaleContext.settAvtaleVerdi('mentorTimelonn', sjekkOgSettVerdi(verdi))
+                                avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', sjekkOgSettVerdi(verdi))
                             }
                         />
                     </Column>

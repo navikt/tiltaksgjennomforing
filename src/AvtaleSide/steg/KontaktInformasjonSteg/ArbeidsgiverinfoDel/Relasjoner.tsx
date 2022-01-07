@@ -16,7 +16,7 @@ import './Relasjoner.less';
 const cls = BEMHelper('relasjoner');
 
 const Relasjoner: FunctionComponent = () => {
-    const { avtale, settAvtaleVerdier } = useContext(AvtaleContext);
+    const { avtale, settAvtaleInnholdVerdier: settAvtaleVerdier } = useContext(AvtaleContext);
 
     const harFamilietilknytningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): JSX.Element => {
         switch (harFamilietilknytning) {
@@ -55,20 +55,20 @@ const Relasjoner: FunctionComponent = () => {
                         id="familevalg"
                     >
                         {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
-                            <div>{harFamilietilknytningSomJaNeiSvar(avtale.harFamilietilknytning)}</div>
+                            <div>{harFamilietilknytningSomJaNeiSvar(avtale.gjeldendeInnhold.harFamilietilknytning)}</div>
                         ) : (
                             <>
                                 <RadioPanel
                                     label="Ja"
                                     name="familievalg"
-                                    checked={avtale.harFamilietilknytning === true}
+                                    checked={avtale.gjeldendeInnhold.harFamilietilknytning === true}
                                     value="ja"
                                     onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
                                 />
                                 <RadioPanel
                                     label="Nei"
                                     name="familievalg"
-                                    checked={avtale.harFamilietilknytning === false}
+                                    checked={avtale.gjeldendeInnhold.harFamilietilknytning === false}
                                     value="nei"
                                     onChange={() => {
                                         settAvtaleVerdier({
@@ -80,19 +80,19 @@ const Relasjoner: FunctionComponent = () => {
                             </>
                         )}
                     </div>
-                    {avtale.harFamilietilknytning && (
+                    {avtale.gjeldendeInnhold.harFamilietilknytning && (
                         <>
                             <VerticalSpacer rem={1} />
                             {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
                                 <>
                                     <Element>Vennligst utdyp denne relasjonen</Element>
-                                    <Normaltekst>{avtale.familietilknytningForklaring || ''}</Normaltekst>
+                                    <Normaltekst>{avtale.gjeldendeInnhold.familietilknytningForklaring || ''}</Normaltekst>
                                 </>
                             ) : (
                                 <PakrevdTextarea
                                     label="Vennligst utdyp denne relasjonen"
                                     maxLengde={500}
-                                    verdi={avtale.familietilknytningForklaring || ''}
+                                    verdi={avtale.gjeldendeInnhold.familietilknytningForklaring || ''}
                                     settVerdi={verdi => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
                                 />
                             )}

@@ -43,7 +43,7 @@ const MaalKort: FunctionComponent<Props> = props => {
             {redigereMaalkort ? (
                 <RedigerMaal
                     defaultMaal={props.maal}
-                    ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.maal)}
+                    ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.gjeldendeInnhold.maal)}
                     avsluttRedigering={avsluttRedigering}
                 />
             ) : (

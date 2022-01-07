@@ -20,7 +20,7 @@ const EndreMaal: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [iRedigersmodus, setIRedigersmodus] = useState(false);
 
-    const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.maal);
+    const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.gjeldendeInnhold.maal);
 
     const lukkModal = () => {
         setModalApen(false);

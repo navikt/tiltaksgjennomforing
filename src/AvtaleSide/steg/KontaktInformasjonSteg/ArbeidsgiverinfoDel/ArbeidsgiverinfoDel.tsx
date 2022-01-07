@@ -9,7 +9,7 @@ import Relasjoner from './Relasjoner';
 
 const ArbeidsgiverinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
-    const { avtale, settAvtaleVerdi } = useContext(AvtaleContext);
+    const { avtale, settAvtaleInnholdVerdi: settAvtaleVerdi } = useContext(AvtaleContext);
     return (
         <>
             <div className={cls.element('container')}>
@@ -20,7 +20,7 @@ const ArbeidsgiverinfoDel = () => {
                     <div className={cls.element('rad')}>
                         <PakrevdInput
                             label="Bedriftens navn"
-                            verdi={avtale.bedriftNavn}
+                            verdi={avtale.gjeldendeInnhold.bedriftNavn}
                             settVerdi={(verdi) => settAvtaleVerdi('bedriftNavn', verdi)}
                         />
 
@@ -31,12 +31,12 @@ const ArbeidsgiverinfoDel = () => {
                     <div className={cls.element('rad')}>
                         <PakrevdInput
                             label="Arbeidsgiver sitt fornavn"
-                            verdi={avtale.arbeidsgiverFornavn}
+                            verdi={avtale.gjeldendeInnhold.arbeidsgiverFornavn}
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverFornavn', verdi)}
                         />
                         <PakrevdInput
                             label="Arbeidsgiver sitt etternavn"
-                            verdi={avtale.arbeidsgiverEtternavn}
+                            verdi={avtale.gjeldendeInnhold.arbeidsgiverEtternavn}
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverEtternavn', verdi)}
                         />
                     </div>
@@ -44,7 +44,7 @@ const ArbeidsgiverinfoDel = () => {
                     <div className={cls.element('rad')}>
                         <TelefonnummerInput
                             label="Arbeidsgiver sitt telefonnummer"
-                            verdi={avtale.arbeidsgiverTlf}
+                            verdi={avtale.gjeldendeInnhold.arbeidsgiverTlf}
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
                         />
                     </div>

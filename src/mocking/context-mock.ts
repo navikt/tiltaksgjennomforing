@@ -1,9 +1,10 @@
 import { Context } from '@/AvtaleProvider';
-import { Avslagsårsaker, Avtale } from '@/types/avtale';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Avslagsårsaker, Avtale } from '@/types/avtale';
+import { Avtaleinnhold } from './../types/avtale';
 
-const avtaleInnhold: Avtale = {
+const avtaleInnhold: Avtale | Avtaleinnhold = {
     arbeidsgiverEtternavn: '',
     arbeidsgiverFornavn: '',
     arbeidsgiverKontonummer: '',
@@ -57,16 +58,12 @@ const avtaleInnhold: Avtale = {
     avbruttGrunn: '',
     bedriftNr: '',
     deltakerFnr: '',
-    erLaast: false,
     erUfordelt: false,
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '',
     godkjentAvVeileder: '',
     godkjentPaVegneAv: false,
     id: '',
-    kanAvbrytes: true,
-    kanGjenopprettes: false,
-    kanLåsesOpp: false,
     opprettetTidspunkt: '',
     sistEndret: '',
     status: 'PÅBEGYNT',
@@ -79,10 +76,10 @@ const avtaleInnhold: Avtale = {
 };
 
 export const contextMock: Partial<Context> = {
-    avtale: avtaleInnhold,
+    //avtale: avtaleInnhold,
     settOgKalkulerBeregningsverdier: () => Promise.resolve(),
-    settAvtaleVerdi: () => null,
-    settAvtaleVerdier: () => undefined,
+    settAvtaleInnholdVerdi: () => null,
+    settAvtaleInnholdVerdier: () => undefined,
     hentAvtale: () => Promise.resolve(),
     annullerAvtale: () => Promise.resolve(),
     lagreAvtale: () => Promise.resolve(),

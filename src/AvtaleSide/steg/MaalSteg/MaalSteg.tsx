@@ -10,19 +10,19 @@ const MaalSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [iRedigermodus, setIRedigermodus] = useState(false);
 
-    const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.maal);
+    const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.gjeldendeInnhold.maal);
 
     const nyttMål = (beskrivelse: string, kategori: Maalkategori) => {
         const nyMålListe = leggTilMål(beskrivelse, kategori);
-        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+        avtaleContext.settAvtaleInnholdVerdier({ maal: nyMålListe }, true);
     };
     const slett = (index: number) => {
         const nyMålListe = sletteMål(index);
-        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+        avtaleContext.settAvtaleInnholdVerdier({ maal: nyMålListe }, true);
     };
     const endre = (index: number, beskrivelse: string, kategori: Maalkategori) => {
         const nyMålListe = endreMål(index, beskrivelse, kategori);
-        avtaleContext.settAvtaleVerdier({ maal: nyMålListe }, true);
+        avtaleContext.settAvtaleInnholdVerdier({ maal: nyMålListe }, true);
     };
 
     return (
@@ -37,7 +37,7 @@ const MaalSteg: FunctionComponent = () => {
                 />
             </Innholdsboks>
 
-            {avtaleContext.avtale.maal.map((maal, index) => (
+            {avtaleContext.avtale.gjeldendeInnhold.maal.map((maal, index) => (
                 <EtMaal
                     iRegideringsmodus={iRedigermodus}
                     setIRedigeringsmodus={setIRedigermodus}

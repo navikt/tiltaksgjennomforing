@@ -1,10 +1,10 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import BedriftsnummerEllerTelefon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/BedriftsnummerEllerTelefon';
-import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Undertekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
@@ -56,38 +56,27 @@ export const Avtalepart: FunctionComponent<Props> = (props) => {
     );
 };
 
-const Avtaleparter: FunctionComponent<Avtale> = ({
-    deltakerFornavn,
-    deltakerEtternavn,
-    arbeidsgiverFornavn,
-    arbeidsgiverEtternavn,
-    veilederFornavn,
-    veilederEtternavn,
-    deltakerFnr,
-    deltakerTlf,
-    veilederTlf,
-    arbeidsgiverTlf,
-    bedriftNr,
-    bedriftNavn,
-    godkjentAvVeileder,
-}) => {
-    const erLåst = Boolean(godkjentAvVeileder);
+const Avtaleparter: FunctionComponent = () => {
+    const avtaleContext = useContext(AvtaleContext);
+    const gjeldendeInnhold = avtaleContext.avtale.gjeldendeInnhold;
+
+    const erLåst = Boolean(avtaleContext.avtale.godkjentAvVeileder);
     return (
         <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
             <div>
                 <Avtalepart
                     navnFelter={[
-                        { felt: 'fornavn', verdi: deltakerFornavn },
-                        { felt: 'etternavn', verdi: deltakerEtternavn },
+                        { felt: 'fornavn', verdi: gjeldendeInnhold.deltakerFornavn },
+                        { felt: 'etternavn', verdi: gjeldendeInnhold.deltakerEtternavn },
                     ]}
                     tilleggFelter={[
                         {
                             felt: 'fødselsnummer',
-                            verdi: deltakerFnr,
+                            verdi: avtaleContext.avtale.deltakerFnr,
                         },
                         {
                             felt: 'telefon',
-                            verdi: deltakerTlf,
+                            verdi: gjeldendeInnhold.deltakerTlf,
                         },
                     ]}
                     overskrift="Deltaker"
@@ -98,22 +87,22 @@ const Avtaleparter: FunctionComponent<Avtale> = ({
                     navnFelter={[
                         {
                             felt: 'bedriftnavn',
-                            verdi: bedriftNavn,
+                            verdi: gjeldendeInnhold.bedriftNavn,
                         },
                         {
                             felt: 'fornavn',
-                            verdi: arbeidsgiverFornavn && 'v/ ' + arbeidsgiverFornavn,
+                            verdi: gjeldendeInnhold.arbeidsgiverFornavn && 'v/ ' + gjeldendeInnhold.arbeidsgiverFornavn,
                         },
-                        { felt: 'etternavn', verdi: arbeidsgiverEtternavn },
+                        { felt: 'etternavn', verdi: gjeldendeInnhold.arbeidsgiverEtternavn },
                     ]}
                     tilleggFelter={[
                         {
                             felt: 'bedriftsnummer',
-                            verdi: bedriftNr,
+                            verdi: avtaleContext.avtale.bedriftNr,
                         },
                         {
                             felt: 'telefon',
-                            verdi: arbeidsgiverTlf,
+                            verdi: gjeldendeInnhold.arbeidsgiverTlf,
                         },
                     ]}
                     overskrift="Arbeidsgiver"
@@ -122,13 +111,13 @@ const Avtaleparter: FunctionComponent<Avtale> = ({
                 />
                 <Avtalepart
                     navnFelter={[
-                        { felt: 'fornavn', verdi: veilederFornavn },
-                        { felt: 'etternavn', verdi: veilederEtternavn },
+                        { felt: 'fornavn', verdi: gjeldendeInnhold.veilederFornavn },
+                        { felt: 'etternavn', verdi: gjeldendeInnhold.veilederEtternavn },
                     ]}
                     tilleggFelter={[
                         {
                             felt: 'telefon',
-                            verdi: veilederTlf,
+                            verdi: gjeldendeInnhold.veilederTlf,
                         },
                     ]}
                     overskrift="NAV-veileder"

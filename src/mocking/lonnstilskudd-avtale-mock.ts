@@ -1,8 +1,9 @@
-import { Avtale } from '@/types/avtale';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Avtale } from '@/types/avtale';
+import { Avtaleinnhold } from './../types/avtale';
 
-const lonnstilskuddAvtaleMock: Avtale = {
+const lonnstilskuddAvtaleMock: Avtale | Avtaleinnhold = {
     id: '1',
     opprettetTidspunkt: '2020-01-02T00:00:00.000000',
     sistEndret: '2020-01-03T00:00:00.000000',
@@ -10,11 +11,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentAvDeltaker: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvVeileder: '',
-    erLaast: false,
     status: 'PÅBEGYNT',
-    kanAvbrytes: true,
-    kanLåsesOpp: false,
-    kanGjenopprettes: false,
     avbrutt: false,
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,

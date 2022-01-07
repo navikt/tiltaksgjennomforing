@@ -10,7 +10,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
 import { Avtaleinnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import React, { createElement, FunctionComponent, useContext, Suspense } from 'react';
+import React, { createElement, FunctionComponent, Suspense, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 
@@ -38,8 +38,8 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
                 </div>
                 {innloggetBruker.rolle === 'VEILEDER' && <DeltakerInfo oppsummeringside={true} />}
-                <Avtaleparter {...avtale} />
-                {createElement(props.oppsummering, { avtaleinnhold: avtale })}
+                <Avtaleparter />
+                {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
 

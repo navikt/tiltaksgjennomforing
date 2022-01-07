@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
 import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { Avtale } from '@/types/avtale';
 import { oppdateretilskuddsBeregningDryRun } from '@/services/rest-service';
+import { Avtale } from '@/types/avtale';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 interface Props {
     endreBeregning: EndreBeregning;
@@ -33,14 +33,14 @@ const EndringsTilskuddUtregningPanel: FunctionComponent<Props> = props => {
                 arbeidsgiveravgift={arbeidsgiveravgift}
                 otpSats={otpSats}
                 stillingprosent={stillingprosent}
-                otpBelop={nyAvtale.otpBelop}
-                arbeidsgiveravgiftBelop={nyAvtale.arbeidsgiveravgiftBelop}
-                feriepengerBelop={nyAvtale.feriepengerBelop}
-                sumLonnsutgifter={nyAvtale.sumLonnsutgifter}
-                lonnstilskuddProsent={nyAvtale.lonnstilskuddProsent}
-                datoForRedusertProsent={nyAvtale.datoForRedusertProsent}
-                sumLonnstilskudd={nyAvtale.sumLonnstilskudd}
-                sumLønnstilskuddRedusert={nyAvtale.sumLønnstilskuddRedusert}
+                otpBelop={nyAvtale.gjeldendeInnhold.otpBelop}
+                arbeidsgiveravgiftBelop={nyAvtale.gjeldendeInnhold.arbeidsgiveravgiftBelop}
+                feriepengerBelop={nyAvtale.gjeldendeInnhold.feriepengerBelop}
+                sumLonnsutgifter={nyAvtale.gjeldendeInnhold.sumLonnsutgifter}
+                lonnstilskuddProsent={nyAvtale.gjeldendeInnhold.lonnstilskuddProsent}
+                datoForRedusertProsent={nyAvtale.gjeldendeInnhold.datoForRedusertProsent}
+                sumLonnstilskudd={nyAvtale.gjeldendeInnhold.sumLonnstilskudd}
+                sumLønnstilskuddRedusert={nyAvtale.gjeldendeInnhold.sumLønnstilskuddRedusert}
             />
         </div>
     );

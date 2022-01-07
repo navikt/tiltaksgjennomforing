@@ -1,4 +1,6 @@
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
+import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
@@ -14,18 +16,15 @@ import {
     Maal,
     Stilling,
     TiltaksType,
-    Varighet,
+    Varighet
 } from '@/types/avtale';
-import { ApiError, AutentiseringError } from '@/types/errors';
+import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
+import { Variants } from '@/types/unleash-variant';
 import { Varsel } from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { FeilkodeError } from '@/types/errors';
-import { Variants } from '@/types/unleash-variant';
-import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
-import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { mutate } from "swr";
 
 export const API_URL = '/tiltaksgjennomforing/api';
@@ -97,7 +96,7 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
         }
     }
 
-    await api.put(`/avtaler/${avtale.id}`, avtale, {
+    await api.put(`/avtaler/${avtale.id}`, avtale.gjeldendeInnhold, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },
@@ -107,7 +106,9 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 };
 
 export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {
-    const response = await api.put(`/avtaler/${avtale.id}/dry-run`, avtale, {
+    console.log(avtale.gjeldendeInnhold);
+    
+    const response = await api.put(`/avtaler/${avtale.id}/dry-run`, avtale.gjeldendeInnhold, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },

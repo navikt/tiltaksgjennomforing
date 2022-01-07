@@ -1,6 +1,7 @@
-import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
+import { Avtaleinnhold } from './../types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -31,7 +32,7 @@ const tilskuddsPeriode: TilskuddsPeriode[] = [
     },
 ];
 
-const arbeidstreningAvtaleMock: Avtale = {
+const arbeidstreningAvtaleMock: Avtale | Avtaleinnhold = {
     id: '0',
     opprettetTidspunkt: '2020-01-01T00:00:00.000000',
     sistEndret: '2020-01-01T00:00:00.000000',

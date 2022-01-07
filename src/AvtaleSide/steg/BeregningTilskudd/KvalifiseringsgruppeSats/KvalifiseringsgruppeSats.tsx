@@ -1,9 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import React, { FunctionComponent, useContext } from 'react';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext } from 'react';
 
 const KvalifiseringsgruppeSats: FunctionComponent = () => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
@@ -23,8 +23,8 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
     };
 
     const settLonnstilskuddsprosent = () => {
-        return avtale.lonnstilskuddProsent
-            ? (avtale.lonnstilskuddProsent ?? '0').toString() + ' %'
+        return avtale.gjeldendeInnhold.lonnstilskuddProsent
+            ? (avtale.gjeldendeInnhold.lonnstilskuddProsent ?? '0').toString() + ' %'
             : settTekstTilLonntilskuddProsent()
     }
 
@@ -38,7 +38,7 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
                         name="lonnstilskuddProsent"
                         bredde="S"
                         label=""
-                        value={avtale.lonnstilskuddProsent}
+                        value={avtale.gjeldendeInnhold.lonnstilskuddProsent}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             settOgKalkulerBeregningsverdier({
                                 lonnstilskuddProsent: parseInt(event.target.value, 10),

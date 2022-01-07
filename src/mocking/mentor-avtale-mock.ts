@@ -1,8 +1,9 @@
-import { Avtale } from '@/types/avtale';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Avtale } from '@/types/avtale';
+import { Avtaleinnhold } from './../types/avtale';
 
-const mentorAvtaleMock: Avtale = {
+const mentorAvtaleMock: Avtale | Avtaleinnhold = {
     id: '6565e74d-66f3-44a1-8a3c-91fae6b450d3',
     opprettetTidspunkt: '',
     sistEndret: '',
@@ -10,11 +11,7 @@ const mentorAvtaleMock: Avtale = {
     godkjentAvDeltaker: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvVeileder: '',
-    erLaast: false,
     status: 'PÅBEGYNT',
-    kanAvbrytes: true,
-    kanLåsesOpp: false,
-    kanGjenopprettes: false,
     avbrutt: false,
     godkjentPaVegneAv: false,
 

@@ -15,6 +15,7 @@ import { Avslagsårsaker, TilskuddPeriodeStatus } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
+import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 import { formatterPenger } from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
@@ -23,7 +24,6 @@ import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
-import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -92,14 +92,14 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {avtaleContext.avtale.deltakerFornavn} {avtaleContext.avtale.deltakerEtternavn}
+                                        {avtaleContext.avtale.gjeldendeInnhold.deltakerFornavn} {avtaleContext.avtale.gjeldendeInnhold.deltakerEtternavn}
                                     </Normaltekst>
                                 </div>
                                 <div>
                                     <Element>Arbeidsgiver</Element>
                                 </div>
                                 <div>
-                                    <Normaltekst>{avtaleContext.avtale.bedriftNavn}</Normaltekst>
+                                    <Normaltekst>{avtaleContext.avtale.gjeldendeInnhold.bedriftNavn}</Normaltekst>
                                 </div>
                                 <div>
                                     <Element>Periode</Element>
@@ -276,8 +276,8 @@ const BeslutterSide: FunctionComponent = () => {
                         <Innholdsboks>
                             <Innholdstittel>{avtaleTittel[avtaleContext.avtale.tiltakstype]}</Innholdstittel>
                             <VerticalSpacer rem={2} />
-                            <Avtaleparter {...avtaleContext.avtale} />
-                            <OppsummeringLonnstilskudd avtaleinnhold={avtaleContext.avtale} />
+                            <Avtaleparter />
+                            <OppsummeringLonnstilskudd avtaleinnhold={avtaleContext.avtale.gjeldendeInnhold} />
                         </Innholdsboks>
                     </Ekspanderbartpanel>
                     <VerticalSpacer rem={1} />

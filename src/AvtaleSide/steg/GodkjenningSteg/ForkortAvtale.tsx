@@ -53,8 +53,8 @@ const ForkortAvtale: FunctionComponent = () => {
                     inputProps={{ placeholder: 'dd.mm.åååå' }}
                     value={sluttDato}
                     limitations={{
-                        maxDate: moment(avtaleContext.avtale.sluttDato).subtract(1, 'days').format('YYYY-MM-DD'),
-                        minDate: moment(avtaleContext.avtale.startDato).format('YYYY-MM-DD'),
+                        maxDate: moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).subtract(1, 'days').format('YYYY-MM-DD'),
+                        minDate: moment(avtaleContext.avtale.gjeldendeInnhold.startDato).format('YYYY-MM-DD'),
                     }}
                     onChange={(dato) => onDatoChange(dato)}
                 />

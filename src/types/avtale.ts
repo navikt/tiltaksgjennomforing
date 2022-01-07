@@ -1,29 +1,83 @@
-import { Nettressurs } from '@/types/nettressurs';
-import { Maalkategori } from './maalkategorier';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Nettressurs } from '@/types/nettressurs';
+import { Maalkategori } from './maalkategorier';
 
 export type Avtale = Annullering &
     Avbrytelse &
     Readonly<AvtaleMetadata> &
     Avtaleparter &
     Godkjenninger &
-    Avtaleinnhold;
-
-export type Avtaleinnhold = Arbeidsgiverinfo &
-    Bedriftinfo &
-    Deltakerinfo &
-    Oppfolging &
-    Stilling &
-    Tilrettelegging &
-    Varighet &
-    Veilederinfo &
-    MaalListe &
-    Beregningsgrunnlag &
     TilskuddsPerioder &
-    Kontonummer &
-    RelasjonerInfo &
-    Mentorinfo;
+    { gjeldendeInnhold: Avtaleinnhold };
+
+// export type Avtaleinnhold = Arbeidsgiverinfo &
+//     Bedriftinfo &
+//     Deltakerinfo &
+//     Oppfolging &
+//     Stilling &
+//     Tilrettelegging &
+//     Varighet &
+//     Veilederinfo &
+//     MaalListe &
+//     Beregningsgrunnlag &
+//     TilskuddsPerioder &
+//     Kontonummer &
+//     RelasjonerInfo &
+//     Mentorinfo;
+
+export type Avtaleinnhold = {
+    arbeidsgiverFornavn?: string;
+    arbeidsgiverEtternavn?: string;
+    arbeidsgiverTlf?: string;
+    bedriftNavn: string;
+    deltakerFornavn?: string;
+    deltakerEtternavn?: string;
+    deltakerTlf?: string;
+    oppfolging?: string;
+    stillingstittel?: string;
+    arbeidsoppgaver?: string;
+    stillingstype?: Stillingstype;
+    stillingKonseptId?: number;
+    stillingStyrk08?: number;
+    tilrettelegging?: string;
+    startDato?: string;
+    sluttDato?: string;
+    antallDagerPerUke?: number;
+    veilederFornavn?: string;
+    veilederEtternavn?: string;
+    veilederTlf?: string;
+    maal: Maal[];
+
+    manedslonn?: number;
+    feriepengesats?: number;
+    arbeidsgiveravgift?: number;
+    lonnstilskuddProsent?: number;
+    stillingprosent?: number;
+    feriepengerBelop?: number;
+    otpSats?: number;
+    otpBelop?: number;
+    arbeidsgiveravgiftBelop?: number;
+    sumLonnsutgifter?: number;
+    sumLonnstilskudd?: number;
+    manedslonn100pst?: number;
+    datoForRedusertProsent?: string;
+    sumLønnstilskuddRedusert?: number;
+    
+    enhetKostnadssted?: string;
+    enhetsnavnKostnadssted?: string;
+
+    arbeidsgiverKontonummer?: string;
+    harFamilietilknytning?: boolean;
+    familietilknytningForklaring?: string;
+
+    mentorFornavn?: string;
+    mentorEtternavn?: string;
+    mentorOppgaver?: string;
+    mentorAntallTimer?: number;
+    mentorTimelonn?: number;
+
+}
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'
