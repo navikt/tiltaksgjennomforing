@@ -4,32 +4,39 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Knapp} from "nav-frontend-knapper";
 import Relasjoner from "@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/Relasjoner";
 import {Normaltekst} from "nav-frontend-typografi";
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 const KontaktpersonRefusjoninfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
     const { avtale, settAvtaleVerdi } = useContext(AvtaleContext);
+
     const [ekstraKontaktperson, setEkstraKontaktperson] = useState(false);
     const [ønskerVarslingOmRefusjon, setØnskerVarslingOmRefusjon] = useState(true);
-    const [alertStripe, setAlertStripe] = useState(false);
-    const [disabledCheckbox, setDisabledCheckbox] = useState(true);
+    const [feilmelding, setFeilmelding] = useState<string>();
+/*
+    console.log("ønskerVarslingOmRefusjon", ønskerVarslingOmRefusjon);
+    console.log("av",avtale.ønskerVarslingOmRefusjon);
+*/
 
-
-    useEffect(() => {
-
-        if(avtale.refusjonKontaktpersonFornavn && avtale.refusjonKontaktpersonEtternavn &&
-            avtale.refusjonKontaktpersonTlf){
-            setDisabledCheckbox(false);
+    const sjekkeOmVarslingOmRefusjonKanSkrusAv = () => {
+        if(!ønskerVarslingOmRefusjon){
+            setØnskerVarslingOmRefusjon(true)
+            settAvtaleVerdi('ønskerInformasjonOmRefusjon', true );
+        }
+        else if(avtale.refusjonKontaktpersonFornavn && avtale.refusjonKontaktpersonEtternavn &&
+            avtale.refusjonKontaktpersonTlf) {
+            setØnskerVarslingOmRefusjon(false);
+            settAvtaleVerdi('ønskerInformasjonOmRefusjon', false );
+            setFeilmelding(undefined);
         }
         else{
-            setDisabledCheckbox(true);
+            setFeilmelding("Hvis ikke kontaktperson for avtalen ønsker å motta sms varslinger om refusjon må kontaktperson for refusjon fylles ut");
         }
-
-    },[avtale.refusjonKontaktpersonFornavn, avtale.refusjonKontaktpersonEtternavn, avtale.refusjonKontaktpersonTlf ])
-
+    }
 
     return (
         <>
@@ -38,14 +45,8 @@ const KontaktpersonRefusjoninfoDel = () => {
                     <SkjemaTittel>Kontaktperson for refusjon</SkjemaTittel>
                 </div>
                 <SkjemaGruppe title="Kontaktperson for refusjon">
-                    <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
-                    <div>
-                        <Checkbox
-                            label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
-                            checked={ønskerVarslingOmRefusjon}
-                            onChange={() => setØnskerVarslingOmRefusjon(!ønskerVarslingOmRefusjon)}
-                            disabled={disabledCheckbox}
-                        />
+                    <div >
+                        <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
                     </div>
 
                     {!ekstraKontaktperson &&
@@ -53,29 +54,35 @@ const KontaktpersonRefusjoninfoDel = () => {
                         <Knapp onClick={() => setEkstraKontaktperson(!ekstraKontaktperson)}>+ Legg til kontaktperson</Knapp>
                     </div>
                     }
-
                     {ekstraKontaktperson &&
-                        <>
-
-                    <div className={cls.element('rad')}>
-                        <PakrevdInput
-                            label="Kontaktperson for refusjon sitt fornavn"
-                            verdi={avtale.refusjonKontaktpersonFornavn}
-                            settVerdi={(verdi) => settAvtaleVerdi( 'refusjonKontaktpersonFornavn', verdi)}
-                        />
-                        <PakrevdInput
-                            label="Kontaktperson for refusjon sitt etternavn"
-                            verdi={avtale.refusjonKontaktpersonEtternavn}
-                            settVerdi={(verdi) => settAvtaleVerdi('refusjonKontaktpersonEtternavn', verdi)}
-                        />
-                    </div>
+                    <>
                         <div className={cls.element('rad')}>
-                        <TelefonnummerInput
-                        label="Kontaktperson for refusjon sitt telefonnummer"
-                        verdi={avtale.refusjonKontaktpersonTlf}
-                        settVerdi={(verdi ) => settAvtaleVerdi('refusjonKontaktpersonTlf', verdi)}
-                        />
+                            <PakrevdInput
+                                label="Kontaktperson for refusjon sitt fornavn"
+                                verdi={avtale.refusjonKontaktpersonFornavn}
+                                settVerdi={(verdi) => settAvtaleVerdi( 'refusjonKontaktpersonFornavn', verdi)}
+                            />
+                            <PakrevdInput
+                                label="Kontaktperson for refusjon sitt etternavn"
+                                verdi={avtale.refusjonKontaktpersonEtternavn}
+                                settVerdi={(verdi) => settAvtaleVerdi('refusjonKontaktpersonEtternavn', verdi)}
+                            />
                         </div>
+                        <div className={cls.element('rad')}>
+                            <TelefonnummerInput
+                            label="Kontaktperson for refusjon sitt telefonnummer"
+                            verdi={avtale.refusjonKontaktpersonTlf}
+                            settVerdi={(verdi ) => settAvtaleVerdi('refusjonKontaktpersonTlf', verdi)}
+                            />
+                        </div>
+                        <div>
+                            <Checkbox
+                                label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
+                                checked={ønskerVarslingOmRefusjon}
+                                onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
+                            />
+                        </div>
+                        {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>}
                     </>
                     }
                     <div className={cls.element('rad')}>

@@ -24,8 +24,9 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     TilskuddsPerioder &
     Kontonummer &
     RelasjonerInfo &
-    Mentorinfo &
-    RefusjonKontaktpersoninfo;
+    RefusjonKontaktperson &
+    Mentorinfo;
+
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'
@@ -85,13 +86,13 @@ export interface Arbeidsgiverinfo {
     arbeidsgiverFornavn?: string;
     arbeidsgiverEtternavn?: string;
     arbeidsgiverTlf?: string;
+    ønskerInformasjonOmRefusjon?: boolean;
 }
 
-export interface RefusjonKontaktpersoninfo {
+export interface RefusjonKontaktperson {
     refusjonKontaktpersonFornavn?: string;
     refusjonKontaktpersonEtternavn?: string;
     refusjonKontaktpersonTlf?: string;
-
 }
 
 export interface Deltakerinfo {

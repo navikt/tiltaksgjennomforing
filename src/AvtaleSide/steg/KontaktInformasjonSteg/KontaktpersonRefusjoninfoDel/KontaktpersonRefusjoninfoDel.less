@@ -1,0 +1,36 @@
+.kontaktpersonRefusjoninfo{
+  &__container {
+    padding: 0.5rem 0.5rem 2rem 0.5rem;
+
+    .skjemaelement {
+      &__sporsmal {
+        margin-bottom: 0.75rem;
+      }
+    }
+  }
+
+  &__skjemagruppe {
+    margin-bottom: 0.5rem;
+  }
+
+  &__rad {
+    display: flex;
+
+    .skjemaelement {
+      width: 50%;
+
+      &__sporsmal {
+        margin-bottom: 1.75rem;
+      }
+
+      &:first-child {
+        margin-right: 1.25rem;
+      }
+    }
+    &--single {
+      .skjemaelement {
+        width: calc(50% - 0.75rem);
+      }
+    }
+  }
+}
