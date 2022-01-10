@@ -125,7 +125,6 @@ const VarighetSteg: FunctionComponent = () => {
                         }
                     }}
                 />
-
                 <VerticalSpacer rem={2} />
                 <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
                 <VerticalSpacer rem={2} />

@@ -43,6 +43,7 @@ const arbeidstreningAvtaleMock: Avtale | Avtaleinnhold = {
     avbrutt: false,
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,
+
     godkjentPaVegneGrunn: undefined,
 
     oppfolging: 'Bruker og AG skal følges opp',
@@ -88,6 +89,9 @@ const arbeidstreningAvtaleMock: Avtale | Avtaleinnhold = {
 
     kvalifiseringsgruppe: Kvalifiseringsgruppe.SPESIELT_TILPASSET_INNSATS,
     formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
+
+    godkjentForEtterregistrering: false,
+
 };
 
 export default arbeidstreningAvtaleMock;

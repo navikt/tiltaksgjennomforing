@@ -6,6 +6,22 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(3, 1, 2022),
+        tittel: 'Etterregistrering må godkjennes av beslutter',
+        innhold: (
+            <>
+                <p>
+                    Nå kan veileder kun sette avtalens startdato maks en uke tilbake i tid fra dagens dato.
+                    Hvis det ønskes å sette en startdato lenger tilbake i tid på avtalen må en beslutter kontaktes
+                    for å sette at avtalen kan etterregistreres.
+                </p>
+                <p>
+                    Dette kan gjøres på oversiktssiden til beslutter.
+                </p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(1, 12, 2021),
         tittel: 'Henting av innsatsbehov for kandidat',
         innhold: (

@@ -4,15 +4,17 @@ import TilskuddPeriodeStatusFilter from '@/AvtaleOversikt/Filtrering/TilskuddPer
 import BEMHelper from '@/utils/bem';
 import { BedriftFilter } from '@/AvtaleOversikt/Filtrering/BedriftFilter';
 import Sortering from '@/AvtaleOversikt/Sortering';
+import EtterRegistrering from "@/AvtaleOversikt/EtterRegistrering/EtterRegistrering";
 
 const cls = BEMHelper('filtrering');
 const BeslutterFiltrering: FunctionComponent = () => {
     return (
         <div className={cls.className}>
-            <Sortering />
-            <BedriftFilter />
-            <TilskuddPeriodeStatusFilter />
-            <TiltakstypeFilter erBeslutter={true} />
+            <Sortering/>
+            <BedriftFilter/>
+            <TilskuddPeriodeStatusFilter/>
+            <TiltakstypeFilter erBeslutter={true}/>
+            <EtterRegistrering/>
         </div>
     );
 };

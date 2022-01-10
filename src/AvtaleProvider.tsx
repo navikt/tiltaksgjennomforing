@@ -102,7 +102,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         try {
             const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
             sendToAmplitude('#tiltak-avtale-lagret');
-            setAvtale({ ...avtale, ...lagretAvtale });
+            setAvtale({...avtale, ...lagretAvtale});
             setUlagredeEndringer(false);
             setUnderLagring(false);
         } finally {
@@ -284,7 +284,8 @@ const AvtaleProvider: FunctionComponent = (props) => {
         mellomLagring,
         setMellomLagring,
         sendTilbakeTilBeslutter,
-        oppdatereAvtaleContext,
+        oppdatereAvtaleContext
+
     };
 
     return (

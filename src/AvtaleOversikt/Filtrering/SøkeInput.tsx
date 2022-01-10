@@ -1,4 +1,3 @@
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import { Input, InputProps } from 'nav-frontend-skjema';
@@ -8,25 +7,24 @@ type Props = InputProps & {
     utførSøk: (søkeord: string) => void;
     valider: (verdi: string) => string | undefined;
     defaultVerdi?: string;
+    onChangeCallback?: () => void;
+    buttonSpinner?: boolean;
 };
 
 export const SøkeInput: FunctionComponent<Props> = (props) => {
     const [søkeord, setSøkeord] = useState<string>(props.defaultVerdi || '');
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
-    const utførSøk = () => {
-        if (valider()) {
-            props.utførSøk(søkeord);
-        }
-    };
+    const utførSøk = () => (valider() ? props.utførSøk(søkeord) : void 0);
 
-    const onBlur = () => {
-        valider();
-    };
+    const onBlur = () => valider();
 
     const onChange = (event: FormEvent<HTMLInputElement>) => {
         setSøkeord(event.currentTarget.value.toUpperCase());
         setSkjemaelementfeil(undefined);
+        if (props.onChangeCallback) {
+            props.onChangeCallback();
+        }
     };
 
     const enterKlikk = (event: any) => {
@@ -49,8 +47,7 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
-            <VerticalSpacer rem={1} />
-            <Søkeknapp onClick={utførSøk} />
+            <Søkeknapp style={{ marginTop: '1rem' }} onClick={utførSøk} spinner={props.buttonSpinner} />
         </>
     );
 };
