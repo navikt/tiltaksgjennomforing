@@ -8,8 +8,7 @@ export type Avtale = Annullering &
     Readonly<AvtaleMetadata> &
     Avtaleparter &
     Godkjenninger &
-    TilskuddsPerioder &
-    { gjeldendeInnhold: Avtaleinnhold };
+    TilskuddsPerioder & { gjeldendeInnhold: Avtaleinnhold };
 
 export type Avtaleinnhold = {
     arbeidsgiverFornavn?: string;
@@ -48,7 +47,7 @@ export type Avtaleinnhold = {
     manedslonn100pst?: number;
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
-    
+
     enhetKostnadssted?: string;
     enhetsnavnKostnadssted?: string;
 
@@ -61,8 +60,7 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
-
-}
+};
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'

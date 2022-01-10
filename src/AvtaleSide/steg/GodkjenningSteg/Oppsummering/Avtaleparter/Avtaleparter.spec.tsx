@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Avtaleparter from './Avtaleparter';
 import { AvtaleContext, Context } from '@/AvtaleProvider';
-import lonnstilskuddAvtaleMock from "@/mocking/lonnstilskudd-avtale-mock";
+import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
 test('Test that <Avtaleparter> renders correctly', () => {
     const wrapper = shallow(
