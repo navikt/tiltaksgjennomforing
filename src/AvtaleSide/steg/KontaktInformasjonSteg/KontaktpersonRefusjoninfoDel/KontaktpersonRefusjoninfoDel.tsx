@@ -32,6 +32,13 @@ const KontaktpersonRefusjoninfoDel = () => {
         }
     }
 
+    function resetRefusjonKontaktPerson() {
+        settAvtaleVerdi('ønskerInformasjonOmRefusjon', true);
+        settAvtaleVerdi('refusjonKontaktperson', undefined);
+        setØnskerVarslingOmRefusjon(true);
+        setVisEkstraKontaktpersonFelt(false);
+    }
+
     return (
         <>
             <div className={cls.element('container')}>
@@ -42,13 +49,12 @@ const KontaktpersonRefusjoninfoDel = () => {
                     <div>
                         <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
                     </div>
-
-                    {((!visEkstraKontaktpersonFelt || !avtale.refusjonKontaktperson)) &&
+                    {console.log(avtale.refusjonKontaktperson, (visEkstraKontaktpersonFelt && !avtale.refusjonKontaktperson))}
+                    {((!visEkstraKontaktpersonFelt && !avtale.refusjonKontaktperson)) &&
                         <Knapp onClick={() => setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)}>+ Legg til
                             kontaktperson</Knapp>
                     }
-                    {((!visEkstraKontaktpersonFelt
-                            && avtale.refusjonKontaktperson) || (visEkstraKontaktpersonFelt && !avtale.refusjonKontaktperson)) &&
+                    {(avtale.refusjonKontaktperson || (visEkstraKontaktpersonFelt && !avtale.refusjonKontaktperson)) &&
                         <>
                             <div className={cls.element('rad')}>
                                 <PakrevdInput
@@ -86,10 +92,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                                 />
                             </div>
                             {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>}
-                            <Knapp onClick={() => {
-                                setVisEkstraKontaktpersonFelt(false)
-                                settAvtaleVerdi('refusjonKontaktperson', {})
-                            }}>Fjern kontaktperson</Knapp>
+                            <Knapp onClick={() => resetRefusjonKontaktPerson()}>Fjern kontaktperson</Knapp>
                         </>
                     }
                     <div className={cls.element('rad')}>
