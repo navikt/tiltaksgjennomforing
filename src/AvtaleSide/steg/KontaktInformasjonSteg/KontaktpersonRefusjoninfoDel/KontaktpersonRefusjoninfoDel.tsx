@@ -12,19 +12,16 @@ import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 
 const KontaktpersonRefusjoninfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
-    const { avtale, settAvtaleVerdi } = useContext(AvtaleContext);
+    const { avtale, settAvtaleVerdi, oppdatereAvtaleContext } = useContext(AvtaleContext);
 
     const [visEkstraKontaktpersonFelt, setVisEkstraKontaktpersonFelt] = useState(false);
-    const [ønskerVarslingOmRefusjon, setØnskerVarslingOmRefusjon] = useState(true);
     const [feilmelding, setFeilmelding] = useState<string>();
 
     const sjekkeOmVarslingOmRefusjonKanSkrusAv = () => {
-        if (!ønskerVarslingOmRefusjon) {
-            setØnskerVarslingOmRefusjon(true)
+        if (!avtale.ønskerInformasjonOmRefusjon) {
             settAvtaleVerdi('ønskerInformasjonOmRefusjon', true);
         } else if (avtale.refusjonKontaktperson?.refusjonKontaktpersonFornavn && avtale.refusjonKontaktperson.refusjonKontaktpersonEtternavn &&
             avtale.refusjonKontaktperson.refusjonKontaktpersonTlf) {
-            setØnskerVarslingOmRefusjon(false);
             settAvtaleVerdi('ønskerInformasjonOmRefusjon', false);
             setFeilmelding(undefined);
         } else {
@@ -33,10 +30,12 @@ const KontaktpersonRefusjoninfoDel = () => {
     }
 
     function resetRefusjonKontaktPerson() {
-        settAvtaleVerdi('ønskerInformasjonOmRefusjon', true);
-        settAvtaleVerdi('refusjonKontaktperson', undefined);
-        setØnskerVarslingOmRefusjon(true);
+        console.log("Test")
         setVisEkstraKontaktpersonFelt(false);
+        avtale.refusjonKontaktperson = undefined;
+        avtale.ønskerInformasjonOmRefusjon = true;
+        oppdatereAvtaleContext(avtale);
+
     }
 
     return (
@@ -86,7 +85,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                             <div>
                                 <Checkbox
                                     label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
-                                    checked={ønskerVarslingOmRefusjon}
+                                    checked={avtale.ønskerInformasjonOmRefusjon}
                                     onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
                                 />
                             </div>
