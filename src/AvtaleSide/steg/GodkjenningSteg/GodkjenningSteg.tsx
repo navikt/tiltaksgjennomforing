@@ -18,7 +18,6 @@ interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
 }
 
-
 const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -49,8 +48,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                 </Innholdsboks>
             )}
             <Suspense fallback={null}>
-
-            <VersjoneringKomponent avtale={avtale} rolle={innloggetBruker.rolle} />
+                <VersjoneringKomponent avtale={avtale} rolle={innloggetBruker.rolle} />
             </Suspense>
         </div>
     );
