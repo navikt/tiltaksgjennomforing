@@ -162,8 +162,8 @@ const AvtaleProvider: FunctionComponent = (props) => {
             try {
                 const nyAvtale = { ...avtale, gjeldendeInnhold: {...avtale.gjeldendeInnhold, ...endringer} };
                 settAvtaleInnholdVerdier(endringer);
-                const etterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
-                settAvtaleInnholdVerdier(etterDryRun);
+                const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
+                settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
             } catch (error: any) {
                 handterFeil(error, visFeilmelding);
             }

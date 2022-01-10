@@ -16,7 +16,9 @@ const TidligereVersjoner: React.FunctionComponent<{versjoner: AvtaleVersjon[], t
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
-    const versjonLenker = props.versjoner.reverse().map((avtaleVersjon) => {
+    const versjoner = Array.from(props.versjoner);
+    versjoner.sort((a, b) => a.versjon - b.versjon);
+    const versjonLenker = versjoner.map((avtaleVersjon) => {
         return (
             <LenkepanelBase
                 key={avtaleVersjon.id}

@@ -8,7 +8,6 @@ const useStillingFraContext = () => {
 
     const setValgtStilling = (val: ValueType<StillingOptions, boolean>) => {
         const values = val as StillingOptions;
-        debugger;
         avtaleContext.settAvtaleInnholdVerdier({
             stillingstittel: values?.label,
             stillingStyrk08: values?.styrk08,
