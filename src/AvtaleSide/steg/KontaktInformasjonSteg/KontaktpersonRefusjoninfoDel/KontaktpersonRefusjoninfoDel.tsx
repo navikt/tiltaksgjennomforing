@@ -49,7 +49,6 @@ const KontaktpersonRefusjoninfoDel = () => {
                     <div>
                         <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
                     </div>
-                    {console.log(avtale.refusjonKontaktperson, (visEkstraKontaktpersonFelt && !avtale.refusjonKontaktperson))}
                     {((!visEkstraKontaktpersonFelt && !avtale.refusjonKontaktperson)) &&
                         <Knapp onClick={() => setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)}>+ Legg til
                             kontaktperson</Knapp>
