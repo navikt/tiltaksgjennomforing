@@ -11,21 +11,6 @@ export type Avtale = Annullering &
     TilskuddsPerioder &
     { gjeldendeInnhold: Avtaleinnhold };
 
-// export type Avtaleinnhold = Arbeidsgiverinfo &
-//     Bedriftinfo &
-//     Deltakerinfo &
-//     Oppfolging &
-//     Stilling &
-//     Tilrettelegging &
-//     Varighet &
-//     Veilederinfo &
-//     MaalListe &
-//     Beregningsgrunnlag &
-//     TilskuddsPerioder &
-//     Kontonummer &
-//     RelasjonerInfo &
-//     Mentorinfo;
-
 export type Avtaleinnhold = {
     arbeidsgiverFornavn?: string;
     arbeidsgiverEtternavn?: string;

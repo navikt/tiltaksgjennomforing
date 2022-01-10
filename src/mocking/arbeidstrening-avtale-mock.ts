@@ -1,7 +1,6 @@
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
-import { Avtaleinnhold } from './../types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -32,7 +31,7 @@ const tilskuddsPeriode: TilskuddsPeriode[] = [
     },
 ];
 
-const arbeidstreningAvtaleMock: Avtale | Avtaleinnhold = {
+const arbeidstreningAvtaleMock: Avtale = {
     id: '0',
     opprettetTidspunkt: '2020-01-01T00:00:00.000000',
     sistEndret: '2020-01-01T00:00:00.000000',
@@ -46,35 +45,38 @@ const arbeidstreningAvtaleMock: Avtale | Avtaleinnhold = {
 
     godkjentPaVegneGrunn: undefined,
 
-    oppfolging: 'Bruker og AG skal følges opp',
-    tilrettelegging: 'AG skal tilrettelegge',
+    bedriftNr: '12345678',
+    deltakerFnr: '00000000000',
+    gjeldendeInnhold: {
+        oppfolging: 'Bruker og AG skal følges opp',
+        tilrettelegging: 'AG skal tilrettelegge',
+        veilederFornavn: 'Karoline',
+        veilederEtternavn: 'Jakobsen',
+        veilederTlf: '88888888',
 
-    startDato: '2020-02-01',
-    sluttDato: '2020-03-01',
-    stillingprosent: 99,
+        bedriftNavn: 'Sigvartsen Transport AS',
+
+        deltakerFornavn: 'Frida',
+        deltakerEtternavn: 'Vikanes',
+        deltakerTlf: '44444444',
+
+        arbeidsgiverFornavn: 'Otto',
+        arbeidsgiverEtternavn: 'Olsen',
+        arbeidsgiverTlf: '77777777',
+
+        maal: maalListe,
+
+        startDato: '2020-02-01',
+        sluttDato: '2020-03-01',
+        stillingprosent: 99,
+    },
 
     tilskuddPeriode: tilskuddsPeriode,
 
     veilederNavIdent: 'Z123456',
     beslutterNavIdent: 'Z234512',
-    veilederFornavn: 'Karoline',
-    veilederEtternavn: 'Jakobsen',
-    veilederTlf: '88888888',
 
-    bedriftNavn: 'Sigvartsen Transport AS',
-    bedriftNr: '12345678',
-
-    deltakerFornavn: 'Frida',
-    deltakerEtternavn: 'Vikanes',
-    deltakerFnr: '00000000000',
-    deltakerTlf: '44444444',
-
-    arbeidsgiverFornavn: 'Otto',
-    arbeidsgiverEtternavn: 'Olsen',
-    arbeidsgiverTlf: '77777777',
     tiltakstype: 'ARBEIDSTRENING',
-
-    maal: maalListe,
 
     avbruttDato: '',
     avbruttGrunn: '',
@@ -91,7 +93,6 @@ const arbeidstreningAvtaleMock: Avtale | Avtaleinnhold = {
     formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
 
     godkjentForEtterregistrering: false,
-
 };
 
 export default arbeidstreningAvtaleMock;
