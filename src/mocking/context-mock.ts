@@ -1,7 +1,7 @@
-import { Context } from '@/AvtaleProvider';
-import { Avslagsårsaker, Avtale } from '@/types/avtale';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import {Context} from '@/AvtaleProvider';
+import {Avslagsårsaker, Avtale} from '@/types/avtale';
+import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import {Formidlingsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
 const avtaleInnhold: Avtale = {
     arbeidsgiverEtternavn: '',
@@ -78,6 +78,7 @@ const avtaleInnhold: Avtale = {
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,
     godkjentForEtterregistrering: false,
+    refusjonKontaktperson: {},
 };
 
 export const contextMock: Partial<Context> = {

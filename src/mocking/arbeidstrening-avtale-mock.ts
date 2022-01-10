@@ -1,6 +1,6 @@
-import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import {Avslagsårsaker, Avtale, Maal, TilskuddsPeriode} from '@/types/avtale';
+import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import {Formidlingsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
 const maalListe: Maal[] = [
     {
@@ -95,6 +95,8 @@ const arbeidstreningAvtaleMock: Avtale = {
     formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
 
     godkjentForEtterregistrering: false,
+
+    refusjonKontaktperson: {},
 
 };
 

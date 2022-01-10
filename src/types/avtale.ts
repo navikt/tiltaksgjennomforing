@@ -1,7 +1,7 @@
-import { Nettressurs } from '@/types/nettressurs';
-import { Maalkategori } from './maalkategorier';
-import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import {Nettressurs} from '@/types/nettressurs';
+import {Maalkategori} from './maalkategorier';
+import {Formidlingsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 
 export type Avtale = Annullering &
     Avbrytelse &
@@ -24,7 +24,7 @@ export type Avtaleinnhold = Arbeidsgiverinfo &
     TilskuddsPerioder &
     Kontonummer &
     RelasjonerInfo &
-    RefusjonKontaktperson &
+    Kontaktperson &
     Mentorinfo;
 
 
@@ -87,6 +87,10 @@ export interface Arbeidsgiverinfo {
     arbeidsgiverEtternavn?: string;
     arbeidsgiverTlf?: string;
     ønskerInformasjonOmRefusjon?: boolean;
+}
+
+export interface Kontaktperson {
+    refusjonKontaktperson?: RefusjonKontaktperson
 }
 
 export interface RefusjonKontaktperson {
