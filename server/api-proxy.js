@@ -1,5 +1,5 @@
-import proxy from 'express-http-proxy';
-import tokenx from './tokenx';
+const proxy = require('express-http-proxy');
+const tokenx = require('./tokenx')
 
 const setup = (router, tokenxClient) => {
     router.use(
