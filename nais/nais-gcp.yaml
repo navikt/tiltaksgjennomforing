@@ -30,6 +30,8 @@ spec:
           value: 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb'
         - name: STILLINGSTITLER_URL
           value: '{{{stillingstitler-url}}}'
+        - name: API_AUDIENCE
+          value: '{{{api-audience}}}'
     idporten:
         enabled: true
         sidecar:
