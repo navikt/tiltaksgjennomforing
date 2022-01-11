@@ -42,12 +42,12 @@ module.exports = function(app) {
         if (envProperties.ISSO_LOGIN_URL) {
             innloggingskilder.push(
                 {
-                    tittel: 'Som Veileder',
+                    tittel: 'Som veileder',
                     part: 'VEILEDER',
                     url: envProperties.ISSO_LOGIN_URL,
                 },
                 {
-                    tittel: 'Som Beslutter',
+                    tittel: 'Som beslutter',
                     part: 'BESLUTTER',
                     url: envProperties.ISSO_LOGIN_URL,
                 }
