@@ -30,7 +30,7 @@ const getTokenExchangeAccessToken = async (tokenxClient, req) => {
             nbf: now,
         },
     };
-    const bearerToken = req.headers.authorization?.replace("Bearer", "").trim()
+    const bearerToken = req.headers.authorization.replace("Bearer", "").trim();
     backendTokenSet = await tokenxClient.grant(
         {
             grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',
