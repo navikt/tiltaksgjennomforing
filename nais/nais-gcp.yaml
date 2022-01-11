@@ -1,0 +1,50 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+    name: tiltaksgjennomforing
+    namespace: arbeidsgiver
+    labels:
+        team: arbeidsgiver
+spec:
+    image: {{image}}
+    team: arbeidsgiver
+    port: 3000
+    ingresses:
+        - '{{{ingress}}}'
+    liveness:
+        path: /tiltaksgjennomforing/internal/isAlive
+        initialDelay: 5
+    readiness:
+        path: /tiltaksgjennomforing/internal/isReady
+        initialDelay: 5
+    env:
+        - name: APIGW_URL
+          value: '{{{api-gw-url}}}'
+        - name: SELVBETJENING_LOGIN_URL
+          value: '{{{selvbetjening-login-url}}}'
+        - name: LOGOUT_URL
+          value: '{{{logout-url}}}'
+        - name: ENABLE_EXTERNAL_MENU
+          value: 'true'
+        - name: DECORATOR_EXTERNAL_URL
+          value: 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb'
+        - name: STILLINGSTITLER_URL
+          value: '{{{stillingstitler-url}}}'
+        - name: API_AUDIENCE
+          value: '{{{api-audience}}}'
+    tokenx:
+      enabled: true
+    idporten:
+        enabled: true
+        sidecar:
+          enabled: true
+          level: Level4
+          locale: nb
+          autoLogin: false
+          errorPath: ""
+    accessPolicy:
+      outbound:
+        rules:
+          - application: tiltak-proxy
+            namespace: arbeidsgiver
+            cluster: dev-fss

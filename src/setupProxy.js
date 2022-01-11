@@ -1,6 +1,8 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const fetch = require('node-fetch');
 const whitelist = require('./whitelist');
+const apiProxy = require('../server/api-proxy');
+const tokenx = require('../server/tokenx');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 
@@ -42,12 +44,12 @@ module.exports = function(app) {
         if (envProperties.ISSO_LOGIN_URL) {
             innloggingskilder.push(
                 {
-                    tittel: 'Som Veileder',
+                    tittel: 'Som veileder',
                     part: 'VEILEDER',
                     url: envProperties.ISSO_LOGIN_URL,
                 },
                 {
-                    tittel: 'Som Beslutter',
+                    tittel: 'Som beslutter',
                     part: 'BESLUTTER',
                     url: envProperties.ISSO_LOGIN_URL,
                 }
@@ -99,13 +101,22 @@ module.exports = function(app) {
         proxyTimeout: 30000,
     };
 
-    if (envProperties.APIGW_HEADER) {
-        apiProxyConfig.headers = {
-            'x-nav-apiKey': envProperties.APIGW_HEADER,
-        };
+    const gcpTokenExchange = async () => {
+        const tokenxAuthClient = await tokenx.client();
+        apiProxy.setup(app, tokenxAuthClient);
     }
 
-    app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
+    if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp') {
+        gcpTokenExchange();
+    } else {
+        if (envProperties.APIGW_HEADER) {
+            apiProxyConfig.headers = {
+                'x-nav-apiKey': envProperties.APIGW_HEADER,
+            };
+        }
+
+        app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
+    }
 
     app.use(
         '/tiltaksgjennomforing/stillingstitler',
