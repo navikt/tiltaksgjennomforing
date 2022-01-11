@@ -10,8 +10,10 @@ import Relasjoner from "@/AvtaleSide/steg/KontaktInformasjonSteg/Arbeidsgiverinf
 import {Normaltekst} from "nav-frontend-typografi";
 import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 
+import "./KontaktpersonRefusjoninfoDel.less"
+
 const KontaktpersonRefusjoninfoDel = () => {
-    const cls = BEMHelper('kontaktinfo');
+    const cls = BEMHelper('kontaktpersonRefusjoninfo');
     const { avtale, settAvtaleVerdi, oppdatereAvtaleContext } = useContext(AvtaleContext);
 
     const [visEkstraKontaktpersonFelt, setVisEkstraKontaktpersonFelt] = useState(false);
@@ -49,8 +51,11 @@ const KontaktpersonRefusjoninfoDel = () => {
                         <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
                     </div>
                     {((!visEkstraKontaktpersonFelt && !avtale.refusjonKontaktperson)) &&
-                        <Knapp onClick={() => setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)}>+ Legg til
-                            kontaktperson</Knapp>
+                        <div className={cls.element('buttonSpaceing')}>
+                            <Knapp onClick={() => setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)}>+ Legg til
+                                kontaktperson</Knapp>
+                        </div>
+
                     }
                     {(avtale.refusjonKontaktperson || (visEkstraKontaktpersonFelt && !avtale.refusjonKontaktperson)) &&
                         <>
