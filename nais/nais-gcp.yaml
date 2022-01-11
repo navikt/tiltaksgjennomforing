@@ -32,6 +32,8 @@ spec:
           value: '{{{stillingstitler-url}}}'
         - name: API_AUDIENCE
           value: '{{{api-audience}}}'
+    tokenx:
+      enabled: true
     idporten:
         enabled: true
         sidecar:
