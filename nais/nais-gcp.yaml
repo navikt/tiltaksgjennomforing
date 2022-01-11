@@ -32,7 +32,9 @@ spec:
           value: '{{{stillingstitler-url}}}'
     idporten:
         enabled: true
-        level: Level4
-        locale: nb
-        autoLogin: false
-        errorPath: ""
+        sidecar:
+          enabled: true
+          level: Level4
+          locale: nb
+          autoLogin: false
+          errorPath: ""
