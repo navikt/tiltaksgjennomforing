@@ -13,6 +13,8 @@ import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
+import KontaktpersonRefusjonOppsumering
+    from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering";
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -38,6 +40,9 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                 </div>
                 {innloggetBruker.rolle === 'VEILEDER' && <DeltakerInfo oppsummeringside={true} />}
                 <Avtaleparter {...avtale} />
+                {avtale.refusjonKontaktperson &&
+                    <KontaktpersonRefusjonOppsumering kontaktpersonRefusjon={avtale.refusjonKontaktperson}/>
+                }
                 {createElement(props.oppsummering, { avtaleinnhold: avtale })}
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
