@@ -31,9 +31,8 @@ spec:
         - name: STILLINGSTITLER_URL
           value: '{{{stillingstitler-url}}}'
     idporten:
-        sidecar:
-          enabled: true
-          level: Level4
-          locale: nb
-          autoLogin: false
-          errorPath: ""
+        enabled: true
+        level: Level4
+        locale: nb
+        autoLogin: false
+        errorPath: ""
