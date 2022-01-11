@@ -13,7 +13,7 @@ import './EndreOppfølgingOgTilrettelegging.less';
 const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
     const cls = BEMHelper('endreOppfølgingOgTilrettelegging');
     const context = useContext(AvtaleContext);
-    const { oppfolging, tilrettelegging } = context.avtale;
+    const { oppfolging, tilrettelegging } = context.avtale.gjeldendeInnhold;
     const [modalApen, setModalApen] = useState(false);
 
     const [oppfølgingOgTilretteleggingInfo, setOppfølgingOgTilretteleggingInfo] =

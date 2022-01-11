@@ -19,10 +19,10 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
 
     const avtaleContext = useContext(AvtaleContext);
 
-    const { valgtStilling, setValgtStilling } = useStilling(avtaleContext.avtale);
-    const [arbeidsoppgaver, setArbeidsoppgaver] = useState(avtaleContext.avtale.arbeidsoppgaver);
-    const [stillingsprosent, setStillingsprosent] = useState(avtaleContext.avtale.stillingprosent);
-    const [antallDagerPerUke, setAntallDagerPerUke] = useState(avtaleContext.avtale.antallDagerPerUke);
+    const { valgtStilling, setValgtStilling } = useStilling(avtaleContext.avtale.gjeldendeInnhold);
+    const [arbeidsoppgaver, setArbeidsoppgaver] = useState(avtaleContext.avtale.gjeldendeInnhold.arbeidsoppgaver);
+    const [stillingsprosent, setStillingsprosent] = useState(avtaleContext.avtale.gjeldendeInnhold.stillingprosent);
+    const [antallDagerPerUke, setAntallDagerPerUke] = useState(avtaleContext.avtale.gjeldendeInnhold.antallDagerPerUke);
 
     const endreStilling = async (): Promise<void> => {
         const stillingInfo: EndreStilling = {
@@ -88,13 +88,13 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
 
     const lukkModal = () => {
         const values: StillingOptions = {
-            konseptId: avtaleContext.avtale.stillingKonseptId || 0,
-            label: avtaleContext.avtale.stillingstittel || '',
-            styrk08: avtaleContext.avtale.stillingStyrk08 || 0,
-            value: avtaleContext.avtale.stillingstittel || '',
+            konseptId: avtaleContext.avtale.gjeldendeInnhold.stillingKonseptId || 0,
+            label: avtaleContext.avtale.gjeldendeInnhold.stillingstittel || '',
+            styrk08: avtaleContext.avtale.gjeldendeInnhold.stillingStyrk08 || 0,
+            value: avtaleContext.avtale.gjeldendeInnhold.stillingstittel || '',
         };
         setValgtStilling(values);
-        setArbeidsoppgaver(avtaleContext.avtale.arbeidsoppgaver);
+        setArbeidsoppgaver(avtaleContext.avtale.gjeldendeInnhold.arbeidsoppgaver);
         setModalApen(false);
     };
 

@@ -33,11 +33,11 @@ const AvtalekortMobil: FunctionComponent<{
                     {ulestVarsel && <span aria-hidden={!ulestVarsel} className={cls.element('ulest-varsel-ikon')} />}
                     <div>
                         <Undertittel>
-                            {avtale.deltakerFornavn || ''}&nbsp;
-                            {avtale.deltakerEtternavn || ''}
+                            {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
+                            {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
                         </Undertittel>
                         <VerticalSpacer rem={0.5} />
-                        <Ingress>{avtale.bedriftNavn}</Ingress>
+                        <Ingress>{avtale.gjeldendeInnhold.bedriftNavn}</Ingress>
                         <VerticalSpacer rem={0.5} />
                         <Normaltekst>Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}</Normaltekst>
                         <div className={cls.element('status')}>

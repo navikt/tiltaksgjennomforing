@@ -6,6 +6,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
+import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
 import moment from 'moment';
 import 'moment/locale/nb';
 import { Datepicker } from 'nav-datovelger';
@@ -14,20 +15,20 @@ import { Column, Container, Row } from 'nav-frontend-grid';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
-import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
-import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { startDato, deltakerFnr, tiltakstype } = avtaleContext.avtale;
+    const {deltakerFnr, tiltakstype } = avtaleContext.avtale;
+    const { startDato } = avtaleContext.avtale.gjeldendeInnhold;
 
-    const timerIUka = Number(((37.5 * (avtaleContext.avtale.stillingprosent || 0)) / 100).toFixed(2));
+    const timerIUka = Number(((37.5 * (avtaleContext.avtale.gjeldendeInnhold.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
-    const duration = moment(avtaleContext.avtale.sluttDato).diff(avtaleContext.avtale.startDato, 'days');
+    const duration = moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).diff(avtaleContext.avtale.gjeldendeInnhold.startDato, 'days');
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
@@ -65,18 +66,18 @@ const VarighetSteg: FunctionComponent = () => {
                         <label className="skjemaelement__label">Startdato</label>
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.startDato || undefined}
+                            value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
                             limitations={AvtaleMinMaxDato()}
-                            onChange={(dato) => avtaleContext.settAvtaleVerdier({ startDato: dato })}
+                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ startDato: dato })}
                         />
                     </Column>
                     <Column md="6">
                         <label className="skjemaelement__label">Forventet sluttdato</label>
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.sluttDato || undefined}
+                            value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
                             limitations={AvtaleMinMaxDato()}
-                            onChange={(dato) => avtaleContext.settAvtaleVerdier({ sluttDato: dato })}
+                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato })}
                         />
                     </Column>
                 </Row>
@@ -89,16 +90,14 @@ const VarighetSteg: FunctionComponent = () => {
                         </AlertStripeAdvarsel>
                     </>
                 )}
-                {(erDatoTilbakeITid(avtaleContext.avtale.startDato) ||
-                    erDatoTilbakeITid(avtaleContext.avtale.sluttDato)) && (
+                {(erDatoTilbakeITid(avtaleContext.avtale.gjeldendeInnhold.startDato) ||
+                    erDatoTilbakeITid(avtaleContext.avtale.gjeldendeInnhold.sluttDato)) && (
                     <>
                         <VerticalSpacer rem={1} />
                         {erArbeidsgiverOgUfordelt && (
                             <SkjemaelementFeilmelding>Dato kan ikke være tilbake i tid</SkjemaelementFeilmelding>
                         )}
-                        {!erArbeidsgiverOgUfordelt && avtaleContext.avtale.versjoner.length === 1 && (
-                            <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>
-                        )}
+                        {!erArbeidsgiverOgUfordelt && <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>}
                     </>
                 )}
                 <Row>
@@ -107,8 +106,8 @@ const VarighetSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
                 <StillingsprosentInput
                     label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={avtaleContext.avtale.stillingprosent}
-                    settVerdi={(verdi) => avtaleContext.settAvtaleVerdi('stillingprosent', verdi)}
+                    verdi={avtaleContext.avtale.gjeldendeInnhold.stillingprosent}
+                    settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('stillingprosent', verdi)}
                 />
                 <VerticalSpacer rem={1} />
                 <PakrevdInput
@@ -116,13 +115,13 @@ const VarighetSteg: FunctionComponent = () => {
                     label="Antall dager per uke"
                     type="number"
                     max={7}
-                    verdi={avtaleContext.avtale.antallDagerPerUke}
+                    verdi={avtaleContext.avtale.gjeldendeInnhold.antallDagerPerUke}
                     settVerdi={(eventVerdi) => {
                         const verdi = parseInt(eventVerdi, 10);
                         if (verdi > 0 && verdi < 8) {
-                            avtaleContext.settAvtaleVerdi('antallDagerPerUke', verdi);
+                            avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', verdi);
                         } else {
-                            avtaleContext.settAvtaleVerdi('antallDagerPerUke', undefined);
+                            avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', undefined);
                         }
                     }}
                 />

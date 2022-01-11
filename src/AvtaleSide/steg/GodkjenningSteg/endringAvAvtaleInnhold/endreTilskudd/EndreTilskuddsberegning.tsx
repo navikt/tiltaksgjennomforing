@@ -32,7 +32,7 @@ const mapAvgiftSatser = (satser: number[]) =>
 const EndreTilskuddsberegning: FunctionComponent = () => {
     const cls = BEMHelper('endreTilskuddsBeregning');
     const context = useContext(AvtaleContext);
-    const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift, stillingprosent } = context.avtale;
+    const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift, stillingprosent } = context.avtale.gjeldendeInnhold;
     const [modalApen, setModalApen] = useState(false);
     const [nyBeregning, setNyBeregning] = useState<EndreBeregning>({
         stillingprosent: stillingprosent,

@@ -73,10 +73,10 @@ const AvtaleTabell: FunctionComponent<{
                                 uthevet: ulestVarsel,
                             })}
                         >
-                            <div className={cls.element('deltakerOgBedrift')}>{avtale.bedriftNavn}</div>
+                            <div className={cls.element('deltakerOgBedrift')}>{avtale.gjeldendeInnhold.bedriftNavn}</div>
                             <div className={cls.element('deltakerOgBedrift')}>
-                                {avtale.deltakerFornavn || ''}&nbsp;
-                                {avtale.deltakerEtternavn || ''}
+                                {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
+                                {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
                             </div>
                             {innloggetBruker.erNavAnsatt && (
                                 <div className={cls.element('veileder')}>{avtale.veilederNavIdent || 'Ufordelt'}</div>

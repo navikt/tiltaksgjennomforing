@@ -1,4 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import GodkjennPaVegneAvBeggeParter from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/GodkjennPaVegneAvBeggeParter';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -8,7 +9,6 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 import GodkjennPaVegneAvArbeidsgiver from './GodkjennPaVegneAvArbeidsgiver';
 import GodkjennPaVegneAvDeltaker from './GodkjennPaVegneAvDeltaker';
-import GodkjennPaVegneAvBeggeParter from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/GodkjennPaVegneAvBeggeParter';
 
 const GodkjenningVeileder: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -51,7 +51,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
                 />
             )}
 
-            {avtaleContext.avtale.harFamilietilknytning && (
+            {avtaleContext.avtale.gjeldendeInnhold.harFamilietilknytning && (
                 <>
                     <AlertStripeAdvarsel>
                         OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver

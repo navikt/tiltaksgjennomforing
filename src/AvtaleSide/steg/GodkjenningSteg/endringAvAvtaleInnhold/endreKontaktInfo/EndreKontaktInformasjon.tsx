@@ -24,7 +24,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         arbeidsgiverFornavn,
         arbeidsgiverEtternavn,
         arbeidsgiverTlf,
-    } = context.avtale;
+    } = context.avtale.gjeldendeInnhold;
     const [modalApen, setModalApen] = useState(false);
 
     const [kontaktInfo, setKontaktInfo] = useState<EndreKontaktInfo>({

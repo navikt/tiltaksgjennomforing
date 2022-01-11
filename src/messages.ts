@@ -5,7 +5,7 @@ import {
     AvtaleVersjon,
     Stillingstype,
     TilskuddPeriodeStatus,
-    TiltaksType,
+    TiltaksType
 } from './types/avtale';
 
 export const messages = {
@@ -40,7 +40,6 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     oppfolging: 'oppfølging',
     sluttDato: 'sluttdato',
     startDato: 'startdato',
-    tilskuddPeriode: 'tilskuddPeriode',
     stillingprosent: 'stillingsprosent',
     stillingstittel: 'stillingstittel',
     tilrettelegging: 'tilrettelegging',

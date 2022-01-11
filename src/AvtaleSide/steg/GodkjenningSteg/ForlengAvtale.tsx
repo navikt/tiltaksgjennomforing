@@ -50,7 +50,7 @@ const ForlengAvtale: FunctionComponent = () => {
                     inputProps={{ placeholder: 'dd.mm.åååå' }}
                     value={sluttDato}
                     limitations={{
-                        minDate: moment(avtaleContext.avtale.sluttDato).add(1, 'days').format('YYYY-MM-DD'),
+                        minDate: moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).add(1, 'days').format('YYYY-MM-DD'),
                     }}
                     onChange={(dato) => onDatoChange(dato)}
                 />

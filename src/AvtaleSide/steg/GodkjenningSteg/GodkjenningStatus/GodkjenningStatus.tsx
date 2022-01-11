@@ -1,9 +1,9 @@
-import React from 'react';
-import './GodkjenningStatus.less';
-import { Avtale } from '@/types/avtale';
-import GodkjenningRad from './GodkjenningRad/GodkjenningRad';
-import { Undertittel } from 'nav-frontend-typografi';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Avtale } from '@/types/avtale';
+import { Undertittel } from 'nav-frontend-typografi';
+import React from 'react';
+import GodkjenningRad from './GodkjenningRad/GodkjenningRad';
+import './GodkjenningStatus.less';
 
 interface Props {
     avtale: Avtale;
@@ -17,9 +17,9 @@ const GodkjenningStatus: React.FunctionComponent<Props> = props => {
             <div className="godkjenningstatus__rader">
                 <GodkjenningRad
                     godkjentAvtale={props.avtale.godkjentAvDeltaker}
-                    navn={`${props.avtale.deltakerFornavn} ${props.avtale.deltakerEtternavn}`}
+                    navn={`${props.avtale.gjeldendeInnhold.deltakerFornavn} ${props.avtale.gjeldendeInnhold.deltakerEtternavn}`}
                 />
-                <GodkjenningRad godkjentAvtale={props.avtale.godkjentAvArbeidsgiver} navn={props.avtale.bedriftNavn} />
+                <GodkjenningRad godkjentAvtale={props.avtale.godkjentAvArbeidsgiver} navn={props.avtale.gjeldendeInnhold.bedriftNavn} />
                 <GodkjenningRad godkjentAvtale={props.avtale.avtaleInngått} navn="NAV" />
             </div>
         </div>

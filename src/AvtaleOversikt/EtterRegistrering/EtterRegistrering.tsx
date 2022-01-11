@@ -1,17 +1,17 @@
-import React, { FunctionComponent, useState } from 'react';
-import Modal from 'nav-frontend-modal';
-import { Knapp } from 'nav-frontend-knapper';
-import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
-import * as RestService from '@/services/rest-service';
-import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
-import { Avtale } from '@/types/avtale';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import BEMHelper from '@/utils/bem';
-import './EtterRegistrering.less';
 import InfoRad from '@/AvtaleOversikt/EtterRegistrering/InfoRad';
+import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-
 import { tiltakstypeTekst } from '@/messages';
+import * as RestService from '@/services/rest-service';
+import { Avtale } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { Knapp } from 'nav-frontend-knapper';
+import Modal from 'nav-frontend-modal';
+import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useState } from 'react';
+import './EtterRegistrering.less';
+
 
 const EtterRegistrering: FunctionComponent = () => {
     const cls = BEMHelper('etterRegistrering');
@@ -96,7 +96,7 @@ const EtterRegistrering: FunctionComponent = () => {
                             <InfoRad
                                 klasseNavn={cls.element('rad-info')}
                                 radInfo="Bedriftnavn:"
-                                radVerdi={avtale.bedriftNavn}
+                                radVerdi={avtale.gjeldendeInnhold.bedriftNavn}
                             />
                             <InfoRad
                                 klasseNavn={cls.element('rad-info')}
@@ -106,7 +106,7 @@ const EtterRegistrering: FunctionComponent = () => {
                             <InfoRad
                                 klasseNavn={cls.element('rad-info')}
                                 radInfo="Navn:"
-                                radVerdi={`${avtale.deltakerFornavn} ${avtale.deltakerEtternavn}`}
+                                radVerdi={`${avtale.gjeldendeInnhold.deltakerFornavn} ${avtale.gjeldendeInnhold.deltakerEtternavn}`}
                             />
                             <InfoRad
                                 klasseNavn={cls.element('rad-info')}

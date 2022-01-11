@@ -1,32 +1,30 @@
 import TidligereVersjoner from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/TidligereVersjoner';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Versjonering } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import { Rolle } from '@/types/innlogget-bruker';
-import * as React from 'react';
+import React from 'react';
 import MediaQuery from 'react-responsive';
+import { useHentVersjoner } from '@/services/use-rest';
 
 interface Props {
     rolle: Rolle;
-    avtale: Versjonering;
-    laasOpp: () => Promise<any>;
+    avtale: Avtale;
 }
 
-const VersjoneringKomponent: React.FunctionComponent<Props> = props => {
-    const harTidligereVersjoner = props.avtale.versjoner.length > 1;
+const VersjoneringKomponent: React.FunctionComponent<Props> = (props) => {
+    const versjoner = useHentVersjoner(props.avtale.id);
 
-    if (props.rolle !== 'VEILEDER' && !harTidligereVersjoner) {
-        return null;
-    }
-    if (!props.avtale.kanLåsesOpp && !harTidligereVersjoner) {
+    const finnesKunEnVersjon = versjoner.length === 1;
+    if (finnesKunEnVersjon) {
         return null;
     }
 
-    return harTidligereVersjoner ? (
+    return (
         <MediaQuery print={false}>
             <Innholdsboks>
-                <TidligereVersjoner {...props.avtale} />
+                    <TidligereVersjoner versjoner={versjoner} tiltakstype={props.avtale.tiltakstype} />
             </Innholdsboks>
         </MediaQuery>
-    ) : null;
+    );
 };
 export default VersjoneringKomponent;

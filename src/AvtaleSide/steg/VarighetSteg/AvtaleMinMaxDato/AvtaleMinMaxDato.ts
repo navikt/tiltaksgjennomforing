@@ -1,10 +1,10 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { DatepickerLimitations } from 'nav-datovelger';
-import moment, { DurationInputArg2 } from 'moment';
-import { useContext } from 'react';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import {TiltaksType} from "@/types/avtale";
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { TiltaksType } from "@/types/avtale";
+import moment, { DurationInputArg2 } from 'moment';
+import { DatepickerLimitations } from 'nav-datovelger';
+import { useContext } from 'react';
 
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const INGEN_DATO_SPERRE = undefined;
@@ -16,7 +16,7 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const erVeileder = rolle === 'VEILEDER';
 
     const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): string =>
-        moment(avtale.startDato).add(megde, tidsEnhet).format('YYYY-MM-DD');
+        moment(avtale.gjeldendeInnhold.startDato).add(megde, tidsEnhet).format('YYYY-MM-DD');
 
     const settdatoMidlertidligLonnstilskudd = () => ({
         minDate: sjekkMuligMinDato(),
@@ -69,7 +69,7 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
         }
     };
 
-    if (avtale.startDato) {
+    if (avtale.gjeldendeInnhold.startDato) {
         settdatoBegrensningTiltakstype(avtale.tiltakstype);
     }
     return datoDefaultVerdi();

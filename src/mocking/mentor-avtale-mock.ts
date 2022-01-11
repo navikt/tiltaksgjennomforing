@@ -1,8 +1,9 @@
-import { Avtale } from '@/types/avtale';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Avtale } from '@/types/avtale';
+import { Avtaleinnhold } from '@/types/avtale';
 
-const mentorAvtaleMock: Avtale = {
+const mentorAvtaleMock: Avtale | Avtaleinnhold = {
     id: '6565e74d-66f3-44a1-8a3c-91fae6b450d3',
     opprettetTidspunkt: '',
     sistEndret: '',
@@ -10,12 +11,7 @@ const mentorAvtaleMock: Avtale = {
     godkjentAvDeltaker: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvVeileder: '',
-    erLaast: false,
     status: 'PÅBEGYNT',
-    kanAvbrytes: true,
-    kanLåsesOpp: false,
-    kanGjenopprettes: false,
-    versjoner: [],
     avbrutt: false,
     godkjentPaVegneAv: false,
 
@@ -25,32 +21,35 @@ const mentorAvtaleMock: Avtale = {
         digitalKompetanse: false,
     },
 
-    oppfolging: 'Bruker og AG skal følges opp.',
-    tilrettelegging: 'AG skal tilrettelegge.',
+    bedriftNr: '12345678',
+    deltakerFnr: '00000000000',
+    gjeldendeInnhold: {
+        oppfolging: 'Bruker og AG skal følges opp.',
+        tilrettelegging: 'AG skal tilrettelegge.',
 
-    startDato: '89',
-    sluttDato: '79',
-    stillingprosent: 99,
+        startDato: '89',
+        sluttDato: '79',
+        stillingprosent: 99,
+        veilederFornavn: 'Nave',
+        veilederEtternavn: 'Naversen',
+        veilederTlf: '88888888',
+
+        bedriftNavn: 'Arbeids AS',
+
+        deltakerFornavn: 'Deltakeren',
+        deltakerEtternavn: 'Deltakerensen',
+        deltakerTlf: '54444444',
+
+        arbeidsgiverFornavn: 'Arbeidsgivers',
+        arbeidsgiverEtternavn: 'Arbeidsgiverssen',
+        arbeidsgiverTlf: '87777777',
+        maal: [],
+    },
 
     tilskuddPeriode: [],
 
     veilederNavIdent: 'Z123456',
     beslutterNavIdent: 'Z321456',
-    veilederFornavn: 'Nave',
-    veilederEtternavn: 'Naversen',
-    veilederTlf: '88888888',
-
-    bedriftNavn: 'Arbeids AS',
-    bedriftNr: '12345678',
-
-    deltakerFornavn: 'Deltakeren',
-    deltakerEtternavn: 'Deltakerensen',
-    deltakerFnr: '00000000000',
-    deltakerTlf: '54444444',
-
-    arbeidsgiverFornavn: 'Arbeidsgivers',
-    arbeidsgiverEtternavn: 'Arbeidsgiverssen',
-    arbeidsgiverTlf: '87777777',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
 
     mentorFornavn: 'Mentoren',

@@ -32,7 +32,7 @@ const OppretteNyttMaal: FunctionComponent = () => {
             <SkjemaTittel>Opprett mål</SkjemaTittel>
             {visRedigerMaal ? (
                 <RedigerMaal
-                    ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.maal)}
+                    ledigeMaalkategorier={finnLedigeMaalkategorier(context.avtale.gjeldendeInnhold.maal)}
                     avsluttRedigering={avsluttRedigering}
                 />
             ) : (

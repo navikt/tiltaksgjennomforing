@@ -1,24 +1,24 @@
-import React, { FunctionComponent, useContext } from 'react';
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
-import { Normaltekst } from 'nav-frontend-typografi';
-import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
+import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
+import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
+import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { AvtaleContext } from '@/AvtaleProvider';
-import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
+import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
-import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext } from 'react';
 
 const VeilederAvtaleStatus: FunctionComponent = () => {
     const { avtale, overtaAvtale } = useContext(AvtaleContext);
 
     const skalViseAvslåttTilskuddsperiode =
-        avtale.erLaast &&
+        avtale.godkjentAvVeileder &&
         !avtale.erAnnullertEllerAvbrutt &&
         avtale.tilskuddPeriode.find(
             (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer
@@ -137,7 +137,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                         <>
                             <Normaltekst>
                                 Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
-                                starter {formatterDato(avtale.startDato!, NORSK_DATO_FORMAT)}.
+                                starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
                             </Normaltekst>
                             <VerticalSpacer rem={1} />
                             <Normaltekst>
@@ -155,7 +155,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                         <>
                             <Normaltekst>
                                 Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
-                                starter {formatterDato(avtale.startDato!, NORSK_DATO_FORMAT)}.
+                                starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
                             </Normaltekst>
                             <VerticalSpacer rem={1} />
                             <Normaltekst>

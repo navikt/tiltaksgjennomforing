@@ -18,7 +18,7 @@ const OppgiLonnstilskuddprosent: FunctionComponent = () => {
                     <Normaltekst>Velg sats for refusjon som arbeidsgiver skal få tilbake</Normaltekst>
                     <LonnstilskuddProsent
                         tiltakstype={avtale.tiltakstype}
-                        lonnstilskuddProsent={avtale.lonnstilskuddProsent}
+                        lonnstilskuddProsent={avtale.gjeldendeInnhold.lonnstilskuddProsent}
                         settLonnstilskuddProsent={(verdi) =>
                             settOgKalkulerBeregningsverdier({ lonnstilskuddProsent: verdi })
                         }

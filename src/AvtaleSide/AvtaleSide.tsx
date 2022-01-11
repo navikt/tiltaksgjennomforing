@@ -48,7 +48,7 @@ const AvtaleSide: FunctionComponent = () => {
 
     const erDesktop = windowSize > 767;
     const erAvtaleLaast =
-        avtale.erLaast || avtale.avbrutt || avtale.annullertTidspunkt || innloggetBruker.rolle === 'DELTAKER';
+        avtale.avtaleInngått || avtale.avbrutt || avtale.annullertTidspunkt || innloggetBruker.rolle === 'DELTAKER';
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);
