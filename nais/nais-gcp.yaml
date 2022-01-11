@@ -40,3 +40,9 @@ spec:
           locale: nb
           autoLogin: false
           errorPath: ""
+    accessPolicy:
+      outbound:
+        rules:
+          - application: tiltak-proxy
+            namespace: arbeidsgiver
+            cluster: dev-fss
