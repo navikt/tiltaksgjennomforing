@@ -17,4 +17,4 @@ const setup = (router, tokenxClient) => {
     );
 };
 
-moudule.exports = { setup };
+module.exports = { setup };
