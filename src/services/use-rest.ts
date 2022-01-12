@@ -42,5 +42,5 @@ const swrConfig = {
 
 export const useHentVersjoner = (avtaleId: string) => {
     const { data } = useSWR<AvtaleVersjon[]>(`/avtaler/${avtaleId}/versjoner`, swrConfig);
-    return data!;
+    return data!; // nosonar
 };
