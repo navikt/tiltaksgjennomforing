@@ -11,8 +11,9 @@ import './TidligereVersjoner.less';
 
 const cls = BEMHelper('tidligereVersjoner');
 
-const TidligereVersjoner: React.FunctionComponent<{versjoner: AvtaleVersjon[], tiltakstype: TiltaksType}> = (props) => {
-
+const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; tiltakstype: TiltaksType }> = (
+    props
+) => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
@@ -36,7 +37,7 @@ const TidligereVersjoner: React.FunctionComponent<{versjoner: AvtaleVersjon[], t
                     </Element>
                     <div className={cls.element('dato')}>
                         {avtaleVersjon.ikrafttredelsestidspunkt &&
-                            moment(avtaleVersjon.ikrafttredelsestidspunkt as moment.MomentInput).format('DD.MM.YYYY')}
+                            moment(avtaleVersjon.ikrafttredelsestidspunkt).format('DD.MM.YYYY')}
                     </div>
                 </div>
             </LenkepanelBase>
