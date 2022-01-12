@@ -261,8 +261,6 @@ test('Renders ProsentInput med over gyldig verdi', () => {
     expect(parseFloat(formater("2,5ab "))).toEqual(2.5);
 
     const tall = parseFloat(fromFormatted("2,2"));
-    const tallVerdi: number = parseFloat(parseFloat("2.").toFixed(2))
-
     expect(tall).toEqual(2.2)
 });
 

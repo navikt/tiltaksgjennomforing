@@ -42,8 +42,8 @@ fetchMock
     .get(`${API_URL}/avtaler/1/rolle`, '"VEILEDER"')
     .get(`${API_URL}/avtaler/0`, arbeidstreningAvtaleMock)
     .get(`${API_URL}/avtaler/1`, lonnstilskuddAvtaleMock)
-    .get(new RegExp(`${API_URL}/varsler`), [])
-    .get(new RegExp(`${API_URL}/feature`), features)
-    .put(new RegExp(`${API_URL}/avtaler/.*`), lagreAvtaleResponse)
+    .get(`${API_URL}/varsler`, [])
+    .get(`${API_URL}/feature`, features)
+    .put(`${API_URL}/avtaler/.*`, lagreAvtaleResponse)
     .post(`${API_URL}/avtaler`, opprettAvtaleResponse)
-    .post(new RegExp('https://sentry.gc.nav.no'), {});
+    .post('https://sentry.gc.nav.no', {});
