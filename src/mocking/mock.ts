@@ -1,9 +1,8 @@
-import { API_URL } from '@/services/rest-service';
+import {API_URL} from '@/services/rest-service';
 import fetchMock from 'fetch-mock';
 import arbeidstreningAvtaleMock from './arbeidstrening-avtale-mock';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
-import { alleFeatures } from '@/FeatureToggleProvider';
-import statusDetaljerMock from '@/mocking/status-detaljer-mock';
+import {alleFeatures} from '@/FeatureToggleProvider';
 
 const opprettAvtaleHeaders = {
     Location: 'avtaler/0',
@@ -33,20 +32,18 @@ fetchMock
             url: '',
         },
     ])
-    .get('/tiltaksgjennomforing/skal-backupmeny-brukes', 'true')
-    .get(`${API_URL}/innlogget-bruker`, { identifikator: 'Z123456', erNavAnsatt: true })
-    .get(`${API_URL}/avtaler?veilederNavIdent=Z123456&beslutterNavIdent=Z321456,`, [
-        arbeidstreningAvtaleMock,
-        lonnstilskuddAvtaleMock,
-    ])
-    .get(`${API_URL}/avtaler/0/rolle`, '"VEILEDER"')
-    .get(`${API_URL}/avtaler/1/rolle`, '"VEILEDER"')
-    .get(`${API_URL}/avtaler/0`, arbeidstreningAvtaleMock)
-    .get(`${API_URL}/avtaler/1`, lonnstilskuddAvtaleMock)
-    .get(`${API_URL}/avtaler/0/status-detaljer`, statusDetaljerMock)
-    .get(`${API_URL}/avtaler/1/status-detaljer`, statusDetaljerMock)
-    .get(new RegExp(`${API_URL}/varsler`), [])
-    .get(new RegExp(`${API_URL}/feature`), features)
-    .put(new RegExp(`${API_URL}/avtaler/.*`), lagreAvtaleResponse)
-    .post(`${API_URL}/avtaler`, opprettAvtaleResponse)
-    .post(new RegExp('https://sentry.gc.nav.no'), {});
+.get('/tiltaksgjennomforing/skal-backupmeny-brukes', 'true')
+.get(`${API_URL}/innlogget-bruker`, {identifikator: 'Z123456', erNavAnsatt: true})
+.get(`${API_URL}/avtaler?veilederNavIdent=Z123456&beslutterNavIdent=Z321456,`, [
+    arbeidstreningAvtaleMock,
+    lonnstilskuddAvtaleMock,
+])
+.get(`${API_URL}/avtaler/0/rolle`, '"VEILEDER"')
+.get(`${API_URL}/avtaler/1/rolle`, '"VEILEDER"')
+.get(`${API_URL}/avtaler/0`, arbeidstreningAvtaleMock)
+.get(`${API_URL}/avtaler/1`, lonnstilskuddAvtaleMock)
+.get(`${API_URL}/varsler`, [])
+.get(`${API_URL}/feature`, features)
+.put(`${API_URL}/avtaler/.*`, lagreAvtaleResponse)
+.post(`${API_URL}/avtaler`, opprettAvtaleResponse)
+.post('https://sentry.gc.nav.no', {});

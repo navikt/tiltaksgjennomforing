@@ -1,32 +1,68 @@
-import {Nettressurs} from '@/types/nettressurs';
-import {Maalkategori} from './maalkategorier';
 import {Formidlingsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import {Nettressurs} from '@/types/nettressurs';
+import {Maalkategori} from './maalkategorier';
 
 export type Avtale = Annullering &
     Avbrytelse &
     Readonly<AvtaleMetadata> &
     Avtaleparter &
-    Versjonering &
     Godkjenninger &
-    Avtaleinnhold;
+    TilskuddsPerioder & { gjeldendeInnhold: Avtaleinnhold };
 
-export type Avtaleinnhold = Arbeidsgiverinfo &
-    Bedriftinfo &
-    Deltakerinfo &
-    Oppfolging &
-    Stilling &
-    Tilrettelegging &
-    Varighet &
-    Veilederinfo &
-    MaalListe &
-    Beregningsgrunnlag &
-    TilskuddsPerioder &
-    Kontonummer &
-    RelasjonerInfo &
-    Kontaktperson &
-    Mentorinfo;
+export type Avtaleinnhold = {
+    arbeidsgiverFornavn?: string;
+    arbeidsgiverEtternavn?: string;
+    arbeidsgiverTlf?: string;
+    bedriftNavn: string;
+    deltakerFornavn?: string;
+    deltakerEtternavn?: string;
+    deltakerTlf?: string;
+    oppfolging?: string;
+    stillingstittel?: string;
+    arbeidsoppgaver?: string;
+    stillingstype?: Stillingstype;
+    stillingKonseptId?: number;
+    stillingStyrk08?: number;
+    tilrettelegging?: string;
+    startDato?: string;
+    sluttDato?: string;
+    antallDagerPerUke?: number;
+    veilederFornavn?: string;
+    veilederEtternavn?: string;
+    veilederTlf?: string;
+    maal: Maal[];
 
+    manedslonn?: number;
+    feriepengesats?: number;
+    arbeidsgiveravgift?: number;
+    lonnstilskuddProsent?: number;
+    stillingprosent?: number;
+    feriepengerBelop?: number;
+    otpSats?: number;
+    otpBelop?: number;
+    arbeidsgiveravgiftBelop?: number;
+    sumLonnsutgifter?: number;
+    sumLonnstilskudd?: number;
+    manedslonn100pst?: number;
+    datoForRedusertProsent?: string;
+    sumLønnstilskuddRedusert?: number;
+    refusjonKontaktperson?: RefusjonKontaktperson;
+    ønskerInformasjonOmRefusjon?: boolean;
+
+    enhetKostnadssted?: string;
+    enhetsnavnKostnadssted?: string;
+
+    arbeidsgiverKontonummer?: string;
+    harFamilietilknytning?: boolean;
+    familietilknytningForklaring?: string;
+
+    mentorFornavn?: string;
+    mentorEtternavn?: string;
+    mentorOppgaver?: string;
+    mentorAntallTimer?: number;
+    mentorTimelonn?: number;
+};
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'
@@ -71,6 +107,12 @@ export interface AvtaleMetadata {
     godkjentForEtterregistrering: boolean;
 }
 
+export interface RefusjonKontaktperson {
+    refusjonKontaktpersonFornavn?: string;
+    refusjonKontaktpersonEtternavn?: string;
+    refusjonKontaktpersonTlf?: string;
+}
+
 export interface Avtaleparter {
     bedriftNr: string;
     deltakerFnr: string;
@@ -86,17 +128,6 @@ export interface Arbeidsgiverinfo {
     arbeidsgiverFornavn?: string;
     arbeidsgiverEtternavn?: string;
     arbeidsgiverTlf?: string;
-    ønskerInformasjonOmRefusjon?: boolean;
-}
-
-export interface Kontaktperson {
-    refusjonKontaktperson?: RefusjonKontaktperson
-}
-
-export interface RefusjonKontaktperson {
-    refusjonKontaktpersonFornavn?: string;
-    refusjonKontaktpersonEtternavn?: string;
-    refusjonKontaktpersonTlf?: string;
 }
 
 export interface Deltakerinfo {
@@ -104,7 +135,6 @@ export interface Deltakerinfo {
     deltakerEtternavn?: string;
     deltakerTlf?: string;
 }
-
 export interface Veilederinfo {
     veilederFornavn?: string;
     veilederEtternavn?: string;
@@ -212,7 +242,6 @@ export interface Godkjenninger {
     statusSomEnum: AvtaleStatus;
     godkjentPaVegneAv: boolean;
     godkjentPaVegneGrunn?: GodkjentPaVegneAvDeltakerGrunner;
-    erLaast: boolean;
     felterSomIkkeErFyltUt: (keyof Avtaleinnhold)[];
     ikrafttredelsestidspunkt?: string;
 }
@@ -223,8 +252,6 @@ export interface Annullering {
 }
 
 export interface Avbrytelse {
-    kanAvbrytes: boolean;
-    kanGjenopprettes: boolean;
     avbrutt: boolean;
     avbruttDato: string;
     avbruttGrunn: AvbrytelseGrunn;
@@ -264,12 +291,6 @@ export type InnholdType =
     | 'ANNULLERE';
 
 export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
-
-export interface Versjonering {
-    versjoner: AvtaleVersjon[];
-    kanLåsesOpp: boolean;
-    tiltakstype: TiltaksType;
-}
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
 

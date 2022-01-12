@@ -1,17 +1,17 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { avtaleTittel } from '@/messages';
-import { pathTilOversikt } from '@/paths';
+import {avtaleTittel} from '@/messages';
+import {pathTilOversikt} from '@/paths';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import { useParams } from 'react-router-dom';
+import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
+import {useHistory} from 'react-router';
+import {useParams} from 'react-router-dom';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
@@ -46,10 +46,10 @@ const AvtaleSide: FunctionComponent = () => {
     const history = useHistory();
     const { stegPath } = useParams<any>();
 
-    const erDesktop = windowSize > 767;
-    const erAvtaleLaast =
-        avtale.erLaast || avtale.avbrutt || avtale.annullertTidspunkt || innloggetBruker.rolle === 'DELTAKER';
-    const sideTittel = avtaleTittel[avtale.tiltakstype];
+  const erDesktop = windowSize > 767;
+  const erAvtaleLaast =
+      avtale.avtaleInngått || avtale.avbrutt || avtale.annullertTidspunkt || innloggetBruker.rolle === 'DELTAKER';
+  const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);
 

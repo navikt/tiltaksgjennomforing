@@ -6,7 +6,7 @@ import {
     GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
     GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
-    Maal,
+    Maal
 } from '@/types/avtale';
 import {ApiError, AutentiseringError} from '@/types/errors';
 import {Maalkategori} from '@/types/maalkategorier';
@@ -29,20 +29,19 @@ export interface TemporaryLagring {
     beskrivelse: string;
 }
 
-export type SettAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
+export type SettAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
     felt: K,
     verdi: T[K]
 ) => void;
 
-export type SettFlereAvtaleVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
+export type SettFlereAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
 type SettOgKalkulerBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
+
 
 export interface Context {
     avtale: Avtale;
     overtaAvtale: () => Promise<void>;
-    gjenopprettAvtale: () => Promise<void>;
     annullerAvtale: (annullerGrunn: string) => Promise<void>;
-    avbrytAvtale: (avbruttDato: string, avbruttGrunn: string) => Promise<void>;
     endretSteg: () => void;
     godkjenn: () => Promise<void>;
     godkjennTilskudd: (enhet: string) => Promise<void>;
@@ -59,10 +58,9 @@ export interface Context {
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
     settOgKalkulerBeregningsverdier: SettOgKalkulerBeregningsverdier;
-    settAvtaleVerdi: SettAvtaleVerdi;
-    settAvtaleVerdier: SettFlereAvtaleVerdier;
+    settAvtaleInnholdVerdi: SettAvtaleInnholdVerdi;
+    settAvtaleInnholdVerdier: SettFlereAvtaleInnholdVerdier;
     slettMaal: (maal: Maal) => Promise<void>;
-    laasOpp: () => Promise<void>;
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
     sendTilbakeTilBeslutter: () => Promise<void>;
     oppdatereAvtaleContext: (oppdatertAvtale: Avtale) => void;
@@ -123,38 +121,31 @@ const AvtaleProvider: FunctionComponent = (props) => {
         await hentAvtale();
     };
 
-    const avbrytAvtale = async (avbruttDato: string, avbruttGrunn: string): Promise<void> => {
-        await RestService.avbrytAvtale(avtale, avbruttDato, avbruttGrunn);
-        sendToAmplitude('#tiltak-avtale-avbrutt');
-        await hentAvtale();
-    };
-
     const overtaAvtale = async (): Promise<void> => {
         await RestService.overtaAvtale(avtale.id);
         sendToAmplitude('#tiltak-avtale-overtatt');
         await hentAvtale();
     };
 
-    const settAvtaleVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
+    const settAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
         felt: K,
         verdi: T[K]
     ): Avtale | undefined => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
-            const nyAvtale = { ...avtale, [felt]: verdi };
-
+            const nyAvtale = {...avtale, gjeldendeInnhold: {...avtale.gjeldendeInnhold, [felt]: verdi}};
             setAvtale(nyAvtale);
             setUlagredeEndringer(true);
             return nyAvtale;
         }
     };
 
-    const settAvtaleVerdier = (endringer: Partial<Avtale>, lagre = false): Avtale | undefined => {
+    const settAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre = false): Avtale | undefined => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
-            const nyAvtale = { ...avtale, ...endringer };
+            const nyAvtale = {...avtale, gjeldendeInnhold: {...avtale.gjeldendeInnhold, ...endringer}};
             setAvtale(nyAvtale);
             setUlagredeEndringer(true);
             if (lagre) {
@@ -169,26 +160,14 @@ const AvtaleProvider: FunctionComponent = (props) => {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             try {
-                const nyAvtale = { ...avtale, ...endringer };
-                settAvtaleVerdier(nyAvtale);
-                const etterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
-                settAvtaleVerdier(etterDryRun);
+                const nyAvtale = {...avtale, gjeldendeInnhold: {...avtale.gjeldendeInnhold, ...endringer}};
+                settAvtaleInnholdVerdier(endringer);
+                const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
+                settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
             } catch (error: any) {
                 handterFeil(error, visFeilmelding);
             }
         }
-    };
-
-    const laasOpp = async (): Promise<void> => {
-        await RestService.låsOppAvtale(avtale.id);
-        sendToAmplitude('#tiltak-avtale-laastOpp');
-        await hentAvtale(avtale.id);
-    };
-
-    const gjenopprettAvtale = async (): Promise<void> => {
-        await RestService.gjenopprettAvtale(avtale.id);
-        sendToAmplitude('#tiltak-avtale-gjenopprettet');
-        await hentAvtale(avtale.id);
     };
 
     const utforHandlingHvisRedigerbar = (callback: () => void): void => {
@@ -200,16 +179,16 @@ const AvtaleProvider: FunctionComponent = (props) => {
     };
 
     const lagreMaal = (maalTilLagring: Maal): Promise<void> => {
-        const nyeMaal = avtale.maal.filter((maal: Maal) => maal.id !== maalTilLagring.id);
+        const nyeMaal = avtale.gjeldendeInnhold.maal.filter((maal: Maal) => maal.id !== maalTilLagring.id);
         nyeMaal.push(maalTilLagring);
-        const nyAvtale = settAvtaleVerdi('maal', nyeMaal);
+        const nyAvtale = settAvtaleInnholdVerdi('maal', nyeMaal);
         sendToAmplitude('#tiltak-avtale-maal-lagret');
         return lagreAvtale(nyAvtale);
     };
 
     const slettMaal = (maalTilSletting: Maal): Promise<void> => {
-        const nyeMaal = avtale.maal.filter((maal: Maal) => maal.id !== maalTilSletting.id);
-        const nyAvtale = settAvtaleVerdi('maal', nyeMaal);
+        const nyeMaal = avtale.gjeldendeInnhold.maal.filter((maal: Maal) => maal.id !== maalTilSletting.id);
+        const nyAvtale = settAvtaleInnholdVerdi('maal', nyeMaal);
         sendToAmplitude('#tiltak-avtale-maal-slettet');
         return lagreAvtale(nyAvtale);
     };
@@ -284,16 +263,13 @@ const AvtaleProvider: FunctionComponent = (props) => {
 
     const avtaleContext: Context = {
         avtale,
-        settAvtaleVerdi,
+        settAvtaleInnholdVerdi,
         settOgKalkulerBeregningsverdier,
-        settAvtaleVerdier: settAvtaleVerdier,
+        settAvtaleInnholdVerdier,
         hentAvtale,
         annullerAvtale,
-        avbrytAvtale,
         lagreAvtale,
         overtaAvtale,
-        laasOpp,
-        gjenopprettAvtale,
         utforHandlingHvisRedigerbar,
         lagreMaal,
         slettMaal,

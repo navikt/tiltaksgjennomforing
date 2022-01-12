@@ -1,16 +1,21 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const {createProxyMiddleware} = require('http-proxy-middleware');
 const fetch = require('node-fetch');
 const whitelist = require('./whitelist');
+const apiProxy = require('../server/api-proxy');
+const tokenx = require('../server/tokenx');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 
 const envProperties = {
-    APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
-    APIGW_HEADER: process.env.APIGW_HEADER,
-    ISSO_LOGIN_URL: process.env.ISSO_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/isso'),
-    SELVBETJENING_LOGIN_URL:
-        process.env.SELVBETJENING_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/selvbetjening'),
-    LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
+  APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
+  APIGW_HEADER: process.env.APIGW_HEADER,
+  ISSO_LOGIN_URL: process.env.ISSO_LOGIN_URL || (brukLokalLogin
+      && '/tiltaksgjennomforing/fakelogin/isso'),
+  SELVBETJENING_LOGIN_URL:
+      process.env.SELVBETJENING_LOGIN_URL || (brukLokalLogin
+          && '/tiltaksgjennomforing/fakelogin/selvbetjening'),
+  LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin
+      && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
     STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.dev-gcp.nais.io/',
 };
 
@@ -42,14 +47,14 @@ module.exports = function(app) {
         if (envProperties.ISSO_LOGIN_URL) {
             innloggingskilder.push(
                 {
-                    tittel: 'Som Veileder',
-                    part: 'VEILEDER',
-                    url: envProperties.ISSO_LOGIN_URL,
+                  tittel: 'Som veileder',
+                  part: 'VEILEDER',
+                  url: envProperties.ISSO_LOGIN_URL,
                 },
                 {
-                    tittel: 'Som Beslutter',
-                    part: 'BESLUTTER',
-                    url: envProperties.ISSO_LOGIN_URL,
+                  tittel: 'Som beslutter',
+                  part: 'BESLUTTER',
+                  url: envProperties.ISSO_LOGIN_URL,
                 }
             );
         }
@@ -89,30 +94,39 @@ module.exports = function(app) {
     app.get('/tiltaksgjennomforing/fakelogout', async (req, res) => {
         res.clearCookie('selvbetjening-idtoken');
         res.clearCookie('isso-idtoken');
-        res.redirect('/tiltaksgjennomforing');
+      res.redirect('/tiltaksgjennomforing');
     });
 
-    const apiProxyConfig = {
-        changeOrigin: true,
-        pathRewrite: whitelist,
-        target: envProperties.APIGW_URL,
-        proxyTimeout: 30000,
-    };
+  const apiProxyConfig = {
+    changeOrigin: true,
+    pathRewrite: whitelist,
+    target: envProperties.APIGW_URL,
+    proxyTimeout: 30000,
+  };
 
+  const gcpTokenExchange = async () => {
+    const tokenxAuthClient = await tokenx.client();
+    apiProxy.setup(app, tokenxAuthClient);
+  }
+
+  if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp') {
+    gcpTokenExchange();
+  } else {
     if (envProperties.APIGW_HEADER) {
-        apiProxyConfig.headers = {
-            'x-nav-apiKey': envProperties.APIGW_HEADER,
-        };
+      apiProxyConfig.headers = {
+        'x-nav-apiKey': envProperties.APIGW_HEADER,
+      };
     }
 
     app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
+  }
 
-    app.use(
-        '/tiltaksgjennomforing/stillingstitler',
-        createProxyMiddleware({
-            changeOrigin: true,
-            pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
-            target: envProperties.STILLINGSTITLER_URL,
+  app.use(
+      '/tiltaksgjennomforing/stillingstitler',
+      createProxyMiddleware({
+        changeOrigin: true,
+        pathRewrite: {'^/tiltaksgjennomforing/stillingstitler': '/'},
+        target: envProperties.STILLINGSTITLER_URL,
             proxyTimeout: 10000,
         })
     );

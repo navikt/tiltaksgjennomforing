@@ -1,23 +1,23 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { oppdatereOppfølgingOgTilretteleggingInformasjon } from '@/services/rest-service';
-import { EndreOppfølgingOgTilretteleggingInfo } from '@/types/avtale';
+import {oppdatereOppfølgingOgTilretteleggingInformasjon} from '@/services/rest-service';
+import {EndreOppfølgingOgTilretteleggingInfo} from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { MeetingRoom } from '@navikt/ds-icons/cjs';
+import {MeetingRoom} from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
-import { Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import {Undertittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import './EndreOppfølgingOgTilrettelegging.less';
 
 const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
-    const cls = BEMHelper('endreOppfølgingOgTilrettelegging');
-    const context = useContext(AvtaleContext);
-    const { oppfolging, tilrettelegging } = context.avtale;
-    const [modalApen, setModalApen] = useState(false);
+  const cls = BEMHelper('endreOppfølgingOgTilrettelegging');
+  const context = useContext(AvtaleContext);
+  const {oppfolging, tilrettelegging} = context.avtale.gjeldendeInnhold;
+  const [modalApen, setModalApen] = useState(false);
 
-    const [oppfølgingOgTilretteleggingInfo, setOppfølgingOgTilretteleggingInfo] =
-        useState<EndreOppfølgingOgTilretteleggingInfo>({
+  const [oppfølgingOgTilretteleggingInfo, setOppfølgingOgTilretteleggingInfo] =
+      useState<EndreOppfølgingOgTilretteleggingInfo>({
             oppfolging: oppfolging,
             tilrettelegging: tilrettelegging,
         });

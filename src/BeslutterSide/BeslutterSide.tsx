@@ -1,6 +1,7 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
-import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
+import OppsummeringLonnstilskudd
+    from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import BeslutterTilskuddsPerioder from '@/BeslutterSide/BeslutterTilskuddsperioder';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
@@ -10,20 +11,20 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { avtaleTittel, tilskuddsperiodeAvslagTekst, tiltakstypeTekst } from '@/messages';
-import { Avslagsårsaker, TilskuddPeriodeStatus } from '@/types/avtale';
+import {avtaleTittel, tilskuddsperiodeAvslagTekst, tiltakstypeTekst} from '@/messages';
+import {Avslagsårsaker, TilskuddPeriodeStatus} from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
-import { formatterProsent } from '@/utils/formatterProsent';
-import { formatterPenger } from '@/utils/PengeUtils';
+import {formatterDato, formatterPeriode, NORSK_DATO_OG_TID_FORMAT} from '@/utils/datoUtils';
+import {formatterProsent} from '@/utils/formatterProsent';
+import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
+import {formatterPenger} from '@/utils/PengeUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { Element, Innholdstittel, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import {Hovedknapp, Knapp} from 'nav-frontend-knapper';
+import {Checkbox, SkjemaGruppe} from 'nav-frontend-skjema';
+import {Element, Innholdstittel, Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import './BeslutterSide.less';
 import EtikettStatus from './EtikettStatus';
-import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -92,14 +93,14 @@ const BeslutterSide: FunctionComponent = () => {
                                 </div>
                                 <div>
                                     <Normaltekst>
-                                        {avtaleContext.avtale.deltakerFornavn} {avtaleContext.avtale.deltakerEtternavn}
+                                        {avtaleContext.avtale.gjeldendeInnhold.deltakerFornavn} {avtaleContext.avtale.gjeldendeInnhold.deltakerEtternavn}
                                     </Normaltekst>
                                 </div>
                                 <div>
                                     <Element>Arbeidsgiver</Element>
                                 </div>
                                 <div>
-                                    <Normaltekst>{avtaleContext.avtale.bedriftNavn}</Normaltekst>
+                                    <Normaltekst>{avtaleContext.avtale.gjeldendeInnhold.bedriftNavn}</Normaltekst>
                                 </div>
                                 <div>
                                     <Element>Periode</Element>
@@ -275,9 +276,9 @@ const BeslutterSide: FunctionComponent = () => {
                     <Ekspanderbartpanel tittel="Se avtalen">
                         <Innholdsboks>
                             <Innholdstittel>{avtaleTittel[avtaleContext.avtale.tiltakstype]}</Innholdstittel>
-                            <VerticalSpacer rem={2} />
-                            <Avtaleparter {...avtaleContext.avtale} />
-                            <OppsummeringLonnstilskudd avtaleinnhold={avtaleContext.avtale} />
+                            <VerticalSpacer rem={2}/>
+                            <Avtaleparter/>
+                            <OppsummeringLonnstilskudd avtaleinnhold={avtaleContext.avtale.gjeldendeInnhold}/>
                         </Innholdsboks>
                     </Ekspanderbartpanel>
                     <VerticalSpacer rem={1} />

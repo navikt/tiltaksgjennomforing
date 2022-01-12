@@ -1,6 +1,6 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {AvtaleContext} from '@/AvtaleProvider';
+import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
@@ -12,14 +12,14 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
+import {hentKontonummerForArbeidsgiver} from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
-import { Money } from '@navikt/ds-icons/cjs';
-import { Column, Row } from 'nav-frontend-grid';
-import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import {parseFloatIfFloatable} from '@/utils/lonnstilskuddUtregningUtils';
+import {Money} from '@navikt/ds-icons/cjs';
+import {Column, Row} from 'nav-frontend-grid';
+import {Knapp} from 'nav-frontend-knapper';
+import {Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext} from 'react';
 import './BeregningTilskuddSteg.less';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
@@ -50,7 +50,12 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvKnappHentKontonummerForArbeidsgiver =
         featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
-    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleVerdier } = useContext(AvtaleContext);
+    const {
+        avtale,
+        settOgKalkulerBeregningsverdier,
+        lagreAvtale,
+        settAvtaleInnholdVerdier: settAvtaleVerdier
+    } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -88,11 +93,11 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         bredde="S"
                         label="Månedslønn før skatt"
                         autoComplete={'off'}
-                        value={avtale.manedslonn}
+                        value={avtale.gjeldendeInnhold.manedslonn}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdier({ manedslonn: parseFloat(event.target.value) });
+                            settAvtaleVerdier({manedslonn: parseFloat(event.target.value)});
                         }}
-                        onBlur={() => settOgKalkulerBeregningsverdier(avtale)}
+                        onBlur={(event) => settOgKalkulerBeregningsverdier({manedslonn: parseFloat(event.target.value)})}
                         min={0}
                     />
                 </Column>
@@ -106,7 +111,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <RadioPanelGruppeHorisontal
                         radios={feriepengeAlternativer}
                         name="feriepengesats"
-                        checked={avtale.feriepengesats + ''}
+                        checked={avtale.gjeldendeInnhold.feriepengesats + ''}
                         legend=""
                         onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
                             settOgKalkulerBeregningsverdier({ feriepengesats: parseFloat(verdi) })
@@ -125,8 +130,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 maxLength={4}
                                 autoComplete={'off'}
                                 value={
-                                    avtale.otpSats !== undefined && avtale.otpSats !== null
-                                        ? (avtale.otpSats * 100).toFixed(2)
+                                    avtale.gjeldendeInnhold.otpSats !== undefined && avtale.gjeldendeInnhold.otpSats !== null
+                                        ? (avtale.gjeldendeInnhold.otpSats * 100).toFixed(2)
                                         : ''
                                 }
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -148,7 +153,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         options={arbeidsgiveravgiftAlternativer}
                         label="Sats for arbeidsgiveravgift"
                         children=""
-                        value={avtale.arbeidsgiveravgift}
+                        value={avtale.gjeldendeInnhold.arbeidsgiveravgift}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                             settOgKalkulerBeregningsverdier({
                                 arbeidsgiveravgift: parseFloatIfFloatable(event.target.value),
@@ -161,9 +166,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             <KontonummerInput
                                 bredde={'L'}
                                 label={'Kontonummer til arbeidsgiver'}
-                                value={avtale.arbeidsgiverKontonummer}
+                                value={avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
+                                    settAvtaleVerdier({arbeidsgiverKontonummer: event.target.value});
                                 }}
                                 onBlur={() => lagreAvtale()}
                             />
@@ -177,7 +182,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         <Column md="11">
                             <Normaltekst>
                                 <strong>Kontonummer: </strong>
-                                {avtale.arbeidsgiverKontonummer}
+                                {avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
                             </Normaltekst>
                             <Normaltekst>
                                 Hvis kontonummeret ikke stemmer så må det oppdateres hos{' '}
@@ -204,19 +209,19 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             </Knapp>
                         </Column>
                     </Row>
-                    <VerticalSpacer rem={2} />
-                    <UtregningPanel {...avtale} />
-                    <VerticalSpacer rem={1.25} />
+                    <VerticalSpacer rem={2}/>
+                    <UtregningPanel {...avtale.gjeldendeInnhold} />
+                    <VerticalSpacer rem={1.25}/>
                     {innloggetBruker.erNavAnsatt &&
-                        avtale.stillingprosent !== undefined &&
-                        avtale.stillingprosent > 0 &&
-                        avtale.stillingprosent < 100 && (
+                        avtale.gjeldendeInnhold.stillingprosent !== undefined &&
+                        avtale.gjeldendeInnhold.stillingprosent > 0 &&
+                        avtale.gjeldendeInnhold.stillingprosent < 100 && (
                             <ValutaInput
                                 disabled={true}
                                 name="manedslonn100%"
                                 bredde="S"
                                 label="Lønn ved 100% stilling"
-                                value={avtale.manedslonn100pst}
+                                value={avtale.gjeldendeInnhold.manedslonn100pst}
                             />
                         )}
                     <VerticalSpacer rem={2} />

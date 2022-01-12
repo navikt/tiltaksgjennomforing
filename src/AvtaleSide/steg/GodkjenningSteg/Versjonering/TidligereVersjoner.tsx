@@ -1,21 +1,25 @@
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
-import { innholdTypeTekst } from '@/messages';
-import { Versjonering } from '@/types/avtale';
+import {innholdTypeTekst} from '@/messages';
+import {AvtaleVersjon, TiltaksType} from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Element } from 'nav-frontend-typografi';
-import React, { useState } from 'react';
+import {LenkepanelBase} from 'nav-frontend-lenkepanel/lib';
+import {Element} from 'nav-frontend-typografi';
+import React, {useState} from 'react';
 import './TidligereVersjoner.less';
 
 const cls = BEMHelper('tidligereVersjoner');
 
-const TidligereVersjoner: React.FunctionComponent<Versjonering> = (props) => {
+const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; tiltakstype: TiltaksType }> = (
+    props
+) => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
-    const versjonLenker = props.versjoner.reverse().map((avtaleVersjon) => {
+    const versjoner = Array.from(props.versjoner);
+    versjoner.sort((a, b) => a.versjon - b.versjon);
+    const versjonLenker = versjoner.map((avtaleVersjon) => {
         return (
             <LenkepanelBase
                 key={avtaleVersjon.id}
@@ -33,7 +37,7 @@ const TidligereVersjoner: React.FunctionComponent<Versjonering> = (props) => {
                     </Element>
                     <div className={cls.element('dato')}>
                         {avtaleVersjon.ikrafttredelsestidspunkt &&
-                            moment(avtaleVersjon.ikrafttredelsestidspunkt as moment.MomentInput).format('DD.MM.YYYY')}
+                            moment(avtaleVersjon.ikrafttredelsestidspunkt).format('DD.MM.YYYY')}
                     </div>
                 </div>
             </LenkepanelBase>

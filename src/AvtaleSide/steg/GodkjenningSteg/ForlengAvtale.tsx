@@ -1,16 +1,16 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import { forlengAvtale, forlengAvtaleDryRun } from '@/services/rest-service';
-import { TilskuddsPeriode } from '@/types/avtale';
-import { handterFeil } from '@/utils/apiFeilUtils';
-import { Notes } from '@navikt/ds-icons/cjs';
+import {forlengAvtale, forlengAvtaleDryRun} from '@/services/rest-service';
+import {TilskuddsPeriode} from '@/types/avtale';
+import {handterFeil} from '@/utils/apiFeilUtils';
+import {Notes} from '@navikt/ds-icons/cjs';
 import moment from 'moment';
-import { Datepicker } from 'nav-datovelger';
+import {Datepicker} from 'nav-datovelger';
 import Lenke from 'nav-frontend-lenker';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import {SkjemaGruppe} from 'nav-frontend-skjema';
+import React, {FunctionComponent, useContext, useState} from 'react';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -50,7 +50,7 @@ const ForlengAvtale: FunctionComponent = () => {
                     inputProps={{ placeholder: 'dd.mm.åååå' }}
                     value={sluttDato}
                     limitations={{
-                        minDate: moment(avtaleContext.avtale.sluttDato).add(1, 'days').format('YYYY-MM-DD'),
+                        minDate: moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).add(1, 'days').format('YYYY-MM-DD'),
                     }}
                     onChange={(dato) => onDatoChange(dato)}
                 />

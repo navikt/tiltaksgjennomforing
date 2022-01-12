@@ -1,10 +1,14 @@
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 import React from 'react';
-import AvtaleProvider, { noenHarGodkjentMenIkkeAlle } from './AvtaleProvider';
+import AvtaleProvider, {AvtaleContext, Context, noenHarGodkjentMenIkkeAlle} from './AvtaleProvider';
 import arbeidstreningAvtaleMock from './mocking/arbeidstrening-avtale-mock';
 
 test('Test at AvtaleContext  ', () => {
-    const wrapper = shallow(<AvtaleProvider />);
+    const wrapper = shallow(
+        <AvtaleContext.Provider value={{avtale: arbeidstreningAvtaleMock} as Context}>
+            <AvtaleProvider/>
+        </AvtaleContext.Provider>
+    );
     expect(wrapper).toHaveLength(1);
 });
 
