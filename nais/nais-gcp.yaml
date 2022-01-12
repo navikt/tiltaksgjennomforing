@@ -35,6 +35,7 @@ spec:
     tokenx:
       enabled: true
     idporten:
+        clientUri: https://tiltaksgjennomforing.dev.nav.no/tiltaksgjennomforing
         enabled: true
         sidecar:
           enabled: true
