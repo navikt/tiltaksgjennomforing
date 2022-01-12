@@ -40,7 +40,7 @@ spec:
           enabled: true
           level: Level4
           locale: nb
-          autoLogin: false
+          autoLogin: true
           errorPath: ""
     accessPolicy:
       outbound:
