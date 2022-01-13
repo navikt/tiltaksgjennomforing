@@ -6,7 +6,7 @@ const setup = (router, tokenxClient) => {
         '/tiltaksgjennomforing/api',
         proxy("https://tiltak-proxy.dev-fss-pub.nais.io", {
             proxyReqPathResolver: (req) => {
-                return req.originalUrl;
+                return req.originalUrl.replace("/tiltaksgjennomforing/api", "/tiltaksgjennomforing-api");
             },
             proxyReqOptDecorator: async (options, req) => {
                 const accessToken = await tokenx.getTokenExchangeAccessToken(tokenxClient, req);
