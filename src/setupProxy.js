@@ -1,7 +1,6 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const fetch = require('node-fetch');
 const whitelist = require('./whitelist');
-const apiProxy = require('../server/api-proxy');
 const tokenx = require('../server/tokenx');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
@@ -101,20 +100,23 @@ module.exports = function(app) {
         proxyTimeout: 30000,
     };
 
-    const gcpTokenExchange = async () => {
+    const proxyApiTilTiltakProxy = async () => {
         const tokenxAuthClient = await tokenx.client();
-        apiProxy.setup(app, tokenxAuthClient);
-    }
+        apiProxyConfig.onProxyReq = async (proxyReq, req, res) => {
+            const accessToken = await tokenx.getTokenExchangeAccessToken(tokenxAuthClient, req);
+            proxyReq.setHeader('Authorization', `Bearer ${accessToken}`);
+        }
+        app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
+    };
 
     if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp') {
-        gcpTokenExchange();
+        proxyApiTilTiltakProxy();
     } else {
         if (envProperties.APIGW_HEADER) {
             apiProxyConfig.headers = {
                 'x-nav-apiKey': envProperties.APIGW_HEADER,
             };
         }
-
         app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
     }
 
