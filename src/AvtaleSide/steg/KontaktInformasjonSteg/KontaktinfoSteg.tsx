@@ -10,14 +10,16 @@ import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import KontaktpersonRefusjoninfoDel from './KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 
 const KontaktinfoSteg: FunctionComponent = () => {
-    const { lagreAvtale } = useContext(AvtaleContext);
+    const { avtale, lagreAvtale } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks>
             <DeltakerInfo oppsummeringside={false} />
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
-            <KontaktpersonRefusjoninfoDel />
+            {avtale.tiltakstype !== 'ARBEIDSTRENING' && (
+                <KontaktpersonRefusjoninfoDel />)
+            }
             <VeilederinfoDel />
             <LagreKnapp
                 className="kontaktinfo-steg__lagre-knapp"

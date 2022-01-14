@@ -1,5 +1,4 @@
 import { ReactComponent as MentorIkon } from '@/assets/ikoner/mentor.svg';
-import { Avtalepart } from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Mentorinfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
@@ -8,6 +7,7 @@ import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import {AvtaleinfoFeltSjekk} from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtalepart/AvtaleinfoFeltSjekk";
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -19,7 +19,7 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = props => {
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
             <div>
-                <Avtalepart
+                <AvtaleinfoFeltSjekk
                     navnFelter={[
                         { felt: 'fornavn', verdi: props.mentorFornavn },
                         { felt: 'etternavn', verdi: props.mentorEtternavn },

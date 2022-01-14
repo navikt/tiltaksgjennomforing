@@ -136,8 +136,6 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 };
 
 export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {
-    console.log(avtale.gjeldendeInnhold);
-
     const response = await api.put(`/avtaler/${avtale.id}/dry-run`, avtale.gjeldendeInnhold, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,

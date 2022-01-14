@@ -20,11 +20,11 @@ const KontaktpersonRefusjoninfoDel = () => {
     const [feilmelding, setFeilmelding] = useState<string>();
 
     const sjekkeOmVarslingOmRefusjonKanSkrusAv = () => {
-        if (!avtale.gjeldendeInnhold.ønskerInformasjonOmRefusjon) {
-            settAvtaleInnholdVerdi('ønskerInformasjonOmRefusjon', true);
+        if (!avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerInformasjonOmRefusjon) {
+            settAvtaleInnholdVerdi('refusjonKontaktperson', {...avtale.gjeldendeInnhold.refusjonKontaktperson, ønskerInformasjonOmRefusjon : true});
         } else if (avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn && avtale.gjeldendeInnhold.refusjonKontaktperson.refusjonKontaktpersonEtternavn &&
             avtale.gjeldendeInnhold.refusjonKontaktperson.refusjonKontaktpersonTlf) {
-            settAvtaleInnholdVerdi('ønskerInformasjonOmRefusjon', false);
+            settAvtaleInnholdVerdi('refusjonKontaktperson', {...avtale.gjeldendeInnhold.refusjonKontaktperson, ønskerInformasjonOmRefusjon : false});
             setFeilmelding(undefined);
         } else {
             setFeilmelding("Hvis ikke kontaktperson for avtalen ønsker å motta sms varslinger om refusjon må kontaktperson for refusjon fylles ut");
@@ -34,8 +34,7 @@ const KontaktpersonRefusjoninfoDel = () => {
     function resetRefusjonKontaktPerson() {
         setVisEkstraKontaktpersonFelt(false);
         settAvtaleInnholdVerdier({
-            ...avtale.gjeldendeInnhold,
-            ønskerInformasjonOmRefusjon: true,
+            ...avtale.gjeldendeInnhold.refusjonKontaktperson,
             refusjonKontaktperson: undefined
         });
 
@@ -54,7 +53,9 @@ const KontaktpersonRefusjoninfoDel = () => {
                     </div>
                     {((!visEkstraKontaktpersonFelt && !avtale.gjeldendeInnhold.refusjonKontaktperson)) &&
                         <div className={cls.element('buttonSpaceing')}>
-                            <Knapp onClick={() => setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)}>+ Legg til
+                            <Knapp onClick={() => {setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt); settAvtaleInnholdVerdi('refusjonKontaktperson', {
+                                ...avtale.gjeldendeInnhold.refusjonKontaktperson,
+                                ønskerInformasjonOmRefusjon: true})}}>+ Legg til
                                 kontaktperson</Knapp>
                         </div>
 
@@ -92,7 +93,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                             <div>
                                 <Checkbox
                                     label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
-                                    checked={avtale.gjeldendeInnhold.ønskerInformasjonOmRefusjon}
+                                    checked={avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerInformasjonOmRefusjon}
                                     onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
                                 />
                             </div>

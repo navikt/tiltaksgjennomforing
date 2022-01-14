@@ -1,0 +1,32 @@
+@mobile-breakpoint: 576px;
+
+@media print {
+  #_hj_feedback_container {
+    display: none !important;
+  }
+}
+
+.avtaleparter {
+  &__content {
+    margin: 1rem 0;
+    padding-left: 6px;
+
+    &--farge-gronn {
+      border-left: 3px solid #9bd0b0;
+    }
+
+    &--farge-graa {
+      border-left: 3px solid #e0dae7;
+    }
+
+    &--farge-lysblaa {
+      border-left: 3px solid #cce1f3;
+    }
+  }
+
+  &__etikettInfo {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

@@ -29,8 +29,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
-    console.log("avtale.gjeldendeInnhold.refusjonKontaktperson",avtale.gjeldendeInnhold.refusjonKontaktperson);
-
     return (
         <div className={cls.className} role={'main'}>
           <AvtaleStatus/>
