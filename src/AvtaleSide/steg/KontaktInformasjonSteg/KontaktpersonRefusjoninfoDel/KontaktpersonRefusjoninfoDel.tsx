@@ -38,8 +38,6 @@ const KontaktpersonRefusjoninfoDel = () => {
             ønskerInformasjonOmRefusjon: true,
             refusjonKontaktperson: undefined
         });
-        console.log("Test", avtale.gjeldendeInnhold.refusjonKontaktperson)
-
     }
 
     return (
