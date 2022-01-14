@@ -5,9 +5,9 @@ import BEMHelper from '@/utils/bem';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import {AvtaleinfoFeltSjekk} from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtalepart/AvtaleinfoFeltSjekk";
 
 const cls = BEMHelper('mentorOppsummering');
 

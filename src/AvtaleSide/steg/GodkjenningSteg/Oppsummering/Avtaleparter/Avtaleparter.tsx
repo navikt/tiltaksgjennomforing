@@ -1,9 +1,9 @@
 import {AvtaleContext} from '@/AvtaleProvider';
 import React, {FunctionComponent, useContext} from 'react';
+import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
-import {AvtaleinfoFeltSjekk} from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtalepart/AvtaleinfoFeltSjekk";
 
 const Avtaleparter: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);

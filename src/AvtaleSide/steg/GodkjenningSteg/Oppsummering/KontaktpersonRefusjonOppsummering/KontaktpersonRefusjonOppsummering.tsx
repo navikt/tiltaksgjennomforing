@@ -3,7 +3,9 @@ import Stegoppsummering from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Ste
 import {ReactComponent as MentorIkon} from "@/assets/ikoner/mentor.svg";
 import {RefusjonKontaktperson} from "@/types/avtale";
 import {AvtaleContext} from "@/AvtaleProvider";
-import {AvtaleinfoFeltSjekk} from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtalepart/AvtaleinfoFeltSjekk";
+import {
+    AvtaleinfoFeltSjekk
+} from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk";
 
 interface Props {
     kontaktpersonRefusjon : RefusjonKontaktperson;

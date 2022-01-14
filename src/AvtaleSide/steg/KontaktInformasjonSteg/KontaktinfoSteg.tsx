@@ -17,7 +17,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
             <DeltakerInfo oppsummeringside={false} />
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
-            {avtale.tiltakstype !== 'ARBEIDSTRENING' && (
+            {avtale?.tiltakstype !== 'ARBEIDSTRENING' && (
                 <KontaktpersonRefusjoninfoDel />)
             }
             <VeilederinfoDel />
