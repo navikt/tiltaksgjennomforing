@@ -14,6 +14,8 @@ import BEMHelper from '@/utils/bem';
 import React, {createElement, FunctionComponent, Suspense, useContext} from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
+import KontaktpersonRefusjonOppsumering from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering";
+
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -27,6 +29,8 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const skalViseGodkjenning =
         !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
+    console.log("avtale.gjeldendeInnhold.refusjonKontaktperson",avtale.gjeldendeInnhold.refusjonKontaktperson);
+
     return (
         <div className={cls.className} role={'main'}>
           <AvtaleStatus/>
@@ -39,6 +43,9 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
             </div>
             {innloggetBruker.rolle === 'VEILEDER' && <DeltakerInfo oppsummeringside={true}/>}
             <Avtaleparter/>
+              {avtale.gjeldendeInnhold.refusjonKontaktperson &&
+                  <KontaktpersonRefusjonOppsumering kontaktpersonRefusjon={avtale.gjeldendeInnhold.refusjonKontaktperson}/>
+              }
             {createElement(props.oppsummering, {avtaleinnhold: avtale.gjeldendeInnhold})}
           </Innholdsboks>
           {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle}/>}

@@ -38,6 +38,8 @@ const KontaktpersonRefusjoninfoDel = () => {
             ønskerInformasjonOmRefusjon: true,
             refusjonKontaktperson: undefined
         });
+
+
     }
 
     return (
@@ -47,7 +49,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                     <SkjemaTittel>Kontaktperson for refusjon</SkjemaTittel>
                 </div>
                 <SkjemaGruppe title="Kontaktperson for refusjon">
-                    <div>
+                    <div style={{marginBottom:"1rem"}}>
                         <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
                     </div>
                     {((!visEkstraKontaktpersonFelt && !avtale.gjeldendeInnhold.refusjonKontaktperson)) &&
@@ -94,7 +96,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
                                 />
                             </div>
-                            {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>}
+                            {feilmelding && <AlertStripeAdvarsel style={{marginBottom:"1rem"}}>{feilmelding}</AlertStripeAdvarsel>}
                             <Knapp onClick={() => resetRefusjonKontaktPerson()}>Fjern kontaktperson</Knapp>
                         </>
                     }
