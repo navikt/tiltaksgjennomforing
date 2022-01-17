@@ -20,23 +20,31 @@ const KontaktpersonRefusjoninfoDel = () => {
     const [feilmelding, setFeilmelding] = useState<string>();
 
     const sjekkeOmVarslingOmRefusjonKanSkrusAv = () => {
-        if (!avtale.gjeldendeInnhold.ønskerInformasjonOmRefusjon) {
-            settAvtaleInnholdVerdi('ønskerInformasjonOmRefusjon', true);
+        console.log(avtale.gjeldendeInnhold.refusjonKontaktperson)
+        if (!avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerInformasjonOmRefusjon) {
+            settAvtaleInnholdVerdi('refusjonKontaktperson', {
+                ...avtale.gjeldendeInnhold.refusjonKontaktperson,
+                ønskerInformasjonOmRefusjon: true
+            });
         } else if (avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn && avtale.gjeldendeInnhold.refusjonKontaktperson.refusjonKontaktpersonEtternavn &&
             avtale.gjeldendeInnhold.refusjonKontaktperson.refusjonKontaktpersonTlf) {
-            settAvtaleInnholdVerdi('ønskerInformasjonOmRefusjon', false);
             setFeilmelding(undefined);
+            settAvtaleInnholdVerdi('refusjonKontaktperson', {
+                ...avtale.gjeldendeInnhold.refusjonKontaktperson,
+                ønskerInformasjonOmRefusjon: false
+            });
         } else {
             setFeilmelding("Hvis ikke kontaktperson for avtalen ønsker å motta sms varslinger om refusjon må kontaktperson for refusjon fylles ut");
         }
+        console.log(avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerInformasjonOmRefusjon);
+        console.log("\n")
     }
 
     function resetRefusjonKontaktPerson() {
         setVisEkstraKontaktpersonFelt(false);
         settAvtaleInnholdVerdier({
             ...avtale.gjeldendeInnhold,
-            ønskerInformasjonOmRefusjon: true,
-            refusjonKontaktperson: undefined
+            refusjonKontaktperson: {refusjonKontaktpersonTlf:"", refusjonKontaktpersonFornavn:"", refusjonKontaktpersonEtternavn:"",ønskerInformasjonOmRefusjon:true}
         });
 
 
@@ -52,14 +60,23 @@ const KontaktpersonRefusjoninfoDel = () => {
                     <div style={{marginBottom:"1rem"}}>
                         <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
                     </div>
-                    {((!visEkstraKontaktpersonFelt && !avtale.gjeldendeInnhold.refusjonKontaktperson)) &&
+                    {((!visEkstraKontaktpersonFelt && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length === 0 && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length === 0
+                            && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length === 0)) &&
                         <div className={cls.element('buttonSpaceing')}>
-                            <Knapp onClick={() => setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)}>+ Legg til
+                            <Knapp onClick={() => {
+
+                                setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)
+                                settAvtaleInnholdVerdier({
+                                    ...avtale.gjeldendeInnhold,
+                                    refusjonKontaktperson: {refusjonKontaktpersonTlf: "", refusjonKontaktpersonFornavn: "", refusjonKontaktpersonEtternavn: "", ønskerInformasjonOmRefusjon:true}
+                                })
+                            }}>+ Legg til
                                 kontaktperson</Knapp>
                         </div>
 
                     }
-                    {(avtale.gjeldendeInnhold.refusjonKontaktperson || (visEkstraKontaktpersonFelt && !avtale.gjeldendeInnhold.refusjonKontaktperson)) &&
+                    {((avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !== 0 && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !== 0
+                            && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== 0) || visEkstraKontaktpersonFelt ) &&
                         <>
                             <div className={cls.element('rad')}>
                                 <PakrevdInput
@@ -92,7 +109,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                             <div>
                                 <Checkbox
                                     label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
-                                    checked={avtale.gjeldendeInnhold.ønskerInformasjonOmRefusjon}
+                                    checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerInformasjonOmRefusjon}
                                     onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
                                 />
                             </div>

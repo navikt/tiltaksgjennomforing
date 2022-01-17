@@ -48,7 +48,6 @@ export type Avtaleinnhold = {
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
     refusjonKontaktperson?: RefusjonKontaktperson;
-    ønskerInformasjonOmRefusjon?: boolean;
 
     enhetKostnadssted?: string;
     enhetsnavnKostnadssted?: string;
@@ -111,6 +110,7 @@ export interface RefusjonKontaktperson {
     refusjonKontaktpersonFornavn?: string;
     refusjonKontaktpersonEtternavn?: string;
     refusjonKontaktpersonTlf?: string;
+    ønskerInformasjonOmRefusjon?: boolean;
 }
 
 export interface Avtaleparter {
