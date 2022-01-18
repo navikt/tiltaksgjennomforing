@@ -36,18 +36,14 @@ const KontaktpersonRefusjoninfoDel = () => {
         } else {
             setFeilmelding("Hvis ikke kontaktperson for avtalen ønsker å motta sms varslinger om refusjon må kontaktperson for refusjon fylles ut");
         }
-        console.log(avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerInformasjonOmRefusjon);
-        console.log("\n")
     }
 
     function resetRefusjonKontaktPerson() {
         setVisEkstraKontaktpersonFelt(false);
         settAvtaleInnholdVerdier({
             ...avtale.gjeldendeInnhold,
-            refusjonKontaktperson: {refusjonKontaktpersonTlf:"", refusjonKontaktpersonFornavn:"", refusjonKontaktpersonEtternavn:"",ønskerInformasjonOmRefusjon:true}
+            refusjonKontaktperson: {}
         });
-
-
     }
 
     return (
@@ -60,15 +56,15 @@ const KontaktpersonRefusjoninfoDel = () => {
                     <div style={{marginBottom:"1rem"}}>
                         <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
                     </div>
-                    {((!visEkstraKontaktpersonFelt && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length === 0 && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length === 0
-                            && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length === 0)) &&
+                    {(!visEkstraKontaktpersonFelt && ((avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length === undefined || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length === undefined
+                            || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length === undefined))) &&
                         <div className={cls.element('buttonSpaceing')}>
                             <Knapp onClick={() => {
 
                                 setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)
                                 settAvtaleInnholdVerdier({
                                     ...avtale.gjeldendeInnhold,
-                                    refusjonKontaktperson: {refusjonKontaktpersonTlf: "", refusjonKontaktpersonFornavn: "", refusjonKontaktpersonEtternavn: "", ønskerInformasjonOmRefusjon:true}
+                                    refusjonKontaktperson: {ønskerInformasjonOmRefusjon:true}
                                 })
                             }}>+ Legg til
                                 kontaktperson</Knapp>
@@ -76,8 +72,8 @@ const KontaktpersonRefusjoninfoDel = () => {
 
                     }
 
-                    {((avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !== 0 || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !== 0
-                            || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== 0) || visEkstraKontaktpersonFelt ) &&
+                    {(((avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !== undefined || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !== undefined
+                            || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== undefined)) || visEkstraKontaktpersonFelt ) &&
                         <>
                             <div className={cls.element('rad')}>
                                 <PakrevdInput

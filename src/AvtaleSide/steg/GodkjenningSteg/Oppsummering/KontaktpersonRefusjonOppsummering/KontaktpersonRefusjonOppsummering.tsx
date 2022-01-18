@@ -4,7 +4,7 @@ import {ReactComponent as MentorIkon} from "@/assets/ikoner/mentor.svg";
 import {RefusjonKontaktperson} from "@/types/avtale";
 import {AvtaleContext} from "@/AvtaleProvider";
 import {
-    AvtaleinfoFeltSjekk
+  AvtaleinfoFeltSjekk
 } from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk";
 
 interface Props {
@@ -20,6 +20,10 @@ const KontaktpersonRefusjonOppsumering: FunctionComponent<Props> = ({kontaktpers
     return (
         <Stegoppsummering  tittel={'Kontaktperson for refusjon'} ikon={<MentorIkon />}>
             <div>
+                {(gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !== 0 || gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !== 0
+                    || gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== 0)
+
+                &&
                 <AvtaleinfoFeltSjekk
                     navnFelter={[
                     {felt: 'fornavn', verdi: gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn},
@@ -30,7 +34,7 @@ const KontaktpersonRefusjonOppsumering: FunctionComponent<Props> = ({kontaktpers
                     overskrift={'Refusjon Kontaktperson'}
                     borderFarge="&--farge-graa"
                     skjulHvaMangler={erLåst}
-                />
+                />}
             </div>
         </Stegoppsummering>)
 }
