@@ -1,9 +1,11 @@
-import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
-import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
-import { basename } from '@/paths';
-import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
+import {Filtrering} from '@/AvtaleOversikt/Filtrering/filtrering';
+import {
+    EndreBeregning
+} from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
+import {Kostnadssted} from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
+import {Feature, FeatureToggles} from '@/FeatureToggleProvider';
+import {basename} from '@/paths';
+import {SIDE_FOER_INNLOGGING} from '@/RedirectEtterLogin';
 import {
     Avslagsårsaker,
     Avtale,
@@ -18,21 +20,21 @@ import {
     TiltaksType,
     Varighet
 } from '@/types/avtale';
-import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
-import { Hendelse } from '@/types/hendelse';
-import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
-import { Variants } from '@/types/unleash-variant';
-import { Varsel } from '@/types/varsel';
+import {ApiError, AutentiseringError, FeilkodeError} from '@/types/errors';
+import {Hendelse} from '@/types/hendelse';
+import {InnloggetBruker, Rolle} from '@/types/innlogget-bruker';
+import {Variants} from '@/types/unleash-variant';
+import {Varsel} from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { mutate } from "swr";
+import {mutate} from "swr";
 
 export const API_URL = '/tiltaksgjennomforing/api';
 
 const api = axios.create({
     baseURL: '/tiltaksgjennomforing/api',
     withCredentials: true,
-    headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache', 'Content-Type': 'application/json' },
+    headers: {Pragma: 'no-cache', 'Cache-Control': 'no-cache', 'Content-Type': 'application/json'},
 });
 
 axiosRetry(api, { retries: 3 });
@@ -134,8 +136,6 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
 };
 
 export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {
-    console.log(avtale.gjeldendeInnhold);
-    
     const response = await api.put(`/avtaler/${avtale.id}/dry-run`, avtale.gjeldendeInnhold, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
@@ -332,7 +332,7 @@ export const slettemerkAvtale = async (avtaleId: string) => {
 export const oppdatereKontaktInformasjon = async (avtale: Avtale, endreKontatInfo: EndreKontaktInfo): Promise<void> => {
     await api.post(
         `/avtaler/${avtale.id}/endre-kontaktinfo`,
-        { ...endreKontatInfo },
+        {...endreKontatInfo},
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
@@ -348,7 +348,7 @@ export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
 ): Promise<void> => {
     await api.post(
         `/avtaler/${avtale.id}/endre-oppfolging-og-tilrettelegging`,
-        { ...endreOppfølgingOgTilretteleggingInfo },
+        {...endreOppfølgingOgTilretteleggingInfo},
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
@@ -367,7 +367,7 @@ export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStilling
 export const oppdateretilskuddsBeregning = async (avtale: Avtale, endreBeregning: EndreBeregning): Promise<void> => {
     await api.post(
         `/avtaler/${avtale.id}/endre-tilskuddsberegning`,
-        { ...endreBeregning },
+        {...endreBeregning},
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
@@ -397,7 +397,7 @@ export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {
     const uri = `/avtaler/${avtale.id}/forleng`;
     await api.post(
         uri,
-        { sluttDato },
+        {sluttDato},
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
@@ -424,7 +424,7 @@ export const forkortAvtale = async (avtale: Avtale, sluttDato: string, grunn: st
     const uri = `/avtaler/${avtale.id}/forkort`;
     await api.post(
         uri,
-        { sluttDato, grunn, annetGrunn },
+        {sluttDato, grunn, annetGrunn},
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
@@ -455,6 +455,6 @@ export const sendTilbakeTilBeslutter = async (avtale: Avtale) => {
 };
 
 export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/endre-maal`, { maal: maal });
+    await api.post(`/avtaler/${avtale.id}/endre-maal`, {maal: maal});
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };

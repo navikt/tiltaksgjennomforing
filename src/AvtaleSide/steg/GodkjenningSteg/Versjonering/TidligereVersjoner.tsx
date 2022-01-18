@@ -1,12 +1,12 @@
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
-import { innholdTypeTekst } from '@/messages';
-import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
+import {innholdTypeTekst} from '@/messages';
+import {AvtaleVersjon, TiltaksType} from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Element } from 'nav-frontend-typografi';
-import React, { useState } from 'react';
+import {LenkepanelBase} from 'nav-frontend-lenkepanel/lib';
+import {Element} from 'nav-frontend-typografi';
+import React, {useState} from 'react';
 import './TidligereVersjoner.less';
 
 const cls = BEMHelper('tidligereVersjoner');

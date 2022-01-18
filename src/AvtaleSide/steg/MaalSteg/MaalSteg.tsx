@@ -1,28 +1,34 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Maalkategori } from '@/types/maalkategorier';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import {Maalkategori} from '@/types/maalkategorier';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import EtMaal from './MaalNy/EtMaal';
-import { useMål } from './MaalNy/maalUtils';
+import {useMål} from './MaalNy/maalUtils';
 import OpprettMaal from './MaalNy/OpprettMaal';
 
 const MaalSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [iRedigermodus, setIRedigermodus] = useState(false);
 
-    const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(avtaleContext.avtale.gjeldendeInnhold.maal);
+    const {
+        målListe,
+        leggTilMål,
+        ledigeMålkategorier,
+        endreMål,
+        sletteMål
+    } = useMål(avtaleContext.avtale.gjeldendeInnhold.maal);
 
     const nyttMål = (beskrivelse: string, kategori: Maalkategori) => {
         const nyMålListe = leggTilMål(beskrivelse, kategori);
-        avtaleContext.settAvtaleInnholdVerdier({ maal: nyMålListe }, true);
+        avtaleContext.settAvtaleInnholdVerdier({maal: nyMålListe}, true);
     };
     const slett = (index: number) => {
         const nyMålListe = sletteMål(index);
-        avtaleContext.settAvtaleInnholdVerdier({ maal: nyMålListe }, true);
+        avtaleContext.settAvtaleInnholdVerdier({maal: nyMålListe}, true);
     };
     const endre = (index: number, beskrivelse: string, kategori: Maalkategori) => {
         const nyMålListe = endreMål(index, beskrivelse, kategori);
-        avtaleContext.settAvtaleInnholdVerdier({ maal: nyMålListe }, true);
+        avtaleContext.settAvtaleInnholdVerdier({maal: nyMålListe}, true);
     };
 
     return (

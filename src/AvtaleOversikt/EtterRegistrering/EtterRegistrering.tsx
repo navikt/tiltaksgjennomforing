@@ -1,15 +1,15 @@
 import InfoRad from '@/AvtaleOversikt/EtterRegistrering/InfoRad';
-import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
+import {SøkeInput} from '@/AvtaleOversikt/Filtrering/SøkeInput';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { tiltakstypeTekst } from '@/messages';
+import {tiltakstypeTekst} from '@/messages';
 import * as RestService from '@/services/rest-service';
-import { Avtale } from '@/types/avtale';
+import {Avtale} from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { Knapp } from 'nav-frontend-knapper';
+import {AlertStripeFeil} from 'nav-frontend-alertstriper';
+import {Knapp} from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
-import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState } from 'react';
+import {Element, Ingress, Systemtittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useState} from 'react';
 import './EtterRegistrering.less';
 
 

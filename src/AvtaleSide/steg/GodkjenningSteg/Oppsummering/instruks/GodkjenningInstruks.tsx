@@ -1,12 +1,12 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import React, { FunctionComponent, useContext } from 'react';
+import {AvtaleContext} from '@/AvtaleProvider';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
+import React, {FunctionComponent, useContext} from 'react';
 import ArbeidsgiverInstruks from './ArbeidsgiverInstruks';
 import DeltakerInstruks from './DeltakerInstruks';
 import VeilederInstruks from './VeilederInstruks';
 
 const GodkjenningInstruks: FunctionComponent = () => {
-    const { rolle } = useContext(InnloggetBrukerContext);
+    const {rolle} = useContext(InnloggetBrukerContext);
     const avtaleContext = useContext(AvtaleContext);
 
     const erLåst = avtaleContext.avtale.godkjentAvVeileder !== null;

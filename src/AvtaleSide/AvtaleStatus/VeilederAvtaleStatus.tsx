@@ -1,8 +1,8 @@
-import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
-import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
-import { AvtaleContext } from '@/AvtaleProvider';
+import {ReactComponent as CheckIkon} from '@/assets/ikoner/check.svg';
+import {ReactComponent as PabegyntIkon} from '@/assets/ikoner/pabegynt.svg';
+import {ReactComponent as AvbruttIkon} from '@/assets/ikoner/stop.svg';
+import {ReactComponent as VarselIkon} from '@/assets/ikoner/varsel.svg';
+import {AvtaleContext} from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
@@ -10,19 +10,19 @@ import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStat
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import {formatterDato, NORSK_DATO_FORMAT} from '@/utils/datoUtils';
+import {Normaltekst} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext} from 'react';
 
 const VeilederAvtaleStatus: FunctionComponent = () => {
-    const { avtale, overtaAvtale } = useContext(AvtaleContext);
+  const {avtale, overtaAvtale} = useContext(AvtaleContext);
 
-    const skalViseAvslåttTilskuddsperiode =
-        avtale.godkjentAvVeileder &&
-        !avtale.erAnnullertEllerAvbrutt &&
-        avtale.tilskuddPeriode.find(
-            (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer
-        ) &&
+  const skalViseAvslåttTilskuddsperiode =
+      avtale.godkjentAvVeileder &&
+      !avtale.erAnnullertEllerAvbrutt &&
+      avtale.tilskuddPeriode.find(
+          (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer
+      ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
 
     if (skalViseAvslåttTilskuddsperiode) {
@@ -135,11 +135,11 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
-                            <Normaltekst>
-                                Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
-                                starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
-                            </Normaltekst>
-                            <VerticalSpacer rem={1} />
+                          <Normaltekst>
+                            Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
+                            starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
+                          </Normaltekst>
+                          <VerticalSpacer rem={1}/>
                             <Normaltekst>
                                 Du skal ikke registrere tiltaksgjennomføringen i Arena (gjelder sommerjobb). Avtalen
                                 journalføres automatisk i Gosys.
@@ -153,11 +153,11 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
-                            <Normaltekst>
-                                Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
-                                starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
-                            </Normaltekst>
-                            <VerticalSpacer rem={1} />
+                          <Normaltekst>
+                            Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
+                            starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
+                          </Normaltekst>
+                          <VerticalSpacer rem={1}/>
                             <Normaltekst>
                                 Du må fullføre registreringen i Arena. Avtalen journalføres automatisk i Gosys.
                             </Normaltekst>

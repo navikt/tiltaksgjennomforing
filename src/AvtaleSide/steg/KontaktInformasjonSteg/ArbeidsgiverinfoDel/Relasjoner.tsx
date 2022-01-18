@@ -1,22 +1,22 @@
-import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
-import { AvtaleContext } from '@/AvtaleProvider';
+import {ReactComponent as PenFillIkon} from '@/assets/ikoner/pencil-fill.svg';
+import {AvtaleContext} from '@/AvtaleProvider';
 import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import BEMHelper from '@/utils/bem';
-import { EtikettFokus } from 'nav-frontend-etiketter';
+import {EtikettFokus} from 'nav-frontend-etiketter';
 import Popover from 'nav-frontend-popover';
-import { RadioPanel } from 'nav-frontend-skjema';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import {RadioPanel} from 'nav-frontend-skjema';
+import {Element, Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import './Relasjoner.less';
 
 const cls = BEMHelper('relasjoner');
 
 const Relasjoner: FunctionComponent = () => {
-    const { avtale, settAvtaleInnholdVerdier: settAvtaleVerdier } = useContext(AvtaleContext);
+    const {avtale, settAvtaleInnholdVerdier: settAvtaleVerdier} = useContext(AvtaleContext);
 
     const harFamilietilknytningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): JSX.Element => {
         switch (harFamilietilknytning) {
@@ -82,7 +82,7 @@ const Relasjoner: FunctionComponent = () => {
                     </div>
                     {avtale.gjeldendeInnhold.harFamilietilknytning && (
                         <>
-                            <VerticalSpacer rem={1} />
+                            <VerticalSpacer rem={1}/>
                             {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
                                 <>
                                     <Element>Vennligst utdyp denne relasjonen</Element>
@@ -93,7 +93,7 @@ const Relasjoner: FunctionComponent = () => {
                                     label="Vennligst utdyp denne relasjonen"
                                     maxLengde={500}
                                     verdi={avtale.gjeldendeInnhold.familietilknytningForklaring || ''}
-                                    settVerdi={verdi => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
+                                    settVerdi={verdi => settAvtaleVerdier({familietilknytningForklaring: verdi})}
                                 />
                             )}
                         </>
