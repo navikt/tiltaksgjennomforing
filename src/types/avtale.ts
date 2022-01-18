@@ -110,7 +110,7 @@ export interface RefusjonKontaktperson {
     refusjonKontaktpersonFornavn?: string;
     refusjonKontaktpersonEtternavn?: string;
     refusjonKontaktpersonTlf?: string;
-    ønskerInformasjonOmRefusjon?: boolean;
+    ønskerVarslingOmRefusjon?: boolean;
 }
 
 export interface Avtaleparter {

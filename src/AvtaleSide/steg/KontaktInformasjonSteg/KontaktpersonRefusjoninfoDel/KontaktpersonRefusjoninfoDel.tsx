@@ -21,17 +21,17 @@ const KontaktpersonRefusjoninfoDel = () => {
 
     const sjekkeOmVarslingOmRefusjonKanSkrusAv = () => {
         console.log(avtale.gjeldendeInnhold.refusjonKontaktperson)
-        if (!avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerInformasjonOmRefusjon) {
+        if (!avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerVarslingOmRefusjon) {
             settAvtaleInnholdVerdi('refusjonKontaktperson', {
                 ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                ønskerInformasjonOmRefusjon: true
+                ønskerVarslingOmRefusjon: true
             });
         } else if (avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn && avtale.gjeldendeInnhold.refusjonKontaktperson.refusjonKontaktpersonEtternavn &&
             avtale.gjeldendeInnhold.refusjonKontaktperson.refusjonKontaktpersonTlf) {
             setFeilmelding(undefined);
             settAvtaleInnholdVerdi('refusjonKontaktperson', {
                 ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                ønskerInformasjonOmRefusjon: false
+                ønskerVarslingOmRefusjon: false
             });
         } else {
             setFeilmelding("Hvis ikke kontaktperson for avtalen ønsker å motta sms varslinger om refusjon må kontaktperson for refusjon fylles ut");
@@ -64,7 +64,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                                 setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt)
                                 settAvtaleInnholdVerdier({
                                     ...avtale.gjeldendeInnhold,
-                                    refusjonKontaktperson: {ønskerInformasjonOmRefusjon:true}
+                                    refusjonKontaktperson: {ønskerVarslingOmRefusjon:true}
                                 })
                             }}>+ Legg til
                                 kontaktperson</Knapp>
@@ -106,7 +106,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                             <div>
                                 <Checkbox
                                     label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
-                                    checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerInformasjonOmRefusjon}
+                                    checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerVarslingOmRefusjon}
                                     onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
                                 />
                             </div>
