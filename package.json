@@ -94,7 +94,7 @@
         "nav-frontend-veilederpanel": "^2.0.1",
         "nav-frontend-veilederpanel-style": "^2.0.1",
         "node-cache": "5.1.2",
-        "node-fetch": "2.6.1",
+        "node-fetch": "2.6.7",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
         "react-app-polyfill": "^2.0.0",
