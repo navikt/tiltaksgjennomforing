@@ -75,8 +75,9 @@ const KontaktpersonRefusjoninfoDel = () => {
                         </div>
 
                     }
-                    {((avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !== 0 && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !== 0
-                            && avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== 0) || visEkstraKontaktpersonFelt ) &&
+
+                    {((avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !== 0 || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !== 0
+                            || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== 0) || visEkstraKontaktpersonFelt ) &&
                         <>
                             <div className={cls.element('rad')}>
                                 <PakrevdInput
