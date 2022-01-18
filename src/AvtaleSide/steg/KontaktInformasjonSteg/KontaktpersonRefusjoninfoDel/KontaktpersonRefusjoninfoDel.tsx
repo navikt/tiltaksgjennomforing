@@ -50,11 +50,11 @@ const KontaktpersonRefusjoninfoDel = () => {
         <>
             <div className={cls.element('container')}>
                 <div className={cls.element('rad')}>
-                    <SkjemaTittel>Kontaktperson for refusjon</SkjemaTittel>
+                    <SkjemaTittel>Kontaktperson hos arbeidsgiver for refusjon</SkjemaTittel>
                 </div>
                 <SkjemaGruppe title="Kontaktperson for refusjon">
                     <div style={{marginBottom:"1rem"}}>
-                        <Normaltekst>Foreksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
+                        <Normaltekst>For eksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
                     </div>
                     {(!visEkstraKontaktpersonFelt && ((avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length === undefined || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length === undefined
                             || avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length === undefined))) &&

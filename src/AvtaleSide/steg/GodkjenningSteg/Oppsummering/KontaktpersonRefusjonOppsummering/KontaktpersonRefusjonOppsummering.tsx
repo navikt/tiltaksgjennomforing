@@ -1,6 +1,4 @@
 import React, {FunctionComponent, useContext} from 'react';
-import Stegoppsummering from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Stegoppsummering/Stegoppsummering";
-import {ReactComponent as MentorIkon} from "@/assets/ikoner/mentor.svg";
 import {RefusjonKontaktperson} from "@/types/avtale";
 import {AvtaleContext} from "@/AvtaleProvider";
 import {
@@ -18,7 +16,6 @@ const KontaktpersonRefusjonOppsumering: FunctionComponent<Props> = ({kontaktpers
     const erLåst = Boolean(avtaleContext.avtale.godkjentAvVeileder);
 
     return (
-        <Stegoppsummering  tittel={'Kontaktperson for refusjon'} ikon={<MentorIkon />}>
             <div>
                 {(gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !== 0 || gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !== 0
                     || gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== 0)
@@ -31,11 +28,10 @@ const KontaktpersonRefusjonOppsumering: FunctionComponent<Props> = ({kontaktpers
                     ]}
                     tilleggFelter={[
                         {felt: 'telefon', verdi: gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf}]}
-                    overskrift={'Refusjon Kontaktperson'}
-                    borderFarge="&--farge-graa"
+                    overskrift={'Kontaktperson hos arbeidsgiver for refusjon'}
+                    borderFarge="farge-graa"
                     skjulHvaMangler={erLåst}
                 />}
-            </div>
-        </Stegoppsummering>)
+            </div>)
 }
 export default  KontaktpersonRefusjonOppsumering
