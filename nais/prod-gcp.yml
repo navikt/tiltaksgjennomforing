@@ -1,0 +1,7 @@
+"ingress": "https://tiltaksgjennomforing.nav.no"
+"api-gw-url": "https://tiltak-proxy.prod-fss-pub.nais.io"
+"selvbetjening-login-url": "/oauth2/login"
+"logout-url": "/oauth2/logout"
+"stillingstitler-url": "http://tiltak-stillingstitler"
+"api-audience": "prod-fss:arbeidsgiver:tiltak-proxy"
+"proxy-cluster": "prod-fss"

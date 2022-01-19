@@ -4,7 +4,7 @@ const tokenx = require('./tokenx')
 const setup = (router, tokenxClient) => {
     router.use(
         '/tiltaksgjennomforing/api',
-        proxy("https://tiltak-proxy.dev-fss-pub.nais.io", {
+        proxy(process.env.APIGW_URL, {
             proxyReqPathResolver: (req) => {
                 return req.originalUrl.replace("/tiltaksgjennomforing/api", "/tiltaksgjennomforing-api");
             },

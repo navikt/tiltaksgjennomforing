@@ -118,8 +118,17 @@ module.exports = function(app) {
       };
     }
 
-    app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
-  }
+    if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp' || process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
+        gcpTokenExchange();
+    } else {
+        if (envProperties.APIGW_HEADER) {
+            apiProxyConfig.headers = {
+                'x-nav-apiKey': envProperties.APIGW_HEADER,
+            };
+        }
+
+        app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
+    }
 
   app.use(
       '/tiltaksgjennomforing/stillingstitler',

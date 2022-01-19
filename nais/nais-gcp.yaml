@@ -35,17 +35,19 @@ spec:
   tokenx:
     enabled: true
   idporten:
-    clientUri: https://tiltaksgjennomforing.dev.nav.no/tiltaksgjennomforing
+    clientUri: '{{{ingress}}}'
     enabled: true
     sidecar:
       enabled: true
       level: Level4
       locale: nb
-      autoLogin: true
+      autoLogin: false
       errorPath: ""
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-proxy
           namespace: arbeidsgiver
-          cluster: dev-fss
+          cluster: '{{{proxy-cluster}}}'
+        - application: tiltak-stillingstitler
+          namespace: arbeidsgiver
