@@ -5,6 +5,8 @@ const setup = (router, tokenxClient) => {
     router.use('/tiltaksgjennomforing/api', (req, res) => {
         if (!req.headers['authorization']) {
             res.status(401).send();
+        } else {
+            next();
         }
     })
 
