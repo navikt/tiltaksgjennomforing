@@ -52,4 +52,4 @@ spec:
         - application: tiltak-stillingstitler
           namespace: arbeidsgiver
       external:
-        - host: https://tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
+        - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
