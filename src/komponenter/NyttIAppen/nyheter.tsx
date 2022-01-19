@@ -6,6 +6,20 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(19, 1, 2022),
+        tittel: 'Kontonummer hentes nå opp automatisk',
+        innhold: (
+            <>
+                <p>
+                  Kontonummer hentes nå opp automatisk fra sentralt register som arbeidsgiver har meldt inn via Altinn,
+                  og det trenger ikke legges inn manuelt lenger. Dersom arbeidsgiver mangler kontonummer eller kontonummeret ikke stemmer kan de rette det opp i Altinn.
+                </p>
+                <p>
+                  Lenke til Altinn finnes i avtalen.
+                </p>
+            </>
+        ),
+    },{
         dato: tilDato(18, 1, 2022),
         tittel: 'Legge til egen kontaktperson for refusjon',
         innhold: (
