@@ -2,6 +2,6 @@
 "api-gw-url": "https://tiltak-proxy.prod-fss-pub.nais.io"
 "selvbetjening-login-url": "/oauth2/login"
 "logout-url": "/oauth2/logout"
-"stillingstitler-url": "https://tiltak-stillingstitler.prod-gcp.nais.io"
+"stillingstitler-url": "http://tiltak-stillingstitler"
 "api-audience": "prod-fss:arbeidsgiver:tiltak-proxy"
 "proxy-cluster": "prod-fss"
