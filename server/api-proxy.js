@@ -1,8 +1,8 @@
 const proxy = require('express-http-proxy');
 const tokenx = require('./tokenx')
 
-const setup = (router, tokenxClient) => {
-    router.use('/tiltaksgjennomforing/api', (req, res) => {
+const setup = (app, tokenxClient) => {
+    app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         if (!req.headers['authorization']) {
             res.status(401).send();
         } else {
@@ -10,7 +10,7 @@ const setup = (router, tokenxClient) => {
         }
     })
 
-    router.use(
+    app.use(
         '/tiltaksgjennomforing/api',
         proxy(process.env.APIGW_URL, {
             proxyReqPathResolver: (req) => {
