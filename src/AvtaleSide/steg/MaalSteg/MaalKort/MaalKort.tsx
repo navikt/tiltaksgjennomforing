@@ -1,9 +1,9 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { finnLedigeMaalkategorier } from '@/AvtaleSide/steg/MaalSteg/maal-utils';
+import {AvtaleContext} from '@/AvtaleProvider';
+import {finnLedigeMaalkategorier} from '@/AvtaleSide/steg/MaalSteg/maal-utils';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import { Maal } from '@/types/avtale';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import {Maal} from '@/types/avtale';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import RedigerMaal from '../RedigerMaal/RedigerMaal';
 import LagretMaal from './LagretMaal/LagretMaal';
 import './MaalKort.less';

@@ -1,15 +1,15 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import React, { useContext } from 'react';
-import Relasjoner from './Relasjoner';
+import {Input, SkjemaGruppe} from 'nav-frontend-skjema';
+import React, {useContext} from 'react';
+
 
 const ArbeidsgiverinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
-    const { avtale, settAvtaleInnholdVerdi: settAvtaleVerdi } = useContext(AvtaleContext);
+    const {avtale, settAvtaleInnholdVerdi: settAvtaleVerdi} = useContext(AvtaleContext);
     return (
         <>
             <div className={cls.element('container')}>
@@ -47,11 +47,6 @@ const ArbeidsgiverinfoDel = () => {
                             verdi={avtale.gjeldendeInnhold.arbeidsgiverTlf}
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
                         />
-                    </div>
-                    <div className={cls.element('rad')}>
-                        {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
-                            avtale.tiltakstype
-                        ) && <Relasjoner />}
                     </div>
                 </SkjemaGruppe>
             </div>

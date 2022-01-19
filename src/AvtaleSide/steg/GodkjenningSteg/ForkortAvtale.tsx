@@ -1,26 +1,26 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { forkortAvtale, forkortAvtaleDryRun } from '@/services/rest-service';
-import { TilskuddsPeriode } from '@/types/avtale';
-import { handterFeil } from '@/utils/apiFeilUtils';
-import { Notes } from '@navikt/ds-icons/cjs';
+import {forkortAvtale, forkortAvtaleDryRun} from '@/services/rest-service';
+import {TilskuddsPeriode} from '@/types/avtale';
+import {handterFeil} from '@/utils/apiFeilUtils';
+import {Notes} from '@navikt/ds-icons/cjs';
 import moment from 'moment';
-import { Datepicker } from 'nav-datovelger';
+import {Datepicker} from 'nav-datovelger';
 import Lenke from 'nav-frontend-lenker';
-import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import {Radio, SkjemaGruppe} from 'nav-frontend-skjema';
+import React, {FunctionComponent, useContext, useState} from 'react';
 
 const ForkortAvtale: FunctionComponent = () => {
-    const avtaleContext = useContext(AvtaleContext);
+  const avtaleContext = useContext(AvtaleContext);
 
-    const [modalApen, setModalApen] = useState(false);
-    const [sluttDato, setSluttDato] = useState<string | undefined>();
-    const [datoFeil, setDatoFeil] = useState<string>();
-    const [grunn, setGrunn] = useState<string>('');
-    const [annetGrunn, setAnnetGrunn] = useState<string>();
+  const [modalApen, setModalApen] = useState(false);
+  const [sluttDato, setSluttDato] = useState<string | undefined>();
+  const [datoFeil, setDatoFeil] = useState<string>();
+  const [grunn, setGrunn] = useState<string>('');
+  const [annetGrunn, setAnnetGrunn] = useState<string>();
 
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
@@ -53,8 +53,8 @@ const ForkortAvtale: FunctionComponent = () => {
                     inputProps={{ placeholder: 'dd.mm.åååå' }}
                     value={sluttDato}
                     limitations={{
-                        maxDate: moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).subtract(1, 'days').format('YYYY-MM-DD'),
-                        minDate: moment(avtaleContext.avtale.gjeldendeInnhold.startDato).format('YYYY-MM-DD'),
+                      maxDate: moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).subtract(1, 'days').format('YYYY-MM-DD'),
+                      minDate: moment(avtaleContext.avtale.gjeldendeInnhold.startDato).format('YYYY-MM-DD'),
                     }}
                     onChange={(dato) => onDatoChange(dato)}
                 />

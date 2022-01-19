@@ -1,21 +1,21 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { Input } from 'nav-frontend-skjema';
-import React, { FunctionComponent, useContext } from 'react';
+import {Input} from 'nav-frontend-skjema';
+import React, {FunctionComponent, useContext} from 'react';
 
 const DeltakerinfoDel: FunctionComponent = () => {
     const cls = BEMHelper('kontaktinfo');
-    const avtaleContext= useContext(AvtaleContext);
+    const avtaleContext = useContext(AvtaleContext);
     return (
         <>
             <div className={cls.element('container')}>
                 <SkjemaTittel>Informasjon om deltakeren</SkjemaTittel>
                 <div className={cls.element('rad', 'single')}>
-                    <Input label="Fødselsnummer" value={avtaleContext.avtale.deltakerFnr} disabled={true} />
+                    <Input label="Fødselsnummer" value={avtaleContext.avtale.deltakerFnr} disabled={true}/>
                 </div>
                 <VerticalSpacer rem={1} />
 

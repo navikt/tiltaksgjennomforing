@@ -1,12 +1,12 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import {AvtaleContext} from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { AvbrytelseGrunn } from '@/types/avtale';
+import {AvbrytelseGrunn} from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import AlertStripe from 'nav-frontend-alertstriper';
-import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import {Radio, SkjemaGruppe} from 'nav-frontend-skjema';
+import {Normaltekst} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
 import './AnnullerAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
 

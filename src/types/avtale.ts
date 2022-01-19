@@ -1,7 +1,7 @@
-import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Nettressurs } from '@/types/nettressurs';
-import { Maalkategori } from './maalkategorier';
+import {Formidlingsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import {Nettressurs} from '@/types/nettressurs';
+import {Maalkategori} from './maalkategorier';
 
 export type Avtale = Annullering &
     Avbrytelse &
@@ -47,6 +47,7 @@ export type Avtaleinnhold = {
     manedslonn100pst?: number;
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
+    refusjonKontaktperson?: RefusjonKontaktperson;
 
     enhetKostnadssted?: string;
     enhetsnavnKostnadssted?: string;
@@ -103,6 +104,13 @@ export interface AvtaleMetadata {
     kvalifiseringsgruppe: Kvalifiseringsgruppe;
     formidlingsgruppe: Formidlingsgruppe;
     godkjentForEtterregistrering: boolean;
+}
+
+export interface RefusjonKontaktperson {
+    refusjonKontaktpersonFornavn?: string;
+    refusjonKontaktpersonEtternavn?: string;
+    refusjonKontaktpersonTlf?: string;
+    ønskerVarslingOmRefusjon?: boolean;
 }
 
 export interface Avtaleparter {

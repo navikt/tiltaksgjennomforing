@@ -1,6 +1,6 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {AvtaleContext} from '@/AvtaleProvider';
+import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
@@ -12,14 +12,14 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
+import {hentKontonummerForArbeidsgiver} from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
-import { Money } from '@navikt/ds-icons/cjs';
-import { Column, Row } from 'nav-frontend-grid';
-import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import {parseFloatIfFloatable} from '@/utils/lonnstilskuddUtregningUtils';
+import {Money} from '@navikt/ds-icons/cjs';
+import {Column, Row} from 'nav-frontend-grid';
+import {Knapp} from 'nav-frontend-knapper';
+import {Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext} from 'react';
 import './BeregningTilskuddSteg.less';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
@@ -50,7 +50,12 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvKnappHentKontonummerForArbeidsgiver =
         featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
-    const { avtale, settOgKalkulerBeregningsverdier, lagreAvtale, settAvtaleInnholdVerdier: settAvtaleVerdier } = useContext(AvtaleContext);
+    const {
+        avtale,
+        settOgKalkulerBeregningsverdier,
+        lagreAvtale,
+        settAvtaleInnholdVerdier: settAvtaleVerdier
+    } = useContext(AvtaleContext);
 
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -90,7 +95,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         autoComplete={'off'}
                         value={avtale.gjeldendeInnhold.manedslonn}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdier({ manedslonn: parseFloat(event.target.value) });
+                            settAvtaleVerdier({manedslonn: parseFloat(event.target.value)});
                         }}
                         onBlur={(event) => settOgKalkulerBeregningsverdier({manedslonn: parseFloat(event.target.value)})}
                         min={0}
@@ -163,7 +168,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 label={'Kontonummer til arbeidsgiver'}
                                 value={avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
+                                    settAvtaleVerdier({arbeidsgiverKontonummer: event.target.value});
                                 }}
                                 onBlur={() => lagreAvtale()}
                             />
@@ -204,9 +209,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             </Knapp>
                         </Column>
                     </Row>
-                    <VerticalSpacer rem={2} />
+                    <VerticalSpacer rem={2}/>
                     <UtregningPanel {...avtale.gjeldendeInnhold} />
-                    <VerticalSpacer rem={1.25} />
+                    <VerticalSpacer rem={1.25}/>
                     {innloggetBruker.erNavAnsatt &&
                         avtale.gjeldendeInnhold.stillingprosent !== undefined &&
                         avtale.gjeldendeInnhold.stillingprosent > 0 &&

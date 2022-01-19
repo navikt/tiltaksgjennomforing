@@ -1,12 +1,12 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {AvtaleContext} from '@/AvtaleProvider';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext } from 'react';
+import {Normaltekst, Undertittel} from 'nav-frontend-typografi';
+import React, {FunctionComponent, useContext} from 'react';
 
 const KvalifiseringsgruppeSats: FunctionComponent = () => {
-    const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+    const {avtale, settOgKalkulerBeregningsverdier} = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const settTekstTilLonntilskuddProsent = () => {
