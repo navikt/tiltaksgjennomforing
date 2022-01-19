@@ -51,3 +51,5 @@ spec:
           cluster: '{{{proxy-cluster}}}'
         - application: tiltak-stillingstitler
           namespace: arbeidsgiver
+      external:
+        - host: https://tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
