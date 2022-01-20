@@ -27,8 +27,14 @@ import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'rea
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
+import MedFeilmeldingHocWrapper from "@/AvtaleSide/FeilmeldingHocWrapper/MedFeilmeldingHocWrapper";
 
 const cls = BEMHelper('opprett-avtale');
+
+interface Props{
+    feilmelding: string;
+}
+
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
@@ -131,6 +137,18 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
 
+
+        const test: React.FC<Props> = ({feilmelding}) => (
+            <Input
+                className="typo-element"
+                label="Deltakers fødselsnummer"
+                value={deltakerFnr}
+                onChange={fnrOnChange}
+                onBlur={validerDeltakerFnr}
+                feil={deltakerFnrFeil}
+            />
+        );
+
     const radiopaneler = (
         <Innholdsboks>
             <Systemtittel>Velg type avtale</Systemtittel>
@@ -187,18 +205,22 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             {radiopaneler}
             <VerticalSpacer rem={2} />
             <Innholdsboks>
+
+                {MedFeilmeldingHocWrapper(test)}
                 <Systemtittel>Knytt avtalen til andre parter</Systemtittel>
                 <VerticalSpacer rem={1} />
                 <div className="opprett-avtale__input-wrapper">
                     <div className="opprett-avtale__kandidat-fnr">
-                        <Input
-                            className="typo-element"
-                            label="Deltakers fødselsnummer"
-                            value={deltakerFnr}
-                            onChange={fnrOnChange}
-                            onBlur={validerDeltakerFnr}
-                            feil={deltakerFnrFeil}
-                        />
+
+                            <Input
+                                className="typo-element"
+                                label="Deltakers fødselsnummer"
+                                value={deltakerFnr}
+                                onChange={fnrOnChange}
+                                onBlur={validerDeltakerFnr}
+                                feil={deltakerFnrFeil}
+                            />
+
                     </div>
 
                     <div className="opprett-avtale__arbeidsgiver-bedriftNr">
