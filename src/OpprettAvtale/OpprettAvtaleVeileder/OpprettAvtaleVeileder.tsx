@@ -1,32 +1,34 @@
-import { ReactComponent as AltinnIkon } from '@/assets/ikoner/altinn.svg';
-import { ReactComponent as AvtaleparterIkon } from '@/assets/ikoner/avtaleparter.svg';
-import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as MobilIkon } from '@/assets/ikoner/digitalAvtale.svg';
+import {ReactComponent as AltinnIkon} from '@/assets/ikoner/altinn.svg';
+import {ReactComponent as AvtaleparterIkon} from '@/assets/ikoner/avtaleparter.svg';
+import {ReactComponent as CheckCircleIkon} from '@/assets/ikoner/check.svg';
+import {ReactComponent as MobilIkon} from '@/assets/ikoner/digitalAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
-import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
-import { hentBedriftBrreg, opprettAvtaleSomVeileder } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
-import { UfullstendigError } from '@/types/errors';
+import {pathTilOpprettAvtaleFullfortVeileder} from '@/paths';
+import {hentBedriftBrreg, opprettAvtaleSomVeileder} from '@/services/rest-service';
+import {TiltaksType} from '@/types/avtale';
+import {UfullstendigError} from '@/types/errors';
 import amplitude from '@/utils/amplitude';
-import { handterFeil } from '@/utils/apiFeilUtils';
+import {handterFeil} from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { validerFnr } from '@/utils/fnrUtils';
-import { validerOrgnr } from '@/utils/orgnrUtils';
+import {validerFnr} from '@/utils/fnrUtils';
+import {validerOrgnr} from '@/utils/orgnrUtils';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Lenke from 'nav-frontend-lenker';
-import { Input, RadioPanel } from 'nav-frontend-skjema';
-import { Element, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
+import {Input, RadioPanel} from 'nav-frontend-skjema';
+import {Element, Innholdstittel, Normaltekst, Systemtittel} from 'nav-frontend-typografi';
+import React, {ChangeEvent, FunctionComponent, useContext, useState} from 'react';
+import {useHistory} from 'react-router-dom';
+import {ReactComponent as TilEkstern} from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
+import {FeilProviderContext} from "@/FeilProvider";
+import AlertStripe from "nav-frontend-alertstriper";
 import MedFeilmeldingHocWrapper from "@/AvtaleSide/FeilmeldingHocWrapper/MedFeilmeldingHocWrapper";
 
 const cls = BEMHelper('opprett-avtale');
@@ -38,20 +40,23 @@ interface Props{
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
+    const [feilmeldinger, setFeilmeldinger] = useContext(FeilProviderContext);
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
-        (verdi) => {
+         (verdi) => {
             if (!verdi) {
                 return 'Fødselsnummer er påkrevd';
             }
+             setFeilmeldinger({feilkoder: []});
         },
         (verdi) => {
             if (!validerFnr(verdi)) {
                 return 'Ugyldig fødselsnummer';
             }
+            setFeilmeldinger({feilkoder: []});
         },
     ]);
 
@@ -103,18 +108,18 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     };
 
     const hvaMangler = () => {
-        const feil = [];
+        const feilmelding = [];
         if (!valgtTiltaksType) {
-            feil.push('avtaletype');
+            feilmelding.push('avtaletype');
         }
         if (!validerFnr(deltakerFnr)) {
-            feil.push('gyldig fødselsnummer for deltaker');
+            feilmelding.push('gyldig fødselsnummer for deltaker');
         }
         if (!validerOrgnr(bedriftNr)) {
-            feil.push('gyldig bedriftsnummer');
+            feilmelding.push('gyldig bedriftsnummer');
         }
-        if (feil.length) {
-            return 'Du må oppgi: ' + feil.join(', ');
+        if (feilmelding.length) {
+            return 'Du må oppgi: ' + feilmelding.join(', ');
         } else {
             return '';
         }
@@ -211,16 +216,19 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 <VerticalSpacer rem={1} />
                 <div className="opprett-avtale__input-wrapper">
                     <div className="opprett-avtale__kandidat-fnr">
-
-                            <Input
-                                className="typo-element"
-                                label="Deltakers fødselsnummer"
-                                value={deltakerFnr}
-                                onChange={fnrOnChange}
-                                onBlur={validerDeltakerFnr}
-                                feil={deltakerFnrFeil}
-                            />
-
+                        <Input
+                            className="typo-element"
+                            label="Deltakers fødselsnummer"
+                            value={deltakerFnr}
+                            onChange={fnrOnChange}
+                            onBlur={validerDeltakerFnr}
+                            feil={deltakerFnrFeil}
+                        />
+                        {feilmeldinger.feilkoder.includes("FOR_GAMMEL") &&
+                            <AlertStripe type={"advarsel"}>
+                                For gammel
+                            </AlertStripe>
+                        }
                     </div>
 
                     <div className="opprett-avtale__arbeidsgiver-bedriftNr">
@@ -276,7 +284,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 </EkspanderbartPanelRad>
             </Ekspanderbartpanel>
             <div className={cls.element('knappRad')}>
-                <LagreKnapp lagre={opprettAvtaleKlikk} label={'Opprett avtale'} className="opprett-avtale__knapp" />
+                <LagreKnapp lagre={opprettAvtaleKlikk} feilmeldinger={feilmeldinger.feilkoder} setFeilmeldinger={setFeilmeldinger} label={'Opprett avtale'} className="opprett-avtale__knapp" />
 
                 <TilbakeTilOversiktLenke />
             </div>
