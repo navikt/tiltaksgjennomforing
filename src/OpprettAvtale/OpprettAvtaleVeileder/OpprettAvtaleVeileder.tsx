@@ -28,15 +28,9 @@ import {useHistory} from 'react-router-dom';
 import {ReactComponent as TilEkstern} from './ekstern-lenke.svg';
 import './OpprettAvtale.less';
 import {FeilProviderContext} from "@/FeilProvider";
-import AlertStripe from "nav-frontend-alertstriper";
-import MedFeilmeldingHocWrapper from "@/AvtaleSide/FeilmeldingHocWrapper/MedFeilmeldingHocWrapper";
+import FeilmeldingWrapper from "@/AvtaleSide/FeilmeldingWrapper/FeilmeldingWrapper";
 
 const cls = BEMHelper('opprett-avtale');
-
-interface Props{
-    feilmelding: string;
-}
-
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
@@ -142,18 +136,6 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
 
-
-        const test: React.FC<Props> = ({feilmelding}) => (
-            <Input
-                className="typo-element"
-                label="Deltakers fødselsnummer"
-                value={deltakerFnr}
-                onChange={fnrOnChange}
-                onBlur={validerDeltakerFnr}
-                feil={deltakerFnrFeil}
-            />
-        );
-
     const radiopaneler = (
         <Innholdsboks>
             <Systemtittel>Velg type avtale</Systemtittel>
@@ -211,11 +193,12 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <VerticalSpacer rem={2} />
             <Innholdsboks>
 
-                {MedFeilmeldingHocWrapper(test)}
+
                 <Systemtittel>Knytt avtalen til andre parter</Systemtittel>
                 <VerticalSpacer rem={1} />
                 <div className="opprett-avtale__input-wrapper">
                     <div className="opprett-avtale__kandidat-fnr">
+                        <FeilmeldingWrapper feilkode={'SOMMERJOBB_FOR_GAMMEL'} feilmeldinger={feilmeldinger.feilkoder} >
                         <Input
                             className="typo-element"
                             label="Deltakers fødselsnummer"
@@ -224,22 +207,20 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             onBlur={validerDeltakerFnr}
                             feil={deltakerFnrFeil}
                         />
-                        {feilmeldinger.feilkoder.includes("FOR_GAMMEL") &&
-                            <AlertStripe type={"advarsel"}>
-                                For gammel
-                            </AlertStripe>
-                        }
+                        </FeilmeldingWrapper>
                     </div>
 
                     <div className="opprett-avtale__arbeidsgiver-bedriftNr">
-                        <Input
-                            className="typo-element"
-                            label="Bedriftsnummer"
-                            value={bedriftNr}
-                            onChange={orgnrOnChange}
-                            onBlur={orgnrOnBlur}
-                            feil={bedriftNrFeil}
-                        />
+                          <FeilmeldingWrapper feilkode={'SOMMERJOBB_FOR_GAMMEL'} feilmeldinger={feilmeldinger.feilkoder}  >
+                                <Input
+                                    className="typo-element"
+                                    label="Bedriftsnummer"
+                                    value={bedriftNr}
+                                    onChange={orgnrOnChange}
+                                    onBlur={orgnrOnBlur}
+                                    feil={bedriftNrFeil}
+                                />
+                          </FeilmeldingWrapper>
                         {bedriftNavn && (
                             <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>
                         )}

@@ -1,8 +1,9 @@
 import React, {createContext, useState} from 'react';
 import {useEffect} from "react";
+import {Feilkode} from "@/types/feilkode";
 
 export interface Feil {
-    feilkoder: string[];
+    feilkoder: Feilkode[];
 }
 
 export const FeilProviderContext = createContext<[Feil, React.Dispatch<React.SetStateAction<Feil>>]>([
@@ -12,8 +13,6 @@ export const FeilProviderContext = createContext<[Feil, React.Dispatch<React.Set
 
 export const FeilProvider = (props: any) => {
     const [feilmeldinger, setFeilmeldinger] = useState<Feil>({ feilkoder: [] });
-
-
 
     useEffect(() =>
     {
