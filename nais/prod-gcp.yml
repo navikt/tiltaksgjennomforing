@@ -1,4 +1,4 @@
-"ingress": "https://tiltaksgjennomforing.prod-gcp.nais.io"
+"ingress": "https://arbeidsgiver.nav.no/tiltaksgjennomforing"
 "api-gw-url": "https://tiltak-proxy.prod-fss-pub.nais.io"
 "selvbetjening-login-url": "/oauth2/login"
 "logout-url": "/oauth2/logout"
