@@ -180,6 +180,14 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
             <VerticalSpacer rem={2} />
             <Innholdsboks>
+              <Normaltekst>
+                Er det første gang du skal opprette en avtale bør du lese gjennom {''}
+                <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">introduksjon til hvordan løsningen fungerer {''}</EksternLenke>
+                og vite om <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">de ulike støtteordningene.</EksternLenke>
+              </Normaltekst>
+            </Innholdsboks>
+            <VerticalSpacer rem={1} />
+            <Innholdsboks>
                 <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
                 <VerticalSpacer rem={1} />
                         <FeilmeldingWrapper feilkoder={["SOMMERJOBB_FOR_GAMMEL","UGYLDIG_FØDSELSNUMMER"]} feilmeldinger={feilmeldinger.feilkoder} >
@@ -192,7 +200,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             feil={deltakerFnrFeil}
                         />
                         </FeilmeldingWrapper>
-                <VerticalSpacer rem={2} />
+                <VerticalSpacer rem={1} />
                           <FeilmeldingWrapper feilkoder={["UGYLDIG_BEDRIFTSNUMMER"]} feilmeldinger={feilmeldinger.feilkoder}  >
 
                                 <Input
@@ -211,9 +219,9 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>
                         )}
             </Innholdsboks>
-            <VerticalSpacer rem={2} />
+            <VerticalSpacer rem={1} />
             {radiopaneler}
-            <VerticalSpacer rem={2} />
+            <VerticalSpacer rem={1} />
 
             <div className={cls.element('knappRad')}>
                 <LagreKnapp lagre={opprettAvtaleKlikk} feilmeldinger={feilmeldinger.feilkoder} setFeilmeldinger={setFeilmeldinger} label={'Opprett avtale'} className="opprett-avtale__knapp" />
