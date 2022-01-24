@@ -204,7 +204,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                                     feil={bedriftNrFeil}
                                 />
                               <Normaltekst>
-                                  Virksomhetsnummeret må være det samme som der det blir registrer inntekt for deltaker i A-meldingen.
+                                  Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen.
                               </Normaltekst>
                           </FeilmeldingWrapper>
                         {bedriftNavn && (
