@@ -21,6 +21,7 @@ import './OpprettAvtale.less';
 import {FeilProviderContext} from "@/FeilProvider";
 import FeilmeldingWrapper from "@/AvtaleSide/FeilmeldingWrapper/FeilmeldingWrapper";
 import {Feilkode} from "@/types/feilkode";
+import EksternLenke from "@/komponenter/navigation/EksternLenke";
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -121,6 +122,11 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const radiopaneler = (
         <Innholdsboks>
             <Systemtittel>Velg type avtale</Systemtittel>
+            <Normaltekst>
+                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                hvordan kan NAV hjelpe med inkludering
+            </EksternLenke>
+            </Normaltekst>
             <VerticalSpacer rem={1} />
             <FeilmeldingWrapper feilkoder={["UGYLDIG_AVTALETYPE"]} feilmeldinger={feilmeldinger.feilkoder} >
             <div className={cls.element('tiltakstypeWrapper')}>
@@ -173,15 +179,9 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <VerticalSpacer rem={1} />
             <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
             <VerticalSpacer rem={2} />
-            {radiopaneler}
-            <VerticalSpacer rem={2} />
             <Innholdsboks>
-
-
-                <Systemtittel>Knytt avtalen til andre parter</Systemtittel>
+                <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
                 <VerticalSpacer rem={1} />
-                <div className="opprett-avtale__input-wrapper">
-                    <div className="opprett-avtale__kandidat-fnr">
                         <FeilmeldingWrapper feilkoder={["SOMMERJOBB_FOR_GAMMEL","UGYLDIG_FØDSELSNUMMER"]} feilmeldinger={feilmeldinger.feilkoder} >
                         <Input
                             className="typo-element"
@@ -192,25 +192,27 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             feil={deltakerFnrFeil}
                         />
                         </FeilmeldingWrapper>
-                    </div>
-
-                    <div className="opprett-avtale__arbeidsgiver-bedriftNr">
+                <VerticalSpacer rem={2} />
                           <FeilmeldingWrapper feilkoder={["UGYLDIG_BEDRIFTSNUMMER"]} feilmeldinger={feilmeldinger.feilkoder}  >
+
                                 <Input
                                     className="typo-element"
-                                    label="Bedriftsnummer"
+                                    label="Vikrsomhetsnummer"
                                     value={bedriftNr}
                                     onChange={orgnrOnChange}
                                     onBlur={orgnrOnBlur}
                                     feil={bedriftNrFeil}
                                 />
+                              <Normaltekst>
+                                  Virksomhetsnummeret må være det samme som der det blir registrer inntekt for deltaker i A-meldingen.
+                              </Normaltekst>
                           </FeilmeldingWrapper>
                         {bedriftNavn && (
                             <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>
                         )}
-                    </div>
-                </div>
             </Innholdsboks>
+            <VerticalSpacer rem={2} />
+            {radiopaneler}
             <VerticalSpacer rem={2} />
 
             <div className={cls.element('knappRad')}>
