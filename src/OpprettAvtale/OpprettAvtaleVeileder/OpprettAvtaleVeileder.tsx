@@ -197,7 +197,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
 
                                 <Input
                                     className="typo-element"
-                                    label="Vikrsomhetsnummer"
+                                    label="Virksomhetsnummer"
                                     value={bedriftNr}
                                     onChange={orgnrOnChange}
                                     onBlur={orgnrOnBlur}
