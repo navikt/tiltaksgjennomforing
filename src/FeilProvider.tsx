@@ -3,16 +3,16 @@ import {useEffect} from "react";
 import {Feilkode} from "@/types/feilkode";
 
 export interface Feil {
-    feilkoder: Feilkode[];
+    feilkoder: Set<Feilkode>;
 }
 
 export const FeilProviderContext = createContext<[Feil, React.Dispatch<React.SetStateAction<Feil>>]>([
-    {feilkoder:[]},
+    {feilkoder:new Set([])},
     () => null,
 ]);
 
 export const FeilProvider = (props: any) => {
-    const [feilmeldinger, setFeilmeldinger] = useState<Feil>({ feilkoder: [] });
+    const [feilmeldinger, setFeilmeldinger] = useState<Feil>({ feilkoder: new Set([]) });
 
     useEffect(() =>
     {

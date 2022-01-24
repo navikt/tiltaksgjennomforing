@@ -1,20 +1,19 @@
 import React, {FunctionComponent} from 'react'
 import AlertStripe from "nav-frontend-alertstriper";
-import { Feilmeldinger as Feilkoder, Feilkode }  from "@/types/feilkode";
+import {Feilkode, Feilmeldinger as Feilkoder} from "@/types/feilkode";
 
 interface Props {
-    feilkode: string;
-    feilmeldinger: Feilkode[];
+    feilkoder: string[];
+    feilmeldinger: Set<Feilkode>;
 }
 
-const FeilmeldingWrapper : FunctionComponent<Props> = ({feilkode,children, feilmeldinger}) => {
+const FeilmeldingWrapper : FunctionComponent<Props> = ({feilkoder,children, feilmeldinger}) => {
 
     console.log('feilkode', feilkode)
 
     const viseRiktigFeilmeldingen = () => {
-        return feilmeldinger.map((value : Feilkode)  => {
-            console.log('value', value);
-            if (value === feilkode) {
+        return Array.from(feilmeldinger.values()).map((value : Feilkode)  => {
+            if (feilkoder.includes(value)) {
                 return <AlertStripe type={"advarsel"}>
                     {Feilkoder[value]}
                 </AlertStripe>

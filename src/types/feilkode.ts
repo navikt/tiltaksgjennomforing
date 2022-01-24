@@ -66,6 +66,10 @@ export type Feilkode =
     | 'FORTIDLIG_STARTDATO'
     | 'KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT'
     | 'AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE'
+    | 'UGYLDIG_BEDRIFTSNUMMER'
+    | 'UGYLDIG_FØDSELSNUMMER'
+    | 'UGYLDIG_AVTALETYPE'
+
 
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
@@ -141,5 +145,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FORTIDLIG_STARTDATO: 'Avtalen må godkjennes for etterregistrering av beslutter',
     KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT:
         'Kan ikke endre etterregistrering etter at avtalen er godkjent.',
-    AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE: 'Avtalen inneholder utbetalte tilskuddsperiode(er). Avtalen kan derfor ikke annulleres.'
+    AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE: 'Avtalen inneholder utbetalte tilskuddsperiode(er). Avtalen kan derfor ikke annulleres.',
+    UGYLDIG_BEDRIFTSNUMMER: 'Du må oppgi gyldig bedriftsnummer',
+    UGYLDIG_FØDSELSNUMMER: 'Du må oppgi gyldig fødselsnummer for deltaker',
+    UGYLDIG_AVTALETYPE: 'Du må oppgi avtaletype'
 };

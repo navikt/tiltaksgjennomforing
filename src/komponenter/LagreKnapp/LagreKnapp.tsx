@@ -6,6 +6,7 @@ import {Dispatch} from "react";
 import {SetStateAction} from "react";
 import './LagreKnapp.less';
 import {Feil} from "@/FeilProvider";
+import {Feilkode} from "@/types/feilkode";
 
 interface State {
     suksessmelding: string;
@@ -23,7 +24,7 @@ interface Props {
     hidden?: boolean;
     knapptype?: typeof KnappBase.defaultProps.type;
     setFeilmeldinger?: Dispatch<SetStateAction<Feil>>;
-    feilmeldinger?: string[];
+    feilmeldinger?: Set<Feilkode>;
 }
 
 class LagreKnapp extends Component<Props, State> {
@@ -60,7 +61,9 @@ class LagreKnapp extends Component<Props, State> {
         } catch (error: any) {
             try {
                 if(this.props.setFeilmeldinger && this.props.feilmeldinger){
-                    this.props.setFeilmeldinger({feilkoder:[...this.props.feilmeldinger, error.message]});
+                    let feilmeldingerList = this.props.feilmeldinger;
+                    feilmeldingerList.add( error.message)
+                    this.props.setFeilmeldinger({feilkoder:feilmeldingerList});
                 }
                 handterFeil(error, this.visFeilmelding);
             } catch (er) {
