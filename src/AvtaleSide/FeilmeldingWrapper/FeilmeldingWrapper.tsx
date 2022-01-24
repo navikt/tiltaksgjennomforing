@@ -9,7 +9,7 @@ interface Props {
 
 const FeilmeldingWrapper : FunctionComponent<Props> = ({feilkoder,children, feilmeldinger}) => {
 
-    console.log('feilkode', feilkode)
+    console.log('feilkode', feilkoder)
 
     const viseRiktigFeilmeldingen = () => {
         return Array.from(feilmeldinger.values()).map((value : Feilkode)  => {
