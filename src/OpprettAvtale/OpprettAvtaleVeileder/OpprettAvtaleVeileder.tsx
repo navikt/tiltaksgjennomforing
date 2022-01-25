@@ -15,6 +15,7 @@ import {validerFnr} from '@/utils/fnrUtils';
 import {validerOrgnr} from '@/utils/orgnrUtils';
 import {Input, RadioPanel} from 'nav-frontend-skjema';
 import {Innholdstittel, Normaltekst, Systemtittel} from 'nav-frontend-typografi';
+import {Element} from "nav-frontend-typografi";
 import React, {ChangeEvent, FunctionComponent, useContext, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import './OpprettAvtale.less';
@@ -22,6 +23,7 @@ import {FeilProviderContext} from "@/FeilProvider";
 import FeilmeldingWrapper from "@/AvtaleSide/FeilmeldingWrapper/FeilmeldingWrapper";
 import {Feilkode} from "@/types/feilkode";
 import EksternLenke from "@/komponenter/navigation/EksternLenke";
+import {AlertStripeInfo} from "nav-frontend-alertstriper";
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -105,12 +107,13 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         if (!validerOrgnr(bedriftNr)) {
             mangel.push("UGYLDIG_BEDRIFTSNUMMER");
         }
-        setFeilmeldinger({feilkoder:new Set(mangel)});
-        if (feilmeldinger.feilkoder.size === 0 && valgtTiltaksType) {
+
+        if (mangel.length === 0 && valgtTiltaksType) {
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
         }
+        setFeilmeldinger({feilkoder:new Set(mangel)});
     };
 
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
@@ -222,7 +225,20 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <VerticalSpacer rem={1} />
             {radiopaneler}
             <VerticalSpacer rem={1} />
-
+          <AlertStripeInfo>
+            <Element>Dette skjer etter at du har opprettet avtalen</Element>
+            <Normaltekst>
+              <ul>
+                <li>Du kan begynne å fylle ut avtalen.</li>
+                <li>
+                  Avtalen blir tilgjengelig for veilederne på NAV kontoret til deltakeren. Når avtalen har
+                  blitt fordelt til en veileder vil du se kontaktinformasjonen til denne veilederen inne i
+                  avtalen.
+                </li>
+              </ul>
+            </Normaltekst>
+          </AlertStripeInfo>
+          <VerticalSpacer rem={1} />
             <div className={cls.element('knappRad')}>
                 <LagreKnapp lagre={opprettAvtaleKlikk} feilmeldinger={feilmeldinger.feilkoder} setFeilmeldinger={setFeilmeldinger} label={'Opprett avtale'} className="opprett-avtale__knapp" />
 
