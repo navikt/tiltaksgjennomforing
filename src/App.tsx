@@ -16,7 +16,6 @@ import AvtaleProvider from './AvtaleProvider';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import BeslutterSide from './BeslutterSide/BeslutterSide';
 import {FeatureToggleProvider} from './FeatureToggleProvider';
-import {FeilProvider} from './FeilProvider';
 import {FeilVarselProvider} from './FeilVarselProvider';
 import Informasjonsside from './Informasjonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
@@ -48,7 +47,6 @@ class App extends React.Component {
                         <AdvarselBannerTestversjon />
                         <VarselOmNedetid />
                         <FeatureToggleProvider>
-                            <FeilProvider>
                             <Switch>
                                 <Route
                                     path={pathTilInformasjonssideUinnlogget}
@@ -119,7 +117,6 @@ class App extends React.Component {
                                     </InnloggingBoundary>
                                 </FeilVarselProvider>
                             </Switch>
-                            </FeilProvider>
                         </FeatureToggleProvider>
                     </BrowserRouter>
                 </IntlProvider>

@@ -2,10 +2,7 @@ import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import {handterFeil} from '@/utils/apiFeilUtils';
 import KnappBase, {Knapp} from 'nav-frontend-knapper';
 import React, {Component} from 'react';
-import {Dispatch} from "react";
-import {SetStateAction} from "react";
 import './LagreKnapp.less';
-import {Feil} from "@/FeilProvider";
 import {Feilkode} from "@/types/feilkode";
 
 interface State {
@@ -23,8 +20,7 @@ interface Props {
     disabled?: boolean;
     hidden?: boolean;
     knapptype?: typeof KnappBase.defaultProps.type;
-    setFeilmeldinger?: Dispatch<SetStateAction<Feil>>;
-    feilmeldinger?: Set<Feilkode>;
+    setFeilmelding?: (value:Feilkode) => void;
 }
 
 class LagreKnapp extends Component<Props, State> {
@@ -60,10 +56,8 @@ class LagreKnapp extends Component<Props, State> {
             this.fjernFeilmelding();
         } catch (error: any) {
             try {
-                if(this.props.setFeilmeldinger && this.props.feilmeldinger){
-                    let feilmeldingerList = this.props.feilmeldinger;
-                    feilmeldingerList.add( error.message)
-                    this.props.setFeilmeldinger({feilkoder:feilmeldingerList});
+                if(this.props.setFeilmelding) {
+                    this.props.setFeilmelding(error.message);
                 }
                 handterFeil(error, this.visFeilmelding);
             } catch (er) {

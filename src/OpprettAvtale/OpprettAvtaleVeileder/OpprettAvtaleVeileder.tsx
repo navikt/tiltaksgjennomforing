@@ -14,14 +14,14 @@ import BEMHelper from '@/utils/bem';
 import {validerFnr} from '@/utils/fnrUtils';
 import {validerOrgnr} from '@/utils/orgnrUtils';
 import {Input, RadioPanel} from 'nav-frontend-skjema';
+import {SkjemaelementFeilmelding} from "nav-frontend-skjema";
 import {Innholdstittel, Normaltekst, Systemtittel} from 'nav-frontend-typografi';
 import {Element} from "nav-frontend-typografi";
 import React, {ChangeEvent, FunctionComponent, useContext, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import './OpprettAvtale.less';
-import {FeilProviderContext} from "@/FeilProvider";
-import FeilmeldingWrapper from "@/AvtaleSide/FeilmeldingWrapper/FeilmeldingWrapper";
 import {Feilkode} from "@/types/feilkode";
+import {Feilmeldinger} from "@/types/feilkode";
 import EksternLenke from "@/komponenter/navigation/EksternLenke";
 import {AlertStripeInfo} from "nav-frontend-alertstriper";
 
@@ -29,23 +29,20 @@ const cls = BEMHelper('opprett-avtale');
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
-    const [feilmeldinger, setFeilmeldinger] = useContext(FeilProviderContext);
+    const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
-
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
          (verdi) => {
             if (!verdi) {
                 return 'Fødselsnummer er påkrevd';
             }
-             setFeilmeldinger({feilkoder: new Set([])});
         },
         (verdi) => {
             if (!validerFnr(verdi)) {
                 return 'Ugyldig fødselsnummer';
             }
-            setFeilmeldinger({feilkoder: new Set([])});
         },
     ]);
 
@@ -96,24 +93,37 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         }
     };
 
+    const setFeilmelding= (melding:Feilkode) =>{
+    if(melding === "SOMMERJOBB_FOR_GAMMEL"){
+      setDeltakerFnrFeil(Feilmeldinger.SOMMERJOBB_FOR_GAMMEL)
+    }
+  }
+
     const opprettAvtaleKlikk = async () => {
-        const mangel: Feilkode[] = [];
+        let valgtAvtaleType = false;
+        let feilDeltakerFNR = "";
+        let feilBedriftNr = "";
+
         if (!valgtTiltaksType) {
-            mangel.push("UGYLDIG_AVTALETYPE");
+          valgtAvtaleType =true;
         }
         if (!validerFnr(deltakerFnr)) {
-            mangel.push("UGYLDIG_FØDSELSNUMMER");
+          feilDeltakerFNR= Feilmeldinger.UGYLDIG_FØDSELSNUMMER
         }
         if (!validerOrgnr(bedriftNr)) {
-            mangel.push("UGYLDIG_BEDRIFTSNUMMER");
+          feilBedriftNr = (Feilmeldinger.UGYLDIG_BEDRIFTSNUMMER)
         }
-
-        if (mangel.length === 0 && valgtTiltaksType) {
+        if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
+            return;
         }
-        setFeilmeldinger({feilkoder:new Set(mangel)});
+
+      setUyldigAvtaletype(valgtAvtaleType)
+      setBedriftNrFeil(feilBedriftNr)
+      setDeltakerFnrFeil(feilDeltakerFNR)
+
     };
 
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
@@ -126,33 +136,41 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         <Innholdsboks>
             <Systemtittel>Velg type avtale</Systemtittel>
             <Normaltekst>
-                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider <EksternLenke href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">
                 hvordan kan NAV hjelpe med inkludering
             </EksternLenke>
             </Normaltekst>
             <VerticalSpacer rem={1} />
-            <FeilmeldingWrapper feilkoder={["UGYLDIG_AVTALETYPE"]} feilmeldinger={feilmeldinger.feilkoder} >
             <div className={cls.element('tiltakstypeWrapper')}>
                 <RadioPanel
                     name="tiltakstype"
                     label="Arbeidstrening"
                     value="ARBEIDSTRENING"
                     checked={valgtTiltaksType === 'ARBEIDSTRENING'}
-                    onChange={() => setTiltaksType('ARBEIDSTRENING')}
+                    onChange={() => {
+                      setTiltaksType('ARBEIDSTRENING')
+                      setUyldigAvtaletype(false)
+                    }}
                 />
                 <RadioPanel
                     name="tiltakstype"
                     label="Midlertidig lønnstilskudd"
                     value="MIDLERTIDIG_LONNSTILSKUDD"
                     checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                    onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                    onChange={() => {
+                      setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')
+                      setUyldigAvtaletype(false)
+                    }}
                 />
                 <RadioPanel
                     name="tiltakstype"
                     label="Varig lønnstilskudd"
                     value="VARIG_LONNSTILSKUDD"
                     checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                    onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
+                    onChange={() => {
+                      setTiltaksType('VARIG_LONNSTILSKUDD')
+                      setUyldigAvtaletype(false)
+                    }}
                 />
                 {mentorToggle && (
                     <RadioPanel
@@ -160,7 +178,10 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                         label="Mentor"
                         value="MENTOR"
                         checked={valgtTiltaksType === 'MENTOR'}
-                        onChange={() => setTiltaksType('MENTOR')}
+                        onChange={() => {
+                          setTiltaksType('MENTOR')
+                          setUyldigAvtaletype(false)
+                        }}
                     />
                 )}
                 <RadioPanel
@@ -168,10 +189,15 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     label="Sommerjobb"
                     value="SOMMERJOBB"
                     checked={valgtTiltaksType === 'SOMMERJOBB'}
-                    onChange={() => setTiltaksType('SOMMERJOBB')}
+                    onChange={() => {
+                      setTiltaksType('SOMMERJOBB')
+                      setUyldigAvtaletype(false)
+                    }}
                 />
             </div>
-            </FeilmeldingWrapper>
+          {uyldigAvtaletype &&
+            <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
+          }
         </Innholdsboks>
     );
 
@@ -185,15 +211,14 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <Innholdsboks>
               <Normaltekst>
                 Er det første gang du skal opprette en avtale bør du lese gjennom {''}
-                <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">introduksjon til hvordan løsningen fungerer {''}</EksternLenke>
-                og vite om <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">de ulike støtteordningene.</EksternLenke>
+                <EksternLenke href="/informasjonsside/uinnlogget">introduksjon til hvordan løsningen fungerer {''}</EksternLenke>
+                og vite om <EksternLenke href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">de ulike støtteordningene.</EksternLenke>
               </Normaltekst>
             </Innholdsboks>
             <VerticalSpacer rem={1} />
             <Innholdsboks>
                 <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
                 <VerticalSpacer rem={1} />
-                        <FeilmeldingWrapper feilkoder={["SOMMERJOBB_FOR_GAMMEL","UGYLDIG_FØDSELSNUMMER"]} feilmeldinger={feilmeldinger.feilkoder} >
                         <Input
                             className="typo-element"
                             label="Deltakers fødselsnummer"
@@ -202,32 +227,26 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             onBlur={validerDeltakerFnr}
                             feil={deltakerFnrFeil}
                         />
-                        </FeilmeldingWrapper>
                 <VerticalSpacer rem={1} />
-                          <FeilmeldingWrapper feilkoder={["UGYLDIG_BEDRIFTSNUMMER"]} feilmeldinger={feilmeldinger.feilkoder}  >
 
                                 <Input
                                     className="typo-element"
                                     label="Virksomhetsnummer"
+                                    description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                                     value={bedriftNr}
                                     onChange={orgnrOnChange}
                                     onBlur={orgnrOnBlur}
                                     feil={bedriftNrFeil}
                                 />
-                              <Normaltekst>
-                                  Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen.
-                              </Normaltekst>
-                          </FeilmeldingWrapper>
-                        {bedriftNavn && (
+                        {bedriftNavn &&
                             <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>
-                        )}
+                        }
             </Innholdsboks>
             <VerticalSpacer rem={1} />
             {radiopaneler}
             <VerticalSpacer rem={1} />
           <AlertStripeInfo>
             <Element>Dette skjer etter at du har opprettet avtalen</Element>
-            <Normaltekst>
               <ul>
                 <li>Du kan begynne å fylle ut avtalen.</li>
                 <li>
@@ -236,11 +255,10 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                   avtalen.
                 </li>
               </ul>
-            </Normaltekst>
           </AlertStripeInfo>
           <VerticalSpacer rem={1} />
             <div className={cls.element('knappRad')}>
-                <LagreKnapp lagre={opprettAvtaleKlikk} feilmeldinger={feilmeldinger.feilkoder} setFeilmeldinger={setFeilmeldinger} label={'Opprett avtale'} className="opprett-avtale__knapp" />
+                <LagreKnapp lagre={opprettAvtaleKlikk} setFeilmelding={setFeilmelding} label={'Opprett avtale'} className="opprett-avtale__knapp" />
 
                 <TilbakeTilOversiktLenke />
             </div>
