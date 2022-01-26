@@ -41,15 +41,15 @@ jobs:
       - name: Sett miljøvariabel IMAGE
         run: echo "IMAGE=$IMAGE_BASE:$COMMIT" >> $GITHUB_ENV
 
-      - name: Deploy til dev-sbs
+      - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
           TEAM: arbeidsgiver
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-sbs
-          RESOURCE: naiserator.yaml
+          CLUSTER: dev-gcp
+          RESOURCE: nais/nais-gcp.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-sbs.json
+          VARS: nais/dev-gcp.json
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
 
