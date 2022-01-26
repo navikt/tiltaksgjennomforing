@@ -223,6 +223,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             className="typo-element"
                             label="Deltakers fødselsnummer"
                             value={deltakerFnr}
+                            bredde={"M"}
                             onChange={fnrOnChange}
                             onBlur={validerDeltakerFnr}
                             feil={deltakerFnrFeil}
@@ -232,6 +233,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                                 <Input
                                     className="typo-element"
                                     label="Virksomhetsnummer"
+                                    bredde={"M"}
                                     description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                                     value={bedriftNr}
                                     onChange={orgnrOnChange}
