@@ -1,10 +1,18 @@
 const proxy = require('express-http-proxy');
 const tokenx = require('./tokenx')
 
-const setup = (router, tokenxClient) => {
-    router.use(
+const setup = (app, tokenxClient) => {
+    app.use('/tiltaksgjennomforing/api', (req, res, next) => {
+        if (!req.headers['authorization']) {
+            res.status(401).send();
+        } else {
+            next();
+        }
+    })
+
+    app.use(
         '/tiltaksgjennomforing/api',
-        proxy("https://tiltak-proxy.dev-fss-pub.nais.io", {
+        proxy(process.env.APIGW_URL, {
             proxyReqPathResolver: (req) => {
                 return req.originalUrl.replace("/tiltaksgjennomforing/api", "/tiltaksgjennomforing-api");
             },
