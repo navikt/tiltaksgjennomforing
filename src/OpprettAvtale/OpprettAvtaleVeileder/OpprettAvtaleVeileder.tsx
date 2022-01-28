@@ -136,7 +136,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         <Innholdsboks>
             <Systemtittel>Velg type avtale</Systemtittel>
             <Normaltekst>
-                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider <EksternLenke href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">
+                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider
+              <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')} href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">
                 hvordan kan NAV hjelpe med inkludering
             </EksternLenke>
             </Normaltekst>
@@ -212,7 +213,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
               <Normaltekst>
                 Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                 <EksternLenke href="/informasjonsside/uinnlogget">introduksjon til hvordan løsningen fungerer {''}</EksternLenke>
-                og vite om <EksternLenke href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">de ulike støtteordningene.</EksternLenke>
+                og vite om <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-link-apnet')} href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">de ulike støtteordningene på NAV.no.</EksternLenke> eller {""}
+                <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-navet-link-apnet')} href="https://navno.sharepoint.com/sites/fag-og-ytelser-arbeid-tiltak-og-virkemidler/SitePages/Alfabetisk-oversikt-over-alle-tiltak-og-virkemidler.aspx?web=1">de ulike støtteordningene på Navet.</EksternLenke>
               </Normaltekst>
             </Innholdsboks>
             <VerticalSpacer rem={1} />

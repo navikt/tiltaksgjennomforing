@@ -105,7 +105,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <Normaltekst>
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                         <EksternLenke href="/informasjonsside/uinnlogget">introduksjon til hvordan løsningen fungerer {''}</EksternLenke>
-                        og vite om <EksternLenke href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">de ulike støtteordningene.</EksternLenke>
+                        og vite om <EksternLenke onClick={() => amplitude.logEvent('#tiltak-arbeidsgiver-alle-tiltak-link-apnet')} href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">de ulike støtteordningene.</EksternLenke>
                     </Normaltekst>
                 </Innholdsboks>
 
