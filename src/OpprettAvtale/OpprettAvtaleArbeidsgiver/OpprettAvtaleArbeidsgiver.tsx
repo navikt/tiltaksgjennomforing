@@ -1,36 +1,36 @@
-import { ReactComponent as AvtaleparterIkon } from '@/assets/ikoner/avtaleparter.svg';
-import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as MobilIkon } from '@/assets/ikoner/digitalAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
-import { tiltakstypeTekst } from '@/messages';
-import { pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
-import { opprettAvtaleSomArbeidsgiver } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
-import { UfullstendigError } from '@/types/errors';
+import {tiltakstypeTekst} from '@/messages';
+import {pathTilOpprettAvtaleFullfortArbeidsgiver} from '@/paths';
+import {opprettAvtaleSomArbeidsgiver} from '@/services/rest-service';
+import {TiltaksType} from '@/types/avtale';
 import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
-import { validerFnr } from '@/utils/fnrUtils';
-import { storForbokstav } from '@/utils/stringUtils';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Input, RadioPanel } from 'nav-frontend-skjema';
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import {validerFnr} from '@/utils/fnrUtils';
+import {storForbokstav} from '@/utils/stringUtils';
+import {AlertStripeInfo} from 'nav-frontend-alertstriper';
+import {Input, RadioPanel} from 'nav-frontend-skjema';
+import {SkjemaelementFeilmelding} from "nav-frontend-skjema";
+import {Element, Normaltekst, Systemtittel} from 'nav-frontend-typografi';
+import React, {ChangeEvent, FunctionComponent, useContext, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
+import EksternLenke from "@/komponenter/navigation/EksternLenke";
+import {Feilmeldinger} from "@/types/feilkode";
+import {Feilkode} from "@/types/feilkode";
+import {validerOrgnr} from "@/utils/orgnrUtils";
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
 const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
+    const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
@@ -56,33 +56,38 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         }
     };
 
-    const hvaMangler = () => {
-        const feil = [];
-        if (!valgtTiltaksType) {
-            feil.push('avtaletype');
+    const setFeilmelding= (melding:Feilkode) =>{
+        if(melding === "SOMMERJOBB_FOR_GAMMEL"){
+            setDeltakerFnrFeil(Feilmeldinger.SOMMERJOBB_FOR_GAMMEL)
         }
-        if (!validerFnr(deltakerFnr)) {
-            feil.push('gyldig fødselsnummer for deltaker');
-        }
-        if (feil.length) {
-            return 'Du må oppgi: ' + feil.join(', ');
-        } else {
-            return '';
-        }
-    };
+    }
 
     const opprettAvtaleKlikk = async () => {
-        const hvaSomManglerTekst = hvaMangler();
-        if (!hvaSomManglerTekst && valgtTiltaksType) {
+        let valgtAvtaleType = false;
+        let feilDeltakerFNR = "";
+        let feilBedriftNr = "";
+
+        if (!valgtTiltaksType) {
+            valgtAvtaleType =true;
+        }
+        if (!validerFnr(deltakerFnr)) {
+            feilDeltakerFNR= Feilmeldinger.UGYLDIG_FØDSELSNUMMER
+        }
+        if (!validerOrgnr(valgtBedriftNr)) {
+            feilBedriftNr = (Feilmeldinger.UGYLDIG_BEDRIFTSNUMMER)
+        }
+
+        if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             history.push({
                 pathname: pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id),
                 search: window.location.search,
             });
-        } else {
-            throw new UfullstendigError(hvaSomManglerTekst);
+            return
         }
+        setUyldigAvtaletype(valgtAvtaleType)
+        setDeltakerFnrFeil(feilDeltakerFNR)
     };
 
     const valgtBedriftNr = new URLSearchParams(window.location.search).get('bedrift')!;
@@ -95,30 +100,40 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <Dokumenttittel tittel="Opprett avtale" />
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
+                <Innholdsboks>
+                    <Systemtittel>Før du oppretter en avtale</Systemtittel>
+                    <Normaltekst>
+                        Er det første gang du skal opprette en avtale bør du lese gjennom {''}
+                        <EksternLenke href="/informasjonsside/uinnlogget">introduksjon til hvordan løsningen fungerer {''}</EksternLenke>
+                        og vite om <EksternLenke onClick={() => amplitude.logEvent('#tiltak-arbeidsgiver-alle-tiltak-link-apnet')} href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">de ulike støtteordningene.</EksternLenke>
+                    </Normaltekst>
+                </Innholdsboks>
+
                 <Innholdsboks className={cls.element('innholdsboks')}>
                     <Systemtittel className={cls.element('innholdstittel')}>Hvem skal inngå i avtalen</Systemtittel>
                     <VerticalSpacer rem={1} />
-                    <div className="opprett-avtale__input-wrapper">
-                        <div className="opprett-avtale__kandidat-fnr">
+                    <AlertStripeInfo>
+                        I feltet “Opprettes på bedrift” er det viktig at virksomhetsnummeret er det samme som der det blir registrert inntekt for deltaker i A-meldingen.
+                    </AlertStripeInfo>
+                    <VerticalSpacer rem={1} />
                             <Input
                                 className="typo-element"
                                 label="Deltakers fødselsnummer"
                                 value={deltakerFnr}
+                                bredde={"L"}
                                 onChange={fnrOnChange}
                                 onBlur={validerDeltakerFnr}
                                 feil={deltakerFnrFeil}
                             />
-                        </div>
-
-                        <div className="opprett-avtale__arbeidsgiver-bedriftNr">
+                    <VerticalSpacer rem={1} />
                             <Input
                                 className="typo-element"
+                                bredde={"L"}
                                 label="Opprettes på bedrift"
+                                description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                                 value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
                                 disabled={true}
                             />
-                        </div>
-                    </div>
                 </Innholdsboks>
 
                 <Innholdsboks className={cls.element('innholdsboks')}>
@@ -135,36 +150,17 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                 label={storForbokstav(tiltakstypeTekst[t])}
                                 value={t}
                                 checked={valgtTiltaksType === t}
-                                onChange={() => setTiltaksType(t)}
+                                onChange={() => {
+                                    setTiltaksType(t)
+                                    setUyldigAvtaletype(false)
+                                }}
                             />
                         ))}
                     </div>
+                    {uyldigAvtaletype &&
+                        <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
+                    }
                 </Innholdsboks>
-
-                <Ekspanderbartpanel tittel={<Element>Slik fungerer løsningen</Element>} border={true}>
-                    <EkspanderbartPanelRad svgIkon={<MobilIkon />} headerTekst={{ tekst: 'Digital avtale' }}>
-                        Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved
-                        NAV.
-                    </EkspanderbartPanelRad>
-                    <EkspanderbartPanelRad
-                        svgIkon={<AvtaleparterIkon width="50" height="50" />}
-                        headerTekst={{ tekst: 'Tre parter' }}
-                    >
-                        <Normaltekst>Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen.</Normaltekst>
-                        <Normaltekst>
-                            Når du har opprettet avtalen kan du starte å fylle den ut, samtidig som den blir
-                            tilgjengelig for veileder på NAV-kontoret til deltakeren. Tiltaket kan starte når veileder
-                            har fordelt avtalen og godkjent den. I avtalene om midlertidig og varig lønnstilskudd er det
-                            noe informasjon som veileder må fylle ut før den kan godkjennes.
-                        </Normaltekst>
-                    </EkspanderbartPanelRad>
-                    <EkspanderbartPanelRad
-                        svgIkon={<CheckCircleIkon width="50" height="50" />}
-                        headerTekst={{ tekst: 'Godkjenning' }}
-                    >
-                        Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at tiltaket kan starte.
-                    </EkspanderbartPanelRad>
-                </Ekspanderbartpanel>
 
                 <AlertStripeInfo>
                     <Element>Dette skjer etter at du har opprettet avtalen</Element>
@@ -181,7 +177,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                 </AlertStripeInfo>
 
                 <div className={cls.element('knappRad')}>
-                    <LagreKnapp lagre={opprettAvtaleKlikk} label={'Opprett avtale'} className="opprett-avtale__knapp" />
+                    <LagreKnapp lagre={opprettAvtaleKlikk}  setFeilmelding={setFeilmelding} label={'Opprett avtale'} className="opprett-avtale__knapp" />
                     <TilbakeTilOversiktLenke />
                 </div>
             </div>

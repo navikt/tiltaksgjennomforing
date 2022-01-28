@@ -1,43 +1,40 @@
-import { ReactComponent as AltinnIkon } from '@/assets/ikoner/altinn.svg';
-import { ReactComponent as AvtaleparterIkon } from '@/assets/ikoner/avtaleparter.svg';
-import { ReactComponent as CheckCircleIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as MobilIkon } from '@/assets/ikoner/digitalAvtale.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
-import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
-import { hentBedriftBrreg, opprettAvtaleSomVeileder } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
-import { UfullstendigError } from '@/types/errors';
+import {pathTilOpprettAvtaleFullfortVeileder} from '@/paths';
+import {hentBedriftBrreg, opprettAvtaleSomVeileder} from '@/services/rest-service';
+import {TiltaksType} from '@/types/avtale';
 import amplitude from '@/utils/amplitude';
-import { handterFeil } from '@/utils/apiFeilUtils';
+import {handterFeil} from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { validerFnr } from '@/utils/fnrUtils';
-import { validerOrgnr } from '@/utils/orgnrUtils';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import Lenke from 'nav-frontend-lenker';
-import { Input, RadioPanel } from 'nav-frontend-skjema';
-import { Element, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { ReactComponent as TilEkstern } from './ekstern-lenke.svg';
+import {validerFnr} from '@/utils/fnrUtils';
+import {validerOrgnr} from '@/utils/orgnrUtils';
+import {Input, RadioPanel} from 'nav-frontend-skjema';
+import {SkjemaelementFeilmelding} from "nav-frontend-skjema";
+import {Innholdstittel, Normaltekst, Systemtittel} from 'nav-frontend-typografi';
+import {Element} from "nav-frontend-typografi";
+import React, {ChangeEvent, FunctionComponent, useContext, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import './OpprettAvtale.less';
+import {Feilkode} from "@/types/feilkode";
+import {Feilmeldinger} from "@/types/feilkode";
+import EksternLenke from "@/komponenter/navigation/EksternLenke";
+import {AlertStripeInfo} from "nav-frontend-alertstriper";
 
 const cls = BEMHelper('opprett-avtale');
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
+    const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
-
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
-        (verdi) => {
+         (verdi) => {
             if (!verdi) {
                 return 'Fødselsnummer er påkrevd';
             }
@@ -96,33 +93,37 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         }
     };
 
-    const hvaMangler = () => {
-        const feil = [];
-        if (!valgtTiltaksType) {
-            feil.push('avtaletype');
-        }
-        if (!validerFnr(deltakerFnr)) {
-            feil.push('gyldig fødselsnummer for deltaker');
-        }
-        if (!validerOrgnr(bedriftNr)) {
-            feil.push('gyldig bedriftsnummer');
-        }
-        if (feil.length) {
-            return 'Du må oppgi: ' + feil.join(', ');
-        } else {
-            return '';
-        }
-    };
+    const setFeilmelding= (melding:Feilkode) =>{
+    if(melding === "SOMMERJOBB_FOR_GAMMEL"){
+      setDeltakerFnrFeil(Feilmeldinger.SOMMERJOBB_FOR_GAMMEL)
+    }
+  }
 
     const opprettAvtaleKlikk = async () => {
-        const hvaSomManglerTekst = hvaMangler();
-        if (!hvaSomManglerTekst && valgtTiltaksType) {
+        let valgtAvtaleType = false;
+        let feilDeltakerFNR = "";
+        let feilBedriftNr = "";
+
+        if (!valgtTiltaksType) {
+          valgtAvtaleType =true;
+        }
+        if (!validerFnr(deltakerFnr)) {
+          feilDeltakerFNR= Feilmeldinger.UGYLDIG_FØDSELSNUMMER
+        }
+        if (!validerOrgnr(bedriftNr)) {
+          feilBedriftNr = (Feilmeldinger.UGYLDIG_BEDRIFTSNUMMER)
+        }
+        if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
-        } else {
-            throw new UfullstendigError(hvaSomManglerTekst);
+            return;
         }
+
+      setUyldigAvtaletype(valgtAvtaleType)
+      setBedriftNrFeil(feilBedriftNr)
+      setDeltakerFnrFeil(feilDeltakerFNR)
+
     };
 
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
@@ -134,6 +135,12 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const radiopaneler = (
         <Innholdsboks>
             <Systemtittel>Velg type avtale</Systemtittel>
+            <Normaltekst>
+                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider
+              <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')} href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">
+                hvordan kan NAV hjelpe med inkludering
+            </EksternLenke>
+            </Normaltekst>
             <VerticalSpacer rem={1} />
             <div className={cls.element('tiltakstypeWrapper')}>
                 <RadioPanel
@@ -141,21 +148,30 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     label="Arbeidstrening"
                     value="ARBEIDSTRENING"
                     checked={valgtTiltaksType === 'ARBEIDSTRENING'}
-                    onChange={() => setTiltaksType('ARBEIDSTRENING')}
+                    onChange={() => {
+                      setTiltaksType('ARBEIDSTRENING')
+                      setUyldigAvtaletype(false)
+                    }}
                 />
                 <RadioPanel
                     name="tiltakstype"
                     label="Midlertidig lønnstilskudd"
                     value="MIDLERTIDIG_LONNSTILSKUDD"
                     checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                    onChange={() => setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')}
+                    onChange={() => {
+                      setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')
+                      setUyldigAvtaletype(false)
+                    }}
                 />
                 <RadioPanel
                     name="tiltakstype"
                     label="Varig lønnstilskudd"
                     value="VARIG_LONNSTILSKUDD"
                     checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                    onChange={() => setTiltaksType('VARIG_LONNSTILSKUDD')}
+                    onChange={() => {
+                      setTiltaksType('VARIG_LONNSTILSKUDD')
+                      setUyldigAvtaletype(false)
+                    }}
                 />
                 {mentorToggle && (
                     <RadioPanel
@@ -163,7 +179,10 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                         label="Mentor"
                         value="MENTOR"
                         checked={valgtTiltaksType === 'MENTOR'}
-                        onChange={() => setTiltaksType('MENTOR')}
+                        onChange={() => {
+                          setTiltaksType('MENTOR')
+                          setUyldigAvtaletype(false)
+                        }}
                     />
                 )}
                 <RadioPanel
@@ -171,9 +190,15 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     label="Sommerjobb"
                     value="SOMMERJOBB"
                     checked={valgtTiltaksType === 'SOMMERJOBB'}
-                    onChange={() => setTiltaksType('SOMMERJOBB')}
+                    onChange={() => {
+                      setTiltaksType('SOMMERJOBB')
+                      setUyldigAvtaletype(false)
+                    }}
                 />
             </div>
+          {uyldigAvtaletype &&
+            <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
+          }
         </Innholdsboks>
     );
 
@@ -184,77 +209,60 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <VerticalSpacer rem={1} />
             <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
             <VerticalSpacer rem={2} />
-            {radiopaneler}
-            <VerticalSpacer rem={2} />
             <Innholdsboks>
-                <Systemtittel>Knytt avtalen til andre parter</Systemtittel>
+              <Normaltekst>
+                Er det første gang du skal opprette en avtale bør du lese gjennom {''}
+                <EksternLenke href="/informasjonsside/uinnlogget">introduksjon til hvordan løsningen fungerer {''}</EksternLenke>
+                og vite om <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-link-apnet')} href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">de ulike støtteordningene på NAV.no.</EksternLenke> eller {""}
+                <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-navet-link-apnet')} href="https://navno.sharepoint.com/sites/fag-og-ytelser-arbeid-tiltak-og-virkemidler/SitePages/Alfabetisk-oversikt-over-alle-tiltak-og-virkemidler.aspx?web=1">de ulike støtteordningene på Navet.</EksternLenke>
+              </Normaltekst>
+            </Innholdsboks>
+            <VerticalSpacer rem={1} />
+            <Innholdsboks>
+                <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
                 <VerticalSpacer rem={1} />
-                <div className="opprett-avtale__input-wrapper">
-                    <div className="opprett-avtale__kandidat-fnr">
                         <Input
                             className="typo-element"
                             label="Deltakers fødselsnummer"
                             value={deltakerFnr}
+                            bredde={"M"}
                             onChange={fnrOnChange}
                             onBlur={validerDeltakerFnr}
                             feil={deltakerFnrFeil}
                         />
-                    </div>
+                <VerticalSpacer rem={1} />
 
-                    <div className="opprett-avtale__arbeidsgiver-bedriftNr">
-                        <Input
-                            className="typo-element"
-                            label="Bedriftsnummer"
-                            value={bedriftNr}
-                            onChange={orgnrOnChange}
-                            onBlur={orgnrOnBlur}
-                            feil={bedriftNrFeil}
-                        />
-                        {bedriftNavn && (
+                                <Input
+                                    className="typo-element"
+                                    label="Virksomhetsnummer"
+                                    bredde={"M"}
+                                    description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
+                                    value={bedriftNr}
+                                    onChange={orgnrOnChange}
+                                    onBlur={orgnrOnBlur}
+                                    feil={bedriftNrFeil}
+                                />
+                        {bedriftNavn &&
                             <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>
-                        )}
-                    </div>
-                </div>
+                        }
             </Innholdsboks>
-            <VerticalSpacer rem={2} />
-            <Ekspanderbartpanel tittel={<Element>Slik fungerer løsningen</Element>} border={true}>
-                <EkspanderbartPanelRad svgIkon={<MobilIkon />} headerTekst={{ tekst: 'Digital avtale' }}>
-                    Dette er en digital avtale om tiltak som skal brukes av deltaker, arbeidsgiver og veileder ved NAV.
-                </EkspanderbartPanelRad>
-
-                <EkspanderbartPanelRad svgIkon={<AltinnIkon />} headerTekst={{ tekst: 'Tilgang gjennom Altinn' }}>
-                    For at deltaker og arbeidsgiver skal få tilgang til avtaler må de logge seg inn via ID-porten.
-                    Tilgang for arbeidsgiver styres gjennom Altinn. En representant for arbeidsgiver må gis følgende
-                    tilganger til enkeltrettigheter for de ulike avtalene:
-                    <ul>
-                        <li>Avtale om arbeidstrening</li>
-                        <li>Avtale om midlertidig lønnstilskudd</li>
-                        <li>Avtale om varig lønnstilskudd</li>
-                    </ul>
-                    <p>
-                        <Lenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/" target="_blank">
-                            Finn mer informasjon om roller og rettigheter på Altinn.no
-                            <TilEkstern className={cls.element('eksterntLenkeikon')} />
-                        </Lenke>
-                    </p>
-                </EkspanderbartPanelRad>
-                <EkspanderbartPanelRad
-                    svgIkon={<AvtaleparterIkon width="50" height="50" />}
-                    headerTekst={{ tekst: 'Tre parter' }}
-                >
-                    Deltaker, arbeidsgiver og veileder skal fylle ut avtalen sammen. Der blir de enige om innholdet i
-                    avtalen.
-                </EkspanderbartPanelRad>
-
-                <EkspanderbartPanelRad
-                    svgIkon={<CheckCircleIkon width="50" height="50" />}
-                    headerTekst={{ tekst: 'Godkjenning' }}
-                >
-                    Til slutt må deltaker, arbeidsgiver og veileder godkjenne avtalen slik at tiltaket kan starte.
-                </EkspanderbartPanelRad>
-            </Ekspanderbartpanel>
+            <VerticalSpacer rem={1} />
+            {radiopaneler}
+            <VerticalSpacer rem={1} />
+          <AlertStripeInfo>
+            <Element>Dette skjer etter at du har opprettet avtalen</Element>
+              <ul>
+                <li>Du kan begynne å fylle ut avtalen.</li>
+                <li>
+                  Avtalen blir tilgjengelig for veilederne på NAV kontoret til deltakeren. Når avtalen har
+                  blitt fordelt til en veileder vil du se kontaktinformasjonen til denne veilederen inne i
+                  avtalen.
+                </li>
+              </ul>
+          </AlertStripeInfo>
+          <VerticalSpacer rem={1} />
             <div className={cls.element('knappRad')}>
-                <LagreKnapp lagre={opprettAvtaleKlikk} label={'Opprett avtale'} className="opprett-avtale__knapp" />
+                <LagreKnapp lagre={opprettAvtaleKlikk} setFeilmelding={setFeilmelding} label={'Opprett avtale'} className="opprett-avtale__knapp" />
 
                 <TilbakeTilOversiktLenke />
             </div>

@@ -20,7 +20,6 @@ const KontaktpersonRefusjoninfoDel = () => {
     const [feilmelding, setFeilmelding] = useState<string>();
 
     const sjekkeOmVarslingOmRefusjonKanSkrusAv = () => {
-        console.log(avtale.gjeldendeInnhold.refusjonKontaktperson)
         if (!avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerVarslingOmRefusjon) {
             settAvtaleInnholdVerdi('refusjonKontaktperson', {
                 ...avtale.gjeldendeInnhold.refusjonKontaktperson,
