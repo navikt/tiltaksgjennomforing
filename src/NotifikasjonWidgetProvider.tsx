@@ -17,12 +17,11 @@ const miljo = (() => {
 
 export const NotifikasjonWidgetProvider: FunctionComponent = ({children}) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    switch (innloggetBruker.rolle) {
-        case 'ARBEIDSGIVER':
-            return <NotifikasjonWidget.NotifikasjonWidgetProvider miljo={miljo}>
-                <>{children}</>
-            </NotifikasjonWidget.NotifikasjonWidgetProvider>
-        default:
-            return <>{children}</>
+    if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
+        return <NotifikasjonWidget.NotifikasjonWidgetProvider miljo={miljo}>
+            <>{children}</>
+        </NotifikasjonWidget.NotifikasjonWidgetProvider>
+    } else {
+        return <>{children}</>
     }
 }
