@@ -1,0 +1,28 @@
+import { FunctionComponent, useContext } from 'react';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget'
+
+const miljo = (() => {
+    switch (window.location.hostname) {
+        case 'arbeidsgiver.nav.no':
+            return 'prod';
+        case 'arbeidsgiver-q.nav.no':
+            return 'dev';
+        case 'arbeidsgiver.labs.nais.io':
+            return 'labs';
+        default:
+            return 'local';
+    }
+})();
+
+export const NotifikasjonWidgetProvider: FunctionComponent = ({children}) => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
+    switch (innloggetBruker.rolle) {
+        case 'ARBEIDSGIVER':
+            return <NotifikasjonWidget.NotifikasjonWidgetProvider miljo={miljo}>
+                <>{children}</>
+            </NotifikasjonWidget.NotifikasjonWidgetProvider>
+        default:
+            return <>{children}</>
+    }
+}

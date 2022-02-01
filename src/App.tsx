@@ -37,6 +37,7 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
+import { NotifikasjonWidgetProvider } from './NotifikasjonWidgetProvider';
 
 class App extends React.Component {
     render() {
@@ -56,63 +57,65 @@ class App extends React.Component {
                                 <FeilVarselProvider>
                                     <InnloggingBoundary>
                                         <RedirectEtterLogin>
-                                            <Route path="/" exact={true} component={Oversikt} />
-                                            <Route
-                                                path={pathTilInformasjonssideInnlogget}
-                                                exact={true}
-                                                component={Informasjonsside}
-                                            />
-                                            <Route
-                                                path={pathTilOpprettAvtale}
-                                                exact={true}
-                                                component={OpprettAvtaleVeileder}
-                                            />
-                                            <Route
-                                                path={pathTilOpprettAvtaleArbeidsgiver}
-                                                exact={true}
-                                                component={OpprettAvtaleArbeidsgiver}
-                                            />
-                                            <Route
-                                                path={pathTilOpprettAvtaleFullfortVeileder(':avtaleId')}
-                                                exact={true}
-                                                component={OpprettelseFullfortVeileder}
-                                            />
-                                            <Route
-                                                path={pathTilOpprettAvtaleFullfortArbeidsgiver(':avtaleId')}
-                                                exact={true}
-                                                component={OpprettelseFullfortArbeidsgiver}
-                                            />
-                                            <AvtaleProvider>
-                                                <Route path={pathTilAvtale(':avtaleId')}>
-                                                    <AvtaleFetcher>
-                                                        <Switch>
-                                                            <Route
-                                                                path={[
-                                                                    `${pathTilAvtale(':avtaleId')}/beslutte/`,
-                                                                    `${pathTilAvtale(
-                                                                        ':avtaleId'
-                                                                    )}/beslutte/:tilskuddsperiodeId`,
-                                                                ]}
-                                                                exact={true}
-                                                            >
-                                                                <BeslutterSide />
-                                                            </Route>
-                                                            <Route exact path={`${pathTilAvtale(':avtaleId')}/slett`}>
-                                                                <Slettemerk />
-                                                            </Route>
-                                                            <Route
-                                                                path={[
-                                                                    pathTilAvtale(':avtaleId'),
-                                                                    pathTilStegIAvtale(':avtaleId', ':stegPath'),
-                                                                ]}
-                                                                exact={true}
-                                                            >
-                                                                <AvtaleSide />
-                                                            </Route>
-                                                        </Switch>
-                                                    </AvtaleFetcher>
-                                                </Route>
-                                            </AvtaleProvider>
+                                            <NotifikasjonWidgetProvider>
+                                                <Route path="/" exact={true} component={Oversikt} />
+                                                <Route
+                                                    path={pathTilInformasjonssideInnlogget}
+                                                    exact={true}
+                                                    component={Informasjonsside}
+                                                />
+                                                <Route
+                                                    path={pathTilOpprettAvtale}
+                                                    exact={true}
+                                                    component={OpprettAvtaleVeileder}
+                                                />
+                                                <Route
+                                                    path={pathTilOpprettAvtaleArbeidsgiver}
+                                                    exact={true}
+                                                    component={OpprettAvtaleArbeidsgiver}
+                                                />
+                                                <Route
+                                                    path={pathTilOpprettAvtaleFullfortVeileder(':avtaleId')}
+                                                    exact={true}
+                                                    component={OpprettelseFullfortVeileder}
+                                                />
+                                                <Route
+                                                    path={pathTilOpprettAvtaleFullfortArbeidsgiver(':avtaleId')}
+                                                    exact={true}
+                                                    component={OpprettelseFullfortArbeidsgiver}
+                                                />
+                                                <AvtaleProvider>
+                                                    <Route path={pathTilAvtale(':avtaleId')}>
+                                                        <AvtaleFetcher>
+                                                            <Switch>
+                                                                <Route
+                                                                    path={[
+                                                                        `${pathTilAvtale(':avtaleId')}/beslutte/`,
+                                                                        `${pathTilAvtale(
+                                                                            ':avtaleId'
+                                                                        )}/beslutte/:tilskuddsperiodeId`,
+                                                                    ]}
+                                                                    exact={true}
+                                                                >
+                                                                    <BeslutterSide />
+                                                                </Route>
+                                                                <Route exact path={`${pathTilAvtale(':avtaleId')}/slett`}>
+                                                                    <Slettemerk />
+                                                                </Route>
+                                                                <Route
+                                                                    path={[
+                                                                        pathTilAvtale(':avtaleId'),
+                                                                        pathTilStegIAvtale(':avtaleId', ':stegPath'),
+                                                                    ]}
+                                                                    exact={true}
+                                                                >
+                                                                    <AvtaleSide />
+                                                                </Route>
+                                                            </Switch>
+                                                        </AvtaleFetcher>
+                                                    </Route>
+                                                </AvtaleProvider>
+                                            </NotifikasjonWidgetProvider>
                                         </RedirectEtterLogin>
                                     </InnloggingBoundary>
                                 </FeilVarselProvider>
