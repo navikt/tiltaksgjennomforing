@@ -7,6 +7,7 @@ const miljo = (() => {
         case 'arbeidsgiver.nav.no':
             return 'prod';
         case 'arbeidsgiver-q.nav.no':
+        case 'tiltaksgjennomforing.dev.nav.no':
             return 'dev';
         case 'arbeidsgiver.labs.nais.io':
             return 'labs';
