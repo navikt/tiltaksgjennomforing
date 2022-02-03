@@ -83,7 +83,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     GODKJENT_PAA_VEGNE_GRUNN_MAA_VELGES: 'Arbeidsgiver må godkjenne avtalen før veileder kan godkjenne',
     GRUNN_TIL_AVBRYTELSE: 'Grunn til avbrytelse av avtale må oppgis',
     UGYLDIG_TLF: 'Telefonnummeret er ikke et gyldig mobilnummer',
-    KAN_IKKE_OPPHEVE: 'Kan ikke oppheve godkjenninger i avtalen.',
+    KAN_IKKE_OPPHEVE: 'Kan ikke oppheve godkjenninger i avtalen. Det er gjort endringer i avtalen som du ikke har sett. Oppfrisk siden og prøv igjen.',
     KAN_IKKE_ENDRE: 'Kan ikke endre avtale.',
     KAN_IKKE_LAASES_OPP: 'Avtalen kan ikke låses opp',
     ER_ALLEREDE_VEILEDER: 'Innlogget bruker er allerede veileder på denne avtalen',
