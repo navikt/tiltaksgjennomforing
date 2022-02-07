@@ -15,19 +15,6 @@ interface Props {
     undertittel?: string;
 }
 
-const miljo = (() => {
-    switch (window.location.hostname) {
-        case 'arbeidsgiver.nav.no':
-            return 'prod';
-        case 'arbeidsgiver-q.nav.no':
-            return 'dev';
-        case 'arbeidsgiver.labs.nais.io':
-            return 'labs';
-        default:
-            return 'local';
-    }
-})();
-
 const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
@@ -51,7 +38,7 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                         </>
                     }
                 >
-                    <NotifikasjonWidget miljo={miljo} />
+                    <NotifikasjonWidget />
                 </Bedriftsmeny>
             );
         case 'DELTAKER':
