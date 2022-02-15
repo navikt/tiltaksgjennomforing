@@ -1,6 +1,6 @@
-import {AvtaleContext} from '@/AvtaleProvider';
-import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
-import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
@@ -12,14 +12,13 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import {hentKontonummerForArbeidsgiver} from '@/services/rest-service';
+import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import {parseFloatIfFloatable} from '@/utils/lonnstilskuddUtregningUtils';
-import {Money} from '@navikt/ds-icons/cjs';
-import {Column, Row} from 'nav-frontend-grid';
-import {Knapp} from 'nav-frontend-knapper';
-import {Normaltekst, Undertittel} from 'nav-frontend-typografi';
-import React, {FunctionComponent, useContext} from 'react';
+import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
+import { Money } from '@navikt/ds-icons/cjs';
+import { Column, Row } from 'nav-frontend-grid';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
@@ -195,23 +194,18 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
                         <Column md="1" />
                         <Column md="10">
-                            <Knapp
-                                onClick={async () => {
-                                    settAvtaleVerdier(
-                                        {
-                                            arbeidsgiverKontonummer: await hentKontonummerForArbeidsgiver(avtale.id),
-                                        },
-                                        true
-                                    );
+                            <LagreKnapp
+                                label="Hent kontonummer fra Altinn"
+                                lagre={async () => {
+                                    const arbeidsgiverKontonummer = await hentKontonummerForArbeidsgiver(avtale.id);
+                                    settAvtaleVerdier({ arbeidsgiverKontonummer });
                                 }}
-                            >
-                                Hent kontonummer fra Altinn
-                            </Knapp>
+                            />
                         </Column>
                     </Row>
-                    <VerticalSpacer rem={2}/>
+                    <VerticalSpacer rem={2} />
                     <UtregningPanel {...avtale.gjeldendeInnhold} />
-                    <VerticalSpacer rem={1.25}/>
+                    <VerticalSpacer rem={1.25} />
                     {innloggetBruker.erNavAnsatt &&
                         avtale.gjeldendeInnhold.stillingprosent !== undefined &&
                         avtale.gjeldendeInnhold.stillingprosent > 0 &&
