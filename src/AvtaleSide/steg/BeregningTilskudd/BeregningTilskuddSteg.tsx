@@ -22,7 +22,6 @@ import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
-import TilskuddperiodeBokser from './TilskuddperiodeBokser';
 import UtregningPanel from './UtregningPanel';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/VisningTilskuddsperioder';
 

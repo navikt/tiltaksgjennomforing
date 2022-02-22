@@ -2,11 +2,12 @@ import React, { FunctionComponent, useContext } from 'react';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
+import { Normaltekst, Element, Undertittel } from 'nav-frontend-typografi';
 import BEMHelper from '@/utils/bem';
 import './visningTilskuddsperioder.less';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const VisningTilskuddsperioder: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -45,6 +46,25 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                 </div>
                             ))}
                     </div>
+                    <VerticalSpacer rem={1} />
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                        <>
+                            <Undertittel>Refusjon</Undertittel>
+                            <VerticalSpacer rem={1} />
+                            <Normaltekst>
+                                Som arbeidsgiver må du søke om refusjon. Du kan først søke etter at perioden er over.
+                                Når tiltaket er over, vil NAV sende dere et ferdig utregnet forslag til refusjon.
+                                Refusjonen regnes ut på bakgrunn av innhold i avtalen og innrapporterte inntekter i
+                                A-meldingen.
+                            </Normaltekst>
+                            <VerticalSpacer rem={1} />
+                            <Element>
+                                Du kan søke om refusjon fra{' '}
+                                {formatterDato(avtale.tilskuddPeriode[0].sluttDato, NORSK_DATO_FORMAT)}
+                            </Element>
+                        </>
+                    )}
+                    <VerticalSpacer rem={1} />
                 </div>
             </Ekspanderbartpanel>
         </div>
