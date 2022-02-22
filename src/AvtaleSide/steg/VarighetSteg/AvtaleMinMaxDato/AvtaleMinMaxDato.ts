@@ -1,18 +1,18 @@
-import {AvtaleContext} from '@/AvtaleProvider';
-import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import {InnloggetBrukerContext} from '@/InnloggingBoundary/InnloggingBoundary';
-import {TiltaksType} from "@/types/avtale";
-import moment, {DurationInputArg2} from 'moment';
-import {DatepickerLimitations} from 'nav-datovelger';
-import {useContext} from 'react';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { TiltaksType } from '@/types/avtale';
+import moment, { DurationInputArg2 } from 'moment';
+import { DatepickerLimitations } from 'nav-datovelger';
+import { useContext } from 'react';
 
 export const AvtaleMinMaxDato = (): DatepickerLimitations => {
     const INGEN_DATO_SPERRE = undefined;
     const DAGENSDATO = new Date().toISOString();
     const EN_UKE_SIDEN = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString();
 
-    const {avtale} = useContext(AvtaleContext);
-    const {rolle} = useContext(InnloggetBrukerContext);
+    const { avtale } = useContext(AvtaleContext);
+    const { rolle } = useContext(InnloggetBrukerContext);
     const erVeileder = rolle === 'VEILEDER';
 
     const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): string =>
@@ -62,9 +62,9 @@ export const AvtaleMinMaxDato = (): DatepickerLimitations => {
                 return settdatoArbeidstrening();
             case 'SOMMERJOBB':
                 return settdatoSommerjobb();
-            case 'VARIG_LONNSTILSKUDD' :
+            case 'VARIG_LONNSTILSKUDD':
                 return datoDefaultVerdi();
-            case 'MENTOR' :
+            case 'MENTOR':
                 return datoDefaultVerdi();
         }
     };

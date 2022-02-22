@@ -15,7 +15,7 @@ const verdi = (tall?: number) => {
     return tall === null || tall === undefined ? '' : tall.toString();
 };
 
-const OmMentorOppsummering: FunctionComponent<Mentorinfo> = props => {
+const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
             <div>

@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext } from 'react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget'
+import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget';
 
 const miljo = (() => {
     switch (window.location.hostname) {
@@ -16,13 +16,15 @@ const miljo = (() => {
     }
 })();
 
-export const NotifikasjonWidgetProvider: FunctionComponent = ({children}) => {
+export const NotifikasjonWidgetProvider: FunctionComponent = ({ children }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
-        return <NotifikasjonWidget.NotifikasjonWidgetProvider miljo={miljo}>
-            <>{children}</>
-        </NotifikasjonWidget.NotifikasjonWidgetProvider>
+        return (
+            <NotifikasjonWidget.NotifikasjonWidgetProvider miljo={miljo}>
+                <>{children}</>
+            </NotifikasjonWidget.NotifikasjonWidgetProvider>
+        );
     } else {
-        return <>{children}</>
+        return <>{children}</>;
     }
-}
+};

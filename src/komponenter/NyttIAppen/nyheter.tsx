@@ -11,27 +11,25 @@ const nyheter = [
         innhold: (
             <>
                 <p>
-                  Kontonummer hentes nå opp automatisk fra sentralt register som arbeidsgiver har meldt inn via Altinn,
-                  og det trenger ikke legges inn manuelt lenger. Dersom arbeidsgiver mangler kontonummer eller kontonummeret ikke stemmer kan de rette det opp i Altinn.
+                    Kontonummer hentes nå opp automatisk fra sentralt register som arbeidsgiver har meldt inn via
+                    Altinn, og det trenger ikke legges inn manuelt lenger. Dersom arbeidsgiver mangler kontonummer eller
+                    kontonummeret ikke stemmer kan de rette det opp i Altinn.
                 </p>
-                <p>
-                  Lenke til Altinn finnes i avtalen.
-                </p>
+                <p>Lenke til Altinn finnes i avtalen.</p>
             </>
         ),
-    },{
+    },
+    {
         dato: tilDato(18, 1, 2022),
         tittel: 'Legge til egen kontaktperson for refusjon',
         innhold: (
             <>
                 <p>
                     Nå kan man legge til egen kontaktperson for refusjon hos arbeidsgiver når man oppretter en avtale.
-                    Når man har lagt inn informasjon om kontaktpersonene for refusjon.
-                    Kan kontaktpersonene på avtalen velge om dem vil motta meldinger om refusjon.
+                    Når man har lagt inn informasjon om kontaktpersonene for refusjon. Kan kontaktpersonene på avtalen
+                    velge om dem vil motta meldinger om refusjon.
                 </p>
-                <p>
-                    Dette kan gjøres på kontaktinformasjon siden.
-                </p>
+                <p>Dette kan gjøres på kontaktinformasjon siden.</p>
             </>
         ),
     },
@@ -41,13 +39,11 @@ const nyheter = [
         innhold: (
             <>
                 <p>
-                    Nå kan veileder kun sette avtalens startdato maks en uke tilbake i tid fra dagens dato.
-                    Hvis det ønskes å sette en startdato lenger tilbake i tid på avtalen må en beslutter kontaktes
-                    for å sette at avtalen kan etterregistreres.
+                    Nå kan veileder kun sette avtalens startdato maks en uke tilbake i tid fra dagens dato. Hvis det
+                    ønskes å sette en startdato lenger tilbake i tid på avtalen må en beslutter kontaktes for å sette at
+                    avtalen kan etterregistreres.
                 </p>
-                <p>
-                    Dette kan gjøres på oversiktssiden til beslutter.
-                </p>
+                <p>Dette kan gjøres på oversiktssiden til beslutter.</p>
             </>
         ),
     },
@@ -57,9 +53,9 @@ const nyheter = [
         innhold: (
             <>
                 <p>
-                    Nå henter avtaleløsningen innsatsbehovet til deltaker. Det medfører at deltaker trenger
-                    riktig innsatsbehov i Arena for å kunne opprette og inngå avtaler. For midlertidig lønnstilskudd
-                    vil nå prosentsatsen settes automatisk ut fra deltakers innsatsbehov.
+                    Nå henter avtaleløsningen innsatsbehovet til deltaker. Det medfører at deltaker trenger riktig
+                    innsatsbehov i Arena for å kunne opprette og inngå avtaler. For midlertidig lønnstilskudd vil nå
+                    prosentsatsen settes automatisk ut fra deltakers innsatsbehov.
                 </p>
                 <p>
                     Er innsatsbehovet til kandidaten feil, vennligst registrer nytt oppfølgingsbehov som samsvarer med

@@ -7,16 +7,16 @@ import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import BeregningTilskuddOppsummering from './BeregningTilskuddOppsummering';
 
 test('Test at <BeregningTilskuddOppsummering> rendres', () => {
-    const wrapper = shallow(<BeregningTilskuddOppsummering {...lonnstilskuddAvtaleMock} />);
+    const wrapper = shallow(<BeregningTilskuddOppsummering {...lonnstilskuddAvtaleMock.gjeldendeInnhold} />);
     expect(wrapper).toHaveLength(1);
 });
 
 test('Skal rendre Stegoppsummering og HvaManglerOppsummering', () => {
-    const wrapper = shallow(<BeregningTilskuddOppsummering {...lonnstilskuddAvtaleMock} />);
+    const wrapper = shallow(<BeregningTilskuddOppsummering {...lonnstilskuddAvtaleMock.gjeldendeInnhold} />);
     expect(wrapper.find(Stegoppsummering) && wrapper.find(HvaManglerOppsummering)).toHaveLength(1);
 });
 
 test('Skal rendre VisUtreningPanel', () => {
-    const wrapper = shallow(<BeregningTilskuddOppsummering {...lonnstilskuddAvtaleMock} />);
+    const wrapper = shallow(<BeregningTilskuddOppsummering {...lonnstilskuddAvtaleMock.gjeldendeInnhold} />);
     expect(wrapper.find(UtregningPanel)).toHaveLength(1);
 });

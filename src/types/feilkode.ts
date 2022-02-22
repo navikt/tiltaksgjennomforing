@@ -68,9 +68,7 @@ export type Feilkode =
     | 'AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE'
     | 'UGYLDIG_BEDRIFTSNUMMER'
     | 'UGYLDIG_FØDSELSNUMMER'
-    | 'UGYLDIG_AVTALETYPE'
-
-
+    | 'UGYLDIG_AVTALETYPE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -83,7 +81,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     GODKJENT_PAA_VEGNE_GRUNN_MAA_VELGES: 'Arbeidsgiver må godkjenne avtalen før veileder kan godkjenne',
     GRUNN_TIL_AVBRYTELSE: 'Grunn til avbrytelse av avtale må oppgis',
     UGYLDIG_TLF: 'Telefonnummeret er ikke et gyldig mobilnummer',
-    KAN_IKKE_OPPHEVE: 'Kan ikke oppheve godkjenninger i avtalen. Det er gjort endringer i avtalen som du ikke har sett. Oppfrisk siden og prøv igjen.',
+    KAN_IKKE_OPPHEVE:
+        'Kan ikke oppheve godkjenninger i avtalen. Det er gjort endringer i avtalen som du ikke har sett. Oppfrisk siden og prøv igjen.',
     KAN_IKKE_ENDRE: 'Kan ikke endre avtale.',
     KAN_IKKE_LAASES_OPP: 'Avtalen kan ikke låses opp',
     ER_ALLEREDE_VEILEDER: 'Innlogget bruker er allerede veileder på denne avtalen',
@@ -145,8 +144,9 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FORTIDLIG_STARTDATO: 'Avtalen må godkjennes for etterregistrering av beslutter',
     KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT:
         'Kan ikke endre etterregistrering etter at avtalen er godkjent.',
-    AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE: 'Avtalen inneholder utbetalte tilskuddsperiode(er). Avtalen kan derfor ikke annulleres.',
+    AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE:
+        'Avtalen inneholder utbetalte tilskuddsperiode(er). Avtalen kan derfor ikke annulleres.',
     UGYLDIG_BEDRIFTSNUMMER: 'Du må oppgi gyldig bedriftsnummer',
     UGYLDIG_FØDSELSNUMMER: 'Du må oppgi gyldig fødselsnummer for deltaker',
-    UGYLDIG_AVTALETYPE: 'Du må oppgi avtaletype'
+    UGYLDIG_AVTALETYPE: 'Du må oppgi avtaletype',
 };

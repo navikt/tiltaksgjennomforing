@@ -26,7 +26,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     GODKJENT_PAA_VEGNE_AV_ARBEIDSGIVER: <GodkjentIkon />,
     GODKJENT_PAA_VEGNE_AV_DELTAKER_OG_ARBEIDSGIVER: <GodkjentIkon />,
     GODKJENT_FOR_ETTERREGISTRERING: <GodkjentIkon />,
-    FJERNET_ETTERREGISTRERING: <OpphevetIkon/> ,
+    FJERNET_ETTERREGISTRERING: <OpphevetIkon />,
     LÅST_OPP: <LastOppIkon />,
     ANNULLERT: <AvbruttIkon />,
     AVBRUTT: <AvbruttIkon />,
@@ -50,7 +50,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     AVTALE_INNGÅTT: <GodkjentIkon />,
 };
 
-const HendelseIkon: FunctionComponent<Props> = props => {
+const HendelseIkon: FunctionComponent<Props> = (props) => {
     if (props.hendelse) {
         return hendelsesIkon[props.hendelse];
     } else {

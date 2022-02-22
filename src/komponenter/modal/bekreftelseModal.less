@@ -2,109 +2,109 @@
 @button-height: 46px;
 
 .bekreftelseModal {
-  &__modal-container {
-    padding: 1rem 1rem;
-    max-width: 530px;
-    min-width: 320px;
-  }
-
-  &__body {
-    overflow-y: auto;
-    max-height: calc(100vh - 150px);
-    display: flex;
-    flex-direction: column;
-    padding: 0 0 1rem 0;
-
-    .innhold {
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  &__innhold {
-    margin: 1.5rem 0 2rem 0;
-  }
-
-  &__tittel {
-    text-align: center;
-    padding-bottom: 1rem;
-  }
-
-  &__varselTekst {
-    padding: 0 1rem;
-  }
-
-  &__lenkeknapp {
-    padding: 0 1rem;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: @button-height;
-    justify-content: center;
-    width: 100%;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px #ffbd66;
+    &__modal-container {
+        padding: 1rem 1rem;
+        max-width: 530px;
+        min-width: 320px;
     }
 
-    span {
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
+    &__body {
+        overflow-y: auto;
+        max-height: calc(100vh - 150px);
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 1rem 0;
 
-  &__knappRad {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 0.5rem;
-  }
-
-  &__topIconContainer {
-    display: flex;
-    justify-content: center;
-    margin: -3.3rem auto 0 auto;
-    @media (max-height: 710px) {
-      display: none;
-    }
-  }
-
-  &__knapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-
-    .knapp {
-      overflow: hidden;
+        .innhold {
+            margin-bottom: 1.5rem;
+        }
     }
 
-    .knapp:not(:last-child) {
-      margin-bottom: 1rem;
+    &__innhold {
+        margin: 1.5rem 0 2rem 0;
     }
-  }
 
-  @media (min-width: @mobile-breakpoint) {
+    &__tittel {
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    &__varselTekst {
+        padding: 0 1rem;
+    }
+
+    &__lenkeknapp {
+        padding: 0 1rem;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: @button-height;
+        justify-content: center;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px #ffbd66;
+        }
+
+        span {
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &__knappRad {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 0.5rem;
+    }
+
+    &__topIconContainer {
+        display: flex;
+        justify-content: center;
+        margin: -3.3rem auto 0 auto;
+        @media (max-height: 710px) {
+            display: none;
+        }
+    }
+
     &__knapper {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
 
-      .knapp:not(:last-child) {
-        margin-bottom: 0rem;
-        margin-right: 1rem;
-      }
+        .knapp {
+            overflow: hidden;
+        }
+
+        .knapp:not(:last-child) {
+            margin-bottom: 1rem;
+        }
     }
-  }
+
+    @media (min-width: @mobile-breakpoint) {
+        &__knapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+
+            .knapp:not(:last-child) {
+                margin-bottom: 0rem;
+                margin-right: 1rem;
+            }
+        }
+    }
 }
 
 .ReactModal__Content,
 .ReactModal__Content--after-open,
 .modal {
-  @media (min-height: 710px) {
-    &__wrapper {
-      overflow: visible;
+    @media (min-height: 710px) {
+        &__wrapper {
+            overflow: visible;
+        }
     }
-  }
 }

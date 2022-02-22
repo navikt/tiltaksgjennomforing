@@ -1,10 +1,10 @@
-import {AvtaleContext} from '@/AvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 
 const VeilederinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');

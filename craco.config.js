@@ -5,9 +5,15 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const { defaults } = require('jest-config');
 const internflateDecoratorHtmlWebpackPlugin = require('./plugins/internflateDecoratorHtmlWebpackPlugin');
 const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
     webpack: {
+        resolve: {
+            fallback: {
+                "path": require.resolve("path-browserify")
+            }
+        },
         plugins: [
             new BundleAnalyzerPlugin({
                 analyzerMode: 'disabled',
@@ -16,6 +22,7 @@ module.exports = {
             new EnvironmentPlugin({
                 GIT_COMMIT_HASH: 'local-dev',
             }),
+            new NodePolyfillPlugin(),
         ],
         alias: {
             '@': path.resolve(__dirname, 'src/'),

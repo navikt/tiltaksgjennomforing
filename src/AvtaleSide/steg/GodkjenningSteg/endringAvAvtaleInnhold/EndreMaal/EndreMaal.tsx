@@ -1,18 +1,18 @@
-import {AvtaleContext} from '@/AvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VarselTegnForModal from '@/komponenter/modal/VarselTegnForModal';
-import {oppdatereMålInformasjon} from '@/services/rest-service';
-import {Maalkategori} from '@/types/maalkategorier';
+import { oppdatereMålInformasjon } from '@/services/rest-service';
+import { Maalkategori } from '@/types/maalkategorier';
 import BEMHelper from '@/utils/bem';
-import {Notes} from '@navikt/ds-icons/cjs';
+import { Notes } from '@navikt/ds-icons/cjs';
 import KnappBase from 'nav-frontend-knapper';
 import Lenke from 'nav-frontend-lenker';
 import Modal from 'nav-frontend-modal';
-import {Systemtittel} from 'nav-frontend-typografi';
-import React, {FunctionComponent, useContext, useState} from 'react';
+import { Systemtittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import EtMaal from '../../../MaalSteg/MaalNy/EtMaal';
-import {useMål} from '../../../MaalSteg/MaalNy/maalUtils';
+import { useMål } from '../../../MaalSteg/MaalNy/maalUtils';
 import OpprettMaal from '../../../MaalSteg/MaalNy/OpprettMaal';
 
 const EndreMaal: FunctionComponent = () => {
@@ -20,13 +20,9 @@ const EndreMaal: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [iRedigersmodus, setIRedigersmodus] = useState(false);
 
-    const {
-        målListe,
-        leggTilMål,
-        ledigeMålkategorier,
-        endreMål,
-        sletteMål
-    } = useMål(avtaleContext.avtale.gjeldendeInnhold.maal);
+    const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(
+        avtaleContext.avtale.gjeldendeInnhold.maal
+    );
 
     const lukkModal = () => {
         setModalApen(false);
@@ -69,7 +65,7 @@ const EndreMaal: FunctionComponent = () => {
         <>
             <div>
                 <Lenke
-                    onClick={event => {
+                    onClick={(event) => {
                         event.stopPropagation();
                         setModalApen(true);
                     }}

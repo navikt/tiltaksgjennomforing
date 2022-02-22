@@ -7,7 +7,7 @@ import Stegmeny from './Stegmeny';
 test('Test that <Stegmeny> renders correctly', () => {
     const wrapper = shallow(
         <AvtaleContext.Provider value={{ avtale: arbeidstreningAvtaleMock } as Context}>
-            <Stegmeny />
+            <Stegmeny steg={[]} aktivtSteg={{ id: 'maal', label: 'test', komponent: <>test</> }} />
         </AvtaleContext.Provider>
     );
     expect(wrapper).toHaveLength(1);

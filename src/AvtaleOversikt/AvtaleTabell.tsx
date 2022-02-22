@@ -1,25 +1,25 @@
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import {avtaleStatusTekst} from '@/messages';
-import {pathTilAvtale} from '@/paths';
-import {Avtale} from '@/types/avtale';
-import {InnloggetBruker, Rolle} from '@/types/innlogget-bruker';
-import {Varsel} from '@/types/varsel';
+import { avtaleStatusTekst } from '@/messages';
+import { pathTilAvtale } from '@/paths';
+import { Avtale } from '@/types/avtale';
+import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
+import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
 import moment from 'moment';
-import {LenkepanelBase} from 'nav-frontend-lenkepanel/lib';
-import {default as React, FunctionComponent} from 'react';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
+import { default as React, FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
 
 const cls = BEMHelper('avtaletabell');
 
 const hentAvtaleStatus = (avtale: Avtale, rolle: Rolle) => {
-  if (rolle === 'BESLUTTER') {
-    return (
-        <div className={cls.element('status')}>
+    if (rolle === 'BESLUTTER') {
+        return (
+            <div className={cls.element('status')}>
                 {avtale.gjeldendeTilskuddsperiode && (
                     <EtikettStatus tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status} />
                 )}
@@ -55,7 +55,7 @@ const AvtaleTabell: FunctionComponent<{
         </div>
         <div role="list">
             {avtaler.map((avtale: Avtale) => {
-                const ulestVarsel = varsler.find(value => value.avtaleId === avtale.id);
+                const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                 return (
                     <LenkepanelBase
                         id={avtale.id}
@@ -73,11 +73,13 @@ const AvtaleTabell: FunctionComponent<{
                                 uthevet: ulestVarsel,
                             })}
                         >
-                          <div className={cls.element('deltakerOgBedrift')}>{avtale.gjeldendeInnhold.bedriftNavn}</div>
-                          <div className={cls.element('deltakerOgBedrift')}>
-                            {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
-                            {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
-                          </div>
+                            <div className={cls.element('deltakerOgBedrift')}>
+                                {avtale.gjeldendeInnhold.bedriftNavn}
+                            </div>
+                            <div className={cls.element('deltakerOgBedrift')}>
+                                {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
+                                {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
+                            </div>
                             {innloggetBruker.erNavAnsatt && (
                                 <div className={cls.element('veileder')}>{avtale.veilederNavIdent || 'Ufordelt'}</div>
                             )}

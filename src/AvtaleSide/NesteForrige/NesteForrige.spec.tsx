@@ -7,7 +7,7 @@ import NesteForrige from './NesteForrige';
 test('Test that <NesteForrige> renders correctly', () => {
     const wrapper = shallow(
         <AvtaleContext.Provider value={{ avtale: arbeidstreningAvtaleMock } as Context}>
-            <NesteForrige />
+            <NesteForrige avtaleSteg={[]} aktivtSteg={{ id: 'kontaktinformasjon', komponent: <>foo</>, label: '' }} />
         </AvtaleContext.Provider>
     );
     expect(wrapper).toHaveLength(1);

@@ -4,6 +4,6 @@ import MobilAvtaleSide from './MobilAvtaleSide';
 
 test('Test that <MobilAvtaleSide> renders correctly', () => {
     const stub = jest.fn();
-    const wrapper = shallow(<MobilAvtaleSide avtaleSteg={[]} rolle={'DELTAKER'} tilbakeTilOversiktKlikk={stub} />);
+    const wrapper = shallow(<MobilAvtaleSide avtaleSteg={[]} rolle={'DELTAKER'} />);
     expect(wrapper).toHaveLength(1);
 });

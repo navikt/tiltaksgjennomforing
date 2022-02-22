@@ -24,6 +24,8 @@ import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/Kvalifiseringsg
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
 import TilskuddperiodeBokser from './TilskuddperiodeBokser';
 import UtregningPanel from './UtregningPanel';
+import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
+import TilskuddsperioderVisning from '@/AvtaleSide/steg/BeregningTilskudd/TilskuddsperioderVisning';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -53,7 +55,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
         avtale,
         settOgKalkulerBeregningsverdier,
         lagreAvtale,
-        settAvtaleInnholdVerdier: settAvtaleVerdier
+        settAvtaleInnholdVerdier: settAvtaleVerdier,
     } = useContext(AvtaleContext);
 
     return (
@@ -94,9 +96,11 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         autoComplete={'off'}
                         value={avtale.gjeldendeInnhold.manedslonn}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settAvtaleVerdier({manedslonn: parseFloat(event.target.value)});
+                            settAvtaleVerdier({ manedslonn: parseFloat(event.target.value) });
                         }}
-                        onBlur={(event) => settOgKalkulerBeregningsverdier({manedslonn: parseFloat(event.target.value)})}
+                        onBlur={(event) =>
+                            settOgKalkulerBeregningsverdier({ manedslonn: parseFloat(event.target.value) })
+                        }
                         min={0}
                     />
                 </Column>
@@ -129,7 +133,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 maxLength={4}
                                 autoComplete={'off'}
                                 value={
-                                    avtale.gjeldendeInnhold.otpSats !== undefined && avtale.gjeldendeInnhold.otpSats !== null
+                                    avtale.gjeldendeInnhold.otpSats !== undefined &&
+                                    avtale.gjeldendeInnhold.otpSats !== null
                                         ? (avtale.gjeldendeInnhold.otpSats * 100).toFixed(2)
                                         : ''
                                 }
@@ -167,7 +172,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 label={'Kontonummer til arbeidsgiver'}
                                 value={avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    settAvtaleVerdier({arbeidsgiverKontonummer: event.target.value});
+                                    settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
                                 }}
                                 onBlur={() => lagreAvtale()}
                             />
@@ -218,6 +223,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                 value={avtale.gjeldendeInnhold.manedslonn100pst}
                             />
                         )}
+                    <VerticalSpacer rem={2} />
+                    <TilskuddsperioderVisning />
                     <VerticalSpacer rem={2} />
                     <TilskuddperiodeBokser />
                     <VerticalSpacer rem={2} />

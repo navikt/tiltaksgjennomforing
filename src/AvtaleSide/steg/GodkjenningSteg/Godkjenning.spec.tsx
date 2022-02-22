@@ -5,6 +5,6 @@ import Godkjenning from './Godkjenning/Godkjenning';
 
 test('Test that <Godkjenning> renders correctly', () => {
     const avtale = arbeidstreningAvtaleMock;
-    const wrapper = shallow(<Godkjenning avtale={avtale} />);
+    const wrapper = shallow(<Godkjenning avtale={avtale} rolle="ARBEIDSGIVER" />);
     expect(wrapper).toHaveLength(1);
 });

@@ -5,7 +5,7 @@ import {
     AvtaleVersjon,
     Stillingstype,
     TilskuddPeriodeStatus,
-    TiltaksType
+    TiltaksType,
 } from './types/avtale';
 
 export const messages = {
@@ -58,8 +58,7 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     stillingStyrk08: '',
     enhetKostnadssted: 'enhetKostnadssted',
     enhetsnavnKostnadssted: 'enhetsnavnKostnadssted',
-    refusjonKontaktperson: 'refusjonKontaktperson'
-
+    refusjonKontaktperson: 'refusjonKontaktperson',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
