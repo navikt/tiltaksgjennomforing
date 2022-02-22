@@ -1,5 +1,5 @@
-import {AvtaleContext} from '@/AvtaleProvider';
-import React, {FunctionComponent, useContext} from 'react';
+import { AvtaleContext } from '@/AvtaleProvider';
+import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
@@ -11,12 +11,12 @@ const Avtaleparter: FunctionComponent = () => {
 
     const erLåst = Boolean(avtaleContext.avtale.godkjentAvVeileder);
     return (
-        <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon/>}>
+        <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
             <div>
                 <AvtaleinfoFeltSjekk
                     navnFelter={[
-                        {felt: 'fornavn', verdi: gjeldendeInnhold.deltakerFornavn},
-                        {felt: 'etternavn', verdi: gjeldendeInnhold.deltakerEtternavn},
+                        { felt: 'fornavn', verdi: gjeldendeInnhold.deltakerFornavn },
+                        { felt: 'etternavn', verdi: gjeldendeInnhold.deltakerEtternavn },
                     ]}
                     tilleggFelter={[
                         {
@@ -42,7 +42,7 @@ const Avtaleparter: FunctionComponent = () => {
                             felt: 'fornavn',
                             verdi: gjeldendeInnhold.arbeidsgiverFornavn && 'v/ ' + gjeldendeInnhold.arbeidsgiverFornavn,
                         },
-                        {felt: 'etternavn', verdi: gjeldendeInnhold.arbeidsgiverEtternavn},
+                        { felt: 'etternavn', verdi: gjeldendeInnhold.arbeidsgiverEtternavn },
                     ]}
                     tilleggFelter={[
                         {
@@ -60,8 +60,8 @@ const Avtaleparter: FunctionComponent = () => {
                 />
                 <AvtaleinfoFeltSjekk
                     navnFelter={[
-                        {felt: 'fornavn', verdi: gjeldendeInnhold.veilederFornavn},
-                        {felt: 'etternavn', verdi: gjeldendeInnhold.veilederEtternavn},
+                        { felt: 'fornavn', verdi: gjeldendeInnhold.veilederFornavn },
+                        { felt: 'etternavn', verdi: gjeldendeInnhold.veilederEtternavn },
                     ]}
                     tilleggFelter={[
                         {

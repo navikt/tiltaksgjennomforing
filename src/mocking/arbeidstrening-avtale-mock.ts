@@ -1,6 +1,6 @@
-import {Formidlingsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
-import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import {Avslagsårsaker, Avtale, Maal, TilskuddsPeriode} from '@/types/avtale';
+import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {

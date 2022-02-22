@@ -1,25 +1,23 @@
 import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
-import {
-    EndreBeregning
-} from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import {oppdateretilskuddsBeregningDryRun} from '@/services/rest-service';
-import {Avtale} from '@/types/avtale';
-import React, {FunctionComponent, useEffect, useState} from 'react';
+import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
+import { oppdateretilskuddsBeregningDryRun } from '@/services/rest-service';
+import { Avtale } from '@/types/avtale';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 interface Props {
     endreBeregning: EndreBeregning;
     avtale: Avtale;
 }
 
-const EndringsTilskuddUtregningPanel: FunctionComponent<Props> = props => {
-    const {manedslonn, feriepengesats, arbeidsgiveravgift, otpSats, stillingprosent} = props.endreBeregning;
+const EndringsTilskuddUtregningPanel: FunctionComponent<Props> = (props) => {
+    const { manedslonn, feriepengesats, arbeidsgiveravgift, otpSats, stillingprosent } = props.endreBeregning;
     const [nyAvtale, settNyAvtale] = useState<Avtale>(props.avtale);
 
     useEffect(() => {
         const kalkulerNyBeregningsverdi = async (): Promise<void> => {
             try {
                 const avtale = await oppdateretilskuddsBeregningDryRun(props.avtale, props.endreBeregning);
-                settNyAvtale(prevState => ({ ...prevState, ...avtale }));
+                settNyAvtale((prevState) => ({ ...prevState, ...avtale }));
             } catch (error) {
                 console.warn('feilet med å oppdatere utregningene: ', error);
             }

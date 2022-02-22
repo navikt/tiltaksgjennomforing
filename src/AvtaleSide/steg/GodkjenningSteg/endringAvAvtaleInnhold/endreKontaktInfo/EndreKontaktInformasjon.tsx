@@ -1,14 +1,14 @@
-import {AvtaleContext} from '@/AvtaleProvider';
+import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import {oppdatereKontaktInformasjon} from '@/services/rest-service';
-import {EndreKontaktInfo} from '@/types/avtale';
+import { oppdatereKontaktInformasjon } from '@/services/rest-service';
+import { EndreKontaktInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import {Neutral} from '@navikt/ds-icons/cjs';
+import { Neutral } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
-import {Undertittel} from 'nav-frontend-typografi';
-import React, {FunctionComponent, useContext, useState} from 'react';
+import { Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreKontaktInformasjon.less';
 
 const EndreKontaktInformasjon: FunctionComponent = () => {

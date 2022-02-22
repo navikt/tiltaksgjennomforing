@@ -1,7 +1,7 @@
-import {Formidlingsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
-import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import {Nettressurs} from '@/types/nettressurs';
-import {Maalkategori} from './maalkategorier';
+import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Nettressurs } from '@/types/nettressurs';
+import { Maalkategori } from './maalkategorier';
 
 export type Avtale = Annullering &
     Avbrytelse &

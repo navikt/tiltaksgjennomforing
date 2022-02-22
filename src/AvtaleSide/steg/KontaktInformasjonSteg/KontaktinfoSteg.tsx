@@ -17,9 +17,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
             <DeltakerInfo oppsummeringside={false} />
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
-            {avtale?.tiltakstype !== 'ARBEIDSTRENING' && (
-                <KontaktpersonRefusjoninfoDel />)
-            }
+            {avtale?.tiltakstype !== 'ARBEIDSTRENING' && <KontaktpersonRefusjoninfoDel />}
             <VeilederinfoDel />
             <LagreKnapp
                 className="kontaktinfo-steg__lagre-knapp"
