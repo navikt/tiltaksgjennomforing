@@ -104,11 +104,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                             </aside>
                         )}
                     <section style={layout.stylingAvTabell}>
-                        <Avtaler
-                            avtalelisteRessurs={nettressurs}
-                            innloggetBruker={innloggetBruker}
-                            varsler={varsler}
-                        />
+                        <Avtaler avtalelisteRessurs={nettressurs} innloggetBruker={innloggetBruker} varsler={varsler} />
                         <VerticalSpacer rem={1} />
                         {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
                             <>
@@ -140,8 +136,13 @@ const AvtaleOversikt: FunctionComponent = () => {
                         {kanLasteMer && (
                             <>
                                 <VerticalSpacer rem={3} />
-                                <div style={{textAlign: "center"}}>
-                                    <Knapp title="Last inn mer" onClick={lastMer} spinner={lasterMer} disabled={lasterMer}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <Knapp
+                                        title="Last inn mer"
+                                        onClick={lastMer}
+                                        spinner={lasterMer}
+                                        disabled={lasterMer}
+                                    >
                                         Last inn flere avtaler ...
                                     </Knapp>
                                 </div>

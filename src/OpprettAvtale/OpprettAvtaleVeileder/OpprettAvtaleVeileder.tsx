@@ -1,29 +1,29 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import {Feature, FeatureToggleContext} from '@/FeatureToggleProvider';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
-import {pathTilOpprettAvtaleFullfortVeileder} from '@/paths';
-import {hentBedriftBrreg, opprettAvtaleSomVeileder} from '@/services/rest-service';
-import {TiltaksType} from '@/types/avtale';
+import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
+import { hentBedriftBrreg, opprettAvtaleSomVeileder } from '@/services/rest-service';
+import { TiltaksType } from '@/types/avtale';
 import amplitude from '@/utils/amplitude';
-import {handterFeil} from '@/utils/apiFeilUtils';
+import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import {validerFnr} from '@/utils/fnrUtils';
-import {validerOrgnr} from '@/utils/orgnrUtils';
-import {Input, RadioPanel} from 'nav-frontend-skjema';
-import {SkjemaelementFeilmelding} from "nav-frontend-skjema";
-import {Innholdstittel, Normaltekst, Systemtittel} from 'nav-frontend-typografi';
-import {Element} from "nav-frontend-typografi";
-import React, {ChangeEvent, FunctionComponent, useContext, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import { validerFnr } from '@/utils/fnrUtils';
+import { validerOrgnr } from '@/utils/orgnrUtils';
+import { Input, RadioPanel } from 'nav-frontend-skjema';
+import { SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
+import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './OpprettAvtale.less';
-import {Feilkode} from "@/types/feilkode";
-import {Feilmeldinger} from "@/types/feilkode";
-import EksternLenke from "@/komponenter/navigation/EksternLenke";
-import {AlertStripeInfo} from "nav-frontend-alertstriper";
+import { Feilkode } from '@/types/feilkode';
+import { Feilmeldinger } from '@/types/feilkode';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -34,7 +34,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
-         (verdi) => {
+        (verdi) => {
             if (!verdi) {
                 return 'Fødselsnummer er påkrevd';
             }
@@ -93,25 +93,25 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         }
     };
 
-    const setFeilmelding= (melding:Feilkode) =>{
-    if(melding === "SOMMERJOBB_FOR_GAMMEL"){
-      setDeltakerFnrFeil(Feilmeldinger.SOMMERJOBB_FOR_GAMMEL)
-    }
-  }
+    const setFeilmelding = (melding: Feilkode) => {
+        if (melding === 'SOMMERJOBB_FOR_GAMMEL') {
+            setDeltakerFnrFeil(Feilmeldinger.SOMMERJOBB_FOR_GAMMEL);
+        }
+    };
 
     const opprettAvtaleKlikk = async () => {
         let valgtAvtaleType = false;
-        let feilDeltakerFNR = "";
-        let feilBedriftNr = "";
+        let feilDeltakerFNR = '';
+        let feilBedriftNr = '';
 
         if (!valgtTiltaksType) {
-          valgtAvtaleType =true;
+            valgtAvtaleType = true;
         }
         if (!validerFnr(deltakerFnr)) {
-          feilDeltakerFNR= Feilmeldinger.UGYLDIG_FØDSELSNUMMER
+            feilDeltakerFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
         }
         if (!validerOrgnr(bedriftNr)) {
-          feilBedriftNr = (Feilmeldinger.UGYLDIG_BEDRIFTSNUMMER)
+            feilBedriftNr = Feilmeldinger.UGYLDIG_BEDRIFTSNUMMER;
         }
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
@@ -120,10 +120,9 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             return;
         }
 
-      setUyldigAvtaletype(valgtAvtaleType)
-      setBedriftNrFeil(feilBedriftNr)
-      setDeltakerFnrFeil(feilDeltakerFNR)
-
+        setUyldigAvtaletype(valgtAvtaleType);
+        setBedriftNrFeil(feilBedriftNr);
+        setDeltakerFnrFeil(feilDeltakerFNR);
     };
 
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
@@ -137,9 +136,12 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <Systemtittel>Velg type avtale</Systemtittel>
             <Normaltekst>
                 Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider
-              <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')} href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">
-                hvordan kan NAV hjelpe med inkludering
-            </EksternLenke>
+                <EksternLenke
+                    onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
+                    href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
+                >
+                    hvordan kan NAV hjelpe med inkludering
+                </EksternLenke>
             </Normaltekst>
             <VerticalSpacer rem={1} />
             <div className={cls.element('tiltakstypeWrapper')}>
@@ -149,8 +151,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     value="ARBEIDSTRENING"
                     checked={valgtTiltaksType === 'ARBEIDSTRENING'}
                     onChange={() => {
-                      setTiltaksType('ARBEIDSTRENING')
-                      setUyldigAvtaletype(false)
+                        setTiltaksType('ARBEIDSTRENING');
+                        setUyldigAvtaletype(false);
                     }}
                 />
                 <RadioPanel
@@ -159,8 +161,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     value="MIDLERTIDIG_LONNSTILSKUDD"
                     checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
                     onChange={() => {
-                      setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD')
-                      setUyldigAvtaletype(false)
+                        setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD');
+                        setUyldigAvtaletype(false);
                     }}
                 />
                 <RadioPanel
@@ -169,8 +171,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     value="VARIG_LONNSTILSKUDD"
                     checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
                     onChange={() => {
-                      setTiltaksType('VARIG_LONNSTILSKUDD')
-                      setUyldigAvtaletype(false)
+                        setTiltaksType('VARIG_LONNSTILSKUDD');
+                        setUyldigAvtaletype(false);
                     }}
                 />
                 {mentorToggle && (
@@ -180,8 +182,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                         value="MENTOR"
                         checked={valgtTiltaksType === 'MENTOR'}
                         onChange={() => {
-                          setTiltaksType('MENTOR')
-                          setUyldigAvtaletype(false)
+                            setTiltaksType('MENTOR');
+                            setUyldigAvtaletype(false);
                         }}
                     />
                 )}
@@ -191,14 +193,14 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     value="SOMMERJOBB"
                     checked={valgtTiltaksType === 'SOMMERJOBB'}
                     onChange={() => {
-                      setTiltaksType('SOMMERJOBB')
-                      setUyldigAvtaletype(false)
+                        setTiltaksType('SOMMERJOBB');
+                        setUyldigAvtaletype(false);
                     }}
                 />
             </div>
-          {uyldigAvtaletype &&
-            <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
-          }
+            {uyldigAvtaletype && (
+                <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
+            )}
         </Innholdsboks>
     );
 
@@ -210,59 +212,75 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
             <VerticalSpacer rem={2} />
             <Innholdsboks>
-              <Normaltekst>
-                Er det første gang du skal opprette en avtale bør du lese gjennom {''}
-                <EksternLenke href="/informasjonsside/uinnlogget">introduksjon til hvordan løsningen fungerer {''}</EksternLenke>
-                og vite om <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-link-apnet')} href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering">de ulike støtteordningene på NAV.no.</EksternLenke> eller {""}
-                <EksternLenke onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-navet-link-apnet')} href="https://navno.sharepoint.com/sites/fag-og-ytelser-arbeid-tiltak-og-virkemidler/SitePages/Alfabetisk-oversikt-over-alle-tiltak-og-virkemidler.aspx?web=1">de ulike støtteordningene på Navet.</EksternLenke>
-              </Normaltekst>
+                <Normaltekst>
+                    Er det første gang du skal opprette en avtale bør du lese gjennom {''}
+                    <EksternLenke href="/informasjonsside/uinnlogget">
+                        introduksjon til hvordan løsningen fungerer {''}
+                    </EksternLenke>
+                    og vite om{' '}
+                    <EksternLenke
+                        onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-link-apnet')}
+                        href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
+                    >
+                        de ulike støtteordningene på NAV.no.
+                    </EksternLenke>{' '}
+                    eller {''}
+                    <EksternLenke
+                        onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-navet-link-apnet')}
+                        href="https://navno.sharepoint.com/sites/fag-og-ytelser-arbeid-tiltak-og-virkemidler/SitePages/Alfabetisk-oversikt-over-alle-tiltak-og-virkemidler.aspx?web=1"
+                    >
+                        de ulike støtteordningene på Navet.
+                    </EksternLenke>
+                </Normaltekst>
             </Innholdsboks>
             <VerticalSpacer rem={1} />
             <Innholdsboks>
                 <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
                 <VerticalSpacer rem={1} />
-                        <Input
-                            className="typo-element"
-                            label="Deltakers fødselsnummer"
-                            value={deltakerFnr}
-                            bredde={"M"}
-                            onChange={fnrOnChange}
-                            onBlur={validerDeltakerFnr}
-                            feil={deltakerFnrFeil}
-                        />
+                <Input
+                    className="typo-element"
+                    label="Deltakers fødselsnummer"
+                    value={deltakerFnr}
+                    bredde={'M'}
+                    onChange={fnrOnChange}
+                    onBlur={validerDeltakerFnr}
+                    feil={deltakerFnrFeil}
+                />
                 <VerticalSpacer rem={1} />
 
-                                <Input
-                                    className="typo-element"
-                                    label="Virksomhetsnummer"
-                                    bredde={"M"}
-                                    description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
-                                    value={bedriftNr}
-                                    onChange={orgnrOnChange}
-                                    onBlur={orgnrOnBlur}
-                                    feil={bedriftNrFeil}
-                                />
-                        {bedriftNavn &&
-                            <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>
-                        }
+                <Input
+                    className="typo-element"
+                    label="Virksomhetsnummer"
+                    bredde={'M'}
+                    description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
+                    value={bedriftNr}
+                    onChange={orgnrOnChange}
+                    onBlur={orgnrOnBlur}
+                    feil={bedriftNrFeil}
+                />
+                {bedriftNavn && <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>}
             </Innholdsboks>
             <VerticalSpacer rem={1} />
             {radiopaneler}
             <VerticalSpacer rem={1} />
-          <AlertStripeInfo>
-            <Element>Dette skjer etter at du har opprettet avtalen</Element>
-              <ul>
-                <li>Du kan begynne å fylle ut avtalen.</li>
-                <li>
-                  Avtalen blir tilgjengelig for veilederne på NAV kontoret til deltakeren. Når avtalen har
-                  blitt fordelt til en veileder vil du se kontaktinformasjonen til denne veilederen inne i
-                  avtalen.
-                </li>
-              </ul>
-          </AlertStripeInfo>
-          <VerticalSpacer rem={1} />
+            <AlertStripeInfo>
+                <Element>Dette skjer etter at du har opprettet avtalen</Element>
+                <ul>
+                    <li>Du kan begynne å fylle ut avtalen.</li>
+                    <li>
+                        Avtalen blir tilgjengelig for veilederne på NAV kontoret til deltakeren. Når avtalen har blitt
+                        fordelt til en veileder vil du se kontaktinformasjonen til denne veilederen inne i avtalen.
+                    </li>
+                </ul>
+            </AlertStripeInfo>
+            <VerticalSpacer rem={1} />
             <div className={cls.element('knappRad')}>
-                <LagreKnapp lagre={opprettAvtaleKlikk} setFeilmelding={setFeilmelding} label={'Opprett avtale'} className="opprett-avtale__knapp" />
+                <LagreKnapp
+                    lagre={opprettAvtaleKlikk}
+                    setFeilmelding={setFeilmelding}
+                    label={'Opprett avtale'}
+                    className="opprett-avtale__knapp"
+                />
 
                 <TilbakeTilOversiktLenke />
             </div>

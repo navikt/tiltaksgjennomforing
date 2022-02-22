@@ -1,8 +1,8 @@
-import {Context} from '@/AvtaleProvider';
-import {Formidlingsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
-import {Kvalifiseringsgruppe} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import {Avslagsårsaker, Avtale} from '@/types/avtale';
-import {Avtaleinnhold} from './../types/avtale';
+import { Context } from '@/AvtaleProvider';
+import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Avslagsårsaker, Avtale } from '@/types/avtale';
+import { Avtaleinnhold } from './../types/avtale';
 
 const avtaleInnhold: Avtale | Avtaleinnhold = {
     arbeidsgiverEtternavn: '',

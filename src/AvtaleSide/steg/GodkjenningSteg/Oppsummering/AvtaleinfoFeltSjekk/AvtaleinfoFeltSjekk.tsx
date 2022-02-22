@@ -1,14 +1,12 @@
 import BEMHelper from '@/utils/bem';
-import {storForbokstav} from '@/utils/stringUtils';
+import { storForbokstav } from '@/utils/stringUtils';
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
-import {Undertekst, Undertittel} from 'nav-frontend-typografi';
-import React, {FunctionComponent} from 'react';
+import { Undertekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent } from 'react';
 import './AvtaleinfoFeltSjekk.less';
-import BedriftsnummerEllerTelefon
-    from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/BedriftsnummerEllerTelefon";
+import BedriftsnummerEllerTelefon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/BedriftsnummerEllerTelefon';
 
 const cls = BEMHelper('avtaleparter');
-
 
 interface Felt {
     felt: string;

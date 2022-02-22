@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Undertittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
-import TilskuddperiodeBokser from '../TilskuddperiodeBokser';
+import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/VisningTilskuddsperioder';
 
 const TilskuddsPerioderOppsummering = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -15,7 +15,7 @@ const TilskuddsPerioderOppsummering = () => {
         <>
             <Undertittel>Tilskuddsperioder</Undertittel>
             <VerticalSpacer rem={1} />
-            <TilskuddperiodeBokser />
+            <VisningTilskuddsperioder />
         </>
     );
 };

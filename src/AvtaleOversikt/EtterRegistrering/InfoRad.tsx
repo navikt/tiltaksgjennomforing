@@ -4,7 +4,7 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 interface Props {
     klasseNavn: string;
     radInfo: string;
-    radVerdi: string
+    radVerdi: string;
 }
 
 const InfoRad: FunctionComponent<Props> = (props) => (
@@ -12,5 +12,5 @@ const InfoRad: FunctionComponent<Props> = (props) => (
         <Element>{props.radInfo}</Element>
         <Normaltekst>{props.radVerdi}</Normaltekst>
     </div>
-)
+);
 export default InfoRad;

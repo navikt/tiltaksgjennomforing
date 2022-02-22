@@ -1,4 +1,4 @@
-import {FeilVarselContext} from '@/FeilVarselProvider';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 import {
     Avslagsårsaker,
     Avtale,
@@ -6,18 +6,18 @@ import {
     GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
     GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
-    Maal
+    Maal,
 } from '@/types/avtale';
-import {ApiError, AutentiseringError} from '@/types/errors';
-import {Maalkategori} from '@/types/maalkategorier';
+import { ApiError, AutentiseringError } from '@/types/errors';
+import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
-import {LogReturn} from 'amplitude-js';
-import React, {FunctionComponent, useContext, useState} from 'react';
+import { LogReturn } from 'amplitude-js';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
-import {useAsyncError} from './komponenter/useError';
+import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
-import {Avtaleinnhold} from './types/avtale';
-import {handterFeil} from './utils/apiFeilUtils';
+import { Avtaleinnhold } from './types/avtale';
+import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
     return Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
@@ -36,7 +36,6 @@ export type SettAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>
 
 export type SettFlereAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
 type SettOgKalkulerBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
-
 
 export interface Context {
     avtale: Avtale;
@@ -102,7 +101,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         try {
             const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
             sendToAmplitude('#tiltak-avtale-lagret');
-            setAvtale({...avtale, ...lagretAvtale});
+            setAvtale({ ...avtale, ...lagretAvtale });
             setUlagredeEndringer(false);
             setUnderLagring(false);
         } finally {
@@ -134,7 +133,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
-            const nyAvtale = {...avtale, gjeldendeInnhold: {...avtale.gjeldendeInnhold, [felt]: verdi}};
+            const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, [felt]: verdi } };
             setAvtale(nyAvtale);
             setUlagredeEndringer(true);
             return nyAvtale;
@@ -145,7 +144,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         if (noenHarGodkjentMenIkkeAlle(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
-            const nyAvtale = {...avtale, gjeldendeInnhold: {...avtale.gjeldendeInnhold, ...endringer}};
+            const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, ...endringer } };
             setAvtale(nyAvtale);
             setUlagredeEndringer(true);
             if (lagre) {
@@ -160,7 +159,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             try {
-                const nyAvtale = {...avtale, gjeldendeInnhold: {...avtale.gjeldendeInnhold, ...endringer}};
+                const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, ...endringer } };
                 settAvtaleInnholdVerdier(endringer);
                 const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
                 settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
@@ -284,8 +283,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         mellomLagring,
         setMellomLagring,
         sendTilbakeTilBeslutter,
-        oppdatereAvtaleContext
-
+        oppdatereAvtaleContext,
     };
 
     return (

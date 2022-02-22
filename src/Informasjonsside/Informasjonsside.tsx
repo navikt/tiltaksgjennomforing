@@ -25,7 +25,7 @@ const tilbakeTilOversikt = (pathName: string) => {
         return <TilbakeTilOversiktLenke tekst={'Tilbake'} />;
     }
 };
-const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
+const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
 
     const veilederOgArbeidsgiverOppretter = (
@@ -141,7 +141,8 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = props => {
                                 typografiType: 'undertittel',
                             }}
                         >
-                            Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Etter at avtalen er godkjent av alle parter, må endringer gå gjennom veileder.
+                            Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Etter at avtalen er
+                            godkjent av alle parter, må endringer gå gjennom veileder.
                         </EkspanderbartPanelRad>
 
                         <EkspanderbartPanelRad

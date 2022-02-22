@@ -4,7 +4,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import {hentAvtalerForInnloggetBeslutter} from '@/services/rest-service';
+import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
 import { AvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import BEMHelper from '@/utils/bem';

@@ -1,7 +1,6 @@
 import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
-import {messages} from '@/messages';
-import OpprettelseFullfortArbeidsgiver
-    from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
+import { messages } from '@/messages';
+import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 import Oversikt from '@/Oversikt';
 // IE Support
 import '@formatjs/intl-pluralrules/locale-data/nb';
@@ -9,17 +8,17 @@ import '@formatjs/intl-pluralrules/polyfill';
 import '@formatjs/intl-relativetimeformat/locale-data/nb';
 import '@formatjs/intl-relativetimeformat/polyfill';
 import * as React from 'react';
-import {IntlProvider} from 'react-intl';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { IntlProvider } from 'react-intl';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import AvtaleProvider from './AvtaleProvider';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
 import BeslutterSide from './BeslutterSide/BeslutterSide';
-import {FeatureToggleProvider} from './FeatureToggleProvider';
-import {FeilVarselProvider} from './FeilVarselProvider';
+import { FeatureToggleProvider } from './FeatureToggleProvider';
+import { FeilVarselProvider } from './FeilVarselProvider';
 import Informasjonsside from './Informasjonsside/Informasjonsside';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
-import {VarselOmNedetid} from './InnloggingBoundary/VarselOmNedetid';
+import { VarselOmNedetid } from './InnloggingBoundary/VarselOmNedetid';
 import ErrorBoundary from './komponenter/ErrorBoundary';
 import Slettemerk from './komponenter/Slettemerk';
 import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
@@ -99,7 +98,10 @@ class App extends React.Component {
                                                                 >
                                                                     <BeslutterSide />
                                                                 </Route>
-                                                                <Route exact path={`${pathTilAvtale(':avtaleId')}/slett`}>
+                                                                <Route
+                                                                    exact
+                                                                    path={`${pathTilAvtale(':avtaleId')}/slett`}
+                                                                >
                                                                     <Slettemerk />
                                                                 </Route>
                                                                 <Route
