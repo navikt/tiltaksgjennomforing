@@ -1,13 +1,13 @@
-import React, { FunctionComponent, useContext } from 'react';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Normaltekst, Element, Undertittel } from 'nav-frontend-typografi';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
-import './visningTilskuddsperioder.less';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext } from 'react';
+import './visningTilskuddsperioder.less';
 
 const VisningTilskuddsperioder: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -23,28 +23,63 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
             <Ekspanderbartpanel tittel="Oversikt over tilskudd i perioder" apen={true}>
                 <div className={cls.element('container')}>
                     <div className={cls.element('header')}>
+                        <Element>Utregning</Element>
                         <Normaltekst>
                             Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum tilskudd for
                             en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og ganger med antall
                             dager i perioden.
                         </Normaltekst>
+                        {avtale.gjeldendeInnhold.datoForRedusertProsent && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Element>Reduksjon av tilskuddsprosent</Element>
+                                <Normaltekst>
+                                    Tilskuddsprosenten reduseres med 10% etter{' '}
+                                    {avtale.gjeldendeInnhold.lonnstilskuddProsent === 60 ? '1 år' : '6 måneder'}. Datoen
+                                    for ny redusert sats er{' '}
+                                    <b>
+                                        {formatterDato(
+                                            avtale.gjeldendeInnhold.datoForRedusertProsent,
+                                            NORSK_DATO_FORMAT
+                                        )}
+                                    </b>
+                                    .
+                                </Normaltekst>
+                            </>
+                        )}
                     </div>
                     <div className={cls.element('tabell')}>
                         <div className={cls.element('tabell-ingress')}>
                             <Element>Tilskudd for periode</Element>
+                            <Element>Tilskuddsprosent</Element>
                             <Element>Inntil</Element>
                         </div>
                         {avtale.tilskuddPeriode
                             .filter((p) => p.aktiv)
-                            .map((periode, index) => (
-                                <div key={index} className={cls.element('tabell-innslag')}>
-                                    <Normaltekst>
-                                        {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
-                                        {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
-                                    </Normaltekst>
-                                    <Normaltekst>{formatterPenger(periode.beløp)}</Normaltekst>
-                                </div>
-                            ))}
+                            .map((periode, index) => {
+                                const nyProsent =
+                                    index > 0
+                                        ? avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !==
+                                          periode.lonnstilskuddProsent
+                                        : false;
+
+                                return (
+                                    <div
+                                        key={index}
+                                        className={cls.element('tabell-innslag')}
+                                        style={{ borderTop: nyProsent ? '2px solid gray' : 'undefined' }}
+                                    >
+                                        <Normaltekst>
+                                            {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
+                                            {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
+                                        </Normaltekst>
+                                        <Normaltekst>{periode.lonnstilskuddProsent}%</Normaltekst>
+                                        <Normaltekst style={{ minWidth: '4rem' }}>
+                                            {formatterPenger(periode.beløp)}
+                                        </Normaltekst>
+                                    </div>
+                                );
+                            })}
                     </div>
                     <VerticalSpacer rem={1} />
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
