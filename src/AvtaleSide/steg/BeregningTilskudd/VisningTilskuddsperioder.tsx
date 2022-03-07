@@ -36,8 +36,14 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                 <Normaltekst>
                                     Tilskuddsprosenten reduseres med 10% etter{' '}
                                     {avtale.gjeldendeInnhold.lonnstilskuddProsent === 60 ? '1 år' : '6 måneder'}. Datoen
-                                    for ny redusert sats er <b>{formatterDato(avtale.gjeldendeInnhold.datoForRedusertProsent, NORSK_DATO_FORMAT)}</b>. Når denne
-                                    nedjusteringen skjer er illustrert i tabellen under med en litt tykkere skillestrek.
+                                    for ny redusert sats er{' '}
+                                    <b>
+                                        {formatterDato(
+                                            avtale.gjeldendeInnhold.datoForRedusertProsent,
+                                            NORSK_DATO_FORMAT
+                                        )}
+                                    </b>
+                                    .
                                 </Normaltekst>
                             </>
                         )}
