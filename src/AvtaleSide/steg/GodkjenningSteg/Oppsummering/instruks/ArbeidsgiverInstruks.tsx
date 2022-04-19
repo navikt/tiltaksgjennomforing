@@ -16,7 +16,7 @@ interface Props {
     erLaast: boolean;
     tiltakstype: TiltaksType;
 }
-const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
+const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => (
     <>
         {!props.erLaast && <Normaltekst>Når du godkjenner avtalen godtar du kravene fra NAV</Normaltekst>}
         <VeilederpanelMedUtklippstavle>
@@ -171,7 +171,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
             {(props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
                 <EkspanderbartPanelRad
                     svgIkon={<Money width="2.25rem" height="2.25rem" />}
-                    headerTekst={{ tekst: 'Sende inn krav om refusjon', typografiType: 'undertittel' }}
+                    headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', typografiType: 'undertittel' }}
                 >
                     <p>
                         Vi sender dere et brev til bedriftens innboks i Altinn om innvilget støtte for tiltaket. For å
@@ -182,7 +182,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = props => (
                     </p>
 
                     <p>
-                        Når perioden er over, må dere sende inn et krav om tilskudd til NAV på{' '}
+                        Godkjent tilskuddsperiode i tilskuddsbrevet er styrende i henhold til økonomisk forpliktelse fra
+                        NAV og kan avvike fra avtalt periode for tiltaksgjennomføringen. Når perioden er over, må dere
+                        sende inn et krav om tilskudd til NAV på{' '}
                         <EksternLenke href={'https://www.nav.no/soknader/nb/bedrift/refusjoner/lonnstilskud'}>
                             skjema for refusjonskrav
                         </EksternLenke>

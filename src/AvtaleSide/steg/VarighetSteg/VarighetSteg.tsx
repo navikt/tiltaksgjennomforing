@@ -60,6 +60,14 @@ const VarighetSteg: FunctionComponent = () => {
                         <Normaltekst>
                             Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato. Hvor
                             lenge det er behov for tiltaket vil vurderes underveis i perioden.
+                            {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(
+                                avtaleContext.avtale.tiltakstype
+                            ) && (
+                                <>
+                                    {' '} Godkjent tilskuddsperiode i tilskuddsbrevet er styrende i henhold til økonomisk
+                                    forpliktelse fra NAV og kan avvike fra avtalt periode for tiltaksgjennomføringen.
+                                </>
+                            )}
                         </Normaltekst>
                         <VerticalSpacer rem={2} />
                     </Column>
