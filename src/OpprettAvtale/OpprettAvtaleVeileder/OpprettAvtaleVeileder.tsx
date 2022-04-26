@@ -187,6 +187,16 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                         }}
                     />
                 )}
+                    <RadioPanel
+                        name="tiltakstype"
+                        label="Inkluderingstilskudd"
+                        value="INKLUDERINGSTILSKUDD"
+                        checked={valgtTiltaksType === 'INKLUDERINGSTILSKUDD'}
+                        onChange={() => {
+                            setTiltaksType('INKLUDERINGSTILSKUDD');
+                            setUyldigAvtaletype(false);
+                        }}
+                    />
                 <RadioPanel
                     name="tiltakstype"
                     label="Sommerjobb"

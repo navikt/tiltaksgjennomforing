@@ -68,6 +68,7 @@ export type TiltaksType =
     | 'MIDLERTIDIG_LONNSTILSKUDD'
     | 'VARIG_LONNSTILSKUDD'
     | 'MENTOR'
+    | 'INKLUDERINGSTILSKUDD'
     | 'SOMMERJOBB';
 export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'UTBETALT';
 export type AvbrytelseGrunn =
