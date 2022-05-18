@@ -99,7 +99,7 @@ const EtterRegistrering: FunctionComponent = () => {
                             />
                             <InfoRad
                                 klasseNavn={cls.element('rad-info')}
-                                radInfo="Bedriftsnummer:"
+                                radInfo="Virksomhetsnummer:"
                                 radVerdi={avtale.bedriftNr}
                             />
                             <InfoRad

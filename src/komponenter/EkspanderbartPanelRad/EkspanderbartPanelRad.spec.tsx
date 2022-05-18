@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import EkspanderbartPanelRad from './EkspanderbartPanelRad';
+import IkonTekstRad from './IkonTekstRad';
 
 test('Test that <EkspanderbartPanelRad> renders correctly', () => {
-    const wrapper = shallow(<EkspanderbartPanelRad svgIkon={null} />);
+    const wrapper = shallow(<IkonTekstRad svgIkon={null} />);
     expect(wrapper).toHaveLength(1);
 });

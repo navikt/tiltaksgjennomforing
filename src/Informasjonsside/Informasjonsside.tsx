@@ -5,7 +5,7 @@ import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
 import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '@/komponenter/Banner/Banner';
-import EkspanderbartPanelRad from '@/komponenter/EkspanderbartPanelRad/EkspanderbartPanelRad';
+import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { pathTilInformasjonssideInnlogget } from '@/paths';
@@ -29,7 +29,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
 
     const veilederOgArbeidsgiverOppretter = (
-        <EkspanderbartPanelRad
+        <IkonTekstRad
             classname={cls.element('info')}
             svgIkon={<Keyboard role="presentation" focusable="false" className={cls.element('SubIkon')} />}
             headerTekst={{
@@ -51,7 +51,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                 Arbeidsgiveren kan også opprette en avtale selv. Når avtalen er opprettet kan arbeidsgiveren begynne å
                 fylle ut avtalen.
             </Normaltekst>
-        </EkspanderbartPanelRad>
+        </IkonTekstRad>
     );
 
     return (
@@ -72,7 +72,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             </Normaltekst>
                         </div>
 
-                        <EkspanderbartPanelRad
+                        <IkonTekstRad
                             classname={cls.element('info')}
                             svgIkon={
                                 <DigitalAvtale
@@ -90,11 +90,11 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             i sanntid. Når innholdet i avtalen er ferdig utfylt skal alle parter godkjenne avtalen. Hvem
                             som godkjenner avtalen først av arbeidsgiveren eller deltakeren har ikke noe å si. NAV skal
                             alltid godkjenne avtalen til slutt, og først da kan tiltaket starte.
-                        </EkspanderbartPanelRad>
+                        </IkonTekstRad>
 
                         {veilederOgArbeidsgiverOppretter}
 
-                        <EkspanderbartPanelRad
+                        <IkonTekstRad
                             classname={cls.element('info')}
                             svgIkon={
                                 <Altinn role="presentation" focusable="false" className={cls.element('SubIkon')} />
@@ -125,9 +125,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                                 </EksternLenke>
                             </span>
                             <AltinnVideoModal isOpen={isVideoModalOpen} lukkModal={() => setVideoModalOpen(false)} />
-                        </EkspanderbartPanelRad>
+                        </IkonTekstRad>
 
-                        <EkspanderbartPanelRad
+                        <IkonTekstRad
                             classname={cls.element('info')}
                             svgIkon={
                                 <DynamiskAvtale
@@ -143,9 +143,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                         >
                             Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Etter at avtalen er
                             godkjent av alle parter, må endringer gå gjennom veileder.
-                        </EkspanderbartPanelRad>
+                        </IkonTekstRad>
 
-                        <EkspanderbartPanelRad
+                        <IkonTekstRad
                             classname={cls.element('info')}
                             svgIkon={
                                 <Historikk role="presentation" focusable="false" className={cls.element('SubIkon')} />
@@ -158,7 +158,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             Hvis det gjøres endringer i avtalen underveis i tiltaket, lagrer NAV den forrige, godkjente
                             versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan alle tre
                             parter se utviklingen og vurdere måloppnåelse i etterkant.
-                        </EkspanderbartPanelRad>
+                        </IkonTekstRad>
                     </div>
                 </div>
             </div>

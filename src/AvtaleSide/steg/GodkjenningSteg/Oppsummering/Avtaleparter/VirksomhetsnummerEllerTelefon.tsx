@@ -9,7 +9,7 @@ interface Props {
     key?: number;
 }
 
-export const BedriftsnummerEllerTelefon: FunctionComponent<Props> = props => {
+export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = props => {
     function hentTallMedDotterOgMellomrom() {
         return props.verdi?.split('').join('. ');
     }
@@ -39,4 +39,4 @@ export const BedriftsnummerEllerTelefon: FunctionComponent<Props> = props => {
     }
 };
 
-export default BedriftsnummerEllerTelefon;
+export default VirksomhetsnummerEllerTelefon;

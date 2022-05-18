@@ -456,3 +456,9 @@ export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Pr
     await api.post(`/avtaler/${avtale.id}/endre-maal`, { maal: maal });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
+
+export const sjekkOmAvtaleErPilot = async (avtale: Avtale) : Promise<boolean> => {
+    const uri = `/avtaler/${avtale.id}/er-pilot`;
+    const response = await api.get(uri);
+    return response.data;
+}

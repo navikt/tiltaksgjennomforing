@@ -18,6 +18,7 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
+import {sjekkOmAvtaleErPilot} from "@/services/rest-service";
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -31,11 +32,13 @@ const VarighetSteg: FunctionComponent = () => {
     const duration = moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).diff(
         avtaleContext.avtale.gjeldendeInnhold.startDato,
         'days'
-    );
+    )
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
     const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
+
+    const [erPilot, setErPilot] = useState<boolean>()
 
     useEffect(() => {
         if (tiltakstype === 'SOMMERJOBB' && startDato) {
@@ -49,7 +52,10 @@ const VarighetSteg: FunctionComponent = () => {
                 }
             }
         }
-    }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato]);
+        if (tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD') {
+            sjekkOmAvtaleErPilot(avtaleContext.avtale).then(setErPilot)
+        }
+    }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato, avtaleContext.avtale]);
 
     return (
         <Innholdsboks utfyller="arbeidsgiver">
@@ -64,8 +70,9 @@ const VarighetSteg: FunctionComponent = () => {
                                 avtaleContext.avtale.tiltakstype
                             ) && (
                                 <>
-                                    {' '} Godkjent tilskuddsperiode i tilskuddsbrevet er styrende i henhold til økonomisk
-                                    forpliktelse fra NAV og kan avvike fra avtalt periode for tiltaksgjennomføringen.
+                                    {' '} Godkjent tilskuddsperiode {!erPilot && <>i tilskuddsbrevet</>} er styrende i
+                                    henhold til økonomisk forpliktelse fra NAV og kan avvike fra avtalt periode for
+                                    tiltaksgjennomføringen.
                                 </>
                             )}
                         </Normaltekst>
