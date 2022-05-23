@@ -60,14 +60,23 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
             {avtale.tiltakstype !== 'SOMMERJOBB' && <KvalifiseringsgruppeSats />}
-            {avtale.tiltakstype === 'SOMMERJOBB' && <OppgiLonnstilskuddprosent />}
-            <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned inkludert faste tillegg</Undertittel>
+            {avtale.tiltakstype === 'SOMMERJOBB'&& <OppgiLonnstilskuddprosent />}
+
+            <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned i faktisk stillingsprosent inkludert faste tillegg</Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 <div>
                     Brutto lønn omregnes til fast gjennomsnittlig månedslønn. I refusjonsgrunnlaget inngår lønn for
                     arbeid utført i normalarbeidstiden inkludert faste tillegg. Overtidsbetaling og andre variable
-                    tillegg skal ikke tas med. Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og
+                    tillegg skal ikke tas med. For deltidsstillinger skal lønn i den faktiske stillingsprosenten legges
+                    inn. For eksempel hvis deltaker er ansatt i en 50 % stilling, skal det legges inn månedslønn i 50 %
+                    stilling før skatt.
+                </div>
+                <VerticalSpacer rem={0.5} />
+                <div>
+                    Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og
                     utbetales regelmessig ved hver lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
+                </div>
+                <div>
                     <VerticalSpacer rem={0.5} />
                     <ul>
                         <li>b-tillegg</li>

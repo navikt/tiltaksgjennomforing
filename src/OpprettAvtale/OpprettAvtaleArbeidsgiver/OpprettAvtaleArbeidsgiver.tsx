@@ -74,7 +74,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             feilDeltakerFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
         }
         if (!validerOrgnr(valgtBedriftNr)) {
-            feilBedriftNr = Feilmeldinger.UGYLDIG_BEDRIFTSNUMMER;
+            feilBedriftNr = Feilmeldinger.UGYLDIG_VIRKSOMHETSNUMMER;
         }
 
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {

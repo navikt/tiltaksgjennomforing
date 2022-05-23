@@ -9,14 +9,14 @@ export const BedriftFilter: FunctionComponent = () => {
     return (
         <Filter tittel="Søk på bedrift">
             <SøkeInput
-                label="Bedriftsnummer"
+                label="Virksomhetsnummer"
                 maxLength={9}
                 utførSøk={(søkeord: string) => endreFilter({ bedriftNr: søkeord })}
                 valider={(verdi: string) => {
                     if (verdi === '') return undefined;
-                    return !validerOrgnr(verdi) ? 'Ugyldig bedriftsnummer' : undefined;
+                    return !validerOrgnr(verdi) ? 'Ugyldig virksomhetsnummer' : undefined;
                 }}
-                placeholder={'Skriv et bedriftsnummer'}
+                placeholder={'Skriv et virksomhetsnummer'}
                 defaultVerdi={filtre.bedriftNr}
             />
         </Filter>
