@@ -25,7 +25,7 @@ const GodkjenningInstruks: FunctionComponent = () => {
         case 'DELTAKER':
             return <DeltakerInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
         case 'ARBEIDSGIVER':
-            return <ArbeidsgiverInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
+            return <ArbeidsgiverInstruks erLaast={erLåst} tiltakstype={tiltakstype} erPilot={erPilot} />;
         case 'VEILEDER':
             return <VeilederInstruks tiltakstype={tiltakstype} erPilot={erPilot} />;
         default:

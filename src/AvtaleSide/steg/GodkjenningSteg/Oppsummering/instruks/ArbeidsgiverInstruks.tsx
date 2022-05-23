@@ -14,6 +14,7 @@ const cls = BEMHelper('instruks');
 interface Props {
     erLaast: boolean;
     tiltakstype: TiltaksType;
+    erPilot : boolean
 }
 const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => (
     <>
@@ -119,8 +120,8 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => (
                     headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', typografiType: 'undertittel' }}
                 >
                     <p>
-                        Godkjent tilskuddsperiode i tilskuddsbrevet er styrende i henhold til økonomisk forpliktelse fra
-                        NAV og kan avvike fra avtalt periode for tiltaksgjennomføringen.
+                        Godkjent tilskuddsperiode {!props.erPilot && <>i tilskuddsbrevet</>} er styrende i henhold til
+                        økonomisk forpliktelse fra NAV og kan avvike fra avtalt periode for tiltaksgjennomføringen.
                     </p>
                     <p>
                         Når tiltaket er over, vil NAV sende dere et ferdig utregnet forslag til refusjon. Refusjonen
