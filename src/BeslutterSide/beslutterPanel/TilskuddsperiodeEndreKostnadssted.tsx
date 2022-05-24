@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useContext, useState} from "react";
+import React, {FunctionComponent, useContext } from "react";
 import PakrevdInput from "@/komponenter/PakrevdInput/PakrevdInput";
 import VerticalSpacer from "@/komponenter/layout/VerticalSpacer";
 

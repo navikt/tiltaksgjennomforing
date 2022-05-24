@@ -11,7 +11,6 @@ import {Hovedknapp, Knapp} from "nav-frontend-knapper";
 import HorizontalSpacer from "@/komponenter/layout/HorizontalSpacer";
 import BekreftelseModal from "@/komponenter/modal/BekreftelseModal";
 import {TilskuddsperiodeContext} from "@/BeslutterSide/BeslutterSide";
-import {TilskuddsPeriode} from "@/types/avtale";
 
 interface Props {
     startAnimering: () => void;
