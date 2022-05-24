@@ -6,10 +6,20 @@
     padding: 1.25rem;
     margin-bottom: 0.25rem;
 
-    &__container {
+    &__innhold {
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    &__head-wrapper, &__avtale-wrapper {
+        width: 100%;
+        max-width: @container-desktop;
+    }
+
+    &__avtale-wrapper {
+        margin-bottom: 4rem;
     }
 
     &__hoved-tittel {
@@ -20,14 +30,12 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 1rem;
-    }
-
-    &__tittel-etikett {
-        display: inline-block;
+        max-width: 95%;
     }
 
     &__grid-container {
-        display: inline-block;
+        display: flex;
+        grid-gap: 7rem;
     }
 
     &__infovisning-rad {
@@ -43,22 +51,10 @@
         }
     }
 
-    &__infovisning-gruppe {
-        display: flex;
-    }
-
-    &__infovisning-status {
-        display: none;
-    }
-
     &__wrapper {
-        --grid-layout-gap: 0.5rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
-        grid-column-gap: var(--grid-layout-gap);
-        max-width: 75rem;
+        max-width: @container-desktop;
         width: 100%;
-        margin: 0 0.375rem;
+        margin: 0 0.5rem;
     }
 
     &__fade {
@@ -66,28 +62,12 @@
     }
 
     @media(min-width: @container-large-desktop) {
-        &__wrapper {
-            grid-template-columns: minmax(10rem, 30rem) minmax(31.25rem, 1fr);
-        }
-
         &__infovisning-rad {
             flex-direction: row;
         }
 
-        &__infovisning-gruppe {
-            display: inherit;
-        }
-
-        &__infovisning-status {
-            display: inline-block;
-        }
-
         &__tittel {
             margin-bottom: 0;
-        }
-
-        &__tittel-etikett {
-            display: none;
         }
     }
 }

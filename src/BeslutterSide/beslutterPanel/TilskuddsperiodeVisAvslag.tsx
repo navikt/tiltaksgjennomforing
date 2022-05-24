@@ -1,4 +1,4 @@
-import React, {Dispatch, FunctionComponent, SetStateAction, useContext, useState} from "react";
+import React, { FunctionComponent, useContext, useState} from "react";
 import {Element} from "nav-frontend-typografi";
 import VerticalSpacer from "@/komponenter/layout/VerticalSpacer";
 import {Checkbox, SkjemaGruppe} from "nav-frontend-skjema";
@@ -8,17 +8,15 @@ import PakrevdTextarea from "@/komponenter/PakrevdTextarea/PakrevdTextarea";
 import LagreKnapp from "@/komponenter/LagreKnapp/LagreKnapp";
 import BEMHelper from "@/utils/bem";
 import {AvtaleContext} from "@/AvtaleProvider";
+import {TilskuddsperiodeContext} from "@/BeslutterSide/BeslutterSide";
 
-interface Props {
-    visAvslag: boolean;
-    setVisAvslag: Dispatch<SetStateAction<boolean>>
-}
 
-const TilskuddsperiodeVisAvslag: FunctionComponent<Props> = ({ visAvslag, setVisAvslag }: Props) => {
+const TilskuddsperiodeVisAvslag: FunctionComponent = () => {
     const cls = BEMHelper('beslutter-panel');
     const [avslagsforklaring, setAvslagsforklaring] = useState('');
     const [avslagsårsaker, setAvslagsårsaker] = useState(new Set<Avslagsårsaker>());
-    const { avslåTilskudd } = useContext(AvtaleContext)
+    const { avslåTilskudd } = useContext(AvtaleContext);
+    const { visAvslag, setVisAvslag } = useContext(TilskuddsperiodeContext);
 
     if(!visAvslag) return null;
 

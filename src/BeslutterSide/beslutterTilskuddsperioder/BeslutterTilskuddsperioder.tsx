@@ -2,19 +2,26 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
-import React, { FunctionComponent, useContext } from 'react';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import EtikettStatus from '../EtikettStatus';
 import BEMHelper from "@/utils/bem";
-import {TilskuddsperiodeContext} from "@/BeslutterSide/BeslutterSide";
 import "./beslutterTilskuddsperioder.less";
+import {Undertittel} from "nav-frontend-typografi";
+import {Hovedknapp, Knapp} from "nav-frontend-knapper";
+import HorizontalSpacer from "@/komponenter/layout/HorizontalSpacer";
+import BekreftelseModal from "@/komponenter/modal/BekreftelseModal";
+import {TilskuddsperiodeContext} from "@/BeslutterSide/BeslutterSide";
+import {TilskuddsPeriode} from "@/types/avtale";
 
 interface Props {
     startAnimering: () => void;
 }
 
 const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
-    const { avtale } = useContext(AvtaleContext);
-    const { setPeriode, periode } = useContext(TilskuddsperiodeContext)
+    const { avtale, godkjennTilskudd } = useContext(AvtaleContext);
+    const { enhet, setEnhetFeil, setVisAvslag, visAvslag } = useContext(TilskuddsperiodeContext);
+    const { gjeldendeTilskuddsperiode } = avtale;
+    const [godkjennModalÅpen, setGodkjennModalÅpen] = useState(false);
     const cls = BEMHelper('beslutter-tilskuddsperioder');
 
     if(avtale.tilskuddPeriode.length < 1) return null;
@@ -24,8 +31,17 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
            if(datetime.toDateString() === 'Invalid Date') return '';
             return datetime.toLocaleDateString('no-NO', {year: '2-digit', month: '2-digit', day: '2-digit'})
     }
+
+    const settStylingUtifraLopenr = (løpenummer: number): string => {
+        if(løpenummer === gjeldendeTilskuddsperiode?.løpenummer) return 'gjeldende';
+        if(løpenummer - 1 === gjeldendeTilskuddsperiode?.løpenummer) return 'neste'
+        return '';
+    }
+
     return (
-        <div>
+        <div className={cls.className}>
+            <Undertittel className={cls.element('tittel')}>Tilskudd som skal godkjennes</Undertittel>
+            <div className={cls.element('container')}>
             <table className={'tabell'}>
                 <thead>
                     <tr>
@@ -38,28 +54,65 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = props => {
                     </tr>
                 </thead>
                 <tbody>
-                    {avtale.tilskuddPeriode.map((perioden, index) => {
-                        const valgtrad = perioden.id === periode?.id;
+                    {avtale.tilskuddPeriode.map((periode, index) => {
+                        const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer
                         return (
-                        <tr
-                            key={index}
-                            className={cls.element('tilskuddsperiode-rad', valgtrad ? 'valgtrad' : '')}
-                            onClick={() => setPeriode(perioden)}
-                        >
-                            <td>{perioden.løpenummer}</td>
-                            <td aria-label={`Startdato ${perioden.startDato} og sluttdato ${perioden.sluttDato}`}>
-                                {localDateTimeFormat(perioden.startDato)} - {localDateTimeFormat(perioden.sluttDato)}
-                            </td>
-                            <td>{formatterPenger(perioden.beløp)}</td>
-                            <td>{formatterProsent(perioden.lonnstilskuddProsent)}</td>
-                            <td>{formatterDato(perioden.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
-                            <td>
-                                <EtikettStatus tilskuddsperiodestatus={perioden.status} />
-                            </td>
-                        </tr>
-                    )})}
+                            <React.Fragment key={index}>
+                                <tr
+                                    key={index}
+                                    className={cls.element('tilskuddsperiode-rad',
+                                        settStylingUtifraLopenr(periode.løpenummer))}
+                                >
+                                    <td>{periode.løpenummer}</td>
+                                    <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>
+                                        {localDateTimeFormat(periode.startDato)} -
+                                        {localDateTimeFormat(periode.sluttDato)}
+                                    </td>
+                                    <td>{formatterPenger(periode.beløp)}</td>
+                                    <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
+                                    <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
+                                    <td>
+                                        <EtikettStatus tilskuddsperiodestatus={periode.status} />
+                                    </td>
+                                </tr>
+                                {gjeldende && (
+                                    <tr  className={cls.element('knapp-row')}>
+                                        <td className={cls.element('knapp-data')}>
+                                            <Hovedknapp
+                                                onClick={() => {
+                                                    if (!enhet.match(/\d{4}/)) {
+                                                        setEnhetFeil('Enhet må bestå av 4 siffer');
+                                                        return;
+                                                    }
+                                                    setGodkjennModalÅpen(true);
+                                                }}
+                                            >
+                                                Godkjenn tilskuddsperiode
+                                            </Hovedknapp>
+                                            <HorizontalSpacer rem={1} />
+                                            <Knapp onClick={() => setVisAvslag(!visAvslag)}>
+                                                Avslå med forklaring
+                                            </Knapp>
+                                        </td>
+                                    </tr>
+                                )}
+                            </React.Fragment>
+                        )})}
                 </tbody>
             </table>
+            </div>
+            <BekreftelseModal
+                bekreftOnClick={async () => {
+                    await godkjennTilskudd(enhet);
+                    setGodkjennModalÅpen(false);
+                }}
+                modalIsOpen={godkjennModalÅpen}
+                oversiktTekst="Godkjenn tilskuddsperiode"
+                varselTekst="Du kan ikke gjøre endringer etter at du har godkjent tilskuddsperioden."
+                bekreftelseTekst="Godkjenn tilskuddsperiode"
+                avbrytelseTekst="Avbryt"
+                lukkModal={() => setGodkjennModalÅpen(false)}
+            />
         </div>
     );
 };
