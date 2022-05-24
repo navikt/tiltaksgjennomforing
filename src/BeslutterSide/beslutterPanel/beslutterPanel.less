@@ -1,10 +1,13 @@
+@import '~nav-frontend-core/less/_variabler';
+
 .beslutter-panel {
   background-color: white;
   border-radius: 8px;
   padding: 1.25rem;
   margin-bottom: 0.25rem;
   margin-right: 0.5rem;
-  height: 40rem;
+  height: 24.375rem;
+
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
   width: 100%;
 
@@ -12,6 +15,7 @@
     background-color: #e9e7e7;
     border-radius: 4px;
     padding: 2rem;
+    margin-top: 1rem;
   }
 
   &__avslag-input {
@@ -21,5 +25,28 @@
 
   &__avslagsforklaring {
     width: 25rem;
+  }
+
+  &__input-wrapper {
+    display: flex;
+  }
+
+  &__knapp-wrapper {
+    display: flex;
+    align-items: flex-end;
+    margin-left: 2rem;
+  }
+
+  @media(min-width: @container-large-desktop) {
+    height: 40rem;
+
+    &__input-wrapper {
+      display: inherit;
+    }
+
+    &__knapp-wrapper {
+      display: inherit;
+      margin-left: 0;
+    }
   }
 }

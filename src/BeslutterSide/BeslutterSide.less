@@ -19,6 +19,11 @@
     &__tittel {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    &__tittel-etikett {
+        display: inline-block;
     }
 
     &__grid-container {
@@ -26,7 +31,24 @@
     }
 
     &__infovisning-rad {
-      //  display: flex;
+        display: flex;
+        align-items: center;
+        margin: 1rem 0;
+
+        & > p:nth-child(1) {
+            min-width: 9rem;
+        }
+        & > p:nth-child(2) {
+            min-width: 8rem;
+        }
+    }
+
+    &__infovisning-gruppe {
+        display: flex;
+    }
+
+    &__infovisning-status {
+        display: none;
     }
 
     &__wrapper {
@@ -48,15 +70,24 @@
             grid-template-columns: minmax(10rem, 30rem) minmax(31.25rem, 1fr);
         }
 
-        &__grid-container {
-            margin: 1.5rem 0;
-            display: grid;
-            grid-template-columns: 12rem auto;
-            row-gap: 1rem;
+        &__infovisning-rad {
+            flex-direction: row;
         }
 
-        &__infovisning-rad {
-            flex-direction: column;
+        &__infovisning-gruppe {
+            display: inherit;
+        }
+
+        &__infovisning-status {
+            display: inline-block;
+        }
+
+        &__tittel {
+            margin-bottom: 0;
+        }
+
+        &__tittel-etikett {
+            display: none;
         }
     }
 }

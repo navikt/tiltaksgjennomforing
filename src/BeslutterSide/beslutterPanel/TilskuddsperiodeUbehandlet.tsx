@@ -6,6 +6,7 @@ import HorizontalSpacer from "@/komponenter/layout/HorizontalSpacer";
 import BekreftelseModal from "@/komponenter/modal/BekreftelseModal";
 import {AvtaleContext} from "@/AvtaleProvider";
 import {TilskuddsPeriode} from "@/types/avtale";
+import BEMHelper from "@/utils/bem";
 
 interface Props {
     visAvslag: boolean;
@@ -19,12 +20,13 @@ const TilskuddsperiodeUbehandlet: FunctionComponent<Props> = ({ periode, visAvsl
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState(false);
     const [enhetFeil, setEnhetFeil] = useState<string>();
     const [enhet, setEnhet] = useState(periode?.enhet || enhetOppfolging || enhetGeografisk || '');
+    const cls = BEMHelper('beslutter-panel')
 
     if(periode && periode.status !== 'UBEHANDLET') return null;
 
     return (
             <>
-                <div>
+                <div className={cls.element('input-wrapper')}>
                     <PakrevdInput
                         bredde="S"
                         label="Kostnadssted"
@@ -34,20 +36,21 @@ const TilskuddsperiodeUbehandlet: FunctionComponent<Props> = ({ periode, visAvsl
                         feil={enhetFeil}
                     />
                     <VerticalSpacer rem={1} />
-                    <Hovedknapp
-                        onClick={() => {
-                            if (!enhet.match(/\d{4}/)) {
-                                setEnhetFeil('Enhet må bestå av 4 siffer');
-                                return;
-                            }
-                            setGodkjennModalÅpen(true);
-                        }}
-                    >
-                        Godkjenn
-                    </Hovedknapp>
-                    <HorizontalSpacer rem={1} />
-                    <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>
-
+                    <div className={cls.element('knapp-wrapper')}>
+                        <Hovedknapp
+                            onClick={() => {
+                                if (!enhet.match(/\d{4}/)) {
+                                    setEnhetFeil('Enhet må bestå av 4 siffer');
+                                    return;
+                                }
+                                setGodkjennModalÅpen(true);
+                            }}
+                        >
+                            Godkjenn
+                        </Hovedknapp>
+                        <HorizontalSpacer rem={1} />
+                        <Knapp onClick={() => setVisAvslag(!visAvslag)}>Avslå</Knapp>
+                    </div>
                 </div>
                 <BekreftelseModal
                     bekreftOnClick={async () => {

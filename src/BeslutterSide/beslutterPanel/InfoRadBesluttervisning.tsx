@@ -10,7 +10,7 @@ interface Props {
 const InfoRadBesluttervisning: FunctionComponent<Props> = ({ metadata, info }: Props) => {
     const cls = BEMHelper('beslutter-side');
     return (
-        <div className={cls.element('infovisning-rad2')}>
+        <div className={cls.element('infovisning-rad')}>
             <Element>{metadata}</Element>
             <Normaltekst>{info}</Normaltekst>
         </div>

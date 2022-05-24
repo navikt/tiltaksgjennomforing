@@ -6,7 +6,6 @@ import HentNavEnhetFraContext from "@/utils/HentNavEnhetFraContext";
 import {Avtale, TilskuddsPeriode} from "@/types/avtale";
 import BEMHelper from "@/utils/bem";
 import InfoRadBesluttervisning from "@/BeslutterSide/beslutterPanel/InfoRadBesluttervisning";
-import EtikettStatus from "@/BeslutterSide/EtikettStatus";
 
 interface Props {
     avtale: Avtale;
@@ -15,16 +14,17 @@ interface Props {
 
 const InfoVisningTilskuddsperiode: FunctionComponent<Props> = ({ avtale, periode }: Props) => {
     const cls = BEMHelper('beslutter-side');
-
     if(!periode) return null;
 
     return (
         <div className={cls.element('grid-container')}>
-            <InfoRadBesluttervisning
-                metadata="status"
-                info={<EtikettStatus tilskuddsperiodestatus={periode.status} />}
-            />
-
+            <div className={cls.element('infovisning-status')}>
+                <InfoRadBesluttervisning
+                    metadata="løpenummer"
+                    info={periode.løpenummer}
+                    />
+            </div>
+            <div className={cls.element('infovisning-gruppe')}>
                 <InfoRadBesluttervisning
                     metadata="Avtalenummer"
                     info={avtale.avtaleNr}
@@ -34,8 +34,8 @@ const InfoVisningTilskuddsperiode: FunctionComponent<Props> = ({ avtale, periode
                     info={`${avtale.gjeldendeInnhold.deltakerFornavn + ' '
                     + avtale.gjeldendeInnhold.deltakerEtternavn}`}
                 />
-
-
+            </div>
+            <div className={cls.element('infovisning-gruppe')}>
                 <InfoRadBesluttervisning
                     metadata="Arbeidsgiver"
                     info={avtale.gjeldendeInnhold.bedriftNavn}
@@ -44,8 +44,8 @@ const InfoVisningTilskuddsperiode: FunctionComponent<Props> = ({ avtale, periode
                     metadata="Periode"
                     info={formatterPeriode(periode.startDato, periode.sluttDato)}
                 />
-
-
+            </div>
+            <div className={cls.element('infovisning-gruppe')}>
                 <InfoRadBesluttervisning
                     metadata="Tilskuddsprosent"
                     info={formatterProsent(periode.lonnstilskuddProsent)}
@@ -54,8 +54,8 @@ const InfoVisningTilskuddsperiode: FunctionComponent<Props> = ({ avtale, periode
                     metadata="Beløp"
                     info={formatterPenger(periode.beløp)}
                 />
-
-
+            </div>
+            <div className={cls.element('infovisning-gruppe')}>
                 <InfoRadBesluttervisning
                     metadata="Geografisk enhet"
                     info={
@@ -72,7 +72,7 @@ const InfoVisningTilskuddsperiode: FunctionComponent<Props> = ({ avtale, periode
                             enhetsNavn="enhetsnavnOppfolging"
                         />}
                 />
-
+            </div>
         </div>
     )
 }
