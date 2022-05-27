@@ -1,5 +1,6 @@
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import KontaktpersonRefusjoninfoDel from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
 
@@ -294,5 +295,17 @@ export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innho
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
 
-export type EndreKontaktInfo = Deltakerinfo & Veilederinfo & Arbeidsgiverinfo;
+export type EndreKontaktInfo = {
+    arbeidsgiverFornavn?: string;
+    arbeidsgiverEtternavn?: string;
+    arbeidsgiverTlf?: string;
+    deltakerFornavn?: string;
+    deltakerEtternavn?: string;
+    deltakerTlf?: string;
+    veilederFornavn?: string;
+    veilederEtternavn?: string;
+    veilederTlf?: string;
+    refusjonKontaktperson: RefusjonKontaktperson;
+};
+
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;

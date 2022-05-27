@@ -327,10 +327,13 @@ export const slettemerkAvtale = async (avtaleId: string) => {
     await api.post(uri);
 };
 
-export const oppdatereKontaktInformasjon = async (avtale: Avtale, endreKontatInfo: EndreKontaktInfo): Promise<void> => {
+export const oppdatereKontaktInformasjon = async (
+    avtale: Avtale,
+    endreKontaktInfo: EndreKontaktInfo
+): Promise<void> => {
     await api.post(
         `/avtaler/${avtale.id}/endre-kontaktinfo`,
-        { ...endreKontatInfo },
+        { ...endreKontaktInfo },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
@@ -457,8 +460,8 @@ export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Pr
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
-export const sjekkOmAvtaleErPilot = async (avtale: Avtale) : Promise<boolean> => {
+export const sjekkOmAvtaleErPilot = async (avtale: Avtale): Promise<boolean> => {
     const uri = `/avtaler/${avtale.id}/er-pilot`;
     const response = await api.get(uri);
     return response.data;
-}
+};
