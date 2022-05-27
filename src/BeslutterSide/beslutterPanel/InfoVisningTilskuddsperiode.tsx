@@ -11,7 +11,7 @@ import {AvtaleContext} from "@/AvtaleProvider";
 const InfoVisningTilskuddsperiode: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext)
     const { gjeldendeTilskuddsperiode } = avtale;
-    const cls = BEMHelper('beslutter-side');
+    const cls = BEMHelper('beslutter-panel');
     if(!gjeldendeTilskuddsperiode) return null;
 
     return (

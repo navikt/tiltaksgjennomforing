@@ -9,7 +9,7 @@ import VerticalSpacer from './layout/VerticalSpacer';
 type Props = {
     lagreFunksjon: () => Promise<any>;
     avbryt: () => void;
-    lagreTekst: string;
+    lagretekst: string;
 } & HTMLAttributes<HTMLDivElement>;
 
 const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
@@ -48,7 +48,7 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
                     type="hoved"
                     {...knappBaseProps}
                 >
-                    {props.lagreTekst}
+                    {props.lagretekst}
                 </KnappBase>
                 <Knapp onClick={props.avbryt}>Avbryt</Knapp>
             </div>

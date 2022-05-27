@@ -7,7 +7,7 @@ import {formatterDato, NORSK_DATO_FORMAT} from "@/utils/datoUtils";
 
 
 const TilskuddsperiodeBehandlingsTittel: FunctionComponent = () => {
-    const cls = BEMHelper('beslutter-side');
+    const cls = BEMHelper('beslutter-panel');
     const { avtale } = useContext(AvtaleContext)
 
     if(!avtale.gjeldendeTilskuddsperiode) return null;

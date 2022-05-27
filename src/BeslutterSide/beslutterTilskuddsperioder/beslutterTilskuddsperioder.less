@@ -22,29 +22,41 @@
             border-bottom: none;
           }
         }
+        &__tilskuddsperiode-rad--avslatt {
+          & > td {
+            border-bottom: none;
+          }
+        }
       }
       tr.beslutter-tilskuddsperioder__knapp-row {
         position: relative;
-        height: 7rem;
         width: 100%;
         border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-        background-color: #F7F7F7;
         & > td {
           border-bottom: none;
         }
         .beslutter-tilskuddsperioder__knapp-data {
           background-color: #F7F7F7;
-          position: absolute;
-          top: 0;
-          left: 0;
           height: 100%;
           width: 100%;
-          & > button:nth-child(1)  {
+
+          &--avslatt {
+              background-color: white;
+          }
+          & > button, p:nth-child(1)  {
+            margin-bottom: 1rem;
+          }
+          & > button:nth-child(1), p:nth-child(1)  {
               margin-left: 4rem;
+
           }
         }
       }
     }
+  }
+
+  &__bold {
+    font-weight: 600;
   }
 
   td, th {

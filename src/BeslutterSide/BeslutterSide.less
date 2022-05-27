@@ -26,30 +26,10 @@
      margin: 1rem 0;
     }
 
-    &__tittel {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-        max-width: 95%;
-    }
 
-    &__grid-container {
-        display: flex;
-        grid-gap: 7rem;
-    }
 
-    &__infovisning-rad {
-        display: flex;
-        align-items: center;
-        margin: 1rem 0;
 
-        & > p:nth-child(1) {
-            min-width: 9rem;
-        }
-        & > p:nth-child(2) {
-            min-width: 8rem;
-        }
-    }
+
 
     &__wrapper {
         max-width: @container-desktop;
@@ -61,13 +41,11 @@
         opacity: 0.3;
     }
 
-    @media(min-width: @container-large-desktop) {
-        &__infovisning-rad {
-            flex-direction: row;
-        }
+    @media(min-width: @container-tablet) {
 
-        &__tittel {
-            margin-bottom: 0;
-        }
+
+
+
+
     }
 }

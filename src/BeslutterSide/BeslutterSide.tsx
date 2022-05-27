@@ -17,7 +17,7 @@ import OppsummeringLonnstilskudd
 
 const cls = BEMHelper('beslutter-side');
 
-interface Periode {
+export interface Periode {
     visAvslag: boolean;
     setVisAvslag: Dispatch<SetStateAction<boolean>>;
     enhet: string;
@@ -32,7 +32,10 @@ const BeslutterSide: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const { gjeldendeTilskuddsperiode, enhetOppfolging, enhetGeografisk } = avtale;
     const [visAvslag, setVisAvslag] = useState(false);
-    const [enhet, setEnhet] = useState(gjeldendeTilskuddsperiode?.enhet || enhetOppfolging || enhetGeografisk || '');
+    const defaultEnhet = gjeldendeTilskuddsperiode?.enhet || enhetOppfolging || enhetGeografisk || '';
+    const [enhet, setEnhet] = useState(
+        gjeldendeTilskuddsperiode && gjeldendeTilskuddsperiode?.løpenummer > 1 ?
+            avtale.tilskuddPeriode[gjeldendeTilskuddsperiode?.løpenummer - 1].enhet ?? defaultEnhet : defaultEnhet);
     const [enhetFeil, setEnhetFeil ] = useState<string | undefined>(undefined);
     const [, setClsName] = useState<string>();
 

@@ -4,7 +4,6 @@ import BEMHelper from "@/utils/bem";
 import InfoVisningTilskuddsperiode from "@/BeslutterSide/beslutterPanel/InfoVisningTilskuddsperiode";
 import TilskuddsperiodeBehandlingsTittel from "@/BeslutterSide/beslutterPanel/TilskuddsperiodeBehandlingsTittel";
 import "./beslutterPanel.less";
-import TilskuddsperiodeVisAvslag from "@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag";
 import TilskuddsperiodeStatus from "@/BeslutterSide/beslutterPanel/TilskuddsperiodeStatus";
 
 const BeslutterPanel: FunctionComponent = () => {
@@ -20,7 +19,6 @@ const BeslutterPanel: FunctionComponent = () => {
         <div className={cls.className}>
             <TilskuddsperiodeBehandlingsTittel />
             <InfoVisningTilskuddsperiode />
-            <TilskuddsperiodeVisAvslag />
             <TilskuddsperiodeStatus />
         </div>
     )
