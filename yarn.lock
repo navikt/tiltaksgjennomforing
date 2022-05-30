@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@amplitude/analytics-connector@1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@amplitude/analytics-connector/-/analytics-connector-1.4.2.tgz#5a87f35d014fa50cb283202d8fde78fa266712c2"
+  integrity sha512-bA9hLDobWA5HBHsdv1hI2+VmQOQ8AA4e3/YB9ng80J8NOLNN2zX/952YSf36Ns86QUm9pPCKHnYrlzMFU61X2g==
+  dependencies:
+    "@amplitude/ua-parser-js" "0.7.26"
+
 "@amplitude/types@^1.9.1":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@amplitude/types/-/types-1.9.1.tgz#df614ac6d278c60c39bb49e05014cdcc7e7714e9"
@@ -12,6 +19,11 @@
   resolved "https://registry.yarnpkg.com/@amplitude/ua-parser-js/-/ua-parser-js-0.7.26.tgz#18d889d84d2ba90c248ab6fcd7e3dd07f1c9c86e"
   integrity sha512-62/Rid6YQ7F2KT/5vTre41Y26ivrEoFC8lbrsJZqBKaiXMJWG0YpNv9RgxNSaZS2jPLVQgoB/FFeWxihOLfIcg==
 
+"@amplitude/ua-parser-js@0.7.31":
+  version "0.7.31"
+  resolved "https://registry.yarnpkg.com/@amplitude/ua-parser-js/-/ua-parser-js-0.7.31.tgz#749bf7cb633cfcc7ff3c10805bad7c5f6fbdbc61"
+  integrity sha512-+z8UGRaj13Pt5NDzOnkTBy49HE2CX64jeL0ArB86HAtilpnfkPB7oqkigN7Lf2LxscMg4QhFD7mmCfedh3rqTg==
+
 "@amplitude/utils@^1.0.5":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@amplitude/utils/-/utils-1.9.1.tgz#6d127b1a6f0b62c49a932ef00ecd471e554e192f"
@@ -20,10 +32,10 @@
     "@amplitude/types" "^1.9.1"
     tslib "^1.9.3"
 
-"@apollo/client@3.5.6":
-  version "3.5.6"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.5.6.tgz#911929df073280689efd98e5603047b79e0c39a2"
-  integrity sha512-XHoouuEJ4L37mtfftcHHO1caCRrKKAofAwqRoq28UQIPMJk+e7n3X9OtRRNXKk/9tmhNkwelSary+EilfPwI7A==
+"@apollo/client@3.5.7":
+  version "3.5.7"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.5.7.tgz#38051c0a414ebf784319fa5131faa19df24fa9ec"
+  integrity sha512-HSLqTGp3sp/PVIWYLLr5v3fjQSr6Fxg6Z5RQj5Q9ALyseIVudD8GZk1jHplaUblTFMBueXGw3Z6DXObuVAr3tw==
   dependencies:
     "@graphql-typed-document-node/core" "^3.0.0"
     "@wry/context" "^0.6.0"
@@ -1693,16 +1705,16 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@navikt/arbeidsgiver-notifikasjon-widget@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-1.2.2.tgz#784a64248bd05e092cdb137eb947998f41854613"
-  integrity sha512-7BgmbvgBqfO8nPJecA3/cobSue8dYg5gDT869l/SnECNoQjgT334kUTQ9Y6flH/l0tcezxTSmjL5DTkO/brrsg==
+"@navikt/arbeidsgiver-notifikasjon-widget@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-2.0.3.tgz#d3996521c81deddbd68792cd24dbe3dc6d77ce70"
+  integrity sha512-GZlh6UT0BQ3Z9Hg4LTxXfyZ9pa2A/cAo/xphG5oBqxxH+k5erojaLdgnDr5wq0/PeYVzOzaRhf2p5PZQZhd0Eg==
   dependencies:
-    "@apollo/client" "3.5.6"
-    "@navikt/ds-css" "0.12.6"
-    "@navikt/ds-icons" "0.7.1"
-    "@navikt/ds-react" "0.14.3"
-    amplitude-js "^8.14.0"
+    "@apollo/client" "3.5.7"
+    "@navikt/ds-css" "0.12.13"
+    "@navikt/ds-icons" "0.7.3"
+    "@navikt/ds-react" "0.14.14"
+    amplitude-js "^8.16.0"
     classnames "2"
     graphql "^15.8.0"
     nav-frontend-core "6"
@@ -1720,15 +1732,15 @@
     "@types/amplitude-js" "^8.0.1"
     fuzzysort "^1.1.4"
 
-"@navikt/ds-css@0.12.6":
-  version "0.12.6"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-0.12.6.tgz#fecaa5996413aa9526932ef07b6ba71c8dc44066"
-  integrity sha512-nf65d6LEpI8a9y1QB56/rXgotvJH8uCkTk93n5AoybUF53tuflXe2BhNXUYKqKnRhVSIiPz+/ZUYGEC7PZ4c/g==
+"@navikt/ds-css@0.12.13":
+  version "0.12.13"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-0.12.13.tgz#4a482fd72ab1c9fb0b125b5dc5aded5cdb6a9aff"
+  integrity sha512-GBfEthCFN3r4tSVSwCX+ChWsgvQJTe1+DJJyaAsr/ekO8Qb/NTKT0EyHC+bH8Eg3i1XRpfS1HjWKAwK96gQilg==
 
-"@navikt/ds-icons@0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.7.1.tgz#e65f26884f56cba6a98dc80bf2c02c22b3b1aa91"
-  integrity sha512-Uqegt1RzyQOUSk3SAqtKBuPRlAjNCJZcBNNoIrSyL5NOifiij/JEr/ysKh8ngQZd+T0bDDlwZdcVRSXkW3S9xg==
+"@navikt/ds-icons@0.7.3", "@navikt/ds-icons@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.7.3.tgz#ffe37e32cc5a0b3e640b9db0f95ff4c5f18c4002"
+  integrity sha512-fixTpRhYWB+DGG7LGsnNeIvHuO95uubaAH9YkSW3AsaoNQMaYtIKRCbGzqNcDTvfYiJvGQe++wIZCLAarCZfMA==
   dependencies:
     uuid "^8.3.2"
 
@@ -1739,20 +1751,13 @@
   dependencies:
     uuid "^8.3.2"
 
-"@navikt/ds-icons@^0.7.1":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-0.7.3.tgz#ffe37e32cc5a0b3e640b9db0f95ff4c5f18c4002"
-  integrity sha512-fixTpRhYWB+DGG7LGsnNeIvHuO95uubaAH9YkSW3AsaoNQMaYtIKRCbGzqNcDTvfYiJvGQe++wIZCLAarCZfMA==
-  dependencies:
-    uuid "^8.3.2"
-
-"@navikt/ds-react@0.14.3":
-  version "0.14.3"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.14.3.tgz#5523247876cc1dd3609cae9f4d41d434ae86e320"
-  integrity sha512-FQhB3bPS2UV+44wEa/7Zz4sEYoLrAF0keUYi22sy0LURytuJGg6EQbMFH1rEvfOBBQbb96e/1AE6iofwhwIM4Q==
+"@navikt/ds-react@0.14.14":
+  version "0.14.14"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.14.14.tgz#d3747e88f9311fdadf538976f540a3f12b106008"
+  integrity sha512-UAZRWyyA4QFLP1P4qFZ3G55ksC890rR3egV23ReONFBMvpiwbnC3lw3BMcSmB0wW1RP/HvgTDEezhvvPBk2Vgg==
   dependencies:
     "@material-ui/core" "^4.12.3"
-    "@navikt/ds-icons" "^0.7.1"
+    "@navikt/ds-icons" "^0.7.3"
     "@popperjs/core" "^2.10.1"
     classnames "^2.2.6"
     react-collapse "^5.1.0"
@@ -2979,12 +2984,13 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-amplitude-js@^8.14.0:
-  version "8.16.1"
-  resolved "https://registry.yarnpkg.com/amplitude-js/-/amplitude-js-8.16.1.tgz#6c8c603237f861685e04c8669e562664749b5065"
-  integrity sha512-1X9xvxmWIK1DlVluuk2QXziYcgSiZE4d4DLhMzY9yUP+KauCbFy37lW4m3dixp6Y8AIGU+WUAfAsCLqXYlF0rw==
+amplitude-js@^8.16.0:
+  version "8.18.3"
+  resolved "https://registry.yarnpkg.com/amplitude-js/-/amplitude-js-8.18.3.tgz#cec2424f139ea5cfc4e8bbefb8e2101f027bba05"
+  integrity sha512-Qs4bspIufDZ9UcG1FLgOPoOP8qJUN/W5IoueOcmi+6u5fX+wigDNfLlbaga2sZ5/Tk6qUUWT+ZuNouLA3+2izQ==
   dependencies:
-    "@amplitude/ua-parser-js" "0.7.26"
+    "@amplitude/analytics-connector" "1.4.2"
+    "@amplitude/ua-parser-js" "0.7.31"
     "@amplitude/utils" "^1.0.5"
     "@babel/runtime" "^7.3.4"
     blueimp-md5 "^2.10.0"
