@@ -6,7 +6,7 @@ import {
     GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
     GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
-    Maal,
+    Maal
 } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
@@ -19,8 +19,10 @@ import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
 
-export const noenHarGodkjentMenIkkeAlle = (avtale: Avtale) => {
-    return Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
+export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
+    const noenHarGodkjent = (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder);
+    return noenHarGodkjent && !avtale.erAvtaleInngått;
+    //return Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
 
 export interface TemporaryLagring {
@@ -91,7 +93,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         if (underLagring) {
             return;
         }
-        if (noenHarGodkjentMenIkkeAlle(avtale) && !ulagredeEndringer) {
+        if (noenHarGodkjentMenIkkeInngått(avtale) && !ulagredeEndringer) {
             return;
         }
         if (!forceLagring && !ulagredeEndringer) {
@@ -130,7 +132,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
         felt: K,
         verdi: T[K]
     ): Avtale | undefined => {
-        if (noenHarGodkjentMenIkkeAlle(avtale)) {
+        if (noenHarGodkjentMenIkkeInngått(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, [felt]: verdi } };
@@ -141,7 +143,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
     };
 
     const settAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre = false): Avtale | undefined => {
-        if (noenHarGodkjentMenIkkeAlle(avtale)) {
+        if (noenHarGodkjentMenIkkeInngått(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, ...endringer } };
@@ -155,7 +157,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
     };
 
     const settOgKalkulerBeregningsverdier = async (endringer: Partial<Beregningsgrunnlag>) => {
-        if (noenHarGodkjentMenIkkeAlle(avtale)) {
+        if (noenHarGodkjentMenIkkeInngått(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             try {
@@ -170,7 +172,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
     };
 
     const utforHandlingHvisRedigerbar = (callback: () => void): void => {
-        if (noenHarGodkjentMenIkkeAlle(avtale)) {
+        if (noenHarGodkjentMenIkkeInngått(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
         } else {
             callback();

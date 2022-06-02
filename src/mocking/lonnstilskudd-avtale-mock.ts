@@ -77,6 +77,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     avtaleNr: 1,
 
     godkjentForEtterregistrering: false,
+    erAvtaleInngått: false
 };
 
 export default lonnstilskuddAvtaleMock;
