@@ -1,6 +1,5 @@
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import KontaktpersonRefusjoninfoDel from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
 
@@ -97,6 +96,7 @@ export interface AvtaleMetadata {
     sistEndret: string;
     tiltakstype: TiltaksType;
     erUfordelt: boolean;
+    erAvtaleInngått: boolean;
     enhetGeografisk?: string;
     enhetsnavnGeografisk?: string;
     enhetOppfolging?: string;
