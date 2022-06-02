@@ -20,7 +20,7 @@ import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
-    const noenHarGodkjent = (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder);
+    const noenHarGodkjent = Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder);
     return noenHarGodkjent && !avtale.erAvtaleInngått;
     //return Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
