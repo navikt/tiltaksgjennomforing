@@ -32,11 +32,3 @@ test('Godkjent av deltaker og ag, men ikke alle', () => {
     const godkjentDeltakerOgArbeidsgiver = noenHarGodkjentMenIkkeInngått(avtale);
     expect(godkjentDeltakerOgArbeidsgiver).toBe(true);
 });
-test('Godkjent av alle', () => {
-    const avtale = arbeidstreningAvtaleMock;
-    avtale.godkjentAvDeltaker = '2021-01-01T00:00:00.000';
-    avtale.godkjentAvArbeidsgiver = '2021-01-01T00:00:00.000';
-    avtale.godkjentAvVeileder = '2021-01-01T00:00:00.000';
-    const godkjnetAvAlle = noenHarGodkjentMenIkkeInngått(avtale);
-    expect(godkjnetAvAlle).toBe(false);
-});
