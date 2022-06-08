@@ -33,16 +33,16 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
 
     useEffect(() => {
         if (oppslag.status === Status.Feil) {
-            // feilRef.current?.focus();
+            feilRef.current?.focus();
         }
     }, [oppslag.status]);
 
     return (
-        <div className="TEST_TEST_TEST">
+        <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <KnappBase
-                    //  spinner={oppslag.status === Status.LasterInn}
-                    //   disabled={oppslag.status === Status.LasterInn}
+                    spinner={oppslag.status === Status.LasterInn}
+                    disabled={oppslag.status === Status.LasterInn}
                     onClick={onClick}
                     type="hoved"
                     {...knappBaseProps}
