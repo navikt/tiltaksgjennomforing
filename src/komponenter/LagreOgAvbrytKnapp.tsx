@@ -24,8 +24,7 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
     const onClick = async () => {
         try {
             setOppslag({ status: Status.LasterInn });
-            await props.lagreFunksjon();
-            setOppslag({ status: Status.Sendt });
+            await props.lagreFunksjon().then(() => setOppslag({ status: Status.Sendt }));
         } catch (error: any) {
             setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
             handterFeil(error, setFeilmelding);
@@ -34,16 +33,16 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
 
     useEffect(() => {
         if (oppslag.status === Status.Feil) {
-            feilRef.current?.focus();
+            // feilRef.current?.focus();
         }
     }, [oppslag.status]);
 
     return (
-        <div>
+        <div className="TEST_TEST_TEST">
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <KnappBase
-                    spinner={oppslag.status === Status.LasterInn}
-                    disabled={oppslag.status === Status.LasterInn}
+                    //  spinner={oppslag.status === Status.LasterInn}
+                    //   disabled={oppslag.status === Status.LasterInn}
                     onClick={onClick}
                     type="hoved"
                     {...knappBaseProps}

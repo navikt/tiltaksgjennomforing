@@ -153,14 +153,15 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr].map((t) => (
+                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
                             <RadioPanel
+                                key={index}
                                 name="tiltakstype"
-                                label={storForbokstav(tiltakstypeTekst[t])}
-                                value={t}
-                                checked={valgtTiltaksType === t}
+                                label={storForbokstav(tiltakstypeTekst[tiltakType])}
+                                value={tiltakType}
+                                checked={valgtTiltaksType === tiltakType}
                                 onChange={() => {
-                                    setTiltaksType(t);
+                                    setTiltaksType(tiltakType);
                                     setUyldigAvtaletype(false);
                                 }}
                             />

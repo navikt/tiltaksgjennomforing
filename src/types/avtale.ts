@@ -242,7 +242,7 @@ export interface Godkjenninger {
     statusSomEnum: AvtaleStatus;
     godkjentPaVegneAv: boolean;
     godkjentPaVegneGrunn?: GodkjentPaVegneAvDeltakerGrunner;
-    felterSomIkkeErFyltUt: (keyof Avtaleinnhold)[];
+    felterSomIkkeErFyltUt: Array<keyof Avtaleinnhold>;
     ikrafttredelsestidspunkt?: string;
 }
 
