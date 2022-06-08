@@ -8,28 +8,29 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { tilskuddsperiodeAvslagTekst } from '@/messages';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
+import { Avslagsårsaker } from '@/types/avtale';
 
-const TilskuddsperioderAvslått: FunctionComponent = props => {
+const TilskuddsperioderAvslått: FunctionComponent = (props) => {
     const { avtale, sendTilbakeTilBeslutter } = useContext(AvtaleContext);
     const gjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
     const avslåttTilskuddsperiode = avtale.tilskuddPeriode.find(
-        t => t.status === 'AVSLÅTT' && avtale.gjeldendeTilskuddsperiode?.løpenummer
+        (t) => t.status === 'AVSLÅTT' && avtale.gjeldendeTilskuddsperiode?.løpenummer
     );
     if (!avslåttTilskuddsperiode) {
         return null;
     }
 
     const avslåttBegrunnelse = (
-        <Normaltekst>
+        <>
             Tilskuddsperioden ble avslått av {avslåttTilskuddsperiode.avslåttAvNavIdent} den{' '}
             {formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_FORMAT)} med følgende årsak(er):
             <ul>
-                {Array.from(avslåttTilskuddsperiode.avslagsårsaker).map(årsak => (
-                    <li>{tilskuddsperiodeAvslagTekst[årsak]}</li>
+                {Array.from(avslåttTilskuddsperiode.avslagsårsaker).map((årsak: Avslagsårsaker, index: number) => (
+                    <li key={index}>{tilskuddsperiodeAvslagTekst[årsak]}</li>
                 ))}
             </ul>
             med forklaringen: {avslåttTilskuddsperiode.avslagsforklaring}
-        </Normaltekst>
+        </>
     );
 
     return (

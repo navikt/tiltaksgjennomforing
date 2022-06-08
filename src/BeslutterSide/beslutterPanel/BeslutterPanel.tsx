@@ -4,7 +4,6 @@ import BEMHelper from '@/utils/bem';
 import InfoVisningTilskuddsperiode from '@/BeslutterSide/beslutterPanel/InfoVisningTilskuddsperiode';
 import TilskuddsperiodeBehandlingsTittel from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeBehandlingsTittel';
 import './beslutterPanel.less';
-import TilskuddsperiodeStatus from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeStatus';
 
 const BeslutterPanel: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -19,7 +18,6 @@ const BeslutterPanel: FunctionComponent = () => {
         <div className={cls.className}>
             <TilskuddsperiodeBehandlingsTittel />
             <InfoVisningTilskuddsperiode />
-            <TilskuddsperiodeStatus />
         </div>
     );
 };

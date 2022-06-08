@@ -9,19 +9,37 @@ import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
 import moment from 'moment';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { default as React, FunctionComponent } from 'react';
+import { default as React, FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 const cls = BEMHelper('avtaletabell');
 
-const hentAvtaleStatus = (avtale: Avtale, rolle: Rolle) => {
+export interface AntallKlarTilgodkjenning {
+    id: string;
+    antallKlarTilgodkjenning: number;
+}
+
+const hentAvtaleStatus = (
+    avtale: Avtale,
+    rolle: Rolle,
+    skalViseAntallUbehandlet: boolean,
+    ubehandletPerioder?: AntallKlarTilgodkjenning
+) => {
     if (rolle === 'BESLUTTER') {
         return (
             <div className={cls.element('status')}>
                 {avtale.gjeldendeTilskuddsperiode && (
-                    <EtikettStatus tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status} />
+                    <EtikettStatus
+                        tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status}
+                        antallKlarTilgodkjenning={
+                            skalViseAntallUbehandlet && ubehandletPerioder
+                                ? ubehandletPerioder.antallKlarTilgodkjenning
+                                : undefined
+                        }
+                    />
                 )}
             </div>
         );
@@ -41,7 +59,25 @@ const AvtaleTabell: FunctionComponent<{
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
+    const { filtre } = useFilter();
     const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
+    const skalViseAntallUbehandlet =
+        erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
+    const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
+    useEffect(() => {
+        skalViseAntallUbehandlet
+            ? setAntallKlar(
+                  avtaler.map((a) => ({
+                      id: a.id,
+                      antallKlarTilgodkjenning: a.tilskuddPeriode.filter(
+                          (t) =>
+                              (new Date(t.kanBesluttesFom) <= new Date() || t.kanBesluttesFom === '-999999999-01-01') &&
+                              t.status === 'UBEHANDLET'
+                      )?.length,
+                  }))
+              )
+            : setAntallKlar(undefined);
+    }, [avtaler, erBeslutter, filtre?.tilskuddPeriodeStatus, skalViseAntallUbehandlet]);
 
     return (
         <div className={cls.className}>
@@ -56,7 +92,7 @@ const AvtaleTabell: FunctionComponent<{
                 <div className={cls.element('statusikon')}>&nbsp;</div>
             </div>
             <div role="list">
-                {avtaler.map((avtale: Avtale) => {
+                {avtaler.map((avtale: Avtale, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
                         <LenkepanelBase
@@ -96,7 +132,12 @@ const AvtaleTabell: FunctionComponent<{
                                         ).format('DD.MM.YYYY')}
                                     </div>
                                 </MediaQuery>
-                                {hentAvtaleStatus(avtale, innloggetBruker.rolle)}
+                                {hentAvtaleStatus(
+                                    avtale,
+                                    innloggetBruker.rolle,
+                                    skalViseAntallUbehandlet,
+                                    antallKlar ? antallKlar[index] : undefined
+                                )}
                             </div>
                         </LenkepanelBase>
                     );

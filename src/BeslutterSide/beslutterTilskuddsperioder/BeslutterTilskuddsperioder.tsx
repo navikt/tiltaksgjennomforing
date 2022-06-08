@@ -43,10 +43,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
 
     const hentAvslagsArsaker = (periode: TilskuddsPeriode): string =>
         new Array(Object.values(periode.avslagsårsaker))
-            .map((e) => e)
-            .join(', ')
-            .split(',')
-            .map((e) => tilskuddsperiodeAvslagTekst[e.trim() as Avslagsårsaker])
+            .map((e) => e.map((o) => tilskuddsperiodeAvslagTekst[o?.toString().trim() as Avslagsårsaker]).join(', '))
             .join(', ');
 
     const hentAvslattInfoTilskuddsperiode = (periode: TilskuddsPeriode): JSX.Element => {
