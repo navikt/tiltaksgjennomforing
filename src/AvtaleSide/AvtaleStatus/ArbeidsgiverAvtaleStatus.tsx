@@ -22,8 +22,8 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
                 header={'Avtalen er ikke fordelt til en veileder i NAV enda'}
                 body={
                     <Normaltekst>
-                        Du kan likevel begynne å fylle ut avtalen og godkjenne den. Når avtalen har blitt tildelt en
-                        veileder kan veilederen godkjenne den.
+                        Du kan likevel begynne å fylle ut avtalen. Når avtalen har blitt tildelt en veileder kan alle
+                        parter godkjenne avtalen.
                     </Normaltekst>
                 }
             />

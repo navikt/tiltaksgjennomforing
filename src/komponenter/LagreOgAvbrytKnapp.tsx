@@ -17,7 +17,7 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
     const [feilmelding, setFeilmelding] = useState('');
 
     // Fjerner ikke-standard knapp-props før de spreades inn i KnappBase.
-    const knappBaseProps: KnappBaseProps = _.omit(props, ['lagreFunksjon', 'avbryt']);
+    const knappBaseProps: KnappBaseProps = _.omit(props, ['lagreFunksjon', 'avbryt', 'lagreTekst']);
 
     const feilRef = useRef<HTMLDivElement>(null);
 

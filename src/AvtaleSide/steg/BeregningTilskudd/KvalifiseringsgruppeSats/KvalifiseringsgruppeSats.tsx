@@ -30,7 +30,7 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
 
     return innloggetBruker.erNavAnsatt ? (
         <>
-            {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && (
+            {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ? (
                 <>
                     <Undertittel>Tilskuddsprosent</Undertittel>
                     <VerticalSpacer rem={1.25} />
@@ -49,10 +49,17 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
                     />
                     <VerticalSpacer rem={1} />
                 </>
-            )}
+            ) : (
+            <>
+                <Undertittel>Tilskuddsprosent</Undertittel>
+                <Normaltekst>{settLonnstilskuddsprosent()}</Normaltekst>
+                <VerticalSpacer rem={1} />
+            </>
+                )}
         </>
     ) : (
         <>
+            <Undertittel>Tilskuddsprosent</Undertittel>
             <Normaltekst>{settLonnstilskuddsprosent()}</Normaltekst>
             <VerticalSpacer rem={1} />
         </>

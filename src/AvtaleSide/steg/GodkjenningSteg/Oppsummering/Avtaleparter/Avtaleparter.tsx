@@ -46,7 +46,7 @@ const Avtaleparter: FunctionComponent = () => {
                     ]}
                     tilleggFelter={[
                         {
-                            felt: 'bedriftsnummer',
+                            felt: 'virksomhetsnummer',
                             verdi: avtaleContext.avtale.bedriftNr,
                         },
                         {

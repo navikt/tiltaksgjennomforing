@@ -6,7 +6,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import React, { useContext } from 'react';
 
-const OppfolgingOgTilretteleggingSteg = () => {
+const OppfolgingOgTilretteleggingStegNy = () => {
     const avtaleContext = useContext(AvtaleContext);
     return (
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
@@ -14,7 +14,8 @@ const OppfolgingOgTilretteleggingSteg = () => {
                 <span style={{ marginLeft: '0.25rem' }}>Oppfølging</span>
             </SkjemaTittel>
             <PakrevdTextarea
-                label="Beskriv hvilken oppfølging dere har avtalt. Eksempel på oppfølging kan være en eller flere avtalte oppfølgingssamtaler."
+                placeholder="Skriv inn innholdstekst i tekstfeltet her"
+                label="Beskriv hvilken oppfølging dere har avtalt. Eksempler på oppfølging kan være en etter flere avtalte oppfølgingssamtaler."
                 verdi={avtaleContext.avtale.gjeldendeInnhold.oppfolging || ''}
                 settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('oppfolging', verdi)}
                 maxLengde={1000}
@@ -25,6 +26,7 @@ const OppfolgingOgTilretteleggingSteg = () => {
                 <span style={{ marginLeft: '0.25rem' }}>Tilrettelegging</span>
             </SkjemaTittel>
             <PakrevdTextarea
+                placeholder="Skriv inn innholdstekst i tekstfeltet her"
                 label="Beskriv hvilken tilrettelegging dere har avtalt. For eksempel tilpasning i arbeidstid, hjelpemidler, unngå enkelte typer arbeidsoppgaver."
                 verdi={avtaleContext.avtale.gjeldendeInnhold.tilrettelegging}
                 settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('tilrettelegging', verdi)}
@@ -37,4 +39,4 @@ const OppfolgingOgTilretteleggingSteg = () => {
     );
 };
 
-export default OppfolgingOgTilretteleggingSteg;
+export default OppfolgingOgTilretteleggingStegNy;

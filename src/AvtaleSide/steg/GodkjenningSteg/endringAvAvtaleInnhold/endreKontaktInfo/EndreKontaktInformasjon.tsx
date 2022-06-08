@@ -24,6 +24,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         arbeidsgiverFornavn,
         arbeidsgiverEtternavn,
         arbeidsgiverTlf,
+        refusjonKontaktperson,
     } = context.avtale.gjeldendeInnhold;
     const [modalApen, setModalApen] = useState(false);
 
@@ -37,6 +38,11 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         arbeidsgiverFornavn: arbeidsgiverFornavn,
         arbeidsgiverEtternavn: arbeidsgiverEtternavn,
         arbeidsgiverTlf: arbeidsgiverTlf,
+        refusjonKontaktperson: {
+            refusjonKontaktpersonFornavn: refusjonKontaktperson?.refusjonKontaktpersonFornavn,
+            refusjonKontaktpersonEtternavn: refusjonKontaktperson?.refusjonKontaktpersonEtternavn,
+            refusjonKontaktpersonTlf: refusjonKontaktperson?.refusjonKontaktpersonTlf,
+        },
     });
 
     const endreKontaktInformasjon = async (): Promise<void> => {
@@ -114,6 +120,41 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         label="Telefonnummer"
                         verdi={kontaktInfo.arbeidsgiverTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
+                    />
+                </div>
+            </div>
+            <div className={cls.element('tittel')}>
+                <Undertittel>Kontaktperson for refusjon i bedriften</Undertittel>
+                <div className={cls.element('inputfelter')}>
+                    <PakrevdInput
+                        label="Fornavn"
+                        verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
+                        settVerdi={(verdi) =>
+                            settNyKontaktInformasjon('refusjonKontaktperson', {
+                                ...kontaktInfo.refusjonKontaktperson,
+                                refusjonKontaktpersonFornavn: verdi,
+                            })
+                        }
+                    />
+                    <PakrevdInput
+                        label="Etternavn"
+                        verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
+                        settVerdi={(verdi) =>
+                            settNyKontaktInformasjon('refusjonKontaktperson', {
+                                ...kontaktInfo.refusjonKontaktperson,
+                                refusjonKontaktpersonEtternavn: verdi,
+                            })
+                        }
+                    />
+                    <TelefonnummerInput
+                        label="Telefonnummer"
+                        verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
+                        settVerdi={(verdi) =>
+                            settNyKontaktInformasjon('refusjonKontaktperson', {
+                                ...kontaktInfo.refusjonKontaktperson,
+                                refusjonKontaktpersonTlf: verdi,
+                            })
+                        }
                     />
                 </div>
             </div>

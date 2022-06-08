@@ -23,7 +23,7 @@ const ArbeidsgiverinfoDel = () => {
                             settVerdi={(verdi) => settAvtaleVerdi('bedriftNavn', verdi)}
                         />
 
-                        <Input label="Bedriftsnummer" value={avtale.bedriftNr} disabled={true} />
+                        <Input label="Virksomhetsnummer" value={avtale.bedriftNr} disabled={true} />
                     </div>
                 </SkjemaGruppe>
                 <SkjemaGruppe title="Kontaktperson for avtalen" className={cls.element('skjemagruppe')}>
