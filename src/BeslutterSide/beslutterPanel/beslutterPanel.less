@@ -1,0 +1,80 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.beslutter-panel {
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem 2.75rem 2rem 2.5rem;
+  margin-bottom: 0.25rem;
+  margin-right: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+  width: 100%;
+
+  &__tittel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    max-width: 95%;
+  }
+
+  &__grid-container {
+    flex-direction: column;
+    display: flex;
+    grid-gap: 0;
+  }
+
+  &__infovisning-rad {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+    & > p:nth-child(1) {
+      min-width: 9rem;
+    }
+    & > p:nth-child(2) {
+      min-width: 8rem;
+    }
+  }
+
+  &__avslagtext-subingress {
+    text-align: center;
+  }
+
+  &__avslag-boks {
+    background-color: #e9e7e7;
+    border-radius: 4px;
+    padding: 2rem;
+    margin-top: 1rem;
+  }
+
+  &__avslag-input {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__avslagsforklaring-wrapper {
+    margin-left: 1rem;
+  }
+
+  &__avslagsforklaring {
+    width: 25rem;
+  }
+
+  &__input-wrapper {
+    display: flex;
+  }
+
+  @media(min-width: @container-tablet) {
+    &__tittel {
+      margin-bottom: 0;
+    }
+
+    &__grid-container {
+      flex-direction: row;
+      grid-gap: 7rem;
+    }
+
+    &__infovisning-rad {
+      flex-direction: row;
+    }
+  }
+}

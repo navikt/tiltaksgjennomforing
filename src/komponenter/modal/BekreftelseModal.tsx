@@ -80,7 +80,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                     <div className={cls.element('knapper')}>
                         <LagreOgAvbrytKnapp
                             lagreFunksjon={() => bekreftKlikk()}
-                            lagreTekst={props.bekreftelseTekst}
+                            lagretekst={props.bekreftelseTekst}
                             avbryt={() => props.lukkModal()}
                         />
                     </div>

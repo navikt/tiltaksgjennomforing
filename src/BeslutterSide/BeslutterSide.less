@@ -1,37 +1,40 @@
+@import '~nav-frontend-core/less/_variabler';
+
 .beslutter-side {
-    &__container {
+    background-color: white;
+    border-radius: 4px;
+    padding: 1.25rem;
+    margin-bottom: 0.25rem;
+
+    &__innhold {
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-    &__innhold {
-        width: 50rem;
+
+    &__head-wrapper, &__avtale-wrapper {
+        width: 100%;
+        max-width: @container-desktop;
     }
-    &__tittel {
-        display: flex;
-        justify-content: space-between;
+
+    &__avtale-wrapper {
+        margin-bottom: 4rem;
     }
-    &__grid-container {
-        display: grid;
-        grid-template-columns: 12rem auto;
-        row-gap: 1rem;
+
+    &__hoved-tittel {
+     margin: 1rem 0;
     }
+
+    &__wrapper {
+        max-width: @container-desktop;
+        width: 100%;
+        margin: 0 0.5rem;
+    }
+
     &__fade {
         opacity: 0.3;
     }
 
-    &__avslag-boks {
-        background-color: #e9e7e7;
-        border-radius: 4px;
-        padding: 2rem;
-    }
-
-    &__avslag-input {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    &__avslagsforklaring {
-        width: 25rem;
-    }
+    @media(min-width: @container-tablet) {}
 }

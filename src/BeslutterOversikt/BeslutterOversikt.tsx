@@ -36,9 +36,7 @@ const BeslutterOversikt: FunctionComponent = () => {
     return (
         <>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
-
             <BannerNAVAnsatt tekst={'Tilskuddsoversikt'} />
-
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 <div
                     style={layout.stylingAvFilterOgTabell}
