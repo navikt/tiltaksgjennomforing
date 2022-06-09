@@ -97,6 +97,7 @@ export interface AvtaleMetadata {
     sistEndret: string;
     tiltakstype: TiltaksType;
     erUfordelt: boolean;
+    erAvtaleInngått: boolean;
     enhetGeografisk?: string;
     enhetsnavnGeografisk?: string;
     enhetOppfolging?: string;
@@ -295,5 +296,17 @@ export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innho
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
 
-export type EndreKontaktInfo = Deltakerinfo & Veilederinfo & Arbeidsgiverinfo;
+export type EndreKontaktInfo = {
+    arbeidsgiverFornavn?: string;
+    arbeidsgiverEtternavn?: string;
+    arbeidsgiverTlf?: string;
+    deltakerFornavn?: string;
+    deltakerEtternavn?: string;
+    deltakerTlf?: string;
+    veilederFornavn?: string;
+    veilederEtternavn?: string;
+    veilederTlf?: string;
+    refusjonKontaktperson: RefusjonKontaktperson;
+};
+
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;

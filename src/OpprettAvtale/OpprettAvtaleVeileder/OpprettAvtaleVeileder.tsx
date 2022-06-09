@@ -49,12 +49,12 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [bedriftNrFeil, setBedriftNrFeil, validerBedriftNr] = useValidering(bedriftNr, [
         (verdi) => {
             if (!verdi) {
-                return 'Bedriftsnummer er påkrevd';
+                return 'Virksomhetsnummer er påkrevd';
             }
         },
         (verdi) => {
             if (!validerOrgnr(verdi)) {
-                return 'Ugyldig bedriftsnummer';
+                return 'Ugyldig virksomhetsnummer';
             }
         },
     ]);
@@ -111,7 +111,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             feilDeltakerFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
         }
         if (!validerOrgnr(bedriftNr)) {
-            feilBedriftNr = Feilmeldinger.UGYLDIG_BEDRIFTSNUMMER;
+            feilBedriftNr = Feilmeldinger.UGYLDIG_VIRKSOMHETSNUMMER;
         }
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);

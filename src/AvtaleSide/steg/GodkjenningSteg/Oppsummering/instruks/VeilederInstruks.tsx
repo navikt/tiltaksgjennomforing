@@ -3,7 +3,7 @@ import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/Veilederp
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, {FunctionComponent} from 'react';
 import './instruks.less';
 
 const cls = BEMHelper('instruks');
@@ -17,10 +17,11 @@ const navnPåTiltakstype = {
     SOMMERJOBB: 'Sommerjobb',
 };
 
-const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = props => (
+const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType, erPilot: boolean}> = props => (
+
     <VeilederpanelMedUtklippstavle>
         <div className={cls.element('subheader')}>
-            <Element>Hva du må gjøre videre:</Element>
+            <Element>Hva skjer videre:</Element>
         </div>
         {props.tiltakstype === 'SOMMERJOBB' && (
             <ul>
@@ -45,7 +46,7 @@ const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = props 
                 </li>
             </ul>
         )}
-        {props.tiltakstype !== 'SOMMERJOBB' && (
+        {(props.tiltakstype !== 'SOMMERJOBB' && !props.erPilot) && (
             <ul>
                 <li>
                     <Normaltekst>
@@ -58,6 +59,36 @@ const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = props 
                     <Normaltekst>
                         Avtalen blir automatisk journalført i Gosys, og du trenger derfor ikke å sende inn avtalen til
                         scanning.
+                    </Normaltekst>
+                </li>
+            </ul>
+        )}
+        {props.erPilot && (
+            <ul>
+                <li>
+                    <Normaltekst>
+                        Etter at du har godkjent avtalen, må avtalen og de første tilskuddsperiodene godkjennes av
+                        beslutter. Det er først da avtalen er endelig godkjent.
+                    </Normaltekst>
+                    <VerticalSpacer rem={0.5} />
+                </li>
+                <li>
+                    <Normaltekst>
+                        Arena skal ikke lenger benyttes til registrering av avtale, tilsagn eller refusjon for
+                        lønnstilskudd.
+                    </Normaltekst>
+                    <VerticalSpacer rem={0.5} />
+                </li>
+                <li>
+                    <Normaltekst>
+                        Tilsagnsbrevet sendes ikke lenger til innboksen til arbeidsgiver i Altinn. Innholdet i
+                        tilsagnsbrevet er innarbeidet i avtalen til arbeidsgiver.
+                    </Normaltekst>
+                    <VerticalSpacer rem={0.5} />
+                </li>
+                <li>
+                    <Normaltekst>
+                        Avtalen blir automatisk journalført i Gosys.
                     </Normaltekst>
                 </li>
             </ul>

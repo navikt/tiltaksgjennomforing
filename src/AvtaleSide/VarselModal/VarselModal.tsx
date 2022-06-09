@@ -1,10 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import IkonModal from '@/komponenter/IkonModal/IkonModal';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import * as RestService from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import VarselTabell from '../Varsellogg/VarselTabell';
@@ -61,11 +62,9 @@ const VarselModal: FunctionComponent = () => {
             <VarselTabell varsler={varsler} />
             <VerticalSpacer rem={2} />
             <div>
-                <Hovedknapp style={{ marginRight: '1rem' }} onClick={lukkOgLesVarsler}>
-                    Lukk
-                </Hovedknapp>
+                <LagreKnapp lagre={lukkOgLesVarsler} label="Lukk" />
                 {!harOpprettetHendelse && (
-                    <Knapp onClick={lukkeOgSeHendelselogg}>Se alle hendelser for denne avtalen</Knapp>
+                    <Knapp style={{ marginLeft: '1rem' }} onClick={lukkeOgSeHendelselogg}>Se alle hendelser for denne avtalen</Knapp>
                 )}
             </div>
         </IkonModal>

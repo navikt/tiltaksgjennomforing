@@ -4,7 +4,7 @@ import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Undertekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './AvtaleinfoFeltSjekk.less';
-import BedriftsnummerEllerTelefon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/BedriftsnummerEllerTelefon';
+import VirksomhetsnummerEllerTelefon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/VirksomhetsnummerEllerTelefon';
 
 const cls = BEMHelper('avtaleparter');
 
@@ -38,7 +38,7 @@ export const AvtaleinfoFeltSjekk: FunctionComponent<Props> = (props) => {
                 <Undertittel>{props.navnFelter.map((felt) => felt.verdi).join(' ')}</Undertittel>
                 {props.tilleggFelter.map((felt, index) => (
                     <React.Fragment key={index}>
-                        <BedriftsnummerEllerTelefon felt={felt.felt} verdi={felt.verdi} />
+                        <VirksomhetsnummerEllerTelefon felt={felt.felt} verdi={felt.verdi} />
                     </React.Fragment>
                 ))}
             </>
