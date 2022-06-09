@@ -46,6 +46,7 @@ export const formatterDato = (dato: string, format: string = NORSK_DATO_OG_TID_F
         return dato;
     }
 };
+
 export const formatterPeriode = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
     return formatterDato(fra, format) + ' – ' + formatterDato(til, format);
 };

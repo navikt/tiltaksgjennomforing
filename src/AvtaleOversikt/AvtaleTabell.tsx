@@ -86,7 +86,16 @@ const AvtaleTabell: FunctionComponent<{
                 <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
                 {innloggetBruker.erNavAnsatt && <div className={cls.element('veileder')}>Veileder</div>}
                 <MediaQuery minWidth={576}>
-                    <div className={cls.element('opprettet')}>{erBeslutter ? 'Oppstartsdato' : 'Opprettet'}</div>
+                    <div className={cls.element('opprettet')}>
+                        {erBeslutter ? (
+                            <>
+                                <div>Startdato</div>
+                                <div>periode</div>
+                            </>
+                        ) : (
+                            'Opprettet'
+                        )}
+                    </div>
                 </MediaQuery>
                 <div className={cls.element('status')}>Status</div>
                 <div className={cls.element('statusikon')}>&nbsp;</div>

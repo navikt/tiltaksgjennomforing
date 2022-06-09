@@ -1,5 +1,5 @@
 import { AvtaleContext, Context } from '@/AvtaleProvider';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext, useState } from 'react';
@@ -28,12 +28,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('beslutter-tilskuddsperioder');
 
     if (avtale.tilskuddPeriode.length < 1) return null;
-
-    const localDateTimeFormat = (date: string): string => {
-        const datetime = new Date(date);
-        if (datetime.toDateString() === 'Invalid Date') return '';
-        return datetime.toLocaleDateString('no-NO', { year: '2-digit', month: '2-digit', day: '2-digit' });
-    };
 
     const settStylingForTabellrad = (periode: TilskuddsPeriode): string => {
         if (periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer) return 'gjeldende';
@@ -99,8 +93,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td
                                             aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}
                                         >
-                                            {localDateTimeFormat(periode.startDato)} -
-                                            {localDateTimeFormat(periode.sluttDato)}
+                                            {formatterPeriode(periode.startDato, periode.sluttDato, 'DD.MM.YY')}
                                         </td>
                                         <td>{formatterPenger(periode.beløp)}</td>
                                         <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>

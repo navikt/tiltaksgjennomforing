@@ -23,7 +23,7 @@ const Sortering: FunctionComponent = (props) => {
         }
     };
     rolle === 'BESLUTTER'
-        ? leggtilSorteringstype('startDato', 'Oppstartdato')
+        ? leggtilSorteringstype('startDato', 'Startdato')
         : leggtilSorteringstype('sistEndret', 'Sist endret');
 
     const defaultValg = rolle === 'BESLUTTER' ? 'startDato' : 'sistEndret';
