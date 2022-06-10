@@ -62,24 +62,36 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                         ? avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !==
                                           periode.lonnstilskuddProsent
                                         : false;
-
+                                if (index < 12 || index === avtale.tilskuddPeriode.length -1) {
+                                    return (
+                                        <div
+                                            key={index}
+                                            className={cls.element('tabell-innslag')}
+                                            style={{ borderTop: nyProsent ? '2px solid gray' : 'undefined' }}
+                                        >
+                                            <Normaltekst>
+                                                {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
+                                                {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
+                                            </Normaltekst>
+                                            <Normaltekst>{periode.lonnstilskuddProsent}%</Normaltekst>
+                                            <Normaltekst style={{ minWidth: '4rem' }}>
+                                                {formatterPenger(periode.beløp)}
+                                            </Normaltekst>
+                                        </div>
+                                    );
+                                }
                                 return (
                                     <div
                                         key={index}
                                         className={cls.element('tabell-innslag')}
-                                        style={{ borderTop: nyProsent ? '2px solid gray' : 'undefined' }}
-                                    >
-                                        <Normaltekst>
-                                            {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
-                                            {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
-                                        </Normaltekst>
-                                        <Normaltekst>{periode.lonnstilskuddProsent}%</Normaltekst>
-                                        <Normaltekst style={{ minWidth: '4rem' }}>
-                                            {formatterPenger(periode.beløp)}
-                                        </Normaltekst>
-                                    </div>
-                                );
+                                    >...</div>
+                                )
                             })}
+                        {avtale.gjeldendeInnhold.startDato && avtale.gjeldendeInnhold.sluttDato &&
+                            <div className={cls.element('tabell-innslag')} >
+                                Avtalen varer fra {formatterDato(avtale.gjeldendeInnhold.startDato, NORSK_DATO_FORMAT)} til {formatterDato(avtale.gjeldendeInnhold.sluttDato, NORSK_DATO_FORMAT)}. Det tilsvarer {avtale.tilskuddPeriode.length} tilskuddsperioder.
+                            </div>
+                        }
                     </div>
                     <VerticalSpacer rem={1} />
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
