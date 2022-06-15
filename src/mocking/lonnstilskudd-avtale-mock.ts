@@ -63,6 +63,8 @@ const lonnstilskuddAvtaleMock: Avtale = {
     },
 
     tilskuddPeriode: [],
+    inkluderingsrader: [],
+    totalKostnad: 0,
 
     veilederNavIdent: 'Z123456',
     beslutterNavIdent: 'Z321456',
@@ -77,7 +79,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     avtaleNr: 1,
 
     godkjentForEtterregistrering: false,
-    erAvtaleInngått: false
+    erAvtaleInngått: false,
 };
 
 export default lonnstilskuddAvtaleMock;

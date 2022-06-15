@@ -1,23 +1,45 @@
 import { Checkbox, Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import React, { FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './CheckboxMedInput.less';
-import { InkluderingsInnhold } from '@/types/avtale';
+import { Inkluderingstilskuddtyper } from '@/types/avtale';
+import { Inkluderingsrad } from '@/AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingsTilleggsutgifterCheckboxer';
 
 const cls = BEMHelper('checkboxMedInput');
 
 interface Props {
     inputLabel: string;
-    inputValue: (value: number) => void;
+    settTilskuddsrad: (inkluderingsrad: Inkluderingsrad) => void;
     checkboxLabel: string;
+    ledigIndex: number | undefined;
+    typeTilskudd: Inkluderingstilskuddtyper;
+    verdi: number | undefined;
 }
 
-const CheckboxMedInput: FunctionComponent<Props> = ({ inputLabel, inputValue, checkboxLabel }) => {
+const CheckboxMedInput: FunctionComponent<Props> = ({
+    inputLabel,
+    settTilskuddsrad,
+    checkboxLabel,
+    ledigIndex,
+    typeTilskudd,
+    verdi,
+}) => {
     const [checked, setChecked] = useState(false);
-    const [value, setValue] = useState();
+    const [tilskuddsverdi, setTilskuddsverdi] = useState<number | undefined>(verdi);
 
+    const erKunNummer = (nummer: string): boolean => /^-?\d*\.?\d*$/.test(nummer);
 
-    const reg = new RegExp('^[0-9]+$');
+    const settKostnadsrad = (): void => {
+        if (erKunNummer(tilskuddsverdi?.toString() ?? '')) {
+            settTilskuddsrad({ beløp: parseInt(tilskuddsverdi?.toString() ?? '', 10), type: typeTilskudd });
+        }
+    };
+
+    const settVerdi = (beløp: string) => {
+        if (erKunNummer(beløp.toString())) {
+            setTilskuddsverdi(parseInt(beløp, 10));
+        }
+    };
 
     return (
         <SkjemaGruppe feil={false}>
@@ -26,9 +48,10 @@ const CheckboxMedInput: FunctionComponent<Props> = ({ inputLabel, inputValue, ch
                 <Input
                     className={cls.element('input')}
                     label={inputLabel}
-                    value={value}
                     disabled={false}
-                    onBlur={(event) => inputValue(parseFloat(event.target.value))}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => settVerdi(event.target.value)}
+                    value={verdi}
+                    onBlur={() => settKostnadsrad()}
                 />
             )}
         </SkjemaGruppe>

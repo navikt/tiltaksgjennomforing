@@ -8,7 +8,8 @@ export type Avtale = Annullering &
     Readonly<AvtaleMetadata> &
     Avtaleparter &
     Godkjenninger &
-    TilskuddsPerioder & { gjeldendeInnhold: Avtaleinnhold };
+    TilskuddsPerioder &
+    InkluderingsInnhold & { gjeldendeInnhold: Avtaleinnhold };
 
 export type Avtaleinnhold = {
     arbeidsgiverFornavn?: string;
@@ -309,14 +310,24 @@ export type EndreKontaktInfo = {
     refusjonKontaktperson: RefusjonKontaktperson;
 };
 
-export type Inkluderingstilskuddtyper = 'TILRETTELEGGINGSBEHOV' | 'TILTAKSPLASS' | 'UTSTYR' | 'PROGRAMVARE' | 'ARBEIDSHJELPEMIDLER' | 'OPPLÆRING' ;
+export type Inkluderingstilskuddtyper =
+    | 'TILRETTELEGGINGSBEHOV'
+    | 'TILTAKSPLASS'
+    | 'UTSTYR'
+    | 'PROGRAMVARE'
+    | 'ARBEIDSHJELPEMIDLER'
+    | 'OPPLÆRING';
 
+interface InkluderingsInnhold {
+    inkluderingsrader: InkluderingsRad[];
+    totalKostnad: number;
+}
 
-export interface InkluderingsInnhold{
+export interface InkluderingsRad {
     beløp: number;
     type: Inkluderingstilskuddtyper;
     forklaring: string;
-    tidspunktLagtTil: string
+    tidspunktLagtTil: string;
 }
 
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;

@@ -93,7 +93,9 @@ const arbeidstreningAvtaleMock: Avtale = {
     formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
 
     godkjentForEtterregistrering: false,
-    erAvtaleInngått: false
+    erAvtaleInngått: false,
+    inkluderingsrader: [],
+    totalKostnad: 0,
 };
 
 export default arbeidstreningAvtaleMock;
