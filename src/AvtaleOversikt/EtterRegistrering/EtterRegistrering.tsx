@@ -52,7 +52,9 @@ const EtterRegistrering: FunctionComponent = () => {
 
     return (
         <div className={cls.className}>
-            <Knapp onClick={() => setOpen(!open)}>Etterregistrering</Knapp>
+            <Knapp className={cls.element('etterregistrering-knapp')} onClick={() => setOpen(!open)}>
+                Etterregistrering
+            </Knapp>
             <Modal
                 isOpen={open}
                 onRequestClose={() => {

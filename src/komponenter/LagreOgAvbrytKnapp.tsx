@@ -9,7 +9,7 @@ import VerticalSpacer from './layout/VerticalSpacer';
 type Props = {
     lagreFunksjon: () => Promise<any>;
     avbryt: () => void;
-    lagreTekst: string;
+    lagretekst: string;
 } & HTMLAttributes<HTMLDivElement>;
 
 const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
@@ -24,8 +24,7 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
     const onClick = async () => {
         try {
             setOppslag({ status: Status.LasterInn });
-            await props.lagreFunksjon();
-            setOppslag({ status: Status.Sendt });
+            await props.lagreFunksjon().then(() => setOppslag({ status: Status.Sendt }));
         } catch (error: any) {
             setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
             handterFeil(error, setFeilmelding);
@@ -48,7 +47,7 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
                     type="hoved"
                     {...knappBaseProps}
                 >
-                    {props.lagreTekst}
+                    {props.lagretekst}
                 </KnappBase>
                 <Knapp onClick={props.avbryt}>Avbryt</Knapp>
             </div>

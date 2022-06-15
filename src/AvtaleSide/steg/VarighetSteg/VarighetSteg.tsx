@@ -5,6 +5,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import { sjekkOmAvtaleErPilot } from "@/services/rest-service";
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
 import moment from 'moment';
@@ -18,7 +19,6 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
-import {sjekkOmAvtaleErPilot} from "@/services/rest-service";
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -32,7 +32,7 @@ const VarighetSteg: FunctionComponent = () => {
     const duration = moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).diff(
         avtaleContext.avtale.gjeldendeInnhold.startDato,
         'days'
-    )
+    ) + 1;
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;

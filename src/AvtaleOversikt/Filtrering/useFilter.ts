@@ -10,7 +10,7 @@ export const useFilter = () => {
 
     const parseWindowLocationSearch = useCallback(() => {
         const params: any = {};
-        for (let [k, v] of new URLSearchParams(window.location.search)) {
+        for (const [k, v] of new URLSearchParams(window.location.search)) {
             params[k] = v;
         }
         if (!_.isEqual(params, filtre)) {
