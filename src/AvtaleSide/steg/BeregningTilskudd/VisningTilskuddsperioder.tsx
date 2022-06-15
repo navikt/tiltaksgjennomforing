@@ -62,10 +62,10 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                         ? avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !==
                                           periode.lonnstilskuddProsent
                                         : false;
-                                if (index < 12 || index === avtale.tilskuddPeriode.length -1) {
+                                if (index < 15 || index === avtale.tilskuddPeriode.length -1) {
                                     return (
                                         <>
-                                            { avtale.tilskuddPeriode.length > 12 && index === avtale.tilskuddPeriode.length -1 &&
+                                            { avtale.tilskuddPeriode.length > 15 && index === avtale.tilskuddPeriode.length -1 &&
                                                 <div
                                                     key={index}
                                                     className={cls.element('tabell-innslag')}
