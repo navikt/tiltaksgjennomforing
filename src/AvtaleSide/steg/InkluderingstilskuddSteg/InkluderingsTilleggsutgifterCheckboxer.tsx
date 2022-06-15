@@ -59,6 +59,7 @@ const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) 
             <Element className={cls.element('overskrift')}>
                 Huk av for hva tilskuddet skal dekke tilleggsutgifter knyttet til:
             </Element>
+            {/*
             <CheckboxMedInput inputLabel={"Kostnadsoverslag"} inputValue={inkluderingrad}
                               checkboxLabel={"nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den konkrete arbeidsplassen"} />
             <CheckboxMedInput inputLabel={"Kostnadsoverslag"} inputValue={setTotaltKostnadsoverslag}
@@ -73,6 +74,7 @@ const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) 
                               checkboxLabel={"nødvendige merutgifter til forsikring, lisenser, sertifisering o.l. knyttet til arbeidet, og ekstern opplæring for å kunne utføre arbeidet i virksomheten" } />
             <Input className={cls.element('totalBeløp')} label={"Totalt kostnadsoverslag"} value={nyTotal}
                    disabled={false} feil={forhøytBeløp}  />
+            */}
         </SkjemaGruppe>
     );
 };

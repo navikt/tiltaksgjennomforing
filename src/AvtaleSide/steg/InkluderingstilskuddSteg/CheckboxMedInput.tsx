@@ -8,7 +8,7 @@ const cls = BEMHelper('checkboxMedInput');
 
 interface Props {
     inputLabel: string;
-    inputValue: (value: InkluderingradProps) => void;
+    inputValue: (value: number) => void;
     checkboxLabel: string;
 }
 
