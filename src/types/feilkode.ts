@@ -142,7 +142,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FORMIDLINGSGRUPPE_IKKE_RETTIGHET:
         'Deltakeren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette tiltaket.',
     HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov',
-    FORTIDLIG_STARTDATO: 'Startdatoen for avtalen er mer enn 7 dager tilbake i tid og må derfor åpnes av NAV.',
+    FORTIDLIG_STARTDATO: 'Avtalen må godkjennes for etterregistrering av beslutter',
     KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT:
         'Kan ikke endre etterregistrering etter at avtalen er godkjent.',
     AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE:
