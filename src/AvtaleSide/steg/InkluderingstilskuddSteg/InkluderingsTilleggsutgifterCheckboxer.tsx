@@ -5,6 +5,7 @@ import CheckboxMedInput from "@/AvtaleSide/steg/InkluderingstilskuddSteg/Checkbo
 import {Element} from "nav-frontend-typografi";
 import BEMHelper from "@/utils/bem";
 import './InkluderingsTilleggsutgifterCheckboxer.less';
+import { InkluderingsInnhold } from '@/types/avtale';
 
 const cls = BEMHelper('inkluderingsTilleggsutgifterCheckboxer');
 
@@ -12,12 +13,31 @@ interface Props {
     feilmeldingGrunn: string | undefined;
 }
 
+export type InkluderingradProps = Partial<InkluderingsInnhold>;
+
+
+
 const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) => {
 
 
     const [totaltKostnadsoverslag, setTotaltKostnadsoverslag] = useState<number>(0)
     const [nyTotal, setNyTotal] = useState<number>(0)
     const [forhøytBeløp, setForhøytBeløp] = useState<boolean>(false)
+
+    const [inkluderingrad, setInkluderingrad] = useState<Array<InkluderingsInnhold> | undefined>()
+
+
+
+
+    
+
+
+
+    const settKostnadsrad = (inkluderingrad : InkluderingradProps) => {
+        if(inkluderingrad.beløp && /^-?\d*\.?\d*$/.test(inkluderingrad.beløp.toString())){
+            console.log('OK')
+        }
+    } 
 
     useEffect(() => {
         if(nyTotal + totaltKostnadsoverslag > 136700){
@@ -39,7 +59,7 @@ const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) 
             <Element className={cls.element('overskrift')}>
                 Huk av for hva tilskuddet skal dekke tilleggsutgifter knyttet til:
             </Element>
-            <CheckboxMedInput inputLabel={"Kostnadsoverslag"} inputValue={setTotaltKostnadsoverslag}
+            <CheckboxMedInput inputLabel={"Kostnadsoverslag"} inputValue={inkluderingrad}
                               checkboxLabel={"nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den konkrete arbeidsplassen"} />
             <CheckboxMedInput inputLabel={"Kostnadsoverslag"} inputValue={setTotaltKostnadsoverslag}
                               checkboxLabel={"opprettelse av ekstra tiltaksplass, for eksempel kontormøbler"} />

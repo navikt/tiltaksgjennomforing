@@ -309,4 +309,14 @@ export type EndreKontaktInfo = {
     refusjonKontaktperson: RefusjonKontaktperson;
 };
 
+export type Inkluderingstilskuddtyper = 'TILRETTELEGGINGSBEHOV' | 'TILTAKSPLASS' | 'UTSTYR' | 'PROGRAMVARE' | 'ARBEIDSHJELPEMIDLER' | 'OPPLÆRING' ;
+
+
+export interface InkluderingsInnhold{
+    beløp: number;
+    type: Inkluderingstilskuddtyper;
+    forklaring: string;
+    tidspunktLagtTil: string
+}
+
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;
