@@ -88,6 +88,7 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                         </>
                                     );
                                 }
+                                return null;
                             })}
                         {avtale.gjeldendeInnhold.startDato && avtale.gjeldendeInnhold.sluttDato &&
                             <div className={cls.element('tabell-innslag')} >
