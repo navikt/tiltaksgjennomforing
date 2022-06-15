@@ -47,8 +47,9 @@ const AvtaleSide: FunctionComponent = () => {
     const { stegPath } = useParams<any>();
 
     const erDesktop = windowSize > 767;
+    const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
     const erAvtaleLaast =
-        avtale.avtaleInngått || avtale.avbrutt || avtale.annullertTidspunkt || innloggetBruker.rolle === 'DELTAKER';
+        godkjentAvVeileder || avtale.avbrutt || avtale.annullertTidspunkt || innloggetBruker.rolle === 'DELTAKER';
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);
