@@ -141,7 +141,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                         </>
                     )}
                     <div className={cls.element('rad')}>
-                        {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
+                        {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB', 'INKLUDERINGSTILSKUDD'].includes(
                             avtale.tiltakstype
                         ) && <Relasjoner />}
                     </div>

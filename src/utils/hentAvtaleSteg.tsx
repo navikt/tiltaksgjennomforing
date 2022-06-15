@@ -12,6 +12,8 @@ import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
 import React from 'react';
 import InkluderingstilskuddSteg from "@/AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingstilskuddSteg";
+import OppsummeringInkluderingstilskudd
+    from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd";
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -119,7 +121,12 @@ const inkluderingTilskuddSteg: StegInfo[] = [
         id: 'inkluderingstilskudd',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
+        komponent: <OppfolgingTilretteleggingSteg />,
+        label: 'Oppfølging og tilrettelegging',
+        id: 'oppfolging',
+    },
+    {
+        komponent: <GodkjenningSteg oppsummering={OppsummeringInkluderingstilskudd} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
