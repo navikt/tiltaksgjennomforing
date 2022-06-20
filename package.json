@@ -112,7 +112,7 @@
         "swr": "^1.1.1",
         "url-search-params-polyfill": "^8.1.1",
         "express-http-proxy": "1.6.2",
-        "openid-client": "3.7.2"
+        "openid-client": "4.0.0"
     },
     "devDependencies": {
         "react-error-overlay": "6.0.9",
