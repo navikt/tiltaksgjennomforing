@@ -18,23 +18,17 @@ export type Inkluderingsrad = Pick<InkluderingsRad, 'beløp' | 'type'>;
 
 const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) => {
     const { avtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
-    const [tilskuddsrad, setTilskuddsrad] = useState<Inkluderingsrad[] | undefined>();
+    const [tilskuddsrad, setTilskuddsrad] = useState(new Map<Inkluderingstilskuddtyper, Inkluderingsrad>());
 
-    const settTilskuddsrad = ({ beløp, type }: Inkluderingsrad): void => {
-        const rader = Object.assign([], tilskuddsrad, {
-            [type]: { beløp: beløp, type: type },
-        });
-        // setTilskuddsrad(
-        //     Object.assign([], tilskuddsrad, {
-        //         [type]: { beløp: beløp, type: type },
-        //     })
-        // );
-        settAvtaleInnholdVerdi("inkluderingstilskudd", rader);
+    const settTilskuddsrad = (type: Inkluderingstilskuddtyper, verdi: number): void => {
+
+        console.log("Oppdaterer inkluderingstilskudd i state", tilskuddsrad)
+        setTilskuddsrad(tilskuddsrad.set(type, {beløp: verdi, type}))
+        // settAvtaleInnholdVerdi("inkluderingstilskudd", nyeRader);
     };
     const map = new Map<Inkluderingstilskuddtyper, Inkluderingsrad>();
-    debugger;
  
-    const finnRad = (type: Inkluderingstilskuddtyper) => avtale.gjeldendeInnhold.inkluderingstilskudd?.find((rad) => rad.type === type);
+    const finnRad = (type: Inkluderingstilskuddtyper) => tilskuddsrad.get(type)
 
     useEffect(() => {
         console.log('tilskuddsrad ', tilskuddsrad);
@@ -55,7 +49,7 @@ const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) 
                     inputLabel={'Kostnadsoverslag'}
                     checkboxLabel={inkluderingstilskuddForklaringTekst[type]}
                     verdi={finnRad(type)?.beløp}
-                    settVerdi={(verdi) => settTilskuddsrad({ beløp: verdi, type })}
+                    settVerdi={(verdi) => settTilskuddsrad(type, verdi) }
                 />
             ))}
 

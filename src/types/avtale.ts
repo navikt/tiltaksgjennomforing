@@ -319,7 +319,7 @@ export type Inkluderingstilskuddtyper =
     | 'OPPLÆRING';
 
 interface InkluderingsInnhold {
-    inkluderingstilskudd: Map<Inkluderingstilskuddtyper, Inkluderingsrad> //InkluderingsRad[];
+    inkluderingstilskudd: Array<Map<Inkluderingstilskuddtyper, InkluderingsRad>> //InkluderingsRad[];
     totalKostnad: number;
 }
 
