@@ -1,6 +1,7 @@
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Nettressurs } from '@/types/nettressurs';
+import { Inkluderingsrad } from '../AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingsTilleggsutgifterCheckboxer';
 import { Maalkategori } from './maalkategorier';
 
 export type Avtale = Annullering &
@@ -8,8 +9,7 @@ export type Avtale = Annullering &
     Readonly<AvtaleMetadata> &
     Avtaleparter &
     Godkjenninger &
-    TilskuddsPerioder &
-    InkluderingsInnhold & { gjeldendeInnhold: Avtaleinnhold };
+    TilskuddsPerioder & { gjeldendeInnhold: Avtaleinnhold };
 
 export type Avtaleinnhold = {
     arbeidsgiverFornavn?: string;
@@ -62,7 +62,7 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
-};
+} & InkluderingsInnhold;
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'
@@ -319,7 +319,7 @@ export type Inkluderingstilskuddtyper =
     | 'OPPLÆRING';
 
 interface InkluderingsInnhold {
-    inkluderingsrader: InkluderingsRad[];
+    inkluderingstilskudd: Map<Inkluderingstilskuddtyper, Inkluderingsrad> //InkluderingsRad[];
     totalKostnad: number;
 }
 

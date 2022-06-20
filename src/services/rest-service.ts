@@ -16,7 +16,7 @@ import {
     Maal,
     Stilling,
     TiltaksType,
-    Varighet,
+    Varighet
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -123,7 +123,7 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
             return Promise.reject();
         }
     }
-
+debugger;
     await api.put(`/avtaler/${avtale.id}`, avtale.gjeldendeInnhold, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,

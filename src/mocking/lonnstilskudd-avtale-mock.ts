@@ -60,11 +60,11 @@ const lonnstilskuddAvtaleMock: Avtale = {
         veilederEtternavn: 'Sandøy',
         veilederTlf: '88888888',
         maal: [],
+        inkluderingstilskudd: [],
+        totalKostnad: 0
     },
 
     tilskuddPeriode: [],
-    inkluderingsrader: [],
-    totalKostnad: 0,
 
     veilederNavIdent: 'Z123456',
     beslutterNavIdent: 'Z321456',

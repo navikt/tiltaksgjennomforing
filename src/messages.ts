@@ -3,9 +3,10 @@ import {
     Avtaleinnhold,
     AvtaleStatus,
     AvtaleVersjon,
+    Inkluderingstilskuddtyper,
     Stillingstype,
     TilskuddPeriodeStatus,
-    TiltaksType,
+    TiltaksType
 } from './types/avtale';
 
 export const messages = {
@@ -59,6 +60,17 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     enhetKostnadssted: 'enhetKostnadssted',
     enhetsnavnKostnadssted: 'enhetsnavnKostnadssted',
     refusjonKontaktperson: 'refusjonKontaktperson',
+    inkluderingstilskudd: '',
+    totalKostnad: 'total kostnad'
+};
+
+export const inkluderingstilskuddForklaringTekst: { [key in Inkluderingstilskuddtyper]: string } = {
+    ARBEIDSHJELPEMIDLER: 'nødvendige gjenstander og arbeidshjelpemidler personen trenger for å utføre arbeidet og tilpasninger som ikke kan dekkes etter folketrygdlovens § 10-5',
+    OPPLÆRING: 'nødvendige merutgifter til forsikring, lisenser, sertifisering o.l. knyttet til arbeidet, og ekstern opplæring for å kunne utføre arbeidet i virksomheten',
+    PROGRAMVARE: 'merkostnader til å kjøpe og installere programvare som skal brukes av personen, herunder teknologisk utstyr eller teknologiske hjelpemidler',
+    TILRETTELEGGINGSBEHOV: 'nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den konkrete arbeidsplassen',
+    TILTAKSPLASS: 'opprettelse av ekstra tiltaksplass, for eksempel kontormøbler',
+    UTSTYR: 'personlig utstyr som arbeidstøy, vernesko, databriller o.l. knyttet til arbeidet'
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
