@@ -15,7 +15,7 @@ export const useTilskuddsutgift = (initiellInkluderingstilskuddutgiftListe: Inkl
         return nyInkluderingstilskuddsutgiftListe;
     };
 
-    const endreMål = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) => {
+    const endreInkluderingstilskuddsutgift = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) => {
         const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
         nyInkluderingstilskuddsutgiftListe[index] = {beløp: beløp, type: type};
         setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
@@ -24,14 +24,14 @@ export const useTilskuddsutgift = (initiellInkluderingstilskuddutgiftListe: Inkl
 
     const ledigeInkluderingstilskuddstyper = finnLedigeInkluderingstilskuddstyper(inkluderingstilskuddsutgiftListe).sort();
 
-    const sletteMål = (index: number) => {
-        const nyMålListe = [...inkluderingstilskuddsutgiftListe];
-        nyMålListe.splice(index, index + 1);
-        setInkluderingstilskuddsutgiftListe(nyMålListe);
-        return nyMålListe;
+    const sletteInkluderingstilskuddsutgift = (index: number) => {
+        const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
+        nyInkluderingstilskuddsutgiftListe.splice(index, index + 1);
+        setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
+        return nyInkluderingstilskuddsutgiftListe;
     };
 
-    return { målListe: inkluderingstilskuddsutgiftListe, ledigeMålkategorier: ledigeInkluderingstilskuddstyper, leggTilMål: leggTilInkluderingstilskuddsutgift, endreMål, sletteMål };
+    return { inkluderingstilskuddsutgiftListe, ledigeInkluderingstilskuddstyper, leggTilInkluderingstilskuddsutgift, endreInkluderingstilskuddsutgift, sletteInkluderingstilskuddsutgift };
 };
 
 

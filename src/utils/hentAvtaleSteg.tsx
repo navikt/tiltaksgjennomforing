@@ -5,7 +5,7 @@ import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsum
 import OppsummeringInkluderingstilskudd from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd";
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
-import InkluderingstilskuddSteg from "@/AvtaleSide/steg/InkluderingstilskuddStegCheckboxer/InkluderingstilskuddSteg";
+import InkluderingstilskuddSteg from '@/AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingstilskuddSteg';
 import KontaktinfoSteg from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from '@/AvtaleSide/steg/MaalSteg/MaalSteg';
 import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
