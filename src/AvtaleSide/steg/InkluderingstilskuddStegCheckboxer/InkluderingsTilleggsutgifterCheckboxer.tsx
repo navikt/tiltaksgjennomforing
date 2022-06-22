@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import CheckboxMedInput from '@/AvtaleSide/steg/InkluderingstilskuddSteg/CheckboxMedInput';
+import CheckboxMedInput from '@/AvtaleSide/steg/InkluderingstilskuddStegCheckboxer/CheckboxMedInput';
 import { inkluderingstilskuddForklaringTekst } from '@/messages';
-import { InkluderingsRad, Inkluderingstilskuddtyper } from '@/types/avtale';
+import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
@@ -14,21 +14,21 @@ interface Props {
     feilmeldingGrunn: string | undefined;
 }
 
-export type Inkluderingsrad = Pick<InkluderingsRad, 'beløp' | 'type'>;
+export type Inkluderingsrad = Pick<Inkluderingstilskuddsutgift, 'beløp' | 'type'>;
 
 const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) => {
     const { avtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
-    const [tilskuddsrad, setTilskuddsrad] = useState(new Map<Inkluderingstilskuddtyper, Inkluderingsrad>());
+    const [tilskuddsrad, setTilskuddsrad] = useState(new Map<InkluderingstilskuddsutgiftType, Inkluderingsrad>());
 
-    const settTilskuddsrad = (type: Inkluderingstilskuddtyper, verdi: number): void => {
+    const settTilskuddsrad = (type: InkluderingstilskuddsutgiftType, verdi: number): void => {
 
         console.log("Oppdaterer inkluderingstilskudd i state", tilskuddsrad)
         setTilskuddsrad(tilskuddsrad.set(type, {beløp: verdi, type}))
         // settAvtaleInnholdVerdi("inkluderingstilskudd", nyeRader);
     };
-    const map = new Map<Inkluderingstilskuddtyper, Inkluderingsrad>();
+    const map = new Map<InkluderingstilskuddsutgiftType, Inkluderingsrad>();
  
-    const finnRad = (type: Inkluderingstilskuddtyper) => tilskuddsrad.get(type)
+    const finnRad = (type: InkluderingstilskuddsutgiftType) => tilskuddsrad.get(type)
 
     useEffect(() => {
         console.log('tilskuddsrad ', tilskuddsrad);
@@ -36,7 +36,7 @@ const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) 
         
     }, [tilskuddsrad]);
 
-    const inkluderingstyper: Inkluderingstilskuddtyper[] = ['ARBEIDSHJELPEMIDLER', 'OPPLÆRING', 'PROGRAMVARE', 'TILRETTELEGGINGSBEHOV', 'TILTAKSPLASS', 'UTSTYR'];
+    const inkluderingstyper: InkluderingstilskuddsutgiftType[] = ['ARBEIDSHJELPEMIDLER', 'OPPLÆRING', 'PROGRAMVARE', 'TILRETTELEGGINGSBEHOV', 'TILTAKSPLASS', 'UTSTYR'];
 
     return (
         <SkjemaGruppe feil={props.feilmeldingGrunn}>

@@ -1,7 +1,6 @@
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Nettressurs } from '@/types/nettressurs';
-import { Inkluderingsrad } from '../AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingsTilleggsutgifterCheckboxer';
 import { Maalkategori } from './maalkategorier';
 
 export type Avtale = Annullering &
@@ -310,7 +309,7 @@ export type EndreKontaktInfo = {
     refusjonKontaktperson: RefusjonKontaktperson;
 };
 
-export type Inkluderingstilskuddtyper =
+export type InkluderingstilskuddsutgiftType =
     | 'TILRETTELEGGINGSBEHOV'
     | 'TILTAKSPLASS'
     | 'UTSTYR'
@@ -319,15 +318,14 @@ export type Inkluderingstilskuddtyper =
     | 'OPPLÆRING';
 
 interface InkluderingsInnhold {
-    inkluderingstilskudd: Array<Map<Inkluderingstilskuddtyper, InkluderingsRad>> //InkluderingsRad[];
+    inkluderingstilskudd: Inkluderingstilskuddsutgift[];
     totalKostnad: number;
 }
 
-export interface InkluderingsRad {
+export interface Inkluderingstilskuddsutgift {
     beløp: number;
-    type: Inkluderingstilskuddtyper;
-    forklaring: string;
-    tidspunktLagtTil: string;
+    type: InkluderingstilskuddsutgiftType;
+    tidspunktLagtTil?: string;
 }
 
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;

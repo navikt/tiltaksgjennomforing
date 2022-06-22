@@ -2,8 +2,10 @@ import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 import BeregningTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningTilskuddSteg';
 import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
 import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import OppsummeringInkluderingstilskudd from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd";
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
+import InkluderingstilskuddSteg from "@/AvtaleSide/steg/InkluderingstilskuddStegCheckboxer/InkluderingstilskuddSteg";
 import KontaktinfoSteg from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from '@/AvtaleSide/steg/MaalSteg/MaalSteg';
 import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
@@ -11,9 +13,6 @@ import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilrett
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
 import React from 'react';
-import InkluderingstilskuddSteg from "@/AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingstilskuddSteg";
-import OppsummeringInkluderingstilskudd
-    from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd";
 
 const arbeidstreningSteg: StegInfo[] = [
     {
