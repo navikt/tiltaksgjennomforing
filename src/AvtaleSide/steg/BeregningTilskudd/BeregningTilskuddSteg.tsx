@@ -216,7 +216,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         </Column>
                     </Row>
                     <VerticalSpacer rem={2} />
-                    <UtregningPanel {...avtale.gjeldendeInnhold} />
+                    <UtregningPanel {...avtale.gjeldendeInnhold} tiltakstype={avtale.tiltakstype} />
                     <VerticalSpacer rem={1.25} />
                     {innloggetBruker.erNavAnsatt &&
                         avtale.gjeldendeInnhold.stillingprosent !== undefined &&
