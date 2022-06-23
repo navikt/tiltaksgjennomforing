@@ -22,6 +22,9 @@ import {TiltaksType} from "@/types/avtale";
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     const cls = BEMHelper('utregningspanel');
     const regnUtRedusertProsent = (tiltakstype: TiltaksType, tilskuddsprosent:number) => {
+        /**
+         *  TODO: Kalkulering av redusert prosent og redusert dato bør kun skje i backend og ikke her
+         */
         if(tiltakstype === "VARIG_LONNSTILSKUDD"){
             if(tilskuddsprosent >= 68) return 67;
             return tilskuddsprosent;
