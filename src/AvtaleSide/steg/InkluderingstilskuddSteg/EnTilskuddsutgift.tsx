@@ -4,6 +4,7 @@ import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
+import { formatterPenger } from '@/utils/PengeUtils';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -42,7 +43,7 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
                 <>
                     <Select
                         onChange={(e) => setType(e.currentTarget.value as InkluderingstilskuddsutgiftType)}
-                        label="Hva er målet med arbeidstreningen?"
+                        label="Velg hva tilskuddet er knyttet til:"
                         value={type}
                     >
                         <option value={type}>{inkluderingstilskuddtypeTekst[type]}</option>
@@ -62,7 +63,7 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
                     <ValutaInput
                         name="beløp"
                         bredde="M"
-                        label="Beløp"
+                        label="Kostnadsoverslag"
                         value={beløp}
                         onChange={(event) => setBeløp(parseFloat(event.target.value))}
                         min={0}
@@ -85,9 +86,9 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
                 <div>
                     <Undertittel>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Undertittel>
                     <VerticalSpacer rem={1} />
-                    <Normaltekst>Beløp</Normaltekst>
-                    <VerticalSpacer rem={1} />
-                    <Normaltekst>{props.tilskuddsutgift.beløp}</Normaltekst>
+                    <Normaltekst>Kostnadsoverslag: {formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
+                    {/* <VerticalSpacer rem={1} />
+                    <Normaltekst>{props.tilskuddsutgift.beløp}</Normaltekst> */}
                     <VerticalSpacer rem={1} />
                     <div style={{ borderTop: '1px solid #C6C2BF' }} />
                     <VerticalSpacer rem={1} />

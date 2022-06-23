@@ -74,8 +74,9 @@ const avtaleInnhold: Avtale | Avtaleinnhold = {
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,
     godkjentForEtterregistrering: false,
-    inkluderingstilskudd: [],
-    totalKostnad: 0
+    inkluderingstilskuddsutgift: [],
+    inkluderingstilskuddBegrunnelse: '',
+    inkluderingstilskuddTotalBeløp: 0
 };
 
 export const contextMock: Partial<Context> = {

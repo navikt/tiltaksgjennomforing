@@ -317,9 +317,10 @@ export type InkluderingstilskuddsutgiftType =
     | 'ARBEIDSHJELPEMIDLER'
     | 'OPPLÆRING';
 
-interface InkluderingsInnhold {
-    inkluderingstilskudd: Inkluderingstilskuddsutgift[];
-    totalKostnad: number;
+export interface InkluderingsInnhold {
+    inkluderingstilskuddsutgift: Inkluderingstilskuddsutgift[];
+    inkluderingstilskuddBegrunnelse: string;
+    inkluderingstilskuddTotalBeløp: number;
 }
 
 export interface Inkluderingstilskuddsutgift {

@@ -32,7 +32,7 @@ const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) 
 
     useEffect(() => {
         console.log('tilskuddsrad ', tilskuddsrad);
-        console.log("avtaleInnhold:", avtale.gjeldendeInnhold.inkluderingstilskudd);
+        console.log("avtaleInnhold:", avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
         
     }, [tilskuddsrad]);
 

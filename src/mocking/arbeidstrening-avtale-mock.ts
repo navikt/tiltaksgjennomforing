@@ -1,6 +1,6 @@
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Avslagsårsaker, Avtale, Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType, Maal, TilskuddsPeriode } from '@/types/avtale';
+import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -69,8 +69,9 @@ const arbeidstreningAvtaleMock: Avtale = {
         startDato: '2020-02-01',
         sluttDato: '2020-03-01',
         stillingprosent: 99,
-        inkluderingstilskudd: [],
-        totalKostnad: 0
+        inkluderingstilskuddsutgift: [],
+        inkluderingstilskuddBegrunnelse: '',
+        inkluderingstilskuddTotalBeløp: 0
     },
 
     tilskuddPeriode: tilskuddsPeriode,
