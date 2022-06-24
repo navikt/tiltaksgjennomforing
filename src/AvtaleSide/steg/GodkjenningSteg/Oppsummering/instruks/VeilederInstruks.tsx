@@ -13,6 +13,7 @@ const navnPåTiltakstype = {
     MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
     MENTOR: 'Mentor',
+    INKLUDERINGSTILSKUDD: 'Inkluderingstilskudd',
     SOMMERJOBB: 'Sommerjobb',
 };
 

@@ -61,13 +61,14 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
-};
+} & InkluderingsInnhold;
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'
     | 'MIDLERTIDIG_LONNSTILSKUDD'
     | 'VARIG_LONNSTILSKUDD'
     | 'MENTOR'
+    | 'INKLUDERINGSTILSKUDD'
     | 'SOMMERJOBB';
 export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'UTBETALT';
 export type AvbrytelseGrunn =
@@ -308,5 +309,25 @@ export type EndreKontaktInfo = {
     veilederTlf?: string;
     refusjonKontaktperson: RefusjonKontaktperson;
 };
+
+export type InkluderingstilskuddsutgiftType =
+    | 'TILRETTELEGGINGSBEHOV'
+    | 'TILTAKSPLASS'
+    | 'UTSTYR'
+    | 'PROGRAMVARE'
+    | 'ARBEIDSHJELPEMIDLER'
+    | 'OPPLÆRING';
+
+export interface InkluderingsInnhold {
+    inkluderingstilskuddsutgift: Inkluderingstilskuddsutgift[];
+    inkluderingstilskuddBegrunnelse: string;
+    inkluderingstilskuddTotalBeløp: number;
+}
+
+export interface Inkluderingstilskuddsutgift {
+    beløp: number;
+    type: InkluderingstilskuddsutgiftType;
+    tidspunktLagtTil?: string;
+}
 
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;

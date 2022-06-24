@@ -1,6 +1,6 @@
-import {toNumberOnFocus} from '@/komponenter/form/utils/form-utils';
+import { toNumberOnFocus } from '@/komponenter/form/utils/form-utils';
 import useValidering from '@/komponenter/useValidering';
-import {Input, InputProps} from 'nav-frontend-skjema';
+import { Input, InputProps } from 'nav-frontend-skjema';
 import React from 'react';
 
 const DEFAULT_INPUT_MAX_LENGTH = 524288;
