@@ -5,9 +5,12 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
+import { Datepicker } from 'nav-datovelger';
+import { Column, Row } from 'nav-frontend-grid';
 import Lenke from 'nav-frontend-lenker';
 import { Element, Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
+import { AvtaleMinMaxDato } from '../VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 import EnTilskuddsutgift from './EnTilskuddsutgift';
 import { useTilskuddsutgift } from './inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
@@ -92,11 +95,29 @@ const InkluderingstilskuddSteg: FunctionComponent = () =>  {
             </div>
             <VerticalSpacer rem={0.5} />
             <Innholdsboks>
-            <LagreKnapp
-                lagre={avtaleContext.lagreAvtale}
-                label={'Lagre'}
-                suksessmelding={'Avtale lagret'}
-            />
+                <VerticalSpacer rem={1} />
+                <Row className="">
+                    <Column md="6">
+                        <label className="skjemaelement__label">Startdato</label>
+                        <Datepicker
+                            inputProps={{ placeholder: 'dd.mm.åååå' }}
+                            value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
+                            limitations={AvtaleMinMaxDato()}
+                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ startDato: dato })}
+                        />
+                    </Column>
+                    <Column md="6">
+                        <label className="skjemaelement__label">Forventet sluttdato</label>
+                        <Datepicker
+                            inputProps={{ placeholder: 'dd.mm.åååå' }}
+                            value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
+                            limitations={AvtaleMinMaxDato()}
+                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato })}
+                        />
+                    </Column>
+                </Row>
+                <VerticalSpacer rem={2} />
+                <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
             </Innholdsboks>
         </>
     );
