@@ -49,7 +49,7 @@ const InnloggingBoundary: FunctionComponent = props => {
         const urlParametere = new URLSearchParams(window.location.search);
 
         const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
-        if (['ARBEIDSGIVER', 'DELTAKER', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
+        if (['ARBEIDSGIVER', 'DELTAKER','MENTOR', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
             setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
             urlParametere.delete('part');
             history.replace({ search: urlParametere.toString() });

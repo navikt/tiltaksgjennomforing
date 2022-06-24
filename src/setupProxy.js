@@ -33,6 +33,10 @@ module.exports = function (app) {
                     tittel: 'Som deltaker',
                     part: 'DELTAKER',
                     url: envProperties.SELVBETJENING_LOGIN_URL,
+                },{
+                    tittel: 'Som mentor',
+                    part: 'MENTOR',
+                    url: envProperties.SELVBETJENING_LOGIN_URL,
                 },
                 {
                     tittel: 'Som arbeidsgiver',
