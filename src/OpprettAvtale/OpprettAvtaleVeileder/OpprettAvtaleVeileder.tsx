@@ -4,26 +4,23 @@ import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import { hentBedriftBrreg, opprettAvtaleSomVeileder } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Input, RadioPanel } from 'nav-frontend-skjema';
-import { SkjemaelementFeilmelding } from 'nav-frontend-skjema';
-import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Element } from 'nav-frontend-typografi';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import { Element, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtale.less';
-import { Feilkode } from '@/types/feilkode';
-import { Feilmeldinger } from '@/types/feilkode';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -130,6 +127,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const featureToggleContext = useContext(FeatureToggleContext);
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
+    const inkluderingstilskuddToggle = featureToggleContext[Feature.Inkluderingstiskudd];
 
     const radiopaneler = (
         <Innholdsboks>
@@ -187,6 +185,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                         }}
                     />
                 )}
+                {inkluderingstilskuddToggle && (
                     <RadioPanel
                         name="tiltakstype"
                         label="Inkluderingstilskudd"
@@ -197,6 +196,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             setUyldigAvtaletype(false);
                         }}
                     />
+                )}
                 <RadioPanel
                     name="tiltakstype"
                     label="Sommerjobb"
