@@ -17,9 +17,20 @@ import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
+import {TiltaksType} from "@/types/avtale";
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     const cls = BEMHelper('utregningspanel');
+    const regnUtRedusertProsent = (tiltakstype: TiltaksType, tilskuddsprosent:number) => {
+        /**
+         *  TODO: Kalkulering av redusert prosent og redusert dato bør kun skje i backend og ikke her
+         */
+        if(tiltakstype === "VARIG_LONNSTILSKUDD"){
+            if(tilskuddsprosent >= 68) return 67;
+            return tilskuddsprosent;
+        }
+        return tilskuddsprosent - 10;
+    }
     return (
         <Ekspanderbartpanel tittel={<Element>Tilskudd for en måned</Element>} apen>
             <div className={cls.element('wrapper')}>
@@ -88,7 +99,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                             labelIkon={<GraphRefusjonAvLonnIkon />}
                             ikkePenger
                             verdiOperator={<ProsentTegn />}
-                            verdi={props.lonnstilskuddProsent ? props.lonnstilskuddProsent - 10 : 0}
+                            verdi={props.lonnstilskuddProsent ? regnUtRedusertProsent(props.tiltakstype!,props.lonnstilskuddProsent) : 0}
                         />
                         <Utregningsrad
                             labelTekst="Sum tilskudd for en måned"

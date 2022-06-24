@@ -33,18 +33,35 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Element>Reduksjon av tilskuddsprosent</Element>
-                                <Normaltekst>
-                                    Tilskuddsprosenten reduseres med 10% etter{' '}
-                                    {avtale.gjeldendeInnhold.lonnstilskuddProsent === 60 ? '1 år' : '6 måneder'}. Datoen
-                                    for ny redusert sats er{' '}
-                                    <b>
-                                        {formatterDato(
-                                            avtale.gjeldendeInnhold.datoForRedusertProsent,
-                                            NORSK_DATO_FORMAT
-                                        )}
-                                    </b>
-                                    .
-                                </Normaltekst>
+                                {avtale.tiltakstype === "MIDLERTIDIG_LONNSTILSKUDD" &&
+                                    <Normaltekst>
+                                        Tilskuddsprosenten reduseres med 10% etter{' '}
+                                        {avtale.gjeldendeInnhold.lonnstilskuddProsent === 60 ? '1 år' : '6 måneder'}. Datoen
+                                        for ny redusert sats er{' '}
+                                        <b>
+                                            {formatterDato(
+                                                avtale.gjeldendeInnhold.datoForRedusertProsent,
+                                                NORSK_DATO_FORMAT
+                                            )}
+                                        </b>
+                                        .
+                                    </Normaltekst>
+                                }
+
+                                {avtale.tiltakstype === "VARIG_LONNSTILSKUDD" &&
+                                    <Normaltekst>
+                                        Tilskuddsprosenten reduseres til 67% etter 1 år om tilskuddsprosenten er eller over 68%.
+                                        Datoen for ny redusert sats er{' '}
+                                        <b>
+                                            {formatterDato(
+                                                avtale.gjeldendeInnhold.datoForRedusertProsent,
+                                                NORSK_DATO_FORMAT
+                                            )}
+                                        </b>
+                                        .
+                                    </Normaltekst>
+                                }
+
                             </>
                         )}
                     </div>

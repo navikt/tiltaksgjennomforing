@@ -182,6 +182,7 @@ export interface Beregningsgrunnlag {
     manedslonn100pst?: number;
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
+    tiltakstype?:TiltaksType
 }
 
 export interface TilskuddsPerioder {

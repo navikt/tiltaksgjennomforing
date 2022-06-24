@@ -11,8 +11,8 @@ import React, { useContext } from 'react';
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
     const sjekkOgSettVerdi = (verdi: string | number | undefined): number | undefined => {
-        if (typeof verdi === 'number') {
-            return verdi;
+        if (!isNaN(Number(verdi))) {
+            return Number(verdi);
         }
     };
 
@@ -54,8 +54,9 @@ const OmMentorSteg = () => {
                         <PakrevdInput
                             label="Antall timer med mentor"
                             verdi={avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer}
-                            settVerdi={(verdi) =>
-                                avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi))
+                            settVerdi={(verdi) =>{
+                                avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', Number(verdi))
+                            }
                             }
                         />
                     </Column>

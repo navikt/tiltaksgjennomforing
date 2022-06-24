@@ -133,7 +133,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         <Innholdsboks>
             <Systemtittel>Velg type avtale</Systemtittel>
             <Normaltekst>
-                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider
+                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider {" "}
                 <EksternLenke
                     onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
                     href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
