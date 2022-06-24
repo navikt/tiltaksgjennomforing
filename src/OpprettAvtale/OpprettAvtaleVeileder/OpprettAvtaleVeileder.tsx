@@ -29,11 +29,25 @@ const cls = BEMHelper('opprett-avtale');
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
+    const [mentorFnr, setMentorFnr] = useState('');
     const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
+        (verdi) => {
+            if (!verdi) {
+                return 'Fødselsnummer er påkrevd';
+            }
+        },
+        (verdi) => {
+            if (!validerFnr(verdi)) {
+                return 'Ugyldig fødselsnummer';
+            }
+        },
+    ]);
+
+    const [mentorFnrFeil, setMentorFnrFeil, validerMentorFnr] = useValidering(mentorFnr, [
         (verdi) => {
             if (!verdi) {
                 return 'Fødselsnummer er påkrevd';
@@ -64,6 +78,14 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         if (/^\d{0,11}$/.test(verdi)) {
             setDeltakerFnr(verdi);
             setDeltakerFnrFeil(undefined);
+        }
+    };
+
+    const fnrMentorOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const verdi = event.target.value.replace(/\D/g, '');
+        if (/^\d{0,11}$/.test(verdi)) {
+            setMentorFnr(verdi);
+            setMentorFnrFeil(undefined);
         }
     };
 
@@ -265,11 +287,11 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 {valgtTiltaksType === 'MENTOR' && <Input
                     className="typo-element"
                     label="Mentors fødselsnummer"
-                    value={deltakerFnr}
+                    value={mentorFnr}
                     bredde={'M'}
-                    onChange={fnrOnChange}
-                    onBlur={validerDeltakerFnr}
-                    feil={deltakerFnrFeil}
+                    onChange={fnrMentorOnChange}
+                    onBlur={validerMentorFnr}
+                    feil={mentorFnrFeil}
                 />}
             </Innholdsboks>
             <VerticalSpacer rem={1} />
