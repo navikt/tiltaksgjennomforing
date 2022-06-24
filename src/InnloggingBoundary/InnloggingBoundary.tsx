@@ -14,6 +14,10 @@ import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
 import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
 import ByttTilBeslutter from '@/InnloggingBoundary/ByttTilBeslutter';
+import {Feature} from "@/FeatureToggleProvider";
+import {useContext} from "react";
+import {FeatureToggleContext} from "@/FeatureToggleProvider";
+import {Innloggingskilde} from "@/types/innlogget-bruker";
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
@@ -49,6 +53,7 @@ const InnloggingBoundary: FunctionComponent = props => {
         const urlParametere = new URLSearchParams(window.location.search);
 
         const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
+
         if (['ARBEIDSGIVER', 'DELTAKER','MENTOR', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
             setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
             urlParametere.delete('part');

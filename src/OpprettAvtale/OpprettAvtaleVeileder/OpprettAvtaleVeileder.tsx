@@ -133,16 +133,16 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
 
     const radiopaneler = (
         <Innholdsboks>
-            <Systemtittel>Velg type avtale</Systemtittel>
-            <Normaltekst>
-                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider {" "}
-                <EksternLenke
-                    onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
-                    href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
-                >
-                    hvordan kan NAV hjelpe med inkludering
-                </EksternLenke>
-            </Normaltekst>
+                    <Systemtittel>Velg type avtale</Systemtittel>
+                    <Normaltekst>
+                        Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider {" "}
+                        <EksternLenke
+                            onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
+                            href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
+                        >
+                            hvordan kan NAV hjelpe med inkludering
+                        </EksternLenke>
+                    </Normaltekst>
             <VerticalSpacer rem={1} />
             <div className={cls.element('tiltakstypeWrapper')}>
                 <RadioPanel
@@ -234,6 +234,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 </Normaltekst>
             </Innholdsboks>
             <VerticalSpacer rem={1} />
+            {radiopaneler}
+            <VerticalSpacer rem={1} />
             <Innholdsboks>
                 <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
                 <VerticalSpacer rem={1} />
@@ -259,9 +261,17 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     feil={bedriftNrFeil}
                 />
                 {bedriftNavn && <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>}
+                <VerticalSpacer rem={1} />
+                {valgtTiltaksType === 'MENTOR' && <Input
+                    className="typo-element"
+                    label="Mentors fødselsnummer"
+                    value={deltakerFnr}
+                    bredde={'M'}
+                    onChange={fnrOnChange}
+                    onBlur={validerDeltakerFnr}
+                    feil={deltakerFnrFeil}
+                />}
             </Innholdsboks>
-            <VerticalSpacer rem={1} />
-            {radiopaneler}
             <VerticalSpacer rem={1} />
             <AlertStripeInfo>
                 <Element>Dette skjer etter at du har opprettet avtalen</Element>
