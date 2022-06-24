@@ -116,7 +116,32 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         </EksternLenke>
                     </Normaltekst>
                 </Innholdsboks>
-
+                <Innholdsboks className={cls.element('innholdsboks')}>
+                    <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
+                    <VerticalSpacer rem={1} />
+                    <Normaltekst>
+                        Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
+                    </Normaltekst>
+                    <VerticalSpacer rem={1} />
+                    <div className={cls.element('tiltakstypeWrapper')}>
+                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
+                            <RadioPanel
+                                key={index}
+                                name="tiltakstype"
+                                label={storForbokstav(tiltakstypeTekst[tiltakType])}
+                                value={tiltakType}
+                                checked={valgtTiltaksType === tiltakType}
+                                onChange={() => {
+                                    setTiltaksType(tiltakType);
+                                    setUyldigAvtaletype(false);
+                                }}
+                            />
+                        ))}
+                    </div>
+                    {uyldigAvtaletype && (
+                        <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
+                    )}
+                </Innholdsboks>
                 <Innholdsboks className={cls.element('innholdsboks')}>
                     <Systemtittel className={cls.element('innholdstittel')}>Hvem skal inngå i avtalen</Systemtittel>
                     <VerticalSpacer rem={1} />
@@ -143,33 +168,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
                         disabled={true}
                     />
-                </Innholdsboks>
-
-                <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
-                    <VerticalSpacer rem={1} />
-                    <Normaltekst>
-                        Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
-                    </Normaltekst>
-                    <VerticalSpacer rem={1} />
-                    <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
-                            <RadioPanel
-                                key={index}
-                                name="tiltakstype"
-                                label={storForbokstav(tiltakstypeTekst[tiltakType])}
-                                value={tiltakType}
-                                checked={valgtTiltaksType === tiltakType}
-                                onChange={() => {
-                                    setTiltaksType(tiltakType);
-                                    setUyldigAvtaletype(false);
-                                }}
-                            />
-                        ))}
-                    </div>
-                    {uyldigAvtaletype && (
-                        <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
-                    )}
                 </Innholdsboks>
 
                 <AlertStripeInfo>
