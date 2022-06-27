@@ -1,30 +1,29 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
 import { pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
 import { opprettAvtaleSomArbeidsgiver } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { validerFnr } from '@/utils/fnrUtils';
+import { validerOrgnr } from '@/utils/orgnrUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { Input, RadioPanel } from 'nav-frontend-skjema';
-import { SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { Feilmeldinger } from '@/types/feilkode';
-import { Feilkode } from '@/types/feilkode';
-import { validerOrgnr } from '@/utils/orgnrUtils';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -34,6 +33,11 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
+
+    const featureToggleContext = useContext(FeatureToggleContext);
+
+    const mentorToggle = featureToggleContext[Feature.Mentor];
+    const inkluderingstilskuddToggle = featureToggleContext[Feature.Inkluderingstiskudd];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
         (verdi) => {
@@ -95,6 +99,17 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         (org) => org.OrganizationNumber === valgtBedriftNr
     )?.Name;
 
+    const erTiltakstypeSkruddPå = (tiltakstype: TiltaksType) => {
+        if (tiltakstype === 'MENTOR') {
+            return mentorToggle;
+        } else if (tiltakstype === 'INKLUDERINGSTILSKUDD') {
+            return inkluderingstilskuddToggle;
+        } else {
+            return true;
+        }
+        
+    } 
+
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
@@ -153,19 +168,21 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
-                            <RadioPanel
-                                key={index}
-                                name="tiltakstype"
-                                label={storForbokstav(tiltakstypeTekst[tiltakType])}
-                                value={tiltakType}
-                                checked={valgtTiltaksType === tiltakType}
-                                onChange={() => {
-                                    setTiltaksType(tiltakType);
-                                    setUyldigAvtaletype(false);
-                                }}
-                            />
-                        ))}
+                        {innloggetBruker.tilganger[valgtBedriftNr]
+                            .filter((tiltakstype) => erTiltakstypeSkruddPå(tiltakstype))
+                            .map((tiltakType: TiltaksType, index: number) => (
+                                <RadioPanel
+                                    key={index}
+                                    name="tiltakstype"
+                                    label={storForbokstav(tiltakstypeTekst[tiltakType])}
+                                    value={tiltakType}
+                                    checked={valgtTiltaksType === tiltakType}
+                                    onChange={() => {
+                                        setTiltaksType(tiltakType);
+                                        setUyldigAvtaletype(false);
+                                    }}
+                                />
+                            ))}
                     </div>
                     {uyldigAvtaletype && (
                         <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
