@@ -15,22 +15,40 @@ import EnTilskuddsutgift from './EnTilskuddsutgift';
 import { useTilskuddsutgift } from './inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
 
-const InkluderingstilskuddSteg: FunctionComponent = () =>  {
+const InkluderingstilskuddSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [iRedigermodus, setIRedigermodus] = useState(false);
-    const inkluderingsutgiftUtils = useTilskuddsutgift(avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddsutgift)
+    const inkluderingsutgiftUtils = useTilskuddsutgift(
+        avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddsutgift
+    );
 
     const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(index, beløp, type);
-        avtaleContext.settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
+        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(
+            index,
+            beløp,
+            type
+        );
+        avtaleContext.settAvtaleInnholdVerdier(
+            { inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste },
+            true
+        );
     };
     const slett = (index: number) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index)
-        avtaleContext.settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
+        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index);
+        avtaleContext.settAvtaleInnholdVerdier(
+            { inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste },
+            true
+        );
     };
     const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.leggTilInkluderingstilskuddsutgift(beløp, type);
-        avtaleContext.settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
+        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.leggTilInkluderingstilskuddsutgift(
+            beløp,
+            type
+        );
+        avtaleContext.settAvtaleInnholdVerdier(
+            { inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste },
+            true
+        );
     };
 
     return (
@@ -102,7 +120,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () =>  {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
-                            limitations={AvtaleMinMaxDato()}
+                            limitations={AvtaleMinMaxDato(true)}
                             onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ startDato: dato })}
                         />
                     </Column>
@@ -111,7 +129,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () =>  {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
-                            limitations={AvtaleMinMaxDato()}
+                            limitations={AvtaleMinMaxDato(false)}
                             onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato })}
                         />
                     </Column>

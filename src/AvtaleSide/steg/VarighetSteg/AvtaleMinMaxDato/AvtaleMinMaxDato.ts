@@ -63,6 +63,8 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                 return settdatoArbeidstrening();
             case 'MENTOR':
                 return datoDefaultVerdi();
+            case 'INKLUDERINGSTILSKUDD':
+                return datoDefaultVerdi();
         }
     };
 
