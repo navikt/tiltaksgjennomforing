@@ -64,7 +64,24 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
             case 'MENTOR':
                 return datoDefaultVerdi();
             case 'INKLUDERINGSTILSKUDD':
-                return datoDefaultVerdi();
+                if (startDatePicker === true) {
+                    return {
+                        minDate: sjekkMuligMinDato(),
+                        maxDate: sluttDatoFraDagensDato(1, 'years'),
+                    };
+                } else {
+                    if (avtale.gjeldendeInnhold.startDato) {
+                        return {
+                            minDate: avtale.gjeldendeInnhold.startDato,
+                            maxDate: startdatoPluss(1, 'years'),
+                        };
+                    } else {
+                        return {
+                            minDate: sjekkMuligMinDato(),
+                            maxDate: sluttDatoFraDagensDato(1, 'years'),
+                        };
+                    }
+                }
         }
     };
 
