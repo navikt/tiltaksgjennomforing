@@ -2,8 +2,10 @@ import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 import BeregningTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningTilskuddSteg';
 import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
 import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import OppsummeringInkluderingstilskudd from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd";
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
+import InkluderingstilskuddSteg from '@/AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingstilskuddSteg';
 import KontaktinfoSteg from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from '@/AvtaleSide/steg/MaalSteg/MaalSteg';
 import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
@@ -106,11 +108,35 @@ const mentorSteg: StegInfo[] = [
     },
 ];
 
+const inkluderingTilskuddSteg: StegInfo[] = [
+    {
+        komponent: <KontaktinfoSteg />,
+        label: 'Kontaktinformasjon',
+        id: 'kontaktinformasjon',
+    },
+    {
+        komponent: < InkluderingstilskuddSteg />,
+        label: 'Inkluderingstilskudd',
+        id: 'inkluderingstilskudd',
+    },
+    {
+        komponent: <OppfolgingTilretteleggingSteg />,
+        label: 'Oppfølging og tilrettelegging',
+        id: 'oppfolging',
+    },
+    {
+        komponent: <GodkjenningSteg oppsummering={OppsummeringInkluderingstilskudd} />,
+        label: 'Godkjenning',
+        id: 'godkjenning',
+    },
+];
+
 const hentAvtaleSteg = {
     ARBEIDSTRENING: arbeidstreningSteg,
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MENTOR: mentorSteg,
+    INKLUDERINGSTILSKUDD: inkluderingTilskuddSteg,
     SOMMERJOBB: lonnstilskuddSteg,
 };
 

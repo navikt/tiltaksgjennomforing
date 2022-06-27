@@ -20,6 +20,7 @@ const VersjonModal: React.FunctionComponent<Props> = props => {
         MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
         VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
         MENTOR: <OppsummeringMentor avtaleinnhold={props.avtaleInnhold} />,
+        INKLUDERINGSTILSKUDD: <OppsummeringMentor avtaleinnhold={props.avtaleInnhold} />,
         SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
     };
 
