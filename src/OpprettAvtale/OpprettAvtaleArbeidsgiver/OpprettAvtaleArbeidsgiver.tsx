@@ -25,11 +25,13 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { Feilmeldinger } from '@/types/feilkode';
 import { Feilkode } from '@/types/feilkode';
 import { validerOrgnr } from '@/utils/orgnrUtils';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
 const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
+    const [mentorFnr, setMentorFnr] = useState('');
     const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -48,11 +50,32 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         },
     ]);
 
+    const [mentorFnrFeil, setMentorFnrFeil, validerMentorFnr] = useValidering(mentorFnr, [
+        (verdi) => {
+            if (!verdi) {
+                return 'Fødselsnummer er påkrevd';
+            }
+        },
+        (verdi) => {
+            if (!validerFnr(verdi)) {
+                return 'Ugyldig fødselsnummer';
+            }
+        },
+    ]);
+
     const fnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         const verdi = event.target.value.replace(/\D/g, '');
         if (/^\d{0,11}$/.test(verdi)) {
             setDeltakerFnr(verdi);
             setDeltakerFnrFeil(undefined);
+        }
+    };
+
+    const fnrMentorOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const verdi = event.target.value.replace(/\D/g, '');
+        if (/^\d{0,11}$/.test(verdi)) {
+            setMentorFnr(verdi);
+            setMentorFnrFeil(undefined);
         }
     };
 
@@ -95,6 +118,10 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         (org) => org.OrganizationNumber === valgtBedriftNr
     )?.Name;
 
+    const featureToggleContext = useContext(FeatureToggleContext);
+
+    const mentorToggle = featureToggleContext[Feature.Mentor];
+
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
@@ -124,19 +151,25 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
-                            <RadioPanel
-                                key={index}
-                                name="tiltakstype"
-                                label={storForbokstav(tiltakstypeTekst[tiltakType])}
-                                value={tiltakType}
-                                checked={valgtTiltaksType === tiltakType}
-                                onChange={() => {
-                                    setTiltaksType(tiltakType);
-                                    setUyldigAvtaletype(false);
-                                }}
-                            />
-                        ))}
+                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
+                            //TODO: Fjern mentor toggle
+                            if (!mentorToggle && tiltakType === 'MENTOR') {
+                                return <></>;
+                            }
+                            return (
+                                <RadioPanel
+                                    key={index}
+                                    name="tiltakstype"
+                                    label={storForbokstav(tiltakstypeTekst[tiltakType])}
+                                    value={tiltakType}
+                                    checked={valgtTiltaksType === tiltakType}
+                                    onChange={() => {
+                                        setTiltaksType(tiltakType);
+                                        setUyldigAvtaletype(false);
+                                    }}
+                                />
+                            );
+                        })}
                     </div>
                     {uyldigAvtaletype && (
                         <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
@@ -168,6 +201,18 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
                         disabled={true}
                     />
+                    <VerticalSpacer rem={1} />
+                    {valgtTiltaksType === 'MENTOR' && (
+                        <Input
+                            className="typo-element"
+                            label="Mentors fødselsnummer"
+                            value={mentorFnr}
+                            bredde={'M'}
+                            onChange={fnrMentorOnChange}
+                            onBlur={validerMentorFnr}
+                            feil={mentorFnrFeil}
+                        />
+                    )}
                 </Innholdsboks>
 
                 <AlertStripeInfo>

@@ -69,6 +69,7 @@ export type TiltaksType =
     | 'VARIG_LONNSTILSKUDD'
     | 'MENTOR'
     | 'SOMMERJOBB';
+    
 export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'UTBETALT';
 export type AvbrytelseGrunn =
     | 'Feilregistrering'

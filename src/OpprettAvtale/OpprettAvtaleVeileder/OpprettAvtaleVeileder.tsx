@@ -6,7 +6,12 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
-import { hentBedriftBrreg, opprettAvtaleSomVeileder } from '@/services/rest-service';
+import {
+    hentBedriftBrreg,
+    opprettAvtaleSomVeileder,
+    opprettMentorAvtale,
+    opprettMentorAvtaleSomVeileder,
+} from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import amplitude from '@/utils/amplitude';
 import { handterFeil } from '@/utils/apiFeilUtils';
@@ -26,6 +31,14 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 const cls = BEMHelper('opprett-avtale');
+
+export enum Avtalerolle {
+    DELTAKER = 'DELTAKER',
+    MENTOR = 'MENTOR',
+    ARBEIDSGIVER = 'ARBEIDSGIVER',
+    VEILEDER = 'VEILEDER',
+    BESLUTTER = 'BESLUTTER',
+}
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
@@ -136,6 +149,18 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             feilBedriftNr = Feilmeldinger.UGYLDIG_VIRKSOMHETSNUMMER;
         }
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
+            if (valgtTiltaksType === 'MENTOR') {
+                const avtale = await opprettMentorAvtaleSomVeileder(
+                    deltakerFnr,
+                    mentorFnr,
+                    bedriftNr,
+                    valgtTiltaksType,
+                    Avtalerolle.VEILEDER
+                );
+                amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
+                history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
+                return;
+            }
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
@@ -155,16 +180,16 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
 
     const radiopaneler = (
         <Innholdsboks>
-                    <Systemtittel>Velg type avtale</Systemtittel>
-                    <Normaltekst>
-                        Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider {" "}
-                        <EksternLenke
-                            onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
-                            href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
-                        >
-                            hvordan kan NAV hjelpe med inkludering
-                        </EksternLenke>
-                    </Normaltekst>
+            <Systemtittel>Velg type avtale</Systemtittel>
+            <Normaltekst>
+                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
+                <EksternLenke
+                    onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
+                    href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
+                >
+                    hvordan kan NAV hjelpe med inkludering
+                </EksternLenke>
+            </Normaltekst>
             <VerticalSpacer rem={1} />
             <div className={cls.element('tiltakstypeWrapper')}>
                 <RadioPanel
@@ -284,15 +309,17 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 />
                 {bedriftNavn && <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>}
                 <VerticalSpacer rem={1} />
-                {valgtTiltaksType === 'MENTOR' && <Input
-                    className="typo-element"
-                    label="Mentors fødselsnummer"
-                    value={mentorFnr}
-                    bredde={'M'}
-                    onChange={fnrMentorOnChange}
-                    onBlur={validerMentorFnr}
-                    feil={mentorFnrFeil}
-                />}
+                {valgtTiltaksType === 'MENTOR' && (
+                    <Input
+                        className="typo-element"
+                        label="Mentors fødselsnummer"
+                        value={mentorFnr}
+                        bredde={'M'}
+                        onChange={fnrMentorOnChange}
+                        onBlur={validerMentorFnr}
+                        feil={mentorFnrFeil}
+                    />
+                )}
             </Innholdsboks>
             <VerticalSpacer rem={1} />
             <AlertStripeInfo>
