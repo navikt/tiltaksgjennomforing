@@ -18,6 +18,8 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
         return null;
     }
 
+    const antallAktiveTilskuddsperioder = avtale.tilskuddPeriode.filter((p) => p.aktiv).length;
+
     return (
         <div className={cls.className}>
             <Ekspanderbartpanel tittel="Oversikt over tilskudd i perioder" apen={true}>
@@ -109,7 +111,7 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                             })}
                         {avtale.gjeldendeInnhold.startDato && avtale.gjeldendeInnhold.sluttDato &&
                             <div className={cls.element('tabell-innslag')} >
-                                Avtalen varer fra {formatterDato(avtale.gjeldendeInnhold.startDato, NORSK_DATO_FORMAT)} til {formatterDato(avtale.gjeldendeInnhold.sluttDato, NORSK_DATO_FORMAT)}. Det tilsvarer {avtale.tilskuddPeriode.length} tilskuddsperioder.
+                                Avtalen varer fra {formatterDato(avtale.gjeldendeInnhold.startDato, NORSK_DATO_FORMAT)} til {formatterDato(avtale.gjeldendeInnhold.sluttDato, NORSK_DATO_FORMAT)}. Det tilsvarer {antallAktiveTilskuddsperioder} tilskuddsperioder.
                             </div>
                         }
                     </div>
