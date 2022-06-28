@@ -159,14 +159,14 @@ export const opprettAvtaleSomArbeidsgiver = async (
     return opprettAvtalen('/avtaler/opprett-som-arbeidsgiver', deltakerFnr, bedriftNr, tiltakstype);
 };
 
-export const opprettMentorAvtaleSomVeileder = async (
+export const opprettMentorAvtale = async (
     deltakerFnr: string,
     mentorFnr: string,
     bedriftNr: string,
     tiltakstype: TiltaksType,
     avtalerolle: Avtalerolle
 ): Promise<Avtale> => {
-    const postResponse = await api.post('/avtaler/opprett-menter-som-veileder', {
+    const postResponse = await api.post('/avtaler/opprett-mentor-avtale', {
         deltakerFnr,
         mentorFnr,
         bedriftNr,
@@ -177,22 +177,6 @@ export const opprettMentorAvtaleSomVeileder = async (
     return getResponse.data;
 };
 
-export const opprettMentorAvtale = async (
-    deltakerFnr: string,
-    mentorFnr: string,
-    bedriftNr: string,
-    tiltakstype: TiltaksType,
-    avtalerolle: Avtalerolle
-): Promise<Avtale> => {
-    const postResponse = await api.post(`/avtaler/opprett-mentor-avtale'`, {
-        deltakerFnr,
-        mentorFnr,
-        bedriftNr,
-        tiltakstype,
-    });
-    const getResponse = await api.get<Avtale>(`${postResponse.headers.location}`);
-    return getResponse.data;
-};
 const opprettAvtalen = async (
     url: string,
     deltakerFnr: string,

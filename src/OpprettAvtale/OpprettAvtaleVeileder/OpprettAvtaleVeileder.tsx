@@ -9,8 +9,7 @@ import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
-    opprettMentorAvtale,
-    opprettMentorAvtaleSomVeileder,
+    opprettMentorAvtale
 } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import amplitude from '@/utils/amplitude';
@@ -150,7 +149,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         }
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             if (valgtTiltaksType === 'MENTOR') {
-                const avtale = await opprettMentorAvtaleSomVeileder(
+                const avtale = await opprettMentorAvtale(
                     deltakerFnr,
                     mentorFnr,
                     bedriftNr,

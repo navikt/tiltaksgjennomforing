@@ -26,6 +26,8 @@ import { Feilmeldinger } from '@/types/feilkode';
 import { Feilkode } from '@/types/feilkode';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import {opprettMentorAvtale} from "@/services/rest-service";
+import {Avtalerolle} from "@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder";
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -101,6 +103,18 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         }
 
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
+            if (valgtTiltaksType === 'MENTOR') {
+                const avtale = await opprettMentorAvtale(
+                    deltakerFnr,
+                    mentorFnr,
+                    valgtBedriftNr,
+                    valgtTiltaksType,
+                    Avtalerolle.ARBEIDSGIVER
+                );
+                amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
+                history.push(pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id));
+                return;
+            }
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             history.push({
