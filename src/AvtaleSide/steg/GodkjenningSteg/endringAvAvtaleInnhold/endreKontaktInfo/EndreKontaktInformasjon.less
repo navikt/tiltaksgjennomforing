@@ -2,11 +2,11 @@
     &__inputfelter {
         display: flex;
         flex-direction: column;
+
         &:nth-child(2) {
             margin-top: 1.5rem;
             margin-bottom: 1rem;
         }
-
         & > .skjemaelement {
             width: 100%;
         }
@@ -25,23 +25,25 @@
         flex-direction: column;
 
         &__tittel {
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
         &__inputfelter {
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
+            width: 100%;
+             flex-wrap: wrap;
             flex: 0 45%;
+
             &:nth-child(2) {
-                margin-top: 1.5rem;
+                margin-top: 1rem;
                 margin-bottom: 1rem;
             }
-
             & > .skjemaelement {
                 width: 45%;
+                margin-bottom: 1rem;
                 &:nth-child(1) {
-                    margin-right: 0.5rem;
+                    margin-right: 0.75rem;
                 }
             }
         }

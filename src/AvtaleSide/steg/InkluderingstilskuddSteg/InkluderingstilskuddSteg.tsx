@@ -15,22 +15,29 @@ import EnTilskuddsutgift from './EnTilskuddsutgift';
 import { useTilskuddsutgift } from './inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
 
-const InkluderingstilskuddSteg: FunctionComponent = () =>  {
-    const avtaleContext = useContext(AvtaleContext);
+const InkluderingstilskuddSteg: FunctionComponent = () => {
+    const { avtale, settAvtaleInnholdVerdier, settAvtaleInnholdVerdi, lagreAvtale } = useContext(AvtaleContext);
     const [iRedigermodus, setIRedigermodus] = useState(false);
-    const inkluderingsutgiftUtils = useTilskuddsutgift(avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddsutgift)
+    const inkluderingsutgiftUtils = useTilskuddsutgift(avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
 
     const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(index, beløp, type);
-        avtaleContext.settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
+        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(
+            index,
+            beløp,
+            type
+        );
+        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
     };
     const slett = (index: number) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index)
-        avtaleContext.settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
+        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index);
+        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
     };
     const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.leggTilInkluderingstilskuddsutgift(beløp, type);
-        avtaleContext.settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
+        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.leggTilInkluderingstilskuddsutgift(
+            beløp,
+            type
+        );
+        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
     };
 
     return (
@@ -46,19 +53,15 @@ const InkluderingstilskuddSteg: FunctionComponent = () =>  {
                 <VerticalSpacer rem={2} />
                 <PakrevdTextarea
                     label="Hvorfor er det behov for inkluderingstilskudd?"
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddBegrunnelse}
-                    settVerdi={(verdi) =>
-                        avtaleContext.settAvtaleInnholdVerdi('inkluderingstilskuddBegrunnelse', verdi)
-                    }
+                    verdi={avtale.gjeldendeInnhold.inkluderingstilskuddBegrunnelse}
+                    settVerdi={(verdi) => settAvtaleInnholdVerdi('inkluderingstilskuddBegrunnelse', verdi)}
                     maxLengde={1000}
                     feilmelding="Beskrivelse av behovet for inkluderingstilskudd er påkrevd"
                 />
                 <VerticalSpacer rem={2} />
                 <div>
                     <Element>Totalt konstadsoverslag:</Element>
-                    <Ingress>
-                        {formatterPenger(avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
-                    </Ingress>
+                    <Ingress>{formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}</Ingress>
                     <VerticalSpacer rem={1} />
                     <Normaltekst>
                         Det er et{' '}
@@ -76,14 +79,15 @@ const InkluderingstilskuddSteg: FunctionComponent = () =>  {
                         ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
                         setIRedigeringsmodus={setIRedigermodus}
                         iRegideringsmodus={iRedigermodus}
-                        tilskuddsutgift={avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddsutgift}
-                        totalBeløp={avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp}
+                        tilskuddsutgift={avtale.gjeldendeInnhold.inkluderingstilskuddsutgift}
+                        totalBeløp={avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp}
                     />
                 </div>
             </Innholdsboks>
             <div>
-                {avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
+                {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
                     <EnTilskuddsutgift
+                        key={index}
                         tilskuddsutgift={tilskuddsutgift}
                         endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}
                         slett={() => slett(index)}
@@ -101,23 +105,23 @@ const InkluderingstilskuddSteg: FunctionComponent = () =>  {
                         <label className="skjemaelement__label">Startdato</label>
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
+                            value={avtale.gjeldendeInnhold.startDato || undefined}
                             limitations={AvtaleMinMaxDato()}
-                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ startDato: dato })}
+                            onChange={(dato) => settAvtaleInnholdVerdier({ startDato: dato })}
                         />
                     </Column>
                     <Column md="6">
                         <label className="skjemaelement__label">Forventet sluttdato</label>
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
+                            value={avtale.gjeldendeInnhold.sluttDato || undefined}
                             limitations={AvtaleMinMaxDato()}
-                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato })}
+                            onChange={(dato) => settAvtaleInnholdVerdier({ sluttDato: dato })}
                         />
                     </Column>
                 </Row>
                 <VerticalSpacer rem={2} />
-                <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+                <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
             </Innholdsboks>
         </>
     );

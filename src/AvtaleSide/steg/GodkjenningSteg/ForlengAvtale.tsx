@@ -102,7 +102,7 @@ const ForlengAvtale: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={forleng}
                 lukkModal={lukkModal}
-                varselTekst={forlengeTekst}
+                modalInnhold={forlengeTekst}
             />
         </>
     );

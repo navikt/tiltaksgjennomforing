@@ -6,17 +6,13 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
 
     const lukkModal = () => {
         setModalApen(false);
-    }
+    };
     const endreUtgifter = async () => {
         // await lalal
         setModalApen(false);
-    }
+    };
 
-    const endreUtgifterInnhold = (
-        <div>
-            lalala
-        </div>
-    )
+    const endreUtgifterInnhold = <div>lalala</div>;
 
     return (
         <div>
@@ -28,7 +24,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreUtgifter}
                 lukkModal={lukkModal}
-                varselTekst={endreUtgifterInnhold}
+                modalInnhold={endreUtgifterInnhold}
             />
         </div>
     );

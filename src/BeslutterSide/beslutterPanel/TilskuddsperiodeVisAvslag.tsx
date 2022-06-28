@@ -29,7 +29,7 @@ const TilskuddsperiodeVisAvslag: FunctionComponent = () => {
                 }}
                 modalIsOpen={visAvslag}
                 oversiktTekst="Send avslag til veileder"
-                varselTekst={
+                modalInnhold={
                     <>
                         <Normaltekst className={cls.element('avslagtext-subingress')}>
                             Veileder vil få en varsling i avtaleløsningen med årsak til retur og forklaring.

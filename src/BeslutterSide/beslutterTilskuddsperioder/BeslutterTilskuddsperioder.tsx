@@ -156,7 +156,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                 }}
                 modalIsOpen={godkjennModalÅpen}
                 oversiktTekst="Godkjenn tilskuddsperiode"
-                varselTekst="Du kan ikke gjøre endringer etter at du har godkjent tilskuddsperioden."
+                modalInnhold="Du kan ikke gjøre endringer etter at du har godkjent tilskuddsperioden."
                 bekreftelseTekst="Godkjenn tilskuddsperiode"
                 avbrytelseTekst="Avbryt"
                 lukkModal={() => setGodkjennModalÅpen(false)}

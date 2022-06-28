@@ -19,7 +19,7 @@ const OvertaAvtaleModal = (props: Props) => {
                 modalIsOpen={props.isOpen}
                 bekreftOnClick={() => bekreftValgtHandling()}
                 lukkModal={() => props.lukkModal()}
-                varselTekst="Du må huske å oppdatere kontaktinformasjonen til veileder i avtalen."
+                modalInnhold="Du må huske å oppdatere kontaktinformasjonen til veileder i avtalen."
                 oversiktTekst="Overta avtale"
                 bekreftelseTekst="Overta avtalen"
                 avbrytelseTekst="Lukk"

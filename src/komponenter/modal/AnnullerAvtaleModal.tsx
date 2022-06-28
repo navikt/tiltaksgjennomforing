@@ -110,7 +110,7 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
             lukkModal={props.lukkModal}
             modalIsOpen={props.isOpen}
             oversiktTekst="Annuller avtalen"
-            varselTekst={modalInnhold}
+            modalInnhold={modalInnhold}
             bekreftelseTekst="Annuller avtale"
             avbrytelseTekst="Behold avtale"
         />
