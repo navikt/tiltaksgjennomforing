@@ -57,6 +57,7 @@ export type Avtaleinnhold = {
     familietilknytningForklaring?: string;
 
     mentorFornavn?: string;
+    mentorTlf?: string;
     mentorEtternavn?: string;
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
@@ -120,6 +121,7 @@ export interface Avtaleparter {
     deltakerFnr: string;
     veilederNavIdent: string;
     beslutterNavIdent: string;
+    mentorFnr:string
 }
 
 export interface Bedriftinfo {

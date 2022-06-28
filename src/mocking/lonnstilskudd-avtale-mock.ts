@@ -25,6 +25,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     },
 
     deltakerFnr: '00000000000',
+    mentorFnr: '00000000000',
     avbruttDato: '',
     avbruttGrunn: '',
     gjeldendeInnhold: {

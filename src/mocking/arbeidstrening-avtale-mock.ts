@@ -47,6 +47,7 @@ const arbeidstreningAvtaleMock: Avtale = {
 
     bedriftNr: '12345678',
     deltakerFnr: '00000000000',
+    mentorFnr: '00000000000',
     gjeldendeInnhold: {
         oppfolging: 'Bruker og AG skal følges opp',
         tilrettelegging: 'AG skal tilrettelegge',
