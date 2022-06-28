@@ -25,11 +25,6 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
         return moment(new Date()).add(megde, tidsEnhet).toISOString();
     };
 
-    const settdatoArbeidstrening = () => ({
-        minDate: sjekkMuligMinDato(),
-        maxDate: startdatoPluss(18, 'months'),
-    });
-
     const settdatoBegrensningTiltakstype = (tiltakstype: TiltaksType) => {
         switch (tiltakstype) {
             case 'SOMMERJOBB':
@@ -60,7 +55,22 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
             case 'VARIG_LONNSTILSKUDD':
                 return datoDefaultVerdi();
             case 'ARBEIDSTRENING':
-                return settdatoArbeidstrening();
+                if (startDatePicker === true) {
+                    return datoDefaultVerdi();
+                } else {
+                    if (avtale.gjeldendeInnhold.startDato) {
+                        return {
+                            minDate: startdatoPluss(1, 'days'),
+                            maxDate: startdatoPluss(18, 'months'),
+                        };
+                    } else {
+                        return {
+                            minDate: sjekkMuligMinDato(),
+                            maxDate: sluttDatoFraDagensDato(18, 'months'),
+                        };
+                    }
+                }
+
             case 'MENTOR':
                 return datoDefaultVerdi();
             case 'INKLUDERINGSTILSKUDD':
