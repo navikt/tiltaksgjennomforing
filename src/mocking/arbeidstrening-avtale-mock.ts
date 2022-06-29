@@ -38,6 +38,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     godkjentAvDeltaker: undefined,
     godkjentAvArbeidsgiver: undefined,
     godkjentAvVeileder: undefined,
+    godkjentTaushetserklæringAvMentor: undefined,
     status: 'PÅBEGYNT',
     avbrutt: false,
     godkjentPaVegneAv: false,
@@ -94,7 +95,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
 
     godkjentForEtterregistrering: false,
-    erAvtaleInngått: false
+    erAvtaleInngått: false,
 };
 
 export default arbeidstreningAvtaleMock;

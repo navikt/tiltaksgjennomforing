@@ -70,7 +70,7 @@ export type TiltaksType =
     | 'VARIG_LONNSTILSKUDD'
     | 'MENTOR'
     | 'SOMMERJOBB';
-    
+
 export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'UTBETALT';
 export type AvbrytelseGrunn =
     | 'Feilregistrering'
@@ -121,7 +121,7 @@ export interface Avtaleparter {
     deltakerFnr: string;
     veilederNavIdent: string;
     beslutterNavIdent: string;
-    mentorFnr:string
+    mentorFnr: string;
 }
 
 export interface Bedriftinfo {
@@ -184,7 +184,7 @@ export interface Beregningsgrunnlag {
     manedslonn100pst?: number;
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
-    tiltakstype?:TiltaksType
+    tiltakstype?: TiltaksType;
 }
 
 export interface TilskuddsPerioder {
@@ -242,6 +242,7 @@ export interface Godkjenninger {
     godkjentAvDeltaker?: string;
     godkjentAvArbeidsgiver?: string;
     godkjentAvVeileder?: string;
+    godkjentTaushetserklæringAvMentor?: string;
     avtaleInngått?: string;
     status: AvtaleStatus;
     statusSomEnum: AvtaleStatus;

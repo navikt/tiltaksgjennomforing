@@ -57,6 +57,16 @@ const IngenAvtaler: FunctionComponent = () => {
         );
     } else if (innloggetPart === 'ARBEIDSGIVER') {
         return <IngenAvtalerArbeidsgiver bedriftNr={filtre.bedrift} tiltakstype={filtre.tiltakstype} />;
+    } else if (innloggetPart === 'MENTOR') {
+        return (
+            <Innholdsboks>
+                <div className={cls.element('tekst')}>
+                    <Innholdstittel>Ingen avtaler</Innholdstittel>
+                    <VerticalSpacer rem={1} />
+                    <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
+                </div>
+            </Innholdsboks>
+        );
     } else {
         return null;
     }
