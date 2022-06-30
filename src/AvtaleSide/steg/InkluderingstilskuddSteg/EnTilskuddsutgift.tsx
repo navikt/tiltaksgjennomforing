@@ -1,5 +1,4 @@
 import ValutaInput from '@/komponenter/form/ValutaInput';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
@@ -7,7 +6,7 @@ import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -38,7 +37,7 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
     };
 
     return (
-        <Innholdsboks>
+        <>
             {endrerTilskuddsutgift ? (
                 <>
                     <Select
@@ -83,31 +82,38 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
                     </div>
                 </>
             ) : (
+              
                 <div>
-                    <Undertittel>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Undertittel>
-                    <VerticalSpacer rem={1} />
-                    <Normaltekst>Kostnadsoverslag: {formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
+        
+                    <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                        <div style={{display: 'flex', margin: 'auto 0'}}>
+                        <Normaltekst style={{minWidth: '11rem'}}>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Normaltekst>
+                        <Normaltekst style={{minWidth: '10rem'}}>20.01.2022</Normaltekst>
+                        <Normaltekst style={{minWidth: '6rem'}}>{formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
+                        </div>
+                        <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" />
+                    </div>
+                    
                     {/* <VerticalSpacer rem={1} />
                     <Normaltekst>{props.tilskuddsutgift.beløp}</Normaltekst> */}
-                    <VerticalSpacer rem={1} />
-                    <div style={{ borderTop: '1px solid #C6C2BF' }} />
-                    <VerticalSpacer rem={1} />
                     {props.iRegideringsmodus !== true && (
                         <div style={{ display: 'flex' }}>
-                            <KnappMedIkon
+                            {/* <KnappMedIkon
                                 onClick={() => {
                                     setEndrerTilskuddsutgift(true);
                                     props.setIRedigeringsmodus(true);
                                 }}
                                 label="Endre"
                                 ikonType="blyant"
-                            />
-                            <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" />
+                            /> */}
+                            {/* <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" /> */}
                         </div>
                     )}
+                    <VerticalSpacer rem={0.5} />
+                    <div style={{ borderTop: '1px solid #C6C2BF' }} />
                 </div>
             )}
-        </Innholdsboks>
+        </>
     );
 };
 

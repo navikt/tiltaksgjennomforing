@@ -76,12 +76,12 @@ export const inkluderingstilskuddForklaringTekst: { [key in Inkluderingstilskudd
 };
 
 export const inkluderingstilskuddtypeTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {
-    ARBEIDSHJELPEMIDLER: 'Arbeidshjelpemidler',
-    OPPLÆRING: 'Opplæring',
-    PROGRAMVARE: 'Programvare',
-    TILRETTELEGGINGSBEHOV: 'Tilretteleggingsbehov',
-    TILTAKSPLASS: 'Tiltaksplass',
-    UTSTYR: 'Utstyr'
+    ARBEIDSHJELPEMIDLER: 'd. Arbeidshjelpemidler',
+    OPPLÆRING: 'g. Opplæring',
+    PROGRAMVARE: 'e. Programvare',
+    TILRETTELEGGINGSBEHOV: 'a. Tilretteleggingsbehov',
+    TILTAKSPLASS: 'b. Tiltaksplass',
+    UTSTYR: 'c. Utstyr'
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
