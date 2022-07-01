@@ -6,7 +6,6 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Datepicker } from 'nav-datovelger';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import Lenke from 'nav-frontend-lenker';
 import { Element, Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
@@ -15,6 +14,7 @@ import { AvtaleMinMaxDato } from '../VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxD
 import EnTilskuddsutgift from './EnTilskuddsutgift';
 import { useTilskuddsutgift } from './inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
+import Tilskuddsbeskrivelse from './Tilskuddsbeskrivelse';
 
 const InkluderingstilskuddSteg: FunctionComponent = () => {
     const { avtale, settAvtaleInnholdVerdier, settAvtaleInnholdVerdi, lagreAvtale } = useContext(AvtaleContext);
@@ -95,48 +95,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                     feilmelding="Beskrivelse av behovet for inkluderingstilskudd er påkrevd"
                 />
                 <VerticalSpacer rem={2} />
-
-                <Ekspanderbartpanel apen tittel="Beskrivelse av hva tilskuddet kan dekke tilleggsutgifter knyttet til">
-                    <div style={{borderLeft: '2px solid #2626265C'}}>
-                        <div style={{marginLeft: '0.5rem'}}>
-                        <Element>a. Vurdering av funksjonsevne / tilretteleggingsbehov</Element>
-                        <Normaltekst>
-                            Nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den konkrete
-                            arbeidsplassen.
-                        </Normaltekst>
-                        <VerticalSpacer rem={1} />
-                        <Element>b. Ekstra tiltaksplass</Element>
-                        <Normaltekst>Opprettelse av ekstra tiltaksplass, for eksempel kontormøbler</Normaltekst>
-                        <VerticalSpacer rem={1} />
-                        <Element>c. Personlig utstyr</Element>
-                        <Normaltekst>
-                            Personlig utstyr som arbeidstøy, vernesko, databriller o.l. knyttet til arbeidet.
-                        </Normaltekst>
-                        <VerticalSpacer rem={1} />
-                        <Element>d. Arbeidshjelpemidler</Element>
-                        <Normaltekst>
-                            Nødvendige gjenstander og arbeidshjelpemidler personen trenger for å utføre arbeidet og
-                            tilpasninger som ikke kan dekkes etter folketrygdlovens § 10-5.
-                        </Normaltekst>
-                        <VerticalSpacer rem={1} />
-                        <Element>e. Programvare</Element>
-                        <Normaltekst>
-                            Merkostnader til å kjøpe og installere programvare som skal brukes av personen, herunder
-                            teknologisk utstyr eller teknologiske hjelpemidler
-                        </Normaltekst>
-                        <VerticalSpacer rem={1} />
-                        <Element>f. Forsikring, lisenser og sertifisering</Element>
-                        <Normaltekst>
-                            Nødvendige merutgifter til forsikring, lisenser, sertifisering o.l. knyttet til arbeidet
-                        </Normaltekst>
-                        <VerticalSpacer rem={1} />
-                        <Element>g. Ekstern opplæring</Element>
-                        <Normaltekst>Ekstern opplæring for å kunne utføre arbeidet i virksomheten</Normaltekst>
-
-                        </div>
-                    </div>
-                </Ekspanderbartpanel>
-
+                <Tilskuddsbeskrivelse åpen={true} />
                 <VerticalSpacer rem={2} />
                 <div>
                     <Element>Totalt konstadsoverslag:</Element>
