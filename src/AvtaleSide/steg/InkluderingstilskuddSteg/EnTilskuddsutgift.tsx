@@ -82,18 +82,28 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
                     </div>
                 </>
             ) : (
-              
-                <div>
-        
-                    <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-                        <div style={{display: 'flex', margin: 'auto 0'}}>
-                        <Normaltekst style={{minWidth: '11rem'}}>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Normaltekst>
-                        <Normaltekst style={{minWidth: '10rem'}}>20.01.2022</Normaltekst>
-                        <Normaltekst style={{minWidth: '6rem'}}>{formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
-                        </div>
-                        <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" />
-                    </div>
-                    
+                <>
+                    {/* <div style={{ display: 'flex', justifyContent: 'space-between'}}> */}
+                    {/* <div style={{display: 'flex', margin: 'auto 0'}}> */}
+                    <tr>
+                        <td>
+                            <Normaltekst>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Normaltekst>
+                        </td>
+                        <td>
+                            <Normaltekst>20.01.2022</Normaltekst>
+                        </td>
+                        <td>
+                            <Normaltekst>{formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
+                        </td>
+                        <td>
+                            <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" />
+                        </td>
+                    </tr>
+
+                    {/* </div> */}
+
+                    {/* </div> */}
+
                     {/* <VerticalSpacer rem={1} />
                     <Normaltekst>{props.tilskuddsutgift.beløp}</Normaltekst> */}
                     {props.iRegideringsmodus !== true && (
@@ -109,9 +119,9 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
                             {/* <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" /> */}
                         </div>
                     )}
-                    <VerticalSpacer rem={0.5} />
-                    <div style={{ borderTop: '1px solid #C6C2BF' }} />
-                </div>
+                    {/* <VerticalSpacer rem={0.5} /> */}
+                    {/* <div style={{ borderTop: '1px solid #C6C2BF' }} /> */}
+                </>
             )}
         </>
     );

@@ -1,11 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import InkluderingstilskuddIngress from '@/AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingstilskuddIngress';
 import Tilskuddsbeskrivelse from '@/AvtaleSide/steg/InkluderingstilskuddSteg/Tilskuddsbeskrivelse';
+import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/TilskuddsutgiftTabell';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { Task } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EnTilskuddsutgift from '../../../InkluderingstilskuddSteg/EnTilskuddsutgift';
 import { useTilskuddsutgift } from '../../../InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
@@ -47,20 +48,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
 
     const endreUtgifterInnhold = (
         <div>
-            <Normaltekst>
-                Tilskuddet skal dekke tilleggskostnader som arbeidsgiveren har i forbindelse med tilrettelegging. Det
-                dekker dokumenterte utgifter opp til en
-                <Lenke href="https://www.nav.no/inkluderingstilskudd#hvor-mye" target="_blank">
-                    {' '}
-                    maksimal sats.
-                </Lenke>{' '}
-            </Normaltekst>
-            <VerticalSpacer rem={1} />
-            <Normaltekst>
-                Utgifter som virksomheten normalt vil ha ved ansettelser, dekkes ikke av ordningen. Inkluderingstilskudd
-                gis heller ikke når de samme utgiftene dekkes på andre måter. Du må sende søknad til NAV før det
-                planlagte innkjøpet blir gjennomført. NAV utbetaler tilskuddet etterskuddsvis.
-            </Normaltekst>
+            <InkluderingstilskuddIngress />
             <VerticalSpacer rem={2} />
             <Tilskuddsbeskrivelse åpen={false} />
             <VerticalSpacer rem={2} />
@@ -75,25 +63,20 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
             />
             <VerticalSpacer rem={2} />
 
-            <div style={{ borderBottom: '1px solid #6A6A6A', display: 'flex', justifyContent: 'space-between' }}>
-                <Normaltekst>Tilskudd</Normaltekst>
-                <Normaltekst>Dato</Normaltekst>
-                <Normaltekst>Utgifter</Normaltekst>
-                <Normaltekst>Handling</Normaltekst>
-            </div>
-            <VerticalSpacer rem={0.5} />
             <div>
-                {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
-                    <EnTilskuddsutgift
-                        key={index}
-                        tilskuddsutgift={tilskuddsutgift}
-                        endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}
-                        slett={() => slett(index)}
-                        ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
-                        setIRedigeringsmodus={setIRedigermodus}
-                        iRegideringsmodus={iRedigermodus}
-                    />
-                ))}
+                <TilskuddsutgiftTabell>
+                    {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
+                        <EnTilskuddsutgift
+                            key={index}
+                            tilskuddsutgift={tilskuddsutgift}
+                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}
+                            slett={() => slett(index)}
+                            ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
+                            setIRedigeringsmodus={setIRedigermodus}
+                            iRegideringsmodus={iRedigermodus}
+                        />
+                    ))}
+                </TilskuddsutgiftTabell>
             </div>
         </div>
     );
@@ -115,7 +98,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 Endre Tilskuddsutgifter
             </Lenke>
             <BekreftelseModal
-                style={{ maxWidth: '50rem' }}
+                style={{ maxWidth: '45rem' }}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
                 oversiktTekst="Endre inkluderingstilskudd"
