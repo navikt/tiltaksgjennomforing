@@ -14,7 +14,7 @@ import OpprettEnTilskuddsutgift from '../../../InkluderingstilskuddSteg/OpprettE
 
 const EndreInkluderingsutgifter: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
-    const {avtale, settAvtaleInnholdVerdier, settAvtaleInnholdVerdi, lagreAvtale} = useContext(AvtaleContext);
+    const {avtale, settAvtaleInnholdVerdier} = useContext(AvtaleContext);
     const inkluderingsutgiftUtils = useTilskuddsutgift(avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
     const [iRedigermodus, setIRedigermodus] = useState(false);
 
