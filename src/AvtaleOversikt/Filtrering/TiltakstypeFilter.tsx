@@ -1,11 +1,11 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { TiltaksType } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
 import React, { Fragment, FunctionComponent, useContext } from 'react';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
@@ -30,6 +30,9 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
     if (featureToggles[Feature.Mentor]) {
         alleTiltakstyperBeslutter.push({ value: 'MENTOR', label: 'Mentor' });
         alleTiltakstyper.push({ value: 'MENTOR', label: 'Mentor' });
+    }
+    if (featureToggles[Feature.Inkluderingstiskudd]) {
+        alleTiltakstyper.push({ value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' });
     }
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
