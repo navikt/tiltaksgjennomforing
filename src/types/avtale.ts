@@ -287,6 +287,7 @@ export type InnholdType =
     | 'FORLENGE'
     | 'FORKORTE'
     | 'ENDRE_MÅL'
+    | 'ENDRE_INKLUDERINGSTILSKUDD'
     | 'ENDRE_TILSKUDDSBEREGNING'
     | 'ENDRE_STILLING'
     | 'ENDRE_KONTAKTINFO'
