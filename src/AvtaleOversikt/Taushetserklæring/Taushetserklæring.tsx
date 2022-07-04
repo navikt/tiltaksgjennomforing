@@ -20,7 +20,7 @@ interface TaushetserklæringProps {
 const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open,  avtale,togglesetTaushetserklæringAvMentor}) => {
     const cls = BEMHelper('etterRegistrering');
     const [bekrefterGodkjennerTaushetserklæring, setBekrefterGodkjennerTaushetserklæring] = useState<boolean>(false);
-    const [openNå, setOpenNå] = useState(open)
+
     const godkjennTaushetserklæring = async () => {
         if (bekrefterGodkjennerTaushetserklæring) {
             const avtaleTilbake = await mentorGodkjennTaushetserklæring(avtale)
@@ -28,9 +28,10 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open, 
         }
     };
 
+    console.log(open);
     return (
             <Modal
-                isOpen={openNå}
+                isOpen={open}
                 onRequestClose={() => {
                     togglesetTaushetserklæringAvMentor(avtale)
                 }}

@@ -71,13 +71,15 @@ const AvtaleTabell: FunctionComponent<{
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
 
     const togglesetTaushetserklæringAvMentor = (avtale:Avtale)=>{
-      const avtalerx = avtaler
-      .filter((currAvtale) => currAvtale.id === avtale.id)
-      .map((currAvtale) => {
-        currAvtale.åpnerTaushetserklæringAvMentor = !currAvtale.åpnerTaushetserklæringAvMentor
-        return currAvtale
-      })
-      setAvtaler(avtalerx);
+
+      const funnetAvtale = avtaler.find((av) => av.id === avtale.id);
+      if(!funnetAvtale){
+        return;
+      }
+      const index = avtaler.indexOf(funnetAvtale);
+      funnetAvtale.åpnerTaushetserklæringAvMentor = !funnetAvtale.åpnerTaushetserklæringAvMentor;
+      console.log("OK " +funnetAvtale.id, funnetAvtale.åpnerTaushetserklæringAvMentor)
+      setAvtaler([...avtaler,funnetAvtale]);
     }
     useEffect(() => {
         skalViseAntallUbehandlet
@@ -174,10 +176,7 @@ const AvtaleTabell: FunctionComponent<{
                                     )}
                                 </div>
                             </LenkepanelBase>
-                            <Taushetserklæring open={innloggetBruker.rolle === 'MENTOR' &&
-                                avtale.tiltakstype === 'MENTOR' &&
-                                avtale.erGodkjentTaushetserklæringAvMentor === false &&
-                                avtale.åpnerTaushetserklæringAvMentor === true} togglesetTaushetserklæringAvMentor={togglesetTaushetserklæringAvMentor} avtale={avtale} />
+                            <Taushetserklæring open={avtale.åpnerTaushetserklæringAvMentor || false} togglesetTaushetserklæringAvMentor={togglesetTaushetserklæringAvMentor} avtale={avtale} />
                         </div>
                     );
                 })}
