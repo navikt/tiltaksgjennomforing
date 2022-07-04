@@ -14,6 +14,8 @@ import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import Modal from 'nav-frontend-modal';
+import Taushetserklæring from './Taushetserklæring/Taushetserklæring';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -64,6 +66,9 @@ const AvtaleTabell: FunctionComponent<{
     const skalViseAntallUbehandlet =
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
+
+    const [open, setOpen] = useState(false);
+
     useEffect(() => {
         skalViseAntallUbehandlet
             ? setAntallKlar(
@@ -104,51 +109,71 @@ const AvtaleTabell: FunctionComponent<{
                 {avtaler.map((avtale: Avtale, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
-                        <LenkepanelBase
-                            id={avtale.id}
-                            key={avtale.id}
-                            href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
-                            linkCreator={(props: any) => (
-                                <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
-                            )}
-                            role="listitem"
-                            aria-labelledby={avtale.id}
-                        >
-                            {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
-                            <div
-                                className={classNames(cls.element('rad'), {
-                                    uthevet: ulestVarsel,
-                                })}
+                        <div key={avtale.id}>
+                            <LenkepanelBase
+                                id={avtale.id}
+                                key={avtale.id}
+                                href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
+                                linkCreator={(props: any) => (
+                                    <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
+                                )}
+                                role="listitem"
+                                aria-labelledby={avtale.id}
+                                onClick={(e) => {
+                                    //          IsOpen
+                                    // Mentor Godkjent = false
+                                    // Mentor IG = true
+                                    if (
+                                        innloggetBruker.rolle === 'MENTOR' &&
+                                        avtale.tiltakstype === 'MENTOR' &&
+                                        avtale.erGodkjentTaushetserklæringAvMentor === false
+                                    ) {
+                                        setOpen(true);
+                                        e.preventDefault();
+                                    } else setOpen(false);
+                                }}
                             >
-                                <div className={cls.element('deltakerOgBedrift')}>
-                                    {avtale.gjeldendeInnhold.bedriftNavn}
-                                </div>
-                                <div className={cls.element('deltakerOgBedrift')}>
-                                    {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
-                                    {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
-                                </div>
-                                {innloggetBruker.erNavAnsatt && (
-                                    <div className={cls.element('veileder')}>
-                                        {avtale.veilederNavIdent || 'Ufordelt'}
+                                {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
+                                <div
+                                    className={classNames(cls.element('rad'), {
+                                        uthevet: ulestVarsel,
+                                    })}
+                                >
+                                    <div className={cls.element('deltakerOgBedrift')}>
+                                        {avtale.gjeldendeInnhold.bedriftNavn}
                                     </div>
-                                )}
-                                <MediaQuery minWidth={576}>
-                                    <div className={cls.element('opprettet')}>
-                                        {moment(
-                                            erBeslutter
-                                                ? avtale.gjeldendeTilskuddsperiode?.startDato
-                                                : avtale.opprettetTidspunkt
-                                        ).format('DD.MM.YYYY')}
+                                    <div className={cls.element('deltakerOgBedrift')}>
+                                        {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
+                                        {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
                                     </div>
-                                </MediaQuery>
-                                {hentAvtaleStatus(
-                                    avtale,
-                                    innloggetBruker.rolle,
-                                    skalViseAntallUbehandlet,
-                                    antallKlar ? antallKlar[index] : undefined
-                                )}
+                                    {innloggetBruker.erNavAnsatt && (
+                                        <div className={cls.element('veileder')}>
+                                            {avtale.veilederNavIdent || 'Ufordelt'}
+                                        </div>
+                                    )}
+                                    <MediaQuery minWidth={576}>
+                                        <div className={cls.element('opprettet')}>
+                                            {moment(
+                                                erBeslutter
+                                                    ? avtale.gjeldendeTilskuddsperiode?.startDato
+                                                    : avtale.opprettetTidspunkt
+                                            ).format('DD.MM.YYYY')}
+                                        </div>
+                                    </MediaQuery>
+                                    {hentAvtaleStatus(
+                                        avtale,
+                                        innloggetBruker.rolle,
+                                        skalViseAntallUbehandlet,
+                                        antallKlar ? antallKlar[index] : undefined
+                                    )}
+                                </div>
+                            </LenkepanelBase>
+                            <div
+                            //key={avtale.id}
+                            >
+                                <Taushetserklæring key={avtale.id} open={open} setOpen={setOpen}></Taushetserklæring>
                             </div>
-                        </LenkepanelBase>
+                        </div>
                     );
                 })}
             </div>

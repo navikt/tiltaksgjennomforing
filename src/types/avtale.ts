@@ -242,7 +242,9 @@ export interface Godkjenninger {
     godkjentAvDeltaker?: string;
     godkjentAvArbeidsgiver?: string;
     godkjentAvVeileder?: string;
-    godkjentTaushetserklæringAvMentor?: string;
+    godkjentAvMentor?: string;
+    erGodkjentTaushetserklæringAvMentor?: boolean;
+
     avtaleInngått?: string;
     status: AvtaleStatus;
     statusSomEnum: AvtaleStatus;

@@ -193,6 +193,7 @@ const opprettAvtalen = async (
 };
 
 export const godkjennAvtale = async (avtale: Avtale) => {
+    console.log('godkjennAvtle', avtale);
     const uri = `/avtaler/${avtale.id}/godkjenn`;
 
     await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });

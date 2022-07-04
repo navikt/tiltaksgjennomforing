@@ -1,0 +1,94 @@
+.etterRegistrering {
+    &__modal {
+        width: 16rem;
+
+        padding: 2.5rem 0.5rem 0.5rem;
+        height: 100%;
+        min-height: 14rem;
+
+        & > .alertstripe {
+            margin-top: 1.5rem;
+        }
+    }
+
+    &__etterregistrering-knapp {
+        width: 100%;
+    }
+
+    &__header {
+        margin-bottom: 1rem;
+    }
+
+    &__sokfelt-tag {
+        margin-bottom: 0.375rem;
+    }
+
+    &__avtale-info-wrapper {
+        max-height: 30rem;
+        overflow: hidden;
+        transition: max-height 0.2s;
+
+        &--skjule {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.2s;
+        }
+    }
+
+    &__ingress {
+        margin: 1.5rem 0 0.5rem 0;
+        font-weight: 600;
+    }
+
+    &__rad-info {
+        margin-bottom: 0.75rem;
+    }
+
+    &__lagreKnapp {
+        margin-top: 0.75rem;
+    }
+
+    &__input-sok {
+        display: flex;
+        flex-direction: column;
+
+        & > .skjemaelement {
+            &:nth-child(1) {
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        & > .knapp {
+            max-height: 2.5rem;
+            border-radius: 4px;
+            margin-top: 0 !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        &__modal {
+            width: 40rem;
+            padding: 2.5rem;
+        }
+
+        &__input-sok {
+            display: flex;
+            flex-direction: row;
+            min-width: calc(100% - 5rem);
+
+            & > .skjemaelement {
+                min-width: calc(88.5% - 2rem);
+                &:nth-child(1) {
+                    margin-bottom: 0;
+                    margin-right: 0.75rem;
+                }
+            }
+
+            & > .knapp {
+                max-height: 2.5rem;
+                border-radius: 4px;
+                margin-top: 0 !important;
+            }
+        }
+    }
+}

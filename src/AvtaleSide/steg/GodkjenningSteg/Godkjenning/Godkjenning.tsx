@@ -17,7 +17,7 @@ const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
         case 'DELTAKER':
             return avtale.godkjentAvDeltaker;
         case 'MENTOR':
-            return avtale.godkjentTaushetserklæringAvMentor;
+            return avtale.erGodkjentTaushetserklæringAvMentor;
         case 'ARBEIDSGIVER':
             return avtale.godkjentAvArbeidsgiver;
         case 'VEILEDER':

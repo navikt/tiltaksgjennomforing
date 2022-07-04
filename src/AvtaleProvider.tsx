@@ -6,7 +6,7 @@ import {
     GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
     GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
-    Maal
+    Maal,
 } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
@@ -20,7 +20,9 @@ import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
-    const noenHarGodkjent = Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder);
+    const noenHarGodkjent = Boolean(
+        avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder
+    );
     return noenHarGodkjent && !avtale.erAvtaleInngått;
     //return Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
@@ -222,6 +224,7 @@ const AvtaleProvider: FunctionComponent = (props) => {
     };
 
     const godkjenn = async (): Promise<void> => {
+        console.log('godkjenn', avtale);
         await RestService.godkjennAvtale(avtale);
         sendToAmplitude('#tiltak-avtale-godkjent');
         await hentAvtale(avtale.id);
