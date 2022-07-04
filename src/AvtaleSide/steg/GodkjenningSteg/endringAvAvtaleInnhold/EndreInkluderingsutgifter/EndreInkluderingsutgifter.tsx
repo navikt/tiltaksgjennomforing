@@ -4,6 +4,7 @@ import Tilskuddsbeskrivelse from '@/AvtaleSide/steg/InkluderingstilskuddSteg/Til
 import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/TilskuddsutgiftTabell';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import { endreInkluderingstilskudd } from '@/services/rest-service';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { Task } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
@@ -14,36 +15,17 @@ import OpprettEnTilskuddsutgift from '../../../InkluderingstilskuddSteg/OpprettE
 
 const EndreInkluderingsutgifter: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
-    const {avtale, settAvtaleInnholdVerdier} = useContext(AvtaleContext);
-    const inkluderingsutgiftUtils = useTilskuddsutgift(avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
+    const avtaleContext = useContext(AvtaleContext);
+    const inkluderingsutgiftUtils = useTilskuddsutgift(avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
     const [iRedigermodus, setIRedigermodus] = useState(false);
 
     const lukkModal = () => {
         setModalApen(false);
     };
     const endreUtgifter = async () => {
-        // await lalal
+        await endreInkluderingstilskudd(avtaleContext.avtale, inkluderingsutgiftUtils.inkluderingstilskuddsutgiftListe);
+        await avtaleContext.hentAvtale();
         setModalApen(false);
-    };
-
-    const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.leggTilInkluderingstilskuddsutgift(
-            beløp,
-            type
-        );
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
-    };
-    const slett = (index: number) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index);
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
-    };
-    const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(
-            index,
-            beløp,
-            type
-        );
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
     };
 
     const endreUtgifterInnhold = (
@@ -54,23 +36,23 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
 
             <OpprettEnTilskuddsutgift
-                leggTilTilskuddsutgift={nyUtgift}
+                leggTilTilskuddsutgift={inkluderingsutgiftUtils.leggTilInkluderingstilskuddsutgift}
                 ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
                 setIRedigeringsmodus={setIRedigermodus}
                 iRegideringsmodus={iRedigermodus}
-                tilskuddsutgift={avtale.gjeldendeInnhold.inkluderingstilskuddsutgift}
-                totalBeløp={avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp}
+                tilskuddsutgift={inkluderingsutgiftUtils.inkluderingstilskuddsutgiftListe}
+                totalBeløp={avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp}
             />
             <VerticalSpacer rem={2} />
 
             <div>
                 <TilskuddsutgiftTabell>
-                    {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
+                    {inkluderingsutgiftUtils.inkluderingstilskuddsutgiftListe.map((tilskuddsutgift, index) => (
                         <EnTilskuddsutgift
                             key={index}
                             tilskuddsutgift={tilskuddsutgift}
-                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}
-                            slett={() => slett(index)}
+                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(index, beløp, type)}
+                            slett={() => inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index)}
                             ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
                             setIRedigeringsmodus={setIRedigermodus}
                             iRegideringsmodus={iRedigermodus}
@@ -95,10 +77,10 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 <div style={{marginRight: '0.5rem'}} aria-hidden={true}>
                     <Task />
                 </div>
-                Endre Tilskuddsutgifter
+                Endre inkluderingstilskudd
             </Lenke>
             <BekreftelseModal
-                style={{ maxWidth: '45rem' }}
+                style={{ maxWidth: '40rem' }}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
                 oversiktTekst="Endre inkluderingstilskudd"

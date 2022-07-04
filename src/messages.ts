@@ -98,7 +98,7 @@ export const avtaleTittel = {
     MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
     MENTOR: 'Avtale om tilskudd til mentor',
-    INKLUDERINGSTILSKUDD: 'Avtale om tilskudd til Inkludering',
+    INKLUDERINGSTILSKUDD: 'Avtale om inkluderingstilskudd',
     SOMMERJOBB: 'Avtale om sommerjobb',
 };
 
@@ -147,6 +147,8 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtal
             return 'forkortet av veileder';
         case 'ENDRE_MÅL':
             return 'mål endret av veileder';
+        case 'ENDRE_INKLUDERINGSTILSKUDD':
+            return 'inkluderingstilskudd endret av veileder';
         case 'ENDRE_TILSKUDDSBEREGNING':
             return 'tilskuddsberegning endret av veileder';
         case 'ENDRE_STILLING':
