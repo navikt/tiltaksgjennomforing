@@ -16,6 +16,8 @@ import './AvtaleTabell.less';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import Modal from 'nav-frontend-modal';
 import Taushetserklæring from './Taushetserklæring/Taushetserklæring';
+import {Dispatch} from "react";
+import {SetStateAction} from "react";
 
 const cls = BEMHelper('avtaletabell');
 
@@ -58,17 +60,25 @@ const hentAvtaleStatus = (
 
 const AvtaleTabell: FunctionComponent<{
     avtaler: Avtale[];
+    setAvtaler:  Dispatch<SetStateAction<Avtale[]>>
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
-}> = ({ avtaler, varsler, innloggetBruker }) => {
+}> = ({ avtaler, varsler, innloggetBruker, setAvtaler }) => {
     const { filtre } = useFilter();
     const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
     const skalViseAntallUbehandlet =
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
 
-    const [open, setOpen] = useState(false);
-
+    const togglesetTaushetserklæringAvMentor = (avtale:Avtale)=>{
+      const avtalerx = avtaler
+      .filter((currAvtale) => currAvtale.id === avtale.id)
+      .map((currAvtale) => {
+        currAvtale.åpnerTaushetserklæringAvMentor = !currAvtale.åpnerTaushetserklæringAvMentor
+        return currAvtale
+      })
+      setAvtaler(avtalerx);
+    }
     useEffect(() => {
         skalViseAntallUbehandlet
             ? setAntallKlar(
@@ -112,7 +122,6 @@ const AvtaleTabell: FunctionComponent<{
                         <div key={avtale.id}>
                             <LenkepanelBase
                                 id={avtale.id}
-                                key={avtale.id}
                                 href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
                                 linkCreator={(props: any) => (
                                     <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
@@ -120,17 +129,14 @@ const AvtaleTabell: FunctionComponent<{
                                 role="listitem"
                                 aria-labelledby={avtale.id}
                                 onClick={(e) => {
-                                    //          IsOpen
-                                    // Mentor Godkjent = false
-                                    // Mentor IG = true
                                     if (
                                         innloggetBruker.rolle === 'MENTOR' &&
                                         avtale.tiltakstype === 'MENTOR' &&
                                         avtale.erGodkjentTaushetserklæringAvMentor === false
                                     ) {
-                                        setOpen(true);
+                                        togglesetTaushetserklæringAvMentor(avtale)
                                         e.preventDefault();
-                                    } else setOpen(false);
+                                    }
                                 }}
                             >
                                 {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
@@ -168,11 +174,10 @@ const AvtaleTabell: FunctionComponent<{
                                     )}
                                 </div>
                             </LenkepanelBase>
-                            <div
-                            //key={avtale.id}
-                            >
-                                <Taushetserklæring key={avtale.id} open={open} setOpen={setOpen}></Taushetserklæring>
-                            </div>
+                            <Taushetserklæring open={innloggetBruker.rolle === 'MENTOR' &&
+                                avtale.tiltakstype === 'MENTOR' &&
+                                avtale.erGodkjentTaushetserklæringAvMentor === false &&
+                                avtale.åpnerTaushetserklæringAvMentor === true} togglesetTaushetserklæringAvMentor={togglesetTaushetserklæringAvMentor} avtale={avtale} />
                         </div>
                     );
                 })}

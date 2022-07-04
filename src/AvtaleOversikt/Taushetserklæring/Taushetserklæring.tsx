@@ -1,46 +1,38 @@
-import InfoRad from '@/AvtaleOversikt/EtterRegistrering/InfoRad';
-import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
-import { AvtaleContext } from '@/AvtaleProvider';
+import {
+    mentorGodkjennTaushetserklæring
+} from '@/services/rest-service';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { tiltakstypeTekst } from '@/messages';
-import * as RestService from '@/services/rest-service';
-import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import { Knapp } from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
-import { BekreftCheckboksPanel, Checkbox } from 'nav-frontend-skjema';
-import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
-import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
+import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
+import { Element, Systemtittel } from 'nav-frontend-typografi';
+import React, { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import './Taushetserklæring.less';
+import {Avtale} from "@/types/avtale";
 
 interface TaushetserklæringProps {
-    open: boolean;
-    setOpen: Dispatch<SetStateAction<boolean>>;
+    open: boolean,
+    avtale: Avtale,
+    togglesetTaushetserklæringAvMentor: (avtale:Avtale) =>void
 }
 
-const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open, setOpen }) => {
+
+const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open,  avtale,togglesetTaushetserklæringAvMentor}) => {
     const cls = BEMHelper('etterRegistrering');
-
-    const avtaleContext = useContext(AvtaleContext);
-
     const [bekrefterGodkjennerTaushetserklæring, setBekrefterGodkjennerTaushetserklæring] = useState<boolean>(false);
-
-    console.log('bekrefterGodkjennerTaushetserklæring', bekrefterGodkjennerTaushetserklæring);
-
-    const godkjennTaushetserklæring = () => {
+    const [openNå, setOpenNå] = useState(open)
+    const godkjennTaushetserklæring = async () => {
         if (bekrefterGodkjennerTaushetserklæring) {
-            console.log('Hepp');
-            return avtaleContext.godkjenn();
+            const avtaleTilbake = await mentorGodkjennTaushetserklæring(avtale)
+            window.location.href = "avtale/"+ avtaleTilbake.id;
         }
     };
 
     return (
-        <div className={cls.className}>
             <Modal
-                isOpen={open}
+                isOpen={openNå}
                 onRequestClose={() => {
-                    setOpen(false);
+                    togglesetTaushetserklæringAvMentor(avtale)
                 }}
                 closeButton={true}
                 contentLabel="Min modalrute"
@@ -52,7 +44,7 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open, 
                         Som mentor må du signere en taushetserklæring.
                     </Element>
                     <div>
-                        <label>Taushetsplikt</label>
+                        <label>Taushetsplikt for avtale</label>
                         <p>
                             Forvaltningsloven, arbeids- og velferdsforvaltningsloven og lov om sosiale tjenester i
                             arbeids- og velferdsforvaltningen inneholder strenge regler om taushetsplikt. Det skal
@@ -91,17 +83,17 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open, 
                         <a>STRAFFELOVEN §§ 209 OG 210</a>
                         <a>LOV OM SOSIALE TJENESTER I ARBEIDS OG VELFERDSFORVALTNINGEN § 44</a>
                         <BekreftCheckboksPanel
+                            key={"Taushetserklæring-BekreftCheckboksPanel" + avtale.id}
                             label="Jeg bekrefter jeg å ha lest og forstått min taushetsplikt og har gjort meg kjent med de lovbestemmelsene som er listet opp over"
                             checked={bekrefterGodkjennerTaushetserklæring}
                             onChange={() =>
                                 setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)
                             }
                         />
-                        <LagreKnapp label={'Signer Taushetserklæring'} lagre={godkjennTaushetserklæring}></LagreKnapp>
+                        <LagreKnapp label={'Signer Taushetserklæring ' + avtale.id} lagre={godkjennTaushetserklæring} />
                     </div>
                 </div>
             </Modal>
-        </div>
     );
 };
 export default Taushetserklæring;
