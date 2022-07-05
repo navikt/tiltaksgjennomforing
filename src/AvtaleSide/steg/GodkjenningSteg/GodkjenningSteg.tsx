@@ -17,6 +17,7 @@ import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
+    mentorVinsing?:boolean;
 }
 
 const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {

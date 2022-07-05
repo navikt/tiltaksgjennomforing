@@ -60,27 +60,27 @@ const hentAvtaleStatus = (
 
 const AvtaleTabell: FunctionComponent<{
     avtaler: Avtale[];
-    setAvtaler:  Dispatch<SetStateAction<Avtale[]>>
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
-}> = ({ avtaler, varsler, innloggetBruker, setAvtaler }) => {
+}> = ({ avtaler, varsler, innloggetBruker }) => {
     const { filtre } = useFilter();
     const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
     const skalViseAntallUbehandlet =
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
+    const [avtalerMentorTaushetserklæringToggleList, setAvtalerMentorTaushetserklæringToggleList] = useState<string[]>([])
 
-    const togglesetTaushetserklæringAvMentor = (avtale:Avtale)=>{
-
-      const funnetAvtale = avtaler.find((av) => av.id === avtale.id);
-      if(!funnetAvtale){
-        return;
+  const togglesetTaushetserklæringForMentorAvtale = (avtale:Avtale)=>{
+      if(!avtale) return;
+      if(avtalerMentorTaushetserklæringToggleList.find((v) => v === avtale.id)){
+        const avtaleIndex = avtalerMentorTaushetserklæringToggleList.findIndex((av) => av === avtale.id);
+        avtalerMentorTaushetserklæringToggleList.splice(avtaleIndex,1)
+        setAvtalerMentorTaushetserklæringToggleList([...avtalerMentorTaushetserklæringToggleList])
+      }else{
+        setAvtalerMentorTaushetserklæringToggleList([...avtalerMentorTaushetserklæringToggleList, avtale.id])
       }
-      const index = avtaler.indexOf(funnetAvtale);
-      funnetAvtale.åpnerTaushetserklæringAvMentor = !funnetAvtale.åpnerTaushetserklæringAvMentor;
-      console.log("OK " +funnetAvtale.id, funnetAvtale.åpnerTaushetserklæringAvMentor)
-      setAvtaler([...avtaler,funnetAvtale]);
-    }
+  }
+
     useEffect(() => {
         skalViseAntallUbehandlet
             ? setAntallKlar(
@@ -122,7 +122,7 @@ const AvtaleTabell: FunctionComponent<{
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
                         <div key={avtale.id}>
-                            <LenkepanelBase
+                              <LenkepanelBase
                                 id={avtale.id}
                                 href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
                                 linkCreator={(props: any) => (
@@ -136,7 +136,7 @@ const AvtaleTabell: FunctionComponent<{
                                         avtale.tiltakstype === 'MENTOR' &&
                                         avtale.erGodkjentTaushetserklæringAvMentor === false
                                     ) {
-                                        togglesetTaushetserklæringAvMentor(avtale)
+                                        togglesetTaushetserklæringForMentorAvtale(avtale)
                                         e.preventDefault();
                                     }
                                 }}
@@ -176,7 +176,7 @@ const AvtaleTabell: FunctionComponent<{
                                     )}
                                 </div>
                             </LenkepanelBase>
-                            <Taushetserklæring open={avtale.åpnerTaushetserklæringAvMentor || false} togglesetTaushetserklæringAvMentor={togglesetTaushetserklæringAvMentor} avtale={avtale} />
+                            <Taushetserklæring open={avtalerMentorTaushetserklæringToggleList.includes(avtale.id)} togglesetTaushetserklæringForMentorAvtale={togglesetTaushetserklæringForMentorAvtale} avtale={avtale} />
                         </div>
                     );
                 })}

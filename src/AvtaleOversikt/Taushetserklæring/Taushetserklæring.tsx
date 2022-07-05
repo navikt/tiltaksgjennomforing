@@ -9,15 +9,17 @@ import { Element, Systemtittel } from 'nav-frontend-typografi';
 import React, { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
 import './Taushetserklæring.less';
 import {Avtale} from "@/types/avtale";
+import {Normaltekst} from "nav-frontend-typografi";
+import VerticalSpacer from "@/komponenter/layout/VerticalSpacer";
 
 interface TaushetserklæringProps {
     open: boolean,
     avtale: Avtale,
-    togglesetTaushetserklæringAvMentor: (avtale:Avtale) =>void
+    togglesetTaushetserklæringForMentorAvtale: (avtale:Avtale) =>void
 }
 
 
-const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open,  avtale,togglesetTaushetserklæringAvMentor}) => {
+const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open,  avtale,togglesetTaushetserklæringForMentorAvtale}) => {
     const cls = BEMHelper('etterRegistrering');
     const [bekrefterGodkjennerTaushetserklæring, setBekrefterGodkjennerTaushetserklæring] = useState<boolean>(false);
 
@@ -33,19 +35,18 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open, 
             <Modal
                 isOpen={open}
                 onRequestClose={() => {
-                    togglesetTaushetserklæringAvMentor(avtale)
+                    togglesetTaushetserklæringForMentorAvtale(avtale)
                 }}
                 closeButton={true}
                 contentLabel="Min modalrute"
             >
                 <div className={cls.element('modal')}>
                     <Systemtittel className={cls.element('header')}>Signer taushetserklæring</Systemtittel>
-                    <Element className={cls.element('sokfelt-tag')}>
-                        {' '}
+                    <p>
                         Som mentor må du signere en taushetserklæring.
-                    </Element>
-                    <div>
-                        <label>Taushetsplikt for avtale</label>
+                    </p>
+                    <VerticalSpacer rem={2}/>
+                        <Systemtittel>Taushetsplikt for avtale</Systemtittel>
                         <p>
                             Forvaltningsloven, arbeids- og velferdsforvaltningsloven og lov om sosiale tjenester i
                             arbeids- og velferdsforvaltningen inneholder strenge regler om taushetsplikt. Det skal
@@ -78,11 +79,13 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open, 
                             Brudd på taushetsplikten kan medføre konsekvenser for det relevante kontraktuelle forhold og
                             straffeansvar etter straffeloven §§ 209 og 210.
                         </p>
-                        <label>Hva sier regelverket?</label>
-                        <a>ARBEIDS- OG VELFERDSFORVALTNINGSLOVEN § 7</a>
-                        <a>Lenke til FORVALTNINGSLOVEN § 13-13E OG 13G</a>
-                        <a>STRAFFELOVEN §§ 209 OG 210</a>
-                        <a>LOV OM SOSIALE TJENESTER I ARBEIDS OG VELFERDSFORVALTNINGEN § 44</a>
+                        <div style={{padding:"1rem", lineHeight:"0.5rem", fontSize:"0.9rem"}}>
+                            <Systemtittel>Hva sier regelverket?</Systemtittel>
+                            <p><a href={""}>ARBEIDS- OG VELFERDSFORVALTNINGSLOVEN § 7</a></p>
+                            <p><a href={""}>Lenke til FORVALTNINGSLOVEN § 13-13E OG 13G</a></p>
+                            <p> <a href={""}>STRAFFELOVEN §§ 209 OG 210</a></p>
+                            <p><a href={""}>LOV OM SOSIALE TJENESTER I ARBEIDS OG VELFERDSFORVALTNINGEN § 44</a></p>
+                        </div>
                         <BekreftCheckboksPanel
                             key={"Taushetserklæring-BekreftCheckboksPanel" + avtale.id}
                             label="Jeg bekrefter jeg å ha lest og forstått min taushetsplikt og har gjort meg kjent med de lovbestemmelsene som er listet opp over"
@@ -91,8 +94,7 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({ open, 
                                 setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)
                             }
                         />
-                        <LagreKnapp label={'Signer Taushetserklæring ' + avtale.id} lagre={godkjennTaushetserklæring} />
-                    </div>
+                        <LagreKnapp className={"etterRegistrering__lagreKnapp"} label={'Signer Taushetserklæring'} lagre={godkjennTaushetserklæring} />
                 </div>
             </Modal>
     );

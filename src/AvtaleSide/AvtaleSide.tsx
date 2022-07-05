@@ -42,14 +42,15 @@ const AvtaleSide: FunctionComponent = () => {
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
+    let avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
+    if(innloggetBruker.rolle === "MENTOR") avtaleSteg = hentAvtaleSteg["MENTOR_INNSYN"];
     const history = useHistory();
     const { stegPath } = useParams<any>();
 
     const erDesktop = windowSize > 767;
     const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
     const erAvtaleLaast =
-        godkjentAvVeileder || avtale.avbrutt || avtale.annullertTidspunkt || innloggetBruker.rolle === 'DELTAKER';
+        godkjentAvVeileder || avtale.avbrutt || avtale.annullertTidspunkt || innloggetBruker.rolle === 'DELTAKER' || innloggetBruker.rolle === 'MENTOR';
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);

@@ -244,8 +244,6 @@ export interface Godkjenninger {
     godkjentAvVeileder?: string;
     godkjentAvMentor?: string;
     erGodkjentTaushetserklæringAvMentor?: boolean;
-    åpnerTaushetserklæringAvMentor?: boolean;
-
     avtaleInngått?: string;
     status: AvtaleStatus;
     statusSomEnum: AvtaleStatus;

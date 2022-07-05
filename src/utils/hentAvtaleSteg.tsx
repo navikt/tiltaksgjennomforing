@@ -106,11 +106,20 @@ const mentorSteg: StegInfo[] = [
     },
 ];
 
+const mentorInnsynSteg: StegInfo[] = [
+    {
+        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} mentorVinsing={true} />,
+        label: 'Godkjenning',
+        id: 'godkjenning',
+    }
+];
+
 const hentAvtaleSteg = {
     ARBEIDSTRENING: arbeidstreningSteg,
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MENTOR: mentorSteg,
+    MENTOR_INNSYN: mentorInnsynSteg,
     SOMMERJOBB: lonnstilskuddSteg,
 };
 

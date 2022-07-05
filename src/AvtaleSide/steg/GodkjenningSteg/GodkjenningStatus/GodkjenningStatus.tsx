@@ -21,7 +21,7 @@ const GodkjenningStatus: React.FunctionComponent<Props> = (props) => {
                 />
                 {props.avtale.tiltakstype === 'MENTOR' && (
                     <GodkjenningRad
-                        godkjentAvtale={props.avtale.erGodkjentTaushetserklæringAvMentor + ''}
+                        godkjentAvtale={props.avtale.godkjentAvMentor + ''}
                         navn={`${props.avtale.gjeldendeInnhold.mentorFornavn} ${props.avtale.gjeldendeInnhold.mentorEtternavn}`}
                     />
                 )}

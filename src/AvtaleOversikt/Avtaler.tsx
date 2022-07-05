@@ -28,13 +28,6 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
 
     const layout = useAvtaleOversiktLayout();
 
-    useEffect(()=>{
-        if(props.avtalelisteRessurs.status === Status.Lastet){
-            setAvtaler(props.avtalelisteRessurs.data)
-            console.log("FØRSTE GANG")
-        }
-        console.log("AVTALE MED FUNNET TOGGLE: ",avtaler.find((cu) => cu.åpnerTaushetserklæringAvMentor === true))
-    })
     if (props.avtalelisteRessurs.status === Status.LasterInn) {
         return <AvtaleOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet && props.avtalelisteRessurs.data.length === 0) {
@@ -43,8 +36,7 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
 
         return layout.erNokPlassTilTabell ? (
             <AvtaleTabell
-                avtaler={avtaler}
-                setAvtaler={setAvtaler}
+                avtaler={props.avtalelisteRessurs.data}
                 varsler={props.varsler}
                 innloggetBruker={props.innloggetBruker}
             />
