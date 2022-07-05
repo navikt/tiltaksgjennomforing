@@ -88,7 +88,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <Tilskuddsbeskrivelse åpen={true} />
                 <VerticalSpacer rem={2} />
 
-                <Element>Totalt konstadsoverslag:</Element>
+                <Element>Totalt kostnadsoverslag:</Element>
                 <Ingress>{formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}</Ingress>
 
                 <VerticalSpacer rem={2} />

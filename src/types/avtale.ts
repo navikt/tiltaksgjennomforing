@@ -326,6 +326,7 @@ export interface InkluderingsInnhold {
 }
 
 export interface Inkluderingstilskuddsutgift {
+    id?: string;
     beløp: number;
     type: InkluderingstilskuddsutgiftType;
     tidspunktLagtTil?: string;

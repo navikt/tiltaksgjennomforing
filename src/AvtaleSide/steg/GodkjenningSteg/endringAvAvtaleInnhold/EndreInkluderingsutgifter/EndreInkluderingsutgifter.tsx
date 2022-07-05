@@ -6,8 +6,10 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { endreInkluderingstilskudd } from '@/services/rest-service';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
+import { formatterPenger } from '@/utils/PengeUtils';
 import { Task } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
+import { Element, Ingress } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EnTilskuddsutgift from '../../../InkluderingstilskuddSteg/EnTilskuddsutgift';
 import { useTilskuddsutgift } from '../../../InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
@@ -37,7 +39,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
 
             <OpprettEnTilskuddsutgift
                 leggTilTilskuddsutgift={inkluderingsutgiftUtils.leggTilInkluderingstilskuddsutgift}
-                ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
+                ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyperInngåttAvtale}
                 setIRedigeringsmodus={setIRedigermodus}
                 iRegideringsmodus={iRedigermodus}
                 tilskuddsutgift={inkluderingsutgiftUtils.inkluderingstilskuddsutgiftListe}
@@ -51,7 +53,9 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                         <EnTilskuddsutgift
                             key={index}
                             tilskuddsutgift={tilskuddsutgift}
-                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(index, beløp, type)}
+                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) =>
+                                inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(index, beløp, type)
+                            }
                             slett={() => inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index)}
                             ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
                             setIRedigeringsmodus={setIRedigermodus}
@@ -59,6 +63,13 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                         />
                     ))}
                 </TilskuddsutgiftTabell>
+            </div>
+            <VerticalSpacer rem={2} />
+            <div>
+                <Element>Totalt kostnadsoverslag:</Element>
+                <Ingress>
+                    {formatterPenger(avtaleContext.avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
+                </Ingress>
             </div>
         </div>
     );
@@ -77,13 +88,13 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 <div style={{marginRight: '0.5rem'}} aria-hidden={true}>
                     <Task />
                 </div>
-                Endre inkluderingstilskudd
+                Legg til inkluderingstilskudd
             </Lenke>
             <BekreftelseModal
                 style={{ maxWidth: '40rem' }}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
-                oversiktTekst="Endre inkluderingstilskudd"
+                oversiktTekst="Legg til inkluderingstilskudd"
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreUtgifter}
                 lukkModal={lukkModal}
