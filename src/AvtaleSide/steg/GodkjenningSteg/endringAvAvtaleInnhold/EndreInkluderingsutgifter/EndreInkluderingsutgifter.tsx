@@ -51,6 +51,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 <TilskuddsutgiftTabell>
                     {inkluderingsutgiftUtils.inkluderingstilskuddsutgiftListe.map((tilskuddsutgift, index) => (
                         <EnTilskuddsutgift
+                            skalKunneSlette={false}
                             key={index}
                             tilskuddsutgift={tilskuddsutgift}
                             endre={(beløp: number, type: InkluderingstilskuddsutgiftType) =>

@@ -75,7 +75,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 </Row>
 
                 <VerticalSpacer rem={2} />
-                
+
                 <PakrevdTextarea
                     label="Hvorfor er det behov for inkluderingstilskudd?"
                     verdi={avtale.gjeldendeInnhold.inkluderingstilskuddBegrunnelse}
@@ -107,6 +107,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <TilskuddsutgiftTabell>
                     {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
                         <EnTilskuddsutgift
+                            skalKunneSlette={true}
                             key={index}
                             tilskuddsutgift={tilskuddsutgift}
                             endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}

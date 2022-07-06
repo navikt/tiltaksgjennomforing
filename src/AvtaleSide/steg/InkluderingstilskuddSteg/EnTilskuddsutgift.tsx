@@ -16,9 +16,10 @@ type Props = {
     slett: () => void;
     endre: (beløp: number, type: InkluderingstilskuddsutgiftType) => void;
     ledigeInkluderingstilskuddtyper: InkluderingstilskuddsutgiftType[];
+    skalKunneSlette: boolean;
 };
 
-const EnTilskuddsutgift: FunctionComponent<Props> = props => {
+const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
     const [endrerTilskuddsutgift, setEndrerTilskuddsutgift] = useState(false);
 
     const [beløp, setBeløp] = useState<number>(props.tilskuddsutgift.beløp);
@@ -34,6 +35,14 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
         props.endre(beløp, type);
         props.setIRedigeringsmodus(false);
         setEndrerTilskuddsutgift(false);
+    };
+
+    const kanUtgiftSlettes = () => {
+        if (props.skalKunneSlette) {
+            return true;
+        } else {
+            return props.tilskuddsutgift.id === undefined;
+        }
     };
 
     return (
@@ -96,7 +105,9 @@ const EnTilskuddsutgift: FunctionComponent<Props> = props => {
                             <Normaltekst>{formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
                         </td>
                         <td>
-                            <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" />
+                            {kanUtgiftSlettes() && (
+                                <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" />
+                            )}
                         </td>
                     </tr>
 
