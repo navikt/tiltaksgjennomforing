@@ -14,10 +14,6 @@ import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
 import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
 import ByttTilBeslutter from '@/InnloggingBoundary/ByttTilBeslutter';
-import {Feature} from "@/FeatureToggleProvider";
-import {useContext} from "react";
-import {FeatureToggleContext} from "@/FeatureToggleProvider";
-import {Innloggingskilde} from "@/types/innlogget-bruker";
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');

@@ -5,7 +5,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import { sjekkOmAvtaleErPilot } from "@/services/rest-service";
+import { sjekkOmAvtaleErPilot } from '@/services/rest-service';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
 import moment from 'moment';
@@ -29,16 +29,17 @@ const VarighetSteg: FunctionComponent = () => {
     const timerIUka = Number(((37.5 * (avtaleContext.avtale.gjeldendeInnhold.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
-    const duration = moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).diff(
-        avtaleContext.avtale.gjeldendeInnhold.startDato,
-        'days'
-    ) + 1;
+    const duration =
+        moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).diff(
+            avtaleContext.avtale.gjeldendeInnhold.startDato,
+            'days'
+        ) + 1;
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
     const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
 
-    const [erPilot, setErPilot] = useState<boolean>()
+    const [erPilot, setErPilot] = useState<boolean>();
 
     useEffect(() => {
         if (tiltakstype === 'SOMMERJOBB' && startDato) {
@@ -53,7 +54,7 @@ const VarighetSteg: FunctionComponent = () => {
             }
         }
         if (tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD') {
-            sjekkOmAvtaleErPilot(avtaleContext.avtale).then(setErPilot)
+            sjekkOmAvtaleErPilot(avtaleContext.avtale).then(setErPilot);
         }
     }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato, avtaleContext.avtale]);
 
@@ -70,8 +71,9 @@ const VarighetSteg: FunctionComponent = () => {
                                 avtaleContext.avtale.tiltakstype
                             ) && (
                                 <>
-                                    {' '} Godkjent tilskuddsperiode {!erPilot && <>i tilskuddsbrevet</>} er styrende i
-                                    henhold til økonomisk forpliktelse fra NAV og kan avvike fra avtalt periode for
+                                    {' '}
+                                    Godkjent tilskuddsperiode {!erPilot && <>i tilskuddsbrevet</>} er styrende i henhold
+                                    til økonomisk forpliktelse fra NAV og kan avvike fra avtalt periode for
                                     tiltaksgjennomføringen.
                                 </>
                             )}
@@ -121,30 +123,34 @@ const VarighetSteg: FunctionComponent = () => {
                 <Row>
                     <Column md="12">{''}</Column>
                 </Row>
-                <VerticalSpacer rem={1} />
-                <StillingsprosentInput
-                    label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.stillingprosent}
-                    settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('stillingprosent', verdi)}
-                />
-                <VerticalSpacer rem={1} />
-                <PakrevdInput
-                    bredde="S"
-                    label="Antall dager per uke"
-                    type="number"
-                    max={7}
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.antallDagerPerUke}
-                    settVerdi={(eventVerdi) => {
-                        const verdi = parseInt(eventVerdi, 10);
-                        if (verdi > 0 && verdi < 8) {
-                            avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', verdi);
-                        } else {
-                            avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', undefined);
-                        }
-                    }}
-                />
-                <VerticalSpacer rem={2} />
-                <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
+                {avtaleContext.avtale.tiltakstype !== 'MENTOR' && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <StillingsprosentInput
+                            label="Hvilken stillingsprosent skal deltakeren ha?"
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.stillingprosent}
+                            settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('stillingprosent', verdi)}
+                        />
+                        <VerticalSpacer rem={1} />
+                        <PakrevdInput
+                            bredde="S"
+                            label="Antall dager per uke"
+                            type="number"
+                            max={7}
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.antallDagerPerUke}
+                            settVerdi={(eventVerdi) => {
+                                const verdi = parseInt(eventVerdi, 10);
+                                if (verdi > 0 && verdi < 8) {
+                                    avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', verdi);
+                                } else {
+                                    avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', undefined);
+                                }
+                            }}
+                        />
+                        <VerticalSpacer rem={2} />
+                        <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
+                    </>
+                )}
                 <VerticalSpacer rem={2} />
                 <LagreKnapp label={'Lagre'} lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'} />
             </Container>

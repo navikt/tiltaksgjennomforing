@@ -14,10 +14,11 @@ import React, { createElement, FunctionComponent, Suspense, useContext } from 'r
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering';
+import TaushetserklæringPanel from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringPanel';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
-    mentorVinsing?:boolean;
+    mentorVinsing?: boolean;
 }
 
 const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
@@ -31,6 +32,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className} role={'main'}>
             <AvtaleStatus />
+            {innloggetBruker.rolle === 'MENTOR' && <TaushetserklæringPanel />}
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>

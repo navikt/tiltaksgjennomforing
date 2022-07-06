@@ -14,10 +14,7 @@ import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import Modal from 'nav-frontend-modal';
 import Taushetserklæring from './Taushetserklæring/Taushetserklæring';
-import {Dispatch} from "react";
-import {SetStateAction} from "react";
 
 const cls = BEMHelper('avtaletabell');
 
@@ -68,18 +65,20 @@ const AvtaleTabell: FunctionComponent<{
     const skalViseAntallUbehandlet =
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
-    const [avtalerMentorTaushetserklæringToggleList, setAvtalerMentorTaushetserklæringToggleList] = useState<string[]>([])
+    const [avtalerMentorTaushetserklæringToggleList, setAvtalerMentorTaushetserklæringToggleList] = useState<string[]>(
+        []
+    );
 
-  const togglesetTaushetserklæringForMentorAvtale = (avtale:Avtale)=>{
-      if(!avtale) return;
-      if(avtalerMentorTaushetserklæringToggleList.find((v) => v === avtale.id)){
-        const avtaleIndex = avtalerMentorTaushetserklæringToggleList.findIndex((av) => av === avtale.id);
-        avtalerMentorTaushetserklæringToggleList.splice(avtaleIndex,1)
-        setAvtalerMentorTaushetserklæringToggleList([...avtalerMentorTaushetserklæringToggleList])
-      }else{
-        setAvtalerMentorTaushetserklæringToggleList([...avtalerMentorTaushetserklæringToggleList, avtale.id])
-      }
-  }
+    const togglesetTaushetserklæringForMentorAvtale = (avtale: Avtale) => {
+        if (!avtale) return;
+        if (avtalerMentorTaushetserklæringToggleList.find((v) => v === avtale.id)) {
+            const avtaleIndex = avtalerMentorTaushetserklæringToggleList.findIndex((av) => av === avtale.id);
+            avtalerMentorTaushetserklæringToggleList.splice(avtaleIndex, 1);
+            setAvtalerMentorTaushetserklæringToggleList([...avtalerMentorTaushetserklæringToggleList]);
+        } else {
+            setAvtalerMentorTaushetserklæringToggleList([...avtalerMentorTaushetserklæringToggleList, avtale.id]);
+        }
+    };
 
     useEffect(() => {
         skalViseAntallUbehandlet
@@ -95,6 +94,8 @@ const AvtaleTabell: FunctionComponent<{
               )
             : setAntallKlar(undefined);
     }, [avtaler, erBeslutter, filtre?.tilskuddPeriodeStatus, skalViseAntallUbehandlet]);
+
+    console.log('avtalerMentorTaushetserklæringToggleList', avtalerMentorTaushetserklæringToggleList);
 
     return (
         <div className={cls.className}>
@@ -122,7 +123,7 @@ const AvtaleTabell: FunctionComponent<{
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
                         <div key={avtale.id}>
-                              <LenkepanelBase
+                            <LenkepanelBase
                                 id={avtale.id}
                                 href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
                                 linkCreator={(props: any) => (
@@ -136,7 +137,7 @@ const AvtaleTabell: FunctionComponent<{
                                         avtale.tiltakstype === 'MENTOR' &&
                                         avtale.erGodkjentTaushetserklæringAvMentor === false
                                     ) {
-                                        togglesetTaushetserklæringForMentorAvtale(avtale)
+                                        togglesetTaushetserklæringForMentorAvtale(avtale);
                                         e.preventDefault();
                                     }
                                 }}
@@ -176,7 +177,11 @@ const AvtaleTabell: FunctionComponent<{
                                     )}
                                 </div>
                             </LenkepanelBase>
-                            <Taushetserklæring open={avtalerMentorTaushetserklæringToggleList.includes(avtale.id)} togglesetTaushetserklæringForMentorAvtale={togglesetTaushetserklæringForMentorAvtale} avtale={avtale} />
+                            <Taushetserklæring
+                                open={avtalerMentorTaushetserklæringToggleList.includes(avtale.id)}
+                                togglesetTaushetserklæringForMentorAvtale={togglesetTaushetserklæringForMentorAvtale}
+                                avtale={avtale}
+                            />
                         </div>
                     );
                 })}

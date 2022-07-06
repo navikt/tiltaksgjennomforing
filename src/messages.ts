@@ -94,6 +94,7 @@ export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
     ANNULLERT: 'Annullert',
     AVBRUTT: 'Avbrutt',
     PÅBEGYNT: 'Påbegynt',
+    MANGLER_SIGNATUR: 'Mangler signatur',
     MANGLER_GODKJENNING: 'Mangler godkjenning',
     KLAR_FOR_OPPSTART: 'Klar for oppstart',
     GJENNOMFØRES: 'Gjennomføres',

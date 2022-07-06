@@ -10,10 +10,6 @@ import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import React, { FunctionComponent, useContext } from 'react';
-import {AvtaleContext} from "@/AvtaleProvider";
-import {useState} from "react";
-import {Avtale} from "@/types/avtale";
-import {useEffect} from "react";
 
 type Props = {
     avtalelisteRessurs: AvtalelisteRessurs;
@@ -23,9 +19,6 @@ type Props = {
 
 export const Avtaler: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
-
-    const [avtaler, setAvtaler] = useState<Avtale[]>([]);
-
     const layout = useAvtaleOversiktLayout();
 
     if (props.avtalelisteRessurs.status === Status.LasterInn) {
@@ -33,7 +26,6 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
     } else if (props.avtalelisteRessurs.status === Status.Lastet && props.avtalelisteRessurs.data.length === 0) {
         return <IngenAvtaler />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet) {
-
         return layout.erNokPlassTilTabell ? (
             <AvtaleTabell
                 avtaler={props.avtalelisteRessurs.data}

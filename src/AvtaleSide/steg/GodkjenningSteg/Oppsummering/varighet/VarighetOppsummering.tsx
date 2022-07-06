@@ -1,9 +1,11 @@
+import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Varighet } from '@/types/avtale';
+import { avtaleFelterBokmal } from '@/messages';
+import { Avtale, TiltakVarighet, Varighet } from '@/types/avtale';
 import moment from 'moment';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import { Element } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import VarighetIkon from './VarighetIkon';
@@ -22,6 +24,8 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({
     stillingprosent,
     antallDagerPerUke,
 }) => {
+    const avtaleContext = useContext(AvtaleContext);
+
     const stillingProsent = stillingprosent ? stillingprosent.toString() + '%' : '';
 
     return (
@@ -37,11 +41,26 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({
                         <Element>Sluttdato</Element>
                         <SjekkOmVerdiEksisterer verdi={harDato(sluttDato)} />
                     </Column>
+                    {avtaleContext.avtale.tiltakstype !== 'MENTOR' && (
+                        <Column md="4" sm="12" xs="12">
+                            <Element>Stillingsprosent</Element>
+                            <SjekkOmVerdiEksisterer verdi={stillingProsent} />
+                        </Column>
+                    )}
                     <Column md="4" sm="12" xs="12">
                         <Element>Stillingsprosent</Element>
                         <SjekkOmVerdiEksisterer verdi={stillingProsent} />
                     </Column>
                 </Row>
+                {avtaleContext.avtale.tiltakstype !== 'MENTOR' && (
+                    <Row className={''}>
+                        <Column md="4" sm="12" xs="12">
+                            <Element>Antall dager per uke</Element>
+                            <p>dsfsdf</p>
+                            <SjekkOmVerdiEksisterer verdi={antallDagerPerUke?.toString()} />
+                        </Column>
+                    </Row>
+                )}
                 <Row className={''}>
                     <Column md="4" sm="12" xs="12">
                         <Element>Antall dager per uke</Element>

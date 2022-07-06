@@ -86,6 +86,7 @@ export type AvtaleStatus =
     | 'ANNULLERT'
     | 'AVBRUTT'
     | 'PÅBEGYNT'
+    | 'MANGLER_SIGNATUR'
     | 'MANGLER_GODKJENNING'
     | 'KLAR_FOR_OPPSTART'
     | 'GJENNOMFØRES'
@@ -313,5 +314,13 @@ export type EndreKontaktInfo = {
     veilederTlf?: string;
     refusjonKontaktperson: RefusjonKontaktperson;
 };
+
+export interface TiltakVarighet {
+    startDato?: string;
+    sluttDato?: string;
+    stillingprosent?: number;
+    antallDagerPerUke?: number;
+    tiltakstype: TiltaksType;
+}
 
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;
