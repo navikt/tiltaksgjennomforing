@@ -1,10 +1,11 @@
 import * as Sentry from '@sentry/react';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Suspense } from 'react';
 import VerticalSpacer from './layout/VerticalSpacer';
+import NavFrontendSpinner from 'nav-frontend-spinner';
 
-const ErrorBoundary: FunctionComponent = props => {
+const ErrorBoundary: FunctionComponent = (props) => {
     return (
         <Sentry.ErrorBoundary
             fallback={({ error, componentStack, resetError }) => (
@@ -19,7 +20,15 @@ const ErrorBoundary: FunctionComponent = props => {
                 </>
             )}
         >
-            {props.children}
+            <Suspense
+                fallback={
+                    <div style={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                        <NavFrontendSpinner type="XL" />
+                    </div>
+                }
+            >
+                {props.children}
+            </Suspense>
         </Sentry.ErrorBoundary>
     );
 };

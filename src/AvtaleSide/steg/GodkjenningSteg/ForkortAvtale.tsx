@@ -135,7 +135,7 @@ const ForkortAvtale: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={forkort}
                 lukkModal={lukkModal}
-                varselTekst={forkorteTekst}
+                modalInnhold={forkorteTekst}
             />
         </>
     );

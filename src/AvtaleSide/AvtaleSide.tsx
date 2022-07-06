@@ -29,7 +29,8 @@ export type StegId =
     | 'varighet'
     | 'beregningtilskudd'
     | 'godkjenning'
-    | 'mentoren';
+    | 'mentoren'
+    | 'inkluderingstilskudd';
 
 export interface StegInfo {
     komponent: React.ReactNode;

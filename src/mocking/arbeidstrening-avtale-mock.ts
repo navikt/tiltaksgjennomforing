@@ -71,6 +71,9 @@ const arbeidstreningAvtaleMock: Avtale = {
         startDato: '2020-02-01',
         sluttDato: '2020-03-01',
         stillingprosent: 99,
+        inkluderingstilskuddsutgift: [],
+        inkluderingstilskuddBegrunnelse: '',
+        inkluderingstilskuddTotalBeløp: 0
     },
 
     tilskuddPeriode: tilskuddsPeriode,

@@ -61,6 +61,9 @@ const lonnstilskuddAvtaleMock: Avtale = {
         veilederEtternavn: 'Sandøy',
         veilederTlf: '88888888',
         maal: [],
+        inkluderingstilskuddsutgift: [],
+        inkluderingstilskuddBegrunnelse: '',
+        inkluderingstilskuddTotalBeløp: 0
     },
 
     tilskuddPeriode: [],
@@ -78,7 +81,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     avtaleNr: 1,
 
     godkjentForEtterregistrering: false,
-    erAvtaleInngått: false
+    erAvtaleInngått: false,
 };
 
 export default lonnstilskuddAvtaleMock;

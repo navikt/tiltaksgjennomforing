@@ -115,6 +115,7 @@ const Relasjoner: FunctionComponent = () => {
                     </>
                 </div>
             </div>
+            <VerticalSpacer rem={2} />
         </>
     );
 };

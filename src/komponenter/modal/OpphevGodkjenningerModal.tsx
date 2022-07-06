@@ -15,13 +15,13 @@ const opphevGodkjenningerTekst = (
     </>
 );
 
-const OpphevGodkjenningerModal: FunctionComponent<Props> = props => {
+const OpphevGodkjenningerModal: FunctionComponent<Props> = (props) => {
     return (
         <BekreftelseModal
             modalIsOpen={props.modalIsOpen}
             bekreftOnClick={props.bekreftOpphevGodkjenninger}
             lukkModal={props.lukkModal}
-            varselTekst={opphevGodkjenningerTekst}
+            modalInnhold={opphevGodkjenningerTekst}
             oversiktTekst="Endring av godkjent innhold"
             bekreftelseTekst="Ja, opphev godkjenninger"
             avbrytelseTekst="avbryt"

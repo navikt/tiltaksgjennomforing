@@ -2,6 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
 import DelLenkeTilAvtalen from '@/AvtaleSide/DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
+import EndreInkluderingsutgifter from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreInkluderingsutgifter/EndreInkluderingsutgifter';
 import EndreTilskuddsberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
 import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForlengAvtale';
@@ -24,6 +25,11 @@ const OppgaveLenker: React.FunctionComponent = () => {
     const erArbeidstrening = avtale.tiltakstype === 'ARBEIDSTRENING';
     const erNavIdenterLike = innloggetBruker.identifikator === avtale.veilederNavIdent;
     const erVeileder = innloggetBruker.rolle === 'VEILEDER';
+    const skalViseStillingsbeskrivelse =
+    avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+    avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+    avtale.tiltakstype === 'SOMMERJOBB' ||
+    avtale.tiltakstype === 'ARBEIDSTRENING';
 
     if (!erVeileder) {
         return <Varsellogg />;
@@ -40,9 +46,10 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     {erArbeidstrening && <EndreMaal />}
                     <ForkortAvtale />
                     <ForlengAvtale />
-                    <EndreStillingbeskrivelse />
+                    {skalViseStillingsbeskrivelse && <EndreStillingbeskrivelse />}
                     <EndreOppfølgingOgTilrettelegging />
                     {harØkonomi && <EndreTilskuddsberegning />}
+                    {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
                 </>
             )}
             <Varsellogg />

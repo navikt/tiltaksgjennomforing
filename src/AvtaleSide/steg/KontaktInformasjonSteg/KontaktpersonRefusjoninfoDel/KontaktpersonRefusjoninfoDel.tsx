@@ -3,14 +3,13 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import React, { useContext, useState } from 'react';
-import { Knapp } from 'nav-frontend-knapper';
-import Relasjoner from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/Relasjoner';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-
+import { Knapp } from 'nav-frontend-knapper';
+import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { useContext, useState } from 'react';
 import './KontaktpersonRefusjoninfoDel.less';
+
 
 const KontaktpersonRefusjoninfoDel = () => {
     const cls = BEMHelper('kontaktpersonRefusjoninfo');
@@ -140,11 +139,6 @@ const KontaktpersonRefusjoninfoDel = () => {
                             <Knapp onClick={() => resetRefusjonKontaktPerson()}>Fjern kontaktperson</Knapp>
                         </>
                     )}
-                    <div className={cls.element('rad')}>
-                        {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
-                            avtale.tiltakstype
-                        ) && <Relasjoner />}
-                    </div>
                 </SkjemaGruppe>
             </div>
         </>

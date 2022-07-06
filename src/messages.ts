@@ -3,9 +3,10 @@ import {
     Avtaleinnhold,
     AvtaleStatus,
     AvtaleVersjon,
+    InkluderingstilskuddsutgiftType,
     Stillingstype,
     TilskuddPeriodeStatus,
-    TiltaksType,
+    TiltaksType
 } from './types/avtale';
 
 export const messages = {
@@ -59,6 +60,28 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     enhetKostnadssted: 'enhetKostnadssted',
     enhetsnavnKostnadssted: 'enhetsnavnKostnadssted',
     refusjonKontaktperson: 'refusjonKontaktperson',
+    inkluderingstilskuddsutgift: '',
+    inkluderingstilskuddBegrunnelse: 'Begrunnelse for inkluderingstilskudd',
+    inkluderingstilskuddTotalBeløp: 'Totalbeløp for inkluderingstilskudd'
+
+};
+
+export const inkluderingstilskuddForklaringTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {
+    ARBEIDSHJELPEMIDLER: 'nødvendige gjenstander og arbeidshjelpemidler personen trenger for å utføre arbeidet og tilpasninger som ikke kan dekkes etter folketrygdlovens § 10-5',
+    OPPLÆRING: 'nødvendige merutgifter til forsikring, lisenser, sertifisering o.l. knyttet til arbeidet, og ekstern opplæring for å kunne utføre arbeidet i virksomheten',
+    PROGRAMVARE: 'merkostnader til å kjøpe og installere programvare som skal brukes av personen, herunder teknologisk utstyr eller teknologiske hjelpemidler',
+    TILRETTELEGGINGSBEHOV: 'nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den konkrete arbeidsplassen',
+    TILTAKSPLASS: 'opprettelse av ekstra tiltaksplass, for eksempel kontormøbler',
+    UTSTYR: 'personlig utstyr som arbeidstøy, vernesko, databriller o.l. knyttet til arbeidet'
+};
+
+export const inkluderingstilskuddtypeTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {
+    ARBEIDSHJELPEMIDLER: 'd. Arbeidshjelpemidler',
+    OPPLÆRING: 'g. Opplæring',
+    PROGRAMVARE: 'e. Programvare',
+    TILRETTELEGGINGSBEHOV: 'a. Tilretteleggingsbehov',
+    TILTAKSPLASS: 'b. Tiltaksplass',
+    UTSTYR: 'c. Utstyr'
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
@@ -66,6 +89,7 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     MIDLERTIDIG_LONNSTILSKUDD: 'midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'varig lønnstilskudd',
     MENTOR: 'mentor',
+    INKLUDERINGSTILSKUDD: 'inkluderingstilskudd',
     SOMMERJOBB: 'sommerjobb',
 };
 
@@ -74,6 +98,7 @@ export const avtaleTittel = {
     MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
     MENTOR: 'Avtale om tilskudd til mentor',
+    INKLUDERINGSTILSKUDD: 'Avtale om inkluderingstilskudd',
     SOMMERJOBB: 'Avtale om sommerjobb',
 };
 
@@ -123,6 +148,8 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtal
             return 'forkortet av veileder';
         case 'ENDRE_MÅL':
             return 'mål endret av veileder';
+        case 'ENDRE_INKLUDERINGSTILSKUDD':
+            return 'inkluderingstilskudd endret av veileder';
         case 'ENDRE_TILSKUDDSBEREGNING':
             return 'tilskuddsberegning endret av veileder';
         case 'ENDRE_STILLING':

@@ -96,7 +96,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreOppfølgingOgTilretteleggingInformasjon}
                 lukkModal={() => setModalApen(false)}
-                varselTekst={endreOpfølgingOgTilretteleggeingInnhold}
+                modalInnhold={endreOpfølgingOgTilretteleggeingInnhold}
             />
         </>
     );

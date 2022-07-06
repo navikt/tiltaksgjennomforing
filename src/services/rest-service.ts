@@ -13,11 +13,10 @@ import {
     EndreOppfølgingOgTilretteleggingInfo,
     GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
-    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
-    Maal,
+    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner, Inkluderingstilskuddsutgift, Maal,
     Stilling,
     TiltaksType,
-    Varighet,
+    Varighet
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -124,7 +123,6 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
             return Promise.reject();
         }
     }
-
     await api.put(`/avtaler/${avtale.id}`, avtale.gjeldendeInnhold, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
@@ -488,6 +486,11 @@ export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Pr
     await api.post(`/avtaler/${avtale.id}/endre-maal`, { maal: maal });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
+
+export const endreInkluderingstilskudd = async (avtale: Avtale, inkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]): Promise<void> => {
+    await api.post(`/avtaler/${avtale.id}/endre-inkluderingstilskudd`, { inkluderingstilskuddsutgift: inkluderingstilskuddutgifter });
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
+}
 
 export const sjekkOmAvtaleErPilot = async (avtale: Avtale): Promise<boolean> => {
     const uri = `/avtaler/${avtale.id}/er-pilot`;
