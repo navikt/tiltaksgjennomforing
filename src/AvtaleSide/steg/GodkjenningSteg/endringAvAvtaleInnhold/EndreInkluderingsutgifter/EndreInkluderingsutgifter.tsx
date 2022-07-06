@@ -58,7 +58,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                                 inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(index, beløp, type)
                             }
                             slett={() => inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index)}
-                            ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
+                            ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyperInngåttAvtale}
                             setIRedigeringsmodus={setIRedigermodus}
                             iRegideringsmodus={iRedigermodus}
                         />

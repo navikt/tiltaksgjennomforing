@@ -27,7 +27,7 @@ export const useTilskuddsutgift = (initiellInkluderingstilskuddutgiftListe: Inkl
 
     const sletteInkluderingstilskuddsutgift = (index: number) => {
         const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
-        nyInkluderingstilskuddsutgiftListe.splice(index, index + 1);
+        nyInkluderingstilskuddsutgiftListe.splice(index, 1);
         setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
         return nyInkluderingstilskuddsutgiftListe;
     };
@@ -42,7 +42,7 @@ const finnLedigeInkluderingstilskuddstyperInngåttAvtale = (brukteTyper: Inklude
         if (bruktType.id === undefined) {
             // typen er ikke i backend og skal brukes opp
             const index = alleTyper.findIndex(type => type === bruktType.type);
-            alleTyper.splice(index - 1, index);
+            alleTyper.splice(index, 1);
         }
     });
     return alleTyper as InkluderingstilskuddsutgiftType[];
