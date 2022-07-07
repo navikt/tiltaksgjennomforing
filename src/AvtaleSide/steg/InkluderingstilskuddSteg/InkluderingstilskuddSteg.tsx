@@ -59,7 +59,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtale.gjeldendeInnhold.startDato || undefined}
-                            limitations={AvtaleMinMaxDato()}
+                            limitations={AvtaleMinMaxDato(true)}
                             onChange={(dato) => settAvtaleInnholdVerdier({ startDato: dato })}
                         />
                     </Column>
@@ -68,7 +68,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtale.gjeldendeInnhold.sluttDato || undefined}
-                            limitations={AvtaleMinMaxDato()}
+                            limitations={AvtaleMinMaxDato(false)}
                             onChange={(dato) => settAvtaleInnholdVerdier({ sluttDato: dato })}
                         />
                     </Column>

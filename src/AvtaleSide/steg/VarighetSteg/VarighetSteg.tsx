@@ -5,7 +5,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import { sjekkOmAvtaleErPilot } from "@/services/rest-service";
+import { sjekkOmAvtaleErPilot } from '@/services/rest-service';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
 import moment from 'moment';
@@ -29,16 +29,17 @@ const VarighetSteg: FunctionComponent = () => {
     const timerIUka = Number(((37.5 * (avtaleContext.avtale.gjeldendeInnhold.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
-    const duration = moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).diff(
-        avtaleContext.avtale.gjeldendeInnhold.startDato,
-        'days'
-    ) + 1;
+    const duration =
+        moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato).diff(
+            avtaleContext.avtale.gjeldendeInnhold.startDato,
+            'days'
+        ) + 1;
     const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
     const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
 
-    const [erPilot, setErPilot] = useState<boolean>()
+    const [erPilot, setErPilot] = useState<boolean>();
 
     useEffect(() => {
         if (tiltakstype === 'SOMMERJOBB' && startDato) {
@@ -53,10 +54,9 @@ const VarighetSteg: FunctionComponent = () => {
             }
         }
         if (tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD') {
-            sjekkOmAvtaleErPilot(avtaleContext.avtale).then(setErPilot)
+            sjekkOmAvtaleErPilot(avtaleContext.avtale).then(setErPilot);
         }
     }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato, avtaleContext.avtale]);
-
     return (
         <Innholdsboks utfyller="arbeidsgiver">
             <Container fluid={true}>
@@ -64,14 +64,18 @@ const VarighetSteg: FunctionComponent = () => {
                     <Column md="12">
                         <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
                         <Normaltekst>
+                            {['SOMMERJOBB'].includes(avtaleContext.avtale.tiltakstype) && (
+                                <> Tiltaket må ha oppstart i perioden 1/6 - 31/8. </>
+                            )}{' '}
                             Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato. Hvor
                             lenge det er behov for tiltaket vil vurderes underveis i perioden.
                             {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(
                                 avtaleContext.avtale.tiltakstype
                             ) && (
                                 <>
-                                    {' '} Godkjent tilskuddsperiode {!erPilot && <>i tilskuddsbrevet</>} er styrende i
-                                    henhold til økonomisk forpliktelse fra NAV og kan avvike fra avtalt periode for
+                                    {' '}
+                                    Godkjent tilskuddsperiode {!erPilot && <>i tilskuddsbrevet</>} er styrende i henhold
+                                    til økonomisk forpliktelse fra NAV og kan avvike fra avtalt periode for
                                     tiltaksgjennomføringen.
                                 </>
                             )}
@@ -85,7 +89,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
-                            limitations={AvtaleMinMaxDato()}
+                            limitations={AvtaleMinMaxDato(true)}
                             onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ startDato: dato })}
                         />
                     </Column>
@@ -94,7 +98,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
-                            limitations={AvtaleMinMaxDato()}
+                            limitations={AvtaleMinMaxDato(false)}
                             onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato })}
                         />
                     </Column>
