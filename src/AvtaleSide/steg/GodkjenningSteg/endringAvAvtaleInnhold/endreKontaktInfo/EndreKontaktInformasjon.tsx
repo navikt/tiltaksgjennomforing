@@ -3,7 +3,7 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { oppdatereKontaktInformasjon } from '@/services/rest-service';
-import { EndreKontaktInfo } from '@/types/avtale';
+import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
@@ -27,6 +27,10 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         refusjonKontaktperson,
     } = context.avtale.gjeldendeInnhold;
     const [modalApen, setModalApen] = useState(false);
+
+    const type: TiltaksType = context.avtale.tiltakstype;
+    const endreRefusjonInfo: boolean =
+        type === 'MIDLERTIDIG_LONNSTILSKUDD' || type === 'VARIG_LONNSTILSKUDD' || type === 'SOMMERJOBB';
 
     const [kontaktInfo, setKontaktInfo] = useState<EndreKontaktInfo>({
         deltakerFornavn: deltakerFornavn,
@@ -123,41 +127,43 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     />
                 </div>
             </div>
-            <div className={cls.element('tittel')}>
-                <Undertittel>Kontaktperson for refusjon i bedriften</Undertittel>
-                <div className={cls.element('inputfelter')}>
-                    <PakrevdInput
-                        label="Fornavn"
-                        verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
-                        settVerdi={(verdi) =>
-                            settNyKontaktInformasjon('refusjonKontaktperson', {
-                                ...kontaktInfo.refusjonKontaktperson,
-                                refusjonKontaktpersonFornavn: verdi,
-                            })
-                        }
-                    />
-                    <PakrevdInput
-                        label="Etternavn"
-                        verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
-                        settVerdi={(verdi) =>
-                            settNyKontaktInformasjon('refusjonKontaktperson', {
-                                ...kontaktInfo.refusjonKontaktperson,
-                                refusjonKontaktpersonEtternavn: verdi,
-                            })
-                        }
-                    />
-                    <TelefonnummerInput
-                        label="Telefonnummer"
-                        verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
-                        settVerdi={(verdi) =>
-                            settNyKontaktInformasjon('refusjonKontaktperson', {
-                                ...kontaktInfo.refusjonKontaktperson,
-                                refusjonKontaktpersonTlf: verdi,
-                            })
-                        }
-                    />
+            {endreRefusjonInfo && (
+                <div className={cls.element('tittel')}>
+                    <Undertittel>Kontaktperson for refusjon i bedriften</Undertittel>
+                    <div className={cls.element('inputfelter')}>
+                        <PakrevdInput
+                            label="Fornavn"
+                            verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
+                            settVerdi={(verdi) =>
+                                settNyKontaktInformasjon('refusjonKontaktperson', {
+                                    ...kontaktInfo.refusjonKontaktperson,
+                                    refusjonKontaktpersonFornavn: verdi,
+                                })
+                            }
+                        />
+                        <PakrevdInput
+                            label="Etternavn"
+                            verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
+                            settVerdi={(verdi) =>
+                                settNyKontaktInformasjon('refusjonKontaktperson', {
+                                    ...kontaktInfo.refusjonKontaktperson,
+                                    refusjonKontaktpersonEtternavn: verdi,
+                                })
+                            }
+                        />
+                        <TelefonnummerInput
+                            label="Telefonnummer"
+                            verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
+                            settVerdi={(verdi) =>
+                                settNyKontaktInformasjon('refusjonKontaktperson', {
+                                    ...kontaktInfo.refusjonKontaktperson,
+                                    refusjonKontaktpersonTlf: verdi,
+                                })
+                            }
+                        />
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 
@@ -184,7 +190,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreKontaktInformasjon}
                 lukkModal={() => setModalApen(false)}
-                varselTekst={endreKontaktInformasjonInnhold}
+                modalInnhold={endreKontaktInformasjonInnhold}
             />
         </>
     );

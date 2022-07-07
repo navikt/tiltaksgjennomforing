@@ -53,7 +53,7 @@ const MaalKort: FunctionComponent<Props> = (props) => {
                 modalIsOpen={openModal}
                 bekreftOnClick={verifiserSlettMaal}
                 lukkModal={() => setOpenModal(false)}
-                varselTekst="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
+                modalInnhold="Du er i ferd med å slette et mål. Hvis du gjør det vil alt innholdet i målet forsvinne. Er du sikker?"
                 oversiktTekst="Slette mål"
                 bekreftelseTekst="Ja, slett mål"
                 avbrytelseTekst="avbryt"

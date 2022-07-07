@@ -122,7 +122,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreStilling}
                 lukkModal={lukkModal}
-                varselTekst={endreStillingInnhold}
+                modalInnhold={endreStillingInnhold}
             />
         </>
     );

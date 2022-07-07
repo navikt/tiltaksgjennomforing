@@ -1,4 +1,5 @@
 import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
@@ -20,7 +21,7 @@ const VersjonModal: React.FunctionComponent<Props> = props => {
         MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
         VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
         MENTOR: <OppsummeringMentor avtaleinnhold={props.avtaleInnhold} />,
-        INKLUDERINGSTILSKUDD: <OppsummeringMentor avtaleinnhold={props.avtaleInnhold} />,
+        INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={props.avtaleInnhold} />,
         SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
     };
 

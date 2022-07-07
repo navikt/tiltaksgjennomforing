@@ -12,8 +12,7 @@ import {
     EndreOppfølgingOgTilretteleggingInfo,
     GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
-    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
-    Maal,
+    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner, Inkluderingstilskuddsutgift, Maal,
     Stilling,
     TiltaksType,
     Varighet
@@ -458,6 +457,11 @@ export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Pr
     await api.post(`/avtaler/${avtale.id}/endre-maal`, { maal: maal });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
+
+export const endreInkluderingstilskudd = async (avtale: Avtale, inkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]): Promise<void> => {
+    await api.post(`/avtaler/${avtale.id}/endre-inkluderingstilskudd`, { inkluderingstilskuddsutgift: inkluderingstilskuddutgifter });
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
+}
 
 export const sjekkOmAvtaleErPilot = async (avtale: Avtale): Promise<boolean> => {
     const uri = `/avtaler/${avtale.id}/er-pilot`;

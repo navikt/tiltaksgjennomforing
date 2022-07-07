@@ -14,7 +14,7 @@ interface Props {
     modalIsOpen: boolean;
     bekreftOnClick: () => Promise<any>;
     lukkModal: () => void;
-    varselTekst: string | JSX.Element;
+    modalInnhold: string | JSX.Element;
     oversiktTekst: string;
     bekreftelseTekst: string;
     avbrytelseTekst: string;
@@ -27,8 +27,8 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const [varselInnhold, setVarselInnhold] = useState<string | JSX.Element>(<div />);
 
     useEffect(() => {
-        setVarselInnhold(props.varselTekst);
-    }, [props.varselTekst]);
+        setVarselInnhold(props.modalInnhold);
+    }, [props.modalInnhold]);
 
     const setModalElement = () => {
         if (document.getElementById('root')) {

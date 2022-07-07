@@ -149,7 +149,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreBeregning}
                 lukkModal={() => setModalApen(false)}
-                varselTekst={endreBeregningInnhold}
+                modalInnhold={endreBeregningInnhold}
             />
         </>
     );
