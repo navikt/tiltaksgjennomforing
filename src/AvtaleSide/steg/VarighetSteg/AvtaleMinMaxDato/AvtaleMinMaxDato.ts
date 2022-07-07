@@ -22,7 +22,7 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
     };
 
     const sluttDatoFraDagensDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
-        return moment(new Date()).add(megde, tidsEnhet).toISOString();
+        return moment(new Date()).add(megde, tidsEnhet).subtract(1, 'days').toISOString();
     };
 
     const settdatoBegrensningTiltakstype = (tiltakstype: TiltaksType) => {
@@ -112,15 +112,43 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
             !avtale.kvalifiseringsgruppe ||
             avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS
         ) {
-            return {
-                minDate: sjekkMuligMinDato(),
-                maxDate: sluttDatoFraDagensDato(1, 'years'),
-            };
+            if (startDatePicker) {
+                return {
+                    minDate: sjekkMuligMinDato(),
+                    maxDate: sluttDatoFraDagensDato(1, 'years'),
+                };
+            } else {
+                if (avtale.gjeldendeInnhold.startDato) {
+                    return {
+                        minDate: sjekkMuligMinDato(),
+                        maxDate: startdatoPluss(1, 'years'),
+                    };
+                } else {
+                    return {
+                        minDate: sjekkMuligMinDato(),
+                        maxDate: sluttDatoFraDagensDato(1, 'years'),
+                    };
+                }
+            }
         } else {
-            return {
-                minDate: sjekkMuligMinDato(),
-                maxDate: sluttDatoFraDagensDato(2, 'years'),
-            };
+            if (startDatePicker) {
+                return {
+                    minDate: sjekkMuligMinDato(),
+                    maxDate: sluttDatoFraDagensDato(2, 'years'),
+                };
+            } else {
+                if (avtale.gjeldendeInnhold.startDato) {
+                    return {
+                        minDate: sjekkMuligMinDato(),
+                        maxDate: startdatoPluss(2, 'years'),
+                    };
+                } else {
+                    return {
+                        minDate: sjekkMuligMinDato(),
+                        maxDate: sluttDatoFraDagensDato(2, 'years'),
+                    };
+                }
+            }
         }
     };
 
