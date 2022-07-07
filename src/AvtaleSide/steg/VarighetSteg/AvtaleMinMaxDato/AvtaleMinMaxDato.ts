@@ -33,19 +33,17 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                         minDate: sjekkMuligMinDato(),
                         maxDate: SISTE_MULIGE_SOMMERJOBB_START_DAG,
                     };
-                } else {
-                    if (avtale.gjeldendeInnhold.startDato) {
-                        return {
-                            minDate: startdatoPluss(1, 'days'),
-                            maxDate: startdatoPluss(28, 'days'),
-                        };
-                    } else {
-                        return {
-                            minDate: sjekkMuligMinDato(),
-                            maxDate: SISTE_MULIGE_SOMMERJOBB_SLUTT_DAG,
-                        };
-                    }
                 }
+                if (avtale.gjeldendeInnhold.startDato) {
+                    return {
+                        minDate: startdatoPluss(1, 'days'),
+                        maxDate: startdatoPluss(28, 'days'),
+                    };
+                }
+                return {
+                    minDate: sjekkMuligMinDato(),
+                    maxDate: SISTE_MULIGE_SOMMERJOBB_SLUTT_DAG,
+                };
             case 'MIDLERTIDIG_LONNSTILSKUDD':
                 if (startDatePicker === true) {
                     return sjekkMidlertidigLønnstilskuddDato();
@@ -108,48 +106,27 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
     };
 
     const sjekkMidlertidigLønnstilskuddDato = () => {
-        if (
+        const maksDato =
             !avtale.kvalifiseringsgruppe ||
             avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS
-        ) {
-            if (startDatePicker) {
-                return {
-                    minDate: sjekkMuligMinDato(),
-                    maxDate: sluttDatoFraDagensDato(1, 'years'),
-                };
-            } else {
-                if (avtale.gjeldendeInnhold.startDato) {
-                    return {
-                        minDate: sjekkMuligMinDato(),
-                        maxDate: startdatoPluss(1, 'years'),
-                    };
-                } else {
-                    return {
-                        minDate: sjekkMuligMinDato(),
-                        maxDate: sluttDatoFraDagensDato(1, 'years'),
-                    };
-                }
-            }
-        } else {
-            if (startDatePicker) {
-                return {
-                    minDate: sjekkMuligMinDato(),
-                    maxDate: sluttDatoFraDagensDato(2, 'years'),
-                };
-            } else {
-                if (avtale.gjeldendeInnhold.startDato) {
-                    return {
-                        minDate: sjekkMuligMinDato(),
-                        maxDate: startdatoPluss(2, 'years'),
-                    };
-                } else {
-                    return {
-                        minDate: sjekkMuligMinDato(),
-                        maxDate: sluttDatoFraDagensDato(2, 'years'),
-                    };
-                }
-            }
+                ? 1
+                : 2;
+        if (startDatePicker) {
+            return {
+                minDate: sjekkMuligMinDato(),
+                maxDate: sluttDatoFraDagensDato(maksDato, 'years'),
+            };
         }
+        if (avtale.gjeldendeInnhold.startDato) {
+            return {
+                minDate: sjekkMuligMinDato(),
+                maxDate: startdatoPluss(maksDato, 'years'),
+            };
+        }
+        return {
+            minDate: sjekkMuligMinDato(),
+            maxDate: sluttDatoFraDagensDato(maksDato, 'years'),
+        };
     };
 
     const datoDefaultVerdi = () => ({
