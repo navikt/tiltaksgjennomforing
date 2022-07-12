@@ -1,17 +1,37 @@
 import { ReactComponent as KalkulatorIkon } from '@/assets/ikoner/kalkulator.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { InkluderingsInnhold } from '@/types/avtale';
+import { InkluderingsInnhold, Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
 import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { inkluderingstilskuddtypeTekst } from '../../../../../messages';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/TilskuddsutgiftTabell';
+import EnTilskuddsutgift from '@/AvtaleSide/steg/InkluderingstilskuddSteg/EnTilskuddsutgift';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { useTilskuddsutgift } from '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
+import { Input } from 'nav-frontend-skjema';
+import '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddSteg.less';
+import BEMHelper from '@/utils/bem';
 
 const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> = (props) => {
-    const utgifter = props.inkluderingstilskuddsutgift.map((utgift) => (
-        <div style={{borderLeft: '3px solid #e0dae7', paddingLeft: '0.25rem'}}>
+    const cls = BEMHelper('inkluderingstilskudd');
+    const { avtale } = useContext(AvtaleContext);
+    const [iRedigermodus, setIRedigermodus] = useState(false);
+    const {
+        inkluderingstilskuddsutgiftListe,
+        ledigeInkluderingstilskuddstyperInngåttAvtale,
+        endreInkluderingstilskuddsutgift,
+        sletteInkluderingstilskuddsutgift,
+    } = useTilskuddsutgift(
+        avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
+        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp
+    );
+
+    const utgifter = props.inkluderingstilskuddsutgift.map((utgift: Inkluderingstilskuddsutgift, index: number) => (
+        <div style={{ borderLeft: '3px solid #e0dae7', paddingLeft: '0.25rem' }} key={index}>
             <VerticalSpacer rem={0.25} />
             <Element>{inkluderingstilskuddtypeTekst[utgift.type]}</Element>
             <Normaltekst>Kostnadsoverslag: {formatterPenger(utgift.beløp)}</Normaltekst>
@@ -24,14 +44,41 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
             <SjekkOmVerdiEksisterer verdi={props.inkluderingstilskuddBegrunnelse} />
             <VerticalSpacer rem={1} />
             <Element>Utgifter</Element>
-            {utgifter.length > 0 ? utgifter : <EtikettFokus>Ikke fylt ut</EtikettFokus>}
-            {/* {props.inkluderingstilskuddsutgift.map((utgift) => (
-            <>
-                <Element>{inkluderingstilskuddtypeTekst[utgift.type]}</Element>
-                <Normaltekst>Kostnadsoverslag: {formatterPenger(utgift.beløp)}</Normaltekst>
-            </>
-        ))} */}
+            <VerticalSpacer rem={2} />
+            {utgifter.length > 0 ? (
+                <div>
+                    <TilskuddsutgiftTabell>
+                        {inkluderingstilskuddsutgiftListe.map((tilskuddsutgift, index) => (
+                            <EnTilskuddsutgift
+                                skalKunneSlette={false}
+                                key={index}
+                                tilskuddsutgift={tilskuddsutgift}
+                                endre={(beløp: number, type: InkluderingstilskuddsutgiftType) =>
+                                    endreInkluderingstilskuddsutgift(index, beløp, type)
+                                }
+                                slett={() => sletteInkluderingstilskuddsutgift(index)}
+                                ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyperInngåttAvtale}
+                                setIRedigeringsmodus={setIRedigermodus}
+                                iRegideringsmodus={iRedigermodus}
+                            />
+                        ))}
+                    </TilskuddsutgiftTabell>
+                    <div className={cls.element('kostnadsoverslag-container')}>
+                        <div>
+                            <Element>Totalt kostnadsoverslag</Element>
+                            <Input
+                                className={cls.element('kostnadsoverslag')}
+                                value={formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
+                                disabled={true}
+                            />
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <EtikettFokus>Ikke fylt ut</EtikettFokus>
+            )}
         </Stegoppsummering>
-    );};
+    );
+};
 
 export default InkluderingstilskuddOppsummering;
