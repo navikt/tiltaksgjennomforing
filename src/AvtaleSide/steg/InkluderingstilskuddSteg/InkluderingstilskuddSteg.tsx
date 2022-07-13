@@ -16,31 +16,38 @@ import { useTilskuddsutgift } from './inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
 import Tilskuddsbeskrivelse from './Tilskuddsbeskrivelse';
 import TilskuddsutgiftTabell from './TilskuddsutgiftTabell';
+import { Input } from 'nav-frontend-skjema';
+import BEMHelper from '@/utils/bem';
+import './inkluderingstilskuddSteg.less';
 
 const InkluderingstilskuddSteg: FunctionComponent = () => {
+    const cls = BEMHelper('inkluderingstilskudd');
     const { avtale, settAvtaleInnholdVerdier, settAvtaleInnholdVerdi, lagreAvtale } = useContext(AvtaleContext);
     const [iRedigermodus, setIRedigermodus] = useState(false);
-    const inkluderingsutgiftUtils = useTilskuddsutgift(avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
+    const {
+        ledigeInkluderingstilskuddstyper,
+        leggTilInkluderingstilskuddsutgift,
+        endreInkluderingstilskuddsutgift,
+        sletteInkluderingstilskuddsutgift,
+    } = useTilskuddsutgift(
+        avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
+        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp
+    );
 
-    const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.endreInkluderingstilskuddsutgift(
-            index,
-            beløp,
-            type
+    const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) =>
+        settAvtaleInnholdVerdier(
+            { inkluderingstilskuddsutgift: endreInkluderingstilskuddsutgift(index, beløp, type) },
+            true
         );
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
-    };
-    const slett = (index: number) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.sletteInkluderingstilskuddsutgift(index);
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
-    };
-    const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddutgiftsliste = inkluderingsutgiftUtils.leggTilInkluderingstilskuddsutgift(
-            beløp,
-            type
+
+    const slett = (index: number) =>
+        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: sletteInkluderingstilskuddsutgift(index) }, true);
+
+    const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) =>
+        settAvtaleInnholdVerdier(
+            { inkluderingstilskuddsutgift: leggTilInkluderingstilskuddsutgift(beløp, type) },
+            true
         );
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: nyInkluderingstilskuddutgiftsliste }, true);
-    };
 
     return (
         <>
@@ -88,14 +95,11 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <Tilskuddsbeskrivelse åpen={true} />
                 <VerticalSpacer rem={2} />
 
-                <Element>Totalt kostnadsoverslag:</Element>
-                <Ingress>{formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}</Ingress>
-
                 <VerticalSpacer rem={2} />
 
                 <OpprettEnTilskuddsutgift
                     leggTilTilskuddsutgift={nyUtgift}
-                    ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
+                    ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyper}
                     setIRedigeringsmodus={setIRedigermodus}
                     iRegideringsmodus={iRedigermodus}
                     tilskuddsutgift={avtale.gjeldendeInnhold.inkluderingstilskuddsutgift}
@@ -112,12 +116,22 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                             tilskuddsutgift={tilskuddsutgift}
                             endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}
                             slett={() => slett(index)}
-                            ledigeInkluderingstilskuddtyper={inkluderingsutgiftUtils.ledigeInkluderingstilskuddstyper}
+                            ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyper}
                             setIRedigeringsmodus={setIRedigermodus}
                             iRegideringsmodus={iRedigermodus}
                         />
                     ))}
                 </TilskuddsutgiftTabell>
+                <div className={cls.element('kostnadsoverslag-container')}>
+                    <div>
+                        <Element>Totalt kostnadsoverslag</Element>
+                        <Input
+                            className={cls.element('kostnadsoverslag')}
+                            value={formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
+                            disabled={true}
+                        />
+                    </div>
+                </div>
                 <VerticalSpacer rem={2} />
                 <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
             </Innholdsboks>
