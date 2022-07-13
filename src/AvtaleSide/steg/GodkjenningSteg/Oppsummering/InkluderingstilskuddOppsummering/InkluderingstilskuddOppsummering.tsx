@@ -19,7 +19,7 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
     ));
 
     return (
-        <Stegoppsummering tittel="Inkluderingstilskudd" ikon={<KalkulatorIkon />}>
+        <Stegoppsummering tittel="Inkluderingstilskudd" ikon={<KalkulatorIkon height={40} />}>
             <Element>Hvorfor er det behov for inkluderingstilskudd?</Element>
             <SjekkOmVerdiEksisterer verdi={props.inkluderingstilskuddBegrunnelse} />
             <VerticalSpacer rem={1} />

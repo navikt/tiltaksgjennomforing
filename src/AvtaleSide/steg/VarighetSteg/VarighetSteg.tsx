@@ -57,7 +57,6 @@ const VarighetSteg: FunctionComponent = () => {
             sjekkOmAvtaleErPilot(avtaleContext.avtale).then(setErPilot);
         }
     }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato, avtaleContext.avtale]);
-
     return (
         <Innholdsboks utfyller="arbeidsgiver">
             <Container fluid={true}>
@@ -65,6 +64,9 @@ const VarighetSteg: FunctionComponent = () => {
                     <Column md="12">
                         <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
                         <Normaltekst>
+                            {['SOMMERJOBB'].includes(avtaleContext.avtale.tiltakstype) && (
+                                <> Tiltaket må ha oppstart i perioden 1/6 - 31/8. </>
+                            )}{' '}
                             Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato. Hvor
                             lenge det er behov for tiltaket vil vurderes underveis i perioden.
                             {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(
@@ -87,7 +89,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
-                            limitations={AvtaleMinMaxDato()}
+                            limitations={AvtaleMinMaxDato(true)}
                             onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ startDato: dato })}
                         />
                     </Column>
@@ -96,7 +98,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <Datepicker
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
-                            limitations={AvtaleMinMaxDato()}
+                            limitations={AvtaleMinMaxDato(false)}
                             onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato })}
                         />
                     </Column>
