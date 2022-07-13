@@ -1,7 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { avtaleFelterBokmal } from '@/messages';
-import { Avtale, TiltakVarighet, Varighet } from '@/types/avtale';
+import { Varighet } from '@/types/avtale';
 import moment from 'moment';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import { Element } from 'nav-frontend-typografi';

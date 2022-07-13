@@ -4,13 +4,20 @@ import React, { useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import TausetserklæringTekst from './TaushetserklæringTekst';
 import Modal from 'nav-frontend-modal';
+import { formatterDato } from '@/utils/datoUtils';
 
-const TaushetserklæringPanel = () => {
+interface TaushetserklæringPanelProps {
+    signertTidspunkt: string | undefined;
+}
+
+const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelProps> = ({ signertTidspunkt }) => {
     const cls = BEMHelper('etterRegistrering');
 
     const [visTaushetserklæringPanel, setVisTaushetserklæringPanel] = useState<boolean>(false);
 
-    console.log('visTaushetserklæringPanel', visTaushetserklæringPanel);
+    if (signertTidspunkt) {
+        formatterDato(signertTidspunkt);
+    }
 
     return (
         <>
@@ -27,7 +34,9 @@ const TaushetserklæringPanel = () => {
                             <div aria-hidden={true}></div>
                             {'Taushetserklæring'}
                 </Link>*/}
-                        <nav onClick={() => setVisTaushetserklæringPanel(true)}>Taushetserklæring</nav>
+                        <nav onClick={() => setVisTaushetserklæringPanel(true)}>
+                            Taushetserklæring signert {signertTidspunkt ? formatterDato(signertTidspunkt) : ''}{' '}
+                        </nav>
                         {visTaushetserklæringPanel && (
                             <Modal
                                 isOpen={visTaushetserklæringPanel}

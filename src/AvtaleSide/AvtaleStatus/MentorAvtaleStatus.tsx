@@ -52,29 +52,13 @@ const MentorAvtaleStatus: FunctionComponent = () => {
                 />
             );
         case 'MANGLER_GODKJENNING':
-            return avtale.godkjentAvDeltaker ? (
+            return (
                 <StatusPanel
                     ikon={VarselIkon}
                     header="Vent til de andre har godkjent"
                     body={
                         <>
-                            <Normaltekst>
-                                Du har godkjent avtalen. Venter nå på godkjenning fra arbeidsgiver og NAV.
-                            </Normaltekst>
-                            <VerticalSpacer rem={2} />
-                            <GodkjenningStatus avtale={avtale} />
-                        </>
-                    }
-                />
-            ) : (
-                <StatusPanel
-                    ikon={VarselIkon}
-                    header="Du kan godkjenne"
-                    body={
-                        <>
-                            <Normaltekst>
-                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                            </Normaltekst>
+                            <Normaltekst>Du har signert taushetserklæring. Venter nå på godkjenning fra</Normaltekst>
                             <VerticalSpacer rem={2} />
                             <GodkjenningStatus avtale={avtale} />
                         </>

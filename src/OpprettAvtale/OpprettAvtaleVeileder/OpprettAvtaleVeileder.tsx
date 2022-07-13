@@ -7,11 +7,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
-import {
-    hentBedriftBrreg,
-    opprettAvtaleSomVeileder,
-    opprettMentorAvtale
-} from '@/services/rest-service';
+import { hentBedriftBrreg, opprettAvtaleSomVeileder, opprettMentorAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
@@ -43,6 +39,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
+
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
         (verdi) => {
             if (!verdi) {
@@ -52,6 +49,11 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         (verdi) => {
             if (!validerFnr(verdi)) {
                 return 'Ugyldig fødselsnummer';
+            }
+        },
+        (verdi) => {
+            if (verdi === mentorFnr) {
+                return 'Deltaker kan ikke ha likt fødselsnummer som deltakeren';
             }
         },
     ]);
@@ -65,6 +67,11 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         (verdi) => {
             if (!validerFnr(verdi)) {
                 return 'Ugyldig fødselsnummer';
+            }
+        },
+        (verdi) => {
+            if (verdi === deltakerFnr) {
+                return 'Mentor kan ikke ha likt fødselsnummer som deltakeren';
             }
         },
     ]);
