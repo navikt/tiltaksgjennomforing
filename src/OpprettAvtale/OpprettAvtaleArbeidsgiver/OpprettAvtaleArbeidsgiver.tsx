@@ -15,13 +15,13 @@ import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
-import { validerFnr } from '@/utils/fnrUtils';
+import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
 import { opprettMentorAvtale } from '@/services/rest-service';
@@ -38,51 +38,16 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const history = useHistory();
 
     const featureToggleContext = useContext(FeatureToggleContext);
-
-    //const mentorToggle = featureToggleContext[Feature.Mentor];
     const inkluderingstilskuddToggle = featureToggleContext[Feature.Inkluderingstiskudd];
 
-    const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
-        (verdi) => {
-            if (!verdi) {
-                return 'Fødselsnummer er påkrevd';
-            }
-        },
-        (verdi) => {
-            if (!validerFnr(verdi)) {
-                return 'Ugyldig fødselsnummer';
-            }
-        },
-    ]);
-
-    const [mentorFnrFeil, setMentorFnrFeil, validerMentorFnr] = useValidering(mentorFnr, [
-        (verdi) => {
-            if (!verdi) {
-                return 'Fødselsnummer er påkrevd';
-            }
-        },
-        (verdi) => {
-            if (!validerFnr(verdi)) {
-                return 'Ugyldig fødselsnummer';
-            }
-        },
-    ]);
-
-    const fnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const verdi = event.target.value.replace(/\D/g, '');
-        if (/^\d{0,11}$/.test(verdi)) {
-            setDeltakerFnr(verdi);
-            setDeltakerFnrFeil(undefined);
-        }
-    };
-
-    const fnrMentorOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const verdi = event.target.value.replace(/\D/g, '');
-        if (/^\d{0,11}$/.test(verdi)) {
-            setMentorFnr(verdi);
-            setMentorFnrFeil(undefined);
-        }
-    };
+    const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
+        deltakerFnr,
+        validatorer('Deltaker', mentorFnr)
+    );
+    const [mentorFnrFeil, setMentorFnrFeil, validerMentorFnr] = useValidering(
+        mentorFnr,
+        validatorer('Mentor', deltakerFnr)
+    );
 
     const setFeilmelding = (melding: Feilkode) => {
         if (melding === 'SOMMERJOBB_FOR_GAMMEL') {
@@ -107,7 +72,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
 
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             if (valgtTiltaksType === 'MENTOR') {
-                const avtale = await opprettMentorAvtale(
+                const mentorAvtale = await opprettMentorAvtale(
                     deltakerFnr,
                     mentorFnr,
                     valgtBedriftNr,
@@ -115,7 +80,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     Avtalerolle.ARBEIDSGIVER
                 );
                 amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                history.push(pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id));
+                history.push(pathTilOpprettAvtaleFullfortArbeidsgiver(mentorAvtale.id));
                 return;
             }
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
@@ -134,8 +99,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(
         (org) => org.OrganizationNumber === valgtBedriftNr
     )?.Name;
-
-    //const featureToggleContext = useContext(FeatureToggleContext);
 
     const mentorToggle = featureToggleContext[Feature.Mentor];
     const erTiltakstypeSkruddPå = (tiltakstype: TiltaksType) => {
@@ -178,7 +141,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
                         {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
-                            //TODO: Fjern mentor toggle
+                            // TODO: Fjern mentor toggle
                             if (!mentorToggle && tiltakType === 'MENTOR') {
                                 return <></>;
                             }
@@ -214,7 +177,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         label="Deltakers fødselsnummer"
                         value={deltakerFnr}
                         bredde={'L'}
-                        onChange={fnrOnChange}
+                        onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
                         onBlur={validerDeltakerFnr}
                         feil={deltakerFnrFeil}
                     />
@@ -235,7 +198,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                 label="Mentors fødselsnummer"
                                 value={mentorFnr}
                                 bredde={'M'}
-                                onChange={fnrMentorOnChange}
+                                onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
                                 onBlur={validerMentorFnr}
                                 feil={mentorFnrFeil}
                             />

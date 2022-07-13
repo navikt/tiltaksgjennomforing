@@ -1,3 +1,5 @@
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+
 /** Beregner gyldighet av fødselsnr med utgangspunkt i mod11.
  * @link https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
  * @param verdi
@@ -86,6 +88,32 @@ const genererFnrdatostringFraFnr = (fnr: string): VellykketGenerertIsoDatoString
         console.warn('feilet med generering av iso-datostring fra fnr ', err);
     }
     return { isoDatostring: '', vellykketgenerering: false };
+};
+
+export const validatorer = (rollenavn: string, sjekkOppMotFnr: string): Array<(verdi: any) => string | undefined> => [
+    (verdi) => {
+        if (!verdi) return 'Fødselsnummer er påkrevd';
+    },
+    (verdi) => {
+        if (!validerFnr(verdi)) return 'Ugyldig fødselsnummer';
+    },
+    (verdi) => {
+        if (verdi === sjekkOppMotFnr) return `Deltaker og mentor kan ikke ha samme fødselsnummer.`;
+    },
+];
+
+const fnrOnChangeValidering = (event: ChangeEvent<HTMLInputElement>): boolean =>
+    /^\d{0,11}$/.test(event.target.value.replace(/\D/g, ''));
+
+export const setFnrBrukerOnChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    setFnr: Dispatch<SetStateAction<string>>,
+    setFnrFeil: Dispatch<SetStateAction<string | undefined>>
+) => {
+    if (fnrOnChangeValidering(event)) {
+        setFnr(event.target.value.replace(/\D/g, ''));
+        setFnrFeil(undefined);
+    }
 };
 
 export { validerFnr, genererFnrdatostringFraFnr };
