@@ -118,7 +118,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <div className={cls.className}>
                 <Innholdsboks>
                     <Systemtittel>Før du oppretter en avtale</Systemtittel>
-                    <Normaltekst className={cls.element('test')}>
+                    <Normaltekst>
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                         <EksternLenke href="/informasjonsside/uinnlogget">
                             introduksjon til hvordan løsningen fungerer {''}
@@ -140,27 +140,21 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
-                            // TODO: Fjern mentor toggle
-                            if (!mentorToggle && tiltakType === 'MENTOR') {
-                                return <>ædsølkgæøsdkgæødsk</>;
-                            }
-                            return (
-                                <div>
-                                    <RadioPanel
-                                        key={index}
-                                        name="tiltakstype"
-                                        label={storForbokstav(tiltakstypeTekst[tiltakType])}
-                                        value={tiltakType}
-                                        checked={valgtTiltaksType === tiltakType}
-                                        onChange={() => {
-                                            setTiltaksType(tiltakType);
-                                            setUyldigAvtaletype(false);
-                                        }}
-                                    />
-                                </div>
-                            );
-                        })}
+                        {innloggetBruker.tilganger[valgtBedriftNr]
+                            .filter((tiltakstype) => erTiltakstypeSkruddPå(tiltakstype))
+                            .map((tiltakType: TiltaksType, index: number) => (
+                                <RadioPanel
+                                    key={index}
+                                    name="tiltakstype"
+                                    label={storForbokstav(tiltakstypeTekst[tiltakType])}
+                                    value={tiltakType}
+                                    checked={valgtTiltaksType === tiltakType}
+                                    onChange={() => {
+                                        setTiltaksType(tiltakType);
+                                        setUyldigAvtaletype(false);
+                                    }}
+                                />
+                            ))}
                     </div>
                     {uyldigAvtaletype && (
                         <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
