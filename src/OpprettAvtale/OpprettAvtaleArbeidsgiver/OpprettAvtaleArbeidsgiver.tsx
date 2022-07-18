@@ -118,7 +118,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <div className={cls.className}>
                 <Innholdsboks>
                     <Systemtittel>Før du oppretter en avtale</Systemtittel>
-                    <Normaltekst>
+                    <Normaltekst className={cls.element('test')}>
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                         <EksternLenke href="/informasjonsside/uinnlogget">
                             introduksjon til hvordan løsningen fungerer {''}
@@ -143,20 +143,22 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
                             // TODO: Fjern mentor toggle
                             if (!mentorToggle && tiltakType === 'MENTOR') {
-                                return <></>;
+                                return <>ædsølkgæøsdkgæødsk</>;
                             }
                             return (
-                                <RadioPanel
-                                    key={index}
-                                    name="tiltakstype"
-                                    label={storForbokstav(tiltakstypeTekst[tiltakType])}
-                                    value={tiltakType}
-                                    checked={valgtTiltaksType === tiltakType}
-                                    onChange={() => {
-                                        setTiltaksType(tiltakType);
-                                        setUyldigAvtaletype(false);
-                                    }}
-                                />
+                                <div>
+                                    <RadioPanel
+                                        key={index}
+                                        name="tiltakstype"
+                                        label={storForbokstav(tiltakstypeTekst[tiltakType])}
+                                        value={tiltakType}
+                                        checked={valgtTiltaksType === tiltakType}
+                                        onChange={() => {
+                                            setTiltaksType(tiltakType);
+                                            setUyldigAvtaletype(false);
+                                        }}
+                                    />
+                                </div>
                             );
                         })}
                     </div>
@@ -205,25 +207,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                             <Normaltekst>
                                 Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
                             </Normaltekst>
-                            <VerticalSpacer rem={1} />
-                            <div className={cls.element('tiltakstypeWrapper')}>
-                                {innloggetBruker.tilganger[valgtBedriftNr]
-                                    .filter((tiltakstype) => erTiltakstypeSkruddPå(tiltakstype))
-                                    .map((tiltakType: TiltaksType, index: number) => (
-                                        <RadioPanel
-                                            key={index}
-                                            name="tiltakstype"
-                                            label={storForbokstav(tiltakstypeTekst[tiltakType])}
-                                            value={tiltakType}
-                                            checked={valgtTiltaksType === tiltakType}
-                                            onChange={() => {
-                                                setTiltaksType(tiltakType);
-                                                setUyldigAvtaletype(false);
-                                            }}
-                                        />
-                                    ))}
-                            </div>
-
                             {uyldigAvtaletype && (
                                 <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
                             )}
