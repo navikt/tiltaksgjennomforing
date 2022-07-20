@@ -74,14 +74,9 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             feilMentorFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
         }
 
-        if (
-            feilBedriftNr.length === 0 &&
-            feilDeltakerFNR.length === 0 &&
-            feilMentorFNR.length === 0 &&
-            valgtTiltaksType
-        ) {
+        if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             if (valgtTiltaksType === 'MENTOR') {
-                if (deltakerFnr !== mentorFnr) {
+                if (deltakerFnr !== mentorFnr && feilMentorFNR.length === 0) {
                     const mentorAvtale = await opprettMentorAvtale(
                         deltakerFnr,
                         mentorFnr,
