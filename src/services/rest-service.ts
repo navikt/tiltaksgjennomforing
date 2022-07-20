@@ -191,7 +191,6 @@ const opprettAvtalen = async (
 };
 
 export const mentorGodkjennTaushetserklæring = async (avtale:Avtale): Promise<Avtale> => {
-    console.log('mentorGodkjennTaushetserklæring ', avtale.id);
     const uri = `/avtaler/${avtale.id}/mentorGodkjennTaushetserklæring`;
 
     await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
@@ -200,7 +199,6 @@ export const mentorGodkjennTaushetserklæring = async (avtale:Avtale): Promise<A
 }
 
 export const godkjennAvtale = async (avtale: Avtale) => {
-    console.log('godkjennAvtle', avtale);
     const uri = `/avtaler/${avtale.id}/godkjenn`;
 
     await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });

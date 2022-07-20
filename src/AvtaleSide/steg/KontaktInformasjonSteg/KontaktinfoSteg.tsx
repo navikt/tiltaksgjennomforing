@@ -30,7 +30,6 @@ const KontaktinfoSteg: FunctionComponent = () => {
             <DeltakerInfo oppsummeringside={false} />
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
-            {console.log('tiltakstype', avtale.tiltakstype)}
             {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
             {skalViseRelasjoner && <Relasjoner />}
             <VeilederinfoDel />

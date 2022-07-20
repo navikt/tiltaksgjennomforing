@@ -95,8 +95,6 @@ const AvtaleTabell: FunctionComponent<{
             : setAntallKlar(undefined);
     }, [avtaler, erBeslutter, filtre?.tilskuddPeriodeStatus, skalViseAntallUbehandlet]);
 
-    console.log('avtalerMentorTaushetserklæringToggleList', avtalerMentorTaushetserklæringToggleList);
-
     return (
         <div className={cls.className}>
             <div className={classNames(cls.element('rad'), cls.element('header'))}>

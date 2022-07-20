@@ -224,7 +224,6 @@ const AvtaleProvider: FunctionComponent = (props) => {
     };
 
     const godkjenn = async (): Promise<void> => {
-        console.log('godkjenn', avtale);
         await RestService.godkjennAvtale(avtale);
         sendToAmplitude('#tiltak-avtale-godkjent');
         await hentAvtale(avtale.id);

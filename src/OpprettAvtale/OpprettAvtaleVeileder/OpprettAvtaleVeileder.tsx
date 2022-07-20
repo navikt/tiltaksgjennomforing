@@ -94,6 +94,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         let valgtAvtaleType = false;
         let feilDeltakerFNR = '';
         let feilBedriftNr = '';
+        let feilMentorFNR = '';
 
         if (!valgtTiltaksType) {
             valgtAvtaleType = true;
@@ -104,17 +105,23 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         if (!validerOrgnr(bedriftNr)) {
             feilBedriftNr = Feilmeldinger.UGYLDIG_VIRKSOMHETSNUMMER;
         }
+        if (!validerMentorFnr()) {
+            feilMentorFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
+        }
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             if (valgtTiltaksType === 'MENTOR') {
-                const mentorAvtale = await opprettMentorAvtale(
-                    deltakerFnr,
-                    mentorFnr,
-                    bedriftNr,
-                    valgtTiltaksType,
-                    Avtalerolle.VEILEDER
-                );
-                amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                history.push(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
+                if (deltakerFnr !== mentorFnr && feilMentorFNR.length === 0) {
+                    const mentorAvtale = await opprettMentorAvtale(
+                        deltakerFnr,
+                        mentorFnr,
+                        bedriftNr,
+                        valgtTiltaksType,
+                        Avtalerolle.VEILEDER
+                    );
+                    amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
+                    history.push(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
+                    return;
+                }
                 return;
             }
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);

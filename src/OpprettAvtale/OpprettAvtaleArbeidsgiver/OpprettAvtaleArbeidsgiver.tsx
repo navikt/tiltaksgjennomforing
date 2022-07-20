@@ -59,6 +59,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         let valgtAvtaleType = false;
         let feilDeltakerFNR = '';
         let feilBedriftNr = '';
+        let feilMentorFNR = '';
 
         if (!valgtTiltaksType) {
             valgtAvtaleType = true;
@@ -69,18 +70,29 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         if (!validerOrgnr(valgtBedriftNr)) {
             feilBedriftNr = Feilmeldinger.UGYLDIG_VIRKSOMHETSNUMMER;
         }
+        if (!validerMentorFnr()) {
+            feilMentorFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
+        }
 
-        if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
+        if (
+            feilBedriftNr.length === 0 &&
+            feilDeltakerFNR.length === 0 &&
+            feilMentorFNR.length === 0 &&
+            valgtTiltaksType
+        ) {
             if (valgtTiltaksType === 'MENTOR') {
-                const mentorAvtale = await opprettMentorAvtale(
-                    deltakerFnr,
-                    mentorFnr,
-                    valgtBedriftNr,
-                    valgtTiltaksType,
-                    Avtalerolle.ARBEIDSGIVER
-                );
-                amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                history.push(pathTilOpprettAvtaleFullfortArbeidsgiver(mentorAvtale.id));
+                if (deltakerFnr !== mentorFnr) {
+                    const mentorAvtale = await opprettMentorAvtale(
+                        deltakerFnr,
+                        mentorFnr,
+                        valgtBedriftNr,
+                        valgtTiltaksType,
+                        Avtalerolle.ARBEIDSGIVER
+                    );
+                    amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
+                    history.push(pathTilOpprettAvtaleFullfortArbeidsgiver(mentorAvtale.id));
+                    return;
+                }
                 return;
             }
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);

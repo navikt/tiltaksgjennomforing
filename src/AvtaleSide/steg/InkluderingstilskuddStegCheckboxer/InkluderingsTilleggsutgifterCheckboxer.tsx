@@ -22,7 +22,6 @@ const InkluderingsTilleggutgifterCheckboxer: FunctionComponent<Props> = (props) 
 
     const settTilskuddsrad = (type: InkluderingstilskuddsutgiftType, verdi: number): void => {
 
-        console.log("Oppdaterer inkluderingstilskudd i state", tilskuddsrad)
         setTilskuddsrad(tilskuddsrad.set(type, {beløp: verdi, type}))
         // settAvtaleInnholdVerdi("inkluderingstilskudd", nyeRader);
     };
