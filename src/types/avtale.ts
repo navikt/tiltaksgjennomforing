@@ -150,6 +150,7 @@ export interface Veilederinfo {
 export interface Mentorinfo {
     mentorFornavn?: string;
     mentorEtternavn?: string;
+    mentorTlf?: string;
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;

@@ -6,6 +6,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import OmMentorOppsummering from './OmMentorOppsummering';
 
 interface Props {
+    
     avtaleinnhold: Avtaleinnhold;
 }
 
