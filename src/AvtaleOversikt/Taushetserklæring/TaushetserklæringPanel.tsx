@@ -5,6 +5,8 @@ import BEMHelper from '@/utils/bem';
 import TausetserklæringTekst from './TaushetserklæringTekst';
 import Modal from 'nav-frontend-modal';
 import { formatterDato } from '@/utils/datoUtils';
+import Lenke from 'nav-frontend-lenker';
+import LenkeKnapp from '@/komponenter/LenkeKnapp';
 
 interface TaushetserklæringPanelProps {
     signertTidspunkt: string | undefined;
@@ -26,17 +28,9 @@ const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelPr
                 header="Tausetserklæring"
                 body={
                     <>
-                        {/*<Link
-                            to={''}
-                            //className={cls.element('lenke')}
-                            onClick={() => setVisTaushetserklæringPanel(true)}
-                        >
-                            <div aria-hidden={true}></div>
-                            {'Taushetserklæring'}
-                </Link>*/}
-                        <nav onClick={() => setVisTaushetserklæringPanel(true)}>
+                        <Lenke onClick={() => setVisTaushetserklæringPanel(true)} href={'#'}>
                             Taushetserklæring signert {signertTidspunkt ? formatterDato(signertTidspunkt) : ''}{' '}
-                        </nav>
+                        </Lenke>
                         {visTaushetserklæringPanel && (
                             <Modal
                                 isOpen={visTaushetserklæringPanel}
@@ -46,7 +40,6 @@ const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelPr
                                 contentLabel="Min modalrute"
                             >
                                 <div>
-                                    {/*<Taushetserklæring open={visTaushetserklæringPanel} avtale={avtale}/>*/}
                                     <TausetserklæringTekst />
                                 </div>
                             </Modal>
