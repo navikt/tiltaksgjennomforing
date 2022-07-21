@@ -6,7 +6,6 @@ import TausetserklæringTekst from './TaushetserklæringTekst';
 import Modal from 'nav-frontend-modal';
 import { formatterDato } from '@/utils/datoUtils';
 import Lenke from 'nav-frontend-lenker';
-import LenkeKnapp from '@/komponenter/LenkeKnapp';
 
 interface TaushetserklæringPanelProps {
     signertTidspunkt: string | undefined;
