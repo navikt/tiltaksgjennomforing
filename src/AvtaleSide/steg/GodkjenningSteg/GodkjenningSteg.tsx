@@ -38,7 +38,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
                 </div>
                 {innloggetBruker.rolle === 'VEILEDER' && <DeltakerInfo oppsummeringside={true} />}
-                <Avtaleparter />
                 {avtale.gjeldendeInnhold.refusjonKontaktperson && (
                     <KontaktpersonRefusjonOppsumering
                         kontaktpersonRefusjon={avtale.gjeldendeInnhold.refusjonKontaktperson}

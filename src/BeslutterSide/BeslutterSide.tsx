@@ -78,7 +78,7 @@ const BeslutterSide: FunctionComponent = () => {
                             <Innholdsboks>
                                 <Innholdstittel>{avtaleTittel[avtale.tiltakstype]}</Innholdstittel>
                                 <VerticalSpacer rem={2} />
-                                <Avtaleparter />
+                                <Avtaleparter avtaleinnhold={avtale.gjeldendeInnhold}/>
                                 <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />
                             </Innholdsboks>
                         </Ekspanderbartpanel>

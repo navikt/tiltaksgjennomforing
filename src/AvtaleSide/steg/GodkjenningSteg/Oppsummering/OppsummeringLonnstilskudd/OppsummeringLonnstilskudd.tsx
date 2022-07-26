@@ -2,6 +2,7 @@ import OppfolgingOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummeri
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
+import Avtaleparter from '../Avtaleparter/Avtaleparter';
 import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import RelasjonerOppsummering from '../RelasjonerOppsummering/RelasjonerOppsummering';
 import StillingsOppsummeringLonnstilskudd from '../StillingsOppsummeringLonnstilskudd/StillingsOppsummeringLonnstilskudd';
@@ -14,6 +15,7 @@ interface Props {
 
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
     <>
+        <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
         <RelasjonerOppsummering {...props.avtaleinnhold} />
         <VerticalSpacer rem={2.5} />
         <StillingsOppsummeringLonnstilskudd {...props.avtaleinnhold} />

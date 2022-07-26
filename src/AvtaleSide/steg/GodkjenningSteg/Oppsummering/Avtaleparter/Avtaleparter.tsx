@@ -1,13 +1,18 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import { Avtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
 
-const Avtaleparter: FunctionComponent = () => {
+interface Props {
+    avtaleinnhold: Avtaleinnhold;
+}
+
+const Avtaleparter: FunctionComponent<Props> = props => {
     const avtaleContext = useContext(AvtaleContext);
-    const gjeldendeInnhold = avtaleContext.avtale.gjeldendeInnhold;
+    const gjeldendeInnhold = props.avtaleinnhold;
 
     const erLåst = Boolean(avtaleContext.avtale.godkjentAvVeileder);
     return (
