@@ -64,11 +64,15 @@ const VarighetSteg: FunctionComponent = () => {
                     <Column md="12">
                         <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
                         <Normaltekst>
-                            {['SOMMERJOBB'].includes(avtaleContext.avtale.tiltakstype) && (
-                                <> Tiltaket må ha oppstart i perioden 1/6 - 31/8. </>
-                            )}{' '}
-                            Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato. Hvor
-                            lenge det er behov for tiltaket vil vurderes underveis i perioden.
+                            {['SOMMERJOBB'].includes(avtaleContext.avtale.tiltakstype) ?
+                                <>
+                                    Tiltaket må ha oppstart i perioden 1/6 - 31/8. Fyll ut startdato og forventet sluttdato. Veileder kan sette startdato 7 dager før dagens dato, mens beslutter kan åpne opp for etterregistrering lenger tilbake i tid.
+                                </> :
+                                <>
+                                    Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato.
+                                </>
+                            }
+                            <>{' '}Hvor lenge det er behov for tiltaket må vurderes underveis i perioden.</>
                             {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(
                                 avtaleContext.avtale.tiltakstype
                             ) && (
