@@ -25,6 +25,8 @@ const TilgangTabell: FunctionComponent<Props> = props => {
 
     const alleTilganger: TiltaksType[] = [
         'ARBEIDSTRENING',
+        'INKLUDERINGSTILSKUDD',
+        'MENTOR',
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
         'SOMMERJOBB',

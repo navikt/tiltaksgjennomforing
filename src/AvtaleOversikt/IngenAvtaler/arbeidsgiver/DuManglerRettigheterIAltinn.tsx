@@ -21,6 +21,8 @@ const DuManglerRettigheterIAltinn: FunctionComponent = () => {
                 For å få tilgang til avtaler for din virksomhet må du i Altinn ha en av enkelttjenestene
                 <ul>
                     <li>Avtale om arbeidstrening</li>
+                    <li>Avtale om inkluderingstilskudd</li>
+                    <li>Avtale om tilskudd til mentor</li>
                     <li>Avtale om midlertidig lønnstilskudd</li>
                     <li>Avtale om varig lønnstilskudd</li>
                 </ul>
