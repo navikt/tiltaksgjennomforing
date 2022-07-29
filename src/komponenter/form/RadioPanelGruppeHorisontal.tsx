@@ -4,7 +4,7 @@ import * as React from 'react';
 const RadioPanelGruppeHorisontal = (props: RadioPanelGruppeProps) => {
     const { radios, name, checked, onChange } = props;
     return (
-        <div className="opprett-avtale__tiltakstypeWrapper">
+        <div className="opprett-avtale__horisontalGruppeWrapper">
             {radios.map((radio) => (
                 <RadioPanel
                     {...radio}
