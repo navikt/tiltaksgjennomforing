@@ -61,9 +61,12 @@ const AvtaleTabell: FunctionComponent<{
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const { filtre } = useFilter();
     const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
+    const erArbeidsgiver: boolean = innloggetBruker.rolle === 'ARBEIDSGIVER';
+    const erVeileder: boolean = innloggetBruker.rolle === 'VEILEDER';
     const skalViseAntallUbehandlet =
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
+
     useEffect(() => {
         skalViseAntallUbehandlet
             ? setAntallKlar(
@@ -86,16 +89,21 @@ const AvtaleTabell: FunctionComponent<{
                 <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
                 {innloggetBruker.erNavAnsatt && <div className={cls.element('veileder')}>Veileder</div>}
                 <MediaQuery minWidth={576}>
-                    <div className={cls.element('opprettet')}>
+                    <div className={cls.element('dato')}>
                         {erBeslutter ? (
                             <>
                                 <div>Startdato</div>
                                 <div>periode</div>
                             </>
                         ) : (
-                            'Opprettet'
+                            'Startdato'
                         )}
                     </div>
+                    {(erVeileder || erArbeidsgiver) &&
+                        <div className={cls.element('dato')}>
+                            Sluttdato
+                        </div>
+                    }
                 </MediaQuery>
                 <div className={cls.element('status')}>Status</div>
                 <div className={cls.element('statusikon')}>&nbsp;</div>
@@ -103,6 +111,9 @@ const AvtaleTabell: FunctionComponent<{
             <div role="list">
                 {avtaler.map((avtale: Avtale, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
+                    const periodeStartDato = avtale.gjeldendeTilskuddsperiode?.startDato || null;
+                    const startDato = avtale.gjeldendeInnhold.startDato || null
+                    const sluttDato = avtale.gjeldendeInnhold.sluttDato || null
                     return (
                         <LenkepanelBase
                             id={avtale.id}
@@ -133,13 +144,21 @@ const AvtaleTabell: FunctionComponent<{
                                     </div>
                                 )}
                                 <MediaQuery minWidth={576}>
-                                    <div className={cls.element('opprettet')}>
-                                        {moment(
-                                            erBeslutter
-                                                ? avtale.gjeldendeTilskuddsperiode?.startDato
-                                                : avtale.opprettetTidspunkt
-                                        ).format('DD.MM.YYYY')}
-                                    </div>
+                                    {erBeslutter &&
+                                        <div className={cls.element('dato')}>
+                                            {moment(periodeStartDato).format('DD.MM.YYYY')}
+                                        </div>
+                                    }
+                                    {(erVeileder || erArbeidsgiver) &&
+                                        <>
+                                            <div className={cls.element('dato')}>
+                                                {startDato && moment(startDato).format('DD.MM.YYYY')}
+                                            </div>
+                                            <div className={cls.element('dato')}>
+                                                {sluttDato && moment(sluttDato).format('DD.MM.YYYY')}
+                                            </div>
+                                        </>
+                                    }
                                 </MediaQuery>
                                 {hentAvtaleStatus(
                                     avtale,
