@@ -17,8 +17,6 @@ import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './Innloggingsside.less';
-import {FeatureToggleContext} from "@/FeatureToggleProvider";
-import {Feature} from "@/FeatureToggleProvider";
 
 const cls = BEMHelper('innloggingsside');
 
@@ -26,9 +24,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const throwError = useAsyncError();
     const [, setCookie] = useCookies();
     const visFeilmelding = useContext(FeilVarselContext);
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const mentorToggle = featureToggleContext[Feature.Mentor];
-
+    const mentorVisesIdevOmFeatureToggleIkkeKanNås = window.location.href.includes("tiltaksgjennomforing.dev.nav.no") ||  window.location.href.includes("localhost") ||  window.location.href.includes("arbeidsgiver.labs.");
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
         try {
             await hentInnloggetBruker();
@@ -47,7 +43,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde) => (
         <Hovedknapp
             key={innlogginskilde.part}
-            style={innlogginskilde.part === "MENTOR" ? (!mentorToggle ? {display:"none"}: {}): {}} //TODO: MENTOR TOGGLE her!
+            style={innlogginskilde.part === "MENTOR" ? (!mentorVisesIdevOmFeatureToggleIkkeKanNås ? {display:"none"}: {}): {}} //TODO: MENTOR TOGGLE her!
             className="innloggingsside__logginnKnapp"
             onClick={() => {
                 setCookie(INNLOGGET_PART, innlogginskilde.part, { path: '/tiltaksgjennomforing' });
