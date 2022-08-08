@@ -62,9 +62,12 @@ const AvtaleTabell: FunctionComponent<{
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const { filtre } = useFilter();
     const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
+    const erArbeidsgiver: boolean = innloggetBruker.rolle === 'ARBEIDSGIVER';
+    const erVeileder: boolean = innloggetBruker.rolle === 'VEILEDER';
     const skalViseAntallUbehandlet =
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
+
     const [avtalerMentorTaushetserklæringToggleList, setAvtalerMentorTaushetserklæringToggleList] = useState<string[]>(
         []
     );
@@ -102,16 +105,21 @@ const AvtaleTabell: FunctionComponent<{
                 <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
                 {innloggetBruker.erNavAnsatt && <div className={cls.element('veileder')}>Veileder</div>}
                 <MediaQuery minWidth={576}>
-                    <div className={cls.element('opprettet')}>
+                    <div className={cls.element('dato')}>
                         {erBeslutter ? (
                             <>
                                 <div>Startdato</div>
                                 <div>periode</div>
                             </>
                         ) : (
-                            'Opprettet'
+                            'Startdato'
                         )}
                     </div>
+                    {(erVeileder || erArbeidsgiver) &&
+                        <div className={cls.element('dato')}>
+                            Sluttdato
+                        </div>
+                    }
                 </MediaQuery>
                 <div className={cls.element('status')}>Status</div>
                 <div className={cls.element('statusikon')}>&nbsp;</div>
@@ -119,68 +127,80 @@ const AvtaleTabell: FunctionComponent<{
             <div role="list">
                 {avtaler.map((avtale: Avtale, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
+                    const periodeStartDato = avtale.gjeldendeTilskuddsperiode?.startDato || null;
+                    const startDato = avtale.gjeldendeInnhold.startDato || null
+                    const sluttDato = avtale.gjeldendeInnhold.sluttDato || null
                     return (
                         <div key={avtale.id}>
-                            <LenkepanelBase
-                                id={avtale.id}
-                                href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
-                                linkCreator={(props: any) => (
-                                    <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
-                                )}
-                                role="listitem"
-                                aria-labelledby={avtale.id}
-                                onClick={(e) => {
-                                    if (
-                                        innloggetBruker.rolle === 'MENTOR' &&
-                                        avtale.tiltakstype === 'MENTOR' &&
-                                        avtale.erGodkjentTaushetserklæringAvMentor === false
-                                    ) {
-                                        togglesetTaushetserklæringForMentorAvtale(avtale);
-                                        e.preventDefault();
-                                    }
-                                }}
+                        <LenkepanelBase
+                            id={avtale.id}
+                            key={avtale.id}
+                            href={pathTilAvtale(avtale.id, innloggetBruker.rolle)}
+                            linkCreator={(props: any) => (
+                                <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
+                            )}
+                            role="listitem"
+                            aria-labelledby={avtale.id}
+                            onClick={(e) => {
+                              if (
+                                  innloggetBruker.rolle === 'MENTOR' &&
+                                  avtale.tiltakstype === 'MENTOR' &&
+                                  avtale.erGodkjentTaushetserklæringAvMentor === false
+                              ) {
+                                togglesetTaushetserklæringForMentorAvtale(avtale);
+                                e.preventDefault();
+                              }
+                            }}
+                        >
+                            {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
+                            <div
+                                className={classNames(cls.element('rad'), {
+                                    uthevet: ulestVarsel,
+                                })}
                             >
-                                {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
-                                <div
-                                    className={classNames(cls.element('rad'), {
-                                        uthevet: ulestVarsel,
-                                    })}
-                                >
-                                    <div className={cls.element('deltakerOgBedrift')}>
-                                        {avtale.gjeldendeInnhold.bedriftNavn}
-                                    </div>
-                                    <div className={cls.element('deltakerOgBedrift')}>
-                                        {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
-                                        {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
-                                    </div>
-                                    {innloggetBruker.erNavAnsatt && (
-                                        <div className={cls.element('veileder')}>
-                                            {avtale.veilederNavIdent || 'Ufordelt'}
-                                        </div>
-                                    )}
-                                    <MediaQuery minWidth={576}>
-                                        <div className={cls.element('opprettet')}>
-                                            {moment(
-                                                erBeslutter
-                                                    ? avtale.gjeldendeTilskuddsperiode?.startDato
-                                                    : avtale.opprettetTidspunkt
-                                            ).format('DD.MM.YYYY')}
-                                        </div>
-                                    </MediaQuery>
-                                    {hentAvtaleStatus(
-                                        avtale,
-                                        innloggetBruker.rolle,
-                                        skalViseAntallUbehandlet,
-                                        antallKlar ? antallKlar[index] : undefined
-                                    )}
+                                <div className={cls.element('deltakerOgBedrift')}>
+                                    {avtale.gjeldendeInnhold.bedriftNavn}
                                 </div>
-                            </LenkepanelBase>
-                            <Taushetserklæring
-                                open={avtalerMentorTaushetserklæringToggleList.includes(avtale.id)}
-                                togglesetTaushetserklæringForMentorAvtale={togglesetTaushetserklæringForMentorAvtale}
-                                avtale={avtale}
-                            />
-                        </div>
+                                <div className={cls.element('deltakerOgBedrift')}>
+                                    {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
+                                    {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
+                                </div>
+                                {innloggetBruker.erNavAnsatt && (
+                                    <div className={cls.element('veileder')}>
+                                        {avtale.veilederNavIdent || 'Ufordelt'}
+                                    </div>
+                                )}
+                                <MediaQuery minWidth={576}>
+                                    {erBeslutter &&
+                                        <div className={cls.element('dato')}>
+                                            {moment(periodeStartDato).format('DD.MM.YYYY')}
+                                        </div>
+                                    }
+                                    {(erVeileder || erArbeidsgiver) &&
+                                        <>
+                                            <div className={cls.element('dato')}>
+                                                {startDato && moment(startDato).format('DD.MM.YYYY')}
+                                            </div>
+                                            <div className={cls.element('dato')}>
+                                                {sluttDato && moment(sluttDato).format('DD.MM.YYYY')}
+                                            </div>
+                                        </>
+                                    }
+                                </MediaQuery>
+                                {hentAvtaleStatus(
+                                    avtale,
+                                    innloggetBruker.rolle,
+                                    skalViseAntallUbehandlet,
+                                    antallKlar ? antallKlar[index] : undefined
+                                )}
+                            </div>
+                        </LenkepanelBase>
+                  <Taushetserklæring
+                      open={avtalerMentorTaushetserklæringToggleList.includes(avtale.id)}
+                      togglesetTaushetserklæringForMentorAvtale={togglesetTaushetserklæringForMentorAvtale}
+                      avtale={avtale}
+                  />
+                  </div>
                     );
                 })}
             </div>

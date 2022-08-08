@@ -22,9 +22,9 @@ const Sortering: FunctionComponent = (props) => {
             options.push({ verdi: key, tekst: value });
         }
     };
-    rolle === 'BESLUTTER'
-        ? leggtilSorteringstype('startDato', 'Startdato')
-        : leggtilSorteringstype('sistEndret', 'Sist endret');
+
+    leggtilSorteringstype('startDato', 'Startdato');
+    leggtilSorteringstype('sistEndret', 'Sist endret');
 
     const defaultValg = rolle === 'BESLUTTER' ? 'startDato' : 'sistEndret';
 

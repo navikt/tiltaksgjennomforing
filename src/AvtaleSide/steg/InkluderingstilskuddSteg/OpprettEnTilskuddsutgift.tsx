@@ -7,7 +7,7 @@ import { formatterPenger } from '@/utils/PengeUtils';
 import { Flatknapp, Knapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { FunctionComponent, useState } from 'react';
+import { ChangeEvent, FunctionComponent, useState } from 'react';
 
 type Props = {
     setIRedigeringsmodus: (iModus: boolean) => void;
@@ -37,8 +37,8 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
             setTypeFeil(undefined);
         }
         if (!beløp) {
-            //set en feil - noe mangler
-            setBeløpFeil("Vennligst oppgi et kostnadsoverslag");
+            // set en feil - noe mangler
+            setBeløpFeil('Vennligst oppgi et kostnadsoverslag');
             return;
         }
         if (beløp > gjenståendeMaxBeløp) {
@@ -53,7 +53,6 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
         setBeløp(undefined);
         setType(undefined);
     };
-    
 
     return (
         <div>
@@ -64,16 +63,16 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                 <div>
                     <Select
                         feil={typeFeil}
-                        onChange={(e) => {
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                             setType(e.currentTarget.value as InkluderingstilskuddsutgiftType);
                             setTypeFeil(undefined);
                         }}
                         label="Hva skal tilskuddet dekke?"
                     >
                         <option value="">Velg type utgift</option>
-                        {props.ledigeInkluderingstilskuddtyper.map((type) => (
-                            <option key={type} value={type}>
-                                {inkluderingstilskuddtypeTekst[type]}
+                        {props.ledigeInkluderingstilskuddtyper.map((currentType: InkluderingstilskuddsutgiftType) => (
+                            <option key={currentType} value={currentType}>
+                                {inkluderingstilskuddtypeTekst[currentType]}
                             </option>
                         ))}
                     </Select>

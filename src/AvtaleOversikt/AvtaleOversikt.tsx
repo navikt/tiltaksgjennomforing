@@ -73,7 +73,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                             <div style={{ margin: '0.2rem 0 1rem 0' }}>
                                 <LenkeKnapp
                                     path={pathTilOpprettAvtale}
-                                    style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}
+                                    style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem', width: '100%' }}
                                 >
                                     <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
                                     Opprett ny avtale
@@ -93,6 +93,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                                             style={{
                                                 paddingLeft: '1.5rem',
                                                 paddingRight: '1.5rem',
+                                                width: '100%',
                                             }}
                                         >
                                             <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
