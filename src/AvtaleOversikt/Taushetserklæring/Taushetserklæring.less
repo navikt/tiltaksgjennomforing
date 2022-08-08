@@ -5,6 +5,7 @@
     }
 
     &__modal {
+        overflow-y: scroll;
         width: 16rem;
         padding: 2.5rem 0.5rem 0.5rem;
         height: 100%;
@@ -16,9 +17,11 @@
     }
 
     &__topIconContainer {
-        display: flex;
+        position: fixed;
         justify-content: center;
-        margin: -6.3rem auto 0 auto;
+        width: 80px;
+        right: 48%;
+        top:0.1%;
         @media (max-height: 710px) {
             display: none;
         }
