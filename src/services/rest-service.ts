@@ -2,6 +2,7 @@ import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import {
@@ -156,6 +157,24 @@ export const opprettAvtaleSomArbeidsgiver = async (
     return opprettAvtalen('/avtaler/opprett-som-arbeidsgiver', deltakerFnr, bedriftNr, tiltakstype);
 };
 
+export const opprettMentorAvtale = async (
+    deltakerFnr: string,
+    mentorFnr: string,
+    bedriftNr: string,
+    tiltakstype: TiltaksType,
+    avtalerolle: Avtalerolle
+): Promise<Avtale> => {
+    const postResponse = await api.post('/avtaler/opprett-mentor-avtale', {
+        deltakerFnr,
+        mentorFnr,
+        bedriftNr,
+        tiltakstype,
+        avtalerolle,
+    });
+    const getResponse = await api.get<Avtale>(`${postResponse.headers.location}`);
+    return getResponse.data;
+};
+
 const opprettAvtalen = async (
     url: string,
     deltakerFnr: string,
@@ -170,6 +189,14 @@ const opprettAvtalen = async (
     const getResponse = await api.get<Avtale>(`${postResponse.headers.location}`);
     return getResponse.data;
 };
+
+export const mentorGodkjennTaushetserklæring = async (avtale:Avtale): Promise<Avtale> => {
+    const uri = `/avtaler/${avtale.id}/mentorGodkjennTaushetserklæring`;
+
+    await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
+
+    return hentAvtale(avtale.id);
+}
 
 export const godkjennAvtale = async (avtale: Avtale) => {
     const uri = `/avtaler/${avtale.id}/godkjenn`;

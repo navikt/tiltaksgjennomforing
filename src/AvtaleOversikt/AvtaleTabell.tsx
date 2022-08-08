@@ -14,6 +14,7 @@ import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import Taushetserklæring from './Taushetserklæring/Taushetserklæring';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -67,6 +68,21 @@ const AvtaleTabell: FunctionComponent<{
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
 
+    const [avtalerMentorTaushetserklæringToggleList, setAvtalerMentorTaushetserklæringToggleList] = useState<string[]>(
+        []
+    );
+
+    const togglesetTaushetserklæringForMentorAvtale = (avtale: Avtale) => {
+        if (!avtale) return;
+        if (avtalerMentorTaushetserklæringToggleList.find((v) => v === avtale.id)) {
+            const avtaleIndex = avtalerMentorTaushetserklæringToggleList.findIndex((av) => av === avtale.id);
+            avtalerMentorTaushetserklæringToggleList.splice(avtaleIndex, 1);
+            setAvtalerMentorTaushetserklæringToggleList([...avtalerMentorTaushetserklæringToggleList]);
+        } else {
+            setAvtalerMentorTaushetserklæringToggleList([...avtalerMentorTaushetserklæringToggleList, avtale.id]);
+        }
+    };
+
     useEffect(() => {
         skalViseAntallUbehandlet
             ? setAntallKlar(
@@ -115,6 +131,7 @@ const AvtaleTabell: FunctionComponent<{
                     const startDato = avtale.gjeldendeInnhold.startDato || null
                     const sluttDato = avtale.gjeldendeInnhold.sluttDato || null
                     return (
+                        <div key={avtale.id}>
                         <LenkepanelBase
                             id={avtale.id}
                             key={avtale.id}
@@ -124,6 +141,16 @@ const AvtaleTabell: FunctionComponent<{
                             )}
                             role="listitem"
                             aria-labelledby={avtale.id}
+                            onClick={(e) => {
+                              if (
+                                  innloggetBruker.rolle === 'MENTOR' &&
+                                  avtale.tiltakstype === 'MENTOR' &&
+                                  avtale.erGodkjentTaushetserklæringAvMentor === false
+                              ) {
+                                togglesetTaushetserklæringForMentorAvtale(avtale);
+                                e.preventDefault();
+                              }
+                            }}
                         >
                             {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                             <div
@@ -168,6 +195,12 @@ const AvtaleTabell: FunctionComponent<{
                                 )}
                             </div>
                         </LenkepanelBase>
+                  <Taushetserklæring
+                      open={avtalerMentorTaushetserklæringToggleList.includes(avtale.id)}
+                      togglesetTaushetserklæringForMentorAvtale={togglesetTaushetserklæringForMentorAvtale}
+                      avtale={avtale}
+                  />
+                  </div>
                     );
                 })}
             </div>

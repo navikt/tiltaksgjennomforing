@@ -19,7 +19,6 @@ type Props = {
 
 export const Avtaler: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
-
     const layout = useAvtaleOversiktLayout();
 
     if (props.avtalelisteRessurs.status === Status.LasterInn) {

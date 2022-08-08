@@ -129,30 +129,34 @@ const VarighetSteg: FunctionComponent = () => {
                 <Row>
                     <Column md="12">{''}</Column>
                 </Row>
-                <VerticalSpacer rem={1} />
-                <StillingsprosentInput
-                    label="Hvilken stillingsprosent skal deltakeren ha?"
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.stillingprosent}
-                    settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('stillingprosent', verdi)}
-                />
-                <VerticalSpacer rem={1} />
-                <PakrevdInput
-                    bredde="S"
-                    label="Antall dager per uke"
-                    type="number"
-                    max={7}
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.antallDagerPerUke}
-                    settVerdi={(eventVerdi) => {
-                        const verdi = parseInt(eventVerdi, 10);
-                        if (verdi > 0 && verdi < 8) {
-                            avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', verdi);
-                        } else {
-                            avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', undefined);
-                        }
-                    }}
-                />
-                <VerticalSpacer rem={2} />
-                <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
+                {avtaleContext.avtale.tiltakstype !== 'MENTOR' && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <StillingsprosentInput
+                            label="Hvilken stillingsprosent skal deltakeren ha?"
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.stillingprosent}
+                            settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('stillingprosent', verdi)}
+                        />
+                        <VerticalSpacer rem={1} />
+                        <PakrevdInput
+                            bredde="S"
+                            label="Antall dager per uke"
+                            type="number"
+                            max={7}
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.antallDagerPerUke}
+                            settVerdi={(eventVerdi) => {
+                                const verdi = parseInt(eventVerdi, 10);
+                                if (verdi > 0 && verdi < 8) {
+                                    avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', verdi);
+                                } else {
+                                    avtaleContext.settAvtaleInnholdVerdi('antallDagerPerUke', undefined);
+                                }
+                            }}
+                        />
+                        <VerticalSpacer rem={2} />
+                        <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
+                    </>
+                )}
                 <VerticalSpacer rem={2} />
                 <LagreKnapp label={'Lagre'} lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'} />
             </Container>

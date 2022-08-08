@@ -55,6 +55,20 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                     )}
                 </div>
             );
+        case 'MENTOR':
+            return (
+                <div className="banner">
+                    <Innholdstittel role="heading" aria-level={1}>
+                        {props.tekst}
+                    </Innholdstittel>
+                    {props.undertittel && (
+                        <>
+                            <VerticalSpacer rem={0.5} />
+                            <UndertekstBold>{props.undertittel}</UndertekstBold>
+                        </>
+                    )}
+                </div>
+            );
         default:
             return null;
     }

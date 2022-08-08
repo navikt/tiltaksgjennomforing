@@ -72,7 +72,9 @@ export type Feilkode =
     | 'UGYLDIG_AVTALETYPE'
     | 'KAN_IKKE_OPPHEVE_GODKJENNINGER_VED_INNGAATT_AVTALE'
     | 'INKLUDERINGSTILSKUDD_SUM_FOR_HØY'
-    | 'KAN_IKKE_ENDRE_INKLUDERINGSTILSKUDD_TOM_LISTE';
+    | 'KAN_IKKE_ENDRE_INKLUDERINGSTILSKUDD_TOM_LISTE'
+    | 'MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING'
+    | 'DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -154,7 +156,10 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     UGYLDIG_VIRKSOMHETSNUMMER: 'Du må oppgi gyldig virksomhetsnummer',
     UGYLDIG_FØDSELSNUMMER: 'Du må oppgi gyldig fødselsnummer for deltaker',
     UGYLDIG_AVTALETYPE: 'Du må oppgi avtaletype',
-    KAN_IKKE_OPPHEVE_GODKJENNINGER_VED_INNGAATT_AVTALE: 'Avtalen er inngått. Godkjenninger kan derfor ikke oppheves. Forsøk å oppfrisk siden.',
+    KAN_IKKE_OPPHEVE_GODKJENNINGER_VED_INNGAATT_AVTALE:
+        'Avtalen er inngått. Godkjenninger kan derfor ikke oppheves. Forsøk å oppfrisk siden.',
     INKLUDERINGSTILSKUDD_SUM_FOR_HØY: 'Totalbeløpet for tilskudd overstiger det maksimale beløpet',
-    KAN_IKKE_ENDRE_INKLUDERINGSTILSKUDD_TOM_LISTE: 'Du må ha minst ett tilskudd'
+    KAN_IKKE_ENDRE_INKLUDERINGSTILSKUDD_TOM_LISTE: 'Du må ha minst ett tilskudd',
+    MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING: 'Veileder må godkjenne avtalen etter deltaker, mentor og arbeidsgiver.',
+    DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER: 'Deltager og mentor kan ikke ha det samme fødselsnummeret',
 };
