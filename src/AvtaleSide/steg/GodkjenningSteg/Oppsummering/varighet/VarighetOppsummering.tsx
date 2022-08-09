@@ -51,15 +51,6 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({
                         <SjekkOmVerdiEksisterer verdi={stillingProsent} />
                     </Column>
                 </Row>
-                {avtaleContext.avtale?.tiltakstype !== 'MENTOR' && (
-                    <Row className={''}>
-                        <Column md="4" sm="12" xs="12">
-                            <Element>Antall dager per uke</Element>
-                            <p>dsfsdf</p>
-                            <SjekkOmVerdiEksisterer verdi={antallDagerPerUke?.toString()} />
-                        </Column>
-                    </Row>
-                )}
                 <Row className={''}>
                     <Column md="4" sm="12" xs="12">
                         <Element>Antall dager per uke</Element>
