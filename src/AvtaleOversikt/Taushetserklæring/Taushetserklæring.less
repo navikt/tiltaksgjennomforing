@@ -1,0 +1,54 @@
+.etterRegistrering {
+    &__modal-container {
+        overflow: visible;
+        display: flex;
+    }
+
+    &__modal {
+        overflow-y: scroll;
+        width: 16rem;
+        padding: 2.5rem 0.5rem 0.5rem;
+        height: 100%;
+        min-height: 14rem;
+
+        & > .alertstripe {
+            margin-top: 1.5rem;
+        }
+    }
+
+    &__topIconContainer {
+        position: fixed;
+        justify-content: center;
+        width: 80px;
+        right: 48%;
+        top:0.1%;
+        @media (max-height: 710px) {
+            display: none;
+        }
+    }
+
+    &__header {
+        margin-bottom: 1rem;
+    }
+
+    &__lenker {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__lenke {
+        display: flex;
+        margin: 0.5rem;
+    }
+
+    &__lagreKnapp {
+        margin-top: 0.75rem;
+    }
+
+    @media (min-width: 768px) {
+        &__modal {
+            width: 40rem;
+            padding: 2.5rem;
+        }
+    }
+}

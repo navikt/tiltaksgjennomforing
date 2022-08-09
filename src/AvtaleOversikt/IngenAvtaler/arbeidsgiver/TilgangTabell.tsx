@@ -19,21 +19,21 @@ interface Props {
     tilganger: Tilganger;
 }
 
-const TilgangTabell: FunctionComponent<Props> = props => {
+const TilgangTabell: FunctionComponent<Props> = (props) => {
     const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrler>({});
     const throwError = useAsyncError();
 
     const alleTilganger: TiltaksType[] = [
         'ARBEIDSTRENING',
+        'INKLUDERINGSTILSKUDD',
+        'MENTOR',
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
         'SOMMERJOBB',
     ];
 
     useEffect(() => {
-        hentBeOmRettighetUrler(props.bedriftNr)
-            .then(setBeOmRettighetUrler)
-            .catch(throwError);
+        hentBeOmRettighetUrler(props.bedriftNr).then(setBeOmRettighetUrler).catch(throwError);
     }, [props.bedriftNr, throwError]);
 
     const harGodPlass = useMediaQuery({ minWidth: '40rem' });
@@ -42,7 +42,7 @@ const TilgangTabell: FunctionComponent<Props> = props => {
         <div className={cls.className}>
             <table className="tabell">
                 <tbody>
-                    {alleTilganger.map(tiltakstype => {
+                    {alleTilganger.map((tiltakstype) => {
                         const harTilgangTilTiltakstype =
                             props.bedriftNr && props.tilganger[props.bedriftNr]?.includes(tiltakstype);
 

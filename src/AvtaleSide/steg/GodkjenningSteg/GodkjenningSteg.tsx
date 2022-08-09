@@ -1,7 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
-import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -13,9 +12,12 @@ import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, Suspense, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
+import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering';
+import TaushetserklæringPanel from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringPanel';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
+    mentorVinsing?: boolean;
 }
 
 const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
@@ -29,6 +31,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className} role={'main'}>
             <AvtaleStatus />
+            {innloggetBruker.rolle === 'MENTOR' && <TaushetserklæringPanel signertTidspunkt={avtale.godkjentAvMentor} />}
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>

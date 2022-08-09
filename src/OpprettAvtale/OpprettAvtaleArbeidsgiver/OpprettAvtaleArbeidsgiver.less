@@ -17,14 +17,13 @@
     @media (min-width: @screen-md-min) {
         &__tiltakstypeWrapper {
             display: flex;
-            flex-direction: row;
+            flex-wrap: wrap;
 
             label {
+                width: 28rem;
                 flex-grow: 1;
                 margin-right: 0.5rem;
-                &:last-child {
-                    margin-right: 0;
-                }
+                margin-bottom: 0.5rem;
             }
         }
     }

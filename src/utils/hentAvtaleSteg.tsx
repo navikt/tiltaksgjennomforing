@@ -2,7 +2,7 @@ import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 import BeregningTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningTilskuddSteg';
 import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
 import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
-import OppsummeringInkluderingstilskudd from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd";
+import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
 import InkluderingstilskuddSteg from '@/AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingstilskuddSteg';
@@ -108,6 +108,13 @@ const mentorSteg: StegInfo[] = [
     },
 ];
 
+const mentorInnsynSteg: StegInfo[] = [
+    {
+        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} mentorVinsing={true} />,
+        label: 'Godkjenning',
+        id: 'godkjenning',
+    },
+];
 const inkluderingTilskuddSteg: StegInfo[] = [
     {
         komponent: <KontaktinfoSteg />,
@@ -115,7 +122,7 @@ const inkluderingTilskuddSteg: StegInfo[] = [
         id: 'kontaktinformasjon',
     },
     {
-        komponent: < InkluderingstilskuddSteg />,
+        komponent: <InkluderingstilskuddSteg />,
         label: 'Inkluderingstilskudd',
         id: 'inkluderingstilskudd',
     },
@@ -136,6 +143,7 @@ const hentAvtaleSteg = {
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MENTOR: mentorSteg,
+    MENTOR_INNSYN: mentorInnsynSteg,
     INKLUDERINGSTILSKUDD: inkluderingTilskuddSteg,
     SOMMERJOBB: lonnstilskuddSteg,
 };

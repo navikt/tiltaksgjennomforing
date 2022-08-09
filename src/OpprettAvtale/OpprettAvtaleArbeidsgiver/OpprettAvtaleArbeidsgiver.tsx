@@ -15,50 +15,39 @@ import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
-import { validerFnr } from '@/utils/fnrUtils';
+import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
+import { opprettMentorAvtale } from '@/services/rest-service';
+import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
 const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
+    const [mentorFnr, setMentorFnr] = useState('');
     const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
 
     const featureToggleContext = useContext(FeatureToggleContext);
-
-    const mentorToggle = featureToggleContext[Feature.Mentor];
     const inkluderingstilskuddToggle = featureToggleContext[Feature.Inkluderingstiskudd];
 
-    const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
-        (verdi) => {
-            if (!verdi) {
-                return 'Fødselsnummer er påkrevd';
-            }
-        },
-        (verdi) => {
-            if (!validerFnr(verdi)) {
-                return 'Ugyldig fødselsnummer';
-            }
-        },
-    ]);
-
-    const fnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const verdi = event.target.value.replace(/\D/g, '');
-        if (/^\d{0,11}$/.test(verdi)) {
-            setDeltakerFnr(verdi);
-            setDeltakerFnrFeil(undefined);
-        }
-    };
+    const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
+        deltakerFnr,
+        validatorer('Deltaker', mentorFnr)
+    );
+    const [mentorFnrFeil, setMentorFnrFeil, validerMentorFnr] = useValidering(
+        mentorFnr,
+        validatorer('Mentor', deltakerFnr)
+    );
 
     const setFeilmelding = (melding: Feilkode) => {
         if (melding === 'SOMMERJOBB_FOR_GAMMEL') {
@@ -70,6 +59,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         let valgtAvtaleType = false;
         let feilDeltakerFNR = '';
         let feilBedriftNr = '';
+        let feilMentorFNR = '';
 
         if (!valgtTiltaksType) {
             valgtAvtaleType = true;
@@ -80,8 +70,26 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         if (!validerOrgnr(valgtBedriftNr)) {
             feilBedriftNr = Feilmeldinger.UGYLDIG_VIRKSOMHETSNUMMER;
         }
+        if (!validerMentorFnr()) {
+            feilMentorFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
+        }
 
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
+            if (valgtTiltaksType === 'MENTOR') {
+                if (deltakerFnr !== mentorFnr && feilMentorFNR.length === 0) {
+                    const mentorAvtale = await opprettMentorAvtale(
+                        deltakerFnr,
+                        mentorFnr,
+                        valgtBedriftNr,
+                        valgtTiltaksType,
+                        Avtalerolle.ARBEIDSGIVER
+                    );
+                    amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
+                    history.push(pathTilOpprettAvtaleFullfortArbeidsgiver(mentorAvtale.id));
+                    return;
+                }
+                return;
+            }
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             history.push({
@@ -99,6 +107,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         (org) => org.OrganizationNumber === valgtBedriftNr
     )?.Name;
 
+    const mentorToggle = featureToggleContext[Feature.Mentor];
     const erTiltakstypeSkruddPå = (tiltakstype: TiltaksType) => {
         if (tiltakstype === 'MENTOR') {
             return mentorToggle;
@@ -107,8 +116,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         } else {
             return true;
         }
-        
-    } 
+    };
 
     return (
         <>
@@ -131,35 +139,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         </EksternLenke>
                     </Normaltekst>
                 </Innholdsboks>
-
-                <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Systemtittel className={cls.element('innholdstittel')}>Hvem skal inngå i avtalen</Systemtittel>
-                    <VerticalSpacer rem={1} />
-                    <AlertStripeInfo>
-                        I feltet “Opprettes på bedrift” er det viktig at virksomhetsnummeret er det samme som der det
-                        blir registrert inntekt for deltaker i A-meldingen.
-                    </AlertStripeInfo>
-                    <VerticalSpacer rem={1} />
-                    <Input
-                        className="typo-element"
-                        label="Deltakers fødselsnummer"
-                        value={deltakerFnr}
-                        bredde={'L'}
-                        onChange={fnrOnChange}
-                        onBlur={validerDeltakerFnr}
-                        feil={deltakerFnrFeil}
-                    />
-                    <VerticalSpacer rem={1} />
-                    <Input
-                        className="typo-element"
-                        bredde={'L'}
-                        label="Opprettes på bedrift"
-                        description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
-                        value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
-                        disabled={true}
-                    />
-                </Innholdsboks>
-
                 <Innholdsboks className={cls.element('innholdsboks')}>
                     <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
                     <VerticalSpacer rem={1} />
@@ -186,6 +165,53 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </div>
                     {uyldigAvtaletype && (
                         <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
+                    )}
+                </Innholdsboks>
+                <Innholdsboks className={cls.element('innholdsboks')}>
+                    <Systemtittel className={cls.element('innholdstittel')}>Hvem skal inngå i avtalen</Systemtittel>
+                    <VerticalSpacer rem={1} />
+                    <AlertStripeInfo>
+                        I feltet “Opprettes på bedrift” er det viktig at virksomhetsnummeret er det samme som der det
+                        blir registrert inntekt for deltaker i A-meldingen.
+                    </AlertStripeInfo>
+                    <VerticalSpacer rem={1} />
+                    <Input
+                        className="typo-element"
+                        label="Deltakers fødselsnummer"
+                        value={deltakerFnr}
+                        bredde={'L'}
+                        onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
+                        onBlur={validerDeltakerFnr}
+                        feil={deltakerFnrFeil}
+                    />
+                    <VerticalSpacer rem={1} />
+                    <Input
+                        className="typo-element"
+                        bredde={'L'}
+                        label="Opprettes på bedrift"
+                        description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
+                        value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
+                        disabled={true}
+                    />
+                    <VerticalSpacer rem={1} />
+                    {valgtTiltaksType === 'MENTOR' && (
+                        <>
+                            <Input
+                                className="typo-element"
+                                label="Mentors fødselsnummer"
+                                value={mentorFnr}
+                                bredde={'M'}
+                                onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
+                                onBlur={validerMentorFnr}
+                                feil={mentorFnrFeil}
+                            />
+                            <Normaltekst>
+                                Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
+                            </Normaltekst>
+                            {uyldigAvtaletype && (
+                                <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
+                            )}
+                        </>
                     )}
                 </Innholdsboks>
 

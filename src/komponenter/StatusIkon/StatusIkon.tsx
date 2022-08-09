@@ -17,12 +17,14 @@ interface Props {
     style?: CSSProperties;
 }
 
-const StatusIkon: FunctionComponent<Props> = props => {
+const StatusIkon: FunctionComponent<Props> = (props) => {
     switch (props.status) {
         case 'PÅBEGYNT':
             return <PabegyntIkon style={props.style} />;
         case 'KLAR_FOR_OPPSTART':
             return <CheckIkon style={props.style} />;
+        case 'MANGLER_SIGNATUR':
+            return <ProblemIkon style={props.style} />;
         case 'MANGLER_GODKJENNING':
             if (props.godkjentAvInnloggetBruker || (props.rolle === 'VEILEDER' && !props.andrePartnerHarGodkjent)) {
                 return <PabegyntIkon style={props.style} />;

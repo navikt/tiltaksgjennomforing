@@ -21,6 +21,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     OPPRETTET_AV_ARBEIDSGIVER: <ArkIkon />,
     GODKJENT_AV_ARBEIDSGIVER: <GodkjentIkon />,
     GODKJENT_AV_DELTAKER: <GodkjentIkon />,
+    SIGNERT_AV_MENTOR: <GodkjentIkon />,
     GODKJENT_AV_VEILEDER: <GodkjentIkon />,
     GODKJENT_PAA_VEGNE_AV: <GodkjentIkon />,
     GODKJENT_PAA_VEGNE_AV_ARBEIDSGIVER: <GodkjentIkon />,

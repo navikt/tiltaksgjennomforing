@@ -7,13 +7,13 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
-import { hentBedriftBrreg, opprettAvtaleSomVeileder } from '@/services/rest-service';
+import { hentBedriftBrreg, opprettAvtaleSomVeileder, opprettMentorAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { validerFnr } from '@/utils/fnrUtils';
+import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
@@ -24,45 +24,39 @@ import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
 
+export enum Avtalerolle {
+    DELTAKER = 'DELTAKER',
+    MENTOR = 'MENTOR',
+    ARBEIDSGIVER = 'ARBEIDSGIVER',
+    VEILEDER = 'VEILEDER',
+    BESLUTTER = 'BESLUTTER',
+}
+
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
+    const [mentorFnr, setMentorFnr] = useState('');
     const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
-    const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(deltakerFnr, [
-        (verdi) => {
-            if (!verdi) {
-                return 'Fødselsnummer er påkrevd';
-            }
-        },
-        (verdi) => {
-            if (!validerFnr(verdi)) {
-                return 'Ugyldig fødselsnummer';
-            }
-        },
-    ]);
+
+    const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
+        deltakerFnr,
+        validatorer('Deltaker', mentorFnr)
+    );
+    const [mentorFnrFeil, setMentorFnrFeil, validerMentorFnr] = useValidering(
+        mentorFnr,
+        validatorer('Mentor', deltakerFnr)
+    );
 
     const [bedriftNrFeil, setBedriftNrFeil, validerBedriftNr] = useValidering(bedriftNr, [
         (verdi) => {
-            if (!verdi) {
-                return 'Virksomhetsnummer er påkrevd';
-            }
+            if (!verdi) return 'Virksomhetsnummer er påkrevd';
         },
         (verdi) => {
-            if (!validerOrgnr(verdi)) {
-                return 'Ugyldig virksomhetsnummer';
-            }
+            if (!validerOrgnr(verdi)) return 'Ugyldig virksomhetsnummer';
         },
     ]);
-
-    const fnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const verdi = event.target.value.replace(/\D/g, '');
-        if (/^\d{0,11}$/.test(verdi)) {
-            setDeltakerFnr(verdi);
-            setDeltakerFnrFeil(undefined);
-        }
-    };
 
     const orgnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         const verdi = event.target.value.replace(/\D/g, '');
@@ -100,6 +94,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         let valgtAvtaleType = false;
         let feilDeltakerFNR = '';
         let feilBedriftNr = '';
+        let feilMentorFNR = '';
 
         if (!valgtTiltaksType) {
             valgtAvtaleType = true;
@@ -110,7 +105,25 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         if (!validerOrgnr(bedriftNr)) {
             feilBedriftNr = Feilmeldinger.UGYLDIG_VIRKSOMHETSNUMMER;
         }
+        if (!validerMentorFnr()) {
+            feilMentorFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
+        }
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
+            if (valgtTiltaksType === 'MENTOR') {
+                if (deltakerFnr !== mentorFnr && feilMentorFNR.length === 0) {
+                    const mentorAvtale = await opprettMentorAvtale(
+                        deltakerFnr,
+                        mentorFnr,
+                        bedriftNr,
+                        valgtTiltaksType,
+                        Avtalerolle.VEILEDER
+                    );
+                    amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
+                    history.push(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
+                    return;
+                }
+                return;
+            }
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
@@ -133,7 +146,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         <Innholdsboks>
             <Systemtittel>Velg type avtale</Systemtittel>
             <Normaltekst>
-                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider {" "}
+                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
                 <EksternLenke
                     onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
                     href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
@@ -244,6 +257,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 </Normaltekst>
             </Innholdsboks>
             <VerticalSpacer rem={1} />
+            {radiopaneler}
+            <VerticalSpacer rem={1} />
             <Innholdsboks>
                 <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
                 <VerticalSpacer rem={1} />
@@ -252,7 +267,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     label="Deltakers fødselsnummer"
                     value={deltakerFnr}
                     bredde={'M'}
-                    onChange={fnrOnChange}
+                    onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
                     onBlur={validerDeltakerFnr}
                     feil={deltakerFnrFeil}
                 />
@@ -269,9 +284,19 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     feil={bedriftNrFeil}
                 />
                 {bedriftNavn && <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>}
+                <VerticalSpacer rem={1} />
+                {valgtTiltaksType === 'MENTOR' && (
+                    <Input
+                        className="typo-element"
+                        label="Mentors fødselsnummer"
+                        value={mentorFnr}
+                        bredde={'M'}
+                        onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
+                        onBlur={validerMentorFnr}
+                        feil={mentorFnrFeil}
+                    />
+                )}
             </Innholdsboks>
-            <VerticalSpacer rem={1} />
-            {radiopaneler}
             <VerticalSpacer rem={1} />
             <AlertStripeInfo>
                 <Element>Dette skjer etter at du har opprettet avtalen</Element>

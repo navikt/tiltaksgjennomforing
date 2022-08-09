@@ -57,6 +57,7 @@ export type Avtaleinnhold = {
     familietilknytningForklaring?: string;
 
     mentorFornavn?: string;
+    mentorTlf?: string;
     mentorEtternavn?: string;
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
@@ -70,6 +71,7 @@ export type TiltaksType =
     | 'MENTOR'
     | 'INKLUDERINGSTILSKUDD'
     | 'SOMMERJOBB';
+
 export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'UTBETALT';
 export type AvbrytelseGrunn =
     | 'Feilregistrering'
@@ -85,6 +87,7 @@ export type AvtaleStatus =
     | 'ANNULLERT'
     | 'AVBRUTT'
     | 'PÅBEGYNT'
+    | 'MANGLER_SIGNATUR'
     | 'MANGLER_GODKJENNING'
     | 'KLAR_FOR_OPPSTART'
     | 'GJENNOMFØRES'
@@ -120,6 +123,7 @@ export interface Avtaleparter {
     deltakerFnr: string;
     veilederNavIdent: string;
     beslutterNavIdent: string;
+    mentorFnr: string;
 }
 
 export interface Bedriftinfo {
@@ -146,6 +150,7 @@ export interface Veilederinfo {
 export interface Mentorinfo {
     mentorFornavn?: string;
     mentorEtternavn?: string;
+    mentorTlf?: string;
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
@@ -182,7 +187,7 @@ export interface Beregningsgrunnlag {
     manedslonn100pst?: number;
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
-    tiltakstype?:TiltaksType
+    tiltakstype?: TiltaksType;
 }
 
 export interface TilskuddsPerioder {
@@ -240,6 +245,8 @@ export interface Godkjenninger {
     godkjentAvDeltaker?: string;
     godkjentAvArbeidsgiver?: string;
     godkjentAvVeileder?: string;
+    godkjentAvMentor?: string;
+    erGodkjentTaushetserklæringAvMentor?: boolean;
     avtaleInngått?: string;
     status: AvtaleStatus;
     statusSomEnum: AvtaleStatus;

@@ -14,7 +14,7 @@ export interface NavEnhet {
 
 export type Tilganger = { [bedriftNr: string]: TiltaksType[] };
 
-export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'BESLUTTER' | 'INGEN_ROLLE';
+export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'MENTOR' | 'BESLUTTER' | 'INGEN_ROLLE';
 
 export interface InnloggetBruker {
     identifikator: string;
