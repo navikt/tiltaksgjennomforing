@@ -1,5 +1,6 @@
 import { Avtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
+import Avtaleparter from '../Avtaleparter/Avtaleparter';
 import MaalOppsummering from '../maalOppsummering/MaalOppsummering';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
@@ -13,6 +14,7 @@ interface Props {
 const OppsummeringArbeidstrening: FunctionComponent<Props> = props => {
     return (
         <>
+            <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
             <MaalOppsummering {...props.avtaleinnhold} />
             <StillingsOppsummering {...props.avtaleinnhold} />
             <VarighetOppsummering {...props.avtaleinnhold} />

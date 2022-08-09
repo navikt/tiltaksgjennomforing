@@ -10,7 +10,6 @@ import BeslutterPanel from "@/BeslutterSide/beslutterPanel/BeslutterPanel";
 import BeslutterTilskuddsPerioder from "@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperioder";
 import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
 import Innholdsboks from "@/komponenter/Innholdsboks/Innholdsboks";
-import Avtaleparter from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter";
 import OppsummeringLonnstilskudd
     from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd";
 
@@ -78,7 +77,6 @@ const BeslutterSide: FunctionComponent = () => {
                             <Innholdsboks>
                                 <Innholdstittel>{avtaleTittel[avtale.tiltakstype]}</Innholdstittel>
                                 <VerticalSpacer rem={2} />
-                                <Avtaleparter />
                                 <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />
                             </Innholdsboks>
                         </Ekspanderbartpanel>

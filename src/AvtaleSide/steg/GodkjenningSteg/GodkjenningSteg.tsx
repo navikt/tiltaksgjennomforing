@@ -1,7 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
-import Avtaleparter from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -41,7 +40,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
                 </div>
                 {innloggetBruker.rolle === 'VEILEDER' && <DeltakerInfo oppsummeringside={true} />}
-                <Avtaleparter />
                 {avtale.gjeldendeInnhold.refusjonKontaktperson && (
                     <KontaktpersonRefusjonOppsumering
                         kontaktpersonRefusjon={avtale.gjeldendeInnhold.refusjonKontaktperson}
