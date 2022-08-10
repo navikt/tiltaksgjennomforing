@@ -28,7 +28,7 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = (props) =
     const godkjennTaushetserklæring = async () => {
         if (bekrefterGodkjennerTaushetserklæring) {
             const avtale = await mentorGodkjennTaushetserklæring(props.avtale);
-            history.push(pathTilAvtale(avtale.id))
+            history.push(pathTilAvtale(avtale.id));
         } else {
             throw new UfullstendigError('Du må bekrefte at du forstår kravene før du kan godkjenne.');
         }
@@ -39,7 +39,7 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = (props) =
             isOpen={props.isOpen}
             onRequestClose={() => props.lukkModal()}
             closeButton={true}
-            className={cls.element('modal-container')}
+            className={cls.element("modal-container")}
             contentLabel="Min modalrute"
         >
             <div className={cls.element('modal')}>

@@ -73,8 +73,8 @@ const AvtaleTabell: FunctionComponent<{
     const [taushetsmodalOpen, setTaushetsmodalOpen] = useState(false);
     const [avtaleForMentorSignering, setAvtaleForMentorSignering] = useState<Avtale>();
 
-    const mentorHarHarSignerTaushetserklæring = (avtale: Avtale) =>
-        erMentor && avtale.tiltakstype === 'MENTOR' && avtale.erGodkjentTaushetserklæringAvMentor;
+    const mentorHarSignerMentoravtale = (avtale: Avtale) =>
+        avtale.tiltakstype === 'MENTOR' && avtale.erGodkjentTaushetserklæringAvMentor;
 
     useEffect(() => {
         skalViseAntallUbehandlet
@@ -131,7 +131,7 @@ const AvtaleTabell: FunctionComponent<{
                                 role="listitem"
                                 aria-labelledby={avtale.id}
                                 onClick={(e) => {
-                                    if (!mentorHarHarSignerTaushetserklæring(avtale)) {
+                                    if (erMentor && !mentorHarSignerMentoravtale(avtale)) {
                                         setTaushetsmodalOpen(true);
                                         setAvtaleForMentorSignering(avtale);
                                         e.preventDefault();
