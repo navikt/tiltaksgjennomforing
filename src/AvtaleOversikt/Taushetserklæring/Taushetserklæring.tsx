@@ -11,11 +11,12 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VarselTegnForModal from '@/komponenter/modal/VarselTegnForModal';
 import { UfullstendigError } from '@/types/errors';
 import Lenke from 'nav-frontend-lenker';
+import {useHistory} from "react-router";
 
 interface TaushetserklæringProps {
     open: boolean;
     avtale: Avtale;
-    togglesetTaushetserklæringForMentorAvtale: (avtale: Avtale) => void;
+    togglesetTaushetserklæringForMentorAvtale: (avtaleId: string) => void;
 }
 
 const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({
@@ -24,12 +25,13 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({
     togglesetTaushetserklæringForMentorAvtale,
 }) => {
     const cls = BEMHelper('etterRegistrering');
+    const history = useHistory();
     const [bekrefterGodkjennerTaushetserklæring, setBekrefterGodkjennerTaushetserklæring] = useState<boolean>(false);
 
     const godkjennTaushetserklæring = async () => {
         if (bekrefterGodkjennerTaushetserklæring) {
-            const avtaleTilbake = await mentorGodkjennTaushetserklæring(avtale);
-            window.location.href = 'avtale/' + avtaleTilbake.id;
+            const avtaleLagret = await mentorGodkjennTaushetserklæring(avtale);
+            history.push('avtale/' + avtaleLagret.id);
         } else {
             throw new UfullstendigError('Du må bekrefte at du forstår kravene før du kan godkjenne.');
         }
@@ -39,7 +41,7 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({
         <Modal
             isOpen={open}
             onRequestClose={() => {
-                togglesetTaushetserklæringForMentorAvtale(avtale);
+                togglesetTaushetserklæringForMentorAvtale("");
             }}
             closeButton={true}
             className={cls.element('modal-container')}
