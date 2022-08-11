@@ -37,30 +37,34 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                     overskrift={'Mentor'}
                     skjulHvaMangler={false}
                 />
+              <div>
+                <Container fluid={true}>
+                  <Row className={''}>
+                    <Column md="12" sm="12" xs="12">
+                      <Element className={cls.element('label')}>Arbeidsoppgaver</Element>
+                      <SjekkOmVerdiEksisterer verdi={props.mentorOppgaver} />
+                      <VerticalSpacer rem={1} />
+                    </Column>
+                  </Row>
+                  <Row className={''}>
+                    <Column md="4" sm="6" xs="6">
+                      <Element className={cls.element('label')}>Antall timer med mentor</Element>
+                      <SjekkOmVerdiEksisterer verdi={verdi(props.mentorAntallTimer)} />
+                    </Column>
+                    {rolle !== 'DELTAKER' && (
+                        <div>
+
+                          <Column md="4" sm="12" xs="12">
+                            <Element className={cls.element('label')}>Timelønn</Element>
+                            <SjekkOmVerdiEksisterer verdi={verdi(props.mentorTimelonn)} />
+                          </Column>
+                        </div>
+                    )}
+                  </Row>
+                </Container>
+              </div>
             </div>
-            {rolle !== 'DELTAKER' && (
-                <div>
-                    <Container fluid={true}>
-                        <Row className={''}>
-                            <Column md="12" sm="12" xs="12">
-                                <Element className={cls.element('label')}>Arbeidsoppgaver</Element>
-                                <SjekkOmVerdiEksisterer verdi={props.mentorOppgaver} />
-                                <VerticalSpacer rem={1} />
-                            </Column>
-                        </Row>
-                        <Row className={''}>
-                            <Column md="4" sm="6" xs="6">
-                                <Element className={cls.element('label')}>Antall timer med mentor</Element>
-                                <SjekkOmVerdiEksisterer verdi={verdi(props.mentorAntallTimer)} />
-                            </Column>
-                            <Column md="4" sm="12" xs="12">
-                                <Element className={cls.element('label')}>Timelønn</Element>
-                                <SjekkOmVerdiEksisterer verdi={verdi(props.mentorTimelonn)} />
-                            </Column>
-                        </Row>
-                    </Container>
-                </div>
-            )}
+
         </Stegoppsummering>
     );
 };
