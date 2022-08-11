@@ -52,13 +52,10 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                       <SjekkOmVerdiEksisterer verdi={verdi(props.mentorAntallTimer)} />
                     </Column>
                     {rolle !== 'DELTAKER' && (
-                        <div>
-
                           <Column md="4" sm="12" xs="12">
                             <Element className={cls.element('label')}>Timelønn</Element>
                             <SjekkOmVerdiEksisterer verdi={verdi(props.mentorTimelonn)} />
                           </Column>
-                        </div>
                     )}
                   </Row>
                 </Container>
