@@ -1,3 +1,4 @@
+import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import { Avtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
@@ -13,6 +14,7 @@ interface Props {
 
 const OppsummeringMentor: FunctionComponent<Props> = (props) => (
     <>
+        <DeltakerInfo oppsummeringside={true} />
         <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
         <OmMentorOppsummering {...props.avtaleinnhold} />
         <StartOgSluttdatoOppsummering {...props.avtaleinnhold} />

@@ -12,6 +12,10 @@ import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
 import Innholdsboks from "@/komponenter/Innholdsboks/Innholdsboks";
 import OppsummeringLonnstilskudd
     from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd";
+import { TiltaksType } from '@/types/avtale';
+import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
+import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
+import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 
 
 const cls = BEMHelper('beslutter-side');
@@ -54,6 +58,15 @@ const BeslutterSide: FunctionComponent = () => {
         setEnhetFeil: setEnhetFeil
     }
 
+    const oppsummeringType: { [key in TiltaksType]: JSX.Element } = {
+        ARBEIDSTRENING: <OppsummeringArbeidstrening avtaleinnhold={avtale.gjeldendeInnhold} />,
+        MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
+        VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
+        MENTOR: <OppsummeringMentor avtaleinnhold={avtale.gjeldendeInnhold} />,
+        INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
+        SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
+    };
+
     return (
         <>
             <TilskuddsperiodeContext.Provider value={context}>
@@ -77,7 +90,7 @@ const BeslutterSide: FunctionComponent = () => {
                             <Innholdsboks>
                                 <Innholdstittel>{avtaleTittel[avtale.tiltakstype]}</Innholdstittel>
                                 <VerticalSpacer rem={2} />
-                                <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />
+                                {oppsummeringType[avtale.tiltakstype]}
                             </Innholdsboks>
                         </Ekspanderbartpanel>
                     </div>

@@ -1,4 +1,5 @@
 import OppfolgingOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppfølging/OppfolgingOppsummering';
+import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtaleinnhold } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
@@ -15,6 +16,7 @@ interface Props {
 
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
     <>
+        <DeltakerInfo oppsummeringside={true} />
         <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
         <RelasjonerOppsummering {...props.avtaleinnhold} />
         <VerticalSpacer rem={2.5} />

@@ -15,14 +15,12 @@ import {
     hentFormidlingsgruppeTekst
 } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
-const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
-                                                                          oppsummeringside,
-                                                                      }: {
+const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({ oppsummeringside } : {
     oppsummeringside: boolean;
 }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    if (innloggetBruker.rolle !== 'VEILEDER') {
+    if (innloggetBruker.rolle !== 'VEILEDER' && innloggetBruker.rolle !== 'BESLUTTER') {
         return null;
     }
 
@@ -62,9 +60,10 @@ const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
                 </Undertittel>
             </div>
             {!avtale.avtaleInngått &&
-            <SjekkKvalifiseringsgruppeOppMotTiltakstype
-                tiltakstype={tiltakstype}
-                kvalifiseringsgruppe={kvalifiseringsgruppe} />}
+                <SjekkKvalifiseringsgruppeOppMotTiltakstype
+                    tiltakstype={tiltakstype}
+                    kvalifiseringsgruppe={kvalifiseringsgruppe} />
+            }
         </div>
     );
 };
