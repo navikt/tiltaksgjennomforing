@@ -2,7 +2,6 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
-import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
