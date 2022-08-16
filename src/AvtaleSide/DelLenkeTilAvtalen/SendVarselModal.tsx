@@ -58,6 +58,16 @@ const SendVarselModal: React.FunctionComponent<Props> = props => {
                 knapptype={'standard'}
             />
 
+            <VerticalSpacer rem={0.5} />
+            {avtale.tiltakstype === 'MENTOR' &&
+                <LagreKnapp
+                    label="Send til mentor"
+                    lagre={() => delAvtaleMedAvtalepart(avtale.id, 'MENTOR')}
+                    suksessmelding="SMS sendt til mentor"
+                    knapptype={'standard'}
+                />
+            }
+
             <VerticalSpacer rem={2} />
 
             <Undertittel>Send lenke manuelt</Undertittel>
