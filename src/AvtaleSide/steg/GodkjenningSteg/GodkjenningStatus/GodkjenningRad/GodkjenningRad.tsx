@@ -18,16 +18,16 @@ const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
     const navn = props.navn;
 
     return (
-        <div>
+        <div className="godkjenningsrad">
             <Normaltekst tag={'span'}>{navn}</Normaltekst>
-            <span className="godkjenningsrad__status">
+            <div className="godkjenningsrad__status">
                 <Element tag={'span'}>{godkjentStatus}</Element>
                 <img
                     alt="Godkjenningsgrad"
                     className="godkjenningsrad__godkjenningIkon"
                     src={props.godkjentAvtale ? CheckIkon : VarselIkon}
                 />
-            </span>
+            </div>
         </div>
     );
 };
