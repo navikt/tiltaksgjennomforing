@@ -15,9 +15,8 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
-import { Element, Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtale.less';
@@ -297,17 +296,6 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     />
                 )}
             </Innholdsboks>
-            <VerticalSpacer rem={1} />
-            <AlertStripeInfo>
-                <Element>Dette skjer etter at du har opprettet avtalen</Element>
-                <ul>
-                    <li>Du kan begynne å fylle ut avtalen.</li>
-                    <li>
-                        Avtalen blir tilgjengelig for veilederne på NAV kontoret til deltakeren. Når avtalen har blitt
-                        fordelt til en veileder vil du se kontaktinformasjonen til denne veilederen inne i avtalen.
-                    </li>
-                </ul>
-            </AlertStripeInfo>
             <VerticalSpacer rem={1} />
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
