@@ -1,11 +1,11 @@
+import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
-import React, { useState } from 'react';
 import BEMHelper from '@/utils/bem';
-import TausetserklæringTekst from './TaushetserklæringTekst';
-import Modal from 'nav-frontend-modal';
 import { formatterDato } from '@/utils/datoUtils';
 import Lenke from 'nav-frontend-lenker';
+import Modal from 'nav-frontend-modal';
+import React, { useState } from 'react';
+import TausetserklæringTekst from './TaushetserklæringTekst';
 
 interface TaushetserklæringPanelProps {
     signertTidspunkt: string | undefined;
@@ -23,7 +23,7 @@ const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelPr
     return (
         <>
             <StatusPanel
-                ikon={VarselIkon}
+                ikon={CheckIkon}
                 header="Tausetserklæring"
                 body={
                     <>

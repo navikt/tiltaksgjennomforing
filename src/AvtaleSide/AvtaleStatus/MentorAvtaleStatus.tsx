@@ -1,16 +1,16 @@
-import React, { FunctionComponent, useContext } from 'react';
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
-import { Normaltekst } from 'nav-frontend-typografi';
-import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import { formatterDato } from '@/utils/datoUtils';
 import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
-import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
-import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
+import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
 import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import { AvtaleContext } from '@/AvtaleProvider';
+import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
+import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
+import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
+import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
+import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { formatterDato } from '@/utils/datoUtils';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { FunctionComponent, useContext } from 'react';
 
 const MentorAvtaleStatus: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -58,7 +58,7 @@ const MentorAvtaleStatus: FunctionComponent = () => {
                     header="Vent til de andre har godkjent"
                     body={
                         <>
-                            <Normaltekst>Du har signert taushetserklæring. Venter nå på godkjenning fra</Normaltekst>
+                            <Normaltekst>Du har signert taushetserklæring. Venter nå på godkjenning fra deltaker, arbeidsgiver og NAV.</Normaltekst>
                             <VerticalSpacer rem={2} />
                             <GodkjenningStatus avtale={avtale} />
                         </>

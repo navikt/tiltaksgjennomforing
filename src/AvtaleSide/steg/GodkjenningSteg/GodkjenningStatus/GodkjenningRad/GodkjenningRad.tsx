@@ -1,19 +1,24 @@
-import React from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import CheckIkon from '@/assets/ikoner/check.svg';
 import VarselIkon from '@/assets/ikoner/varsel.svg';
-import './GodkjenningRad.less';
+import { TiltaksType } from '@/types/avtale';
 import { formatterDato } from '@/utils/datoUtils';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import React from 'react';
+import './GodkjenningRad.less';
 
 interface Props {
     godkjentAvtale?: string;
     navn: string;
+    tiltakstype?: TiltaksType;
 }
 
 const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
+    const harGodkjentTekst = props.tiltakstype === 'MENTOR' ? 'Signert' : 'Godkjent';
+    const måGodkjenneTekst = props.tiltakstype === 'MENTOR' ? 'Må signere' : 'Må godkjenne';
+
     const godkjentStatus: string = props.godkjentAvtale
-        ? 'Godkjent ' + formatterDato(props.godkjentAvtale)
-        : 'Må godkjenne';
+        ? harGodkjentTekst + ' ' + formatterDato(props.godkjentAvtale)
+        : måGodkjenneTekst;
 
     const navn = props.navn;
 
