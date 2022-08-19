@@ -158,6 +158,8 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtal
             return 'kontaktinformasjon endret av veileder';
         case 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING':
             return 'oppfølging/tilrettelegging endret av veileder';
+        case 'ENDRE_OM_MENTOR':
+                return 'om mentor endret av veileder';
         case 'ANNULLERE':
             return '';
     }

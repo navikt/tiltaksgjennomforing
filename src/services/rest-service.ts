@@ -14,6 +14,7 @@ import {
     GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
     GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner, Inkluderingstilskuddsutgift, Maal,
+    MentorInnhold,
     Stilling,
     TiltaksType,
     Varighet
@@ -487,6 +488,11 @@ export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Pr
 
 export const endreInkluderingstilskudd = async (avtale: Avtale, inkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]): Promise<void> => {
     await api.post(`/avtaler/${avtale.id}/endre-inkluderingstilskudd`, { inkluderingstilskuddsutgift: inkluderingstilskuddutgifter });
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
+}
+
+export const endreOmMentor = async (avtale: Avtale, mentorInnhold: MentorInnhold): Promise<void> => {
+    await api.post(`/avtaler/${avtale.id}/endre-om-mentor`, mentorInnhold);
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 }
 

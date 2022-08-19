@@ -64,6 +64,8 @@ export type Avtaleinnhold = {
     mentorTimelonn?: number;
 } & InkluderingsInnhold;
 
+export type MentorInnhold = Pick<Avtaleinnhold, 'mentorFornavn' | 'mentorEtternavn' | 'mentorTlf' | 'mentorOppgaver' | 'mentorAntallTimer' | 'mentorTimelonn'>;
+
 export type TiltaksType =
     | 'ARBEIDSTRENING'
     | 'MIDLERTIDIG_LONNSTILSKUDD'
@@ -299,6 +301,7 @@ export type InnholdType =
     | 'ENDRE_STILLING'
     | 'ENDRE_KONTAKTINFO'
     | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
+    | 'ENDRE_OM_MENTOR'
     | 'ANNULLERE';
 
 export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
