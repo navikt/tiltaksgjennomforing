@@ -4,7 +4,6 @@ import {Task} from '@navikt/ds-icons/cjs';
 import Lenke from 'nav-frontend-lenker';
 
 import React, {FunctionComponent, useContext, useState} from 'react';
-import VerticalSpacer from "@/komponenter/layout/VerticalSpacer";
 import {Undertittel} from "nav-frontend-typografi";
 import PakrevdInput from "@/komponenter/PakrevdInput/PakrevdInput";
 import TelefonnummerInput from "@/komponenter/TelefonnummerInput/TelefonnummerInput";
@@ -17,12 +16,8 @@ const EndreOmMentor: FunctionComponent = () => {
     const {
         mentorFornavn,
         mentorEtternavn,
-        mentorTimelonn,
         mentorTlf,
-        mentorOppgaver,
-        mentorAntallTimer
     } = avtale.gjeldendeInnhold;
-    const [iRedigermodus, setIRedigermodus] = useState(false);
     const [mentorInfo, setMentorInfo] = useState({
         mentorFornavn: mentorFornavn,
         mentorEtternavn: mentorEtternavn,
