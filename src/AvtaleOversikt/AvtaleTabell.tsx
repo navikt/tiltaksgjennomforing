@@ -62,8 +62,6 @@ const AvtaleTabell: FunctionComponent<{
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const { filtre } = useFilter();
     const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
-    const erArbeidsgiver: boolean = innloggetBruker.rolle === 'ARBEIDSGIVER';
-    const erVeileder: boolean = innloggetBruker.rolle === 'VEILEDER';
     const skalViseAntallUbehandlet =
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
     const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
