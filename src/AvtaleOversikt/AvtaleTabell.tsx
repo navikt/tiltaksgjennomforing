@@ -102,7 +102,7 @@ const AvtaleTabell: FunctionComponent<{
                             'Startdato'
                         )}
                     </div>
-                    {(erVeileder || erArbeidsgiver) &&
+                    {!erBeslutter &&
                         <div className={cls.element('dato')}>
                             Sluttdato
                         </div>
@@ -163,7 +163,7 @@ const AvtaleTabell: FunctionComponent<{
                                             {moment(periodeStartDato).format('DD.MM.YYYY')}
                                         </div>
                                     }
-                                    {(erVeileder || erArbeidsgiver) &&
+                                    {!erBeslutter &&
                                         <>
                                             <div className={cls.element('dato')}>
                                                 {startDato && moment(startDato).format('DD.MM.YYYY')}
