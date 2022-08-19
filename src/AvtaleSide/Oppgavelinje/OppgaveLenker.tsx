@@ -14,6 +14,7 @@ import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnh
 import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/EndreMaal';
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
+import EndreOmMentor from "@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreOmMentor/EndreOmMentor";
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -59,6 +60,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     <EndreOppfølgingOgTilrettelegging />
                     {harØkonomi && <EndreTilskuddsberegning />}
                     {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
+                    {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
                 </>
             )}
             <Varsellogg />
