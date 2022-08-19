@@ -48,12 +48,12 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                   </Row>
                   <Row className={''}>
                     <Column md="4" sm="6" xs="6">
-                      <Element className={cls.element('label')}>Antall timer med mentor</Element>
+                      <Element className={cls.element('label')}>Antall timer med mentor per uke</Element>
                       <SjekkOmVerdiEksisterer verdi={verdi(props.mentorAntallTimer)} />
                     </Column>
                     {rolle !== 'DELTAKER' && (
-                          <Column md="4" sm="12" xs="12">
-                            <Element className={cls.element('label')}>Timelønn</Element>
+                          <Column md="6" sm="6" xs="6">
+                            <Element className={cls.element('label')}>Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon</Element>
                             <SjekkOmVerdiEksisterer verdi={verdi(props.mentorTimelonn)} />
                           </Column>
                     )}
