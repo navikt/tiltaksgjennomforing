@@ -10,8 +10,8 @@ import { Avtale } from '@/types/avtale';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VarselTegnForModal from '@/komponenter/modal/VarselTegnForModal';
 import { UfullstendigError } from '@/types/errors';
-import Lenke from 'nav-frontend-lenker';
 import {useHistory} from "react-router";
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 interface TaushetserklæringProps {
     open: boolean;
@@ -90,32 +90,32 @@ const Taushetserklæring: FunctionComponent<TaushetserklæringProps> = ({
                 <div style={{ padding: '1rem', lineHeight: '0.5rem', fontSize: '0.9rem' }}>
                     <Systemtittel>Hva sier regelverket?</Systemtittel>
                     <div className={cls.element('lenker')}>
-                        <Lenke
+                        <EksternLenke
                             className={cls.element('lenke')}
                             href={'https://lovdata.no/dokument/NL/lov/2006-06-16-20/KAPITTEL_2#%C2%A77'}
                         >
                             ARBEIDS- OG VELFERDSFORVALTNINGSLOVEN § 7
-                        </Lenke>
+                        </EksternLenke>
 
-                        <Lenke
+                        <EksternLenke
                             className={cls.element('lenke')}
                             href={'https://lovdata.no/dokument/NL/lov/1967-02-10/KAPITTEL_3#%C2%A713e'}
                         >
                             Lenke til FORVALTNINGSLOVEN § 13-13E OG 13G
-                        </Lenke>
+                        </EksternLenke>
 
-                        <Lenke
+                        <EksternLenke
                             className={cls.element('lenke')}
                             href={'https://lovdata.no/dokument/NL/lov/2005-05-20-28/KAPITTEL_2-6#%C2%A7209'}
                         >
                             STRAFFELOVEN §§ 209 OG 210
-                        </Lenke>
-                        <Lenke
+                        </EksternLenke>
+                        <EksternLenke
                             className={cls.element('lenke')}
                             href={'https://lovdata.no/dokument/NL/lov/2009-12-18-131/KAPITTEL_5#%C2%A744'}
                         >
                             LOV OM SOSIALE TJENESTER I ARBEIDS OG VELFERDSFORVALTNINGEN § 44
-                        </Lenke>
+                        </EksternLenke>
                     </div>
                 </div>
                 <BekreftCheckboksPanel
