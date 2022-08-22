@@ -7,8 +7,9 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import React, { useContext } from 'react';
-import {Input} from "nav-frontend-skjema";
-import TelefonnummerInput from "@/komponenter/TelefonnummerInput/TelefonnummerInput";
+import { Input } from 'nav-frontend-skjema';
+import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -22,14 +23,14 @@ const OmMentorSteg = () => {
         <Innholdsboks utfyller="veileder">
             <SkjemaTittel>Om mentoren</SkjemaTittel>
             <Container fluid={true}>
-              <Row className={""}>
-                <Column md="6">
-                  <div className={"rad"}>
-                  <Input label="Fødselsnummer" value={avtaleContext.avtale.mentorFnr} disabled={true} />
-                </div>
-                </Column>
-              </Row>
-              <VerticalSpacer rem={1} />
+                <Row className={''}>
+                    <Column md="6">
+                        <div className={'rad'}>
+                            <Input label="Fødselsnummer" value={avtaleContext.avtale.mentorFnr} disabled={true} />
+                        </div>
+                    </Column>
+                </Row>
+                <VerticalSpacer rem={1} />
                 <Row className="rad">
                     <Column md="6">
                         <PakrevdInput
@@ -46,16 +47,16 @@ const OmMentorSteg = () => {
                         />
                     </Column>
                 </Row>
-              <VerticalSpacer rem={1} />
-              <Row className={"rad"}>
-                <Column md="6">
-                  <TelefonnummerInput
-                      label="Telefonnummer"
-                      verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTlf}
-                      settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorTlf', verdi)}
-                  />
-                </Column>
-              </Row>
+                <VerticalSpacer rem={1} />
+                <Row className={'rad'}>
+                    <Column md="6">
+                        <TelefonnummerInput
+                            label="Telefonnummer"
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTlf}
+                            settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorTlf', verdi)}
+                        />
+                    </Column>
+                </Row>
             </Container>
             <VerticalSpacer rem={1} />
             <Container fluid={true}>
@@ -71,19 +72,18 @@ const OmMentorSteg = () => {
             <Container fluid={true}>
                 <Row className="begge__tekst">
                     <Column md="6">
-                        <PakrevdInput
+                        <PakrevdInputValidering
+                            validering={/^\d{0,3}$/}
                             label="Antall timer med mentor"
-                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer}
-                            settVerdi={(verdi) =>{
-                                avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi))
-                            }
-                            }
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toFixed(0)}
+                            settVerdi={(verdi) => {
+                                avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi));
+                            }}
                         />
-                    </Column>
-                    <Column md="6">
-                        <PakrevdInput
+                        <PakrevdInputValidering
+                            validering={/^\d{0,5}$/}
                             label="Timelønn"
-                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn}
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn?.toFixed(0)}
                             settVerdi={(verdi) =>
                                 avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', sjekkOgSettVerdi(verdi))
                             }
