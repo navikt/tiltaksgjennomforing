@@ -29,12 +29,12 @@ const ArbeidsgiverinfoDel = () => {
                 <SkjemaGruppe title="Kontaktperson for avtalen" className={cls.element('skjemagruppe')}>
                     <div className={cls.element('rad')}>
                         <PakrevdInput
-                            label="Arbeidsgiver sitt fornavn"
+                            label="Fornavn"
                             verdi={avtale.gjeldendeInnhold.arbeidsgiverFornavn}
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverFornavn', verdi)}
                         />
                         <PakrevdInput
-                            label="Arbeidsgiver sitt etternavn"
+                            label="Etternavn"
                             verdi={avtale.gjeldendeInnhold.arbeidsgiverEtternavn}
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverEtternavn', verdi)}
                         />
@@ -42,7 +42,7 @@ const ArbeidsgiverinfoDel = () => {
 
                     <div className={cls.element('rad')}>
                         <TelefonnummerInput
-                            label="Arbeidsgiver sitt telefonnummer"
+                            label="Telefonnummer"
                             verdi={avtale.gjeldendeInnhold.arbeidsgiverTlf}
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
                         />

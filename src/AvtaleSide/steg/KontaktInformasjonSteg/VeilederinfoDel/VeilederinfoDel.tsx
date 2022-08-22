@@ -16,12 +16,12 @@ const VeilederinfoDel = () => {
                 <SkjemaTittel>Kontaktperson i NAV</SkjemaTittel>
                 <div className={cls.element('rad')}>
                     <PakrevdInput
-                        label="Veileder sitt fornavn"
+                        label="Fornavn"
                         verdi={avtaleContext.avtale.gjeldendeInnhold.veilederFornavn}
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('veilederFornavn', verdi)}
                     />
                     <PakrevdInput
-                        label="Veileder sitt etternavn"
+                        label="Etternavn"
                         verdi={avtaleContext.avtale.gjeldendeInnhold.veilederEtternavn}
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('veilederEtternavn', verdi)}
                     />
@@ -29,7 +29,7 @@ const VeilederinfoDel = () => {
                 <VerticalSpacer rem={1} />
                 <div className={cls.element('rad')}>
                     <TelefonnummerInput
-                        label="Veileder sitt telefonnummer"
+                        label="Telefonnummer"
                         verdi={avtaleContext.avtale.gjeldendeInnhold.veilederTlf}
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('veilederTlf', verdi)}
                     />
