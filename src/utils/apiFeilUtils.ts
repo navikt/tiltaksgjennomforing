@@ -7,10 +7,9 @@ export const handterFeil = (
     visFeilmelding: (feilmelding: string) => void,
     fallbackMelding: string = 'Det har skjedd en uventet feil'
 ) => {
-
     switch (error.constructor) {
         case FeilkodeError:
-            const feilmeldingTekst = Feilmeldinger[error.message as Feilkode];
+            const feilmeldingTekst = Feilmeldinger[error?.message as Feilkode];
             if (!feilmeldingTekst) {
                 visFeilmelding('Det har skjedd en feil: ' + error.message);
                 Sentry.captureEvent({ message: 'Feilmelding er ikke mappet: ' + error.message });
