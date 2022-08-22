@@ -1,5 +1,6 @@
 import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
+import { Rolle } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import { formatterDato } from '@/utils/datoUtils';
 import Lenke from 'nav-frontend-lenker';
@@ -9,9 +10,10 @@ import TausetserklæringTekst from './TaushetserklæringTekst';
 
 interface TaushetserklæringPanelProps {
     signertTidspunkt: string | undefined;
+    rolle: Rolle
 }
 
-const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelProps> = ({ signertTidspunkt }) => {
+const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelProps> = ({ signertTidspunkt, rolle }) => {
     const cls = BEMHelper('etterRegistrering');
 
     const [visTaushetserklæringPanel, setVisTaushetserklæringPanel] = useState<boolean>(false);
@@ -19,7 +21,7 @@ const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelPr
     if (signertTidspunkt) {
         formatterDato(signertTidspunkt);
     }
-
+    const lenkeTekst = rolle === 'MENTOR' ? 'Taushetserklæring signert' : 'Mentors taushetserklæring signert';
     return (
         <>
             <StatusPanel
@@ -28,7 +30,7 @@ const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelPr
                 body={
                     <>
                         <Lenke onClick={() => setVisTaushetserklæringPanel(true)} href={'#'}>
-                            Taushetserklæring signert {signertTidspunkt ? formatterDato(signertTidspunkt) : ''}{' '}
+                            {lenkeTekst} {' '} {signertTidspunkt ? formatterDato(signertTidspunkt) : ''}{' '}
                         </Lenke>
                         {visTaushetserklæringPanel && (
                             <Modal

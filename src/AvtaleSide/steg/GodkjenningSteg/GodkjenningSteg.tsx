@@ -30,7 +30,8 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className} role={'main'}>
             <AvtaleStatus />
-            {innloggetBruker.rolle === 'MENTOR' && <TaushetserklæringPanel signertTidspunkt={avtale.godkjentAvMentor} />}
+            {avtale.tiltakstype === 'MENTOR' &&
+                <TaushetserklæringPanel signertTidspunkt={avtale.godkjentAvMentor} rolle={innloggetBruker.rolle} />}
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>
