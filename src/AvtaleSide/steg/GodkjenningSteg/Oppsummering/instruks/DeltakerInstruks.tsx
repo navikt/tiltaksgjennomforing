@@ -22,11 +22,11 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
             {!props.erLaast && <Normaltekst>Når du godkjenner avtalen godtar du kravene fra NAV</Normaltekst>}
             <VeilederpanelMedUtklippstavleIkon>
                 {props.tiltakstype !== 'MENTOR' &&
+                    <>
                 <div className={cls.element('subheader')}>
                     <Element>Når du godkjenner avtalen godtar du kravene fra NAV</Element>
-                </div>}
+                </div>
                 <VerticalSpacer rem={2} />
-                {props.tiltakstype !== 'MENTOR' &&
                 <IkonTekstRad
                     svgIkon={<RettighetsHammerIkon />}
                     headerTekst={{
@@ -50,7 +50,7 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
                             arbeidsgiver har et ansvar for deg hvis du blir skadet på jobb.
                         </>
                     )}
-                </IkonTekstRad>}
+                </IkonTekstRad></>}
                 {props.tiltakstype !== 'MENTOR' &&
                 <IkonTekstRad
                     svgIkon={<Bandage width="2.25rem" height="2.25rem"   />}
