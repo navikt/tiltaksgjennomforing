@@ -66,8 +66,7 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
                         'tiltak med lønnstilskudd'}
                     {props.tiltakstype === 'SOMMERJOBB' && 'tiltak med tilskudd til sommerjobb'}.
                 </IkonTekstRad>}
-                {(props.tiltakstype === 'SOMMERJOBB' || props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                    props.tiltakstype === 'VARIG_LONNSTILSKUDD' ||props.tiltakstype === 'MENTOR') && (
+                {( ['SOMMERJOBB','MIDLERTIDIG_LONNSTILSKUDD','VARIG_LONNSTILSKUDD','MENTOR'].includes(props.tiltakstype)) && (
                     <IkonTekstRad
                         svgIkon={<Passport width="2.25rem" height="2.25rem" />}
                         headerTekst={{ tekst: 'Behandling av personopplysninger' }}
