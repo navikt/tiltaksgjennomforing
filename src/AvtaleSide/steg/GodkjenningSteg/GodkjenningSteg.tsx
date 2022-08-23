@@ -13,6 +13,9 @@ import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering';
 import TaushetserklæringPanel from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringPanel';
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import {Element} from "nav-frontend-typografi";
+import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -30,8 +33,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className} role={'main'}>
             <AvtaleStatus />
-            {avtale.tiltakstype === 'MENTOR' &&
-                <TaushetserklæringPanel signertTidspunkt={avtale.godkjentAvMentor} rolle={innloggetBruker.rolle} />}
+
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>
@@ -45,13 +47,16 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     />
                 )}
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
+
             </Innholdsboks>
+
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {avtale.tilskuddPeriode.length > 0 && (
                 <Innholdsboks>
                     <TilskuddsPerioderOppsummering />
                 </Innholdsboks>
             )}
+
             <Suspense fallback={null}>
                 <VersjoneringKomponent avtale={avtale} rolle={innloggetBruker.rolle} />
             </Suspense>

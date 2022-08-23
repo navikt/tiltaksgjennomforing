@@ -5,12 +5,17 @@ import Lenke from 'nav-frontend-lenker';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 
-const TausetserklæringTekst = () => {
+interface Props{
+    viseVarselTegn:boolean|undefined
+}
+const TausetserklæringTekst = ({viseVarselTegn} : Props) => {
     const cls = BEMHelper('etterRegistrering');
     return (
-        <div className={cls.element('modal')}>
+        <div className={cls.element(viseVarselTegn ? 'modal' : 'panel_modal')}>
             <div className={cls.element('topIconContainer')}>
+                {viseVarselTegn &&
                 <VarselTegnForModal width={'80px'} height={'80px'} />
+                }
             </div>
 
             <Systemtittel className={cls.element('header')}>Signer taushetserklæring</Systemtittel>

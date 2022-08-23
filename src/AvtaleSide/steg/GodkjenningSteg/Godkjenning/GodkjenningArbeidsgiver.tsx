@@ -7,11 +7,14 @@ import { UfullstendigError } from '@/types/errors';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import {Element} from "nav-frontend-typografi";
+import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 const GodkjenningArbeidsgiver: FunctionComponent = () => {
-    const avtaleContext = useContext(AvtaleContext);
+    const {avtale, godkjenn} = useContext(AvtaleContext);
     const erLønnstilskuddEllerSommerjobb = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
-        avtaleContext.avtale.tiltakstype
+       avtale.tiltakstype
     );
 
     const [bekreftetArbeidsAvtale, setBekreftetArbeidsAvtale] = useState<boolean>(false);
@@ -32,7 +35,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
     };
 
     const sjekkOmLønnstilskuddprosentErfyltUt = () => {
-        const felterSomIkkeErFyltUt = avtaleContext.avtale.felterSomIkkeErFyltUt;
+        const felterSomIkkeErFyltUt =avtale.felterSomIkkeErFyltUt;
         if (felterSomIkkeErFyltUt.length === 1 && felterSomIkkeErFyltUt[0] === 'lonnstilskuddProsent') {
             throw new UfullstendigError(
                 'Før du kan godkjenne må veileder sette lønnstilskuddprosent. Avtalen er tilgjengelig for veileder nå.'
@@ -44,7 +47,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
         sjekkOmLønnstilskuddprosentErfyltUt();
         const feilmelding = feilmeldingManglerBekreftelse();
         if (!feilmelding) {
-            return avtaleContext.godkjenn();
+            return godkjenn();
         } else {
             throw new UfullstendigError(feilmelding);
         }
@@ -54,6 +57,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
         <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
+
 
             {erLønnstilskuddEllerSommerjobb && (
                 <BekreftCheckboksPanel

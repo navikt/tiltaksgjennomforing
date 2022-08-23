@@ -9,49 +9,56 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 import GodkjennPaVegneAvArbeidsgiver from './GodkjennPaVegneAvArbeidsgiver';
 import GodkjennPaVegneAvDeltaker from './GodkjennPaVegneAvDeltaker';
+import {LenkepanelBase} from "nav-frontend-lenkepanel";
+import {Element, Normaltekst} from "nav-frontend-typografi";
+import {innholdTypeTekst} from "@/messages";
+import moment from "moment/moment";
+import LesMerPanel from "@/komponenter/LesMerPanel/LesMerPanel";
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 const GodkjenningVeileder: FunctionComponent = () => {
-    const avtaleContext = useContext(AvtaleContext);
+    const {avtale,godkjenn} = useContext(AvtaleContext);
 
     const [skalGodkjennesPaVegne, setSkalGodkjennesPaVegne] = useState(false);
 
     const kunGodkjentAvDeltaker =
-        avtaleContext.avtale.godkjentAvDeltaker && !avtaleContext.avtale.godkjentAvArbeidsgiver;
+        avtale.godkjentAvDeltaker && !avtale.godkjentAvArbeidsgiver;
     const kunGodkjentAvArbeidsgiver =
-        avtaleContext.avtale.godkjentAvArbeidsgiver && !avtaleContext.avtale.godkjentAvDeltaker;
-    const ikkeGodkjentAvNoen = !avtaleContext.avtale.godkjentAvDeltaker && !avtaleContext.avtale.godkjentAvArbeidsgiver;
-
+        avtale.godkjentAvArbeidsgiver && !avtale.godkjentAvDeltaker;
+    const ikkeGodkjentAvNoen = !avtale.godkjentAvDeltaker && !avtale.godkjentAvArbeidsgiver;
     return (
         <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
 
-            {avtaleContext.avtale.tiltakstype !== 'SOMMERJOBB' && !avtaleContext.avtale.godkjentAvDeltaker && (
+            <VerticalSpacer rem={2} />
+            {avtale.tiltakstype !== 'SOMMERJOBB' && !avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAvDeltaker
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {avtaleContext.avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvArbeidsgiver && (
+            {avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvArbeidsgiver && (
                 <GodkjennPaVegneAvDeltaker
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {avtaleContext.avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvDeltaker && (
+            {avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvDeltaker && (
                 <GodkjennPaVegneAvArbeidsgiver
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {avtaleContext.avtale.tiltakstype === 'SOMMERJOBB' && ikkeGodkjentAvNoen && (
+            {avtale.tiltakstype === 'SOMMERJOBB' && ikkeGodkjentAvNoen && (
                 <GodkjennPaVegneAvBeggeParter
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
 
-            {avtaleContext.avtale.gjeldendeInnhold.harFamilietilknytning && (
+            {avtale.gjeldendeInnhold.harFamilietilknytning && (
                 <>
                     <AlertStripeAdvarsel>
                         OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
@@ -60,7 +67,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
                 </>
             )}
 
-            {!skalGodkjennesPaVegne && <LagreKnapp lagre={avtaleContext.godkjenn} label="Godkjenn avtalen" />}
+            {!skalGodkjennesPaVegne && <LagreKnapp lagre={godkjenn} label="Godkjenn avtalen" />}
         </Innholdsboks>
     );
 };

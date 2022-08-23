@@ -6,6 +6,9 @@ import StartOgSluttdatoOppsummering from '../InkluderingstilskuddOppsummering/St
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import OmMentorOppsummering from './OmMentorOppsummering';
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import {Element} from "nav-frontend-typografi";
+import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 interface Props {
     
@@ -20,6 +23,8 @@ const OppsummeringMentor: FunctionComponent<Props> = (props) => (
         <StartOgSluttdatoOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
+
+
     </>
 );
 

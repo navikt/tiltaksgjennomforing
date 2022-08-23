@@ -41,7 +41,7 @@ const TaushetserklæringPanel: React.FunctionComponent<TaushetserklæringPanelPr
                                 contentLabel="Min modalrute"
                             >
                                 <div>
-                                    <TausetserklæringTekst />
+                                    <TausetserklæringTekst  viseVarselTegn={true}/>
                                 </div>
                             </Modal>
                         )}

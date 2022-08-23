@@ -9,6 +9,8 @@ import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -59,6 +61,16 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                     )}
                   </Row>
                 </Container>
+                  <VerticalSpacer rem={2} />
+                  <Ekspanderbartpanel
+                      tittel={
+                          <div>
+                              <Element>Les mer om taushetsplikten til mentor</Element>
+                          </div>
+                      }
+                  >
+                      <TausetserklæringTekst viseVarselTegn={false} />
+                  </Ekspanderbartpanel>
               </div>
             </div>
 

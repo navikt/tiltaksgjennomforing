@@ -7,14 +7,17 @@ import { UfullstendigError } from '@/types/errors';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import {Element} from "nav-frontend-typografi";
+import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 const GodkjenningMentor: FunctionComponent = () => {
-    const avtaleContext = useContext(AvtaleContext);
+    const {avtale,godkjenn} = useContext(AvtaleContext);
     const [bekreftetGodkjennerInnholdet, setBekreftetGodkjennerInnholdet] = useState(false);
 
     const godkjennAvtalen = () => {
         if (bekreftetGodkjennerInnholdet) {
-            return avtaleContext.godkjenn();
+            return godkjenn();
         } else {
             throw new UfullstendigError('Du må bekrefte at du forstår kravene før du kan godkjenne.');
         }
