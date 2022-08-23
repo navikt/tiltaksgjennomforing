@@ -21,16 +21,19 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
         <>
             {!props.erLaast && <Normaltekst>Når du godkjenner avtalen godtar du kravene fra NAV</Normaltekst>}
             <VeilederpanelMedUtklippstavleIkon>
+                {props.tiltakstype !== 'MENTOR' &&
                 <div className={cls.element('subheader')}>
                     <Element>Når du godkjenner avtalen godtar du kravene fra NAV</Element>
-                </div>
+                </div>}
                 <VerticalSpacer rem={2} />
+                {props.tiltakstype !== 'MENTOR' &&
                 <IkonTekstRad
                     svgIkon={<RettighetsHammerIkon />}
                     headerTekst={{
                         tekst: 'Ditt forhold til arbeidsmiljøloven',
                     }}
                 >
+
                     <VerticalSpacer rem={0.5} />
                     {props.tiltakstype === 'ARBEIDSTRENING' && (
                         <>
@@ -47,13 +50,13 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
                             arbeidsgiver har et ansvar for deg hvis du blir skadet på jobb.
                         </>
                     )}
-                </IkonTekstRad>
+                </IkonTekstRad>}
+                {props.tiltakstype !== 'MENTOR' &&
                 <IkonTekstRad
                     svgIkon={<Bandage width="2.25rem" height="2.25rem"   />}
                     headerTekst={{
                         tekst: 'Gi beskjed hvis du er borte fra jobb',
-                    }}
-                >
+                    }}>
                     <VerticalSpacer rem={0.5} />
                     Du må melde fra til arbeidsgiver ved fravær. Ved egen eller barns sykdom gjelder ordinære regler for
                     bruk av egenmelding også for deg som er på{' '}
@@ -62,9 +65,9 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
                             props.tiltakstype === 'VARIG_LONNSTILSKUDD') &&
                         'tiltak med lønnstilskudd'}
                     {props.tiltakstype === 'SOMMERJOBB' && 'tiltak med tilskudd til sommerjobb'}.
-                </IkonTekstRad>
+                </IkonTekstRad>}
                 {(props.tiltakstype === 'SOMMERJOBB' || props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                    props.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
+                    props.tiltakstype === 'VARIG_LONNSTILSKUDD' ||props.tiltakstype === 'MENTOR') && (
                     <IkonTekstRad
                         svgIkon={<Passport width="2.25rem" height="2.25rem" />}
                         headerTekst={{ tekst: 'Behandling av personopplysninger' }}
