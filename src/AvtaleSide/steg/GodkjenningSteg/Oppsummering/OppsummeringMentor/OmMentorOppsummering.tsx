@@ -11,6 +11,7 @@ import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksist
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
 import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
+import {AvtaleContext} from "@/AvtaleProvider";
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -20,7 +21,7 @@ const verdi = (tall?: number) => {
 
 const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
     const { rolle } = useContext(InnloggetBrukerContext);
-
+    const {avtale} = useContext(AvtaleContext);
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
             <div>
@@ -29,12 +30,18 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                         { felt: 'fornavn', verdi: props.mentorFornavn },
                         { felt: 'etternavn', verdi: props.mentorEtternavn },
                     ]}
-                    tilleggFelter={[
+                    tilleggFelter={rolle === 'DELTAKER' ? [
                         {
                             felt: 'telefon',
                             verdi: props.mentorTlf,
                         },
-                    ]}
+                    ]:  [  {
+                        felt: 'fødselsnummer',
+                        verdi: avtale.mentorFnr,
+                    },  {
+                        felt: 'telefon',
+                        verdi: props.mentorTlf,
+                    }]}
                     borderFarge={'farge-lyslilla'}
                     overskrift={'Mentor'}
                     skjulHvaMangler={false}
