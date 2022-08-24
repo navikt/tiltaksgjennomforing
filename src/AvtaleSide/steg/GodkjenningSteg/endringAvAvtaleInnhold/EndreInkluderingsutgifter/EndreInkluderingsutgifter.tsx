@@ -31,11 +31,6 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
     );
     const [iRedigermodus, setIRedigermodus] = useState(false);
 
-    console.log(
-        avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
-        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp
-    );
-
     const lukkModal = () => {
         setModalApen(false);
     };

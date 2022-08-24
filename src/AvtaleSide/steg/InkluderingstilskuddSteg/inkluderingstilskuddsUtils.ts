@@ -34,10 +34,10 @@ export const useTilskuddsutgift = (
 
     const ledigeInkluderingstilskuddstyper = finnLedigeInkluderingstilskuddstyper(
         inkluderingstilskuddsutgiftListe
-    ).sort();
+    );
     const ledigeInkluderingstilskuddstyperInngåttAvtale = finnLedigeInkluderingstilskuddstyperInngåttAvtale(
         inkluderingstilskuddsutgiftListe
-    ).sort();
+    );
 
     const sletteInkluderingstilskuddsutgift = (index: number) => {
         const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
@@ -63,12 +63,12 @@ const finnLedigeInkluderingstilskuddstyperInngåttAvtale = (
 ): InkluderingstilskuddsutgiftType[] => {
     // Typer som er lagt til i tidligere versjoner kan brukes på nytt 1 gang.
     const alleTyper = [
-        'ARBEIDSHJELPEMIDLER',
-        'OPPLÆRING',
-        'PROGRAMVARE',
+        'TILRETTELEGGINGSBEHOV',
         'TILTAKSPLASS',
         'UTSTYR',
-        'TILRETTELEGGINGSBEHOV',
+        'ARBEIDSHJELPEMIDLER',
+        'PROGRAMVARE',
+        'OPPLÆRING',
     ];
     brukteTyper.forEach((bruktType) => {
         if (bruktType.id === undefined) {
@@ -88,12 +88,12 @@ const finnLedigeInkluderingstilskuddstyper = (
         return brukteTyper.map((inkluderingstilskuddsutgift) => inkluderingstilskuddsutgift.type);
     };
     const typer = [
-        'ARBEIDSHJELPEMIDLER',
-        'OPPLÆRING',
-        'PROGRAMVARE',
+        'TILRETTELEGGINGSBEHOV',
         'TILTAKSPLASS',
         'UTSTYR',
-        'TILRETTELEGGINGSBEHOV',
+        'ARBEIDSHJELPEMIDLER',
+        'PROGRAMVARE',
+        'OPPLÆRING'
     ] as const;
     return typer.filter((type) => !valgteTyper().includes(type));
 };
