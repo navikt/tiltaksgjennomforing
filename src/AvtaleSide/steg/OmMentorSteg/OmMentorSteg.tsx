@@ -74,7 +74,7 @@ const OmMentorSteg = () => {
                     <Column md="6">
                         <PakrevdInputValidering
                             validering={/^\d{0,3}$/}
-                            label="Antall timer med mentor"
+                            label="Antall timer med mentor per uke"
                             verdi={avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toFixed(0)}
                             settVerdi={(verdi) => {
                                 avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi));
@@ -82,7 +82,7 @@ const OmMentorSteg = () => {
                         />
                         <PakrevdInputValidering
                             validering={/^\d{0,5}$/}
-                            label="Timelønn"
+                            label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
                             verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn?.toFixed(0)}
                             settVerdi={(verdi) =>
                                 avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', sjekkOgSettVerdi(verdi))

@@ -2,6 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { endreOmMentor } from '@/services/rest-service';
@@ -91,18 +92,18 @@ const EndreOmMentor: FunctionComponent = () => {
             <Container fluid={true}>
                 <Row className="begge__tekst">
                     <Column md="6">
-                        <PakrevdInput
-                            label="Antall timer med mentor"
-                            verdi={mentorInfo.mentorAntallTimer}
+                        <PakrevdInputValidering
+                            validering={/^\d{0,3}$/}
+                            label="Antall timer med mentor per uke"
+                            verdi={mentorInfo.mentorAntallTimer?.toFixed(0)}
                             settVerdi={(verdi) =>
                                 setMentorInfo({ ...mentorInfo, mentorAntallTimer: sjekkOgSettVerdi(verdi) })
                             }
                         />
-                    </Column>
-                    <Column md="6">
-                        <PakrevdInput
-                            label="Timelønn"
-                            verdi={mentorInfo.mentorTimelonn}
+                        <PakrevdInputValidering
+                            validering={/^\d{0,3}$/}
+                            label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
+                            verdi={mentorInfo.mentorTimelonn?.toFixed(0)}
                             settVerdi={(verdi) =>
                                 setMentorInfo({ ...mentorInfo, mentorTimelonn: sjekkOgSettVerdi(verdi) })
                             }
