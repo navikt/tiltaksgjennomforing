@@ -9,7 +9,7 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 
 const GodkjenningDeltaker: FunctionComponent = () => {
-    const {avtale,godkjenn} = useContext(AvtaleContext);
+    const {godkjenn} = useContext(AvtaleContext);
     const [bekreftetGodkjennerInnholdet, setBekreftetGodkjennerInnholdet] = useState(false);
 
     const godkjennAvtalen = () => {
