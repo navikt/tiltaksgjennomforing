@@ -46,10 +46,6 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({
                             <SjekkOmVerdiEksisterer verdi={stillingProsent} />
                         </Column>
                     )}
-                    <Column md="4" sm="12" xs="12">
-                        <Element>Stillingsprosent</Element>
-                        <SjekkOmVerdiEksisterer verdi={stillingProsent} />
-                    </Column>
                 </Row>
                 <Row className={''}>
                     <Column md="4" sm="12" xs="12">
