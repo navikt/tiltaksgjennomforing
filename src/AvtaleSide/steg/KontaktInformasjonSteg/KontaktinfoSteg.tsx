@@ -23,6 +23,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
         'INKLUDERINGSTILSKUDD',
+        'MENTOR'
     ].includes(avtale.tiltakstype);
 
     return (
