@@ -5,16 +5,17 @@ import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk'
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
+import {InnloggetBrukerContext} from "@/InnloggingBoundary/InnloggingBoundary";
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
 }
 
 const Avtaleparter: FunctionComponent<Props> = props => {
-    const avtaleContext = useContext(AvtaleContext);
+    const {avtale} = useContext(AvtaleContext);
+    const {rolle} = useContext(InnloggetBrukerContext);
     const gjeldendeInnhold = props.avtaleinnhold;
-
-    const erLåst = Boolean(avtaleContext.avtale.godkjentAvVeileder);
+    const erLåst = Boolean(avtale.godkjentAvVeileder);
     return (
         <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
             <div>
@@ -23,15 +24,19 @@ const Avtaleparter: FunctionComponent<Props> = props => {
                         { felt: 'fornavn', verdi: gjeldendeInnhold.deltakerFornavn },
                         { felt: 'etternavn', verdi: gjeldendeInnhold.deltakerEtternavn },
                     ]}
-                    tilleggFelter={[
+                    tilleggFelter={rolle !== 'MENTOR' ? [
                         {
                             felt: 'fødselsnummer',
-                            verdi: avtaleContext.avtale.deltakerFnr,
-                        },
+                            verdi: avtale.deltakerFnr,
+                        },{
+                            felt: 'telefon',
+                            verdi: gjeldendeInnhold.deltakerTlf,
+                        }
+                    ]:[
                         {
                             felt: 'telefon',
                             verdi: gjeldendeInnhold.deltakerTlf,
-                        },
+                        }
                     ]}
                     overskrift="Deltaker"
                     borderFarge="farge-gronn"
@@ -52,7 +57,7 @@ const Avtaleparter: FunctionComponent<Props> = props => {
                     tilleggFelter={[
                         {
                             felt: 'virksomhetsnummer',
-                            verdi: avtaleContext.avtale.bedriftNr,
+                            verdi: avtale.bedriftNr,
                         },
                         {
                             felt: 'telefon',
