@@ -7,9 +7,6 @@ import { UfullstendigError } from '@/types/errors';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
-import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import {Element} from "nav-frontend-typografi";
-import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 const GodkjenningDeltaker: FunctionComponent = () => {
     const {avtale,godkjenn} = useContext(AvtaleContext);

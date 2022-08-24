@@ -12,10 +12,6 @@ import React, { createElement, FunctionComponent, Suspense, useContext } from 'r
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering';
-import TaushetserklæringPanel from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringPanel';
-import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import {Element} from "nav-frontend-typografi";
-import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;

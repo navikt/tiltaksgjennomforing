@@ -9,13 +9,6 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 import GodkjennPaVegneAvArbeidsgiver from './GodkjennPaVegneAvArbeidsgiver';
 import GodkjennPaVegneAvDeltaker from './GodkjennPaVegneAvDeltaker';
-import {LenkepanelBase} from "nav-frontend-lenkepanel";
-import {Element, Normaltekst} from "nav-frontend-typografi";
-import {innholdTypeTekst} from "@/messages";
-import moment from "moment/moment";
-import LesMerPanel from "@/komponenter/LesMerPanel/LesMerPanel";
-import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import TausetserklæringTekst from "@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst";
 
 const GodkjenningVeileder: FunctionComponent = () => {
     const {avtale,godkjenn} = useContext(AvtaleContext);
