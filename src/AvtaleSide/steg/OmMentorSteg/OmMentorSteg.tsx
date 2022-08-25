@@ -4,12 +4,13 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Column, Container, Row } from 'nav-frontend-grid';
-import React, { useContext } from 'react';
-import { Input } from 'nav-frontend-skjema';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
+import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import { Column, Container, Row } from 'nav-frontend-grid';
+import { Input } from 'nav-frontend-skjema';
+import { Normaltekst } from 'nav-frontend-typografi';
+import React, { useContext } from 'react';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -80,14 +81,18 @@ const OmMentorSteg = () => {
                                 avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi));
                             }}
                         />
+                    </Column>
+                    <Column md="6">
                         <PakrevdInputValidering
                             validering={/^\d{0,5}$/}
-                            label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
+                            label="Timelønn*"
                             verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn?.toFixed(0)}
                             settVerdi={(verdi) =>
                                 avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', sjekkOgSettVerdi(verdi))
                             }
                         />
+                        <VerticalSpacer rem={0.5} />
+                        <Normaltekst>*Inkludert feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon</Normaltekst>
                     </Column>
                 </Row>
             </Container>
