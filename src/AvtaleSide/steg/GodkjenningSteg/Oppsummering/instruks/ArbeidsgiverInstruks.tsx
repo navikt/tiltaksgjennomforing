@@ -199,10 +199,10 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                         {props.tiltakstype === 'MENTOR' && (
                             <EksternLenke
                                 href={
-                                    'https://www.nav.no/no/person/arbeid/tilskudd-til-sommerjobb#kort-om-tilskudd-til-sommerjobb'
+                                    'https://www.nav.no/nav.no-ressurser/filer/person/arbeid/diverse/krav-vilkar-og-informasjon-mentor.pdf'
                                 }
                             >
-                                Krav, vilkår og informasjon (TRENGER LENKE HER!!!!)
+                                Krav, vilkår og informasjon
                             </EksternLenke>
                         )}
                         <EksternLenke href={oppfolgingLenker[props.tiltakstype]}>
