@@ -6,10 +6,10 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import Lenke from 'nav-frontend-lenker';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './instruks.less';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 const cls = BEMHelper('instruks');
 interface Props {
@@ -74,20 +74,19 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
                         <p>
                             Du kan ikke sende taushetsbelagte og sensitive personopplysninger til NAV på usikret epost.
                             Skal du gi beskjed om endringer som har betydning for saken og oppfølgingen din fra NAV, kan
-                            du bruke
-                            <Lenke style={{margin:"0rem 0.2rem", }} href={'www.nav.no/person/dittnav/'}>Ditt NAV</Lenke>
+                            du bruke{' '}
+                            <EksternLenke href="https://www.nav.no/person/dittnav/">Ditt NAV</EksternLenke>
                             eller{' '}
-                            <Lenke href={'www.naav.no/person/kontakt-oss/nb/skriv-til-oss'}>Skriv til oss</Lenke>.
+                            <EksternLenke href="https://www.nav.no/person/kontakt-oss/nb/skriv-til-oss">Skriv til oss</EksternLenke>.
                         </p>
                         <p>Personopplysninger om deg i avtalen lagres i henhold til arkivloven.</p>
                         <p>
-                            <Lenke
-                                href={
-                                    'www.nav.no/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten/personvernerklaering-for-arbeids-og-velferdsetaten'
-                                }
+                            <EksternLenke
+                                href=
+                                    "https://www.nav.no/no/nav-og-samfunn/om-nav/personvern-i-arbeids-og-velferdsetaten/personvernerklaering-for-arbeids-og-velferdsetaten"
                             >
                                 NAVs personvernerklæring
-                            </Lenke>{' '}
+                            </EksternLenke>{' '}
                             forteller mer om hvordan NAV behandler personopplysninger og hvilke rettigheter du har.
                         </p>
                         <p>12 uker etter avsluttet tiltak vil arbeidsgiver ikke lenger har tilgang til avtalen.</p>
