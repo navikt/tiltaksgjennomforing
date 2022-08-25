@@ -45,8 +45,7 @@ const MentorAvtaleStatus: FunctionComponent = () => {
                     body={
                         <Normaltekst>
                             Innholdet i avtalen fylles ut av arbeidsgiveren og veilederen. Hvis du er uenig i innholdet
-                            eller har spørsmål til avtalen, må du kontakte veilederen din via aktivitetsplanen før du
-                            godkjenner. Du kan godkjenne avtalen når alt er fylt ut.
+                            eller har spørsmål til avtalen, må du kontakte NAV.
                         </Normaltekst>
                     }
                 />
