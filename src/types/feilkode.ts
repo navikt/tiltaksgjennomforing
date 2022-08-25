@@ -16,7 +16,8 @@ export type Feilkode =
     | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_12_MND'
     | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_24_MND'
     | 'VARIGHET_FOR_LANG_ARBEIDSTRENING'
-    | 'VARIGHET_FOR_LANG_MENTOR'
+    | 'VARIGHET_FOR_LANG_MENTOR_6_MND'
+    | 'VARIGHET_FOR_LANG_MENTOR_36_MND'
     | 'VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD'
     | 'VARIGHET_DATO_TILBAKE_I_TID'
     | 'VEILEDER_SKAL_GODKJENNE_SIST'
@@ -96,7 +97,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     VARIGHET_DATO_TILBAKE_I_TID: 'Dato på varighet er tilbake i tid',
     VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_12_MND: 'Avtalens varighet er maksimalt 12 måneder',
     VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_24_MND: 'Avtalens varighet er maksimalt 24 måneder',
-    VARIGHET_FOR_LANG_MENTOR: 'Avtalens varighet er maksimalt 36 måneder',
+    VARIGHET_FOR_LANG_MENTOR_6_MND: 'Avtalens varighet er maksimalt 6 måneder',
+    VARIGHET_FOR_LANG_MENTOR_36_MND: 'Avtalens varighet er maksimalt 36 måneder',
     VARIGHET_FOR_LANG_ARBEIDSTRENING: 'Avtalens varighet er maksimalt 18 måneder',
     VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD: 'Avtalens varighet er maksimalt 12 måneder',
     ENHET_ER_JURIDISK: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke den juridiske enheten.',
