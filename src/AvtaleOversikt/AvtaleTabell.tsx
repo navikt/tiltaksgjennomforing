@@ -124,6 +124,7 @@ const AvtaleTabell: FunctionComponent<{
                             linkCreator={(props: any) => (
                                 <Link to={{ pathname: props.href, search: window.location.search }} {...props} />
                             )}
+                            className={avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor ? 'skjulIndikator': '' }
                             role="listitem"
                             aria-labelledby={avtale.id}
                             onClick={(e) => {
