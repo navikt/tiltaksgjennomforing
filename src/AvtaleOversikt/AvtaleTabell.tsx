@@ -1,3 +1,4 @@
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { avtaleStatusTekst } from '@/messages';
@@ -13,8 +14,7 @@ import { default as React, FunctionComponent, useEffect, useState } from 'react'
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
 import './AvtaleTabell.less';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import Taushetserklæring from './Taushetserklæring/Taushetserklæring';
+import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -181,7 +181,7 @@ const AvtaleTabell: FunctionComponent<{
                                 )}
                             </div>
                         </LenkepanelBase>
-                        <Taushetserklæring
+                        <TaushetserklæringModal
                             open={visTaushetserklæringForAvtaleId === avtale.id}
                             togglesetTaushetserklæringForMentorAvtale={setVisTaushetserklæringForAvtaleId}
                             avtale={avtale}
