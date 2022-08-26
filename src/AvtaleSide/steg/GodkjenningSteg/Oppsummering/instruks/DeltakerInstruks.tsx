@@ -1,15 +1,15 @@
 import { ReactComponent as RettighetsHammerIkon } from '@/assets/ikoner/lov.svg';
 import { ReactComponent as Passport } from '@/assets/ikoner/passport.svg';
-import { Bandage } from "@navikt/ds-icons";
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Bandage } from "@navikt/ds-icons";
+import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './instruks.less';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 const cls = BEMHelper('instruks');
 interface Props {
@@ -23,9 +23,6 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
             <VeilederpanelMedUtklippstavleIkon>
                 {props.tiltakstype !== 'MENTOR' &&
                     <>
-                <div className={cls.element('subheader')}>
-                    <Element>Når du godkjenner avtalen godtar du kravene fra NAV</Element>
-                </div>
                 <VerticalSpacer rem={2} />
                 <IkonTekstRad
                     svgIkon={<RettighetsHammerIkon />}
