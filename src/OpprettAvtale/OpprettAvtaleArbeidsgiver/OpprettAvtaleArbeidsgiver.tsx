@@ -9,8 +9,9 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
-import { pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
-import { opprettAvtaleSomArbeidsgiver } from '@/services/rest-service';
+import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
+import { basename, pathTilInformasjonssideInnlogget, pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
+import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
@@ -24,8 +25,6 @@ import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
-import { opprettMentorAvtale } from '@/services/rest-service';
-import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -127,7 +126,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <Systemtittel>Før du oppretter en avtale</Systemtittel>
                     <Normaltekst>
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
-                        <EksternLenke href="/informasjonsside/uinnlogget">
+                        <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
                             introduksjon til hvordan løsningen fungerer {''}
                         </EksternLenke>
                         og vite om{' '}

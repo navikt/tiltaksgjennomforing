@@ -6,7 +6,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
-import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
+import { basename, pathTilInformasjonssideInnlogget, pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import { hentBedriftBrreg, opprettAvtaleSomVeileder, opprettMentorAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -236,7 +236,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             <Innholdsboks>
                 <Normaltekst>
                     Er det første gang du skal opprette en avtale bør du lese gjennom {''}
-                    <EksternLenke href="/informasjonsside/uinnlogget">
+                    <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
                         introduksjon til hvordan løsningen fungerer {''}
                     </EksternLenke>
                     og vite om{' '}
