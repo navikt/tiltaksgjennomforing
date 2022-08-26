@@ -4,21 +4,21 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Datepicker } from 'nav-datovelger';
 import { Column, Row } from 'nav-frontend-grid';
+import { Input } from 'nav-frontend-skjema';
 import { Element, Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { AvtaleMinMaxDato } from '../VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 import EnTilskuddsutgift from './EnTilskuddsutgift';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
+import './inkluderingstilskuddSteg.less';
 import { useTilskuddsutgift } from './inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
 import Tilskuddsbeskrivelse from './Tilskuddsbeskrivelse';
 import TilskuddsutgiftTabell from './TilskuddsutgiftTabell';
-import { Input } from 'nav-frontend-skjema';
-import BEMHelper from '@/utils/bem';
-import './inkluderingstilskuddSteg.less';
 
 const InkluderingstilskuddSteg: FunctionComponent = () => {
     const cls = BEMHelper('inkluderingstilskudd');
@@ -108,7 +108,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
 
                 <VerticalSpacer rem={2} />
 
-                <TilskuddsutgiftTabell>
+                <TilskuddsutgiftTabell redigerbar={true}>
                     {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
                         <EnTilskuddsutgift
                             skalKunneSlette={true}

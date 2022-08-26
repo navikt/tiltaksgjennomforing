@@ -5,13 +5,12 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
-import BEMHelper from '@/utils/bem';
 import { Bandage } from "@navikt/ds-icons";
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './instruks.less';
 
-const cls = BEMHelper('instruks');
+
 interface Props {
     erLaast: boolean;
     tiltakstype: TiltaksType;

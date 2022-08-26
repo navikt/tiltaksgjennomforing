@@ -58,7 +58,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
 
             <div>
-                <TilskuddsutgiftTabell>
+                <TilskuddsutgiftTabell redigerbar={true}>
                     {inkluderingstilskuddsutgiftListe.map((tilskuddsutgift, index) => (
                         <EnTilskuddsutgift
                             skalKunneSlette={false}
