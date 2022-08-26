@@ -25,6 +25,14 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
         ARBEIDSTRENING: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap3',
         MENTOR: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap5',
     }
+    const rundskrivLenker: { [key in TiltaksType]: string } = {
+        ARBEIDSTRENING: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_4',
+        MENTOR: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_6',
+        INKLUDERINGSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_12',
+        SOMMERJOBB: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_9',
+        MIDLERTIDIG_LONNSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_10',
+        VARIG_LONNSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_11',
+    }
 
     return (
         <>
@@ -34,7 +42,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                     <Element>Som arbeidsgiver må du</Element>
                 </div>
                 <VerticalSpacer rem={2} />
-                {['MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'MENTOR'].includes(props.tiltakstype) && (
+                {['MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'MENTOR', 'INKLUDERINGSTILSKUDD'].includes(
+                    props.tiltakstype
+                ) && (
                     <IkonTekstRad
                         svgIkon={<Calender width="2.25rem" height="2.25rem" />}
                         headerTekst={{ tekst: 'Oppfølging og varighet', typografiType: 'undertittel' }}
@@ -76,13 +86,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                         </p>
                     </IkonTekstRad>
                 )}
-                {[
-                    'MIDLERTIDIG_LONNSTILSKUDD',
-                    'VARIG_LONNSTILSKUDD',
-                    'ARBEIDSTRENING',
-                    'SOMMERJOBB',
-                    'INKLUDERINGSTILSKUDD',
-                ].includes(props.tiltakstype) && (
+                {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'ARBEIDSTRENING', 'SOMMERJOBB'].includes(
+                    props.tiltakstype
+                ) && (
                     <IkonTekstRad
                         svgIkon={<SocialAid width="2.25rem" height="2.25rem" />}
                         headerTekst={{
@@ -106,13 +112,9 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                         </p>
                     </IkonTekstRad>
                 )}
-                {[
-                    'MIDLERTIDIG_LONNSTILSKUDD',
-                    'VARIG_LONNSTILSKUDD',
-                    'ARBEIDSTRENING',
-                    'SOMMERJOBB',
-                    'INKLUDERINGSTILSKUDD',
-                ].includes(props.tiltakstype) && (
+                {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'ARBEIDSTRENING', 'SOMMERJOBB'].includes(
+                    props.tiltakstype
+                ) && (
                     <IkonTekstRad
                         svgIkon={<Bandage width="2.25rem" height="2.25rem" />}
                         headerTekst={{
@@ -173,7 +175,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                         </p>
                     </IkonTekstRad>
                 )}
-                {props.tiltakstype === 'MENTOR' && (
+                {['MENTOR', 'INKLUDERINGSTILSKUDD'].includes(props.tiltakstype) && (
                     <IkonTekstRad
                         svgIkon={<Money width="2.25rem" height="2.25rem" />}
                         headerTekst={{ tekst: 'Refusjon', typografiType: 'undertittel' }}
@@ -185,9 +187,18 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                             to måneder etter at tilskuddsperioden er over.
                         </p>
                         <p>
-                            <EksternLenke href={'https://www.nav.no/soknader/nb/bedrift/tilskudd-og-tiltak/mentor'}>
-                                Refusjonsskjema for mentortilskudd
-                            </EksternLenke>
+                            {props.tiltakstype === 'MENTOR' && (
+                                <EksternLenke href={'https://www.nav.no/soknader/nb/bedrift/tilskudd-og-tiltak/mentor'}>
+                                    Refusjonsskjema for mentortilskudd
+                                </EksternLenke>
+                            )}
+                            {props.tiltakstype === 'INKLUDERINGSTILSKUDD' && (
+                                <EksternLenke
+                                    href={'https://www.nav.no/soknader/nb/bedrift/refusjoner/inkluderingstilskudd'}
+                                >
+                                    Refusjonsskjema for inkluderingstilskudd
+                                </EksternLenke>
+                            )}
                         </p>
                     </IkonTekstRad>
                 )}
@@ -208,10 +219,20 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                         <EksternLenke href={oppfolgingLenker[props.tiltakstype]}>
                             Forskrift om arbeidsmarkedstiltak (tiltaksforskriften)
                         </EksternLenke>
-                        {props.tiltakstype !== 'MENTOR' && (
+                        {props.tiltakstype !== 'MENTOR' && props.tiltakstype !== 'INKLUDERINGSTILSKUDD' && (
                             <EksternLenke href={'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_10'}>
                                 Utfyllende regler til forskriften
                             </EksternLenke>
+                        )}
+                        {props.tiltakstype === 'INKLUDERINGSTILSKUDD' && (
+                            <>
+                                <EksternLenke href={'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_12'}>
+                                    Utfyllende regler til forskriften
+                                </EksternLenke>
+                                <EksternLenke href="https://www.nav.no/nav.no-ressurser/filer/person/arbeid/diverse/krav-vilkar-og-informasjon-til-tiltaksarrangor-inkluderingstilskudd.pdf">
+                                    Krav og vilkår til inkluderingstilskudd
+                                </EksternLenke>
+                            </>
                         )}
                         {props.tiltakstype === 'MENTOR' && (
                             <EksternLenke href={'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_6'}>

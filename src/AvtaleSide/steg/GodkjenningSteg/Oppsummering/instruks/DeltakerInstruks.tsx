@@ -20,7 +20,7 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
         <>
             {!props.erLaast && <Normaltekst>Når du godkjenner avtalen godtar du kravene fra NAV</Normaltekst>}
             <VeilederpanelMedUtklippstavleIkon>
-                {props.tiltakstype !== 'MENTOR' &&
+                {props.tiltakstype !== 'MENTOR' && props.tiltakstype !== 'INKLUDERINGSTILSKUDD' &&
                     <>
                 <VerticalSpacer rem={2} />
                 <IkonTekstRad
@@ -47,7 +47,7 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
                         </>
                     )}
                 </IkonTekstRad></>}
-                {props.tiltakstype !== 'MENTOR' &&
+                {props.tiltakstype !== 'MENTOR' && props.tiltakstype !== 'INKLUDERINGSTILSKUDD' &&
                 <IkonTekstRad
                     svgIkon={<Bandage width="2.25rem" height="2.25rem"   />}
                     headerTekst={{
@@ -62,7 +62,7 @@ const DeltakerInstruksNy: FunctionComponent<Props> = props => {
                         'tiltak med lønnstilskudd'}
                     {props.tiltakstype === 'SOMMERJOBB' && 'tiltak med tilskudd til sommerjobb'}.
                 </IkonTekstRad>}
-                {( ['SOMMERJOBB','MIDLERTIDIG_LONNSTILSKUDD','VARIG_LONNSTILSKUDD','MENTOR'].includes(props.tiltakstype)) && (
+                {( ['SOMMERJOBB','MIDLERTIDIG_LONNSTILSKUDD','VARIG_LONNSTILSKUDD','MENTOR', 'INKLUDERINGSTILSKUDD'].includes(props.tiltakstype)) && (
                     <IkonTekstRad
                         svgIkon={<Passport width="2.25rem" height="2.25rem" />}
                         headerTekst={{ tekst: 'Behandling av personopplysninger' }}
