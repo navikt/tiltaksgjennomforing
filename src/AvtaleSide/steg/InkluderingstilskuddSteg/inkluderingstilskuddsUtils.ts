@@ -10,6 +10,8 @@ export const useTilskuddsutgift = (
     >(initiellInkluderingstilskuddutgiftListe);
     const [inkluderingstilskuddTotal, setInkluderingstilskuddTotal] = useState<number>(inkluderingstilskuddTotalBeløp);
 
+    const resettListe = (liste: Inkluderingstilskuddsutgift[]) => setInkluderingstilskuddsutgiftListe(liste);
+    
     const oppdatereTotalSummen = (initiellInkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]) => {
         let utgifterTotalsum = 0;
         initiellInkluderingstilskuddutgifter.forEach((utgift) => (utgifterTotalsum += utgift.beløp));
@@ -55,6 +57,7 @@ export const useTilskuddsutgift = (
         leggTilInkluderingstilskuddsutgift,
         endreInkluderingstilskuddsutgift,
         sletteInkluderingstilskuddsutgift,
+        resettListe
     };
 };
 

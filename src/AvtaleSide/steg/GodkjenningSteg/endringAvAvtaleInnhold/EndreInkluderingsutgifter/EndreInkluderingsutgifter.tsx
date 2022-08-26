@@ -25,6 +25,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
         leggTilInkluderingstilskuddsutgift,
         endreInkluderingstilskuddsutgift,
         sletteInkluderingstilskuddsutgift,
+        resettListe
     } = useTilskuddsutgift(
         avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
         avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp
@@ -89,6 +90,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 style={{ display: 'flex', alignItems: 'center' }}
                 onClick={(event) => {
                     event.stopPropagation();
+                    resettListe(avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
                     setModalApen(true);
                 }}
                 href="#"
