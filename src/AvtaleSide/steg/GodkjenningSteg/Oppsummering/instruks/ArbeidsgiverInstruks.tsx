@@ -25,14 +25,14 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
         ARBEIDSTRENING: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap3',
         MENTOR: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap5',
     }
-    const rundskrivLenker: { [key in TiltaksType]: string } = {
-        ARBEIDSTRENING: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_4',
-        MENTOR: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_6',
-        INKLUDERINGSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_12',
-        SOMMERJOBB: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_9',
-        MIDLERTIDIG_LONNSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_10',
-        VARIG_LONNSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_11',
-    }
+    // const rundskrivLenker: { [key in TiltaksType]: string } = {
+    //     ARBEIDSTRENING: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_4',
+    //     MENTOR: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_6',
+    //     INKLUDERINGSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_12',
+    //     SOMMERJOBB: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_9',
+    //     MIDLERTIDIG_LONNSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_10',
+    //     VARIG_LONNSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_11',
+    // }
 
     return (
         <>
