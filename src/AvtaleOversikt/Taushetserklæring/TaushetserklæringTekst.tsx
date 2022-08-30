@@ -6,7 +6,7 @@ import React from 'react';
 const TausetserklæringTekst = () => {
     const cls = BEMHelper('etterRegistrering');
     return (
-        <div>
+        <div style={{ padding: '0.5rem' }}>
             <Systemtittel>Taushetsplikt for avtale</Systemtittel>
             <p>
                 Forvaltningsloven, arbeids- og velferdsforvaltningsloven og lov om sosiale tjenester i arbeids- og

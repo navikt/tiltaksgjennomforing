@@ -29,7 +29,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className} role={'main'}>
             <AvtaleStatus />
-
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>
@@ -43,7 +42,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     />
                 )}
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
-
             </Innholdsboks>
 
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
