@@ -10,7 +10,6 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
             <thead>
                 <tr>
                     <th>Tilskudd</th>
-                    <th>Dato</th>
                     <th>Utgifter</th>
                     {props.redigerbar && <th>Handling</th>}
                 </tr>

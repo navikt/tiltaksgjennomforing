@@ -15,9 +15,6 @@ const EnTilskuddsutgiftOppsummering: FunctionComponent<Props> = (props) => {
                 <Normaltekst>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Normaltekst>
             </td>
             <td>
-                <Normaltekst>20.01.2022</Normaltekst>
-            </td>
-            <td>
                 <Normaltekst>{formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
             </td>
         </tr>
