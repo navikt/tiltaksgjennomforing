@@ -1,10 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import DeltakerInstruks from './DeltakerInstruks';
-import ArbeidsgiverInstruks from './ArbeidsgiverInstruks';
-import VeilederInstruks from './VeilederInstruks';
 import { sjekkOmAvtaleErPilot } from '@/services/rest-service';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import ArbeidsgiverInstruksNy from './Arbeidsgiver/ArbeidsgiverInstruksNy';
+import DeltakerInstruksNy from './Deltaker/DeltakerInstruksNy';
+import DeltakerInstruks from './DeltakerInstruks';
+import VeilederInstruks from './VeilederInstruks';
 
 const GodkjenningInstruks: FunctionComponent = () => {
     const { rolle } = useContext(InnloggetBrukerContext);
@@ -22,11 +23,13 @@ const GodkjenningInstruks: FunctionComponent = () => {
 
     switch (rolle) {
         case 'DELTAKER':
-            return <DeltakerInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
+            // return <DeltakerInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
+            return <DeltakerInstruksNy tiltakstype={tiltakstype}/>;
         case 'MENTOR':
             return <DeltakerInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
         case 'ARBEIDSGIVER':
-            return <ArbeidsgiverInstruks erLaast={erLåst} tiltakstype={tiltakstype} erPilot={erPilot} />;
+            // return <ArbeidsgiverInstruks erLaast={erLåst} tiltakstype={tiltakstype} erPilot={erPilot} />;
+            return <ArbeidsgiverInstruksNy tiltakstype={tiltakstype} erPilot={erPilot} />;
         case 'VEILEDER':
             return <VeilederInstruks tiltakstype={tiltakstype} erPilot={erPilot} />;
         default:
