@@ -15,7 +15,7 @@ const OppfolgingOgTilretteleggingStegNy = () => {
             </SkjemaTittel>
             <PakrevdTextarea
                 placeholder="Skriv inn innholdstekst i tekstfeltet her"
-                label="Beskriv hvilken oppfølging dere har avtalt. Eksempler på oppfølging kan være en eller flere avtalte oppfølgingssamtaler."
+                label="Beskriv hvilken oppfølging dere har avtalt. Eksempel på oppfølging kan være en eller flere avtalte oppfølgingssamtaler."
                 verdi={avtaleContext.avtale.gjeldendeInnhold.oppfolging || ''}
                 settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('oppfolging', verdi)}
                 maxLengde={1000}
