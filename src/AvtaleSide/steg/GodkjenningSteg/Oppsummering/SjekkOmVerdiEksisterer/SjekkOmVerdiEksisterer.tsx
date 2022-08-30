@@ -7,10 +7,11 @@ const SjekkOmVerdiEksisterer: FunctionComponent<{
     formatertVerdi?: JSX.Element | string;
     clsName?: string;
     label?: string;
+    ariaLabel?: string
 }> = props => {
     if (props.verdi) {
         return (
-            <Normaltekst>
+            <Normaltekst aria-label={props.ariaLabel}>
                 {props.label} {props.formatertVerdi ? props.formatertVerdi : props.verdi}
             </Normaltekst>
         );
