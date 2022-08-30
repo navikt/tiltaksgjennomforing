@@ -58,7 +58,7 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                 <TausetserklæringTekst />
                 <BekreftCheckboksPanel
                     key={'Taushetserklæring-BekreftCheckboksPanel' + avtale.id}
-                    label="Jeg bekrefter jeg å ha lest og forstått min taushetsplikt og har gjort meg kjent med de lovbestemmelsene som er listet opp over"
+                    label="Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de lovbestemmelsene som er listet opp over"
                     checked={bekrefterGodkjennerTaushetserklæring}
                     onChange={() => setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)}
                 />
