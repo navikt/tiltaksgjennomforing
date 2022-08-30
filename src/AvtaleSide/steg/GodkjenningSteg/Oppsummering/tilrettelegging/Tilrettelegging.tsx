@@ -5,7 +5,7 @@ import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import TilretteleggingIkon from './TilretteleggingIkon';
 import TekstMedLinjeskift from '@/komponenter/TekstMedLinjeskift';
 
-const Tilrettelegging: FunctionComponent<TilretteleggingInfo> = props => (
+const Tilrettelegging: FunctionComponent<TilretteleggingInfo> = (props) => (
     <Stegoppsummering ikon={<TilretteleggingIkon />} tittel="Tilrettelegging">
         <SjekkOmVerdiEksisterer
             verdi={props.tilrettelegging}

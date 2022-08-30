@@ -1,6 +1,6 @@
 @import '~nav-frontend-core/less/_variabler';
 
-.innholdsboks {
+.innholdsboks, .innholdsboks.godkjenning {
     margin-bottom: 0.25rem;
     background-color: white;
     border-radius: 4px;
@@ -11,6 +11,17 @@
 
     &:last-child {
         margin-bottom: 0;
+    }
+
+    .veilederpanel-med-ikon {
+        .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+            padding: 4.25rem 1rem 2rem 0.75rem;
+        }
+    }
+    @media(min-width: 768px){
+        .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+            padding: 4.25rem 2rem 2rem 2rem;
+        }
     }
 }
 
@@ -24,3 +35,5 @@
         padding: 2rem;
     }
 }
+
+

@@ -1,9 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import DeltakerInstruks from './DeltakerInstruks';
-import ArbeidsgiverInstruks from './ArbeidsgiverInstruks';
-import VeilederInstruks from './VeilederInstruks';
+import DeltakerInstruks from './deltakerInstruks/DeltakerInstruks';
+import ArbeidsgiverInstruks from './arbeidsgiverInstruks/ArbeidsgiverInstruks';
+import VeilederInstruks from './veilederInstruks/VeilederInstruks';
 import { sjekkOmAvtaleErPilot } from '@/services/rest-service';
 
 const GodkjenningInstruks: FunctionComponent = () => {
