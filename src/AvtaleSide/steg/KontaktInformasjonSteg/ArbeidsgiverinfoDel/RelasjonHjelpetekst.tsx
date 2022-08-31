@@ -10,15 +10,14 @@ const RelasjonHjelpetekst: FunctionComponent = () => {
             Du kan ikke få tilskudd til arbeidsmarkedstiltak for egne familiemedlemmer eller andre du har et nært
             forhold til, med mindre særlige grunner foreligger.
             <VerticalSpacer rem={0.5} />
-            Er det en nær relasjon mellom deg eller noen i virksomheten og arbeidstakeren skal du huke av for dette i
-            boksen under.
+            Er det en nær relasjon mellom deg eller noen i virksomheten og deltakeren skal du huke av for dette i boksen under.
             <VerticalSpacer rem={0.5} />
-            Du kan søke om oppstart av lønnstilskudd selv om du har en nær relasjon til arbeidstakeren, men du må oppgi
-            at det er en nær relasjon og utdype tilknytningen. NAV vil deretter vurdere om det foreligger særlige
-            grunner for likevel å innvilge tiltaket.
+            Du kan søke om oppstart av lønnstilskudd selv om du har en nær relasjon til deltakeren, men du må oppgi
+            at det er en nær relasjon og utdype tilknytningen. NAV vil deretter vurdere om det foreligger særlige grunner for likevel å innvilge tiltaket.
+            <VerticalSpacer rem={0.5} />
+            Den som fyller ut skjemaet og den meldingen gjelder er:
             {
                 <ul>
-                    <li>Den som fyller ut skjemaet og den meldingen gjelder er</li>
                     <li>Samme person</li>
                     <li>Ektefelle/partner/samboer/forlovet</li>
                     <li>Tidligere ektefelle/partner/samboer</li>
