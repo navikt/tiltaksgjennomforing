@@ -17,9 +17,9 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
-    const versjoner = Array.from(props.versjoner);
-    versjoner.sort((a, b) => a.versjon - b.versjon);
-    const versjonLenker = versjoner.map((avtaleVersjon) => {
+    const sorterteVersjoner = Array.from(props.versjoner);
+    sorterteVersjoner.sort((a, b) => a.versjon - b.versjon);
+    const versjonLenker = sorterteVersjoner.map((avtaleVersjon) => {
         return (
             <LenkepanelBase
                 key={avtaleVersjon.id}
@@ -52,7 +52,7 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
                     <VersjonModal
                         isOpen={isOpen}
                         lukkModal={() => setOpen(false)}
-                        avtaleInnhold={props.versjoner[currentVersjon > 0 ? currentVersjon - 1 : 0]}
+                        avtaleInnhold={sorterteVersjoner[currentVersjon > 0 ? currentVersjon - 1 : 0]}
                         tiltakstype={props.tiltakstype}
                     />
                 </>
