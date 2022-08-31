@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Money } from '@navikt/ds-icons';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { TiltaksType } from '@/types/avtale';
+import { Money } from '@navikt/ds-icons';
+import React, { FunctionComponent } from 'react';
 
 interface Props {
     tiltakstype: TiltaksType;
@@ -25,7 +25,7 @@ const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
             </p>
             <p>
                 {tiltakstype === 'MENTOR' && (
-                    <EksternLenke href={'https://www.nav.no/soknader/nb/bedrift/tilskudd-og-tiltak/mentor'}>
+                    <EksternLenke href={'https://www.nav.no/soknader/nb/bedrift/refusjoner/mentor'}>
                         Refusjonsskjema for mentortilskudd
                     </EksternLenke>
                 )}
