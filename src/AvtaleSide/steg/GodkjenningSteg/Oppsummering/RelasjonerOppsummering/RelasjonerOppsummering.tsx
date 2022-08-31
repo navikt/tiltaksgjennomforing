@@ -8,6 +8,9 @@ const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = props => {
     return (
         <div>
             <Undertittel>Relasjoner</Undertittel>
+            <Normaltekst>
+                Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?
+            </Normaltekst>
             <HvaManglerOppsummering
                 avhengigFelter={{
                     harFamilietilknytning: props.harFamilietilknytning !== null,
@@ -16,8 +19,7 @@ const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = props => {
                         : 'true',
                 }}
             >
-                <Element>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Element>
-                <Normaltekst>{props.harFamilietilknytning ? 'Ja' : ' Nei'}</Normaltekst>
+                <Element>{props.harFamilietilknytning ? 'Ja' : ' Nei'}</Element>
                 {props.familietilknytningForklaring && (
                     <>
                         <VerticalSpacer rem={1} />

@@ -47,7 +47,7 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     veilederEtternavn: 'veileders etternavn',
     veilederFornavn: 'veileders fornavn',
     veilederTlf: 'veileders telefonnummer',
-    harFamilietilknytning: 'har deltaker familietilknytning til arbeidsgiver',
+    harFamilietilknytning: 'familietilknytning',
     familietilknytningForklaring: 'forklaring på familietilknytning',
     feriepengerBelop: 'feriepenger opptjent',
     otpBelop: 'obligatorisk tjenestepensjon',
