@@ -4,8 +4,8 @@ import DelLenkeTilAvtalen from '@/AvtaleSide/DelLenkeTilAvtalen/DelLenkeTilAvtal
 import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
 import EndreInkluderingsutgifter from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreInkluderingsutgifter/EndreInkluderingsutgifter';
 import EndreTilskuddsberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForkortAvtale';
-import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/ForlengAvtale';
+import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/forkortAvtale/ForkortAvtale';
+import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/forlengAvtale/ForlengAvtale';
 import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import React, { useContext } from 'react';
@@ -13,7 +13,7 @@ import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnh
 import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/EndreMaal';
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
-import EndreOmMentor from "@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreOmMentor/EndreOmMentor";
+import EndreOmMentor from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreOmMentor/EndreOmMentor';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);

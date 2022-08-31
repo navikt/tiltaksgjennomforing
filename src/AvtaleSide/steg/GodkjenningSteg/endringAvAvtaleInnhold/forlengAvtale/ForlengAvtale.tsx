@@ -11,9 +11,13 @@ import { Datepicker } from 'nav-datovelger';
 import Lenke from 'nav-frontend-lenker';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
+import BEMHelper from '@/utils/bem';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import './forlengAvtale.less';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
+    const cls = BEMHelper('forlengAvtale');
 
     const [modalApen, setModalApen] = useState(false);
     const [sluttDato, setSluttDato] = useState<string | undefined>();
@@ -42,8 +46,12 @@ const ForlengAvtale: FunctionComponent = () => {
         }
     };
 
-    const forlengeTekst = (
-        <div style={{ minHeight: '20rem' }}>
+    const modalInnhold = (
+        <div className={cls.className}>
+            <div className={cls.element('navarende-sluttdato')}>
+                <Element>Nåværende sluttdato for avtalen</Element>
+                <Normaltekst>{avtaleContext.avtale.gjeldendeInnhold.sluttDato}</Normaltekst>
+            </div>
             <SkjemaGruppe feil={feil}>
                 <label className="skjemaelement__label">Velg ny sluttdato for avtalen</label>
                 <Datepicker
@@ -102,7 +110,7 @@ const ForlengAvtale: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={forleng}
                 lukkModal={lukkModal}
-                modalInnhold={forlengeTekst}
+                modalInnhold={modalInnhold}
             />
         </>
     );
