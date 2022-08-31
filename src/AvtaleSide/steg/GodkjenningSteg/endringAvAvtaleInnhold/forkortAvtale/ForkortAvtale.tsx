@@ -12,9 +12,13 @@ import { Datepicker } from 'nav-datovelger';
 import Lenke from 'nav-frontend-lenker';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import BEMHelper from '@/utils/bem';
+import './forkortAvtale.less';
 
 const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
+    const cls = BEMHelper('forkortAvtale');
 
     const [modalApen, setModalApen] = useState(false);
     const [sluttDato, setSluttDato] = useState<string | undefined>();
@@ -47,7 +51,11 @@ const ForkortAvtale: FunctionComponent = () => {
     };
 
     const forkorteTekst = (
-        <>
+        <div className={cls.className}>
+            <div className={cls.element('navarende-sluttdato')}>
+                <Element>Nåværende sluttdato for avtalen</Element>
+                <Normaltekst>{avtaleContext.avtale.gjeldendeInnhold.sluttDato}</Normaltekst>
+            </div>
             <SkjemaGruppe feil={datoFeil} title="Velg ny sluttdato for avtalen">
                 <Datepicker
                     inputProps={{ placeholder: 'dd.mm.åååå' }}
@@ -96,7 +104,7 @@ const ForkortAvtale: FunctionComponent = () => {
                 overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forkortes"
                 tilskuddsperioder={tilskuddsperioder}
             />
-        </>
+        </div>
     );
 
     const lukkModal = () => {
