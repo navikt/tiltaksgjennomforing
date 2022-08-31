@@ -17,12 +17,17 @@ const OpprettelseFullfortVeileder: React.FunctionComponent<RouteComponentProps<{
         props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
     };
 
-    const inputLabel = (
+    const inputLabel = (<>
         <Normaltekst className="opprettelseFullfortVeileder__undertittel">
-            For at arbeidsgiver og deltaker skal kunne fylle ut og godkjenne avtalen, må du kopiere og sende dem lenken
-            under. De må da logge seg inn via ID-porten.
+            For at arbeidsgiver skal kunne fylle ut og godkjenne avtalen må du kopiere og sende dem lenken under.
         </Normaltekst>
-    );
+        <Normaltekst className="opprettelseFullfortVeileder__undertittel">
+            Når du har fylt ut telefonnummeret til alle i avtalen, så kan du sende den på SMS via "del lenke til avtalen" i menyen.
+        </Normaltekst>
+        <Normaltekst className="opprettelseFullfortVeileder__undertittel">
+            Hvis det er ønskelig å sende lenke til avtalen via andre kanaler, for eksempel aktivitetsplanen eller e-post, er det adressen under som må benyttes.
+        </Normaltekst>
+    </>);
 
     const veilederpanel = (
         <VeilederpanelMedAvsjekkIkon>
