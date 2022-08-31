@@ -67,7 +67,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                 <VerticalSpacer rem={2} />
                 <div className={cls.element('infotekst')}>
                     <Ingress>
-                        Dette er en digital avtale som skal brukes av deltakeren, arbeidsgiveren og NAV. For å se
+                        Dette er en digital avtale som skal brukes av deltakeren, arbeidsgiveren, mentoren og NAV. For å se
                         avtalene du er en del av må du først logge på.
                     </Ingress>
                     <VerticalSpacer rem={2} />
