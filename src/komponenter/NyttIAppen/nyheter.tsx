@@ -6,6 +6,24 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(1, 9, 2022),
+        tittel: 'Digitale avtaler om mentor og inkluderingstilskudd lansert',
+        innhold: (
+            <>
+                <p>
+                    Fra 1. september er avtaler om mentor og inkluderingstilskudd tilgjengelig i avtaleløsningen.
+                    Papirskjema og søknadsskjema for arbeidsgiver i Altinn skal ikke benyttes lenger.
+                </p>
+                <EksternLenke href="https://navno.sharepoint.com/sites/intranett-produktomrader-og-utvikling/SitePages/Digital-avtale-om-tilskudd-til-mentor.aspx">
+                    Les mer om mentor på navet.
+                </EksternLenke>
+                <EksternLenke href="https://navno.sharepoint.com/sites/intranett-produktomrader-og-utvikling/SitePages/Avtale.aspx">
+                    Les mer om inkluderingstilskudd på navet.
+                </EksternLenke>
+            </>
+        ),
+    },
+    {
         dato: tilDato(19, 1, 2022),
         tittel: 'Kontonummer hentes nå opp automatisk',
         innhold: (
