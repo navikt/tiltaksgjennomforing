@@ -59,6 +59,7 @@ export type Feilkode =
     | 'KAN_IKKE_ENDRE_KONTAKTINFO_GRUNN_MANGLER'
     | 'KAN_IKKE_ENDRE_OPPFØLGING_OG_TILRETTELEGGING_GRUNN_MANGLER'
     | 'MANGLER_AD_GRUPPE_BESLUTTER'
+    | 'MANGLER_VEILEDER_PÅ_AVTALE'
     | 'KAN_IKKE_ENDRE_MAAL_TOM_LISTE'
     | 'KOSTNADSSTED_LIK_OPPFOLGINGSENHET'
     | 'KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL'
@@ -145,6 +146,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Kostnadssted blir satt lik oppfølgingsenhet ved avtaleinngåelse, trengs derfor ikke settes.',
     MANGLER_AD_GRUPPE_BESLUTTER:
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
+    'MANGLER_VEILEDER_PÅ_AVTALE': 'Avtalen trenger en veileder før du kan godkjenne',
     KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
     KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
     KVALIFISERINGSGRUPPE_IKKE_RETTIGHET:
