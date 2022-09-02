@@ -1,5 +1,4 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
@@ -35,9 +34,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
-
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const inkluderingstilskuddToggle = featureToggleContext[Feature.Inkluderingstiskudd];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -106,17 +102,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         (org) => org.OrganizationNumber === valgtBedriftNr
     )?.Name;
 
-    const mentorToggle = featureToggleContext[Feature.Mentor];
-    const erTiltakstypeSkruddPå = (tiltakstype: TiltaksType) => {
-        if (tiltakstype === 'MENTOR') {
-            return mentorToggle;
-        } else if (tiltakstype === 'INKLUDERINGSTILSKUDD') {
-            return inkluderingstilskuddToggle;
-        } else {
-            return true;
-        }
-    };
-
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
@@ -147,7 +132,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
                         {innloggetBruker.tilganger[valgtBedriftNr]
-                            .filter((tiltakstype) => erTiltakstypeSkruddPå(tiltakstype))
                             .map((tiltakType: TiltaksType, index: number) => (
                                 <RadioPanel
                                     key={index}

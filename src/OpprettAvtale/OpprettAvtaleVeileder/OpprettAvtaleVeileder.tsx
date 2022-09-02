@@ -1,5 +1,4 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -17,7 +16,7 @@ import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils'
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useContext, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtale.less';
 
@@ -34,7 +33,7 @@ export enum Avtalerolle {
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [mentorFnr, setMentorFnr] = useState('');
-    const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
+    const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState(false);
     const [bedriftNr, setBedriftNr] = useState('');
     const [bedriftNavn, setBedriftNavn] = useState('');
     const history = useHistory();
@@ -129,17 +128,12 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             return;
         }
 
-        setUyldigAvtaletype(valgtAvtaleType);
+        setUgyldigAvtaletype(valgtAvtaleType);
         setBedriftNrFeil(feilBedriftNr);
         setDeltakerFnrFeil(feilDeltakerFNR);
     };
 
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
-
-    const featureToggleContext = useContext(FeatureToggleContext);
-
-    const mentorToggle = featureToggleContext[Feature.Mentor];
-    const inkluderingstilskuddToggle = featureToggleContext[Feature.Inkluderingstiskudd];
 
     const radiopaneler = (
         <Innholdsboks>
@@ -162,7 +156,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     checked={valgtTiltaksType === 'ARBEIDSTRENING'}
                     onChange={() => {
                         setTiltaksType('ARBEIDSTRENING');
-                        setUyldigAvtaletype(false);
+                        setUgyldigAvtaletype(false);
                     }}
                 />
                 <RadioPanel
@@ -172,7 +166,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
                     onChange={() => {
                         setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD');
-                        setUyldigAvtaletype(false);
+                        setUgyldigAvtaletype(false);
                     }}
                 />
                 <RadioPanel
@@ -182,33 +176,32 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
                     onChange={() => {
                         setTiltaksType('VARIG_LONNSTILSKUDD');
-                        setUyldigAvtaletype(false);
+                        setUgyldigAvtaletype(false);
                     }}
                 />
-                {mentorToggle && (
-                    <RadioPanel
-                        name="tiltakstype"
-                        label="Mentor"
-                        value="MENTOR"
-                        checked={valgtTiltaksType === 'MENTOR'}
-                        onChange={() => {
-                            setTiltaksType('MENTOR');
-                            setUyldigAvtaletype(false);
-                        }}
-                    />
-                )}
-                {inkluderingstilskuddToggle && (
-                    <RadioPanel
-                        name="tiltakstype"
-                        label="Inkluderingstilskudd"
-                        value="INKLUDERINGSTILSKUDD"
-                        checked={valgtTiltaksType === 'INKLUDERINGSTILSKUDD'}
-                        onChange={() => {
-                            setTiltaksType('INKLUDERINGSTILSKUDD');
-                            setUyldigAvtaletype(false);
-                        }}
-                    />
-                )}
+
+                <RadioPanel
+                    name="tiltakstype"
+                    label="Mentor"
+                    value="MENTOR"
+                    checked={valgtTiltaksType === 'MENTOR'}
+                    onChange={() => {
+                        setTiltaksType('MENTOR');
+                        setUgyldigAvtaletype(false);
+                    }}
+                />
+
+                <RadioPanel
+                    name="tiltakstype"
+                    label="Inkluderingstilskudd"
+                    value="INKLUDERINGSTILSKUDD"
+                    checked={valgtTiltaksType === 'INKLUDERINGSTILSKUDD'}
+                    onChange={() => {
+                        setTiltaksType('INKLUDERINGSTILSKUDD');
+                        setUgyldigAvtaletype(false);
+                    }}
+                />
+
                 <RadioPanel
                     name="tiltakstype"
                     label="Sommerjobb"
@@ -216,11 +209,11 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     checked={valgtTiltaksType === 'SOMMERJOBB'}
                     onChange={() => {
                         setTiltaksType('SOMMERJOBB');
-                        setUyldigAvtaletype(false);
+                        setUgyldigAvtaletype(false);
                     }}
                 />
             </div>
-            {uyldigAvtaletype && (
+            {ugyldigAvtaletype && (
                 <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
             )}
         </Innholdsboks>

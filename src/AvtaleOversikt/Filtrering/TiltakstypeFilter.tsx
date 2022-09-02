@@ -1,15 +1,13 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { TiltaksType } from '@/types/avtale';
 import { Radio } from 'nav-frontend-skjema';
-import React, { Fragment, FunctionComponent, useContext } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
-    const featureToggles = useContext(FeatureToggleContext);
     const { endreFilter, filtre } = useFilter();
 
     const alleTiltakstyperBeslutter: OptionProps[] = [
@@ -25,15 +23,9 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
+        { value: 'MENTOR', label: 'Mentor' },
+        { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
     ];
-
-    if (featureToggles[Feature.Mentor]) {
-        alleTiltakstyperBeslutter.push({ value: 'MENTOR', label: 'Mentor' });
-        alleTiltakstyper.push({ value: 'MENTOR', label: 'Mentor' });
-    }
-    if (featureToggles[Feature.Inkluderingstiskudd]) {
-        alleTiltakstyper.push({ value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' });
-    }
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
 

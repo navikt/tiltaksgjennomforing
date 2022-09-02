@@ -2,10 +2,8 @@ import React, { createContext, useEffect, useState } from 'react';
 import { hentFeatureToggles } from './services/rest-service';
 
 export enum Feature {
-    Mentor = 'tag.tiltak.mentor',
     VisningAvKnappHentKontonummerForArbeidsgiver = 'tag.tiltak.viseHentArbeidsgiverKontonummer',
     VisNedetidBanner = 'tag.tiltak.visNedetidBanner',
-    Inkluderingstiskudd = 'tag.tiltak.inkluderingstilskudd',
 }
 
 export const alleFeatures = Object.values(Feature);

@@ -4,7 +4,6 @@ import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale
 import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
 import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import Banner from '@/komponenter/Banner/Banner';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -14,7 +13,7 @@ import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import Lenke from 'nav-frontend-lenker';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import './informasjonsside.less';
 
@@ -28,10 +27,6 @@ const tilbakeTilOversikt = (pathName: string) => {
 };
 const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
-
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const mentorToggle = featureToggleContext[Feature.Mentor];
-    const inkluderingstilskuddToggle = featureToggleContext[Feature.Inkluderingstiskudd];
 
     const veilederOgArbeidsgiverOppretter = (
         <IkonTekstRad
@@ -117,8 +112,8 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                                 <li>Avtale om midlertidig lønnstilskudd</li>
                                 <li>Avtale om varig lønnstilskudd</li>
                                 <li>Avtale om sommerjobb</li>
-                                {inkluderingstilskuddToggle && <li>Avtale om inkluderingstilskudd</li>}
-                                {mentorToggle && <li>Avtale om mentor</li>}
+                                <li>Avtale om inkluderingstilskudd</li>
+                                <li>Avtale om mentor</li>
                             </ul>
                             <br />
                             <span className={cls.element('lenke')}>
