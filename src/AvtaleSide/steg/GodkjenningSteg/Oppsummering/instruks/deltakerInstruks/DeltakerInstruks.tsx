@@ -1,28 +1,34 @@
-import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import '../instruks.less';
-import DittForholdTilArbeidsmiljLoven from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/deltakerInstruks/tekster/DittForholdTilArbeidsmiljøloven';
-import GiBeskjedHvisDuErBorteFraJobb from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/deltakerInstruks/tekster/GiBeskjedHvisDuErBorteFraJobb';
-import BehandlingAvPersonopplysninger from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/deltakerInstruks/tekster/BehandlingAvPersonopplysninger';
+import DeltakerArbeidstreningInstruks from './DeltakerArbeidstreningInstruks';
+import DeltakerInkluderingstilskuddInstruks from './DeltakerInkluderingstilskuddInstruks';
+import DeltakerMentorInstruks from './DeltakerMentorInstruks';
+import DeltakerMidlertidigLonnstilskuddInstruks from './DeltakerMidlertidigLonnstilskuddInstruks';
+import DeltakerSommerjobbInstruks from './DeltakerSommerjobbInstruks';
+import DeltakerVarigLonnstilskuddInstruks from './DeltakerVarigLonnstilskuddInstruks';
 
 interface Props {
     erLaast: boolean;
     tiltakstype: TiltaksType;
 }
 const DeltakerInstruksNy: FunctionComponent<Props> = (props) => {
-    const { erLaast, tiltakstype } = props;
-    return (
-        <>
-            {!erLaast && <Normaltekst>Når du godkjenner avtalen godtar du kravene fra NAV</Normaltekst>}
-            <VeilederpanelMedUtklippstavleIkon>
-                <DittForholdTilArbeidsmiljLoven tiltakstype={tiltakstype} />
-                <GiBeskjedHvisDuErBorteFraJobb tiltakstype={tiltakstype} />
-                <BehandlingAvPersonopplysninger tiltakstype={tiltakstype} />
-            </VeilederpanelMedUtklippstavleIkon>
-        </>
-    );
+    switch (props.tiltakstype) {
+        case 'MIDLERTIDIG_LONNSTILSKUDD':
+            return <DeltakerMidlertidigLonnstilskuddInstruks />;
+        case 'VARIG_LONNSTILSKUDD':
+            return <DeltakerVarigLonnstilskuddInstruks />;
+        case 'ARBEIDSTRENING':
+            return <DeltakerArbeidstreningInstruks />;
+        case 'SOMMERJOBB':
+            return <DeltakerSommerjobbInstruks />;
+        case 'MENTOR':
+            return <DeltakerMentorInstruks />;
+        case 'INKLUDERINGSTILSKUDD':
+            return <DeltakerInkluderingstilskuddInstruks />;
+        default:
+            return null;
+    }
 };
 
 export default DeltakerInstruksNy;
