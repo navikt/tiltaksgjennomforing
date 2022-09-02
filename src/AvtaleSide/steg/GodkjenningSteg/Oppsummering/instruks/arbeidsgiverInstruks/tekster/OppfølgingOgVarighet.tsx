@@ -1,15 +1,15 @@
-import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Calender } from '@navikt/ds-icons';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { TiltaksType } from '@/types/avtale';
+import { Calender } from '@navikt/ds-icons';
+import React, { FunctionComponent } from 'react';
 
 interface Props {
     tiltakstype: TiltaksType;
     eksternLenke: string;
 }
 
-const OppfLgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLenke }) => {
+const OppfølgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLenke }) => {
     if (!['MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'MENTOR', 'INKLUDERINGSTILSKUDD'].includes(tiltakstype)) {
         return null;
     }
@@ -27,4 +27,4 @@ const OppfLgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLen
         </IkonTekstRad>
     );
 };
-export default OppfLgingOgVarighet;
+export default OppfølgingOgVarighet;
