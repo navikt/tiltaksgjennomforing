@@ -3,6 +3,7 @@ import { Rolle } from '@/types/innlogget-bruker';
 
 export interface Varsel {
     id: string;
+    identifikator: string;
     lest: boolean;
     tekst: string;
     avtaleId: string;

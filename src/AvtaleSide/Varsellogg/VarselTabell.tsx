@@ -95,7 +95,11 @@ const VarselTabell: FunctionComponent<Props> = props => {
                                     </div>
                                 </td>
                                 <td role="cell" aria-labelledby="utført_av">
-                                    <UtgråetTekst grå={varsel.skjules}>{storForbokstav(varsel.utførtAv)}</UtgråetTekst>
+                                    {(varsel.hendelseType === 'TILSKUDDSPERIODE_GODKJENT' || varsel.hendelseType === 'GODKJENT_FOR_ETTERREGISTRERING') ? (
+                                        <UtgråetTekst grå={varsel.skjules}>{storForbokstav(varsel.identifikator)}</UtgråetTekst>
+                                    ) : (
+                                        <UtgråetTekst grå={varsel.skjules}>{storForbokstav(varsel.utførtAv)}</UtgråetTekst>
+                                    )}
                                 </td>
                             </tr>
                         ))}

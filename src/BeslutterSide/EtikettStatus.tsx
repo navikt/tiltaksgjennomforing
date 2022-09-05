@@ -6,6 +6,7 @@ import { TilskuddPeriodeStatus } from '@/types/avtale';
 type Props = {
     tilskuddsperiodestatus: TilskuddPeriodeStatus;
     antallKlarTilgodkjenning?: number;
+    godkjentAv?: string
 };
 
 const etikettStatus: { [key in TilskuddPeriodeStatus]: EtikettBaseProps['type'] } = {
@@ -22,6 +23,9 @@ const EtikettStatus: FunctionComponent<Props> = (props) => {
             <>
                 {props.antallKlarTilgodkjenning && props.antallKlarTilgodkjenning + ' '}
                 {tilskuddsperiodeStatusTekst[props.tilskuddsperiodestatus]}
+                {props.godkjentAv && (
+                    <>{' '}av {props.godkjentAv}</>
+                )}
             </>
         </EtikettBase>
     );
