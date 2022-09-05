@@ -2,27 +2,24 @@ import React, { FunctionComponent } from 'react';
 import { useCookies } from 'react-cookie';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { Knapp } from 'nav-frontend-knapper';
+import BEMHelper from '@/utils/bem';
+import './byttTilBeslutter.less';
 
 const ByttTilBeslutter: FunctionComponent = () => {
     const [, setCookie] = useCookies([INNLOGGET_PART]);
+    const cls = BEMHelper('byttTilBeslutter');
 
     const onClick = () => {
         setCookie(INNLOGGET_PART, 'BESLUTTER', { path: '/tiltaksgjennomforing' });
         window.location.href = '/tiltaksgjennomforing';
     };
     return (
-        <div
-            style={{
-                width: '100%',
-                backgroundColor: 'white',
-                display: 'flex',
-                justifyContent: 'center',
-                padding: '0.5rem',
-            }}
-        >
-            <Knapp mini onClick={onClick}>
-                Bytt til visning for beslutter
-            </Knapp>
+        <div className={cls.className}>
+            <div className={cls.element('container')}>
+                <Knapp mini onClick={onClick}>
+                    Bytt til visning for beslutter
+                </Knapp>
+            </div>
         </div>
     );
 };
