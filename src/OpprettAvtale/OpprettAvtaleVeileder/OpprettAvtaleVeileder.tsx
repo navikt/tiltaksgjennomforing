@@ -1,23 +1,29 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
-import { basename, pathTilInformasjonssideInnlogget, pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
-import { hentBedriftBrreg, opprettAvtaleSomVeileder, opprettMentorAvtale } from '@/services/rest-service';
+import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
+import {
+    hentBedriftBrreg,
+    opprettAvtaleSomVeileder,
+    opprettMentorAvtale,
+    sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
+} from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
+import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
-import { Innholdstittel, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
+import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
+import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
+import './opprettAvtaleVeileder.less';
 import './OpprettAvtale.less';
 
 const cls = BEMHelper('opprett-avtale');
@@ -31,11 +37,13 @@ export enum Avtalerolle {
 }
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
-    const [deltakerFnr, setDeltakerFnr] = useState('');
-    const [mentorFnr, setMentorFnr] = useState('');
-    const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState(false);
-    const [bedriftNr, setBedriftNr] = useState('');
-    const [bedriftNavn, setBedriftNavn] = useState('');
+    const [deltakerFnr, setDeltakerFnr] = useState<string>('');
+    const [mentorFnr, setMentorFnr] = useState<string>('');
+    const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState<boolean>(false);
+    const [bedriftNr, setBedriftNr] = useState<string>('');
+    const [bedriftNavn, setBedriftNavn] = useState<string>('');
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
+
     const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
@@ -56,7 +64,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         },
     ]);
 
-    const orgnrOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const orgnrOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const verdi = event.target.value.replace(/\D/g, '');
         if (/^\d{0,9}$/.test(verdi)) {
             setBedriftNr(verdi);
@@ -65,7 +73,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         }
     };
 
-    const orgnrOnBlur = () => {
+    const orgnrOnBlur = (): void => {
         if (validerBedriftNr()) {
             hentBedriftBrreg(bedriftNr)
                 .then((response) => {
@@ -133,162 +141,41 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         setDeltakerFnrFeil(feilDeltakerFNR);
     };
 
-    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
-
-    const radiopaneler = (
-        <Innholdsboks>
-            <Systemtittel>Velg type avtale</Systemtittel>
-            <Normaltekst>
-                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
-                <EksternLenke
-                    onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
-                    href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
-                >
-                    hvordan kan NAV hjelpe med inkludering
-                </EksternLenke>
-            </Normaltekst>
-            <VerticalSpacer rem={1} />
-            <div className={cls.element('tiltakstypeWrapper')}>
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Arbeidstrening"
-                    value="ARBEIDSTRENING"
-                    checked={valgtTiltaksType === 'ARBEIDSTRENING'}
-                    onChange={() => {
-                        setTiltaksType('ARBEIDSTRENING');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Midlertidig lønnstilskudd"
-                    value="MIDLERTIDIG_LONNSTILSKUDD"
-                    checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                    onChange={() => {
-                        setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Varig lønnstilskudd"
-                    value="VARIG_LONNSTILSKUDD"
-                    checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                    onChange={() => {
-                        setTiltaksType('VARIG_LONNSTILSKUDD');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Mentor"
-                    value="MENTOR"
-                    checked={valgtTiltaksType === 'MENTOR'}
-                    onChange={() => {
-                        setTiltaksType('MENTOR');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Inkluderingstilskudd"
-                    value="INKLUDERINGSTILSKUDD"
-                    checked={valgtTiltaksType === 'INKLUDERINGSTILSKUDD'}
-                    onChange={() => {
-                        setTiltaksType('INKLUDERINGSTILSKUDD');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Sommerjobb"
-                    value="SOMMERJOBB"
-                    checked={valgtTiltaksType === 'SOMMERJOBB'}
-                    onChange={() => {
-                        setTiltaksType('SOMMERJOBB');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-            </div>
-            {ugyldigAvtaletype && (
-                <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
-            )}
-        </Innholdsboks>
-    );
+    const sjekkOmAvtaleErOpprettet = async () => {
+        // TODO: Hent ut avtale fra backend
+        // sjekkOmDeltakerAlleredeErRegistrertPaaTiltak
+    };
 
     return (
-        <div className="opprett-avtale">
+        <div className={cls.className}>
             <Dokumenttittel tittel="Opprett avtale" />
-
-            <VerticalSpacer rem={1} />
-            <Innholdstittel style={{ textAlign: 'center' }}>Opprett avtale</Innholdstittel>
-            <VerticalSpacer rem={2} />
-            <Innholdsboks>
-                <Normaltekst>
-                    Er det første gang du skal opprette en avtale bør du lese gjennom {''}
-                    <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
-                        introduksjon til hvordan løsningen fungerer {''}
-                    </EksternLenke>
-                    og vite om{' '}
-                    <EksternLenke
-                        onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-link-apnet')}
-                        href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
-                    >
-                        de ulike støtteordningene på NAV.no.
-                    </EksternLenke>{' '}
-                    eller {''}
-                    <EksternLenke
-                        onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-navet-link-apnet')}
-                        href="https://navno.sharepoint.com/sites/fag-og-ytelser-arbeid-tiltak-og-virkemidler/SitePages/Alfabetisk-oversikt-over-alle-tiltak-og-virkemidler.aspx?web=1"
-                    >
-                        de ulike støtteordningene på Navet.
-                    </EksternLenke>
-                </Normaltekst>
-            </Innholdsboks>
-            <VerticalSpacer rem={1} />
-            {radiopaneler}
-            <VerticalSpacer rem={1} />
-            <Innholdsboks>
-                <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
-                <VerticalSpacer rem={1} />
-                <Input
-                    className="typo-element"
-                    label="Deltakers fødselsnummer"
-                    value={deltakerFnr}
-                    bredde={'M'}
-                    onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
-                    onBlur={validerDeltakerFnr}
-                    feil={deltakerFnrFeil}
-                />
-                <VerticalSpacer rem={1} />
-
-                <Input
-                    className="typo-element"
-                    label="Virksomhetsnummer"
-                    bredde={'M'}
-                    description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
-                    value={bedriftNr}
-                    onChange={orgnrOnChange}
-                    onBlur={orgnrOnBlur}
-                    feil={bedriftNrFeil}
-                />
-                {bedriftNavn && <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>}
-                <VerticalSpacer rem={1} />
-                {valgtTiltaksType === 'MENTOR' && (
-                    <Input
-                        className="typo-element"
-                        label="Mentors fødselsnummer"
-                        value={mentorFnr}
-                        bredde={'M'}
-                        onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
-                        onBlur={validerMentorFnr}
-                        feil={mentorFnrFeil}
-                    />
-                )}
-            </Innholdsboks>
+            <Innholdstittel className={cls.element('innholdstittel')}>Opprett avtale</Innholdstittel>
+            <InformasjonsboksTopVeilederOppretterAvtale />
+            <TiltaksTypeRadioPanel
+                className={cls.className}
+                setTiltaksType={setTiltaksType}
+                ugyldigAvtaletype={ugyldigAvtaletype}
+                valgtTiltaksType={valgtTiltaksType}
+                setUgyldigAvtaletype={setUgyldigAvtaletype}
+            />
+            <HvemSkalInngaaAvtalen
+                deltakerFnr={deltakerFnr}
+                setDeltakerFnr={setDeltakerFnr}
+                deltakerFnrFeil={deltakerFnrFeil}
+                setDeltakerFnrFeil={setDeltakerFnrFeil}
+                validerDeltakerFnr={validerDeltakerFnr}
+                bedriftNr={bedriftNr}
+                orgnrOnChange={orgnrOnChange}
+                orgnrOnBlur={orgnrOnBlur}
+                bedriftNrFeil={bedriftNrFeil}
+                bedriftNavn={bedriftNavn}
+                valgtTiltaksType={valgtTiltaksType}
+                mentorFnr={mentorFnr}
+                setMentorFnr={setMentorFnr}
+                mentorFnrFeil={mentorFnrFeil}
+                setMentorFnrFeil={setMentorFnrFeil}
+                validerMentorFnr={validerMentorFnr}
+            />
             <VerticalSpacer rem={1} />
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
