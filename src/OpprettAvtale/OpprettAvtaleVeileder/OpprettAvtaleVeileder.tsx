@@ -18,7 +18,7 @@ import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
 import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
@@ -141,10 +141,38 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         setDeltakerFnrFeil(feilDeltakerFNR);
     };
 
+    // 9 9 9 9 9 9 9 9 9
     const sjekkOmAvtaleErOpprettet = async () => {
-        // TODO: Hent ut avtale fra backend
-        // sjekkOmDeltakerAlleredeErRegistrertPaaTiltak
+        if (
+            deltakerFnr.length === 11 &&
+            !deltakerFnrFeil &&
+            bedriftNr.length === 9 &&
+            !bedriftNrFeil &&
+            valgtTiltaksType
+        ) {
+            try {
+                const listeAvtalerDeltakerAlleredeRegistrert = await sjekkOmDeltakerAlleredeErRegistrertPaaTiltak(
+                    deltakerFnr,
+                    valgtTiltaksType,
+                    null,
+                    null,
+                    null
+                );
+                if (listeAvtalerDeltakerAlleredeRegistrert.length > 0) {
+                    // TODO: Håndter at deltaker allerede er registrert på et tiltak
+                    console.log('Deltaker allerede registrert på et tiltak');
+                    console.log(listeAvtalerDeltakerAlleredeRegistrert);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
     };
+
+    useEffect(() => {
+        sjekkOmAvtaleErOpprettet();
+        // eslint-disable-next-line
+    }, [valgtTiltaksType, deltakerFnr, bedriftNr]);
 
     return (
         <div className={cls.className}>

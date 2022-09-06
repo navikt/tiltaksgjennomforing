@@ -255,14 +255,6 @@ export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => 
     );
 };
 
-/**
- *             @RequestParam("deltakerFnr") Fnr deltakerFnr,
- *             @RequestParam("tiltakstype") Tiltakstype tiltakstype,
- *             @RequestParam("avtaleId") UUID avtaleId,
- *             @RequestParam("startDato") LocalDate startDato,
- *             @RequestParam("sluttDato") LocalDate sluttDato
- */
-
 export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (
     deltakerFnr: string,
     tiltakstype: TiltaksType,
@@ -270,19 +262,18 @@ export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (
     startDato: string | null,
     sluttDato: string | null
 ): Promise<Avtale[]> => {
+    const avtaleID = avtaleId ? '&avtaleId=' + avtaleId : '';
+    const startdato = startDato ? '&startDato=' + startDato : '';
+    const sluttdato = sluttDato ? '&sluttDato=' + sluttDato : '';
     const response = await api.get(
         '/avtaler/deltaker-allerede-paa-tiltak?' +
             'deltakerFnr=' +
             deltakerFnr +
             '&tiltakstype=' +
             tiltakstype +
-            avtaleId
-            ? '&avtaleId=' + avtaleId
-            : '' + startDato
-            ? '&startDato=' + startDato
-            : '' + sluttDato
-            ? '&sluttDato=' + sluttDato
-            : ''
+            avtaleID +
+            startdato +
+            sluttdato
     );
     return response.data;
 };
