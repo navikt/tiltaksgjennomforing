@@ -1,24 +1,24 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const fetch = require('node-fetch');
-const whitelist = require('./whitelist');
 const apiProxy = require('../server/api-proxy');
 const tokenx = require('../server/tokenx');
+const azure = require('../server/azure').default
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
     APIGW_HEADER: process.env.APIGW_HEADER,
-    ISSO_LOGIN_URL: process.env.ISSO_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/isso'),
-    SELVBETJENING_LOGIN_URL:
-        process.env.SELVBETJENING_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/selvbetjening'),
+    //ISSO_LOGIN_URL: process.env.ISSO_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/isso'),
+    //SELVBETJENING_LOGIN_URL:
+    //    process.env.SELVBETJENING_LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/selvbetjening'),
     LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
     STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.dev-gcp.nais.io/',
 };
 
-if (!envProperties.LOGOUT_URL || !(envProperties.ISSO_LOGIN_URL || envProperties.SELVBETJENING_LOGIN_URL)) {
+if (!envProperties.LOGOUT_URL || !envProperties.LOGIN_URL) {
     console.error(
-        'Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, SELVBETJENING_LOGIN_URL, ISSO_LOGIN_URL.'
+        'Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, LOGIN_URL.'
     );
     process.exit(1);
 }
@@ -27,35 +27,35 @@ module.exports = function (app) {
     app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
         const innloggingskilder = [];
 
-        if (envProperties.SELVBETJENING_LOGIN_URL) {
+        if (!envProperties.INTERN_INGRESS) {
             innloggingskilder.push(
                 {
                     tittel: 'Som deltaker',
                     part: 'DELTAKER',
-                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                    url: envProperties.LOGIN_URL,
                 },{
                     tittel: 'Som mentor',
                     part: 'MENTOR',
-                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                    url: envProperties.LOGIN_URL,
                 },
                 {
                     tittel: 'Som arbeidsgiver',
                     part: 'ARBEIDSGIVER',
-                    url: envProperties.SELVBETJENING_LOGIN_URL,
+                    url: envProperties.LOGIN_URL,
                 }
             );
         }
-        if (envProperties.ISSO_LOGIN_URL) {
+        if (envProperties.INTERN_INGRESS) {
             innloggingskilder.push(
                 {
                     tittel: 'Som veileder',
                     part: 'VEILEDER',
-                    url: envProperties.ISSO_LOGIN_URL,
+                    url: envProperties.LOGIN_URL,
                 },
                 {
                     tittel: 'Som beslutter',
                     part: 'BESLUTTER',
-                    url: envProperties.ISSO_LOGIN_URL,
+                    url: envProperties.LOGIN_URL,
                 }
             );
         }
@@ -98,29 +98,14 @@ module.exports = function (app) {
         res.redirect('/tiltaksgjennomforing');
     });
 
-    const apiProxyConfig = {
-        changeOrigin: true,
-        pathRewrite: whitelist,
-        target: envProperties.APIGW_URL,
-        proxyTimeout: 30000,
-    };
-
     const gcpTokenExchange = async () => {
         const tokenxAuthClient = await tokenx.client();
-        apiProxy.setup(app, tokenxAuthClient);
+        const azureClient = await azure.client();
+        const azureTokenEndpoint = await azure.azureTokenEndpoint();
+        apiProxy.setup(app, tokenxAuthClient, azureClient, azureTokenEndpoint);
     };
 
-    if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp' || process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
-        gcpTokenExchange();
-    } else {
-        if (envProperties.APIGW_HEADER) {
-            apiProxyConfig.headers = {
-                'x-nav-apiKey': envProperties.APIGW_HEADER,
-            };
-        }
-
-        app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
-    }
+    gcpTokenExchange();
 
     app.use(
         '/tiltaksgjennomforing/stillingstitler',

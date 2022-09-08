@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: tiltaksgjennomforing
+  name: tiltaksgjennomforing-intern
   namespace: arbeidsgiver
   labels:
     team: arbeidsgiver
@@ -21,35 +21,32 @@ spec:
     - name: APIGW_URL
       value: '{{{api-gw-url}}}'
     - name: LOGIN_URL
-      value: '{{{login-url}}}'
+      value: /tiltaksgjennomforing/oauth2/login
     - name: LOGOUT_URL
-      value: '{{{logout-url}}}'
+      value: /oauth2/logout
     - name: ENABLE_EXTERNAL_MENU
       value: 'true'
     - name: DECORATOR_EXTERNAL_URL
       value: 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb'
     - name: STILLINGSTITLER_URL
-      value: '{{{stillingstitler-url}}}'
-    - name: API_AUDIENCE
-      value: '{{{api-audience}}}'
-  tokenx:
-    enabled: true
-  idporten:
-    clientUri: '{{{ingress}}}'
-    enabled: true
+      value: http://tiltak-stillingstitler
+    - name: API_SCOPE
+      value: '{{{api-scope}}}'
+    - name: INTERN_INGRESS
+      value: 'true'
+  azure:
+    application:
+      tenant: trygdeetaten.no
+      enabled: true
     sidecar:
       enabled: true
-      level: Level4
-      locale: nb
-      autoLogin: false
-      errorPath: ""
   accessPolicy:
     outbound:
       rules:
         - application: tiltak-proxy
           namespace: arbeidsgiver
-          cluster: '{{{proxy-cluster}}}'
+          cluster: dev-fss
         - application: tiltak-stillingstitler
           namespace: arbeidsgiver
       external:
-        - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
+        - host: tiltak-proxy.dev-fss-pub.nais.io

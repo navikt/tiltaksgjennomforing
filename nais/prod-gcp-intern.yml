@@ -3,5 +3,5 @@
 "login-url": "/tiltaksgjennomforing/oauth2/login"
 "logout-url": "/tiltaksgjennomforing/oauth2/logout"
 "stillingstitler-url": "http://tiltak-stillingstitler"
-"api-audience": "prod-fss:arbeidsgiver:tiltak-proxy"
+"api-scope": "api://prod-fss.arbeidsgiver.tiltak-proxy/.default"
 "proxy-cluster": "prod-fss"
