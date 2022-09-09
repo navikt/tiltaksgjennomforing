@@ -1,11 +1,12 @@
 import InfoRad from '@/AvtaleOversikt/EtterRegistrering/InfoRad';
 import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { tiltakstypeTekst } from '@/messages';
 import * as RestService from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import { Knapp } from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
 import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
@@ -129,7 +130,12 @@ const EtterRegistrering: FunctionComponent = () => {
                         </div>
                     )}
 
-                    {feilmelding && <AlertStripeFeil>{feilmelding}</AlertStripeFeil>}
+                    {feilmelding && (
+                        <>
+                            <VerticalSpacer rem={1} />
+                            <Alert variant="error">{feilmelding}</Alert>
+                        </>
+                    )}
                 </div>
             </Modal>
         </div>

@@ -1,5 +1,5 @@
+import { Alert, AlertProps } from '@navikt/ds-react';
 import classNames from 'classnames';
-import AlertStripe, { AlertStripeType } from 'nav-frontend-alertstriper';
 import Lukknapp from 'nav-frontend-lukknapp';
 import * as React from 'react';
 import './Varsel.less';
@@ -8,7 +8,7 @@ interface Props {
     timeout?: number;
     kanLukkes: boolean;
     onLukkVarsel?: () => void;
-    type: AlertStripeType;
+    type: AlertProps['variant'];
     className?: string;
     varselRef?: any;
 }
@@ -52,7 +52,7 @@ class VarselKomponent extends React.Component<Props, State> {
             <div>
                 {this.state.display && (
                     <div ref={this.props.varselRef} id="varsel_innhold" tabIndex={this.state.display ? 0 : -1}>
-                        <AlertStripe type={this.props.type} className={classNames('varsel', this.props.className)}>
+                        <Alert variant={this.props.type} className={classNames('varsel', this.props.className)}>
                             <div className="varsel__innhold">
                                 <div>{this.props.children}</div>
                                 {this.props.kanLukkes && (
@@ -63,7 +63,7 @@ class VarselKomponent extends React.Component<Props, State> {
                                     />
                                 )}
                             </div>
-                        </AlertStripe>
+                        </Alert>
                     </div>
                 )}
             </div>

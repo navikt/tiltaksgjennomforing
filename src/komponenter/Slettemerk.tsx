@@ -1,6 +1,6 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { slettemerkAvtale } from '@/services/rest-service';
-import { AlertStripeSuksess } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import LagreKnapp from './LagreKnapp/LagreKnapp';
@@ -24,7 +24,7 @@ const Slettemerk: FunctionComponent = () => {
                 <VerticalSpacer rem={2} />
                 {suksess && (
                     <>
-                        <AlertStripeSuksess>Avtalen er slettemerket og ikke lenger synlig</AlertStripeSuksess>
+                        <Alert variant="success">Avtalen er slettemerket og ikke lenger synlig</Alert>
                         <VerticalSpacer rem={1} />
                         <TilbakeTilOversiktLenke />
                     </>

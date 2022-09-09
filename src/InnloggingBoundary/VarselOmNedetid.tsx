@@ -1,7 +1,7 @@
 import { Feature } from '@/FeatureToggleProvider';
 import { hentFeatureTogglesVarianter } from '@/services/rest-service';
 import { Variant } from '@/types/unleash-variant';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
 export const VarselOmNedetid: FunctionComponent = () => {
@@ -17,9 +17,9 @@ export const VarselOmNedetid: FunctionComponent = () => {
 
     if (variant && variant.enabled) {
         return (
-            <AlertStripeAdvarsel>
+            <Alert variant="warning">
                 {variant.payload?.value || 'Vi opplever for tiden ustabilitet med løsningen for tiltaksgjennomføring'}
-            </AlertStripeAdvarsel>
+            </Alert>
         );
     } else {
         return null;

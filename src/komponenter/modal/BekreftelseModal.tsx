@@ -1,6 +1,6 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { CSSProperties, useEffect, useState } from 'react';
@@ -85,7 +85,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                         />
                     </div>
                 </div>
-                {feilmelding && <AlertStripeAdvarsel>{feilmelding}</AlertStripeAdvarsel>}
+                {feilmelding && <Alert variant="warning">{feilmelding}</Alert>}
             </Modal>
         </div>
     );

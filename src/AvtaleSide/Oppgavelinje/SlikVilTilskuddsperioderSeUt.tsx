@@ -1,9 +1,9 @@
+import TilskuddsPerioderVeileder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderVeileder';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import AlertStripe from 'nav-frontend-alertstriper';
+import { TilskuddsPeriode } from '@/types/avtale';
+import { Alert } from '@navikt/ds-react';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { TilskuddsPeriode } from '@/types/avtale';
-import TilskuddsPerioderVeileder from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderVeileder';
 
 interface Props {
     overskrift: string;
@@ -17,9 +17,9 @@ const SlikVilTilskuddsperioderSeUt: FunctionComponent<Props> = props => {
     return (
         <div style={{ border: '1px solid lightblue', borderRadius: '4px', padding: '1rem' }}>
             <VerticalSpacer rem={0.5} />
-            <AlertStripe type="info" form="inline">
+            <Alert variant="info" inline>
                 <Element>{props.overskrift}</Element>
-            </AlertStripe>
+            </Alert>
             <VerticalSpacer rem={0.5} />
             <TilskuddsPerioderVeileder tilskuddsperioder={props.tilskuddsperioder} />
         </div>

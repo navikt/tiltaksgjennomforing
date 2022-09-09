@@ -3,7 +3,7 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import { Knapp } from 'nav-frontend-knapper';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
@@ -132,9 +132,9 @@ const KontaktpersonRefusjoninfoDel = () => {
                                 />
                             </div>
                             {feilmelding && (
-                                <AlertStripeAdvarsel style={{ marginBottom: '1rem' }}>
+                                <Alert variant="warning" style={{ marginBottom: '1rem' }}>
                                     {feilmelding}
-                                </AlertStripeAdvarsel>
+                                </Alert>
                             )}
                             <Knapp onClick={() => resetRefusjonKontaktPerson()}>Fjern kontaktperson</Knapp>
                         </>

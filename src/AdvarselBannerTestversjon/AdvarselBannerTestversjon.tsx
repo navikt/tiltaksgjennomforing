@@ -1,6 +1,6 @@
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import BEMHelper from '@/utils/bem';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import React from 'react';
 import './AdvarselBannerTestversjon.less';
 
@@ -10,7 +10,7 @@ const AdvarselBannerTestversjon = () => {
     return (
         <>
             {window.location.hostname.includes('labs.nais.io') && (
-                <AlertStripeAdvarsel className={cls.className}>
+                <Alert variant='warning' className={cls.className}>
                     <b>Dette er en testversjon</b>
                     <br />
                     Her kan du bli bedre kjent med digitale avtaler for tiltaksgjennomføring.
@@ -27,7 +27,7 @@ const AdvarselBannerTestversjon = () => {
                         Vi ber også om at du ikke registrer ekte data i denne løsningen, da dette er en åpen
                         testversjon.
                     </LesMerPanel>
-                </AlertStripeAdvarsel>
+                </Alert>
             )}
         </>
     );
