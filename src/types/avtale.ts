@@ -64,7 +64,10 @@ export type Avtaleinnhold = {
     mentorTimelonn?: number;
 } & InkluderingsInnhold;
 
-export type MentorInnhold = Pick<Avtaleinnhold, 'mentorFornavn' | 'mentorEtternavn' | 'mentorTlf' | 'mentorOppgaver' | 'mentorAntallTimer' | 'mentorTimelonn'>;
+export type MentorInnhold = Pick<
+    Avtaleinnhold,
+    'mentorFornavn' | 'mentorEtternavn' | 'mentorTlf' | 'mentorOppgaver' | 'mentorAntallTimer' | 'mentorTimelonn'
+>;
 
 export type TiltaksType =
     | 'ARBEIDSTRENING'
@@ -340,6 +343,16 @@ export interface Inkluderingstilskuddsutgift {
     beløp: number;
     type: InkluderingstilskuddsutgiftType;
     tidspunktLagtTil?: string;
+}
+
+export interface AlleredeRegistrertAvtale {
+    id: string;
+    avtaleNr: number;
+    tiltakstype: TiltaksType;
+    status: AvtaleStatus;
+    deltakerFnr: string;
+    bedriftNr: string;
+    veilederNavIdent: string;
 }
 
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;

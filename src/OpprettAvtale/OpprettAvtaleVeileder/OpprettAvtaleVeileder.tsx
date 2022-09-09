@@ -1,7 +1,6 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import {
@@ -10,7 +9,7 @@ import {
     opprettMentorAvtale,
     sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
 } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
+import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import { handterFeil } from '@/utils/apiFeilUtils';
@@ -43,6 +42,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [bedriftNr, setBedriftNr] = useState<string>('');
     const [bedriftNavn, setBedriftNavn] = useState<string>('');
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
+    const [alleredeRegistrertAvtale, setAlleredeRegistrertAvtale] = useState<AlleredeRegistrertAvtale[] | []>([]);
 
     const history = useHistory();
 
@@ -141,8 +141,14 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         setDeltakerFnrFeil(feilDeltakerFNR);
     };
 
-    // 9 9 9 9 9 9 9 9 9
     const sjekkOmAvtaleErOpprettet = async () => {
+        console.log(
+            deltakerFnr.length === 11 &&
+                !deltakerFnrFeil &&
+                bedriftNr.length === 9 &&
+                !bedriftNrFeil &&
+                !!valgtTiltaksType
+        );
         if (
             deltakerFnr.length === 11 &&
             !deltakerFnrFeil &&
@@ -151,17 +157,14 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             valgtTiltaksType
         ) {
             try {
-                const listeAvtalerDeltakerAlleredeRegistrert = await sjekkOmDeltakerAlleredeErRegistrertPaaTiltak(
-                    deltakerFnr,
-                    valgtTiltaksType,
-                    null,
-                    null,
-                    null
-                );
+                const listeAvtalerDeltakerAlleredeRegistrert: AlleredeRegistrertAvtale[] | [] =
+                    await sjekkOmDeltakerAlleredeErRegistrertPaaTiltak(deltakerFnr, valgtTiltaksType, null, null, null);
+                console.log('listeAvtalerDeltakerAlleredeRegistrert', listeAvtalerDeltakerAlleredeRegistrert);
                 if (listeAvtalerDeltakerAlleredeRegistrert.length > 0) {
                     // TODO: Håndter at deltaker allerede er registrert på et tiltak
                     console.log('Deltaker allerede registrert på et tiltak');
                     console.log(listeAvtalerDeltakerAlleredeRegistrert);
+                    setAlleredeRegistrertAvtale(listeAvtalerDeltakerAlleredeRegistrert);
                 }
             } catch (error) {
                 console.log(error);
@@ -203,8 +206,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 mentorFnrFeil={mentorFnrFeil}
                 setMentorFnrFeil={setMentorFnrFeil}
                 validerMentorFnr={validerMentorFnr}
+                alleredeRegistrertAvtale={alleredeRegistrertAvtale}
             />
-            <VerticalSpacer rem={1} />
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
                     lagre={opprettAvtaleKlikk}

@@ -4,7 +4,8 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Input } from 'nav-frontend-skjema';
 import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
-import { TiltaksType } from '@/types/avtale';
+import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
+import AlleredeOpprettetAvtaleAdvarsel from '@/OpprettAvtale/OpprettAvtaleVeileder/AlleredeOpprettetAvtaleAdvarsel';
 
 interface Props {
     deltakerFnr: string;
@@ -23,6 +24,7 @@ interface Props {
     mentorFnrFeil: string | undefined;
     setMentorFnrFeil: Dispatch<SetStateAction<string | undefined>>;
     validerMentorFnr: () => boolean;
+    alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
 }
 
 const HvemSkalInngaaAvtalen: React.FC<Props> = ({
@@ -42,6 +44,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
     mentorFnrFeil,
     setMentorFnrFeil,
     validerMentorFnr,
+    alleredeRegistrertAvtale,
 }) => {
     return (
         <Innholdsboks>
@@ -81,6 +84,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                     feil={mentorFnrFeil}
                 />
             )}
+            <AlleredeOpprettetAvtaleAdvarsel alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
         </Innholdsboks>
     );
 };

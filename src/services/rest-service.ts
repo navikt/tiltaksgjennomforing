@@ -6,6 +6,7 @@ import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtale
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import {
+    AlleredeRegistrertAvtale,
     Avslagsårsaker,
     Avtale,
     Bedriftinfo,
@@ -261,7 +262,7 @@ export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (
     avtaleId: string | null,
     startDato: string | null,
     sluttDato: string | null
-): Promise<Avtale[]> => {
+): Promise<AlleredeRegistrertAvtale[] | []> => {
     const avtaleID = avtaleId ? '&avtaleId=' + avtaleId : '';
     const startdato = startDato ? '&startDato=' + startDato : '';
     const sluttdato = sluttDato ? '&sluttDato=' + sluttDato : '';
