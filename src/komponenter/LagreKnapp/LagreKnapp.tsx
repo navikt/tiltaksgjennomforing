@@ -1,9 +1,9 @@
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
+import { Feilkode } from '@/types/feilkode';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import KnappBase, { Knapp } from 'nav-frontend-knapper';
 import React, { Component } from 'react';
 import './LagreKnapp.less';
-import { Feilkode } from '@/types/feilkode';
 
 interface State {
     suksessmelding: string;
@@ -114,7 +114,7 @@ class LagreKnapp extends Component<Props, State> {
                     <VarselKomponent
                         kanLukkes={false}
                         timeout={5000}
-                        type={'suksess'}
+                        type={'success'}
                         onLukkVarsel={this.fjernSuksessmelding}
                         className={'lagreknapp__varsel'}
                         varselRef={this.varselRef}
@@ -125,7 +125,7 @@ class LagreKnapp extends Component<Props, State> {
                 {this.state.feilmelding && (
                     <VarselKomponent
                         kanLukkes={true}
-                        type={'advarsel'}
+                        type={'warning'}
                         onLukkVarsel={this.fjernFeilmelding}
                         className={'lagreknapp__varsel'}
                         varselRef={this.varselRef}

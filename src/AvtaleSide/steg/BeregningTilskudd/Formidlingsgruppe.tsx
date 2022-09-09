@@ -1,5 +1,5 @@
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { genererGyldigListeMedlemmer } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Alert } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 
 export enum Formidlingsgruppe {
@@ -35,7 +35,7 @@ export const SjekkOmGyldigFormidlingsgruppe: FunctionComponent<Props> = (props) 
     const { formidlingsgruppe } = props;
     if (ugyldigFormidlingsgruppe(formidlingsgruppe)) {
         return (
-            <AlertStripeAdvarsel>
+            <Alert variant="warning">
                 <div style={{ marginBottom: '0.5rem' }}>
                     {hentFeilMeldingForUgyldigFormidlingsgruppe(formidlingsgruppe)}
                 </div>
@@ -48,7 +48,7 @@ export const SjekkOmGyldigFormidlingsgruppe: FunctionComponent<Props> = (props) 
                     'Formidlingsgruppe',
                     hentFormidlingsgruppeTekst
                 )}
-            </AlertStripeAdvarsel>
+            </Alert>
         );
     }
     return null;

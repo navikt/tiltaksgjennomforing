@@ -5,8 +5,8 @@ import { hentVarsellogg } from '@/services/rest-service';
 import { Nettressurs, Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
+import { Alert } from '@navikt/ds-react';
 import moment from 'moment';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Lenke from 'nav-frontend-lenker';
 import Modal from 'nav-frontend-modal';
 import NavFrontendSpinner from 'nav-frontend-spinner';
@@ -67,9 +67,9 @@ const Varsellogg: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
                 {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
                     <>
-                        <AlertStripeInfo>
+                        <Alert variant="info">
                             Denne avtalen ble opprettet før hendelsesloggen ble innført og vil være mangelfull.
-                        </AlertStripeInfo>
+                        </Alert>
                         <VerticalSpacer rem={1} />
                     </>
                 )}

@@ -1,3 +1,5 @@
+import ByttTilBeslutter from '@/InnloggingBoundary/byttTilBeslutter/ByttTilBeslutter';
+import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
 import decoratorconfig from '@/internflateDekorator/decoratorconfig';
 import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 import { useAsyncError } from '@/komponenter/useError';
@@ -12,8 +14,6 @@ import { useHistory } from 'react-router';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
-import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
-import ByttTilBeslutter from '@/InnloggingBoundary/byttTilBeslutter/ByttTilBeslutter';
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
@@ -72,7 +72,7 @@ const InnloggingBoundary: FunctionComponent = (props) => {
         );
     } else if (feilmelding) {
         return (
-            <VarselKomponent kanLukkes={false} type={'advarsel'}>
+            <VarselKomponent kanLukkes={false} type={'warning'}>
                 {feilmelding}
             </VarselKomponent>
         );

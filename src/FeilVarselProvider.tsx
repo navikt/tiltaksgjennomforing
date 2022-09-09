@@ -11,7 +11,7 @@ export const FeilVarselProvider: FunctionComponent = (props) => {
     return (
         <>
             {feilVarsel && (
-                <VarselKomponent kanLukkes={true} type="advarsel" onLukkVarsel={() => setFeilVarsel(undefined)}>
+                <VarselKomponent kanLukkes={true} type="warning" onLukkVarsel={() => setFeilVarsel(undefined)}>
                     {feilVarsel}
                 </VarselKomponent>
             )}
