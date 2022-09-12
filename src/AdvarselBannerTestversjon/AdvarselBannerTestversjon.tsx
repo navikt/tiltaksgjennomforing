@@ -24,6 +24,8 @@ const AdvarselBannerTestversjon = () => {
                         For å teste hele flyten, kan du logge inn som veileder, opprette en avtale på fnr:{' '}
                         <b>23090170716</b> (fiktivt) og bedriftnr: <b>999999999</b>.
                         <br />
+                        Skal du opprette mentor-avtale kan du bruke fnr: <b>23090170716</b> som mentor og fnr: <b>00000000000</b> som deltaker.
+                        <br />
                         Vi ber også om at du ikke registrer ekte data i denne løsningen, da dette er en åpen
                         testversjon.
                     </LesMerPanel>
