@@ -25,7 +25,7 @@ module.exports = function (app) {
     app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
         const innloggingskilder = [];
 
-        if (!envProperties.INTERN_INGRESS) {
+        if (!process.env.INTERN_INGRESS) {
             innloggingskilder.push(
                 {
                     tittel: 'Som deltaker',
@@ -43,7 +43,7 @@ module.exports = function (app) {
                 }
             );
         }
-        if (envProperties.INTERN_INGRESS) {
+        if (process.env.INTERN_INGRESS) {
             innloggingskilder.push(
                 {
                     tittel: 'Som veileder',
