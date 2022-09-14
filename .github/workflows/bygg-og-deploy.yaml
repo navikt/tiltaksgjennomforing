@@ -49,7 +49,7 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-gcp-intern.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-gcp-intern.yml
+          VARS: nais/dev-gcp-intern.yaml
 
   deploy-dev-gcp-ekstern:
     name: Deploy til dev-gcp ekstern
@@ -66,4 +66,4 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-gcp-ekstern.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-gcp-ekstern.yml
+          VARS: nais/dev-gcp-ekstern.yaml
