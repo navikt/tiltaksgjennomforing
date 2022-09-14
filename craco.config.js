@@ -2,7 +2,6 @@ const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const { EnvironmentPlugin } = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const { defaults } = require('jest-config');
 const internflateDecoratorHtmlWebpackPlugin = require('./plugins/internflateDecoratorHtmlWebpackPlugin');
 const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
 
@@ -43,14 +42,7 @@ module.exports = {
         configure: {
             moduleNameMapper: {
                 '^@/(.*)$': '<rootDir>/src/$1',
-                // '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-                // '\\.(css|less)$': '<rootDir>/src/mocking/styleMock.js',
-                //'<rootDir>/src/mocking/fileMock.js',
             },
-            //transformIgnorePatterns: ['<rootDir>/node_modules/(?!@navikt/ds-icons)'],
-            // transform: {
-            //     '^.+\\.(css|less)$': '<rootDir>/src/mocking/styleMock.js',
-            // },
         },
     },
 };

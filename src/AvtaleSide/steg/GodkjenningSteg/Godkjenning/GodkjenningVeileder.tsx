@@ -4,7 +4,7 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
 import GodkjennPaVegneAvArbeidsgiver from './GodkjennPaVegneAvArbeidsgiver';
@@ -53,9 +53,9 @@ const GodkjenningVeileder: FunctionComponent = () => {
 
             {avtale.gjeldendeInnhold.harFamilietilknytning && (
                 <>
-                    <AlertStripeAdvarsel>
+                    <Alert variant="warning">
                         OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
-                    </AlertStripeAdvarsel>
+                    </Alert>
                     <VerticalSpacer rem={1} />
                 </>
             )}

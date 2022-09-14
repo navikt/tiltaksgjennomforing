@@ -18,7 +18,7 @@ import BEMHelper from '@/utils/bem';
 import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { storForbokstav } from '@/utils/stringUtils';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
@@ -131,20 +131,19 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr]
-                            .map((tiltakType: TiltaksType, index: number) => (
-                                <RadioPanel
-                                    key={index}
-                                    name="tiltakstype"
-                                    label={storForbokstav(tiltakstypeTekst[tiltakType])}
-                                    value={tiltakType}
-                                    checked={valgtTiltaksType === tiltakType}
-                                    onChange={() => {
-                                        setTiltaksType(tiltakType);
-                                        setUyldigAvtaletype(false);
-                                    }}
-                                />
-                            ))}
+                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
+                            <RadioPanel
+                                key={index}
+                                name="tiltakstype"
+                                label={storForbokstav(tiltakstypeTekst[tiltakType])}
+                                value={tiltakType}
+                                checked={valgtTiltaksType === tiltakType}
+                                onChange={() => {
+                                    setTiltaksType(tiltakType);
+                                    setUyldigAvtaletype(false);
+                                }}
+                            />
+                        ))}
                     </div>
                     {uyldigAvtaletype && (
                         <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
@@ -153,10 +152,10 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                 <Innholdsboks className={cls.element('innholdsboks')}>
                     <Systemtittel className={cls.element('innholdstittel')}>Hvem skal inngå i avtalen</Systemtittel>
                     <VerticalSpacer rem={1} />
-                    <AlertStripeInfo>
+                    <Alert variant="info">
                         I feltet “Opprettes på bedrift” er det viktig at virksomhetsnummeret er det samme som der det
                         blir registrert inntekt for deltaker i A-meldingen.
-                    </AlertStripeInfo>
+                    </Alert>
                     <VerticalSpacer rem={1} />
                     <Input
                         className="typo-element"
@@ -198,7 +197,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     )}
                 </Innholdsboks>
 
-                <AlertStripeInfo>
+                <Alert variant="info">
                     <Element>Dette skjer etter at du har opprettet avtalen</Element>
                     <Normaltekst>
                         <ul>
@@ -210,7 +209,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                             </li>
                         </ul>
                     </Normaltekst>
-                </AlertStripeInfo>
+                </Alert>
 
                 <div className={cls.element('knappRad')}>
                     <LagreKnapp

@@ -1,3 +1,5 @@
+import ByttTilBeslutter from '@/InnloggingBoundary/byttTilBeslutter/ByttTilBeslutter';
+import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
 import decoratorconfig from '@/internflateDekorator/decoratorconfig';
 import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 import { useAsyncError } from '@/komponenter/useError';
@@ -12,8 +14,6 @@ import { useHistory } from 'react-router';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
-import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
-import ByttTilBeslutter from '@/InnloggingBoundary/ByttTilBeslutter';
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
@@ -27,19 +27,15 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     navEnheter: [],
 });
 
-const InnloggingBoundary: FunctionComponent = props => {
+const InnloggingBoundary: FunctionComponent = (props) => {
     const [brukmeny, setbrukmeny] = useState<boolean>();
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
     const throwError = useAsyncError();
     const history = useHistory();
 
     useEffect(() => {
-        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate')
-            .then(setbrukmeny)
-            .catch(throwError);
-        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes')
-            .then(setBrukBackupmeny)
-            .catch(throwError);
+        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(setbrukmeny).catch(throwError);
+        sjekkOmMenySkalBrukes('/tiltaksgjennomforing/skal-backupmeny-brukes').then(setBrukBackupmeny).catch(throwError);
     }, [throwError]);
 
     const [cookies, setCookie] = useCookies();
@@ -50,7 +46,7 @@ const InnloggingBoundary: FunctionComponent = props => {
 
         const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
 
-        if (['ARBEIDSGIVER', 'DELTAKER','MENTOR', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
+        if (['ARBEIDSGIVER', 'DELTAKER', 'MENTOR', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
             setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
             urlParametere.delete('part');
             history.replace({ search: urlParametere.toString() });
@@ -76,7 +72,7 @@ const InnloggingBoundary: FunctionComponent = props => {
         );
     } else if (feilmelding) {
         return (
-            <VarselKomponent kanLukkes={false} type={'advarsel'}>
+            <VarselKomponent kanLukkes={false} type={'warning'}>
                 {feilmelding}
             </VarselKomponent>
         );
