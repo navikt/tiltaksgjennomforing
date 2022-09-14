@@ -97,10 +97,14 @@ module.exports = function (app) {
     });
 
     const gcpTokenExchange = async () => {
-        const tokenxAuthClient = await tokenx.client();
-        const azureClient = await azure.client();
-        const azureTokenEndpoint = await azure.azureTokenEndpoint();
-        apiProxy.setup(app, tokenxAuthClient, azureClient, azureTokenEndpoint);
+        if(process.env.INTERN_INGRESS) {
+            const azureClient = await azure.client();
+            const azureTokenEndpoint = await azure.azureTokenEndpoint();
+            apiProxy.setup(app, null, azureClient, azureTokenEndpoint);
+        } else {
+            const tokenxAuthClient = await tokenx.client();
+            apiProxy.setup(app, tokenxAuthClient, null, null);
+        }
     };
 
     gcpTokenExchange();

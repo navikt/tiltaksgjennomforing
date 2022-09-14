@@ -20,7 +20,7 @@ const setup = (app, tokenxClient, azureClient, azureTokenEndpoint) => {
             proxyReqOptDecorator: async (options, req) => {
 
                 const accessToken =
-                    internIngress ?
+                    process.env.INTERN_INGRESS ?
                         await tokenx.getTokenExchangeAccessToken(tokenxClient, req) :
                         await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req);
 
