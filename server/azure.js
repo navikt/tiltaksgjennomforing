@@ -55,4 +55,4 @@ const getOnBehalfOfAccessToken = async (azureClient, azureTokenEndpoint, req) =>
     return backendTokenSet.access_token;
 };
 
-export default { azureTokenEndpoint, client, getOnBehalfOfAccessToken };
+module.exports = { azureTokenEndpoint, client, getOnBehalfOfAccessToken };
