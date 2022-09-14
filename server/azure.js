@@ -1,4 +1,4 @@
-import { Issuer } from 'openid-client';
+const {Issuer} = require('openid-client');
 
 const client = async () => {
     const azureConfig = {
