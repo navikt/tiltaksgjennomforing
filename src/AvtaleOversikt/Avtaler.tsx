@@ -33,7 +33,7 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
                 innloggetBruker={props.innloggetBruker}
             />
         ) : (
-            <AvtalekortMobil avtaler={props.avtalelisteRessurs.data} varsler={props.varsler} />
+            <AvtalekortMobil avtaler={props.avtalelisteRessurs.data} varsler={props.varsler} innloggetBruker={props.innloggetBruker} />
         );
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
         handterFeil(props.avtalelisteRessurs.error, feilVarsel);

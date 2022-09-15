@@ -1,4 +1,4 @@
-.etterRegistrering {
+.taushetserklæring {
     &__modal-container {
         overflow: visible;
         display: flex;
@@ -34,6 +34,7 @@
     &__lenker {
         display: flex;
         flex-direction: column;
+        line-height: 1.5rem;
     }
 
     &__lenke {
@@ -48,6 +49,29 @@
     @media (min-width: 768px) {
         &__modal {
             width: 40rem;
+
+            padding: 2.5rem;
+        }
+        &__panel_modal {
+            width: 100%;
+            padding: 0;
+        }
+
+        &__modal .varsel__innhold{
+            width:60%;
+        }
+    }
+    @media (min-width: 350px) {
+
+        &__modal .varsel__innhold{
+            width:60%;
+        }
+       &__topIconContainer {
+            right:43%;
+
+        }
+        &__modal {
+            width: 100%;
             padding: 2.5rem;
         }
         &__panel_modal {

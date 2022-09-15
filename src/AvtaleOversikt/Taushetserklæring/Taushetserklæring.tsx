@@ -24,7 +24,7 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
     avtale,
     togglesetTaushetserklæringForMentorAvtale,
 }) => {
-    const cls = BEMHelper('etterRegistrering');
+    const cls = BEMHelper('taushetserklæring');
     const history = useHistory();
     const [bekrefterGodkjennerTaushetserklæring, setBekrefterGodkjennerTaushetserklæring] = useState<boolean>(false);
 
@@ -49,7 +49,7 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
         >
             <div className={cls.element('modal')}>
                 <div className={cls.element('topIconContainer')}>
-                    <VarselTegnForModal width={'80px'} height={'80px'} />
+                    <VarselTegnForModal width={'80%'} height={'80px'} />
                 </div>
 
                 <Systemtittel className={cls.element('header')}>Signer taushetserklæring</Systemtittel>
@@ -58,12 +58,13 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                 <TausetserklæringTekst />
                 <BekreftCheckboksPanel
                     key={'Taushetserklæring-BekreftCheckboksPanel' + avtale.id}
+                    className={cls.element("bekreftelse")}
                     label="Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de lovbestemmelsene som er listet opp over"
                     checked={bekrefterGodkjennerTaushetserklæring}
                     onChange={() => setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)}
                 />
                 <LagreKnapp
-                    className={'etterRegistrering__lagreKnapp'}
+                    className={'taushetserklæring__lagreKnapp'}
                     label={'Signer Taushetserklæring'}
                     lagre={godkjennTaushetserklæring}
                 />
