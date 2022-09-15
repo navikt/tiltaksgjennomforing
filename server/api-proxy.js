@@ -3,7 +3,9 @@ const tokenx = require('./tokenx');
 const onbehalfof = require('./azure');
 
 const setup = (app, tokenxClient, azureClient, azureTokenEndpoint) => {
+    console.log('apiProxy setup');
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
+        console.log('apiProxy /tiltaksgjennomforing/api');
         if (!req.headers['authorization']) {
             res.status(401).send();
         } else {

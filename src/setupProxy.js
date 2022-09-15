@@ -97,13 +97,22 @@ module.exports = function (app) {
     });
 
     const gcpTokenExchange = async () => {
+        console.log('gcpTokenExchange kalles her');
+
         if(process.env.INTERN_INGRESS) {
-            const azureClient = await azure.client();
+
+            console.log('gcpTokenExchange: Intern ingress');
+            const azureClient = await azure.clent();
             const azureTokenEndpoint = await azure.azureTokenEndpoint();
+            console.log('intern ingress - neste kall er apiProxy.setup()');
             apiProxy.setup(app, null, azureClient, azureTokenEndpoint);
+            console.log('intern ingress - apiProxy.setup() er ferdig');
+
         } else {
+            console.log('gcpTokenExchange: Ekstern ingress');
             const tokenxAuthClient = await tokenx.client();
             apiProxy.setup(app, tokenxAuthClient, null, null);
+            console.log('gcpTokenExchange: Ekstern ingress - apiProxy.setup() er ferdig');
         }
     };
 
