@@ -72,7 +72,8 @@ export const inkluderingstilskuddForklaringTekst: { [key in Inkluderingstilskudd
     PROGRAMVARE: 'merkostnader til å kjøpe og installere programvare som skal brukes av personen, herunder teknologisk utstyr eller teknologiske hjelpemidler',
     TILRETTELEGGINGSBEHOV: 'nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den konkrete arbeidsplassen',
     TILTAKSPLASS: 'opprettelse av ekstra tiltaksplass, for eksempel kontormøbler',
-    UTSTYR: 'personlig utstyr som arbeidstøy, vernesko, databriller o.l. knyttet til arbeidet'
+    UTSTYR: 'personlig utstyr som arbeidstøy, vernesko, databriller o.l. knyttet til arbeidet',
+    FORSIKRING_LISENS_SERTIFISERING: 'nødvendige merutgifter til forsikring, lisenser, sertifisering o.l. knyttet til arbeidet'
 };
 
 export const inkluderingstilskuddtypeTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {
@@ -81,6 +82,7 @@ export const inkluderingstilskuddtypeTekst: { [key in Inkluderingstilskuddsutgif
     UTSTYR: 'c. Utstyr',
     ARBEIDSHJELPEMIDLER: 'd. Arbeidshjelpemidler',
     PROGRAMVARE: 'e. Programvare',
+    FORSIKRING_LISENS_SERTIFISERING: 'f. Forsikring, lisenser og sertifisering',
     OPPLÆRING: 'g. Opplæring'
 };
 
