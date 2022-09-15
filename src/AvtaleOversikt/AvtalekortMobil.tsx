@@ -1,6 +1,6 @@
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { avtaleStatusTekst } from '@/messages';
 import { pathTilAvtale } from '@/paths';
 import { Avtale } from '@/types/avtale';
