@@ -21,7 +21,7 @@ const client = async () => {
             redirect_uris: [azureConfig.redirectUri]
             
         },
-        { keys: [jwk] }
+        jwk
     );
 };
 
