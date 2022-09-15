@@ -6,6 +6,8 @@ const client = async () => {
         clientID: process.env.AZURE_APP_CLIENT_ID,
         privateJwk: process.env.AZURE_APP_JWKS,
         tokenEndpointAuthMethod: 'private_key_jwt',
+        tokenEndpointAuthSigningAlg: 'RS256',
+        redirectUri: process.env.AAD_REDIRECT_URL
     };
 
     const issuer = await Issuer.discover(azureConfig.discoveryUrl);
@@ -15,6 +17,9 @@ const client = async () => {
         {
             client_id: azureConfig.clientID,
             token_endpoint_auth_method: azureConfig.tokenEndpointAuthMethod,
+            token_endpoint_auth_signing_alg: azureConfig.tokenEndpointAuthSigningAlg,
+            redirect_uris: [azureAdConfig.redirectUri]
+            
         },
         { keys: [jwk] }
     );

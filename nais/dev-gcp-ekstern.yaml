@@ -5,3 +5,4 @@
 "stillingstitler-url": "http://tiltak-stillingstitler"
 "api-audience": "dev-fss:arbeidsgiver:tiltak-proxy"
 "proxy-cluster": "dev-fss"
+"aad-redirect-url": "https://tiltaksgjennomforing.dev.nav.no/oauth2/callback"

@@ -34,6 +34,8 @@ spec:
       value: '{{{api-scope}}}'
     - name: INTERN_INGRESS
       value: 'true'
+    - name: AAD_REDIRECT_URL
+      value: {{{aad-redirect-url}}}
   azure:
     application:
       tenant: trygdeetaten.no
