@@ -1,6 +1,6 @@
 const proxy = require('express-http-proxy');
 const tokenx = require('./tokenx');
-const onbehalfof = require('./azure').default;
+const onbehalfof = require('./azure');
 
 const setup = (app, tokenxClient, azureClient, azureTokenEndpoint) => {
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
