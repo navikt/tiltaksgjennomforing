@@ -102,7 +102,7 @@ module.exports = function (app) {
         if(process.env.INTERN_INGRESS) {
 
             console.log('gcpTokenExchange: Intern ingress');
-            const azureClient = await azure.clent();
+            const azureClient = await azure.client();
             const azureTokenEndpoint = await azure.azureTokenEndpoint();
             console.log('intern ingress - neste kall er apiProxy.setup()');
             apiProxy.setup(app, null, azureClient, azureTokenEndpoint);
