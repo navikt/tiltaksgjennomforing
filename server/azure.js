@@ -18,7 +18,7 @@ const client = async () => {
             client_id: azureConfig.clientID,
             token_endpoint_auth_method: azureConfig.tokenEndpointAuthMethod,
             token_endpoint_auth_signing_alg: azureConfig.tokenEndpointAuthSigningAlg,
-            redirect_uris: [azureAdConfig.redirectUri]
+            redirect_uris: [azureConfig.redirectUri]
             
         },
         { keys: [jwk] }
