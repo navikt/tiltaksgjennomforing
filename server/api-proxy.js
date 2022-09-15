@@ -21,10 +21,10 @@ const setup = (app, tokenxClient, azureClient, azureTokenEndpoint) => {
             },
             proxyReqOptDecorator: async (options, req) => {
 
-                const accessToken =
-                    process.env.INTERN_INGRESS ?
-                        await tokenx.getTokenExchangeAccessToken(tokenxClient, req) :
-                        await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req);
+                const accessToken = process.env.INTERN_INGRESS
+                    ? await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req)
+                    : await tokenx.getTokenExchangeAccessToken(tokenxClient, req);
+                        
 
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;
