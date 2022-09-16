@@ -35,6 +35,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     GODKJENNINGER_OPPHEVET_AV_VEILEDER: <OpphevetIkon />,
     DELT_MED_ARBEIDSGIVER: <></>,
     DELT_MED_DELTAKER: <></>,
+    DELT_MED_MENTOR : <></>,
     SMS_VARSLING_FEILET: <></>,
     GJENOPPRETTET: <GjenopprettIkon />,
     NY_VEILEDER: <VeilederIkon />,
