@@ -40,6 +40,9 @@ spec:
     application:
       tenant: trygdeetaten.no
       enabled: true
+      claims:
+        extra:
+          - NAVident
     sidecar:
       enabled: true
   accessPolicy:
