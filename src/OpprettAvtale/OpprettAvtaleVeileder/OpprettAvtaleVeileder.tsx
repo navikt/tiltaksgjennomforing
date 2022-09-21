@@ -24,6 +24,7 @@ import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettA
 import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
 import './opprettAvtaleVeileder.less';
 import './OpprettAvtale.less';
+import AlleredeOpprettetAvtaleModal from '@/OpprettAvtale/OpprettAvtaleVeileder/alleredeOpprettetTiltak/AlleredeOpprettetAvtaleModal';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -43,6 +44,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [bedriftNavn, setBedriftNavn] = useState<string>('');
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [alleredeRegistrertAvtale, setAlleredeRegistrertAvtale] = useState<AlleredeRegistrertAvtale[] | []>([]);
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
     const history = useHistory();
 
@@ -142,13 +144,6 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     };
 
     const sjekkOmAvtaleErOpprettet = async () => {
-        console.log(
-            deltakerFnr.length === 11 &&
-                !deltakerFnrFeil &&
-                bedriftNr.length === 9 &&
-                !bedriftNrFeil &&
-                !!valgtTiltaksType
-        );
         if (
             deltakerFnr.length === 11 &&
             !deltakerFnrFeil &&
@@ -159,11 +154,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
             try {
                 const listeAvtalerDeltakerAlleredeRegistrert: AlleredeRegistrertAvtale[] | [] =
                     await sjekkOmDeltakerAlleredeErRegistrertPaaTiltak(deltakerFnr, valgtTiltaksType, null, null, null);
-                console.log('listeAvtalerDeltakerAlleredeRegistrert', listeAvtalerDeltakerAlleredeRegistrert);
                 if (listeAvtalerDeltakerAlleredeRegistrert.length > 0) {
-                    // TODO: Håndter at deltaker allerede er registrert på et tiltak
-                    console.log('Deltaker allerede registrert på et tiltak');
-                    console.log(listeAvtalerDeltakerAlleredeRegistrert);
                     setAlleredeRegistrertAvtale(listeAvtalerDeltakerAlleredeRegistrert);
                 }
             } catch (error) {
@@ -207,6 +198,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 setMentorFnrFeil={setMentorFnrFeil}
                 validerMentorFnr={validerMentorFnr}
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale}
+                setModalIsOpen={setModalIsOpen}
             />
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
@@ -218,6 +210,11 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
 
                 <TilbakeTilOversiktLenke />
             </div>
+            <AlleredeOpprettetAvtaleModal
+                alleredeRegistrertAvtale={alleredeRegistrertAvtale}
+                modalIsOpen={modalIsOpen}
+                setModalIsOpen={setModalIsOpen}
+            />
         </div>
     );
 };

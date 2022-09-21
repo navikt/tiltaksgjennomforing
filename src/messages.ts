@@ -6,7 +6,7 @@ import {
     InkluderingstilskuddsutgiftType,
     Stillingstype,
     TilskuddPeriodeStatus,
-    TiltaksType
+    TiltaksType,
 } from './types/avtale';
 
 export const messages = {
@@ -62,17 +62,20 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     refusjonKontaktperson: 'refusjonKontaktperson',
     inkluderingstilskuddsutgift: '',
     inkluderingstilskuddBegrunnelse: 'Begrunnelse for inkluderingstilskudd',
-    inkluderingstilskuddTotalBeløp: 'Totalbeløp for inkluderingstilskudd'
-
+    inkluderingstilskuddTotalBeløp: 'Totalbeløp for inkluderingstilskudd',
 };
 
 export const inkluderingstilskuddForklaringTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {
-    ARBEIDSHJELPEMIDLER: 'nødvendige gjenstander og arbeidshjelpemidler personen trenger for å utføre arbeidet og tilpasninger som ikke kan dekkes etter folketrygdlovens § 10-5',
-    OPPLÆRING: 'nødvendige merutgifter til forsikring, lisenser, sertifisering o.l. knyttet til arbeidet, og ekstern opplæring for å kunne utføre arbeidet i virksomheten',
-    PROGRAMVARE: 'merkostnader til å kjøpe og installere programvare som skal brukes av personen, herunder teknologisk utstyr eller teknologiske hjelpemidler',
-    TILRETTELEGGINGSBEHOV: 'nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den konkrete arbeidsplassen',
+    ARBEIDSHJELPEMIDLER:
+        'nødvendige gjenstander og arbeidshjelpemidler personen trenger for å utføre arbeidet og tilpasninger som ikke kan dekkes etter folketrygdlovens § 10-5',
+    OPPLÆRING:
+        'nødvendige merutgifter til forsikring, lisenser, sertifisering o.l. knyttet til arbeidet, og ekstern opplæring for å kunne utføre arbeidet i virksomheten',
+    PROGRAMVARE:
+        'merkostnader til å kjøpe og installere programvare som skal brukes av personen, herunder teknologisk utstyr eller teknologiske hjelpemidler',
+    TILRETTELEGGINGSBEHOV:
+        'nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den konkrete arbeidsplassen',
     TILTAKSPLASS: 'opprettelse av ekstra tiltaksplass, for eksempel kontormøbler',
-    UTSTYR: 'personlig utstyr som arbeidstøy, vernesko, databriller o.l. knyttet til arbeidet'
+    UTSTYR: 'personlig utstyr som arbeidstøy, vernesko, databriller o.l. knyttet til arbeidet',
 };
 
 export const inkluderingstilskuddtypeTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {
@@ -81,7 +84,7 @@ export const inkluderingstilskuddtypeTekst: { [key in Inkluderingstilskuddsutgif
     UTSTYR: 'c. Utstyr',
     ARBEIDSHJELPEMIDLER: 'd. Arbeidshjelpemidler',
     PROGRAMVARE: 'e. Programvare',
-    OPPLÆRING: 'g. Opplæring'
+    OPPLÆRING: 'g. Opplæring',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
@@ -93,7 +96,7 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     SOMMERJOBB: 'sommerjobb',
 };
 
-export const avtaleTittel = {
+export const avtaleTittel: { [key in TiltaksType]: string } = {
     ARBEIDSTRENING: 'Avtale om arbeidstrening',
     MIDLERTIDIG_LONNSTILSKUDD: 'Avtale om midlertidig lønnstilskudd',
     VARIG_LONNSTILSKUDD: 'Avtale om varig lønnstilskudd',
@@ -159,7 +162,7 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtal
         case 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING':
             return 'oppfølging/tilrettelegging endret av veileder';
         case 'ENDRE_OM_MENTOR':
-                return 'om mentor endret av veileder';
+            return 'om mentor endret av veileder';
         case 'ANNULLERE':
             return '';
     }

@@ -5,7 +5,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Input } from 'nav-frontend-skjema';
 import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
-import AlleredeOpprettetAvtaleAdvarsel from '@/OpprettAvtale/OpprettAvtaleVeileder/AlleredeOpprettetAvtaleAdvarsel';
+import AlleredeOpprettetAvtaleAdvarsel from '@/OpprettAvtale/OpprettAvtaleVeileder/alleredeOpprettetTiltak/AlleredeOpprettetAvtaleAdvarsel';
 
 interface Props {
     deltakerFnr: string;
@@ -25,6 +25,7 @@ interface Props {
     setMentorFnrFeil: Dispatch<SetStateAction<string | undefined>>;
     validerMentorFnr: () => boolean;
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
+    setModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const HvemSkalInngaaAvtalen: React.FC<Props> = ({
@@ -45,6 +46,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
     setMentorFnrFeil,
     validerMentorFnr,
     alleredeRegistrertAvtale,
+    setModalIsOpen,
 }) => {
     return (
         <Innholdsboks>
@@ -84,7 +86,10 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                     feil={mentorFnrFeil}
                 />
             )}
-            <AlleredeOpprettetAvtaleAdvarsel alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
+            <AlleredeOpprettetAvtaleAdvarsel
+                alleredeRegistrertAvtale={alleredeRegistrertAvtale}
+                setModalIsOpen={setModalIsOpen}
+            />
         </Innholdsboks>
     );
 };

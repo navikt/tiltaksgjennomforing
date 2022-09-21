@@ -18,9 +18,7 @@ export const accurateHumanize = (duration: moment.Duration, accuracy: number = 2
         .map(({ unit, key }) => ({ value: duration.get(unit), key }))
         .filter(({ value, key }) => {
             if (beginFilter === false) {
-                if (value === 0) {
-                    return false;
-                }
+                if (value === 0) return false;
                 beginFilter = true;
             }
             componentCount++;
@@ -36,13 +34,10 @@ export const NORSK_DATO_FORMAT = 'DD.MM.YYYY';
 
 export const formatterDato = (dato: string, format: string = NORSK_DATO_OG_TID_FORMAT) => {
     try {
-        if (dato === '-999999999-01-01') {
-            return '';
-        }
+        if (dato === '-999999999-01-01') return '';
         const formattertDato = moment(dato).format(format);
         return !formattertDato.includes('NaN') ? formattertDato : dato;
     } catch (e) {
-        // Kunne ikke caste stringen til dato.
         return dato;
     }
 };
@@ -52,3 +47,10 @@ export const formatterPeriode = (fra: string, til: string, format: string = NORS
 };
 
 export const erDatoTilbakeITid = (dato?: string) => moment(dato).diff(moment(), 'days') < 0;
+
+export const visPeriodeForTiltak = (fra?: string, til?: string): string => {
+    if (fra && til) return formatterPeriode(fra, til, 'DD.MM.YY');
+    if (fra && !til) return formatterDato(fra, 'DD.MM.YY') + ' - sluttdato ikke satt';
+    if (!fra && til) return 'startdato ikke satt - ' + formatterDato(til, 'DD.MM.YY');
+    return 'ikke satt';
+};

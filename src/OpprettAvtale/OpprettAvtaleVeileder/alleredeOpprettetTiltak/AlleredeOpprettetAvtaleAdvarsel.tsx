@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { AlleredeRegistrertAvtale, AvtaleStatus } from '@/types/avtale';
 import AlertStripe from 'nav-frontend-alertstriper';
-import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import BEMHelper from '@/utils/bem';
 import './alleredeOpprettetAvtaleAdvarsel.less';
+import Lenke from 'nav-frontend-lenker';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
+    setModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAvtale }) => {
+const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAvtale, setModalIsOpen }) => {
     if (alleredeRegistrertAvtale.length === 0) return null;
     const cls = BEMHelper('alleredeOpprettetAvtaleAdvarsel');
 
@@ -27,22 +28,6 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
         ({ status }) => status === 'KLAR_FOR_OPPSTART' || status === 'GJENNOMFØRES'
     );
 
-    const getAvtaleStatus = (statusSomEnum: AvtaleStatus): JSX.Element | null => {
-        switch (statusSomEnum) {
-            case 'MANGLER_GODKJENNING':
-            case 'MANGLER_SIGNATUR':
-            case 'PÅBEGYNT':
-                return <StatusIkon status={'PÅBEGYNT'} />;
-            case 'GJENNOMFØRES':
-            case 'KLAR_FOR_OPPSTART':
-                return <StatusIkon status={'GJENNOMFØRES'} />;
-            default: {
-                console.error('mapping av allerede opprettet avtaler feilet: ');
-                return null;
-            }
-        }
-    };
-
     if (avtalerSomIkkeErIverksatt.length <= 0 && avtalerSomErIverksatt.length <= 0) return null;
 
     return (
@@ -54,7 +39,6 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
                         <li className={cls.element('list-element')}>
                             <div className={cls.element('list-element-content')}>
                                 {avtalerSomIkkeErIverksatt.length} som er under utfylding{' '}
-                                {getAvtaleStatus(avtalerSomIkkeErIverksatt[0].status)}{' '}
                             </div>
                         </li>
                     )}
@@ -62,11 +46,19 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
                         <li className={cls.element('list-element')}>
                             <div className={cls.element('list-element-content')}>
                                 {avtalerSomErIverksatt.length} som er i gangsatt{' '}
-                                {getAvtaleStatus(avtalerSomErIverksatt[0].status)}{' '}
                             </div>
                         </li>
                     )}
                 </ul>
+                <Lenke
+                    onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
+                        event.preventDefault();
+                        setModalIsOpen(true);
+                    }}
+                    href={'/modal/se-allerede-registrerte-tiltak'}
+                >
+                    Se detaljer
+                </Lenke>
             </AlertStripe>
         </div>
     );

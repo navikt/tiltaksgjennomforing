@@ -349,10 +349,16 @@ export interface AlleredeRegistrertAvtale {
     id: string;
     avtaleNr: number;
     tiltakstype: TiltaksType;
-    status: AvtaleStatus;
     deltakerFnr: string;
     bedriftNr: string;
     veilederNavIdent: string;
+    status: AvtaleStatus;
+    opprettetAvArbeidsgiver: boolean;
+    startDato: string;
+    sluttDato: string;
+    godkjentAvVeileder: string;
+    godkjentAvBeslutter: string;
+    avtaleInngått: string;
 }
 
 export type EndreOppfølgingOgTilretteleggingInfo = Oppfolging & Tilrettelegging;
