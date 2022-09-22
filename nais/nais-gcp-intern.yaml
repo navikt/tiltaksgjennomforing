@@ -38,7 +38,6 @@ spec:
       value: {{{aad-redirect-url}}}
   azure:
     application:
-      tenant: trygdeetaten.no
       enabled: true
       claims:
         extra:
