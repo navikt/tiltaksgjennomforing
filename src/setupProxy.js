@@ -104,8 +104,8 @@ module.exports = function (app) {
     });
 
     app.get('/tiltaksgjennomforing/fakelogin/aad', async (req, res) => {
-        const navIdent = req.headers['isso-id'] || 'Z123456';
-        const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=aad&aud=aud-aad&NAVident=${navIdent}`;
+        const navIdent = req.headers['navident'] || 'Z123456';
+        const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=aad&aud=fake-aad&NAVident=${navIdent}`;
         const response = await fetch(url);
         const data = await response.text();
         res.cookie('fake-aad-idtoken', data);
@@ -113,8 +113,8 @@ module.exports = function (app) {
     });
 
     app.get('/tiltaksgjennomforing/fakelogin/tokenx', async (req, res) => {
-        const subject = req.headers['selvbetjening-id'] || '23090170716';
-        const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=tokenx&aud=aud-tokenx&pid=${subject}&acr=Level4`;
+        const subject = req.headers['fnr'] || '23090170716';
+        const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=tokenx&aud=fake-tokenx&pid=${subject}&acr=Level4`;
         const response = await fetch(url);
         const data = await response.text();
         res.cookie('fake-tokenx-idtoken', data);
