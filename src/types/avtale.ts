@@ -330,7 +330,8 @@ export type InkluderingstilskuddsutgiftType =
     | 'UTSTYR'
     | 'PROGRAMVARE'
     | 'ARBEIDSHJELPEMIDLER'
-    | 'OPPLÆRING';
+    | 'OPPLÆRING'
+    | 'FORSIKRING_LISENS_SERTIFISERING';
 
 export interface InkluderingsInnhold {
     inkluderingstilskuddsutgift: Inkluderingstilskuddsutgift[];

@@ -72,6 +72,7 @@ const finnLedigeInkluderingstilskuddstyperInngåttAvtale = (
         'ARBEIDSHJELPEMIDLER',
         'PROGRAMVARE',
         'OPPLÆRING',
+        'FORSIKRING_LISENS_SERTIFISERING',
     ];
     brukteTyper.forEach((bruktType) => {
         if (bruktType.id === undefined) {
@@ -96,7 +97,8 @@ const finnLedigeInkluderingstilskuddstyper = (
         'UTSTYR',
         'ARBEIDSHJELPEMIDLER',
         'PROGRAMVARE',
-        'OPPLÆRING'
+        'OPPLÆRING',
+        'FORSIKRING_LISENS_SERTIFISERING'
     ] as const;
     return typer.filter((type) => !valgteTyper().includes(type));
 };

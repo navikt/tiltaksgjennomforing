@@ -1,4 +1,4 @@
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 
 export enum Kvalifiseringsgruppe {
@@ -27,12 +27,12 @@ export const SjekkKvalifiseringsgruppeOppMotTiltakstype:FunctionComponent<Props>
         (tiltakstype === 'VARIG_LONNSTILSKUDD' && !erGyldingKvalifiseringForVariglonntilskudd(kvalifiseringsgruppe))
     ) {
         return (
-            <AlertStripeAdvarsel>
+            <Alert variant="warning">
                 <div style={{ marginBottom: '0.5rem' }}>
                     {hentFeilMeldingForUgyldingKvalifiseringsgruppe(kvalifiseringsgruppe)}
                 </div>
                 {hentListeMedGyldigeGrupperForTiltak(tiltakstype)}
-            </AlertStripeAdvarsel>
+            </Alert>
         );
     }
     return null;

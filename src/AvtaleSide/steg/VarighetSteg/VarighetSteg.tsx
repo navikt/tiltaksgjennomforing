@@ -8,10 +8,10 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { sjekkOmAvtaleErPilot } from '@/services/rest-service';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
+import { Alert } from '@navikt/ds-react';
 import moment from 'moment';
 import 'moment/locale/nb';
 import { Datepicker } from 'nav-datovelger';
-import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
@@ -110,10 +110,10 @@ const VarighetSteg: FunctionComponent = () => {
                 {sommerjobbDeltakerOver30VedStartdato && (
                     <>
                         <VerticalSpacer rem={1} />
-                        <AlertStripeAdvarsel>
+                        <Alert variant="warning">
                             Deltaker kan ikke ha fylt 30år før startdatoen. Det vil ikke være mulig å starte opp
                             avtalen.
-                        </AlertStripeAdvarsel>
+                        </Alert>
                     </>
                 )}
                 {(erDatoTilbakeITid(avtaleContext.avtale.gjeldendeInnhold.startDato) ||
@@ -123,7 +123,7 @@ const VarighetSteg: FunctionComponent = () => {
                         {erArbeidsgiverOgUfordelt && (
                             <SkjemaelementFeilmelding>Dato kan ikke være tilbake i tid</SkjemaelementFeilmelding>
                         )}
-                        {!erArbeidsgiverOgUfordelt && <AlertStripeInfo>Obs! Datoen er tilbake i tid.</AlertStripeInfo>}
+                        {!erArbeidsgiverOgUfordelt && <Alert variant="info">Obs! Datoen er tilbake i tid.</Alert>}
                     </>
                 )}
                 <Row>

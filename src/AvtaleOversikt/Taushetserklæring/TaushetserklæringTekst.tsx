@@ -4,7 +4,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 
 const TausetserklæringTekst = () => {
-    const cls = BEMHelper('etterRegistrering');
+    const cls = BEMHelper('taushetserklæring');
     return (
         <div style={{ padding: '0.5rem' }}>
             <Systemtittel>Taushetsplikt for avtale</Systemtittel>

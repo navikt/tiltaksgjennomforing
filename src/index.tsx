@@ -1,3 +1,4 @@
+import '@navikt/ds-css';
 import { init as Sentry, Integrations } from '@sentry/react';
 import 'babel-polyfill';
 import * as React from 'react';

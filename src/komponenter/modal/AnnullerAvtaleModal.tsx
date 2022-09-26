@@ -3,7 +3,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import AlertStripe from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -46,9 +46,9 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
         <>
             <div>
                 <p>
-                    <AlertStripe type="info" form="inline">
+                    <Alert variant="info" inline>
                         Annullering brukes for tilfeller der tiltaket aldri ble noe av.
-                    </AlertStripe>
+                    </Alert>
                 </p>
                 <Normaltekst>
                     Når du annullerer avtalen, blir innholdet låst, og den blir markert som "annullert" i din oversikt.
@@ -97,9 +97,9 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                 </div>
             </div>
             {annullertGrunn === 'Feilregistrering' && (
-                <AlertStripe type="advarsel" form="inline">
+                <Alert variant="warning" inline>
                     Ved årsak <em>Feilregistrering</em> blir avtalen skjult for alle avtaleparter
-                </AlertStripe>
+                </Alert>
             )}
         </>
     );
