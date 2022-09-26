@@ -14,6 +14,8 @@ const azure = require('./server/azure');
 server.disable('x-powered-by');
 server.use(helmet());
 
+setupProxy(server);
+
 const basePath = '/tiltaksgjennomforing';
 const staticPaths = ['/static', '/index.css', '/asset-manifest.json'];
 
@@ -35,7 +37,6 @@ const serveAppWithMenu = app => {
 };
 
 const startServer = async () => {
-    setupProxy(server);
 
     if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp' || process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
         if(process.env.INTERN_INGRESS) {
