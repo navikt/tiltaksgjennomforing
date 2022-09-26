@@ -26,6 +26,11 @@ server.get('/tiltaksgjennomforing/internal/isReady', (req, res) => res.sendStatu
 const setStaticPath = slufix => server.use(basePath.concat(slufix), express.static(path.join(__dirname, 'build'.concat(slufix))));
 
 const startServer = async () => {
+    const port = process.env.PORT || 3000;
+    server.listen(port, () => console.log('server listening on port', port));
+};
+
+const setupOauth2Clients = async(server) => {
     if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp' || process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
         if (process.env.INTERN_INGRESS) {
             console.log('Intern ingress, setup azure klient');
@@ -42,22 +47,22 @@ const startServer = async () => {
     } else {
         lokalProxy.setup(server);
     }
-    const port = process.env.PORT || 3000;
-    server.listen(port, () => console.log('server listening on port', port));
-};
+}
 
-const serveAppWithMenu = app => {
+const serveAppWithMenu = async (app) => {
     staticPaths.forEach(staticpath => {
         setStaticPath(staticpath);
     });
+    await setupOauth2Clients(server)
     server.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) => {
         res.send(app);
     });
     startServer();
 };
 
-const serveAppWithOutMenu = () => {
+const serveAppWithOutMenu = async () => {
     setStaticPath('');
+    await setupOauth2Clients(server)
     server.get('/tiltaksgjennomforing/*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
     });
