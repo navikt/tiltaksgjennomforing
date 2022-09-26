@@ -1,10 +1,5 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const fetch = require('node-fetch');
-const whitelist = require('./whitelist');
-const apiProxy = require('../server/api-proxy');
-const lokalProxy = require('../server/lokalproxy');
-const tokenx = require('../server/tokenx');
-const azure = require('../server/azure');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 
@@ -126,29 +121,6 @@ module.exports = function (app) {
         res.clearCookie('fake-aad-idtoken');
         res.redirect('/tiltaksgjennomforing');
     });
-
-    const gcpTokenExchange = async () => {
-        if(process.env.INTERN_INGRESS) {
-            console.log('gcpTokenExchange: Intern ingress');
-            const azureClient = await azure.client();
-            const azureTokenEndpoint = await azure.azureTokenEndpoint();
-            console.log('intern ingress - neste kall er apiProxy.setup()');
-            apiProxy.setup(app, null, azureClient, azureTokenEndpoint);
-            console.log('intern ingress - apiProxy.setup() er ferdig');
-
-        } else {
-            console.log('gcpTokenExchange: Ekstern ingress');
-            const tokenxAuthClient = await tokenx.client();
-            apiProxy.setup(app, tokenxAuthClient, null, null);
-            console.log('gcpTokenExchange: Ekstern ingress - apiProxy.setup() er ferdig');
-        }
-    };
-
-    if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp' || process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
-        gcpTokenExchange();
-    } else {
-        lokalProxy.setup(app);
-    }
 
     app.use(
         '/tiltaksgjennomforing/stillingstitler',
