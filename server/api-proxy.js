@@ -1,6 +1,7 @@
 const proxy = require('express-http-proxy');
 const tokenx = require('./tokenx');
 const onbehalfof = require('./azure');
+const whitelist = require('../src/whitelist');
 
 const setup = (app, tokenxClient, azureClient, azureTokenEndpoint) => {
     console.log('apiProxy setup');
@@ -31,7 +32,6 @@ const setup = (app, tokenxClient, azureClient, azureTokenEndpoint) => {
             },
         })
     );
-
 };
 
 module.exports = { setup };

@@ -4,14 +4,18 @@ const setup = (app) => {
     console.log('Lokal proxy-setup');
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('Labs og localhost-proxy /tiltaksgjennomforing/api');
-        let cookies = req.headers.cookie.split(';');
-        let cookieWithFakeToken = cookies.filter((c) => {
-            return c.includes("fake")
-        })
-        if (cookieWithFakeToken.length === 0) {
-            res.status(401).send();
+        if(req.headers.cookie) {
+            let cookies = req.headers.cookie.split(';');
+            let cookieWithFakeToken = cookies.filter((c) => {
+                return c.includes("fake")
+            })
+            if (cookieWithFakeToken.length === 0) {
+                res.status(401).send();
+            } else {
+                next();
+            }
         } else {
-            next();
+            res.status(401).send();
         }
     })
 
@@ -28,14 +32,12 @@ const setup = (app) => {
                 let cookieWithFakeToken = cookies.filter((c) => {
                     return c.includes("fake")
                 })
-                console.log("faketoken", cookieWithFakeToken)
                 const accessToken = cookieWithFakeToken[0].split('=')[1]
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;
             },
         })
     );
-
 };
 
 module.exports = { setup };
