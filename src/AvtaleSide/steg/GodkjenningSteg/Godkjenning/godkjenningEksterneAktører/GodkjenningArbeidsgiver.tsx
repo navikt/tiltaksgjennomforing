@@ -6,12 +6,14 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { UfullstendigError } from '@/types/errors';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
+import GodkjenningInstruks from '../../Oppsummering/instruks/GodkjenningInstruks';
+import BEMHelper from '@/utils/bem';
 
 const GodkjenningArbeidsgiver: FunctionComponent = () => {
-    const {avtale, godkjenn} = useContext(AvtaleContext);
+    const { avtale, godkjenn } = useContext(AvtaleContext);
+    const cls = BEMHelper('godkjenning');
     const erLønnstilskuddEllerSommerjobb = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
-       avtale.tiltakstype
+        avtale.tiltakstype
     );
 
     const [bekreftetArbeidsAvtale, setBekreftetArbeidsAvtale] = useState<boolean>(false);
@@ -32,7 +34,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
     };
 
     const sjekkOmLønnstilskuddprosentErfyltUt = () => {
-        const felterSomIkkeErFyltUt =avtale.felterSomIkkeErFyltUt;
+        const felterSomIkkeErFyltUt = avtale.felterSomIkkeErFyltUt;
         if (felterSomIkkeErFyltUt.length === 1 && felterSomIkkeErFyltUt[0] === 'lonnstilskuddProsent') {
             throw new UfullstendigError(
                 'Før du kan godkjenne må veileder sette lønnstilskuddprosent. Avtalen er tilgjengelig for veileder nå.'
@@ -51,10 +53,9 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
     };
 
     return (
-        <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
+        <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
-
 
             {erLønnstilskuddEllerSommerjobb && (
                 <BekreftCheckboksPanel

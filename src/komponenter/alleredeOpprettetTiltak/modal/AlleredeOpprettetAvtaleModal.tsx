@@ -1,25 +1,16 @@
 import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
-import { AlleredeRegistrertAvtale } from '@/types/avtale';
-import AlleredeOpprettetAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/alleredeOpprettetTiltak/AlleredeOpprettetAvtale';
 import Modal from 'nav-frontend-modal';
 import VarselTegnForModal from '@/komponenter/modal/VarselTegnForModal';
 import BEMHelper from '@/utils/bem';
 import './alleredeOpprettetAvtaleModal.less';
-import { Systemtittel } from 'nav-frontend-typografi';
 
 interface Props {
-    alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
     modalIsOpen: boolean;
     setModalIsOpen: Dispatch<SetStateAction<boolean>>;
     style?: CSSProperties;
 }
 
-const AlleredeOpprettetAvtaleModal: React.FC<Props> = ({
-    alleredeRegistrertAvtale,
-    modalIsOpen,
-    setModalIsOpen,
-    style,
-}) => {
+const AlleredeOpprettetAvtaleModal: React.FC<Props> = ({ modalIsOpen, setModalIsOpen, style, children }) => {
     const cls = BEMHelper('alleredeOpprettetAvtaleModal');
 
     const setModalElement = () => {
@@ -47,15 +38,7 @@ const AlleredeOpprettetAvtaleModal: React.FC<Props> = ({
                     <div className={cls.element('topIconContainer')}>
                         <VarselTegnForModal width={'80px'} height={'80px'} />
                     </div>
-
-                    <div className={cls.element('body')}>
-                        <div className={cls.element('tittel')}>
-                            <Systemtittel id="Allerede registrerte tiltak for deltaker">
-                                Allerede registrerte tiltak for deltaker
-                            </Systemtittel>
-                        </div>
-                        <AlleredeOpprettetAvtale alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
-                    </div>
+                    {children}
                 </div>
             </Modal>
         </div>

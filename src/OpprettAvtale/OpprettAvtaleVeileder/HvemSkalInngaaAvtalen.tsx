@@ -5,7 +5,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Input } from 'nav-frontend-skjema';
 import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
-import AlleredeOpprettetAvtaleAdvarsel from '@/OpprettAvtale/OpprettAvtaleVeileder/alleredeOpprettetTiltak/AlleredeOpprettetAvtaleAdvarsel';
+import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
 
 interface Props {
     deltakerFnr: string;

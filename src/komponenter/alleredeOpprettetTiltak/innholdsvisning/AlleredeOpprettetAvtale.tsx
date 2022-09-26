@@ -4,10 +4,10 @@ import BEMHelper from '@/utils/bem';
 import './alleredeOpprettetAvtale.less';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { visPeriodeForTiltak } from '@/utils/datoUtils';
-import AlleredeOpprettetAvtaleDetaljer from '@/OpprettAvtale/OpprettAvtaleVeileder/alleredeOpprettetTiltak/AlleredeOpprettetAvtaleDetaljer';
 import { tiltakstypeTekst } from '@/messages';
-import RadInfo from '@/OpprettAvtale/OpprettAvtaleVeileder/alleredeOpprettetTiltak/RadInfo';
 import _ from 'lodash';
+import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
+import AlleredeOpprettetAvtaleDetaljer from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/AlleredeOpprettetAvtaleDetaljer';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];

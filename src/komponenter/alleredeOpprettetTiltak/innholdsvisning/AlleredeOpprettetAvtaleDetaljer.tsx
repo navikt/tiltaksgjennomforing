@@ -3,9 +3,9 @@ import BEMHelper from '@/utils/bem';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import Lenke from 'nav-frontend-lenker';
 import { NedChevron } from 'nav-frontend-chevron';
-import RadInfo from '@/OpprettAvtale/OpprettAvtaleVeileder/alleredeOpprettetTiltak/RadInfo';
 import { formatterDato } from '@/utils/datoUtils';
 import { avtaleStatusTekst } from '@/messages';
+import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
 
 interface Props {
     innhold: AlleredeRegistrertAvtale;

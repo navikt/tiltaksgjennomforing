@@ -260,21 +260,22 @@ export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (
     deltakerFnr: string,
     tiltakstype: TiltaksType,
     avtaleId: string | null,
-    startDato: string | null,
-    sluttDato: string | null
+    startdato: string | null,
+    sluttdato: string | null
 ): Promise<AlleredeRegistrertAvtale[] | []> => {
-    const avtaleID = avtaleId ? '&avtaleId=' + avtaleId : '';
-    const startdato = startDato ? '&startDato=' + startDato : '';
-    const sluttdato = sluttDato ? '&sluttDato=' + sluttDato : '';
+    const optionalAvtaleId: string = avtaleId ? '&avtaleId=' + avtaleId : '';
+    const optionalStartdato: string = startdato ? '&startDato=' + startdato : '';
+    const optionalSluttdato: string = sluttdato ? '&sluttDato=' + sluttdato : '';
+
     const response = await api.get(
         '/avtaler/deltaker-allerede-paa-tiltak?' +
             'deltakerFnr=' +
             deltakerFnr +
             '&tiltakstype=' +
             tiltakstype +
-            avtaleID +
-            startdato +
-            sluttdato
+            optionalAvtaleId +
+            optionalStartdato +
+            optionalSluttdato
     );
     return response.data;
 };

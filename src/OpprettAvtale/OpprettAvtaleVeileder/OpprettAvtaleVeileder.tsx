@@ -17,14 +17,15 @@ import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
 import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
 import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
 import './opprettAvtaleVeileder.less';
 import './OpprettAvtale.less';
-import AlleredeOpprettetAvtaleModal from '@/OpprettAvtale/OpprettAvtaleVeileder/alleredeOpprettetTiltak/AlleredeOpprettetAvtaleModal';
+import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
+import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -43,8 +44,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [bedriftNr, setBedriftNr] = useState<string>('');
     const [bedriftNavn, setBedriftNavn] = useState<string>('');
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
-    const [alleredeRegistrertAvtale, setAlleredeRegistrertAvtale] = useState<AlleredeRegistrertAvtale[] | []>([]);
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+    const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
 
     const history = useHistory();
 
@@ -144,13 +145,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     };
 
     const sjekkOmAvtaleErOpprettet = async () => {
-        if (
-            deltakerFnr.length === 11 &&
-            !deltakerFnrFeil &&
-            bedriftNr.length === 9 &&
-            !bedriftNrFeil &&
-            valgtTiltaksType
-        ) {
+        if (deltakerFnr.length === 11 && bedriftNr.length === 9 && valgtTiltaksType) {
             try {
                 const listeAvtalerDeltakerAlleredeRegistrert: AlleredeRegistrertAvtale[] | [] =
                     await sjekkOmDeltakerAlleredeErRegistrertPaaTiltak(deltakerFnr, valgtTiltaksType, null, null, null);
@@ -158,7 +153,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     setAlleredeRegistrertAvtale(listeAvtalerDeltakerAlleredeRegistrert);
                 }
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         }
     };
@@ -210,7 +205,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
 
                 <TilbakeTilOversiktLenke />
             </div>
-            <AlleredeOpprettetAvtaleModal
+            <OpprettAvtaleMedAlleredeOpprettetTiltak
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale}
                 modalIsOpen={modalIsOpen}
                 setModalIsOpen={setModalIsOpen}
