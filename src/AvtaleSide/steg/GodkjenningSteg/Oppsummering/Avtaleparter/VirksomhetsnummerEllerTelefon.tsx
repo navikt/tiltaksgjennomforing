@@ -1,5 +1,5 @@
 import { storForbokstav } from '@/utils/stringUtils';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 
@@ -9,7 +9,7 @@ interface Props {
     key?: number;
 }
 
-export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = props => {
+export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = (props) => {
     function hentTallMedDotterOgMellomrom() {
         return props.verdi?.split('').join('. ');
     }
@@ -18,13 +18,13 @@ export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = props => 
         return (
             <>
                 <Normaltekst key={props.key}>
-                    <Lenke
+                    <Link
                         key={props.key}
                         href={'tel:' + props.verdi}
                         aria-label={`Telefon ${hentTallMedDotterOgMellomrom()}`}
                     >
                         {storForbokstav(props.felt)} : {props.verdi}
-                    </Lenke>
+                    </Link>
                 </Normaltekst>
             </>
         );

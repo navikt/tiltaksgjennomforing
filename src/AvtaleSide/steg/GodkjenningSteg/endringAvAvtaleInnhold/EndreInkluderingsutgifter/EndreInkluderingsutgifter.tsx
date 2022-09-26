@@ -8,7 +8,7 @@ import { endreInkluderingstilskudd } from '@/services/rest-service';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Task } from '@navikt/ds-icons/cjs';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Element, Ingress } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EnTilskuddsutgift from '../../../InkluderingstilskuddSteg/EnTilskuddsutgift';
@@ -25,7 +25,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
         leggTilInkluderingstilskuddsutgift,
         endreInkluderingstilskuddsutgift,
         sletteInkluderingstilskuddsutgift,
-        resettListe
+        resettListe,
     } = useTilskuddsutgift(
         avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
         avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp
@@ -86,7 +86,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke
+            <Link
                 style={{ display: 'flex', alignItems: 'center' }}
                 onClick={(event) => {
                     event.stopPropagation();
@@ -100,7 +100,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                     <Task />
                 </div>
                 Legg til inkluderingstilskudd
-            </Lenke>
+            </Link>
             <BekreftelseModal
                 style={{ maxWidth: '40rem' }}
                 avbrytelseTekst="Avbryt"

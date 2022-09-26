@@ -5,7 +5,7 @@ import { oppdatereOppfølgingOgTilretteleggingInformasjon } from '@/services/res
 import { EndreOppfølgingOgTilretteleggingInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { MeetingRoom } from '@navikt/ds-icons/cjs';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreOppfølgingOgTilrettelegging.less';
@@ -74,7 +74,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke
+            <Link
                 onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
@@ -87,7 +87,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                     <MeetingRoom className={cls.element('ikon')} />
                 </div>
                 Endre oppfølging og tilrettelegging
-            </Lenke>
+            </Link>
             <BekreftelseModal
                 style={{ minWidth: '35rem' }}
                 avbrytelseTekst="Avbryt"

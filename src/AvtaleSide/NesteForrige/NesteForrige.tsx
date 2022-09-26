@@ -1,7 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { pathTilStegIAvtale } from '@/paths';
-import HoyreChevron from 'nav-frontend-chevron/lib/hoyre-chevron';
-import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
+import { Next, Back } from '@navikt/ds-icons';
 import React, { FunctionComponent, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { StegInfo } from '../AvtaleSide';
@@ -30,7 +29,7 @@ const finnNesteSteg = (alleSteg: StegInfo[], steg: StegInfo) => {
     }
 };
 
-const NesteForrige: FunctionComponent<Props> = props => {
+const NesteForrige: FunctionComponent<Props> = (props) => {
     const avtaleContext = useContext(AvtaleContext);
     const forrigeSteg = finnForrigeSteg(props.avtaleSteg, props.aktivtSteg);
     const nesteSteg = finnNesteSteg(props.avtaleSteg, props.aktivtSteg);
@@ -48,7 +47,7 @@ const NesteForrige: FunctionComponent<Props> = props => {
                     id="forrige"
                     aria-labelledby="forrige"
                 >
-                    <VenstreChevron />
+                    <Back style={{ display: 'inline-block' }} />
                     Forrige
                 </Link>
             )}
@@ -65,7 +64,7 @@ const NesteForrige: FunctionComponent<Props> = props => {
                     aria-labelledby="neste"
                 >
                     Neste
-                    <HoyreChevron />
+                    <Next style={{ display: 'inline-block' }} />
                 </Link>
             )}
         </div>

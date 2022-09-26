@@ -1,25 +1,24 @@
 import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
-import { pathTilInformasjonssideInnlogget } from '@/paths';
+import { pathTilInformasjonssideInnloggetNy } from '@/paths';
 import BEMHelper from '@/utils/bem';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
+import { LinkPanel } from '@navikt/ds-react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { Link } from 'react-router-dom';
 import './LesMerOmLøsningen.less';
 
 const cls = BEMHelper('les-mer-om-løsningen');
 
 const LesMerOmLøsningen: FunctionComponent = () => (
-    <LenkepanelBase
-        href={pathTilInformasjonssideInnlogget}
-        linkCreator={(props: any) => <Link to={{ pathname: props.href, search: window.location.search }} {...props} />}
-        className={cls.className}
-    >
-        <div style={{ display: 'flex' }}>
-            <Info width="24" height="24" />
-            <Normaltekst>Les mer om løsningen</Normaltekst>
-        </div>
-    </LenkepanelBase>
+    <>
+        <LinkPanel href={pathTilInformasjonssideInnloggetNy} className={cls.className}>
+            <LinkPanel.Title>
+                <div style={{ display: 'flex' }}>
+                    <Info width="24" height="24" />
+                    <Normaltekst>Les mer om løsningen</Normaltekst>
+                </div>
+            </LinkPanel.Title>
+        </LinkPanel>
+    </>
 );
 
 export default LesMerOmLøsningen;

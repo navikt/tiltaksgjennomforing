@@ -9,7 +9,7 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { DialogDots } from '@navikt/ds-icons/cjs';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreStillingbeskrivelse.less';
 
@@ -100,7 +100,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke
+            <Link
                 onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
@@ -113,7 +113,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                     <DialogDots className={cls.element('ikon')} />
                 </div>
                 Endre stillingsbeskrivelse
-            </Lenke>
+            </Link>
             <BekreftelseModal
                 style={{ minWidth: '35rem' }}
                 avbrytelseTekst="Avbryt"

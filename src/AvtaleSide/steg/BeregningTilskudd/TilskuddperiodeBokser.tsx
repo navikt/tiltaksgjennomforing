@@ -4,8 +4,9 @@ import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { AvtaleContext } from '@/AvtaleProvider';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { formatterPenger } from '@/utils/PengeUtils';
+
+import { Accordion } from '@navikt/ds-react';
 
 const TilskuddperiodeBokser: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -21,25 +22,30 @@ const TilskuddperiodeBokser: FunctionComponent = () => {
                 .filter((tp) => tp.aktiv)
                 .map((periode, index) => (
                     <React.Fragment key={index}>
-                        <Ekspanderbartpanel
-                            tittel={
-                                <Element>
-                                    Tilskudd for periode {formatterPeriode(periode.startDato, periode.sluttDato)}
-                                </Element>
-                            }
-                            apen={periode.løpenummer === 1}
-                        >
-                            <Normaltekst>
-                                Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum tilskudd
-                                for en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og ganger med
-                                antall dager i perioden.
-                            </Normaltekst>
-                            <VerticalSpacer rem={2} />
-                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <Normaltekst>{formatterPeriode(periode.startDato, periode.sluttDato)}</Normaltekst>
-                                <Element>Inntil {formatterPenger(periode.beløp)}</Element>
-                            </div>
-                        </Ekspanderbartpanel>
+                        <Accordion style={{ border: '1px solid #c6c2bf' }}>
+                            <Accordion.Item open={periode.løpenummer === 1}>
+                                <Accordion.Header style={{ backgroundColor: 'white' }}>
+                                    <Element>
+                                        Tilskudd for periode {formatterPeriode(periode.startDato, periode.sluttDato)}
+                                    </Element>
+                                </Accordion.Header>
+                                <Accordion.Content>
+                                    {' '}
+                                    <Normaltekst>
+                                        Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum
+                                        tilskudd for en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375)
+                                        og ganger med antall dager i perioden.
+                                    </Normaltekst>
+                                    <VerticalSpacer rem={2} />
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <Normaltekst>
+                                            {formatterPeriode(periode.startDato, periode.sluttDato)}
+                                        </Normaltekst>
+                                        <Element>Inntil {formatterPenger(periode.beløp)}</Element>
+                                    </div>
+                                </Accordion.Content>
+                            </Accordion.Item>
+                        </Accordion>
                         <VerticalSpacer rem={1} />
                     </React.Fragment>
                 ))}

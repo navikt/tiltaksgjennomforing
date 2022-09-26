@@ -1,5 +1,5 @@
 import { pathTilOversikt } from '@/paths';
-import VenstreChevron from 'nav-frontend-chevron/lib/venstre-chevron';
+import { Back } from '@navikt/ds-icons';
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import './TilbakeTilOversiktLenke.less';
@@ -10,7 +10,7 @@ type Props = {
     tekst?: string;
 };
 
-const TilbakeTilOversiktLenke: FunctionComponent<Props> = props => {
+const TilbakeTilOversiktLenke: FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('tilbaketiloversikt');
     return (
         <Link
@@ -20,7 +20,7 @@ const TilbakeTilOversiktLenke: FunctionComponent<Props> = props => {
             role="menuitem"
         >
             <div aria-hidden={true}>
-                <VenstreChevron className={cls.element('chevron')} />
+                <Back className={cls.element('chevron')} />
             </div>
             {props.tekst || 'Tilbake til oversikt'}
         </Link>

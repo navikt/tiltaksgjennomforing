@@ -8,6 +8,8 @@ export const pathTilInformasjonssideUinnlogget = '/informasjonsside/uinnlogget';
 
 export const pathTilInformasjonssideInnlogget = '/informasjonsside/innlogget';
 
+export const pathTilInformasjonssideInnloggetNy = '/tiltaksgjennomforing/informasjonsside/innlogget';
+
 const avtaleBase = '/avtale';
 
 export const pathTilOpprettAvtale = '/opprett-avtale';
@@ -24,6 +26,9 @@ export const pathTilOversiktISelvbetjeningProd = `https://arbeidsgiver.nav.no${b
 
 export const pathTilAvtale = (avtaleId: string, rolle: Rolle = 'INGEN_ROLLE'): string =>
     rolle === 'BESLUTTER' ? `${avtaleBase}/${avtaleId}/beslutte/` : `${avtaleBase}/${avtaleId}`;
+
+export const pathTilAvtaleNy = (avtaleId: string, rolle: Rolle = 'INGEN_ROLLE'): string =>
+    rolle === 'BESLUTTER' ? `${basename}${avtaleBase}/${avtaleId}/beslutte/` : `${basename}${avtaleBase}/${avtaleId}`;
 
 export const pathTilStegIAvtale = (avtaleId: string, steg: string) => `${pathTilAvtale(avtaleId)}/${steg}`;
 

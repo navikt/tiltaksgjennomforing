@@ -7,7 +7,7 @@ import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { Alert } from '@navikt/ds-react';
 import moment from 'moment';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import 'nav-frontend-tabell-style';
@@ -35,7 +35,7 @@ const Varsellogg: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke
+            <Link
                 id="varsellogglenke"
                 onClick={() => setVarselLoggModalApen(true)}
                 href="#"
@@ -46,8 +46,7 @@ const Varsellogg: FunctionComponent = () => {
                     <BurgerMenyIkon className={cls.element('burger-ikon')} />
                 </div>
                 Hendelselogg
-            </Lenke>
-
+            </Link>
             <Modal
                 isOpen={varselLoggModalApen}
                 onRequestClose={() => setVarselLoggModalApen(false)}

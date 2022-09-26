@@ -7,7 +7,7 @@ import { Maalkategori } from '@/types/maalkategorier';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
 import KnappBase from 'nav-frontend-knapper';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
@@ -64,7 +64,7 @@ const EndreMaal: FunctionComponent = () => {
     return (
         <>
             <div>
-                <Lenke
+                <Link
                     onClick={(event) => {
                         event.stopPropagation();
                         setModalApen(true);
@@ -80,7 +80,7 @@ const EndreMaal: FunctionComponent = () => {
                         <Notes style={{ marginRight: '0.5rem' }} />
                     </div>
                     Endre mål
-                </Lenke>
+                </Link>
             </div>
 
             <div className={'bekreftelseModal'}>

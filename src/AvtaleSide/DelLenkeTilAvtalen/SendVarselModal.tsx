@@ -5,7 +5,7 @@ import { pathTilOversiktISelvbetjeningProd } from '@/paths';
 import { delAvtaleMedAvtalepart } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { Knapp } from 'nav-frontend-knapper';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 import { Ingress, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
@@ -19,7 +19,7 @@ interface Props {
 
 const cls = BEMHelper('kopierlenke');
 
-const SendVarselModal: React.FunctionComponent<Props> = props => {
+const SendVarselModal: React.FunctionComponent<Props> = (props) => {
     const { avtale } = useContext(AvtaleContext);
 
     return (
@@ -59,21 +59,21 @@ const SendVarselModal: React.FunctionComponent<Props> = props => {
             />
 
             <VerticalSpacer rem={0.5} />
-            {avtale.tiltakstype === 'MENTOR' &&
+            {avtale.tiltakstype === 'MENTOR' && (
                 <LagreKnapp
                     label="Send til mentor"
                     lagre={() => delAvtaleMedAvtalepart(avtale.id, 'MENTOR')}
                     suksessmelding="SMS sendt til mentor"
                     knapptype={'standard'}
                 />
-            }
+            )}
 
             <VerticalSpacer rem={2} />
 
             <Undertittel>Send lenke manuelt</Undertittel>
             <div className={cls.element('lenkedeling')}>
                 <div className={cls.element('lenke')}>
-                    <Lenke href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Lenke>
+                    <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
                 </div>
                 <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
                     <Knapp mini={true} className={cls.element('kopier-knapp')}>

@@ -8,7 +8,7 @@ import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerIn
 import { endreOmMentor } from '@/services/rest-service';
 import { Task } from '@navikt/ds-icons/cjs';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 
@@ -116,7 +116,7 @@ const EndreOmMentor: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke
+            <Link
                 style={{ display: 'flex', alignItems: 'center' }}
                 onClick={(event) => {
                     event.stopPropagation();
@@ -129,7 +129,7 @@ const EndreOmMentor: FunctionComponent = () => {
                     <Task />
                 </div>
                 Endre om Mentor
-            </Lenke>
+            </Link>
             <BekreftelseModal
                 style={{ width: '40rem' }}
                 avbrytelseTekst="Avbryt"

@@ -2,8 +2,8 @@ import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
 import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import Lenke from 'nav-frontend-lenker';
+import { Accordion } from '@navikt/ds-react';
+import { Link } from '@navikt/ds-react';
 import { Undertekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
@@ -23,31 +23,35 @@ const Innloggingslinje: FunctionComponent<Props> = (props) => {
         <div className="innloggingslinje">
             <div className="innloggingslinje__innhold">
                 <MediaQuery minWidth={577}>
-                    <Lenke href="/tiltaksgjennomforing" ariaLabel="lenke til oversiktsiden">
+                    <Link href="/tiltaksgjennomforing">
+                        lenke til oversiktsiden
                         <div className={cls.element('navIkon')}>
                             <NavIkon />
                         </div>
-                    </Lenke>
+                    </Link>
                     <div className={cls.element('identitetogloggut')}>
                         <Undertekst className={cls.element('identitetogloggut__identitet')}>{bruker}</Undertekst>
                         <LoggUtKnapp />
                     </div>
                 </MediaQuery>
                 <MediaQuery maxWidth={576}>
-                    <Ekspanderbartpanel
-                        tittel={
-                            <div className={cls.element('mobileheader')}>
-                                <NavIkon />
-                                <div className={cls.element('brukernavn')} aria-label="innlogget bruker id">
-                                    {bruker}
+                    <Accordion style={{ border: '1px solid #c6c2bf' }}>
+                        <Accordion.Item>
+                            <Accordion.Header>
+                                <div className={cls.element('mobileheader')}>
+                                    <NavIkon />
+                                    <div className={cls.element('brukernavn')} aria-label="innlogget bruker id">
+                                        {bruker}
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                    >
-                        <div className={cls.className}>
-                            <LoggUtKnapp />
-                        </div>
-                    </Ekspanderbartpanel>
+                            </Accordion.Header>
+                            <Accordion.Content>
+                                <div className={cls.className}>
+                                    <LoggUtKnapp />
+                                </div>
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
                 </MediaQuery>
             </div>
         </div>

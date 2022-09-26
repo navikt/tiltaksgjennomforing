@@ -6,7 +6,8 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
-import { Menyknapp } from 'nav-frontend-ikonknapper';
+import { Button } from '@navikt/ds-react';
+import { Hamburger } from '@navikt/ds-icons';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 import React, { useContext, useState } from 'react';
 import Varsellogg from '../Varsellogg/Varsellogg';
@@ -55,7 +56,8 @@ const OppgaveLinje: React.FunctionComponent = () => {
                 )}
                 {!visKunHendelseslog && (
                     <>
-                        <Menyknapp
+                        <Button
+                            icon={<Hamburger />}
                             className={cls.element('popover-knapp')}
                             id="menyKnapp"
                             onClick={(e) => toggleMenu(e)}
@@ -64,7 +66,7 @@ const OppgaveLinje: React.FunctionComponent = () => {
                             aria-haspopup="menu"
                         >
                             Meny
-                        </Menyknapp>
+                        </Button>
                         <Popover
                             id={'menyvalg'}
                             ankerEl={dropdown}

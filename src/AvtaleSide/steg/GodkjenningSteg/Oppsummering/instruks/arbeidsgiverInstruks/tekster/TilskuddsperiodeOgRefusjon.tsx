@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import { Money } from '@navikt/ds-icons';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { TiltaksType } from '@/types/avtale';
 
 interface Props {
@@ -31,7 +31,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ erPilot, tiltaks
             </p>
             <p>
                 For å behandle refusjonen må du logge deg inn i refusjonsløsningen:
-                <Lenke href={'https://tiltak-refusjon.nav.no.'}> https://tiltak-refusjon.nav.no. </Lenke>
+                <Link href={'https://tiltak-refusjon.nav.no.'}> https://tiltak-refusjon.nav.no. </Link>
                 Tilgangen styres via Altinn og du må ha tilgangen “inntektsmelding” for å kunne sende inn refusjonskrav.
             </p>
             <p>

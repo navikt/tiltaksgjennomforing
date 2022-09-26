@@ -4,8 +4,8 @@ import { innholdTypeTekst } from '@/messages';
 import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { Element } from 'nav-frontend-typografi';
+import { LinkPanel } from '@navikt/ds-react';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { useState } from 'react';
 import './TidligereVersjoner.less';
 
@@ -21,7 +21,8 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
     sorterteVersjoner.sort((a, b) => a.versjon - b.versjon);
     const versjonLenker = sorterteVersjoner.map((avtaleVersjon) => {
         return (
-            <LenkepanelBase
+            <LinkPanel
+                className={cls.className}
                 key={avtaleVersjon.id}
                 href={'#'}
                 onClick={() => {
@@ -30,17 +31,19 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
                 }}
                 border={true}
             >
-                <div className={cls.element('rad')}>
-                    <Element>
-                        Versjon {avtaleVersjon.versjon}
-                        {avtaleVersjon.innholdType && <> - {innholdTypeTekst(avtaleVersjon)}</>}
-                    </Element>
-                    <div className={cls.element('dato')}>
-                        {avtaleVersjon.ikrafttredelsestidspunkt &&
-                            moment(avtaleVersjon.ikrafttredelsestidspunkt).format('DD.MM.YYYY')}
+                <LinkPanel.Title className={cls.element('linke-container')}>
+                    <div className={cls.element('rad')}>
+                        <Element>
+                            Versjon {avtaleVersjon.versjon}
+                            {avtaleVersjon.innholdType && <> - {innholdTypeTekst(avtaleVersjon)}</>}
+                        </Element>
+                        <Normaltekst>
+                            {avtaleVersjon.ikrafttredelsestidspunkt &&
+                                moment(avtaleVersjon.ikrafttredelsestidspunkt).format('DD.MM.YYYY')}
+                        </Normaltekst>
                     </div>
-                </div>
-            </LenkepanelBase>
+                </LinkPanel.Title>
+            </LinkPanel>
         );
     });
     return (

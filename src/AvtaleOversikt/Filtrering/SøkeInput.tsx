@@ -1,5 +1,6 @@
 import useValidering from '@/komponenter/useValidering';
-import { Søkeknapp } from 'nav-frontend-ikonknapper';
+import { Button } from '@navikt/ds-react';
+import { Search } from '@navikt/ds-icons';
 import { Input, InputProps } from 'nav-frontend-skjema';
 import React, { FormEvent, FunctionComponent, useState } from 'react';
 
@@ -47,7 +48,9 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
-            <Søkeknapp style={{ marginTop: '1rem' }} onClick={utførSøk} spinner={props.buttonSpinner} />
+            <Button icon={<Search />} iconPosition="right" onClick={utførSøk} loading={props.buttonSpinner}>
+                Søk
+            </Button>
         </>
     );
 };

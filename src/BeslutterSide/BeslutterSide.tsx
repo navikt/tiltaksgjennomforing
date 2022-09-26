@@ -1,22 +1,20 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import {avtaleTittel, tiltakstypeTekst} from '@/messages';
+import { avtaleTittel, tiltakstypeTekst } from '@/messages';
 import BEMHelper from '@/utils/bem';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import React, {Dispatch, FunctionComponent, SetStateAction, useContext, useState} from 'react';
+import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 import './BeslutterSide.less';
-import BeslutterPanel from "@/BeslutterSide/beslutterPanel/BeslutterPanel";
-import BeslutterTilskuddsPerioder from "@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperioder";
-import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import Innholdsboks from "@/komponenter/Innholdsboks/Innholdsboks";
-import OppsummeringLonnstilskudd
-    from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd";
+import BeslutterPanel from '@/BeslutterSide/beslutterPanel/BeslutterPanel';
+import BeslutterTilskuddsPerioder from '@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperioder';
+import { Accordion } from '@navikt/ds-react';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import { TiltaksType } from '@/types/avtale';
 import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
 import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
-
 
 const cls = BEMHelper('beslutter-side');
 
@@ -26,10 +24,10 @@ export interface Periode {
     enhet: string;
     setEnhet: Dispatch<SetStateAction<string>>;
     enhetFeil: string | undefined;
-    setEnhetFeil: Dispatch<SetStateAction<string | undefined>>
+    setEnhetFeil: Dispatch<SetStateAction<string | undefined>>;
 }
 
-export const TilskuddsperiodeContext = React.createContext<Periode>({} as Periode)
+export const TilskuddsperiodeContext = React.createContext<Periode>({} as Periode);
 
 const BeslutterSide: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -37,9 +35,11 @@ const BeslutterSide: FunctionComponent = () => {
     const [visAvslag, setVisAvslag] = useState(false);
     const defaultEnhet = gjeldendeTilskuddsperiode?.enhet || enhetOppfolging || enhetGeografisk || '';
     const [enhet, setEnhet] = useState(
-        gjeldendeTilskuddsperiode && gjeldendeTilskuddsperiode?.løpenummer > 1 ?
-            avtale.tilskuddPeriode[gjeldendeTilskuddsperiode?.løpenummer - 1].enhet ?? defaultEnhet : defaultEnhet);
-    const [enhetFeil, setEnhetFeil ] = useState<string | undefined>(undefined);
+        gjeldendeTilskuddsperiode && gjeldendeTilskuddsperiode?.løpenummer > 1
+            ? avtale.tilskuddPeriode[gjeldendeTilskuddsperiode?.løpenummer - 1].enhet ?? defaultEnhet
+            : defaultEnhet
+    );
+    const [enhetFeil, setEnhetFeil] = useState<string | undefined>(undefined);
     const [, setClsName] = useState<string>();
 
     const fadeInOut = () => {
@@ -55,8 +55,8 @@ const BeslutterSide: FunctionComponent = () => {
         enhet: enhet,
         setEnhet: setEnhet,
         enhetFeil: enhetFeil,
-        setEnhetFeil: setEnhetFeil
-    }
+        setEnhetFeil: setEnhetFeil,
+    };
 
     const oppsummeringType: { [key in TiltaksType]: JSX.Element } = {
         ARBEIDSTRENING: <OppsummeringArbeidstrening avtaleinnhold={avtale.gjeldendeInnhold} />,
@@ -70,32 +70,36 @@ const BeslutterSide: FunctionComponent = () => {
     return (
         <>
             <TilskuddsperiodeContext.Provider value={context}>
-            <VerticalSpacer rem={2} />
-            <div className={cls.element('container')}>
-                <div className={cls.element('innhold')}>
-
-                    <div className={cls.element('head-wrapper')}>
-                        <TilbakeTilOversiktLenke />
-                        <Innholdstittel className={cls.element('hoved-tittel')}>
-                            Tilskudd om {tiltakstypeTekst[avtale.tiltakstype]}
-                        </Innholdstittel>
-                    </div>
-                    <div className={cls.element('wrapper')}>
-                        <BeslutterPanel />
-                        <BeslutterTilskuddsPerioder startAnimering={fadeInOut} />
-                    </div>
-                    <VerticalSpacer rem={1} />
-                    <div className={cls.element('avtale-wrapper')}>
-                        <Ekspanderbartpanel tittel="Se avtalen">
-                            <Innholdsboks>
-                                <Innholdstittel>{avtaleTittel[avtale.tiltakstype]}</Innholdstittel>
-                                <VerticalSpacer rem={2} />
-                                {oppsummeringType[avtale.tiltakstype]}
-                            </Innholdsboks>
-                        </Ekspanderbartpanel>
+                <VerticalSpacer rem={2} />
+                <div className={cls.element('container')}>
+                    <div className={cls.element('innhold')}>
+                        <div className={cls.element('head-wrapper')}>
+                            <TilbakeTilOversiktLenke />
+                            <Innholdstittel className={cls.element('hoved-tittel')}>
+                                Tilskudd om {tiltakstypeTekst[avtale.tiltakstype]}
+                            </Innholdstittel>
+                        </div>
+                        <div className={cls.element('wrapper')}>
+                            <BeslutterPanel />
+                            <BeslutterTilskuddsPerioder startAnimering={fadeInOut} />
+                        </div>
+                        <VerticalSpacer rem={1} />
+                        <div className={cls.element('avtale-wrapper')}>
+                            <Accordion style={{ border: '1px solid #c6c2bf' }}>
+                                <Accordion.Item>
+                                    <Accordion.Header>Se avtalen</Accordion.Header>
+                                    <Accordion.Content>
+                                        <Innholdsboks>
+                                            <Innholdstittel>{avtaleTittel[avtale.tiltakstype]}</Innholdstittel>
+                                            <VerticalSpacer rem={2} />
+                                            {oppsummeringType[avtale.tiltakstype]}
+                                        </Innholdsboks>
+                                    </Accordion.Content>
+                                </Accordion.Item>
+                            </Accordion>
+                        </div>
                     </div>
                 </div>
-            </div>
             </TilskuddsperiodeContext.Provider>
         </>
     );
