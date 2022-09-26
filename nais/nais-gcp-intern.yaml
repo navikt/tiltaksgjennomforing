@@ -41,7 +41,7 @@ spec:
       enabled: true
       claims:
         extra:
-          - NAVident
+          - "NAVident"
     sidecar:
       enabled: true
   accessPolicy:
