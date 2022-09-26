@@ -23,8 +23,28 @@ const staticPaths = ['/static', '/index.css', '/asset-manifest.json'];
 server.get('/tiltaksgjennomforing/internal/isAlive', (req, res) => res.sendStatus(200));
 server.get('/tiltaksgjennomforing/internal/isReady', (req, res) => res.sendStatus(200));
 
-const setStaticPath = slufix =>
-    server.use(basePath.concat(slufix), express.static(path.join(__dirname, 'build'.concat(slufix))));
+const setStaticPath = slufix => server.use(basePath.concat(slufix), express.static(path.join(__dirname, 'build'.concat(slufix))));
+
+const startServer = async () => {
+    if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp' || process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
+        if (process.env.INTERN_INGRESS) {
+            console.log('Intern ingress, setup azure klient');
+            const azureClient = await azure.client();
+            const azureTokenEndpoint = await azure.azureTokenEndpoint();
+            apiProxy.setup(server, null, azureClient, azureTokenEndpoint);
+            console.log('Satt opp api-proxy med azure obh');
+        } else {
+            console.log('Ekstern ingress, setup tokenx klient');
+            const tokenxAuthClient = await tokenx.client();
+            apiProxy.setup(server, tokenxAuthClient, null, null);
+            console.log('Satt opp api-proxy med tokenx');
+        }
+    } else {
+        lokalProxy.setup(server);
+    }
+    const port = process.env.PORT || 3000;
+    server.listen(port, () => console.log('server listening on port', port));
+};
 
 const serveAppWithMenu = app => {
     staticPaths.forEach(staticpath => {
@@ -34,30 +54,6 @@ const serveAppWithMenu = app => {
         res.send(app);
     });
     startServer();
-};
-
-const startServer = async () => {
-
-    if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp' || process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
-        if(process.env.INTERN_INGRESS) {
-            console.log("Intern ingress, setup azure klient");
-            const azureClient = await azure.client();
-            const azureTokenEndpoint = await azure.azureTokenEndpoint();
-            apiProxy.setup(server, null, azureClient, azureTokenEndpoint);
-            console.log("Satt opp api-proxy med azure obh")
-        } else {
-            console.log("Ekstern ingress, setup tokenx klient");
-            const tokenxAuthClient = await tokenx.client();
-            apiProxy.setup(server, tokenxAuthClient, null, null);
-            console.log("Satt opp api-proxy med tokenx")
-        }
-    } else {
-        lokalProxy.setup(server);
-    }
-    const port = process.env.PORT || 3000;
-    server.listen(port, () => {
-        console.log('server listening on port', port);
-    });
 };
 
 const serveAppWithOutMenu = () => {
