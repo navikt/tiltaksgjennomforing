@@ -27,7 +27,7 @@ spec:
     - name: ENABLE_INTERNAL_MENU
       value: 'true'
     - name: DECORATOR_INTERNAL
-      value: '{{{decorator-internal}}'
+      value: '{{{decorator-internal}}}'
     - name: DECORATOR_INTERNAL_SCRIPT
       value: '{{{decorator-internal-script}}}'
     - name: DECORATOR_INTERNAL_STYLING
