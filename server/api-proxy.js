@@ -12,21 +12,18 @@ const setup = (app, tokenxClient, azureClient, azureTokenEndpoint) => {
         } else {
             next();
         }
-    })
+    });
 
     app.use(
         '/tiltaksgjennomforing/api',
         proxy(process.env.APIGW_URL, {
             proxyReqPathResolver: (req) => {
-                return req.originalUrl.replace("/tiltaksgjennomforing/api", "/tiltaksgjennomforing-api");
+                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
             },
             proxyReqOptDecorator: async (options, req) => {
-
                 const accessToken = process.env.INTERN_INGRESS
                     ? await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req)
                     : await tokenx.getTokenExchangeAccessToken(tokenxClient, req);
-                        
-
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;
             },
