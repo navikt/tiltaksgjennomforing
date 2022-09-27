@@ -6,3 +6,5 @@
 "api-scope": "api://dev-fss.arbeidsgiver.tiltak-proxy/.default"
 "proxy-cluster": "dev-fss"
 "aad-redirect-url": "https://tiltaksgjennomforing.dev.intern.nav.no/oauth2/callback"
+"decorator-external-script": "https://internarbeidsflatedecorator-q0.dev.adeo.no/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js",
+"decorator-external-styling": "https://internarbeidsflatedecorator-q0.dev.adeo.no/internarbeidsflatedecorator/v2.1/static/css/main.css",
