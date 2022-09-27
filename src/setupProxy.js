@@ -7,7 +7,7 @@ const brukLokalLogin = process.env.NODE_ENV === 'development';
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
     APIGW_HEADER: process.env.APIGW_HEADER,
-    LOGIN_URL: process.env.LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/isso'), 
+    LOGIN_URL: process.env.LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/aad'),
     LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
     STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.dev-gcp.nais.io/',
 };
