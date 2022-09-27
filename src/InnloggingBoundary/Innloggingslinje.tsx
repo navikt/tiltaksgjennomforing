@@ -24,7 +24,6 @@ const Innloggingslinje: FunctionComponent<Props> = (props) => {
             <div className="innloggingslinje__innhold">
                 <MediaQuery minWidth={577}>
                     <Link href="/tiltaksgjennomforing">
-                        lenke til oversiktsiden
                         <div className={cls.element('navIkon')}>
                             <NavIkon />
                         </div>

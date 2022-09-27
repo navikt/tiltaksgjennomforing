@@ -112,8 +112,9 @@ const AvtaleTabell: FunctionComponent<{
                     const startDato = avtale.gjeldendeInnhold.startDato || null;
                     const sluttDato = avtale.gjeldendeInnhold.sluttDato || null;
                     return (
-                        <div key={avtale.id} className={cls.element('linkpanel')} >
+                        <div key={avtale.id} className={cls.element('linkpanel')}>
                             <LinkPanel
+                                border={false}
                                 id={avtale.id}
                                 key={avtale.id}
                                 href={pathTilAvtaleNy(avtale.id, innloggetBruker.rolle)}
