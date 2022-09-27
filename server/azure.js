@@ -40,7 +40,6 @@ const azureTokenEndpoint = async () => {
 }
 
 const getOnBehalfOfAccessToken = async (azureClient, azureTokenEndpoint, req) => {
-    console.log('Henter ny on-behalf-of token');
     const bearerToken = req.headers['authorization'].replace('Bearer', '').trim();
     const backendTokenSet = await azureClient
         .grant(

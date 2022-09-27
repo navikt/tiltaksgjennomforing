@@ -1,4 +1,5 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const lokalProxy = require('../server/lokalproxy');
 const fetch = require('node-fetch');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
@@ -121,6 +122,10 @@ module.exports = function (app) {
         res.clearCookie('fake-aad-idtoken');
         res.redirect('/tiltaksgjennomforing');
     });
+
+    if (process.env.NAIS_CLUSTER_NAME !== 'dev-gcp' && process.env.NAIS_CLUSTER_NAME !== 'prod-gcp') {
+        lokalProxy.setup(app);
+    }
 
     app.use(
         '/tiltaksgjennomforing/stillingstitler',
