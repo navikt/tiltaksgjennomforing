@@ -6,5 +6,5 @@
 "api-scope": "api://prod-fss.arbeidsgiver.tiltak-proxy/.default"
 "proxy-cluster": "prod-fss"
 "aad-redirect-url": "https://arbeidsgiver.intern.nav.no/tiltaksgjennomforing/oauth2/callback"
-"decorator-internal-script": "https://internarbeidsflatedecorator-q0.dev.adeo.no/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js"
-"decorator-internal-styling": "https://internarbeidsflatedecorator-q0.dev.adeo.no/internarbeidsflatedecorator/v2.1/static/css/main.css"
+"decorator-internal-script": "https://internarbeidsflatedecorator.nais.intern.nav.no/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js"
+"decorator-internal-styling": "https://internarbeidsflatedecorator.nais.intern.nav.no/internarbeidsflatedecorator/v2.1/static/css/main.css"

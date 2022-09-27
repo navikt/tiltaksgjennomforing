@@ -24,10 +24,8 @@ spec:
       value: '{{{login-url}}}'
     - name: LOGOUT_URL
       value: '{{{logout-url}}}'
-    - name: ENABLE_EXTERNAL_MENU
-      value: false
     - name: ENABLE_INTERNAL_MENU
-      value: true
+      value: 'true'
     - name: DECORATOR_INTERNAL_SCRIPT
       value: '{{{decorator-internal-script}}}'
     - name: DECORATOR_INTERNAL_STYLING
