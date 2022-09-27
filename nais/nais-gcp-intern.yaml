@@ -32,6 +32,8 @@ spec:
       value: '{{{decorator-internal-script}}}'
     - name: DECORATOR_INTERNAL_STYLING
       value: '{{{decorator-internal-styling}}}'
+    - name: DECORATOR_EXTERNAL_URL
+      value: 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb'
     - name: STILLINGSTITLER_URL
       value: http://tiltak-stillingstitler
     - name: API_SCOPE
