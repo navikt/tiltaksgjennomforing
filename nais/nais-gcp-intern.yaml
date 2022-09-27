@@ -25,6 +25,8 @@ spec:
     - name: LOGOUT_URL
       value: '{{{logout-url}}}'
     - name: ENABLE_EXTERNAL_MENU
+      value: 'false'
+    - name: ENABLE_INTERNAL_MENU
       value: 'true'
     - name: DECORATOR_EXTERNAL_URL
       value: 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb'
