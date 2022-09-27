@@ -8,9 +8,10 @@ const setup = (app, azureClient, azureTokenEndpoint) => {
         '/modiacontextholder/api/decorator',
         asyncHandler(async (req, res) => {
             const accessToken = await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req);
-            return await axios.get(`${process.env.DECORATOR_INTERNAL}/modiacontextholder/api/decorator`, {
+            const response = await axios.get(`${process.env.DECORATOR_INTERNAL}/modiacontextholder/api/decorator`, {
                 headers: { ...req.headers, Authorization: `Bearer ${accessToken}` },
             });
+            res.json({ ...response.data });
         })
     );
     app.use(
