@@ -18,7 +18,7 @@ const GodkjennAvtaleMedAlleredeOpprettetTiltak: React.FC<Props> = ({ godkjenn, s
 
     return (
         <AlleredeOpprettetAvtaleModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
-            <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale}>
+            <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}>
                 <div className={cls.element('knapp-container')}>
                     <KnappBase onClick={() => godkjennAvtale({ godkjenn, setModalIsOpen })} type="hoved">
                         Godkjenn avtale

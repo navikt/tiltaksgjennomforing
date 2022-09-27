@@ -19,7 +19,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
     const { avtale, godkjenn } = useContext(AvtaleContext);
     const { deltakerFnr, tiltakstype, id, gjeldendeInnhold } = avtale;
     const { startDato, sluttDato } = gjeldendeInnhold;
-    const { setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
+    const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
     const [skalGodkjennesPaVegne, setSkalGodkjennesPaVegne] = useState<boolean>(false);
     const [godkjenningsModalIsOpen, setGodkjenningsModalIsOpen] = useState<boolean>(false);
 
@@ -70,6 +70,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
                                 id,
                                 startDato,
                                 sluttDato,
+                                alleredeRegistrertAvtale,
                                 setAlleredeRegistrertAvtale,
                                 setGodkjenningsModalIsOpen,
                                 godkjenn,

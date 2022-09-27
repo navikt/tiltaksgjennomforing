@@ -4,8 +4,9 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Input } from 'nav-frontend-skjema';
 import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
-import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
+import { TiltaksType } from '@/types/avtale';
 import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
+import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 
 interface Props {
     deltakerFnr: string;
@@ -24,7 +25,7 @@ interface Props {
     mentorFnrFeil: string | undefined;
     setMentorFnrFeil: Dispatch<SetStateAction<string | undefined>>;
     validerMentorFnr: () => boolean;
-    alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
+    alleredeRegistrertAvtale: AlleredeOpprettetInfo;
     setModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -87,7 +88,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                 />
             )}
             <AlleredeOpprettetAvtaleAdvarsel
-                alleredeRegistrertAvtale={alleredeRegistrertAvtale}
+                alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
                 setModalIsOpen={setModalIsOpen}
             />
         </Innholdsboks>

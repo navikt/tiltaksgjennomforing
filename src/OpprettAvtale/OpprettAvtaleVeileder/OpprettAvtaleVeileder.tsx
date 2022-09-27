@@ -150,7 +150,11 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 const listeAvtalerDeltakerAlleredeRegistrert: AlleredeRegistrertAvtale[] | [] =
                     await sjekkOmDeltakerAlleredeErRegistrertPaaTiltak(deltakerFnr, valgtTiltaksType, null, null, null);
                 if (listeAvtalerDeltakerAlleredeRegistrert.length > 0) {
-                    setAlleredeRegistrertAvtale(listeAvtalerDeltakerAlleredeRegistrert);
+                    setAlleredeRegistrertAvtale({
+                        ...alleredeRegistrertAvtale,
+                        avtaler: listeAvtalerDeltakerAlleredeRegistrert,
+                        deltaker: deltakerFnr,
+                    });
                 }
             } catch (error) {
                 console.error(error);
@@ -206,7 +210,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 <TilbakeTilOversiktLenke />
             </div>
             <OpprettAvtaleMedAlleredeOpprettetTiltak
-                alleredeRegistrertAvtale={alleredeRegistrertAvtale}
+                alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
                 modalIsOpen={modalIsOpen}
                 setModalIsOpen={setModalIsOpen}
             />

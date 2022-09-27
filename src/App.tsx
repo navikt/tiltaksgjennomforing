@@ -37,7 +37,7 @@ import {
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
 import { NotifikasjonWidgetProvider } from './NotifikasjonWidgetProvider';
-import { AlleredeOpprettetAvtaleProvider } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import AlleredeOpprettetAvtaleProvider from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 
 class App extends React.Component {
     render() {

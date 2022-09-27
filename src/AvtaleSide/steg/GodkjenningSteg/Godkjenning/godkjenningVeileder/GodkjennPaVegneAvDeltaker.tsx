@@ -22,7 +22,8 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
     const { avtale, godkjennPaVegneAvDeltaker } = useContext(AvtaleContext);
     const { deltakerFnr, tiltakstype, id, gjeldendeInnhold } = avtale;
     const { startDato, sluttDato } = gjeldendeInnhold;
-    const { setAlleredeRegistrertAvtale } = useContext<AlleredeOpprettetContext>(AlleredeOpprettetAvtaleContext);
+    const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } =
+        useContext<AlleredeOpprettetContext>(AlleredeOpprettetAvtaleContext);
     const [godkjenningsModalIsOpen, setGodkjenningsModalIsOpen] = useState<boolean>(false);
 
     const godkjennPaVegneLabel: string = props.skalGodkjennesPaVegne
@@ -96,6 +97,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
                             id,
                             startDato,
                             sluttDato,
+                            alleredeRegistrertAvtale,
                             setAlleredeRegistrertAvtale,
                             setGodkjenningsModalIsOpen,
                             godkjenn,

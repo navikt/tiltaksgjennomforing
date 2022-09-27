@@ -1,15 +1,42 @@
-import React, { Dispatch, PropsWithChildren, SetStateAction, useState } from 'react';
+import React, { Dispatch, PropsWithChildren, SetStateAction, useEffect, useState } from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { endrePathAlleredeOpprettet, Path } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
 
 export interface Context {
-    alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
-    setAlleredeRegistrertAvtale: Dispatch<SetStateAction<AlleredeRegistrertAvtale[]>>;
+    alleredeRegistrertAvtale: AlleredeOpprettetInfo;
+    setAlleredeRegistrertAvtale: Dispatch<SetStateAction<AlleredeOpprettetInfo>>;
 }
 
-export const AlleredeOpprettetAvtaleContext = React.createContext<Context>({ alleredeRegistrertAvtale: [] } as Context);
+export interface AlleredeOpprettetInfo {
+    avtaler: AlleredeRegistrertAvtale[] | [];
+    deltaker: string;
+    steg: string;
+}
 
-export const AlleredeOpprettetAvtaleProvider: React.FC = ({ children }: PropsWithChildren<{}>) => {
-    const [alleredeOpprettet, setAlleredeOpprettet] = useState<AlleredeRegistrertAvtale[] | []>([]);
+const initAlleredeOpprettetInfo: AlleredeOpprettetInfo = {
+    avtaler: [],
+    deltaker: '',
+    steg: '',
+};
+
+export const AlleredeOpprettetAvtaleContext = React.createContext<Context>({
+    alleredeRegistrertAvtale: initAlleredeOpprettetInfo,
+} as Context);
+
+const AlleredeOpprettetAvtaleProvider = ({ children, history }: PropsWithChildren<RouteComponentProps<any>>) => {
+    const [alleredeOpprettet, setAlleredeOpprettet] = useState<AlleredeOpprettetInfo>(initAlleredeOpprettetInfo);
+
+    useEffect(
+        () =>
+            history.listen((location, action) => {
+                const pathnameList: string[] = location.pathname.split('/');
+                endrePathAlleredeOpprettet(pathnameList, Path.OPPRETT, alleredeOpprettet, setAlleredeOpprettet);
+                endrePathAlleredeOpprettet(pathnameList, Path.GODKJENN, alleredeOpprettet, setAlleredeOpprettet);
+            }),
+        // eslint-disable-next-line
+        [history]
+    );
 
     const context: Context = {
         alleredeRegistrertAvtale: alleredeOpprettet,
@@ -20,3 +47,4 @@ export const AlleredeOpprettetAvtaleProvider: React.FC = ({ children }: PropsWit
         <AlleredeOpprettetAvtaleContext.Provider value={context}>{children}</AlleredeOpprettetAvtaleContext.Provider>
     );
 };
+export default withRouter(AlleredeOpprettetAvtaleProvider);

@@ -24,7 +24,7 @@ const GodkjennPaVegneAvMedAlleredeOpprettetTiltak: React.FC<Props> = ({
 
     return (
         <AlleredeOpprettetAvtaleModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} style={style}>
-            <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale}>
+            <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}>
                 <div className={cls.element('knapp-container')}>
                     <KnappBase
                         onClick={() => godkjennAvtalePaVegneAv({ godkjennPaVegneAv, setModalIsOpen })}

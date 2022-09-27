@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
 import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-service';
+import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 
 interface FetchData {
     deltakerFnr: string;
@@ -8,9 +9,15 @@ interface FetchData {
     id: string;
     startDato: string | undefined;
     sluttDato: string | undefined;
-    setAlleredeRegistrertAvtale: Dispatch<SetStateAction<AlleredeRegistrertAvtale[]>>;
+    alleredeRegistrertAvtale: AlleredeOpprettetInfo;
+    setAlleredeRegistrertAvtale: Dispatch<SetStateAction<AlleredeOpprettetInfo>>;
     setGodkjenningsModalIsOpen: Dispatch<SetStateAction<boolean>>;
     godkjenn: () => Promise<void> | void;
+}
+
+export enum Path {
+    OPPRETT = 'opprett-avtale',
+    GODKJENN = 'godkjenning',
 }
 
 interface GodkjennProps {
@@ -24,6 +31,19 @@ interface GodkjennAvtalePaVegneAvProps extends GodkjennProps {
 interface GodkjennAvtaleProps extends GodkjennProps {
     godkjenn: () => Promise<void>;
 }
+
+export const endrePathAlleredeOpprettet = (
+    pathnameList: string[],
+    path: Path,
+    alleredeOpprettet: AlleredeOpprettetInfo,
+    setAlleredeOpprettet: Dispatch<SetStateAction<AlleredeOpprettetInfo>>
+) => {
+    if (pathnameList.includes(path)) {
+        if (alleredeOpprettet.steg !== path) {
+            setAlleredeOpprettet({ avtaler: [], deltaker: '', steg: path });
+        }
+    }
+};
 
 export const godkjennAvtalePaVegneAv = ({ godkjennPaVegneAv, setModalIsOpen }: GodkjennAvtalePaVegneAvProps): void => {
     try {
@@ -47,6 +67,7 @@ export const fetchdata = async ({
     id,
     startDato,
     sluttDato,
+    alleredeRegistrertAvtale,
     setAlleredeRegistrertAvtale,
     setGodkjenningsModalIsOpen,
     godkjenn,
@@ -60,7 +81,11 @@ export const fetchdata = async ({
             sluttDato ?? null
         );
     if (listeAvtalerDeltakerAlleredeRegistrert.length > 0) {
-        setAlleredeRegistrertAvtale(listeAvtalerDeltakerAlleredeRegistrert);
+        setAlleredeRegistrertAvtale({
+            ...alleredeRegistrertAvtale,
+            avtaler: listeAvtalerDeltakerAlleredeRegistrert,
+            deltaker: deltakerFnr,
+        });
         return setGodkjenningsModalIsOpen(true);
     }
     return godkjenn();
