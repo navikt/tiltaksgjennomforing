@@ -3,7 +3,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import AlleredeOpprettetAvtale from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/AlleredeOpprettetAvtale';
 import BEMHelper from '@/utils/bem';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { Alert} from '@navikt/ds-react';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
@@ -20,10 +20,10 @@ const GodkjenningsInnhold: React.FC<Props> = ({ alleredeRegistrertAvtale, childr
                 </Systemtittel>
             </div>
             <div className={cls.element('ingress')}>
-                <AlertStripeInfo>
+                <Alert variant="info">
                     Du er i ferd med å godkjenne en avtale som har overlappende tidsrom, og/eller har påbegynte
                     avtale(r) på deltaker sitt fødselsnummer.
-                </AlertStripeInfo>
+                </Alert>
             </div>
             <AlleredeOpprettetAvtale alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
             {children}

@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { AlleredeRegistrertAvtale, AvtaleStatus } from '@/types/avtale';
-import AlertStripe from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import './alleredeOpprettetAvtaleAdvarsel.less';
 import Lenke from 'nav-frontend-lenker';
@@ -32,7 +32,7 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
 
     return (
         <div className={cls.className}>
-            <AlertStripe type="advarsel">
+            <Alert variant="warning">
                 Det finnes allerede registrerte tiltak for denne deltakeren:
                 <ul>
                     {avtalerSomIkkeErIverksatt.length > 0 && (
@@ -59,7 +59,7 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
                 >
                     Se detaljer
                 </Lenke>
-            </AlertStripe>
+            </Alert>
         </div>
     );
 };

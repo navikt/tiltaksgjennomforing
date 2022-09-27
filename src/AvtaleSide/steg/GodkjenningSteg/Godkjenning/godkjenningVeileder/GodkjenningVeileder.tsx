@@ -3,7 +3,8 @@ import GodkjennPaVegneAvBeggeParter from '@/AvtaleSide/steg/GodkjenningSteg/Godk
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Alert } from '@navikt/ds-react'
 import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../../Oppsummering/instruks/GodkjenningInstruks';
 import GodkjennPaVegneAvArbeidsgiver from './GodkjennPaVegneAvArbeidsgiver';
@@ -49,11 +50,14 @@ const GodkjenningVeileder: FunctionComponent = () => {
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-
             {avtale.gjeldendeInnhold.harFamilietilknytning && (
-                <AlertStripeAdvarsel className={cls.element('advarsel')}>
-                    OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
-                </AlertStripeAdvarsel>
+                <>
+                     <Alert variant="warning">
+                        OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
+                    </Alert>
+                    <VerticalSpacer rem={1} />
+                </>
+
             )}
 
             {!skalGodkjennesPaVegne && (
