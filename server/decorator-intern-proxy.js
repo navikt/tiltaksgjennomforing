@@ -16,8 +16,9 @@ const setup = (app, azureClient, azureTokenEndpoint) => {
         })
     );
     app.use(
-        '/internarbeidsflatedecorator',
-        createProxyMiddleware({ target: process.env.DECORATOR_INTERNAL, changeOrigin: true })
+        '/internarbeidsflatedecorator', (req, res) => {
+            res.redirect(process.env.DECORATOR_INTERNAL + req.originalUrl);
+        }
     );
 };
 
