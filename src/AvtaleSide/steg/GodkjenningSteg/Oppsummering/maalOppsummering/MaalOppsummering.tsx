@@ -1,8 +1,8 @@
 import { MaalListe } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import { Tag } from '@navikt/ds-react';
 import { FormattedMessage } from 'react-intl';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import MaalIkon from './MaalIkon';
@@ -10,8 +10,8 @@ import './MaalOppsummering.less';
 
 const cls = BEMHelper('mål');
 
-const MaalOppsummering: FunctionComponent<MaalListe> = props => {
-    const maalListe = props.maal.map(maal => (
+const MaalOppsummering: FunctionComponent<MaalListe> = (props) => {
+    const maalListe = props.maal.map((maal) => (
         <div key={maal.id} className={cls.className}>
             <Undertittel className={cls.element('label')}>
                 <FormattedMessage id={maal.kategori} />
@@ -25,7 +25,9 @@ const MaalOppsummering: FunctionComponent<MaalListe> = props => {
         </Stegoppsummering>
     ) : (
         <Stegoppsummering ikon={<MaalIkon />} tittel="Mål">
-            <EtikettFokus className={cls.element('etikettInfo')}>Mål er ikke fylt ut</EtikettFokus>
+            <Tag variant="warning" className={cls.element('etikettInfo')}>
+                Mål er ikke fylt ut
+            </Tag>
         </Stegoppsummering>
     );
 };

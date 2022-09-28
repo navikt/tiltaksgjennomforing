@@ -6,16 +6,16 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InkluderingsInnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterPenger } from '@/utils/PengeUtils';
-import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Input } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import { Tag } from '@navikt/ds-react';
 
 const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> = (props) => {
     const cls = BEMHelper('inkluderingstilskudd');
-    
+
     return (
         <Stegoppsummering tittel="Inkluderingstilskudd" ikon={<KalkulatorIkon height={40} />}>
             <Element>Hvorfor er det behov for inkluderingstilskudd?</Element>
@@ -42,7 +42,7 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
                     </div>
                 </div>
             ) : (
-                <EtikettFokus>Ikke fylt ut</EtikettFokus>
+                <Tag variant="warning">Ikke fylt ut</Tag>
             )}
         </Stegoppsummering>
     );

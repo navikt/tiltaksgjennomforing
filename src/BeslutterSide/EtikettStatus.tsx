@@ -1,33 +1,31 @@
 import { tilskuddsperiodeStatusTekst } from '@/messages';
-import EtikettBase, { EtikettBaseProps } from 'nav-frontend-etiketter';
+import { Tag, TagProps } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { TilskuddPeriodeStatus } from '@/types/avtale';
 
 type Props = {
     tilskuddsperiodestatus: TilskuddPeriodeStatus;
     antallKlarTilgodkjenning?: number;
-    godkjentAv?: string
+    godkjentAv?: string;
 };
 
-const etikettStatus: { [key in TilskuddPeriodeStatus]: EtikettBaseProps['type'] } = {
-    AVSLÅTT: 'advarsel',
-    ANNULLERT: 'fokus',
-    GODKJENT: 'suksess',
+const etikettStatus: { [key in TilskuddPeriodeStatus]: TagProps['variant'] } = {
+    AVSLÅTT: 'error',
+    ANNULLERT: 'warning',
+    GODKJENT: 'success',
     UBEHANDLET: 'info',
-    UTBETALT: 'suksess',
+    UTBETALT: 'success',
 };
 
 const EtikettStatus: FunctionComponent<Props> = (props) => {
     return (
-        <EtikettBase type={etikettStatus[props.tilskuddsperiodestatus]}>
+        <Tag variant={etikettStatus[props.tilskuddsperiodestatus]}>
             <>
                 {props.antallKlarTilgodkjenning && props.antallKlarTilgodkjenning + ' '}
                 {tilskuddsperiodeStatusTekst[props.tilskuddsperiodestatus]}
-                {props.godkjentAv && (
-                    <>{' '}av {props.godkjentAv}</>
-                )}
+                {props.godkjentAv && <> av {props.godkjentAv}</>}
             </>
-        </EtikettBase>
+        </Tag>
     );
 };
 

@@ -1,6 +1,6 @@
-import { EtikettInfo } from 'nav-frontend-etiketter';
 import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import { Tag } from '@navikt/ds-react';
 import { Nyhet } from './Nytt';
 
 const printDato = (dato: Date) =>
@@ -22,9 +22,9 @@ const Artikkel: FunctionComponent<Props> = ({ nyhet, ulest }) => {
 
     return (
         <article className={klassenavn}>
-            <EtikettInfo mini className="nytt__artikkeldato">
-                {printDato(nyhet.dato)}
-            </EtikettInfo>
+            <Tag variant='info' className="nytt__artikkeldato">
+            {printDato(nyhet.dato)}
+            </Tag>
             <Undertittel className="nytt__artikkeltittel">{nyhet.tittel}</Undertittel>
             <div className="typo-normal nytt__artikkelinnhold">{nyhet.innhold}</div>
         </article>
