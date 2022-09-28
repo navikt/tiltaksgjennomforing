@@ -41,7 +41,6 @@ const azureTokenEndpoint = async () => {
 
 const getOnBehalfOfAccessToken = async (azureClient, azureTokenEndpoint, req) => {
     const bearerToken = req.headers['authorization'].replace('Bearer', '').trim();
-    console.log("Har vi bearer token før selve obo-flow?", bearerToken);
     const backendTokenSet = await azureClient
         .grant(
             {
@@ -57,7 +56,6 @@ const getOnBehalfOfAccessToken = async (azureClient, azureTokenEndpoint, req) =>
                 },
             }
         )
-    console.log("Fikk en ny token", backendTokenSet.access_token);
     return backendTokenSet.access_token;
 };
 
