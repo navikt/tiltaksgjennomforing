@@ -25,7 +25,7 @@ const setup = (app, azureClient, azureTokenEndpoint) => {
                 return req.originalUrl.replace('/modiacontextholder/api/decorator', '/tiltaksgjennomforing-api/innlogget-bruker');
             },
             proxyReqOptDecorator: async (options, req) => {
-                const accessToken = onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req)
+                const accessToken = await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req)
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;
             },
