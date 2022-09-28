@@ -27,6 +27,9 @@ const setup = (app, azureClient, azureTokenEndpoint) => {
             proxyReqOptDecorator: async (options, req) => {
                 const accessToken = await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req)
                 options.headers.Authorization = `Bearer ${accessToken}`;
+                let cookies = options.headers['cookie'];
+                cookies = 'innlogget-part=VEILEDER; ' + cookies;
+                options.headers['cookie'] = cookies;
                 return options;
             },
         })
