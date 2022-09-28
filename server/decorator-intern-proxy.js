@@ -20,4 +20,5 @@ const setup = (app, azureClient, azureTokenEndpoint) => {
         createProxyMiddleware({ target: process.env.DECORATOR_INTERNAL, changeOrigin: true })
     );
 };
-export default { setup };
+
+module.exports = { setup };
