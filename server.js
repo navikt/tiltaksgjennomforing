@@ -40,7 +40,7 @@ const setupOauth2Clients = async (server) => {
             const azureClient = await azure.client();
             const azureTokenEndpoint = await azure.azureTokenEndpoint();
             apiProxy.setup(server, null, azureClient, azureTokenEndpoint);
-            decoratorInternProxy.setup(server);
+            decoratorInternProxy.setup(server, azureClient, azureTokenEndpoint);
             console.log('Satt opp api-proxy med azure obh');
         } else {
             console.log('Ekstern ingress, setup tokenx klient');
