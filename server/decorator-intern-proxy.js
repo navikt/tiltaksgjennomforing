@@ -32,6 +32,9 @@ const setup = (app, azureClient, azureTokenEndpoint) => {
                 options.headers['cookie'] = cookies;
                 return options;
             },
+            userResDecorator: function(proxyRes, proxyResData, userReq, userRes) {
+                return { ...proxyResData, ident: proxyResData.identifikator || '' };
+              }
         })
     );
 
