@@ -6,9 +6,8 @@ import { tiltakstypeTekst } from '@/messages';
 import * as RestService from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Modal } from '@navikt/ds-react';
 import { Knapp } from 'nav-frontend-knapper';
-import Modal from 'nav-frontend-modal';
 import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import './EtterRegistrering.less';
@@ -57,86 +56,90 @@ const EtterRegistrering: FunctionComponent = () => {
                 Etterregistrering
             </Knapp>
             <Modal
-                isOpen={open}
-                onRequestClose={() => {
+                open={open}
+                onClose={() => {
                     setOpen(false);
                     setAvtale(undefined);
                     setFeilmelding(undefined);
                     setSpinner(false);
                 }}
                 closeButton={true}
-                contentLabel="Min modalrute"
+                aria-label="Min modalrute"
             >
-                <div className={cls.element('modal')}>
-                    <Systemtittel className={cls.element('header')}>
-                        Søk opp avtalenummer for godkjenning av etterregistrering
-                    </Systemtittel>
-                    <Element className={cls.element('sokfelt-tag')}>Skriv inn avtalenummeret du vil søke på</Element>
-                    <div className={cls.element('input-sok')}>
-                        <SøkeInput
-                            maxLength={5}
-                            utførSøk={(søkeord) => {
-                                setSpinner(true);
-                                hentAvtaleInfo(Number(søkeord));
-                            }}
-                            valider={(verdi: string) =>
-                                verdi.match(/^\d{1,5}$/)
-                                    ? undefined
-                                    : 'Avtalenummer kan kun inneholde tall, maks fem tegn'
-                            }
-                            onChangeCallback={() => {
-                                setAvtale(undefined);
-                                setFeilmelding(undefined);
-                            }}
-                            placeholder={'Skriv et avtalenummer'}
-                            buttonSpinner={spinner}
-                        />
-                    </div>
-                    {avtale && (
-                        <div className={transitionAvtaleInfoWrapper()}>
-                            <Ingress className={cls.element('ingress')}>Avtalenummer {avtale.avtaleNr}</Ingress>
-                            <InfoRad
-                                klasseNavn={cls.element('rad-info')}
-                                radInfo="Bedriftnavn:"
-                                radVerdi={avtale.gjeldendeInnhold.bedriftNavn}
+                <Modal.Content>
+                    <div className={cls.element('modal')}>
+                        <Systemtittel className={cls.element('header')}>
+                            Søk opp avtalenummer for godkjenning av etterregistrering
+                        </Systemtittel>
+                        <Element className={cls.element('sokfelt-tag')}>
+                            Skriv inn avtalenummeret du vil søke på
+                        </Element>
+                        <div className={cls.element('input-sok')}>
+                            <SøkeInput
+                                maxLength={5}
+                                utførSøk={(søkeord) => {
+                                    setSpinner(true);
+                                    hentAvtaleInfo(Number(søkeord));
+                                }}
+                                valider={(verdi: string) =>
+                                    verdi.match(/^\d{1,5}$/)
+                                        ? undefined
+                                        : 'Avtalenummer kan kun inneholde tall, maks fem tegn'
+                                }
+                                onChangeCallback={() => {
+                                    setAvtale(undefined);
+                                    setFeilmelding(undefined);
+                                }}
+                                placeholder={'Skriv et avtalenummer'}
+                                buttonSpinner={spinner}
                             />
-                            <InfoRad
-                                klasseNavn={cls.element('rad-info')}
-                                radInfo="Virksomhetsnummer:"
-                                radVerdi={avtale.bedriftNr}
-                            />
-                            <InfoRad
-                                klasseNavn={cls.element('rad-info')}
-                                radInfo="Navn:"
-                                radVerdi={`${avtale.gjeldendeInnhold.deltakerFornavn} ${avtale.gjeldendeInnhold.deltakerEtternavn}`}
-                            />
-                            <InfoRad
-                                klasseNavn={cls.element('rad-info')}
-                                radInfo="Tiltak:"
-                                radVerdi={tiltakstypeTekst[avtale.tiltakstype]}
-                            />
-
-                            <div className={cls.element('lagreKnapp')}>
-                                <LagreKnapp
-                                    lagre={() => AvtaleKanEtterrgistreres()}
-                                    label={avtale.godkjentForEtterregistrering ? 'Fjern' : 'Godkjenn'}
-                                    suksessmelding={
-                                        avtale.godkjentForEtterregistrering
-                                            ? 'Avtalen er godkjent for etterregistrering'
-                                            : 'Fjernet etterregistrering på avtale'
-                                    }
-                                />
-                            </div>
                         </div>
-                    )}
+                        {avtale && (
+                            <div className={transitionAvtaleInfoWrapper()}>
+                                <Ingress className={cls.element('ingress')}>Avtalenummer {avtale.avtaleNr}</Ingress>
+                                <InfoRad
+                                    klasseNavn={cls.element('rad-info')}
+                                    radInfo="Bedriftnavn:"
+                                    radVerdi={avtale.gjeldendeInnhold.bedriftNavn}
+                                />
+                                <InfoRad
+                                    klasseNavn={cls.element('rad-info')}
+                                    radInfo="Virksomhetsnummer:"
+                                    radVerdi={avtale.bedriftNr}
+                                />
+                                <InfoRad
+                                    klasseNavn={cls.element('rad-info')}
+                                    radInfo="Navn:"
+                                    radVerdi={`${avtale.gjeldendeInnhold.deltakerFornavn} ${avtale.gjeldendeInnhold.deltakerEtternavn}`}
+                                />
+                                <InfoRad
+                                    klasseNavn={cls.element('rad-info')}
+                                    radInfo="Tiltak:"
+                                    radVerdi={tiltakstypeTekst[avtale.tiltakstype]}
+                                />
 
-                    {feilmelding && (
-                        <>
-                            <VerticalSpacer rem={1} />
-                            <Alert variant="error">{feilmelding}</Alert>
-                        </>
-                    )}
-                </div>
+                                <div className={cls.element('lagreKnapp')}>
+                                    <LagreKnapp
+                                        lagre={() => AvtaleKanEtterrgistreres()}
+                                        label={avtale.godkjentForEtterregistrering ? 'Fjern' : 'Godkjenn'}
+                                        suksessmelding={
+                                            avtale.godkjentForEtterregistrering
+                                                ? 'Avtalen er godkjent for etterregistrering'
+                                                : 'Fjernet etterregistrering på avtale'
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {feilmelding && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Alert variant="error">{feilmelding}</Alert>
+                            </>
+                        )}
+                    </div>
+                </Modal.Content>
             </Modal>
         </div>
     );

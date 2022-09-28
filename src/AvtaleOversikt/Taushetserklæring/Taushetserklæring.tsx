@@ -5,11 +5,11 @@ import { mentorGodkjennTaushetserklæring } from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
-import Modal from 'nav-frontend-modal';
+import { Modal } from '@navikt/ds-react';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
-import { useHistory } from "react-router";
+import { useHistory } from 'react-router';
 import './Taushetserklæring.less';
 import TausetserklæringTekst from './TaushetserklæringTekst';
 
@@ -39,36 +39,38 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
 
     return (
         <Modal
-            isOpen={open}
-            onRequestClose={() => {
-                togglesetTaushetserklæringForMentorAvtale("");
+            open={open}
+            onClose={() => {
+                togglesetTaushetserklæringForMentorAvtale('');
             }}
             closeButton={true}
             className={cls.element('modal-container')}
-            contentLabel="Min modalrute"
+            aria-label="Min modalrute"
         >
-            <div className={cls.element('modal')}>
-                <div className={cls.element('topIconContainer')}>
-                    <VarselTegnForModal width={'80%'} height={'80px'} />
-                </div>
+            <Modal.Content>
+                <div className={cls.element('modal')}>
+                    <div className={cls.element('topIconContainer')}>
+                        <VarselTegnForModal width={'80%'} height={'80px'} />
+                    </div>
 
-                <Systemtittel className={cls.element('header')}>Signer taushetserklæring</Systemtittel>
-                <p>Som mentor må du signere en taushetserklæring.</p>
-                <VerticalSpacer rem={2} />
-                <TausetserklæringTekst />
-                <BekreftCheckboksPanel
-                    key={'Taushetserklæring-BekreftCheckboksPanel' + avtale.id}
-                    className={cls.element("bekreftelse")}
-                    label="Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de lovbestemmelsene som er listet opp over"
-                    checked={bekrefterGodkjennerTaushetserklæring}
-                    onChange={() => setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)}
-                />
-                <LagreKnapp
-                    className={'taushetserklæring__lagreKnapp'}
-                    label={'Signer Taushetserklæring'}
-                    lagre={godkjennTaushetserklæring}
-                />
-            </div>
+                    <Systemtittel className={cls.element('header')}>Signer taushetserklæring</Systemtittel>
+                    <p>Som mentor må du signere en taushetserklæring.</p>
+                    <VerticalSpacer rem={2} />
+                    <TausetserklæringTekst />
+                    <BekreftCheckboksPanel
+                        key={'Taushetserklæring-BekreftCheckboksPanel' + avtale.id}
+                        className={cls.element('bekreftelse')}
+                        label="Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de lovbestemmelsene som er listet opp over"
+                        checked={bekrefterGodkjennerTaushetserklæring}
+                        onChange={() => setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)}
+                    />
+                    <LagreKnapp
+                        className={'taushetserklæring__lagreKnapp'}
+                        label={'Signer Taushetserklæring'}
+                        lagre={godkjennTaushetserklæring}
+                    />
+                </div>
+            </Modal.Content>
         </Modal>
     );
 };

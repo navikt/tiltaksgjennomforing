@@ -1,7 +1,7 @@
 import video from '@/assets/media/roller-rettigheter.mp4';
 import { trackVideo } from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
-import Modal from 'nav-frontend-modal';
+import { Modal } from '@navikt/ds-react';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import MediaQuery from 'react-responsive';
@@ -21,30 +21,44 @@ Dette gjøres på følgende måte:
 3. Velg andre med rettigheter til virksomheten og personen du skal gi rettighet til.
 4. Søk etter rettigheten, huk av for alle rettigheter og klikk gi rettigheter.`;
 
-const AltinnVideoModal: React.FunctionComponent<Props> = props => {
+const AltinnVideoModal: React.FunctionComponent<Props> = (props) => {
     return (
         <Modal
             className={cls.element('modal')}
-            contentLabel="Roller og rettigheter"
+            aria-label="Roller og rettigheter"
             closeButton={true}
-            isOpen={props.isOpen}
-            onRequestClose={() => props.lukkModal()}
+            open={props.isOpen}
+            onClose={() => props.lukkModal()}
         >
-            <div className={cls.element('tittel')}>
-                <Systemtittel>Slik tildeler du roller og rettigheter i Altinn.</Systemtittel>
-            </div>
-            <MediaQuery minWidth={576}>
-                <video width="700" height="450" controls={true} onTimeUpdate={trackVideo} aria-label={videoInstruks}>
-                    <source src={video} type="video/mp4" />
-                    Nettleseren din støtter ikke denne videoen.
-                </video>
-            </MediaQuery>
-            <MediaQuery maxWidth={575}>
-                <video width="300" height="300" controls={true} onTimeUpdate={trackVideo} aria-label={videoInstruks}>
-                    <source src={video} type="video/mp4" />
-                    Nettleseren din støtter ikke denne videoen.
-                </video>
-            </MediaQuery>
+            <Modal.Content>
+                <div className={cls.element('tittel')}>
+                    <Systemtittel>Slik tildeler du roller og rettigheter i Altinn.</Systemtittel>
+                </div>
+                <MediaQuery minWidth={576}>
+                    <video
+                        width="700"
+                        height="450"
+                        controls={true}
+                        onTimeUpdate={trackVideo}
+                        aria-label={videoInstruks}
+                    >
+                        <source src={video} type="video/mp4" />
+                        Nettleseren din støtter ikke denne videoen.
+                    </video>
+                </MediaQuery>
+                <MediaQuery maxWidth={575}>
+                    <video
+                        width="300"
+                        height="300"
+                        controls={true}
+                        onTimeUpdate={trackVideo}
+                        aria-label={videoInstruks}
+                    >
+                        <source src={video} type="video/mp4" />
+                        Nettleseren din støtter ikke denne videoen.
+                    </video>
+                </MediaQuery>
+            </Modal.Content>
         </Modal>
     );
 };

@@ -5,8 +5,7 @@ import { pathTilOversiktISelvbetjeningProd } from '@/paths';
 import { delAvtaleMedAvtalepart } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { Knapp } from 'nav-frontend-knapper';
-import { Link } from '@navikt/ds-react';
-import Modal from 'nav-frontend-modal';
+import { Link, Modal } from '@navikt/ds-react';
 import { Ingress, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -25,62 +24,63 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
     return (
         <Modal
             className={cls.element('modal')}
-            contentLabel="Del lenke modal"
+            aria-label="Del lenke modal"
             closeButton={true}
-            isOpen={props.isOpen}
-            onRequestClose={() => props.lukkModal()}
-            aria={{ modal: props.isOpen }}
-            ariaHideApp={props.isOpen}
+            open={props.isOpen}
+            onClose={() => props.lukkModal()}
+            aria-modal={props.isOpen}
         >
-            <Systemtittel>Del lenke til avtalen</Systemtittel>
-            <VerticalSpacer rem={1} />
-            <Ingress>
-                Lenke til avtalen kan sendes på SMS hvis telefonnummer er registrert i avtalen. Hvis det er ønskelig å
-                sende lenke til avtalen via andre kanaler, for eksempel aktivitetsplanen eller e-post, er det adressen
-                under som må benyttes.
-            </Ingress>
+            <Modal.Content>
+                <Systemtittel>Del lenke til avtalen</Systemtittel>
+                <VerticalSpacer rem={1} />
+                <Ingress>
+                    Lenke til avtalen kan sendes på SMS hvis telefonnummer er registrert i avtalen. Hvis det er ønskelig
+                    å sende lenke til avtalen via andre kanaler, for eksempel aktivitetsplanen eller e-post, er det
+                    adressen under som må benyttes.
+                </Ingress>
 
-            <VerticalSpacer rem={2} />
+                <VerticalSpacer rem={2} />
 
-            <Undertittel>Send lenke på SMS</Undertittel>
-            <VerticalSpacer rem={0.5} />
-            <LagreKnapp
-                label="Send til arbeidsgiveren"
-                lagre={() => delAvtaleMedAvtalepart(avtale.id, 'ARBEIDSGIVER')}
-                suksessmelding="SMS sendt til arbeidsgiveren"
-                knapptype={'standard'}
-            />
-            <VerticalSpacer rem={0.5} />
-            <LagreKnapp
-                label="Send til deltakeren"
-                lagre={() => delAvtaleMedAvtalepart(avtale.id, 'DELTAKER')}
-                suksessmelding="SMS sendt til deltakeren"
-                knapptype={'standard'}
-            />
-
-            <VerticalSpacer rem={0.5} />
-            {avtale.tiltakstype === 'MENTOR' && (
+                <Undertittel>Send lenke på SMS</Undertittel>
+                <VerticalSpacer rem={0.5} />
                 <LagreKnapp
-                    label="Send til mentor"
-                    lagre={() => delAvtaleMedAvtalepart(avtale.id, 'MENTOR')}
-                    suksessmelding="SMS sendt til mentor"
+                    label="Send til arbeidsgiveren"
+                    lagre={() => delAvtaleMedAvtalepart(avtale.id, 'ARBEIDSGIVER')}
+                    suksessmelding="SMS sendt til arbeidsgiveren"
                     knapptype={'standard'}
                 />
-            )}
+                <VerticalSpacer rem={0.5} />
+                <LagreKnapp
+                    label="Send til deltakeren"
+                    lagre={() => delAvtaleMedAvtalepart(avtale.id, 'DELTAKER')}
+                    suksessmelding="SMS sendt til deltakeren"
+                    knapptype={'standard'}
+                />
 
-            <VerticalSpacer rem={2} />
+                <VerticalSpacer rem={0.5} />
+                {avtale.tiltakstype === 'MENTOR' && (
+                    <LagreKnapp
+                        label="Send til mentor"
+                        lagre={() => delAvtaleMedAvtalepart(avtale.id, 'MENTOR')}
+                        suksessmelding="SMS sendt til mentor"
+                        knapptype={'standard'}
+                    />
+                )}
 
-            <Undertittel>Send lenke manuelt</Undertittel>
-            <div className={cls.element('lenkedeling')}>
-                <div className={cls.element('lenke')}>
-                    <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
+                <VerticalSpacer rem={2} />
+
+                <Undertittel>Send lenke manuelt</Undertittel>
+                <div className={cls.element('lenkedeling')}>
+                    <div className={cls.element('lenke')}>
+                        <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
+                    </div>
+                    <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
+                        <Knapp mini={true} className={cls.element('kopier-knapp')}>
+                            Kopier lenke
+                        </Knapp>
+                    </CopyToClipboard>
                 </div>
-                <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
-                    <Knapp mini={true} className={cls.element('kopier-knapp')}>
-                        Kopier lenke
-                    </Knapp>
-                </CopyToClipboard>
-            </div>
+            </Modal.Content>
         </Modal>
     );
 };
