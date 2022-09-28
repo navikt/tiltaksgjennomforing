@@ -33,7 +33,8 @@ const setup = (app, azureClient, azureTokenEndpoint) => {
                 return options;
             },
             userResDecorator: function(proxyRes, proxyResData, userReq, userRes) {
-                return { ...proxyResData, ident: proxyResData.identifikator || '' };
+                data = JSON.parse(proxyResData.toString('utf8'));
+                return JSON.stringify({ ...data, ident: data.identifikator || '' });
               }
         })
     );
