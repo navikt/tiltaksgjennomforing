@@ -5,3 +5,4 @@
 "stillingstitler-url": "http://tiltak-stillingstitler"
 "api-audience": "dev-fss:arbeidsgiver:tiltak-proxy"
 "proxy-cluster": "dev-fss"
+"notifikasjon-audience": "dev-gcp:fager:notifikasjon-bruker-api"

@@ -2,6 +2,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const fetch = require('node-fetch');
 const whitelist = require('./whitelist');
 const apiProxy = require('../server/api-proxy');
+const notifikasjonProxy = require('../server/notifikasjoner-proxy');
 const tokenx = require('../server/tokenx');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
@@ -108,6 +109,7 @@ module.exports = function (app) {
     const gcpTokenExchange = async () => {
         const tokenxAuthClient = await tokenx.client();
         apiProxy.setup(app, tokenxAuthClient);
+        notifikasjonProxy.setup(app, tokenxAuthClient);
     };
 
     if (process.env.NAIS_CLUSTER_NAME === 'dev-gcp' || process.env.NAIS_CLUSTER_NAME === 'prod-gcp') {
