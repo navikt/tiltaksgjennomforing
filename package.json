@@ -75,8 +75,6 @@
         "nav-frontend-typografi-style": "^2.0.1",
         "nav-frontend-veileder": "^3.0.1",
         "nav-frontend-veileder-style": "^3.0.1",
-        "nav-frontend-veilederpanel": "^2.0.1",
-        "nav-frontend-veilederpanel-style": "^2.0.1",
         "node-cache": "5.1.2",
         "node-fetch": "2.6.1",
         "openid-client": "3.7.2",
