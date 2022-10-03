@@ -1,6 +1,5 @@
-import { Alert, AlertProps } from '@navikt/ds-react';
+import { Alert, AlertProps, Button } from '@navikt/ds-react';
 import classNames from 'classnames';
-import Lukknapp from 'nav-frontend-lukknapp';
 import * as React from 'react';
 import './Varsel.less';
 
@@ -56,11 +55,7 @@ class VarselKomponent extends React.Component<Props, State> {
                             <div className="varsel__innhold">
                                 <div>{this.props.children}</div>
                                 {this.props.kanLukkes && (
-                                    <Lukknapp
-                                        bla={this.props.type === 'info'}
-                                        onClick={this.lukkVarsel}
-                                        className="varsel__innhold__lukknapp"
-                                    />
+                                    <Button onClick={this.lukkVarsel} className="varsel__innhold__lukknapp"></Button>
                                 )}
                             </div>
                         </Alert>
