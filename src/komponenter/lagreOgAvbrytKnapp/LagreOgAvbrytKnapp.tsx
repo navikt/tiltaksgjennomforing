@@ -4,7 +4,8 @@ import { Alert } from '@navikt/ds-react';
 import _ from 'lodash';
 import KnappBase, { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
 import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
-import VerticalSpacer from './layout/VerticalSpacer';
+import BEMHelper from '@/utils/bem';
+import './lagreOgAvbrytKnapp.less';
 
 type Props = {
     lagreFunksjon: () => Promise<any>;
@@ -13,6 +14,7 @@ type Props = {
 } & HTMLAttributes<HTMLDivElement>;
 
 const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
+    const cls = BEMHelper('lagre-og-avbryt-knapp');
     const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
     const [feilmelding, setFeilmelding] = useState('');
 
@@ -24,7 +26,9 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
     const onClick = async () => {
         try {
             setOppslag({ status: Status.LasterInn });
-            await props.lagreFunksjon().then(() => setOppslag({ status: Status.Sendt }));
+
+            await props.lagreFunksjon();
+            setOppslag({ status: Status.Sendt });
         } catch (error: any) {
             setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
             handterFeil(error, setFeilmelding);
@@ -38,8 +42,17 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
     }, [oppslag.status]);
 
     return (
-        <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div className={cls.className}>
+            {oppslag.status === Status.Feil && (
+                <div className={cls.element('alert')}>
+                    <Alert variant="warning">
+                        <div ref={feilRef} aria-live="polite">
+                            {feilmelding}
+                        </div>
+                    </Alert>
+                </div>
+            )}
+            <div className={cls.element('container')}>
                 <KnappBase
                     spinner={oppslag.status === Status.LasterInn}
                     disabled={oppslag.status === Status.LasterInn}
@@ -51,16 +64,6 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
                 </KnappBase>
                 <Knapp onClick={props.avbryt}>Avbryt</Knapp>
             </div>
-            {oppslag.status === Status.Feil && (
-                <>
-                    <VerticalSpacer rem={0.5} />
-                    <Alert variant="warning">
-                        <div ref={feilRef} aria-live="polite">
-                            {feilmelding}
-                        </div>
-                    </Alert>
-                </>
-            )}
         </div>
     );
 };

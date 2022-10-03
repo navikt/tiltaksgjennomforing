@@ -11,13 +11,11 @@ interface Props {
     ariaLabel?: string;
 }
 
-const Innholdsboks: React.FunctionComponent<Props> = props => (
-    <>
-        <div className={classnames('innholdsboks', props.className)}>
-            {props.utfyller && <UtfyllerBanner utfyller={props.utfyller} />}
-            <div className="innholdsboks__innhold">{props.children}</div>
-        </div>
-    </>
+const Innholdsboks: React.FunctionComponent<Props> = (props) => (
+    <div className={classnames('innholdsboks', props.className)}>
+        {props.utfyller && <UtfyllerBanner utfyller={props.utfyller} />}
+        <div className="innholdsboks__innhold">{props.children}</div>
+    </div>
 );
 
 export default Innholdsboks;

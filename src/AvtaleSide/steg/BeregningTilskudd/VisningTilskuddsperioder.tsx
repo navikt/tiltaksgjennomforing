@@ -35,24 +35,10 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Element>Reduksjon av tilskuddsprosent</Element>
-                                {avtale.tiltakstype === "MIDLERTIDIG_LONNSTILSKUDD" &&
+                                {avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' && (
                                     <Normaltekst>
                                         Tilskuddsprosenten reduseres med 10% etter{' '}
-                                        {avtale.gjeldendeInnhold.lonnstilskuddProsent === 60 ? '1 år' : '6 måneder'}. Datoen
-                                        for ny redusert sats er{' '}
-                                        <b>
-                                            {formatterDato(
-                                                avtale.gjeldendeInnhold.datoForRedusertProsent,
-                                                NORSK_DATO_FORMAT
-                                            )}
-                                        </b>
-                                        .
-                                    </Normaltekst>
-                                }
-
-                                {avtale.tiltakstype === "VARIG_LONNSTILSKUDD" &&
-                                    <Normaltekst>
-                                        Tilskuddsprosenten reduseres til 67% etter 1 år om tilskuddsprosenten er eller over 68%.
+                                        {avtale.gjeldendeInnhold.lonnstilskuddProsent === 60 ? '1 år' : '6 måneder'}.
                                         Datoen for ny redusert sats er{' '}
                                         <b>
                                             {formatterDato(
@@ -62,8 +48,21 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                         </b>
                                         .
                                     </Normaltekst>
-                                }
+                                )}
 
+                                {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && (
+                                    <Normaltekst>
+                                        Tilskuddsprosenten reduseres til 67% etter 1 år om tilskuddsprosenten er eller
+                                        over 68%. Datoen for ny redusert sats er{' '}
+                                        <b>
+                                            {formatterDato(
+                                                avtale.gjeldendeInnhold.datoForRedusertProsent,
+                                                NORSK_DATO_FORMAT
+                                            )}
+                                        </b>
+                                        .
+                                    </Normaltekst>
+                                )}
                             </>
                         )}
                     </div>
@@ -81,15 +80,15 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                         ? avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !==
                                           periode.lonnstilskuddProsent
                                         : false;
-                                if (index < 15 || index === avtale.tilskuddPeriode.length -1) {
+                                if (index < 15 || index === avtale.tilskuddPeriode.length - 1) {
                                     return (
-                                        <>
-                                            { avtale.tilskuddPeriode.length > 15 && index === avtale.tilskuddPeriode.length -1 &&
-                                                <div
-                                                    key={index}
-                                                    className={cls.element('tabell-innslag')}
-                                                    >...</div>
-                                                }
+                                        <React.Fragment key={index}>
+                                            {avtale.tilskuddPeriode.length > 15 &&
+                                                index === avtale.tilskuddPeriode.length - 1 && (
+                                                    <div key={index} className={cls.element('tabell-innslag')}>
+                                                        ...
+                                                    </div>
+                                                )}
                                             <div
                                                 key={index}
                                                 className={cls.element('tabell-innslag')}
@@ -104,16 +103,18 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                                     {formatterPenger(periode.beløp)}
                                                 </Normaltekst>
                                             </div>
-                                        </>
+                                        </React.Fragment>
                                     );
                                 }
                                 return null;
                             })}
-                        {avtale.gjeldendeInnhold.startDato && avtale.gjeldendeInnhold.sluttDato &&
-                            <div className={cls.element('tabell-innslag')} >
-                                Avtalen varer fra {formatterDato(avtale.gjeldendeInnhold.startDato, NORSK_DATO_FORMAT)} til {formatterDato(avtale.gjeldendeInnhold.sluttDato, NORSK_DATO_FORMAT)}. Det tilsvarer {antallAktiveTilskuddsperioder} tilskuddsperioder.
+                        {avtale.gjeldendeInnhold.startDato && avtale.gjeldendeInnhold.sluttDato && (
+                            <div className={cls.element('tabell-innslag')}>
+                                Avtalen varer fra {formatterDato(avtale.gjeldendeInnhold.startDato, NORSK_DATO_FORMAT)}{' '}
+                                til {formatterDato(avtale.gjeldendeInnhold.sluttDato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
+                                {antallAktiveTilskuddsperioder} tilskuddsperioder.
                             </div>
-                        }
+                        )}
                     </div>
                     <VerticalSpacer rem={1} />
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' && (

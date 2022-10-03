@@ -1,20 +1,28 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import GodkjennPåVegneAvDeltakerCheckboxer from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/GodkjennPåVegneAvDeltakerCheckboxer';
+import GodkjennPåVegneAvDeltakerCheckboxer from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/komponenter/GodkjennPåVegneAvDeltakerCheckboxer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { GodkjentPaVegneAvArbeidsgiverGrunner, GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
-import GodkjennPåVegneAvArbeidsgiverCheckboxer from './GodkjennPåVegneAvArbeidsgiverCheckboxer';
+import GodkjennPåVegneAvArbeidsgiverCheckboxer from './komponenter/GodkjennPåVegneAvArbeidsgiverCheckboxer';
+import GodkjennPaVegneAvMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/GodkjennPaVegneAvMedAlleredeOpprettetTiltak';
+import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import { fetchdata } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
+import BEMHelper from '@/utils/bem';
 
-type Props = {
+interface Props {
     skalGodkjennesPaVegne: boolean;
     setSkalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
-};
+}
 
 const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
-    const avtaleContext = useContext(AvtaleContext);
+    const cls = BEMHelper('godkjenning');
+    const { avtale, godkjennPaVegneAvDeltakerOgArbeidsgiver } = useContext(AvtaleContext);
+    const { deltakerFnr, tiltakstype, id, gjeldendeInnhold } = avtale;
+    const { startDato, sluttDato } = gjeldendeInnhold;
+    const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
+    const [godkjenningsModalIsOpen, setGodkjenningsModalIsOpen] = useState<boolean>(false);
 
     const godkjennPaVegneLabel = props.skalGodkjennesPaVegne
         ? 'Jeg skal godkjenne på vegne av deltakeren og arbeidsgiveren fordi:'
@@ -39,14 +47,13 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
     const [erInformert, setErInformert] = useState(false);
     const [feilErInformert, setFeilErInformert] = useState<string>();
 
-    const godkjennAvtalen = () => {
+    const godkjenn = (): void | Promise<void> => {
         const valgtMinstEnGrunnDeltaker =
             godkjentPåVegneAvGrunnerDeltaker.ikkeBankId ||
             godkjentPåVegneAvGrunnerDeltaker.reservert ||
             godkjentPåVegneAvGrunnerDeltaker.digitalKompetanse;
         if (!valgtMinstEnGrunnDeltaker) {
-            setFeilmeldingGrunnDeltaker('Oppgi minst én grunn for godkjenning på vegne av deltaker');
-            return;
+            return setFeilmeldingGrunnDeltaker('Oppgi minst én grunn for godkjenning på vegne av deltaker');
         } else {
             setFeilmeldingGrunnDeltaker(undefined);
         }
@@ -55,29 +62,27 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
             godkjentPåVegneAvGrunnerArbeidsgiver.vetIkkeHvemSomKanGiTilgang ||
             godkjentPåVegneAvGrunnerArbeidsgiver.farIkkeTilgangPersonvern;
         if (!valgtMinstEnGrunnArbeidsgiver) {
-            setFeilmeldingGrunnArbeidsgiver('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
-            return;
+            return setFeilmeldingGrunnArbeidsgiver('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
         } else {
             setFeilmeldingGrunnArbeidsgiver(undefined);
         }
 
         if (!erInformert) {
-            setFeilErInformert(
+            return setFeilErInformert(
                 'Deltaker og arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.'
             );
-            return;
         } else {
             setFeilErInformert(undefined);
         }
 
-        return avtaleContext.godkjennPaVegneAvDeltakerOgArbeidsgiver({
+        return godkjennPaVegneAvDeltakerOgArbeidsgiver({
             godkjentPaVegneAvDeltakerGrunn: godkjentPåVegneAvGrunnerDeltaker,
             godkjentPaVegneAvArbeidsgiverGrunn: godkjentPåVegneAvGrunnerArbeidsgiver,
         });
     };
 
     return (
-        <>
+        <div className={cls.element('godkjenn-pa-vegne-av')}>
             <Checkbox
                 label={godkjennPaVegneLabel}
                 checked={props.skalGodkjennesPaVegne}
@@ -85,21 +90,18 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
                     props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
             />
-            <VerticalSpacer rem={1} />
             {props.skalGodkjennesPaVegne && (
-                <>
-                    <div style={{ marginLeft: '2rem' }}>
+                <React.Fragment>
+                    <div className={cls.element('checkbox-wrapper')}>
                         <Element>Deltaker</Element>
-                        <VerticalSpacer rem={0.5} />
                         <GodkjennPåVegneAvDeltakerCheckboxer
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunnerDeltaker}
                             setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunnerDeltaker}
                             feilmeldingGrunn={feilmeldingGrunnDeltaker}
                             setFeilmeldingGrunn={setFeilmeldingGrunnDeltaker}
+                            className={cls.element('checkboxer')}
                         />
-                        <VerticalSpacer rem={1} />
-                        <Element>Arbeidsgiver</Element>
-                        <VerticalSpacer rem={0.5} />
+                        <Element className={cls.element('checkbox-sub-title')}>Arbeidsgiver</Element>
                         <GodkjennPåVegneAvArbeidsgiverCheckboxer
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunnerArbeidsgiver}
                             setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunnerArbeidsgiver}
@@ -107,20 +109,40 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
                             setFeilmeldingGrunn={setFeilmeldingGrunnArbeidsgiver}
                         />
                     </div>
-                    <VerticalSpacer rem={1} />
-                    <SkjemaGruppe feil={feilErInformert}>
+                    <SkjemaGruppe feil={feilErInformert} className={cls.element('skjema-gruppe')}>
                         <Checkbox
                             label="Deltakeren og arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen."
                             checked={erInformert}
                             onChange={() => setErInformert(!erInformert)}
                         />
                     </SkjemaGruppe>
-                    <VerticalSpacer rem={1} />
-                    {props.skalGodkjennesPaVegne && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
-                    <VerticalSpacer rem={1} />
-                </>
+                    {props.skalGodkjennesPaVegne && (
+                        <LagreKnapp
+                            className={cls.element('lagre-knapper')}
+                            lagre={() =>
+                                fetchdata({
+                                    deltakerFnr,
+                                    tiltakstype,
+                                    id,
+                                    startDato,
+                                    sluttDato,
+                                    alleredeRegistrertAvtale,
+                                    setAlleredeRegistrertAvtale,
+                                    setGodkjenningsModalIsOpen,
+                                    godkjenn,
+                                })
+                            }
+                            label="Godkjenn avtalen"
+                        />
+                    )}
+                    <GodkjennPaVegneAvMedAlleredeOpprettetTiltak
+                        godkjennPaVegneAv={() => godkjenn()}
+                        modalIsOpen={godkjenningsModalIsOpen}
+                        setModalIsOpen={setGodkjenningsModalIsOpen}
+                    />
+                </React.Fragment>
             )}
-        </>
+        </div>
     );
 };
 

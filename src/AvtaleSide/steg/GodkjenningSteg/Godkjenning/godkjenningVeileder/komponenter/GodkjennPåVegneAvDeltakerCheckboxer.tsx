@@ -7,11 +7,12 @@ interface Props {
     setGodkjentPåVegneAvGrunner: Dispatch<SetStateAction<GodkjentPaVegneAvDeltakerGrunner>>;
     feilmeldingGrunn: string | undefined;
     setFeilmeldingGrunn: Dispatch<SetStateAction<string | undefined>>;
+    className?: string;
 }
 
 const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) => {
     return (
-        <SkjemaGruppe feil={props.feilmeldingGrunn}>
+        <SkjemaGruppe feil={props.feilmeldingGrunn} className={props.className}>
             <Checkbox
                 label="har ikke BankID"
                 checked={props.godkjentPåVegneAvGrunner.ikkeBankId}

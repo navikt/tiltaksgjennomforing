@@ -1,11 +1,11 @@
 import { Avtale } from '@/types/avtale';
 import { Rolle } from '@/types/innlogget-bruker';
 import React, { FunctionComponent } from 'react';
+import GodkjenningArbeidsgiver from './godkjenningEksterneAktører/GodkjenningArbeidsgiver';
+import GodkjenningDeltaker from './godkjenningEksterneAktører/GodkjenningDeltaker';
+import GodkjenningMentor from './godkjenningEksterneAktører/GodkjenningMentor';
+import GodkjenningVeileder from './godkjenningVeileder/GodkjenningVeileder';
 import './Godkjenning.less';
-import GodkjenningArbeidsgiver from './GodkjenningArbeidsgiver';
-import GodkjenningDeltaker from './GodkjenningDeltaker';
-import GodkjenningMentor from './GodkjenningMentor';
-import GodkjenningVeileder from './GodkjenningVeileder';
 
 interface Props {
     avtale: Avtale;
