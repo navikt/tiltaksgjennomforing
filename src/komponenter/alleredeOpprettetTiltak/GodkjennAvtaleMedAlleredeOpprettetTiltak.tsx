@@ -2,9 +2,9 @@ import React, { Dispatch, SetStateAction, useContext } from 'react';
 import AlleredeOpprettetAvtaleModal from '@/komponenter/alleredeOpprettetTiltak/modal/AlleredeOpprettetAvtaleModal';
 import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import GodkjenningsInnhold from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/GodkjenningsInnhold';
-import KnappBase, { Knapp } from 'nav-frontend-knapper';
+import { Knapp } from 'nav-frontend-knapper';
 import { godkjennAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
-import BEMHelper from '@/utils/bem';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 
 interface Props {
     godkjenn: () => Promise<void>;
@@ -13,16 +13,13 @@ interface Props {
 }
 
 const GodkjennAvtaleMedAlleredeOpprettetTiltak: React.FC<Props> = ({ godkjenn, setModalIsOpen, modalIsOpen }) => {
-    const cls = BEMHelper('godkjenn-alleredeOpprettet');
     const { alleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
 
     return (
         <AlleredeOpprettetAvtaleModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
             <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}>
-                <div className={cls.element('knapp-container')}>
-                    <KnappBase onClick={() => godkjennAvtale({ godkjenn, setModalIsOpen })} type="hoved">
-                        Godkjenn avtale
-                    </KnappBase>
+                <div>
+                    <LagreKnapp lagre={() => godkjennAvtale({ godkjenn, setModalIsOpen })} label="Godkjenn avtale" />
                     <Knapp onClick={() => setModalIsOpen(false)}>Avbryt</Knapp>
                 </div>
             </GodkjenningsInnhold>

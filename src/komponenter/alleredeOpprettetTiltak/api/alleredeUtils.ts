@@ -45,19 +45,26 @@ export const endrePathAlleredeOpprettet = (
     }
 };
 
-export const godkjennAvtalePaVegneAv = ({ godkjennPaVegneAv, setModalIsOpen }: GodkjennAvtalePaVegneAvProps): void => {
+export const godkjennAvtalePaVegneAv = async ({
+    godkjennPaVegneAv,
+    setModalIsOpen,
+}: GodkjennAvtalePaVegneAvProps): Promise<void> => {
     try {
-        new Promise(() => godkjennPaVegneAv()).then(() => setModalIsOpen(false));
+        await godkjennPaVegneAv();
+        setModalIsOpen(false);
     } catch (err) {
-        console.error(err);
+        console.log(err);
+        throw err;
     }
 };
 
-export const godkjennAvtale = ({ godkjenn, setModalIsOpen }: GodkjennAvtaleProps): void => {
+export const godkjennAvtale = async ({ godkjenn, setModalIsOpen }: GodkjennAvtaleProps): Promise<void> => {
     try {
-        godkjenn().then(() => setModalIsOpen(false));
+        await godkjenn();
+        setModalIsOpen(false);
     } catch (err) {
-        console.error(err);
+        console.log(err);
+        throw err;
     }
 };
 

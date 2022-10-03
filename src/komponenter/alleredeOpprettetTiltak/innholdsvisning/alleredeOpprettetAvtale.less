@@ -1,4 +1,6 @@
 .alleredeOpprettetAvtale {
+  display: flex;
+  justify-content: center;
   padding: 0 2rem;
 
   &__info {
@@ -17,6 +19,7 @@
     padding: 0 3rem 1.75rem 2rem;
     position: relative;
     border-left: 1px dashed #00347D;
+    background-color: white;
     &:last-child {
       padding-bottom: 0.25rem;
     }
@@ -64,14 +67,14 @@
   }
   &__chevron-detaljer {
     &--open, &--close > span {
-      transition: all 0.3s ease;
+      transition: all 0.5s ease;
     }
       &--open > span {
         transform: rotateX(-180deg);
       }
   }
   &__detalje-innhold-wrapper {
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     &--close {
       overflow-y: hidden;
       max-height: 0;
