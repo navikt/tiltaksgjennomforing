@@ -1,6 +1,5 @@
-import { Alert } from '@navikt/ds-react';
+import { Alert, Loader } from '@navikt/ds-react';
 import * as Sentry from '@sentry/react';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, PropsWithChildren, Suspense } from 'react';
 import VerticalSpacer from './layout/VerticalSpacer';
@@ -23,7 +22,7 @@ const ErrorBoundary: FunctionComponent = (props: PropsWithChildren<{}>) => {
             <Suspense
                 fallback={
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                        <NavFrontendSpinner type="XL" />
+                        <Loader variant="neutral" size="xlarge" />
                     </div>
                 }
             >

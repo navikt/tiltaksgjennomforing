@@ -5,11 +5,10 @@ import { hentVarsellogg } from '@/services/rest-service';
 import { Nettressurs, Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Loader } from '@navikt/ds-react';
 import moment from 'moment';
 import { Link } from '@navikt/ds-react';
 import { Modal } from '@navikt/ds-react';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import 'nav-frontend-tabell-style';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -74,7 +73,7 @@ const Varsellogg: FunctionComponent = () => {
                         <VarselTabell varsler={varsler.data} />
                     )}
                     {varsler.status === Status.LasterInn && (
-                        <NavFrontendSpinner type="XL" className={cls.element('spinner')} />
+                        <Loader variant="neutral" size="xlarge" className={cls.element('spinner')} />
                     )}
                     {varsler.status === Status.Feil && (
                         <Normaltekst>Klarte ikke hente hendelselogg. Prøv igjen senere.</Normaltekst>

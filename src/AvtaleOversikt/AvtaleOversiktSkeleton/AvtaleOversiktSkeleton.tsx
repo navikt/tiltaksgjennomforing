@@ -1,7 +1,7 @@
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
-import NavFrontendSpinner from 'nav-frontend-spinner';
+import { Loader } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
@@ -13,7 +13,7 @@ type Props = {
     erNavAnsatt: boolean;
 };
 
-const AvtaleOversiktSkeleton: FunctionComponent<Props> = props => {
+const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
     return (
         <div>
             <MediaQuery minWidth={881}>
@@ -39,7 +39,7 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = props => {
             </MediaQuery>
             <MediaQuery maxWidth={880}>
                 <div className="avtaleoversiktskeleton__spinner">
-                    <NavFrontendSpinner type={'XXL'} />
+                    <Loader variant="neutral" size="2xlarge" />
                 </div>
             </MediaQuery>
         </div>
