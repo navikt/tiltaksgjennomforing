@@ -45,6 +45,7 @@ const Innloggingslinje: FunctionComponent<Props> = (props) => {
                                 </div>
                             </Accordion.Header>
                             <Accordion.Content>
+                                <p>Test/p>
                                 <div className={cls.className}>
                                     <LoggUtKnapp />
                                 </div>
