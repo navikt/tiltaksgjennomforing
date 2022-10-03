@@ -9,7 +9,6 @@ import { Alert, Loader } from '@navikt/ds-react';
 import moment from 'moment';
 import { Link } from '@navikt/ds-react';
 import { Modal } from '@navikt/ds-react';
-import 'nav-frontend-tabell-style';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './Varsellogg.less';
