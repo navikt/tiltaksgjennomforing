@@ -56,39 +56,21 @@ const PT = __importStar(require('prop-types'));
 const React = __importStar(require('react'));
 const classnames_1 = __importDefault(require('classnames'));
 require('navGrid');
-const cls = (className, xs, sm, md, lg) =>
-    (0, classnames_1.default)('col', className, {
-        [`col-xs-${xs}`]: !!xs,
-        [`col-sm-${sm}`]: !!sm,
-        [`col-md-${md}`]: !!md,
-        [`col-lg-${lg}`]: !!lg,
-    });
-class Column extends React.Component {
+const cls = (className) => (0, classnames_1.default)('row', className, {});
+class Row extends React.Component {
     render() {
         const _a = this.props,
-            { children, className, xs, sm, md, lg } = _a,
-            props = __rest(_a, ['children', 'className', 'xs', 'sm', 'md', 'lg']);
-        return React.createElement(
-            'div',
-            Object.assign({ className: cls(className, xs, sm, md, lg) }, props),
-            children
-        );
+            { children, className } = _a,
+            props = __rest(_a, ['children', 'className']);
+        return React.createElement('div', Object.assign({ className: cls(className) }, props), children);
     }
 }
-Column.defaultProps = {
+Row.defaultProps = {
     className: undefined,
     children: undefined,
-    xs: undefined,
-    sm: undefined,
-    md: undefined,
-    lg: undefined,
 };
-Column.propTypes = {
+Row.propTypes = {
     className: PT.string,
-    xs: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    sm: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    md: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    lg: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
     children: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
 };
-exports.default = Column;
+exports.default = Row;

@@ -9,7 +9,7 @@ import BEMHelper from '@/utils/bem';
 import { visSatsMedEttDesimal, visTalletEller0 } from '@/utils/lonnstilskuddUtregningUtils';
 import classNames from 'classnames';
 import { Accordion } from '@navikt/ds-react';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import React, { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './VisUtregningenPanel.less';

@@ -6,7 +6,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Mentorinfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Accordion } from '@navikt/ds-react';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';

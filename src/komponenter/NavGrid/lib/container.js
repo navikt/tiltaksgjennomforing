@@ -56,39 +56,27 @@ const PT = __importStar(require('prop-types'));
 const React = __importStar(require('react'));
 const classnames_1 = __importDefault(require('classnames'));
 require('navGrid');
-const cls = (className, xs, sm, md, lg) =>
-    (0, classnames_1.default)('col', className, {
-        [`col-xs-${xs}`]: !!xs,
-        [`col-sm-${sm}`]: !!sm,
-        [`col-md-${md}`]: !!md,
-        [`col-lg-${lg}`]: !!lg,
+const cls = (fluid, className) =>
+    (0, classnames_1.default)(className, {
+        container: fluid === false,
+        'container-fluid': fluid === true,
     });
-class Column extends React.Component {
+class Container extends React.Component {
     render() {
         const _a = this.props,
-            { children, className, xs, sm, md, lg } = _a,
-            props = __rest(_a, ['children', 'className', 'xs', 'sm', 'md', 'lg']);
-        return React.createElement(
-            'div',
-            Object.assign({ className: cls(className, xs, sm, md, lg) }, props),
-            children
-        );
+            { children, className, fluid } = _a,
+            props = __rest(_a, ['children', 'className', 'fluid']);
+        return React.createElement('div', Object.assign({ className: cls(fluid, className) }, props), children);
     }
 }
-Column.defaultProps = {
+Container.defaultProps = {
     className: undefined,
     children: undefined,
-    xs: undefined,
-    sm: undefined,
-    md: undefined,
-    lg: undefined,
+    fluid: false,
 };
-Column.propTypes = {
+Container.propTypes = {
     className: PT.string,
-    xs: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    sm: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    md: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    lg: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
+    fluid: PT.bool,
     children: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
 };
-exports.default = Column;
+exports.default = Container;

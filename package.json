@@ -52,8 +52,6 @@
         "moment": "^2.29.1",
         "nav-datovelger": "^12.1.1",
         "nav-frontend-core": "^6.0.1",
-        "nav-frontend-grid": "^2.0.1",
-        "nav-frontend-grid-style": "^1.0.2",
         "nav-frontend-hjelpetekst": "^3.1.1",
         "nav-frontend-hjelpetekst-style": "^3.0.1",
         "nav-frontend-ikoner-assets": "^3.0.1",

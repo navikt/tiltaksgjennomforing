@@ -7,7 +7,7 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
@@ -92,7 +92,9 @@ const OmMentorSteg = () => {
                             }
                         />
                         <VerticalSpacer rem={0.5} />
-                        <Normaltekst>*Inkludert feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon</Normaltekst>
+                        <Normaltekst>
+                            *Inkludert feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
+                        </Normaltekst>
                     </Column>
                 </Row>
             </Container>

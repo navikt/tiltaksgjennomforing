@@ -12,7 +12,7 @@ import { Alert } from '@navikt/ds-react';
 import moment from 'moment';
 import 'moment/locale/nb';
 import { Datepicker } from 'nav-datovelger';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -64,15 +64,19 @@ const VarighetSteg: FunctionComponent = () => {
                     <Column md="12">
                         <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
                         <Normaltekst>
-                            {['SOMMERJOBB'].includes(avtaleContext.avtale.tiltakstype) ?
+                            {['SOMMERJOBB'].includes(avtaleContext.avtale.tiltakstype) ? (
                                 <>
-                                    Tiltaket må ha oppstart i perioden 1/6 - 31/8. Fyll ut startdato og forventet sluttdato. Veileder kan sette startdato 7 dager før dagens dato, mens beslutter kan åpne opp for etterregistrering lenger tilbake i tid.
-                                </> :
-                                <>
-                                    Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato.
+                                    Tiltaket må ha oppstart i perioden 1/6 - 31/8. Fyll ut startdato og forventet
+                                    sluttdato. Veileder kan sette startdato 7 dager før dagens dato, mens beslutter kan
+                                    åpne opp for etterregistrering lenger tilbake i tid.
                                 </>
-                            }
-                            <>{' '}Hvor lenge det er behov for tiltaket må vurderes underveis i perioden.</>
+                            ) : (
+                                <>
+                                    Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens
+                                    dato.
+                                </>
+                            )}
+                            <> Hvor lenge det er behov for tiltaket må vurderes underveis i perioden.</>
                             {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(
                                 avtaleContext.avtale.tiltakstype
                             ) && (

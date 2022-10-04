@@ -7,7 +7,7 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { endreOmMentor } from '@/services/rest-service';
 import { Task } from '@navikt/ds-icons/cjs';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Link } from '@navikt/ds-react';
 import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
