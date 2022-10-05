@@ -29,6 +29,7 @@ const AvtalekortMobil: FunctionComponent<{
                 return (
                     <>
                         <LinkPanel
+                            border={false}
                             key={avtale.id}
                             className={cls.className}
                             href={pathTilAvtaleNy(avtale.id)}
@@ -44,25 +45,28 @@ const AvtalekortMobil: FunctionComponent<{
                             }}
                         >
                             <LinkPanel.Title>
-                                {ulestVarsel && (
-                                    <span aria-hidden={!ulestVarsel} className={cls.element('ulest-varsel-ikon')} />
-                                )}
-                                <div>
-                                    <Undertittel>
-                                        {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
-                                        {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
-                                    </Undertittel>
-                                    <VerticalSpacer rem={0.5} />
-                                    <Ingress>{avtale.gjeldendeInnhold.bedriftNavn}</Ingress>
-                                    <VerticalSpacer rem={0.5} />
-                                    <Normaltekst>
-                                        Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
-                                    </Normaltekst>
-                                    <div className={cls.element('status')}>
-                                        <StatusIkon status={avtale.statusSomEnum} />
-
-                                        <div className={cls.element('statustekst')}>
-                                            {avtaleStatusTekst[avtale.statusSomEnum]}
+                                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                                    {ulestVarsel && (
+                                        <span aria-hidden={!ulestVarsel} className={cls.element('ulest-varsel-ikon')} />
+                                    )}
+                                    <div>
+                                        <Undertittel>
+                                            {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
+                                            {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
+                                        </Undertittel>
+                                        <VerticalSpacer rem={0.5} />
+                                        <Ingress>{avtale.gjeldendeInnhold.bedriftNavn}</Ingress>
+                                        <VerticalSpacer rem={0.5} />
+                                        <Normaltekst>
+                                            Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
+                                        </Normaltekst>
+                                        <div className={cls.element('status')}>
+                                            <StatusIkon status={avtale.statusSomEnum} />
+                                            <Normaltekst>
+                                                <div className={cls.element('statustekst')}>
+                                                    {avtaleStatusTekst[avtale.statusSomEnum]}
+                                                </div>
+                                            </Normaltekst>
                                         </div>
                                     </div>
                                 </div>

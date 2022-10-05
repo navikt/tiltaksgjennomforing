@@ -137,53 +137,56 @@ const AvtaleTabell: FunctionComponent<{
                                 }}
                             >
                                 <LinkPanel.Title>
-                                    <Normaltekst>
-                                        {' '}
+                                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                                         {ulestVarsel && (
                                             <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />
                                         )}
-                                        <div
-                                            className={classNames(cls.element('rad'), {
-                                                uthevet: ulestVarsel,
-                                            })}
-                                        >
-                                            <div className={cls.element('deltakerOgBedrift')}>
-                                                {avtale.gjeldendeInnhold.bedriftNavn}
-                                            </div>
-                                            <div className={cls.element('deltakerOgBedrift')}>
-                                                {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
-                                                {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
-                                            </div>
-                                            {innloggetBruker.erNavAnsatt && (
-                                                <div className={cls.element('veileder')}>
-                                                    {avtale.veilederNavIdent || 'Ufordelt'}
+
+                                        <Normaltekst>
+                                            {' '}
+                                            <div
+                                                className={classNames(cls.element('rad'), {
+                                                    uthevet: ulestVarsel,
+                                                })}
+                                            >
+                                                <div className={cls.element('deltakerOgBedrift')}>
+                                                    {avtale.gjeldendeInnhold.bedriftNavn}
                                                 </div>
-                                            )}
-                                            <MediaQuery minWidth={576}>
-                                                {erBeslutter && (
-                                                    <div className={cls.element('dato')}>
-                                                        {moment(periodeStartDato).format('DD.MM.YYYY')}
+                                                <div className={cls.element('deltakerOgBedrift')}>
+                                                    {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
+                                                    {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
+                                                </div>
+                                                {innloggetBruker.erNavAnsatt && (
+                                                    <div className={cls.element('veileder')}>
+                                                        {avtale.veilederNavIdent || 'Ufordelt'}
                                                     </div>
                                                 )}
-                                                {!erBeslutter && (
-                                                    <>
+                                                <MediaQuery minWidth={576}>
+                                                    {erBeslutter && (
                                                         <div className={cls.element('dato')}>
-                                                            {startDato && moment(startDato).format('DD.MM.YYYY')}
+                                                            {moment(periodeStartDato).format('DD.MM.YYYY')}
                                                         </div>
-                                                        <div className={cls.element('dato')}>
-                                                            {sluttDato && moment(sluttDato).format('DD.MM.YYYY')}
-                                                        </div>
-                                                    </>
+                                                    )}
+                                                    {!erBeslutter && (
+                                                        <>
+                                                            <div className={cls.element('dato')}>
+                                                                {startDato && moment(startDato).format('DD.MM.YYYY')}
+                                                            </div>
+                                                            <div className={cls.element('dato')}>
+                                                                {sluttDato && moment(sluttDato).format('DD.MM.YYYY')}
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                </MediaQuery>
+                                                {hentAvtaleStatus(
+                                                    avtale,
+                                                    innloggetBruker.rolle,
+                                                    skalViseAntallUbehandlet,
+                                                    antallKlar ? antallKlar[index] : undefined
                                                 )}
-                                            </MediaQuery>
-                                            {hentAvtaleStatus(
-                                                avtale,
-                                                innloggetBruker.rolle,
-                                                skalViseAntallUbehandlet,
-                                                antallKlar ? antallKlar[index] : undefined
-                                            )}
-                                        </div>
-                                    </Normaltekst>
+                                            </div>
+                                        </Normaltekst>
+                                    </div>
                                 </LinkPanel.Title>
                             </LinkPanel>
                             <TaushetserklæringModal
