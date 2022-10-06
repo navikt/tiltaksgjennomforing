@@ -77,7 +77,8 @@ export type TiltaksType =
     | 'INKLUDERINGSTILSKUDD'
     | 'SOMMERJOBB';
 
-export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'UTBETALT';
+export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT';
+export type TilskuddPeriodeRefusjonStatus = 'UTBETALT' | 'SENDT_KRAV'
 export type AvbrytelseGrunn =
     | 'Feilregistrering'
     | 'Begynt i arbeid'

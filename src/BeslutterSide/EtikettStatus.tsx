@@ -14,7 +14,6 @@ const etikettStatus: { [key in TilskuddPeriodeStatus]: EtikettBaseProps['type'] 
     ANNULLERT: 'fokus',
     GODKJENT: 'suksess',
     UBEHANDLET: 'info',
-    UTBETALT: 'suksess',
 };
 
 const EtikettStatus: FunctionComponent<Props> = (props) => {
