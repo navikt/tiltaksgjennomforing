@@ -4,7 +4,7 @@ import { Alert } from '@navikt/ds-react';
 import Modal from 'nav-frontend-modal';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { CSSProperties, useEffect, useState } from 'react';
-import LagreOgAvbrytKnapp from '../LagreOgAvbrytKnapp';
+import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
 
