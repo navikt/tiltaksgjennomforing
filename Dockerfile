@@ -11,6 +11,7 @@ RUN npm install -g node-fetch@2.6.1
 
 RUN npm install -g openid-client@3.7.2
 RUN npm install -g express-http-proxy@1.6.2
+RUN npm install -g @navikt/arbeidsgiver-notifikasjoner-brukerapi-mock@^5.0.0
 
 
 WORKDIR /app
