@@ -4,6 +4,7 @@ const whitelist = require('./whitelist');
 const apiProxy = require('../server/api-proxy');
 const notifikasjonProxy = require('../server/notifikasjoner-proxy');
 const tokenx = require('../server/tokenx');
+const { applyNotifikasjonMockMiddleware } = require("@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock");
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 
@@ -122,6 +123,10 @@ module.exports = function (app) {
         }
 
         app.use('/tiltaksgjennomforing/api', createProxyMiddleware(apiProxyConfig));
+    }
+
+    if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp' || process.env.NODE_ENV === 'development') {
+        applyNotifikasjonMockMiddleware({app, path: "/tiltaksgjennomforing/notifikasjon-bruker-api"})
     }
 
     app.use(
