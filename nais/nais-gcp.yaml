@@ -55,5 +55,7 @@ spec:
           cluster: '{{{proxy-cluster}}}'
         - application: tiltak-stillingstitler
           namespace: arbeidsgiver
+        - application: notifikasjon-bruker-api
+          namespace: fager
       external:
         - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
