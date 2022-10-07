@@ -18,7 +18,7 @@ import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
 import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
 import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
@@ -37,13 +37,24 @@ export enum Avtalerolle {
     BESLUTTER = 'BESLUTTER',
 }
 
+function useQuery() {
+    const { search } = useLocation();
+
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
-    const [deltakerFnr, setDeltakerFnr] = useState<string>('');
+    const optionalTypeAvtale = useQuery().get('type');
+    const optionalDeltakerFnr = useQuery().get('deltakerfnr');
+    const optionalVirksomhetsnummer = useQuery().get('virksomhetsnummer');
+    const [deltakerFnr, setDeltakerFnr] = useState<string>(optionalDeltakerFnr ?? '');
     const [mentorFnr, setMentorFnr] = useState<string>('');
     const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState<boolean>(false);
-    const [bedriftNr, setBedriftNr] = useState<string>('');
+    const [bedriftNr, setBedriftNr] = useState<string>(optionalVirksomhetsnummer ?? '');
     const [bedriftNavn, setBedriftNavn] = useState<string>('');
-    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(
+        optionalTypeAvtale ? (optionalTypeAvtale as TiltaksType) : undefined
+    );
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
 
