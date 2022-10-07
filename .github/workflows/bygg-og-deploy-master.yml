@@ -134,6 +134,6 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: labs-gcp
-          RESOURCE: labs-gcp.yaml
+          RESOURCE: nais/labs-gcp.yaml
           PRINT_PAYLOAD: true
           VARS: nais/labs-gcp.json
