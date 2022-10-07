@@ -43,6 +43,18 @@ function useQuery() {
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
+function isGyldigTiltakstype(val?: string | null): val is TiltaksType | undefined {
+    const gyldigeTiltakstyper: TiltaksType[] = [
+        'ARBEIDSTRENING',
+        'INKLUDERINGSTILSKUDD',
+        'MENTOR',
+        'MIDLERTIDIG_LONNSTILSKUDD',
+        'SOMMERJOBB',
+        'VARIG_LONNSTILSKUDD',
+    ];
+    return gyldigeTiltakstyper.includes(val as TiltaksType);
+}
+
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const optionalTypeAvtale = useQuery().get('type');
     const optionalDeltakerFnr = useQuery().get('deltakerfnr');
@@ -53,7 +65,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [bedriftNr, setBedriftNr] = useState<string>(optionalVirksomhetsnummer ?? '');
     const [bedriftNavn, setBedriftNavn] = useState<string>('');
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(
-        optionalTypeAvtale ? (optionalTypeAvtale as TiltaksType) : undefined
+        isGyldigTiltakstype(optionalTypeAvtale) ? optionalTypeAvtale : undefined
     );
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
