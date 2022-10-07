@@ -61,7 +61,7 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-gcp-ekstern.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-gcp-ekstern.json
+          VARS: nais/dev-gcp-ekstern.yaml
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
           
