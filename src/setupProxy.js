@@ -3,6 +3,7 @@ const lokalProxy = require('../server/lokalproxy');
 const fetch = require('node-fetch');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
+const isLabs = process.env.NAIS_CLUSTER_NAME === 'labs-gcp';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
@@ -23,7 +24,7 @@ module.exports = function (app) {
     app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
         const innloggingskilder = [];
 
-        if (brukLokalLogin) {
+        if (brukLokalLogin || isLabs) {
             innloggingskilder.push(
                 {
                     tittel: 'Som deltaker',
