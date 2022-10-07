@@ -41,27 +41,27 @@ jobs:
       - name: Sett miljøvariabel IMAGE
         run: echo "IMAGE=$IMAGE_BASE:$COMMIT" >> $GITHUB_ENV
 
-      - name: Deploy til dev-gcp
+      - name: Deploy til dev-gcp intern
         uses: nais/deploy/actions/deploy@v1
         env:
           TEAM: arbeidsgiver
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: nais/nais-gcp.yaml
+          RESOURCE: nais/nais-gcp-intern.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-gcp.yml
+          VARS: nais/dev-gcp-intern.yaml
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
 
-      - name: Deploy til dev-fss
+      - name: Deploy til dev-gcp ekstern
         uses: nais/deploy/actions/deploy@v1
         env:
           TEAM: arbeidsgiver
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-fss
-          RESOURCE: naiserator.yaml
+          CLUSTER: dev-gcp
+          RESOURCE: nais/nais-gcp-ekstern.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-fss.json
+          VARS: nais/dev-gcp-ekstern.json
           REF: ${{ env.COMMIT }}
           IMAGE: ${{ env.IMAGE }}
           
@@ -87,14 +87,14 @@ jobs:
             github.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['deploy', 'dev-fss']
+              labels: ['deploy', 'dev-gcp']
             }).then(response => {
               response.data.forEach(issue => {
                 github.issues.removeLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  name: 'dev-fss'
+                  name: 'dev-gcp'
                 });
               });
             });
@@ -110,6 +110,6 @@ jobs:
               owner: context.issue.owner,
               repo: context.issue.repo,
               issue_number: ${{ github.event.client_payload.github.payload.issue.number }},
-              labels: ['dev-fss']
+              labels: ['dev-gcp']
             });
 

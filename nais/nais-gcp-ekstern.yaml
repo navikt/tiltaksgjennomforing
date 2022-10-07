@@ -20,8 +20,8 @@ spec:
   env:
     - name: APIGW_URL
       value: '{{{api-gw-url}}}'
-    - name: SELVBETJENING_LOGIN_URL
-      value: '{{{selvbetjening-login-url}}}'
+    - name: LOGIN_URL
+      value: '{{{login-url}}}'
     - name: LOGOUT_URL
       value: '{{{logout-url}}}'
     - name: ENABLE_EXTERNAL_MENU
@@ -36,6 +36,8 @@ spec:
       value: '{{{stillingstitler-url}}}'
     - name: API_AUDIENCE
       value: '{{{api-audience}}}'
+    - name: AAD_REDIRECT_URL
+      value: {{{aad-redirect-url}}}
   tokenx:
     enabled: true
   idporten:
