@@ -10,6 +10,7 @@ const decoratorInternProxy = require('./server/decorator-intern-proxy');
 const decoratorEksternProxy = require('./server/decorator-ekstern-proxy');
 const apiProxy = require('./server/api-proxy');
 const lokalProxy = require('./server/lokalproxy');
+const notifikasjonProxy = require('./server/notifikasjoner-proxy');
 const tokenx = require('./server/tokenx');
 const azure = require('./server/azure');
 // security
@@ -46,6 +47,7 @@ const setupOauth2Clients = async (server) => {
             console.log('Ekstern ingress, setup tokenx klient');
             const tokenxAuthClient = await tokenx.client();
             apiProxy.setup(server, tokenxAuthClient, null, null);
+            notifikasjonProxy.setup(server, tokenxAuthClient);
             decoratorEksternProxy.setup(server);
             console.log('Satt opp api-proxy med tokenx');
         }

@@ -1,6 +1,7 @@
 import { FunctionComponent, useContext } from 'react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget';
+import {basename} from "@/paths";
 
 const miljo = (() => {
     switch (window.location.hostname) {
@@ -20,7 +21,7 @@ export const NotifikasjonWidgetProvider: FunctionComponent = ({ children }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
         return (
-            <NotifikasjonWidget.NotifikasjonWidgetProvider miljo={miljo}>
+            <NotifikasjonWidget.NotifikasjonWidgetProvider apiUrl={`${basename}/notifikasjon-bruker-api`} miljo={miljo}>
                 <>{children}</>
             </NotifikasjonWidget.NotifikasjonWidgetProvider>
         );
