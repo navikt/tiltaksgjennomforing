@@ -6,10 +6,12 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { UfullstendigError } from '@/types/errors';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import GodkjenningInstruks from '../Oppsummering/instruks/GodkjenningInstruks';
+import GodkjenningInstruks from '../../Oppsummering/instruks/GodkjenningInstruks';
+import BEMHelper from '@/utils/bem';
 
 const GodkjenningDeltaker: FunctionComponent = () => {
-    const {godkjenn} = useContext(AvtaleContext);
+    const { godkjenn } = useContext(AvtaleContext);
+    const cls = BEMHelper('godkjenning');
     const [bekreftetGodkjennerInnholdet, setBekreftetGodkjennerInnholdet] = useState(false);
 
     const godkjennAvtalen = () => {
@@ -21,7 +23,7 @@ const GodkjenningDeltaker: FunctionComponent = () => {
     };
 
     return (
-        <Innholdsboks className="godkjenning" ariaLabel={'Godkjenn avtalen'}>
+        <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
 

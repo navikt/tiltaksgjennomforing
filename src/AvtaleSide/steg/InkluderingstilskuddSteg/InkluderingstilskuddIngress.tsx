@@ -17,8 +17,8 @@ const InkluderingstilskuddIngress: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <Normaltekst>
                 Utgifter som virksomheten normalt vil ha ved ansettelser, dekkes ikke av ordningen. Inkluderingstilskudd
-                gis heller ikke når de samme utgiftene dekkes på andre måter. Avtalen må inngås før det planlagte
-                innkjøpet blir gjennomført. NAV utbetaler tilskuddet etterskuddsvis.
+                gis heller ikke når de samme utgiftene dekkes på andre måter. Avtalen må godkjennes av NAV før det
+                planlagte innkjøpet blir gjennomført. NAV utbetaler tilskuddet etterskuddsvis.
             </Normaltekst>
         </>
     );

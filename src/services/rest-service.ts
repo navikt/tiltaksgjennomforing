@@ -6,6 +6,7 @@ import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtale
 import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import {
+    AlleredeRegistrertAvtale,
     Avslagsårsaker,
     Avtale,
     Bedriftinfo,
@@ -13,11 +14,13 @@ import {
     EndreOppfølgingOgTilretteleggingInfo,
     GodkjentPaVegneAvArbeidsgiverGrunner,
     GodkjentPaVegneAvDeltakerGrunner,
-    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner, Inkluderingstilskuddsutgift, Maal,
+    GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
+    Inkluderingstilskuddsutgift,
+    Maal,
     MentorInnhold,
     Stilling,
     TiltaksType,
-    Varighet
+    Varighet,
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -191,13 +194,13 @@ const opprettAvtalen = async (
     return getResponse.data;
 };
 
-export const mentorGodkjennTaushetserklæring = async (avtale:Avtale): Promise<Avtale> => {
+export const mentorGodkjennTaushetserklæring = async (avtale: Avtale): Promise<Avtale> => {
     const uri = `/avtaler/${avtale.id}/mentorGodkjennTaushetserklæring`;
 
     await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
 
     return hentAvtale(avtale.id);
-}
+};
 
 export const godkjennAvtale = async (avtale: Avtale) => {
     const uri = `/avtaler/${avtale.id}/godkjenn`;
@@ -251,6 +254,30 @@ export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => 
             },
         }
     );
+};
+
+export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (
+    deltakerFnr: string,
+    tiltakstype: TiltaksType,
+    avtaleId: string | null,
+    startdato: string | null,
+    sluttdato: string | null
+): Promise<AlleredeRegistrertAvtale[] | []> => {
+    const optionalAvtaleId: string = avtaleId ? '&avtaleId=' + avtaleId : '';
+    const optionalStartdato: string = startdato ? '&startDato=' + startdato : '';
+    const optionalSluttdato: string = sluttdato ? '&sluttDato=' + sluttdato : '';
+
+    const response = await api.get(
+        '/avtaler/deltaker-allerede-paa-tiltak?' +
+            'deltakerFnr=' +
+            deltakerFnr +
+            '&tiltakstype=' +
+            tiltakstype +
+            optionalAvtaleId +
+            optionalStartdato +
+            optionalSluttdato
+    );
+    return response.data;
 };
 
 export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
@@ -486,15 +513,20 @@ export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Pr
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
-export const endreInkluderingstilskudd = async (avtale: Avtale, inkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/endre-inkluderingstilskudd`, { inkluderingstilskuddsutgift: inkluderingstilskuddutgifter });
+export const endreInkluderingstilskudd = async (
+    avtale: Avtale,
+    inkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]
+): Promise<void> => {
+    await api.post(`/avtaler/${avtale.id}/endre-inkluderingstilskudd`, {
+        inkluderingstilskuddsutgift: inkluderingstilskuddutgifter,
+    });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
-}
+};
 
 export const endreOmMentor = async (avtale: Avtale, mentorInnhold: MentorInnhold): Promise<void> => {
     await api.post(`/avtaler/${avtale.id}/endre-om-mentor`, mentorInnhold);
     await mutate(`/avtaler/${avtale.id}/versjoner`);
-}
+};
 
 export const sjekkOmAvtaleErPilot = async (avtale: Avtale): Promise<boolean> => {
     const uri = `/avtaler/${avtale.id}/er-pilot`;

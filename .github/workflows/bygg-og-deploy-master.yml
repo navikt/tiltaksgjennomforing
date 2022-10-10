@@ -58,74 +58,69 @@ jobs:
           docker build --tag ${IMAGE} .
           docker push ${IMAGE}
 
-
-  deploy-dev-gcp:
-    name: Deploy til dev-gcp
+  deploy-dev-gcp-intern:
+    name: Deploy til dev-gcp intern
     runs-on: ubuntu-latest
     needs: bygg
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v2
-
-      - name: Deploy til dev-gcp
+      - name: Deploy til dev-gcp intern
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: nais/nais-gcp.yaml
+          RESOURCE: nais/nais-gcp-intern.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-gcp.yml
+          VARS: nais/dev-gcp-intern.yaml
 
-  deploy-prod-gcp:
-    name: Deploy til prod-gcp
+  deploy-dev-gcp-ekstern:
+    name: Deploy til dev-gcp ekstern
     runs-on: ubuntu-latest
     needs: bygg
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v2
+      - name: Deploy til dev-gcp ekstern
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: nais/nais-gcp-ekstern.yaml
+          PRINT_PAYLOAD: true
+          VARS: nais/dev-gcp-ekstern.yaml
 
-      - name: Deploy til prod-gcp
+  deploy-prod-gcp-intern:
+    name: Deploy til prod-gcp intern
+    runs-on: ubuntu-latest
+    needs: bygg
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v2
+      - name: Deploy til prod-gcp intern
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
-          RESOURCE: nais/nais-gcp.yaml
+          RESOURCE: nais/nais-gcp-intern.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/prod-gcp.yml
+          VARS: nais/prod-gcp-intern.yaml
 
-  deploy-dev-fss:
-    name: Deploy til dev-fss
+  deploy-prod-gcp-ekstern:
+    name: Deploy til prod-gcp ekstern
     runs-on: ubuntu-latest
     needs: bygg
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v2
-
-      - name: Deploy til dev-fss
+      - name: Deploy til prod-gcp ekstern
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-fss
-          RESOURCE: naiserator.yaml
+          CLUSTER: prod-gcp
+          RESOURCE: nais/nais-gcp-ekstern.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/dev-fss.json
-
-  deploy-prod-fss:
-    name: Deploy til prod-fss
-    runs-on: ubuntu-latest
-    needs: bygg
-    steps:
-      - name: Sjekk ut kode
-        uses: actions/checkout@v2
-
-      - name: Deploy til prod-fss
-        uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod-fss
-          RESOURCE: naiserator.yaml
-          PRINT_PAYLOAD: true
-          VARS: nais/prod-fss.json
+          VARS: nais/prod-gcp-ekstern.yaml
 
   deploy-labs-gcp:
     name: Deploy til labs-gcp
@@ -134,12 +129,11 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v2
-
       - name: Deploy til labs-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: labs-gcp
-          RESOURCE: naiserator.yaml
+          RESOURCE: nais/labs-gcp.yaml
           PRINT_PAYLOAD: true
           VARS: nais/labs-gcp.json

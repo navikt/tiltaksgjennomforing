@@ -1,0 +1,60 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: tiltaksgjennomforing-intern
+  namespace: arbeidsgiver
+  labels:
+    team: arbeidsgiver
+spec:
+  image: {{image}}
+  team: arbeidsgiver
+  port: 3000
+  ingresses:
+    - '{{{ingress}}}'
+  liveness:
+    path: /tiltaksgjennomforing/internal/isAlive
+    initialDelay: 5
+  readiness:
+    path: /tiltaksgjennomforing/internal/isReady
+    initialDelay: 5
+  env:
+    - name: APIGW_URL
+      value: '{{{api-gw-url}}}'
+    - name: LOGIN_URL
+      value: '{{{login-url}}}'
+    - name: LOGOUT_URL
+      value: '{{{logout-url}}}'
+    - name: ENABLE_INTERNAL_MENU
+      value: 'true'
+    - name: DECORATOR_INTERNAL
+      value: '{{{decorator-internal}}}'
+    - name: DECORATOR_INTERNAL_SCRIPT
+      value: '{{{decorator-internal-script}}}'
+    - name: DECORATOR_INTERNAL_STYLING
+      value: '{{{decorator-internal-styling}}}'
+    - name: STILLINGSTITLER_URL
+      value: http://tiltak-stillingstitler
+    - name: API_SCOPE
+      value: '{{{api-scope}}}'
+    - name: INTERN_INGRESS
+      value: 'true'
+    - name: AAD_REDIRECT_URL
+      value: {{{aad-redirect-url}}}
+  azure:
+    application:
+      enabled: true
+      claims:
+        extra:
+          - "NAVident"
+    sidecar:
+      enabled: true
+  accessPolicy:
+    outbound:
+      rules:
+        - application: tiltak-proxy
+          namespace: arbeidsgiver
+          cluster: dev-fss
+        - application: tiltak-stillingstitler
+          namespace: arbeidsgiver
+      external:
+        - host: tiltak-proxy.dev-fss-pub.nais.io

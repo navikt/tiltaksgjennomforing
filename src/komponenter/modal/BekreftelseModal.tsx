@@ -3,7 +3,7 @@ import BEMHelper from '@/utils/bem';
 import { Alert, Modal } from '@navikt/ds-react';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { CSSProperties, useEffect, useState } from 'react';
-import LagreOgAvbrytKnapp from '../LagreOgAvbrytKnapp';
+import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
 

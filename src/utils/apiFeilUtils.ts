@@ -7,7 +7,7 @@ export const handterFeil = (
     visFeilmelding: (feilmelding: string) => void,
     fallbackMelding: string = 'Det har skjedd en uventet feil'
 ) => {
-    switch (error.constructor) {
+    switch (error?.constructor) {
         case FeilkodeError:
             const feilmeldingTekst = Feilmeldinger[(error?.message as Feilkode) ?? 'UKJENT_FEIL'];
             if (!feilmeldingTekst) {

@@ -1,8 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
+import { fetchdata } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
+import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import GodkjennPaVegneAvMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/GodkjennPaVegneAvMedAlleredeOpprettetTiltak';
+import BEMHelper from '@/utils/bem';
 
 type Props = {
     skalGodkjennesPaVegne: boolean;
@@ -10,7 +13,12 @@ type Props = {
 };
 
 const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
-    const avtaleContext = useContext(AvtaleContext);
+    const cls = BEMHelper('godkjenning');
+    const { godkjennPaVegneAvArbeidsgiver, avtale } = useContext(AvtaleContext);
+    const { deltakerFnr, tiltakstype, id, gjeldendeInnhold } = avtale;
+    const { startDato, sluttDato } = gjeldendeInnhold;
+    const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
+    const [godkjenningsModalIsOpen, setGodkjenningsModalIsOpen] = useState<boolean>(false);
 
     const godkjennPaVegneLabel = props.skalGodkjennesPaVegne
         ? 'Jeg skal godkjenne på vegne av arbeidsgiver, fordi arbeidsgiveren'
@@ -24,21 +32,21 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
     const [feilArbeidsgiverInformert, setFeilArbeidsgiverInformert] = useState<string | undefined>();
     const [arbeidsgiverInformert, setArbeidsgiverInformert] = useState(false);
 
-    const godkjennAvtalen = () => {
+    const godkjenn = (): void | Promise<void> => {
         const valgtMinstEnGrunn = klarerIkkeGiFaTilgang || vetIkkeHvemSomKanGiTilgang || farIkkeTilgangPersonvern;
         if (!valgtMinstEnGrunn) {
-            setFeilmeldingGrunn('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
-            return;
+            return setFeilmeldingGrunn('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
         } else {
             setFeilmeldingGrunn(undefined);
         }
         if (!arbeidsgiverInformert) {
-            setFeilArbeidsgiverInformert('Arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.');
-            return;
+            return setFeilArbeidsgiverInformert(
+                'Arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.'
+            );
         } else {
             setFeilArbeidsgiverInformert(undefined);
         }
-        return avtaleContext.godkjennPaVegneAvArbeidsgiver({
+        return godkjennPaVegneAvArbeidsgiver({
             farIkkeTilgangPersonvern,
             klarerIkkeGiFaTilgang,
             vetIkkeHvemSomKanGiTilgang,
@@ -46,7 +54,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
     };
 
     return (
-        <>
+        <div className={cls.element('godkjenn-pa-vegne-av')}>
             <Checkbox
                 label={godkjennPaVegneLabel}
                 checked={props.skalGodkjennesPaVegne}
@@ -57,7 +65,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
 
             {props.skalGodkjennesPaVegne && (
                 <>
-                    <div style={{ marginLeft: '2rem' }}>
+                    <div className={cls.element('checkbox-wrapper')}>
                         <SkjemaGruppe feil={feilmeldingGrunn}>
                             <Checkbox
                                 label="klarer ikke få eller gi tilgang"
@@ -76,7 +84,6 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
                             />
                         </SkjemaGruppe>
                     </div>
-                    <VerticalSpacer rem={1} />
                     <SkjemaGruppe feil={feilArbeidsgiverInformert}>
                         <Checkbox
                             label="Arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen."
@@ -86,11 +93,31 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
                     </SkjemaGruppe>
                 </>
             )}
-            <VerticalSpacer rem={1} />
-
-            {props.skalGodkjennesPaVegne && <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />}
-            <VerticalSpacer rem={1} />
-        </>
+            {props.skalGodkjennesPaVegne && (
+                <LagreKnapp
+                    className={cls.element('lagre-knapper')}
+                    lagre={() =>
+                        fetchdata({
+                            deltakerFnr,
+                            tiltakstype,
+                            id,
+                            startDato,
+                            sluttDato,
+                            alleredeRegistrertAvtale,
+                            setAlleredeRegistrertAvtale,
+                            setGodkjenningsModalIsOpen,
+                            godkjenn,
+                        })
+                    }
+                    label="Godkjenn avtalen"
+                />
+            )}
+            <GodkjennPaVegneAvMedAlleredeOpprettetTiltak
+                godkjennPaVegneAv={() => godkjenn()}
+                modalIsOpen={godkjenningsModalIsOpen}
+                setModalIsOpen={setGodkjenningsModalIsOpen}
+            />
+        </div>
     );
 };
 
