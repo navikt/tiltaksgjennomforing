@@ -2,7 +2,6 @@ import { tilskuddsperiodeStatusTekst } from '@/messages';
 import EtikettBase, { EtikettBaseProps } from 'nav-frontend-etiketter';
 import React, { FunctionComponent } from 'react';
 import { TilskuddPeriodeRefusjonStatus, TilskuddPeriodeStatus } from '@/types/avtale';
-import Refusjon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Refusjon';
 
 type Props = {
     tilskuddsperiodestatus: TilskuddPeriodeStatus;
