@@ -2,6 +2,7 @@ import HendelseIkon from '@/komponenter/HendelseIkon';
 import { Varsel } from '@/types/varsel';
 import { formatterDato } from '@/utils/datoUtils';
 import { storForbokstav } from '@/utils/stringUtils';
+import { Table } from '@navikt/ds-react';
 import moment from 'moment';
 import React, { FunctionComponent, useState } from 'react';
 import { Checkbox } from 'nav-frontend-skjema';
@@ -23,11 +24,11 @@ const UtgråetTekst: FunctionComponent<{ grå: boolean }> = ({ children, grå })
     <span style={{ color: grå ? 'grey' : undefined }}>{children}</span>
 );
 
-const VarselTabell: FunctionComponent<Props> = props => {
+const VarselTabell: FunctionComponent<Props> = (props) => {
     const [komprimer, setKomprimer] = useState(true);
 
     const sortertListe = props.varsler
-        .map(v => ({ ...v, antallLike: 1, skjules: false }))
+        .map((v) => ({ ...v, antallLike: 1, skjules: false }))
         .sort((a, b) => {
             if (a.tidspunkt < b.tidspunkt) {
                 return -1;
@@ -54,7 +55,7 @@ const VarselTabell: FunctionComponent<Props> = props => {
     }
 
     return (
-        <>
+        <div style={{ display: 'flex' }}>
             {finnesMinstEnSomSkjules && (
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Checkbox
@@ -64,48 +65,47 @@ const VarselTabell: FunctionComponent<Props> = props => {
                     />
                 </div>
             )}
-            <table className="tabell" aria-label="tabell" aria-labelledby="Varsellogg tabell" role="table">
-                <thead>
-                    <tr role="row">
-                        <th scope="col" role="columnheader" id="tidspunkt">
-                            Tidspunkt
-                        </th>
-                        <th scope="col" role="columnheader" id="varsel">
-                            Hendelse
-                        </th>
-                        <th scope="col" role="columnheader" id="utført_av">
-                            Utført av
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
+            <Table>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell scope="col"> Tidspunkt </Table.HeaderCell>
+                        <Table.HeaderCell scope="col"> Hendelse </Table.HeaderCell>
+                        <Table.HeaderCell scope="col"> Utført av </Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
                     {sortertListe
-                        .filter(v => !v.skjules || !komprimer)
-                        .map(varsel => (
-                            <tr key={varsel.id} role="row">
-                                <td role="cell" aria-labelledby="tidspunkt">
+                        .filter((v) => !v.skjules || !komprimer)
+                        .map((varsel) => (
+                            <Table.Row key={varsel.id} role="row">
+                                <Table.DataCell role="cell" aria-labelledby="tidspunkt">
                                     <UtgråetTekst grå={varsel.skjules}>{formaterTid(varsel.tidspunkt)}</UtgråetTekst>
-                                </td>
-                                <td role="cell">
+                                </Table.DataCell>
+                                <Table.DataCell role="cell">
                                     <div style={{ display: 'flex' }} aria-labelledby="varsel">
                                         <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
                                             <HendelseIkon hendelse={varsel.hendelseType} />
                                         </span>
                                         <UtgråetTekst grå={varsel.skjules}>{varsel.tekst}</UtgråetTekst>
                                     </div>
-                                </td>
-                                <td role="cell" aria-labelledby="utført_av">
-                                    {(varsel.hendelseType === 'TILSKUDDSPERIODE_GODKJENT' || varsel.hendelseType === 'GODKJENT_FOR_ETTERREGISTRERING') ? (
-                                        <UtgråetTekst grå={varsel.skjules}>{storForbokstav(varsel.identifikator)}</UtgråetTekst>
+                                </Table.DataCell>
+                                <Table.DataCell role="cell" aria-labelledby="utført_av">
+                                    {varsel.hendelseType === 'TILSKUDDSPERIODE_GODKJENT' ||
+                                    varsel.hendelseType === 'GODKJENT_FOR_ETTERREGISTRERING' ? (
+                                        <UtgråetTekst grå={varsel.skjules}>
+                                            {storForbokstav(varsel.identifikator)}
+                                        </UtgråetTekst>
                                     ) : (
-                                        <UtgråetTekst grå={varsel.skjules}>{storForbokstav(varsel.utførtAv)}</UtgråetTekst>
+                                        <UtgråetTekst grå={varsel.skjules}>
+                                            {storForbokstav(varsel.utførtAv)}
+                                        </UtgråetTekst>
                                     )}
-                                </td>
-                            </tr>
+                                </Table.DataCell>
+                            </Table.Row>
                         ))}
-                </tbody>
-            </table>
-        </>
+                </Table.Body>
+            </Table>
+        </div>
     );
 };
 
