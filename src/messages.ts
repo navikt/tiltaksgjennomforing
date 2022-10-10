@@ -5,6 +5,7 @@ import {
     AvtaleVersjon,
     InkluderingstilskuddsutgiftType,
     Stillingstype,
+    TilskuddPeriodeRefusjonStatus,
     TilskuddPeriodeStatus,
     TiltaksType,
 } from './types/avtale';
@@ -116,9 +117,13 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
     GODKJENT: 'Godkjent',
     AVSLÅTT: 'Avslått',
     UBEHANDLET: 'Ubehandlet',
-    UTBETALT: 'Utbetalt',
-    ANNULLERT: 'Annullert',
+    ANNULLERT: 'Annullert'
 };
+
+export const tilskuddsperiodeRefusjonStatusText: { [key in TilskuddPeriodeRefusjonStatus]: string } = {
+    SENDT_KRAV: 'Refusjon godkjent',
+    UTBETALT: 'Utbetalt'
+}
 
 export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
     ANNULLERT: 'Annullert',

@@ -16,8 +16,7 @@ const TilskuddsperiodeBehandlingsTittel: FunctionComponent = () => {
         AVSLÅTT: 'Tilskuddsperiode er avslått',
         GODKJENT: 'Tilskuddsperiode er godkjent',
         UBEHANDLET: 'Tilskuddsperiode som skal godkjennes',
-        UTBETALT: 'Tilskuddsperiode er utbetalt',
-        ANNULLERT: 'Tilskuddsperiode er annullert',
+        ANNULLERT: 'Tilskuddsperiode er annullert'
     };
 
     return (
