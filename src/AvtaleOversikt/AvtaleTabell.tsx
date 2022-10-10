@@ -35,6 +35,7 @@ const hentAvtaleStatus = (
                 {avtale.gjeldendeTilskuddsperiode && (
                     <EtikettStatus
                         tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status}
+                        refusjonStatus={avtale.gjeldendeTilskuddsperiode?.refusjonStatus}
                         antallKlarTilgodkjenning={
                             skalViseAntallUbehandlet && ubehandletPerioder
                                 ? ubehandletPerioder.antallKlarTilgodkjenning

@@ -100,7 +100,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
                                         <td>
-                                            <EtikettStatus tilskuddsperiodestatus={periode.status} godkjentAv={periode.godkjentAvNavIdent} />
+                                            <EtikettStatus tilskuddsperiodestatus={periode.status} refusjonStatus={periode.refusjonStatus} godkjentAv={periode.godkjentAvNavIdent} />
                                         </td>
                                     </tr>
                                     {!gjeldende && periode.status === 'AVSLÅTT' && (

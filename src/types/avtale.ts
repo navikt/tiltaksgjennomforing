@@ -217,6 +217,7 @@ export interface TilskuddsPeriode {
     avslåttAvNavIdent?: string;
     avslagsforklaring?: string;
     avslagsårsaker: Set<Avslagsårsaker>;
+    refusjonStatus?: TilskuddPeriodeRefusjonStatus;
     status: TilskuddPeriodeStatus;
     lonnstilskuddProsent: number;
     kanBesluttesFom: string;
