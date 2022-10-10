@@ -84,7 +84,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: 'Bygg av ${{ steps.variable.outputs.branch }}',
-              body: 'Kommenter med \n\n>/deploy ${{ steps.variable.outputs.branch }}\n\n for å deploye til dev-fss.\n\nCommit: ${{ github.sha }}',
+              body: 'Kommenter med \n\n>/deploy ${{ steps.variable.outputs.branch }}\n\n for å deploye til dev-gcp.\n\nCommit: ${{ github.sha }}',
               labels: ['deploy', '${{ steps.variable.outputs.branch }}'],
               assignees: ['${{ github.actor }}']
             })

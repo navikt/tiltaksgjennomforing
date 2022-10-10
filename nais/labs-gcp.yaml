@@ -26,6 +26,8 @@ spec:
           value: '{{{isso-login-url}}}'
         - name: SELVBETJENING_LOGIN_URL
           value: '{{{selvbetjening-login-url}}}'
+        - name: LOGIN_URL
+          value: '{{{login-url}}}'
         - name: LOGOUT_URL
           value: '{{{logout-url}}}'
         - name: ENABLE_EXTERNAL_MENU

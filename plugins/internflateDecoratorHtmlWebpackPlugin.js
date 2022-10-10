@@ -2,9 +2,9 @@ const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
 const styles =
-    '<link rel="stylesheet" href="https://navikt.github.io/internarbeidsflatedecorator/v2/static/css/main.css">';
+    '<link rel="stylesheet" href="https://navikt.github.io/internarbeidsflatedecorator/v2.1/static/css/main.css">';
 const scripts =
-    '<script src="https://navikt.github.io/internarbeidsflatedecorator/v2/static/js/head.v2.min.js"></script>';
+    '<script src="https://navikt.github.io/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js"></script>';
 
 const htmlinsert = [
     { inject: 'styles', from: styles },
@@ -25,14 +25,14 @@ const internflateDecoratorHtmlWebpackPlugin = (enablemenu = false) => {
     };
 };
 
-const addElements = plugin => {
-    htmlinsert.forEach(element => {
+const addElements = (plugin) => {
+    htmlinsert.forEach((element) => {
         plugin.options[element.inject] = element.from;
     });
 };
 
-const getHtmlWebpackPlugin = plugins => {
-    return plugins.find(plugin => {
+const getHtmlWebpackPlugin = (plugins) => {
+    return plugins.find((plugin) => {
         if (plugin.constructor.name === 'HtmlWebpackPlugin') {
             return plugin;
         }
