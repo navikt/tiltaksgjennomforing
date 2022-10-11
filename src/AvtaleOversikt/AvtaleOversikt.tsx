@@ -109,7 +109,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         <VerticalSpacer rem={1} />
                         {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
                             <>
-                                <Accordion style={{ border: '1px solid #c6c2bf', backgroundColor: 'white' }}>
+                                <Accordion className="accordion">
                                     <Accordion.Item>
                                         <Accordion.Header>
                                             {' '}

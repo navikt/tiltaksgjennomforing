@@ -34,7 +34,7 @@ const Innloggingslinje: FunctionComponent<Props> = (props) => {
                     </div>
                 </MediaQuery>
                 <MediaQuery maxWidth={576}>
-                    <Accordion style={{ border: '1px solid #c6c2bf' }}>
+                    <Accordion className='accordion'>
                         <Accordion.Item>
                             <Accordion.Header>
                                 <div className={cls.element('mobileheader')}>

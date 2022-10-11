@@ -32,9 +32,9 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
         return tilskuddsprosent - 10;
     };
     return (
-        <Accordion style={{ border: '1px solid #c6c2bf' }}>
+        <Accordion className='accordion'>
             <Accordion.Item defaultOpen>
-                <Accordion.Header style={{ backgroundColor: 'white' }}>
+                <Accordion.Header>
                     <Element>Tilskudd for en måned</Element>
                 </Accordion.Header>
                 <Accordion.Content>

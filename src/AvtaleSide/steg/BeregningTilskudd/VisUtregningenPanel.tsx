@@ -19,7 +19,7 @@ const cls = BEMHelper('visUtregningenPanel');
 
 const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     return (
-        <Accordion style={{ border: '1px solid #c6c2bf' }}>
+        <Accordion className='accordion'>
             <Accordion.Item defaultOpen>
                 <Accordion.Header>Utregningen</Accordion.Header>
                 <Accordion.Content>

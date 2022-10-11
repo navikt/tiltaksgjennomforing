@@ -6,7 +6,7 @@ import { Accordion } from '@navikt/ds-react';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext} from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import './visningTilskuddsperioder.less';
 
 const VisningTilskuddsperioder: FunctionComponent = () => {
@@ -22,7 +22,7 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
 
     return (
         <div className={cls.className}>
-            <Accordion style={{ border: '1px solid #c6c2bf' }}>
+            <Accordion className={'accordion'}>
                 <Accordion.Item>
                     <Accordion.Header>Oversikt over tilskudd i perioder</Accordion.Header>
                     <Accordion.Content>

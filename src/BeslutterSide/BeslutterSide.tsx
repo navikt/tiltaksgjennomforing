@@ -85,7 +85,7 @@ const BeslutterSide: FunctionComponent = () => {
                         </div>
                         <VerticalSpacer rem={1} />
                         <div className={cls.element('avtale-wrapper')}>
-                            <Accordion style={{ border: '1px solid #c6c2bf' }}>
+                            <Accordion className='accordion'>
                                 <Accordion.Item>
                                     <Accordion.Header>Se avtalen</Accordion.Header>
                                     <Accordion.Content>

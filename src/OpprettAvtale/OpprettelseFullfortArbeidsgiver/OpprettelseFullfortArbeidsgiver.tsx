@@ -9,7 +9,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import './OpprettelseFullfortArbeidsgiver.less';
 
-const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentProps<{ avtaleId: string }>> = props => {
+const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentProps<{ avtaleId: string }>> = (props) => {
     const avtaleId = props.match.params.avtaleId;
 
     return (

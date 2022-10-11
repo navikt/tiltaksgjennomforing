@@ -8,9 +8,9 @@ type Props = {
 export const Filter: FunctionComponent<Props> = (props) => {
     return (
         <div>
-            <Accordion style={{ border: '1px solid #c6c2bf', backgroundColor: 'white' }} role="radiogroup">
+            <Accordion className="accordion" role="radiogroup">
                 <Accordion.Item defaultOpen>
-                    <Accordion.Header style={{ backgroundColor: 'white' }}>{props.tittel}</Accordion.Header>
+                    <Accordion.Header>{props.tittel}</Accordion.Header>
                     <Accordion.Content>{props.children}</Accordion.Content>
                 </Accordion.Item>
             </Accordion>

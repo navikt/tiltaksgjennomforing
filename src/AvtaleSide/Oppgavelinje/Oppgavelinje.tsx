@@ -7,7 +7,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { Button } from '@navikt/ds-react';
-import { Hamburger } from '@navikt/ds-icons';
+import { Expand } from '@navikt/ds-icons';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 import React, { useContext, useState } from 'react';
 import Varsellogg from '../Varsellogg/Varsellogg';
@@ -57,7 +57,9 @@ const OppgaveLinje: React.FunctionComponent = () => {
                 {!visKunHendelseslog && (
                     <>
                         <Button
-                            icon={<Hamburger />}
+                            icon={<Expand />}
+                            iconPosition="right"
+                            variant="secondary"
                             className={cls.element('popover-knapp')}
                             id="menyKnapp"
                             onClick={(e) => toggleMenu(e)}

@@ -38,7 +38,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
     }
 
     return (
-        <div className="hamburger">
+        <div className="modelLenker">
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
             <AnnullerAvtalen />
             <DelLenkeTilAvtalen />

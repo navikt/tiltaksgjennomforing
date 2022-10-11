@@ -86,7 +86,7 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                         </Row>
                     </Container>
                     <VerticalSpacer rem={2} />
-                    <Accordion style={{ border: '1px solid #c6c2bf' }}>
+                    <Accordion className='accordion'>
                         <Accordion.Item>
                             <Accordion.Header>
                                 <Element>Les mer om taushetsplikten til mentor</Element>

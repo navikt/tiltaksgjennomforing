@@ -9,7 +9,7 @@ type Props = {
 
 const Tilskuddsbeskrivelse: FunctionComponent<Props> = (props) => {
     return (
-        <Accordion style={{ border: '1px solid #c6c2bf' }}>
+        <Accordion className='accordion'>
             <Accordion.Item defaultOpen>
                 <Accordion.Header>
                     Beskrivelse av hva tilskuddet kan dekke tilleggsutgifter knyttet til

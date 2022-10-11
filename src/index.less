@@ -10,11 +10,9 @@
 @import 'AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter.less';
 @import 'AvtaleOversikt/AvtaleOversikt.less';
 
-
 body {
     font-size: 1rem;
 }
-
 
 body,
 body .tiltaksgjennomforing {
@@ -30,4 +28,22 @@ svg {
     background-color: @navBlaLighten80 !important;
     border-bottom: 0.25rem solid @navBlaLighten60 !important;
     padding: 1.5rem;
+}
+.accordion {
+    border: 0.1rem solid #c6c2bf;
+    border-radius: 0.5rem;
+}
+
+.accordion .navds-accordion__header,
+.accordion .navds-accordion__item--open .navds-accordion__header {
+    background-color: white;
+}
+
+.accordion .navds-accordion__content,
+.accordion .navds-accordion__header {
+    border: none;
+}
+
+.accordion .navds-accordion__header:focus {
+    border-radius: 0.5rem;
 }

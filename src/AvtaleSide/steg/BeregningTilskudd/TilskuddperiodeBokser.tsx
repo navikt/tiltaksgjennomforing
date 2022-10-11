@@ -22,9 +22,9 @@ const TilskuddperiodeBokser: FunctionComponent = () => {
                 .filter((tp) => tp.aktiv)
                 .map((periode, index) => (
                     <React.Fragment key={index}>
-                        <Accordion style={{ border: '1px solid #c6c2bf' }}>
+                        <Accordion className='accordion'>
                             <Accordion.Item open={periode.løpenummer === 1}>
-                                <Accordion.Header style={{ backgroundColor: 'white' }}>
+                                <Accordion.Header>
                                     <Element>
                                         Tilskudd for periode {formatterPeriode(periode.startDato, periode.sluttDato)}
                                     </Element>
