@@ -1,6 +1,6 @@
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
-import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
+import { Tag } from '@navikt/ds-react';
 import { Undertekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import './AvtaleinfoFeltSjekk.less';
@@ -28,9 +28,9 @@ export const AvtaleinfoFeltSjekk: FunctionComponent<Props> = (props) => {
     let innhold;
     if (hvaMangler.length > 0) {
         innhold = (
-            <EtikettFokus className={cls.element('etikettInfo')}>
+            <Tag variant="warning" className={cls.element('etikettInfo')}>
                 {storForbokstav(hvaMangler.join(', ') + ' er ikke fylt ut')}
-            </EtikettFokus>
+            </Tag>
         );
     } else {
         innhold = (

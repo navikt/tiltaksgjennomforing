@@ -7,8 +7,8 @@ import { Maalkategori } from '@/types/maalkategorier';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
 import KnappBase from 'nav-frontend-knapper';
-import Lenke from 'nav-frontend-lenker';
-import Modal from 'nav-frontend-modal';
+import { Link } from '@navikt/ds-react';
+import { Modal } from '@navikt/ds-react';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EtMaal from '../../../MaalSteg/MaalNy/EtMaal';
@@ -64,7 +64,7 @@ const EndreMaal: FunctionComponent = () => {
     return (
         <>
             <div>
-                <Lenke
+                <Link
                     onClick={(event) => {
                         event.stopPropagation();
                         setModalApen(true);
@@ -80,52 +80,54 @@ const EndreMaal: FunctionComponent = () => {
                         <Notes style={{ marginRight: '0.5rem' }} />
                     </div>
                     Endre mål
-                </Lenke>
+                </Link>
             </div>
 
             <div className={'bekreftelseModal'}>
                 <Modal
                     style={{ content: { maxWidth: '100%', minHeight: '20rem', minWidth: '40rem' } }}
-                    isOpen={modalApen}
+                    open={modalApen}
                     className="modal__wrapper"
-                    contentLabel={'bekrefte valgt handling'}
-                    onRequestClose={lukkModal}
+                    aria-label={'bekrefte valgt handling'}
+                    onClose={lukkModal}
                     closeButton={false}
-                    aria={{ modal: true, labelledby: 'Endre mål' }}
-                    ariaHideApp={true}
+                    aria-modal={true}
+                    aria-labelledby="Endre mål"
                 >
-                    <div className={cls.element('topIconContainer')}>
-                        <VarselTegnForModal width={'80px'} height={'80px'} />
-                    </div>
-                    <div style={{ maxHeight: '80rem' }} className={cls.element('body')}>
-                        <div className={cls.element('knappRad')} />
-                        <div className={cls.element('innhold')}>
-                            <div className={cls.element('tittel')}>
-                                <Systemtittel id={'Endre mål'}>{'Endre mål'}</Systemtittel>
-                            </div>
-                            <div className={cls.element('varselTekst')}>{endreMaalInnnhold}</div>
+                    <Modal.Content>
+                        <div className={cls.element('topIconContainer')}>
+                            <VarselTegnForModal width={'80px'} height={'80px'} />
                         </div>
-                        <div className={cls.element('knapper')}>
-                            <div>
-                                <LagreKnapp
-                                    disabled={iRedigersmodus}
+                        <div style={{ maxHeight: '80rem' }} className={cls.element('body')}>
+                            <div className={cls.element('knappRad')} />
+                            <div className={cls.element('innhold')}>
+                                <div className={cls.element('tittel')}>
+                                    <Systemtittel id={'Endre mål'}>{'Endre mål'}</Systemtittel>
+                                </div>
+                                <div className={cls.element('varselTekst')}>{endreMaalInnnhold}</div>
+                            </div>
+                            <div className={cls.element('knapper')}>
+                                <div>
+                                    <LagreKnapp
+                                        disabled={iRedigersmodus}
+                                        className={cls.element('knapp lenkeknapp')}
+                                        lagre={() => lagreEndredeMaal()}
+                                        label="Lagre målendringer"
+                                    />
+                                </div>
+                                <KnappBase
+                                    role="button"
+                                    aria-label={'Avbryt'.concat(' og lukk modalen')}
+                                    aria-labelledby={'Lukker dialog for'.concat('Endre mål')}
+                                    type="flat"
                                     className={cls.element('knapp lenkeknapp')}
-                                    lagre={() => lagreEndredeMaal()}
-                                    label="Lagre målendringer"
-                                />
+                                    onClick={lukkModal}
+                                >
+                                    {'Avbryt'}
+                                </KnappBase>
                             </div>
-                            <KnappBase
-                                role="button"
-                                aria-label={'Avbryt'.concat(' og lukk modalen')}
-                                aria-labelledby={'Lukker dialog for'.concat('Endre mål')}
-                                type="flat"
-                                className={cls.element('knapp lenkeknapp')}
-                                onClick={lukkModal}
-                            >
-                                {'Avbryt'}
-                            </KnappBase>
                         </div>
-                    </div>
+                    </Modal.Content>
                 </Modal>
             </div>
         </>

@@ -16,7 +16,7 @@ import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { Money } from '@navikt/ds-icons/cjs';
-import { Column, Row } from 'nav-frontend-grid';
+import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
@@ -60,9 +60,11 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
         <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
             {avtale.tiltakstype !== 'SOMMERJOBB' && <KvalifiseringsgruppeSats />}
-            {avtale.tiltakstype === 'SOMMERJOBB'&& <OppgiLonnstilskuddprosent />}
+            {avtale.tiltakstype === 'SOMMERJOBB' && <OppgiLonnstilskuddprosent />}
 
-            <Undertittel className={cls.element('lonn-tittel')}>Lønn per måned i faktisk stillingsprosent inkludert faste tillegg</Undertittel>
+            <Undertittel className={cls.element('lonn-tittel')}>
+                Lønn per måned i faktisk stillingsprosent inkludert faste tillegg
+            </Undertittel>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 <div>
                     Brutto lønn omregnes til fast gjennomsnittlig månedslønn. I refusjonsgrunnlaget inngår lønn for
@@ -73,8 +75,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </div>
                 <VerticalSpacer rem={0.5} />
                 <div>
-                    Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og
-                    utbetales regelmessig ved hver lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
+                    Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og utbetales regelmessig ved
+                    hver lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
                 </div>
                 <div>
                     <VerticalSpacer rem={0.5} />

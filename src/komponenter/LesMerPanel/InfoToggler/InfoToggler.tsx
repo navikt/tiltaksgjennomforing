@@ -1,5 +1,5 @@
 import React from 'react';
-import NavFrontendChevron from 'nav-frontend-chevron';
+import { Collapse, Expand } from '@navikt/ds-icons';
 
 import './infoToggler.less';
 
@@ -23,7 +23,7 @@ const InfoToggler = (props: Props) => {
             aria-expanded={åpen}
         >
             <span className={'infoToggler__label'}>{children}</span>
-            <NavFrontendChevron type={åpen ? 'opp' : 'ned'} />
+            <div style={{ display: 'inline-block' }}>{åpen ? <Collapse /> : <Expand />}</div>
         </button>
     );
 };

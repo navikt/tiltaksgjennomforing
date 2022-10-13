@@ -6,7 +6,7 @@ import { oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreKontaktInformasjon.less';
@@ -169,20 +169,20 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke
+            <Link
                 onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
                 }}
                 href="#"
                 role="menuitem"
-                className={cls.element('lenke')}
+                className={cls.element('link')}
             >
                 <div aria-hidden={true}>
                     <Neutral className={cls.element('ikon')} />
                 </div>
                 Endre kontaktinformasjon
-            </Lenke>
+            </Link>
             <BekreftelseModal
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"

@@ -10,7 +10,7 @@ import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import { Beregningsgrunnlag, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Task } from '@navikt/ds-icons/cjs';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreTilskuddsberegning.less';
@@ -128,7 +128,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke
+            <Link
                 onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
@@ -141,7 +141,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     <Task className={cls.element('ikon')} />
                 </div>
                 Endre tilskuddsberegning
-            </Lenke>
+            </Link>
             <BekreftelseModal
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"

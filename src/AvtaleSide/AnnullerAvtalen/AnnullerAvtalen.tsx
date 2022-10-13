@@ -1,6 +1,6 @@
 import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/Avbryte-avtale.svg';
 import AnnullerAvtaleModal from '@/komponenter/modal/AnnullerAvtaleModal';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import React, { useState } from 'react';
 import './AnnullerAvtalen.less';
 
@@ -10,7 +10,7 @@ const AnnullerAvtalen = () => {
     return (
         <>
             <div className="annullereavtalen">
-                <Lenke
+                <Link
                     onClick={() => setAnnullerModalIsOpen(true)}
                     href="#"
                     className="annulleravtalen__lenke"
@@ -21,7 +21,7 @@ const AnnullerAvtalen = () => {
                         <AvbruttIkon className="annulleravtalen__ikon" />
                     </div>
                     Annuller avtalen
-                </Lenke>
+                </Link>
             </div>
             {annullerModalIsOpen && (
                 <div aria-hidden={!annullerModalIsOpen}>

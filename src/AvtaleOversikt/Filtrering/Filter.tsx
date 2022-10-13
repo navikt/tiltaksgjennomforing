@@ -1,16 +1,19 @@
 import React, { FunctionComponent } from 'react';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
+import { Accordion } from '@navikt/ds-react';
 
 type Props = {
     tittel: string;
 };
 
-export const Filter: FunctionComponent<Props> = props => {
-    const layout = useAvtaleOversiktLayout();
+export const Filter: FunctionComponent<Props> = (props) => {
     return (
-        <Ekspanderbartpanel tittel={props.tittel} apen={layout.erNokPlassTilTabellOgFilter} role="radiogroup">
-            {props.children}
-        </Ekspanderbartpanel>
+        <div>
+            <Accordion className="accordion" role="radiogroup">
+                <Accordion.Item defaultOpen >
+                    <Accordion.Header>{props.tittel}</Accordion.Header>
+                    <Accordion.Content>{props.children}</Accordion.Content>
+                </Accordion.Item>
+            </Accordion>
+        </div>
     );
 };

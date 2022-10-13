@@ -1,5 +1,5 @@
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 
@@ -9,10 +9,10 @@ const InkluderingstilskuddIngress: FunctionComponent = () => {
             <Normaltekst>
                 Tilskuddet skal dekke tilleggskostnader som arbeidsgiveren har i forbindelse med tilrettelegging. Det
                 dekker dokumenterte utgifter opp til en
-                <Lenke href="https://www.nav.no/inkluderingstilskudd#hvor-mye" target="_blank">
+                <Link href="https://www.nav.no/inkluderingstilskudd#hvor-mye" target="_blank">
                     {' '}
                     maksimal sats.
-                </Lenke>{' '}
+                </Link>{' '}
             </Normaltekst>
             <VerticalSpacer rem={1} />
             <Normaltekst>

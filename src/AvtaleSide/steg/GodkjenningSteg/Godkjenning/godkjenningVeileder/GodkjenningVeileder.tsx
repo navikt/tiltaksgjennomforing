@@ -4,7 +4,7 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Alert } from '@navikt/ds-react'
+import { Alert } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../../Oppsummering/instruks/GodkjenningInstruks';
 import GodkjennPaVegneAvArbeidsgiver from './GodkjennPaVegneAvArbeidsgiver';
@@ -52,17 +52,15 @@ const GodkjenningVeileder: FunctionComponent = () => {
             )}
             {avtale.gjeldendeInnhold.harFamilietilknytning && (
                 <>
-                     <Alert variant="warning">
-                        OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
-                    </Alert>
+                    <Alert variant="warning">OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver</Alert>
                     <VerticalSpacer rem={1} />
                 </>
-
             )}
 
             {!skalGodkjennesPaVegne && (
                 <>
                     <LagreKnapp
+                        className={cls.element('lagreKnapp')}
                         lagre={() =>
                             fetchdata({
                                 deltakerFnr,

@@ -11,7 +11,7 @@ import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -117,9 +117,9 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             </ul>
                             <br />
                             <span className={cls.element('lenke')}>
-                                <Lenke onClick={() => setVideoModalOpen(true)} href="#">
+                                <Link onClick={() => setVideoModalOpen(true)} href="#">
                                     Se video om hvordan tilgang i Altinn styres.
-                                </Lenke>
+                                </Link>
                             </span>
                             <span className={cls.element('lenke')}>
                                 <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">

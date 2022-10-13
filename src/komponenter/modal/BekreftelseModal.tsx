@@ -1,7 +1,6 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { Alert } from '@navikt/ds-react';
-import Modal from 'nav-frontend-modal';
+import { Alert, Modal } from '@navikt/ds-react';
 import { Systemtittel } from 'nav-frontend-typografi';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
@@ -36,8 +35,9 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
         }
         return 'body';
     };
+
     if (typeof window !== 'undefined') {
-        Modal.setAppElement(setModalElement());
+        Modal.setAppElement!(setModalElement());
     }
 
     const bekreftKlikk = async () => {
@@ -58,34 +58,36 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
         <div className={cls.className}>
             <Modal
                 style={{ content: props.style }}
-                isOpen={props.modalIsOpen}
+                open={props.modalIsOpen}
                 className={cls.element('modal-container')}
-                contentLabel={'bekrefte valgt handling'}
-                onRequestClose={props.lukkModal}
+                aria-label={'bekrefte valgt handling'}
+                onClose={props.lukkModal}
                 closeButton={false}
-                aria={{ modal: true, labelledby: props.oversiktTekst, describedby: props.descripedby }}
-                ariaHideApp={true}
+                //aria={{ modal: true, labelledby: props.oversiktTekst, describedby: props.descripedby }}
+                //ariaHideApp={true}
             >
-                <div className={cls.element('topIconContainer')}>
-                    <VarselTegnForModal width={'80px'} height={'80px'} />
-                </div>
-                <div className={cls.element('body')}>
-                    <div className={cls.element('knappRad')} />
-                    <div className={cls.element('innhold')}>
-                        <div className={cls.element('tittel')}>
-                            <Systemtittel id={props.oversiktTekst}>{props.oversiktTekst}</Systemtittel>
+                <Modal.Content>
+                    <div className={cls.element('topIconContainer')}>
+                        <VarselTegnForModal width={'80px'} height={'80px'} />
+                    </div>
+                    <div className={cls.element('body')}>
+                        <div className={cls.element('knappRad')} />
+                        <div className={cls.element('innhold')}>
+                            <div className={cls.element('tittel')}>
+                                <Systemtittel id={props.oversiktTekst}>{props.oversiktTekst}</Systemtittel>
+                            </div>
+                            <div className={cls.element('varselTekst')}>{varselInnhold}</div>
                         </div>
-                        <div className={cls.element('varselTekst')}>{varselInnhold}</div>
+                        <div className={cls.element('knapper')}>
+                            <LagreOgAvbrytKnapp
+                                lagreFunksjon={() => bekreftKlikk()}
+                                lagretekst={props.bekreftelseTekst}
+                                avbryt={() => props.lukkModal()}
+                            />
+                        </div>
                     </div>
-                    <div className={cls.element('knapper')}>
-                        <LagreOgAvbrytKnapp
-                            lagreFunksjon={() => bekreftKlikk()}
-                            lagretekst={props.bekreftelseTekst}
-                            avbryt={() => props.lukkModal()}
-                        />
-                    </div>
-                </div>
-                {feilmelding && <Alert variant="warning">{feilmelding}</Alert>}
+                    {feilmelding && <Alert variant="warning">{feilmelding}</Alert>}
+                </Modal.Content>
             </Modal>
         </div>
     );

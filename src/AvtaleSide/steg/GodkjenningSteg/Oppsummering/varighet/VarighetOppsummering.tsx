@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Varighet } from '@/types/avtale';
 import moment from 'moment';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';

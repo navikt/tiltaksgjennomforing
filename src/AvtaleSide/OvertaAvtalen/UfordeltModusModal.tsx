@@ -1,6 +1,6 @@
 import { FordelAvtaleVeileder } from '@/AvtaleSide/steg/GodkjenningSteg/FordelAvtaleVeileder';
 import BEMHelper from '@/utils/bem';
-import Modal from 'nav-frontend-modal';
+import { Modal } from '@navikt/ds-react';
 import React from 'react';
 import './UfordeltModusModal.less';
 
@@ -13,13 +13,10 @@ interface Props {
 
 const UfordeltModusModal = (props: Props) => {
     return (
-        <Modal
-            className={cls.element('modal')}
-            isOpen={props.isOpen}
-            onRequestClose={props.lukkModal}
-            contentLabel={''}
-        >
-            <FordelAvtaleVeileder />
+        <Modal className={cls.element('modal')} open={props.isOpen} onClose={props.lukkModal}>
+            <Modal.Content>
+                <FordelAvtaleVeileder />
+            </Modal.Content>
         </Modal>
     );
 };

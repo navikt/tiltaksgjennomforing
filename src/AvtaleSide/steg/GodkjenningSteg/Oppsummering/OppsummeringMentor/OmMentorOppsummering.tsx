@@ -5,8 +5,8 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Mentorinfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Accordion } from '@navikt/ds-react';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
@@ -86,15 +86,16 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                         </Row>
                     </Container>
                     <VerticalSpacer rem={2} />
-                    <Ekspanderbartpanel
-                        tittel={
-                            <div>
+                    <Accordion className='accordion'>
+                        <Accordion.Item>
+                            <Accordion.Header>
                                 <Element>Les mer om taushetsplikten til mentor</Element>
-                            </div>
-                        }
-                    >
-                        <TausetserklæringTekst />
-                    </Ekspanderbartpanel>
+                            </Accordion.Header>
+                            <Accordion.Content>
+                                <TausetserklæringTekst />
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
                 </div>
             </div>
         </Stegoppsummering>

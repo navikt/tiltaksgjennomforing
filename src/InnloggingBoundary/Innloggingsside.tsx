@@ -9,7 +9,7 @@ import { AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Innloggingskilde } from '@/types/innlogget-bruker';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { HoyreChevron } from 'nav-frontend-chevron';
+import { Next } from '@navikt/ds-icons';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Ingress, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import React, { useContext } from 'react';
@@ -65,14 +65,14 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                 <VerticalSpacer rem={2} />
                 <div className={cls.element('infotekst')}>
                     <Ingress>
-                        Dette er en digital avtale som skal brukes av deltakeren, arbeidsgiveren, mentoren og NAV. For å se
-                        avtalene du er en del av må du først logge på.
+                        Dette er en digital avtale som skal brukes av deltakeren, arbeidsgiveren, mentoren og NAV. For å
+                        se avtalene du er en del av må du først logge på.
                     </Ingress>
                     <VerticalSpacer rem={2} />
                     <Normaltekst>
                         <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
                             Her kan du lese mer om hvordan løsningen fungerer
-                            <HoyreChevron className="tilbaketiloversikt__chevron" />
+                            <Next style={{ display: 'inline-block' }} />
                         </Link>
                     </Normaltekst>
                 </div>

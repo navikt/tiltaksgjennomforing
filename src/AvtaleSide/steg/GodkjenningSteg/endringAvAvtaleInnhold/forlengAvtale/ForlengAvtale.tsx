@@ -8,7 +8,7 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
 import { Datepicker } from 'nav-datovelger';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import BEMHelper from '@/utils/bem';
@@ -83,7 +83,7 @@ const ForlengAvtale: FunctionComponent = () => {
     return (
         <>
             <div>
-                <Lenke
+                <Link
                     onClick={(event) => {
                         event.stopPropagation();
                         setModalApen(true);
@@ -99,7 +99,7 @@ const ForlengAvtale: FunctionComponent = () => {
                         <Notes style={{ marginRight: '0.5rem' }} />
                     </div>
                     Forleng avtale
-                </Lenke>
+                </Link>
             </div>
 
             <BekreftelseModal

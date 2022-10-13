@@ -1,5 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import IkonModal from '@/komponenter/IkonModal/IkonModal';
+import { ReactComponent as InfoIkonGul } from '@/assets/ikoner/info-ikon-gul.svg';
+import { Modal } from '@navikt/ds-react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import * as RestService from '@/services/rest-service';
@@ -19,11 +20,11 @@ const VarselModal: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
 
     const harOpprettetHendelse =
-        varsler.find(v => v.hendelseType === 'OPPRETTET' || v.hendelseType === 'OPPRETTET_AV_ARBEIDSGIVER') !==
+        varsler.find((v) => v.hendelseType === 'OPPRETTET' || v.hendelseType === 'OPPRETTET_AV_ARBEIDSGIVER') !==
         undefined;
 
     useEffect(() => {
-        RestService.hentUlesteBjelleVarslerForAvtale(avtale.id).then(hentedeVarsler => {
+        RestService.hentUlesteBjelleVarslerForAvtale(avtale.id).then((hentedeVarsler) => {
             if (hentedeVarsler.length > 0) {
                 setVarselModalApen(true);
             }
@@ -32,7 +33,7 @@ const VarselModal: FunctionComponent = () => {
     }, [avtale.id]);
 
     const lukkOgLesVarsler = async () => {
-        const varselIder = varsler.map(v => v.id);
+        const varselIder = varsler.map((v) => v.id);
         await RestService.settAlleVarselerTilLest(varselIder);
         setVarselModalApen(false);
     };
@@ -43,13 +44,14 @@ const VarselModal: FunctionComponent = () => {
     };
 
     return (
-        <IkonModal
-            isOpen={varselModalApen}
+        <Modal
+            open={varselModalApen}
             closeButton={true}
-            contentLabel="varselmodal"
-            onRequestClose={lukkOgLesVarsler}
+            aria-label="varselmodal"
+            onClose={lukkOgLesVarsler}
             className={cls.element('modal')}
         >
+            <InfoIkonGul height="80px" width="80px" style={{ margin: '-72px auto 1rem auto' }} />
             <Systemtittel>{harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}</Systemtittel>
             <VerticalSpacer rem={1} />
             <Normaltekst>
@@ -64,10 +66,12 @@ const VarselModal: FunctionComponent = () => {
             <div>
                 <LagreKnapp lagre={lukkOgLesVarsler} label="Lukk" />
                 {!harOpprettetHendelse && (
-                    <Knapp style={{ marginLeft: '1rem' }} onClick={lukkeOgSeHendelselogg}>Se alle hendelser for denne avtalen</Knapp>
+                    <Knapp style={{ marginLeft: '1rem' }} onClick={lukkeOgSeHendelselogg}>
+                        Se alle hendelser for denne avtalen
+                    </Knapp>
                 )}
             </div>
-        </IkonModal>
+        </Modal>
     );
 };
 

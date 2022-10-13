@@ -1,6 +1,6 @@
 import { Varighet } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { Column, Container, Row } from 'nav-frontend-grid';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';

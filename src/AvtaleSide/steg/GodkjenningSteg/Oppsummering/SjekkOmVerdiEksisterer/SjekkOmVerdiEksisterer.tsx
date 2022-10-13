@@ -1,14 +1,13 @@
-import EtikettFokus from 'nav-frontend-etiketter/lib/etikettfokus';
 import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-
+import { Tag } from '@navikt/ds-react';
 const SjekkOmVerdiEksisterer: FunctionComponent<{
     verdi?: string;
     formatertVerdi?: JSX.Element | string;
     clsName?: string;
     label?: string;
-    ariaLabel?: string
-}> = props => {
+    ariaLabel?: string;
+}> = (props) => {
     if (props.verdi) {
         return (
             <Normaltekst aria-label={props.ariaLabel}>
@@ -18,7 +17,7 @@ const SjekkOmVerdiEksisterer: FunctionComponent<{
     }
     return (
         <div>
-            <EtikettFokus>Ikke fylt ut</EtikettFokus>
+            <Tag variant="warning">Ikke fylt ut</Tag>
         </div>
     );
 };

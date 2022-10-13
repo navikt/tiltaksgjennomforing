@@ -6,7 +6,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import BEMHelper from '@/utils/bem';
-import { EtikettFokus } from 'nav-frontend-etiketter';
+import { Tag } from '@navikt/ds-react';
 import Popover from 'nav-frontend-popover';
 import { RadioPanel } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -25,7 +25,11 @@ const Relasjoner: FunctionComponent = () => {
             case false:
                 return <Normaltekst>Nei</Normaltekst>;
             default:
-                return <EtikettFokus>Ikke fylt ut</EtikettFokus>;
+                return (
+                    <>
+                        <Tag variant="warning">Ikke fylt ut</Tag>
+                    </>
+                );
         }
     };
 

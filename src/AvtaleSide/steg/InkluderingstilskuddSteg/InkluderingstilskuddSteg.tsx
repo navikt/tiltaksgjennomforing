@@ -7,7 +7,7 @@ import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Datepicker } from 'nav-datovelger';
-import { Column, Row } from 'nav-frontend-grid';
+import { Column, Row} from '@/komponenter/NavGrid/Grid';
 import { Input } from 'nav-frontend-skjema';
 import { Element, Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useState } from 'react';

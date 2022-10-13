@@ -5,12 +5,10 @@ import { hentVarsellogg } from '@/services/rest-service';
 import { Nettressurs, Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Loader } from '@navikt/ds-react';
 import moment from 'moment';
-import Lenke from 'nav-frontend-lenker';
-import Modal from 'nav-frontend-modal';
-import NavFrontendSpinner from 'nav-frontend-spinner';
-import 'nav-frontend-tabell-style';
+import { Link } from '@navikt/ds-react';
+import { Modal } from '@navikt/ds-react';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './Varsellogg.less';
@@ -35,7 +33,7 @@ const Varsellogg: FunctionComponent = () => {
 
     return (
         <>
-            <Lenke
+            <Link
                 id="varsellogglenke"
                 onClick={() => setVarselLoggModalApen(true)}
                 href="#"
@@ -46,40 +44,40 @@ const Varsellogg: FunctionComponent = () => {
                     <BurgerMenyIkon className={cls.element('burger-ikon')} />
                 </div>
                 Hendelselogg
-            </Lenke>
-
+            </Link>
             <Modal
-                isOpen={varselLoggModalApen}
-                onRequestClose={() => setVarselLoggModalApen(false)}
+                open={varselLoggModalApen}
+                onClose={() => setVarselLoggModalApen(false)}
                 closeButton={true}
-                contentLabel="Varselloggmodal"
+                aria-label="Varselloggmodal"
                 className={cls.element('modal')}
-                aria={{
-                    modal: varselLoggModalApen,
-                    labelledby: 'heading',
-                    describedby: 'varsellogg for endringsaktiviteter i applikasjonen',
-                }}
-                ariaHideApp={varselLoggModalApen}
+                aria-modal={varselLoggModalApen}
+                aria-labelledby="heading"
+                aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
-                <Systemtittel role="heading" id="heading" aria-level={1}>
-                    Hendelselogg
-                </Systemtittel>
-                <VerticalSpacer rem={1} />
-                {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
-                    <>
-                        <Alert variant="info">
-                            Denne avtalen ble opprettet før hendelsesloggen ble innført og vil være mangelfull.
-                        </Alert>
-                        <VerticalSpacer rem={1} />
-                    </>
-                )}
-                {varsler.status === Status.Lastet && varsler.data.length > 0 && <VarselTabell varsler={varsler.data} />}
-                {varsler.status === Status.LasterInn && (
-                    <NavFrontendSpinner type="XL" className={cls.element('spinner')} />
-                )}
-                {varsler.status === Status.Feil && (
-                    <Normaltekst>Klarte ikke hente hendelselogg. Prøv igjen senere.</Normaltekst>
-                )}
+                <Modal.Content>
+                    <Systemtittel role="heading" id="heading" aria-level={1}>
+                        Hendelselogg
+                    </Systemtittel>
+                    <VerticalSpacer rem={1} />
+                    {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
+                        <>
+                            <Alert variant="info">
+                                Denne avtalen ble opprettet før hendelsesloggen ble innført og vil være mangelfull.
+                            </Alert>
+                            <VerticalSpacer rem={1} />
+                        </>
+                    )}
+                    {varsler.status === Status.Lastet && varsler.data.length > 0 && (
+                        <VarselTabell varsler={varsler.data} />
+                    )}
+                    {varsler.status === Status.LasterInn && (
+                        <Loader variant="neutral" size="xlarge" className={cls.element('spinner')} />
+                    )}
+                    {varsler.status === Status.Feil && (
+                        <Normaltekst>Klarte ikke hente hendelselogg. Prøv igjen senere.</Normaltekst>
+                    )}
+                </Modal.Content>
             </Modal>
         </>
     );

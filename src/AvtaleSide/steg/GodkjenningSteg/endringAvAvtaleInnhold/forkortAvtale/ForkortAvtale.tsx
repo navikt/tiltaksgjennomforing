@@ -9,7 +9,7 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
 import { Datepicker } from 'nav-datovelger';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
@@ -116,7 +116,7 @@ const ForkortAvtale: FunctionComponent = () => {
     return (
         <>
             <div>
-                <Lenke
+                <Link
                     onClick={(event) => {
                         event.stopPropagation();
                         setModalApen(true);
@@ -132,7 +132,7 @@ const ForkortAvtale: FunctionComponent = () => {
                         <Notes style={{ marginRight: '0.5rem' }} />
                     </div>
                     Forkort avtale
-                </Lenke>
+                </Link>
             </div>
 
             <BekreftelseModal
