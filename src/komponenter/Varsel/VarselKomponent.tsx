@@ -60,7 +60,6 @@ class VarselKomponent extends React.Component<Props, State> {
                                         <Button
                                             className="varsel__innhold__lukknapp"
                                             variant="tertiary"
-                                            //style={{ backgroundColor: 'none' }}
                                             icon={<Close color="black" style={{ backgroundColor: 'none' }} />}
                                             onClick={this.lukkVarsel}
                                         ></Button>
