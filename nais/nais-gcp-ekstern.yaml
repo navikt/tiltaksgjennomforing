@@ -26,6 +26,10 @@ spec:
       value: '{{{logout-url}}}'
     - name: ENABLE_EXTERNAL_MENU
       value: 'true'
+    - name: NOTIFIKASJON_URL
+      value: 'http://notifikasjon-bruker-api.fager.svc.cluster.local'
+    - name: NOTIFIKASJON_AUDIENCE
+      value: '{{{notifikasjon-audience}}}'
     - name: DECORATOR_EXTERNAL_URL
       value: 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb'
     - name: STILLINGSTITLER_URL
@@ -53,5 +57,7 @@ spec:
           cluster: '{{{proxy-cluster}}}'
         - application: tiltak-stillingstitler
           namespace: arbeidsgiver
+        - application: notifikasjon-bruker-api
+          namespace: fager
       external:
         - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io

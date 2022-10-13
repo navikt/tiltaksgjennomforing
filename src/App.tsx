@@ -1,4 +1,5 @@
 import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
+import AlleredeOpprettetAvtaleProvider from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { messages } from '@/messages';
 import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 import Oversikt from '@/Oversikt';
@@ -21,6 +22,7 @@ import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
 import { VarselOmNedetid } from './InnloggingBoundary/VarselOmNedetid';
 import ErrorBoundary from './komponenter/ErrorBoundary';
 import Slettemerk from './komponenter/Slettemerk';
+import { NotifikasjonWidgetProvider } from './NotifikasjonWidgetProvider';
 import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
 import OpprettAvtaleVeileder from './OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import OpprettelseFullfortVeileder from './OpprettAvtale/OpprettelseFullfortVeileder/OpprettelseFullfortVeileder';
@@ -33,11 +35,9 @@ import {
     pathTilOpprettAvtaleArbeidsgiver,
     pathTilOpprettAvtaleFullfortArbeidsgiver,
     pathTilOpprettAvtaleFullfortVeileder,
-    pathTilStegIAvtale,
+    pathTilStegIAvtale
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import { NotifikasjonWidgetProvider } from './NotifikasjonWidgetProvider';
-import AlleredeOpprettetAvtaleProvider from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 
 class App extends React.Component {
     render() {
@@ -47,15 +47,11 @@ class App extends React.Component {
                     <BrowserRouter basename={basename}>
                         <AdvarselBannerTestversjon />
                         <VarselOmNedetid />
-                        <FeatureToggleProvider>
-                            <Switch>
-                                <Route
-                                    path={pathTilInformasjonssideUinnlogget}
-                                    exact={true}
-                                    component={Informasjonsside}
-                                />
-                                <FeilVarselProvider>
-                                    <InnloggingBoundary>
+                        <Switch>
+                            <Route path={pathTilInformasjonssideUinnlogget} exact={true} component={Informasjonsside} />
+                            <FeilVarselProvider>
+                                <InnloggingBoundary>
+                                    <FeatureToggleProvider>
                                         <RedirectEtterLogin>
                                             <AlleredeOpprettetAvtaleProvider>
                                                 <NotifikasjonWidgetProvider>
@@ -125,10 +121,10 @@ class App extends React.Component {
                                                 </NotifikasjonWidgetProvider>
                                             </AlleredeOpprettetAvtaleProvider>
                                         </RedirectEtterLogin>
-                                    </InnloggingBoundary>
-                                </FeilVarselProvider>
-                            </Switch>
-                        </FeatureToggleProvider>
+                                    </FeatureToggleProvider>
+                                </InnloggingBoundary>
+                            </FeilVarselProvider>
+                        </Switch>
                     </BrowserRouter>
                 </IntlProvider>
             </ErrorBoundary>

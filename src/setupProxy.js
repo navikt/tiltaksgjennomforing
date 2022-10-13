@@ -1,6 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const lokalProxy = require('../server/lokalproxy');
 const fetch = require('node-fetch');
+const { applyNotifikasjonMockMiddleware } = require("@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock");
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 const isLabs = process.env.NAIS_CLUSTER_NAME === 'labs-gcp';
@@ -126,6 +127,10 @@ module.exports = function (app) {
 
     if (process.env.NAIS_CLUSTER_NAME !== 'dev-gcp' && process.env.NAIS_CLUSTER_NAME !== 'prod-gcp') {
         lokalProxy.setup(app);
+    }
+
+    if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp' || process.env.NODE_ENV === 'development') {
+        applyNotifikasjonMockMiddleware({app, path: "/tiltaksgjennomforing/notifikasjon-bruker-api"})
     }
 
     app.use(

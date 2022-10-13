@@ -18,7 +18,7 @@
     "dependencies": {
         "@formatjs/intl-pluralrules": "^4.1.3",
         "@formatjs/intl-relativetimeformat": "^9.2.3",
-        "@navikt/arbeidsgiver-notifikasjon-widget": "^2.0.3",
+        "@navikt/arbeidsgiver-notifikasjon-widget": "^5.0.1",
         "@navikt/bedriftsmeny": "^3.5.2",
         "@navikt/ds-css": "^1.2.6",
         "@navikt/ds-icons": "^0.5.2",
@@ -91,6 +91,7 @@
         "url-search-params-polyfill": "^8.1.1"
     },
     "devDependencies": {
+        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^5.0.1",
         "@craco/craco": "^6.2.0",
         "@sentry/cli": "^1.68.0",
         "@testing-library/jest-dom": "^5.15.1",
