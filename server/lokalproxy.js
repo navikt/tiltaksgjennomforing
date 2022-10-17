@@ -3,6 +3,17 @@ const proxy = require('express-http-proxy');
 const setup = (app) => {
     console.log('Lokal proxy-setup');
     isLabs = process.env.NAIS_CLUSTER_NAME === 'labs-gcp';
+
+    if(isLabs) {
+        app.use('/tiltaksgjennomforing/api/kodeverk', proxy(apiUrl, {
+            proxyReqPathResolver: (req) => {
+                return req.originalUrl.replace(
+                    '/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api'
+                );
+            }
+        }));
+    }
+
     const apiUrl = isLabs ? 'http://tiltaksgjennomforing-api:8080' : 'http://localhost:8080'
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('Labs og localhost-proxy /tiltaksgjennomforing/api');
