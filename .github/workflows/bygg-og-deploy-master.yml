@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Installer avhengigheter
         run: yarn install --frozen-lockfile
       - name: Kjør tester
@@ -38,7 +38,7 @@ jobs:
     needs: bygg
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Deploy til prod-gcp intern
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -54,7 +54,7 @@ jobs:
     needs: bygg
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Deploy til prod-gcp ekstern
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -70,7 +70,7 @@ jobs:
     needs: bygg
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Deploy til dev-gcp intern
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -86,7 +86,7 @@ jobs:
     needs: bygg
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Deploy til dev-gcp ekstern
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -102,7 +102,7 @@ jobs:
     needs: bygg
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Deploy til labs-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
