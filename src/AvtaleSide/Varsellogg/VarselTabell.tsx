@@ -55,7 +55,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
             {finnesMinstEnSomSkjules && (
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Checkbox
@@ -90,7 +90,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                     </div>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell" aria-labelledby="utført_av">
-                                    {varsel.hendelseType === 'TILSKUDDSPERIODE_GODKJENT' ||
+                                    {varsel.hendelseType === 'TILSKUDDSPERIODE_GODKJENT' || 
                                     varsel.hendelseType === 'GODKJENT_FOR_ETTERREGISTRERING' ? (
                                         <UtgråetTekst grå={varsel.skjules}>
                                             {storForbokstav(varsel.identifikator)}

@@ -65,7 +65,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         <div className={cls.className}>
             <Undertittel className={cls.element('tittel')}>Tilskudd som skal godkjennes</Undertittel>
             <div className={cls.element('container')}>
-                <table className={'tabell'}>
+                <table className={cls.element('tabell')}>
                     <thead>
                         <tr>
                             <th>Nr</th>
@@ -99,8 +99,12 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                         <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
-                                        <td>
-                                            <EtikettStatus tilskuddsperiodestatus={periode.status} refusjonStatus={periode.refusjonStatus} godkjentAv={periode.godkjentAvNavIdent} />
+                                        <td> 
+                                            <EtikettStatus
+                                                tilskuddsperiodestatus={periode.status}
+                                                refusjonStatus={periode.refusjonStatus}
+                                                godkjentAv={periode.godkjentAvNavIdent}
+                                            />
                                         </td>
                                     </tr>
                                     {!gjeldende && periode.status === 'AVSLÅTT' && (

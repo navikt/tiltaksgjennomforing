@@ -1,8 +1,10 @@
 import useValidering from '@/komponenter/useValidering';
 import { Button } from '@navikt/ds-react';
 import { Search } from '@navikt/ds-icons';
+import BEMHelper from '@/utils/bem';
 import { Input, InputProps } from 'nav-frontend-skjema';
 import React, { FormEvent, FunctionComponent, useState } from 'react';
+import './SøkeInput.less';
 
 type Props = InputProps & {
     utførSøk: (søkeord: string) => void;
@@ -13,6 +15,7 @@ type Props = InputProps & {
 };
 
 export const SøkeInput: FunctionComponent<Props> = (props) => {
+    const cls = BEMHelper('søk');
     const [søkeord, setSøkeord] = useState<string>(props.defaultVerdi || '');
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
@@ -37,10 +40,12 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
     };
 
     return (
-        <>
+        <div className={cls.className}>
             <Input
+                className={cls.element('input')}
+                //style={{marginBottom:'0.5rem'}}
                 label={props.label}
-                maxLength={props.maxLength}
+                //maxLength={props.maxLength}
                 placeholder={props.placeholder}
                 value={søkeord}
                 onChange={onChange}
@@ -48,9 +53,16 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
-            <Button icon={<Search />} iconPosition="right" onClick={utførSøk} loading={props.buttonSpinner}>
+            <Button
+                className={cls.element('button')}
+                //size="small"
+                icon={<Search />}
+                iconPosition="right"
+                onClick={utførSøk}
+                loading={props.buttonSpinner}
+            >
                 Søk
             </Button>
-        </>
+        </div>
     );
 };
