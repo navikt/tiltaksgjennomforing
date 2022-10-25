@@ -3,6 +3,8 @@
 Starte via Yarn med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-api også kjører lokalt).
 `yarn start`
 
+Obs: Om du får en feilmelding ved `yarn start` kan du prøve å kjøre `export NODE_OPTIONS=--openssl-legacy-provider` før `yarn start`.
+
 Starte med mocket backend
 `yarn run mock`
 

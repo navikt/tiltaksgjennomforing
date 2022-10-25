@@ -26,6 +26,7 @@ import './opprettAvtaleVeileder.less';
 import './OpprettAvtale.less';
 import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
 import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import { useQuery, isGyldigTiltakstype } from '../../utils/urlQueryUtils';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -35,24 +36,6 @@ export enum Avtalerolle {
     ARBEIDSGIVER = 'ARBEIDSGIVER',
     VEILEDER = 'VEILEDER',
     BESLUTTER = 'BESLUTTER',
-}
-
-function useQuery() {
-    const { search } = useLocation();
-
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-}
-
-function isGyldigTiltakstype(val?: string | null): val is TiltaksType | undefined {
-    const gyldigeTiltakstyper: TiltaksType[] = [
-        'ARBEIDSTRENING',
-        'INKLUDERINGSTILSKUDD',
-        'MENTOR',
-        'MIDLERTIDIG_LONNSTILSKUDD',
-        'SOMMERJOBB',
-        'VARIG_LONNSTILSKUDD',
-    ];
-    return gyldigeTiltakstyper.includes(val as TiltaksType);
 }
 
 const OpprettAvtaleVeileder: FunctionComponent = (props) => {
