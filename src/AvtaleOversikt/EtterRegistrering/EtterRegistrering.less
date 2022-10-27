@@ -1,7 +1,7 @@
 .etterRegistrering {
+    display: flex;
     &__modal {
         width: 16rem;
-
         padding: 2.5rem 0.5rem 0.5rem;
         height: 100%;
         min-height: 14rem;
@@ -53,7 +53,10 @@
     }
 
     &__input-sok {
+        background-color: blue;
         display: flex;
+        width: 100%;
+        flex-wrap: nowrap;
         flex-direction: column;
 
         & > .skjemaelement {
@@ -81,7 +84,7 @@
 
         &__input-sok {
             display: flex;
-            flex-direction: row;
+            justify-content: center;
             min-width: calc(100% - 5rem);
 
             & > .skjemaelement {

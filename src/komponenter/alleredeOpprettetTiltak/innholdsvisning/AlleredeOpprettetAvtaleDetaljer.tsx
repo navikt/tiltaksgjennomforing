@@ -3,7 +3,6 @@ import BEMHelper from '@/utils/bem';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import Lenke from 'nav-frontend-lenker';
 import { Expand } from '@navikt/ds-icons'
-//import { NedChevron } from 'nav-frontend-chevron';
 import { formatterDato } from '@/utils/datoUtils';
 import { avtaleStatusTekst } from '@/messages';
 import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';

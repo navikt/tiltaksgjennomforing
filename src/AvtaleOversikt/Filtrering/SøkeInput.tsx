@@ -7,6 +7,7 @@ import React, { FormEvent, FunctionComponent, useState } from 'react';
 import './SøkeInput.less';
 
 type Props = InputProps & {
+    className: string;
     utførSøk: (søkeord: string) => void;
     valider: (verdi: string) => string | undefined;
     defaultVerdi?: string;
@@ -15,7 +16,7 @@ type Props = InputProps & {
 };
 
 export const SøkeInput: FunctionComponent<Props> = (props) => {
-    const cls = BEMHelper('søk');
+    const cls = BEMHelper(props.className);
     const [søkeord, setSøkeord] = useState<string>(props.defaultVerdi || '');
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
@@ -42,10 +43,8 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Input
-                className={cls.element('input')}
-                //style={{marginBottom:'0.5rem'}}
+                className={cls.element('input-sok')}
                 label={props.label}
-                //maxLength={props.maxLength}
                 placeholder={props.placeholder}
                 value={søkeord}
                 onChange={onChange}
@@ -55,7 +54,6 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
             />
             <Button
                 className={cls.element('button')}
-                //size="small"
                 icon={<Search />}
                 iconPosition="right"
                 onClick={utførSøk}
