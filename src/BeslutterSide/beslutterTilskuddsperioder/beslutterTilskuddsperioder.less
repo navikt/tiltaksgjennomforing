@@ -1,69 +1,75 @@
 .beslutter-tilskuddsperioder {
-  &__tittel {
-    margin: 1.25rem 0 0.5rem 0.75rem;
-  }
-
-  &__container {
-    background-color: white;
-    border-radius: 8px;
-    padding: 1.25rem 0.75rem;
-    margin-bottom: 0.25rem;
-    margin-right: 0.5rem;
-    height: 40.625rem;
-    overflow: auto;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
-    width: 100%;
-
-    table {
-      tr.beslutter-tilskuddsperioder__tilskuddsperiode-rad.beslutter-tilskuddsperioder {
-        &__tilskuddsperiode-rad--gjeldende {
-          background-color: #F7F7F7;
-          & > td {
-            border-bottom: none;
-          }
-        }
-        &__tilskuddsperiode-rad--avslatt {
-          & > td {
-            border-bottom: none;
-          }
-        }
-      }
-      tr.beslutter-tilskuddsperioder__knapp-row {
-        position: relative;
-        width: 100%;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-        & > td {
-          border-bottom: none;
-        }
-        .beslutter-tilskuddsperioder__knapp-data {
-          background-color: #F7F7F7;
-          height: 100%;
-          width: 100%;
-
-          &--avslatt {
-              background-color: white;
-          }
-          & > button, p:nth-child(1)  {
-            margin-bottom: 1rem;
-          }
-          & > button:nth-child(1), p:nth-child(1)  {
-              margin-left: 4rem;
-
-          }
-        }
-      }
+    &__tittel {
+        margin: 1.25rem 0 0.5rem 0.75rem;
     }
-  }
 
-  &__bold {
-    font-weight: 600;
-  }
+    &__container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.25rem 0.75rem;
+        margin-bottom: 0.25rem;
+        margin-right: 0.5rem;
+        height: 40.625rem;
+        overflow: auto;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+        width: 100%;
 
-  td, th {
-    padding: 0.75rem;
-  }
+        table {
+            tr.beslutter-tilskuddsperioder__tilskuddsperiode-rad.beslutter-tilskuddsperioder {
+                &__tilskuddsperiode-rad--gjeldende {
+                    background-color: #f7f7f7;
+                    & > td {
+                        border-bottom: none;
+                    }
+                }
+                &__tilskuddsperiode-rad--avslatt {
+                    & > td {
+                        border-bottom: none;
+                    }
+                }
+            }
+            tr.beslutter-tilskuddsperioder__knapp-row {
+                position: relative;
+                width: 100%;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+                & > td {
+                    border-bottom: none;
+                }
+                .beslutter-tilskuddsperioder__knapp-data {
+                    background-color: #f7f7f7;
+                    height: 100%;
+                    width: 100%;
 
-  &__tilskuddsperiode-rad {
-    cursor: pointer;
-  }
+                    &--avslatt {
+                        background-color: white;
+                    }
+                    & > button,
+                    p:nth-child(1) {
+                        margin-bottom: 1rem;
+                    }
+                    & > button:nth-child(1),
+                    p:nth-child(1) {
+                        margin-left: 4rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &__tabell {
+        width: 100%;
+    }
+
+    &__bold {
+        font-weight: 600;
+    }
+
+    td,
+    th {
+        padding: 0.75rem;
+    }
+
+    &__tilskuddsperiode-rad {
+        cursor: pointer;
+    }
 }

@@ -31,7 +31,7 @@ const hentAvtaleStatus = (
 ) => {
     if (rolle === 'BESLUTTER') {
         return (
-            <div className={cls.element('status')}>
+            <div className={cls.element('beslutterStatus')}>
                 {avtale.gjeldendeTilskuddsperiode && (
                     <EtikettStatus
                         tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status}
@@ -93,18 +93,22 @@ const AvtaleTabell: FunctionComponent<{
                 <MediaQuery minWidth={576}>
                     <div className={cls.element('dato')}>
                         {erBeslutter ? (
-                            <>
+                            <div className={cls.element('besluterdato')}>
                                 <div>Startdato</div>
                                 <div>periode</div>
-                            </>
+                            </div>
                         ) : (
                             'Startdato'
                         )}
                     </div>
                     {!erBeslutter && <div className={cls.element('dato')}>Sluttdato</div>}
                 </MediaQuery>
-                <div className={cls.element('status')}>Status</div>
                 <div className={cls.element('statusikon')}>&nbsp;</div>
+                {erBeslutter ? (
+                    <div className={cls.element('headerstatus')}>Status</div>
+                ) : (
+                    <div className={cls.element('status')}>Status</div>
+                )}
             </div>
             <div role="list">
                 {avtaler.map((avtale: Avtale, index: number) => {
@@ -164,7 +168,11 @@ const AvtaleTabell: FunctionComponent<{
                                                 )}
                                                 <MediaQuery minWidth={576}>
                                                     {erBeslutter && (
-                                                        <div className={cls.element('dato')}>
+                                                        <div
+                                                            className={
+                                                                (cls.element('dato'), cls.element('besluterdato'))
+                                                            }
+                                                        >
                                                             {moment(periodeStartDato).format('DD.MM.YYYY')}
                                                         </div>
                                                     )}

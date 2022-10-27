@@ -63,8 +63,6 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                 aria-label={'bekrefte valgt handling'}
                 onClose={props.lukkModal}
                 closeButton={false}
-                //aria={{ modal: true, labelledby: props.oversiktTekst, describedby: props.descripedby }}
-                //ariaHideApp={true}
             >
                 <Modal.Content>
                     <div className={cls.element('topIconContainer')}>

@@ -9,6 +9,8 @@ export const BedriftFilter: FunctionComponent = () => {
     return (
         <Filter tittel="Søk på bedrift">
             <SøkeInput
+                className='søk'
+                style={{display:'flex', alignItems:'center'}}
                 label="Virksomhetsnummer"
                 maxLength={9}
                 utførSøk={(søkeord: string) => endreFilter({ bedriftNr: søkeord })}

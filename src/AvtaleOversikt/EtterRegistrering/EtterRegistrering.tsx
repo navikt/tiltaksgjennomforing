@@ -76,6 +76,7 @@ const EtterRegistrering: FunctionComponent = () => {
                         </Element>
                         <div className={cls.element('input-sok')}>
                             <SøkeInput
+                                className='etterRegistrering'
                                 maxLength={5}
                                 utførSøk={(søkeord) => {
                                     setSpinner(true);
