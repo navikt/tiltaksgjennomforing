@@ -1,7 +1,12 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import useValidering from '@/komponenter/useValidering';
+import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
+import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
+import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import {
     hentBedriftBrreg,
@@ -17,16 +22,11 @@ import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
-import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
-import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
-import './opprettAvtaleVeileder.less';
+import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { isGyldigTiltakstype, useQuery } from '../../utils/urlQueryUtils';
 import './OpprettAvtale.less';
-import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
-import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
-import { useQuery, isGyldigTiltakstype } from '../../utils/urlQueryUtils';
+import './opprettAvtaleVeileder.less';
 
 const cls = BEMHelper('opprett-avtale');
 
