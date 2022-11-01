@@ -16,9 +16,10 @@ const EndreOmMentor: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
     const avtaleContext = useContext(AvtaleContext);
 
-    const sjekkOgSettVerdi = (verdi: string | number | undefined): number | undefined => {
-        if (!isNaN(Number(verdi))) {
-            return Number(verdi);
+    const inputToNumber = (input: string | undefined): number | undefined => {
+        input = input?.replace(/,/g, '.');
+        if (!isNaN(Number(input))) {
+            return Number(input);
         }
     };
 
@@ -30,6 +31,8 @@ const EndreOmMentor: FunctionComponent = () => {
         mentorAntallTimer: avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer,
         mentorTimelonn: avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn,
     });
+    const [mentorAntallTimerInput, setMentorAntallTimerInput] =
+        useState<string>(mentorInfo.mentorAntallTimer?.toString().replace(/\./g, ',') ?? "");
 
     const lukkModal = () => {
         setModalApen(false);
@@ -93,19 +96,23 @@ const EndreOmMentor: FunctionComponent = () => {
                 <Row className="begge__tekst">
                     <Column md="6">
                         <PakrevdInputValidering
-                            validering={/^\d{0,3}$/}
+                            validering={/^\d{0,3}(,5?)?$/}
                             label="Antall timer med mentor per uke"
-                            verdi={mentorInfo.mentorAntallTimer?.toFixed(0)}
-                            settVerdi={(verdi) =>
-                                setMentorInfo({ ...mentorInfo, mentorAntallTimer: sjekkOgSettVerdi(verdi) })
-                            }
+                            verdi={mentorAntallTimerInput}
+                            settVerdi={(verdi) => {
+                                setMentorAntallTimerInput(verdi);
+                                setMentorInfo({
+                                    ...mentorInfo,
+                                    mentorAntallTimer: inputToNumber(verdi),
+                                })
+                            }}
                         />
                         <PakrevdInputValidering
                             validering={/^\d{0,3}$/}
                             label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
                             verdi={mentorInfo.mentorTimelonn?.toFixed(0)}
                             settVerdi={(verdi) =>
-                                setMentorInfo({ ...mentorInfo, mentorTimelonn: sjekkOgSettVerdi(verdi) })
+                                setMentorInfo({ ...mentorInfo, mentorTimelonn: inputToNumber(verdi) })
                             }
                         />
                     </Column>
