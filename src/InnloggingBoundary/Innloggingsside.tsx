@@ -11,7 +11,7 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { Next } from '@navikt/ds-icons';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Ingress, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
+import { Ingress, Heading, BodyShort } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
@@ -60,7 +60,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     <VerticalSpacer rem={2} />
                 </MediaQuery>
                 <div className={cls.element('tittel')}>
-                    <Sidetittel>Tiltaksgjennomføring</Sidetittel>
+                    <Heading size="xlarge">Tiltaksgjennomføring</Heading>
                 </div>
                 <VerticalSpacer rem={2} />
                 <div className={cls.element('infotekst')}>
@@ -69,15 +69,15 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                         se avtalene du er en del av må du først logge på.
                     </Ingress>
                     <VerticalSpacer rem={2} />
-                    <Normaltekst>
+                    <BodyShort size="small">
                         <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
                             Her kan du lese mer om hvordan løsningen fungerer
                             <Next style={{ display: 'inline-block' }} />
                         </Link>
-                    </Normaltekst>
+                    </BodyShort>
                 </div>
                 <VerticalSpacer rem={2} />
-                <Systemtittel>Logg inn</Systemtittel>
+                <Heading size="medium">Logg inn</Heading>
                 <VerticalSpacer rem={2} />
                 <div className={'innloggingsside__loginKnapper'}>{logginnknapper}</div>
             </div>
