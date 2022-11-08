@@ -1,6 +1,6 @@
 import useValidering from '@/komponenter/useValidering';
 import { Input } from 'nav-frontend-skjema';
-import React from 'react';
+import React, {useState} from 'react';
 
 interface Props {
     className?: string;
@@ -11,6 +11,7 @@ interface Props {
 }
 
 const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
+    const [telefonnummer, setTelefonnummer] = useState(props.verdi)
     const [feil, setFeil, sjekkInputfelt] = useValidering(props.verdi, [
         (verdi) => {
             if (!verdi) {
@@ -18,8 +19,8 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
             }
         },
         (verdi) => {
-            if (verdi && !/^\d{8}$/.test(verdi)) {
-                return 'Telefonnummer må bestå av 8 siffer';
+            if (verdi && !/^(\+47)?\d{8}$/.test(verdi)) { // Kan inneholde +47 og må ha 8 siffer
+                return 'Ugyldig telefonnummer';
             }
         },
     ]);
@@ -28,16 +29,19 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
         <Input
             bredde="S"
             label={props.label}
-            value={props.verdi || ''}
+            value={telefonnummer || ''}
             feil={feil}
             onChange={(event) => {
-                const verdi = event.target.value.replace(/\D/g, '');
-                props.settVerdi(verdi);
+                const verdi = event.target.value;
+
+                setTelefonnummer(verdi)
+
+                // fjerner landkode for å kun sende telefonnummeret til backend
+                props.settVerdi(verdi.replace(/\+47/g, ''))
                 setFeil(undefined);
             }}
             onBlur={sjekkInputfelt}
-            type="tel"
-            maxLength={8}
+            maxLength={11}
         />
     );
 };
