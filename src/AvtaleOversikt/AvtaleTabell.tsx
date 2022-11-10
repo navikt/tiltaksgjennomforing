@@ -7,14 +7,15 @@ import { Avtale } from '@/types/avtale';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
+import { LinkPanel } from '@navikt/ds-react';
 import classNames from 'classnames';
 import moment from 'moment';
-import { default as React, FunctionComponent, useEffect, useState } from 'react';
+import { Normaltekst } from 'nav-frontend-typografi';
+import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
+import { useHistory } from 'react-router-dom';
 import './AvtaleTabell.less';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
-import { LinkPanel } from '@navikt/ds-react';
-import { Normaltekst } from 'nav-frontend-typografi';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -62,6 +63,8 @@ const AvtaleTabell: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const { filtre } = useFilter();
+    const history = useHistory();
+
     const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
     const skalViseAntallUbehandlet =
         erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
@@ -121,8 +124,7 @@ const AvtaleTabell: FunctionComponent<{
                             <LinkPanel
                                 border={false}
                                 id={avtale.id}
-                                key={avtale.id}
-                                href={pathTilAvtaleNy(avtale.id, innloggetBruker.rolle)}
+                                key={avtale.id}  
                                 className={
                                     avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor
                                         ? 'skjulIndikator'
@@ -138,6 +140,8 @@ const AvtaleTabell: FunctionComponent<{
                                     ) {
                                         setVisTaushetserklæringForAvtaleId(avtale.id);
                                         e.preventDefault();
+                                    } else {
+                                        history.push({pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle), search: window.location.search})
                                     }
                                 }}
                             >
