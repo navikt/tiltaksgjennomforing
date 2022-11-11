@@ -1,17 +1,18 @@
+import TaushetserklæringModal from '@/AvtaleOversikt/Taushetserklæring/Taushetserklæring';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { avtaleStatusTekst } from '@/messages';
 import { pathTilAvtaleNy } from '@/paths';
 import { Avtale } from '@/types/avtale';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import moment from 'moment';
 import { LinkPanel } from '@navikt/ds-react';
+import moment from 'moment';
 import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './AvtalekortMobil.less';
-import TaushetserklæringModal from '@/AvtaleOversikt/Taushetserklæring/Taushetserklæring';
 
 const cls = BEMHelper('avtalekortMobil');
 
@@ -21,6 +22,7 @@ const AvtalekortMobil: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string>('');
+    const history = useHistory();
 
     return (
         <>
@@ -32,7 +34,6 @@ const AvtalekortMobil: FunctionComponent<{
                             border={false}
                             key={avtale.id}
                             className={cls.className}
-                            href={pathTilAvtaleNy(avtale.id)}
                             onClick={(e) => {
                                 if (
                                     innloggetBruker.rolle === 'MENTOR' &&
@@ -41,6 +42,8 @@ const AvtalekortMobil: FunctionComponent<{
                                 ) {
                                     setVisTaushetserklæringForAvtaleId(avtale.id);
                                     e.preventDefault();
+                                } else {
+                                    history.push({pathname: pathTilAvtaleNy(avtale.id), search: window.location.search})
                                 }
                             }}
                         >
