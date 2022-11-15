@@ -2,6 +2,7 @@ import useValidering from '@/komponenter/useValidering';
 import { Button } from '@navikt/ds-react';
 import { Search } from '@navikt/ds-icons';
 import BEMHelper from '@/utils/bem';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Input, InputProps } from 'nav-frontend-skjema';
 import React, { FormEvent, FunctionComponent, useState } from 'react';
 import './SøkeInput.less';
@@ -52,6 +53,7 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
+            <VerticalSpacer rem={.5}/>
             <Button
                 className={cls.element('button')}
                 icon={<Search />}

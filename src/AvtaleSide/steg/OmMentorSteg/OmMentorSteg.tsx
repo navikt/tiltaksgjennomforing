@@ -10,11 +10,15 @@ import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerIn
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
-    const sjekkOgSettVerdi = (verdi: string | number | undefined): number | undefined => {
+    const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
+        avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? ""
+    );
+    const inputToNumber = (verdi: string | undefined): number | undefined => {
+        verdi = verdi?.replace(/,/g, '.');
         if (!isNaN(Number(verdi))) {
             return Number(verdi);
         }
@@ -74,11 +78,12 @@ const OmMentorSteg = () => {
                 <Row className="begge__tekst">
                     <Column md="6">
                         <PakrevdInputValidering
-                            validering={/^\d{0,3}$/}
+                            validering={/^\d{0,3}(,5?)?$/}
                             label="Antall timer med mentor per uke"
-                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toFixed(0)}
+                            verdi={mentorAntallTimerInput}
                             settVerdi={(verdi) => {
-                                avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', sjekkOgSettVerdi(verdi));
+                                setMentorAntallTimerInput(verdi);
+                                avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', inputToNumber(verdi));
                             }}
                         />
                     </Column>
@@ -88,7 +93,7 @@ const OmMentorSteg = () => {
                             label="Timelønn*"
                             verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn?.toFixed(0)}
                             settVerdi={(verdi) =>
-                                avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', sjekkOgSettVerdi(verdi))
+                                avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', inputToNumber(verdi))
                             }
                         />
                         <VerticalSpacer rem={0.5} />

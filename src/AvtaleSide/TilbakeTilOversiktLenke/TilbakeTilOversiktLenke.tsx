@@ -1,9 +1,9 @@
 import { pathTilOversikt } from '@/paths';
+import BEMHelper from '@/utils/bem';
 import { Back } from '@navikt/ds-icons';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import './TilbakeTilOversiktLenke.less';
-import BEMHelper from '@/utils/bem';
 
 type Props = {
     onClick?: () => void;

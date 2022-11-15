@@ -28,7 +28,7 @@ export const pathTilAvtale = (avtaleId: string, rolle: Rolle = 'INGEN_ROLLE'): s
     rolle === 'BESLUTTER' ? `${avtaleBase}/${avtaleId}/beslutte/` : `${avtaleBase}/${avtaleId}`;
 
 export const pathTilAvtaleNy = (avtaleId: string, rolle: Rolle = 'INGEN_ROLLE'): string =>
-    rolle === 'BESLUTTER' ? `${basename}${avtaleBase}/${avtaleId}/beslutte/` : `${basename}${avtaleBase}/${avtaleId}`;
+    rolle === 'BESLUTTER' ? `${avtaleBase}/${avtaleId}/beslutte/` : `${avtaleBase}/${avtaleId}`;
 
 export const pathTilStegIAvtale = (avtaleId: string, steg: string) => `${pathTilAvtale(avtaleId)}/${steg}`;
 
