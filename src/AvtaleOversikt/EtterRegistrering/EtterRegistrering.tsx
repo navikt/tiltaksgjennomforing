@@ -6,9 +6,8 @@ import { tiltakstypeTekst } from '@/messages';
 import * as RestService from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Alert, Modal } from '@navikt/ds-react';
+import { Alert, Modal, Label, Heading, Ingress } from '@navikt/ds-react';
 import { Knapp } from 'nav-frontend-knapper';
-import { Element, Ingress, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import './EtterRegistrering.less';
 
@@ -68,15 +67,15 @@ const EtterRegistrering: FunctionComponent = () => {
             >
                 <Modal.Content>
                     <div className={cls.element('modal')}>
-                        <Systemtittel className={cls.element('header')}>
+                        <Heading size="medium" className={cls.element('header')}>
                             Søk opp avtalenummer for godkjenning av etterregistrering
-                        </Systemtittel>
-                        <Element className={cls.element('sokfelt-tag')}>
+                        </Heading>
+                        <Label size="small" className={cls.element('sokfelt-tag')}>
                             Skriv inn avtalenummeret du vil søke på
-                        </Element>
+                        </Label>
                         <div className={cls.element('input-sok')}>
                             <SøkeInput
-                                className='etterRegistrering'
+                                className="etterRegistrering"
                                 maxLength={5}
                                 utførSøk={(søkeord) => {
                                     setSpinner(true);
