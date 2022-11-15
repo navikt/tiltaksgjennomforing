@@ -11,7 +11,6 @@ import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, Suspense, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
-import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -36,11 +35,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     </SkjemaTittel>
                     {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
                 </div>
-                {avtale.gjeldendeInnhold.refusjonKontaktperson && (
-                    <KontaktpersonRefusjonOppsumering
-                        kontaktpersonRefusjon={avtale.gjeldendeInnhold.refusjonKontaktperson}
-                    />
-                )}
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
             </Innholdsboks>
 
