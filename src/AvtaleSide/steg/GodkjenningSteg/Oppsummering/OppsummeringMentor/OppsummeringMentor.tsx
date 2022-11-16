@@ -24,8 +24,6 @@ const OppsummeringMentor: FunctionComponent<Props> = (props) => (
         <StartOgSluttdatoOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
-
-
     </>
 );
 
