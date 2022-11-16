@@ -12,18 +12,16 @@ interface Props {
     avtaleinnhold: Avtaleinnhold;
 }
 
-const OppsummeringArbeidstrening: FunctionComponent<Props> = props => {
-    return (
-        <>
-            <DeltakerInfo oppsummeringside={true} />
-            <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
-            <MaalOppsummering {...props.avtaleinnhold} />
-            <StillingsOppsummering {...props.avtaleinnhold} />
-            <VarighetOppsummering {...props.avtaleinnhold} />
-            <OppfolgingOppsummering {...props.avtaleinnhold} />
-            <Tilrettelegging {...props.avtaleinnhold} />
-        </>
-    );
-};
+const OppsummeringArbeidstrening: FunctionComponent<Props> = props => (
+    <>
+        <DeltakerInfo oppsummeringside={true} />
+        <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
+        <MaalOppsummering {...props.avtaleinnhold} />
+        <StillingsOppsummering {...props.avtaleinnhold} />
+        <VarighetOppsummering {...props.avtaleinnhold} />
+        <OppfolgingOppsummering {...props.avtaleinnhold} />
+        <Tilrettelegging {...props.avtaleinnhold} />
+    </>
+);
 
 export default OppsummeringArbeidstrening;
