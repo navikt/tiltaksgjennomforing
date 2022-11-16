@@ -5,6 +5,11 @@ const whitelist = require('../src/whitelist');
 
 const setup = (app, tokenxClient, azureClient, azureTokenEndpoint) => {
     console.log('apiProxy setup');
+
+    app.use('/tiltaksgjennomforing/api/internal', (req, res, next) => {
+        res.status(401).send();
+    })
+
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
         if (!req.headers['authorization']) {
