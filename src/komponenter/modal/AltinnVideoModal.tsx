@@ -1,8 +1,7 @@
 import video from '@/assets/media/roller-rettigheter.mp4';
 import { trackVideo } from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
-import { Modal } from '@navikt/ds-react';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Heading, Modal } from '@navikt/ds-react';
 import React from 'react';
 import MediaQuery from 'react-responsive';
 import './AltinnVideoModal.less';
@@ -32,7 +31,7 @@ const AltinnVideoModal: React.FunctionComponent<Props> = (props) => {
         >
             <Modal.Content>
                 <div className={cls.element('tittel')}>
-                    <Systemtittel>Slik tildeler du roller og rettigheter i Altinn.</Systemtittel>
+                    <Heading size="medium">Slik tildeler du roller og rettigheter i Altinn.</Heading>
                 </div>
                 <MediaQuery minWidth={576}>
                     <video
