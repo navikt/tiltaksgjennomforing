@@ -1,14 +1,14 @@
 import React from 'react';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Normaltekst } from 'nav-frontend-typografi';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { basename, pathTilInformasjonssideInnlogget } from '@/paths';
 import amplitude from '@/utils/amplitude';
+import { BodyShort } from '@navikt/ds-react';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import { basename, pathTilInformasjonssideInnlogget } from '@/paths';
 
 const InformasjonsboksTopVeilederOppretterAvtale: React.FC = () => {
     return (
         <Innholdsboks>
-            <Normaltekst>
+            <BodyShort size="small">
                 Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                 <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
                     introduksjon til hvordan løsningen fungerer {''}
@@ -27,7 +27,7 @@ const InformasjonsboksTopVeilederOppretterAvtale: React.FC = () => {
                 >
                     de ulike støtteordningene på Navet.
                 </EksternLenke>
-            </Normaltekst>
+            </BodyShort>
         </Innholdsboks>
     );
 };
