@@ -20,7 +20,7 @@ import { validerOrgnr } from '@/utils/orgnrUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { Alert } from '@navikt/ds-react';
 import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
@@ -108,8 +108,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
                 <Innholdsboks>
-                    <Systemtittel>Før du oppretter en avtale</Systemtittel>
-                    <Normaltekst>
+                    <Heading size="medium">Før du oppretter en avtale</Heading>
+                    <BodyShort size="small">
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                         <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
                             introduksjon til hvordan løsningen fungerer {''}
@@ -121,14 +121,16 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         >
                             de ulike støtteordningene.
                         </EksternLenke>
-                    </Normaltekst>
+                    </BodyShort>
                 </Innholdsboks>
                 <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Systemtittel className={cls.element('innholdstittel')}>Velg type avtale</Systemtittel>
+                    <Heading size="medium" className={cls.element('innholdstittel')}>
+                        Velg type avtale
+                    </Heading>
                     <VerticalSpacer rem={1} />
-                    <Normaltekst>
+                    <BodyShort size="small">
                         Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
-                    </Normaltekst>
+                    </BodyShort>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('tiltakstypeWrapper')}>
                         {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
@@ -150,7 +152,9 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     )}
                 </Innholdsboks>
                 <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Systemtittel className={cls.element('innholdstittel')}>Hvem skal inngå i avtalen</Systemtittel>
+                    <Heading size="medium" className={cls.element('innholdstittel')}>
+                        Hvem skal inngå i avtalen
+                    </Heading>
                     <VerticalSpacer rem={1} />
                     <Alert variant="info">
                         I feltet “Opprettes på bedrift” er det viktig at virksomhetsnummeret er det samme som der det
@@ -187,9 +191,9 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                 onBlur={validerMentorFnr}
                                 feil={mentorFnrFeil}
                             />
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
-                            </Normaltekst>
+                            </BodyShort>
                             {uyldigAvtaletype && (
                                 <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
                             )}
@@ -198,8 +202,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                 </Innholdsboks>
 
                 <Alert variant="info">
-                    <Element>Dette skjer etter at du har opprettet avtalen</Element>
-                    <Normaltekst>
+                    <Label>Dette skjer etter at du har opprettet avtalen</Label>
+                    <BodyShort size="small">
                         <ul>
                             <li>Du kan begynne å fylle ut avtalen.</li>
                             <li>
@@ -208,7 +212,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                 avtalen.
                             </li>
                         </ul>
-                    </Normaltekst>
+                    </BodyShort>
                 </Alert>
 
                 <div className={cls.element('knappRad')}>
