@@ -3,9 +3,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Alert } from '@navikt/ds-react';
+import { Alert, BodyShort } from '@navikt/ds-react';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AnnullerAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
@@ -50,10 +49,10 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                         Annullering brukes for tilfeller der tiltaket aldri ble noe av.
                     </Alert>
                 </p>
-                <Normaltekst>
+                <BodyShort size="small">
                     Når du annullerer avtalen, blir innholdet låst, og den blir markert som "annullert" i din oversikt.
                     Du kan ikke redigere eller gjenopprette den etterpå.
-                </Normaltekst>
+                </BodyShort>
             </div>
             <VerticalSpacer rem={1} />
             <div className={cls.element('grunner-og-annet')}>
