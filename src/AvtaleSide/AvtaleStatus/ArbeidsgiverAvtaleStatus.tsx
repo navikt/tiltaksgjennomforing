@@ -9,7 +9,7 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato } from '@/utils/datoUtils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 
 const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
@@ -21,10 +21,10 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
                 ikon={PabegyntIkon}
                 header={'Avtalen er ikke fordelt til en veileder i NAV enda'}
                 body={
-                    <Normaltekst>
+                    <BodyShort size="small">
                         Du kan likevel begynne å fylle ut avtalen. Når avtalen har blitt tildelt en veileder kan alle
                         parter godkjenne avtalen.
-                    </Normaltekst>
+                    </BodyShort>
                 }
             />
         );
@@ -37,9 +37,9 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
                     ikon={AvbruttIkon}
                     header={'Tiltaket er annullert'}
                     body={
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Veileder har annullert tiltaket {formatterDato(avtale.annullertTidspunkt!)}.
-                        </Normaltekst>
+                        </BodyShort>
                     }
                 />
             );
@@ -48,7 +48,7 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
                 <StatusPanel
                     ikon={AvbruttIkon}
                     header={'Tiltaket er avbrutt'}
-                    body={<Normaltekst>Veileder har avbrutt tiltaket</Normaltekst>}
+                    body={<BodyShort size="small">Veileder har avbrutt tiltaket</BodyShort>}
                 />
             );
         case 'PÅBEGYNT':
@@ -60,9 +60,9 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
                     header="Vent til de andre har godkjent"
                     body={
                         <>
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Du har godkjent avtalen. Venter nå på godkjenning fra NAV.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={2} />
                             <GodkjenningStatus avtale={avtale} />
                         </>
@@ -74,9 +74,9 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
                     header="Du kan godkjenne"
                     body={
                         <>
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={2} />
                             <GodkjenningStatus avtale={avtale} />
                         </>
