@@ -1,13 +1,13 @@
+import React from 'react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import BEMHelper from '@/utils/bem';
-import { Systemtittel } from 'nav-frontend-typografi';
-import React from 'react';
+import { Heading } from '@navikt/ds-react';
 
 const TausetserklæringTekst = () => {
     const cls = BEMHelper('taushetserklæring');
     return (
         <div style={{ padding: '0.5rem' }}>
-            <Systemtittel>Taushetsplikt for avtale</Systemtittel>
+            <Heading size="medium">Taushetsplikt for avtale</Heading>
             <p>
                 Forvaltningsloven, arbeids- og velferdsforvaltningsloven og lov om sosiale tjenester i arbeids- og
                 velferdsforvaltningen inneholder strenge regler om taushetsplikt. Det skal bevares taushet om alle
@@ -40,7 +40,7 @@ const TausetserklæringTekst = () => {
                 straffeansvar etter straffeloven §§ 209 og 210.
             </p>
             <div style={{ padding: '1rem', lineHeight: '0.5rem', fontSize: '0.9rem' }}>
-                <Systemtittel>Hva sier regelverket?</Systemtittel>
+                <Heading size="medium">Hva sier regelverket?</Heading>
                 <div className={cls.element('lenker')}>
                     <EksternLenke
                         className={cls.element('lenke')}
