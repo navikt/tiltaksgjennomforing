@@ -9,7 +9,7 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato } from '@/utils/datoUtils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 
 const DeltakerAvtaleStatus: FunctionComponent = () => {
@@ -22,10 +22,10 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
                     ikon={AvbruttIkon}
                     header="Tiltaket er annullert"
                     body={
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Veileder har annullert tiltaket {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
                             {avtale.annullertGrunn}.
-                        </Normaltekst>
+                        </BodyShort>
                     }
                 />
             );
@@ -34,7 +34,9 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
                 <StatusPanel
                     ikon={AvbruttIkon}
                     header="Tiltaket er avbrutt"
-                    body={<Normaltekst>Veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.</Normaltekst>}
+                    body={
+                        <BodyShort size="small">Veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.</BodyShort>
+                    }
                 />
             );
         case 'PÅBEGYNT':
@@ -43,11 +45,11 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
                     ikon={PabegyntIkon}
                     header="Utfylling av avtale påbegynt"
                     body={
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Innholdet i avtalen fylles ut av arbeidsgiveren og veilederen. Hvis du er uenig i innholdet
                             eller har spørsmål til avtalen, må du kontakte veilederen din via aktivitetsplanen før du
                             godkjenner. Du kan godkjenne avtalen når alt er fylt ut.
-                        </Normaltekst>
+                        </BodyShort>
                     }
                 />
             );
@@ -58,9 +60,9 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
                     header="Vent til de andre har godkjent"
                     body={
                         <>
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Du har godkjent avtalen. Venter nå på godkjenning fra NAV.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={2} />
                             <GodkjenningStatus avtale={avtale} />
                         </>
@@ -72,9 +74,9 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
                     header="Du kan godkjenne"
                     body={
                         <>
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={2} />
                             <GodkjenningStatus avtale={avtale} />
                         </>
