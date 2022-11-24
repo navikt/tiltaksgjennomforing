@@ -2,7 +2,7 @@ import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import { Avtale } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
@@ -15,10 +15,10 @@ const Avsluttet: FunctionComponent<Props> = ({ avtale }) => {
             ikon={InaktivIkon}
             header="Tiltaket er avsluttet"
             body={
-                <Normaltekst>
+                <BodyShort size="small">
                     Tiltaket varte fra {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)} til{' '}
                     {formatterDato(avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}.
-                </Normaltekst>
+                </BodyShort>
             }
         />
     );
