@@ -5,8 +5,7 @@ import { pathTilOversiktISelvbetjeningProd } from '@/paths';
 import { delAvtaleMedAvtalepart } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { Knapp } from 'nav-frontend-knapper';
-import { Link, Modal } from '@navikt/ds-react';
-import { Ingress, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { Heading, Ingress, Link, Modal } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import './SendVarselModal.less';
@@ -31,7 +30,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
             aria-modal={props.isOpen}
         >
             <Modal.Content>
-                <Systemtittel>Del lenke til avtalen</Systemtittel>
+                <Heading size="medium">Del lenke til avtalen</Heading>
                 <VerticalSpacer rem={1} />
                 <Ingress>
                     Lenke til avtalen kan sendes på SMS hvis telefonnummer er registrert i avtalen. Hvis det er ønskelig
@@ -41,7 +40,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
 
                 <VerticalSpacer rem={2} />
 
-                <Undertittel>Send lenke på SMS</Undertittel>
+                <Heading size="small">Send lenke på SMS</Heading>
                 <VerticalSpacer rem={0.5} />
                 <LagreKnapp
                     label="Send til arbeidsgiveren"
@@ -69,7 +68,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
 
                 <VerticalSpacer rem={2} />
 
-                <Undertittel>Send lenke manuelt</Undertittel>
+                <Heading size="small">Send lenke manuelt</Heading>
                 <div className={cls.element('lenkedeling')}>
                     <div className={cls.element('lenke')}>
                         <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
