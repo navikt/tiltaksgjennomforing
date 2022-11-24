@@ -11,7 +11,7 @@ import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/Tilskud
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 
 const VeilederAvtaleStatus: FunctionComponent = () => {
@@ -36,9 +36,9 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                 header="Avtalen er ufordelt"
                 body={
                     <div style={{ textAlign: 'center' }}>
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Avtalen er opprettet av arbeidsgiver. Den er ikke tildelt en veileder ennå.
-                        </Normaltekst>
+                        </BodyShort>
                         <VerticalSpacer rem={1.5} />
                         <LagreKnapp
                             lagre={() => overtaAvtale()}
@@ -58,10 +58,10 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                     ikon={AvbruttIkon}
                     header="Tiltaket er annullert"
                     body={
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Du eller en annen veileder har annullert tiltaket{' '}
                             {formatterDato(avtale.annullertTidspunkt!)}. Årsak: {avtale.annullertGrunn}.
-                        </Normaltekst>
+                        </BodyShort>
                     }
                 />
             );
@@ -71,9 +71,9 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                     ikon={AvbruttIkon}
                     header="Tiltaket er avbrutt"
                     body={
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Du eller en annen veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.
-                        </Normaltekst>
+                        </BodyShort>
                     }
                 />
             );
@@ -87,7 +87,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                         header="Venter på godkjenning fra beslutter"
                         body={
                             <>
-                                <Normaltekst>Venter på godkjenning fra beslutter.</Normaltekst>
+                                <BodyShort size="small">Venter på godkjenning fra beslutter.</BodyShort>
                                 <VerticalSpacer rem={2} />
                                 <GodkjenningStatus avtale={avtale} />
                             </>
@@ -101,9 +101,9 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                         header="Du kan godkjenne"
                         body={
                             <>
-                                <Normaltekst>
+                                <BodyShort size="small">
                                     Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                                </Normaltekst>
+                                </BodyShort>
                                 <VerticalSpacer rem={2} />
                                 <GodkjenningStatus avtale={avtale} />
                             </>
@@ -117,9 +117,9 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                         header="Venter på godkjenning"
                         body={
                             <>
-                                <Normaltekst>
+                                <BodyShort size="small">
                                     Deltaker og arbeidsgiver må ha godkjent avtalen før du kan godkjenne.
-                                </Normaltekst>
+                                </BodyShort>
                                 <VerticalSpacer rem={2} />
                                 <GodkjenningStatus avtale={avtale} />
                             </>
@@ -135,15 +135,15 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
                                 starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={1} />
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Du skal ikke registrere tiltaksgjennomføringen i Arena (gjelder sommerjobb). Avtalen
                                 journalføres automatisk i Gosys.
-                            </Normaltekst>
+                            </BodyShort>
                         </>
                     }
                 />
@@ -153,14 +153,14 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
                                 starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={1} />
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Du må fullføre registreringen i Arena. Avtalen journalføres automatisk i Gosys.
-                            </Normaltekst>
+                            </BodyShort>
                         </>
                     }
                 />
