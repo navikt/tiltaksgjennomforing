@@ -1,8 +1,8 @@
-import { ReactComponent as UtfyllingsIkon } from '@/assets/ikoner/pen.svg';
+import React from 'react';
 import BEMHelper from '@/utils/bem';
 import classnames from 'classnames';
-import { Normaltekst } from 'nav-frontend-typografi';
-import React from 'react';
+import { BodyShort } from '@navikt/ds-react';
+import { ReactComponent as UtfyllingsIkon } from '@/assets/ikoner/pen.svg';
 import './UtfyllerBanner.less';
 
 type Utfyller = 'arbeidsgiver' | 'veileder' | 'veileder_og_arbeidsgiver' | undefined;
@@ -34,7 +34,9 @@ const UfyllerBanner: React.FunctionComponent<Props> = (props: Props) => {
         <div className={classnames(cls.className, wrapperClass)}>
             <div className="utfyllerBanner">
                 <UtfyllingsIkon className="utfyllerBanner__utfyllingsIkon" />
-                <Normaltekst className="utfyllerBanner__fyllesUtAvTekst">{utfyllesAv}</Normaltekst>
+                <BodyShort size="small" className="utfyllerBanner__fyllesUtAvTekst">
+                    {utfyllesAv}
+                </BodyShort>
             </div>
         </div>
     );
