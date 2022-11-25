@@ -12,8 +12,7 @@ import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Accordion } from '@navikt/ds-react';
-import { Element } from 'nav-frontend-typografi';
+import { Accordion, Label } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
@@ -32,10 +31,10 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
         return tilskuddsprosent - 10;
     };
     return (
-        <Accordion className='accordion'>
+        <Accordion className="accordion">
             <Accordion.Item defaultOpen>
                 <Accordion.Header>
-                    <Element>Tilskudd for en måned</Element>
+                    <Label>Tilskudd for en måned</Label>
                 </Accordion.Header>
                 <Accordion.Content>
                     <div className={cls.element('wrapper')}>
