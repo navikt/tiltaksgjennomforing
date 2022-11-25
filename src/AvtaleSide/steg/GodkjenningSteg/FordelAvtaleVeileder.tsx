@@ -4,7 +4,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 
 export const FordelAvtaleVeileder: FunctionComponent = () => {
@@ -13,9 +13,11 @@ export const FordelAvtaleVeileder: FunctionComponent = () => {
         <Innholdsboks>
             <div style={{ textAlign: 'center' }}>
                 <VerticalSpacer rem={1} />
-                <Systemtittel>Avtalen er ufordelt</Systemtittel>
+                <Heading size="medium">Avtalen er ufordelt</Heading>
                 <VerticalSpacer rem={1} />
-                <Normaltekst>Avtalen er opprettet av arbeidsgiver. Den er ikke tildelt en veileder ennå.</Normaltekst>
+                <BodyShort size="small">
+                    Avtalen er opprettet av arbeidsgiver. Den er ikke tildelt en veileder ennå.
+                </BodyShort>
                 <VerticalSpacer rem={1.5} />
                 <LagreKnapp lagre={() => overtaAvtale()} label="Overta avtale" suksessmelding="Avtale tildelt" />
                 <VerticalSpacer rem={1.5} />
@@ -28,12 +30,12 @@ export const FordelAvtaleVeileder: FunctionComponent = () => {
                         {avtale.godkjentAvArbeidsgiver ? (
                             <>
                                 <GodkjentIkon style={{ marginRight: '0.5rem' }} />
-                                <Normaltekst>Arbeidsgiver har godkjent</Normaltekst>
+                                <BodyShort size="small">Arbeidsgiver har godkjent</BodyShort>
                             </>
                         ) : (
                             <>
                                 <PabegyntIkon style={{ marginRight: '0.5rem' }} />
-                                <Normaltekst>Arbeidsgiver har ikke godkjent</Normaltekst>
+                                <BodyShort size="small">Arbeidsgiver har ikke godkjent</BodyShort>
                             </>
                         )}
                     </div>
@@ -41,12 +43,12 @@ export const FordelAvtaleVeileder: FunctionComponent = () => {
                         {avtale.godkjentAvDeltaker ? (
                             <>
                                 <GodkjentIkon style={{ marginRight: '0.5rem' }} />
-                                <Normaltekst>Deltaker har godkjent</Normaltekst>
+                                <BodyShort size="small">Deltaker har godkjent</BodyShort>
                             </>
                         ) : (
                             <>
                                 <PabegyntIkon style={{ marginRight: '0.5rem' }} />
-                                <Normaltekst>Deltaker har ikke godkjent</Normaltekst>
+                                <BodyShort size="small">Deltaker har ikke godkjent</BodyShort>
                             </>
                         )}
                     </div>
