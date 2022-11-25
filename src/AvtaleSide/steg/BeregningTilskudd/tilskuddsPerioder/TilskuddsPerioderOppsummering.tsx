@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/VisningTilskuddsperioder';
 
@@ -13,7 +13,7 @@ const TilskuddsPerioderOppsummering = () => {
 
     return (
         <>
-            <Undertittel>Tilskuddsperioder</Undertittel>
+            <Heading size="small">Tilskuddsperioder</Heading>
             <VerticalSpacer rem={1} />
             <VisningTilskuddsperioder />
         </>
