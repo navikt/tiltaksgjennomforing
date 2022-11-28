@@ -1,6 +1,6 @@
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale } from '@/types/avtale';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import React from 'react';
 import GodkjenningRad from './GodkjenningRad/GodkjenningRad';
 import './GodkjenningStatus.less';
@@ -12,7 +12,7 @@ interface Props {
 const GodkjenningStatus: React.FunctionComponent<Props> = (props) => {
     return (
         <div className="godkjenningstatus">
-            <Undertittel>Hvem har godkjent?</Undertittel>
+            <Heading size="small">Hvem har godkjent?</Heading>
             <VerticalSpacer rem={0.5} />
             <div className="godkjenningstatus__rader">
                 <GodkjenningRad
@@ -23,7 +23,7 @@ const GodkjenningStatus: React.FunctionComponent<Props> = (props) => {
                     <GodkjenningRad
                         godkjentAvtale={props.avtale.godkjentAvMentor}
                         navn={`${props.avtale.gjeldendeInnhold.mentorFornavn} ${props.avtale.gjeldendeInnhold.mentorEtternavn}`}
-                        tiltakstype='MENTOR'
+                        tiltakstype="MENTOR"
                     />
                 )}
 
