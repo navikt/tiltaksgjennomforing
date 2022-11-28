@@ -2,7 +2,7 @@ import CheckIkon from '@/assets/ikoner/check.svg';
 import VarselIkon from '@/assets/ikoner/varsel.svg';
 import { TiltaksType } from '@/types/avtale';
 import { formatterDato } from '@/utils/datoUtils';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 import React from 'react';
 import './GodkjenningRad.less';
 
@@ -24,9 +24,9 @@ const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <div className="godkjenningsrad">
-            <Normaltekst tag={'span'}>{navn}</Normaltekst>
+            <BodyShort size="small">{navn}</BodyShort>
             <div className="godkjenningsrad__status">
-                <Element tag={'span'}>{godkjentStatus}</Element>
+                <Label>{godkjentStatus}</Label>
                 <img
                     alt="Godkjenningsgrad"
                     className="godkjenningsrad__godkjenningIkon"
