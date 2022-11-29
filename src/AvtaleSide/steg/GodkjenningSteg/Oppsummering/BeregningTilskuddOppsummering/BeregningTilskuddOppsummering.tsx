@@ -2,20 +2,20 @@ import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag, Kontonummer } from '@/types/avtale';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 import HvaManglerOppsummering from '../HvaManglerOppsummering';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 
-const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kontonummer> = props => {
+const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kontonummer> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
-            <Element>Kontonummer</Element> <SjekkOmVerdiEksisterer verdi={props.arbeidsgiverKontonummer} />
+            <Label>Kontonummer</Label> <SjekkOmVerdiEksisterer verdi={props.arbeidsgiverKontonummer} />
             <VerticalSpacer rem={1} />
-            <Element>Utregning</Element>
+            <Label>Utregning</Label>
             <HvaManglerOppsummering
                 avhengigFelter={{
                     // I dette tilfellet skal 0 være en gyldig verdi på arbeidsgiveravgift og otp-sats.
@@ -36,7 +36,7 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
                 props.stillingprosent > 0 &&
                 props.stillingprosent < 100 && (
                     <>
-                        <Element>Lønn ved 100% stilling</Element>
+                        <Label>Lønn ved 100% stilling</Label>
                         {props.manedslonn100pst} kr
                     </>
                 )}

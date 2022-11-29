@@ -7,21 +7,20 @@ import { InkluderingsInnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Input } from 'nav-frontend-skjema';
-import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import { Tag } from '@navikt/ds-react';
+import { Tag, Label } from '@navikt/ds-react';
 
 const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> = (props) => {
     const cls = BEMHelper('inkluderingstilskudd');
 
     return (
         <Stegoppsummering tittel="Inkluderingstilskudd" ikon={<KalkulatorIkon height={40} />}>
-            <Element>Hvorfor er det behov for inkluderingstilskudd?</Element>
+            <Label>Hvorfor er det behov for inkluderingstilskudd?</Label>
             <SjekkOmVerdiEksisterer verdi={props.inkluderingstilskuddBegrunnelse} />
             <VerticalSpacer rem={1} />
-            <Element>Utgifter</Element>
+            <Label>Utgifter</Label>
             <VerticalSpacer rem={2} />
             {props.inkluderingstilskuddsutgift.length > 0 ? (
                 <div>
@@ -32,7 +31,7 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
                     </TilskuddsutgiftTabell>
                     <div className={cls.element('kostnadsoverslag-container')}>
                         <div>
-                            <Element>Totalt kostnadsoverslag</Element>
+                            <Label>Totalt kostnadsoverslag</Label>
                             <Input
                                 className={cls.element('kostnadsoverslag')}
                                 value={formatterPenger(props.inkluderingstilskuddTotalBeløp)}
