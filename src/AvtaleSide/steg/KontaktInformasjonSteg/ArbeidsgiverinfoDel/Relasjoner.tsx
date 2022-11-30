@@ -9,7 +9,7 @@ import BEMHelper from '@/utils/bem';
 import { Tag } from '@navikt/ds-react';
 import Popover from 'nav-frontend-popover';
 import { RadioPanel } from 'nav-frontend-skjema';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
 
@@ -21,9 +21,9 @@ const Relasjoner: FunctionComponent = () => {
     const harFamilietilknytningSomJaNeiSvar = (harFamilietilknytning: boolean | undefined): JSX.Element => {
         switch (harFamilietilknytning) {
             case true:
-                return <Normaltekst>Ja</Normaltekst>;
+                return <BodyShort size="small">Ja</BodyShort>;
             case false:
-                return <Normaltekst>Nei</Normaltekst>;
+                return <BodyShort size="small">Nei</BodyShort>;
             default:
                 return (
                     <>
@@ -39,15 +39,17 @@ const Relasjoner: FunctionComponent = () => {
         <>
             <div>
                 <div className={cls.className}>
-                    <Undertittel>Relasjoner</Undertittel>
+                    <Heading size="small">Relasjoner</Heading>
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                         <PenFillIkon />
-                        <Normaltekst style={{ marginLeft: '1rem' }}>Fylles ut av arbeidsgiveren</Normaltekst>
+                        <BodyShort size="small" style={{ marginLeft: '1rem' }}>
+                            Fylles ut av arbeidsgiveren
+                        </BodyShort>
                     </div>
                     <VerticalSpacer rem={1} />
 
-                    <Element>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Element>
+                    <Label>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Label>
                     <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                         <RelasjonHjelpetekst />
                     </LesMerPanel>
@@ -91,10 +93,10 @@ const Relasjoner: FunctionComponent = () => {
                             <VerticalSpacer rem={1} />
                             {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
                                 <>
-                                    <Element>Vennligst utdyp denne relasjonen</Element>
-                                    <Normaltekst>
+                                    <Label>Vennligst utdyp denne relasjonen</Label>
+                                    <BodyShort size="small">
                                         {avtale.gjeldendeInnhold.familietilknytningForklaring || ''}
-                                    </Normaltekst>
+                                    </BodyShort>
                                 </>
                             ) : (
                                 <PakrevdTextarea

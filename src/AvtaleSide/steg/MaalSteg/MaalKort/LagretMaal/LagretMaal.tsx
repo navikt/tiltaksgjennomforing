@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { Maal } from '@/types/avtale';
 import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
@@ -18,7 +18,9 @@ const LagretMaal = (props: Props) => (
         <SkjemaUndertittel>
             <FormattedMessage id={props.maal.kategori} />
         </SkjemaUndertittel>
-        <Normaltekst className="maalkort__label">Beskrivelse av mål</Normaltekst>
+        <BodyShort size="small" className="maalkort__label">
+            Beskrivelse av mål
+        </BodyShort>
         <TekstBlokk>{props.maal.beskrivelse}</TekstBlokk>
         <KortKnapper>
             <KnappMedIkon ikonType="blyant" label="Endre" onClick={props.endreOnClick} />
