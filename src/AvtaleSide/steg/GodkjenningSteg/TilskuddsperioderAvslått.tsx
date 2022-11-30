@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
