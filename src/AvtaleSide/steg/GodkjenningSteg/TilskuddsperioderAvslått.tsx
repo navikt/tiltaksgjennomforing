@@ -11,7 +11,7 @@ import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import { Avslagsårsaker } from '@/types/avtale';
 
 const TilskuddsperioderAvslått: FunctionComponent = (props) => {
-    const { avtale, sendTilbakeTilBeslutter } = useContext(AvtaleContext);
+    const { avtale } = useContext(AvtaleContext);
     const gjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
     const avslåttTilskuddsperiode = avtale.tilskuddPeriode.find(
         (t) => t.status === 'AVSLÅTT' && avtale.gjeldendeTilskuddsperiode?.løpenummer
@@ -54,19 +54,15 @@ const TilskuddsperioderAvslått: FunctionComponent = (props) => {
                     {avslåttBegrunnelse}
                     <VerticalSpacer rem={1} />
                     <Normaltekst>
-                        Gjør du endringer på avtalen vil beslutter kunne godkjenne tilskuddsperioden på nytt. Hvis
-                        avtalen allikevel er riktig utfylt kan den sendes tilbake til beslutter uendret.
+                        Gjør endringer i avtalen i menyen. Når du har gjort endringene vil beslutter
+                        kunne godkjenne tilskuddsperioden på nytt.
                     </Normaltekst>
                     <VerticalSpacer rem={1} />
-                    <hr />
+                    <Normaltekst>
+                        Hvis avtalen allikevel er riktig utfylt kan den sendes tilbake
+                        til beslutter uendret via menyen.
+                    </Normaltekst>
                     <VerticalSpacer rem={1} />
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <LagreKnapp
-                            knapptype="standard"
-                            lagre={sendTilbakeTilBeslutter}
-                            label="Send tilbake til beslutter uendret"
-                        />
-                    </div>
                 </>
             ) : (
                 <>
