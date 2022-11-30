@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 
 const PilotVeilederTekst: FunctionComponent<{ erPilot: boolean }> = ({ erPilot }: { erPilot: boolean }) => {
@@ -8,25 +8,25 @@ const PilotVeilederTekst: FunctionComponent<{ erPilot: boolean }> = ({ erPilot }
     return (
         <ul>
             <li className={cls.element('list-element')}>
-                <Normaltekst>
+                <BodyShort size="small">
                     Etter at du har godkjent avtalen, må avtalen og de første tilskuddsperiodene godkjennes av
                     beslutter. Det er først da avtalen er endelig godkjent.
-                </Normaltekst>
+                </BodyShort>
             </li>
             <li className={cls.element('list-element')}>
-                <Normaltekst>
+                <BodyShort size="small">
                     Arena skal ikke lenger benyttes til registrering av avtale, tilsagn eller refusjon for
                     lønnstilskudd.
-                </Normaltekst>
+                </BodyShort>
             </li>
             <li className={cls.element('list-element')}>
-                <Normaltekst>
+                <BodyShort size="small">
                     Tilsagnsbrevet sendes ikke lenger til innboksen til arbeidsgiver i Altinn. Innholdet i
                     tilsagnsbrevet er innarbeidet i avtalen til arbeidsgiver.
-                </Normaltekst>
+                </BodyShort>
             </li>
             <li>
-                <Normaltekst>Avtalen blir automatisk journalført i Gosys.</Normaltekst>
+                <BodyShort size="small">Avtalen blir automatisk journalført i Gosys.</BodyShort>
             </li>
         </ul>
     );

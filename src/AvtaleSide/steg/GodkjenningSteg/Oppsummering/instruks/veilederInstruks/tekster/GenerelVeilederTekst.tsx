@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 
 interface Props {
@@ -13,16 +13,16 @@ const GenerelVeilederTekst: FunctionComponent<Props> = (props) => {
     return (
         <ul>
             <li className={cls.element('list-element')}>
-                <Normaltekst>
+                <BodyShort size="small">
                     Etter at avtalen er godkjent, ligger oppgaven «Forbered tiltaksgjennomføring {props.tiltakstype}» på
                     kontorets arbeidsbenk i Arena som du må fullføre.
-                </Normaltekst>
+                </BodyShort>
             </li>
             <li>
-                <Normaltekst>
+                <BodyShort size="small">
                     Avtalen blir automatisk journalført i Gosys, og du trenger derfor ikke å sende inn avtalen til
                     scanning.
-                </Normaltekst>
+                </BodyShort>
             </li>
         </ul>
     );
