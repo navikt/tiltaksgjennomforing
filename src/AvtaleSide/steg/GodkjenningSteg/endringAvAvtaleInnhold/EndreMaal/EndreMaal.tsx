@@ -9,9 +9,9 @@ import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
 import KnappBase from 'nav-frontend-knapper';
 import { Heading, Link, Modal } from '@navikt/ds-react';
-import EtMaal from '../../../MaalSteg/MaalNy/EtMaal';
-import { useMål } from '../../../MaalSteg/MaalNy/maalUtils';
-import OpprettMaal from '../../../MaalSteg/MaalNy/OpprettMaal';
+import EtMaal from '../../../MaalSteg/Maal/EtMaal';
+import { useMål } from '../../../MaalSteg/Maal/maalUtils';
+import OpprettMaal from '../../../MaalSteg/Maal/OpprettMaal';
 
 const EndreMaal: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
