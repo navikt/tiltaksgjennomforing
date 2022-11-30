@@ -5,7 +5,7 @@ import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
 import { Flatknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
     ledigeMålkategorier: Maalkategori[];
 };
 
-const OpprettMaal: FunctionComponent<Props> = props => {
+const OpprettMaal: FunctionComponent<Props> = (props) => {
     const [leggertilMål, setLeggertilMål] = useState(false);
 
     const [beskrivelse, setBeskrivelse] = useState<string | undefined>();
@@ -36,17 +36,17 @@ const OpprettMaal: FunctionComponent<Props> = props => {
 
     return (
         <div>
-            <Systemtittel>Opprett mål</Systemtittel>
+            <Heading size="medium">Opprett mål</Heading>
             <VerticalSpacer rem={2} />
 
             {leggertilMål ? (
                 <div>
                     <Select
-                        onChange={e => setKategori(e.currentTarget.value as Maalkategori)}
+                        onChange={(e) => setKategori(e.currentTarget.value as Maalkategori)}
                         label="Hva er målet med arbeidstreningen?"
                     >
                         <option value="">Velg mål</option>
-                        {props.ledigeMålkategorier.map(kat => (
+                        {props.ledigeMålkategorier.map((kat) => (
                             <option key={kat} value={kat}>
                                 {messages[kat]}
                             </option>
@@ -57,7 +57,7 @@ const OpprettMaal: FunctionComponent<Props> = props => {
                         label="Beskriv målet"
                         maxLengde={1000}
                         verdi={beskrivelse}
-                        settVerdi={verdi => setBeskrivelse(verdi)}
+                        settVerdi={(verdi) => setBeskrivelse(verdi)}
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
