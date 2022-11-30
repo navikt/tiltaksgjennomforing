@@ -6,7 +6,7 @@ import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Flatknapp, Knapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -56,7 +56,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
 
     return (
         <div>
-            <Systemtittel>Legg til utgift</Systemtittel>
+            <Heading size="medium">Legg til utgift</Heading>
             <VerticalSpacer rem={2} />
 
             {leggertilTilskuddsutgift ? (
