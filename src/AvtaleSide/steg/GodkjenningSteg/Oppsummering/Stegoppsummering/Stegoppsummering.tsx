@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Systemtittel } from 'nav-frontend-typografi';
 import './Stegoppsummering.less';
 import BEMHelper from '@/utils/bem';
+import { Heading } from '@navikt/ds-react';
 
 const cls = BEMHelper('stegoppsummering');
 
@@ -14,7 +14,9 @@ const Stegoppsummering: React.FunctionComponent<Props> = ({ tittel, ikon, childr
     <div className={cls.className}>
         <div className={cls.element('header')}>
             {ikon}
-            <Systemtittel className={cls.element('tittel')}>{tittel}</Systemtittel>
+            <Heading size="medium" className={cls.element('tittel')}>
+                {tittel}
+            </Heading>
         </div>
         {children}
     </div>
