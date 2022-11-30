@@ -3,12 +3,11 @@ import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/Tilbak
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { avtaleTittel, tiltakstypeTekst } from '@/messages';
 import BEMHelper from '@/utils/bem';
-import { Innholdstittel } from 'nav-frontend-typografi';
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 import './BeslutterSide.less';
 import BeslutterPanel from '@/BeslutterSide/beslutterPanel/BeslutterPanel';
 import BeslutterTilskuddsPerioder from '@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperioder';
-import { Accordion } from '@navikt/ds-react';
+import { Accordion, Heading } from '@navikt/ds-react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import { TiltaksType } from '@/types/avtale';
@@ -75,9 +74,9 @@ const BeslutterSide: FunctionComponent = () => {
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('head-wrapper')}>
                             <TilbakeTilOversiktLenke />
-                            <Innholdstittel className={cls.element('hoved-tittel')}>
+                            <Heading size="large" className={cls.element('hoved-tittel')}>
                                 Tilskudd om {tiltakstypeTekst[avtale.tiltakstype]}
-                            </Innholdstittel>
+                            </Heading>
                         </div>
                         <div className={cls.element('wrapper')}>
                             <BeslutterPanel />
@@ -85,12 +84,12 @@ const BeslutterSide: FunctionComponent = () => {
                         </div>
                         <VerticalSpacer rem={1} />
                         <div className={cls.element('avtale-wrapper')}>
-                            <Accordion className='accordion'>
+                            <Accordion className="accordion">
                                 <Accordion.Item>
                                     <Accordion.Header>Se avtalen</Accordion.Header>
                                     <Accordion.Content>
                                         <Innholdsboks>
-                                            <Innholdstittel>{avtaleTittel[avtale.tiltakstype]}</Innholdstittel>
+                                            <Heading size="large">{avtaleTittel[avtale.tiltakstype]}</Heading>
                                             <VerticalSpacer rem={2} />
                                             {oppsummeringType[avtale.tiltakstype]}
                                         </Innholdsboks>
