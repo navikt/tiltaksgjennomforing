@@ -6,7 +6,7 @@ import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -85,10 +85,12 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                 <>
                     <tr>
                         <td>
-                            <Normaltekst>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Normaltekst>
+                            <BodyShort size="small">
+                                {inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}
+                            </BodyShort>
                         </td>
                         <td>
-                            <Normaltekst>{formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
+                            <BodyShort size="small">{formatterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
                         </td>
                         <td>
                             {kanUtgiftSlettes() && (

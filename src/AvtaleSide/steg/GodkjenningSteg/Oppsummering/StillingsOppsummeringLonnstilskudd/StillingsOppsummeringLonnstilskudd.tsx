@@ -2,20 +2,20 @@ import { ReactComponent as StillingIkon } from '@/assets/ikoner/toolbox.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { stillingstype } from '@/messages';
 import { Stilling } from '@/types/avtale';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 
-const StillingsOppsummeringLonnstilskudd: FunctionComponent<Stilling> = props => (
+const StillingsOppsummeringLonnstilskudd: FunctionComponent<Stilling> = (props) => (
     <Stegoppsummering tittel="Stilling" ikon={<StillingIkon />}>
-        <Element>Stillingstittel</Element>
+        <Label>Stillingstittel</Label>
         <SjekkOmVerdiEksisterer verdi={props.stillingstittel} />
         <VerticalSpacer rem={2} />
-        <Element>Arbeidsoppgaver</Element>
+        <Label>Arbeidsoppgaver</Label>
         <SjekkOmVerdiEksisterer verdi={props.arbeidsoppgaver} />
         <VerticalSpacer rem={2} />
-        <Element>Stillingstype</Element>
+        <Label>Stillingstype</Label>
         <SjekkOmVerdiEksisterer verdi={props.stillingstype} formatertVerdi={stillingstype[props.stillingstype!]} />
     </Stegoppsummering>
 );
