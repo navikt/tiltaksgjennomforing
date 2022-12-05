@@ -30,6 +30,10 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ erPilot, tiltaks
                 blir brukt riktig.
             </p>
             <p>
+                Endringer i lønn etterbetales ikke, og vil først kunne gjelde for tilskuddsperioder
+                som ikke allerede er godkjente ved tidspunktet for endringen.
+            </p>
+            <p>
                 For å behandle refusjonen må du logge deg inn i refusjonsløsningen:
                 <Link href={'https://tiltak-refusjon.nav.no.'}> https://tiltak-refusjon.nav.no. </Link>
                 Tilgangen styres via Altinn og du må ha tilgangen “inntektsmelding” for å kunne sende inn refusjonskrav.
