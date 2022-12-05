@@ -55,7 +55,6 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
                 {setLabelSats(props.labelSats)}
                 {props.midtrekkeTekst}
             </div>
-
             <div className={cls.element('utregning-verdi')}>
                 {setOperator(props.verdiOperator)}
                 {props.tekstType ? (

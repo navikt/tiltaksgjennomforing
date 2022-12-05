@@ -16,7 +16,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ erPilot, tiltaks
     return (
         <IkonTekstRad
             svgIkon={<Money width="2.25rem" height="2.25rem" />}
-            headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', typografiType: 'undertittel' }}
+            headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
         >
             <p>
                 Godkjent tilskuddsperiode {!erPilot && <>i tilskuddsbrevet</>} er styrende i henhold til økonomisk

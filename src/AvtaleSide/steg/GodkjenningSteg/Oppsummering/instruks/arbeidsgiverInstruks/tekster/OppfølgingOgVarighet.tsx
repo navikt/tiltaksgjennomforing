@@ -16,7 +16,7 @@ const OppfLgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLen
     return (
         <IkonTekstRad
             svgIkon={<Calender width="2.25rem" height="2.25rem" />}
-            headerTekst={{ tekst: 'Oppfølging og varighet', typografiType: 'undertittel' }}
+            headerTekst={{ tekst: 'Oppfølging og varighet', headingType: 'small' }}
         >
             <p>
                 Du som arbeidsgiver og NAV skal følge opp deltaker. Din oppgave er å følge opp i det daglige arbeidet og

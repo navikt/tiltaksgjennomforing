@@ -33,7 +33,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
             svgIkon={<Keyboard role="presentation" focusable="false" className={cls.element('SubIkon')} />}
             headerTekst={{
                 tekst: 'NAV eller arbeidsgiver oppretter en avtale',
-                typografiType: 'undertittel',
+                headingType: 'small',
             }}
         >
             <VerticalSpacer rem={1} />
@@ -82,7 +82,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             }
                             headerTekst={{
                                 tekst: 'Flere parter i samme digitale løsning',
-                                typografiType: 'undertittel',
+                                headingType: 'small',
                             }}
                         >
                             Deltakeren, arbeidsgiveren og NAV fyller ut, ser over og godkjenner avtalen i samme løsning
@@ -100,7 +100,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             }
                             headerTekst={{
                                 tekst: 'Tilgang og innlogging til avtalen',
-                                typografiType: 'undertittel',
+                                headingType: 'small',
                             }}
                         >
                             Deltakeren og arbeidsgiveren logger seg inn i avtalen via ID-porten. Tilgangen for
@@ -139,7 +139,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             }
                             headerTekst={{
                                 tekst: 'En dynamisk avtale',
-                                typografiType: 'undertittel',
+                                headingType: 'small',
                             }}
                         >
                             Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Etter at avtalen er
@@ -153,7 +153,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             }
                             headerTekst={{
                                 tekst: 'Avtalens historikk',
-                                typografiType: 'undertittel',
+                                headingType: 'small',
                             }}
                         >
                             Hvis det gjøres endringer i avtalen underveis i tiltaket, lagrer NAV den forrige, godkjente

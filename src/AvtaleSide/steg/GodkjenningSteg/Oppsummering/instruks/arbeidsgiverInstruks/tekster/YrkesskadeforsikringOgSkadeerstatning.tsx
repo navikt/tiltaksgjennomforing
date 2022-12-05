@@ -17,7 +17,7 @@ const YrkesskadeforsikringOgSkadeerstatning: FunctionComponent<Props> = ({ tilta
             svgIkon={<SocialAid width="2.25rem" height="2.25rem" />}
             headerTekst={{
                 tekst: 'Yrkesskadeforsikring og skadeerstatning',
-                typografiType: 'undertittel',
+                headingType: 'small',
             }}
         >
             <p>
