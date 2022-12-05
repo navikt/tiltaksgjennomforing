@@ -1,15 +1,14 @@
 import React from 'react';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
-import { TypografiProps } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import './SkjemaTittel.less';
 
-// Ny kategori "typografi" ?
-const SkjemaTittel: React.FunctionComponent<TypografiProps> = props => {
+const SkjemaTittel: React.FunctionComponent = (props) => {
     const { children, ...other } = props;
+    console.log('children',children)
     return (
-        <Systemtittel className="skjema-tittel" {...other}>
+        <Heading size="medium" className="skjema-tittel" {...other}>
             {children}
-        </Systemtittel>
+        </Heading>
     );
 };
 

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
 import { innholdTypeTekst } from '@/messages';
 import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
-import { BodyShort, Label, LinkPanel } from '@navikt/ds-react';
+import { BodyShort, Label, LinkPanel, Heading } from '@navikt/ds-react';
 import './TidligereVersjoner.less';
 
 const cls = BEMHelper('tidligereVersjoner');
@@ -49,7 +48,9 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
         <>
             {versjonLenker.length > 0 && (
                 <>
-                    <SkjemaUndertittel>Alle versjoner av avtalen</SkjemaUndertittel>
+                    <Heading size="small" className={cls.element('alle_versjoner_tittel')}>
+                        Alle versjoner av avtalen
+                    </Heading>
                     <div>{versjonLenker}</div>
                     <VersjonModal
                         isOpen={isOpen}
