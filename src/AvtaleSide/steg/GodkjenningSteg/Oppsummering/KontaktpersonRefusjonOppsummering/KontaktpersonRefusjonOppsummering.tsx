@@ -1,13 +1,8 @@
 import React, { FunctionComponent, useContext } from 'react';
-import { RefusjonKontaktperson } from '@/types/avtale';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { AvtaleinfoFeltSjekk } from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 
-interface Props {
-    kontaktpersonRefusjon: RefusjonKontaktperson;
-}
-
-const KontaktpersonRefusjonOppsumering: FunctionComponent<Props> = ({ kontaktpersonRefusjon }) => {
+const KontaktpersonRefusjonOppsumering: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const gjeldendeInnhold = avtaleContext.avtale.gjeldendeInnhold;
 

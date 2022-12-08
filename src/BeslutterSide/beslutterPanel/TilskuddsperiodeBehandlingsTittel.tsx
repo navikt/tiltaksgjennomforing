@@ -16,6 +16,7 @@ const TilskuddsperiodeBehandlingsTittel: FunctionComponent = () => {
         GODKJENT: 'Tilskuddsperiode er godkjent',
         UBEHANDLET: 'Tilskuddsperiode som skal godkjennes',
         ANNULLERT: 'Tilskuddsperiode er annullert',
+        BEHANDLET_I_ARENA: 'Tilskuddsperiode er behandlet i Arena'
     };
 
     return (

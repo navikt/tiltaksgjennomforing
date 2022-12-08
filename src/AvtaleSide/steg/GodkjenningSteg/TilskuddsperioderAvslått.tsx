@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
@@ -11,7 +10,7 @@ import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import { Avslagsårsaker } from '@/types/avtale';
 
 const TilskuddsperioderAvslått: FunctionComponent = (props) => {
-    const { avtale, sendTilbakeTilBeslutter } = useContext(AvtaleContext);
+    const { avtale } = useContext(AvtaleContext);
     const gjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
     const avslåttTilskuddsperiode = avtale.tilskuddPeriode.find(
         (t) => t.status === 'AVSLÅTT' && avtale.gjeldendeTilskuddsperiode?.løpenummer
@@ -58,15 +57,6 @@ const TilskuddsperioderAvslått: FunctionComponent = (props) => {
                         avtalen allikevel er riktig utfylt kan den sendes tilbake til beslutter uendret.
                     </BodyShort>
                     <VerticalSpacer rem={1} />
-                    <hr />
-                    <VerticalSpacer rem={1} />
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <LagreKnapp
-                            knapptype="standard"
-                            lagre={sendTilbakeTilBeslutter}
-                            label="Send tilbake til beslutter uendret"
-                        />
-                    </div>
                 </>
             ) : (
                 <>

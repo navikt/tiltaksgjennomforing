@@ -15,6 +15,7 @@ import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAv
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import EndreOmMentor from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreOmMentor/EndreOmMentor';
 import './OppgaveLenker.css';
+import SendTilbakeTilBeslutterUendret from '../SendTilbakeTilBeslutterUendret/SendTilbakeTilBeslutterUendret';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -55,6 +56,9 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
                 </>
             )}
+            { avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' &&
+                <SendTilbakeTilBeslutterUendret />
+            }
             <Varsellogg />
         </div>
     );

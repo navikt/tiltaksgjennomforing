@@ -117,7 +117,8 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
     GODKJENT: 'Godkjent',
     AVSLÅTT: 'Avslått',
     UBEHANDLET: 'Ubehandlet',
-    ANNULLERT: 'Annullert'
+    ANNULLERT: 'Annullert',
+    BEHANDLET_I_ARENA: 'Behandlet i Arena'
 };
 
 export const tilskuddsperiodeRefusjonStatusText: { [key in TilskuddPeriodeRefusjonStatus]: string } = {

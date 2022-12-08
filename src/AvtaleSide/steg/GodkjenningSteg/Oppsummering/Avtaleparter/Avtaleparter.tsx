@@ -6,6 +6,8 @@ import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
 import {InnloggetBrukerContext} from "@/InnloggingBoundary/InnloggingBoundary";
+import KontaktpersonRefusjonOppsumering
+    from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering";
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -83,6 +85,9 @@ const Avtaleparter: FunctionComponent<Props> = props => {
                     borderFarge="farge-lysblaa"
                     skjulHvaMangler={erLåst}
                 />
+                {avtale.gjeldendeInnhold.refusjonKontaktperson && (
+                    <KontaktpersonRefusjonOppsumering/>
+                )}
             </div>
         </Stegoppsummering>
     );
