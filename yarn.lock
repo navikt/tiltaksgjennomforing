@@ -1988,18 +1988,18 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@navikt/arbeidsgiver-notifikasjon-widget@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-5.4.0.tgz#08422cf0094fbba4e73946f8fb19c2d8c33f780c"
-  integrity sha512-ZZ26ke1YWN4NXJ8mk0IHRzYUbM/mOZ1CW890OPq4UEEtXaQHDaRVGM2aNX1uHl73JPkWA7TbGAKjZqoJBy0+6w==
+"@navikt/arbeidsgiver-notifikasjon-widget@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-5.4.1.tgz#4dc602888f7c1cd0da7b7ae8ce66e04d5762612f"
+  integrity sha512-rUAEJIapMDcmin+nqKfaJyh3mWE60PDqVmTRMVlw8/NxkB3FNiuPO2aJiaVvxF74+LKj1AfE4Iq+TgL8w33SXA==
   dependencies:
     "@apollo/client" "3.6.9"
     graphql "^16.6.0"
 
-"@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock/-/arbeidsgiver-notifikasjoner-brukerapi-mock-5.4.0.tgz#9dd5d416da240b392bb939540d1ca28a9ec8e60b"
-  integrity sha512-orN1oSmrYp1NAShgi3oc12Pg38G5Ixw905pSP4rNSB2uG5hyFAQDyen5CI4APjyRL6vsjRaEhIRQNnT31LSavQ==
+"@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock/-/arbeidsgiver-notifikasjoner-brukerapi-mock-5.4.1.tgz#5c1b652783f167183603781d6bdfce2d2a0342e0"
+  integrity sha512-gfs4rZFTypogkmdItjAsvKyigIRzt2/YC1gfMfbndoCrMx2/T0XzCaR+JetKpAP2kFGR0vhZ0CKM/dVkx9wmRg==
   dependencies:
     apollo-server "^3.10.2"
     apollo-server-core "^3.10.2"
