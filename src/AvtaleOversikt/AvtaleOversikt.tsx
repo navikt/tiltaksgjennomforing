@@ -12,7 +12,7 @@ import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths'
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { Accordion } from '@navikt/ds-react';
 import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
@@ -114,27 +114,27 @@ const AvtaleOversikt: FunctionComponent = () => {
                                         <Accordion.Header>
                                             {' '}
                                             <div>
-                                                <Element>Finner du ikke avtalen du leter etter?</Element>
-                                                <Normaltekst>
+                                                <Label size="small">Finner du ikke avtalen du leter etter?</Label>
+                                                <BodyShort size="small">
                                                     Det kan være flere årsaker til dette. Les hva du kan gjøre.
-                                                </Normaltekst>
+                                                </BodyShort>
                                             </div>
                                         </Accordion.Header>
                                         <Accordion.Content>
-                                            <Element>
+                                            <Label size="small">
                                                 Avtalen du leter etter er opprettet på en annen virksomhet
-                                            </Element>
-                                            <Normaltekst>
+                                            </Label>
+                                            <BodyShort size="small">
                                                 Det kan være at avtalen du leter etter er opprettet på en annen
                                                 virskomhet. Du kan prøve å bytte virksomhet i virksomhetsvelgeren oppe
                                                 til høyre på skjermen.
-                                            </Normaltekst>
+                                            </BodyShort>
                                             <VerticalSpacer rem={1} />
-                                            <Element>
+                                            <Label size="small">
                                                 Du mangler tilgang til rett avtaletype for den virksomheten du har
                                                 valgt.
-                                            </Element>
-                                            <Normaltekst>Da kan du be om tilgang i Altinn.</Normaltekst>
+                                            </Label>
+                                            <BodyShort size="small">Da kan du be om tilgang i Altinn.</BodyShort>
                                         </Accordion.Content>
                                     </Accordion.Item>
                                 </Accordion>

@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Input } from 'nav-frontend-skjema';
-import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
 import { TiltaksType } from '@/types/avtale';
-import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
+import { BodyShort, Heading } from '@navikt/ds-react';
+import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
 
 interface Props {
     deltakerFnr: string;
@@ -51,7 +51,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
 }) => {
     return (
         <Innholdsboks>
-            <Systemtittel>Hvem skal inngå i avtalen?</Systemtittel>
+            <Heading size="medium">Hvem skal inngå i avtalen?</Heading>
             <VerticalSpacer rem={1} />
             <Input
                 className="typo-element"
@@ -74,7 +74,11 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                 onBlur={orgnrOnBlur}
                 feil={bedriftNrFeil}
             />
-            {bedriftNavn && <Normaltekst className="opprett-avtale__bedriftNavn">{bedriftNavn}</Normaltekst>}
+            {bedriftNavn && (
+                <BodyShort size="small" className="opprett-avtale__bedriftNavn">
+                    {bedriftNavn}
+                </BodyShort>
+            )}
             <VerticalSpacer rem={1} />
             {valgtTiltaksType === 'MENTOR' && (
                 <Input

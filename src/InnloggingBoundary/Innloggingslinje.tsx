@@ -3,8 +3,7 @@ import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import { Accordion } from '@navikt/ds-react';
-import { Link } from '@navikt/ds-react';
-import { Undertekst } from 'nav-frontend-typografi';
+import { Link, Detail } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './Innloggingslinje.less';
@@ -29,12 +28,12 @@ const Innloggingslinje: FunctionComponent<Props> = (props) => {
                         </div>
                     </Link>
                     <div className={cls.element('identitetogloggut')}>
-                        <Undertekst className={cls.element('identitetogloggut__identitet')}>{bruker}</Undertekst>
+                        <Detail className={cls.element('identitetogloggut__identitet')}>{bruker}</Detail>
                         <LoggUtKnapp />
                     </div>
                 </MediaQuery>
                 <MediaQuery maxWidth={576}>
-                    <Accordion className='accordion'>
+                    <Accordion className="accordion">
                         <Accordion.Item>
                             <Accordion.Header>
                                 <div className={cls.element('mobileheader')}>

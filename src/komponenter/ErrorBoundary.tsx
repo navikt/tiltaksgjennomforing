@@ -1,6 +1,6 @@
 import { Alert, Loader } from '@navikt/ds-react';
 import * as Sentry from '@sentry/react';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, PropsWithChildren, Suspense } from 'react';
 import VerticalSpacer from './layout/VerticalSpacer';
 
@@ -10,11 +10,11 @@ const ErrorBoundary: FunctionComponent = (props: PropsWithChildren<{}>) => {
             fallback={({ error, componentStack, resetError }) => (
                 <>
                     <Alert variant="warning">
-                        <Undertittel>Det har oppstått en uventet feil. Forsøk å laste siden på nytt.</Undertittel>
+                        <Heading size="small">Det har oppstått en uventet feil. Forsøk å laste siden på nytt.</Heading>
                         <VerticalSpacer rem={0.5} />
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Teknisk feilkode: <i>{error.toString()}</i>
-                        </Normaltekst>
+                        </BodyShort>
                     </Alert>
                 </>
             )}

@@ -4,7 +4,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 
 const ArbeidsoppgaverSteg: FunctionComponent = (props) => {
@@ -13,9 +13,9 @@ const ArbeidsoppgaverSteg: FunctionComponent = (props) => {
     return (
         <Innholdsboks utfyller="arbeidsgiver">
             <SkjemaTittel>Hvilke arbeidsoppgaver skal utføres?</SkjemaTittel>
-            <Normaltekst>
+            <BodyShort size="small">
                 Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal utføre hos dere under arbeidstreningen.
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={2} />
             <PakrevdTextarea
                 label=""

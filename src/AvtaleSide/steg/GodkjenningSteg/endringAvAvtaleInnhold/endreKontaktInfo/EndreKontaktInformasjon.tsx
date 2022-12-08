@@ -6,8 +6,7 @@ import { oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
-import { Link } from '@navikt/ds-react';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Heading, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreKontaktInformasjon.less';
 
@@ -68,7 +67,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
     const endreKontaktInformasjonInnhold = (
         <div className={cls.className}>
             <div className={cls.element('tittel')}>
-                <Undertittel>Informasjon om deltaker</Undertittel>
+                <Heading size="small">Informasjon om deltaker</Heading>
                 <div className={cls.element('inputfelter')}>
                     <PakrevdInput
                         label="Fornavn"
@@ -88,7 +87,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 </div>
             </div>
             <div className={cls.element('tittel')}>
-                <Undertittel>Informasjon om veileder</Undertittel>
+                <Heading size="small">Informasjon om veileder</Heading>
                 <div className={cls.element('inputfelter')}>
                     <PakrevdInput
                         label="Fornavn"
@@ -108,7 +107,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 </div>
             </div>
             <div className={cls.element('tittel')}>
-                <Undertittel>Kontaktperson for avtalen i bedriften</Undertittel>
+                <Heading size="small">Kontaktperson for avtalen i bedriften</Heading>
                 <div className={cls.element('inputfelter')}>
                     <PakrevdInput
                         label="Fornavn"
@@ -129,7 +128,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
             </div>
             {endreRefusjonInfo && (
                 <div className={cls.element('tittel')}>
-                    <Undertittel>Kontaktperson for refusjon i bedriften</Undertittel>
+                    <Heading size="small">Kontaktperson for refusjon i bedriften</Heading>
                     <div className={cls.element('inputfelter')}>
                         <PakrevdInput
                             label="Fornavn"

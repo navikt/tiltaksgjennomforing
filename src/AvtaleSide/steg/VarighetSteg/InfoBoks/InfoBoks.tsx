@@ -1,7 +1,7 @@
+import * as React from 'react';
 import { ReactComponent as KalkulatorIkon } from '@/assets/ikoner/kalkulator.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import './InfoBoks.less';
 
 interface InfoBoksProps {
@@ -14,19 +14,19 @@ const InfoBoks = (props: InfoBoksProps) => (
     <div className="infoboks">
         <KalkulatorIkon className="#" />
         <div className="infoboks__tekst">
-            <Element className="infoboks__dette-tilsvarer">Dette tilsvarer ca:</Element>
+            <Label className="infoboks__dette-tilsvarer">Dette tilsvarer ca:</Label>
             <VerticalSpacer rem={0.5} />
-            <Normaltekst>
+            <BodyShort size="small">
                 <span className="infoboks__bold">{props.timerIUka ? props.timerIUka : 0}</span>
                 &nbsp; timer eller &nbsp;
                 <span className="infoboks__bold">{props.dagerIUka ? props.dagerIUka : 0}</span>
                 &nbsp;
                 {props.dagerIUka <= 1 ? 'arbeidsdag' : 'arbeidsdager'} per uke
-            </Normaltekst>
+            </BodyShort>
             {props.varighet && (
                 <>
                     <VerticalSpacer rem={0.5} />
-                    <Normaltekst>Avtalen varer i {props.varighet}</Normaltekst>
+                    <BodyShort size="small">Avtalen varer i {props.varighet}</BodyShort>
                 </>
             )}
         </div>

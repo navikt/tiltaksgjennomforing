@@ -1,7 +1,6 @@
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Accordion } from '@navikt/ds-react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Accordion, BodyShort, Label } from '@navikt/ds-react';
 
 type Props = {
     åpen: boolean;
@@ -9,7 +8,7 @@ type Props = {
 
 const Tilskuddsbeskrivelse: FunctionComponent<Props> = (props) => {
     return (
-        <Accordion className='accordion'>
+        <Accordion className="accordion">
             <Accordion.Item defaultOpen>
                 <Accordion.Header>
                     Beskrivelse av hva tilskuddet kan dekke tilleggsutgifter knyttet til
@@ -17,39 +16,43 @@ const Tilskuddsbeskrivelse: FunctionComponent<Props> = (props) => {
                 <Accordion.Content>
                     <div style={{ borderLeft: '2px solid #2626265C' }}>
                         <div style={{ marginLeft: '0.5rem' }}>
-                            <Element>a. Vurdering av funksjonsevne / tilretteleggingsbehov</Element>
-                            <Normaltekst>
+                            <Label>a. Vurdering av funksjonsevne / tilretteleggingsbehov</Label>
+                            <BodyShort size="small">
                                 Nødvendig vurdering av personens funksjonsevne eller tilretteleggingsbehov på den
                                 konkrete arbeidsplassen.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={1} />
-                            <Element>b. Ekstra tiltaksplass</Element>
-                            <Normaltekst>Opprettelse av ekstra tiltaksplass, for eksempel kontormøbler</Normaltekst>
+                            <Label>b. Ekstra tiltaksplass</Label>
+                            <BodyShort size="small">
+                                Opprettelse av ekstra tiltaksplass, for eksempel kontormøbler
+                            </BodyShort>
                             <VerticalSpacer rem={1} />
-                            <Element>c. Personlig utstyr</Element>
-                            <Normaltekst>
+                            <Label>c. Personlig utstyr</Label>
+                            <BodyShort size="small">
                                 Personlig utstyr som arbeidstøy, vernesko, databriller o.l. knyttet til arbeidet.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={1} />
-                            <Element>d. Arbeidshjelpemidler</Element>
-                            <Normaltekst>
+                            <Label>d. Arbeidshjelpemidler</Label>
+                            <BodyShort size="small">
                                 Nødvendige gjenstander og arbeidshjelpemidler personen trenger for å utføre arbeidet og
                                 tilpasninger som ikke kan dekkes etter folketrygdlovens § 10-5.
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={1} />
-                            <Element>e. Programvare</Element>
-                            <Normaltekst>
+                            <Label>e. Programvare</Label>
+                            <BodyShort size="small">
                                 Merkostnader til å kjøpe og installere programvare som skal brukes av personen, herunder
                                 teknologisk utstyr eller teknologiske hjelpemidler
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={1} />
-                            <Element>f. Forsikring, lisenser og sertifisering</Element>
-                            <Normaltekst>
+                            <Label>f. Forsikring, lisenser og sertifisering</Label>
+                            <BodyShort size="small">
                                 Nødvendige merutgifter til forsikring, lisenser, sertifisering o.l. knyttet til arbeidet
-                            </Normaltekst>
+                            </BodyShort>
                             <VerticalSpacer rem={1} />
-                            <Element>g. Ekstern opplæring</Element>
-                            <Normaltekst>Ekstern opplæring for å kunne utføre arbeidet i virksomheten</Normaltekst>
+                            <Label>g. Ekstern opplæring</Label>
+                            <BodyShort size="small">
+                                Ekstern opplæring for å kunne utføre arbeidet i virksomheten
+                            </BodyShort>
                         </div>
                     </div>
                 </Accordion.Content>

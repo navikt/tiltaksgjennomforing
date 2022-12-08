@@ -1,7 +1,7 @@
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import '../instruks.less';
 import SommerjobbVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/veilederInstruks/tekster/SommerjobbVeilederTekst';
@@ -24,7 +24,7 @@ const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType; erPilot: b
 ) => (
     <VeilederpanelMedUtklippstavle>
         <div className={cls.element('subheader')}>
-            <Element>Hva skjer videre:</Element>
+            <Label>Hva skjer videre:</Label>
         </div>
         <SommerjobbVeilederTekst tiltakstype={props.tiltakstype} />
         <GenerelVeilederTekst tiltakstype={navnPåTiltakstype[props.tiltakstype]} erPilot={props.erPilot} />

@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 
 const KvalifiseringsgruppeSats: FunctionComponent = () => {
@@ -32,7 +32,7 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
         <>
             {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ? (
                 <>
-                    <Undertittel>Tilskuddsprosent</Undertittel>
+                    <Heading size="small">Tilskuddsprosent</Heading>
                     <VerticalSpacer rem={1.25} />
                     <ProsentInput
                         name="lonnstilskuddProsent"
@@ -50,17 +50,17 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                 </>
             ) : (
-            <>
-                <Undertittel>Tilskuddsprosent</Undertittel>
-                <Normaltekst>{settLonnstilskuddsprosent()}</Normaltekst>
-                <VerticalSpacer rem={1} />
-            </>
-                )}
+                <>
+                    <Heading size="small">Tilskuddsprosent</Heading>
+                    <BodyShort size="small">{settLonnstilskuddsprosent()}</BodyShort>
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
         </>
     ) : (
         <>
-            <Undertittel>Tilskuddsprosent</Undertittel>
-            <Normaltekst>{settLonnstilskuddsprosent()}</Normaltekst>
+            <Heading size="small">Tilskuddsprosent</Heading>
+            <BodyShort size="small">{settLonnstilskuddsprosent()}</BodyShort>
             <VerticalSpacer rem={1} />
         </>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import './alleredeOpprettetAvtale.less';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import { visPeriodeForTiltak } from '@/utils/datoUtils';
 import { tiltakstypeTekst } from '@/messages';
 import _ from 'lodash';
@@ -31,7 +31,7 @@ const AlleredeOpprettetAvtale: React.FC<Props> = ({ alleredeRegistrertAvtale }) 
                                     />
                                 </div>
                                 <RadInfo label={'avtale nummer:'} info={avtale.avtaleNr} />
-                                <Normaltekst>Tiltakstype: {tiltakstypeTekst[avtale.tiltakstype]}</Normaltekst>
+                                <BodyShort size="small">Tiltakstype: {tiltakstypeTekst[avtale.tiltakstype]}</BodyShort>
                                 <AlleredeOpprettetAvtaleDetaljer innhold={avtale} />
                             </div>
                         );

@@ -3,7 +3,7 @@ import GodkjennPåVegneAvDeltakerCheckboxer from '@/AvtaleSide/steg/GodkjenningS
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { GodkjentPaVegneAvArbeidsgiverGrunner, GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { Element } from 'nav-frontend-typografi';
+import { Label } from '@navikt/ds-react';
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 import GodkjennPåVegneAvArbeidsgiverCheckboxer from './komponenter/GodkjennPåVegneAvArbeidsgiverCheckboxer';
 import GodkjennPaVegneAvMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/GodkjennPaVegneAvMedAlleredeOpprettetTiltak';
@@ -93,7 +93,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
             {props.skalGodkjennesPaVegne && (
                 <React.Fragment>
                     <div className={cls.element('checkbox-wrapper')}>
-                        <Element>Deltaker</Element>
+                        <Label>Deltaker</Label>
                         <GodkjennPåVegneAvDeltakerCheckboxer
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunnerDeltaker}
                             setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunnerDeltaker}
@@ -101,7 +101,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
                             setFeilmeldingGrunn={setFeilmeldingGrunnDeltaker}
                             className={cls.element('checkboxer')}
                         />
-                        <Element className={cls.element('checkbox-sub-title')}>Arbeidsgiver</Element>
+                        <Label className={cls.element('checkbox-sub-title')}>Arbeidsgiver</Label>
                         <GodkjennPåVegneAvArbeidsgiverCheckboxer
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunnerArbeidsgiver}
                             setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunnerArbeidsgiver}

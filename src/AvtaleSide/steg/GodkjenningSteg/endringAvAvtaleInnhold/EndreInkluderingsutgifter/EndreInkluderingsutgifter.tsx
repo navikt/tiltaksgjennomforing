@@ -8,8 +8,7 @@ import { endreInkluderingstilskudd } from '@/services/rest-service';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Task } from '@navikt/ds-icons/cjs';
-import { Link } from '@navikt/ds-react';
-import { Element, Ingress } from 'nav-frontend-typografi';
+import { Ingress, Label, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EnTilskuddsutgift from '../../../InkluderingstilskuddSteg/EnTilskuddsutgift';
 import { useTilskuddsutgift } from '../../../InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
@@ -78,7 +77,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
             </div>
             <VerticalSpacer rem={2} />
             <div>
-                <Element>Totalt kostnadsoverslag:</Element>
+                <Label>Totalt kostnadsoverslag:</Label>
                 <Ingress>{formatterPenger(inkluderingstilskuddTotal)}</Ingress>
             </div>
         </div>

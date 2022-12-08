@@ -16,7 +16,7 @@ const Arbeidsmiljøloven: FunctionComponent<Props> = ({ tiltakstype }) => {
     return (
         <IkonTekstRad
             svgIkon={<Law width="2.25rem" height="2.25rem" />}
-            headerTekst={{ tekst: 'Arbeidsmiljøloven', typografiType: 'undertittel' }}
+            headerTekst={{ tekst: 'Arbeidsmiljøloven', headingType: 'small' }}
         >
             {tiltakstype === 'ARBEIDSTRENING' && (
                 <p>

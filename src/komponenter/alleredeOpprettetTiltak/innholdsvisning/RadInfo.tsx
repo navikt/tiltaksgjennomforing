@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 
 interface Props {
     label: string;
@@ -10,8 +10,8 @@ interface Props {
 const RadInfo: FunctionComponent<Props> = ({ label, info, infoNotBold }) => {
     return (
         <div className={'alleredeOpprettetAvtale__rad-element'}>
-            <Normaltekst>{label}</Normaltekst>
-            <Element className={infoNotBold ? 'alleredeOpprettetAvtale__info-not-bold' : ''}>{info}</Element>
+            <BodyShort size="small">{label}</BodyShort>
+            <Label className={infoNotBold ? 'alleredeOpprettetAvtale__info-not-bold' : ''}>{info}</Label>
         </div>
     );
 };

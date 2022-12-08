@@ -16,7 +16,7 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
@@ -170,7 +170,9 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     return (
         <div className={cls.className}>
             <Dokumenttittel tittel="Opprett avtale" />
-            <Innholdstittel className={cls.element('innholdstittel')}>Opprett avtale</Innholdstittel>
+            <Heading size="large" className={cls.element('innholdstittel')}>
+                Opprett avtale
+            </Heading>
             <InformasjonsboksTopVeilederOppretterAvtale />
             <TiltaksTypeRadioPanel
                 className={cls.className}

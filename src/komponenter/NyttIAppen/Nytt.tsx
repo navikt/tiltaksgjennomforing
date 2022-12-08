@@ -1,5 +1,4 @@
 import Popover, { PopoverOrientering, PopoverProps } from 'nav-frontend-popover';
-import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent, ReactNode, useEffect, useRef, useState } from 'react';
 import Artikkel from './Artikkel';
 import Ikon from './Ikon';
@@ -19,7 +18,7 @@ interface Props extends Partial<PopoverProps> {
     onÅpneNyheter?: (antallUlesteNyheter: number) => void;
 }
 
-const Nytt: FunctionComponent<Props> = props => {
+const Nytt: FunctionComponent<Props> = (props) => {
     const { navn, nyheter, åpneVedFørsteBesøk = false, onÅpneNyheter, ...popoverProps } = props;
 
     const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>();
@@ -74,9 +73,7 @@ const Nytt: FunctionComponent<Props> = props => {
                 {...popoverProps}
             >
                 <div className="nytt__popover">
-                    <Element tag="h2" className="nytt__tittel">
-                        Nytt i {navn}
-                    </Element>
+                    <h2 className="nytt__tittel">Nytt i {navn}</h2>
                     <section className="nytt__nyheter">
                         {nyheter.map((nyhet, index) => (
                             <Artikkel

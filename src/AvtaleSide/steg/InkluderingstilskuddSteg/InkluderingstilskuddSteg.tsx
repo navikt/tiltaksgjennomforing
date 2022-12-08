@@ -7,9 +7,9 @@ import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Datepicker } from 'nav-datovelger';
-import { Column, Row} from '@/komponenter/NavGrid/Grid';
+import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { Input } from 'nav-frontend-skjema';
-import { Element, Ingress, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading, Ingress, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { AvtaleMinMaxDato } from '../VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 import EnTilskuddsutgift from './EnTilskuddsutgift';
@@ -52,13 +52,13 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
     return (
         <>
             <Innholdsboks utfyller="arbeidsgiver">
-                <Systemtittel>Inkluderingstilskudd</Systemtittel>
+                <Heading size="medium">Inkluderingstilskudd</Heading>
                 <VerticalSpacer rem={1} />
                 <InkluderingstilskuddIngress />
                 <VerticalSpacer rem={2} />
                 <Ingress>Oppstart og varighet</Ingress>
                 <VerticalSpacer rem={1} />
-                <Normaltekst>I hvilken periode skal tilskuddet benyttes?</Normaltekst>
+                <BodyShort size="small">I hvilken periode skal tilskuddet benyttes?</BodyShort>
                 <VerticalSpacer rem={1} />
                 <Row className="">
                     <Column md="6">
@@ -124,7 +124,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 </TilskuddsutgiftTabell>
                 <div className={cls.element('kostnadsoverslag-container')}>
                     <div>
-                        <Element>Totalt kostnadsoverslag</Element>
+                        <Label>Totalt kostnadsoverslag</Label>
                         <Input
                             className={cls.element('kostnadsoverslag')}
                             value={formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}

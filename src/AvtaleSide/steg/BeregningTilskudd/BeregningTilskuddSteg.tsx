@@ -17,7 +17,7 @@ import BEMHelper from '@/utils/bem';
 import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { Money } from '@navikt/ds-icons/cjs';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 import './BeregningTilskuddSteg.less';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
@@ -62,9 +62,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             {avtale.tiltakstype !== 'SOMMERJOBB' && <KvalifiseringsgruppeSats />}
             {avtale.tiltakstype === 'SOMMERJOBB' && <OppgiLonnstilskuddprosent />}
 
-            <Undertittel className={cls.element('lonn-tittel')}>
+            <Heading size="small" className={cls.element('lonn-tittel')}>
                 Lønn per måned i faktisk stillingsprosent inkludert faste tillegg
-            </Undertittel>
+            </Heading>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
                 <div>
                     Brutto lønn omregnes til fast gjennomsnittlig månedslønn. I refusjonsgrunnlaget inngår lønn for
@@ -116,10 +116,12 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             </Row>
             <Row className="">
                 <Column md="12">
-                    <Undertittel className={cls.element('luft')}>Feriepenger</Undertittel>
-                    <Normaltekst className={cls.element('luft')}>
+                    <Heading size="small" className={cls.element('luft')}>
+                        Feriepenger
+                    </Heading>
+                    <BodyShort size="small" className={cls.element('luft')}>
                         Velg sats for feriepenger som arbeidstaker skal ha
-                    </Normaltekst>
+                    </BodyShort>
                     <RadioPanelGruppeHorisontal
                         radios={feriepengeAlternativer}
                         name="feriepengesats"
@@ -130,7 +132,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }
                     />
                     <VerticalSpacer rem={1.25} />
-                    <Undertittel>Obligatorisk tjenestepensjon</Undertittel>
+                    <Heading size="small">Obligatorisk tjenestepensjon</Heading>
                     <div style={{ display: 'flex', alignItems: 'baseline' }}>
                         {
                             <ProsentInput
@@ -159,7 +161,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         }
                     </div>
                     <VerticalSpacer rem={1.25} />
-                    <Undertittel>Arbeidsgiveravgift</Undertittel>
+                    <Heading size="small">Arbeidsgiveravgift</Heading>
                     <SelectInput
                         name="arbeidsgiveravgift"
                         bredde="s"
@@ -193,16 +195,16 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             <Money />
                         </Column>
                         <Column md="11">
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 <strong>Kontonummer: </strong>
                                 {avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
-                            </Normaltekst>
-                            <Normaltekst>
+                            </BodyShort>
+                            <BodyShort size="small">
                                 Hvis kontonummeret ikke stemmer så må det oppdateres hos{' '}
                                 <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
                                     Altinn.
                                 </EksternLenke>
-                            </Normaltekst>
+                            </BodyShort>
                         </Column>
                     </Row>
                     <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>

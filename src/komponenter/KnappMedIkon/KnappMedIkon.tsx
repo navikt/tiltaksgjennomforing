@@ -1,7 +1,7 @@
 import avbruttIkon from '@/assets/ikoner/stop.svg';
 import classNames from 'classnames';
-import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
+import { BodyShort } from '@navikt/ds-react';
 import './KnappMedIkon.less';
 import redigerIkon from './rediger-penn.svg';
 import slettIkon from './soppeldunk.svg';
@@ -32,7 +32,9 @@ const KnappMedIkon = (props: Props) => (
         })}
     >
         <img src={ikoner[props.ikonType]} alt={props.ikonType} />
-        <Normaltekst className="knapp-med-ikon__label">{props.label}</Normaltekst>
+        <BodyShort size="small" className="knapp-med-ikon__label">
+            {props.label}
+        </BodyShort>
     </button>
 );
 

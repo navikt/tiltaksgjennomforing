@@ -2,7 +2,7 @@ import RammeMedIkonOgOverskrift from '@/AvtaleOversikt/IngenAvtaler/arbeidsgiver
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import BEMHelper from '@/utils/bem';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Label, BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
 const cls = BEMHelper('ingenAvtalerArbeidsgiver');
@@ -10,13 +10,13 @@ const cls = BEMHelper('ingenAvtalerArbeidsgiver');
 const DuManglerRettigheterIAltinn: FunctionComponent = () => {
     return (
         <RammeMedIkonOgOverskrift overskrift="Du mangler rettigheter i Altinn">
-            <Normaltekst>
+            <BodyShort size="small">
                 Du har ikke tilgang til tiltak for noen virksomheter. For å se avtaler om tiltak må du ha fått tildelt
                 korrekt rolle eller rettighet i Altinn.
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={2} />
-            <Normaltekst>
-                <Element>Hvordan får du tilgang?</Element>
+            <BodyShort size="small">
+                <Label>Hvordan får du tilgang?</Label>
                 <VerticalSpacer rem={0.5} />
                 For å få tilgang til avtaler for din virksomhet må du i Altinn ha en av enkelttjenestene
                 <ul>
@@ -26,12 +26,12 @@ const DuManglerRettigheterIAltinn: FunctionComponent = () => {
                     <li>Avtale om midlertidig lønnstilskudd</li>
                     <li>Avtale om varig lønnstilskudd</li>
                 </ul>
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={1} />
             <div className={cls.element('rolleinfo')}>
-                <Element>Hvem kan gi deg tilgang?</Element>
+                <Label>Hvem kan gi deg tilgang?</Label>
                 <VerticalSpacer rem={0.5} />
-                <Normaltekst>
+                <BodyShort size="small">
                     Det er virksomheten din som må gi deg tilgang. Tilgang kan delegeres av personer som selv har
                     tilgang, dersom de også har rollen Tilgangsstyring.
                     <VerticalSpacer rem={1} />
@@ -44,7 +44,7 @@ const DuManglerRettigheterIAltinn: FunctionComponent = () => {
                             Les mer om roller og rettigheter på Altinn.no
                         </EksternLenke>
                     </div>
-                </Normaltekst>
+                </BodyShort>
             </div>
         </RammeMedIkonOgOverskrift>
     );

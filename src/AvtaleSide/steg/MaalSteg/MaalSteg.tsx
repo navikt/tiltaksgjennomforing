@@ -2,9 +2,9 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Maalkategori } from '@/types/maalkategorier';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import EtMaal from './MaalNy/EtMaal';
-import { useMål } from './MaalNy/maalUtils';
-import OpprettMaal from './MaalNy/OpprettMaal';
+import EtMaal from './Maal/EtMaal';
+import { useMål } from './Maal/maalUtils';
+import OpprettMaal from './Maal/OpprettMaal';
 
 const MaalSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);

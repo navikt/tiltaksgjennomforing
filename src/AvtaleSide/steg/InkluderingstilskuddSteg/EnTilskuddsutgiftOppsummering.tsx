@@ -1,7 +1,7 @@
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
 type Props = {
@@ -12,10 +12,10 @@ const EnTilskuddsutgiftOppsummering: FunctionComponent<Props> = (props) => {
     return (
         <tr>
             <td>
-                <Normaltekst>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Normaltekst>
+                <BodyShort size="small">{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</BodyShort>
             </td>
             <td>
-                <Normaltekst>{formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
+                <BodyShort size="small">{formatterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
             </td>
         </tr>
     );

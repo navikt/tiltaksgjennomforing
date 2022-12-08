@@ -1,12 +1,10 @@
-import SkjemaUndertittel from '@/komponenter/form/SkjemaUndertittel';
+import React, { useState } from 'react';
 import VersjonModal from '@/komponenter/modal/VersjonModal';
 import { innholdTypeTekst } from '@/messages';
 import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import moment from 'moment';
-import { LinkPanel } from '@navikt/ds-react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import React, { useState } from 'react';
+import { BodyShort, Label, LinkPanel, Heading } from '@navikt/ds-react';
 import './TidligereVersjoner.less';
 
 const cls = BEMHelper('tidligereVersjoner');
@@ -33,14 +31,14 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
             >
                 <LinkPanel.Title className={cls.element('linke-container')}>
                     <div className={cls.element('rad')}>
-                        <Element>
+                        <Label>
                             Versjon {avtaleVersjon.versjon}
                             {avtaleVersjon.innholdType && <> - {innholdTypeTekst(avtaleVersjon)}</>}
-                        </Element>
-                        <Normaltekst>
+                        </Label>
+                        <BodyShort size="small">
                             {avtaleVersjon.ikrafttredelsestidspunkt &&
                                 moment(avtaleVersjon.ikrafttredelsestidspunkt).format('DD.MM.YYYY')}
-                        </Normaltekst>
+                        </BodyShort>
                     </div>
                 </LinkPanel.Title>
             </LinkPanel>
@@ -50,7 +48,9 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
         <>
             {versjonLenker.length > 0 && (
                 <>
-                    <SkjemaUndertittel>Alle versjoner av avtalen</SkjemaUndertittel>
+                    <Heading size="small" className={cls.element('alle_versjoner_tittel')}>
+                        Alle versjoner av avtalen
+                    </Heading>
                     <div>{versjonLenker}</div>
                     <VersjonModal
                         isOpen={isOpen}

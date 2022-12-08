@@ -16,7 +16,7 @@ const FolketrygdlovenEgenmeldingOgSykmelding: FunctionComponent<Props> = ({ tilt
             svgIkon={<Bandage width="2.25rem" height="2.25rem" />}
             headerTekst={{
                 tekst: 'Folketrygdloven: egenmelding og sykmelding',
-                typografiType: 'undertittel',
+                headingType: 'small',
             }}
         >
             <p>

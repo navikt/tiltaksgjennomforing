@@ -7,7 +7,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import BEMHelper from '@/utils/bem';
 import { RadioPanel } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 import './StillingsSteg.less';
 import StillingsTittelVelger from './StillingsTittelVelger';
@@ -41,7 +41,7 @@ const StillingSteg: FunctionComponent = () => {
                 avtaleContext.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
                 <>
                     <VerticalSpacer rem={1} />
-                    <Normaltekst>Er stillingen fast eller midlertidig</Normaltekst>
+                    <BodyShort size="small">Er stillingen fast eller midlertidig</BodyShort>
                     <VerticalSpacer rem={0.5} />
                     <div className={cls.element('stillingstype_radio')}>
                         <RadioPanel

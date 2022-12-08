@@ -1,7 +1,6 @@
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
-import { Tag } from '@navikt/ds-react';
-import { Undertekst, Undertittel } from 'nav-frontend-typografi';
+import { Tag, Heading, Detail } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import './AvtaleinfoFeltSjekk.less';
 import VirksomhetsnummerEllerTelefon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/VirksomhetsnummerEllerTelefon';
@@ -35,7 +34,7 @@ export const AvtaleinfoFeltSjekk: FunctionComponent<Props> = (props) => {
     } else {
         innhold = (
             <>
-                <Undertittel>{props.navnFelter.map((felt) => felt.verdi).join(' ')}</Undertittel>
+                <Heading size="small">{props.navnFelter.map((felt) => felt.verdi).join(' ')}</Heading>
                 {props.tilleggFelter.map((felt, index) => (
                     <React.Fragment key={index}>
                         <VirksomhetsnummerEllerTelefon felt={felt.felt} verdi={felt.verdi} />
@@ -47,7 +46,7 @@ export const AvtaleinfoFeltSjekk: FunctionComponent<Props> = (props) => {
 
     return (
         <div className={cls.element('content', props.borderFarge)}>
-            <Undertekst>{props.overskrift}</Undertekst>
+            <Detail>{props.overskrift}</Detail>
             {innhold}
         </div>
     );

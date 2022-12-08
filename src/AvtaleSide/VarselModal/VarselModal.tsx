@@ -1,13 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { ReactComponent as InfoIkonGul } from '@/assets/ikoner/info-ikon-gul.svg';
-import { Modal } from '@navikt/ds-react';
+import { Modal, BodyShort, Heading } from '@navikt/ds-react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import * as RestService from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { Knapp } from 'nav-frontend-knapper';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import VarselTabell from '../Varsellogg/VarselTabell';
 import './VarselModal.less';
@@ -52,14 +51,14 @@ const VarselModal: FunctionComponent = () => {
             className={cls.element('modal')}
         >
             <InfoIkonGul height="80px" width="80px" style={{ margin: '-72px auto 1rem auto' }} />
-            <Systemtittel>{harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}</Systemtittel>
+            <Heading size="medium">{harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}</Heading>
             <VerticalSpacer rem={1} />
-            <Normaltekst>
+            <BodyShort size="small">
                 {harOpprettetHendelse
                     ? 'Tabellen under viser hendelser som har skjedd på avtalen. '
                     : 'Tabellen under viser hendelser som har skjedd siden sist gang du åpnet avtalen. '}
                 Hendelseloggen finner du igjen under menyen på toppen av avtalen.
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={2} />
             <VarselTabell varsler={varsler} />
             <VerticalSpacer rem={2} />

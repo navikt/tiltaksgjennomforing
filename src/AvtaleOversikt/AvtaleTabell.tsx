@@ -7,10 +7,9 @@ import { Avtale } from '@/types/avtale';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { LinkPanel } from '@navikt/ds-react';
+import { LinkPanel, BodyShort } from '@navikt/ds-react';
 import classNames from 'classnames';
 import moment from 'moment';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useHistory } from 'react-router-dom';
@@ -124,7 +123,7 @@ const AvtaleTabell: FunctionComponent<{
                             <LinkPanel
                                 border={false}
                                 id={avtale.id}
-                                key={avtale.id}  
+                                key={avtale.id}
                                 className={
                                     avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor
                                         ? 'skjulIndikator'
@@ -141,7 +140,10 @@ const AvtaleTabell: FunctionComponent<{
                                         setVisTaushetserklæringForAvtaleId(avtale.id);
                                         e.preventDefault();
                                     } else {
-                                        history.push({pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle), search: window.location.search})
+                                        history.push({
+                                            pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle),
+                                            search: window.location.search,
+                                        });
                                     }
                                 }}
                             >
@@ -150,8 +152,7 @@ const AvtaleTabell: FunctionComponent<{
                                         {ulestVarsel && (
                                             <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />
                                         )}
-
-                                        <Normaltekst>
+                                        <BodyShort size="small">
                                             {' '}
                                             <div
                                                 className={classNames(cls.element('rad'), {
@@ -198,7 +199,7 @@ const AvtaleTabell: FunctionComponent<{
                                                     antallKlar ? antallKlar[index] : undefined
                                                 )}
                                             </div>
-                                        </Normaltekst>
+                                        </BodyShort>
                                     </div>
                                 </LinkPanel.Title>
                             </LinkPanel>

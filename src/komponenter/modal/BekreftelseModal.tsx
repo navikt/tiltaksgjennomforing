@@ -1,7 +1,6 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { Alert, Modal } from '@navikt/ds-react';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Alert,Heading, Modal } from '@navikt/ds-react';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import './bekreftelseModal.less';
@@ -72,7 +71,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                         <div className={cls.element('knappRad')} />
                         <div className={cls.element('innhold')}>
                             <div className={cls.element('tittel')}>
-                                <Systemtittel id={props.oversiktTekst}>{props.oversiktTekst}</Systemtittel>
+                                <Heading size="medium" id={props.oversiktTekst}>{props.oversiktTekst}</Heading>
                             </div>
                             <div className={cls.element('varselTekst')}>{varselInnhold}</div>
                         </div>

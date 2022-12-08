@@ -5,9 +5,8 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Mentorinfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Accordion } from '@navikt/ds-react';
+import { Accordion, Label } from '@navikt/ds-react';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
-import { Element } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
@@ -57,14 +56,14 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                     <Container fluid={true}>
                         <Row className={''}>
                             <Column md="12" sm="12" xs="12">
-                                <Element className={cls.element('label')}>Arbeidsoppgaver</Element>
+                                <Label>Arbeidsoppgaver</Label>
                                 <SjekkOmVerdiEksisterer ariaLabel={'Arbeidsoppgaver'} verdi={props.mentorOppgaver} />
                                 <VerticalSpacer rem={1} />
                             </Column>
                         </Row>
                         <Row className={''}>
                             <Column md="4" sm="6" xs="6">
-                                <Element className={cls.element('label')}>Antall timer med mentor per uke</Element>
+                                <Label>Antall timer med mentor per uke</Label>
                                 <SjekkOmVerdiEksisterer
                                     ariaLabel={'Antall timer med mentor per uke'}
                                     verdi={verdi(props.mentorAntallTimer)}
@@ -72,9 +71,9 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                             </Column>
                             {rolle !== 'DELTAKER' && (
                                 <Column md="6" sm="6" xs="6">
-                                    <Element className={cls.element('label')}>
+                                    <Label className={cls.element('label')}>
                                         Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
-                                    </Element>
+                                    </Label>
                                     <SjekkOmVerdiEksisterer
                                         ariaLabel={
                                             'Kroner beløp for timelønn inkludert Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon'
@@ -86,10 +85,10 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                         </Row>
                     </Container>
                     <VerticalSpacer rem={2} />
-                    <Accordion className='accordion'>
+                    <Accordion className="accordion">
                         <Accordion.Item>
                             <Accordion.Header>
-                                <Element>Les mer om taushetsplikten til mentor</Element>
+                                <Label>Les mer om taushetsplikten til mentor</Label>
                             </Accordion.Header>
                             <Accordion.Content>
                                 <TausetserklæringTekst />

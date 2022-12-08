@@ -9,13 +9,13 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Input } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { useState, useContext } from 'react';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
-        avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? ""
+        avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? ''
     );
     const inputToNumber = (verdi: string | undefined): number | undefined => {
         verdi = verdi?.replace(/,/g, '.');
@@ -97,9 +97,9 @@ const OmMentorSteg = () => {
                             }
                         />
                         <VerticalSpacer rem={0.5} />
-                        <Normaltekst>
+                        <BodyShort size="small">
                             *Inkludert feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
-                        </Normaltekst>
+                        </BodyShort>
                     </Column>
                 </Row>
             </Container>

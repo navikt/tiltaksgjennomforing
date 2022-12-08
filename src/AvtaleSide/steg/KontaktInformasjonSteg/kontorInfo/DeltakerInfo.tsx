@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react';
-import { Normaltekst, Systemtittel, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import './deltakerInfo.less';
 import BEMHelper from '@/utils/bem';
 import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
@@ -11,11 +11,11 @@ import {
     SjekkKvalifiseringsgruppeOppMotTiltakstype,
 } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import {
-    hentFormidlingsgruppeTekst
-} from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { hentFormidlingsgruppeTekst } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 
-const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({ oppsummeringside } : {
+const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
+    oppsummeringside,
+}: {
     oppsummeringside: boolean;
 }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -26,44 +26,45 @@ const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({ oppsum
 
     const { tiltakstype, kvalifiseringsgruppe, formidlingsgruppe } = avtale;
     const cls = BEMHelper('deltakerinfo');
-    const ikon = () => (oppsummeringside ? <NavIkon className='kontorinfo__ikon' width={28} height={28} /> : null);
+    const ikon = () => (oppsummeringside ? <NavIkon className="kontorinfo__ikon" width={28} height={28} /> : null);
 
     return (
         <div className={cls.className}>
             <div className={cls.element('ingress', oppsummeringside ? 'oppsummering' : '')}>
                 {ikon()}
-                <Systemtittel>Om deltakeren</Systemtittel>
+                <Heading size="medium">Om deltakeren</Heading>
             </div>
             <div className={cls.element('info-rad')}>
-                <Normaltekst>Geografisk enhet</Normaltekst>
-                <Undertittel>
-                    <HentNavEnhetFraContext enhetsnr='enhetGeografisk' enhetsNavn='enhetsnavnGeografisk' />
-                </Undertittel>
+                <BodyShort size="small">Geografisk enhet</BodyShort>
+                <Heading size="small">
+                    <HentNavEnhetFraContext enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />
+                </Heading>
             </div>
             <div className={cls.element('info-rad')}>
-                <Normaltekst>Oppfølgingsenhet</Normaltekst>
-                <Undertittel>
-                    <HentNavEnhetFraContext enhetsnr='enhetOppfolging' enhetsNavn='enhetsnavnOppfolging' />
-                </Undertittel>
+                <BodyShort size="small">Oppfølgingsenhet</BodyShort>
+                <Heading size="small">
+                    <HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
+                </Heading>
             </div>
             {!oppsummeringside && <OppdatereKostnadssted />}
             <div className={cls.element('info-rad')}>
-                <Normaltekst>Kvalifisering/servicegruppe</Normaltekst>
-                <Undertittel>
+                <BodyShort size="small">Kvalifisering/servicegruppe</BodyShort>
+                <Heading size="small">
                     {kvalifiseringsgruppe ? hentKvalifiseringsgruppeTekst(kvalifiseringsgruppe) : <em>Ikke oppgitt</em>}
-                </Undertittel>
+                </Heading>
             </div>
             <div className={cls.element('info-rad')}>
-                <Normaltekst>Formidlingsgruppe</Normaltekst>
-                <Undertittel>
+                <BodyShort size="small">Formidlingsgruppe</BodyShort>
+                <Heading size="small">
                     {formidlingsgruppe ? hentFormidlingsgruppeTekst(formidlingsgruppe) : <em>Ikke oppgitt</em>}
-                </Undertittel>
+                </Heading>
             </div>
-            {!avtale.avtaleInngått &&
+            {!avtale.avtaleInngått && (
                 <SjekkKvalifiseringsgruppeOppMotTiltakstype
                     tiltakstype={tiltakstype}
-                    kvalifiseringsgruppe={kvalifiseringsgruppe} />
-            }
+                    kvalifiseringsgruppe={kvalifiseringsgruppe}
+                />
+            )}
         </div>
     );
 };

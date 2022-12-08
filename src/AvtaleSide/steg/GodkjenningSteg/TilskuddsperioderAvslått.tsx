@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
@@ -40,11 +40,11 @@ const TilskuddsperioderAvslått: FunctionComponent = (props) => {
                 </div>
                 <VerticalSpacer rem={1} />
                 <div>
-                    <Innholdstittel>
+                    <Heading size="large">
                         {gjeldendeTilskuddsperiodeAvslått
                             ? 'Tilskuddsperiode avslått av beslutter'
                             : 'Venter på godkjenning fra beslutter'}
-                    </Innholdstittel>
+                    </Heading>
                 </div>
             </div>
             <VerticalSpacer rem={2} />
@@ -52,23 +52,18 @@ const TilskuddsperioderAvslått: FunctionComponent = (props) => {
                 <>
                     {avslåttBegrunnelse}
                     <VerticalSpacer rem={1} />
-                    <Normaltekst>
-                        Gjør endringer i avtalen i menyen. Når du har gjort endringene vil beslutter
-                        kunne godkjenne tilskuddsperioden på nytt.
-                    </Normaltekst>
-                    <VerticalSpacer rem={1} />
-                    <Normaltekst>
-                        Hvis avtalen allikevel er riktig utfylt kan den sendes tilbake
-                        til beslutter uendret via menyen.
-                    </Normaltekst>
+                    <BodyShort size="small">
+                        Gjør du endringer på avtalen vil beslutter kunne godkjenne tilskuddsperioden på nytt. Hvis
+                        avtalen allikevel er riktig utfylt kan den sendes tilbake til beslutter uendret.
+                    </BodyShort>
                     <VerticalSpacer rem={1} />
                 </>
             ) : (
                 <>
-                    <Normaltekst>
+                    <BodyShort size="small">
                         Beslutter har nå muligheten til å godkjenne tilskuddsperioden. Du kan gjøre flere endringer om
                         det er nødvendig før beslutter godkjenner.
-                    </Normaltekst>
+                    </BodyShort>
                     <VerticalSpacer rem={1} />
                     <LesMerPanel
                         åpneLabel="Vis begrunnelse på tidligere avslått tilskuddsperiode"

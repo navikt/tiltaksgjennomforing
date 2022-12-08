@@ -1,6 +1,5 @@
-import { Undertittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { Tag } from '@navikt/ds-react';
+import { Heading, Tag } from '@navikt/ds-react';
 import { Nyhet } from './Nytt';
 
 const printDato = (dato: Date) =>
@@ -22,10 +21,12 @@ const Artikkel: FunctionComponent<Props> = ({ nyhet, ulest }) => {
 
     return (
         <article className={klassenavn}>
-            <Tag variant='info' className="nytt__artikkeldato">
-            {printDato(nyhet.dato)}
+            <Tag variant="info" className="nytt__artikkeldato">
+                {printDato(nyhet.dato)}
             </Tag>
-            <Undertittel className="nytt__artikkeltittel">{nyhet.tittel}</Undertittel>
+            <Heading size="small" className="nytt__artikkeltittel">
+                {nyhet.tittel}
+            </Heading>
             <div className="typo-normal nytt__artikkelinnhold">{nyhet.innhold}</div>
         </article>
     );

@@ -1,7 +1,7 @@
 import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import AlleredeOpprettetAvtaleModal from '@/komponenter/alleredeOpprettetTiltak/modal/AlleredeOpprettetAvtaleModal';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import AlleredeOpprettetAvtale from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/AlleredeOpprettetAvtale';
 import BEMHelper from '@/utils/bem';
 
@@ -23,9 +23,9 @@ const OpprettAvtaleMedAlleredeOpprettetTiltak: React.FC<Props> = ({
         <AlleredeOpprettetAvtaleModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
             <div className={cls.element('body')}>
                 <div className={cls.element('tittel')}>
-                    <Systemtittel id="Allerede registrerte tiltak for deltaker">
+                    <Heading size="medium" id="Allerede registrerte tiltak for deltaker">
                         Allerede registrerte tiltak for deltaker
-                    </Systemtittel>
+                    </Heading>
                 </div>
                 <AlleredeOpprettetAvtale alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
             </div>

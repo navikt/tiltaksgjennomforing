@@ -5,8 +5,7 @@ import { oppdatereOppfølgingOgTilretteleggingInformasjon } from '@/services/res
 import { EndreOppfølgingOgTilretteleggingInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { MeetingRoom } from '@navikt/ds-icons/cjs';
-import { Link } from '@navikt/ds-react';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Heading, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreOppfølgingOgTilrettelegging.less';
 
@@ -45,7 +44,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
         <div className={cls.className}>
             <div className={cls.element('oppfølging')}>
                 <div className={cls.element('tittel')}>
-                    <Undertittel>Oppfølging</Undertittel>
+                    <Heading size="small">Oppfølging</Heading>
                 </div>
                 <div className={cls.element('textareafelt')}>
                     <PakrevdTextarea
@@ -58,7 +57,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                 </div>
             </div>
             <div className={cls.element('tittel')}>
-                <Undertittel>Tilrettelegging</Undertittel>
+                <Heading size="small">Tilrettelegging</Heading>
             </div>
             <div className={cls.element('textareafelt')}>
                 <PakrevdTextarea

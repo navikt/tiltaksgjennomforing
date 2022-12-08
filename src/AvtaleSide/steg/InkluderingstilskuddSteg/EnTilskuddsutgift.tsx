@@ -6,7 +6,7 @@ import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -24,9 +24,6 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
 
     const [beløp, setBeløp] = useState<number>(props.tilskuddsutgift.beløp);
     const [type, setType] = useState<InkluderingstilskuddsutgiftType>(props.tilskuddsutgift.type);
-
-    // const sorteMaalkategorier = props.ledigeMålkategorier;
-    // sorteMaalkategorier.sort();
 
     const slettTilskuddsutgift = () => {
         props.slett();
@@ -62,12 +59,6 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                         ))}
                     </Select>
                     <VerticalSpacer rem={1} />
-                    {/* <PakrevdTextarea
-                        label="Beløp"
-                        maxLengde={1000}
-                        verdi={beløp.toString()}
-                        settVerdi={verdi => setBeløp(verdi)}
-                    /> */}
                     <ValutaInput
                         name="beløp"
                         bredde="M"
@@ -92,14 +83,14 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                 </>
             ) : (
                 <>
-                    {/* <div style={{ display: 'flex', justifyContent: 'space-between'}}> */}
-                    {/* <div style={{display: 'flex', margin: 'auto 0'}}> */}
                     <tr>
                         <td>
-                            <Normaltekst>{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</Normaltekst>
+                            <BodyShort size="small">
+                                {inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}
+                            </BodyShort>
                         </td>
                         <td>
-                            <Normaltekst>{formatterPenger(props.tilskuddsutgift.beløp)}</Normaltekst>
+                            <BodyShort size="small">{formatterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
                         </td>
                         <td>
                             {kanUtgiftSlettes() && (
@@ -107,28 +98,7 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                             )}
                         </td>
                     </tr>
-
-                    {/* </div> */}
-
-                    {/* </div> */}
-
-                    {/* <VerticalSpacer rem={1} />
-                    <Normaltekst>{props.tilskuddsutgift.beløp}</Normaltekst> */}
-                    {props.iRegideringsmodus !== true && (
-                        <div style={{ display: 'flex' }}>
-                            {/* <KnappMedIkon
-                                onClick={() => {
-                                    setEndrerTilskuddsutgift(true);
-                                    props.setIRedigeringsmodus(true);
-                                }}
-                                label="Endre"
-                                ikonType="blyant"
-                            /> */}
-                            {/* <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" /> */}
-                        </div>
-                    )}
-                    {/* <VerticalSpacer rem={0.5} /> */}
-                    {/* <div style={{ borderTop: '1px solid #C6C2BF' }} /> */}
+                    {props.iRegideringsmodus !== true && <div style={{ display: 'flex' }}></div>}
                 </>
             )}
         </>

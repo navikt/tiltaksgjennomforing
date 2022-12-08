@@ -11,8 +11,7 @@ import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
-import { Link } from '@navikt/ds-react';
-import { Element, Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
+import { Link, BodyShort, Label, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import './informasjonsside.less';
@@ -34,23 +33,23 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
             svgIkon={<Keyboard role="presentation" focusable="false" className={cls.element('SubIkon')} />}
             headerTekst={{
                 tekst: 'NAV eller arbeidsgiver oppretter en avtale',
-                typografiType: 'undertittel',
+                headingType: 'small',
             }}
         >
             <VerticalSpacer rem={1} />
-            <Element>NAV oppretter en avtale</Element>
-            <Normaltekst>
+            <Label>NAV oppretter en avtale</Label>
+            <BodyShort size="small">
                 {' '}
                 Når deltakeren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
                 avtale. Deltakeren og arbeidsgiveren vil få tilsendt en lenke fra NAV når avtalen er klar og de kan
                 logge inn.
-            </Normaltekst>
+            </BodyShort>
             <VerticalSpacer rem={1} />
-            <Element>Arbeidsgiveren oppretter en avtale</Element>
-            <Normaltekst>
+            <Label>Arbeidsgiveren oppretter en avtale</Label>
+            <BodyShort size="small">
                 Arbeidsgiveren kan også opprette en avtale selv. Når avtalen er opprettet kan arbeidsgiveren begynne å
                 fylle ut avtalen.
-            </Normaltekst>
+            </BodyShort>
         </IkonTekstRad>
     );
 
@@ -63,13 +62,13 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
 
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('innholdstittel')}>
-                            <Innholdstittel>Hvordan fungerer løsningen?</Innholdstittel>
+                            <Heading size="large">Hvordan fungerer løsningen?</Heading>
                         </div>
                         <div className={cls.element('ingress')}>
-                            <Normaltekst>
+                            <BodyShort size="small">
                                 Vi innfører en digital avtale om tiltak. Her får du en rask introduksjon til hvordan den
                                 nye løsningen fungerer:
-                            </Normaltekst>
+                            </BodyShort>
                         </div>
 
                         <IkonTekstRad
@@ -83,7 +82,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             }
                             headerTekst={{
                                 tekst: 'Flere parter i samme digitale løsning',
-                                typografiType: 'undertittel',
+                                headingType: 'small',
                             }}
                         >
                             Deltakeren, arbeidsgiveren og NAV fyller ut, ser over og godkjenner avtalen i samme løsning
@@ -101,7 +100,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             }
                             headerTekst={{
                                 tekst: 'Tilgang og innlogging til avtalen',
-                                typografiType: 'undertittel',
+                                headingType: 'small',
                             }}
                         >
                             Deltakeren og arbeidsgiveren logger seg inn i avtalen via ID-porten. Tilgangen for
@@ -140,7 +139,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             }
                             headerTekst={{
                                 tekst: 'En dynamisk avtale',
-                                typografiType: 'undertittel',
+                                headingType: 'small',
                             }}
                         >
                             Innholdet i avtalen kan endres gjennom hele perioden for tiltaket. Etter at avtalen er
@@ -154,7 +153,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
                             }
                             headerTekst={{
                                 tekst: 'Avtalens historikk',
-                                typografiType: 'undertittel',
+                                headingType: 'small',
                             }}
                         >
                             Hvis det gjøres endringer i avtalen underveis i tiltaket, lagrer NAV den forrige, godkjente

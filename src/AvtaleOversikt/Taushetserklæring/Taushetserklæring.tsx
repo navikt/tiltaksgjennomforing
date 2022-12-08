@@ -5,9 +5,8 @@ import { mentorGodkjennTaushetserklæring } from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
-import { Modal } from '@navikt/ds-react';
+import { Modal, Heading } from '@navikt/ds-react';
 import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
-import { Systemtittel } from 'nav-frontend-typografi';
 import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router';
 import './Taushetserklæring.less';
@@ -53,7 +52,9 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                         <VarselTegnForModal width={'80%'} height={'80px'} />
                     </div>
 
-                    <Systemtittel className={cls.element('header')}>Signer taushetserklæring</Systemtittel>
+                    <Heading size="medium" className={cls.element('header')}>
+                        Signer taushetserklæring
+                    </Heading>
                     <p>Som mentor må du signere en taushetserklæring.</p>
                     <VerticalSpacer rem={2} />
                     <TausetserklæringTekst />
