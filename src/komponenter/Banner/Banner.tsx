@@ -3,7 +3,7 @@ import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { Innholdstittel, UndertekstBold } from 'nav-frontend-typografi';
+import { Heading, Detail } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
@@ -30,10 +30,11 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                     organisasjoner={innloggetBruker.altinnOrganisasjoner}
                     sidetittel={
                         <>
-                            <Innholdstittel>{props.tekst}</Innholdstittel>
-
+                            <Heading size="large">{props.tekst}</Heading>
                             {props.undertittel && (
-                                <UndertekstBold style={{ marginTop: '0.25rem' }}>{props.undertittel}</UndertekstBold>
+                                <Detail style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>
+                                    {props.undertittel}
+                                </Detail>
                             )}
                         </>
                     }
@@ -44,13 +45,13 @@ const Banner: React.FunctionComponent<Props> = (props) => {
         case 'DELTAKER':
             return (
                 <div className="banner">
-                    <Innholdstittel role="heading" aria-level={1}>
+                    <Heading size="large" role="heading" aria-level={1}>
                         {props.tekst}
-                    </Innholdstittel>
+                    </Heading>
                     {props.undertittel && (
                         <>
                             <VerticalSpacer rem={0.5} />
-                            <UndertekstBold>{props.undertittel}</UndertekstBold>
+                            <Detail style={{ fontWeight: 'bold' }}>{props.undertittel}</Detail>
                         </>
                     )}
                 </div>
@@ -58,13 +59,13 @@ const Banner: React.FunctionComponent<Props> = (props) => {
         case 'MENTOR':
             return (
                 <div className="banner">
-                    <Innholdstittel role="heading" aria-level={1}>
+                    <Heading size="large" role="heading" aria-level={1}>
                         {props.tekst}
-                    </Innholdstittel>
+                    </Heading>
                     {props.undertittel && (
                         <>
                             <VerticalSpacer rem={0.5} />
-                            <UndertekstBold>{props.undertittel}</UndertekstBold>
+                            <Detail style={{ fontWeight: 'bold' }}>{props.undertittel}</Detail>
                         </>
                     )}
                 </div>

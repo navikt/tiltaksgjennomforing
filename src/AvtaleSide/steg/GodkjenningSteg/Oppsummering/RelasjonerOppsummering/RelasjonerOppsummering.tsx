@@ -1,16 +1,16 @@
+import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { RelasjonerInfo } from '@/types/avtale';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import HvaManglerOppsummering from '../HvaManglerOppsummering';
 
-const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = props => {
+const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = (props) => {
     return (
         <div>
-            <Undertittel>Relasjoner</Undertittel>
-            <Normaltekst>
+            <Heading size="small">Relasjoner</Heading>
+            <BodyShort size="small">
                 Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?
-            </Normaltekst>
+            </BodyShort>
             <HvaManglerOppsummering
                 avhengigFelter={{
                     harFamilietilknytning: props.harFamilietilknytning !== null,
@@ -19,12 +19,12 @@ const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = props => {
                         : 'true',
                 }}
             >
-                <Element>{props.harFamilietilknytning ? 'Ja' : ' Nei'}</Element>
+                <Label>{props.harFamilietilknytning ? 'Ja' : ' Nei'}</Label>
                 {props.familietilknytningForklaring && (
                     <>
                         <VerticalSpacer rem={1} />
-                        <Element>Forklaring</Element>
-                        <Normaltekst>{props.familietilknytningForklaring}</Normaltekst>
+                        <Label>Forklaring</Label>
+                        <BodyShort size="small">{props.familietilknytningForklaring}</BodyShort>
                     </>
                 )}
             </HvaManglerOppsummering>

@@ -1,12 +1,12 @@
 import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import { RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
-import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import amplitude from '@/utils/amplitude';
+import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
+import { BodyShort, Heading } from '@navikt/ds-react';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import { RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 
 interface Props {
     className: string;
@@ -26,8 +26,8 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     const cls = BEMHelper(className);
     return (
         <Innholdsboks className={cls.element('valg-tiltakstype-container')}>
-            <Systemtittel>Velg type avtale</Systemtittel>
-            <Normaltekst>
+            <Heading size="medium">Velg type avtale</Heading>
+            <BodyShort size="small" className={cls.element('valg-tiltakstype-tekst')}>
                 Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
                 <EksternLenke
                     onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
@@ -35,7 +35,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                 >
                     hvordan kan NAV hjelpe med inkludering
                 </EksternLenke>
-            </Normaltekst>
+            </BodyShort>
             <div className={cls.element('tiltakstype-wrapper')}>
                 <RadioPanel
                     name="tiltakstype"

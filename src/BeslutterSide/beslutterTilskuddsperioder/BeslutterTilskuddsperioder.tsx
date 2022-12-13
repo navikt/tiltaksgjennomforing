@@ -6,7 +6,7 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import EtikettStatus from '../EtikettStatus';
 import BEMHelper from '@/utils/bem';
 import './beslutterTilskuddsperioder.less';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
@@ -43,7 +43,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const hentAvslattInfoTilskuddsperiode = (periode: TilskuddsPeriode): JSX.Element => {
         return (
             <>
-                <Normaltekst>
+                <BodyShort size="small">
                     Tilskuddsperioden ble avslått av
                     <span className={cls.element('bold')}>{' ' + periode.avslåttAvNavIdent + ' '}</span> den
                     <span className={cls.element('bold')}>
@@ -56,14 +56,16 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                     </span>
                     med forklaringen:
                     <span className={cls.element('bold')}>{' ' + periode.avslagsforklaring}</span>
-                </Normaltekst>
+                </BodyShort>
             </>
         );
     };
 
     return (
         <div className={cls.className}>
-            <Undertittel className={cls.element('tittel')}>Tilskudd som skal godkjennes</Undertittel>
+            <Heading size="small" className={cls.element('tittel')}>
+                Tilskudd som skal godkjennes
+            </Heading>
             <div className={cls.element('container')}>
                 <table className={cls.element('tabell')}>
                     <thead>
@@ -99,7 +101,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                         <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
-                                        <td> 
+                                        <td>
                                             <EtikettStatus
                                                 tilskuddsperiodestatus={periode.status}
                                                 refusjonStatus={periode.refusjonStatus}

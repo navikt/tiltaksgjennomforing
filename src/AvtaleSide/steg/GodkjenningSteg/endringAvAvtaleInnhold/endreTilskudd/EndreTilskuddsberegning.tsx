@@ -10,8 +10,7 @@ import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import { Beregningsgrunnlag, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Task } from '@navikt/ds-icons/cjs';
-import { Link } from '@navikt/ds-react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreTilskuddsberegning.less';
 
@@ -74,9 +73,9 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 min={0}
             />
             <div className={cls.element('radioPanel')}>
-                <Normaltekst className={cls.element('radioPanel', 'tittel')}>
+                <BodyShort size="small" className={cls.element('radioPanel', 'tittel')}>
                     Velg sats for feriepenger som arbeidstaker skal ha
-                </Normaltekst>
+                </BodyShort>
                 <RadioPanelGruppeHorisontal
                     radios={mapAvgiftSatser(ferieSatser)}
                     name="feriepengesats"

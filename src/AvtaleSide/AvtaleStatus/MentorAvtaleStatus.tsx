@@ -9,7 +9,7 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato } from '@/utils/datoUtils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 
 const MentorAvtaleStatus: FunctionComponent = () => {
@@ -22,10 +22,10 @@ const MentorAvtaleStatus: FunctionComponent = () => {
                     ikon={AvbruttIkon}
                     header="Tiltaket er annullert"
                     body={
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Veileder har annullert tiltaket {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
                             {avtale.annullertGrunn}.
-                        </Normaltekst>
+                        </BodyShort>
                     }
                 />
             );
@@ -34,7 +34,9 @@ const MentorAvtaleStatus: FunctionComponent = () => {
                 <StatusPanel
                     ikon={AvbruttIkon}
                     header="Tiltaket er avbrutt"
-                    body={<Normaltekst>Veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.</Normaltekst>}
+                    body={
+                        <BodyShort size="small">Veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.</BodyShort>
+                    }
                 />
             );
         case 'PÅBEGYNT':
@@ -43,10 +45,10 @@ const MentorAvtaleStatus: FunctionComponent = () => {
                     ikon={PabegyntIkon}
                     header="Utfylling av avtale påbegynt"
                     body={
-                        <Normaltekst>
+                        <BodyShort size="small">
                             Innholdet i avtalen fylles ut av arbeidsgiveren og veilederen. Hvis du er uenig i innholdet
                             eller har spørsmål til avtalen, må du kontakte NAV.
-                        </Normaltekst>
+                        </BodyShort>
                     }
                 />
             );
@@ -57,7 +59,10 @@ const MentorAvtaleStatus: FunctionComponent = () => {
                     header="Vent til de andre har godkjent"
                     body={
                         <>
-                            <Normaltekst>Du har signert taushetserklæring. Venter nå på godkjenning fra deltaker, arbeidsgiver og NAV.</Normaltekst>
+                            <BodyShort size="small">
+                                Du har signert taushetserklæring. Venter nå på godkjenning fra deltaker, arbeidsgiver og
+                                NAV.
+                            </BodyShort>
                             <VerticalSpacer rem={2} />
                             <GodkjenningStatus avtale={avtale} />
                         </>

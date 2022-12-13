@@ -1,8 +1,7 @@
 import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
 import { pathTilInformasjonssideInnloggetNy } from '@/paths';
 import BEMHelper from '@/utils/bem';
-import { LinkPanel } from '@navikt/ds-react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { LinkPanel, BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import './LesMerOmLøsningen.less';
 
@@ -14,7 +13,7 @@ const LesMerOmLøsningen: FunctionComponent = () => (
             <LinkPanel.Title>
                 <div style={{ display: 'flex' }}>
                     <Info width="24" height="24" />
-                    <Normaltekst>Les mer om løsningen</Normaltekst>
+                    <BodyShort size="small">Les mer om løsningen</BodyShort>
                 </div>
             </LinkPanel.Title>
         </LinkPanel>

@@ -5,9 +5,8 @@ import { hentVarsellogg } from '@/services/rest-service';
 import { Nettressurs, Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { Alert, Link, Loader, Modal } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, Link, Loader, Modal } from '@navikt/ds-react';
 import moment from 'moment';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './Varsellogg.less';
 import VarselTabell from './VarselTabell';
@@ -54,9 +53,9 @@ const Varsellogg: FunctionComponent = () => {
                 aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
                 <Modal.Content>
-                    <Systemtittel role="heading" id="heading" aria-level={1}>
+                    <Heading size="medium" role="heading" id="heading" aria-level={1}>
                         Hendelselogg
-                    </Systemtittel>
+                    </Heading>
                     <VerticalSpacer rem={1} />
                     {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
                         <>
@@ -73,7 +72,7 @@ const Varsellogg: FunctionComponent = () => {
                         <Loader variant="neutral" size="xlarge" className={cls.element('spinner')} onResize={undefined} onResizeCapture={undefined} />
                     )}
                     {varsler.status === Status.Feil && (
-                        <Normaltekst>Klarte ikke hente hendelselogg. Prøv igjen senere.</Normaltekst>
+                        <BodyShort size="small">Klarte ikke hente hendelselogg. Prøv igjen senere.</BodyShort>
                     )}
                 </Modal.Content>
             </Modal>

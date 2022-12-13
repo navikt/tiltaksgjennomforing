@@ -3,13 +3,11 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { Alert } from '@navikt/ds-react';
+import { Alert, BodyShort } from '@navikt/ds-react';
 import { Knapp } from 'nav-frontend-knapper';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { useContext, useState } from 'react';
 import './KontaktpersonRefusjoninfoDel.less';
-
 
 const KontaktpersonRefusjoninfoDel = () => {
     const cls = BEMHelper('kontaktpersonRefusjoninfo');
@@ -57,7 +55,9 @@ const KontaktpersonRefusjoninfoDel = () => {
                 </div>
                 <SkjemaGruppe title="Kontaktperson for refusjon">
                     <div style={{ marginBottom: '1rem' }}>
-                        <Normaltekst>For eksempel en regnskapsfører som skal motta varslinger om refusjon</Normaltekst>
+                        <BodyShort size="small">
+                            For eksempel en regnskapsfører som skal motta varslinger om refusjon
+                        </BodyShort>
                     </div>
                     {!visEkstraKontaktpersonFelt &&
                         (avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length ===

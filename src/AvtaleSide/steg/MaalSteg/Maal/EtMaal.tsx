@@ -7,7 +7,7 @@ import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
     ledigeMålkategorier: Maalkategori[];
 };
 
-const EtMaal: FunctionComponent<Props> = props => {
+const EtMaal: FunctionComponent<Props> = (props) => {
     const [endrerMaal, setEndrerMaal] = useState(false);
 
     const [beskrivelse, setBeskrivelse] = useState<string>(props.maal.beskrivelse);
@@ -42,12 +42,12 @@ const EtMaal: FunctionComponent<Props> = props => {
             {endrerMaal ? (
                 <>
                     <Select
-                        onChange={e => setKategori(e.currentTarget.value as Maalkategori)}
+                        onChange={(e) => setKategori(e.currentTarget.value as Maalkategori)}
                         label="Hva er målet med arbeidstreningen?"
                         value={kategori}
                     >
                         <option value={kategori}>{messages[kategori]}</option>
-                        {sorteMaalkategorier.map(kat => (
+                        {sorteMaalkategorier.map((kat) => (
                             <option key={kat} value={kat}>
                                 {messages[kat]}
                             </option>
@@ -58,7 +58,7 @@ const EtMaal: FunctionComponent<Props> = props => {
                         label="Beskriv målet"
                         maxLengde={1000}
                         verdi={beskrivelse}
-                        settVerdi={verdi => setBeskrivelse(verdi)}
+                        settVerdi={(verdi) => setBeskrivelse(verdi)}
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
@@ -76,11 +76,11 @@ const EtMaal: FunctionComponent<Props> = props => {
                 </>
             ) : (
                 <div>
-                    <Undertittel>{messages[props.maal.kategori]}</Undertittel>
+                    <Heading size="small">{messages[props.maal.kategori]}</Heading>
                     <VerticalSpacer rem={1} />
-                    <Normaltekst>Beskrivelse av mål</Normaltekst>
+                    <BodyShort size="small">Beskrivelse av mål</BodyShort>
                     <VerticalSpacer rem={1} />
-                    <Normaltekst>{props.maal.beskrivelse}</Normaltekst>
+                    <BodyShort size="small">{props.maal.beskrivelse}</BodyShort>
                     <VerticalSpacer rem={1} />
                     <div style={{ borderTop: '1px solid #C6C2BF' }} />
                     <VerticalSpacer rem={1} />

@@ -7,9 +7,8 @@ import { Avtale } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { LinkPanel } from '@navikt/ds-react';
+import { LinkPanel, Heading, Ingress, BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
-import { Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './AvtalekortMobil.less';
@@ -43,7 +42,10 @@ const AvtalekortMobil: FunctionComponent<{
                                     setVisTaushetserklæringForAvtaleId(avtale.id);
                                     e.preventDefault();
                                 } else {
-                                    history.push({pathname: pathTilAvtaleNy(avtale.id), search: window.location.search})
+                                    history.push({
+                                        pathname: pathTilAvtaleNy(avtale.id),
+                                        search: window.location.search,
+                                    });
                                 }
                             }}
                         >
@@ -53,23 +55,23 @@ const AvtalekortMobil: FunctionComponent<{
                                         <span aria-hidden={!ulestVarsel} className={cls.element('ulest-varsel-ikon')} />
                                     )}
                                     <div>
-                                        <Undertittel>
+                                        <Heading size="small">
                                             {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
                                             {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
-                                        </Undertittel>
+                                        </Heading>
                                         <VerticalSpacer rem={0.5} />
                                         <Ingress>{avtale.gjeldendeInnhold.bedriftNavn}</Ingress>
                                         <VerticalSpacer rem={0.5} />
-                                        <Normaltekst>
+                                        <BodyShort size="small">
                                             Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
-                                        </Normaltekst>
+                                        </BodyShort>
                                         <div className={cls.element('status')}>
                                             <StatusIkon status={avtale.statusSomEnum} />
-                                            <Normaltekst>
+                                            <BodyShort size="small">
                                                 <div className={cls.element('statustekst')}>
                                                     {avtaleStatusTekst[avtale.statusSomEnum]}
                                                 </div>
-                                            </Normaltekst>
+                                            </BodyShort>
                                         </div>
                                     </div>
                                 </div>

@@ -15,7 +15,7 @@ const HvaSierRegelverket: FunctionComponent<Props> = ({ tiltakstype, href }) => 
     return (
         <IkonTekstRad
             svgIkon={<Law width="2.25rem" height="2.25rem" />}
-            headerTekst={{ tekst: 'Hva sier regelverket?', typografiType: 'undertittel' }}
+            headerTekst={{ tekst: 'Hva sier regelverket?', headingType: 'small' }}
         >
             <div className={cls.element('kravomrefusjonlinker')}>
                 {tiltakstype === 'MENTOR' && (

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Label, BodyShort } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { tilskuddsperiodeAvslagTekst } from '@/messages';
@@ -31,13 +31,13 @@ const TilskuddsperiodeVisAvslag: FunctionComponent = () => {
                 oversiktTekst="Send avslag til veileder"
                 modalInnhold={
                     <>
-                        <Normaltekst className={cls.element('avslagtext-subingress')}>
+                        <BodyShort size="small" className={cls.element('avslagtext-subingress')}>
                             Veileder vil få en varsling i avtaleløsningen med årsak til retur og forklaring.
-                        </Normaltekst>
+                        </BodyShort>
                         <div className={cls.element('avslag-boks')}>
                             <div className={cls.element('avslag-input')}>
                                 <div>
-                                    <Element>Årsak til avslag</Element>
+                                    <Label>Årsak til avslag</Label>
                                     <VerticalSpacer rem={1} />
                                     <SkjemaGruppe>
                                         {Object.entries(tilskuddsperiodeAvslagTekst).map(([kode, tekst]) => {

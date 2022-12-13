@@ -10,12 +10,11 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { sjekkOmAvtaleErPilot } from '@/services/rest-service';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
-import { Alert } from '@navikt/ds-react';
+import { Alert, BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
 import 'moment/locale/nb';
 import { Datepicker } from 'nav-datovelger';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 import InfoBoks from './InfoBoks/InfoBoks';
@@ -64,7 +63,7 @@ const VarighetSteg: FunctionComponent = () => {
                 <Row className="">
                     <Column md="12">
                         <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
-                        <Normaltekst>
+                        <BodyShort size="small">
                             {['SOMMERJOBB'].includes(avtaleContext.avtale.tiltakstype) ? (
                                 <>
                                     Tiltaket må ha oppstart i perioden 1/6 - 31/8. Fyll ut startdato og forventet
@@ -88,7 +87,7 @@ const VarighetSteg: FunctionComponent = () => {
                                     tiltaksgjennomføringen.
                                 </>
                             )}
-                        </Normaltekst>
+                        </BodyShort>
                         <VerticalSpacer rem={2} />
                     </Column>
                 </Row>

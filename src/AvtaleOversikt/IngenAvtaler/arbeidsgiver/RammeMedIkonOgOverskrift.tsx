@@ -1,6 +1,6 @@
 import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Heading } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -19,10 +19,10 @@ const RammeMedIkonOgOverskrift: FunctionComponent<Props> = props => {
                 borderRadius: '4px',
             }}
         >
-            <Systemtittel style={{ display: 'flex', alignItems: 'center' }}>
+            <Heading size="medium" style={{ display: 'flex', alignItems: 'center' }}>
                 <InfoIkon width="24px" style={{ marginRight: '0.8rem' }} />
                 {props.overskrift}
-            </Systemtittel>
+            </Heading>
             <VerticalSpacer rem={2} />
             {props.children}
         </div>

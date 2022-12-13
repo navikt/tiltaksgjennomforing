@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { formatterPeriode } from '@/utils/datoUtils';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
+import { Label } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import InfoRadBesluttervisning from '@/BeslutterSide/beslutterPanel/InfoRadBesluttervisning';
 import TilskuddsperiodeEndreKostnadssted from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeEndreKostnadssted';
-import { Element } from 'nav-frontend-typografi';
 import { AvtaleContext } from '@/AvtaleProvider';
 
 const InfoVisningTilskuddsperiode: FunctionComponent = () => {
@@ -44,7 +44,7 @@ const InfoVisningTilskuddsperiode: FunctionComponent = () => {
                         info={<HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />}
                     />
                     <div className={cls.element('infovisning-rad')}>
-                        <Element>Endre kostnadssted</Element>
+                        <Label>Endre kostnadssted</Label>
                         <TilskuddsperiodeEndreKostnadssted />
                     </div>
                 </div>

@@ -8,18 +8,17 @@ import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { visSatsMedEttDesimal, visTalletEller0 } from '@/utils/lonnstilskuddUtregningUtils';
 import classNames from 'classnames';
-import { Accordion } from '@navikt/ds-react';
+import { Accordion, Label } from '@navikt/ds-react';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import React, { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
 import './VisUtregningenPanel.less';
-import { Element } from 'nav-frontend-typografi';
 
 const cls = BEMHelper('visUtregningenPanel');
 
 const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     return (
-        <Accordion className='accordion'>
+        <Accordion className="accordion">
             <Accordion.Item defaultOpen>
                 <Accordion.Header>Utregningen</Accordion.Header>
                 <Accordion.Content>
@@ -142,11 +141,11 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                         </Row>
                         <Row className={classNames(cls.element('rad'), cls.element('rad__oppsummering'))}>
                             <Column md="9" sm="9" xs="6" className={cls.element('tittel')}>
-                                <Element> Sum tilskudd per måned:</Element>
+                                <Label> Sum tilskudd per måned:</Label>
                             </Column>
 
                             <Column md="3" sm="3" xs="6" className={cls.element('column__siste')}>
-                                <Element>Inntil {props.sumLonnstilskudd} kr</Element>
+                                <Label>Inntil {props.sumLonnstilskudd} kr</Label>
                             </Column>
                         </Row>
                     </Container>

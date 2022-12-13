@@ -2,7 +2,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import '../instruks.less';
 import OppfLgingOgVarighet from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/OppfølgingOgVarighet';
@@ -32,11 +32,11 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
     };
     return (
         <>
-            {!erLaast && <Normaltekst>Når du godkjenner avtalen godtar du kravene fra NAV</Normaltekst>}
+            {!erLaast && <BodyShort size="small">Når du godkjenner avtalen godtar du kravene fra NAV</BodyShort>}
             <VeilederpanelMedUtklippstavle>
                 <div className={cls.element('container')}>
                     <div className={cls.element('subheader')}>
-                        <Element>Som arbeidsgiver må du</Element>
+                        <Label>Som arbeidsgiver må du</Label>
                     </div>
                     <VerticalSpacer rem={2} />
                     <OppfLgingOgVarighet tiltakstype={tiltakstype} eksternLenke={oppfolgingLenker[props.tiltakstype]} />

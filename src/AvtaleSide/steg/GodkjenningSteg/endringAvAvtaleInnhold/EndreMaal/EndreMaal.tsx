@@ -1,3 +1,4 @@
+import React, { FunctionComponent, useContext, useState } from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -7,13 +8,10 @@ import { Maalkategori } from '@/types/maalkategorier';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
 import KnappBase from 'nav-frontend-knapper';
-import { Link } from '@navikt/ds-react';
-import { Modal } from '@navikt/ds-react';
-import { Systemtittel } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import EtMaal from '../../../MaalSteg/MaalNy/EtMaal';
-import { useMål } from '../../../MaalSteg/MaalNy/maalUtils';
-import OpprettMaal from '../../../MaalSteg/MaalNy/OpprettMaal';
+import { Heading, Link, Modal } from '@navikt/ds-react';
+import EtMaal from '../../../MaalSteg/Maal/EtMaal';
+import { useMål } from '../../../MaalSteg/Maal/maalUtils';
+import OpprettMaal from '../../../MaalSteg/Maal/OpprettMaal';
 
 const EndreMaal: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
@@ -102,7 +100,9 @@ const EndreMaal: FunctionComponent = () => {
                             <div className={cls.element('knappRad')} />
                             <div className={cls.element('innhold')}>
                                 <div className={cls.element('tittel')}>
-                                    <Systemtittel id={'Endre mål'}>{'Endre mål'}</Systemtittel>
+                                    <Heading size="medium" id={'Endre mål'}>
+                                        {'Endre mål'}
+                                    </Heading>
                                 </div>
                                 <div className={cls.element('varselTekst')}>{endreMaalInnnhold}</div>
                             </div>

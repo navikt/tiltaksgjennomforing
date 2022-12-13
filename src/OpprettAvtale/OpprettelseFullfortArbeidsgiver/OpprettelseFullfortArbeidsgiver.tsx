@@ -1,13 +1,13 @@
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import Banner from '@/komponenter/Banner/Banner';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import LenkeKnapp from '@/komponenter/LenkeKnapp';
-import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
-import { pathTilKontaktinformasjonSteg } from '@/paths';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
 import './OpprettelseFullfortArbeidsgiver.less';
+import Banner from '@/komponenter/Banner/Banner';
+import LenkeKnapp from '@/komponenter/LenkeKnapp';
+import { RouteComponentProps } from 'react-router';
+import { BodyShort, Heading } from '@navikt/ds-react';
+import { pathTilKontaktinformasjonSteg } from '@/paths';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
 const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentProps<{ avtaleId: string }>> = (props) => {
     const avtaleId = props.match.params.avtaleId;
@@ -18,13 +18,13 @@ const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentPro
 
             <div className="opprettelseFullfortArbeidsgiver">
                 <VeilederpanelMedAvsjekkIkon>
-                    <Systemtittel className="opprettelseFullfortArbeidsgiver__innholdstittel">
+                    <Heading size="medium" className="opprettelseFullfortArbeidsgiver__innholdstittel">
                         Avtalen er opprettet
-                    </Systemtittel>
-                    <Normaltekst className="opprettelseFullfortArbeidsgiver__undertittel">
+                    </Heading>
+                    <BodyShort size="small" className="opprettelseFullfortArbeidsgiver__undertittel">
                         Avtalen er nå opprettet og du kan begynne å fylle den ut. Avtalen er nå også tilgjengelig for
                         veilederne på NAV-kontoret til deltakeren.
-                    </Normaltekst>
+                    </BodyShort>
                 </VeilederpanelMedAvsjekkIkon>
                 <VerticalSpacer rem={2} />
                 <LenkeKnapp path={pathTilKontaktinformasjonSteg(avtaleId)}>Gå til avtalen</LenkeKnapp>

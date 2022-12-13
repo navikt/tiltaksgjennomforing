@@ -1,6 +1,5 @@
-import { Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import { Tag } from '@navikt/ds-react';
+import { BodyShort, Tag } from '@navikt/ds-react';
 const SjekkOmVerdiEksisterer: FunctionComponent<{
     verdi?: string;
     formatertVerdi?: JSX.Element | string;
@@ -10,9 +9,9 @@ const SjekkOmVerdiEksisterer: FunctionComponent<{
 }> = (props) => {
     if (props.verdi) {
         return (
-            <Normaltekst aria-label={props.ariaLabel}>
+            <BodyShort size="small" aria-label={props.ariaLabel}>
                 {props.label} {props.formatertVerdi ? props.formatertVerdi : props.verdi}
-            </Normaltekst>
+            </BodyShort>
         );
     }
     return (

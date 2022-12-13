@@ -1,6 +1,5 @@
 import { storForbokstav } from '@/utils/stringUtils';
-import { Link } from '@navikt/ds-react';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
@@ -17,7 +16,7 @@ export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = (props) =
     if (props.felt === 'telefon') {
         return (
             <>
-                <Normaltekst key={props.key}>
+                <BodyShort size="small" key={props.key}>
                     <Link
                         key={props.key}
                         href={'tel:' + props.verdi}
@@ -25,15 +24,15 @@ export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = (props) =
                     >
                         {storForbokstav(props.felt)} : {props.verdi}
                     </Link>
-                </Normaltekst>
+                </BodyShort>
             </>
         );
     } else {
         return (
             <>
-                <Normaltekst key={props.key}>
+                <BodyShort size="small" key={props.key}>
                     {storForbokstav(props.felt)} : {props.verdi}
-                </Normaltekst>
+                </BodyShort>
             </>
         );
     }

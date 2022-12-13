@@ -9,10 +9,9 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
 import { Datepicker } from 'nav-datovelger';
-import { Link } from '@navikt/ds-react';
+import { BodyShort, Label, Link } from '@navikt/ds-react';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import BEMHelper from '@/utils/bem';
 import './forkortAvtale.less';
 
@@ -53,8 +52,8 @@ const ForkortAvtale: FunctionComponent = () => {
     const forkorteTekst = (
         <div className={cls.className}>
             <div className={cls.element('navarende-sluttdato')}>
-                <Element>Nåværende sluttdato for avtalen</Element>
-                <Normaltekst>{avtaleContext.avtale.gjeldendeInnhold.sluttDato}</Normaltekst>
+                <Label>Nåværende sluttdato for avtalen</Label>
+                <BodyShort size="small">{avtaleContext.avtale.gjeldendeInnhold.sluttDato}</BodyShort>
             </div>
             <SkjemaGruppe feil={datoFeil} title="Velg ny sluttdato for avtalen">
                 <Datepicker

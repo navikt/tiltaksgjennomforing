@@ -1,12 +1,10 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Link } from '@navikt/ds-react';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading, Link } from '@navikt/ds-react';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { RouteComponentProps } from 'react-router';
 import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import { pathTilKontaktinformasjonSteg, pathTilOversiktISelvbetjeningProd } from '@/paths';
-
 
 import './OpprettelseFullfortVeileder.less';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
@@ -20,23 +18,25 @@ const OpprettelseFullfortVeileder: React.FunctionComponent<RouteComponentProps<{
 
     const inputLabel = (
         <>
-            <Normaltekst className="opprettelseFullfortVeileder__undertittel">
+            <BodyShort size="small" className="opprettelseFullfortVeileder__undertittel">
                 For at arbeidsgiver skal kunne fylle ut og godkjenne avtalen må du kopiere og sende dem lenken under.
-            </Normaltekst>
-            <Normaltekst className="opprettelseFullfortVeileder__undertittel">
+            </BodyShort>
+            <BodyShort size="small" className="opprettelseFullfortVeileder__undertittel">
                 Når du har fylt ut telefonnummeret til alle i avtalen, så kan du sende den på SMS via "del lenke til
                 avtalen" i menyen.
-            </Normaltekst>
-            <Normaltekst className="opprettelseFullfortVeileder__undertittel">
+            </BodyShort>
+            <BodyShort size="small" className="opprettelseFullfortVeileder__undertittel">
                 Hvis det er ønskelig å sende lenke til avtalen via andre kanaler, for eksempel aktivitetsplanen eller
                 e-post, er det adressen under som må benyttes.
-            </Normaltekst>
+            </BodyShort>
         </>
     );
 
     const veilederpanel = (
         <VeilederpanelMedAvsjekkIkon>
-            <Systemtittel className="opprettelseFullfortVeileder__innholdstittel">Avtalen er opprettet</Systemtittel>
+            <Heading size="medium" className="opprettelseFullfortVeileder__innholdstittel">
+                Avtalen er opprettet
+            </Heading>
             {inputLabel}
             <div className="opprettelseFullfortVeileder__lenkedeling">
                 <div className="opprettelseFullfortVeileder__lenke">

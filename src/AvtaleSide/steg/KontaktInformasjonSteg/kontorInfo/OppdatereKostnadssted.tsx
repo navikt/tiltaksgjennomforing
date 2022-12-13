@@ -3,7 +3,7 @@ import BEMHelper from '@/utils/bem';
 import './oppdatereKostnadssted.less';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { Knapp } from 'nav-frontend-knapper';
 import { oppdatereKostnadsstedet } from '@/services/rest-service';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -44,7 +44,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
 
     return avtale.gjeldendeTilskuddsperiode ? (
         <div className={cls.className}>
-            <Undertittel>Kostnadssted</Undertittel>
+            <Heading size="small">Kostnadssted</Heading>
             <SkjemaGruppe feil={Feilmeldinger[feilmelding as Feilkode]}>
                 <div className={cls.element('input-wrapper')}>
                     <Input
@@ -62,10 +62,10 @@ const OppdatereKostnadssted: FunctionComponent = () => {
                         Oppdater
                     </Knapp>
                 </div>
-                <Normaltekst className={cls.element('input-undertekst')}>
+                <BodyShort size="small" className={cls.element('input-undertekst')}>
                     <span>{visningEnhetsnavntekst}</span>
                     <span>{kostnadssted.enhetsnavn ?? 'Enhetsnavn ikke funnet'}</span>
-                </Normaltekst>
+                </BodyShort>
             </SkjemaGruppe>
         </div>
     ) : null;
