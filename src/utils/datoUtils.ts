@@ -54,3 +54,12 @@ export const visPeriodeForTiltak = (fra?: string, til?: string): string => {
     if (!fra && til) return 'startdato ikke satt - ' + formatterDato(til, 'DD.MM.YY');
     return 'ikke satt';
 };
+
+export const formatterDatoHvisDefinert = (dato?: string, format: string = NORSK_DATO_FORMAT) => {
+    if (!dato) return '';
+    const formattertDato = formatterDato(dato, format);    
+    if (formattertDato === 'Invalid date') {
+        return dato;
+    }
+    return formatterDato(dato, format);
+}

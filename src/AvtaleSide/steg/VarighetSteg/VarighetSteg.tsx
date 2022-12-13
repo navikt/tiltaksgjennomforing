@@ -1,9 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import DatovelgerUtrygg from '@/komponenter/DatovelgerUtrygg';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { sjekkOmAvtaleErPilot } from '@/services/rest-service';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
@@ -12,10 +14,9 @@ import { Alert } from '@navikt/ds-react';
 import moment from 'moment';
 import 'moment/locale/nb';
 import { Datepicker } from 'nav-datovelger';
-import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
@@ -111,6 +112,16 @@ const VarighetSteg: FunctionComponent = () => {
                         />
                     </Column>
                 </Row>
+                <Row className="">
+                    <VerticalSpacer rem={2} />
+                    <Column md="6">
+                        <DatovelgerUtrygg datoFelt="startDato" label="Startdato" />
+                    </Column>
+                    <Column md="6">
+                        <DatovelgerUtrygg datoFelt="sluttDato" label="Forventet sluttdato" />
+                    </Column>
+                </Row>
+                <VerticalSpacer rem={2} />
                 {sommerjobbDeltakerOver30VedStartdato && (
                     <>
                         <VerticalSpacer rem={1} />

@@ -1,8 +1,8 @@
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
-import classNames from 'classnames';
 import { Loader } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import classNames from 'classnames';
+import { FunctionComponent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
 import './AvtaleOversiktSkeleton.less';
@@ -39,7 +39,7 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
             </MediaQuery>
             <MediaQuery maxWidth={880}>
                 <div className="avtaleoversiktskeleton__spinner">
-                    <Loader variant="neutral" size="2xlarge" />
+                    <Loader variant="neutral" size="2xlarge" onResize={undefined} onResizeCapture={undefined} />
                 </div>
             </MediaQuery>
         </div>
