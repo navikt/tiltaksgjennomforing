@@ -7,18 +7,26 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { tilskuddsperiodeAvslagTekst } from '@/messages';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
-import { Avslagsårsaker } from '@/types/avtale';
+import { Avslagsårsaker, TilskuddsPeriode } from '@/types/avtale';
 
 const TilskuddsperioderAvslått: FunctionComponent = (props) => {
     const { avtale } = useContext(AvtaleContext);
     const gjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
-    const avslåttTilskuddsperiode = avtale.tilskuddPeriode.find(
-        (t) => t.status === 'AVSLÅTT' && avtale.gjeldendeTilskuddsperiode?.løpenummer
-    );
+    const avslåttTilskuddsperiode = avtale.tilskuddPeriode
+        .filter(p => p.status === 'AVSLÅTT')
+        .sort((a: TilskuddsPeriode, b: TilskuddsPeriode) => {
+            if(a.avslåttTidspunkt && b.avslåttTidspunkt) {
+                const aTime = new Date(a.avslåttTidspunkt).getMilliseconds()
+                const bTime = new Date(b.avslåttTidspunkt).getMilliseconds()
+                return (bTime - aTime);
+            }
+            return -1
+        })
+        .find(p => true)
+
     if (!avslåttTilskuddsperiode) {
         return null;
     }
-
     const avslåttBegrunnelse = (
         <>
             Tilskuddsperioden ble avslått av {avslåttTilskuddsperiode.avslåttAvNavIdent} den{' '}
