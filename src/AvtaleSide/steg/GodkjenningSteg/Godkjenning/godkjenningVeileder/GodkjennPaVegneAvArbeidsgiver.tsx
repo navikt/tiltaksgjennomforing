@@ -27,6 +27,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
     const [klarerIkkeGiFaTilgang, setKlarerIkkeGiFaTilgang] = useState(false);
     const [vetIkkeHvemSomKanGiTilgang, setVetIkkeHvemSomKanGiTilgang] = useState(false);
     const [farIkkeTilgangPersonvern, setFarIkkeTilgangPersonvern] = useState(false);
+    const [arenaMigreringArbeidsgiver, setArenaMigreringArbeidsgiver] = useState(false);
 
     const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<string | undefined>();
     const [feilArbeidsgiverInformert, setFeilArbeidsgiverInformert] = useState<string | undefined>();
@@ -50,6 +51,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
             farIkkeTilgangPersonvern,
             klarerIkkeGiFaTilgang,
             vetIkkeHvemSomKanGiTilgang,
+            arenaMigreringArbeidsgiver
         });
     };
 

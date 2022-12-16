@@ -42,6 +42,16 @@ const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = (prop
                     })
                 }
             />
+            <Checkbox
+                label="etterregistrering av tiltak fra Arena"
+                checked={props.godkjentPåVegneAvGrunner.arenaMigreringArbeidsgiver}
+                onChange={(event) =>
+                    props.setGodkjentPåVegneAvGrunner({
+                        ...props.godkjentPåVegneAvGrunner,
+                        arenaMigreringArbeidsgiver: event.currentTarget.checked,
+                    })
+                }
+            />
         </SkjemaGruppe>
     );
 };

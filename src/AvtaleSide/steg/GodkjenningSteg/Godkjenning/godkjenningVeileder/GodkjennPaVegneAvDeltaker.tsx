@@ -34,6 +34,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
         digitalKompetanse: false,
         reservert: false,
         ikkeBankId: false,
+        arenaMigreringDeltaker: false
     });
 
     const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<string>();
@@ -44,7 +45,8 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
         const valgtMinstEnGrunn =
             godkjentPåVegneAvGrunner.ikkeBankId ||
             godkjentPåVegneAvGrunner.reservert ||
-            godkjentPåVegneAvGrunner.digitalKompetanse;
+            godkjentPåVegneAvGrunner.digitalKompetanse ||
+            godkjentPåVegneAvGrunner.arenaMigreringDeltaker;
         if (!valgtMinstEnGrunn) {
             return setFeilmeldingGrunn('Oppgi minst én grunn for godkjenning på vegne av deltaker');
         } else {

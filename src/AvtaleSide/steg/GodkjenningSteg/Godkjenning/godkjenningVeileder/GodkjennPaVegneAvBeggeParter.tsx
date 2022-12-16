@@ -33,12 +33,14 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
             digitalKompetanse: false,
             reservert: false,
             ikkeBankId: false,
+            arenaMigreringDeltaker: false,
         });
     const [godkjentPåVegneAvGrunnerArbeidsgiver, setGodkjentPåVegneAvGrunnerArbeidsgiver] =
         useState<GodkjentPaVegneAvArbeidsgiverGrunner>({
             farIkkeTilgangPersonvern: false,
             klarerIkkeGiFaTilgang: false,
             vetIkkeHvemSomKanGiTilgang: false,
+            arenaMigreringArbeidsgiver: false,
         });
 
     const [feilmeldingGrunnDeltaker, setFeilmeldingGrunnDeltaker] = useState<string>();
@@ -51,7 +53,8 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
         const valgtMinstEnGrunnDeltaker =
             godkjentPåVegneAvGrunnerDeltaker.ikkeBankId ||
             godkjentPåVegneAvGrunnerDeltaker.reservert ||
-            godkjentPåVegneAvGrunnerDeltaker.digitalKompetanse;
+            godkjentPåVegneAvGrunnerDeltaker.digitalKompetanse ||
+            godkjentPåVegneAvGrunnerDeltaker.arenaMigreringDeltaker;
         if (!valgtMinstEnGrunnDeltaker) {
             return setFeilmeldingGrunnDeltaker('Oppgi minst én grunn for godkjenning på vegne av deltaker');
         } else {
@@ -60,7 +63,8 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
         const valgtMinstEnGrunnArbeidsgiver =
             godkjentPåVegneAvGrunnerArbeidsgiver.klarerIkkeGiFaTilgang ||
             godkjentPåVegneAvGrunnerArbeidsgiver.vetIkkeHvemSomKanGiTilgang ||
-            godkjentPåVegneAvGrunnerArbeidsgiver.farIkkeTilgangPersonvern;
+            godkjentPåVegneAvGrunnerArbeidsgiver.farIkkeTilgangPersonvern ||
+            godkjentPåVegneAvGrunnerArbeidsgiver.arenaMigreringArbeidsgiver;
         if (!valgtMinstEnGrunnArbeidsgiver) {
             return setFeilmeldingGrunnArbeidsgiver('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
         } else {
