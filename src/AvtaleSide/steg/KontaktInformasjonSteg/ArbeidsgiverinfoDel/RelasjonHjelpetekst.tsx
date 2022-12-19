@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from 'react';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 import BEMHelper from '@/utils/bem';
 
 const RelasjonHjelpetekst: FunctionComponent = () => {
@@ -16,8 +18,11 @@ const RelasjonHjelpetekst: FunctionComponent = () => {
             at det er en nær relasjon og utdype tilknytningen. NAV vil deretter vurdere om det foreligger særlige grunner for likevel å innvilge tiltaket.
             <VerticalSpacer rem={0.5} />
             For at noen skal bli definert som tiltaksdeltakerens «egne familiemedlemmer eller andre nærstående»
-            forutsettes det at denne personen har bestemmende innflytelse over virksomheten, jf
-            aksjeloven <a href="https://lovdata.no/nav/lov/1997-06-13-44/kapII/%C2%A71-5">§ 1-5</a>.
+            forutsettes det at denne personen har bestemmende innflytelse over virksomheten, jf aksjeloven
+            <HorizontalSpacer rem={0.3} />
+            <EksternLenke href="https://lovdata.no/nav/lov/1997-06-13-44/kapII/%C2%A71-5">
+                § 1-5
+            </EksternLenke>.
             <VerticalSpacer rem={0.5} />
             Den som fyller ut skjemaet og den meldingen gjelder er:
             {
