@@ -16,7 +16,6 @@ const setup = (app) => {
     }
 
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
-        console.log('Labs og localhost-proxy /tiltaksgjennomforing/api');
         if(req.headers.cookie) {
             let cookies = req.headers.cookie.split(';');
             let cookieWithFakeToken = cookies.filter((c) => {
