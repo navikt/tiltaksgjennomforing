@@ -84,6 +84,11 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
                                 checked={farIkkeTilgangPersonvern}
                                 onChange={(event) => setFarIkkeTilgangPersonvern(event.currentTarget.checked)}
                             />
+                            <Checkbox
+                                label="etterregistrering av tiltak fra Arena"
+                                checked={arenaMigreringArbeidsgiver}
+                                onChange={(event) => setArenaMigreringArbeidsgiver(event.currentTarget.checked)}
+                            />
                         </SkjemaGruppe>
                     </div>
                     <SkjemaGruppe feil={feilArbeidsgiverInformert}>
