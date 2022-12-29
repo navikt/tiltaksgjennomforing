@@ -78,7 +78,8 @@ export type Feilkode =
     | 'KAN_IKKE_ENDRE_INKLUDERINGSTILSKUDD_TOM_LISTE'
     | 'MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING'
     | 'DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER'
-    | 'AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON';
+    | 'AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON'
+    | 'MANGLER_BEREGNING';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -169,5 +170,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_ENDRE_INKLUDERINGSTILSKUDD_TOM_LISTE: 'Du må ha minst ett tilskudd',
     MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING: 'Veileder må godkjenne avtalen etter deltaker, mentor og arbeidsgiver.',
     DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER: 'Deltager og mentor kan ikke ha det samme fødselsnummeret',
-    AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON: 'Avtalen inneholder tilskuddsperiode(er) med godkjente refusjon(er). Avtalen kan derfor ikke annulleres.'
+    AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON: 'Avtalen inneholder tilskuddsperiode(er) med godkjente refusjon(er). Avtalen kan derfor ikke annulleres.',
+    MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt'
 };
