@@ -6,12 +6,11 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Datepicker } from 'nav-datovelger';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { Input } from 'nav-frontend-skjema';
 import { BodyShort, Heading, Ingress, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { AvtaleMinMaxDato } from '../VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
+import DatovelgerUtrygg from '@/komponenter/DatovelgerUtrygg';
 import EnTilskuddsutgift from './EnTilskuddsutgift';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
 import './inkluderingstilskuddSteg.less';
@@ -62,27 +61,13 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
                 <Row className="">
                     <Column md="6">
-                        <label className="skjemaelement__label">Startdato</label>
-                        <Datepicker
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtale.gjeldendeInnhold.startDato || undefined}
-                            limitations={AvtaleMinMaxDato(true)}
-                            onChange={(dato) => settAvtaleInnholdVerdier({ startDato: dato })}
-                        />
+                        <DatovelgerUtrygg datoFelt="startDato" label="Startdato" />
                     </Column>
                     <Column md="6">
-                        <label className="skjemaelement__label">Forventet sluttdato</label>
-                        <Datepicker
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtale.gjeldendeInnhold.sluttDato || undefined}
-                            limitations={AvtaleMinMaxDato(false)}
-                            onChange={(dato) => settAvtaleInnholdVerdier({ sluttDato: dato })}
-                        />
+                        <DatovelgerUtrygg datoFelt="sluttDato" label="Forventet sluttdato" />
                     </Column>
                 </Row>
-
                 <VerticalSpacer rem={2} />
-
                 <PakrevdTextarea
                     label="Hvorfor er det behov for inkluderingstilskudd?"
                     verdi={avtale.gjeldendeInnhold.inkluderingstilskuddBegrunnelse}
@@ -90,13 +75,10 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                     maxLengde={1000}
                     feilmelding="Beskrivelse av behovet for inkluderingstilskudd er påkrevd"
                 />
-
                 <VerticalSpacer rem={2} />
                 <Tilskuddsbeskrivelse åpen={true} />
                 <VerticalSpacer rem={2} />
-
                 <VerticalSpacer rem={2} />
-
                 <OpprettEnTilskuddsutgift
                     leggTilTilskuddsutgift={nyUtgift}
                     ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyper}
@@ -105,9 +87,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                     tilskuddsutgift={avtale.gjeldendeInnhold.inkluderingstilskuddsutgift}
                     totalBeløp={avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp}
                 />
-
                 <VerticalSpacer rem={2} />
-
                 <TilskuddsutgiftTabell redigerbar={true}>
                     {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
                         <EnTilskuddsutgift

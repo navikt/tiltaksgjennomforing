@@ -8,6 +8,7 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
 import { Datepicker } from 'nav-datovelger';
+import DatovelgerUtrygg from '@/komponenter/DatovelgerUtrygg';
 import { BodyShort, Label, Link } from '@navikt/ds-react';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
@@ -53,6 +54,7 @@ const ForlengAvtale: FunctionComponent = () => {
             </div>
             <SkjemaGruppe feil={feil}>
                 <label className="skjemaelement__label">Velg ny sluttdato for avtalen</label>
+
                 <Datepicker
                     inputProps={{ placeholder: 'dd.mm.åååå' }}
                     value={sluttDato}
@@ -63,6 +65,9 @@ const ForlengAvtale: FunctionComponent = () => {
                     }}
                     onChange={(dato) => onDatoChange(dato)}
                 />
+                <VerticalSpacer rem={1} />
+
+                <DatovelgerUtrygg datoFelt="startDato" label="Velg ny sluttdato for avtalen"/>
             </SkjemaGruppe>
             <VerticalSpacer rem={2} />
             <SlikVilTilskuddsperioderSeUt

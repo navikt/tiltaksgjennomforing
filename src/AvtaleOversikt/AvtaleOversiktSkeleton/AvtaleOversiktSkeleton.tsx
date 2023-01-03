@@ -39,7 +39,7 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
             </MediaQuery>
             <MediaQuery maxWidth={880}>
                 <div className="avtaleoversiktskeleton__spinner">
-                    <Loader variant="neutral" size="2xlarge" onResize={undefined} onResizeCapture={undefined} />
+                    <Loader variant="neutral" size="2xlarge" />
                 </div>
             </MediaQuery>
         </div>

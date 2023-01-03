@@ -13,10 +13,8 @@ import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/ut
 import { Alert, BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
 import 'moment/locale/nb';
-import { Datepicker } from 'nav-datovelger';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
 
@@ -89,26 +87,6 @@ const VarighetSteg: FunctionComponent = () => {
                             )}
                         </BodyShort>
                         <VerticalSpacer rem={2} />
-                    </Column>
-                </Row>
-                <Row className="">
-                    <Column md="6">
-                        <label className="skjemaelement__label">Startdato</label>
-                        <Datepicker
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
-                            limitations={AvtaleMinMaxDato(true)}
-                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ startDato: dato })}
-                        />
-                    </Column>
-                    <Column md="6">
-                        <label className="skjemaelement__label">Forventet sluttdato</label>
-                        <Datepicker
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
-                            limitations={AvtaleMinMaxDato(false)}
-                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato })}
-                        />
                     </Column>
                 </Row>
                 <Row className="">

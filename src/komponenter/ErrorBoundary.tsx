@@ -21,7 +21,7 @@ const ErrorBoundary: FunctionComponent = (props: PropsWithChildren<{}>) => {
             <Suspense
                 fallback={
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                        <Loader variant="neutral" size="xlarge" onResize={undefined} onResizeCapture={undefined} />
+                        <Loader variant="neutral" size="xlarge" />
                     </div>
                 }
             >

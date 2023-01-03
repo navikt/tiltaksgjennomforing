@@ -69,7 +69,7 @@ const Varsellogg: FunctionComponent = () => {
                         <VarselTabell varsler={varsler.data} />
                     )}
                     {varsler.status === Status.LasterInn && (
-                        <Loader variant="neutral" size="xlarge" className={cls.element('spinner')} onResize={undefined} onResizeCapture={undefined} />
+                        <Loader variant="neutral" size="xlarge" className={cls.element('spinner')} />
                     )}
                     {varsler.status === Status.Feil && (
                         <BodyShort size="small">Klarte ikke hente hendelselogg. Prøv igjen senere.</BodyShort>
