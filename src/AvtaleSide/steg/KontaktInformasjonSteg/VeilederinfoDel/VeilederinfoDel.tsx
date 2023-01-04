@@ -29,7 +29,7 @@ const VeilederinfoDel = () => {
                 <VerticalSpacer rem={1} />
                 <div className={cls.element('rad')}>
                     <TelefonnummerInput
-                        label="Telefonnummer"
+                        label="Mobilnummer"
                         verdi={avtaleContext.avtale.gjeldendeInnhold.veilederTlf}
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('veilederTlf', verdi)}
                     />

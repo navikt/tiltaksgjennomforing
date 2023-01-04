@@ -10,11 +10,11 @@ const cls = BEMHelper('filtrering');
 const BeslutterFiltrering: FunctionComponent = () => {
     return (
         <div className={cls.className}>
+            <EtterRegistrering />
             <Sortering />
             <BedriftFilter />
             <TilskuddPeriodeStatusFilter />
             <TiltakstypeFilter erBeslutter={true} />
-            <EtterRegistrering />
         </div>
     );
 };

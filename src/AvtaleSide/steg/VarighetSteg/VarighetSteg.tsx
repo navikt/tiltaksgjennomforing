@@ -57,7 +57,7 @@ const VarighetSteg: FunctionComponent = () => {
         }
     }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato, avtaleContext.avtale]);
     return (
-        <Innholdsboks utfyller="arbeidsgiver">
+        <Innholdsboks utfyller="veileder_og_arbeidsgiver">
             <Container fluid={true}>
                 <Row className="">
                     <Column md="12">
@@ -87,10 +87,26 @@ const VarighetSteg: FunctionComponent = () => {
                                 </>
                             )}
                         </BodyShort>
-                        <VerticalSpacer rem={2} />
+                        <VerticalSpacer rem={1} />
                     </Column>
                 </Row>
+                {innloggetBruker.erNavAnsatt && (
+                    <Row>
+                        <Column md="12">
+                            <VerticalSpacer rem={0.5} />
+                            <Alert variant="info">
+                                <BodyShort size="small">
+                                    Hvis startdato er tidligere enn 7 dager tilbake i tid, må du først be beslutter om å
+                                    åpne opp for etterregistrering før du kan velge startdato i avtalen. Send med
+                                    avtalenummeret til beslutter.
+                                </BodyShort>
+                            </Alert>
+                            <VerticalSpacer rem={0.5} />
+                        </Column>
+                    </Row>
+                )}
                 <Row className="">
+                    <VerticalSpacer rem={1} />
                     <Column md="6">
                         <label className="skjemaelement__label">Startdato</label>
                         <Datepicker

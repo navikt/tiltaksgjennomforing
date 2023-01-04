@@ -34,7 +34,7 @@ const DeltakerinfoDel: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
                 <div className={cls.element('rad')}>
                     <TelefonnummerInput
-                        label="Telefonnummer"
+                        label="Mobilnummer"
                         verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerTlf}
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerTlf', verdi)}
                     />
