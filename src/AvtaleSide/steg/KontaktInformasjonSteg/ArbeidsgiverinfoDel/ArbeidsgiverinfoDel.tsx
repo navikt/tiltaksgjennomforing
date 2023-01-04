@@ -42,7 +42,7 @@ const ArbeidsgiverinfoDel = () => {
 
                     <div className={cls.element('rad')}>
                         <TelefonnummerInput
-                            label="Telefonnummer"
+                            label="Mobilnummer"
                             verdi={avtale.gjeldendeInnhold.arbeidsgiverTlf}
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
                         />

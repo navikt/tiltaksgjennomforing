@@ -114,7 +114,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                             </div>
                             <div className={cls.element('rad')}>
                                 <TelefonnummerInput
-                                    label="Kontaktperson for refusjon sitt telefonnummer"
+                                    label="Kontaktperson for refusjon sitt mobilnummer"
                                     verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf}
                                     settVerdi={(verdi) =>
                                         settAvtaleInnholdVerdi('refusjonKontaktperson', {
