@@ -20,7 +20,7 @@ import {
     MentorInnhold,
     Stilling,
     TiltaksType,
-    Varighet,
+    Varighet
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -148,9 +148,10 @@ export const lagreAvtaleDryRun = async (avtale: Avtale): Promise<Avtale> => {
 export const opprettAvtaleSomVeileder = async (
     deltakerFnr: string,
     bedriftNr: string,
-    tiltakstype: TiltaksType
+    tiltakstype: TiltaksType,
+    pilotType?: 'PILOT' | 'ARENARYDDING'
 ): Promise<Avtale> => {
-    return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype);
+    return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype, pilotType);
 };
 
 export const opprettAvtaleSomArbeidsgiver = async (
@@ -183,15 +184,27 @@ const opprettAvtalen = async (
     url: string,
     deltakerFnr: string,
     bedriftNr: string,
-    tiltakstype: TiltaksType
+    tiltakstype: TiltaksType,
+    pilotType?: 'PILOT' | 'ARENARYDDING'
 ): Promise<Avtale> => {
-    const postResponse = await api.post(`${url}`, {
+    const pilotParam = {pilotType};
+    const queryParam = new URLSearchParams(removeEmpty(pilotParam));
+    const postResponse = await api.post(`${url}?${queryParam}`, {
         deltakerFnr,
         bedriftNr,
-        tiltakstype,
+        tiltakstype
     });
     const getResponse = await api.get<Avtale>(`${postResponse.headers.location}`);
     return getResponse.data;
+};
+
+export const sjekkOmVilBliPilot = async (
+    deltakerFnr: string,
+    bedriftNr: string,
+    tiltakstype: TiltaksType
+): Promise<boolean> => {
+    const response = await api.post<boolean>(`/avtaler/sjekk-om-vil-bli-pilot`, { deltakerFnr, bedriftNr, tiltakstype });
+    return response.data;
 };
 
 export const mentorGodkjennTaushetserklæring = async (avtale: Avtale): Promise<Avtale> => {
