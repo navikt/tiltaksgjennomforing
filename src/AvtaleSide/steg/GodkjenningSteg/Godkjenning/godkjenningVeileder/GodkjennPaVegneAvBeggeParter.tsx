@@ -99,6 +99,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
                     <div className={cls.element('checkbox-wrapper')}>
                         <Label>Deltaker</Label>
                         <GodkjennPåVegneAvDeltakerCheckboxer
+                            tiltakstype={avtale.tiltakstype}
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunnerDeltaker}
                             setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunnerDeltaker}
                             feilmeldingGrunn={feilmeldingGrunnDeltaker}
@@ -107,6 +108,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
                         />
                         <Label className={cls.element('checkbox-sub-title')}>Arbeidsgiver</Label>
                         <GodkjennPåVegneAvArbeidsgiverCheckboxer
+                            tiltakstype={avtale.tiltakstype}
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunnerArbeidsgiver}
                             setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunnerArbeidsgiver}
                             feilmeldingGrunn={feilmeldingGrunnArbeidsgiver}
