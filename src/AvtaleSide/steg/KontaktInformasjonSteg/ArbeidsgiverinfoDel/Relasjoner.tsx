@@ -60,7 +60,7 @@ const Relasjoner: FunctionComponent = () => {
                         className={cls.element('familietilknytning-valg')}
                         id="familevalg"
                     >
-                        {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
+                        {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.tiltakstype !== 'VARIG_LONNSTILSKUDD' && avtale.tiltakstype !== 'MIDLERTIDIG_LONNSTILSKUDD' ? (
                             <div>
                                 {harFamilietilknytningSomJaNeiSvar(avtale.gjeldendeInnhold.harFamilietilknytning)}
                             </div>
@@ -91,7 +91,7 @@ const Relasjoner: FunctionComponent = () => {
                     {avtale.gjeldendeInnhold.harFamilietilknytning && (
                         <>
                             <VerticalSpacer rem={1} />
-                            {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
+                            {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' && avtale.tiltakstype !== 'VARIG_LONNSTILSKUDD' && avtale.tiltakstype !== 'MIDLERTIDIG_LONNSTILSKUDD' ? (
                                 <>
                                     <Label>Vennligst utdyp denne relasjonen</Label>
                                     <BodyShort size="small">

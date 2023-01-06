@@ -278,11 +278,13 @@ export interface GodkjentPaVegneAvDeltakerGrunner {
     ikkeBankId: boolean;
     reservert: boolean;
     digitalKompetanse: boolean;
+    arenaMigreringDeltaker: boolean;
 }
 export interface GodkjentPaVegneAvArbeidsgiverGrunner {
     klarerIkkeGiFaTilgang: boolean;
     vetIkkeHvemSomKanGiTilgang: boolean;
     farIkkeTilgangPersonvern: boolean;
+    arenaMigreringArbeidsgiver: boolean;
 }
 
 export interface GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner {

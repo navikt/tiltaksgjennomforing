@@ -24,6 +24,7 @@ const initialState: GodkjentPaVegneAvDeltakerGrunner = {
     ikkeBankId: false,
     reservert: false,
     digitalKompetanse: false,
+    arenaMigreringDeltaker: false,
 };
 
 const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {

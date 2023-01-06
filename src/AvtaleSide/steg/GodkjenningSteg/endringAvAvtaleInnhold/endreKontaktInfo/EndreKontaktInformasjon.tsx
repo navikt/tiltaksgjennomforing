@@ -80,7 +80,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
                     />
                     <TelefonnummerInput
-                        label="Telefonnummer "
+                        label="Mobilnummer "
                         verdi={kontaktInfo.deltakerTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
                     />
@@ -100,7 +100,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
                     />
                     <TelefonnummerInput
-                        label="Telefonnummer "
+                        label="Mobilnummer"
                         verdi={kontaktInfo.veilederTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
                     />
@@ -120,7 +120,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
                     />
                     <TelefonnummerInput
-                        label="Telefonnummer"
+                        label="Mobilnummer"
                         verdi={kontaktInfo.arbeidsgiverTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
                     />
@@ -151,7 +151,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                             }
                         />
                         <TelefonnummerInput
-                            label="Telefonnummer"
+                            label="Mobilnummer"
                             verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
                             settVerdi={(verdi) =>
                                 settNyKontaktInformasjon('refusjonKontaktperson', {

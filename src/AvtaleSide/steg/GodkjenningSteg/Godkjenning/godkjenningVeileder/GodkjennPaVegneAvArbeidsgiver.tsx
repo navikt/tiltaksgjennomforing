@@ -27,6 +27,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
     const [klarerIkkeGiFaTilgang, setKlarerIkkeGiFaTilgang] = useState(false);
     const [vetIkkeHvemSomKanGiTilgang, setVetIkkeHvemSomKanGiTilgang] = useState(false);
     const [farIkkeTilgangPersonvern, setFarIkkeTilgangPersonvern] = useState(false);
+    const [arenaMigreringArbeidsgiver, setArenaMigreringArbeidsgiver] = useState(false);
 
     const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<string | undefined>();
     const [feilArbeidsgiverInformert, setFeilArbeidsgiverInformert] = useState<string | undefined>();
@@ -50,6 +51,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
             farIkkeTilgangPersonvern,
             klarerIkkeGiFaTilgang,
             vetIkkeHvemSomKanGiTilgang,
+            arenaMigreringArbeidsgiver
         });
     };
 
@@ -81,6 +83,11 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
                                 label="får ikke tilgang på grunn av personvern"
                                 checked={farIkkeTilgangPersonvern}
                                 onChange={(event) => setFarIkkeTilgangPersonvern(event.currentTarget.checked)}
+                            />
+                            <Checkbox
+                                label="etterregistrering av tiltak fra Arena"
+                                checked={arenaMigreringArbeidsgiver}
+                                onChange={(event) => setArenaMigreringArbeidsgiver(event.currentTarget.checked)}
                             />
                         </SkjemaGruppe>
                     </div>

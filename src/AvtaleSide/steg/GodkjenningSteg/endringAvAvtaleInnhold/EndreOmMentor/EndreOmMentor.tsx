@@ -74,7 +74,7 @@ const EndreOmMentor: FunctionComponent = () => {
                 <Row className={'rad'}>
                     <Column md="6">
                         <TelefonnummerInput
-                            label="Telefonnummer"
+                            label="Mobilnummer"
                             verdi={mentorInfo.mentorTlf}
                             settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}
                         />

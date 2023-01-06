@@ -56,7 +56,7 @@ const OmMentorSteg = () => {
                 <Row className={'rad'}>
                     <Column md="6">
                         <TelefonnummerInput
-                            label="Telefonnummer"
+                            label="Mobilnummer"
                             verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTlf}
                             settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorTlf', verdi)}
                         />
