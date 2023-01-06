@@ -51,7 +51,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
             farIkkeTilgangPersonvern,
             klarerIkkeGiFaTilgang,
             vetIkkeHvemSomKanGiTilgang,
-            arenaMigreringArbeidsgiver
+            arenaMigreringArbeidsgiver,
         });
     };
 
@@ -69,26 +69,35 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
                 <>
                     <div className={cls.element('checkbox-wrapper')}>
                         <SkjemaGruppe feil={feilmeldingGrunn}>
-                            <Checkbox
-                                label="klarer ikke få eller gi tilgang"
-                                checked={klarerIkkeGiFaTilgang}
-                                onChange={(event) => setKlarerIkkeGiFaTilgang(event.currentTarget.checked)}
-                            />
-                            <Checkbox
-                                label="vet ikke hvem som kan gi tilgang"
-                                checked={vetIkkeHvemSomKanGiTilgang}
-                                onChange={(event) => setVetIkkeHvemSomKanGiTilgang(event.currentTarget.checked)}
-                            />
-                            <Checkbox
-                                label="får ikke tilgang på grunn av personvern"
-                                checked={farIkkeTilgangPersonvern}
-                                onChange={(event) => setFarIkkeTilgangPersonvern(event.currentTarget.checked)}
-                            />
-                            <Checkbox
-                                label="etterregistrering av tiltak fra Arena"
-                                checked={arenaMigreringArbeidsgiver}
-                                onChange={(event) => setArenaMigreringArbeidsgiver(event.currentTarget.checked)}
-                            />
+                            {avtale.tiltakstype === 'SOMMERJOBB' && (
+                                <>
+                                    <Checkbox
+                                        label="klarer ikke få eller gi tilgang"
+                                        checked={klarerIkkeGiFaTilgang}
+                                        onChange={(event) => setKlarerIkkeGiFaTilgang(event.currentTarget.checked)}
+                                    />
+                                    <Checkbox
+                                        label="vet ikke hvem som kan gi tilgang"
+                                        checked={vetIkkeHvemSomKanGiTilgang}
+                                        onChange={(event) => setVetIkkeHvemSomKanGiTilgang(event.currentTarget.checked)}
+                                    />
+                                    <Checkbox
+                                        label="får ikke tilgang på grunn av personvern"
+                                        checked={farIkkeTilgangPersonvern}
+                                        onChange={(event) => setFarIkkeTilgangPersonvern(event.currentTarget.checked)}
+                                    />
+                                </>
+                            )}
+                            {(avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+                                avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
+                                <>
+                                    <Checkbox
+                                        label="etterregistrering av tiltak fra Arena"
+                                        checked={arenaMigreringArbeidsgiver}
+                                        onChange={(event) => setArenaMigreringArbeidsgiver(event.currentTarget.checked)}
+                                    />
+                                </>
+                            )}
                         </SkjemaGruppe>
                     </div>
                     <SkjemaGruppe feil={feilArbeidsgiverInformert}>
