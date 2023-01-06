@@ -34,7 +34,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
         digitalKompetanse: false,
         reservert: false,
         ikkeBankId: false,
-        arenaMigreringDeltaker: false
+        arenaMigreringDeltaker: false,
     });
 
     const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<string>();
@@ -74,6 +74,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
                 <React.Fragment>
                     <div className={cls.element('checkbox-wrapper')}>
                         <GodkjennPåVegneAvDeltakerCheckboxer
+                            tiltakstype={avtale.tiltakstype}
                             godkjentPåVegneAvGrunner={godkjentPåVegneAvGrunner}
                             setGodkjentPåVegneAvGrunner={setGodkjentPåVegneAvGrunner}
                             feilmeldingGrunn={feilmeldingGrunn}

@@ -8,6 +8,7 @@ interface Props {
     feilmeldingGrunn: string | undefined;
     setFeilmeldingGrunn: Dispatch<SetStateAction<string | undefined>>;
     className?: string;
+    tiltakstype: string;
 }
 
 const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) => {
@@ -43,16 +44,21 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) =
                     })
                 }
             />
-            <Checkbox
-                label="etterregistrering av tiltak fra Arena"
-                checked={props.godkjentPåVegneAvGrunner.arenaMigreringDeltaker}
-                onChange={(event) =>
-                    props.setGodkjentPåVegneAvGrunner({
-                        ...props.godkjentPåVegneAvGrunner,
-                        arenaMigreringDeltaker: event.currentTarget.checked,
-                    })
-                }
-            />
+
+            {(props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
+                <>
+                    <Checkbox
+                        label="etterregistrering av tiltak fra Arena"
+                        checked={props.godkjentPåVegneAvGrunner.arenaMigreringDeltaker}
+                        onChange={(event) =>
+                            props.setGodkjentPåVegneAvGrunner({
+                                ...props.godkjentPåVegneAvGrunner,
+                                arenaMigreringDeltaker: event.currentTarget.checked,
+                            })
+                        }
+                    />
+                </>
+            )}
         </SkjemaGruppe>
     );
 };
