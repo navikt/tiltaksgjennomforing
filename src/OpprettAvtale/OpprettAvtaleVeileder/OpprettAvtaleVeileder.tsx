@@ -24,7 +24,7 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
+import { Alert, Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtale.less';
@@ -220,9 +220,21 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 <div>
                     <VerticalSpacer rem={1} />
                     <Innholdsboks>
-                        <RadioGroup legend="Skal avtalen være en pilotavtale eller har den fantes i Arena fra før?" onChange={(val) => setValgtPilotEllerArenaAvtale(val)}>
+                        <Alert variant="info">
+                            <Heading spacing size="small" level="3">
+                                Avtalen kvalifiserer til pilot
+                            </Heading>
+                            Dette vil si en at det vil bli holdt av penger og opprettet refusjoner i ny
+                            refusjonsløsning. Hvis denne avtalen er en avtale som tidligere har eksistert i Arena, må du
+                            velge Arenarydding, slik at det ikke blir laget nye tilsagn på allerde utbetalte midler.
+                        </Alert>
+                        <VerticalSpacer rem={1} />
+                        <RadioGroup
+                            legend="Skal avtalen være en pilotavtale eller skal den ryddes og overføres fra Arena?"
+                            onChange={(val) => setValgtPilotEllerArenaAvtale(val)}
+                        >
                             <Radio value="PILOT">Pilotavtale</Radio>
-                            <Radio value="ARENARYDDING">Arena rydding</Radio>
+                            <Radio value="ARENARYDDING">Arenarydding</Radio>
                         </RadioGroup>
                     </Innholdsboks>
                 </div>
