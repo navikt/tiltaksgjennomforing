@@ -1,13 +1,21 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
+import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
+import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
+import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
 import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
     opprettMentorAvtale,
     sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
+    sjekkOmVilBliPilot
 } from '@/services/rest-service';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -16,16 +24,11 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Heading } from '@navikt/ds-react';
-import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Alert, Heading, Radio, RadioGroup } from '@navikt/ds-react';
+import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
-import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
-import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
-import './opprettAvtaleVeileder.less';
 import './OpprettAvtale.less';
-import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
-import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import './opprettAvtaleVeileder.less';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -46,6 +49,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
+    const [kvalifisererTilPilot, setKvalifisererTilPilot] = useState(false);
+    const [valgtPilotEllerArenaAvtale, setValgtPilotEllerArenaAvtale] = useState();
 
     const history = useHistory();
 
@@ -133,7 +138,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 }
                 return;
             }
-            const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
+            const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType, valgtPilotEllerArenaAvtale);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
             return;
@@ -162,11 +167,21 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         }
     };
 
+    const sjekkOmVilBliPilotAvtale = async () => {
+        if (deltakerFnr.length === 11 && bedriftNr.length === 9 && valgtTiltaksType) {
+            const vilBliPilot = await sjekkOmVilBliPilot(deltakerFnr, bedriftNr, valgtTiltaksType);
+            setKvalifisererTilPilot(vilBliPilot);
+        }
+    }
+
     useEffect(() => {
         sjekkOmAvtaleErOpprettet();
+        sjekkOmVilBliPilotAvtale();
         // eslint-disable-next-line
     }, [valgtTiltaksType, deltakerFnr, bedriftNr]);
 
+    const kvalifisererTilPilotMenIkkeValgtType = kvalifisererTilPilot && valgtPilotEllerArenaAvtale === undefined;
+    
     return (
         <div className={cls.className}>
             <Dokumenttittel tittel="Opprett avtale" />
@@ -201,8 +216,32 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale}
                 setModalIsOpen={setModalIsOpen}
             />
+            {kvalifisererTilPilot && (
+                <div>
+                    <VerticalSpacer rem={1} />
+                    <Innholdsboks>
+                        <Alert variant="info">
+                            <Heading spacing size="small" level="3">
+                                Avtalen kvalifiserer til pilot
+                            </Heading>
+                            Dette vil si en at det vil bli holdt av penger og opprettet refusjoner i ny
+                            refusjonsløsning. Hvis denne avtalen er en avtale som tidligere har eksistert i Arena, må du
+                            velge Arenarydding, slik at det ikke blir laget nye tilsagn på allerde utbetalte midler.
+                        </Alert>
+                        <VerticalSpacer rem={1} />
+                        <RadioGroup
+                            legend="Skal avtalen være en pilotavtale eller skal den ryddes og overføres fra Arena?"
+                            onChange={(val) => setValgtPilotEllerArenaAvtale(val)}
+                        >
+                            <Radio value="PILOT">Pilotavtale</Radio>
+                            <Radio value="ARENARYDDING">Arenarydding</Radio>
+                        </RadioGroup>
+                    </Innholdsboks>
+                </div>
+            )}
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
+                    disabled={kvalifisererTilPilotMenIkkeValgtType}
                     lagre={opprettAvtaleKlikk}
                     setFeilmelding={setFeilmelding}
                     label={'Opprett avtale'}
