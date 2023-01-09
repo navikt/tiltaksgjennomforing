@@ -12,4 +12,5 @@ export interface Varsel {
     bjelle: boolean;
     mottaker: Rolle;
     utførtAv: Rolle;
+    utførtAvIdentifikator: string;
 }

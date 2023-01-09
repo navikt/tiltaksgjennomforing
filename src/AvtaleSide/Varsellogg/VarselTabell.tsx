@@ -4,8 +4,8 @@ import { formatterDato } from '@/utils/datoUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { Table } from '@navikt/ds-react';
 import moment from 'moment';
-import React, { FunctionComponent, useState } from 'react';
 import { Checkbox } from 'nav-frontend-skjema';
+import { FunctionComponent, useState } from 'react';
 
 type Props = {
     varsler: Varsel[];
@@ -93,7 +93,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                     {varsel.hendelseType === 'TILSKUDDSPERIODE_GODKJENT' || 
                                     varsel.hendelseType === 'GODKJENT_FOR_ETTERREGISTRERING' ? (
                                         <UtgråetTekst grå={varsel.skjules}>
-                                            {storForbokstav(varsel.identifikator)}
+                                            {storForbokstav(varsel.utførtAvIdentifikator !== null ? varsel.utførtAvIdentifikator : varsel.utførtAv)}
                                         </UtgråetTekst>
                                     ) : (
                                         <UtgråetTekst grå={varsel.skjules}>
