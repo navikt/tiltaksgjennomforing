@@ -90,10 +90,17 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                     </div>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell" aria-labelledby="utført_av">
-                                    {varsel.hendelseType === 'TILSKUDDSPERIODE_GODKJENT' || 
-                                    varsel.hendelseType === 'GODKJENT_FOR_ETTERREGISTRERING' ? (
+                                    {[
+                                        'TILSKUDDSPERIODE_GODKJENT',
+                                        'TILSKUDDSPERIODE_AVSLATT',
+                                        'GODKJENT_FOR_ETTERREGISTRERING',
+                                    ].includes(varsel.hendelseType) ? (
                                         <UtgråetTekst grå={varsel.skjules}>
-                                            {storForbokstav(varsel.utførtAvIdentifikator !== null ? varsel.utførtAvIdentifikator : varsel.utførtAv)}
+                                            {storForbokstav(
+                                                varsel.utførtAvIdentifikator !== null
+                                                    ? varsel.utførtAvIdentifikator
+                                                    : varsel.utførtAv
+                                            )}
                                         </UtgråetTekst>
                                     ) : (
                                         <UtgråetTekst grå={varsel.skjules}>
