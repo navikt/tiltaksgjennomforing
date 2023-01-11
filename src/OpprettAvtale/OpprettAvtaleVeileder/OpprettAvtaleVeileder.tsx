@@ -14,8 +14,8 @@ import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
     opprettMentorAvtale,
-    sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
-    sjekkOmVilBliPilot
+    sjekkOmDeltakerAlleredeErRegistrertPaaTiltak
+    
 } from '@/services/rest-service';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -26,6 +26,7 @@ import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Alert, Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Checkbox } from 'nav-frontend-skjema';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
@@ -49,8 +50,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
-    const [kvalifisererTilPilot, setKvalifisererTilPilot] = useState(false);
-    const [valgtPilotEllerArenaAvtale, setValgtPilotEllerArenaAvtale] = useState();
+    const [valgtRyddeAvtale, setValgtRyddeAvtale] = useState<boolean>();
 
     const history = useHistory();
 
@@ -138,7 +138,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 }
                 return;
             }
-            const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType, valgtPilotEllerArenaAvtale);
+            const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType, valgtRyddeAvtale);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
             return;
@@ -167,20 +167,10 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         }
     };
 
-    const sjekkOmVilBliPilotAvtale = async () => {
-        if (deltakerFnr.length === 11 && bedriftNr.length === 9 && valgtTiltaksType) {
-            const vilBliPilot = await sjekkOmVilBliPilot(deltakerFnr, bedriftNr, valgtTiltaksType);
-            setKvalifisererTilPilot(vilBliPilot);
-        }
-    }
-
     useEffect(() => {
         sjekkOmAvtaleErOpprettet();
-        sjekkOmVilBliPilotAvtale();
         // eslint-disable-next-line
     }, [valgtTiltaksType, deltakerFnr, bedriftNr]);
-
-    const kvalifisererTilPilotMenIkkeValgtType = kvalifisererTilPilot && valgtPilotEllerArenaAvtale === undefined;
     
     return (
         <div className={cls.className}>
@@ -216,32 +206,30 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale}
                 setModalIsOpen={setModalIsOpen}
             />
-            {kvalifisererTilPilot && (
+            {(valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD' || valgtTiltaksType === 'VARIG_LONNSTILSKUDD') && (
                 <div>
                     <VerticalSpacer rem={1} />
                     <Innholdsboks>
                         <Alert variant="info">
                             <Heading spacing size="small" level="3">
-                                Avtalen kvalifiserer til pilot
+                                Migrering av avtaler fra Arena
                             </Heading>
-                            Dette vil si en at det vil bli holdt av penger og opprettet refusjoner i ny
-                            refusjonsløsning. Hvis denne avtalen er en avtale som tidligere har eksistert i Arena, må du
-                            velge Arenarydding, slik at det ikke blir laget nye tilsagn på allerde utbetalte midler.
+                            Det er fortsatt mulighet for å opprette en avtale fra Areana som ikke finnes i avtaleløsningen.
+                            Huk av for at det er en avtale som skulle vært overført fra Arena sånn at tilskuddsperioder blir merket at de allerede
+                            er behandlet i Arena.
                         </Alert>
                         <VerticalSpacer rem={1} />
-                        <RadioGroup
-                            legend="Skal avtalen være en pilotavtale eller skal den ryddes og overføres fra Arena?"
-                            onChange={(val) => setValgtPilotEllerArenaAvtale(val)}
-                        >
-                            <Radio value="PILOT">Pilotavtale</Radio>
-                            <Radio value="ARENARYDDING">Arenarydding</Radio>
-                        </RadioGroup>
+                        <Checkbox
+                            label="Avtalen skal overføres fra Arena"
+                            checked={valgtRyddeAvtale}
+                            onChange={e => setValgtRyddeAvtale(e.target.checked)}
+                        />
                     </Innholdsboks>
                 </div>
             )}
+            
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
-                    disabled={kvalifisererTilPilotMenIkkeValgtType}
                     lagre={opprettAvtaleKlikk}
                     setFeilmelding={setFeilmelding}
                     label={'Opprett avtale'}

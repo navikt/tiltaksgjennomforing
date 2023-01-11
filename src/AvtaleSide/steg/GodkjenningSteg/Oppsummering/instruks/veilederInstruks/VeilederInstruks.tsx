@@ -19,16 +19,16 @@ const navnPåTiltakstype: { [key in TiltaksType]: string } = {
     SOMMERJOBB: 'Sommerjobb',
 };
 
-const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType; erPilot: boolean }> = (
-    props: PropsWithChildren<{ tiltakstype: TiltaksType; erPilot: boolean }>
+const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = (
+    props: PropsWithChildren<{ tiltakstype: TiltaksType }>
 ) => (
     <VeilederpanelMedUtklippstavle>
         <div className={cls.element('subheader')}>
             <Label>Hva skjer videre:</Label>
         </div>
         <SommerjobbVeilederTekst tiltakstype={props.tiltakstype} />
-        <GenerelVeilederTekst tiltakstype={navnPåTiltakstype[props.tiltakstype]} erPilot={props.erPilot} />
-        <PilotVeilederTekst erPilot={props.erPilot} />
+        <GenerelVeilederTekst tiltakstype={navnPåTiltakstype[props.tiltakstype]} />
+        <PilotVeilederTekst />
     </VeilederpanelMedUtklippstavle>
 );
 

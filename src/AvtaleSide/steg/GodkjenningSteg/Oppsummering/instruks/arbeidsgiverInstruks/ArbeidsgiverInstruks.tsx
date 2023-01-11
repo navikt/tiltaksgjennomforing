@@ -18,10 +18,9 @@ const cls = BEMHelper('instruks');
 interface Props {
     erLaast: boolean;
     tiltakstype: TiltaksType;
-    erPilot: boolean;
 }
 const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
-    const { erLaast, tiltakstype, erPilot } = props;
+    const { erLaast, tiltakstype } = props;
     const oppfolgingLenker: { [key in TiltaksType]: string } = {
         MIDLERTIDIG_LONNSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_9',
         VARIG_LONNSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_10',
@@ -44,7 +43,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                     <YrkesskadeforsikringOgSkadeerstatning tiltakstype={tiltakstype} />
                     <FolketrygdlovenEgenmeldingOgSykmelding tiltakstype={tiltakstype} />
                     <BehandlingAvPersonopplysninger />
-                    <TilskuddsperiodeOgRefusjon erPilot={erPilot} tiltakstype={tiltakstype} />
+                    <TilskuddsperiodeOgRefusjon tiltakstype={tiltakstype} />
                     <Refusjon tiltakstype={tiltakstype} />
                     <HvaSierRegelverket tiltakstype={tiltakstype} href={oppfolgingLenker[props.tiltakstype]} />
                 </div>
