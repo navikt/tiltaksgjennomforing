@@ -20,8 +20,8 @@ const formaterTid = (tidspunkt: string) => {
     }
 };
 
-const UtgråetTekst: FunctionComponent<{ grå: boolean }> = ({ children, grå }) => (
-    <span style={{ color: grå ? 'grey' : undefined }}>{children}</span>
+const UtgråetTekst: FunctionComponent<{ grå: boolean, title?: string }> = ({ children, grå, title }) => (
+    <span title={title} style={{ color: grå ? 'grey' : undefined }}>{children}</span>
 );
 
 const VarselTabell: FunctionComponent<Props> = (props) => {
@@ -79,7 +79,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                         .map((varsel) => (
                             <Table.Row key={varsel.id} role="row">
                                 <Table.DataCell role="cell" aria-labelledby="tidspunkt">
-                                    <UtgråetTekst grå={varsel.skjules}>{formaterTid(varsel.tidspunkt)}</UtgråetTekst>
+                                    <UtgråetTekst title={formatterDato(varsel.tidspunkt)} grå={varsel.skjules}>{formaterTid(varsel.tidspunkt)}</UtgråetTekst>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell">
                                     <div style={{ display: 'flex' }} aria-labelledby="varsel">
