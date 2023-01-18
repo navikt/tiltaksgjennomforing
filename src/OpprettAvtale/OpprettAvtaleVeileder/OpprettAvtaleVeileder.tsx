@@ -214,8 +214,8 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             <Heading spacing size="small" level="3">
                                 Migrering av avtaler fra Arena
                             </Heading>
-                            Det er fortsatt mulighet for å opprette en avtale fra Areana som ikke finnes i avtaleløsningen.
-                            Huk av for at det er en avtale som skulle vært overført fra Arena sånn at tilskuddsperioder blir merket at de allerede
+                            Det er fortsatt mulighet for å opprette en avtale fra Arena som ikke finnes i avtaleløsningen.
+                            Huk av for at det er en avtale som skulle vært overført fra Arena sånn at tilskuddsperioder før første februar 2023 blir merket at de allerede
                             er behandlet i Arena.
                         </Alert>
                         <VerticalSpacer rem={1} />
