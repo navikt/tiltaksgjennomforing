@@ -34,7 +34,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
     const [arbeidsgiverInformert, setArbeidsgiverInformert] = useState(false);
 
     const godkjenn = (): void | Promise<void> => {
-        const valgtMinstEnGrunn = klarerIkkeGiFaTilgang || vetIkkeHvemSomKanGiTilgang || farIkkeTilgangPersonvern;
+        const valgtMinstEnGrunn = klarerIkkeGiFaTilgang || vetIkkeHvemSomKanGiTilgang || farIkkeTilgangPersonvern || arenaMigreringArbeidsgiver
         if (!valgtMinstEnGrunn) {
             return setFeilmeldingGrunn('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
         } else {
