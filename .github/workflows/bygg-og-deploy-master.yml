@@ -111,3 +111,4 @@ jobs:
           RESOURCE: nais/labs-gcp.yaml
           PRINT_PAYLOAD: true
           VARS: nais/labs-gcp.json
+          DEPLOY_SERVER: deploy.nais.io:443
