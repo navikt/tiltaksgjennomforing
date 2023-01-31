@@ -20,7 +20,7 @@ import {
     MentorInnhold,
     Stilling,
     TiltaksType,
-    Varighet
+    Varighet,
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -192,7 +192,7 @@ const opprettAvtalen = async (
     const postResponse = await api.post(`${url}?${queryParam}`, {
         deltakerFnr,
         bedriftNr,
-        tiltakstype
+        tiltakstype,
     });
     const getResponse = await api.get<Avtale>(`${postResponse.headers.location}`);
     return getResponse.data;
@@ -448,6 +448,13 @@ export const oppdateretilskuddsBeregningDryRun = async (
             },
         }
     );
+    return response.data;
+};
+
+export const oppdaterOppfølgingsEnhet = async (avtale: Avtale): Promise<Avtale> => {
+    const uri = `/avtaler/${avtale.id}/oppdaterOppfølgingsEnhet`;
+    const response = await api.post(uri);
+    console.log('backenbd res: ', response);
     return response.data;
 };
 
