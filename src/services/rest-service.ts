@@ -20,7 +20,7 @@ import {
     MentorInnhold,
     Stilling,
     TiltaksType,
-    Varighet
+    Varighet,
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -187,12 +187,12 @@ const opprettAvtalen = async (
     tiltakstype: TiltaksType,
     pilotType?: 'PILOT' | 'ARENARYDDING'
 ): Promise<Avtale> => {
-    const pilotParam = {pilotType};
+    const pilotParam = { pilotType };
     const queryParam = new URLSearchParams(removeEmpty(pilotParam));
     const postResponse = await api.post(`${url}?${queryParam}`, {
         deltakerFnr,
         bedriftNr,
-        tiltakstype
+        tiltakstype,
     });
     const getResponse = await api.get<Avtale>(`${postResponse.headers.location}`);
     return getResponse.data;
@@ -203,7 +203,11 @@ export const sjekkOmVilBliPilot = async (
     bedriftNr: string,
     tiltakstype: TiltaksType
 ): Promise<boolean> => {
-    const response = await api.post<boolean>(`/avtaler/sjekk-om-vil-bli-pilot`, { deltakerFnr, bedriftNr, tiltakstype });
+    const response = await api.post<boolean>(`/avtaler/sjekk-om-vil-bli-pilot`, {
+        deltakerFnr,
+        bedriftNr,
+        tiltakstype,
+    });
     return response.data;
 };
 
@@ -457,6 +461,13 @@ export const oppdateretilskuddsBeregningDryRun = async (
             },
         }
     );
+    return response.data;
+};
+
+export const oppdaterOppfølgingsEnhet = async (avtale: Avtale): Promise<Avtale> => {
+    const uri = `/avtaler/${avtale.id}/oppdaterOppfølgingsEnhet`;
+    const response = await api.post(uri);
+    console.log('backenbd res: ', response);
     return response.data;
 };
 
