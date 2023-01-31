@@ -1,11 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
-import { Accordion, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
-import React, { FunctionComponent, useContext } from 'react';
+import { Accordion, BodyShort, Heading, Label } from '@navikt/ds-react';
+import { FunctionComponent, useContext } from 'react';
 import './visningTilskuddsperioder.less';
 
 const VisningTilskuddsperioder: FunctionComponent = () => {
@@ -73,6 +74,7 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                             <div className={cls.element('tabell')}>
                                 <div className={cls.element('tabell-ingress')}>
                                     <Label>Tilskudd for periode</Label>
+                                    {innloggetBruker.erNavAnsatt && <Label>Status</Label>}
                                     <Label>Tilskuddsprosent</Label>
                                     <Label>Inntil</Label>
                                 </div>
@@ -104,6 +106,14 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                                             {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
                                                             {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
                                                         </BodyShort>
+                                                        {innloggetBruker.erNavAnsatt && (
+                                                            <BodyShort>
+                                                                <EtikettStatus
+                                                                    tilskuddsperiodestatus={periode.status}
+                                                                    size="small"
+                                                                />
+                                                            </BodyShort>
+                                                        )}
                                                         <BodyShort size="small">
                                                             {periode.lonnstilskuddProsent}%
                                                         </BodyShort>
