@@ -3,7 +3,7 @@ import React, { FunctionComponent, useState, useContext } from 'react';
 import './OppdaterOppfølgingsenhet.less';
 import BEMHelper from '@/utils/bem';
 import { AvtaleMetadata } from '@/types/avtale';
-import { BodyShort, Heading, Ingress, Link, Modal } from '@navikt/ds-react';
+import { BodyShort, Heading, Link, Modal } from '@navikt/ds-react';
 import { oppdaterOppfølgingsEnhet } from '@/services/rest-service';
 import KnappBase from 'nav-frontend-knapper';
 import { Notes } from '@navikt/ds-icons/cjs';
@@ -30,7 +30,7 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
                     </Heading>
                 }
             </div>
-            <div className={cls.element('textareafelt')}>
+            <div>
                 {enhetOppfolging === null ? (
                     <BodyShort size="small"> Finner ikke oppfølgningsenhet for denne avtalen.</BodyShort>
                 ) : (
