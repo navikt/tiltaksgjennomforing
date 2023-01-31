@@ -3,7 +3,7 @@ import React, { FunctionComponent, useState, useContext } from 'react';
 import './OppdaterOppfølgingsenhet.less';
 import BEMHelper from '@/utils/bem';
 import { AvtaleMetadata } from '@/types/avtale';
-import { BodyShort, Heading, Link, Modal } from '@navikt/ds-react';
+import { BodyShort, Heading, Link, Modal, Loader } from '@navikt/ds-react';
 import { oppdaterOppfølgingsEnhet } from '@/services/rest-service';
 import KnappBase from 'nav-frontend-knapper';
 import { Notes } from '@navikt/ds-icons/cjs';
@@ -15,10 +15,12 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const { enhetOppfolging, enhetsnavnOppfolging } = avtaleContext.avtale;
     const [modalApen, setModalApen] = useState(false);
-
+    const [laster, setLaster] = useState(false);
     const hentNyesteOppfølgingsEnhet = async (): Promise<void> => {
+        setLaster(true);
         const nyAvtale = await oppdaterOppfølgingsEnhet(avtaleContext.avtale);
         avtaleContext.oppdatereAvtaleContext(nyAvtale);
+        setLaster(false);
     };
 
     const oppdatereOppfølgingsenhetInnhold = (
@@ -31,19 +33,29 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
                 }
             </div>
             <div>
-                {enhetOppfolging === null ? (
-                    <BodyShort size="small"> Finner ikke oppfølgningsenhet for denne avtalen.</BodyShort>
-                ) : (
-                    <div>
-                        <p>Vi har nå hentet oppfølgengsenhet automatisk.</p>
-                        <p> Følgenede enhet har nå blitt lagret.</p>
-                        <BodyShort className={cls.element('enhetOppfølging')}>
-                            {enhetsnavnOppfolging} - {enhetOppfolging}
-                        </BodyShort>
+                {laster === true ? (
+                    <div style={{ margin: '0 auto 1rem auto', width: '64px' }}>
+                        <Loader size="2xlarge" title="Henter enhet..." />
                     </div>
+                ) : (
+                    <>
+                        {enhetOppfolging === null && laster === false ? (
+                            <BodyShort size="small"> Finner ikke oppfølgningsenhet for denne avtalen.</BodyShort>
+                        ) : (
+                            <div>
+                                <p>Vi har nå hentet oppfølgengsenhet automatisk.</p>
+                                <p> Følgenede enhet har nå blitt lagret.</p>
+                                <BodyShort className={cls.element('enhetOppfølging')}>
+                                    {enhetsnavnOppfolging} - {enhetOppfolging}
+                                </BodyShort>
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
-            <KnappBase className={cls.element('knapp')}  onClick={(event) => setModalApen(false)}>Lukk</KnappBase>
+            <KnappBase className={cls.element('knapp')} onClick={(event) => setModalApen(false)}>
+                Lukk
+            </KnappBase>
         </div>
     );
 
