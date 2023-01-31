@@ -24,7 +24,7 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Alert, Heading, Radio, RadioGroup } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Checkbox } from 'nav-frontend-skjema';
 import { useHistory } from 'react-router-dom';
