@@ -28,7 +28,7 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
             <div className={cls.element('tittel')}>
                 {
                     <Heading level="2" size="small">
-                        Oppdater Oppfølgingsenhet
+                        Oppdater oppfølgingsenhet
                     </Heading>
                 }
             </div>
@@ -74,7 +74,7 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
                 <div aria-hidden={true}>
                     <Notes style={{ marginRight: '0.5rem' }} />
                 </div>
-                Oppdatere Oppfølgingsenhet
+                Oppdater oppfølgingsenhet
             </Link>
             <Modal
                 open={modalApen}
