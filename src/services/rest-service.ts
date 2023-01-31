@@ -29,7 +29,6 @@ import { Variants } from '@/types/unleash-variant';
 import { Varsel } from '@/types/varsel';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { response } from 'express';
 import { mutate } from 'swr';
 
 export const API_URL = '/tiltaksgjennomforing/api';
@@ -468,7 +467,7 @@ export const oppdateretilskuddsBeregningDryRun = async (
 export const oppdaterOppfølgingsEnhet = async (avtale: Avtale): Promise<Avtale> => {
     const uri = `/avtaler/${avtale.id}/oppdaterOppfølgingsEnhet`;
     const response = await api.post(uri);
-    console.log("backenbd res: ",response)
+    console.log('backenbd res: ', response);
     return response.data;
 };
 
