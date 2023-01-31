@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { BodyShort } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 
-const PilotVeilederTekst: FunctionComponent<{ erPilot: boolean }> = ({ erPilot }: { erPilot: boolean }) => {
-    if (!erPilot) return null;
+const PilotVeilederTekst: FunctionComponent = () => {
+
     const cls = BEMHelper('instruks');
     return (
         <ul>

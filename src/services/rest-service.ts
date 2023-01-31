@@ -149,9 +149,9 @@ export const opprettAvtaleSomVeileder = async (
     deltakerFnr: string,
     bedriftNr: string,
     tiltakstype: TiltaksType,
-    pilotType?: 'PILOT' | 'ARENARYDDING'
+    ryddeavtale?: boolean
 ): Promise<Avtale> => {
-    return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype, pilotType);
+    return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype, ryddeavtale);
 };
 
 export const opprettAvtaleSomArbeidsgiver = async (
@@ -185,10 +185,10 @@ const opprettAvtalen = async (
     deltakerFnr: string,
     bedriftNr: string,
     tiltakstype: TiltaksType,
-    pilotType?: 'PILOT' | 'ARENARYDDING'
+    ryddeavtale?: boolean
 ): Promise<Avtale> => {
-    const pilotParam = { pilotType };
-    const queryParam = new URLSearchParams(removeEmpty(pilotParam));
+    const ryddeavtaleParam = {ryddeavtale};
+    const queryParam = new URLSearchParams(removeEmpty(ryddeavtaleParam));
     const postResponse = await api.post(`${url}?${queryParam}`, {
         deltakerFnr,
         bedriftNr,
@@ -196,19 +196,6 @@ const opprettAvtalen = async (
     });
     const getResponse = await api.get<Avtale>(`${postResponse.headers.location}`);
     return getResponse.data;
-};
-
-export const sjekkOmVilBliPilot = async (
-    deltakerFnr: string,
-    bedriftNr: string,
-    tiltakstype: TiltaksType
-): Promise<boolean> => {
-    const response = await api.post<boolean>(`/avtaler/sjekk-om-vil-bli-pilot`, {
-        deltakerFnr,
-        bedriftNr,
-        tiltakstype,
-    });
-    return response.data;
 };
 
 export const mentorGodkjennTaushetserklæring = async (avtale: Avtale): Promise<Avtale> => {
@@ -550,10 +537,4 @@ export const endreInkluderingstilskudd = async (
 export const endreOmMentor = async (avtale: Avtale, mentorInnhold: MentorInnhold): Promise<void> => {
     await api.post(`/avtaler/${avtale.id}/endre-om-mentor`, mentorInnhold);
     await mutate(`/avtaler/${avtale.id}/versjoner`);
-};
-
-export const sjekkOmAvtaleErPilot = async (avtale: Avtale): Promise<boolean> => {
-    const uri = `/avtaler/${avtale.id}/er-pilot`;
-    const response = await api.get(uri);
-    return response.data;
 };
