@@ -79,7 +79,8 @@ export type Feilkode =
     | 'MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING'
     | 'DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER'
     | 'AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON'
-    | 'MANGLER_BEREGNING';
+    | 'MANGLER_BEREGNING'
+    | 'SLUTTDATO_GRENSE_NÅDD';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -171,5 +172,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING: 'Veileder må godkjenne avtalen etter deltaker, mentor og arbeidsgiver.',
     DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER: 'Deltager og mentor kan ikke ha det samme fødselsnummeret',
     AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON: 'Avtalen inneholder tilskuddsperiode(er) med godkjente refusjon(er). Avtalen kan derfor ikke annulleres.',
-    MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt'
+    MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt',
+    SLUTTDATO_GRENSE_NÅDD: 'Maksimal sluttdato er overskredet. Makismal sluttdato er 31.12.2089'
 };

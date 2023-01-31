@@ -7,29 +7,32 @@ import { ReactComponent as ObligTjenestePensjonIkon } from '@/assets/ikoner/obli
 import { ReactComponent as PlussTegn } from '@/assets/ikoner/plussTegn.svg';
 import { ReactComponent as ProsentTegn } from '@/assets/ikoner/prosentTegn.svg';
 import { ReactComponent as StillingsprosentIkon } from '@/assets/ikoner/stillingsprosent.svg';
+import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Accordion, Label } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
-import { TiltaksType } from '@/types/avtale';
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     const cls = BEMHelper('utregningspanel');
-    const regnUtRedusertProsent = (tiltakstype: TiltaksType, tilskuddsprosent: number) => {
+    const avtaleContext = useContext(AvtaleContext);
+
+    const regnUtRedusertProsent = (tilskuddsprosent: number) => {
         /**
          *  TODO: Kalkulering av redusert prosent og redusert dato bør kun skje i backend og ikke her
          */
-        if (tiltakstype === 'VARIG_LONNSTILSKUDD') {
+        if (avtaleContext.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') {
             if (tilskuddsprosent >= 68) return 67;
             return tilskuddsprosent;
         }
         return tilskuddsprosent - 10;
     };
+
     return (
         <Accordion className="accordion">
             <Accordion.Item defaultOpen>
@@ -105,7 +108,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                                     verdiOperator={<ProsentTegn />}
                                     verdi={
                                         props.lonnstilskuddProsent
-                                            ? regnUtRedusertProsent(props.tiltakstype!, props.lonnstilskuddProsent)
+                                            ? regnUtRedusertProsent(props.lonnstilskuddProsent)
                                             : 0
                                     }
                                 />
