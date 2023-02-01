@@ -18,46 +18,46 @@ export interface AntallKlarTilgodkjenning {
     antallKlarTilgodkjenning: number;
 }
 
-const hentAvtaleStatus = (
-    // avtale: Avtale,
-    // rolle: Rolle,
-    // skalViseAntallUbehandlet: boolean,
-    // ubehandletPerioder?: AntallKlarTilgodkjenning
-) => {
+// const hentAvtaleStatus = (
+//     // avtale: Avtale,
+//     // rolle: Rolle,
+//     // skalViseAntallUbehandlet: boolean,
+//     // ubehandletPerioder?: AntallKlarTilgodkjenning
+// ) => {
 
-    return (
-        <EtikettStatus
-        tilskuddsperiodestatus={'UBEHANDLET'}
-       // refusjonStatus={avtale.gjeldendeTilskuddsperiode?.refusjonStatus}
-        antallKlarTilgodkjenning={1337}
-    />
-    )
-    // if (rolle === 'BESLUTTER') {
-    //     return (
-    //         <div className={cls.element('beslutterStatus')}>
-    //             {avtale.gjeldendeTilskuddsperiode && (
-    //                 <EtikettStatus
-    //                     tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status}
-    //                     refusjonStatus={avtale.gjeldendeTilskuddsperiode?.refusjonStatus}
-    //                     antallKlarTilgodkjenning={
-    //                         skalViseAntallUbehandlet && ubehandletPerioder
-    //                             ? ubehandletPerioder.antallKlarTilgodkjenning
-    //                             : undefined
-    //                     }
-    //                 />
-    //             )}
-    //         </div>
-    //     );
-    // }
-    // return (
-    //     <>
-    //         <div className={cls.element('statusikon')}>
-    //             <StatusIkon status={avtale.statusSomEnum} />
-    //         </div>
-    //         <div className={cls.element('status')}>{avtaleStatusTekst[avtale.statusSomEnum]}</div>
-    //     </>
-    // );
-};
+//     return (
+//         <EtikettStatus
+//         tilskuddsperiodestatus={'UBEHANDLET'}
+//        // refusjonStatus={avtale.gjeldendeTilskuddsperiode?.refusjonStatus}
+//         antallKlarTilgodkjenning={1337}
+//     />
+//     )
+//     // if (rolle === 'BESLUTTER') {
+//     //     return (
+//     //         <div className={cls.element('beslutterStatus')}>
+//     //             {avtale.gjeldendeTilskuddsperiode && (
+//     //                 <EtikettStatus
+//     //                     tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status}
+//     //                     refusjonStatus={avtale.gjeldendeTilskuddsperiode?.refusjonStatus}
+//     //                     antallKlarTilgodkjenning={
+//     //                         skalViseAntallUbehandlet && ubehandletPerioder
+//     //                             ? ubehandletPerioder.antallKlarTilgodkjenning
+//     //                             : undefined
+//     //                     }
+//     //                 />
+//     //             )}
+//     //         </div>
+//     //     );
+//     // }
+//     // return (
+//     //     <>
+//     //         <div className={cls.element('statusikon')}>
+//     //             <StatusIkon status={avtale.statusSomEnum} />
+//     //         </div>
+//     //         <div className={cls.element('status')}>{avtaleStatusTekst[avtale.statusSomEnum]}</div>
+//     //     </>
+//     // );
+// };
 
 const AvtaleTabellBeslutter: FunctionComponent<{
     avtaler: AvtaleMinimalForBeslutter[];
