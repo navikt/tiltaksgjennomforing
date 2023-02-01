@@ -5,12 +5,11 @@ import { Link } from '@navikt/ds-react';
 import { TiltaksType } from '@/types/avtale';
 
 interface Props {
-    erPilot: boolean;
     tiltakstype: TiltaksType;
 }
 
-const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ erPilot, tiltakstype }) => {
-    if (!(tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD')) {
+const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
+    if (!(tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD' || tiltakstype === 'SOMMERJOBB')) {
         return null;
     }
     return (
@@ -19,7 +18,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ erPilot, tiltaks
             headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
         >
             <p>
-                Godkjent tilskuddsperiode {!erPilot && <>i tilskuddsbrevet</>} er styrende i henhold til økonomisk
+                Godkjent tilskuddsperiode er styrende i henhold til økonomisk
                 forpliktelse fra NAV og kan avvike fra avtalt periode for tiltaksgjennomføringen.
             </p>
             <p>

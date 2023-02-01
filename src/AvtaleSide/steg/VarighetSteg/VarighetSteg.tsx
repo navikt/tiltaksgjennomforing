@@ -5,7 +5,6 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import { sjekkOmAvtaleErPilot } from '@/services/rest-service';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
 import { Alert, BodyShort } from '@navikt/ds-react';
@@ -38,8 +37,6 @@ const VarighetSteg: FunctionComponent = () => {
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtaleContext.avtale.erUfordelt;
     const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
 
-    const [erPilot, setErPilot] = useState<boolean>();
-
     useEffect(() => {
         if (tiltakstype === 'SOMMERJOBB' && startDato) {
             const isoDato: VellykketGenerertIsoDatoString = genererFnrdatostringFraFnr(deltakerFnr);
@@ -51,9 +48,6 @@ const VarighetSteg: FunctionComponent = () => {
                     setSommerjobbDeltakerOver30VedStartdato(false);
                 }
             }
-        }
-        if (tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD') {
-            sjekkOmAvtaleErPilot(avtaleContext.avtale).then(setErPilot);
         }
     }, [startDato, deltakerFnr, tiltakstype, sommerjobbDeltakerOver30VedStartdato, avtaleContext.avtale]);
     return (
@@ -81,7 +75,7 @@ const VarighetSteg: FunctionComponent = () => {
                             ) && (
                                 <>
                                     {' '}
-                                    Godkjent tilskuddsperiode {!erPilot && <>i tilskuddsbrevet</>} er styrende i henhold
+                                    Godkjent tilskuddsperiode er styrende i henhold
                                     til økonomisk forpliktelse fra NAV og kan avvike fra avtalt periode for
                                     tiltaksgjennomføringen.
                                 </>

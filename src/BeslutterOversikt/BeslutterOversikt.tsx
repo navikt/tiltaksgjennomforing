@@ -1,17 +1,18 @@
-import Avtaler from '@/AvtaleOversikt/Avtaler';
+import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
-import { AvtalelisteRessurs } from '@/types/avtale';
+import { AvtalelisteMinimalForBeslutterRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import BEMHelper from '@/utils/bem';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Alert } from '@navikt/ds-react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import '../AvtaleOversikt/AvtaleOversikt.less';
-import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import AvtalerBeslutter from './AvtalerBeslutter';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -20,7 +21,7 @@ const BeslutterOversikt: FunctionComponent = () => {
 
     const { filtre } = useFilter();
 
-    const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<AvtalelisteRessurs>({
+    const [avtalelisteRessurs, setAvtalelisteRessurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
         status: Status.IkkeLastet,
     });
 
@@ -35,6 +36,7 @@ const BeslutterOversikt: FunctionComponent = () => {
 
     return (
         <>
+            <Alert variant='warning'>Denne oversikten kan oppleves tregere enn vanlig. Vi jobber med å utbedre dette.</Alert>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
             <BannerNAVAnsatt tekst={'Tilskuddsoversikt'} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
@@ -49,7 +51,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                     </aside>
 
                     <section style={layout.stylingAvTabell}>
-                        <Avtaler
+                        <AvtalerBeslutter
                             avtalelisteRessurs={avtalelisteRessurs}
                             innloggetBruker={innloggetBruker}
                             varsler={[]}
