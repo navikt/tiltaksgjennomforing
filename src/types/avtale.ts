@@ -10,6 +10,17 @@ export type Avtale = Annullering &
     Godkjenninger &
     TilskuddsPerioder & { gjeldendeInnhold: Avtaleinnhold };
 
+export type AvtaleMinimalForBeslutter = {
+    antallUbehandlet: string;
+    deltakerEtternavn: string;
+    deltakerFnr: string;
+    deltakerFornavn: string;
+    id: string;
+    startDatoPeriode?: string;
+    veilederNavIdent: string;
+    bedriftNavn: string;
+}
+
 export type Avtaleinnhold = {
     arbeidsgiverFornavn?: string;
     arbeidsgiverEtternavn?: string;
@@ -314,6 +325,7 @@ export type InnholdType =
 export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
 
 export type AvtalelisteRessurs = Nettressurs<Avtale[]>;
+export type AvtalelisteMinimalForBeslutterRessurs = Nettressurs<AvtaleMinimalForBeslutter[]>;
 
 export type EndreKontaktInfo = {
     arbeidsgiverFornavn?: string;
