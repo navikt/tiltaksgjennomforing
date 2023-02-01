@@ -9,6 +9,7 @@ import {
     AlleredeRegistrertAvtale,
     Avslagsårsaker,
     Avtale,
+    AvtaleMinimalForBeslutter,
     Bedriftinfo,
     EndreKontaktInfo,
     EndreOppfølgingOgTilretteleggingInfo,
@@ -20,7 +21,7 @@ import {
     MentorInnhold,
     Stilling,
     TiltaksType,
-    Varighet,
+    Varighet
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -100,7 +101,7 @@ export const hentAvtalerForInnloggetBeslutter = async (
     søkekriterier: Filtrering,
     skip: number = 0,
     limit: number = 10000000
-): Promise<Avtale[]> => {
+): Promise<AvtaleMinimalForBeslutter[]> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
     const søkekriterierFiltrert = {
         bedriftNr: søkekriterier.bedrift,
@@ -110,7 +111,7 @@ export const hentAvtalerForInnloggetBeslutter = async (
         limit,
     };
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
-    const response = await api.get<Avtale[]>(`/avtaler/beslutter?${queryParam}`);
+    const response = await api.get<AvtaleMinimalForBeslutter[]>(`/avtaler/beslutter-liste?${queryParam}`);
     return response.data;
 };
 
