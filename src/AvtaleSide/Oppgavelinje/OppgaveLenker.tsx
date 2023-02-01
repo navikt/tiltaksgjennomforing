@@ -16,7 +16,7 @@ import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInn
 import EndreOmMentor from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreOmMentor/EndreOmMentor';
 import './OppgaveLenker.css';
 import SendTilbakeTilBeslutterUendret from '../SendTilbakeTilBeslutterUendret/SendTilbakeTilBeslutterUendret';
-import OppdaterOppfølgingEnhet from '../OppdaterOppfølgingsenhet/OppdaterOppfølgingsenhet';
+//import OppdaterOppfølgingEnhet from '../OppdaterOppfølgingsenhet/OppdaterOppfølgingsenhet';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -39,7 +39,6 @@ const OppgaveLenker: React.FunctionComponent = () => {
         return <Varsellogg />;
     }
 
-    
     return (
         <div className="modelLenker">
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
@@ -57,7 +56,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     {harØkonomi && <EndreTilskuddsberegning />}
                     {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
                     {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
-                    <OppdaterOppfølgingEnhet />
+                    {/*<OppdaterOppfølgingEnhet />*/}
                 </>
             )}
             {avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' && <SendTilbakeTilBeslutterUendret />}
