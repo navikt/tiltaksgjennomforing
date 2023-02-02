@@ -7,6 +7,7 @@ import { BodyShort, Heading, Link, Modal, Loader } from '@navikt/ds-react';
 import { oppdaterOppfølgingsEnhet } from '@/services/rest-service';
 import KnappBase from 'nav-frontend-knapper';
 import { Notes } from '@navikt/ds-icons/cjs';
+import {Feilkode, Feilmeldinger} from "@/types/feilkode";
 
 export type OppdaterOppfølgingEnhet = Pick<AvtaleMetadata, 'enhetOppfolging' | 'enhetsnavnOppfolging'>;
 
@@ -16,10 +17,16 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
     const { enhetOppfolging, enhetsnavnOppfolging } = avtaleContext.avtale;
     const [modalApen, setModalApen] = useState(false);
     const [laster, setLaster] = useState(false);
+    const [feilmelding, setFeilmelding] = useState("");
     const hentNyesteOppfølgingsEnhet = async (): Promise<void> => {
         setLaster(true);
-        const nyAvtale = await oppdaterOppfølgingsEnhet(avtaleContext.avtale);
-        avtaleContext.oppdatereAvtaleContext(nyAvtale);
+        try{
+            const nyAvtale = await oppdaterOppfølgingsEnhet(avtaleContext.avtale);
+            avtaleContext.oppdatereAvtaleContext(nyAvtale);
+        }catch (error: any){
+            const feilmeldingTekst = Feilmeldinger[(error?.message as Feilkode) ?? 'UKJENT_FEIL']
+            setFeilmelding("Det skjedde en feil: " + feilmeldingTekst + " ["+ error.message + "]")
+        }
         setLaster(false);
     };
 
@@ -33,7 +40,8 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
                 }
             </div>
             <div>
-                {laster === true ? (
+
+                {laster && feilmelding.trim() === "" ? (
                     <div style={{ margin: '0 auto 1rem auto', width: '64px' }}>
                         <Loader size="2xlarge" title="Henter enhet..." />
                     </div>
@@ -53,6 +61,9 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
                     </>
                 )}
             </div>
+            {feilmelding.trim() !== "" &&
+                <p style={{color:"red"}}>{feilmelding}</p>
+            }
             <KnappBase className={cls.element('knapp')} onClick={(event) => setModalApen(false)}>
                 Lukk
             </KnappBase>
