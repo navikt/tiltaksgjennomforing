@@ -4,6 +4,7 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
@@ -11,9 +12,8 @@ import { Alert, BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
 import 'moment/locale/nb';
 import { Datepicker } from 'nav-datovelger';
-import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
@@ -107,7 +107,9 @@ const VarighetSteg: FunctionComponent = () => {
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
                             limitations={AvtaleMinMaxDato(true)}
-                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ startDato: dato })}
+                            onChange={(dato) => {
+                                if (moment(dato).isValid()) avtaleContext.settAvtaleInnholdVerdier({ startDato: dato });
+                            }}
                         />
                     </Column>
                     <Column md="6">
@@ -116,7 +118,9 @@ const VarighetSteg: FunctionComponent = () => {
                             inputProps={{ placeholder: 'dd.mm.åååå' }}
                             value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
                             limitations={AvtaleMinMaxDato(false)}
-                            onChange={(dato) => avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato })}
+                            onChange={(dato) => {
+                                if (moment(dato).isValid()) avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato });
+                            }}
                         />
                     </Column>
                 </Row>
