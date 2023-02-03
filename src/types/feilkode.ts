@@ -80,7 +80,8 @@ export type Feilkode =
     | 'DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER'
     | 'AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON'
     | 'MANGLER_BEREGNING'
-    | 'SLUTTDATO_GRENSE_NÅDD';
+    | 'SLUTTDATO_GRENSE_NÅDD'
+    | 'VARIG_LONNSTILSKUDD_TILSKUDDSPERIODE_MIDLERTIDIG_AVSKURDD';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -173,5 +174,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER: 'Deltager og mentor kan ikke ha det samme fødselsnummeret',
     AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON: 'Avtalen inneholder tilskuddsperiode(er) med godkjente refusjon(er). Avtalen kan derfor ikke annulleres.',
     MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt',
-    SLUTTDATO_GRENSE_NÅDD: 'Maksimal sluttdato er overskredet. Makismal sluttdato er 31.12.2089'
+    SLUTTDATO_GRENSE_NÅDD: 'Maksimal sluttdato er overskredet. Makismal sluttdato er 31.12.2089',
+    VARIG_LONNSTILSKUDD_TILSKUDDSPERIODE_MIDLERTIDIG_AVSKURDD: 'Godkjenning av tilskuddsperioder for varig lønnstilskudd er midlertideig avskrudd. Det jobbes med å rette en feil ifbm. med reduksjon av tilskuddsprosent. Dette vil bli fikset i løpet av kort tid.',
 };
