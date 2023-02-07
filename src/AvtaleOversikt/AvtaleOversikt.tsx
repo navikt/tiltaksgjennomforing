@@ -32,7 +32,7 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const { kanLasteMer, lasterMer, lastMer, nettressurs } = useLaster(
         useCallback((skip, limit) => hentAvtalerForInnloggetBruker(filtre, skip, limit), [filtre]),
-        50
+        10
     );
 
     useEffect(() => {
