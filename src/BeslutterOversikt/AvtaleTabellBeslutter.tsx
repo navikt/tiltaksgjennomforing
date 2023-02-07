@@ -169,7 +169,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                                     )}
                                                 </MediaQuery>
                                                 <EtikettStatus
-                                                    tilskuddsperiodestatus={'UBEHANDLET'}
+                                                    tilskuddsperiodestatus={avtale.tilskuddsperiodestatus}
                                                     // refusjonStatus={avtale.gjeldendeTilskuddsperiode?.refusjonStatus}
                                                     antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
                                                 />
