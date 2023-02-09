@@ -6,7 +6,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import { accurateHumanize, erDatoTilbakeITid } from '@/utils/datoUtils';
+import { accurateHumanize, erDatoTilbakeITid, formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
 import { Alert, BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
@@ -75,9 +75,8 @@ const VarighetSteg: FunctionComponent = () => {
                             ) && (
                                 <>
                                     {' '}
-                                    Godkjent tilskuddsperiode er styrende i henhold
-                                    til økonomisk forpliktelse fra NAV og kan avvike fra avtalt periode for
-                                    tiltaksgjennomføringen.
+                                    Godkjent tilskuddsperiode er styrende i henhold til økonomisk forpliktelse fra NAV
+                                    og kan avvike fra avtalt periode for tiltaksgjennomføringen.
                                 </>
                             )}
                         </BodyShort>
@@ -101,6 +100,21 @@ const VarighetSteg: FunctionComponent = () => {
                 )}
                 <Row className="">
                     <VerticalSpacer rem={1} />
+                    {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtaleContext.avtale.tiltakstype) &&
+                        moment(avtaleContext.avtale.gjeldendeInnhold.startDato).isBefore('2023-02-01') &&
+                        !avtaleContext.avtale.erRyddeAvtale && (
+                            <>
+                                <Alert variant="warning">
+                                    Du har oppgitt startdato som er før 01.02.2023 uten å huke av for at avtalen skal
+                                    overføres fra arena. Dette vil dermed bli behandlet som en ny avtale, som aldri har
+                                    vært behandlet i Arena før, med tilsagn/tilskuddsperioder fra{' '}
+                                    {formatterDato(avtaleContext.avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
+                                    {<VerticalSpacer rem={1} />}
+                                    Hvis dette er en avtale som tidligere har vært behandlet i Arena, må du annullere denne og opprette en ny, hvor du huker av for at avtalen skal overføres fra Arena.
+                                </Alert>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
                     <Column md="6">
                         <label className="skjemaelement__label">Startdato</label>
                         <Datepicker

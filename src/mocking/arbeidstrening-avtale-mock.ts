@@ -99,6 +99,7 @@ const arbeidstreningAvtaleMock: Avtale = {
 
     godkjentForEtterregistrering: false,
     erAvtaleInngått: false,
+    erRyddeAvtale: false
 };
 
 export default arbeidstreningAvtaleMock;

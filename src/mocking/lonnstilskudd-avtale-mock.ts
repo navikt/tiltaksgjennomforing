@@ -83,6 +83,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
 
     godkjentForEtterregistrering: false,
     erAvtaleInngått: false,
+    erRyddeAvtale: false
 };
 
 export default lonnstilskuddAvtaleMock;
