@@ -102,7 +102,7 @@ const VarighetSteg: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtaleContext.avtale.tiltakstype) &&
                         moment(avtaleContext.avtale.gjeldendeInnhold.startDato).isBefore('2023-02-01') &&
-                        !avtaleContext.avtale.erRyddeAvtale && (
+                        !avtaleContext.avtale.erRyddeAvtale && innloggetBruker.erNavAnsatt && (
                             <>
                                 <Alert variant="warning">
                                     Du har oppgitt startdato som er før 01.02.2023 uten å huke av for at avtalen skal
