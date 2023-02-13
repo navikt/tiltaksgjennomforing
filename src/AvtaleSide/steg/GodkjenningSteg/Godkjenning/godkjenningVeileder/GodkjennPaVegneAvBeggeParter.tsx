@@ -32,15 +32,13 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
         useState<GodkjentPaVegneAvDeltakerGrunner>({
             digitalKompetanse: false,
             reservert: false,
-            ikkeBankId: false,
-            arenaMigreringDeltaker: false,
+            ikkeBankId: false
         });
     const [godkjentPåVegneAvGrunnerArbeidsgiver, setGodkjentPåVegneAvGrunnerArbeidsgiver] =
         useState<GodkjentPaVegneAvArbeidsgiverGrunner>({
             farIkkeTilgangPersonvern: false,
             klarerIkkeGiFaTilgang: false,
-            vetIkkeHvemSomKanGiTilgang: false,
-            arenaMigreringArbeidsgiver: false,
+            vetIkkeHvemSomKanGiTilgang: false
         });
 
     const [feilmeldingGrunnDeltaker, setFeilmeldingGrunnDeltaker] = useState<string>();
@@ -53,8 +51,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
         const valgtMinstEnGrunnDeltaker =
             godkjentPåVegneAvGrunnerDeltaker.ikkeBankId ||
             godkjentPåVegneAvGrunnerDeltaker.reservert ||
-            godkjentPåVegneAvGrunnerDeltaker.digitalKompetanse ||
-            godkjentPåVegneAvGrunnerDeltaker.arenaMigreringDeltaker;
+            godkjentPåVegneAvGrunnerDeltaker.digitalKompetanse;
         if (!valgtMinstEnGrunnDeltaker) {
             return setFeilmeldingGrunnDeltaker('Oppgi minst én grunn for godkjenning på vegne av deltaker');
         } else {
@@ -63,8 +60,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
         const valgtMinstEnGrunnArbeidsgiver =
             godkjentPåVegneAvGrunnerArbeidsgiver.klarerIkkeGiFaTilgang ||
             godkjentPåVegneAvGrunnerArbeidsgiver.vetIkkeHvemSomKanGiTilgang ||
-            godkjentPåVegneAvGrunnerArbeidsgiver.farIkkeTilgangPersonvern ||
-            godkjentPåVegneAvGrunnerArbeidsgiver.arenaMigreringArbeidsgiver;
+            godkjentPåVegneAvGrunnerArbeidsgiver.farIkkeTilgangPersonvern;
         if (!valgtMinstEnGrunnArbeidsgiver) {
             return setFeilmeldingGrunnArbeidsgiver('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
         } else {

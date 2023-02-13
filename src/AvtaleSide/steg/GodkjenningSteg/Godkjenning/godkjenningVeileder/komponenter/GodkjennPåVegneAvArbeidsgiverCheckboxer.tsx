@@ -49,18 +49,6 @@ const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = (prop
                         />
                     </>
                 )}
-                {(props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
-                    <Checkbox
-                        label="etterregistrering av tiltak fra Arena"
-                        checked={props.godkjentPåVegneAvGrunner.arenaMigreringArbeidsgiver}
-                        onChange={(event) =>
-                            props.setGodkjentPåVegneAvGrunner({
-                                ...props.godkjentPåVegneAvGrunner,
-                                arenaMigreringArbeidsgiver: event.currentTarget.checked,
-                            })
-                        }
-                    />
-                )}
             </SkjemaGruppe>
         </div>
     );

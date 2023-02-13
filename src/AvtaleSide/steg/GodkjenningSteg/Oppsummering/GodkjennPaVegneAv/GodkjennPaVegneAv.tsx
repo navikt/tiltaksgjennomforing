@@ -23,8 +23,7 @@ type GodkjennPaVegneAvProps = {
 const initialState: GodkjentPaVegneAvDeltakerGrunner = {
     ikkeBankId: false,
     reservert: false,
-    digitalKompetanse: false,
-    arenaMigreringDeltaker: false,
+    digitalKompetanse: false
 };
 
 const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {

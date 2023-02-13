@@ -27,14 +27,13 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
     const [klarerIkkeGiFaTilgang, setKlarerIkkeGiFaTilgang] = useState(false);
     const [vetIkkeHvemSomKanGiTilgang, setVetIkkeHvemSomKanGiTilgang] = useState(false);
     const [farIkkeTilgangPersonvern, setFarIkkeTilgangPersonvern] = useState(false);
-    const [arenaMigreringArbeidsgiver, setArenaMigreringArbeidsgiver] = useState(false);
 
     const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<string | undefined>();
     const [feilArbeidsgiverInformert, setFeilArbeidsgiverInformert] = useState<string | undefined>();
     const [arbeidsgiverInformert, setArbeidsgiverInformert] = useState(false);
 
     const godkjenn = (): void | Promise<void> => {
-        const valgtMinstEnGrunn = klarerIkkeGiFaTilgang || vetIkkeHvemSomKanGiTilgang || farIkkeTilgangPersonvern || arenaMigreringArbeidsgiver
+        const valgtMinstEnGrunn = klarerIkkeGiFaTilgang || vetIkkeHvemSomKanGiTilgang || farIkkeTilgangPersonvern
         if (!valgtMinstEnGrunn) {
             return setFeilmeldingGrunn('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
         } else {
@@ -50,8 +49,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
         return godkjennPaVegneAvArbeidsgiver({
             farIkkeTilgangPersonvern,
             klarerIkkeGiFaTilgang,
-            vetIkkeHvemSomKanGiTilgang,
-            arenaMigreringArbeidsgiver,
+            vetIkkeHvemSomKanGiTilgang
         });
     };
 
@@ -85,16 +83,6 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
                                         label="får ikke tilgang på grunn av personvern"
                                         checked={farIkkeTilgangPersonvern}
                                         onChange={(event) => setFarIkkeTilgangPersonvern(event.currentTarget.checked)}
-                                    />
-                                </>
-                            )}
-                            {(avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                                avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
-                                <>
-                                    <Checkbox
-                                        label="etterregistrering av tiltak fra Arena"
-                                        checked={arenaMigreringArbeidsgiver}
-                                        onChange={(event) => setArenaMigreringArbeidsgiver(event.currentTarget.checked)}
                                     />
                                 </>
                             )}

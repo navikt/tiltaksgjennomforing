@@ -31,20 +31,20 @@ const GodkjenningVeileder: FunctionComponent = () => {
         <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
-            {((avtale.tiltakstype !== 'SOMMERJOBB' && avtale.tiltakstype !== 'VARIG_LONNSTILSKUDD' && avtale.tiltakstype !== 'MIDLERTIDIG_LONNSTILSKUDD' && !avtale.godkjentAvDeltaker) ||
-                ((avtale.tiltakstype === 'SOMMERJOBB' || avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' || avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') && kunGodkjentAvArbeidsgiver)) && (
+            {((avtale.tiltakstype !== 'SOMMERJOBB' && !avtale.godkjentAvDeltaker) ||
+                (avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvArbeidsgiver)) && (
                 <GodkjennPaVegneAvDeltaker
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {(avtale.tiltakstype === 'SOMMERJOBB' || avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' || avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') && kunGodkjentAvDeltaker && (
+            {(avtale.tiltakstype === 'SOMMERJOBB') && kunGodkjentAvDeltaker && (
                 <GodkjennPaVegneAvArbeidsgiver
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {(avtale.tiltakstype === 'SOMMERJOBB' || avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' || avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD') && ikkeGodkjentAvNoen && (
+            {(avtale.tiltakstype === 'SOMMERJOBB') && ikkeGodkjentAvNoen && (
                 <GodkjennPaVegneAvBeggeParter
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}

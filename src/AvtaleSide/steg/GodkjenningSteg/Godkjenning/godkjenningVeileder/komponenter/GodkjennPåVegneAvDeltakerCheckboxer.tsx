@@ -44,21 +44,6 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) =
                     })
                 }
             />
-
-            {(props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
-                <>
-                    <Checkbox
-                        label="etterregistrering av tiltak fra Arena"
-                        checked={props.godkjentPåVegneAvGrunner.arenaMigreringDeltaker}
-                        onChange={(event) =>
-                            props.setGodkjentPåVegneAvGrunner({
-                                ...props.godkjentPåVegneAvGrunner,
-                                arenaMigreringDeltaker: event.currentTarget.checked,
-                            })
-                        }
-                    />
-                </>
-            )}
         </SkjemaGruppe>
     );
 };

@@ -21,8 +21,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentPaVegneGrunn: {
         ikkeBankId: false,
         reservert: false,
-        digitalKompetanse: false,
-        arenaMigreringDeltaker: false
+        digitalKompetanse: false
     },
 
     deltakerFnr: '00000000000',
