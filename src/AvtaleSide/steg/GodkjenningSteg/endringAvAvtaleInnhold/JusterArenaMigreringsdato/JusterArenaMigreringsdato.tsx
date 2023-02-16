@@ -66,7 +66,7 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
             </SkjemaGruppe>
             <VerticalSpacer rem={2} />
             <SlikVilTilskuddsperioderSeUt
-                overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"
+                overskrift="Slik vil tilskuddsperiodene se ut etter at dato for arenamigrering er justert:"
                 tilskuddsperioder={tilskuddsperioder}
             />
         </div>
