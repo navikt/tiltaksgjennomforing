@@ -5,11 +5,12 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Accordion, BodyShort, Heading, Label } from '@navikt/ds-react';
-import { FunctionComponent, useContext } from 'react';
+import { Accordion, BodyShort, Button, Heading, Label } from '@navikt/ds-react';
+import { FunctionComponent, useContext, useState } from 'react';
 import './visningTilskuddsperioder.less';
 
 const VisningTilskuddsperioder: FunctionComponent = () => {
+    const [visAllePerioder, setVisAllePerioder] = useState(false);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
     const cls = BEMHelper('visning-tilskuddsperioder');
@@ -19,7 +20,25 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
     }
 
     const antallAktiveTilskuddsperioder = avtale.tilskuddPeriode.filter((p) => p.aktiv).length;
-
+    var gjeldendeTilskuddsperiodeIndex = 0;
+    if(avtale.gjeldendeTilskuddsperiode) {
+        var i = 0;
+        avtale.tilskuddPeriode.forEach(periode => {
+            if(avtale.gjeldendeTilskuddsperiode && avtale.gjeldendeTilskuddsperiode.id === periode.id) {
+                gjeldendeTilskuddsperiodeIndex = i;
+            }
+            i++;
+        });
+    }
+    var startIndexVisning = gjeldendeTilskuddsperiodeIndex - 6;
+    if (startIndexVisning < 0) {
+        startIndexVisning = 0;
+    }
+    var sluttIndexVisning = gjeldendeTilskuddsperiodeIndex + 6;
+    if(visAllePerioder) {
+        startIndexVisning = 0;
+        sluttIndexVisning = antallAktiveTilskuddsperioder;
+    }
     return (
         <div className={cls.className}>
             <Accordion className={'accordion'}>
@@ -86,53 +105,60 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                                 ? avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !==
                                                   periode.lonnstilskuddProsent
                                                 : false;
-                                        if (index < 15 || index === avtale.tilskuddPeriode.length - 1) {
+                                        if (index < startIndexVisning || index > sluttIndexVisning) {
+                                            return null;
+                                        } else if (index !== 0 && (index === startIndexVisning || index === sluttIndexVisning)) {
                                             return (
-                                                <>
-                                                    {avtale.tilskuddPeriode.length > 15 &&
-                                                        index === avtale.tilskuddPeriode.length - 1 && (
-                                                            <div key={index} className={cls.element('tabell-innslag')}>
-                                                                ...
-                                                            </div>
-                                                        )}
-                                                    <div
-                                                        key={index}
-                                                        className={cls.element('tabell-innslag')}
-                                                        style={{
-                                                            borderTop: nyProsent ? '2px solid gray' : 'undefined',
-                                                        }}
-                                                    >
-                                                        <BodyShort size="small">
-                                                            {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
-                                                            {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
-                                                        </BodyShort>
-                                                        {innloggetBruker.erNavAnsatt && (
-                                                            <BodyShort>
-                                                                <EtikettStatus
-                                                                    tilskuddsperiodestatus={periode.status}
-                                                                    size="small"
-                                                                />
-                                                            </BodyShort>
-                                                        )}
-                                                        <BodyShort size="small">
-                                                            {periode.lonnstilskuddProsent}%
-                                                        </BodyShort>
-                                                        <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                                                            {formatterPenger(periode.beløp)}
-                                                        </BodyShort>
-                                                    </div>
-                                                </>
-                                            );
+                                                <div key={index} className={cls.element('tabell-innslag')}>
+                                                    ...
+                                                </div>
+                                            )
                                         }
-                                        return null;
+                                        return (
+                                            <>
+                                                <div
+                                                    key={index}
+                                                    className={cls.element('tabell-innslag')}
+                                                    style={{
+                                                        borderTop: nyProsent ? '2px solid gray' : 'undefined',
+                                                    }}
+                                                >
+                                                    <BodyShort size="small">
+                                                        {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
+                                                        {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
+                                                    </BodyShort>
+                                                    {innloggetBruker.erNavAnsatt && (
+                                                        <BodyShort>
+                                                            <EtikettStatus
+                                                                tilskuddsperiodestatus={periode.status}
+                                                                size="small"
+                                                            />
+                                                        </BodyShort>
+                                                    )}
+                                                    <BodyShort size="small">
+                                                        {periode.lonnstilskuddProsent}%
+                                                    </BodyShort>
+                                                    <BodyShort size="small" style={{ minWidth: '4rem' }}>
+                                                        {formatterPenger(periode.beløp)}
+                                                    </BodyShort>
+                                                </div>
+                                            </>
+                                        );
                                     })}
                                 {avtale.gjeldendeInnhold.startDato && avtale.gjeldendeInnhold.sluttDato && (
-                                    <div className={cls.element('tabell-innslag')}>
-                                        Avtalen varer fra{' '}
-                                        {formatterDato(avtale.gjeldendeInnhold.startDato, NORSK_DATO_FORMAT)} til{' '}
-                                        {formatterDato(avtale.gjeldendeInnhold.sluttDato, NORSK_DATO_FORMAT)}. Det
-                                        tilsvarer {antallAktiveTilskuddsperioder} tilskuddsperioder.
-                                    </div>
+                                    <>
+                                        <div className={cls.element('tabell-innslag')}>
+                                            Avtalen varer fra{' '}
+                                            {formatterDato(avtale.gjeldendeInnhold.startDato, NORSK_DATO_FORMAT)} til{' '}
+                                            {formatterDato(avtale.gjeldendeInnhold.sluttDato, NORSK_DATO_FORMAT)}. Det
+                                            tilsvarer {antallAktiveTilskuddsperioder} tilskuddsperioder.
+                                        </div>
+                                        {!visAllePerioder &&
+                                            <Button size="small" onClick={() => setVisAllePerioder(true)}>
+                                                Vis alle perioder
+                                            </Button>
+                                        }
+                                    </>
                                 )}
                             </div>
                             <VerticalSpacer rem={1} />
