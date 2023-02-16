@@ -39,7 +39,6 @@ const TilskuddsPerioderVeileder: FunctionComponent<Props> = props => {
                                 <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                 <td>{formatterPenger(periode.beløp)}</td>
                                 <td><EtikettStatus tilskuddsperiodestatus={periode.status} size="small" /></td>
-                                {/* <td>{tilskuddsperiodeStatusTekst[periode.status]}</td> */}
                             </tr>
                         );
                     })}
