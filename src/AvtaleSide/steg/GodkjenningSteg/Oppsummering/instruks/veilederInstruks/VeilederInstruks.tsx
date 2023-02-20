@@ -27,7 +27,7 @@ const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = (
             <Label>Hva skjer videre:</Label>
         </div>
         <SommerjobbVeilederTekst tiltakstype={props.tiltakstype} />
-        <GenerelVeilederTekst tiltakstype={navnPåTiltakstype[props.tiltakstype]} />
+        <GenerelVeilederTekst tiltakstype={props.tiltakstype} />
         <PilotVeilederTekst />
     </VeilederpanelMedUtklippstavle>
 );

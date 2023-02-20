@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { BodyShort } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
+import { TiltaksType } from '@/types/avtale';
 
 interface Props {
-    tiltakstype: string;
+    tiltakstype: TiltaksType;
 }
 
 const GenerelVeilederTekst: FunctionComponent<Props> = (props) => {
