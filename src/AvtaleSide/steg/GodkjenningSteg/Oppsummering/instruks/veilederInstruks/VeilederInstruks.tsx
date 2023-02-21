@@ -10,15 +10,6 @@ import PilotVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/i
 
 const cls = BEMHelper('instruks');
 
-const navnPåTiltakstype: { [key in TiltaksType]: string } = {
-    ARBEIDSTRENING: 'Arbeidstrening',
-    MIDLERTIDIG_LONNSTILSKUDD: 'Midlertidig lønnstilskudd',
-    VARIG_LONNSTILSKUDD: 'Varig lønnstilskudd',
-    MENTOR: 'Mentor',
-    INKLUDERINGSTILSKUDD: 'Inkluderingstilskudd',
-    SOMMERJOBB: 'Sommerjobb',
-};
-
 const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = (
     props: PropsWithChildren<{ tiltakstype: TiltaksType }>
 ) => (
