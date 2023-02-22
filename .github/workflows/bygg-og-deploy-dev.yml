@@ -12,7 +12,7 @@ env:
 jobs:
   bygg:
     name: Bygg og deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
 
   deploy-dev-gcp-intern:
     name: Deploy til dev-gcp intern
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: bygg
     steps:
       - name: Sjekk ut kode
@@ -48,7 +48,7 @@ jobs:
 
   deploy-dev-gcp-ekstern:
     name: Deploy til dev-gcp ekstern
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: bygg
     steps:
       - name: Sjekk ut kode
@@ -64,7 +64,7 @@ jobs:
 
   deploy-labs-gcp:
     name: Deploy til labs-gcp
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: bygg
     steps:
       - name: Sjekk ut kode
