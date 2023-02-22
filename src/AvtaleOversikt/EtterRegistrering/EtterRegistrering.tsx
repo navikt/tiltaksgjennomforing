@@ -6,9 +6,9 @@ import { tiltakstypeTekst } from '@/messages';
 import * as RestService from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Alert, Modal, Label, Heading, Ingress } from '@navikt/ds-react';
+import { Alert, Heading, Ingress, Label, Modal } from '@navikt/ds-react';
 import { Knapp } from 'nav-frontend-knapper';
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import './EtterRegistrering.less';
 
 const EtterRegistrering: FunctionComponent = () => {
@@ -76,15 +76,15 @@ const EtterRegistrering: FunctionComponent = () => {
                         <div className={cls.element('input-sok')}>
                             <SøkeInput
                                 className="etterRegistrering"
-                                maxLength={5}
+                                maxLength={9}
                                 utførSøk={(søkeord) => {
                                     setSpinner(true);
                                     hentAvtaleInfo(Number(søkeord));
                                 }}
                                 valider={(verdi: string) =>
-                                    verdi.match(/^\d{1,5}$/)
+                                    verdi.match(/^\d{1,9}$/)
                                         ? undefined
-                                        : 'Avtalenummer kan kun inneholde tall, maks fem tegn'
+                                        : 'Avtalenummer kan kun inneholde tall'
                                 }
                                 onChangeCallback={() => {
                                     setAvtale(undefined);

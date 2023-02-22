@@ -1,10 +1,10 @@
-import useValidering from '@/komponenter/useValidering';
-import { Button } from '@navikt/ds-react';
-import { Search } from '@navikt/ds-icons';
-import BEMHelper from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import useValidering from '@/komponenter/useValidering';
+import BEMHelper from '@/utils/bem';
+import { Search } from '@navikt/ds-icons';
+import { Button } from '@navikt/ds-react';
 import { Input, InputProps } from 'nav-frontend-skjema';
-import React, { FormEvent, FunctionComponent, useState } from 'react';
+import { FormEvent, FunctionComponent, useState } from 'react';
 import './SøkeInput.less';
 
 type Props = InputProps & {
@@ -44,6 +44,7 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Input
+                {...props}
                 className={cls.element('input-sok')}
                 label={props.label}
                 placeholder={props.placeholder}
