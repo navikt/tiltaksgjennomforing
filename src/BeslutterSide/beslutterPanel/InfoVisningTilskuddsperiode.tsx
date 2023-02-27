@@ -23,6 +23,7 @@ const InfoVisningTilskuddsperiode: FunctionComponent = () => {
                         info={`${
                             avtale.gjeldendeInnhold.deltakerFornavn + ' ' + avtale.gjeldendeInnhold.deltakerEtternavn
                         }`}
+                        
                     />
                     <InfoRadBesluttervisning metadata="Arbeidsgiver" info={avtale.gjeldendeInnhold.bedriftNavn} />
                     <InfoRadBesluttervisning
