@@ -129,7 +129,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
             }
         }
         case 'KLAR_FOR_OPPSTART':
-            return avtale.tiltakstype === 'SOMMERJOBB' ? (
+            return (avtale.tiltakstype === 'SOMMERJOBB' || avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') ? (
                 <StatusPanel
                     ikon={CheckIkon}
                     header="Avtalen er ferdig utfylt og godkjent"
@@ -141,7 +141,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
-                                Du skal ikke registrere tiltaksgjennomføringen i Arena (gjelder sommerjobb). Avtalen
+                                Du skal ikke registrere tiltaksgjennomføringen i Arena. Avtalen
                                 journalføres automatisk i Gosys.
                             </BodyShort>
                         </>
