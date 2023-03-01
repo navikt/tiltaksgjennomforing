@@ -3,4 +3,4 @@
 !build
 !src/setupProxy.js
 !src/whitelist.js
-!server.js
+!server/server.ts

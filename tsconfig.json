@@ -29,7 +29,7 @@
     "src"
   ],
   "exclude": [
-    "server.js",
+    "server/server",
     "src/whitelist.js",
     "src/setupProxy.js"
   ]

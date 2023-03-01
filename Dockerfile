@@ -5,7 +5,7 @@ WORKDIR /app
 COPY server/ ./server
 COPY ./src/setupProxy.js ./src/setupProxy.js
 COPY ./src/whitelist.js ./src/whitelist.js
-COPY server.js ./
+COPY server/server.ts ./
 COPY build/ ./build
 
 EXPOSE 3000
