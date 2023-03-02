@@ -81,7 +81,8 @@ export type Feilkode =
     | 'AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON'
     | 'MANGLER_BEREGNING'
     | 'SLUTTDATO_GRENSE_NÅDD'
-    | 'VARIG_LONNSTILSKUDD_TILSKUDDSPERIODE_MIDLERTIDIG_AVSKURDD';
+    | 'VARIG_LONNSTILSKUDD_TILSKUDDSPERIODE_MIDLERTIDIG_AVSKURDD'
+    | 'KAN_IKKE_ENDRE_ARENA_MIGRERINGSDATO_INNGAATT_AVTALE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -176,4 +177,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt',
     SLUTTDATO_GRENSE_NÅDD: 'Maksimal sluttdato er overskredet. Makismal sluttdato er 31.12.2089',
     VARIG_LONNSTILSKUDD_TILSKUDDSPERIODE_MIDLERTIDIG_AVSKURDD: 'Godkjenning av tilskuddsperioder for varig lønnstilskudd er midlertideig avskrudd. Det jobbes med å rette en feil ifbm. med reduksjon av tilskuddsprosent. Dette vil bli fikset i løpet av kort tid.',
+    KAN_IKKE_ENDRE_ARENA_MIGRERINGSDATO_INNGAATT_AVTALE: 'Avtalen er inngått. Arena-migreringsdato kan derfor ikke endres. Annuller og opprett avtalen på nytt.',
 };

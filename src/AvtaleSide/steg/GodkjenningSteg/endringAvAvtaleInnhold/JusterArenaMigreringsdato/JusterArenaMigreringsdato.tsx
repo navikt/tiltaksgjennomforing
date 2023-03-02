@@ -1,15 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { justerArenaMigreringsdato, justerArenaMigreringsdatoDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
-import { Link } from '@navikt/ds-react';
-import moment from 'moment';
-import { Datepicker } from 'nav-datovelger';
+import { Link, UNSAFE_MonthPicker } from '@navikt/ds-react';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { FunctionComponent, useContext, useState } from 'react';
 //import './forlengAvtale.less';
@@ -45,26 +42,26 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
         }
     };
 
+    const startDatoDate = avtaleContext.avtale.gjeldendeInnhold.startDato ?  new Date(avtaleContext.avtale.gjeldendeInnhold.startDato) : undefined;
+    const sluttDatoDate = avtaleContext.avtale.gjeldendeInnhold.sluttDato ?  new Date(avtaleContext.avtale.gjeldendeInnhold.sluttDato) : undefined;
+
     const modalInnhold = (
         <div className={cls.className}>
             <div className={cls.element('navarende-sluttdato')}>
-                {/* <Label>Juster</Label> */}
-                {/* <BodyShort size="small">{'avtaleContext.avtale.gjeldendeInnhold.sluttDato'}</BodyShort> */}
             </div>
             <SkjemaGruppe feil={feil}>
-                <label className="skjemaelement__label">Velg til og med dato som avtalen har vært behandlet i arena.</label>
-                <Datepicker
-                    inputProps={{ placeholder: 'dd.mm.åååå' }}
-                    value={sluttDato}
-                    limitations={{
-                        minDate: moment(avtaleContext.avtale.gjeldendeInnhold.startDato)
-                            .add(1, 'days')
-                            .format('YYYY-MM-DD'),
-                    }}
-                    onChange={(dato) => onDatoChange(dato)}
-                />
+                <label className="skjemaelement__label">
+                    Velg første måned avtalen skal behandles i ny løsning og ikke i Arena.
+                </label>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <UNSAFE_MonthPicker.Standalone
+                        onMonthSelect={(dato: any) => onDatoChange(dato)}
+                        dropdownCaption
+                        fromDate={startDatoDate}
+                        toDate={new Date('2023-02-01')}
+                    />
+                </div>
             </SkjemaGruppe>
-            <VerticalSpacer rem={2} />
             <SlikVilTilskuddsperioderSeUt
                 overskrift="Slik vil tilskuddsperiodene se ut etter at dato for arenamigrering er justert:"
                 tilskuddsperioder={tilskuddsperioder}

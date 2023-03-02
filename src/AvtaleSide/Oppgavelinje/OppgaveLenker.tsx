@@ -45,6 +45,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
             <AnnullerAvtalen />
             <DelLenkeTilAvtalen />
+            {harØkonomi && <JusterArenaMigreringsdato />}
 
             {avtale.godkjentAvVeileder !== null && (
                 <>
@@ -55,7 +56,6 @@ const OppgaveLenker: React.FunctionComponent = () => {
                     {skalViseStillingsbeskrivelse && <EndreStillingbeskrivelse />}
                     <EndreOppfølgingOgTilrettelegging />
                     {harØkonomi && <EndreTilskuddsberegning />}
-                    {harØkonomi && <JusterArenaMigreringsdato />}
                     {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
                     {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
                     {<OppdaterOppfølgingEnhet />}
