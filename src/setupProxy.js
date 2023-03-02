@@ -11,7 +11,7 @@ const envProperties = {
     APIGW_HEADER: process.env.APIGW_HEADER,
     LOGIN_URL: process.env.LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/aad'),
     LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
-    STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.dev-gcp.nais.io/',
+    STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.intern.dev.nav.no',
 };
 
 if (!envProperties.LOGOUT_URL || !envProperties.LOGIN_URL) {
