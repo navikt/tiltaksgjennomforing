@@ -9,11 +9,12 @@ const client = async (): Promise<BaseClient> => {
         tokenEndpointAuthSigningAlg: 'RS256',
         redirectUri: process.env.AAD_REDIRECT_URL,
     };
+    const provider: Issuer<BaseClient> = await Issuer.discover(azureConfig.discoveryUrl as string);
+    const jwk = JSON.parse(azureConfig.privateJwk as string);
 
-    const issuer: Issuer<BaseClient> = await Issuer.discover(azureConfig.discoveryUrl ?? '');
-    console.log(`Discovered issuer ${issuer.issuer}`);
-    const jwk = JSON.parse(azureConfig.privateJwk ?? '');
-    return new issuer.Client(
+    console.log(`Discovered issuer ${provider.issuer}`);
+
+    return new provider.Client(
         {
             client_id: azureConfig.clientID as string,
             token_endpoint_auth_method: azureConfig.tokenEndpointAuthMethod as ClientAuthMethod | undefined,
@@ -31,10 +32,11 @@ const azureTokenEndpoint = async (): Promise<any> => {
         privateJwk: process.env.AZURE_APP_JWKS,
         tokenEndpointAuthMethod: 'private_key_jwt',
     };
+    const provider: Issuer<BaseClient> = await Issuer.discover(azureConfig.discoveryUrl as string);
 
-    const issuer: Issuer<BaseClient> = await Issuer.discover(azureConfig.discoveryUrl ?? '');
-    console.log(`Discovered issuer ${issuer.issuer}`);
-    return issuer.token_endpoint;
+    console.log(`Discovered issuer ${provider.issuer}`);
+
+    return provider.token_endpoint;
 };
 
 const getOnBehalfOfAccessToken = async (azureClient: any, azureEndpointToken: any, req: any) => {

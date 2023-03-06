@@ -1,8 +1,9 @@
-import { getMiljø, Miljø } from '../common/miljø';
-import pathVariables, { PathVariables } from '../common/pathVariables';
-import { Express } from 'express';
+import { getMiljø, Miljø } from './miljø';
+import pathVariables, { PathVariables } from './pathVariables';
+import express, { Express } from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
+import path from "path";
 
 const miljo: Miljø = getMiljø();
 
@@ -22,8 +23,28 @@ const props: EnvProps = {
     STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL,
 };
 
+const BASEPATH: string = '/tiltaksgjennomforing';
+const STATIC_PATHS: string[] = ['/static', '/index.css', '/asset-manifest.json'];
+
 function setupPath(app: Express): void {
-    sjekkAtLoginPropsErDefinert();
+
+    setStaticPath(app);
+
+    app.get(
+      '/tiltaksgjennomforing/internal/isAlive',
+      (
+        req: Request<{}, any, any, ParsedQs, Record<string, any>>,
+        res: Response<any, Record<string, any>, number>
+      ): Response<any, Record<string, any>, number> => res.sendStatus(200)
+    );
+
+    app.get(
+      '/tiltaksgjennomforing/internal/isReady',
+      (
+        req: Request<{}, any, any, ParsedQs, Record<string, any>>,
+        res: Response<any, Record<string, any>, number>
+      ): Response<any, Record<string, any>, number> => res.sendStatus(200)
+    );
 
     app.get(
         '/tiltaksgjennomforing/innloggingskilder',
@@ -78,11 +99,10 @@ function setupPath(app: Express): void {
     );
 }
 
-function sjekkAtLoginPropsErDefinert() {
-    if (!props.LOGOUT_URL || !props.LOGIN_URL) {
-        console.error('Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, LOGIN_URL.');
-        process.exit(1);
-    }
+function setStaticPath(app: Express): void {
+    STATIC_PATHS.forEach((staticpath: string): Express => {
+        return app.use(BASEPATH.concat(staticpath), express.static(path.join(__dirname, 'build'.concat(staticpath))));
+    });
 }
 
 export default setupPath;

@@ -1,7 +1,7 @@
 import { BaseClient } from 'openid-client';
 import { Express, NextFunction } from 'express';
 import proxy from 'express-http-proxy';
-import tokenx from '../prod/tokenx';
+import tokenx from '../login/tokenx';
 import { Request } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { RequestOptions } from 'http';

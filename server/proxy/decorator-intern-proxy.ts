@@ -1,5 +1,5 @@
 import proxy from 'express-http-proxy';
-import onbehalfof from '../prod/azure';
+import onbehalfof from '../login/azure';
 import { BaseClient } from 'openid-client';
 import { Express, Response } from 'express';
 import { Request } from 'express-serve-static-core';
@@ -7,7 +7,8 @@ import { ParsedQs } from 'qs';
 import { IncomingMessage, RequestOptions } from 'http';
 
 const setup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: BaseClient) => {
-    app.use(
+
+  app.use(
         '/modiacontextholder/api/decorator',
         proxy(process.env.APIGW_URL as string, {
             proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {

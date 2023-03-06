@@ -1,6 +1,6 @@
 import proxy from 'express-http-proxy';
-import tokenx from '../prod/tokenx';
-import azure from '../prod/azure';
+import tokenx from '../login/tokenx';
+import azure from '../login/azure';
 import { Express } from 'express';
 import { BaseClient } from 'openid-client';
 import { Request } from 'express-serve-static-core';
@@ -8,6 +8,7 @@ import { ParsedQs } from 'qs';
 
 const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
     console.log('api-proxy setup for tokenx');
+
     setupPath(app);
 
     app.use(
@@ -31,6 +32,7 @@ const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
 
 const azureSetup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: any): void => {
     console.log('api-proxy setup for azure');
+
     setupPath(app);
 
     app.use(

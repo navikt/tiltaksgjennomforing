@@ -1,4 +1,4 @@
-import { EnvProps } from '../prod/setupPath';
+import { EnvProps } from './setupPath';
 
 export interface PathVariables {
     tittel: string;

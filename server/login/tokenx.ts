@@ -14,11 +14,12 @@ const client = async (): Promise<BaseClient> => {
         privateJwk: process.env.TOKEN_X_PRIVATE_JWK as string,
         tokenEndpointAuthMethod: 'private_key_jwt',
     };
-
-    const issuer: Issuer<BaseClient> = await Issuer.discover(tokenxConfig.discoveryUrl);
-    console.log(`Discovered issuer ${issuer.issuer}`);
+    const provider: Issuer<BaseClient> = await Issuer.discover(tokenxConfig.discoveryUrl);
     const jwk = JSON.parse(tokenxConfig.privateJwk);
-    return new issuer.Client(
+
+    console.log(`Discovered issuer ${provider.issuer}`);
+
+    return new provider.Client(
         {
             client_id: tokenxConfig.clientID as string,
             token_endpoint_auth_method: tokenxConfig.tokenEndpointAuthMethod as ClientAuthMethod,
@@ -28,8 +29,7 @@ const client = async (): Promise<BaseClient> => {
 };
 
 const getTokenExchangeAccessToken = async (tokenxClient: any, audience: any, req: any) => {
-    console.log('Ny access token');
-    const now = Math.floor(Date.now() / 1000);
+    const now: number = Math.floor(Date.now() / 1000);
     const additionalClaims = {
         clientAssertionPayload: {
             nbf: now,

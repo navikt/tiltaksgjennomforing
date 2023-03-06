@@ -1,26 +1,20 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const lokalProxy = require('../server/lokal/lokalproxy');
+const lokalProxy = require('../server/proxy/labs-proxy');
 const fetch = require('node-fetch');
 const { applyNotifikasjonMockMiddleware } = require('@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock');
-const { lokalOgLabsInnloggingskilder } = require('../server/common/pathVariables');
+const { lokalOgLabsInnloggingskilder } = require('../server/paths/pathVariables');
 
-const brukLokalLogin = process.env.NODE_ENV === 'development';
-const isLabs = process.env.NAIS_CLUSTER_NAME === 'labs-gcp';
 
 const envProperties = {
-    APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
-    APIGW_HEADER: process.env.APIGW_HEADER,
-    LOGIN_URL: process.env.LOGIN_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogin/aad'),
-    LOGOUT_URL: process.env.LOGOUT_URL || (brukLokalLogin && '/tiltaksgjennomforing/fakelogout?domain=localhost'),
-    STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.dev-gcp.nais.io/',
+    APIGW_URL: 'http://localhost:8080',
+    LOGIN_URL: '/tiltaksgjennomforing/fakelogin/aad',
+    LOGOUT_URL: '/tiltaksgjennomforing/fakelogout?domain=localhost',
+    STILLINGSTITLER_URL: 'https://tiltak-stillingstitler.dev-gcp.nais.io/',
 };
 
-if (!envProperties.LOGOUT_URL || !envProperties.LOGIN_URL) {
-    console.error('Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, LOGIN_URL.');
-    process.exit(1);
-}
-
 module.exports = function (app) {
+    const apiURL = 'http://localhost:8080';
+
     app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
         res.json(...lokalOgLabsInnloggingskilder);
     });
@@ -40,8 +34,10 @@ module.exports = function (app) {
     app.get('/tiltaksgjennomforing/fakelogin/aad', async (req, res) => {
         const navIdent = req.headers['navident'] || 'Z123456';
         const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=aad&aud=fake-aad&NAVident=${navIdent}`;
+
         const response = await fetch(url);
         const data = await response.text();
+
         res.cookie('fake-aad-idtoken', data);
         res.redirect('/tiltaksgjennomforing');
     });
@@ -49,8 +45,10 @@ module.exports = function (app) {
     app.get('/tiltaksgjennomforing/fakelogin/tokenx', async (req, res) => {
         const subject = req.headers['fnr'] || '23090170716';
         const url = `https://tiltak-fakelogin.labs.nais.io/token?iss=tokenx&aud=fake-tokenx&pid=${subject}&acr=Level4`;
+
         const response = await fetch(url);
         const data = await response.text();
+
         res.cookie('fake-tokenx-idtoken', data);
         res.redirect('/tiltaksgjennomforing');
     });
@@ -61,13 +59,8 @@ module.exports = function (app) {
         res.redirect('/tiltaksgjennomforing');
     });
 
-    if (process.env.NAIS_CLUSTER_NAME !== 'dev-gcp' && process.env.NAIS_CLUSTER_NAME !== 'prod-gcp') {
-        lokalProxy.setup(app);
-    }
-
-    if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp' || process.env.NODE_ENV === 'development') {
-        applyNotifikasjonMockMiddleware({ app, path: '/tiltaksgjennomforing/notifikasjon-bruker-api' });
-    }
+    lokalProxy.setupFakeLoginProvider(app, apiURL);
+    applyNotifikasjonMockMiddleware({ app, path: '/tiltaksgjennomforing/notifikasjon-bruker-api' });
 
     app.use(
         '/tiltaksgjennomforing/stillingstitler',

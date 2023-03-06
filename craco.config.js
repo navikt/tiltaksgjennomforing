@@ -2,8 +2,8 @@ const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const { EnvironmentPlugin } = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const internflateDecoratorHtmlWebpackPlugin = require('./plugins/internflateDecoratorHtmlWebpackPlugin');
-const decoratorhtmlwebpackplugin = require('./plugins/decoratorhtmlwebpackplugin');
+const internflateDecoratorHtmlWebpackPlugin = require('./plugins/modia-dekoratoren');
+const decoratorhtmlwebpackplugin = require('./plugins/nav-dekoratoren');
 
 module.exports = {
     webpack: {
