@@ -1,9 +1,8 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
-
 module.exports = {
-    entry: 'server.ts',
+    entry: path.resolve(__dirname, 'server.ts'),
     target: 'node',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -12,15 +11,18 @@ module.exports = {
     mode: 'production',
     devtool: 'source-map',
     resolve: {
-        extends: ['.ts', '.tsx', '.js', '.json'],
+        extensions: ['.ts', '.tsx', '.js', '.json'],
     },
     stats: 'errors-warnings',
     module: {
-        rule: [
+        rules: [
             {
                 test: /\.(js|ts|tsx)$/,
-                include: path.resolve(__dirname, 'build', 'index.html'),
+                include: path.resolve(__dirname),
                 loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+                },
             },
             {
                 test: /\.(js)$/,
@@ -30,7 +32,7 @@ module.exports = {
                     presets: [['babel-preset-react-app/dependencies', { helpers: true }]],
                 },
             },
-        ]
+        ],
     },
-    externals: [nodeExternals()]
+    externals: [nodeExternals()],
 };
