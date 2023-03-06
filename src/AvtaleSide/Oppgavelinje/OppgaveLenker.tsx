@@ -45,7 +45,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
             <AnnullerAvtalen />
             <DelLenkeTilAvtalen />
-            {harØkonomi && <JusterArenaMigreringsdato />}
+            {harØkonomi && avtale.godkjentAvVeileder === null &&  <JusterArenaMigreringsdato />}
 
             {avtale.godkjentAvVeileder !== null && (
                 <>
