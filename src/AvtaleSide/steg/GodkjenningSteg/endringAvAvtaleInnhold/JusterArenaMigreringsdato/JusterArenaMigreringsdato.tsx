@@ -46,8 +46,7 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
     };
 
     const startDatoDate = avtaleContext.avtale.gjeldendeInnhold.startDato ?  new Date(avtaleContext.avtale.gjeldendeInnhold.startDato) : undefined;
-    const sluttDatoDate = avtaleContext.avtale.gjeldendeInnhold.sluttDato ?  new Date(avtaleContext.avtale.gjeldendeInnhold.sluttDato) : undefined;
-
+    
     const modalInnhold = (
         <div className={cls.className}>
             <div className={cls.element('navarende-sluttdato')}>
