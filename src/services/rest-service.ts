@@ -548,7 +548,4 @@ export const justerArenaMigreringsdato = async (avtale: Avtale, migreringsdato: 
 export const justerArenaMigreringsdatoDryRun = async (avtale: Avtale, migreringsdato: string): Promise<Avtale> => {
     const response = await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato/dry-run`, { migreringsdato });
     return response.data;
-    
-    // const response = await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato/${migreringsdato}/dry-run`);
-    // return response.data;
 }

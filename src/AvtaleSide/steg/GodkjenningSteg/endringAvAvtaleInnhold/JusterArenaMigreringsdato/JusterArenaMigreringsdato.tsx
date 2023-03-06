@@ -7,6 +7,7 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
 import { Link, UNSAFE_MonthPicker } from '@navikt/ds-react';
+import moment from 'moment';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { FunctionComponent, useContext, useState } from 'react';
 //import './forlengAvtale.less';
@@ -20,18 +21,20 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
     const [feil, setFeil] = useState<string>();
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
-    const forleng = async () => {
+    const juster = async () => {
         if (sluttDato) {
             await justerArenaMigreringsdato(avtaleContext.avtale, sluttDato);
             await avtaleContext.hentAvtale();
             lukkModal();
         }
     };
-    const onDatoChange = async (dato: string | undefined) => {
-        setSluttDato(dato);
+    const onDatoChange = async (dato: string | undefined) => { 
         if (dato) {
+            const datoUtenTimezone = moment(dato).format('YYYY-MM-DD');
+            setSluttDato(datoUtenTimezone);
+
             try {
-                const nyAvtale = await justerArenaMigreringsdatoDryRun(avtaleContext.avtale, dato);
+                const nyAvtale = await justerArenaMigreringsdatoDryRun(avtaleContext.avtale, datoUtenTimezone);
                 setTilskuddsperioder(nyAvtale.tilskuddPeriode);
                 setFeil(undefined);
             } catch (e: any) {
@@ -104,7 +107,7 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
                 bekreftelseTekst="Juster"
                 oversiktTekst="Juster dato for arenamigrering"
                 modalIsOpen={modalApen}
-                bekreftOnClick={forleng}
+                bekreftOnClick={juster}
                 lukkModal={lukkModal}
                 modalInnhold={modalInnhold}
             />
