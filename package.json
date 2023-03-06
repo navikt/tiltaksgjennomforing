@@ -20,9 +20,9 @@
         "@formatjs/intl-relativetimeformat": "^9.2.3",
         "@navikt/arbeidsgiver-notifikasjon-widget": "^5.4.2",
         "@navikt/bedriftsmeny": "^3.5.2",
-        "@navikt/ds-css": "^1.2.6",
+        "@navikt/ds-css": "^2.4.2",
         "@navikt/ds-icons": "^0.5.2",
-        "@navikt/ds-react": "^1.2.6",
+        "@navikt/ds-react": "^2.4.2",
         "@navikt/fnrvalidator": "^1.1.4",
         "@navikt/navspa": "^3.0.2",
         "@sentry/react": "^6.11.0",
@@ -91,8 +91,8 @@
         "url-search-params-polyfill": "^8.1.1"
     },
     "devDependencies": {
-        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^5.4.2",
         "@craco/craco": "^6.2.0",
+        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^5.4.2",
         "@sentry/cli": "^1.68.0",
         "@testing-library/jest-dom": "^5.15.1",
         "@testing-library/react": "^12.1.2",
