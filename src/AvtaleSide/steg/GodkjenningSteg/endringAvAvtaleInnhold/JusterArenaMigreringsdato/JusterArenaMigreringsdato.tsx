@@ -79,6 +79,11 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
         setFeil(undefined);
     };
 
+    const startDatoErEtterMigreringsdato = avtaleContext.avtale.gjeldendeInnhold.startDato && moment(avtaleContext.avtale.gjeldendeInnhold.startDato).isAfter(moment('2023-02-01'));
+    if (!avtaleContext.avtale.gjeldendeInnhold.startDato || startDatoErEtterMigreringsdato) {
+        return null;
+    }
+
     return (
         <>
             <div>
