@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: path.resolve(__dirname, 'server.ts'),
@@ -35,4 +36,5 @@ module.exports = {
         ],
     },
     externals: [nodeExternals()],
+    plugins: [new HtmlWebpackPlugin()],
 };

@@ -39,6 +39,7 @@
         "babel-loader": "^9.1.2",
         "babel-preset-react-app": "^10.0.1",
         "cross-env": "^7.0.3",
+        "html-webpack-plugin": "^5.5.0",
         "morgan": "^1.9.1",
         "morgan-body": "^2.4.8",
         "nodemon": "^2.0.4",
