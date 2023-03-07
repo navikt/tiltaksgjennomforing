@@ -2,12 +2,11 @@ FROM navikt/node-express:18
 
 WORKDIR /app
 
-COPY server/ ./server
-COPY ./src/setupProxy.js ./src/setupProxy.js
-COPY ./src/whitelist.js ./src/whitelist.js
-COPY server/server.ts ./
-COPY build/ ./build
+COPY ./server/node_modules ./node_modules
+COPY ./server/dist ./dist
+COPY ./build ./build
 
 EXPOSE 3000
 
-CMD [ "node dist/main,.js" ]
+ENTRYPOINT ["sh", "-c"]
+CMD ["node dist/server.js"]
