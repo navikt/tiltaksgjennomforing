@@ -24,6 +24,8 @@ async function startServer(): Promise<void> {
         await startMedNavDekoratoren();
     } else if (process.env.ENABLE_INTERNAL_MENU) {
         await startMedModiaDekoratoren();
+    } else {
+        await startLabs();
     }
 
     const port = process.env.PORT || 3000;
@@ -51,6 +53,18 @@ async function startMedModiaDekoratoren(): Promise<void> {
             res: Response<any, Record<string, any>, number>
         ) => {
             res.send(appMedModiaDekoratoren.getModiaDekoratoren());
+        }
+    );
+}
+
+async function startLabs(): Promise<void> {
+    server.get(
+        ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
+        (
+            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
+            res: Response<any, Record<string, any>, number>
+        ) => {
+            res.sendFile(path.resolve(__dirname, './../build', 'index.html'));
         }
     );
 }
