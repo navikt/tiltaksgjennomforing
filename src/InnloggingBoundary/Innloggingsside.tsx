@@ -24,6 +24,8 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const throwError = useAsyncError();
     const [, setCookie] = useCookies();
     const visFeilmelding = useContext(FeilVarselContext);
+    console.log('innloggingskilder', props.innloggingskilder);
+
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
         try {
             await hentInnloggetBruker();

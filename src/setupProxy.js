@@ -42,7 +42,7 @@ module.exports = function (app) {
     ];
 
     app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
-        res.json(...innloggingskilder);
+        res.json(innloggingskilder);
     });
 
     app.get('/tiltaksgjennomforing/logout', (req, res) => {
