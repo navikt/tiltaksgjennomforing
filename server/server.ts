@@ -1,14 +1,14 @@
 'use strict';
 
-import { Request, Response } from 'express-serve-static-core';
+import { value Request, value Response } from 'express-serve-static-core';
 import path from 'path';
-import express, { Express } from 'express';
+import express, { value Express } from 'express';
 import helmet from 'helmet';
-import { ParsedQs } from 'qs';
+import { value ParsedQs } from 'qs';
 import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
-import loginProvider from "./login/loginProvider";
-import setupPath from "./paths/setupPath";
+import loginProvider from './login/loginProvider';
+import setupPath from './paths/setupPath';
 
 const server: Express = express();
 
@@ -16,12 +16,11 @@ const server: Express = express();
 server.disable('x-powered-by');
 server.use(helmet());
 
-
 async function startServer(): Promise<void> {
-    setupPath(server)
+    setupPath(server);
     await loginProvider.setupOauth2Clients(server);
 
-    if(process.env.ENABLE_EXTERNAL_MENU) {
+    if (process.env.ENABLE_EXTERNAL_MENU) {
         await startMedNavDekoratoren();
     } else if (process.env.ENABLE_INTERNAL_MENU) {
         await startMedModiaDekoratoren();
@@ -38,7 +37,7 @@ async function startMedNavDekoratoren(): Promise<void> {
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>
         ) => {
-            res.send(appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, './../../build', 'index.html')));
+            res.send(appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, './../build', 'index.html')));
         }
     );
     await startServer();
@@ -46,17 +45,16 @@ async function startMedNavDekoratoren(): Promise<void> {
 
 async function startMedModiaDekoratoren(): Promise<void> {
     server.get(
-      ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-      (
-        req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-        res: Response<any, Record<string, any>, number>
-      ) => {
-          res.send(appMedModiaDekoratoren.getModiaDekoratoren());
-      }
+        ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
+        (
+            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
+            res: Response<any, Record<string, any>, number>
+        ) => {
+            res.send(appMedModiaDekoratoren.getModiaDekoratoren());
+        }
     );
 }
 
 startServer()
-  .then(() => console.log('server started successfully'))
-  .catch(err => console.error("server failed to start, with error: ", err));
-
+    .then(() => console.log('server started successfully'))
+    .catch((err) => console.error('server failed to start, with error: ', err));
