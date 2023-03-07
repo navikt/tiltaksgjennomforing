@@ -38,7 +38,7 @@ async function startMedNavDekoratoren(): Promise<void> {
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>
         ) => {
-            res.send(appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, 'build', 'index.html')));
+            res.send(appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, './../../build', 'index.html')));
         }
     );
     await startServer();

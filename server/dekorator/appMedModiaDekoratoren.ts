@@ -11,7 +11,7 @@ const styleAddress: string =
     'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
 
 function getModiaDekoratoren(): Document {
-    const document: NewDocument = getHTMLDocument(path.resolve(__dirname, 'build', 'index.html'));
+    const document: NewDocument = getHTMLDocument(path.resolve(__dirname, './../../build', 'index.html'));
     if (document) {
         const updatedDocument = setInnHTML(document);
         return updatedDocument;

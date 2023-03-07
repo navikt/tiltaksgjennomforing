@@ -6,7 +6,7 @@ export interface PathVariables {
     url: string;
 }
 
-export const lokalOgLabsInnloggingskilder: PathVariables[] = [
+export const labsInnloggingskilder: PathVariables[] = [
     {
         tittel: 'Som deltaker',
         part: 'DELTAKER',
@@ -69,7 +69,7 @@ const getInnloggingskilderEksternBrukerFlate = (props: EnvProps): PathVariables[
     ];
 };
 export default {
-    lokalOgLabsInnloggingskilder,
+    labsInnloggingskilder,
     getInnloggingskilderInternBrukerFlate,
     getInnloggingskilderEksternBrukerFlate,
 };

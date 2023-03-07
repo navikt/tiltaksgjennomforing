@@ -287,6 +287,7 @@ export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (
 
 export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     const response = await api.get<InnloggetBruker>(`/innlogget-bruker`);
+    console.log("response",response)
     return response.data;
 };
 
@@ -455,7 +456,6 @@ export const oppdateretilskuddsBeregningDryRun = async (
 export const oppdaterOppfølgingsEnhet = async (avtale: Avtale): Promise<Avtale> => {
     const uri = `/avtaler/${avtale.id}/oppdaterOppfølgingsEnhet`;
     const response = await api.post(uri);
-    console.log('backenbd res: ', response);
     return response.data;
 };
 

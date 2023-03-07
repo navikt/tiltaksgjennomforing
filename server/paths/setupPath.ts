@@ -55,7 +55,7 @@ function setupPath(app: Express): void {
             const innloggingskilder: PathVariables[] = [];
 
             if (miljo === Miljø.LABS) {
-                innloggingskilder.push(...pathVariables.lokalOgLabsInnloggingskilder);
+                innloggingskilder.push(...pathVariables.labsInnloggingskilder);
             } else {
                 if (!process.env.INTERN_INGRESS) {
                     innloggingskilder.push(...pathVariables.getInnloggingskilderEksternBrukerFlate(props));

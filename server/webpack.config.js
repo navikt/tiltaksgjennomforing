@@ -6,7 +6,7 @@ module.exports = {
     target: 'node',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js',
+        filename: 'server.js',
     },
     mode: 'production',
     devtool: 'source-map',
