@@ -11,6 +11,10 @@ const styleAddress: string =
     'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
 
 function getModiaDekoratoren(): Document {
+    console.log(
+        'modiaDekoratoren path satt for henting av index.html: ',
+        path.resolve(__dirname, './../build', 'index.html')
+    );
     const document: NewDocument = getHTMLDocument(path.resolve(__dirname, './../build', 'index.html'));
     if (document) {
         const updatedDocument = setInnHTML(document);
@@ -31,8 +35,8 @@ function getHTMLDocument(indexFilepath: string): NewDocument {
 }
 
 function setInnHTML(document: Document): Document {
-    const style = `<link rel="stylesheet" href=${process.env.DECORATOR_INTERNAL_STYLING ?? styleAddress}>`;
-    const script = `<script src=${process.env.DECORATOR_INTERNAL_SCRIPT ?? scriptAddress}></script>`;
+    const style = `<link rel="stylesheet" href="${process.env.DECORATOR_INTERNAL_STYLING ?? styleAddress}">`;
+    const script = `<script src="${process.env.DECORATOR_INTERNAL_SCRIPT ?? scriptAddress}"></script>`;
 
     insertHTML(document, 'styles', style);
     insertHTML(document, 'scripts', script);
