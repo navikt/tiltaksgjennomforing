@@ -20,7 +20,7 @@ function getModiaDekoratoren(): Document {
         const updatedDocument = setInnHTML(document);
         return updatedDocument;
     }
-    console.log('filer i build folder: ', fs.readdirSync(path.resolve(__dirname, './../build', 'index.html')));
+    console.log('filer i build folder: ', fs.readdirSync(path.resolve(__dirname, './../build')));
     throw new ApiError('Greide ikke lese index.html fra disc.');
 }
 
