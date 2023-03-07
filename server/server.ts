@@ -1,10 +1,10 @@
 'use strict';
 
-import { value Request, value Response } from 'express-serve-static-core';
+import { Request, Response } from 'express-serve-static-core';
 import path from 'path';
-import express, { value Express } from 'express';
+import express, { Express } from 'express';
 import helmet from 'helmet';
-import { value ParsedQs } from 'qs';
+import { ParsedQs } from 'qs';
 import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import loginProvider from './login/loginProvider';

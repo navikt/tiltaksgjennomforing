@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import jsdom from 'jsdom';
 import path from 'path';
-import { value ApiError } from '../../src/types/errors';
+import { ApiError } from '../../src/types/errors';
 
 type NewDocument = Document | undefined;
 
