@@ -7,7 +7,7 @@ const envProperties = {
     APIGW_URL: 'http://localhost:8080',
     LOGIN_URL: '/tiltaksgjennomforing/fakelogin/aad',
     LOGOUT_URL: '/tiltaksgjennomforing/fakelogout?domain=localhost',
-    STILLINGSTITLER_URL: 'https://tiltak-stillingstitler.dev-gcp.nais.io/',
+    STILLINGSTITLER_URL: 'https://tiltak-stillingstitler.intern.dev.nav.no',
 };
 
 module.exports = function (app) {
