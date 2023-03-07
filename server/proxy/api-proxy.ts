@@ -13,7 +13,7 @@ const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
 
     app.use(
         '/tiltaksgjennomforing/api',
-        proxy(process.env.APIGW_URL ?? '', {
+        proxy(process.env.APIGW_URL as string, {
             proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
                 return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
             },
@@ -37,7 +37,7 @@ const azureSetup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: a
 
     app.use(
         '/tiltaksgjennomforing/api',
-        proxy(process.env.APIGW_URL ?? '', {
+        proxy(process.env.APIGW_URL as string, {
             proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
                 return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
             },

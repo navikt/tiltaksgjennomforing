@@ -39,12 +39,12 @@ export const getInnloggingskilderInternBrukerFlate = (props: EnvProps): PathVari
         {
             tittel: 'Som veileder',
             part: 'VEILEDER',
-            url: props.LOGIN_URL ?? '',
+            url: props.LOGIN_URL as string,
         },
         {
             tittel: 'Som beslutter',
             part: 'BESLUTTER',
-            url: props.LOGIN_URL ?? '',
+            url: props.LOGIN_URL as string,
         },
     ];
 };
@@ -54,17 +54,17 @@ const getInnloggingskilderEksternBrukerFlate = (props: EnvProps): PathVariables[
         {
             tittel: 'Som deltaker',
             part: 'DELTAKER',
-            url: props.LOGIN_URL ?? '',
+            url: props.LOGIN_URL as string,
         },
         {
             tittel: 'Som mentor',
             part: 'MENTOR',
-            url: props.LOGIN_URL ?? '',
+            url: props.LOGIN_URL as string,
         },
         {
             tittel: 'Som arbeidsgiver',
             part: 'ARBEIDSGIVER',
-            url: props.LOGIN_URL ?? '',
+            url: props.LOGIN_URL as string,
         },
     ];
 };

@@ -17,7 +17,7 @@ const setup = (app: Express, tokenxClient: BaseClient): void => {
 
     app.use(
         '/tiltaksgjennomforing/notifikasjon-bruker-api',
-        proxy(process.env.NOTIFIKASJON_URL ?? '', {
+        proxy(process.env.NOTIFIKASJON_URL as string, {
             proxyReqPathResolver: (): string => {
                 return '/api/graphql';
             },

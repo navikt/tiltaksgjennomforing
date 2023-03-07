@@ -1,9 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const lokalProxy = require('../server/proxy/labs-proxy');
 const fetch = require('node-fetch');
 const { applyNotifikasjonMockMiddleware } = require('@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock');
-const { lokalOgLabsInnloggingskilder } = require('../server/paths/pathVariables');
-
+const proxy = require('express-http-proxy');
 
 const envProperties = {
     APIGW_URL: 'http://localhost:8080',
@@ -15,8 +13,36 @@ const envProperties = {
 module.exports = function (app) {
     const apiURL = 'http://localhost:8080';
 
+    const innloggingskilder = [
+        {
+            tittel: 'Som deltaker',
+            part: 'DELTAKER',
+            url: '/tiltaksgjennomforing/fakelogin/tokenx',
+        },
+        {
+            tittel: 'Som mentor',
+            part: 'MENTOR',
+            url: '/tiltaksgjennomforing/fakelogin/tokenx',
+        },
+        {
+            tittel: 'Som arbeidsgiver',
+            part: 'ARBEIDSGIVER',
+            url: '/tiltaksgjennomforing/fakelogin/tokenx',
+        },
+        {
+            tittel: 'Som veileder',
+            part: 'VEILEDER',
+            url: '/tiltaksgjennomforing/fakelogin/aad',
+        },
+        {
+            tittel: 'Som beslutter',
+            part: 'BESLUTTER',
+            url: '/tiltaksgjennomforing/fakelogin/aad',
+        },
+    ];
+
     app.get('/tiltaksgjennomforing/innloggingskilder', (req, res) => {
-        res.json(...lokalOgLabsInnloggingskilder);
+        res.json(...innloggingskilder);
     });
 
     app.get('/tiltaksgjennomforing/logout', (req, res) => {
@@ -59,7 +85,7 @@ module.exports = function (app) {
         res.redirect('/tiltaksgjennomforing');
     });
 
-    lokalProxy.setupFakeLoginProvider(app, apiURL);
+    setupLocalProxy(app, apiURL);
     applyNotifikasjonMockMiddleware({ app, path: '/tiltaksgjennomforing/notifikasjon-bruker-api' });
 
     app.use(
@@ -72,3 +98,43 @@ module.exports = function (app) {
         })
     );
 };
+
+function setupLocalProxy(app, apiUrl) {
+    app.use('/tiltaksgjennomforing/api', (req, res, next) => {
+        if (req.headers.cookie) {
+            const cookies = req.headers.cookie.split(';');
+            const cookieWithFakeToken = cookies.filter((c) => {
+                return c.includes('fake');
+            });
+            if (cookieWithFakeToken.length === 0) {
+                res.status(401).send();
+            } else {
+                next();
+            }
+        } else {
+            res.status(401).send();
+        }
+    });
+
+    app.use(
+        '/tiltaksgjennomforing/api',
+        proxy(apiUrl, {
+            proxyReqPathResolver: (req) => {
+                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
+            },
+            proxyReqOptDecorator: (options, req) => {
+                if (req.headers && options.headers) {
+                    const cookies = req.headers.cookie?.split(';');
+                    const cookieWithFakeToken = cookies?.filter((cookie) => {
+                        return cookie.includes('fake');
+                    });
+                    if (cookieWithFakeToken) {
+                        const accessToken = cookieWithFakeToken[0].split('=')[1];
+                        options.headers.Authorization = `Bearer ${accessToken}`;
+                    }
+                }
+                return options;
+            },
+        })
+    );
+}

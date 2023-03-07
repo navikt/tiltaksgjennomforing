@@ -74,7 +74,7 @@ function setupPath(app: Express): void {
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>
         ): void => {
-            res.redirect(props.LOGOUT_URL ?? '');
+            res.redirect(props.LOGOUT_URL as string);
         }
     );
 
