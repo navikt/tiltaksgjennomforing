@@ -1,12 +1,12 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: path.resolve(__dirname, 'server.ts'),
     target: 'node',
+    externalsPresets: { node: true },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../build'),
         filename: 'server.js',
     },
     mode: 'production',
@@ -25,16 +25,7 @@ module.exports = {
                     presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
                 },
             },
-            {
-                test: /\.(js)$/,
-                exclude: /@babel(?:\/|\\{1,2})runtime/,
-                loader: 'babel-loader',
-                options: {
-                    presets: [['babel-preset-react-app/dependencies', { helpers: true }]],
-                },
-            },
         ],
     },
     externals: [nodeExternals()],
-    plugins: [new HtmlWebpackPlugin()],
 };

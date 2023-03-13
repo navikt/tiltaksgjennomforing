@@ -3,6 +3,8 @@ import jsdom from 'jsdom';
 import path from 'path';
 import { ApiError } from '../../src/types/errors';
 
+const { JSDOM } = jsdom;
+
 type NewDocument = Document | undefined;
 
 const scriptAddress: string =
@@ -10,29 +12,32 @@ const scriptAddress: string =
 const styleAddress: string =
     'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
 
-function getModiaDekoratoren(): Document {
-    console.log(
-        'modiaDekoratoren path satt for henting av index.html: ',
-        path.resolve(__dirname, './../build', 'index.html')
-    );
-    const document: NewDocument = getHTMLDocument(path.resolve(__dirname, './../build', 'index.html'));
+async function getModiaDekoratoren(): Promise<Document> {
+    const indexpath = path.resolve(__dirname, './../../build', 'index.html');
+    const index: string = await getHTMLDocument(indexpath);
+
+    const { document } = new JSDOM(index).window;
     if (document) {
         const updatedDocument = setInnHTML(document);
         return updatedDocument;
     }
-    console.log('filer i build folder: ', fs.readdirSync(path.resolve(__dirname, './../build')));
-    throw new ApiError('Greide ikke lese index.html fra disc.');
+
+    // console.log('filer i build folder: ', fs.readdirSync(pp));
+    throw new ApiError('Feilet med oppdatering av index.html.');
 }
 
-function getHTMLDocument(indexFilepath: string): NewDocument {
-    let newDocument;
-    fs.readFile(indexFilepath, 'utf8', (err, data) => {
-        if (!err) {
-            const { document } = new jsdom.JSDOM(data).window;
-            newDocument = document;
-        }
-    });
-    return newDocument;
+async function getHTMLDocument(indexFilepath: string): Promise<string> {
+    const fsPromises = fs.promises;
+
+    const index = await fsPromises
+        .readFile(indexFilepath)
+        .then((res) => res.toString())
+        .catch((err) => console.error('Failed to read file', err));
+
+    if (typeof index === 'string') {
+        return index;
+    }
+    throw new ApiError('Greide ikke lese index.html fra disc.');
 }
 
 function setInnHTML(document: Document): Document {

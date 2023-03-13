@@ -3,7 +3,7 @@ import pathVariables, { PathVariables } from './pathVariables';
 import express, { Express } from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
-import path from "path";
+import path from 'path';
 
 const miljo: Miljø = getMiljø();
 
@@ -23,27 +23,24 @@ const props: EnvProps = {
     STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL,
 };
 
-const BASEPATH: string = '/tiltaksgjennomforing';
-const STATIC_PATHS: string[] = ['/static', '/index.css', '/asset-manifest.json'];
+export const BASEPATH: string = '/tiltaksgjennomforing';
+export const STATIC_PATHS: string[] = ['/static', '/index.css', '/asset-manifest.json'];
 
-function setupPath(app: Express): void {
-
-    setStaticPath(app);
-
+function initializePath(app: Express): void {
     app.get(
-      '/tiltaksgjennomforing/internal/isAlive',
-      (
-        req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-        res: Response<any, Record<string, any>, number>
-      ): Response<any, Record<string, any>, number> => res.sendStatus(200)
+        '/tiltaksgjennomforing/internal/isAlive',
+        (
+            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
+            res: Response<any, Record<string, any>, number>
+        ): Response<any, Record<string, any>, number> => res.sendStatus(200)
     );
 
     app.get(
-      '/tiltaksgjennomforing/internal/isReady',
-      (
-        req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-        res: Response<any, Record<string, any>, number>
-      ): Response<any, Record<string, any>, number> => res.sendStatus(200)
+        '/tiltaksgjennomforing/internal/isReady',
+        (
+            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
+            res: Response<any, Record<string, any>, number>
+        ): Response<any, Record<string, any>, number> => res.sendStatus(200)
     );
 
     app.get(
@@ -99,10 +96,4 @@ function setupPath(app: Express): void {
     );
 }
 
-function setStaticPath(app: Express): void {
-    STATIC_PATHS.forEach((staticpath: string): Express => {
-        return app.use(BASEPATH.concat(staticpath), express.static(path.join(__dirname, 'build'.concat(staticpath))));
-    });
-}
-
-export default setupPath;
+export default { initializePath };
