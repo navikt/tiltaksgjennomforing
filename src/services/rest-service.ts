@@ -21,7 +21,7 @@ import {
     MentorInnhold,
     Stilling,
     TiltaksType,
-    Varighet
+    Varighet,
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -45,6 +45,8 @@ axiosRetry(api, { retries: 3 });
 api.interceptors.response.use(
     (response) => response,
     (error) => {
+        console.log('AXIOS ERROR: ', error);
+        console.log('AXIOS ERROR: ', error);
         if (error.response?.status === 401 || error.response?.status === 403) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
@@ -188,7 +190,7 @@ const opprettAvtalen = async (
     tiltakstype: TiltaksType,
     ryddeavtale?: boolean
 ): Promise<Avtale> => {
-    const ryddeavtaleParam = {ryddeavtale};
+    const ryddeavtaleParam = { ryddeavtale };
     const queryParam = new URLSearchParams(removeEmpty(ryddeavtaleParam));
     const postResponse = await api.post(`${url}?${queryParam}`, {
         deltakerFnr,
@@ -287,7 +289,7 @@ export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (
 
 export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
     const response = await api.get<InnloggetBruker>(`/innlogget-bruker`);
-    console.log("response",response)
+    console.log('response', response);
     return response.data;
 };
 
@@ -540,12 +542,11 @@ export const endreOmMentor = async (avtale: Avtale, mentorInnhold: MentorInnhold
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
-
 export const justerArenaMigreringsdato = async (avtale: Avtale, migreringsdato: string): Promise<void> => {
     await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato`, { migreringsdato });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
-}
+};
 export const justerArenaMigreringsdatoDryRun = async (avtale: Avtale, migreringsdato: string): Promise<Avtale> => {
     const response = await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato/dry-run`, { migreringsdato });
     return response.data;
-}
+};
