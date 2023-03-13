@@ -35,7 +35,7 @@ import {
     pathTilOpprettAvtaleArbeidsgiver,
     pathTilOpprettAvtaleFullfortArbeidsgiver,
     pathTilOpprettAvtaleFullfortVeileder,
-    pathTilStegIAvtale
+    pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
 
