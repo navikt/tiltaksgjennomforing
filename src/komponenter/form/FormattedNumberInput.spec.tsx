@@ -27,7 +27,8 @@ test('gitt prosent verdi over max, skal det gis kun max og ikke over max verdi',
 
     fireEvent.change(screen.getByPlaceholderText('tjenestepensjonProsentInput'), { target: { value: '35' } });
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
-    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('30 %');
+    // @ts-ignore
+    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('30');
 });
 
 test('gitt prosent verdi med komma(dot), skal det tillates', async () => {
@@ -52,7 +53,8 @@ test('gitt prosent verdi med komma(dot), skal det tillates', async () => {
 
     fireEvent.change(screen.getByPlaceholderText('tjenestepensjonProsentInput'), { target: { value: '3.5' } });
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
-    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('3.5 %');
+    // @ts-ignore
+    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('3.5');
 });
 
 test('gitt prosent verdi med komma(dot) over grense, skal det gis max', async () => {
@@ -83,7 +85,8 @@ test('gitt prosent verdi med komma(dot) over grense, skal det gis max', async ()
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
     expect(toFloatVerdiMock.mock.calls.length).toBe(1);
     expect(toFloatVerdiMock.mock.results[0].value).toBe('30');
-    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('30 %');
+    // @ts-ignore
+    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('30');
 });
 
 test('gitt høy prosent verdi med komma(dot), skal det tillates', async () => {
@@ -112,7 +115,8 @@ test('gitt høy prosent verdi med komma(dot), skal det tillates', async () => {
     fireEvent.change(screen.getByPlaceholderText('tjenestepensjonProsentInput'), { target: { value: '20,5' } });
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
     expect(toFloatVerdiMock.mock.calls.length).toBe(1);
-    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('20.5 %');
+    // @ts-ignore
+    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('20.5');
 });
 
 test('gitt normal prosent beløp, skal det tillates', async () => {
@@ -141,7 +145,8 @@ test('gitt normal prosent beløp, skal det tillates', async () => {
     fireEvent.change(screen.getByPlaceholderText('tjenestepensjonProsentInput'), { target: { value: '7' } });
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
     expect(toFloatVerdiMock.mock.calls.length).toBe(1);
-    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('7 %');
+    // @ts-ignore
+    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('7');
 });
 
 test('gitt prosent verdi med komma(dot) uten desimal etter, skal det tillates', async () => {
@@ -170,7 +175,8 @@ test('gitt prosent verdi med komma(dot) uten desimal etter, skal det tillates', 
 
     fireEvent.change(screen.getByPlaceholderText('tjenestepensjonProsentInput'), { target: { value: '3.' } });
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
-    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('3 %');
+    // @ts-ignore
+    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('3');
     expect(toFloatVerdiMock.mock.calls.length).toBe(1);
 });
 
@@ -196,7 +202,8 @@ test('gitt prosent verdi med komma(,), skal det tillates', async () => {
 
     fireEvent.change(screen.getByPlaceholderText('tjenestepensjonProsentInput'), { target: { value: '3,5' } });
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
-    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('3.5 %');
+    // @ts-ignore
+    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('3.5');
 });
 
 test('gitt prosent verdi med bokstaver skal det gis blank verdi', async () => {
@@ -221,7 +228,8 @@ test('gitt prosent verdi med bokstaver skal det gis blank verdi', async () => {
 
     fireEvent.change(screen.getByPlaceholderText('tjenestepensjonProsentInput'), { target: { value: '3aa' } });
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
-    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('3 %');
+    // @ts-ignore
+    expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('3');
 });
 
 test('gitt tom prosent verdi gis blank input verdi', async () => {
@@ -251,6 +259,7 @@ test('gitt tom prosent verdi gis blank input verdi', async () => {
     fireEvent.change(screen.getByPlaceholderText('tjenestepensjonProsentInput'), { target: { value: '' } });
     await waitFor(() => screen.getByPlaceholderText('tjenestepensjonProsentInput'));
     expect(toFloatVerdiMock.mock.calls.length).toBe(1);
+    // @ts-ignore
     expect(screen.getByPlaceholderText('tjenestepensjonProsentInput').value).toBe('');
 });
 

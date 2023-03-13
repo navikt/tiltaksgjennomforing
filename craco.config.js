@@ -2,8 +2,6 @@ const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const { EnvironmentPlugin } = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const internflateDecoratorHtmlWebpackPlugin = require('./plugins/modia-dekoratoren');
-const decoratorhtmlwebpackplugin = require('./plugins/nav-dekoratoren');
 
 module.exports = {
     webpack: {
@@ -20,13 +18,7 @@ module.exports = {
             '@': path.resolve(__dirname, 'src/'),
         },
     },
-    plugins: [
-        { plugin: CracoLessPlugin },
-        { plugin: internflateDecoratorHtmlWebpackPlugin(process.env.ENABLE_INTERNAL_MENU) },
-        {
-            plugin: decoratorhtmlwebpackplugin(process.env.ENABLE_EXTERNAL_MENU),
-        },
-    ],
+    plugins: [{ plugin: CracoLessPlugin }],
     eslint: {
         enable: true,
         mode: 'extends',
@@ -38,6 +30,10 @@ module.exports = {
         },
     },
     jest: {
+        transform: {
+            '^.+\\.[t|j]sx?$': 'babel-jest',
+        },
+        transformIgnorePatterns: ['node_modules/(?!axios)/'],
         configure: {
             moduleNameMapper: {
                 '^@/(.*)$': '<rootDir>/src/$1',
