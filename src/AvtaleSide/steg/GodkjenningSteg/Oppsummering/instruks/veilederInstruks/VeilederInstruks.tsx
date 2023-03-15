@@ -6,7 +6,7 @@ import React, { FunctionComponent, PropsWithChildren } from 'react';
 import '../instruks.less';
 import SommerjobbVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/veilederInstruks/tekster/SommerjobbVeilederTekst';
 import GenerelVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/veilederInstruks/tekster/GenerelVeilederTekst';
-import PilotVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/veilederInstruks/tekster/PilotVeilederTekst';
+import LonnstilskuddVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/veilederInstruks/tekster/LonnstilskuddVeilederTekst';
 
 const cls = BEMHelper('instruks');
 
@@ -19,7 +19,7 @@ const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = (
         </div>
         <SommerjobbVeilederTekst tiltakstype={props.tiltakstype} />
         <GenerelVeilederTekst tiltakstype={props.tiltakstype} />
-        <PilotVeilederTekst />
+        <LonnstilskuddVeilederTekst tiltakstype={props.tiltakstype}/>
     </VeilederpanelMedUtklippstavle>
 );
 
