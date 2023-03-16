@@ -117,7 +117,7 @@ const VarighetSteg: FunctionComponent = () => {
                             </>
                         )}
                     <Column md="6">
-                        <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
+                        <Datovelger datoFelt="startDato" label="Startdato" />
                     </Column>
                     <Column md="6">
                         <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />

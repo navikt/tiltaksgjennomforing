@@ -19,6 +19,7 @@ import { useTilskuddsutgift } from './inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
 import Tilskuddsbeskrivelse from './Tilskuddsbeskrivelse';
 import TilskuddsutgiftTabell from './TilskuddsutgiftTabell';
+import Datovelger from '@/komponenter/datovelger/Datovelger';
 
 const InkluderingstilskuddSteg: FunctionComponent = () => {
     const cls = BEMHelper('inkluderingstilskudd');
@@ -62,22 +63,10 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
                 <Row className="">
                     <Column md="6">
-                        <label className="skjemaelement__label">Startdato</label>
-                        <Datepicker
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtale.gjeldendeInnhold.startDato || undefined}
-                            limitations={AvtaleMinMaxDato(true)}
-                            onChange={(dato) => settAvtaleInnholdVerdier({ startDato: dato })}
-                        />
+                        <Datovelger datoFelt="startDato" label="StartDato" />
                     </Column>
                     <Column md="6">
-                        <label className="skjemaelement__label">Forventet sluttdato</label>
-                        <Datepicker
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtale.gjeldendeInnhold.sluttDato || undefined}
-                            limitations={AvtaleMinMaxDato(false)}
-                            onChange={(dato) => settAvtaleInnholdVerdier({ sluttDato: dato })}
-                        />
+                        <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
                     </Column>
                 </Row>
 
