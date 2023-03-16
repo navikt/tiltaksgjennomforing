@@ -55,7 +55,7 @@ export const visPeriodeForTiltak = (fra?: string, til?: string): string => {
     return 'ikke satt';
 };
 
-const formatterDatoHvisDefinert = (dato?: string, format: string = NORSK_DATO_FORMAT) => {
+export const formatterDatoHvisDefinert = (dato?: string, format: string = NORSK_DATO_FORMAT) => {
     if (!dato) return '';
     const formattertDato = formatterDato(dato, format);
     if (formattertDato === 'Invalid date') {
@@ -63,5 +63,3 @@ const formatterDatoHvisDefinert = (dato?: string, format: string = NORSK_DATO_FO
     }
     return formatterDato(dato, format);
 };
-
-export default { formatterDatoHvisDefinert };

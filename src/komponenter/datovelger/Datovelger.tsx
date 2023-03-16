@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
 import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
-import datoUtils from '@/utils/datoUtils';
+import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { AvtaleMinMaxDato } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 
 type Props = {
@@ -27,7 +27,7 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
 
         onDateChange: (dato) => {
             settAvtaleInnholdVerdier({
-                [datoFelt]: datoUtils.formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'),
+                [datoFelt]: formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'),
             });
         },
     });

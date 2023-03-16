@@ -2,8 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
 import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
-import datoUtils from '@/utils/datoUtils';
-import { AvtaleMinMaxDato } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
+import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { ISODateString } from 'nav-datovelger/lib/types';
 
 type Props = {
@@ -33,7 +32,7 @@ const DatovelgerForlengOgForkort: FunctionComponent<Props> = ({
         inputFormat: 'dd.MM.yyyy',
         defaultSelected: defaultDato,
         onDateChange: (dato) => {
-            onChangeHåndtereNyDato(datoUtils.formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'));
+            onChangeHåndtereNyDato(formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'));
         },
     });
 

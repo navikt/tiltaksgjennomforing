@@ -3,8 +3,23 @@ import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalif
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { TiltaksType } from '@/types/avtale';
 import moment, { DurationInputArg2 } from 'moment';
-import { DatepickerLimitations } from 'nav-datovelger';
 import { useContext } from 'react';
+
+import { DaysOfWeekModifier } from 'react-day-picker';
+export declare type ISODateString = string;
+export declare type InputDateString = string;
+export declare type INVALID_DATE_TYPE = 'Invalid date';
+export interface DatepickerDateRange {
+    from: ISODateString;
+    to: ISODateString;
+}
+interface DatepickerLimitations {
+    minDate?: ISODateString;
+    maxDate?: ISODateString;
+    invalidDateRanges?: DatepickerDateRange[];
+    weekendsNotSelectable?: boolean;
+    disabledDaysOfWeek?: DaysOfWeekModifier;
+}
 
 export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitations => {
     const INGEN_DATO_SPERRE = undefined;

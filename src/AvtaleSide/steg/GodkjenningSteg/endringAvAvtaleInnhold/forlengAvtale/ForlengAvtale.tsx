@@ -7,14 +7,13 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
-import { Datepicker } from 'nav-datovelger';
 import { BodyShort, Label, Link } from '@navikt/ds-react';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './forlengAvtale.less';
-import Datovelger from '@/komponenter/datovelger/Datovelger';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
+import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -51,7 +50,9 @@ const ForlengAvtale: FunctionComponent = () => {
         <div className={cls.className}>
             <div className={cls.element('navarende-sluttdato')}>
                 <Label>Nåværende sluttdato for avtalen</Label>
-                <BodyShort size="small">{avtaleContext.avtale.gjeldendeInnhold.sluttDato}</BodyShort>
+                <BodyShort size="small">
+                    {formatterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}
+                </BodyShort>
             </div>
             <SkjemaGruppe feil={feil}>
                 <DatovelgerForlengOgForkort
