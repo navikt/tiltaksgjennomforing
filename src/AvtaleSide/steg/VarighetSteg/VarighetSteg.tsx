@@ -11,12 +11,11 @@ import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/ut
 import { Alert, BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
 import 'moment/locale/nb';
-import { Datepicker } from 'nav-datovelger';
 import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { AvtaleMinMaxDato } from './AvtaleMinMaxDato/AvtaleMinMaxDato';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
+import Datovelger from '@/komponenter/datovelger/Datovelger';
 
 const VarighetSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -102,40 +101,26 @@ const VarighetSteg: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtaleContext.avtale.tiltakstype) &&
                         moment(avtaleContext.avtale.gjeldendeInnhold.startDato).isBefore('2023-02-01') &&
-                        !avtaleContext.avtale.erRyddeAvtale && innloggetBruker.erNavAnsatt && (
+                        !avtaleContext.avtale.erRyddeAvtale &&
+                        innloggetBruker.erNavAnsatt && (
                             <>
                                 <Alert variant="warning">
                                     Du har oppgitt startdato som er før 01.02.2023 uten å huke av for at avtalen skal
                                     overføres fra arena. Dette vil dermed bli behandlet som en ny avtale, som aldri har
                                     vært behandlet i Arena før, med tilsagn/tilskuddsperioder fra{' '}
-                                    {formatterDato(avtaleContext.avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
-                                    {<VerticalSpacer rem={1} />}
-                                    Hvis dette er en avtale som tidligere har vært behandlet i Arena, må du annullere denne og opprette en ny, hvor du huker av for at avtalen skal overføres fra Arena.
+                                    {formatterDato(avtaleContext.avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}
+                                    .{<VerticalSpacer rem={1} />}
+                                    Hvis dette er en avtale som tidligere har vært behandlet i Arena, må du annullere
+                                    denne og opprette en ny, hvor du huker av for at avtalen skal overføres fra Arena.
                                 </Alert>
                                 <VerticalSpacer rem={1} />
                             </>
                         )}
                     <Column md="6">
-                        <label className="skjemaelement__label">Startdato</label>
-                        <Datepicker
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.gjeldendeInnhold.startDato || undefined}
-                            limitations={AvtaleMinMaxDato(true)}
-                            onChange={(dato) => {
-                                if (moment(dato).isValid()) avtaleContext.settAvtaleInnholdVerdier({ startDato: dato });
-                            }}
-                        />
+                        <Datovelger datoFelt="startDato" label="Startdato" />
                     </Column>
                     <Column md="6">
-                        <label className="skjemaelement__label">Forventet sluttdato</label>
-                        <Datepicker
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            value={avtaleContext.avtale.gjeldendeInnhold.sluttDato || undefined}
-                            limitations={AvtaleMinMaxDato(false)}
-                            onChange={(dato) => {
-                                if (moment(dato).isValid()) avtaleContext.settAvtaleInnholdVerdier({ sluttDato: dato });
-                            }}
-                        />
+                        <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
                     </Column>
                 </Row>
                 {sommerjobbDeltakerOver30VedStartdato && (
