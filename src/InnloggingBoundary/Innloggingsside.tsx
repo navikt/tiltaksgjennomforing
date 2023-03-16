@@ -24,7 +24,6 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     const throwError = useAsyncError();
     const [, setCookie] = useCookies();
     const visFeilmelding = useContext(FeilVarselContext);
-    console.log('innloggingskilder', props.innloggingskilder);
 
     const loginKlikk = async (innloggingskilde: Innloggingskilde) => {
         try {
@@ -41,9 +40,9 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
         }
     };
 
-    const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde) => (
+    const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde, index: number) => (
         <Hovedknapp
-            key={innlogginskilde.part}
+            key={innlogginskilde.part + index}
             className="innloggingsside__logginnKnapp"
             onClick={() => {
                 setCookie(INNLOGGET_PART, innlogginskilde.part, { path: '/tiltaksgjennomforing' });

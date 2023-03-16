@@ -7,16 +7,13 @@ import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/internt';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
-import NAVSPA from '@navikt/navspa';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
-
-const dekoratorConfig = decoratorconfig();
-const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
+import ModiaDekorator from '@/internflateDekorator/ModiaDekorator';
 
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
@@ -61,7 +58,7 @@ const InnloggingBoundary: FunctionComponent = (props) => {
         if (brukBackupmeny === undefined || brukmeny === undefined) return null;
         return (
             <>
-                {brukmeny && <InternflateDecorator {...dekoratorConfig} />}
+                <ModiaDekorator enableModiaDekorator={brukmeny} />
                 <Innloggingslinje brukBackupmeny={brukBackupmeny} innloggetBruker={innloggetBruker} />
                 {innloggetBruker.rolle === 'VEILEDER' && innloggetBruker.kanVæreBeslutter && <ByttTilBeslutter />}
                 {innloggetBruker.rolle === 'BESLUTTER' && <ByttTilVeileder />}

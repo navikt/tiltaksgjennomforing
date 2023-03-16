@@ -5,15 +5,17 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
     webpack: {
-        plugins: [
-            new BundleAnalyzerPlugin({
-                analyzerMode: 'disabled',
-                openAnalyzer: false,
-            }),
-            new EnvironmentPlugin({
-                GIT_COMMIT_HASH: 'local-dev',
-            }),
-        ],
+        plugins: {
+            add: [
+                new BundleAnalyzerPlugin({
+                    analyzerMode: 'disabled',
+                    openAnalyzer: false,
+                }),
+                new EnvironmentPlugin({
+                    GIT_COMMIT_HASH: 'local-dev',
+                }),
+            ],
+        },
         alias: {
             '@': path.resolve(__dirname, 'src/'),
         },
@@ -30,11 +32,8 @@ module.exports = {
         },
     },
     jest: {
-        transform: {
-            '^.+\\.[t|j]sx?$': 'babel-jest',
-        },
-        transformIgnorePatterns: ['node_modules/(?!axios)/'],
         configure: {
+            transformIgnorePatterns: ['/node_modules/(?!(axios)/).*'],
             moduleNameMapper: {
                 '^@/(.*)$': '<rootDir>/src/$1',
             },
