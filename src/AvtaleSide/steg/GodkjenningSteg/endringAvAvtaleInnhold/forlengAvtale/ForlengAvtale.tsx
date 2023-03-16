@@ -13,6 +13,8 @@ import { SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './forlengAvtale.less';
+import Datovelger from '@/komponenter/datovelger/Datovelger';
+import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
 
 const ForlengAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -23,14 +25,14 @@ const ForlengAvtale: FunctionComponent = () => {
     const [feil, setFeil] = useState<string>();
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
-    const forleng = async () => {
+    const forleng = async (): Promise<void> => {
         if (sluttDato) {
             await forlengAvtale(avtaleContext.avtale, sluttDato);
             await avtaleContext.hentAvtale();
             lukkModal();
         }
     };
-    const onDatoChange = async (dato: string | undefined) => {
+    const onDatoChange = async (dato: string | undefined): Promise<void> => {
         setSluttDato(dato);
         if (dato) {
             try {
@@ -52,16 +54,13 @@ const ForlengAvtale: FunctionComponent = () => {
                 <BodyShort size="small">{avtaleContext.avtale.gjeldendeInnhold.sluttDato}</BodyShort>
             </div>
             <SkjemaGruppe feil={feil}>
-                <label className="skjemaelement__label">Velg ny sluttdato for avtalen</label>
-                <Datepicker
-                    inputProps={{ placeholder: 'dd.mm.åååå' }}
-                    value={sluttDato}
-                    limitations={{
-                        minDate: moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
-                            .add(1, 'days')
-                            .format('YYYY-MM-DD'),
-                    }}
-                    onChange={(dato) => onDatoChange(dato)}
+                <DatovelgerForlengOgForkort
+                    datoFelt="sluttDato"
+                    label="Velg ny sluttdaot for avtalen"
+                    onChangeHåndtereNyDato={onDatoChange}
+                    minDate={moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
+                        .add(1, 'days')
+                        .format('YYYY-MM-DD')}
                 />
             </SkjemaGruppe>
             <VerticalSpacer rem={2} />

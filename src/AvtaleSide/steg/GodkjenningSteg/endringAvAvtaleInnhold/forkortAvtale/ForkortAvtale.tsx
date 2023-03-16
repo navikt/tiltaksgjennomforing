@@ -14,6 +14,8 @@ import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './forkortAvtale.less';
+import Datovelger from '@/komponenter/datovelger/Datovelger';
+import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
 
 const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -27,7 +29,7 @@ const ForkortAvtale: FunctionComponent = () => {
 
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
-    const forkort = async () => {
+    const forkort = async (): Promise<void> => {
         if (!sluttDato) {
             setDatoFeil('Dato må fylles ut');
             return;
@@ -36,7 +38,7 @@ const ForkortAvtale: FunctionComponent = () => {
         await avtaleContext.hentAvtale();
         lukkModal();
     };
-    const onDatoChange = async (dato: string | undefined) => {
+    const onDatoChange = async (dato: string | undefined): Promise<void> => {
         setSluttDato(dato);
         setDatoFeil(undefined);
         if (dato) {
@@ -44,7 +46,7 @@ const ForkortAvtale: FunctionComponent = () => {
                 const nyAvtale = await forkortAvtaleDryRun(avtaleContext.avtale, dato);
                 setTilskuddsperioder(nyAvtale.tilskuddPeriode);
             } catch (error: any) {
-                handterFeil(error, (feilmelding) => setDatoFeil(feilmelding));
+                handterFeil(error, (feilmelding: string) => setDatoFeil(feilmelding));
             }
         }
     };
@@ -55,17 +57,16 @@ const ForkortAvtale: FunctionComponent = () => {
                 <Label>Nåværende sluttdato for avtalen</Label>
                 <BodyShort size="small">{avtaleContext.avtale.gjeldendeInnhold.sluttDato}</BodyShort>
             </div>
+
             <SkjemaGruppe feil={datoFeil} title="Velg ny sluttdato for avtalen">
-                <Datepicker
-                    inputProps={{ placeholder: 'dd.mm.åååå' }}
-                    value={sluttDato}
-                    limitations={{
-                        maxDate: moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
-                            .subtract(1, 'days')
-                            .format('YYYY-MM-DD'),
-                        minDate: moment(avtaleContext.avtale.gjeldendeInnhold.startDato).format('YYYY-MM-DD'),
-                    }}
-                    onChange={(dato) => onDatoChange(dato)}
+                <DatovelgerForlengOgForkort
+                    datoFelt="sluttDato"
+                    label=""
+                    onChangeHåndtereNyDato={onDatoChange}
+                    minDate={moment(avtaleContext.avtale.gjeldendeInnhold.startDato).format('YYYY-MM-DD')}
+                    maxDate={moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
+                        .subtract(1, 'days')
+                        .format('YYYY-MM-DD')}
                 />
             </SkjemaGruppe>
             <VerticalSpacer rem={1} />

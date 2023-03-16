@@ -10,7 +10,6 @@ import { Link, UNSAFE_MonthPicker } from '@navikt/ds-react';
 import moment from 'moment';
 import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { FunctionComponent, useContext, useState } from 'react';
-//import './forlengAvtale.less';
 
 const JusterArenaMigreringsdato: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -28,7 +27,7 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
             lukkModal();
         }
     };
-    const onDatoChange = async (dato: string | undefined) => { 
+    const onDatoChange = async (dato: string | undefined) => {
         if (dato) {
             const datoUtenTimezone = moment(dato).format('YYYY-MM-DD');
             setSluttDato(datoUtenTimezone);
@@ -45,12 +44,13 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
         }
     };
 
-    const startDatoDate = avtaleContext.avtale.gjeldendeInnhold.startDato ?  new Date(avtaleContext.avtale.gjeldendeInnhold.startDato) : undefined;
-    
+    const startDatoDate = avtaleContext.avtale.gjeldendeInnhold.startDato
+        ? new Date(avtaleContext.avtale.gjeldendeInnhold.startDato)
+        : undefined;
+
     const modalInnhold = (
         <div className={cls.className}>
-            <div className={cls.element('navarende-sluttdato')}>
-            </div>
+            <div className={cls.element('navarende-sluttdato')} />
             <SkjemaGruppe feil={feil}>
                 <label className="skjemaelement__label">
                     Velg første måned avtalen skal behandles i ny løsning og ikke i Arena.
@@ -78,7 +78,9 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
         setFeil(undefined);
     };
 
-    const startDatoErEtterMigreringsdato = avtaleContext.avtale.gjeldendeInnhold.startDato && moment(avtaleContext.avtale.gjeldendeInnhold.startDato).isAfter(moment('2023-02-01'));
+    const startDatoErEtterMigreringsdato =
+        avtaleContext.avtale.gjeldendeInnhold.startDato &&
+        moment(avtaleContext.avtale.gjeldendeInnhold.startDato).isAfter(moment('2023-02-01'));
     if (!avtaleContext.avtale.gjeldendeInnhold.startDato || startDatoErEtterMigreringsdato) {
         return null;
     }

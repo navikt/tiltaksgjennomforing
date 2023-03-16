@@ -4,31 +4,36 @@ import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
 import datoUtils from '@/utils/datoUtils';
 import { AvtaleMinMaxDato } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
+import { ISODateString } from 'nav-datovelger/lib/types';
 
 type Props = {
     datoFelt: keyof Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
     label: string;
+    onChangeHåndtereNyDato: (dato: string | undefined) => Promise<void>;
+    minDate: ISODateString;
+    maxDate?: ISODateString;
 };
 
-const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChildren<Props>) => {
-    const { avtale, settAvtaleInnholdVerdier } = useContext(AvtaleContext);
+const DatovelgerForlengOgForkort: FunctionComponent<Props> = ({
+    label,
+    datoFelt,
+    onChangeHåndtereNyDato,
+    minDate,
+    maxDate,
+}: PropsWithChildren<Props>) => {
+    const { avtale } = useContext(AvtaleContext);
     const defaultDato = avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined;
 
-    const fjernTid = (timestamp: string) => timestamp.split('T')[0];
-    const erStartdato = datoFelt === 'startDato';
-    const minDato = new Date(fjernTid(AvtaleMinMaxDato(erStartdato).minDate || ''));
-    const maxDato = new Date(fjernTid(AvtaleMinMaxDato(erStartdato).maxDate || ''));
+    const minDato = new Date(minDate || '');
+    const maxDato = new Date(maxDate || '');
 
     const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
         fromDate: minDato,
         toDate: maxDato,
         inputFormat: 'dd.MM.yyyy',
         defaultSelected: defaultDato,
-
         onDateChange: (dato) => {
-            settAvtaleInnholdVerdier({
-                [datoFelt]: datoUtils.formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'),
-            });
+            onChangeHåndtereNyDato(datoUtils.formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'));
         },
     });
 
@@ -42,4 +47,4 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
     );
 };
 
-export default Datovelger;
+export default DatovelgerForlengOgForkort;
