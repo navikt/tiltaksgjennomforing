@@ -1,6 +1,7 @@
-import Popover, { PopoverOrientering, PopoverProps } from 'nav-frontend-popover';
+//import Popover, { PopoverOrientering, PopoverProps } from 'nav-frontend-popover';
 import React, { FunctionComponent, ReactNode, useEffect, useRef, useState } from 'react';
 import Artikkel from './Artikkel';
+import { Popover } from '@navikt/ds-react';
 import Ikon from './Ikon';
 import './Nytt.less';
 import useAntallUlesteNyheter from './useAntallUlesteNyheter';
@@ -21,7 +22,7 @@ interface Props extends Partial<PopoverProps> {
 const Nytt: FunctionComponent<Props> = (props) => {
     const { navn, nyheter, åpneVedFørsteBesøk = false, onÅpneNyheter, ...popoverProps } = props;
 
-    const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>();
+    const [popoverAnker, setPopoverAnker] = useState<Element | undefined>();
     const [erÅpnet, setErÅpnet] = useState<boolean>(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -65,6 +66,23 @@ const Nytt: FunctionComponent<Props> = (props) => {
                 <Ikon navn={navn} />
                 {antallUlesteNyheter > 0 && <div className="nytt__notifikasjon" />}
             </button>
+            <Popover
+                open={erÅpnet} onClose={() => setPopoverAnker(undefined)} anchorEl={popoverAnker}>
+            <Popover.Content>
+            <div className="nytt__popover">
+                    <h2 className="nytt__tittel">Nytt i {navn}</h2>
+                    <section className="nytt__nyheter">
+                        {nyheter.map((nyhet, index) => (
+                            <Artikkel
+                                key={`${nyhet.dato}-${nyhet.tittel}`}
+                                ulest={index < antallUlesteVedSidelast}
+                                nyhet={nyhet}
+                            />
+                        ))}
+                    </section>
+                </div>
+            </Popover.Content>
+            </Popover>
             <Popover
                 ankerEl={popoverAnker}
                 avstandTilAnker={16}
