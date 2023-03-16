@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
-import Lenke from 'nav-frontend-lenker';
-import { Expand } from '@navikt/ds-icons'
+import { Link } from '@navikt/ds-react';
+import { Expand } from '@navikt/ds-icons';
 import { formatterDato } from '@/utils/datoUtils';
 import { avtaleStatusTekst } from '@/messages';
 import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
@@ -30,7 +30,7 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ innhold }) => {
 
     return (
         <div className={cls.element('avtale-detaljer')}>
-            <Lenke
+            <Link
                 className={cls.element('lenke-detaljer')}
                 href={'/se-alle-detaljer'}
                 onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -38,13 +38,13 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ innhold }) => {
                     setSeDetaljer(!seDetaljer);
                 }}
             >
-                <>
+                <div className={cls.element('lenke-detaljer-wrapper')}>
                     <span>Detaljer</span>
                     <span className={cls.element('chevron-detaljer', seDetaljer ? 'open' : 'close')}>
                         <Expand />
                     </span>
-                </>
-            </Lenke>
+                </div>
+            </Link>
             <div className={cls.element('detalje-innhold-wrapper', seDetaljer ? 'open' : 'close')}>
                 <div className={cls.element('detalje-innhold')}>
                     <RadInfo

@@ -14,8 +14,7 @@ import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
     opprettMentorAvtale,
-    sjekkOmDeltakerAlleredeErRegistrertPaaTiltak
-    
+    sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
 } from '@/services/rest-service';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -171,7 +170,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
         sjekkOmAvtaleErOpprettet();
         // eslint-disable-next-line
     }, [valgtTiltaksType, deltakerFnr, bedriftNr]);
-    
+
     return (
         <div className={cls.className}>
             <Dokumenttittel tittel="Opprett avtale" />
@@ -214,20 +213,20 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             <Heading spacing size="small" level="3">
                                 Migrering av avtaler fra Arena
                             </Heading>
-                            Det er fortsatt mulighet for å opprette en avtale fra Arena som ikke finnes i avtaleløsningen.
-                            Huk av for at det er en avtale som skulle vært overført fra Arena sånn at tilskuddsperioder før første februar 2023 blir merket at de allerede
-                            er behandlet i Arena.
+                            Det er fortsatt mulighet for å opprette en avtale fra Arena som ikke finnes i
+                            avtaleløsningen. Huk av for at det er en avtale som skulle vært overført fra Arena sånn at
+                            tilskuddsperioder før første februar 2023 blir merket at de allerede er behandlet i Arena.
                         </Alert>
                         <VerticalSpacer rem={1} />
                         <Checkbox
                             label="Avtalen skal overføres fra Arena"
                             checked={valgtRyddeAvtale}
-                            onChange={e => setValgtRyddeAvtale(e.target.checked)}
+                            onChange={(e) => setValgtRyddeAvtale(e.target.checked)}
                         />
                     </Innholdsboks>
                 </div>
             )}
-            
+
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
                     lagre={opprettAvtaleKlikk}

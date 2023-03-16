@@ -1,10 +1,36 @@
 .relasjoner {
     padding: 0.5rem 0.5rem 2rem 0.5rem;
+    margin-bottom: 2rem;
+
+    &__heading {
+        margin-bottom: 1rem;
+    }
+    &__info-ingress {
+        margin-bottom: 1rem;
+        display: flex;
+        alignItems: flex-end;
+    }
+    &__LesMerPanel {
+        margin-bottom: 0.5rem;
+    }
+    &__harFamilietilknytning-forklaring {
+        margin-bottom: 1rem;
+    }
 
     &__relasjon-hjelpetekst {
         border: 1px solid #c6c2bf;
         border-radius: 3px;
         padding: 1rem;
+    }
+
+    &__svar {
+        width: 100%;
+        background-color: rgba(241, 241, 241, 1);
+        border-radius: 4px;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+        & > p {
+            font-weight: 500;
+        }
     }
 
     &__familietilknytning-valg {

@@ -37,7 +37,7 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
                         onÅpneNyheter={() => amplitude.logEvent('#tiltak-nyheter-apnet')}
                         åpneVedFørsteBesøk={true}
                         nyheter={nyheter}
-                        title="Nytt i tiltaksgjennomføring"
+                        tittel="Nytt i tiltaksgjennomføring"
                         navn="Tiltaksgjennomføring"
                     />
                 </div>

@@ -13,15 +13,13 @@ interface Props {
 const AlleredeOpprettetAvtaleModal: React.FC<Props> = ({ modalIsOpen, setModalIsOpen, style, children }) => {
     const cls = BEMHelper('alleredeOpprettetAvtaleModal');
 
-    /*
-    const setModalElement = () => {
+    const setModalElement = (): '#root' | 'body' => {
         if (document.getElementById('root')) return '#root';
         return 'body';
     };
-    */
 
     if (typeof window !== 'undefined') {
-        //Modal.setAppElement(setModalElement());
+        Modal.setAppElement(setModalElement());
     }
 
     return (

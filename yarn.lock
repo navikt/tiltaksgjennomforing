@@ -9790,16 +9790,6 @@ nav-frontend-paneler@^3.0.1:
   resolved "https://registry.yarnpkg.com/nav-frontend-paneler/-/nav-frontend-paneler-3.0.2.tgz#1de91e57abcab76ec18400d9686050df55a0cce5"
   integrity sha512-SJIOPC9znsmxHmeDHDWaXpr1K0uJoIlF+iEvC7svjZEOw1GaK6i6EoER9lysnyTnljFFMgyyt2OwpOp7sNulQQ==
 
-nav-frontend-popover-style@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/nav-frontend-popover-style/-/nav-frontend-popover-style-2.0.1.tgz"
-  integrity sha512-b8ctzSOZp30WDIH1YOzdsq/DehG+FjSvWLvcAMVqvfGaUeue6BcB45jI9PUlxqwoN7YG+xfhrRPzIeB/1z8zRg==
-
-nav-frontend-popover@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/nav-frontend-popover/-/nav-frontend-popover-2.0.2.tgz#2695be008dc5106ed4101f33b92ca7e2444582f3"
-  integrity sha512-hdtm+j3iJ4sPucrP647ru79fAuIhxNYqqDVjLEunC9HgEQ+dH2IrwqmEReZOh1rquqJLYXPw1/zrHCXylTexIQ==
-
 nav-frontend-skjema-style@^3.0.1:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/nav-frontend-skjema-style/-/nav-frontend-skjema-style-3.0.3.tgz#ecb3ca762b7c04d603a3772f5dcf910c6715a7f5"

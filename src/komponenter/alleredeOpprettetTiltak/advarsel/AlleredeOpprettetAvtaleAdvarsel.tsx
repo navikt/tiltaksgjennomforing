@@ -3,7 +3,7 @@ import { AlleredeRegistrertAvtale, AvtaleStatus } from '@/types/avtale';
 import { Alert } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import './alleredeOpprettetAvtaleAdvarsel.less';
-import Lenke from 'nav-frontend-lenker';
+import { Link } from '@navikt/ds-react';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
@@ -50,7 +50,7 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
                         </li>
                     )}
                 </ul>
-                <Lenke
+                <Link
                     onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
                         event.preventDefault();
                         setModalIsOpen(true);
@@ -58,7 +58,7 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
                     href={'/modal/se-allerede-registrerte-tiltak'}
                 >
                     Se detaljer
-                </Lenke>
+                </Link>
             </Alert>
         </div>
     );

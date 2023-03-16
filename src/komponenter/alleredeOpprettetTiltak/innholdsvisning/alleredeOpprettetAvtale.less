@@ -20,9 +20,11 @@
     position: relative;
     border-left: 1px dashed #00347D;
     background-color: white;
+
     &:last-child {
       padding-bottom: 0.25rem;
     }
+
     &::before {
       position: absolute;
       left: -12.5px;
@@ -36,12 +38,15 @@
       transition: all 500ms ease-in-out;
     }
   }
+
   &__rad-element {
     display: flex;
+
     & > p:nth-child(1) {
       margin-right: 0.375rem;
     }
   }
+
   &__info-not-bold {
     font-weight: 400 !important;
   }
@@ -52,37 +57,51 @@
 
   &__lenke-detaljer {
     text-decoration: none;
+
     &:focus, &:active {
       background-color: white !important;
       color: #0067c5 !important;
       box-shadow: none !important;
     }
+
     &:hover {
       text-decoration: underline;
     }
 
     & > span:nth-child(1) {
-       margin-right: 0.75rem;
-     }
+      margin-right: 0.75rem;
+    }
   }
+
+  &__lenke-detaljer-wrapper {
+    display: flex;
+  }
+
   &__chevron-detaljer {
-    &--open, &--close > span {
+    padding: 0.25rem 0 0 0.375rem;
+
+    &--open > svg, &--close > svg {
       transition: all 0.5s ease;
     }
-      &--open > span {
-        transform: rotateX(-180deg);
-      }
+
+    &--open > svg  {
+      transform: rotateX(-180deg);
+    }
   }
+
   &__detalje-innhold-wrapper {
     transition: all 0.5s ease;
+
     &--close {
       overflow-y: hidden;
       max-height: 0;
     }
+
     &--open {
       max-height: 20rem;
     }
   }
+
   &__detalje-innhold {
     transition: all 0.3s ease;
     margin: 0.75rem 0;
