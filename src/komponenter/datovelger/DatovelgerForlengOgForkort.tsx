@@ -3,7 +3,7 @@ import { Avtaleinnhold } from '@/types/avtale';
 import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
 import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
-import { ISODateString } from 'nav-datovelger/lib/types';
+import { ISODateString } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 
 type Props = {
     datoFelt: keyof Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
