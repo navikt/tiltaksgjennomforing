@@ -5,7 +5,7 @@ import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerIn
 import BEMHelper from '@/utils/bem';
 import { Alert, BodyShort } from '@navikt/ds-react';
 import { Knapp } from 'nav-frontend-knapper';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Fieldset, Checkbox } from '@navikt/ds-react';
 import React, { useContext, useState } from 'react';
 import './KontaktpersonRefusjoninfoDel.less';
 
@@ -53,7 +53,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                 <div className={cls.element('rad')}>
                     <SkjemaTittel>Kontaktperson hos arbeidsgiver for refusjon</SkjemaTittel>
                 </div>
-                <SkjemaGruppe title="Kontaktperson for refusjon">
+                <Fieldset legend="Kontaktperson for refusjon" title="Kontaktperson for refusjon">
                     <div style={{ marginBottom: '1rem' }}>
                         <BodyShort size="small">
                             For eksempel en regnskapsfører som skal motta varslinger om refusjon
@@ -126,10 +126,11 @@ const KontaktpersonRefusjoninfoDel = () => {
                             </div>
                             <div>
                                 <Checkbox
-                                    label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
                                     checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerVarslingOmRefusjon}
                                     onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
-                                />
+                                >
+                                    Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon
+                                </Checkbox>
                             </div>
                             {feilmelding && (
                                 <Alert variant="warning" style={{ marginBottom: '1rem' }}>
@@ -139,7 +140,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                             <Knapp onClick={() => resetRefusjonKontaktPerson()}>Fjern kontaktperson</Knapp>
                         </>
                     )}
-                </SkjemaGruppe>
+                </Fieldset>
             </div>
         </>
     );

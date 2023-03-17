@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { Label, BodyShort } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import { tilskuddsperiodeAvslagTekst } from '@/messages';
 import { Avslagsårsaker } from '@/types/avtale';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
@@ -39,13 +39,12 @@ const TilskuddsperiodeVisAvslag: FunctionComponent = () => {
                                 <div>
                                     <Label>Årsak til avslag</Label>
                                     <VerticalSpacer rem={1} />
-                                    <SkjemaGruppe>
+                                    <CheckboxGroup legend="Årsak for avslag av tilskuddsperiode">
                                         {Object.entries(tilskuddsperiodeAvslagTekst).map(([kode, tekst]) => {
                                             const avslagskode = kode as Avslagsårsaker;
                                             return (
                                                 <Checkbox
                                                     key={kode}
-                                                    label={tekst}
                                                     checked={avslagsårsaker.has(avslagskode)}
                                                     onChange={(event) => {
                                                         const årsaker = new Set<Avslagsårsaker>(avslagsårsaker);
@@ -56,10 +55,12 @@ const TilskuddsperiodeVisAvslag: FunctionComponent = () => {
                                                         }
                                                         setAvslagsårsaker(årsaker);
                                                     }}
-                                                />
+                                                >
+                                                    {tekst}
+                                                </Checkbox>
                                             );
                                         })}
-                                    </SkjemaGruppe>
+                                    </CheckboxGroup>
                                 </div>
                                 <div className={cls.element('avslagsforklaring-wrapper')}>
                                     <PakrevdTextarea

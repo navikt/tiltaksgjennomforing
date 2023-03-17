@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import GodkjennPåVegneAvDeltakerCheckboxer from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/komponenter/GodkjennPåVegneAvDeltakerCheckboxer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 import GodkjennPaVegneAvMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/GodkjennPaVegneAvMedAlleredeOpprettetTiltak';
 import { fetchdata } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
@@ -33,7 +33,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
     const [godkjentPåVegneAvGrunner, setGodkjentPåVegneAvGrunner] = useState<GodkjentPaVegneAvDeltakerGrunner>({
         digitalKompetanse: false,
         reservert: false,
-        ikkeBankId: false
+        ikkeBankId: false,
     });
 
     const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<string>();
@@ -61,12 +61,13 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.element('godkjenn-pa-vegne-av')}>
             <Checkbox
-                label={godkjennPaVegneLabel}
                 checked={props.skalGodkjennesPaVegne}
                 onChange={(e) => {
                     props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
-            />
+            >
+                {godkjennPaVegneLabel}
+            </Checkbox>
 
             {props.skalGodkjennesPaVegne && (
                 <React.Fragment>
@@ -79,13 +80,11 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
                             setFeilmeldingGrunn={setFeilmeldingGrunn}
                         />
                     </div>
-                    <SkjemaGruppe feil={feilDeltakerInformert}>
-                        <Checkbox
-                            label="Deltakeren er informert om kravene og godkjenner innholdet i avtalen."
-                            checked={deltakerInformert}
-                            onChange={() => setDeltakerInformert(!deltakerInformert)}
-                        />
-                    </SkjemaGruppe>
+                    <CheckboxGroup legend="Bekreft at deltaker er informert om kravene" error={feilDeltakerInformert}>
+                        <Checkbox checked={deltakerInformert} onChange={() => setDeltakerInformert(!deltakerInformert)}>
+                            Deltakeren er informert om kravene og godkjenner innholdet i avtalen.
+                        </Checkbox>
+                    </CheckboxGroup>
                 </React.Fragment>
             )}
             {props.skalGodkjennesPaVegne && (

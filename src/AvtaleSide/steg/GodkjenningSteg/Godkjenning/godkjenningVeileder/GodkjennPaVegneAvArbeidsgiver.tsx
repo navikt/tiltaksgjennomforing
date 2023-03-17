@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 import { fetchdata } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
 import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
@@ -33,7 +33,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
     const [arbeidsgiverInformert, setArbeidsgiverInformert] = useState(false);
 
     const godkjenn = (): void | Promise<void> => {
-        const valgtMinstEnGrunn = klarerIkkeGiFaTilgang || vetIkkeHvemSomKanGiTilgang || farIkkeTilgangPersonvern
+        const valgtMinstEnGrunn = klarerIkkeGiFaTilgang || vetIkkeHvemSomKanGiTilgang || farIkkeTilgangPersonvern;
         if (!valgtMinstEnGrunn) {
             return setFeilmeldingGrunn('Oppgi minst én grunn for godkjenning på vegne av arbeidsgiver');
         } else {
@@ -49,52 +49,60 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
         return godkjennPaVegneAvArbeidsgiver({
             farIkkeTilgangPersonvern,
             klarerIkkeGiFaTilgang,
-            vetIkkeHvemSomKanGiTilgang
+            vetIkkeHvemSomKanGiTilgang,
         });
     };
 
     return (
         <div className={cls.element('godkjenn-pa-vegne-av')}>
             <Checkbox
-                label={godkjennPaVegneLabel}
                 checked={props.skalGodkjennesPaVegne}
                 onChange={(e) => {
                     props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
-            />
+            >
+                {godkjennPaVegneLabel}
+            </Checkbox>
 
             {props.skalGodkjennesPaVegne && (
                 <>
                     <div className={cls.element('checkbox-wrapper')}>
-                        <SkjemaGruppe feil={feilmeldingGrunn}>
+                        <CheckboxGroup legend="Grunn til godkjenning på vegne av arbeidsgiver" error={feilmeldingGrunn}>
                             {avtale.tiltakstype === 'SOMMERJOBB' && (
                                 <>
                                     <Checkbox
-                                        label="klarer ikke få eller gi tilgang"
                                         checked={klarerIkkeGiFaTilgang}
                                         onChange={(event) => setKlarerIkkeGiFaTilgang(event.currentTarget.checked)}
-                                    />
+                                    >
+                                        klarer ikke få eller gi tilgang
+                                    </Checkbox>
                                     <Checkbox
-                                        label="vet ikke hvem som kan gi tilgang"
                                         checked={vetIkkeHvemSomKanGiTilgang}
                                         onChange={(event) => setVetIkkeHvemSomKanGiTilgang(event.currentTarget.checked)}
-                                    />
+                                    >
+                                        vet ikke hvem som kan gi tilgang
+                                    </Checkbox>
                                     <Checkbox
-                                        label="får ikke tilgang på grunn av personvern"
                                         checked={farIkkeTilgangPersonvern}
                                         onChange={(event) => setFarIkkeTilgangPersonvern(event.currentTarget.checked)}
-                                    />
+                                    >
+                                        får ikke tilgang på grunn av personvern
+                                    </Checkbox>
                                 </>
                             )}
-                        </SkjemaGruppe>
+                        </CheckboxGroup>
                     </div>
-                    <SkjemaGruppe feil={feilArbeidsgiverInformert}>
+                    <CheckboxGroup
+                        legend="Bekreft at arbeidsgiver er informert om kravene"
+                        error={feilArbeidsgiverInformert}
+                    >
                         <Checkbox
-                            label="Arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen."
                             checked={arbeidsgiverInformert}
                             onChange={() => setArbeidsgiverInformert(!arbeidsgiverInformert)}
-                        />
-                    </SkjemaGruppe>
+                        >
+                            Arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen.
+                        </Checkbox>
+                    </CheckboxGroup>
                 </>
             )}
             {props.skalGodkjennesPaVegne && (

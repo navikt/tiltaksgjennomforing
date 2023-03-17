@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import GodkjennPåVegneAvDeltakerCheckboxer from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/komponenter/GodkjennPåVegneAvDeltakerCheckboxer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { GodkjentPaVegneAvArbeidsgiverGrunner, GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import { Label } from '@navikt/ds-react';
 import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 import GodkjennPåVegneAvArbeidsgiverCheckboxer from './komponenter/GodkjennPåVegneAvArbeidsgiverCheckboxer';
@@ -32,13 +32,13 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
         useState<GodkjentPaVegneAvDeltakerGrunner>({
             digitalKompetanse: false,
             reservert: false,
-            ikkeBankId: false
+            ikkeBankId: false,
         });
     const [godkjentPåVegneAvGrunnerArbeidsgiver, setGodkjentPåVegneAvGrunnerArbeidsgiver] =
         useState<GodkjentPaVegneAvArbeidsgiverGrunner>({
             farIkkeTilgangPersonvern: false,
             klarerIkkeGiFaTilgang: false,
-            vetIkkeHvemSomKanGiTilgang: false
+            vetIkkeHvemSomKanGiTilgang: false,
         });
 
     const [feilmeldingGrunnDeltaker, setFeilmeldingGrunnDeltaker] = useState<string>();
@@ -84,12 +84,13 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.element('godkjenn-pa-vegne-av')}>
             <Checkbox
-                label={godkjennPaVegneLabel}
                 checked={props.skalGodkjennesPaVegne}
                 onChange={(e) => {
                     props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
                 }}
-            />
+            >
+                {godkjennPaVegneLabel}
+            </Checkbox>
             {props.skalGodkjennesPaVegne && (
                 <React.Fragment>
                     <div className={cls.element('checkbox-wrapper')}>
@@ -111,13 +112,15 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
                             setFeilmeldingGrunn={setFeilmeldingGrunnArbeidsgiver}
                         />
                     </div>
-                    <SkjemaGruppe feil={feilErInformert} className={cls.element('skjema-gruppe')}>
-                        <Checkbox
-                            label="Deltakeren og arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen."
-                            checked={erInformert}
-                            onChange={() => setErInformert(!erInformert)}
-                        />
-                    </SkjemaGruppe>
+                    <CheckboxGroup
+                        legend="Bekreftelse at deltaker og arbeidsgiver er informert om kravene"
+                        error={feilErInformert}
+                        className={cls.element('skjema-gruppe')}
+                    >
+                        <Checkbox checked={erInformert} onChange={() => setErInformert(!erInformert)}>
+                            Deltakeren og arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen.
+                        </Checkbox>
+                    </CheckboxGroup>
                     {props.skalGodkjennesPaVegne && (
                         <LagreKnapp
                             className={cls.element('lagre-knapper')}

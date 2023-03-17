@@ -1,5 +1,6 @@
 import { GodkjentPaVegneAvArbeidsgiverGrunner } from '@/types/avtale';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Fieldset } from '@navikt/ds-react';
+import { Checkbox } from 'nav-frontend-skjema';
 import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
 const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = (props) => {
     return (
         <div style={{ marginTop: '0.5rem' }}>
-            <SkjemaGruppe feil={props.feilmeldingGrunn}>
+            <Fieldset legend="Godkjenn på vegne av arbeidsgiver valg" error={props.feilmeldingGrunn}>
                 {props.tiltakstype === 'SOMMERJOBB' && (
                     <>
                         {' '}
@@ -49,7 +50,7 @@ const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = (prop
                         />
                     </>
                 )}
-            </SkjemaGruppe>
+            </Fieldset>
         </div>
     );
 };

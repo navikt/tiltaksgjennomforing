@@ -1,5 +1,5 @@
 import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
 
 interface Props {
@@ -13,9 +13,12 @@ interface Props {
 
 const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) => {
     return (
-        <SkjemaGruppe feil={props.feilmeldingGrunn} className={props.className}>
+        <CheckboxGroup
+            legend="Godkjenn på vegne av deltaker valg"
+            error={props.feilmeldingGrunn}
+            className={props.className}
+        >
             <Checkbox
-                label="har ikke BankID"
                 checked={props.godkjentPåVegneAvGrunner.ikkeBankId}
                 onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
@@ -23,9 +26,10 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) =
                         ikkeBankId: event.currentTarget.checked,
                     })
                 }
-            />
+            >
+                har ikke BankID
+            </Checkbox>
             <Checkbox
-                label="har reservert seg mot digitale tjenester"
                 checked={props.godkjentPåVegneAvGrunner.reservert}
                 onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
@@ -33,9 +37,10 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) =
                         reservert: event.currentTarget.checked,
                     })
                 }
-            />
+            >
+                har reservert seg mot digitale tjenester
+            </Checkbox>
             <Checkbox
-                label="mangler digital kompetanse"
                 checked={props.godkjentPåVegneAvGrunner.digitalKompetanse}
                 onChange={(event) =>
                     props.setGodkjentPåVegneAvGrunner({
@@ -43,8 +48,10 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) =
                         digitalKompetanse: event.currentTarget.checked,
                     })
                 }
-            />
-        </SkjemaGruppe>
+            >
+                mangler digital kompetanse
+            </Checkbox>
+        </CheckboxGroup>
     );
 };
 

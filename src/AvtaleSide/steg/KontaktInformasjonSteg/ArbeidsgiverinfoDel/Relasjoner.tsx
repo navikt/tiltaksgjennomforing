@@ -6,8 +6,7 @@ import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import BEMHelper from '@/utils/bem';
 import { Tag } from '@navikt/ds-react';
-import { Popover } from '@navikt/ds-react';
-import { RadioPanel } from 'nav-frontend-skjema';
+import { Popover, RadioGroup, Radio } from '@navikt/ds-react';
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
@@ -60,25 +59,31 @@ const Relasjoner: FunctionComponent<{}> = () => {
                     </div>
                 ) : (
                     <>
-                        <RadioPanel
-                            label="Ja"
-                            name="familievalg"
-                            checked={harFamilietilknytning}
-                            value="ja"
-                            onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
-                        />
-                        <RadioPanel
-                            label="Nei"
-                            name="familievalg"
-                            checked={harFamilietilknytning === false}
-                            value="nei"
-                            onChange={() => {
-                                settAvtaleVerdier({
-                                    familietilknytningForklaring: undefined,
-                                    harFamilietilknytning: false,
-                                });
-                            }}
-                        />
+                        <RadioGroup legend="familie relasjoner" className={cls.element('familie-relasjoner')}>
+                            <div className={cls.element('familie-relasjoner-valg')}>
+                                <Radio
+                                    name="familievalg"
+                                    checked={harFamilietilknytning}
+                                    value="ja"
+                                    onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
+                                >
+                                    Ja
+                                </Radio>
+                                <Radio
+                                    name="familievalg"
+                                    checked={harFamilietilknytning === false}
+                                    value="nei"
+                                    onChange={() => {
+                                        settAvtaleVerdier({
+                                            familietilknytningForklaring: undefined,
+                                            harFamilietilknytning: false,
+                                        });
+                                    }}
+                                >
+                                    Nei
+                                </Radio>
+                            </div>
+                        </RadioGroup>
                     </>
                 )}
             </div>

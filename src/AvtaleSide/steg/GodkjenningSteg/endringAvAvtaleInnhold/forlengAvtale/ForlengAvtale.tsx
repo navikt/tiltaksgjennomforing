@@ -7,8 +7,7 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
-import { BodyShort, Label, Link } from '@navikt/ds-react';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
+import { BodyShort, Fieldset, Label, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './forlengAvtale.less';
@@ -54,16 +53,16 @@ const ForlengAvtale: FunctionComponent = () => {
                     {formatterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}
                 </BodyShort>
             </div>
-            <SkjemaGruppe feil={feil}>
+            <Fieldset legend="sluttdato" error={feil}>
                 <DatovelgerForlengOgForkort
                     datoFelt="sluttDato"
-                    label="Velg ny sluttdaot for avtalen"
+                    label="Velg ny sluttdato for avtalen"
                     onChangeHåndtereNyDato={onDatoChange}
                     minDate={moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
                         .add(1, 'days')
                         .format('YYYY-MM-DD')}
                 />
-            </SkjemaGruppe>
+            </Fieldset>
             <VerticalSpacer rem={2} />
             <SlikVilTilskuddsperioderSeUt
                 overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"
