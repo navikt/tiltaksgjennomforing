@@ -10,8 +10,7 @@ import { Innloggingskilde } from '@/types/innlogget-bruker';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { Next } from '@navikt/ds-icons';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Ingress, Heading, BodyShort } from '@navikt/ds-react';
+import { Ingress, Heading, BodyShort, Button } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
@@ -40,7 +39,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
     };
 
     const logginnknapper = props.innloggingskilder.map((innlogginskilde: Innloggingskilde) => (
-        <Hovedknapp
+        <Button
             key={innlogginskilde.part}
             className="innloggingsside__logginnKnapp"
             onClick={() => {
@@ -49,7 +48,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
             }}
         >
             {innlogginskilde.tittel}
-        </Hovedknapp>
+        </Button>
     ));
 
     return (
