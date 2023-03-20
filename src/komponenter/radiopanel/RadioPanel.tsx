@@ -1,8 +1,10 @@
 import React, { PropsWithChildren } from 'react';
 import { Radio } from '@navikt/ds-react';
+import BEMHelper from '@/utils/bem';
+import './radioPanel.less';
 
 interface Properties extends React.InputHTMLAttributes<HTMLInputElement> {
-    key?: string;
+    key?: string | number;
     name?: string | undefined;
     value: any;
     checked?: boolean | undefined;
@@ -17,8 +19,17 @@ const RadioPanel: React.FC<Properties> = ({
     onChange,
     children,
 }: PropsWithChildren<Properties>) => {
+    const cls = BEMHelper('radio-panel');
+
     return (
-        <Radio key={key} value={value} name={name} checked={checked} onChange={onChange}>
+        <Radio
+            key={key}
+            value={value}
+            name={name}
+            checked={checked}
+            onChange={onChange}
+            className={cls.className + ' ' + cls.element(checked ? 'active' : 'non-active')}
+        >
             {children}
         </Radio>
     );

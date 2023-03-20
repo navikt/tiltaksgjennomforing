@@ -3,10 +3,11 @@ import BEMHelper from '@/utils/bem';
 import amplitude from '@/utils/amplitude';
 import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, RadioGroup } from '@navikt/ds-react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import { SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 
 interface Props {
     className: string;
@@ -16,6 +17,14 @@ interface Props {
     setUgyldigAvtaletype: Dispatch<SetStateAction<boolean>>;
 }
 
+type Tiltaksvalg =
+    | 'ARBEIDSTRENING'
+    | 'MIDLERTIDIG_LONNSTILSKUDD'
+    | 'VARIG_LONNSTILSKUDD'
+    | 'MENTOR'
+    | 'INKLUDERINGSTILSKUDD'
+    | 'SOMMERJOBB';
+
 const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     valgtTiltaksType,
     setTiltaksType,
@@ -24,6 +33,14 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     className,
 }) => {
     const cls = BEMHelper(className);
+    const tiltakvalg: Tiltaksvalg[] = [
+        'ARBEIDSTRENING',
+        'MIDLERTIDIG_LONNSTILSKUDD',
+        'VARIG_LONNSTILSKUDD',
+        'MENTOR',
+        'INKLUDERINGSTILSKUDD',
+        'SOMMERJOBB',
+    ];
     return (
         <Innholdsboks className={cls.element('valg-tiltakstype-container')}>
             <Heading size="medium">Velg type avtale</Heading>
@@ -36,70 +53,24 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                     hvordan kan NAV hjelpe med inkludering
                 </EksternLenke>
             </BodyShort>
-            <div className={cls.element('tiltakstype-wrapper')}>
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Arbeidstrening"
-                    value="ARBEIDSTRENING"
-                    checked={valgtTiltaksType === 'ARBEIDSTRENING'}
-                    onChange={() => {
-                        setTiltaksType('ARBEIDSTRENING');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Midlertidig lønnstilskudd"
-                    value="MIDLERTIDIG_LONNSTILSKUDD"
-                    checked={valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD'}
-                    onChange={() => {
-                        setTiltaksType('MIDLERTIDIG_LONNSTILSKUDD');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Varig lønnstilskudd"
-                    value="VARIG_LONNSTILSKUDD"
-                    checked={valgtTiltaksType === 'VARIG_LONNSTILSKUDD'}
-                    onChange={() => {
-                        setTiltaksType('VARIG_LONNSTILSKUDD');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
 
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Mentor"
-                    value="MENTOR"
-                    checked={valgtTiltaksType === 'MENTOR'}
-                    onChange={() => {
-                        setTiltaksType('MENTOR');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Inkluderingstilskudd"
-                    value="INKLUDERINGSTILSKUDD"
-                    checked={valgtTiltaksType === 'INKLUDERINGSTILSKUDD'}
-                    onChange={() => {
-                        setTiltaksType('INKLUDERINGSTILSKUDD');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
-
-                <RadioPanel
-                    name="tiltakstype"
-                    label="Sommerjobb"
-                    value="SOMMERJOBB"
-                    checked={valgtTiltaksType === 'SOMMERJOBB'}
-                    onChange={() => {
-                        setTiltaksType('SOMMERJOBB');
-                        setUgyldigAvtaletype(false);
-                    }}
-                />
+            <div className={cls.element('')}>
+                <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
+                    {tiltakvalg.map((valg: Tiltaksvalg, index: number) => (
+                        <RadioPanel
+                            key={index}
+                            name="tiltakstype"
+                            value={valg}
+                            checked={valgtTiltaksType === valg}
+                            onChange={() => {
+                                setTiltaksType(valg);
+                                setUgyldigAvtaletype(false);
+                            }}
+                        >
+                            {valg.replace('_', ' ').toLowerCase()}
+                        </RadioPanel>
+                    ))}
+                </RadioGroup>
             </div>
             {ugyldigAvtaletype && (
                 <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
