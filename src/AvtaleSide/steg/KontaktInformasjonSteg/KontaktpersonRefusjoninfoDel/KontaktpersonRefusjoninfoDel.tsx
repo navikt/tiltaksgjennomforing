@@ -4,9 +4,8 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
 import { Alert, BodyShort } from '@navikt/ds-react';
-import { Knapp } from 'nav-frontend-knapper';
-import { Fieldset, Checkbox } from '@navikt/ds-react';
-import React, { useContext, useState } from 'react';
+import { Fieldset, Checkbox, Button } from '@navikt/ds-react';
+import { useContext, useState } from 'react';
 import './KontaktpersonRefusjoninfoDel.less';
 
 const KontaktpersonRefusjoninfoDel = () => {
@@ -67,7 +66,8 @@ const KontaktpersonRefusjoninfoDel = () => {
                             avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length ===
                                 undefined) && (
                             <div className={cls.element('buttonSpaceing')}>
-                                <Knapp
+                                <Button
+                                    variant="secondary"
                                     onClick={() => {
                                         setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt);
                                         settAvtaleInnholdVerdier({
@@ -77,7 +77,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     }}
                                 >
                                     + Legg til kontaktperson
-                                </Knapp>
+                                </Button>
                             </div>
                         )}
 
@@ -137,7 +137,9 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     {feilmelding}
                                 </Alert>
                             )}
-                            <Knapp onClick={() => resetRefusjonKontaktPerson()}>Fjern kontaktperson</Knapp>
+                            <Button variant="secondary" onClick={() => resetRefusjonKontaktPerson()}>
+                                Fjern kontaktperson
+                            </Button>
                         </>
                     )}
                 </Fieldset>

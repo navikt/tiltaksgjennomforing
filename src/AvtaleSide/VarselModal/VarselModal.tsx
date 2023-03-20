@@ -6,8 +6,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import * as RestService from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { Knapp } from 'nav-frontend-knapper';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Button } from '@navikt/ds-react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import VarselTabell from '../Varsellogg/VarselTabell';
 import './VarselModal.less';
 
@@ -65,9 +65,9 @@ const VarselModal: FunctionComponent = () => {
             <div>
                 <LagreKnapp lagre={lukkOgLesVarsler} label="Lukk" />
                 {!harOpprettetHendelse && (
-                    <Knapp style={{ marginLeft: '1rem' }} onClick={lukkeOgSeHendelselogg}>
+                    <Button style={{ marginLeft: '1rem' }} variant="secondary" onClick={lukkeOgSeHendelselogg}>
                         Se alle hendelser for denne avtalen
-                    </Knapp>
+                    </Button>
                 )}
             </div>
         </Modal>

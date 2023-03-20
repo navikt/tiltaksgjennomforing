@@ -1,10 +1,10 @@
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import amplitude from '@/utils/amplitude';
-import { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
+import { Button, ButtonProps } from '@navikt/ds-react';
 import React from 'react';
 import { useCookies } from 'react-cookie';
 
-const LoggUtKnapp: React.FunctionComponent<KnappBaseProps> = props => {
+const LoggUtKnapp: React.FunctionComponent<ButtonProps> = (props) => {
     const [, , removeCookie] = useCookies();
 
     const onClick = () => {
@@ -14,9 +14,9 @@ const LoggUtKnapp: React.FunctionComponent<KnappBaseProps> = props => {
         });
     };
     return (
-        <Knapp mini={true} onClick={onClick} {...props}>
+        <Button size="small" variant="secondary" onClick={onClick} {...props}>
             Logg ut
-        </Knapp>
+        </Button>
     );
 };
 

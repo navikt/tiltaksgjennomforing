@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { useCookies } from 'react-cookie';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import { Knapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import './byttTilBeslutter/byttTilBeslutter.less';
 import BEMHelper from '@/utils/bem';
 
@@ -16,9 +16,9 @@ const ByttTilVeileder: FunctionComponent = () => {
     return (
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                <Knapp mini onClick={onClick}>
+                <Button size='small' variant='secondary' onClick={onClick}>
                     Bytt til visning for veileder
-                </Knapp>
+                </Button>
             </div>
         </div>
     );

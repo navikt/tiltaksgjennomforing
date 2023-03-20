@@ -2,9 +2,9 @@ import React, { Dispatch, SetStateAction, useContext } from 'react';
 import AlleredeOpprettetAvtaleModal from '@/komponenter/alleredeOpprettetTiltak/modal/AlleredeOpprettetAvtaleModal';
 import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import GodkjenningsInnhold from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/GodkjenningsInnhold';
-import { Knapp } from 'nav-frontend-knapper';
 import { godkjennAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import { Button } from '@navikt/ds-react';
 
 interface Props {
     godkjenn: () => Promise<void>;
@@ -18,9 +18,11 @@ const GodkjennAvtaleMedAlleredeOpprettetTiltak: React.FC<Props> = ({ godkjenn, s
     return (
         <AlleredeOpprettetAvtaleModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
             <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}>
-                <div>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginLeft: '-3.5rem' }}>
                     <LagreKnapp lagre={() => godkjennAvtale({ godkjenn, setModalIsOpen })} label="Godkjenn avtale" />
-                    <Knapp onClick={() => setModalIsOpen(false)}>Avbryt</Knapp>
+                    <Button variant="secondary" onClick={() => setModalIsOpen(false)}>
+                        Avbryt
+                    </Button>
                 </div>
             </GodkjenningsInnhold>
         </AlleredeOpprettetAvtaleModal>

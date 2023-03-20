@@ -4,9 +4,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Flatknapp, Knapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
-import { Heading } from '@navikt/ds-react';
+import { Heading, Button } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -95,7 +94,8 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                         {/* <Hovedknapp onClick={leggTil}>Legg til utgift</Hovedknapp> */}
                         <LagreKnapp label="Legg til utgift" lagre={leggTil} />
 
-                        <Flatknapp
+                        <Button
+                            variant="tertiary"
                             style={{ marginLeft: '1rem' }}
                             onClick={() => {
                                 props.setIRedigeringsmodus(false);
@@ -103,11 +103,12 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                             }}
                         >
                             Avbryt
-                        </Flatknapp>
+                        </Button>
                     </div>
                 </div>
             ) : (
-                <Knapp
+                <Button
+                    variant="secondary"
                     disabled={props.iRegideringsmodus}
                     onClick={() => {
                         props.setIRedigeringsmodus(true);
@@ -115,7 +116,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                     }}
                 >
                     + Legg til ny utgift
-                </Knapp>
+                </Button>
             )}
         </div>
     );
