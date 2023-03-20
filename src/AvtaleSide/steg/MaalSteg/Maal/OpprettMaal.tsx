@@ -3,8 +3,7 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { messages } from '@/messages';
 import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
-import { Select } from 'nav-frontend-skjema';
-import { Heading, Button } from '@navikt/ds-react';
+import { Heading, Button, Select } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
