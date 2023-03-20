@@ -1,4 +1,4 @@
-"ingress": "https://tiltaksgjennomforing.dev.intern.nav.no"
+"ingress": "https://tiltaksgjennomforing.intern.dev.nav.no"
 "api-gw-url": "https://tiltak-proxy.dev-fss-pub.nais.io"
 "login-url": "/oauth2/login?redirect=/tiltaksgjennomforing"
 "logout-url": "/oauth2/logout"
