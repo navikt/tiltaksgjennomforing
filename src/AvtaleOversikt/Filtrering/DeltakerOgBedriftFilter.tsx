@@ -1,10 +1,9 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Radio, Select } from 'nav-frontend-skjema';
+import { Radio, Select } from '@navikt/ds-react';
 import React, { FormEvent, Fragment, FunctionComponent, useContext, useState } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
@@ -139,14 +138,15 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             {Object.entries(søk).map(([key, value]) => (
                 <Fragment key={key}>
                     <Radio
-                        label={value.label}
+                        style={{ marginBottom: '1rem' }}
                         name={'aktivSøketype'}
                         value={key}
                         checked={aktivSøketype === key}
                         onChange={endreSøketype}
                         role="radio"
-                    />
-                    <VerticalSpacer rem={1} />
+                    >
+                        {value.label}
+                    </Radio>
                 </Fragment>
             ))}
             {visSøkefelt && (
