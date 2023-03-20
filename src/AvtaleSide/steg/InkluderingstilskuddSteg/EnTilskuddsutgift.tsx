@@ -4,8 +4,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Select } from 'nav-frontend-skjema';
-import { BodyShort, Button } from '@navikt/ds-react';
+import { BodyShort, Button, Select } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
 
 type Props = {
