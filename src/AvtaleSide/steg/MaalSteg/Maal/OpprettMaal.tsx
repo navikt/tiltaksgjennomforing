@@ -3,9 +3,8 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { messages } from '@/messages';
 import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
-import { Flatknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
-import { Heading } from '@navikt/ds-react';
+import { Heading, Button } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -61,8 +60,12 @@ const OpprettMaal: FunctionComponent<Props> = (props) => {
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
-                        <Hovedknapp onClick={lagreMål}>Lagre mål</Hovedknapp>
-                        <Flatknapp
+                        <Button size="small" onClick={lagreMål}>
+                            Lagre mål
+                        </Button>
+                        <Button
+                            size="small"
+                            variant="tertiary"
                             style={{ marginLeft: '1rem' }}
                             onClick={() => {
                                 props.setIRedigermodus(false);
@@ -70,11 +73,12 @@ const OpprettMaal: FunctionComponent<Props> = (props) => {
                             }}
                         >
                             Avbryt
-                        </Flatknapp>
+                        </Button>
                     </div>
                 </div>
             ) : (
-                <Knapp
+                <Button
+                    variant="secondary"
                     disabled={props.iRedigermodus}
                     onClick={() => {
                         props.setIRedigermodus(true);
@@ -82,7 +86,7 @@ const OpprettMaal: FunctionComponent<Props> = (props) => {
                     }}
                 >
                     + Legg til nytt mål
-                </Knapp>
+                </Button>
             )}
         </div>
     );

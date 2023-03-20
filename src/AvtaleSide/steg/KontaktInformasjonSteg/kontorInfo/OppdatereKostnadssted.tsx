@@ -2,9 +2,7 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import BEMHelper from '@/utils/bem';
 import './oppdatereKostnadssted.less';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Fieldset, TextField } from '@navikt/ds-react';
-import { BodyShort, Heading } from '@navikt/ds-react';
-import { Knapp } from 'nav-frontend-knapper';
+import { BodyShort, Heading, Fieldset, TextField, Button } from '@navikt/ds-react';
 import { oppdatereKostnadsstedet } from '@/services/rest-service';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Avtale } from '@/types/avtale';
@@ -48,6 +46,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
             <Fieldset legend="oppdatere kostnadssted" error={Feilmeldinger[feilmelding as Feilkode]}>
                 <div className={cls.element('input-wrapper')}>
                     <TextField
+                        className={cls.element('textField')}
                         label="Kostnadssted"
                         value={nyttKostnadssted.enhet}
                         onChange={(event) =>
@@ -59,9 +58,11 @@ const OppdatereKostnadssted: FunctionComponent = () => {
                         }
                         size="small"
                     />
-                    <Knapp mini={true} onClick={sendInnNyttKostnadssted}>
-                        Oppdater
-                    </Knapp>
+                    <div className={cls.element('buttonDiv')}>
+                        <Button size="small" onClick={sendInnNyttKostnadssted}>
+                            Oppdater
+                        </Button>
+                    </div>
                 </div>
                 <BodyShort size="small" className={cls.element('input-undertekst')}>
                     <span>{visningEnhetsnavntekst}</span>

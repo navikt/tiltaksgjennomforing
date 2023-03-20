@@ -1,5 +1,4 @@
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { BodyShort, Heading, Link } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, Link } from '@navikt/ds-react';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { RouteComponentProps } from 'react-router';
@@ -43,7 +42,9 @@ const OpprettelseFullfortVeileder: React.FunctionComponent<RouteComponentProps<{
                     <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
                 </div>
                 <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
-                    <Hovedknapp className="opprettelseFullfortVeileder__kopier-knapp">Kopier lenke</Hovedknapp>
+                    <Button className="opprettelseFullfortVeileder__kopier-knapp">
+                        Kopier lenke
+                    </Button>
                 </CopyToClipboard>
             </div>
         </VeilederpanelMedAvsjekkIkon>
@@ -52,10 +53,9 @@ const OpprettelseFullfortVeileder: React.FunctionComponent<RouteComponentProps<{
     return (
         <div className="opprettelseFullfortVeileder">
             {veilederpanel}
-            <Hovedknapp onClick={tilAvtalenKlikk} className="opprettelseFullfortVeileder__knapp">
+            <Button onClick={tilAvtalenKlikk} className="opprettelseFullfortVeileder__knapp">
                 Gå til avtalen
-            </Hovedknapp>
-
+            </Button>
             <TilbakeTilOversiktLenke />
         </div>
     );
