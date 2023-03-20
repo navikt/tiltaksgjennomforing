@@ -71,11 +71,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     {innloggetBruker.rolle === 'VEILEDER' && (
                         <aside style={layout.stylingAvFilter}>
                             <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                <LenkeKnapp
-                                    path={pathTilOpprettAvtale}
-                                    style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem', width: '100%' }}
-                                >
-                                    <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                <LenkeKnapp path={pathTilOpprettAvtale} icon={<PlussIkon />}>
                                     Opprett ny avtale
                                 </LenkeKnapp>
                             </div>
@@ -88,15 +84,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                             <aside style={layout.stylingAvFilter}>
                                 {harTilgangerSomArbeidsgiver && (
                                     <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                        <LenkeKnapp
-                                            path={pathTilOpprettAvtaleArbeidsgiver}
-                                            style={{
-                                                paddingLeft: '1.5rem',
-                                                paddingRight: '1.5rem',
-                                                width: '100%',
-                                            }}
-                                        >
-                                            <PlussIkon style={{ width: '24', height: '24', marginRight: '0.5rem' }} />
+                                        <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} icon={<PlussIkon />}>
                                             Opprett ny avtale
                                         </LenkeKnapp>
                                     </div>

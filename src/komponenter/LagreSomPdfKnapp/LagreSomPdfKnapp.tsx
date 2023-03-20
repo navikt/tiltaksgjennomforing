@@ -1,19 +1,20 @@
 import { File } from '@navikt/ds-icons/cjs';
-import { Knapp } from 'nav-frontend-knapper';
-import React, { FunctionComponent } from 'react';
+import { Button } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 
-const LagreSomPdfKnapp: FunctionComponent<{ avtaleId: string }> = props => {
+const LagreSomPdfKnapp: FunctionComponent<{ avtaleId: string }> = (props) => {
     const href = `/tiltaksgjennomforing/api/avtaler/${props.avtaleId}/pdf`;
     return (
-        <Knapp
+        <Button
+            variant="secondary"
             onClick={() => {
                 window.open(href);
             }}
-            style={{ padding: '0 20px' }}
+            style={{ padding: '0.75rem 0.75rem' }}
         >
-            <File style={{ display: 'inline-block' }} />
+            <File style={{ display: 'inline-block', marginRight: '0.5rem' }} />
             <span>Lagre som PDF</span>
-        </Knapp>
+        </Button>
     );
 };
 
