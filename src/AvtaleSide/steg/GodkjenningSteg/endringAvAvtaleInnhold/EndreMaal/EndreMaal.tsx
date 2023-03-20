@@ -7,8 +7,7 @@ import { oppdatereMålInformasjon } from '@/services/rest-service';
 import { Maalkategori } from '@/types/maalkategorier';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
-import KnappBase from 'nav-frontend-knapper';
-import { Heading, Link, Modal } from '@navikt/ds-react';
+import { Heading, Link, Modal, Button } from '@navikt/ds-react';
 import EtMaal from '../../../MaalSteg/Maal/EtMaal';
 import { useMål } from '../../../MaalSteg/Maal/maalUtils';
 import OpprettMaal from '../../../MaalSteg/Maal/OpprettMaal';
@@ -81,7 +80,7 @@ const EndreMaal: FunctionComponent = () => {
                 </Link>
             </div>
 
-            <div className={'bekreftelseModal'}>
+            <div className={cls.className}>
                 <Modal
                     style={{ content: { maxWidth: '100%', minHeight: '20rem', minWidth: '40rem' } }}
                     open={modalApen}
@@ -110,21 +109,21 @@ const EndreMaal: FunctionComponent = () => {
                                 <div>
                                     <LagreKnapp
                                         disabled={iRedigersmodus}
-                                        className={cls.element('knapp lenkeknapp')}
+                                        className={cls.element('knapp')}
                                         lagre={() => lagreEndredeMaal()}
                                         label="Lagre målendringer"
                                     />
                                 </div>
-                                <KnappBase
+                                <Button
                                     role="button"
                                     aria-label={'Avbryt'.concat(' og lukk modalen')}
                                     aria-labelledby={'Lukker dialog for'.concat('Endre mål')}
-                                    type="flat"
-                                    className={cls.element('knapp lenkeknapp')}
+                                    variant="tertiary"
+                                    className={cls.element('knapp')}
                                     onClick={lukkModal}
                                 >
                                     {'Avbryt'}
-                                </KnappBase>
+                                </Button>
                             </div>
                         </div>
                     </Modal.Content>

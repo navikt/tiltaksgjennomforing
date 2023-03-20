@@ -12,14 +12,13 @@ import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths'
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Button, Label } from '@navikt/ds-react';
 import { Accordion } from '@navikt/ds-react';
 import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import './AvtaleOversikt.less';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import Banner from '@/komponenter/Banner/Banner';
 import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
-import { Knapp } from 'nav-frontend-knapper';
 import { useLaster } from '@/utils/useLaster';
 
 const cls = BEMHelper('avtaleoversikt');
@@ -134,14 +133,15 @@ const AvtaleOversikt: FunctionComponent = () => {
                             <>
                                 <VerticalSpacer rem={3} />
                                 <div style={{ textAlign: 'center' }}>
-                                    <Knapp
+                                    <Button
+                                        variant="secondary"
                                         title="Last inn mer"
                                         onClick={lastMer}
-                                        spinner={lasterMer}
+                                        loading={lasterMer}
                                         disabled={lasterMer}
                                     >
                                         Last inn flere avtaler ...
-                                    </Knapp>
+                                    </Button>
                                 </div>
                                 <VerticalSpacer rem={3} />
                             </>

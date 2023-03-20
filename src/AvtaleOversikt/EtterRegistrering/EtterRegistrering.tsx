@@ -6,8 +6,7 @@ import { tiltakstypeTekst } from '@/messages';
 import * as RestService from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Alert, Heading, Ingress, Label, Modal } from '@navikt/ds-react';
-import { Knapp } from 'nav-frontend-knapper';
+import { Alert, Heading, Ingress, Label, Modal, Button } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
 import './EtterRegistrering.less';
 
@@ -51,9 +50,13 @@ const EtterRegistrering: FunctionComponent = () => {
 
     return (
         <div className={cls.className}>
-            <Knapp className={cls.element('etterregistrering-knapp')} onClick={() => setOpen(!open)}>
+            <Button
+                variant="secondary"
+                className={cls.element('etterregistrering-knapp')}
+                onClick={() => setOpen(!open)}
+            >
                 Etterregistrering
-            </Knapp>
+            </Button>
             <Modal
                 open={open}
                 onClose={() => {
@@ -82,9 +85,7 @@ const EtterRegistrering: FunctionComponent = () => {
                                     hentAvtaleInfo(Number(søkeord));
                                 }}
                                 valider={(verdi: string) =>
-                                    verdi.match(/^\d{1,9}$/)
-                                        ? undefined
-                                        : 'Avtalenummer kan kun inneholde tall'
+                                    verdi.match(/^\d{1,9}$/) ? undefined : 'Avtalenummer kan kun inneholde tall'
                                 }
                                 onChangeCallback={() => {
                                     setAvtale(undefined);

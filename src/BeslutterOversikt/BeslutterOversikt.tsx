@@ -8,8 +8,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { useLaster } from '@/utils/useLaster';
-import { Alert } from '@navikt/ds-react';
-import { Knapp } from 'nav-frontend-knapper';
+import { Alert, Button } from '@navikt/ds-react';
 import { FunctionComponent, useCallback, useContext } from 'react';
 import '../AvtaleOversikt/AvtaleOversikt.less';
 import AvtalerBeslutter from './AvtalerBeslutter';
@@ -20,7 +19,7 @@ const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const { filtre } = useFilter();
-    const { kanLasteMer, lasterMer, lastMer, nettressurs} = useLaster(
+    const { kanLasteMer, lasterMer, lastMer, nettressurs } = useLaster(
         useCallback((skip, limit) => hentAvtalerForInnloggetBeslutter(filtre, skip, limit), [filtre]),
         50
     );
@@ -54,14 +53,15 @@ const BeslutterOversikt: FunctionComponent = () => {
                             <>
                                 <VerticalSpacer rem={3} />
                                 <div style={{ textAlign: 'center' }}>
-                                    <Knapp
+                                    <Button
                                         title="Last inn mer"
+                                        variant="secondary"
                                         onClick={lastMer}
-                                        spinner={lasterMer}
+                                        loading={lasterMer}
                                         disabled={lasterMer}
                                     >
                                         Last inn flere tilskudd ...
-                                    </Knapp>
+                                    </Button>
                                 </div>
                                 <VerticalSpacer rem={3} />
                             </>

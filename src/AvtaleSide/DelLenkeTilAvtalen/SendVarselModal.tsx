@@ -4,8 +4,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { pathTilOversiktISelvbetjeningProd } from '@/paths';
 import { delAvtaleMedAvtalepart } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { Knapp } from 'nav-frontend-knapper';
-import { Heading, Ingress, Link, Modal } from '@navikt/ds-react';
+import { Heading, Ingress, Link, Modal, Button } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import './SendVarselModal.less';
@@ -46,23 +45,22 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
                     label="Send til arbeidsgiveren"
                     lagre={() => delAvtaleMedAvtalepart(avtale.id, 'ARBEIDSGIVER')}
                     suksessmelding="SMS sendt til arbeidsgiveren"
-                    knapptype={'standard'}
+                    variant={'primary'}
                 />
                 <VerticalSpacer rem={0.5} />
                 <LagreKnapp
                     label="Send til deltakeren"
                     lagre={() => delAvtaleMedAvtalepart(avtale.id, 'DELTAKER')}
                     suksessmelding="SMS sendt til deltakeren"
-                    knapptype={'standard'}
+                    variant={'primary'}
                 />
-
                 <VerticalSpacer rem={0.5} />
                 {avtale.tiltakstype === 'MENTOR' && (
                     <LagreKnapp
                         label="Send til mentor"
                         lagre={() => delAvtaleMedAvtalepart(avtale.id, 'MENTOR')}
                         suksessmelding="SMS sendt til mentor"
-                        knapptype={'standard'}
+                        variant={'primary'}
                     />
                 )}
 
@@ -74,9 +72,9 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
                         <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
                     </div>
                     <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
-                        <Knapp mini={true} className={cls.element('kopier-knapp')}>
+                        <Button variant="secondary" size="small" className={cls.element('kopierKnapp')}>
                             Kopier lenke
-                        </Knapp>
+                        </Button>
                     </CopyToClipboard>
                 </div>
             </Modal.Content>
