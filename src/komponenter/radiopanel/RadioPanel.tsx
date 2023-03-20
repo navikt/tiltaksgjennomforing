@@ -4,6 +4,7 @@ import BEMHelper from '@/utils/bem';
 import './radioPanel.less';
 
 interface Properties {
+    className?: string;
     name?: string | undefined;
     value: any;
     checked?: boolean | undefined;
@@ -11,6 +12,7 @@ interface Properties {
 }
 
 const RadioPanel: React.FC<Properties> = ({
+    className,
     name,
     value,
     checked,
@@ -25,7 +27,7 @@ const RadioPanel: React.FC<Properties> = ({
             name={name}
             checked={checked}
             onChange={onChange}
-            className={cls.className + ' ' + cls.element(checked ? 'active' : 'non-active')}
+            className={cls.className + ' ' + cls.element(checked ? 'active' : 'non-active') + ' ' + className}
         >
             {children}
         </Radio>

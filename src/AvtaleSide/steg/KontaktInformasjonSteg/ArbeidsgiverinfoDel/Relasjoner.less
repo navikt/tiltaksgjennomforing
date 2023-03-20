@@ -41,6 +41,7 @@
   }
 
   &__familie-relasjoner-valg {
+    width: 100%;
     display: flex;
     & div:nth-child(1) {
       margin-right: 2rem;
@@ -48,7 +49,6 @@
   }
 
   &__familietilknytning-valg {
-    display: flex;
 
     label {
       flex-grow: 1;
@@ -58,5 +58,9 @@
         margin-right: 0;
       }
     }
+  }
+  &__radioknapp {
+    min-width: calc(50% - 1rem);
+    margin-bottom: 0.75rem;
   }
 }

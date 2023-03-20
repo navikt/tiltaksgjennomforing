@@ -10,6 +10,7 @@ import { Popover, RadioGroup, Radio } from '@navikt/ds-react';
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
+import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 
 const cls = BEMHelper('relasjoner');
 
@@ -61,15 +62,17 @@ const Relasjoner: FunctionComponent<{}> = () => {
                     <>
                         <RadioGroup legend="familie relasjoner" className={cls.element('familie-relasjoner')}>
                             <div className={cls.element('familie-relasjoner-valg')}>
-                                <Radio
+                                <RadioPanel
+                                    className={cls.element('radioknapp')}
                                     name="familievalg"
                                     checked={harFamilietilknytning}
                                     value="ja"
                                     onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
                                 >
                                     Ja
-                                </Radio>
-                                <Radio
+                                </RadioPanel>
+                                <RadioPanel
+                                    className={cls.element('radioknapp')}
                                     name="familievalg"
                                     checked={harFamilietilknytning === false}
                                     value="nei"
@@ -81,7 +84,7 @@ const Relasjoner: FunctionComponent<{}> = () => {
                                     }}
                                 >
                                     Nei
-                                </Radio>
+                                </RadioPanel>
                             </div>
                         </RadioGroup>
                     </>

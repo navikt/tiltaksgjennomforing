@@ -1,119 +1,122 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .avtaleside {
-    min-height: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-bottom: 3rem;
+  min-height: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 3rem;
 
-    &__ekspanderbart-panel {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
+  &__ekspanderbart-panel {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
 
-    &__banner {
-        margin-bottom: 1rem;
-    }
+  &__banner {
+    margin-bottom: 1rem;
+  }
 
-    &__meny-wrapper {
+  &__meny-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .popover {
+      &__content-inner {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        padding: 0.5rem 1rem;
 
-        .popover {
-            &__content-inner {
-                display: flex;
-                flex-direction: column;
-                padding: 0.5rem 1rem;
-                .lenke {
-                    margin: 1rem;
-                }
-            }
+        .lenke {
+          margin: 1rem;
         }
-
-        @media print {
-            display: none;
-        }
+      }
     }
 
-    &__popover-lenke {
-        padding-bottom: 1rem;
-        padding-top: 1rem;
+    @media print {
+      display: none;
     }
+  }
 
-    &__lenkerlinje {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-        margin-top: 1rem;
+  &__popover-lenke {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+  }
 
-        @media print {
-            display: none;
-        }
+  &__lenkerlinje {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+
+    @media print {
+      display: none;
     }
+  }
 
-    .tilbaketiloversikt {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        display: flex;
-        justify-content: space-between;
-    }
+  .tilbaketiloversikt {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .lenkedeling {
-        margin-top: 1rem;
-    }
+  .lenkedeling {
+    margin-top: 1rem;
+  }
 
-    &__infoboks {
-        @media print {
-            display: none;
-        }
+  &__infoboks {
+    @media print {
+      display: none;
     }
+  }
 
-    &__varsel {
-        margin-top: 1rem;
-        @media print {
-            display: none;
-        }
+  &__varsel {
+    margin-top: 1rem;
+    @media print {
+      display: none;
     }
+  }
 
-    &__svak {
-        font-style: italic;
-        color: @navGra60;
-    }
+  &__svak {
+    font-style: italic;
+    color: @navGra60;
+  }
 }
 
-@media (min-width: @screen-sm-min) {
-    .avtaleside {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+@media (min-width: @screen-md) {
+  .avtaleside {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
-        &__desktop {
-            width: 100%;
-            max-width: 58rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        &__innhold {
-            max-width: 40rem;
-            width: 100%;
-        }
-
-        &__container {
-            width: 100%;
-            min-width: 48rem;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        &__avbrytOgDelLenk {
-            display: flex;
-            *:not(:last-child) {
-                margin-right: 1rem;
-            }
-        }
+    &__desktop {
+      width: 100%;
+      max-width: 58rem;
+      display: flex;
+      flex-direction: column;
     }
+
+    &__innhold {
+      max-width: 40rem;
+      width: 100%;
+    }
+
+    &__container {
+      width: 100%;
+      min-width: 48rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    &__avbrytOgDelLenk {
+      display: flex;
+
+      *:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+  }
 }
