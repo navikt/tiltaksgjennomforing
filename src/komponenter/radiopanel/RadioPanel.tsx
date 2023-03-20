@@ -3,8 +3,7 @@ import { Radio } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import './radioPanel.less';
 
-interface Properties extends React.InputHTMLAttributes<HTMLInputElement> {
-    key?: string | number;
+interface Properties {
     name?: string | undefined;
     value: any;
     checked?: boolean | undefined;
@@ -12,7 +11,6 @@ interface Properties extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const RadioPanel: React.FC<Properties> = ({
-    key,
     name,
     value,
     checked,
@@ -23,7 +21,6 @@ const RadioPanel: React.FC<Properties> = ({
 
     return (
         <Radio
-            key={key}
             value={value}
             name={name}
             checked={checked}

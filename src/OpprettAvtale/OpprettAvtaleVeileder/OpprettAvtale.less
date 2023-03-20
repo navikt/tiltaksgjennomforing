@@ -1,132 +1,163 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .opprett-avtale {
-    padding: 2rem 1rem;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+
+  &__tittel {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  &__eksterntLenkeikon {
+    display: inline-block;
+    margin-left: 0.3rem;
+  }
+
+  .nav-veilederpanel {
+    margin-bottom: 1rem;
+  }
+
+  &__du-trenger-tekst {
+    padding-left: 1.5rem;
+  }
+
+  .ekspanderbartPanel {
+    margin-bottom: 1rem;
+  }
+
+  &__knappRad {
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+  }
 
-    &__tittel {
-        text-align: center;
-        margin-bottom: 2.5rem;
-        margin-top: 2rem;
-    }
+  &__bedriftNavn {
+    margin-top: 0.5rem;
+  }
 
-    &__eksterntLenkeikon {
-        display: inline-block;
-        margin-left: 0.3rem;
-    }
+  &__knapp {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    width: 14rem;
+    align-self: center;
+  }
 
-    .nav-veilederpanel {
-        margin-bottom: 1rem;
-    }
+  &__innholdstittel {
+    margin-bottom: 1.5rem;
+  }
 
-    &__du-trenger-tekst {
-        padding-left: 1.5rem;
-    }
+  &__innholdsboks {
+    margin-bottom: 1rem;
+  }
+  &__tiltakstype-wrapper > .navds-radio-buttons {
+    display: flex;
+    flex-wrap: wrap;
 
-    .ekspanderbartPanel {
-        margin-bottom: 1rem;
-    }
+    .radio-panel {
+      width: 20rem;
 
-    &__knappRad {
-        margin-top: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+      &:nth-child(odd) {
+        margin-right: 1rem;
+      }
 
-    &__bedriftNavn {
-        margin-top: 0.5rem;
+      &:nth-child(odd), &:nth-child(even) {
+        margin-bottom: 0.5rem;
+      }
     }
-
-    &__knapp {
-        margin-top: 3rem;
-        margin-bottom: 1.5rem;
-        width: 14rem;
-        align-self: center;
-    }
-
-    &__innholdstittel {
-        margin-bottom: 1.5rem;
-    }
-    &__innholdsboks {
-        margin-bottom: 1rem;
-    }
+  }
 }
 
 @media (max-width: @screen-sm-min) {
-    // Mobil
-    .opprett-avtale {
-        &__tiltakstypeWrapper {
-            label {
-                margin-bottom: 1rem;
-            }
-        }
-        &__kandidat-fnr {
-            margin-bottom: 1rem;
-        }
-        &__arbeidsgiver-bedriftNr {
-            margin-bottom: 1rem;
-        }
+  // Mobil
+  .opprett-avtale {
+    &__tiltakstypeWrapper {
+      label {
+        margin-bottom: 1rem;
+      }
     }
+
+    &__kandidat-fnr {
+      margin-bottom: 1rem;
+    }
+
+    &__arbeidsgiver-bedriftNr {
+      margin-bottom: 1rem;
+    }
+  }
 }
 
 @media (min-width: @screen-md-min) {
-    // Desktop
-    .opprett-avtale {
-        margin: 0 auto;
-        max-width: @screen-md-min;
+  // Desktop
+  .opprett-avtale {
+    margin: 0 auto;
+    max-width: @screen-md-min;
 
-        .ekspanderbartPanel {
-            margin-bottom: 2rem;
-        }
-
-        &__input-wrapper {
-            display: flex;
-            flex-direction: row;
-        }
-
-        &__input-wrapper-rad2 {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        &__kandidat-fnr {
-            width: 100%;
-            margin-right: 0.5rem;
-        }
-
-        &__arbeidsgiver-bedriftNr {
-            width: 100%;
-            margin-left: 0.5rem;
-        }
-
-        &__bedriftNavn {
-            width: 50% - 1rem;
-        }
-
-        &__bedriftNavnBrreg {
-            margin-top: 0.5rem;
-            margin-left: 0.2rem;
-        }
-
-        &__tiltakstype-wrapper > .navds-radio-buttons {
-            display: flex;
-            flex-wrap: wrap;
-
-        }
-
-        &__horisontalGruppeWrapper {
-            display: flex;
-            flex-direction: row;
-
-            label {
-                flex-grow: 1;
-                margin-right: 0.5rem;
-                &:last-child {
-                    margin-right: 0;
-                }
-            }
-        }
+    .ekspanderbartPanel {
+      margin-bottom: 2rem;
     }
+
+    &__input-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__input-wrapper-rad2 {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &__kandidat-fnr {
+      width: 100%;
+      margin-right: 0.5rem;
+    }
+
+    &__arbeidsgiver-bedriftNr {
+      width: 100%;
+      margin-left: 0.5rem;
+    }
+
+    &__bedriftNavn {
+      width: 50% - 1rem;
+    }
+
+    &__bedriftNavnBrreg {
+      margin-top: 0.5rem;
+      margin-left: 0.2rem;
+    }
+
+    &__tiltakstype-wrapper > .navds-radio-buttons {
+      display: flex;
+      flex-wrap: wrap;
+
+      .radio-panel {
+        width: 27rem;
+
+        &:nth-child(odd) {
+          margin-right: 1rem;
+        }
+
+        &:nth-child(odd), &:nth-child(even) {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    &__horisontalGruppeWrapper {
+      display: flex;
+      flex-direction: row;
+
+      label {
+        flex-grow: 1;
+        margin-right: 0.5rem;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
 }

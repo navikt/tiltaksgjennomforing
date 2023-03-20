@@ -17,14 +17,14 @@ import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { storForbokstav } from '@/utils/stringUtils';
-import { Alert } from '@navikt/ds-react';
-import { Input, RadioPanel, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
+import { Alert, RadioGroup } from '@navikt/ds-react';
+import { Input, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
-import RadioPanelNY from '@/komponenter/radiopanel/RadioPanel';
+import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
+import { storForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -133,38 +133,23 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
                     </BodyShort>
                     <VerticalSpacer rem={1} />
-                    <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
-                            <RadioPanel
-                                key={index}
-                                name="tiltakstype"
-                                label={storForbokstav(tiltakstypeTekst[tiltakType])}
-                                value={tiltakType}
-                                checked={valgtTiltaksType === tiltakType}
-                                onChange={() => {
-                                    setTiltaksType(tiltakType);
-                                    setUyldigAvtaletype(false);
-                                }}
-                            />
-                        ))}
-                    </div>
-                    <br />
-                    <br />
-                    <div className={cls.element('tiltakstypeWrapper')}>
-                        {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
-                            <RadioPanelNY
-                                key={index}
-                                name="tiltakstype"
-                                value={tiltakType}
-                                checked={valgtTiltaksType === tiltakType}
-                                onChange={() => {
-                                    setTiltaksType(tiltakType);
-                                    setUyldigAvtaletype(false);
-                                }}
-                            >
-                                {storForbokstav(tiltakstypeTekst[tiltakType])}
-                            </RadioPanelNY>
-                        ))}
+                    <div>
+                        <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
+                            {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
+                                <RadioPanel
+                                    key={index}
+                                    name="tiltakstype"
+                                    value={tiltakType}
+                                    checked={valgtTiltaksType === tiltakType}
+                                    onChange={() => {
+                                        setTiltaksType(tiltakType);
+                                        setUyldigAvtaletype(false);
+                                    }}
+                                >
+                                    {storForbokstav(tiltakstypeTekst[tiltakType])}
+                                </RadioPanel>
+                            ))}
+                        </RadioGroup>
                     </div>
                     {uyldigAvtaletype && (
                         <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
