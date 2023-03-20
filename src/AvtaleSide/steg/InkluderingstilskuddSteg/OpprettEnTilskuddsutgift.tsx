@@ -4,8 +4,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Select } from 'nav-frontend-skjema';
-import { Heading, Button } from '@navikt/ds-react';
+import { Heading, Button, Select } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -61,7 +60,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
             {leggertilTilskuddsutgift ? (
                 <div>
                     <Select
-                        feil={typeFeil}
+                        error={typeFeil}
                         onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                             setType(e.currentTarget.value as InkluderingstilskuddsutgiftType);
                             setTypeFeil(undefined);

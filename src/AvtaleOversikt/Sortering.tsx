@@ -1,7 +1,7 @@
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import { Avtale, Avtaleinnhold, TilskuddsPeriode } from '@/types/avtale';
-import { Select } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext } from 'react';
+import { Select } from '@navikt/ds-react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 type Sorteringsverdi = keyof Avtale | keyof Avtaleinnhold | keyof TilskuddsPeriode;
