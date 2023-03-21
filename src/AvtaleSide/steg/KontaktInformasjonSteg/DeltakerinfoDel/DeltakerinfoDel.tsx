@@ -4,8 +4,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { Input } from 'nav-frontend-skjema';
 import React, { FunctionComponent, useContext } from 'react';
+import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 
 const DeltakerinfoDel: FunctionComponent = () => {
     const cls = BEMHelper('kontaktinfo');
@@ -14,8 +14,8 @@ const DeltakerinfoDel: FunctionComponent = () => {
         <>
             <div className={cls.element('container')}>
                 <SkjemaTittel>Informasjon om deltakeren</SkjemaTittel>
-                <div className={cls.element('rad', 'single')}>
-                    <Input label="Fødselsnummer" value={avtaleContext.avtale.deltakerFnr} disabled={true} />
+                <div style={{ width: '16.5rem' }} className={cls.element('rad', 'single')}>
+                    <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.deltakerFnr} />
                 </div>
                 <VerticalSpacer rem={1} />
 

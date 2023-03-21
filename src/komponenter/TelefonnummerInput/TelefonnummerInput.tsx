@@ -1,6 +1,5 @@
 import useValidering from '@/komponenter/useValidering';
-import { Input } from 'nav-frontend-skjema';
-import { Alert } from '@navikt/ds-react';
+import { Alert, TextField } from '@navikt/ds-react';
 import React, { useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './TelefonnummerInput.less';
@@ -43,15 +42,14 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
         },
     ]);
 
-    console.log('erMobilNummer', erMobilNummer);
-
     return (
         <div className={cls.className}>
-            <Input
-                bredde="S"
+            <TextField
+                size="small"
+                className={cls.element('tekstField')}
                 label={props.label}
                 value={telefonnummer || ''}
-                feil={feil}
+                error={feil}
                 onChange={(event) => {
                     const verdi = event.target.value.replace(/[^ 0-9+]/g, ''); // Aksepter kun tall, space, og pluss tegn
                     setTelefonnummer(verdi);
@@ -61,7 +59,6 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
                     setFeil(undefined);
                 }}
                 onBlur={sjekkInputfelt}
-                maxLength={23}
             />
             {!erMobilNummer && (
                 <>

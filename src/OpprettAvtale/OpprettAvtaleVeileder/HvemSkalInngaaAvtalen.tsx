@@ -1,12 +1,13 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Input } from 'nav-frontend-skjema';
 import { TiltaksType } from '@/types/avtale';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, TextField } from '@navikt/ds-react';
 import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
+import BEMHelper from '@/utils/bem';
+import './HvemSkalInngaaAvtalen.less';
 
 interface Props {
     deltakerFnr: string;
@@ -49,30 +50,30 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
     alleredeRegistrertAvtale,
     setModalIsOpen,
 }) => {
+    const cls = BEMHelper('hvem-skal-inngaa-avtalen-container');
+
     return (
         <Innholdsboks>
             <Heading size="medium">Hvem skal inngå i avtalen?</Heading>
             <VerticalSpacer rem={1} />
-            <Input
-                className="typo-element"
+            <TextField
+                className={cls.element('typo-element')}
                 label="Deltakers fødselsnummer"
                 value={deltakerFnr}
-                bredde={'M'}
+                size={'small'}
                 onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
                 onBlur={validerDeltakerFnr}
-                feil={deltakerFnrFeil}
+                error={deltakerFnrFeil}
             />
-            <VerticalSpacer rem={1} />
-
-            <Input
-                className="typo-element"
+            <TextField
+                className={cls.element('typo-element')}
                 label="Virksomhetsnummer"
-                bredde={'M'}
-                description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                 value={bedriftNr}
+                size={'small'}
+                description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                 onChange={orgnrOnChange}
                 onBlur={orgnrOnBlur}
-                feil={bedriftNrFeil}
+                error={bedriftNrFeil}
             />
             {bedriftNavn && (
                 <BodyShort size="small" className="opprett-avtale__bedriftNavn">
@@ -81,14 +82,14 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
             )}
             <VerticalSpacer rem={1} />
             {valgtTiltaksType === 'MENTOR' && (
-                <Input
-                    className="typo-element"
+                <TextField
+                    className={cls.element('typo-element')}
                     label="Mentors fødselsnummer"
                     value={mentorFnr}
-                    bredde={'M'}
+                    size="small"
                     onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
                     onBlur={validerMentorFnr}
-                    feil={mentorFnrFeil}
+                    error={mentorFnrFeil}
                 />
             )}
             <AlleredeOpprettetAvtaleAdvarsel

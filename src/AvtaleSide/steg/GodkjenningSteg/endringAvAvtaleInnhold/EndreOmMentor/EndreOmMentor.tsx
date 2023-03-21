@@ -8,7 +8,8 @@ import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerIn
 import { endreOmMentor } from '@/services/rest-service';
 import { Task } from '@navikt/ds-icons/cjs';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
-import { Link, TextField } from '@navikt/ds-react';
+import { Link } from '@navikt/ds-react';
+import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import React, { FunctionComponent, useContext, useState } from 'react';
 
 const EndreOmMentor: FunctionComponent = () => {
@@ -49,7 +50,7 @@ const EndreOmMentor: FunctionComponent = () => {
                 <Row className={''}>
                     <Column md="6">
                         <div className={'rad'}>
-                            <TextField label="Fødselsnummer" value={avtaleContext.avtale.mentorFnr} disabled={true} />
+                            <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
                         </div>
                     </Column>
                 </Row>
