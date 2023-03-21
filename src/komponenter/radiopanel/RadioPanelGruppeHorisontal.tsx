@@ -17,13 +17,11 @@ interface Props {
     legend: string;
 }
 
-const RadioPanelGruppeHorisontal = (props: Props) => {
-    const { radios, name, checked, onChange } = props;
+const RadioPanelGruppeHorisontal: React.FC<Props> = ({ radios, name, checked, onChange, legend }: Props) => {
     const cls = BEMHelper('horisontal-radio-gruppe');
-
     return (
         <div className={cls.className}>
-            <RadioGroup legend={props.legend} className={cls.element('radio-gruppe')}>
+            <RadioGroup legend={legend} className={cls.element('radio-gruppe')} value={checked}>
                 {radios.map((radio: Radios) => (
                     <RadioPanel
                         value={radio.value}

@@ -7,7 +7,6 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
@@ -15,11 +14,12 @@ import BEMHelper from '@/utils/bem';
 import { BodyShort, Button, Label } from '@navikt/ds-react';
 import { Accordion } from '@navikt/ds-react';
 import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
-import './AvtaleOversikt.less';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import Banner from '@/komponenter/Banner/Banner';
 import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
 import { useLaster } from '@/utils/useLaster';
+import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
+import './AvtaleOversikt.less';
 
 const cls = BEMHelper('avtaleoversikt');
 
@@ -30,7 +30,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const { filtre, parseWindowLocationSearch } = useFilter();
 
     const { kanLasteMer, lasterMer, lastMer, nettressurs } = useLaster(
-        useCallback((skip, limit) => hentAvtalerForInnloggetBruker(filtre, skip, limit), [filtre]),
+        useCallback((skip: number, limit: number) => hentAvtalerForInnloggetBruker(filtre, skip, limit), [filtre]),
         10
     );
 

@@ -80,7 +80,7 @@ const EtterRegistrering: FunctionComponent = () => {
                             <SøkeInput
                                 className="etterRegistrering"
                                 maxLength={9}
-                                utførSøk={(søkeord) => {
+                                utførsøk={(søkeord) => {
                                     setSpinner(true);
                                     hentAvtaleInfo(Number(søkeord));
                                 }}

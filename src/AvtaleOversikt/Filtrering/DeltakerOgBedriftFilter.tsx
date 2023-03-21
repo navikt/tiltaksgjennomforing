@@ -3,7 +3,7 @@ import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Radio, Select } from '@navikt/ds-react';
+import { Radio, RadioGroup, Select } from '@navikt/ds-react';
 import React, { FormEvent, Fragment, FunctionComponent, useContext, useState } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
@@ -137,16 +137,11 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
         <Filter tittel="Vis avtaler">
             {Object.entries(søk).map(([key, value]) => (
                 <Fragment key={key}>
-                    <Radio
-                        style={{ marginBottom: '1rem' }}
-                        name={'aktivSøketype'}
-                        value={key}
-                        checked={aktivSøketype === key}
-                        onChange={endreSøketype}
-                        role="radio"
-                    >
-                        {value.label}
-                    </Radio>
+                    <RadioGroup legend="" value={aktivSøketype}>
+                        <Radio name={'aktivSøketype'} value={key} onChange={endreSøketype} role="radio" size="small">
+                            {value.label}
+                        </Radio>
+                    </RadioGroup>
                 </Fragment>
             ))}
             {visSøkefelt && (
@@ -156,9 +151,9 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
                     label=""
                     placeholder={aktueltSøk.placeholder}
                     maxLength={aktueltSøk.maxLength}
-                    utførSøk={aktueltSøk.utførSøk}
+                    utførsøk={aktueltSøk.utførSøk}
                     valider={aktueltSøk.validering}
-                    defaultVerdi={aktueltSøk.søkeinput}
+                    defaultverdi={aktueltSøk.søkeinput}
                     role="searchbox"
                 />
             )}

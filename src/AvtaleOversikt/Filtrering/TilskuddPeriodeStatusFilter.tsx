@@ -6,7 +6,7 @@ import { Radio } from 'nav-frontend-skjema';
 import React, { Fragment, FunctionComponent } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
-const TilskuddPeriodeStatusFilter: FunctionComponent = (props) => {
+const TilskuddPeriodeStatusFilter: FunctionComponent = () => {
     const { endreFilter, filtre } = useFilter();
 
     const alleTilskuddPeriodeStatus: OptionProps[] = [

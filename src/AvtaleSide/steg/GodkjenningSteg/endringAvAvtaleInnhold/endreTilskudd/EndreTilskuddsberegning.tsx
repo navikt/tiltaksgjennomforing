@@ -76,7 +76,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 min={0}
             />
             <div className={cls.element('radioPanel')}>
-                <BodyShort size="small" className={cls.element('radioPanel', 'tittel')}>
+                <BodyShort size="small" className={cls.element('radioPanel-tittel')}>
                     Velg sats for feriepenger som arbeidstaker skal ha
                 </BodyShort>
                 <RadioPanelGruppeHorisontal

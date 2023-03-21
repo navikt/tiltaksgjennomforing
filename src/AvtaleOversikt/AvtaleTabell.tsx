@@ -13,8 +13,9 @@ import moment from 'moment';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useHistory } from 'react-router-dom';
-import './AvtaleTabell.less';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
+import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
+import './AvtaleTabell.less';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -51,7 +52,7 @@ const hentAvtaleStatus = (
             <div className={cls.element('statusikon')}>
                 <StatusIkon status={avtale.statusSomEnum} />
             </div>
-            <div className={cls.element('status')}>{avtaleStatusTekst[avtale.statusSomEnum]}</div>
+            <BodyShort className={cls.element('status')}>{avtaleStatusTekst[avtale.statusSomEnum]}</BodyShort>
         </>
     );
 };
@@ -88,36 +89,14 @@ const AvtaleTabell: FunctionComponent<{
 
     return (
         <div className={cls.className}>
-            <div className={classNames(cls.element('rad'), cls.element('header'))}>
-                <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
-                <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
-                {innloggetBruker.erNavAnsatt && <div className={cls.element('veileder')}>Veileder</div>}
-                <MediaQuery minWidth={576}>
-                    <div className={cls.element('dato')}>
-                        {erBeslutter ? (
-                            <div className={cls.element('besluterdato')}>
-                                <div>Startdato</div>
-                                <div>periode</div>
-                            </div>
-                        ) : (
-                            'Startdato'
-                        )}
-                    </div>
-                    {!erBeslutter && <div className={cls.element('dato')}>Sluttdato</div>}
-                </MediaQuery>
-                <div className={cls.element('statusikon')}>&nbsp;</div>
-                {erBeslutter ? (
-                    <div className={cls.element('headerstatus')}>Status</div>
-                ) : (
-                    <div className={cls.element('status')}>Status</div>
-                )}
-            </div>
+            <AvtaleTabellRadHeader
+                className={cls.className}
+                erBeslutter={erBeslutter}
+                innloggetBruker={innloggetBruker}
+            />
             <div role="list">
                 {avtaler.map((avtale: Avtale, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
-                    const periodeStartDato = avtale.gjeldendeTilskuddsperiode?.startDato || null;
-                    const startDato = avtale.gjeldendeInnhold.startDato || null;
-                    const sluttDato = avtale.gjeldendeInnhold.sluttDato || null;
                     return (
                         <div key={avtale.id} className={cls.element('linkpanel')}>
                             <LinkPanel
@@ -151,55 +130,68 @@ const AvtaleTabell: FunctionComponent<{
                                     <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                                         {ulestVarsel && (
                                             <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />
-                                        )}
-                                        <BodyShort size="small">
-                                            {' '}
-                                            <div
-                                                className={classNames(cls.element('rad'), {
-                                                    uthevet: ulestVarsel,
-                                                })}
-                                            >
-                                                <div className={cls.element('deltakerOgBedrift')}>
+                                        )}{' '}
+                                        <div
+                                            className={classNames(cls.element('rad'), {
+                                                uthevet: ulestVarsel,
+                                            })}
+                                        >
+                                            <div className={cls.element('deltakerOgBedrift')}>
+                                                <BodyShort size="small">
                                                     {avtale.gjeldendeInnhold.bedriftNavn}
-                                                </div>
-                                                <div className={cls.element('deltakerOgBedrift')}>
+                                                </BodyShort>
+                                            </div>
+                                            <div className={cls.element('deltakerOgBedrift')}>
+                                                <BodyShort size="small">
                                                     {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
                                                     {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
-                                                </div>
-                                                {innloggetBruker.erNavAnsatt && (
-                                                    <div className={cls.element('veileder')}>
+                                                </BodyShort>
+                                            </div>
+                                            {innloggetBruker.erNavAnsatt && (
+                                                <div className={cls.element('veileder')}>
+                                                    <BodyShort size="small">
                                                         {avtale.veilederNavIdent || 'Ufordelt'}
+                                                    </BodyShort>
+                                                </div>
+                                            )}
+                                            <MediaQuery minWidth={576}>
+                                                {erBeslutter && (
+                                                    <div className={(cls.element('dato'), cls.element('besluterdato'))}>
+                                                        <BodyShort size="small">
+                                                            {moment(avtale.gjeldendeTilskuddsperiode?.startDato).format(
+                                                                'DD.MM.YYYY'
+                                                            )}
+                                                        </BodyShort>
                                                     </div>
                                                 )}
-                                                <MediaQuery minWidth={576}>
-                                                    {erBeslutter && (
-                                                        <div
-                                                            className={
-                                                                (cls.element('dato'), cls.element('besluterdato'))
-                                                            }
-                                                        >
-                                                            {moment(periodeStartDato).format('DD.MM.YYYY')}
+                                                {!erBeslutter && (
+                                                    <>
+                                                        <div className={cls.element('dato')}>
+                                                            <BodyShort size="small">
+                                                                {avtale.gjeldendeInnhold.startDato &&
+                                                                    moment(avtale.gjeldendeInnhold.startDato).format(
+                                                                        'DD.MM.YYYY'
+                                                                    )}
+                                                            </BodyShort>
                                                         </div>
-                                                    )}
-                                                    {!erBeslutter && (
-                                                        <>
-                                                            <div className={cls.element('dato')}>
-                                                                {startDato && moment(startDato).format('DD.MM.YYYY')}
-                                                            </div>
-                                                            <div className={cls.element('dato')}>
-                                                                {sluttDato && moment(sluttDato).format('DD.MM.YYYY')}
-                                                            </div>
-                                                        </>
-                                                    )}
-                                                </MediaQuery>
-                                                {hentAvtaleStatus(
-                                                    avtale,
-                                                    innloggetBruker.rolle,
-                                                    skalViseAntallUbehandlet,
-                                                    antallKlar ? antallKlar[index] : undefined
+                                                        <div className={cls.element('dato')}>
+                                                            <BodyShort size="small">
+                                                                {avtale.gjeldendeInnhold.sluttDato &&
+                                                                    moment(avtale.gjeldendeInnhold.sluttDato).format(
+                                                                        'DD.MM.YYYY'
+                                                                    )}
+                                                            </BodyShort>
+                                                        </div>
+                                                    </>
                                                 )}
-                                            </div>
-                                        </BodyShort>
+                                            </MediaQuery>
+                                            {hentAvtaleStatus(
+                                                avtale,
+                                                innloggetBruker.rolle,
+                                                skalViseAntallUbehandlet,
+                                                antallKlar ? antallKlar[index] : undefined
+                                            )}
+                                        </div>
                                     </div>
                                 </LinkPanel.Title>
                             </LinkPanel>
@@ -215,5 +207,4 @@ const AvtaleTabell: FunctionComponent<{
         </div>
     );
 };
-
 export default AvtaleTabell;

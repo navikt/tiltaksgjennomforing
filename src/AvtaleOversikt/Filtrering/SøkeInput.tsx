@@ -1,4 +1,3 @@
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import BEMHelper from '@/utils/bem';
 import { Search } from '@navikt/ds-icons';
@@ -9,23 +8,23 @@ import './SøkeInput.less';
 
 type Props = InputProps & {
     className: string;
-    utførSøk: (søkeord: string) => void;
+    utførsøk: (søkeord: string) => void;
     valider: (verdi: string) => string | undefined;
-    defaultVerdi?: string;
+    defaultverdi?: string;
     onChangeCallback?: () => void;
     buttonSpinner?: boolean;
 };
 
 export const SøkeInput: FunctionComponent<Props> = (props) => {
     const cls = BEMHelper(props.className);
-    const [søkeord, setSøkeord] = useState<string>(props.defaultVerdi || '');
+    const [søkeord, setSøkeord] = useState<string>(props.defaultverdi || '');
     const [skjemaelementfeil, setSkjemaelementfeil, valider] = useValidering(søkeord, [props.valider]);
 
-    const utførSøk = () => (valider() ? props.utførSøk(søkeord) : void 0);
+    const utførSøk = (): void => (valider() ? props.utførsøk(søkeord) : void 0);
 
-    const onBlur = () => valider();
+    const onBlur = (): boolean => valider();
 
-    const onChange = (event: FormEvent<HTMLInputElement>) => {
+    const onChange = (event: FormEvent<HTMLInputElement>): void => {
         setSøkeord(event.currentTarget.value.toUpperCase());
         setSkjemaelementfeil(undefined);
         if (props.onChangeCallback) {
@@ -33,7 +32,7 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
         }
     };
 
-    const enterKlikk = (event: any) => {
+    const enterKlikk = (event: any): void => {
         if (event.key === 'Enter') {
             const nyttSøkeord = event.currentTarget.value;
             setSøkeord(nyttSøkeord);
@@ -44,7 +43,6 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Input
-                {...props}
                 className={cls.element('input-sok')}
                 label={props.label}
                 placeholder={props.placeholder}
@@ -54,7 +52,6 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
                 onKeyPress={enterKlikk}
                 feil={skjemaelementfeil}
             />
-            <VerticalSpacer rem={.5}/>
             <Button
                 className={cls.element('button')}
                 icon={<Search />}
