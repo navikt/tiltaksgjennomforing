@@ -1,7 +1,7 @@
-import { FunctionComponent, useContext } from 'react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { basename } from "@/paths";
 import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget';
-import {basename} from "@/paths";
+import { FunctionComponent, useContext } from 'react';
 
 const miljo = (() => {
     switch (window.location.hostname) {
@@ -9,6 +9,7 @@ const miljo = (() => {
             return 'prod';
         case 'arbeidsgiver-q.nav.no':
         case 'tiltaksgjennomforing.dev.nav.no':
+        case 'tiltaksgjennomforing.dev.ekstern.nav.no':
             return 'dev';
         case 'arbeidsgiver.labs.nais.io':
             return 'labs';
