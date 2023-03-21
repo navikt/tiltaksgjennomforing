@@ -1,6 +1,5 @@
-//Brukes midlertidig der ikke lønnstilskudd har latt seg sette automatisk
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
+import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import { Beregningsgrunnlag, TiltaksType } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 
@@ -22,7 +21,7 @@ const LonnstilskuddProsent: FunctionComponent<Props> = (props) => {
                 checked={props.lonnstilskuddProsent + ''}
                 legend=""
                 onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                    props.settLonnstilskuddProsent(parseInt(verdi))
+                    props.settLonnstilskuddProsent(parseInt(verdi, 10))
                 }
             />
         );
@@ -34,7 +33,7 @@ const LonnstilskuddProsent: FunctionComponent<Props> = (props) => {
                 label=""
                 value={props.lonnstilskuddProsent}
                 onChange={(event: any) => {
-                    props.settLonnstilskuddProsent(parseInt(event.target.value));
+                    props.settLonnstilskuddProsent(parseInt(event.target.value, 10));
                 }}
                 min={0}
                 max={75}
@@ -51,7 +50,7 @@ const LonnstilskuddProsent: FunctionComponent<Props> = (props) => {
                 checked={props.lonnstilskuddProsent + ''}
                 legend=""
                 onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                    props.settLonnstilskuddProsent(parseInt(verdi))
+                    props.settLonnstilskuddProsent(parseInt(verdi, 10))
                 }
             />
         );

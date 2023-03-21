@@ -3,7 +3,7 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontonummerInput from '@/komponenter/form/KontonummerInput';
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
+import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import ValutaInput from '@/komponenter/form/ValutaInput';
@@ -23,7 +23,7 @@ import './BeregningTilskuddSteg.less';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
 import UtregningPanel from './UtregningPanel';
-import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/VisningTilskuddsperioder';
+import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -49,6 +49,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     const featureToggleContext = useContext(FeatureToggleContext);
     const visningAvKnappHentKontonummerForArbeidsgiver =
         featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
+
     const {
         avtale,
         settOgKalkulerBeregningsverdier,
@@ -61,7 +62,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
             {avtale.tiltakstype !== 'SOMMERJOBB' && <KvalifiseringsgruppeSats />}
             {avtale.tiltakstype === 'SOMMERJOBB' && <OppgiLonnstilskuddprosent />}
-
             <Heading size="small" className={cls.element('lonn-tittel')}>
                 Lønn per måned i faktisk stillingsprosent inkludert faste tillegg
             </Heading>
@@ -127,9 +127,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         name="feriepengesats"
                         checked={avtale.gjeldendeInnhold.feriepengesats + ''}
                         legend=""
-                        onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                            settOgKalkulerBeregningsverdier({ feriepengesats: parseFloat(verdi) })
-                        }
+                        onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) => {
+                            settOgKalkulerBeregningsverdier({ feriepengesats: parseFloat(verdi) });
+                        }}
                     />
                     <VerticalSpacer rem={1.25} />
                     <Heading size="small">Obligatorisk tjenestepensjon</Heading>
@@ -189,7 +189,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             />
                         </Column>
                     </Row>
-
                     <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
                         <Column md="1">
                             <Money />

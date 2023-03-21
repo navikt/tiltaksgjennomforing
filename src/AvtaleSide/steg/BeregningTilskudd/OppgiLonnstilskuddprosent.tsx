@@ -9,6 +9,8 @@ const OppgiLonnstilskuddprosent: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
+    console.log('innloggetBruker.erNavAnsatt', innloggetBruker.erNavAnsatt);
+
     return (
         <div>
             <Heading size="small">Tilskuddsprosent</Heading>

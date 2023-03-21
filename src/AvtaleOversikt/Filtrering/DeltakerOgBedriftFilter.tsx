@@ -21,7 +21,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { endreFilter, filtre } = useFilter();
 
-    const aktivSøketypeFraFiltre = () => {
+    const aktivSøketypeFraFiltre = (): Søketype => {
         if (filtre.veilederNavIdent !== undefined && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
         }

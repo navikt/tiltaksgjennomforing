@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Heading } from '@navikt/ds-react';
 import React, { useContext } from 'react';
-import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/VisningTilskuddsperioder';
+import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 
 const TilskuddsPerioderOppsummering = () => {
     const { avtale } = useContext(AvtaleContext);

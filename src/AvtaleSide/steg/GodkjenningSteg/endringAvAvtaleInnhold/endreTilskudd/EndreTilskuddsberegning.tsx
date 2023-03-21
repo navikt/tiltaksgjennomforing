@@ -1,17 +1,17 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndringsTilskuddUtregningPanel';
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import RadioPanelGruppeHorisontal from '@/komponenter/form/RadioPanelGruppeHorisontal';
 import SelectInput from '@/komponenter/form/SelectInput';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
-import { Beregningsgrunnlag, Varighet } from '@/types/avtale';
+import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
+import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import './EndreTilskuddsberegning.less';
 
 export type EndreBeregning = Pick<
@@ -19,21 +19,24 @@ export type EndreBeregning = Pick<
     'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift' | 'stillingprosent'
 >;
 
-const arbeidsgiveravgiftSatser = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
-const ferieSatser = [0.12, 0.143, 0.102, 0.125];
+const ARBEIDSGIVER_AVGIFT_SATSER: ArbeidsAvgiftSats[] = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
+const FERIE_SATSER: FerieSatser[] = [0.12, 0.143, 0.102, 0.125];
 
-const mapAvgiftSatser = (satser: number[]) =>
-    satser.map((sats: number) => ({
+function getAvgiftsatserForRadioValg(satser: number[]): Array<{ label: string; value: string }> {
+    return satser.map((sats: number) => ({
         label: (sats * 100).toFixed(1) + ' %',
         value: sats.toString(),
     }));
+}
 
 const EndreTilskuddsberegning: FunctionComponent = () => {
     const cls = BEMHelper('endreTilskuddsBeregning');
+    const [modalApen, setModalApen] = useState(false);
     const context = useContext(AvtaleContext);
+
     const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift, stillingprosent } =
         context.avtale.gjeldendeInnhold;
-    const [modalApen, setModalApen] = useState(false);
+
     const [nyBeregning, setNyBeregning] = useState<EndreBeregning>({
         stillingprosent: stillingprosent,
         manedslonn: manedslonn,
@@ -77,7 +80,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     Velg sats for feriepenger som arbeidstaker skal ha
                 </BodyShort>
                 <RadioPanelGruppeHorisontal
-                    radios={mapAvgiftSatser(ferieSatser)}
+                    radios={getAvgiftsatserForRadioValg(FERIE_SATSER)}
                     name="feriepengesats"
                     checked={nyBeregning.feriepengesats + ''}
                     legend=""
@@ -110,7 +113,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
             <SelectInput
                 name="arbeidsgiveravgift"
                 bredde="m"
-                options={mapAvgiftSatser(arbeidsgiveravgiftSatser)}
+                options={getAvgiftsatserForRadioValg(ARBEIDSGIVER_AVGIFT_SATSER)}
                 label="Sats for arbeidsgiveravgift"
                 children=""
                 value={nyBeregning.arbeidsgiveravgift}

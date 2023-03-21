@@ -3,7 +3,7 @@ import { Radio } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import './radioPanel.less';
 
-interface Properties {
+export interface Properties {
     className?: string;
     name?: string | undefined;
     value: any;

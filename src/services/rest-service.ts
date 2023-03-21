@@ -21,7 +21,7 @@ import {
     MentorInnhold,
     Stilling,
     TiltaksType,
-    Varighet
+    Varighet,
 } from '@/types/avtale';
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
@@ -188,7 +188,7 @@ const opprettAvtalen = async (
     tiltakstype: TiltaksType,
     ryddeavtale?: boolean
 ): Promise<Avtale> => {
-    const ryddeavtaleParam = {ryddeavtale};
+    const ryddeavtaleParam = { ryddeavtale };
     const queryParam = new URLSearchParams(removeEmpty(ryddeavtaleParam));
     const postResponse = await api.post(`${url}?${queryParam}`, {
         deltakerFnr,
@@ -327,7 +327,6 @@ export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<voi
 
 export const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
     const response = await api.get(featureTogglePath(featureToggles));
-
     return response.data;
 };
 export const hentFeatureTogglesVarianter = async (featureToggles: Feature[]): Promise<Variants> => {
@@ -455,7 +454,6 @@ export const oppdateretilskuddsBeregningDryRun = async (
 export const oppdaterOppfølgingsEnhet = async (avtale: Avtale): Promise<Avtale> => {
     const uri = `/avtaler/${avtale.id}/oppdaterOppfølgingsEnhet`;
     const response = await api.post(uri);
-    console.log('backenbd res: ', response);
     return response.data;
 };
 
@@ -540,12 +538,11 @@ export const endreOmMentor = async (avtale: Avtale, mentorInnhold: MentorInnhold
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
-
 export const justerArenaMigreringsdato = async (avtale: Avtale, migreringsdato: string): Promise<void> => {
     await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato`, { migreringsdato });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
-}
+};
 export const justerArenaMigreringsdatoDryRun = async (avtale: Avtale, migreringsdato: string): Promise<Avtale> => {
     const response = await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato/dry-run`, { migreringsdato });
     return response.data;
-}
+};

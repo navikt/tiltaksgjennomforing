@@ -3,7 +3,7 @@ import BEMHelper from '@/utils/bem';
 import amplitude from '@/utils/amplitude';
 import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
-import { BodyLong, BodyShort, Heading, RadioGroup } from '@navikt/ds-react';
+import { BodyLong, Heading, RadioGroup } from '@navikt/ds-react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { SkjemaelementFeilmelding } from 'nav-frontend-skjema';
