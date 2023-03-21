@@ -1,10 +1,9 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import { OptionProps } from '@/komponenter/form/SelectInput';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { TiltaksType } from '@/types/avtale';
-import { Radio } from 'nav-frontend-skjema';
-import React, { Fragment, FunctionComponent } from 'react';
+import { Radio, RadioGroup } from '@navikt/ds-react';
+import React, { FunctionComponent } from 'react';
 
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
@@ -31,25 +30,22 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
 
     return (
         <Filter tittel="Tiltakstype">
-            {tiltakstyper.map((tiltakstype) => (
-                <Fragment key={tiltakstype.label}>
+            <RadioGroup legend="" size="small" value={filtre.tiltakstype || ('' && filtre.tiltakstype === undefined)}>
+                {tiltakstyper.map((tiltakstype: OptionProps, index: number) => (
                     <Radio
-                        label={tiltakstype.label}
+                        key={index}
                         name={'tiltakstype'}
                         value={tiltakstype.value}
-                        checked={
-                            tiltakstype.value === filtre.tiltakstype ||
-                            (tiltakstype.value === '' && filtre.tiltakstype === undefined)
-                        }
                         onChange={(event) => {
                             const nyTiltakstype = event.currentTarget.value as TiltaksType;
                             endreFilter({ tiltakstype: nyTiltakstype });
                         }}
                         role="radio"
-                    />
-                    <VerticalSpacer rem={1} />
-                </Fragment>
-            ))}
+                    >
+                        {tiltakstype.label}
+                    </Radio>
+                ))}
+            </RadioGroup>
         </Filter>
     );
 };
