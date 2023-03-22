@@ -26,7 +26,9 @@ const GodkjennPaVegneAvMedAlleredeOpprettetTiltak: React.FC<Props> = ({
             <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}>
                 <div className={cls.element('knapp-container')}>
                     <LagreOgAvbrytKnapp
-                        lagreFunksjon={() => godkjennAvtalePaVegneAv({ godkjennPaVegneAv, setModalIsOpen })}
+                        lagreFunksjon={() =>
+                            godkjennAvtalePaVegneAv({ godkjennPaVegneAv }).then(() => setModalIsOpen(false))
+                        }
                         avbryt={() => setModalIsOpen(false)}
                         lagretekst="Godkjenn avtale"
                     />

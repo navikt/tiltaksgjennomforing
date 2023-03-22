@@ -39,6 +39,10 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
     const [feilmeldingGrunn, setFeilmeldingGrunn] = useState<string>();
     const [deltakerInformert, setDeltakerInformert] = useState<boolean>(false);
     const [feilDeltakerInformert, setFeilDeltakerInformert] = useState<string>();
+    const [godkjennPaVegne, setGodkjennPaVegne] = useState<string[]>(
+        props.skalGodkjennesPaVegne ? ['godkjennPaVegne'] : ['']
+    );
+    const [bekreftAtDeltakerErInformert, setBekreftAtDeltakerErInformert] = useState<string[]>(['']);
 
     const godkjenn = (): void | Promise<void> => {
         const valgtMinstEnGrunn =
@@ -60,14 +64,16 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
 
     return (
         <div className={cls.element('godkjenn-pa-vegne-av')}>
-            <Checkbox
-                checked={props.skalGodkjennesPaVegne}
-                onChange={(e) => {
-                    props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
-                }}
-            >
-                {godkjennPaVegneLabel}
-            </Checkbox>
+            <CheckboxGroup legend="" onChange={(value: any[]) => setGodkjennPaVegne(value)} value={godkjennPaVegne}>
+                <Checkbox
+                    value="godkjennPaVegne"
+                    onChange={(e) => {
+                        props.setSkalGodkjennesPaVegne(e.currentTarget.checked);
+                    }}
+                >
+                    {godkjennPaVegneLabel}
+                </Checkbox>
+            </CheckboxGroup>
 
             {props.skalGodkjennesPaVegne && (
                 <React.Fragment>
@@ -80,8 +86,16 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
                             setFeilmeldingGrunn={setFeilmeldingGrunn}
                         />
                     </div>
-                    <CheckboxGroup legend="Bekreft at deltaker er informert om kravene" error={feilDeltakerInformert}>
-                        <Checkbox checked={deltakerInformert} onChange={() => setDeltakerInformert(!deltakerInformert)}>
+                    <CheckboxGroup
+                        legend="Bekreft at deltaker er informert om kravene"
+                        error={feilDeltakerInformert}
+                        onChange={(value: any[]) => setBekreftAtDeltakerErInformert(value)}
+                        value={bekreftAtDeltakerErInformert}
+                    >
+                        <Checkbox
+                            value="bekreftAtDeltakerErInformert"
+                            onChange={() => setDeltakerInformert((prevState: boolean) => !prevState)}
+                        >
                             Deltakeren er informert om kravene og godkjenner innholdet i avtalen.
                         </Checkbox>
                     </CheckboxGroup>

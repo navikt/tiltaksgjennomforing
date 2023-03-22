@@ -1,6 +1,6 @@
 import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
 import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
-import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import React, { Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, useState } from 'react';
 
 interface Props {
     godkjentPåVegneAvGrunner: GodkjentPaVegneAvDeltakerGrunner;
@@ -11,18 +11,29 @@ interface Props {
     tiltakstype: string;
 }
 
-const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) => {
+type PaVegneAvGrunner = 'ikkeBankId' | 'reservert' | 'digitalKompetanse' | '';
+
+const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = ({
+    feilmeldingGrunn,
+    className,
+    godkjentPåVegneAvGrunner,
+    setGodkjentPåVegneAvGrunner,
+}: PropsWithChildren<Props>) => {
+    const [cause, setCause] = useState<PaVegneAvGrunner[]>(['']);
+
     return (
         <CheckboxGroup
             legend="Godkjenn på vegne av deltaker valg"
-            error={props.feilmeldingGrunn}
-            className={props.className}
+            error={feilmeldingGrunn}
+            className={className}
+            onChange={(value: any[]) => setCause(value)}
+            value={cause}
         >
             <Checkbox
-                checked={props.godkjentPåVegneAvGrunner.ikkeBankId}
-                onChange={(event) =>
-                    props.setGodkjentPåVegneAvGrunner({
-                        ...props.godkjentPåVegneAvGrunner,
+                value="ikkeBankId"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setGodkjentPåVegneAvGrunner({
+                        ...godkjentPåVegneAvGrunner,
                         ikkeBankId: event.currentTarget.checked,
                     })
                 }
@@ -30,10 +41,10 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) =
                 har ikke BankID
             </Checkbox>
             <Checkbox
-                checked={props.godkjentPåVegneAvGrunner.reservert}
-                onChange={(event) =>
-                    props.setGodkjentPåVegneAvGrunner({
-                        ...props.godkjentPåVegneAvGrunner,
+                value="reservert"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setGodkjentPåVegneAvGrunner({
+                        ...godkjentPåVegneAvGrunner,
                         reservert: event.currentTarget.checked,
                     })
                 }
@@ -41,10 +52,10 @@ const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) =
                 har reservert seg mot digitale tjenester
             </Checkbox>
             <Checkbox
-                checked={props.godkjentPåVegneAvGrunner.digitalKompetanse}
-                onChange={(event) =>
-                    props.setGodkjentPåVegneAvGrunner({
-                        ...props.godkjentPåVegneAvGrunner,
+                value="digitalKompetanse"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setGodkjentPåVegneAvGrunner({
+                        ...godkjentPåVegneAvGrunner,
                         digitalKompetanse: event.currentTarget.checked,
                     })
                 }

@@ -7,11 +7,11 @@ import { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from '
 import BEMHelper from '@/utils/bem';
 import './lagreOgAvbrytKnapp.less';
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     lagreFunksjon: () => Promise<any>;
     avbryt: () => void;
     lagretekst: string;
-} & HTMLAttributes<HTMLDivElement>;
+}
 
 const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     const cls = BEMHelper('lagre-og-avbryt-knapp');
@@ -27,8 +27,9 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
         try {
             setOppslag({ status: Status.LasterInn });
 
-            await props.lagreFunksjon();
+            // midlertidig fiks. Må fikse mem-leak før denne kan pushes under callback lagreFunksjon.
             setOppslag({ status: Status.Sendt });
+            await props.lagreFunksjon();
         } catch (error: any) {
             setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
             handterFeil(error, setFeilmelding);

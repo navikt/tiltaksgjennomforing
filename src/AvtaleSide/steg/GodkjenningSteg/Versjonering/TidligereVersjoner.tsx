@@ -17,11 +17,11 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
 
     const sorterteVersjoner = Array.from(props.versjoner);
     sorterteVersjoner.sort((a, b) => a.versjon - b.versjon);
-    const versjonLenker = sorterteVersjoner.map((avtaleVersjon) => {
+    const versjonLenker = sorterteVersjoner.map((avtaleVersjon: AvtaleVersjon, index: number) => {
         return (
             <LinkPanel
                 className={cls.className}
-                key={avtaleVersjon.id}
+                key={index}
                 href={'#'}
                 onClick={() => {
                     setCurrentVersjon(avtaleVersjon.versjon);
