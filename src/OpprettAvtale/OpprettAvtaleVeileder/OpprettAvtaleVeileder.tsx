@@ -25,7 +25,7 @@ import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Alert, Heading } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
-import { Checkbox } from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
@@ -40,7 +40,9 @@ export enum Avtalerolle {
     BESLUTTER = 'BESLUTTER',
 }
 
-const OpprettAvtaleVeileder: FunctionComponent = (props) => {
+type ValgtRyddeAvtale = 'valgtRyddeAvtale' | '';
+
+const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [deltakerFnr, setDeltakerFnr] = useState<string>('');
     const [mentorFnr, setMentorFnr] = useState<string>('');
     const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState<boolean>(false);
@@ -49,7 +51,7 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
-    const [valgtRyddeAvtale, setValgtRyddeAvtale] = useState<boolean>();
+    const [valgtRyddeAvtale, setValgtRyddeAvtale] = useState<ValgtRyddeAvtale[]>(['']);
 
     const history = useHistory();
 
@@ -91,7 +93,15 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                     setBedriftNavn('');
                     handterFeil(error, (feilmelding) => setBedriftNrFeil(feilmelding));
                 })
-                .catch((e) => setBedriftNrFeil('Det oppstod en uventet feil'));
+                .catch((error: Error) => {
+                    setBedriftNrFeil('Det oppstod en uventet feil');
+                    console.error(
+                        `Det oppstod en uventet feil ved henting av virksomhetsnummer ${
+                            bedriftNr ? bedriftNr : ''
+                        } med feilmelding: `,
+                        error
+                    );
+                });
         } else {
             setBedriftNavn('');
         }
@@ -137,7 +147,12 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                 }
                 return;
             }
-            const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType, valgtRyddeAvtale);
+            const avtale = await opprettAvtaleSomVeileder(
+                deltakerFnr,
+                bedriftNr,
+                valgtTiltaksType,
+                valgtRyddeAvtale.includes('valgtRyddeAvtale')
+            );
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
             return;
@@ -218,11 +233,13 @@ const OpprettAvtaleVeileder: FunctionComponent = (props) => {
                             tilskuddsperioder før første februar 2023 blir merket at de allerede er behandlet i Arena.
                         </Alert>
                         <VerticalSpacer rem={1} />
-                        <Checkbox
-                            label="Avtalen skal overføres fra Arena"
-                            checked={valgtRyddeAvtale}
-                            onChange={(e) => setValgtRyddeAvtale(e.target.checked)}
-                        />
+                        <CheckboxGroup
+                            legend=""
+                            onChange={(value: any[]) => setValgtRyddeAvtale(value)}
+                            value={valgtRyddeAvtale}
+                        >
+                            <Checkbox value="valgtRyddeAvtale">Avtalen skal overføres fra Arena</Checkbox>
+                        </CheckboxGroup>
                     </Innholdsboks>
                 </div>
             )}

@@ -8,13 +8,12 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
 import moment from 'moment';
-import { BodyShort, Fieldset, Label, Link, Radio } from '@navikt/ds-react';
-
+import { BodyShort, Fieldset, Label, Link, Radio, RadioGroup } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import BEMHelper from '@/utils/bem';
-import './forkortAvtale.less';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import './forkortAvtale.less';
 
 const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -37,6 +36,7 @@ const ForkortAvtale: FunctionComponent = () => {
         await avtaleContext.hentAvtale();
         lukkModal();
     };
+
     const onDatoChange = async (dato: string | undefined): Promise<void> => {
         setSluttDato(dato);
         setDatoFeil(undefined);
@@ -50,7 +50,7 @@ const ForkortAvtale: FunctionComponent = () => {
         }
     };
 
-    const forkorteTekst = (
+    const forkorteTekst: JSX.Element = (
         <div className={cls.className}>
             <div className={cls.element('navarende-sluttdato')}>
                 <Label>Nåværende sluttdato for avtalen</Label>
@@ -73,20 +73,22 @@ const ForkortAvtale: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <Fieldset legend="Hvorfor forkortes avtalen?" title="Hvorfor forkortes avtalen?">
                 {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'].map(
-                    (label: string) => (
-                        <Radio
-                            key={label}
-                            name="grunn"
-                            value={label}
-                            checked={label === grunn}
-                            onChange={(event) => {
-                                setGrunn(event.currentTarget.value);
-                                setAnnetGrunn(undefined);
-                            }}
-                            role="menuitemradio"
-                        >
-                            {label}
-                        </Radio>
+                    (label: string, index: number) => (
+                        <RadioGroup legend="" key={index} value={grunn}>
+                            <Radio
+                                key={label}
+                                name="grunn"
+                                value={label}
+                                checked={label === grunn}
+                                onChange={(event) => {
+                                    setGrunn(event.currentTarget.value);
+                                    setAnnetGrunn(undefined);
+                                }}
+                                role="menuitemradio"
+                            >
+                                {label}
+                            </Radio>
+                        </RadioGroup>
                     )
                 )}
             </Fieldset>
@@ -109,7 +111,7 @@ const ForkortAvtale: FunctionComponent = () => {
         </div>
     );
 
-    const lukkModal = () => {
+    const lukkModal = (): void => {
         setModalApen(false);
         setTilskuddsperioder([]);
         setSluttDato(undefined);
