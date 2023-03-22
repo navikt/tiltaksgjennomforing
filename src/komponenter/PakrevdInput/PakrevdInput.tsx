@@ -1,8 +1,8 @@
 import usePaakrevd from '@/komponenter/usePaakrevd';
-import { Input, InputProps } from 'nav-frontend-skjema';
+import { TextField, TextFieldProps } from '@navikt/ds-react';
 import React from 'react';
 
-interface Props extends InputProps {
+interface Props extends TextFieldProps {
     label: string;
     verdi: string | number | undefined;
     feilmelding?: string;
@@ -10,20 +10,20 @@ interface Props extends InputProps {
 }
 
 const PakrevdInput: React.FunctionComponent<Props> = (props) => {
-    const { verdi, label, feilmelding, settVerdi, type, onChange, ...other } = props;
+    const { verdi, label, feilmelding, settVerdi, type } = props;
     const [feil, setFeil, sjekkInputfelt] = usePaakrevd(verdi ? verdi.toString() : '', label, feilmelding);
+
     return (
-        <Input
+        <TextField
             label={label}
             value={props.verdi || ''}
-            feil={feil}
+            error={feil}
             onChange={(event) => {
                 settVerdi(event.target.value);
                 setFeil(undefined);
             }}
             onBlur={sjekkInputfelt}
             type={type || 'text'}
-            {...other}
         />
     );
 };

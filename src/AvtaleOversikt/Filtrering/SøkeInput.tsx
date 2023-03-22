@@ -1,12 +1,11 @@
 import useValidering from '@/komponenter/useValidering';
 import BEMHelper from '@/utils/bem';
 import { Search } from '@navikt/ds-icons';
-import { Button } from '@navikt/ds-react';
-import { Input, InputProps } from 'nav-frontend-skjema';
+import { Button, TextField, TextFieldProps } from '@navikt/ds-react';
 import { FormEvent, FunctionComponent, useState } from 'react';
 import './SøkeInput.less';
 
-type Props = InputProps & {
+type Props = TextFieldProps & {
     className: string;
     utførsøk: (søkeord: string) => void;
     valider: (verdi: string) => string | undefined;
@@ -40,9 +39,11 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
         }
     };
 
+    console.log('HEPP');
+
     return (
         <div className={cls.className}>
-            <Input
+            <TextField
                 className={cls.element('input-sok')}
                 label={props.label}
                 placeholder={props.placeholder}
@@ -50,7 +51,7 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
                 onChange={onChange}
                 onBlur={onBlur}
                 onKeyPress={enterKlikk}
-                feil={skjemaelementfeil}
+                error={skjemaelementfeil}
             />
             <Button
                 className={cls.element('button')}
