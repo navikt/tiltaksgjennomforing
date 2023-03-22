@@ -54,8 +54,8 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                 </EksternLenke>
             </BodyLong>
 
-            <div className={cls.element('')}>
-                <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')} size="small">
+            <div className={cls.element('tiltakstype-container')}>
+                <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')} size="medium">
                     {tiltakvalg.map((valg: Tiltaksvalg, index: number) => (
                         <RadioPanel
                             key={index}

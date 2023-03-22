@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, PropsWithChildren, useEffect, useState } from 'react';
+import React, { InputHTMLAttributes, PropsWithChildren, useState } from 'react';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import './bekreftCheckboksPanel.less';
@@ -19,7 +19,7 @@ interface Properties extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size' 
     onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
 }
 
-type Signed = 'signed' | 'unsigned';
+type Signed = 'signed' | '';
 
 const BekreftCheckboksPanel: React.FC<Properties> = ({
     legend,
@@ -29,15 +29,11 @@ const BekreftCheckboksPanel: React.FC<Properties> = ({
     children,
 }: PropsWithChildren<Properties>) => {
     const cls = BEMHelper('bekreft-checkboks-panel');
-    const [signed, setSigned] = useState<Signed[]>([checked ? 'signed' : 'unsigned']);
-
-    useEffect(() => {
-        setSigned(() => [checked ? 'signed' : 'unsigned']);
-    }, [checked]);
+    const [signed, setSigned] = useState<Signed[]>(['']);
 
     return (
         <div className={cls.className + ' ' + cls.element(checked ? 'checked' : 'non-checked')}>
-            <CheckboxGroup legend={legend} size={size} value={signed}>
+            <CheckboxGroup legend={legend} size={size} value={signed} onChange={(value: any[]) => setSigned(value)}>
                 <Checkbox className={cls.element('bekreftelse')} onChange={onChange} value="signed">
                     {children}
                 </Checkbox>

@@ -39,8 +39,6 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
         }
     };
 
-    console.log('HEPP');
-
     return (
         <div className={cls.className}>
             <TextField

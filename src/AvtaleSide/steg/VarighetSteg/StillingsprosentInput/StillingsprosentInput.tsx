@@ -5,6 +5,7 @@ interface Props {
     label: string;
     verdi?: number;
     settVerdi: (verdi: number) => void;
+    size?: 'medium' | 'small';
 }
 
 const StillingsprosentInput = (props: Props) => {
@@ -34,7 +35,7 @@ const StillingsprosentInput = (props: Props) => {
                 }
             }}
             onBlur={validerStillingsprosent}
-            size="small"
+            size={props.size}
         />
     );
 };
