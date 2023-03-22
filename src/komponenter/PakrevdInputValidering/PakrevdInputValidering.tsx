@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Input, InputProps } from 'nav-frontend-skjema';
-
-interface Props extends InputProps {
+import { TextField, TextFieldProps } from '@navikt/ds-react';
+interface Props extends TextFieldProps {
     validering: RegExp;
     verdi: string | undefined;
     label: string;
@@ -11,7 +10,7 @@ interface Props extends InputProps {
 }
 
 const PakrevdInputValidering: React.FunctionComponent<Props> = (props) => {
-    const { verdi, label, feilmelding, settVerdi, validering, type, onChange, ...other } = props;
+    const { verdi, label, feilmelding, settVerdi, validering, type } = props;
     const validate = (sjekkVerdi: string) => validering.test(sjekkVerdi);
     const [feil, setFeil] = useState<string | undefined>(undefined);
 
@@ -25,10 +24,10 @@ const PakrevdInputValidering: React.FunctionComponent<Props> = (props) => {
     };
 
     return (
-        <Input
+        <TextField
             label={label}
             value={props.verdi || ''}
-            feil={feil}
+            error={feil}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
                 if (validate(event.target.value)) {
                     settVerdi(event.target.value);
@@ -39,7 +38,6 @@ const PakrevdInputValidering: React.FunctionComponent<Props> = (props) => {
             }}
             onBlur={sjekkInputfelt}
             type={type || 'text'}
-            {...other}
         />
     );
 };
