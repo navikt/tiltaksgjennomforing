@@ -14,7 +14,7 @@ const DeltakerinfoDel: FunctionComponent = () => {
         <>
             <div className={cls.element('container')}>
                 <SkjemaTittel>Informasjon om deltakeren</SkjemaTittel>
-                <div style={{ width: '16.5rem' }} className={cls.element('rad', 'single')}>
+                <div className={cls.element('rad', 'single')}>
                     <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.deltakerFnr} />
                 </div>
                 <VerticalSpacer rem={1} />

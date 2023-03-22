@@ -66,15 +66,19 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
 
     const endreKontaktInformasjonInnhold = (
         <div className={cls.className}>
-            <div className={cls.element('tittel')}>
-                <Heading size="small">Informasjon om deltaker</Heading>
+            <div className={cls.element('avsnitt')}>
+                <Heading size="small" className={cls.element('tittel')}>
+                    Informasjon om deltaker
+                </Heading>
                 <div className={cls.element('inputfelter')}>
                     <PakrevdInput
+                        size="small"
                         label="Fornavn"
                         verdi={kontaktInfo.deltakerFornavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerFornavn', verdi)}
                     />
                     <PakrevdInput
+                        size="small"
                         label="Etternavn"
                         verdi={kontaktInfo.deltakerEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
@@ -86,15 +90,19 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     />
                 </div>
             </div>
-            <div className={cls.element('tittel')}>
-                <Heading size="small">Informasjon om veileder</Heading>
+            <div className={cls.element('avsnitt')}>
+                <Heading size="small" className={cls.element('tittel')}>
+                    Informasjon om veileder
+                </Heading>
                 <div className={cls.element('inputfelter')}>
                     <PakrevdInput
+                        size="small"
                         label="Fornavn"
                         verdi={kontaktInfo.veilederFornavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederFornavn', verdi)}
                     />
                     <PakrevdInput
+                        size="small"
                         label="Etternavn"
                         verdi={kontaktInfo.veilederEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
@@ -106,15 +114,19 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     />
                 </div>
             </div>
-            <div className={cls.element('tittel')}>
-                <Heading size="small">Kontaktperson for avtalen i bedriften</Heading>
+            <div className={cls.element('avsnitt')}>
+                <Heading size="small" className={cls.element('tittel')}>
+                    Kontaktperson for avtalen i bedriften
+                </Heading>
                 <div className={cls.element('inputfelter')}>
                     <PakrevdInput
+                        size="small"
                         label="Fornavn"
                         verdi={kontaktInfo.arbeidsgiverFornavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverFornavn', verdi)}
                     />
                     <PakrevdInput
+                        size="small"
                         label="Etternavn"
                         verdi={kontaktInfo.arbeidsgiverEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
@@ -127,10 +139,13 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 </div>
             </div>
             {endreRefusjonInfo && (
-                <div className={cls.element('tittel')}>
-                    <Heading size="small">Kontaktperson for refusjon i bedriften</Heading>
+                <div className={cls.element('avsnitt')}>
+                    <Heading size="small" className={cls.element('tittel')}>
+                        Kontaktperson for refusjon i bedriften
+                    </Heading>
                     <div className={cls.element('inputfelter')}>
                         <PakrevdInput
+                            size="small"
                             label="Fornavn"
                             verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
                             settVerdi={(verdi) =>
@@ -141,6 +156,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                             }
                         />
                         <PakrevdInput
+                            size="small"
                             label="Etternavn"
                             verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
                             settVerdi={(verdi) =>

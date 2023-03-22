@@ -73,7 +73,12 @@ const OppgaveLinje: React.FunctionComponent = () => {
                         >
                             Meny
                         </Button>
-                        <Popover open={erÅpnet} anchorEl={dropdown} onClose={() => setDropdown(null)}>
+                        <Popover
+                            placement="bottom-end"
+                            open={erÅpnet}
+                            anchorEl={dropdown}
+                            onClose={() => setDropdown(null)}
+                        >
                             <Popover.Content>
                                 <OppgaveLenker />
                             </Popover.Content>

@@ -4,7 +4,8 @@ import { formatterDato } from '@/utils/datoUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { Table } from '@navikt/ds-react';
 import moment from 'moment';
-import { Checkbox } from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
+
 import { FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -20,12 +21,14 @@ const formaterTid = (tidspunkt: string) => {
     }
 };
 
-const UtgråetTekst: FunctionComponent<{ grå: boolean, title?: string }> = ({ children, grå, title }) => (
-    <span title={title} style={{ color: grå ? 'grey' : undefined }}>{children}</span>
+const UtgråetTekst: FunctionComponent<{ grå: boolean; title?: string }> = ({ children, grå, title }) => (
+    <span title={title} style={{ color: grå ? 'grey' : undefined }}>
+        {children}
+    </span>
 );
 
 const VarselTabell: FunctionComponent<Props> = (props) => {
-    const [komprimer, setKomprimer] = useState(true);
+    const [komprimer, setKomprimer] = useState<string[]>(['']);
 
     const sortertListe = props.varsler
         .map((v) => ({ ...v, antallLike: 1, skjules: false }))
@@ -58,11 +61,9 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
             {finnesMinstEnSomSkjules && (
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Checkbox
-                        label="Vis alle hendelser"
-                        checked={!komprimer}
-                        onClick={() => setKomprimer(!komprimer)}
-                    />
+                    <CheckboxGroup legend="" onChange={(value: any[]) => setKomprimer(value)}>
+                        <Checkbox value="ikke_komprimer">Vis alle hendelser</Checkbox>
+                    </CheckboxGroup>
                 </div>
             )}
             <Table>
@@ -75,11 +76,13 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                 </Table.Header>
                 <Table.Body>
                     {sortertListe
-                        .filter((v) => !v.skjules || !komprimer)
+                        .filter((v) => !v.skjules || komprimer.includes('ikke_komprimer'))
                         .map((varsel) => (
                             <Table.Row key={varsel.id} role="row">
                                 <Table.DataCell role="cell" aria-labelledby="tidspunkt">
-                                    <UtgråetTekst title={formatterDato(varsel.tidspunkt)} grå={varsel.skjules}>{formaterTid(varsel.tidspunkt)}</UtgråetTekst>
+                                    <UtgråetTekst title={formatterDato(varsel.tidspunkt)} grå={varsel.skjules}>
+                                        {formaterTid(varsel.tidspunkt)}
+                                    </UtgråetTekst>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell">
                                     <div style={{ display: 'flex' }} aria-labelledby="varsel">

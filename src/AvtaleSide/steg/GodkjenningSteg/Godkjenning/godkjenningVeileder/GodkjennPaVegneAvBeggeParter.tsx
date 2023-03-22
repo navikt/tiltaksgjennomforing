@@ -16,6 +16,8 @@ interface Props {
     setSkalGodkjennesPaVegne: Dispatch<SetStateAction<boolean>>;
 }
 
+type ErInformert = 'erInformert' | '';
+
 const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenning');
     const { avtale, godkjennPaVegneAvDeltakerOgArbeidsgiver } = useContext(AvtaleContext);
@@ -44,7 +46,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
     const [feilmeldingGrunnDeltaker, setFeilmeldingGrunnDeltaker] = useState<string>();
     const [feilmeldingGrunnArbeidsgiver, setFeilmeldingGrunnArbeidsgiver] = useState<string>();
 
-    const [erInformert, setErInformert] = useState(false);
+    const [erInformert, setErInformert] = useState<ErInformert[]>(['']);
     const [feilErInformert, setFeilErInformert] = useState<string>();
 
     const godkjenn = (): void | Promise<void> => {
@@ -67,7 +69,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
             setFeilmeldingGrunnArbeidsgiver(undefined);
         }
 
-        if (!erInformert) {
+        if (!erInformert.includes('erInformert')) {
             return setFeilErInformert(
                 'Deltaker og arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.'
             );
@@ -116,8 +118,10 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
                         legend="Bekreftelse at deltaker og arbeidsgiver er informert om kravene"
                         error={feilErInformert}
                         className={cls.element('skjema-gruppe')}
+                        onChange={(value: any[]) => setErInformert(value)}
+                        value={erInformert}
                     >
-                        <Checkbox checked={erInformert} onChange={() => setErInformert(!erInformert)}>
+                        <Checkbox value="erInformert">
                             Deltakeren og arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen.
                         </Checkbox>
                     </CheckboxGroup>

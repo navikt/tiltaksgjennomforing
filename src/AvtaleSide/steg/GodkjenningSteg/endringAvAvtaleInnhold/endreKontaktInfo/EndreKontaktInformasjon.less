@@ -1,52 +1,61 @@
 .endreKontaktInformasjon {
-    margin-top: 2rem;
+  margin-top: 2rem;
+
+  &__inputfelter {
+    display: flex;
+    flex-direction: column;
+
+    &:nth-child(1) {
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    & > .skjemaelement {
+      width: 100%;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+  }
+
+  &__ikon {
+    margin-right: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+
+    &__avsnitt {
+      margin-bottom: 2.5rem;
+    }
+
+    &__tittel {
+      margin-bottom: 0.75rem;
+    }
+
     &__inputfelter {
-        display: flex;
-        flex-direction: column;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      flex-wrap: wrap;
+      flex: 0 45%;
 
-        &:nth-child(2) {
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
+      .navds-form-field:nth-child(odd) {
+
+        margin-right: 1rem;
+      }
+
+      & > .skjemaelement {
+        width: 45%;
+        margin-bottom: 1rem;
+
+        &:nth-child(1) {
+          margin-right: 0.75rem;
         }
-        & > .skjemaelement {
-            width: 100%;
-        }
+      }
     }
-
-    &__link {
-        display: flex;
-        align-items: center;
-    }
-    &__ikon {
-        margin-right: 0.5rem;
-    }
-
-    @media (min-width: 768px) {
-        display: flex;
-        flex-direction: column;
-
-        &__tittel {
-            margin-top: 0.5rem;
-        }
-
-        &__inputfelter {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            flex-wrap: wrap;
-            flex: 0 45%;
-
-            &:nth-child(2) {
-                margin-top: 1rem;
-                margin-bottom: 1rem;
-            }
-            & > .skjemaelement {
-                width: 45%;
-                margin-bottom: 1rem;
-                &:nth-child(1) {
-                    margin-right: 0.75rem;
-                }
-            }
-        }
-    }
+  }
 }
