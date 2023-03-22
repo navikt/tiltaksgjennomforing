@@ -4,101 +4,103 @@
 @button-height: 46px;
 
 .bekreftelseModal {
+  &__modal-container {
+    padding: 1rem 1rem;
+    max-width: @screen-lg;
+    min-width: 26rem;
+    overflow: visible;
+  }
+
+  &__body {
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 1rem 0;
+
+    .innhold {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__innhold {
+    margin: 1.5rem 0 2rem 0;
+  }
+
+  &__tittel {
+    text-align: center;
+    padding: 0 1rem 1rem 1rem;
+  }
+
+  &__varselTekst {
+    padding: 0 0.5rem;
+  }
+
+  &__knapp {
+    &:nth-child(1) {
+      margin-right: 1rem;
+    }
+  }
+
+  &__knappRad {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+  }
+
+  &__topIconContainer {
+    display: flex;
+    justify-content: center;
+    margin: -3.3rem auto 0 auto;
+    @media (max-height: 710px) {
+      display: none;
+    }
+  }
+
+  &__knapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 1.5rem);
+
+    .knapp {
+      overflow: hidden;
+    }
+
+    .knapp:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (min-width: @mobile-breakpoint) {
+    &__knapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-end;
+
+      .knapp:not(:last-child) {
+        margin-bottom: 0;
+        margin-right: 1rem;
+      }
+    }
+
     &__modal-container {
-        padding: 1rem 1rem;
-        max-width: @screen-lg;
-        min-width: 26rem;
-        overflow: visible;
-    }
-
-    &__body {
-        overflow-y: auto;
-        max-height: calc(100vh - 150px);
-        display: flex;
-        flex-direction: column;
-        padding: 0 0 1rem 0;
-
-        .innhold {
-            margin-bottom: 1.5rem;
-        }
-    }
-
-    &__innhold {
-        margin: 1.5rem 0 2rem 0;
-    }
-
-    &__tittel {
-        text-align: center;
-        padding: 0 1rem 1rem 1rem;
+      min-width: 26rem;
     }
 
     &__varselTekst {
-        padding: 0 0.5rem;
+      padding: 0 1.5rem;
     }
-
-    &__knapp {
-        &:nth-child(1){
-            margin-right: 1rem;
-        }
-    }
-
-    &__knappRad {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 0.5rem;
-    }
-
-    &__topIconContainer {
-        display: flex;
-        justify-content: center;
-        margin: -3.3rem auto 0 auto;
-        @media (max-height: 710px) {
-            display: none;
-        }
-    }
-
-    &__knapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-
-        .knapp {
-            overflow: hidden;
-        }
-
-        .knapp:not(:last-child) {
-            margin-bottom: 1rem;
-        }
-    }
-
-    @media (min-width: @mobile-breakpoint) {
-        &__knapper {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: flex-end;
-
-            .knapp:not(:last-child) {
-                margin-bottom: 0;
-                margin-right: 1rem;
-            }
-        }
-        &__modal-container {
-            min-width: 26rem;
-        }
-        &__varselTekst {
-            padding: 0 1.5rem;
-        }
-    }
+  }
 }
 
 .ReactModal__Content,
 .ReactModal__Content--after-open,
 .modal {
-    @media (min-height: 710px) {
-        &__wrapper {
-            overflow: visible;
-        }
+  @media (min-height: 710px) {
+    &__wrapper {
+      overflow: visible;
     }
+  }
 }

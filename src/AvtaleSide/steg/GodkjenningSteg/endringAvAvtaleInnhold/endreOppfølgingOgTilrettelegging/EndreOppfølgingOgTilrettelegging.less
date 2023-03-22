@@ -1,36 +1,44 @@
 .endreOppfølgingOgTilrettelegging {
-    &__ikon {
-        margin-right: 0.5rem;
-    }
+  &__ikon {
+    margin-right: 0.5rem;
+  }
 
-    &__lenke {
-        display: flex;
-        align-items: center;
-    }
+  &__lenke {
+    display: flex;
+    align-items: center;
+  }
+
+  &__tittel {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+  }
+  &__textareafelt {
+    width: 100%;
+  }
+
+  &__Tilrettelegging {
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
 
     &__tittel {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 1rem;
+      display: flex;
+      margin-bottom: 1rem;
     }
 
-    @media (min-width: 768px) {
-        width: 30rem;
-        display: flex;
-        flex-direction: column;
+    &__textareafelt-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
 
-        &__tittel {
-            display: flex;
-            margin-bottom: 1rem;
-        }
 
-        &__textareafelt {
-            display: flex;
-            flex-wrap: nowrap;
-
-            & > .textarea__container {
-                width: 100%;
-            }
-        }
+      & > .textarea__container {
+        width: 100%;
+      }
     }
+  }
 }
