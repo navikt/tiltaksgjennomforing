@@ -2,7 +2,6 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import StillingsTittelVelger, { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
@@ -39,19 +38,16 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     };
 
     const endreStillingInnhold = (
-        <div>
-            <VerticalSpacer rem={2} />
-            <div>
+        <div className={cls.element('innhold')}>
+            <div className={cls.element('stillingstittel-wrapper')}>
                 <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
-                <VerticalSpacer rem={0.5} />
                 <StillingsTittelVelger
                     id="stillinginput"
                     valgtStilling={valgtStilling}
                     setValgtStilling={setValgtStilling}
                 />
             </div>
-            <VerticalSpacer rem={2} />
-            <div>
+            <div className={cls.element('stilling-beskrivelse')}>
                 <PakrevdTextarea
                     label="Beskriv arbeidsoppgavene som inngår i stillingen"
                     verdi={arbeidsoppgaver}
@@ -60,21 +56,20 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                     feilmelding="arbeidsoppgave er påkrevd"
                 />
             </div>
-            <VerticalSpacer rem={2} />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div className={cls.element('stilling-input-wrapper')}>
                 <StillingsprosentInput
                     label="Stillingsprosent"
                     verdi={stillingsprosent}
                     settVerdi={(verdi) => setStillingsprosent(verdi)}
                 />
                 <PakrevdInput
-                    bredde="S"
+                    size="small"
                     label="Antall dager per uke"
                     type="number"
                     max={7}
                     verdi={antallDagerPerUke}
                     settVerdi={(eventVerdi) => {
-                        const verdi = parseInt(eventVerdi);
+                        const verdi = parseInt(eventVerdi, 10);
                         if (verdi > 0 && verdi < 8) {
                             setAntallDagerPerUke(verdi);
                         } else {

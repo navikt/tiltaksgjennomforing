@@ -17,12 +17,12 @@ type Props = {
     setValgtStilling: (val: ValueType<StillingOptions, boolean>) => void;
 };
 
-const StillingsTittelVelger: FunctionComponent<Props> = props => {
+const StillingsTittelVelger: FunctionComponent<Props> = (props) => {
     const [stillinger, setStillinger] = useState<StillingOptions[]>();
 
     const hentOgSettStillinger = (sok: string) => {
-        hentStillinger(sok).then(data => {
-            const options: StillingOptions[] = data.map(opt => ({
+        hentStillinger(sok).then((data) => {
+            const options: StillingOptions[] = data.map((opt) => ({
                 label: opt.label,
                 value: opt.label,
                 konseptId: opt.konseptId,
@@ -63,6 +63,7 @@ const StillingsTittelVelger: FunctionComponent<Props> = props => {
 
     return (
         <Select
+            className="stillingsTittelVelger"
             inputId={props.id}
             aria-label="Stilling"
             components={{ DropdownIndicator: null }}
@@ -70,11 +71,11 @@ const StillingsTittelVelger: FunctionComponent<Props> = props => {
             noOptionsMessage={({ inputValue }) => visSokeMelding(inputValue)}
             isClearable={true}
             value={props.valgtStilling}
-            onChange={value => props.setValgtStilling(value)}
-            onInputChange={value => delayHentStilling(value)}
+            onChange={(value) => props.setValgtStilling(value)}
+            onInputChange={(value) => delayHentStilling(value)}
             options={stillinger}
             formatOptionLabel={formatOptionLabel}
-            theme={theme => ({
+            theme={(theme) => ({
                 ...theme,
                 colors: {
                     ...theme.colors,

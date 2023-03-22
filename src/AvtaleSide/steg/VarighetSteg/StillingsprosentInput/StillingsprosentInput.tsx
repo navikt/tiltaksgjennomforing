@@ -24,7 +24,6 @@ const StillingsprosentInput = (props: Props) => {
     return (
         <TextField
             error={feil}
-            style={{ width: '26%', padding: '0.5rem' }}
             label={props.label}
             value={props.verdi || ''}
             onChange={(event) => {
