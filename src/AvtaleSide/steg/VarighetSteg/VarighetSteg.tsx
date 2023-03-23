@@ -8,10 +8,9 @@ import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { accurateHumanize, erDatoTilbakeITid, formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { Alert, BodyShort, ErrorMessage } from '@navikt/ds-react';
 import moment from 'moment';
 import 'moment/locale/nb';
-import SkjemaelementFeilmelding from 'nav-frontend-skjema/lib/skjemaelement-feilmelding';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import InfoBoks from './InfoBoks/InfoBoks';
 import StillingsprosentInput from './StillingsprosentInput/StillingsprosentInput';
@@ -148,9 +147,9 @@ const VarighetSteg: FunctionComponent = () => {
                         erDatoTilbakeITid(avtaleContext.avtale.gjeldendeInnhold.sluttDato)) && (
                         <>
                             {erArbeidsgiverOgUfordelt && (
-                                <SkjemaelementFeilmelding className={cls.element('er-arbeidsgiver-ufordelt')}>
+                                <ErrorMessage className={cls.element('er-arbeidsgiver-ufordelt')}>
                                     Dato kan ikke være tilbake i tid
-                                </SkjemaelementFeilmelding>
+                                </ErrorMessage>
                             )}
                             {!erArbeidsgiverOgUfordelt && (
                                 <Alert variant="info" className={cls.element('er-arbeidsgiver-ikke-ufordelt')}>

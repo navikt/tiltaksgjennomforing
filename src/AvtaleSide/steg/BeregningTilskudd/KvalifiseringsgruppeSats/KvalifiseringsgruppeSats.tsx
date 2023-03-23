@@ -36,7 +36,7 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
                     <VerticalSpacer rem={1.25} />
                     <ProsentInput
                         name="lonnstilskuddProsent"
-                        bredde="S"
+                        width="S"
                         label=""
                         value={avtale.gjeldendeInnhold.lonnstilskuddProsent}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

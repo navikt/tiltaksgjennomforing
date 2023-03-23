@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, SelectProps } from 'nav-frontend-skjema';
+import { Select, SelectProps } from '@navikt/ds-react';
 
 export interface OptionProps {
     disabled?: boolean;
@@ -12,11 +12,11 @@ export interface SelectInputProps extends SelectProps {
     options: OptionProps[];
 }
 
-const SelectInput: React.FunctionComponent<SelectInputProps> = props => {
+const SelectInput: React.FunctionComponent<SelectInputProps> = (props) => {
     const { options, ...other } = props;
     return (
         <Select {...other}>
-            {options.map(attr => (
+            {options.map((attr) => (
                 <option key={attr.value} {...attr}>
                     {attr.label}
                 </option>

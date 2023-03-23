@@ -18,8 +18,7 @@ import BEMHelper from '@/utils/bem';
 import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Alert, RadioGroup } from '@navikt/ds-react';
-import { Input, SkjemaelementFeilmelding } from 'nav-frontend-skjema';
-import { BodyShort, Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, ErrorMessage, TextField } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
@@ -151,9 +150,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                             ))}
                         </RadioGroup>
                     </div>
-                    {uyldigAvtaletype && (
-                        <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
-                    )}
+                    {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
                 </Innholdsboks>
                 <Innholdsboks className={cls.element('innholdsboks')}>
                     <Heading size="medium" className={cls.element('innholdstittel')}>
@@ -165,19 +162,19 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         blir registrert inntekt for deltaker i A-meldingen.
                     </Alert>
                     <VerticalSpacer rem={1} />
-                    <Input
+                    <TextField
                         className="typo-element"
                         label="Deltakers fødselsnummer"
                         value={deltakerFnr}
-                        bredde={'L'}
+                        width={'L'}
                         onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
                         onBlur={validerDeltakerFnr}
-                        feil={deltakerFnrFeil}
+                        error={deltakerFnrFeil}
                     />
                     <VerticalSpacer rem={1} />
-                    <Input
+                    <TextField
                         className="typo-element"
-                        bredde={'L'}
+                        width={'L'}
                         label="Opprettes på bedrift"
                         description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                         value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
@@ -186,21 +183,19 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     {valgtTiltaksType === 'MENTOR' && (
                         <>
-                            <Input
+                            <TextField
                                 className="typo-element"
                                 label="Mentors fødselsnummer"
                                 value={mentorFnr}
-                                bredde={'M'}
+                                width={'M'}
                                 onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
                                 onBlur={validerMentorFnr}
-                                feil={mentorFnrFeil}
+                                error={mentorFnrFeil}
                             />
                             <BodyShort size="small">
                                 Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
                             </BodyShort>
-                            {uyldigAvtaletype && (
-                                <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
-                            )}
+                            {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
                         </>
                     )}
                 </Innholdsboks>

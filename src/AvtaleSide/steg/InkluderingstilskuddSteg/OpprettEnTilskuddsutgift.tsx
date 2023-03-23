@@ -76,9 +76,9 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                     </Select>
                     <VerticalSpacer rem={1} />
                     <ValutaInput
-                        feil={beløpFeil}
+                        error={beløpFeil}
                         name="beløp"
-                        bredde="M"
+                        width="M"
                         label="Kostnadsoverslag"
                         value={beløp}
                         onChange={(event) => {

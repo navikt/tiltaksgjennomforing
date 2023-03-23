@@ -137,7 +137,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         {
                             <ProsentInput
                                 name="tjenestepensjon"
-                                bredde="S"
+                                width="S"
                                 label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
                                 min={0}
                                 max={30}
@@ -164,7 +164,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <Heading size="small">Arbeidsgiveravgift</Heading>
                     <SelectInput
                         name="arbeidsgiveravgift"
-                        bredde="s"
                         options={arbeidsgiveravgiftAlternativer}
                         label="Sats for arbeidsgiveravgift"
                         children=""
@@ -179,7 +178,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     <Row className="" hidden={visningAvKnappHentKontonummerForArbeidsgiver}>
                         <Column md="12">
                             <KontonummerInput
-                                bredde={'L'}
+                                width={'L'}
                                 label={'Kontonummer til arbeidsgiver'}
                                 value={avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

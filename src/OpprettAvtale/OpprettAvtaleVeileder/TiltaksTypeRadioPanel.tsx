@@ -3,10 +3,9 @@ import BEMHelper from '@/utils/bem';
 import amplitude from '@/utils/amplitude';
 import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
-import { BodyLong, Heading, RadioGroup } from '@navikt/ds-react';
+import { BodyLong, Heading, RadioGroup, ErrorMessage } from '@navikt/ds-react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { SkjemaelementFeilmelding } from 'nav-frontend-skjema';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 
 interface Props {
@@ -73,7 +72,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                 </RadioGroup>
             </div>
             {ugyldigAvtaletype && (
-                <SkjemaelementFeilmelding>{Feilmeldinger.UGYLDIG_AVTALETYPE}</SkjemaelementFeilmelding>
+                <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>
             )}
         </Innholdsboks>
     );

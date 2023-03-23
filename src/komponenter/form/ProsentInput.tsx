@@ -3,7 +3,7 @@ import { formatterProsent } from '@/utils/formatterProsent';
 import React from 'react';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    bredde?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
+    width?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
     className?: string;
     feil?: React.ReactNode | boolean;
     id?: string;
@@ -16,7 +16,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 const ProsentInput: React.FunctionComponent<InputProps> = (props) => {
-    const { step = 1, max, min, ...other } = props;
+    const { step = 1, max, min } = props;
     const validatorer = [
         (v: any) => {
             if (!v) {
@@ -40,10 +40,10 @@ const ProsentInput: React.FunctionComponent<InputProps> = (props) => {
             step={step}
             validatorer={validatorer}
             maxLength={3}
+            label=""
             toFormatted={formatterProsent}
             max={max}
             min={min}
-            {...other}
         />
     );
 };
