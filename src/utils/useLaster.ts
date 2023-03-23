@@ -19,7 +19,7 @@ export const useLaster: (
         lasteFunksjon(0, pagesize)
             .then((data: any) => {
                 setNettressurs({ status: Status.Lastet, data });
-                setKanLasteMer(data.length === pagesize);
+                setKanLasteMer(data.length !== 0);
             })
             .catch((error: any) => setNettressurs({ status: Status.Feil, error: error }));
     }, [lasteFunksjon, pagesize]);
@@ -35,7 +35,7 @@ export const useLaster: (
                     .then((nyeData: any[]) => {
                         setNettressurs({ status: Status.Lastet, data: nettressurs.data.concat(nyeData) });
                         setLasterMer(false);
-                        setKanLasteMer(nyeData.length === pagesize);
+                        setKanLasteMer(nyeData.length !== 0);
                     })
                     .catch((error: any) => setNettressurs({ status: Status.Feil, error: error }));
             },

@@ -66,6 +66,14 @@ const BeslutterOversikt: FunctionComponent = () => {
                                 <VerticalSpacer rem={3} />
                             </>
                         )}
+                        {!kanLasteMer && (
+                            <>
+                                <VerticalSpacer rem={2} />
+                                <div style={{ textAlign: 'center' }}>
+                                    Alle avtaler er lastet
+                                </div>
+                            </>
+                        )}
                         <VerticalSpacer rem={10} />
                     </section>
                 </div>
