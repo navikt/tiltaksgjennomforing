@@ -100,7 +100,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 <Column md="6">
                     <ValutaInput
                         name="manedslonn"
-                        bredde="S"
+                        size="small"
                         label="Månedslønn før skatt"
                         autoComplete={'off'}
                         value={avtale.gjeldendeInnhold.manedslonn}
@@ -228,7 +228,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             <ValutaInput
                                 disabled={true}
                                 name="manedslonn100%"
-                                bredde="S"
+                                size="small"
                                 label="Lønn ved 100% stilling"
                                 value={avtale.gjeldendeInnhold.manedslonn100pst}
                             />
