@@ -165,7 +165,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <div className={cls.element('input-wrapper')}>
                             <div className={cls.element('input-container')}>
                                 <div className={cls.element('Stillingsprosent-input-container')}>
-                                    <StillingsprosentInput
+                                    <StillingsprosentInput 
                                         label="Hvilken stillingsprosent skal deltakeren ha?"
                                         verdi={avtaleContext.avtale.gjeldendeInnhold.stillingprosent}
                                         size="medium"
