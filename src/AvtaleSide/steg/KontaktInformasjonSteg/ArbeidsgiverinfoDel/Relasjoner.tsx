@@ -51,7 +51,7 @@ const Relasjoner: FunctionComponent = () => {
 
                     <Label>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Label>
                     <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
-                        <RelasjonHjelpetekst />
+                        <RelasjonHjelpetekst tiltakstype={avtale.tiltakstype}/>
                     </LesMerPanel>
                     <VerticalSpacer rem={0.5} />
                     <div

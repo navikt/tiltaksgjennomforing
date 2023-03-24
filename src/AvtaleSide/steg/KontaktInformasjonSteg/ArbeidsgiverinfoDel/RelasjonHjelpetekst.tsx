@@ -3,8 +3,15 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 import BEMHelper from '@/utils/bem';
+import { avtaleTittel } from '@/messages';
+import { TiltaksType } from '@/types/avtale';
+import { litenForbokstav } from '@/utils/stringUtils';
 
-const RelasjonHjelpetekst: FunctionComponent = () => {
+interface Props {
+    tiltakstype: TiltaksType;
+}
+
+const RelasjonHjelpetekst: FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('relasjoner');
 
     return (
@@ -14,7 +21,7 @@ const RelasjonHjelpetekst: FunctionComponent = () => {
             <VerticalSpacer rem={0.5} />
             Er det en nær relasjon mellom deg eller noen i virksomheten og deltakeren skal du huke av for dette i boksen under.
             <VerticalSpacer rem={0.5} />
-            Du kan søke om oppstart av lønnstilskudd selv om du har en nær relasjon til deltakeren, men du må oppgi
+            Du kan søke om oppstart av {litenForbokstav(avtaleTittel[props.tiltakstype])} selv om du har en nær relasjon til deltakeren, men du må oppgi
             at det er en nær relasjon og utdype tilknytningen. NAV vil deretter vurdere om det foreligger særlige grunner for likevel å innvilge tiltaket.
             <VerticalSpacer rem={0.5} />
             For at noen skal bli definert som tiltaksdeltakerens «egne familiemedlemmer eller andre nærstående»
