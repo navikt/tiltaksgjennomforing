@@ -1,7 +1,32 @@
 .beregningTilskuddSteg {
-    &__luft {
-        padding: 0.5rem 0;
+
+    &__valuta-input {
+        & > .input {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
     }
+
+    &__feriepenger, &__arbeidsgiveravgift, &__kontonummer  {
+        & > Label {
+            margin-top: 2rem;
+        }
+        & > p, & > div, & > input{ 
+            margin: 0.5rem 0;
+        }
+    }
+
+    &__tjenestepensjon {
+        & > Label {
+            margin-top: 2rem;
+        }
+        & > input{ 
+            margin: 0.5rem 0;
+        }
+    }
+
+ 
+  
     &__lonn-tittel {
         padding-bottom: 0.5rem;
     }
@@ -21,9 +46,6 @@
                 margin: 0.5rem 0;
             }
         }
-    }
-    &__valuta-input {
-        margin-top: 1rem;
     }
 }
 

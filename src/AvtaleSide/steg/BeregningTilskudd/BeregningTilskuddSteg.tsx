@@ -17,7 +17,7 @@ import BEMHelper from '@/utils/bem';
 import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { Money } from '@navikt/ds-icons/cjs';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
@@ -94,9 +94,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </div>
             </LesMerPanel>
             <Row className="">
-                <Column md="6">
+                <Column md="6" className={cls.element('valuta-input')}>
                     <ValutaInput
-                        className={cls.element('valuta-input')}
+                        className="input"
                         name="manedslonn"
                         size="small"
                         label="Månedslønn før skatt"
@@ -113,13 +113,9 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </Column>
             </Row>
             <Row className="">
-                <Column md="12">
-                    <Heading size="small" className={cls.element('luft')}>
-                        Feriepenger
-                    </Heading>
-                    <BodyShort size="small" className={cls.element('luft')}>
-                        Velg sats for feriepenger som arbeidstaker skal ha
-                    </BodyShort>
+                <Column md="12" className={cls.element('feriepenger')}>
+                    <Label size="small">Feriepenger</Label>
+                    <BodyShort size="small">Velg sats for feriepenger som arbeidstaker skal ha</BodyShort>
                     <RadioPanelGruppeHorisontal
                         radios={feriepengeAlternativer}
                         name="feriepengesats"
@@ -129,13 +125,15 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             settOgKalkulerBeregningsverdier({ feriepengesats: parseFloat(verdi) });
                         }}
                     />
-                    <VerticalSpacer rem={1.25} />
-                    <Heading size="small">Obligatorisk tjenestepensjon</Heading>
+                </Column>
+            </Row>
+            <Row>
+                <Column md="6" className={cls.element('tjenestepensjon')}>
+                    <Label size="small">Obligatorisk tjenestepensjon</Label>
                     <div style={{ display: 'flex', alignItems: 'baseline' }}>
                         {
                             <ProsentInput
                                 name="tjenestepensjon"
-                                width="S"
                                 label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
                                 min={0}
                                 max={30}
@@ -147,19 +145,23 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                                         ? (avtale.gjeldendeInnhold.otpSats * 100).toFixed(2)
                                         : ''
                                 }
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                     settOgKalkulerBeregningsverdier({
                                         otpSats:
                                             event.target.value === ''
                                                 ? undefined
                                                 : parseFloat(event.target.value) / 100,
-                                    })
-                                }
+                                    });
+                                }}
                             />
                         }
                     </div>
+                </Column>
+            </Row>
+            <Row>
+                <Column md="4" className={cls.element('arbeidsgiveravgift')}>
                     <VerticalSpacer rem={1.25} />
-                    <Heading size="small">Arbeidsgiveravgift</Heading>
+                    <Label size="small">Arbeidsgiveravgift</Label>
                     <SelectInput
                         name="arbeidsgiveravgift"
                         options={arbeidsgiveravgiftAlternativer}
@@ -172,70 +174,69 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             })
                         }
                     />
-                    <VerticalSpacer rem={2} />
-                    <Row className="" hidden={visningAvKnappHentKontonummerForArbeidsgiver}>
-                        <Column md="12">
-                            <KontonummerInput
-                                width={'L'}
-                                label={'Kontonummer til arbeidsgiver'}
-                                value={avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
-                                }}
-                                onBlur={() => lagreAvtale()}
-                            />
-                        </Column>
-                    </Row>
-                    <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
-                        <Column md="1">
-                            <Money />
-                        </Column>
-                        <Column md="11">
-                            <BodyShort size="small">
-                                <strong>Kontonummer: </strong>
-                                {avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
-                            </BodyShort>
-                            <BodyShort size="small">
-                                Hvis kontonummeret ikke stemmer så må det oppdateres hos{' '}
-                                <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
-                                    Altinn.
-                                </EksternLenke>
-                            </BodyShort>
-                        </Column>
-                    </Row>
-                    <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
-                        <Column md="1" />
-                        <Column md="10">
-                            <LagreKnapp
-                                label="Hent kontonummer fra Altinn"
-                                lagre={async () => {
-                                    const arbeidsgiverKontonummer = await hentKontonummerForArbeidsgiver(avtale.id);
-                                    settAvtaleVerdier({ arbeidsgiverKontonummer });
-                                }}
-                            />
-                        </Column>
-                    </Row>
-                    <VerticalSpacer rem={2} />
-                    <UtregningPanel {...avtale.gjeldendeInnhold} tiltakstype={avtale.tiltakstype} />
-                    <VerticalSpacer rem={1.25} />
-                    {innloggetBruker.erNavAnsatt &&
-                        avtale.gjeldendeInnhold.stillingprosent !== undefined &&
-                        avtale.gjeldendeInnhold.stillingprosent > 0 &&
-                        avtale.gjeldendeInnhold.stillingprosent < 100 && (
-                            <ValutaInput
-                                disabled={true}
-                                name="manedslonn100%"
-                                size="small"
-                                label="Lønn ved 100% stilling"
-                                value={avtale.gjeldendeInnhold.manedslonn100pst}
-                            />
-                        )}
-                    <VerticalSpacer rem={2} />
-                    <VisningTilskuddsperioder />
-                    <VerticalSpacer rem={2} />
-                    <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
                 </Column>
             </Row>
+            <Row className="" hidden={visningAvKnappHentKontonummerForArbeidsgiver}>
+                <Column md="12" className={cls.element('kontonummer')}>
+                    <KontonummerInput
+                        width={'L'}
+                        label={'Kontonummer til arbeidsgiver'}
+                        value={avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            settAvtaleVerdier({ arbeidsgiverKontonummer: event.target.value });
+                        }}
+                        onBlur={() => lagreAvtale()}
+                    />
+                </Column>
+            </Row>
+            <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
+                <Column md="1">
+                    <Money />
+                </Column>
+                <Column md="11">
+                    <BodyShort size="small">
+                        <strong>Kontonummer: </strong>
+                        {avtale.gjeldendeInnhold.arbeidsgiverKontonummer}
+                    </BodyShort>
+                    <BodyShort size="small">
+                        Hvis kontonummeret ikke stemmer så må det oppdateres hos{' '}
+                        <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
+                            Altinn.
+                        </EksternLenke>
+                    </BodyShort>
+                </Column>
+            </Row>
+            <Row className="" hidden={!visningAvKnappHentKontonummerForArbeidsgiver}>
+                <Column md="1" />
+                <Column md="10">
+                    <LagreKnapp
+                        label="Hent kontonummer fra Altinn"
+                        lagre={async () => {
+                            const arbeidsgiverKontonummer = await hentKontonummerForArbeidsgiver(avtale.id);
+                            settAvtaleVerdier({ arbeidsgiverKontonummer });
+                        }}
+                    />
+                </Column>
+            </Row>
+            <VerticalSpacer rem={2} />
+            <UtregningPanel {...avtale.gjeldendeInnhold} tiltakstype={avtale.tiltakstype} />
+            <VerticalSpacer rem={1.25} />
+            {innloggetBruker.erNavAnsatt &&
+                avtale.gjeldendeInnhold.stillingprosent !== undefined &&
+                avtale.gjeldendeInnhold.stillingprosent > 0 &&
+                avtale.gjeldendeInnhold.stillingprosent < 100 && (
+                    <ValutaInput
+                        disabled={true}
+                        name="manedslonn100%"
+                        size="small"
+                        label="Lønn ved 100% stilling"
+                        value={avtale.gjeldendeInnhold.manedslonn100pst}
+                    />
+                )}
+            <VerticalSpacer rem={2} />
+            <VisningTilskuddsperioder />
+            <VerticalSpacer rem={2} />
+            <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
         </Innholdsboks>
     );
 };
