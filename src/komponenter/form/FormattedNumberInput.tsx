@@ -8,6 +8,16 @@ const DEFAULT_INPUT_MAX_LENGTH = 524288;
 interface FormattedNumberInputProps extends TextFieldProps {
     toFormatted: (value: any) => string;
     validatorer: Array<(value: any) => string | undefined>;
+
+    width?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
+    className?: string;
+    feil?: React.ReactNode | boolean;
+    id?: string;
+    inputClassName?: string;
+    inputRef?: ((element: HTMLInputElement | null) => any) | React.RefObject<HTMLInputElement>;
+    description?: React.ReactNode;
+    name?: string;
+    mini?: boolean;
 }
 
 /**
