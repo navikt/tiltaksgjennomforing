@@ -1,6 +1,6 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { TextFieldProps } from '@navikt/ds-react';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 export const formaterValuta = (value: any): string => {
     const numericValue = parseFloat(value);
@@ -18,7 +18,7 @@ export const formaterValuta = (value: any): string => {
     return formatter.format(numericValue);
 };
 
-const ValutaInput: React.FunctionComponent<TextFieldProps> = (props) => {
+const ValutaInput: React.FunctionComponent<TextFieldProps> = (props: PropsWithChildren<TextFieldProps>) => {
     const { max, min, ...other } = props;
     const validatorer = [
         (v: any) => {

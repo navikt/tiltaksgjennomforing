@@ -11,7 +11,7 @@ interface FormattedNumberInputProps extends TextFieldProps {
 }
 
 /**
- ////  Testet via: FormattedNumberInput.spec.txs ///
+ * Testet via: FormattedNumberInput.spec.txs ///
  */
 const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> = (props) => {
     const { value, validatorer, toFormatted, onChange, maxLength, max, ...other } = props;

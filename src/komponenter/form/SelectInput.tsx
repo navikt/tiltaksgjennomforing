@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Select, SelectProps } from '@navikt/ds-react';
 
 export interface OptionProps {
@@ -12,7 +12,7 @@ export interface SelectInputProps extends SelectProps {
     options: OptionProps[];
 }
 
-const SelectInput: React.FunctionComponent<SelectInputProps> = (props) => {
+const SelectInput: React.FunctionComponent<SelectInputProps> = (props: PropsWithChildren<SelectInputProps>) => {
     const { options, ...other } = props;
     return (
         <Select {...other}>

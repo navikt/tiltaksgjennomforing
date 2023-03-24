@@ -69,7 +69,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
         <div className={cls.className}>
             <ValutaInput
                 name="manedslonn"
-                bredde="M"
+                size="medium"
                 label="Månedslønn før skatt"
                 value={nyBeregning.manedslonn}
                 onChange={(event: any) => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
@@ -92,7 +92,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
 
             <ProsentInput
                 name="tjenestepensjon"
-                bredde="S"
+                size="medium"
                 label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
                 min={0}
                 max={30}
@@ -112,7 +112,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
             <VerticalSpacer rem={1} />
             <SelectInput
                 name="arbeidsgiveravgift"
-                bredde="m"
+                size="medium"
                 options={getAvgiftsatserForRadioValg(ARBEIDSGIVER_AVGIFT_SATSER)}
                 label="Sats for arbeidsgiveravgift"
                 children=""

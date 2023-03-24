@@ -1,8 +1,8 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { formatterProsent } from '@/utils/formatterProsent';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     width?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
     className?: string;
     feil?: React.ReactNode | boolean;
@@ -13,10 +13,11 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
     description?: React.ReactNode;
     name?: string;
     mini?: boolean;
+    size?: 'medium' | 'small';
 }
 
-const ProsentInput: React.FunctionComponent<InputProps> = (props) => {
-    const { step = 1, max, min } = props;
+const ProsentInput: React.FunctionComponent<InputProps> = (props: PropsWithChildren<InputProps>) => {
+    const { step = 1, max, min, size } = props;
     const validatorer = [
         (v: any) => {
             if (!v) {
@@ -37,6 +38,7 @@ const ProsentInput: React.FunctionComponent<InputProps> = (props) => {
 
     return (
         <FormattedNumberInput
+            size={size}
             step={step}
             validatorer={validatorer}
             maxLength={3}
