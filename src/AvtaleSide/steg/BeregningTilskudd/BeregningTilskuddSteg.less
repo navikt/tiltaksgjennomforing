@@ -1,52 +1,55 @@
 .beregningTilskuddSteg {
 
-    &__valuta-input {
-        & > .input {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
+  &__valuta-input {
+    & > .input {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__feriepenger, &__arbeidsgiveravgift, &__kontonummer, &__tjenestepensjon {
+    & > Label {
+      margin-top: 2rem;
     }
 
-    &__feriepenger, &__arbeidsgiveravgift, &__kontonummer  {
-        & > Label {
-            margin-top: 2rem;
-        }
-        & > p, & > div, & > input{ 
-            margin: 0.5rem 0;
-        }
+    & > p, & > div, & > input {
+      margin: 0.5rem 0;
     }
+  }
 
-    &__tjenestepensjon {
-        & > Label {
-            margin-top: 2rem;
-        }
-        & > input{ 
-            margin: 0.5rem 0;
-        }
-    }
+  &__tjenestepensjon, &__arbeidsgiveravgift {
+    margin: 0.5rem 0;
 
- 
-  
-    &__lonn-tittel {
-        padding-bottom: 0.5rem;
+    .navds-form-field {
+      & > input, & > div {
+        width: 55%;
+      }
     }
+  }
 
-    &__otpSats {
-        position: relative;
-        &--label {
-            position: absolute;
-            bottom: 0.675rem;
-            left: 3rem;
-        }
+  &__lonn-tittel {
+    padding-bottom: 0.5rem;
+  }
+
+  &__otpSats {
+    position: relative;
+
+    &--label {
+      position: absolute;
+      bottom: 0.675rem;
+      left: 3rem;
     }
-    &__lonn-per-mnd-seksjon {
-        &:nth-child(n) {
-            margin-bottom: 0.5rem;
-            & > ul {
-                margin: 0.5rem 0;
-            }
-        }
+  }
+
+  &__lonn-per-mnd-seksjon {
+    &:nth-child(n) {
+      margin-bottom: 0.5rem;
+
+      & > ul {
+        margin: 0.5rem 0;
+      }
     }
+  }
 }
 
 
