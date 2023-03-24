@@ -10,10 +10,15 @@ import { BodyShort, Heading, Label, Popover, RadioGroup } from '@navikt/ds-react
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './Relasjoner.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
+import { TiltaksType } from '@/types/avtale';
 
 const cls = BEMHelper('relasjoner');
 
-const Relasjoner: FunctionComponent<{}> = () => {
+interface Props {
+    tiltakstype: TiltaksType;
+}
+
+const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
     const { avtale, settAvtaleInnholdVerdier: settAvtaleVerdier } = useContext(AvtaleContext);
     const { gjeldendeInnhold } = avtale;
     const { harFamilietilknytning, familietilknytningForklaring } = gjeldendeInnhold;
@@ -45,7 +50,7 @@ const Relasjoner: FunctionComponent<{}> = () => {
             </div>
             <Label>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Label>
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk" className={cls.element('LesMerPanel')}>
-                <RelasjonHjelpetekst />
+                <RelasjonHjelpetekst tiltakstype={tiltakstype} />
             </LesMerPanel>
             <div
                 onMouseOver={(e) => setPopoverAnker(e.currentTarget)}

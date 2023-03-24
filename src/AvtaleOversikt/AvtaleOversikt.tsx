@@ -146,6 +146,14 @@ const AvtaleOversikt: FunctionComponent = () => {
                                 <VerticalSpacer rem={3} />
                             </>
                         )}
+                        {!kanLasteMer && (
+                            <>
+                                <VerticalSpacer rem={2} />
+                                <div style={{ textAlign: 'center' }}>
+                                    Alle avtaler er lastet
+                                </div>
+                            </>
+                        )}
                     </section>
                 </div>
             </main>
