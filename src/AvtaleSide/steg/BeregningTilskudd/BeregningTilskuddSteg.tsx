@@ -19,11 +19,11 @@ import { Money } from '@navikt/ds-icons/cjs';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
-import './BeregningTilskuddSteg.less';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
 import UtregningPanel from './UtregningPanel';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
+import './BeregningTilskuddSteg.less';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -65,21 +65,20 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <Heading size="small" className={cls.element('lonn-tittel')}>
                 Lønn per måned i faktisk stillingsprosent inkludert faste tillegg
             </Heading>
-            <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
-                <div>
+            <LesMerPanel className={cls.element('lonn-per-mnd')} åpneLabel="Hva menes med dette?" lukkLabel="Lukk">
+                <div className={cls.element('lonn-per-mnd-seksjon')}>
                     Brutto lønn omregnes til fast gjennomsnittlig månedslønn. I refusjonsgrunnlaget inngår lønn for
                     arbeid utført i normalarbeidstiden inkludert faste tillegg. Overtidsbetaling og andre variable
                     tillegg skal ikke tas med. For deltidsstillinger skal lønn i den faktiske stillingsprosenten legges
                     inn. For eksempel hvis deltaker er ansatt i en 50 % stilling, skal det legges inn månedslønn i 50 %
                     stilling før skatt.
                 </div>
-                <VerticalSpacer rem={0.5} />
-                <div>
+
+                <div className={cls.element('lonn-per-mnd-seksjon')}>
                     Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og utbetales regelmessig ved
                     hver lønnsutbetaling. Beløpet er en fast størrelse og gjelder blant annet:
                 </div>
-                <div>
-                    <VerticalSpacer rem={0.5} />
+                <div className={cls.element('lonn-per-mnd-seksjon')}>
                     <ul>
                         <li>b-tillegg</li>
                         <li>stabiliseringstillegg</li>
@@ -87,7 +86,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         <li>tillegg for ansvarsvakter, fagansvar og lederansvar</li>
                         <li>kvalifikasjons-/kompetansetillegg</li>
                     </ul>
-                    <VerticalSpacer rem={0.5} />
                     Dette gjelder ikke:
                     <ul>
                         <li>skift-, turnus- og vakttillegg</li>
@@ -95,10 +93,10 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     </ul>
                 </div>
             </LesMerPanel>
-            <VerticalSpacer rem={1} />
             <Row className="">
                 <Column md="6">
                     <ValutaInput
+                        className={cls.element('valuta-input')}
                         name="manedslonn"
                         size="small"
                         label="Månedslønn før skatt"

@@ -22,7 +22,7 @@ const LesMerPanel: React.FunctionComponent<Props> = ({ åpneLabel, lukkLabel, ch
     };
 
     return (
-        <div className="les-mer-panel">
+        <div className={'les-mer-panel'}>
             <div className={classNames('les-mer-panel__toggler', åpen && 'les-mer-panel__toggler--åpen', className)}>
                 <InfoToggler onToggle={() => setÅpen(!åpen)} åpen={åpen}>
                     <span>{åpen ? lukkLabel : åpneLabel}</span>
