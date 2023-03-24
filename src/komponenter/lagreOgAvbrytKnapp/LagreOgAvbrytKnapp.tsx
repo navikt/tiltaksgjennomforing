@@ -2,24 +2,24 @@ import { Nettressurs, Status } from '@/types/nettressurs';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Alert } from '@navikt/ds-react';
 import _ from 'lodash';
-import KnappBase, { Knapp, KnappBaseProps } from 'nav-frontend-knapper';
-import React, { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
+import { Button, ButtonProps } from '@navikt/ds-react';
+import { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './lagreOgAvbrytKnapp.less';
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLDivElement> {
     lagreFunksjon: () => Promise<any>;
     avbryt: () => void;
     lagretekst: string;
-} & HTMLAttributes<HTMLDivElement>;
+}
 
-const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) => {
+const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     const cls = BEMHelper('lagre-og-avbryt-knapp');
     const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
     const [feilmelding, setFeilmelding] = useState('');
 
     // Fjerner ikke-standard knapp-props før de spreades inn i KnappBase.
-    const knappBaseProps: KnappBaseProps = _.omit(props, ['lagreFunksjon', 'avbryt', 'lagreTekst']);
+    const knappBaseProps: ButtonProps = _.omit(props, ['lagreFunksjon', 'avbryt', 'lagreTekst']);
 
     const feilRef = useRef<HTMLDivElement>(null);
 
@@ -27,8 +27,9 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
         try {
             setOppslag({ status: Status.LasterInn });
 
-            await props.lagreFunksjon();
+            // midlertidig fiks. Må fikse mem-leak før denne kan pushes under callback lagreFunksjon.
             setOppslag({ status: Status.Sendt });
+            await props.lagreFunksjon();
         } catch (error: any) {
             setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
             handterFeil(error, setFeilmelding);
@@ -53,16 +54,16 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & KnappBaseProps> = (props) =>
                 </div>
             )}
             <div className={cls.element('container')}>
-                <KnappBase
-                    spinner={oppslag.status === Status.LasterInn}
+                <Button
+                    loading={oppslag.status === Status.LasterInn}
                     disabled={oppslag.status === Status.LasterInn}
                     onClick={onClick}
-                    type="hoved"
+                    variant="primary"
                     {...knappBaseProps}
                 >
                     {props.lagretekst}
-                </KnappBase>
-                <Knapp onClick={props.avbryt}>Avbryt</Knapp>
+                </Button>
+                <Button onClick={props.avbryt}>Avbryt</Button>
             </div>
         </div>
     );

@@ -3,7 +3,8 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Fieldset, TextField } from '@navikt/ds-react';
+
 import React, { useContext } from 'react';
 
 const ArbeidsgiverinfoDel = () => {
@@ -15,7 +16,11 @@ const ArbeidsgiverinfoDel = () => {
                 <div className={cls.element('rad')}>
                     <SkjemaTittel>Informasjon om arbeidsgiveren</SkjemaTittel>
                 </div>
-                <SkjemaGruppe title="Om bedriften" className={cls.element('skjemagruppe')}>
+                <Fieldset
+                    legend="Informasjon om bedriften"
+                    title="Om bedriften"
+                    className={cls.element('skjemagruppe')}
+                >
                     <div className={cls.element('rad')}>
                         <PakrevdInput
                             label="Bedriftens navn"
@@ -23,10 +28,14 @@ const ArbeidsgiverinfoDel = () => {
                             settVerdi={(verdi) => settAvtaleVerdi('bedriftNavn', verdi)}
                         />
 
-                        <Input label="Virksomhetsnummer" value={avtale.bedriftNr} disabled={true} />
+                        <TextField label="Virksomhetsnummer" value={avtale.bedriftNr} disabled={true} />
                     </div>
-                </SkjemaGruppe>
-                <SkjemaGruppe title="Kontaktperson for avtalen" className={cls.element('skjemagruppe')}>
+                </Fieldset>
+                <Fieldset
+                    legend="Informasjon om kontaktperson"
+                    title="Kontaktperson for avtalen"
+                    className={cls.element('skjemagruppe')}
+                >
                     <div className={cls.element('rad')}>
                         <PakrevdInput
                             label="Fornavn"
@@ -47,7 +56,7 @@ const ArbeidsgiverinfoDel = () => {
                             settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
                         />
                     </div>
-                </SkjemaGruppe>
+                </Fieldset>
             </div>
         </>
     );

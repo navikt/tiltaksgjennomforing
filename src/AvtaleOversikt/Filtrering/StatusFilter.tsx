@@ -1,9 +1,8 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { avtaleStatusTekst } from '@/messages';
 import { AvtaleStatus } from '@/types/avtale';
-import { Radio } from 'nav-frontend-skjema';
-import React, { Fragment, FunctionComponent } from 'react';
+import { Radio, RadioGroup } from '@navikt/ds-react';
+import React, { FunctionComponent } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 type SokeType = AvtaleStatus | '';
@@ -24,22 +23,27 @@ const StatusFilter: FunctionComponent = () => {
 
     return (
         <Filter tittel="Status">
-            {alleStatuser.map((s) => (
-                <Fragment key={s}>
+            <RadioGroup
+                legend=""
+                style={{ marginBottom: '0' }}
+                size="small"
+                value={filtre.status || ('' && filtre.status === undefined)}
+            >
+                {alleStatuser.map((soketype: SokeType, index: number) => (
                     <Radio
-                        label={s === '' ? 'Alle' : avtaleStatusTekst[s]}
+                        key={index}
                         name={'status'}
-                        value={s}
-                        checked={s === filtre.status || (s === '' && filtre.status === undefined)}
+                        value={soketype}
                         onChange={(event) => {
                             const nyStatus = event.currentTarget.value as SokeType;
                             endreFilter({ status: nyStatus || undefined });
                         }}
                         role="radio"
-                    />
-                    <VerticalSpacer rem={1} />
-                </Fragment>
-            ))}
+                    >
+                        {soketype === '' ? 'Alle' : avtaleStatusTekst[soketype]}
+                    </Radio>
+                ))}
+            </RadioGroup>
         </Filter>
     );
 };

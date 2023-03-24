@@ -1,17 +1,55 @@
 .beregningTilskuddSteg {
-    &__luft {
-        padding: 0.5rem 0;
+
+  &__valuta-input {
+    & > .input {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
-    &__lonn-tittel {
-        padding-bottom: 0.5rem;
+  }
+
+  &__feriepenger, &__arbeidsgiveravgift, &__kontonummer, &__tjenestepensjon {
+    & > Label {
+      margin-top: 2rem;
     }
 
-    &__otpSats {
-        position: relative;
-        &--label {
-            position: absolute;
-            bottom: 0.675rem;
-            left: 3rem;
-        }
+    & > p, & > div, & > input {
+      margin: 0.5rem 0;
     }
+  }
+
+  &__tjenestepensjon, &__arbeidsgiveravgift {
+    margin: 0.5rem 0;
+
+    .navds-form-field {
+      & > input, & > div {
+        width: 55%;
+      }
+    }
+  }
+
+  &__lonn-tittel {
+    padding-bottom: 0.5rem;
+  }
+
+  &__otpSats {
+    position: relative;
+
+    &--label {
+      position: absolute;
+      bottom: 0.675rem;
+      left: 3rem;
+    }
+  }
+
+  &__lonn-per-mnd-seksjon {
+    &:nth-child(n) {
+      margin-bottom: 0.5rem;
+
+      & > ul {
+        margin: 0.5rem 0;
+      }
+    }
+  }
 }
+
+

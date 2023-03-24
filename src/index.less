@@ -1,13 +1,12 @@
-@import '~nav-frontend-lenker-style';
 // Importerer spesifikke less filer som inneholder CSS regler som har lavere prioritet enn NAVs frontendbibliotek.
 // Gjør man ikke dette vil våres egne CSS regler bli overskrevet av NAVs frontendbibliotek.
 // Trenger ikke importere less filer som ikke blir overskrevet.
-@import 'AvtaleSide/steg/MaalSteg/OpprettMaal/OpprettMaal.less';
-@import 'AvtaleSide/steg/MaalSteg/RedigerMaal/RedigerMaal.less';
+
 @import 'komponenter/KnappMedIkon/KnappMedIkon.less';
 @import 'AvtaleSide/steg/GodkjenningSteg/Oppsummering/Stegoppsummering/Stegoppsummering.less';
 @import 'AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter.less';
 @import 'AvtaleOversikt/AvtaleOversikt.less';
+@import (reference) "tiltak_variabler.less";
 
 body {
     font-size: 1rem;
@@ -15,7 +14,7 @@ body {
 
 body,
 body .tiltaksgjennomforing {
-    background-color: @navGraBakgrunn;
+    background-color: #f1f1f1;
     font-family: 'Source Sans Pro', Arial, sans-serif;
 }
 
@@ -24,8 +23,8 @@ svg {
 }
 
 .bedriftsmeny {
-    background-color: @navBlaLighten80 !important;
-    border-bottom: 0.25rem solid @navBlaLighten60 !important;
+    background-color: #cce1ff !important;
+    border-bottom: 0.25rem solid #99c3ff !important;
     padding: 1.5rem;
 }
 .accordion {

@@ -4,9 +4,8 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
 import { Alert, BodyShort } from '@navikt/ds-react';
-import { Knapp } from 'nav-frontend-knapper';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import React, { useContext, useState } from 'react';
+import { Fieldset, Checkbox, Button } from '@navikt/ds-react';
+import { useContext, useState } from 'react';
 import './KontaktpersonRefusjoninfoDel.less';
 
 const KontaktpersonRefusjoninfoDel = () => {
@@ -53,7 +52,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                 <div className={cls.element('rad')}>
                     <SkjemaTittel>Kontaktperson hos arbeidsgiver for refusjon</SkjemaTittel>
                 </div>
-                <SkjemaGruppe title="Kontaktperson for refusjon">
+                <Fieldset legend="Kontaktperson for refusjon" title="Kontaktperson for refusjon">
                     <div style={{ marginBottom: '1rem' }}>
                         <BodyShort size="small">
                             For eksempel en regnskapsfører som skal motta varslinger om refusjon
@@ -67,7 +66,8 @@ const KontaktpersonRefusjoninfoDel = () => {
                             avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length ===
                                 undefined) && (
                             <div className={cls.element('buttonSpaceing')}>
-                                <Knapp
+                                <Button
+                                    variant="secondary"
                                     onClick={() => {
                                         setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt);
                                         settAvtaleInnholdVerdier({
@@ -77,7 +77,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     }}
                                 >
                                     + Legg til kontaktperson
-                                </Knapp>
+                                </Button>
                             </div>
                         )}
 
@@ -126,20 +126,23 @@ const KontaktpersonRefusjoninfoDel = () => {
                             </div>
                             <div>
                                 <Checkbox
-                                    label="Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon"
                                     checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerVarslingOmRefusjon}
                                     onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
-                                />
+                                >
+                                    Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon
+                                </Checkbox>
                             </div>
                             {feilmelding && (
                                 <Alert variant="warning" style={{ marginBottom: '1rem' }}>
                                     {feilmelding}
                                 </Alert>
                             )}
-                            <Knapp onClick={() => resetRefusjonKontaktPerson()}>Fjern kontaktperson</Knapp>
+                            <Button variant="secondary" onClick={() => resetRefusjonKontaktPerson()}>
+                                Fjern kontaktperson
+                            </Button>
                         </>
                     )}
-                </SkjemaGruppe>
+                </Fieldset>
             </div>
         </>
     );

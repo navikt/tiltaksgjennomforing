@@ -1,13 +1,13 @@
 import React from 'react';
-import './OpprettelseFullfortArbeidsgiver.less';
 import Banner from '@/komponenter/Banner/Banner';
-import LenkeKnapp from '@/komponenter/LenkeKnapp';
 import { RouteComponentProps } from 'react-router';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { pathTilKontaktinformasjonSteg } from '@/paths';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
+import './OpprettelseFullfortArbeidsgiver.less';
 
 const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentProps<{ avtaleId: string }>> = (props) => {
     const avtaleId = props.match.params.avtaleId;

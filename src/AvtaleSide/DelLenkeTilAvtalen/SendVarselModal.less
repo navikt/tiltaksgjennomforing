@@ -1,4 +1,4 @@
-@import '~nav-frontend-core/less/_variabler';
+@import (reference) "../../tiltak_variabler.less";
 
 .kopierlenke {
     &__modal {
@@ -24,6 +24,11 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    &__kopierKnapp {
+        width: 11rem;
+        align-self: center;
     }
 }
 

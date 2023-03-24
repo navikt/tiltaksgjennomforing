@@ -1,5 +1,5 @@
-import React from 'react';
-import { Select, SelectProps } from 'nav-frontend-skjema';
+import React, { PropsWithChildren } from 'react';
+import { Select, SelectProps } from '@navikt/ds-react';
 
 export interface OptionProps {
     disabled?: boolean;
@@ -12,14 +12,16 @@ export interface SelectInputProps extends SelectProps {
     options: OptionProps[];
 }
 
-const SelectInput: React.FunctionComponent<SelectInputProps> = props => {
-    const { options, ...other } = props;
+const SelectInput: React.FunctionComponent<SelectInputProps> = (props: PropsWithChildren<SelectInputProps>) => {
+    const { options, value, ...other } = props;
     return (
-        <Select {...other}>
-            {options.map(attr => (
-                <option key={attr.value} {...attr}>
-                    {attr.label}
-                </option>
+        <Select value={value ?? ''} {...other}>
+            {options.map((attr: OptionProps, index: number) => (
+                <React.Fragment key={index}>
+                    <option key={attr.value ?? ''} {...attr}>
+                        {attr.label}
+                    </option>
+                </React.Fragment>
             ))}
         </Select>
     );

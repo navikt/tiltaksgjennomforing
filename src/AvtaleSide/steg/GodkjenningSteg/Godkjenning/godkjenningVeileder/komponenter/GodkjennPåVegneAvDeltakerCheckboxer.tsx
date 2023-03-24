@@ -1,6 +1,6 @@
 import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
+import React, { Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, useState } from 'react';
 
 interface Props {
     godkjentPåVegneAvGrunner: GodkjentPaVegneAvDeltakerGrunner;
@@ -11,40 +11,58 @@ interface Props {
     tiltakstype: string;
 }
 
-const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = (props) => {
+type PaVegneAvGrunner = 'ikkeBankId' | 'reservert' | 'digitalKompetanse' | '';
+
+const GodkjennPåVegneAvDeltakerCheckboxer: FunctionComponent<Props> = ({
+    feilmeldingGrunn,
+    className,
+    godkjentPåVegneAvGrunner,
+    setGodkjentPåVegneAvGrunner,
+}: PropsWithChildren<Props>) => {
+    const [cause, setCause] = useState<PaVegneAvGrunner[]>(['']);
+
     return (
-        <SkjemaGruppe feil={props.feilmeldingGrunn} className={props.className}>
+        <CheckboxGroup
+            legend="Godkjenn på vegne av deltaker valg"
+            error={feilmeldingGrunn}
+            className={className}
+            onChange={(value: any[]) => setCause(value)}
+            value={cause}
+        >
             <Checkbox
-                label="har ikke BankID"
-                checked={props.godkjentPåVegneAvGrunner.ikkeBankId}
-                onChange={(event) =>
-                    props.setGodkjentPåVegneAvGrunner({
-                        ...props.godkjentPåVegneAvGrunner,
+                value="ikkeBankId"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setGodkjentPåVegneAvGrunner({
+                        ...godkjentPåVegneAvGrunner,
                         ikkeBankId: event.currentTarget.checked,
                     })
                 }
-            />
+            >
+                har ikke BankID
+            </Checkbox>
             <Checkbox
-                label="har reservert seg mot digitale tjenester"
-                checked={props.godkjentPåVegneAvGrunner.reservert}
-                onChange={(event) =>
-                    props.setGodkjentPåVegneAvGrunner({
-                        ...props.godkjentPåVegneAvGrunner,
+                value="reservert"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setGodkjentPåVegneAvGrunner({
+                        ...godkjentPåVegneAvGrunner,
                         reservert: event.currentTarget.checked,
                     })
                 }
-            />
+            >
+                har reservert seg mot digitale tjenester
+            </Checkbox>
             <Checkbox
-                label="mangler digital kompetanse"
-                checked={props.godkjentPåVegneAvGrunner.digitalKompetanse}
-                onChange={(event) =>
-                    props.setGodkjentPåVegneAvGrunner({
-                        ...props.godkjentPåVegneAvGrunner,
+                value="digitalKompetanse"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setGodkjentPåVegneAvGrunner({
+                        ...godkjentPåVegneAvGrunner,
                         digitalKompetanse: event.currentTarget.checked,
                     })
                 }
-            />
-        </SkjemaGruppe>
+            >
+                mangler digital kompetanse
+            </Checkbox>
+        </CheckboxGroup>
     );
 };
 

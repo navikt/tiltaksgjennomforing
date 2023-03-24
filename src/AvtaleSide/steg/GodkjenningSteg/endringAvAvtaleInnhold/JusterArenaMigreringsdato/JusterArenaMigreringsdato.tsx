@@ -6,9 +6,8 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
-import { Link, UNSAFE_MonthPicker } from '@navikt/ds-react';
+import { Link, UNSAFE_MonthPicker, Fieldset } from '@navikt/ds-react';
 import moment from 'moment';
-import { SkjemaGruppe } from 'nav-frontend-skjema';
 import { FunctionComponent, useContext, useState } from 'react';
 
 const JusterArenaMigreringsdato: FunctionComponent = () => {
@@ -51,7 +50,7 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
     const modalInnhold = (
         <div className={cls.className}>
             <div className={cls.element('navarende-sluttdato')} />
-            <SkjemaGruppe feil={feil}>
+            <Fieldset legend={<></>} error={feil}>
                 <label className="skjemaelement__label">
                     Velg første måned avtalen skal behandles i ny løsning og ikke i Arena.
                 </label>
@@ -63,7 +62,7 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
                         toDate={new Date('2023-02-01')}
                     />
                 </div>
-            </SkjemaGruppe>
+            </Fieldset>
             <SlikVilTilskuddsperioderSeUt
                 overskrift="Slik vil tilskuddsperiodene se ut etter at dato for arenamigrering er justert:"
                 tilskuddsperioder={tilskuddsperioder}

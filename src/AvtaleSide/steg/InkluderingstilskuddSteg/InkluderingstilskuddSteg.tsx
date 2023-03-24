@@ -7,8 +7,7 @@ import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterPenger } from '@/utils/PengeUtils';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { Input } from 'nav-frontend-skjema';
-import { BodyShort, Heading, Ingress, Label } from '@navikt/ds-react';
+import { BodyShort, Heading, Ingress } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EnTilskuddsutgift from './EnTilskuddsutgift';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
@@ -18,6 +17,7 @@ import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
 import Tilskuddsbeskrivelse from './Tilskuddsbeskrivelse';
 import TilskuddsutgiftTabell from './TilskuddsutgiftTabell';
 import Datovelger from '@/komponenter/datovelger/Datovelger';
+import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 
 const InkluderingstilskuddSteg: FunctionComponent = () => {
     const cls = BEMHelper('inkluderingstilskudd');
@@ -110,14 +110,10 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                     ))}
                 </TilskuddsutgiftTabell>
                 <div className={cls.element('kostnadsoverslag-container')}>
-                    <div>
-                        <Label>Totalt kostnadsoverslag</Label>
-                        <Input
-                            className={cls.element('kostnadsoverslag')}
-                            value={formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
-                            disabled={true}
-                        />
-                    </div>
+                    <VisueltDisabledInputFelt
+                        label="Totalt kostnadsoverslag"
+                        tekst={formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
+                    />
                 </div>
                 <VerticalSpacer rem={2} />
                 <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />

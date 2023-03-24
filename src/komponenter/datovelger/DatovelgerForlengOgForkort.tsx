@@ -5,13 +5,13 @@ import { FunctionComponent, PropsWithChildren, useContext } from 'react';
 import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { ISODateString } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 
-type Props = {
+interface Props {
     datoFelt: keyof Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
     label: string;
     onChangeHåndtereNyDato: (dato: string | undefined) => Promise<void>;
     minDate: ISODateString;
     maxDate?: ISODateString;
-};
+}
 
 const DatovelgerForlengOgForkort: FunctionComponent<Props> = ({
     label,
@@ -21,16 +21,12 @@ const DatovelgerForlengOgForkort: FunctionComponent<Props> = ({
     maxDate,
 }: PropsWithChildren<Props>) => {
     const { avtale } = useContext(AvtaleContext);
-    const defaultDato = avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined;
-
-    const minDato = new Date(minDate || '');
-    const maxDato = new Date(maxDate || '');
 
     const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
-        fromDate: minDato,
-        toDate: maxDato,
+        fromDate: new Date(minDate || ''),
+        toDate: new Date(maxDate || ''),
         inputFormat: 'dd.MM.yyyy',
-        defaultSelected: defaultDato,
+        defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
         onDateChange: (dato) => {
             onChangeHåndtereNyDato(formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'));
         },

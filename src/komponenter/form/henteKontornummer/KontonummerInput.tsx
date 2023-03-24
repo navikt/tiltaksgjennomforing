@@ -1,7 +1,7 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { fromFormatted } from '@/komponenter/form/utils/form-utils';
-import { InputProps } from 'nav-frontend-skjema';
-import React from 'react';
+import { TextFieldProps } from '@navikt/ds-react';
+import React, { PropsWithChildren } from 'react';
 
 export const formaterKontonummer = (value: any): string => {
     if (!value) {
@@ -10,7 +10,18 @@ export const formaterKontonummer = (value: any): string => {
     return [value.substring(0, 4), value.substring(4, 6), value.substring(6, 11)].join(' ');
 };
 
-const KontonummerInput: React.FunctionComponent<InputProps> = (props) => {
+interface KontonummerInputProps extends TextFieldProps {
+    className?: string;
+    feil?: React.ReactNode | boolean;
+    id?: string;
+    inputClassName?: string;
+    inputRef?: ((element: HTMLInputElement | null) => any) | React.RefObject<HTMLInputElement>;
+    description?: React.ReactNode;
+    name?: string;
+    mini?: boolean;
+}
+
+const KontonummerInput: React.FunctionComponent<TextFieldProps> = (props: PropsWithChildren<KontonummerInputProps>) => {
     const validatorer = [
         (v: string) => {
             if (!v) {

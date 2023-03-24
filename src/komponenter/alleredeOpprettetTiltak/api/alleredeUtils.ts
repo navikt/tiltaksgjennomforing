@@ -47,11 +47,11 @@ export const endrePathAlleredeOpprettet = (
 
 export const godkjennAvtalePaVegneAv = async ({
     godkjennPaVegneAv,
-    setModalIsOpen,
-}: GodkjennAvtalePaVegneAvProps): Promise<void> => {
+}: Partial<GodkjennAvtalePaVegneAvProps>): Promise<void> => {
     try {
-        await godkjennPaVegneAv();
-        setModalIsOpen(false);
+        if (godkjennPaVegneAv) {
+            await godkjennPaVegneAv();
+        }
     } catch (err) {
         console.log(err);
         throw err;

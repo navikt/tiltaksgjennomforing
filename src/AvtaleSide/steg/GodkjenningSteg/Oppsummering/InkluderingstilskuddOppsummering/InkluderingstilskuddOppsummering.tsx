@@ -6,11 +6,11 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InkluderingsInnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Input } from 'nav-frontend-skjema';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { Tag, Label } from '@navikt/ds-react';
+import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 
 const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> = (props) => {
     const cls = BEMHelper('inkluderingstilskudd');
@@ -30,14 +30,10 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
                         ))}
                     </TilskuddsutgiftTabell>
                     <div className={cls.element('kostnadsoverslag-container')}>
-                        <div>
-                            <Label>Totalt kostnadsoverslag</Label>
-                            <Input
-                                className={cls.element('kostnadsoverslag')}
-                                value={formatterPenger(props.inkluderingstilskuddTotalBeløp)}
-                                disabled={true}
-                            />
-                        </div>
+                        <VisueltDisabledInputFelt
+                            label="Totalt kostnadsoverslag"
+                            tekst={formatterPenger(props.inkluderingstilskuddTotalBeløp)}
+                        />
                     </div>
                 </div>
             ) : (

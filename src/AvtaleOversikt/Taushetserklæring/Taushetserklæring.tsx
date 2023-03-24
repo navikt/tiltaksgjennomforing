@@ -6,7 +6,7 @@ import { Avtale } from '@/types/avtale';
 import { UfullstendigError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { Modal, Heading } from '@navikt/ds-react';
-import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
+import BekreftCheckboksPanel from '@/komponenter/BekreftCheckboksPanel/BekreftCheckboksPanel';
 import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router';
 import './Taushetserklæring.less';
@@ -59,12 +59,15 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                     <VerticalSpacer rem={2} />
                     <TausetserklæringTekst />
                     <BekreftCheckboksPanel
+                        legend=""
                         key={'Taushetserklæring-BekreftCheckboksPanel' + avtale.id}
                         className={cls.element('bekreftelse')}
-                        label="Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de lovbestemmelsene som er listet opp over"
                         checked={bekrefterGodkjennerTaushetserklæring}
                         onChange={() => setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)}
-                    />
+                    >
+                        Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de
+                        lovbestemmelsene som er listet opp over
+                    </BekreftCheckboksPanel>
                     <LagreKnapp
                         className={'taushetserklæring__lagreKnapp'}
                         label={'Signer Taushetserklæring'}

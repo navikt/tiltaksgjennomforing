@@ -1,5 +1,11 @@
-@import '~nav-frontend-core/less/_variabler';
-@import '~nav-frontend-paneler-style';
+
+.panel-focus-mixin() {
+    &:focus,
+    &--focus {
+        box-shadow: 0 0 0 3px #00347d; //@fokusFarge;
+        outline: none;
+    }
+}
 
 .knapp-med-ikon {
     display: flex;
@@ -7,26 +13,25 @@
     justify-content: center;
     align-items: center;
     padding: 0.5rem 1rem;
-    // Default usynlig border for at elementene ikke skal forskyve seg på hover
     border: 1px solid transparent;
     background-color: white;
     .panel-focus-mixin();
 
     &__label {
-        color: @navBla;
+        color: #0067c5; //@navBla;
         margin-left: 5px;
     }
     &__backgroundColor {
         background-color: unset;
-        color: @navBla;
+        color: #0067c5 //@navBla;
     }
 
     &:hover {
         cursor: pointer;
-        border: solid 1px @navBla;
+        border: solid 1px #0067c5; //@navBla;
     }
 
     &:focus {
-        border: solid 1px @navBla;
+        border: solid 1px #0067c5; //@navBla;
     }
 }

@@ -1,7 +1,7 @@
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { Feilkode } from '@/types/feilkode';
 import { handterFeil } from '@/utils/apiFeilUtils';
-import KnappBase, { Knapp } from 'nav-frontend-knapper';
+import { Button, ButtonProps } from '@navikt/ds-react';
 import React, { Component } from 'react';
 import './LagreKnapp.less';
 
@@ -12,14 +12,13 @@ interface State {
     isMounted: boolean;
 }
 
-interface Props {
+interface Props extends ButtonProps {
     lagre: () => Promise<any> | void;
     className?: string;
     suksessmelding?: string;
     label: React.ReactNode;
     disabled?: boolean;
     hidden?: boolean;
-    knapptype?: typeof KnappBase.defaultProps.type;
     setFeilmelding?: (value: Feilkode) => void;
 }
 
@@ -133,18 +132,19 @@ class LagreKnapp extends Component<Props, State> {
                         {this.state.feilmelding}
                     </VarselKomponent>
                 )}
-                <Knapp
+
+                <Button
+                    loading={this.state.spinner}
+                    variant={this.props.variant}
                     hidden={this.props.hidden}
-                    type={this.props.knapptype || 'hoved'}
-                    htmlType="button"
                     onClick={this.lagreKnappOnClick}
                     className={this.props.className}
-                    spinner={this.state.spinner}
                     disabled={this.state.spinner || this.props.disabled}
                     id="lagre-knapp"
                 >
+                    {' '}
                     {this.props.label}
-                </Knapp>
+                </Button>
             </>
         );
     }

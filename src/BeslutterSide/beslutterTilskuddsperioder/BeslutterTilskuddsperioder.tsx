@@ -6,8 +6,7 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import EtikettStatus from '../EtikettStatus';
 import BEMHelper from '@/utils/bem';
 import './beslutterTilskuddsperioder.less';
-import { BodyShort, Heading } from '@navikt/ds-react';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { BodyShort, Heading, Button } from '@navikt/ds-react';
 import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide';
@@ -127,7 +126,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                                         hentAvslattInfoTilskuddsperiode(periode)}
                                                     {periode.status === 'UBEHANDLET' && (
                                                         <>
-                                                            <Hovedknapp
+                                                            <Button
                                                                 onClick={() => {
                                                                     if (!enhet.match(/\d{4}/)) {
                                                                         setEnhetFeil('Enhet må bestå av 4 siffer');
@@ -137,11 +136,14 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                                                 }}
                                                             >
                                                                 Godkjenn tilskuddsperiode
-                                                            </Hovedknapp>
+                                                            </Button>
                                                             <HorizontalSpacer rem={1} />
-                                                            <Knapp onClick={() => setVisAvslag(true)}>
+                                                            <Button
+                                                                variant="secondary"
+                                                                onClick={() => setVisAvslag(true)}
+                                                            >
                                                                 Avslå med forklaring
-                                                            </Knapp>
+                                                            </Button>
                                                         </>
                                                     )}
                                                 </>

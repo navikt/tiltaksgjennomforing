@@ -1,5 +1,5 @@
 import { GodkjentPaVegneAvDeltakerGrunner } from '@/types/avtale';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import React, { Dispatch, SetStateAction, useReducer } from 'react';
 import './GodkjennPaVegneAv.less';
 
@@ -23,7 +23,7 @@ type GodkjennPaVegneAvProps = {
 const initialState: GodkjentPaVegneAvDeltakerGrunner = {
     ikkeBankId: false,
     reservert: false,
-    digitalKompetanse: false
+    digitalKompetanse: false,
 };
 
 const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
@@ -55,17 +55,21 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
     return (
         <div className="godkjennPaVegneAv">
             <Checkbox
-                label={godkjennPaVegneLabel}
                 checked={props.moderState.godkjentPaVegneAv}
                 onChange={(event) => {
                     nullstillValg(event.currentTarget.checked);
                 }}
-            />
+            >
+                {godkjennPaVegneLabel}
+            </Checkbox>
             {props.moderState.godkjentPaVegneAv && (
                 <>
-                    <SkjemaGruppe className="godkjennPaVegneAv__grunn" feil={props.moderState.feilIngenGrunn}>
+                    <CheckboxGroup
+                        legend="Godkjenn på vegne av valg"
+                        className="godkjennPaVegneAv__grunn"
+                        error={props.moderState.feilIngenGrunn}
+                    >
                         <Checkbox
-                            label={'ikke har BankID'}
                             checked={props.godkjentPaVegneGrunn.ikkeBankId}
                             onChange={(event) =>
                                 dispatch({
@@ -73,9 +77,10 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
                                     ikkeBankId: event.currentTarget.checked,
                                 })
                             }
-                        />
+                        >
+                            ikke har BankID
+                        </Checkbox>
                         <Checkbox
-                            label={'har reservert seg mot digitale tjenester'}
                             checked={props.godkjentPaVegneGrunn.reservert}
                             onChange={(event) =>
                                 dispatch({
@@ -83,9 +88,10 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
                                     reservert: event.currentTarget.checked,
                                 })
                             }
-                        />
+                        >
+                            har reservert seg mot digitale tjenester
+                        </Checkbox>
                         <Checkbox
-                            label={'mangler digital kompetanse'}
                             checked={props.godkjentPaVegneGrunn.digitalKompetanse}
                             onChange={(event) =>
                                 dispatch({
@@ -93,15 +99,21 @@ const GodkjennPaVegneAv = (props: GodkjennPaVegneAvProps) => {
                                     digitalKompetanse: event.currentTarget.checked,
                                 })
                             }
-                        />
-                    </SkjemaGruppe>
-                    <SkjemaGruppe feil={props.moderState.feilDeltakerInformert}>
+                        >
+                            mangler digital kompetanse
+                        </Checkbox>
+                    </CheckboxGroup>
+                    <CheckboxGroup
+                        legend="Deltaker er informert bekreftelse"
+                        error={props.moderState.feilDeltakerInformert}
+                    >
                         <Checkbox
                             className="godkjennPaVegneAv__deltakerInformert"
-                            label={'Deltakeren er informert om kravene og godkjenner innholdet i avtalen.'}
                             onChange={(event) => deltakerInformertChanged(event.currentTarget.checked)}
-                        />
-                    </SkjemaGruppe>
+                        >
+                            Deltakeren er informert om kravene og godkjenner innholdet i avtalen.
+                        </Checkbox>
+                    </CheckboxGroup>
                 </>
             )}
         </div>

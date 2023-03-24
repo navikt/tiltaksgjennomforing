@@ -1,11 +1,11 @@
 import useValidering from '@/komponenter/useValidering';
-import { Input } from 'nav-frontend-skjema';
-import * as React from 'react';
+import { TextField } from '@navikt/ds-react';
 
 interface Props {
     label: string;
     verdi?: number;
     settVerdi: (verdi: number) => void;
+    size?: 'medium' | 'small';
 }
 
 const StillingsprosentInput = (props: Props) => {
@@ -23,9 +23,8 @@ const StillingsprosentInput = (props: Props) => {
     ]);
 
     return (
-        <Input
-            feil={feil}
-            className="stillingsprosent-input"
+        <TextField
+            error={feil}
             label={props.label}
             value={props.verdi || ''}
             onChange={(event) => {
@@ -36,7 +35,7 @@ const StillingsprosentInput = (props: Props) => {
                 }
             }}
             onBlur={validerStillingsprosent}
-            bredde={'S'}
+            size={props.size}
         />
     );
 };

@@ -6,11 +6,11 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import BEMHelper from '@/utils/bem';
-import { RadioPanel } from 'nav-frontend-skjema';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, RadioGroup } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
-import './StillingsSteg.less';
 import StillingsTittelVelger from './StillingsTittelVelger';
+import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
+import './StillingsSteg.less';
 
 const cls = BEMHelper('StillingsSteg');
 
@@ -43,21 +43,27 @@ const StillingSteg: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <BodyShort size="small">Er stillingen fast eller midlertidig</BodyShort>
                     <VerticalSpacer rem={0.5} />
-                    <div className={cls.element('stillingstype_radio')}>
-                        <RadioPanel
-                            onChange={() => avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'FAST' })}
-                            checked={avtaleContext.avtale.gjeldendeInnhold.stillingstype === 'FAST'}
-                            label="Fast"
-                            name="stillingstype"
-                            value="fast"
-                        />
-                        <RadioPanel
-                            onChange={() => avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'MIDLERTIDIG' })}
-                            checked={avtaleContext.avtale.gjeldendeInnhold.stillingstype === 'MIDLERTIDIG'}
-                            label="Midlertidig"
-                            name="stillingstype"
-                            value="midlertidig"
-                        />
+                    <div>
+                        <RadioGroup legend="" className={cls.element('stillingstype_radio')}>
+                            <RadioPanel
+                                onChange={() => avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'FAST' })}
+                                checked={avtaleContext.avtale.gjeldendeInnhold.stillingstype === 'FAST'}
+                                name="stillingstype"
+                                value="fast"
+                            >
+                                Fast
+                            </RadioPanel>
+                            <RadioPanel
+                                onChange={() =>
+                                    avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'MIDLERTIDIG' })
+                                }
+                                checked={avtaleContext.avtale.gjeldendeInnhold.stillingstype === 'MIDLERTIDIG'}
+                                name="stillingstype"
+                                value="midlertidig"
+                            >
+                                Midlertidig
+                            </RadioPanel>
+                        </RadioGroup>
                     </div>
                 </>
             )}

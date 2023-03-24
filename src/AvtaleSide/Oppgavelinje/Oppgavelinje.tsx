@@ -8,7 +8,8 @@ import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { Button } from '@navikt/ds-react';
 import { Expand } from '@navikt/ds-icons';
-import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+
+import { Popover } from '@navikt/ds-react';
 import React, { useContext, useState } from 'react';
 import Varsellogg from '../Varsellogg/Varsellogg';
 
@@ -17,19 +18,22 @@ const cls = BEMHelper('avtaleside');
 const OppgaveLinje: React.FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const avtaleContext = useContext(AvtaleContext);
-    const [dropdown, setDropdown] = useState<HTMLElement | undefined>(undefined);
+    const [dropdown, setDropdown] = useState<HTMLElement | null>(null);
+    const [erÅpnet, setErÅpnet] = useState<boolean>(false);
 
-    const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>): void => {
         if (dropdown) {
-            return setDropdown(undefined);
+            setErÅpnet(false);
+            return setDropdown(null);
         }
+        setErÅpnet(true);
         return setDropdown(event.currentTarget);
     };
 
     const { ulagredeEndringer, lagreAvtale } = useContext(AvtaleContext);
     const visFeilmelding = useContext(FeilVarselContext);
 
-    const lagreEndringer = async () => {
+    const lagreEndringer = async (): Promise<void> => {
         if (ulagredeEndringer) {
             try {
                 await lagreAvtale();
@@ -70,15 +74,14 @@ const OppgaveLinje: React.FunctionComponent = () => {
                             Meny
                         </Button>
                         <Popover
-                            id={'menyvalg'}
-                            ankerEl={dropdown}
-                            onRequestClose={() => setDropdown(undefined)}
-                            orientering={PopoverOrientering.UnderVenstre}
-                            autoFokus={false}
-                            tabIndex={-1}
-                            utenPil={true}
+                            placement="bottom-end"
+                            open={erÅpnet}
+                            anchorEl={dropdown}
+                            onClose={() => setDropdown(null)}
                         >
-                            <OppgaveLenker />
+                            <Popover.Content>
+                                <OppgaveLenker />
+                            </Popover.Content>
                         </Popover>
                     </>
                 )}

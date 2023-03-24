@@ -4,7 +4,7 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvbrytelseGrunn } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Alert, BodyShort } from '@navikt/ds-react';
-import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
+import { RadioGroup, Radio } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './AnnullerAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
@@ -58,7 +58,11 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
             <div className={cls.element('grunner-og-annet')}>
                 <div role="menu">
                     <VerticalSpacer rem={1.25} />
-                    <SkjemaGruppe title="Hvorfor annulleres avtalen?" feil={grunnFeil}>
+                    <RadioGroup
+                        legend="Valg av grunn for annullering av avtalen"
+                        title="Hvorfor annulleres avtalen?"
+                        error={grunnFeil}
+                    >
                         {[
                             'Feilregistrering',
                             'Begynt i arbeid',
@@ -66,20 +70,21 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                             'Syk',
                             'Ikke møtt',
                             'Annet',
-                        ].map((grunn) => (
+                        ].map((label) => (
                             <Radio
-                                key={grunn}
-                                label={grunn}
+                                key={label}
                                 name="avbrytelsegrunn"
-                                value={grunn}
-                                checked={annullertGrunn === grunn}
+                                value={label}
+                                checked={annullertGrunn === label}
                                 onChange={(event) => {
                                     setAnnullertGrunn(event.currentTarget.value);
                                 }}
                                 role="menuitemradio"
-                            />
+                            >
+                                {label}
+                            </Radio>
                         ))}
-                    </SkjemaGruppe>
+                    </RadioGroup>
                 </div>
                 <div>
                     {annullertGrunn === 'Annet' && (

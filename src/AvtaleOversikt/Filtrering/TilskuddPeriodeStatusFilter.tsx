@@ -1,12 +1,11 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { OptionProps } from '@/komponenter/form/SelectInput';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { TilskuddPeriodeStatus } from '@/types/avtale';
-import { Radio } from 'nav-frontend-skjema';
-import React, { Fragment, FunctionComponent } from 'react';
+import { Radio, RadioGroup } from '@navikt/ds-react';
+import React, { FunctionComponent } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
-const TilskuddPeriodeStatusFilter: FunctionComponent = (props) => {
+const TilskuddPeriodeStatusFilter: FunctionComponent = () => {
     const { endreFilter, filtre } = useFilter();
 
     const alleTilskuddPeriodeStatus: OptionProps[] = [
@@ -17,27 +16,28 @@ const TilskuddPeriodeStatusFilter: FunctionComponent = (props) => {
 
     return (
         <Filter tittel="Status">
-            {alleTilskuddPeriodeStatus.map((tilskuddPeriodeStatus) => (
-                <Fragment key={tilskuddPeriodeStatus.label}>
+            <RadioGroup
+                legend=""
+                size="small"
+                value={filtre.tilskuddPeriodeStatus || (filtre.tilskuddPeriodeStatus === undefined && 'UBEHANDLET')}
+            >
+                {alleTilskuddPeriodeStatus.map((tilskuddPeriodeStatus: OptionProps, index: number) => (
                     <Radio
+                        key={index}
                         id={tilskuddPeriodeStatus.label}
-                        label={tilskuddPeriodeStatus.label}
                         name={'tilskuddPeriodeStatus'}
                         value={tilskuddPeriodeStatus.value}
-                        checked={
-                            tilskuddPeriodeStatus.value === filtre.tilskuddPeriodeStatus ||
-                            (filtre.tilskuddPeriodeStatus === undefined && tilskuddPeriodeStatus.value === 'UBEHANDLET')
-                        }
                         onChange={(event) => {
                             const nyTilskuddPeriode = event.currentTarget.value as TilskuddPeriodeStatus;
                             endreFilter({ tilskuddPeriodeStatus: nyTilskuddPeriode });
                         }}
                         role="radio"
                         aria-labelledby={tilskuddPeriodeStatus.label}
-                    />
-                    <VerticalSpacer rem={1} />
-                </Fragment>
-            ))}
+                    >
+                        {tilskuddPeriodeStatus.label}
+                    </Radio>
+                ))}
+            </RadioGroup>
         </Filter>
     );
 };

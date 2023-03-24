@@ -9,7 +9,7 @@ export const useLaster: (
     lasterMer: boolean;
     lastMer: () => Promise<any>;
     nettressurs: Nettressurs<any>;
-} = (lasteFunksjon, pagesize) => {
+} = (lasteFunksjon, pagesize: number) => {
     const [nettressurs, setNettressurs] = useState<Nettressurs<any[]>>({ status: Status.IkkeLastet });
     const [lasterMer, setLasterMer] = useState(false);
     const [kanLasteMer, setKanLasteMer] = useState(false);

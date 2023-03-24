@@ -5,9 +5,7 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { messages } from '@/messages';
 import { Maal } from '@/types/avtale';
 import { Maalkategori } from '@/types/maalkategorier';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Select } from 'nav-frontend-skjema';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, Button, Select } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -62,8 +60,12 @@ const EtMaal: FunctionComponent<Props> = (props) => {
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
-                        <Hovedknapp onClick={endreMål}>Ok</Hovedknapp>
-                        <Flatknapp
+                        <Button size="small" onClick={endreMål}>
+                            Ok
+                        </Button>
+                        <Button
+                            size="small"
+                            variant="tertiary"
                             onClick={() => {
                                 setEndrerMaal(false);
                                 props.setIRedigeringsmodus(false);
@@ -71,7 +73,7 @@ const EtMaal: FunctionComponent<Props> = (props) => {
                             style={{ marginLeft: '1rem' }}
                         >
                             Avbryt
-                        </Flatknapp>
+                        </Button>
                     </div>
                 </>
             ) : (

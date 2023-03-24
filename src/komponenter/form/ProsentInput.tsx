@@ -1,10 +1,22 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
-import {formatterProsent} from '@/utils/formatterProsent';
-import {InputProps} from 'nav-frontend-skjema';
-import React from 'react';
+import { formatterProsent } from '@/utils/formatterProsent';
+import React, { PropsWithChildren } from 'react';
+import { TextFieldProps } from '@navikt/ds-react';
 
-const ProsentInput: React.FunctionComponent<InputProps> = (props) => {
-    const {step = 1, max, min, ...other} = props;
+export interface InputProps extends TextFieldProps {
+    width?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
+    className?: string;
+    feil?: React.ReactNode | boolean;
+    id?: string;
+    inputClassName?: string;
+    inputRef?: ((element: HTMLInputElement | null) => any) | React.RefObject<HTMLInputElement>;
+    description?: React.ReactNode;
+    name?: string;
+    mini?: boolean;
+}
+
+const ProsentInput: React.FunctionComponent<InputProps> = (props: PropsWithChildren<InputProps>) => {
+    const { step = 1, max, min, size, ...other } = props;
     const validatorer = [
         (v: any) => {
             if (!v) {
@@ -25,6 +37,7 @@ const ProsentInput: React.FunctionComponent<InputProps> = (props) => {
 
     return (
         <FormattedNumberInput
+            size={size}
             step={step}
             validatorer={validatorer}
             maxLength={3}

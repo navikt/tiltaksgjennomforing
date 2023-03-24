@@ -8,9 +8,9 @@ import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/Pakrevd
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
-import { Input } from 'nav-frontend-skjema';
 import { BodyShort } from '@navikt/ds-react';
 import React, { useState, useContext } from 'react';
+import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -30,8 +30,8 @@ const OmMentorSteg = () => {
             <Container fluid={true}>
                 <Row className={''}>
                     <Column md="6">
-                        <div className={'rad'}>
-                            <Input label="Fødselsnummer" value={avtaleContext.avtale.mentorFnr} disabled={true} />
+                        <div className="rad">
+                            <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
                         </div>
                     </Column>
                 </Row>
@@ -53,7 +53,7 @@ const OmMentorSteg = () => {
                     </Column>
                 </Row>
                 <VerticalSpacer rem={1} />
-                <Row className={'rad'}>
+                <Row className={''}>
                     <Column md="6">
                         <TelefonnummerInput
                             label="Mobilnummer"

@@ -1,6 +1,6 @@
-import Popover, { PopoverOrientering, PopoverProps } from 'nav-frontend-popover';
-import React, { FunctionComponent, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, PropsWithChildren, ReactNode, useEffect, useRef, useState } from 'react';
 import Artikkel from './Artikkel';
+import { Popover } from '@navikt/ds-react';
 import Ikon from './Ikon';
 import './Nytt.less';
 import useAntallUlesteNyheter from './useAntallUlesteNyheter';
@@ -11,17 +11,18 @@ export type Nyhet = {
     innhold: ReactNode;
 };
 
-interface Props extends Partial<PopoverProps> {
+interface Props {
+    tittel: string;
     navn: string;
     nyheter: Nyhet[];
     åpneVedFørsteBesøk?: boolean;
     onÅpneNyheter?: (antallUlesteNyheter: number) => void;
 }
 
-const Nytt: FunctionComponent<Props> = (props) => {
-    const { navn, nyheter, åpneVedFørsteBesøk = false, onÅpneNyheter, ...popoverProps } = props;
+const Nytt: FunctionComponent<Props> = (props: PropsWithChildren<Props>) => {
+    const { navn, nyheter, åpneVedFørsteBesøk = false, onÅpneNyheter, tittel } = props;
 
-    const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>();
+    const [popoverAnker, setPopoverAnker] = useState<Element | null>(null);
     const [erÅpnet, setErÅpnet] = useState<boolean>(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -36,9 +37,9 @@ const Nytt: FunctionComponent<Props> = (props) => {
         onFørsteBesøk
     );
 
-    const toggleNyheter = () => {
+    const toggleNyheter = (): void => {
         if (popoverAnker) {
-            setPopoverAnker(undefined);
+            setPopoverAnker(null);
         } else if (buttonRef.current) {
             setPopoverAnker(buttonRef.current);
 
@@ -56,8 +57,7 @@ const Nytt: FunctionComponent<Props> = (props) => {
         if (erÅpnet) {
             markerSomLest();
         }
-        // eslint-disable-next-line
-    }, [erÅpnet]);
+    }, [erÅpnet, markerSomLest]);
 
     return (
         <div className="nytt">
@@ -65,25 +65,21 @@ const Nytt: FunctionComponent<Props> = (props) => {
                 <Ikon navn={navn} />
                 {antallUlesteNyheter > 0 && <div className="nytt__notifikasjon" />}
             </button>
-            <Popover
-                ankerEl={popoverAnker}
-                avstandTilAnker={16}
-                onRequestClose={() => setPopoverAnker(undefined)}
-                orientering={PopoverOrientering.Under}
-                {...popoverProps}
-            >
-                <div className="nytt__popover">
-                    <h2 className="nytt__tittel">Nytt i {navn}</h2>
-                    <section className="nytt__nyheter">
-                        {nyheter.map((nyhet, index) => (
-                            <Artikkel
-                                key={`${nyhet.dato}-${nyhet.tittel}`}
-                                ulest={index < antallUlesteVedSidelast}
-                                nyhet={nyhet}
-                            />
-                        ))}
-                    </section>
-                </div>
+            <Popover open={erÅpnet} onClose={() => setPopoverAnker(null)} anchorEl={popoverAnker} title={tittel}>
+                <Popover.Content>
+                    <div className="nytt__popover">
+                        <h2 className="nytt__tittel">Nytt i {navn}</h2>
+                        <section className="nytt__nyheter">
+                            {nyheter.map((nyhet, index) => (
+                                <Artikkel
+                                    key={`${nyhet.dato}-${nyhet.tittel}`}
+                                    ulest={index < antallUlesteVedSidelast}
+                                    nyhet={nyhet}
+                                />
+                            ))}
+                        </section>
+                    </div>
+                </Popover.Content>
             </Popover>
         </div>
     );

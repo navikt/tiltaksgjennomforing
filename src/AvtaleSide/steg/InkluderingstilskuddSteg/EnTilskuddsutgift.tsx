@@ -4,10 +4,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Select } from 'nav-frontend-skjema';
-import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent, useState } from 'react';
+import { BodyShort, Button, Select } from '@navikt/ds-react';
+import { FunctionComponent, useState } from 'react';
 
 type Props = {
     setIRedigeringsmodus: (iModus: boolean) => void;
@@ -69,16 +67,19 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
-                        <Hovedknapp onClick={endreTilskuddsutgift}>Ok</Hovedknapp>
-                        <Flatknapp
+                        <Button variant="primary" onClick={endreTilskuddsutgift}>
+                            Ok
+                        </Button>
+                        <Button
+                            variant="tertiary"
                             onClick={() => {
                                 setEndrerTilskuddsutgift(false);
                                 props.setIRedigeringsmodus(false);
                             }}
                             style={{ marginLeft: '1rem' }}
                         >
-                            Avbryt
-                        </Flatknapp>
+                            Avbrytrett
+                        </Button>
                     </div>
                 </>
             ) : (

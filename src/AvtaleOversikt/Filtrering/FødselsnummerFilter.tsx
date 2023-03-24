@@ -13,7 +13,7 @@ export const FødselsnummerFilter: FunctionComponent = () => {
                 className="sok"
                 label="Fødselsnummer"
                 maxLength={11}
-                utførSøk={(søkeord: string) => endreFilter({ deltakerFnr: søkeord })}
+                utførsøk={(søkeord: string) => endreFilter({ deltakerFnr: søkeord })}
                 valider={(verdi: string) => (!validerFnr(verdi) ? 'Ugyldig fødselsnummer' : undefined)}
                 value={filtre.deltakerFnr}
             />

@@ -1,7 +1,6 @@
 import useValidering from '@/komponenter/useValidering';
-import { Input } from 'nav-frontend-skjema';
-import { Alert } from '@navikt/ds-react';
-import React, { useState } from 'react';
+import { Alert, TextField } from '@navikt/ds-react';
+import React, { PropsWithChildren, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './TelefonnummerInput.less';
 
@@ -11,9 +10,10 @@ interface Props {
     verdi?: string;
     feilmelding?: string;
     settVerdi: (verdi: string) => void;
+    size?: 'medium' | 'small';
 }
 
-const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
+const TelefonnummerInput: React.FunctionComponent<Props> = (props: PropsWithChildren<Props>) => {
     const cls = BEMHelper('telefonnummer-input-container');
     const [telefonnummer, setTelefonnummer] = useState(props.verdi);
 
@@ -21,8 +21,6 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
 
     const norskTlfnrRegex = /^((\+|00)47)?\d{8}$/; // Kan inneholde +47 eller 0047 og må ha 8 siffer
     const norskMobilnummerRegex = /^(((0{2}?)|(\+){1})47)?(4|9)[\d]{7}/;
-
-    //const svenskMobilnummer = /^((((0{2}?)|(\+){1})46)|0)7[\d]{8}/;
 
     const [feil, setFeil, sjekkInputfelt] = useValidering(props.verdi, [
         (verdi) => {
@@ -43,17 +41,17 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
         },
     ]);
 
-    console.log('erMobilNummer', erMobilNummer);
-
     return (
         <div className={cls.className}>
-            <Input
-                bredde="S"
+            <TextField
+                size={props.size}
+                className={cls.element('tekstField')}
                 label={props.label}
                 value={telefonnummer || ''}
-                feil={feil}
+                error={feil}
                 onChange={(event) => {
-                    const verdi = event.target.value.replace(/[^ 0-9+]/g, ''); // Aksepter kun tall, space, og pluss tegn
+                    // Aksepter kun tall, space, og pluss tegn
+                    const verdi = event.target.value.replace(/[^ 0-9+]/g, '');
                     setTelefonnummer(verdi);
 
                     // fjerner landkode for å kun sende telefonnummeret til backend
@@ -61,7 +59,6 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props) => {
                     setFeil(undefined);
                 }}
                 onBlur={sjekkInputfelt}
-                maxLength={23}
             />
             {!erMobilNummer && (
                 <>

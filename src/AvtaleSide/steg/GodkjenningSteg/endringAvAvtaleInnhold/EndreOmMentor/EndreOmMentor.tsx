@@ -9,7 +9,7 @@ import { endreOmMentor } from '@/services/rest-service';
 import { Task } from '@navikt/ds-icons/cjs';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Link } from '@navikt/ds-react';
-import { Input } from 'nav-frontend-skjema';
+import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import React, { FunctionComponent, useContext, useState } from 'react';
 
 const EndreOmMentor: FunctionComponent = () => {
@@ -31,8 +31,9 @@ const EndreOmMentor: FunctionComponent = () => {
         mentorAntallTimer: avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer,
         mentorTimelonn: avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn,
     });
-    const [mentorAntallTimerInput, setMentorAntallTimerInput] =
-        useState<string>(mentorInfo.mentorAntallTimer?.toString().replace(/\./g, ',') ?? "");
+    const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
+        mentorInfo.mentorAntallTimer?.toString().replace(/\./g, ',') ?? ''
+    );
 
     const lukkModal = () => {
         setModalApen(false);
@@ -49,7 +50,7 @@ const EndreOmMentor: FunctionComponent = () => {
                 <Row className={''}>
                     <Column md="6">
                         <div className={'rad'}>
-                            <Input label="Fødselsnummer" value={avtaleContext.avtale.mentorFnr} disabled={true} />
+                            <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
                         </div>
                     </Column>
                 </Row>
@@ -104,7 +105,7 @@ const EndreOmMentor: FunctionComponent = () => {
                                 setMentorInfo({
                                     ...mentorInfo,
                                     mentorAntallTimer: inputToNumber(verdi),
-                                })
+                                });
                             }}
                         />
                         <PakrevdInputValidering

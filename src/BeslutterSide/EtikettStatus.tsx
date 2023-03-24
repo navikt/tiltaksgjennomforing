@@ -16,7 +16,7 @@ const etikettStatus: { [key in TilskuddPeriodeStatus]: TagProps['variant'] } = {
     ANNULLERT: 'warning',
     GODKJENT: 'success',
     UBEHANDLET: 'info',
-    BEHANDLET_I_ARENA: 'info'
+    BEHANDLET_I_ARENA: 'info',
 };
 
 const EtikettStatus: FunctionComponent<Props> = (props) => {
@@ -24,12 +24,10 @@ const EtikettStatus: FunctionComponent<Props> = (props) => {
         return <Tag variant={'success'}>Utbetalt</Tag>;
     } else {
         return (
-            <Tag variant={etikettStatus[props.tilskuddsperiodestatus]} size={props.size} >
-                <>
-                    {props.antallKlarTilgodkjenning && props.antallKlarTilgodkjenning + ' '}
-                    {tilskuddsperiodeStatusTekst[props.tilskuddsperiodestatus]}
-                    {props.godkjentAv && <> av {props.godkjentAv}</>}
-                </>
+            <Tag variant={etikettStatus[props.tilskuddsperiodestatus]} size={props.size}>
+                {props.antallKlarTilgodkjenning && props.antallKlarTilgodkjenning + ' '}
+                {tilskuddsperiodeStatusTekst[props.tilskuddsperiodestatus]}
+                {props.godkjentAv && <> av {props.godkjentAv}</>}
             </Tag>
         );
     }
