@@ -16,6 +16,7 @@
         "up": "docker-compose up -d --remove-orphans --build"
     },
     "dependencies": {
+        "cross-env": "^7.0.3",
         "helmet": "^3.21.3",
         "http-proxy-middleware": "^2.0.1",
         "node-cache": "4.2.0",
