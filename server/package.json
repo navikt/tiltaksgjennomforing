@@ -32,6 +32,8 @@
         "@craco/craco": "^6.2.0",
         "craco-less": "^1.19.0",
         "cross-env": "^7.0.3",
+        "less": "^4.1.1",
+        "less-watch-compiler": "^1.16.2",
         "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^5.0.1"
     },
     "browserslist": [
