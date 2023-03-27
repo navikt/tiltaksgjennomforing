@@ -16,7 +16,7 @@
         "up": "docker-compose up -d --remove-orphans --build"
     },
     "dependencies": {
-        "cross-env": "^7.0.3",
+      
         "helmet": "^3.21.3",
         "http-proxy-middleware": "^2.0.1",
         "node-cache": "4.2.0",
@@ -29,6 +29,9 @@
         "express-http-proxy": "1.6.2"
     },
     "devDependencies": {
+        "@craco/craco": "^6.2.0",
+        "craco-less": "^1.19.0",
+        "cross-env": "^7.0.3",
         "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^5.0.1"
     },
     "browserslist": [
