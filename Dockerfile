@@ -3,8 +3,6 @@ FROM navikt/node-express:18
 # Workaround: får tilfeldige feil ved npm install uten neste linje
 RUN npm config set unsafe-perm=true 
 
-# Test
-
 WORKDIR /app
 
 COPY server/ ./server
