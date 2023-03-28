@@ -6,7 +6,7 @@
     "scripts": {
         "build": "cross-env GIT_COMMIT_HASH=$(git log -n 1 --pretty=format:'%h')",
         "release": "cross-env GIT_COMMIT_HASH=$(git log -n 1 --pretty=format:'%h') node sentry.js",
-        "server": "node server.js",
+        "server": "node server.js --openssl-legacy-provider ",
         "start": "yarn start --openssl-legacy-provider",
         "start-ekstern": "cross-env ENABLE_EXTERNAL_MENU=true yarn start",
         "start-intern": "cross-env process.env.ENABLE_INTERNAL_MENU=true yarn start",

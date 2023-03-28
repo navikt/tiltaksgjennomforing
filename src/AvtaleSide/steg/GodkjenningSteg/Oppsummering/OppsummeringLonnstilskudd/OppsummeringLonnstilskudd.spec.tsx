@@ -8,7 +8,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import OppsummeringLonnstilskudd from './OppsummeringLonnstilskudd';
 
-const wrapper = shallow(<OppsummeringLonnstilskudd avtaleinnhold={lonnstilskuddAvtaleMock} />);
+const wrapper = shallow(<OppsummeringLonnstilskudd avtaleinnhold={lonnstilskuddAvtaleMock.gjeldendeInnhold} />);
 
 test('Skal rendre <StillingsOppsummering>', () => {
     expect(wrapper.find(StillingsOppsummeringLonnstilskudd)).toHaveLength(1);

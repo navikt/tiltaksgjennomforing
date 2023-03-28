@@ -78,6 +78,7 @@ const EtterRegistrering: FunctionComponent = () => {
                         </Label>
                         <div className={cls.element('input-sok')}>
                             <SøkeInput
+                                label=""
                                 className="etterRegistrering"
                                 maxLength={9}
                                 utførsøk={(søkeord) => {

@@ -3,6 +3,6 @@ import { shallow } from 'enzyme';
 import GodkjenningRad from './GodkjenningRad';
 
 test('Test that <GodkjenningRad> renders correctly', () => {
-    const wrapper = shallow(<GodkjenningRad />);
+    const wrapper = shallow(<GodkjenningRad navn=' ' />);
     expect(wrapper).toHaveLength(1);
 });

@@ -6,7 +6,7 @@ import './Varsel.less';
 
 interface Props {
     timeout?: number;
-    kanLukkes: boolean;
+    kanLukkes?: boolean;
     onLukkVarsel?: () => void;
     type: AlertProps['variant'];
     className?: string;

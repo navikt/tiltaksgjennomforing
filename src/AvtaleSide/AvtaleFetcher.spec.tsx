@@ -7,7 +7,7 @@ import AvtaleFetcher from './AvtaleFetcher';
 test('Test that <AvtaleFetcher> renders correctly', () => {
     const wrapper = shallow(
         <AvtaleContext.Provider value={{ avtale: arbeidstreningAvtaleMock } as Context}>
-            <AvtaleFetcher avtaleId={'123'} />
+            <AvtaleFetcher />
         </AvtaleContext.Provider>
     );
     expect(wrapper).toHaveLength(1);
