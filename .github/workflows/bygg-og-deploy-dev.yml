@@ -21,7 +21,7 @@ jobs:
         run: yarn install
       - name: Server yarn build
         working-directory: ./server
-        run: yarn build
+        run: yarn run build
       - name: Frontend yarn install
         run: yarn install --frozen-lockfile
       - name: Kjør tester
