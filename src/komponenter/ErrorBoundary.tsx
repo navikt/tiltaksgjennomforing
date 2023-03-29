@@ -6,8 +6,7 @@ import VerticalSpacer from './layout/VerticalSpacer';
 
 const ErrorBoundary: FunctionComponent = (props: PropsWithChildren<{}>) => {
     return (
-        <Sentry.ErrorBoundary
-            fallback={({ error, componentStack, resetError }) => (
+        <Sentry.ErrorBoundary fallback={({ error, componentStack, resetError }) => (
                 <>
                     <Alert variant="warning">
                         <Heading size="small">Det har oppstått en uventet feil. Forsøk å laste siden på nytt.</Heading>

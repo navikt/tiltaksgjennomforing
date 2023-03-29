@@ -12,5 +12,5 @@ export const FiltreringProvider: FunctionComponent = (props) => {
         params[k] = v;
     }
     const [filtre, setFiltre] = useState<Filtrering>(params);
-    return <FiltreringContext.Provider value={[filtre, setFiltre]}>{props.children}</FiltreringContext.Provider>;
+    return <FiltreringContext.Provider value={[filtre, setFiltre]>{props.children}</FiltreringContext.Provider>;
 };
