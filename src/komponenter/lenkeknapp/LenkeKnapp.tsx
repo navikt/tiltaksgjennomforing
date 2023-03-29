@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from 'react';
+import React, {CSSProperties, FunctionComponent, PropsWithChildren} from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Button, ButtonProps } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
@@ -11,7 +11,7 @@ type Props = {
     icon?: React.ReactNode;
 };
 
-const LenkeKnapp: FunctionComponent<Props & RouteComponentProps> = (props) => {
+const LenkeKnapp: FunctionComponent<PropsWithChildren<Props & RouteComponentProps>> = (props) => {
     const cls = BEMHelper('lenke-knapp');
     return (
         <Button

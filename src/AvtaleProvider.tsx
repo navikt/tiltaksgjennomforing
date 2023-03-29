@@ -12,7 +12,7 @@ import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
 import { LogReturn } from 'amplitude-js';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, {FunctionComponent, PropsWithChildren, useContext, useState} from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
@@ -71,7 +71,7 @@ export interface Context {
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
 
-const AvtaleProvider: FunctionComponent = (props) => {
+const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const throwError = useAsyncError();
     const [avtale, setAvtale] = useState<Avtale>({} as Avtale);
     const [ulagredeEndringer, setUlagredeEndringer] = useState(false);

@@ -8,7 +8,7 @@ import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/internt';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import NAVSPA from '@navikt/navspa';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router';
 import Innloggingslinje from './Innloggingslinje';
@@ -27,7 +27,7 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     navEnheter: [],
 });
 
-const InnloggingBoundary: FunctionComponent<InnloggetBruker> = (props) => {
+const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
     const [brukmeny, setbrukmeny] = useState<boolean>();
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
     const throwError = useAsyncError();

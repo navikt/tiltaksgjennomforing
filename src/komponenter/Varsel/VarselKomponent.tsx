@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { Close } from '@navikt/ds-icons';
 import * as React from 'react';
 import './Varsel.less';
+import {PropsWithChildren} from "react";
 
 interface Props {
     timeout?: number;
@@ -17,7 +18,7 @@ interface State {
     display: boolean;
 }
 
-class VarselKomponent extends React.Component<Props, State> {
+class VarselKomponent extends React.Component<PropsWithChildren & Props, State> {
     private timerHandle: any;
 
     constructor(props: Props) {

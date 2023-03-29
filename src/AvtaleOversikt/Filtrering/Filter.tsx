@@ -5,7 +5,7 @@ interface Props {
     tittel: string;
 }
 
-export const Filter: FunctionComponent<Props> = (props: PropsWithChildren<Props>) => {
+export const Filter: FunctionComponent<PropsWithChildren<Props>> = (props: PropsWithChildren<Props>) => {
     return (
         <div>
             <Accordion className="accordion" role="radiogroup">

@@ -1,7 +1,7 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { basename } from "@/paths";
 import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget';
-import { FunctionComponent, useContext } from 'react';
+import {FunctionComponent, PropsWithChildren, useContext} from 'react';
 
 const miljo = (() => {
     switch (window.location.hostname) {
@@ -18,7 +18,7 @@ const miljo = (() => {
     }
 })();
 
-export const NotifikasjonWidgetProvider: FunctionComponent = ({ children }) => {
+export const NotifikasjonWidgetProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
         return (

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import { Law } from '@navikt/ds-icons';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
@@ -10,7 +10,7 @@ interface Props {
     href: string;
 }
 
-const HvaSierRegelverket: FunctionComponent<Props> = ({ tiltakstype, href }) => {
+const HvaSierRegelverket: FunctionComponent<PropsWithChildren<Props>> = ({ tiltakstype, href }) => {
     const cls = BEMHelper('instruks');
     return (
         <IkonTekstRad

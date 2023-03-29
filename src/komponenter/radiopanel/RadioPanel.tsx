@@ -11,7 +11,7 @@ export interface Properties {
     onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
 }
 
-const RadioPanel: React.FC<Properties> = ({
+const RadioPanel: React.FC<PropsWithChildren<Properties>> = ({
     className,
     name,
     value,

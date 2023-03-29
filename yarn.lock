@@ -2169,10 +2169,10 @@
   resolved "https://registry.yarnpkg.com/@navikt/fnrvalidator/-/fnrvalidator-1.3.0.tgz#3653dedeed860bb85dac5c30462f762dc99f6c01"
   integrity sha512-FEcjhR/i5vfIrKHZ9C/fzfM/R5uoWsouktQHBEqMY4yqUNuqSdF9k6fUassxMIhLLUKsiJy10LA9NQ3z89Iltw==
 
-"@navikt/navspa@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@navikt/navspa/-/navspa-6.0.1.tgz#f3536207976359e4849f7db7aa9ffa6cfc7fe516"
-  integrity sha512-EtTqUNxuykKFDKzd1MAI4DFjTLH/vY3ZtPOvMKZgZuRaf2N/1vNU4lPRk4y+HencyA4E5Qkdmd0I5FqA208Ofg==
+"@navikt/navspa@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@navikt/navspa/-/navspa-5.0.1.tgz#e141c8c59473aa61c8134c1b7c17d7094eae7580"
+  integrity sha512-TIVoOdFN64Fp3vwGOoUOiT4+K79RZs4V3jBxWve769rW3K0oN+25i3eYBCNloc8TwwC7DJZY25199VrAMyNVyQ==
   dependencies:
     loadjs "^4.2.0"
 

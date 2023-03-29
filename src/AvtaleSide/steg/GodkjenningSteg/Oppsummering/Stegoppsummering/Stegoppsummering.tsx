@@ -2,6 +2,7 @@ import * as React from 'react';
 import './Stegoppsummering.less';
 import BEMHelper from '@/utils/bem';
 import { Heading } from '@navikt/ds-react';
+import {PropsWithChildren} from "react";
 
 const cls = BEMHelper('stegoppsummering');
 
@@ -10,7 +11,7 @@ interface Props {
     ikon?: React.ReactNode;
 }
 
-const Stegoppsummering: React.FunctionComponent<Props> = ({ tittel, ikon, children }) => (
+const Stegoppsummering: React.FunctionComponent<PropsWithChildren<Props>> = ({ tittel, ikon, children }) => (
     <div className={cls.className}>
         <div className={cls.element('header')}>
             {ikon}
