@@ -1,6 +1,6 @@
 import React, { Dispatch, PropsWithChildren, SetStateAction, useEffect, useState } from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { useNavigate, withRouter } from 'react-router-dom';
 import { endrePathAlleredeOpprettet, Path } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
 
 export interface Context {
@@ -26,6 +26,8 @@ export const AlleredeOpprettetAvtaleContext = React.createContext<Context>({
 
 const AlleredeOpprettetAvtaleProvider = ({ children, history }: PropsWithChildren<RouteComponentProps<any>>) => {
     const [alleredeOpprettet, setAlleredeOpprettet] = useState<AlleredeOpprettetInfo>(initAlleredeOpprettetInfo);
+
+    const navigate = useNavigate()
 
     useEffect(
         () =>

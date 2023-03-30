@@ -1,6 +1,5 @@
 import React, {createContext, FunctionComponent, PropsWithChildren, useState} from 'react';
 import VarselKomponent from './komponenter/Varsel/VarselKomponent';
-import {IntlProvider} from "react-intl";
 
 export const FeilVarselContext = createContext<(feilmelding?: string) => void>(() => {
     // Skal sette feilVarsel-state til undefined, men tilgjengelig først inne i FeilVarselProvider

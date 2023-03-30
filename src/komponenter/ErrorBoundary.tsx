@@ -3,7 +3,6 @@ import * as Sentry from '@sentry/react';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, PropsWithChildren, Suspense } from 'react';
 import VerticalSpacer from './layout/VerticalSpacer';
-import {IntlProvider} from "react-intl";
 
 const ErrorBoundary: FunctionComponent<PropsWithChildren> = (props) => {
     return (

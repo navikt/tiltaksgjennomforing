@@ -24,6 +24,7 @@ const tilbakeTilOversikt = (pathName: string) => {
         return <TilbakeTilOversiktLenke tekst={'Tilbake'} />;
     }
 };
+
 const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
 

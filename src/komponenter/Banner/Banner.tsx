@@ -4,7 +4,7 @@ import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { Heading, Detail } from '@navikt/ds-react';
-import React, {PropsWithChildren, useContext} from 'react';
+import React, {PropsWithChildren, useContext, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import './Banner.less';
@@ -19,11 +19,31 @@ const Banner: React.FunctionComponent<PropsWithChildren<Props>> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const history = useHistory();
 
+    const { query, push } = useRouter()
+    const useOrgnrHook: () => [string | null, (orgnr: string) => void] =
+        useCallback(() => {
+            const currentOrgnr =
+                typeof query.bedrift === "string" ? query.bedrift : null;
+
+            return [
+                currentOrgnr,
+                (orgnr: string) => {
+                    if (currentOrgnr !== orgnr) {
+                        if (orgnr === null) {
+                            push("");
+                        } else {
+                            push(`?bedrift=${orgnr}`);
+                        }
+                    }
+                },
+            ];
+        }, [push, query.bedrift]);
+
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
             return (
                 <Bedriftsmeny
-                    history={history}
+                orgnrSearchParam={useHistory}
                     onOrganisasjonChange={(org) => {
                         if(props.byttetOrg){
                             props.byttetOrg(org);}

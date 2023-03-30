@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Children, useState ,PropsWithChildren} from 'react';
+import React, { useState ,PropsWithChildren} from 'react';
 import { Collapse } from 'react-collapse';
 import InfoToggler from './InfoToggler/InfoToggler';
 import './LesMerPanel.less';
