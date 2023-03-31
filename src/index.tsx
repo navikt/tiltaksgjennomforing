@@ -1,9 +1,8 @@
 import '@navikt/ds-css';
 import { init as Sentry, Integrations } from '@sentry/react';
 import 'babel-polyfill';
-import * as React from 'react';
 import 'react-app-polyfill/ie9';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import 'url-search-params-polyfill';
 import App from './App';
 import './index.less';
@@ -26,4 +25,16 @@ if (process.env.REACT_APP_MOCK) {
     require('./mocking/mock');
 }
 
-ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
+
+const container = document.getElementById('root');
+const root = ReactDOMClient.createRoot(container!);
+root.render(<App />);
+
+
+
+// ReactDOM.render(
+//     <React.StrictMode>
+//         <App />
+//     </React.StrictMode>,
+//     document.getElementById('root')
+// );

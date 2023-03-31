@@ -1,8 +1,8 @@
 import { hentStillinger } from '@/services/stillingsok';
 import { escapeRegExp } from '@/utils/stringUtils';
 import debounce from 'lodash.debounce';
-import React, { FunctionComponent, useState } from 'react';
-import Select, { FormatOptionLabelMeta, ValueType } from 'react-select';
+import { FunctionComponent, useState } from 'react';
+import Select, { FormatOptionLabelMeta } from 'react-select';
 
 export type StillingOptions = {
     label: string;
@@ -14,7 +14,7 @@ export type StillingOptions = {
 type Props = {
     id: string;
     valgtStilling: StillingOptions | null;
-    setValgtStilling: (val: ValueType<StillingOptions, boolean>) => void;
+    setValgtStilling: (val: StillingOptions) => void;
 };
 
 const StillingsTittelVelger: FunctionComponent<Props> = (props) => {
@@ -57,7 +57,7 @@ const StillingsTittelVelger: FunctionComponent<Props> = (props) => {
         );
     };
 
-    const formatOptionLabel = (option: StillingOptions, labelMeta: FormatOptionLabelMeta<StillingOptions, boolean>) => {
+    const formatOptionLabel = (option: StillingOptions, labelMeta: FormatOptionLabelMeta<StillingOptions>) => {
         return highlightPattern(option.label, labelMeta.inputValue);
     };
 
@@ -71,7 +71,7 @@ const StillingsTittelVelger: FunctionComponent<Props> = (props) => {
             noOptionsMessage={({ inputValue }) => visSokeMelding(inputValue)}
             isClearable={true}
             value={props.valgtStilling}
-            onChange={(value) => props.setValgtStilling(value)}
+            onChange={(value) => props.setValgtStilling(value as StillingOptions)}
             onInputChange={(value) => delayHentStilling(value)}
             options={stillinger}
             formatOptionLabel={formatOptionLabel}

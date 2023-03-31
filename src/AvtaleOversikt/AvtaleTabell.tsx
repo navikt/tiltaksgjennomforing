@@ -1,3 +1,4 @@
+import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
@@ -7,15 +8,14 @@ import { Avtale } from '@/types/avtale';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { LinkPanel, BodyShort } from '@navikt/ds-react';
+import { BodyShort, LinkPanel } from '@navikt/ds-react';
 import classNames from 'classnames';
 import moment from 'moment';
 import { FunctionComponent, useEffect, useState } from 'react';
 import MediaQuery from 'react-responsive';
-import { useHistory } from 'react-router-dom';
-import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
-import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
+import { useNavigate } from 'react-router';
 import './AvtaleTabell.less';
+import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -63,7 +63,7 @@ const AvtaleTabell: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const { filtre } = useFilter();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
     const skalViseAntallUbehandlet =
@@ -119,7 +119,7 @@ const AvtaleTabell: FunctionComponent<{
                                         setVisTaushetserklæringForAvtaleId(avtale.id);
                                         e.preventDefault();
                                     } else {
-                                        history.push({
+                                        navigate({
                                             pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle),
                                             search: window.location.search,
                                         });

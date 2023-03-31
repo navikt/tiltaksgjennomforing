@@ -11,9 +11,9 @@ import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
-import { Link, BodyShort, Label, Heading } from '@navikt/ds-react';
-import React, { FunctionComponent, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { BodyShort, Heading, Label, Link } from '@navikt/ds-react';
+import { FunctionComponent, useState } from 'react';
+import { useLocation } from 'react-router';
 import './informasjonsside.less';
 
 const cls = BEMHelper('informasjonsside');
@@ -25,7 +25,7 @@ const tilbakeTilOversikt = (pathName: string) => {
     }
 };
 
-const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
+const Informasjonsside: FunctionComponent = () => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
 
     const veilederOgArbeidsgiverOppretter = (
@@ -54,12 +54,14 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
         </IkonTekstRad>
     );
 
+    const location = useLocation();
+
     return (
         <div>
             <Banner tekst="Avtale om tiltak" />
             <div className={cls.className}>
                 <div className={cls.element('container')}>
-                    <div className="tilbaketiloversikt">{tilbakeTilOversikt(props.location.pathname)}</div>
+                    <div className="tilbaketiloversikt">{tilbakeTilOversikt(location.pathname)}</div>
 
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('innholdstittel')}>
@@ -167,4 +169,4 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
         </div>
     );
 };
-export default withRouter(Informasjonsside);
+export default Informasjonsside;

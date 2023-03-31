@@ -1,3 +1,4 @@
+import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import { pathTilAvtaleNy } from '@/paths';
 import { AvtaleMinimalForBeslutter } from '@/types/avtale';
@@ -8,9 +9,8 @@ import { BodyShort, LinkPanel } from '@navikt/ds-react';
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 import MediaQuery from 'react-responsive';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import '../AvtaleOversikt/AvtaleTabell.less';
-import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -19,7 +19,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const erBeslutter: boolean = true;
 
@@ -42,7 +42,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                 role="listitem"
                                 aria-labelledby={avtale.id}
                                 onClick={(e) => {
-                                    history.push({
+                                    navigate({
                                         pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle),
                                         search: window.location.search,
                                     });

@@ -7,10 +7,10 @@ import { Avtale } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { LinkPanel, Heading, Ingress, BodyShort } from '@navikt/ds-react';
+import { BodyShort, Heading, Ingress, LinkPanel } from '@navikt/ds-react';
 import moment from 'moment';
 import { FunctionComponent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import './AvtalekortMobil.less';
 
 const cls = BEMHelper('avtalekortMobil');
@@ -21,7 +21,7 @@ const AvtalekortMobil: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string>('');
-    const history = useHistory();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -42,7 +42,7 @@ const AvtalekortMobil: FunctionComponent<{
                                     setVisTaushetserklæringForAvtaleId(avtale.id);
                                     e.preventDefault();
                                 } else {
-                                    history.push({
+                                    navigate({
                                         pathname: pathTilAvtaleNy(avtale.id),
                                         search: window.location.search,
                                     });

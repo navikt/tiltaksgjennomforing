@@ -1,12 +1,12 @@
-import { useCallback, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
+import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import _ from 'lodash';
+import { useCallback, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const useFilter = () => {
     const [filtre, setFiltre] = useContext(FiltreringContext);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const parseWindowLocationSearch = useCallback(() => {
         const params: any = {};
@@ -30,7 +30,7 @@ export const useFilter = () => {
         // Type 'any' fordi Object.keys ikke skjønner at 'k' er en key av Filtrering
         const nyeFiltre: any = { ...filtre, ...endring };
         Object.keys(nyeFiltre).forEach((k) => !nyeFiltre[k] && delete nyeFiltre[k]);
-        history.push('?' + new URLSearchParams(nyeFiltre).toString());
+        navigate('?' + new URLSearchParams(nyeFiltre).toString());
         parseWindowLocationSearch();
     };
 

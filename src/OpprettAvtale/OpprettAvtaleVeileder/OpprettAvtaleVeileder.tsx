@@ -14,7 +14,7 @@ import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
     opprettMentorAvtale,
-    sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
+    sjekkOmDeltakerAlleredeErRegistrertPaaTiltak
 } from '@/services/rest-service';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -23,10 +23,9 @@ import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert, Checkbox, CheckboxGroup, Heading } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
-import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
 
@@ -53,7 +52,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
     const [valgtRyddeAvtale, setValgtRyddeAvtale] = useState<ValgtRyddeAvtale[]>(['']);
 
-    const history = useHistory();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -81,6 +79,8 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             setBedriftNavn('');
         }
     };
+
+    const navigate = useNavigate();
 
     const orgnrOnBlur = (): void => {
         if (validerBedriftNr()) {
@@ -142,7 +142,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                         Avtalerolle.VEILEDER
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                    history.push(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
+                    navigate(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
                     return;
                 }
                 return;
@@ -154,7 +154,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 valgtRyddeAvtale.includes('valgtRyddeAvtale')
             );
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-            history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
+            navigate(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
             return;
         }
 
