@@ -10,7 +10,7 @@ import '@formatjs/intl-relativetimeformat/locale-data/nb';
 import '@formatjs/intl-relativetimeformat/polyfill';
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
-import { BrowserRouter, Route, Routes, useRoutes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import AvtaleProvider from './AvtaleProvider';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
@@ -35,29 +35,12 @@ import {
     pathTilOpprettAvtaleArbeidsgiver,
     pathTilOpprettAvtaleFullfortArbeidsgiver,
     pathTilOpprettAvtaleFullfortVeileder,
+    pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
 
 class App extends React.Component {
     render() {
-        const beslutterSide = <BeslutterSide />;
-        const BeslutterSideMultipulPath = () =>
-            useRoutes(
-                [
-                    `${pathTilAvtale(':avtaleId')}/beslutte/`,
-                    `${pathTilAvtale(':avtaleId')}/beslutte/:tilskuddsperiodeId`,
-                ].map((path) => ({ path, beslutterSide }))
-            );
-
-        const avtaleSide = <AvtaleSide />;
-        const AvtaleSideMultipulPath = () =>
-            useRoutes(
-                [`pathTilAvtale(':avtaleId')`, `pathTilStegIAvtale(':avtaleId',':stegPath'`].map((path) => ({
-                    path,
-                    avtaleSide,
-                }))
-            );
-
         return (
             <ErrorBoundary>
                 <IntlProvider locale="nb" messages={messages}>
@@ -66,60 +49,95 @@ class App extends React.Component {
                         <VarselOmNedetid />
                         <Routes>
                             <Route path={pathTilInformasjonssideUinnlogget} element={<Informasjonsside />} />
+                            <Route
+                                path="*"
+                                element={
+                                    <FeilVarselProvider>
+                                        <InnloggingBoundary>
+                                            <FeatureToggleProvider>
+                                                <RedirectEtterLogin>
+                                                    <AlleredeOpprettetAvtaleProvider>
+                                                        <NotifikasjonWidgetProvider>
+                                                            <Routes>
+                                                                <Route path="/" element={<Oversikt />} />
+                                                                <Route
+                                                                    path={pathTilInformasjonssideInnlogget}
+                                                                    element={<Informasjonsside />}
+                                                                />
+                                                                <Route
+                                                                    path={pathTilOpprettAvtale}
+                                                                    element={<OpprettAvtaleVeileder />}
+                                                                />
+                                                                <Route
+                                                                    path={pathTilOpprettAvtaleArbeidsgiver}
+                                                                    element={<OpprettAvtaleArbeidsgiver />}
+                                                                />
+                                                                <Route
+                                                                    path={pathTilOpprettAvtaleFullfortVeileder(
+                                                                        ':avtaleId'
+                                                                    )}
+                                                                    element={<OpprettelseFullfortVeileder />}
+                                                                />
+                                                                <Route
+                                                                    path={pathTilOpprettAvtaleFullfortArbeidsgiver(
+                                                                        ':avtaleId'
+                                                                    )}
+                                                                    element={<OpprettelseFullfortArbeidsgiver />}
+                                                                />
+                                                            </Routes>
+                                                            <Routes>
+                                                                <Route
+                                                                    path={pathTilAvtale(':avtaleId/*')}
+                                                                    element={
+                                                                        <AvtaleProvider>
+                                                                            <AvtaleFetcher>
+                                                                                <Routes>
+                                                                                    <Route
+                                                                                        path="/"
+                                                                                        element={<AvtaleSide />}
+                                                                                    />
+                                                                                    <Route
+                                                                                        path="/:stegPath"
+                                                                                        element={<AvtaleSide />}
+                                                                                    />
+
+                                                                                    <Route
+                                                                                        path={`/beslutte/`}
+                                                                                        element={<BeslutterSide />}
+                                                                                    />
+
+                                                                                    <Route
+                                                                                        path={`/beslutte/:tilskuddsperiodeId`}
+                                                                                        element={<BeslutterSide />}
+                                                                                    />
+
+                                                                                    <Route
+                                                                                        path={`/slett`}
+                                                                                        element={<Slettemerk />}
+                                                                                    />
+
+                                                                                    <Route
+                                                                                        path={pathTilStegIAvtale(
+                                                                                            ':avtaleId',
+                                                                                            ':stegPath'
+                                                                                        )}
+                                                                                        element={<AvtaleSide />}
+                                                                                    ></Route>
+                                                                                </Routes>
+                                                                            </AvtaleFetcher>
+                                                                        </AvtaleProvider>
+                                                                    }
+                                                                ></Route>
+                                                            </Routes>
+                                                        </NotifikasjonWidgetProvider>
+                                                    </AlleredeOpprettetAvtaleProvider>
+                                                </RedirectEtterLogin>
+                                            </FeatureToggleProvider>
+                                        </InnloggingBoundary>
+                                    </FeilVarselProvider>
+                                }
+                            ></Route>
                         </Routes>
-                        <FeilVarselProvider>
-                            <InnloggingBoundary>
-                                <FeatureToggleProvider>
-                                    <RedirectEtterLogin>
-                                        <AlleredeOpprettetAvtaleProvider>
-                                            <NotifikasjonWidgetProvider>
-                                                <Routes>
-                                                    <Route path="/" element={<Oversikt />} />
-                                                    <Route
-                                                        path={pathTilInformasjonssideInnlogget}
-                                                        element={<Informasjonsside />}
-                                                    />
-                                                    <Route
-                                                        path={pathTilOpprettAvtale}
-                                                        element={<OpprettAvtaleVeileder />}
-                                                    />
-                                                    <Route
-                                                        path={pathTilOpprettAvtaleArbeidsgiver}
-                                                        element={<OpprettAvtaleArbeidsgiver />}
-                                                    />
-                                                    <Route
-                                                        path={pathTilOpprettAvtaleFullfortVeileder(':avtaleId')}
-                                                        element={<OpprettelseFullfortVeileder />}
-                                                    />
-                                                    <Route
-                                                        path={pathTilOpprettAvtaleFullfortArbeidsgiver(':avtaleId')}
-                                                        element={<OpprettelseFullfortArbeidsgiver />}
-                                                    />
-                                                </Routes>
-                                                <AvtaleProvider>
-                                                    <Routes>
-                                                        <Route path={pathTilAvtale(':avtaleId')} />
-                                                    </Routes>
-                                                    <AvtaleFetcher>
-                                                        <Routes>
-                                                            <Route>
-                                                                <BeslutterSideMultipulPath />
-                                                            </Route>
-                                                            <Route path={`${pathTilAvtale(':avtaleId')}/slett`}>
-                                                                <Slettemerk />
-                                                            </Route>
-                                                            <Route>
-                                                                <AvtaleSideMultipulPath />
-                                                            </Route>
-                                                        </Routes>
-                                                    </AvtaleFetcher>
-                                                </AvtaleProvider>
-                                            </NotifikasjonWidgetProvider>
-                                        </AlleredeOpprettetAvtaleProvider>
-                                    </RedirectEtterLogin>
-                                </FeatureToggleProvider>
-                            </InnloggingBoundary>
-                        </FeilVarselProvider>
                     </BrowserRouter>
                 </IntlProvider>
             </ErrorBoundary>
