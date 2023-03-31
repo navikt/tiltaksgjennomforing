@@ -1,6 +1,5 @@
 import React from 'react';
 import Banner from '@/komponenter/Banner/Banner';
-import { RouteComponentProps } from 'react-router';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { pathTilKontaktinformasjonSteg } from '@/paths';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -8,10 +7,10 @@ import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/Veilederpan
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
 import './OpprettelseFullfortArbeidsgiver.less';
+import { useParams } from 'react-router-dom';
 
-const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentProps<{ avtaleId: string }>> = (props) => {
-    const avtaleId = props.match.params.avtaleId;
-
+const OpprettelseFullfortArbeidsgiver: React.FunctionComponent = () => {
+    const { avtaleId } = useParams();
     return (
         <>
             <Banner tekst="Opprettelse fullført" />
@@ -27,7 +26,7 @@ const OpprettelseFullfortArbeidsgiver: React.FunctionComponent<RouteComponentPro
                     </BodyShort>
                 </VeilederpanelMedAvsjekkIkon>
                 <VerticalSpacer rem={2} />
-                <LenkeKnapp path={pathTilKontaktinformasjonSteg(avtaleId)}>Gå til avtalen</LenkeKnapp>
+                <LenkeKnapp path={pathTilKontaktinformasjonSteg(avtaleId!)}>Gå til avtalen</LenkeKnapp>
                 <VerticalSpacer rem={1} />
                 <TilbakeTilOversiktLenke />
             </div>

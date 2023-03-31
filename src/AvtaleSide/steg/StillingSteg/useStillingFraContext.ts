@@ -1,12 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import { useContext } from 'react';
-import { ValueType } from 'react-select';
+import { OnChangeValue } from 'react-select';
 
 const useStillingFraContext = () => {
     const avtaleContext = useContext(AvtaleContext);
 
-    const setValgtStilling = (val: ValueType<StillingOptions, boolean>) => {
+    const setValgtStilling = (val: OnChangeValue<StillingOptions, boolean>) => {
         const values = val as StillingOptions;
         avtaleContext.settAvtaleInnholdVerdier({
             stillingstittel: values?.label,

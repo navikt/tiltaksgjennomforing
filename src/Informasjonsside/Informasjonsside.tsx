@@ -13,7 +13,7 @@ import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import { Link, BodyShort, Label, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './informasjonsside.less';
 
 const cls = BEMHelper('informasjonsside');
@@ -25,8 +25,9 @@ const tilbakeTilOversikt = (pathName: string) => {
     }
 };
 
-const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
+const Informasjonsside: FunctionComponent = () => {
     const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
+    const { pathname } = useLocation();
 
     const veilederOgArbeidsgiverOppretter = (
         <IkonTekstRad
@@ -59,7 +60,7 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
             <Banner tekst="Avtale om tiltak" />
             <div className={cls.className}>
                 <div className={cls.element('container')}>
-                    <div className="tilbaketiloversikt">{tilbakeTilOversikt(props.location.pathname)}</div>
+                    <div className="tilbaketiloversikt">{tilbakeTilOversikt(pathname)}</div>
 
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('innholdstittel')}>
@@ -167,4 +168,4 @@ const Informasjonsside: FunctionComponent<RouteComponentProps> = (props) => {
         </div>
     );
 };
-export default withRouter(Informasjonsside);
+export default Informasjonsside;

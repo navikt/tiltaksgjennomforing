@@ -36,7 +36,7 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
             return;
         }
         const numericValue = parseFloat(originalVerdi);
-        const underMax = max ? max >= numericValue : true;
+        const underMax = max ? Number(max) >= numericValue : true;
         const erTallInnenforGrense = () => numericValue.toString().length <= maximumLength && underMax;
         if (erTallInnenforGrense()) {
             applyOnChange(event, numericValue.toString());

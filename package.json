@@ -93,7 +93,6 @@
         "@types/react-maskedinput": "^4.0.6",
         "@types/react-responsive": "^8.0.5",
         "@types/react-router-dom": "^5.3.3",
-        "@types/react-select": "^5.0.1",
         "chai": "^4.3.4",
         "craco-less": "^2.0.0",
         "cross-env": "^7.0.3",

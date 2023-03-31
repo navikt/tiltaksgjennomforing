@@ -1,6 +1,6 @@
 import React, { Dispatch, PropsWithChildren, SetStateAction, useEffect, useState } from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
-import { useNavigate, withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { endrePathAlleredeOpprettet, Path } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
 
 export interface Context {
@@ -24,21 +24,17 @@ export const AlleredeOpprettetAvtaleContext = React.createContext<Context>({
     alleredeRegistrertAvtale: initAlleredeOpprettetInfo,
 } as Context);
 
-const AlleredeOpprettetAvtaleProvider = ({ children, history }: PropsWithChildren<RouteComponentProps<any>>) => {
+const AlleredeOpprettetAvtaleProvider = ({ children, history }: PropsWithChildren<any>) => {
     const [alleredeOpprettet, setAlleredeOpprettet] = useState<AlleredeOpprettetInfo>(initAlleredeOpprettetInfo);
 
-    const navigate = useNavigate()
+    let location = useLocation();
 
-    useEffect(
-        () =>
-            history.listen((location, action) => {
-                const pathnameList: string[] = location.pathname.split('/');
-                endrePathAlleredeOpprettet(pathnameList, Path.OPPRETT, alleredeOpprettet, setAlleredeOpprettet);
-                endrePathAlleredeOpprettet(pathnameList, Path.GODKJENN, alleredeOpprettet, setAlleredeOpprettet);
-            }),
+    useEffect(() => {
+        const pathnameList: string[] = location.pathname.split('/');
+        endrePathAlleredeOpprettet(pathnameList, Path.OPPRETT, alleredeOpprettet, setAlleredeOpprettet);
+        endrePathAlleredeOpprettet(pathnameList, Path.GODKJENN, alleredeOpprettet, setAlleredeOpprettet);
         // eslint-disable-next-line
-        [history]
-    );
+    }, [location]);
 
     const context: Context = {
         alleredeRegistrertAvtale: alleredeOpprettet,
@@ -49,4 +45,4 @@ const AlleredeOpprettetAvtaleProvider = ({ children, history }: PropsWithChildre
         <AlleredeOpprettetAvtaleContext.Provider value={context}>{children}</AlleredeOpprettetAvtaleContext.Provider>
     );
 };
-export default withRouter(AlleredeOpprettetAvtaleProvider);
+export default AlleredeOpprettetAvtaleProvider;

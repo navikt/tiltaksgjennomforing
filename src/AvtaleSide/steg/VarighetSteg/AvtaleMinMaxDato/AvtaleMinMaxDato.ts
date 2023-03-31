@@ -5,7 +5,7 @@ import { TiltaksType } from '@/types/avtale';
 import moment, { DurationInputArg2 } from 'moment';
 import { useContext } from 'react';
 
-import { DaysOfWeekModifier } from 'react-day-picker';
+//import { DaysOfWeekModifier } from 'react-day-picker';
 export declare type ISODateString = string;
 export declare type InputDateString = string;
 export declare type INVALID_DATE_TYPE = 'Invalid date';
@@ -13,6 +13,9 @@ export interface DatepickerDateRange {
     from: ISODateString;
     to: ISODateString;
 }
+type DaysOfWeekModifier =  [
+    1, 2, 3, "", 
+]
 interface DatepickerLimitations {
     minDate?: ISODateString;
     maxDate?: ISODateString;

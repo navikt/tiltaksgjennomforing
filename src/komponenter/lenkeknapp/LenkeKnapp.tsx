@@ -1,5 +1,5 @@
-import React, {CSSProperties, FunctionComponent, PropsWithChildren} from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import React, { CSSProperties, FunctionComponent, PropsWithChildren } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, ButtonProps } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import './lenkeknapp.less';
@@ -11,18 +11,20 @@ type Props = {
     icon?: React.ReactNode;
 };
 
-const LenkeKnapp: FunctionComponent<PropsWithChildren<Props & RouteComponentProps>> = (props) => {
+const LenkeKnapp: FunctionComponent<PropsWithChildren & Props> = (props) => {
+    const navigate = useNavigate();
+
     const cls = BEMHelper('lenke-knapp');
     return (
         <Button
             className={cls.className}
             style={props.style}
             variant={props.variant || 'primary'}
-            onClick={() => props.history.push({ pathname: props.path, search: window.location.search })}
+            onClick={() => navigate({ pathname: props.path, search: window.location.search })}
             icon={props.icon}
         >
             {props.children}
         </Button>
     );
 };
-export default withRouter(LenkeKnapp);
+export default LenkeKnapp;

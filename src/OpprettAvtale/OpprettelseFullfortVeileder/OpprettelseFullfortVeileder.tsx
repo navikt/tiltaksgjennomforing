@@ -1,18 +1,22 @@
 import { BodyShort, Button, Heading, Link } from '@navikt/ds-react';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { RouteComponentProps } from 'react-router';
+//import { RouteComponentProps } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import { pathTilKontaktinformasjonSteg, pathTilOversiktISelvbetjeningProd } from '@/paths';
 
 import './OpprettelseFullfortVeileder.less';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 
-const OpprettelseFullfortVeileder: React.FunctionComponent<RouteComponentProps<{ avtaleId: string }>> = (props) => {
-    const avtaleId = props.match.params.avtaleId;
+
+
+const OpprettelseFullfortVeileder: React.FunctionComponent = (props) => {
+    const { avtaleId } = useParams();
+    const navigate = useNavigate();
 
     const tilAvtalenKlikk = () => {
-        props.history.push(pathTilKontaktinformasjonSteg(avtaleId));
+        navigate(pathTilKontaktinformasjonSteg(avtaleId!));
     };
 
     const inputLabel = (

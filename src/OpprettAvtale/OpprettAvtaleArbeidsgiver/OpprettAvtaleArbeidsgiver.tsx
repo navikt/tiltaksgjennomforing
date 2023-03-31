@@ -20,7 +20,7 @@ import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Alert, RadioGroup } from '@navikt/ds-react';
 import { BodyShort, Heading, Label, ErrorMessage, TextField } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { storForbokstav } from '@/utils/stringUtils';
@@ -33,7 +33,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -80,14 +80,14 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         Avtalerolle.ARBEIDSGIVER
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                    history.push(pathTilOpprettAvtaleFullfortArbeidsgiver(mentorAvtale.id));
+                    navigate(pathTilOpprettAvtaleFullfortArbeidsgiver(mentorAvtale.id));
                     return;
                 }
                 return;
             }
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
-            history.push({
+            navigate({
                 pathname: pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id),
                 search: window.location.search,
             });

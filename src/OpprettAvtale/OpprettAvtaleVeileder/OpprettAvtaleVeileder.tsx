@@ -26,7 +26,7 @@ import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Alert, Heading } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
 
@@ -53,7 +53,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
     const [valgtRyddeAvtale, setValgtRyddeAvtale] = useState<ValgtRyddeAvtale[]>(['']);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -142,7 +142,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                         Avtalerolle.VEILEDER
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                    history.push(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
+                    navigate(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
                     return;
                 }
                 return;
@@ -154,7 +154,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 valgtRyddeAvtale.includes('valgtRyddeAvtale')
             );
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-            history.push(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
+            navigate(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
             return;
         }
 

@@ -35,7 +35,6 @@ import {
     pathTilOpprettAvtaleArbeidsgiver,
     pathTilOpprettAvtaleFullfortArbeidsgiver,
     pathTilOpprettAvtaleFullfortVeileder,
-    pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
 
@@ -67,12 +66,14 @@ class App extends React.Component {
                         <VarselOmNedetid />
                         <Routes>
                             <Route path={pathTilInformasjonssideUinnlogget} element={<Informasjonsside />} />
-                            <FeilVarselProvider>
-                                <InnloggingBoundary>
-                                    <FeatureToggleProvider>
-                                        <RedirectEtterLogin>
-                                            <AlleredeOpprettetAvtaleProvider>
-                                                <NotifikasjonWidgetProvider>
+                        </Routes>
+                        <FeilVarselProvider>
+                            <InnloggingBoundary>
+                                <FeatureToggleProvider>
+                                    <RedirectEtterLogin>
+                                        <AlleredeOpprettetAvtaleProvider>
+                                            <NotifikasjonWidgetProvider>
+                                                <Routes>
                                                     <Route path="/" element={<Oversikt />} />
                                                     <Route
                                                         path={pathTilInformasjonssideInnlogget}
@@ -94,30 +95,31 @@ class App extends React.Component {
                                                         path={pathTilOpprettAvtaleFullfortArbeidsgiver(':avtaleId')}
                                                         element={<OpprettelseFullfortArbeidsgiver />}
                                                     />
-                                                    <AvtaleProvider>
-                                                        <Route path={pathTilAvtale(':avtaleId')}>
-                                                            <AvtaleFetcher>
-                                                                <Routes>
-                                                                    <Route>
-                                                                        <BeslutterSideMultipulPath />
-                                                                    </Route>
-                                                                    <Route path={`${pathTilAvtale(':avtaleId')}/slett`}>
-                                                                        <Slettemerk />
-                                                                    </Route>
-                                                                    <Route>
-                                                                        <AvtaleSideMultipulPath />
-                                                                    </Route>
-                                                                </Routes>
-                                                            </AvtaleFetcher>
-                                                        </Route>
-                                                    </AvtaleProvider>
-                                                </NotifikasjonWidgetProvider>
-                                            </AlleredeOpprettetAvtaleProvider>
-                                        </RedirectEtterLogin>
-                                    </FeatureToggleProvider>
-                                </InnloggingBoundary>
-                            </FeilVarselProvider>
-                        </Routes>
+                                                </Routes>
+                                                <AvtaleProvider>
+                                                    <Routes>
+                                                        <Route path={pathTilAvtale(':avtaleId')} />
+                                                    </Routes>
+                                                    <AvtaleFetcher>
+                                                        <Routes>
+                                                            <Route>
+                                                                <BeslutterSideMultipulPath />
+                                                            </Route>
+                                                            <Route path={`${pathTilAvtale(':avtaleId')}/slett`}>
+                                                                <Slettemerk />
+                                                            </Route>
+                                                            <Route>
+                                                                <AvtaleSideMultipulPath />
+                                                            </Route>
+                                                        </Routes>
+                                                    </AvtaleFetcher>
+                                                </AvtaleProvider>
+                                            </NotifikasjonWidgetProvider>
+                                        </AlleredeOpprettetAvtaleProvider>
+                                    </RedirectEtterLogin>
+                                </FeatureToggleProvider>
+                            </InnloggingBoundary>
+                        </FeilVarselProvider>
                     </BrowserRouter>
                 </IntlProvider>
             </ErrorBoundary>
