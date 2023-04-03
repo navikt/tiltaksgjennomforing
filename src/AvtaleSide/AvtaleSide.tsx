@@ -10,7 +10,7 @@ import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
@@ -45,7 +45,7 @@ const AvtaleSide: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     let avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
     if (innloggetBruker.rolle === 'MENTOR') avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
-    const history = useHistory();
+    const navigate = useNavigate();
     const { stegPath } = useParams<any>();
 
     const erDesktop = windowSize > 992;
@@ -78,7 +78,7 @@ const AvtaleSide: FunctionComponent = () => {
                 undertittel={'Avtalenummer: ' + avtale.avtaleNr}
                 byttetOrg={(org) => {
                     if (avtale.bedriftNr !== org.OrganizationNumber) {
-                        history.push({
+                        navigate({
                             pathname: pathTilOversikt,
                             search: window.location.search,
                         });

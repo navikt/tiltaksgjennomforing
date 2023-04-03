@@ -11,7 +11,7 @@ type IkonType = 'blyant' | 'soppelkasse' | 'avbrutt';
 interface Props {
     ikonType: IkonType;
     label: string;
-    onClick: (event: React.MouseEvent<HTMLElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
     backgroundColor?: string;
     disabled?: boolean;
 }

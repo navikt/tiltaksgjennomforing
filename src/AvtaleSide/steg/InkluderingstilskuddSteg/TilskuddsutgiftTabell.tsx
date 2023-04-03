@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
 
 type Props = {
     redigerbar: boolean;
 };
 
-const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
+const TilskuddsutgiftTabell: FunctionComponent<PropsWithChildren<Props>> = (props) => {
     return (
         <table className="tabell">
             <thead>

@@ -1,4 +1,4 @@
-import React, { createContext, FunctionComponent, useState } from 'react';
+import React, { createContext, FunctionComponent, useState,PropsWithChildren } from 'react';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 
 export const FiltreringContext = createContext<[Filtrering, React.Dispatch<React.SetStateAction<Filtrering>>]>([
@@ -6,7 +6,7 @@ export const FiltreringContext = createContext<[Filtrering, React.Dispatch<React
     () => null,
 ]);
 
-export const FiltreringProvider: FunctionComponent = (props) => {
+export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const params: any = {};
     for (const [k, v] of new URLSearchParams(window.location.search)) {
         params[k] = v;

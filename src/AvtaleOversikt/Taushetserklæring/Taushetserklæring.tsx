@@ -8,7 +8,7 @@ import BEMHelper from '@/utils/bem';
 import { Modal, Heading } from '@navikt/ds-react';
 import BekreftCheckboksPanel from '@/komponenter/BekreftCheckboksPanel/BekreftCheckboksPanel';
 import React, { FunctionComponent, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import './Taushetserklæring.less';
 import TausetserklæringTekst from './TaushetserklæringTekst';
 
@@ -24,13 +24,13 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
     togglesetTaushetserklæringForMentorAvtale,
 }) => {
     const cls = BEMHelper('taushetserklæring');
-    const history = useHistory();
+    const navigate = useNavigate();
     const [bekrefterGodkjennerTaushetserklæring, setBekrefterGodkjennerTaushetserklæring] = useState<boolean>(false);
 
     const godkjennTaushetserklæring = async () => {
         if (bekrefterGodkjennerTaushetserklæring) {
             const avtaleLagret = await mentorGodkjennTaushetserklæring(avtale);
-            history.push('avtale/' + avtaleLagret.id);
+            navigate('avtale/' + avtaleLagret.id);
         } else {
             throw new UfullstendigError('Du må bekrefte at du forstår kravene før du kan godkjenne.');
         }

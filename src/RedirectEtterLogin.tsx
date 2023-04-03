@@ -1,22 +1,25 @@
 import amplitude from 'amplitude-js';
 import React, { FunctionComponent, useEffect } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 export const SIDE_FOER_INNLOGGING = 'side-foer-innlogging';
 export const INNLOGGET_PART = 'innlogget-part';
 
-const RedirectEtterLogin: FunctionComponent<RouteComponentProps> = (props) => {
+type RedirectEtterLoginProps = & {children? : React.ReactNode} 
+
+const RedirectEtterLogin: FunctionComponent<RedirectEtterLoginProps> = (props) => {
+    const navigation = useNavigate()
     const redirectTilSideFoerInnlogging = () => {
         const sideFoerInnlogging = sessionStorage.getItem(SIDE_FOER_INNLOGGING);
         if (typeof sideFoerInnlogging === 'string') {
             sessionStorage.removeItem(SIDE_FOER_INNLOGGING);
             amplitude.logEvent('#tiltak-bruker-ble-innlogget');
-            props.history.push(sideFoerInnlogging);
+            navigation(sideFoerInnlogging);
         }
     };
     //eslint-disable-next-line
     useEffect(redirectTilSideFoerInnlogging, []);
-    return <>{props.children}</>;
+        return <>{props.children}</>;
 };
 
-export default withRouter(RedirectEtterLogin);
+export default (RedirectEtterLogin);

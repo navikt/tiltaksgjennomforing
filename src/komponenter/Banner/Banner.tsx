@@ -3,9 +3,8 @@ import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
 import Bedriftsmeny from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
-import { Heading, Detail } from '@navikt/ds-react';
+import { Detail, Heading } from '@navikt/ds-react';
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import './Banner.less';
 
@@ -17,13 +16,12 @@ interface Props {
 
 const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const history = useHistory();
 
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
             return (
                 <Bedriftsmeny
-                    history={history}
+                    
                     onOrganisasjonChange={(org) => {
                         props.byttetOrg && props.byttetOrg(org);
                     }}

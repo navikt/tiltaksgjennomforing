@@ -1,5 +1,5 @@
 import BEMHelper from '@/utils/bem';
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import './EkspanderbartPanelRad.less';
 import { Heading, HeadingProps, Label } from '@navikt/ds-react';
 
@@ -14,7 +14,7 @@ interface Props {
 
 const cls = BEMHelper('howto');
 
-const IkonTekstRad: React.FunctionComponent<Props> = (props) => {
+const IkonTekstRad: React.FunctionComponent<PropsWithChildren<Props>> = (props) => {
     const { svgIkon, headerTekst, classname, children } = props;
     let header = null;
     if (headerTekst?.headingType) {

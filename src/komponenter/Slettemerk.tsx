@@ -11,7 +11,7 @@ const Slettemerk: FunctionComponent = () => {
     const { avtaleId } = useParams<any>();
 
     const slettemerk = () => {
-        return slettemerkAvtale(avtaleId).then(() => {
+        return slettemerkAvtale(avtaleId!).then(() => {
             setSuksess(true);
         });
     };

@@ -17,14 +17,14 @@ const KontaktinfoSteg: FunctionComponent = () => {
         'SOMMERJOBB',
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
-        'MENTOR'
+        'MENTOR',
     ].includes(avtale.tiltakstype);
     const skalViseRelasjoner = [
         'SOMMERJOBB',
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
         'INKLUDERINGSTILSKUDD',
-        'MENTOR'
+        'MENTOR',
     ].includes(avtale.tiltakstype);
 
     return (
@@ -33,7 +33,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
             <DeltakerinfoDel />
             <ArbeidsgiverinfoDel />
             {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
-            {skalViseRelasjoner && <Relasjoner />}
+            {skalViseRelasjoner && <Relasjoner tiltakstype={avtale.tiltakstype} />}
             <VeilederinfoDel />
             <LagreKnapp
                 className="kontaktinfo-steg__lagre-knapp"

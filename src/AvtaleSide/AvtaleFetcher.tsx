@@ -1,9 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import amplitude from '@/utils/amplitude';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, {FunctionComponent, PropsWithChildren, useContext, useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 
-const AvtaleFetcher: FunctionComponent = (props) => {
+const AvtaleFetcher: FunctionComponent<PropsWithChildren> = (props) => {
     const [lastetOk, setLastetOk] = useState<boolean>(false);
     const { avtaleId } = useParams<any>();
     const { hentAvtale } = useContext(AvtaleContext);

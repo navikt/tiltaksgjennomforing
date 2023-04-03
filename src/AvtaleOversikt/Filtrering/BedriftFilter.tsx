@@ -1,10 +1,10 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import React, { FunctionComponent } from 'react';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
 import { SøkeInput } from './SøkeInput';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
-export const BedriftFilter: FunctionComponent = () => {
+export const BedriftFilter: FunctionComponent<PropsWithChildren> = () => {
     const { endreFilter, filtre } = useFilter();
     return (
         <Filter tittel="Søk på bedrift">

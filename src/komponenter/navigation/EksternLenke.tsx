@@ -1,7 +1,7 @@
 import { ReactComponent as TilEkstern } from '@/assets/ikoner/ekstern-lenke.svg';
 import amplitude from '@/utils/amplitude';
 import { Link } from '@navikt/ds-react';
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import './EksternLenke.less';
 
 interface EksternLenkeProps {
@@ -12,7 +12,7 @@ interface EksternLenkeProps {
     onClick?: () => void,
 }
 
-const EksternLenke: React.FunctionComponent<EksternLenkeProps> = (props) => {
+const EksternLenke: React.FunctionComponent<PropsWithChildren<EksternLenkeProps>> = (props) => {
     const onClick = (event: any) => {
         amplitude.logEvent('#tiltak-ekstern-lenke-klikket', {
             url: event.target.href,

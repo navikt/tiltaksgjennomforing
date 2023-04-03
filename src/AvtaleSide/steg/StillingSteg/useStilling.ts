@@ -1,12 +1,12 @@
 import { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import { Stilling } from '@/types/avtale';
 import { useState } from 'react';
-import { ValueType } from 'react-select';
+import { OnChangeValue } from 'react-select';
 
 const useStilling = (defaultVerdier: Stilling) => {
     const [stilling, setStilling] = useState<Stilling>(defaultVerdier);
 
-    const setValgtStilling = (val: ValueType<StillingOptions, boolean>) => {
+    const setValgtStilling = (val: OnChangeValue<StillingOptions, boolean>) => {
         const values = val as StillingOptions;
         setStilling({
             stillingstittel: values?.label,

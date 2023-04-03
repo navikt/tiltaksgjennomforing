@@ -8,9 +8,9 @@ import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/internt';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import NAVSPA from '@navikt/navspa';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
 import { useCookies } from 'react-cookie';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import Innloggingslinje from './Innloggingslinje';
 import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
@@ -27,11 +27,11 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     navEnheter: [],
 });
 
-const InnloggingBoundary: FunctionComponent = (props) => {
+const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
     const [brukmeny, setbrukmeny] = useState<boolean>();
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
     const throwError = useAsyncError();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         sjekkOmMenySkalBrukes('/tiltaksgjennomforing/brukavInternflate').then(setbrukmeny).catch(throwError);
@@ -49,7 +49,7 @@ const InnloggingBoundary: FunctionComponent = (props) => {
         if (['ARBEIDSGIVER', 'DELTAKER', 'MENTOR', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
             setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
             urlParametere.delete('part');
-            history.replace({ search: urlParametere.toString() });
+            navigate({ search: urlParametere.toString() });
         } else {
             return <Innloggingside innloggingskilder={innloggingskilder} />;
         }

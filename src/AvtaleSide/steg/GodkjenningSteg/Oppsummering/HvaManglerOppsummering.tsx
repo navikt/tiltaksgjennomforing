@@ -1,14 +1,14 @@
 import { avtaleFelterBokmal } from '@/messages';
 import { Avtaleinnhold } from '@/types/avtale';
 import { storForbokstav } from '@/utils/stringUtils';
-import React, { FunctionComponent } from 'react';
+import React, {FunctionComponent, PropsWithChildren} from 'react';
 import { Tag } from '@navikt/ds-react';
 
 type Props = {
     avhengigFelter: Partial<Avtaleinnhold>;
 };
 
-const HvaManglerOppsummering: FunctionComponent<Props> = (props) => {
+const HvaManglerOppsummering: FunctionComponent<PropsWithChildren<Props>> = (props) => {
     const tommeFelter = Object.keys(props.avhengigFelter).filter(
         (key) => !props.avhengigFelter[key as keyof Avtaleinnhold]
     );

@@ -18,12 +18,12 @@ const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
         <>
             <div className={cls.element('input-wrapper')}>
                 <PakrevdInput
-                    bredde="S"
+                    width="S"
                     label=""
                     verdi={enhet}
                     settVerdi={(verdi) => setEnhet(verdi)}
                     maxLength={4}
-                    feil={enhetFeil}
+                    error={enhetFeil}
                 />
                 <VerticalSpacer rem={1} />
             </div>

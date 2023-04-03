@@ -3,6 +3,6 @@ import { shallow } from 'enzyme';
 import Banner from './Banner';
 
 test('Test that <Banner> renders correctly', () => {
-    const wrapper = shallow(<Banner />);
+    const wrapper = shallow(<Banner tekst='' />);
     expect(wrapper).toHaveLength(1);
 });

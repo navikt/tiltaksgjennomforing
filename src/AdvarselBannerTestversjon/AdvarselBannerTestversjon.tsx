@@ -1,7 +1,6 @@
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import BEMHelper from '@/utils/bem';
 import { Alert } from '@navikt/ds-react';
-import React from 'react';
 import './AdvarselBannerTestversjon.less';
 
 const cls = BEMHelper('advarsel-banner-testversjon');

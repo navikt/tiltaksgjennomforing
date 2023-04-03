@@ -7,7 +7,7 @@ import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 test('Test that <Avtaleparter> renders correctly', () => {
     const wrapper = shallow(
         <AvtaleContext.Provider value={{ avtale: lonnstilskuddAvtaleMock } as Context}>
-            <Avtaleparter />
+            <Avtaleparter avtaleinnhold={lonnstilskuddAvtaleMock.gjeldendeInnhold} />
         </AvtaleContext.Provider>
     );
     expect(wrapper).toHaveLength(1);

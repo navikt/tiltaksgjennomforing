@@ -59,7 +59,7 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                     <VerticalSpacer rem={1} />
                     <ValutaInput
                         name="beløp"
-                        bredde="M"
+                        width="M"
                         label="Kostnadsoverslag"
                         value={beløp}
                         onChange={(event) => setBeløp(parseFloat(event.target.value))}
