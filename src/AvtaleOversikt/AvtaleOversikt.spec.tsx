@@ -1,15 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import AvtaleOversikt from './AvtaleOversikt';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter , Route, Routes } from 'react-router-dom';
 
 test('Test that <AvtaleOversikt> renders correctly', () => {
     const wrapper = shallow(
-        <BrowserRouter>
+        <MemoryRouter >
             <Routes>
                 <Route path="*" element={<AvtaleOversikt />} />
             </Routes>
-        </BrowserRouter>
+        </MemoryRouter>
     );
     expect(wrapper).toHaveLength(1);
 });

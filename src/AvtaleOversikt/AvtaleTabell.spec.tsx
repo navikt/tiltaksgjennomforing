@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter , Route, Routes } from 'react-router-dom';
 
 test('Test that <AvtaleOversikt> renders correctly', () => {
     const innlogetbruker: InnloggetBruker = {
@@ -25,11 +25,11 @@ test('Test that <AvtaleOversikt> renders correctly', () => {
     };
 
     const wrapper = shallow(
-        <BrowserRouter>
+        <MemoryRouter >
             <Routes>
                 <Route path="*" element={<AvtaleTabell innloggetBruker={innlogetbruker} avtaler={[]} varsler={[]} />} />
             </Routes>
-        </BrowserRouter>
+        </MemoryRouter>
     );
     expect(wrapper).toHaveLength(1);
 });
