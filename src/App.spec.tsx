@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import App from './App';
 import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
+import { BrowserRouter } from 'react-router-dom';
 
 test('Test that <App> renders correctly', () => {
     const wrapper = shallow(<App />);

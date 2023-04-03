@@ -11,7 +11,7 @@ import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/Tilbak
 
 
 
-const OpprettelseFullfortVeileder: React.FunctionComponent = (props) => {
+const OpprettelseFullfortVeileder: React.FunctionComponent = () => {
     const { avtaleId } = useParams();
     const navigate = useNavigate();
 
