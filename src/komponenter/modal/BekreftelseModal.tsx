@@ -22,7 +22,9 @@ interface Props {
 
 const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const [feilmelding, setFeilmelding] = useState<string>();
+    const [laster, setLaster] = useState<boolean>(false);
     const [varselInnhold, setVarselInnhold] = useState<string | JSX.Element>(<div />);
+
 
     useEffect(() => {
         setVarselInnhold(props.modalInnhold);
@@ -42,11 +44,15 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const bekreftKlikk = async () => {
         setFeilmelding(undefined);
         try {
+            setLaster(true)
             await props.bekreftOnClick();
+            setLaster(false)
         } catch (error: any) {
             try {
+                setLaster(false);
                 handterFeil(error, setFeilmelding);
             } catch (err) {
+                setLaster(false);
                 setFeilmelding('Det har skjedd en uventet feil');
                 throw err;
             }
@@ -77,6 +83,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                         </div>
                         <div className={cls.element('knapper')}>
                             <LagreOgAvbrytKnapp
+                                disabled={laster}
                                 lagreFunksjon={() => bekreftKlikk()}
                                 lagretekst={props.bekreftelseTekst}
                                 avbryt={() => props.lukkModal()}

@@ -26,10 +26,9 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     const onClick = async () => {
         try {
             setOppslag({ status: Status.LasterInn });
-
             // midlertidig fiks. Må fikse mem-leak før denne kan pushes under callback lagreFunksjon.
-            setOppslag({ status: Status.Sendt });
             await props.lagreFunksjon();
+            setOppslag({ status: Status.Sendt });
         } catch (error: any) {
             setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
             handterFeil(error, setFeilmelding);
