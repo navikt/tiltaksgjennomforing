@@ -1,23 +1,18 @@
 import React from 'react';
-import {mount, shallow} from 'enzyme';
 import App from './App';
-import InnloggingBoundary from './InnloggingBoundary/InnloggingBoundary';
-import AvtaleOversikt from "@/AvtaleOversikt/AvtaleOversikt";
-import {Route, BrowserRouter, Routes} from "react-router-dom";
-import { createMemoryHistory } from 'history';
 import { MemoryRouter } from 'react-router';
-import Informasjonsside from "@/Informasjonsside/Informasjonsside";
-import {pathTilInformasjonssideUinnlogget} from "@/paths";
+import {render, fireEvent, waitFor, screen, findByText, findByRole} from '@testing-library/react'
+import '@testing-library/jest-dom'
+import {basename} from "@/paths";
 
-
-test('Test that <App> renders correctly', () => {
-
-    const history = createMemoryHistory({ initialEntries: ['/tiltaksgjennomforing/'] });
-
-    const wrapper = shallow(
-            <App />
+test('Test that <App> renders correctly', async () => {
+    const wrapper = render(
+        <App MedMemoryRouter={true} />
     );
-    expect(wrapper).toHaveLength(1);
-    const routesRenderer = wrapper.find(Routes);
-    expect(routesRenderer).toHaveLength(1);
+    console.log(wrapper.debug())
+
+    await screen.findByRole(/presentation/)
+    const knapp = await screen.findByText(/Logg inn/)
+    expect(knapp).toBeInTheDocument();
+    wrapper.unmount();
 });
