@@ -10,7 +10,7 @@ import '@formatjs/intl-relativetimeformat/locale-data/nb';
 import '@formatjs/intl-relativetimeformat/polyfill';
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
-import { BrowserRouter, Route ,Routes} from 'react-router-dom';
+import { BrowserRouter,Route, Routes } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import AvtaleProvider from './AvtaleProvider';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
@@ -38,28 +38,19 @@ import {
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
-import {PropsWithChildren, ReactNode} from "react";
-import {MemoryRouter} from "react-router";
-type AppProps = {
-    MedMemoryRouter?: Boolean
-}
-class App extends React.Component<AppProps> {
+
+class App extends React.Component {
     render() {
-        const LokalRouter = ({ children }: any) => {
-            if(this.props.MedMemoryRouter){
-                return (<MemoryRouter initialEntries={[basename]}>{ children }</MemoryRouter>)
-            }
-            return <BrowserRouter basename={basename}>{children}</BrowserRouter>
-        }
         return (
             <ErrorBoundary>
                 <IntlProvider locale="nb" messages={messages}>
-                    <LokalRouter>
+                    <BrowserRouter basename={basename}>
                         <AdvarselBannerTestversjon />
                         <VarselOmNedetid />
                         <Routes>
                             <Route path={pathTilInformasjonssideUinnlogget} element={<Informasjonsside />} />
-                            <Route path="*"
+                            <Route
+                                path="*"
                                 element={
                                     <FeilVarselProvider>
                                         <InnloggingBoundary>
@@ -145,9 +136,9 @@ class App extends React.Component<AppProps> {
                                         </InnloggingBoundary>
                                     </FeilVarselProvider>
                                 }
-                            />
+                            ></Route>
                         </Routes>
-                    </LokalRouter>
+                    </BrowserRouter>
                 </IntlProvider>
             </ErrorBoundary>
         );
