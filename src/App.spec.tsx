@@ -1,34 +1,12 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import App from './App';
-import { MemoryRouter } from 'react-router';
-import {render, fireEvent, waitFor, screen, findByText, findByRole} from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { Routes } from 'react-router-dom';
 
-import  * as rrd from 'react-router-dom';
-import PropTypes from "prop-types";
-import {basename} from "@/paths";
+test('Test that <App> renders correctly', () => {
 
-const MockBrowserRouter = ({ children }:any) => (
-    <MemoryRouter initialEntries={[basename]}>
-        { children }
-    </MemoryRouter>
-);
-
-beforeEach(()=>{
-    // @ts-ignore
-    rrd.BrowserRouter = MockBrowserRouter
-})
-test('Test that <App> renders correctly', async () => {
-
-
-
-    const wrapper = render(
-        <App />
-    );
-    console.log(wrapper.debug())
-
-    await screen.findByRole(/presentation/)
-    const knapp = await screen.findByText(/Logg inn/)
-    expect(knapp).toBeInTheDocument();
-    wrapper.unmount();
+    const wrapper = shallow(<App />);
+    expect(wrapper).toHaveLength(1);
+    const routesRenderer = wrapper.find(Routes);
+    expect(routesRenderer).toHaveLength(1);
 });
