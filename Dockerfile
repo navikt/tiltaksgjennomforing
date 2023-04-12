@@ -11,11 +11,12 @@ WORKDIR /app
 
 # COPY dist -> dist // output path i webpack config definerer dette.
 #COPY server/node_modules -> dist/node_modules // slik at server.js ligger i samme path folder. Og treffer dependencies.
+
 COPY ./dist ./dist
 COPY ./server/node_modules ./dist/node_modules
 
 
-COPY build/ ./build
+COPY ./build ./build
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
