@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-    name: tiltaksgjennomforing
+    name: tiltaksgjennomforing-labs
     namespace: arbeidsgiver
     labels:
         team: arbeidsgiver
@@ -46,7 +46,7 @@ spec:
     accessPolicy:
       outbound:
         external:
-          - host: https://tiltak-fakelogin.labs.nais.io
+          - host: https://tiltak-fakelogin.ekstern.dev.nav.no
         rules:
-          - application: tiltaksgjennomforing-api
+          - application: tiltaksgjennomforing-api-labs
     {{/if}}
