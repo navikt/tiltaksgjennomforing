@@ -6,7 +6,7 @@ module.exports = {
     target: 'node',
     externalsPresets: { node: true },
     output: {
-        path: path.resolve(__dirname, '../build'),
+        path: path.resolve(__dirname, '../dist'),
         filename: 'server.js',
     },
     mode: 'production',

@@ -26,7 +26,7 @@ async function startServer(): Promise<void> {
     node.use(express.json());
     node.use(express.urlencoded({ extended: true }));
 
-    // await loginProvider.setupOauth2Clients(server);
+    await loginProvider.setupOauth2Clients(node);
 
     labsProxy.setup(node);
 
@@ -65,7 +65,7 @@ async function startMedModiaDekoratoren(): Promise<void> {
         ) => {
             //  res.send(appMedModiaDekoratoren.getModiaDekoratoren());
             res.status(200);
-            res.sendFile(path.resolve(__dirname, 'index.html'));
+            res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
         }
     );
 }
@@ -77,7 +77,7 @@ async function startLabs(): Promise<void> {
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>
         ) => {
-            res.sendFile(path.resolve(__dirname, 'index.html'));
+            res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
         }
     );
 }
