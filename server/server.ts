@@ -87,17 +87,20 @@ function setStaticPath(): void {
         express.static(BASEPATH, {
             etag: false,
         }),
-        express.static(path.resolve(__dirname))
+        express.static(path.resolve(__dirname, '../build'))
     );
 
     node.use(
         express.static(BASEPATH, {
             etag: false,
         }),
-        express.static(path.resolve(__dirname))
+        express.static(path.resolve(__dirname, '../build'))
     );
     STATIC_PATHS.forEach((staticpath: string): Express => {
-        return node.use(BASEPATH.concat(staticpath), express.static(path.resolve(__dirname, '.'.concat(staticpath))));
+        return node.use(
+            BASEPATH.concat(staticpath),
+            express.static(path.resolve(__dirname, '../build', '.'.concat(staticpath)))
+        );
     });
 }
 
