@@ -28,8 +28,6 @@ async function startServer(): Promise<void> {
 
     await loginProvider.setupOauth2Clients(node);
 
-    labsProxy.setup(node);
-
     if (process.env.ENABLE_EXTERNAL_MENU) {
         await startMedNavDekoratoren();
     } else if (process.env.ENABLE_INTERNAL_MENU) {

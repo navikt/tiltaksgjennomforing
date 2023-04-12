@@ -21,3 +21,6 @@ EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
 CMD ["node dist/server.js"]
+
+
+# NODE_ENV = production  // NODE_ENV = development

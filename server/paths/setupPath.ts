@@ -1,9 +1,9 @@
 import { getMiljø, Miljø } from './miljø';
 import pathVariables, { PathVariables } from './pathVariables';
-import express, { Express } from 'express';
+import  { Express } from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
-import path from 'path';
+
 
 const miljo: Miljø = getMiljø();
 
