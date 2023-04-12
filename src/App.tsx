@@ -10,7 +10,7 @@ import '@formatjs/intl-relativetimeformat/locale-data/nb';
 import '@formatjs/intl-relativetimeformat/polyfill';
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
-import { BrowserRouter,Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdvarselBannerTestversjon from './AdvarselBannerTestversjon/AdvarselBannerTestversjon';
 import AvtaleProvider from './AvtaleProvider';
 import AvtaleSide from './AvtaleSide/AvtaleSide';
@@ -136,7 +136,7 @@ class App extends React.Component {
                                         </InnloggingBoundary>
                                     </FeilVarselProvider>
                                 }
-                            ></Route>
+                            />
                         </Routes>
                     </BrowserRouter>
                 </IntlProvider>

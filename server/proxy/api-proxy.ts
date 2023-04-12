@@ -57,7 +57,7 @@ function setupPath(app: Express) {
 
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
-        if (!req.headers.authorization) {
+        if (!req.headers['authorization']) {
             res.status(401).send();
         } else {
             next();

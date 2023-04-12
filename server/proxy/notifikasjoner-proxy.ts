@@ -8,7 +8,7 @@ import { RequestOptions } from 'http';
 
 const setup = (app: Express, tokenxClient: BaseClient): void => {
     app.use('/tiltaksgjennomforing/notifikasjon-bruker-api', (req, res, next: NextFunction) => {
-        if (!req.headers.authorization) {
+        if (!req.headers['authorization']) {
             res.status(401).send();
         } else {
             next();

@@ -4,7 +4,7 @@ interface TokenxConfig {
     discoveryUrl: string;
     clientID: string;
     privateJwk: string;
-    tokenEndpointAuthMethod: string;
+    tokenEndpointAuthMethod: ClientAuthMethod;
 }
 
 const client = async (): Promise<BaseClient> => {
@@ -14,15 +14,16 @@ const client = async (): Promise<BaseClient> => {
         privateJwk: process.env.TOKEN_X_PRIVATE_JWK as string,
         tokenEndpointAuthMethod: 'private_key_jwt',
     };
-    const provider: Issuer<BaseClient> = await Issuer.discover(tokenxConfig.discoveryUrl);
+
+    const issuer: Issuer<BaseClient> = await Issuer.discover(tokenxConfig.discoveryUrl);
     const jwk = JSON.parse(tokenxConfig.privateJwk);
 
-    console.log(`Discovered issuer ${provider.issuer}`);
+    console.log(`Discovered issuer ${issuer.issuer}`);
 
-    return new provider.Client(
+    return new issuer.Client(
         {
             client_id: tokenxConfig.clientID as string,
-            token_endpoint_auth_method: tokenxConfig.tokenEndpointAuthMethod as ClientAuthMethod,
+            token_endpoint_auth_method: tokenxConfig.tokenEndpointAuthMethod,
         },
         { keys: [jwk] }
     );
@@ -35,7 +36,7 @@ const getTokenExchangeAccessToken = async (tokenxClient: any, audience: any, req
             nbf: now,
         },
     };
-    const bearerToken = req.headers.authorization.replace('Bearer', '').trim();
+    const bearerToken = req.headers['authorization'].replace('Bearer', '').trim();
     const backendTokenSet = await tokenxClient.grant(
         {
             grant_type: 'urn:ietf:params:oauth:grant-type:token-exchange',

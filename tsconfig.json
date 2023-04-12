@@ -24,10 +24,9 @@
     "jsx": "react-jsx",
     "downlevelIteration": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true
   },
   "include": [
-    "src"
+    "src", "server"
   ],
   "exclude": [
     "server.js",

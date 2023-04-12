@@ -4,6 +4,7 @@
         "exclude": ["config/**/*.js", "node_modules/**/*.ts", "node_modules/**/*.tsx", "coverage/lcov-report/*.js"]
     },
     "rules": {
+        "no-string-literal": false,
         "object-literal-sort-keys": false,
         "interface-name": [true, "never-prefix"],
         "max-classes-per-file": false,
