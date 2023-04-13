@@ -28,6 +28,8 @@ async function startServer(): Promise<void> {
 
     await loginProvider.setupOauth2Clients(node);
 
+    console.log('ferdig med oauth client setup.');
+
     if (process.env.ENABLE_EXTERNAL_MENU) {
         await startMedNavDekoratoren();
     } else if (process.env.ENABLE_INTERNAL_MENU) {
@@ -37,10 +39,12 @@ async function startServer(): Promise<void> {
     }
 
     const port = process.env.PORT || 3000;
+    console.log('setter port 300 for applikasjon');
     node.listen(port, () => console.log('server listening on port', port));
 }
 
 async function startMedNavDekoratoren(): Promise<void> {
+    console.log('klar for sending av applikasjon');
     node.get(
         ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (
