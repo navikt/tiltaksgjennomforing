@@ -56,7 +56,6 @@ async function startMedNavDekoratoren(): Promise<void> {
             res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
         }
     );
-    await startServer();
 }
 
 async function startMedModiaDekoratoren(): Promise<void> {
