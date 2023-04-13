@@ -44,15 +44,10 @@ async function startServer(): Promise<void> {
 }
 
 async function startMedNavDekoratoren(): Promise<void> {
-    console.log('klar for sending av applikasjon');
     node.get(
         ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
-        ) => {
-            res.send(appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, '../build', 'index.html')));
-        }
+        (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
+            appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, '../build', 'index.html'), res)
     );
 }
 

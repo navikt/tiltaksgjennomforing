@@ -22,7 +22,6 @@ async function getModiaDekoratoren(): Promise<Document> {
         return updatedDocument;
     }
 
-    // console.log('filer i build folder: ', fs.readdirSync(pp));
     throw new ApiError('Feilet med oppdatering av index.html.');
 }
 

@@ -1,4 +1,5 @@
 import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
+import { Response } from 'express-serve-static-core';
 
 enum Env {
     PROD = 'prod',
@@ -9,26 +10,23 @@ function getEnv(): Env {
     return process.env.NAIS_CLUSTER_NAME === 'prod-gcp' ? Env.PROD : Env.DEV;
 }
 
-async function getNavdekoratoren(indexFilepath: string): Promise<string> {
+async function getNavdekoratoren(
+    indexFilepath: string,
+    res: Response<any, Record<string, any>, number>
+): Promise<void> {
     return await injectDecoratorServerSide({
-        env: getEnv(),
-        context: 'arbeidsgiver',
-        language: 'nb',
-        availableLanguages: [],
-        breadcrumbs: [],
-        enforceLogin: false,
-        feedback: false,
+        env: 'dev',
         filePath: indexFilepath,
-        level: '4',
-        logoutUrl: process.env.LOGOUT_URL ?? 'https://arbeidsgiver.nav.no/tiltaksgjennomforing',
-        redirectToApp: true,
-        redirectToUrl: '/tiltaksgjennomforing',
-        shareScreen: true,
-        simple: false,
-        urlLookupTable: false,
-        utilsBackground: undefined,
-        utloggingsvarsel: false,
         chatbot: true,
-    });
+        context: 'arbeidsgiver',
+        redirectToApp: true,
+        level: 'Level4',
+        language: 'nb',
+    })
+        .then((html) => {
+            res.send(html);
+        })
+        .catch((err) => console.log('Feil ved henting av dekorator: ', err));
 }
+
 export default { getNavdekoratoren };
