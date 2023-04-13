@@ -57,7 +57,7 @@ const getInnloggingskilderEksternBrukerFlate = (props: EnvProps): PathVariables[
             url: props.LOGIN_URL as string,
         },
         {
-            tittel: 'Som mentor',
+            tittel: 'Som mentor test',
             part: 'MENTOR',
             url: props.LOGIN_URL as string,
         },
