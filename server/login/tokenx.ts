@@ -34,6 +34,8 @@ const getTokenExchangeAccessToken = async (tokenxClient: any, audience: any, req
     const additionalClaims = {
         clientAssertionPayload: {
             nbf: now,
+            // Må overstyre openid-client sånn at den ikke legger til to url her, kun selve tokenendepunktet
+            aud: [tokenxClient?.issuer.metadata.token_endpoint],
         },
     };
     const bearerToken = req.headers['authorization'].replace('Bearer', '').trim();
