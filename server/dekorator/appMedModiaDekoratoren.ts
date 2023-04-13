@@ -10,21 +10,18 @@ const scriptAddress: string =
 const styleAddress: string =
     'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
 
-async function getModiaDekoratoren(
-    indexpath: string,
-    res: Response<any, Record<string, any>, number>
-): Promise<Document> {
+async function getModiaDekoratoren(indexpath: string, res: Response<any, Record<string, any>, number>): Promise<void> {
     const index: string = await getHTMLDocument(indexpath);
 
     const { document } = new JSDOM(index).window;
     if (document) {
+        console.log('document is defined');
         const updatedDocument = setInnHTML(document);
+        console.log('current updated document: ', updatedDocument.documentElement.outerHTML);
         res.send(`<!DOCTYPE html>${updatedDocument.documentElement.outerHTML}`);
     } else {
-        throw new Error('Feilet med oppdatering av index.html.');
+        throw new ApiError('Feilet med oppdatering av index.html.');
     }
-
-    throw new ApiError('Feilet med oppdatering av index.html.');
 }
 
 async function getHTMLDocument(indexFilepath: string): Promise<string> {

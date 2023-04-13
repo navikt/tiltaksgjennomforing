@@ -9,7 +9,6 @@ import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import loginProvider from './login/loginProvider';
 import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
-import labsProxy from './proxy/labs-proxy';
 import bodyParser from 'body-parser';
 
 const node: Express = express();
@@ -56,12 +55,8 @@ async function startMedNavDekoratoren(): Promise<void> {
 async function startMedModiaDekoratoren(): Promise<void> {
     node.get(
         ['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
-        ) => {
-            res.send(appMedModiaDekoratoren.getModiaDekoratoren(indexPath, res));
-        }
+        (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
+            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, res)
     );
 }
 
