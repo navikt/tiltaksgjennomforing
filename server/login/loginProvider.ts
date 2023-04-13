@@ -34,8 +34,8 @@ async function initLoginAndProxyForExternal(server: Express): Promise<void> {
     const tokenxAuthClient = await tokenx.client();
 
     apiProxy.tokenxSetup(server, tokenxAuthClient);
-    // notifikasjonProxy.setup(server, tokenxAuthClient);
-    // decoratorEksternProxy.setup(server);
+    notifikasjonProxy.setup(server, tokenxAuthClient);
+    decoratorEksternProxy.setup(server);
 
     console.log('Satt opp api-proxy med tokenx');
 }
