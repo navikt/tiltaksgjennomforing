@@ -20,7 +20,10 @@ jobs:
         uses: actions/checkout@v3
       - name: Server yarn install
         working-directory: ./server
-        run: yarn install
+        run: yarn install --frozen-lockfile
+      - name: Server yarn build
+        working-directory: ./server
+        run: yarn build
       - name: Installer avhengigheter
         run: yarn install --frozen-lockfile
       - name: Kjør tester
