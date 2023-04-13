@@ -18,6 +18,8 @@ const node: Express = express();
 node.disable('x-powered-by');
 node.use(helmet());
 
+const indexPath = path.resolve(__dirname, '../build', 'index.html');
+
 async function startServer(): Promise<void> {
     setupPath.initializePath(node);
     setStaticPath();
@@ -47,7 +49,7 @@ async function startMedNavDekoratoren(): Promise<void> {
     node.get(
         ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, '../build', 'index.html'), res)
+            appMedNavDekoratoren.getNavdekoratoren(indexPath, res)
     );
 }
 
@@ -58,7 +60,7 @@ async function startMedModiaDekoratoren(): Promise<void> {
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>
         ) => {
-            res.send(appMedModiaDekoratoren.getModiaDekoratoren());
+            res.send(appMedModiaDekoratoren.getModiaDekoratoren(indexPath, res));
         }
     );
 }

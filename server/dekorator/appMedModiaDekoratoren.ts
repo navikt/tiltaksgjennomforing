@@ -1,25 +1,27 @@
 import fs from 'fs-extra';
 import jsdom from 'jsdom';
-import path from 'path';
-import { ApiError } from '../../src/types/errors';
+import { ApiError } from '@/types/errors';
+import { Response } from 'express-serve-static-core';
 
 const { JSDOM } = jsdom;
-
-type NewDocument = Document | undefined;
 
 const scriptAddress: string =
     'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/js/head.v2.min.js';
 const styleAddress: string =
     'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
 
-async function getModiaDekoratoren(): Promise<Document> {
-    const indexpath = path.resolve(__dirname, './../../build', 'index.html');
+async function getModiaDekoratoren(
+    indexpath: string,
+    res: Response<any, Record<string, any>, number>
+): Promise<Document> {
     const index: string = await getHTMLDocument(indexpath);
 
     const { document } = new JSDOM(index).window;
     if (document) {
         const updatedDocument = setInnHTML(document);
-        return updatedDocument;
+        res.send(`<!DOCTYPE html>${updatedDocument.documentElement.outerHTML}`);
+    } else {
+        throw new Error('Feilet med oppdatering av index.html.');
     }
 
     throw new ApiError('Feilet med oppdatering av index.html.');
