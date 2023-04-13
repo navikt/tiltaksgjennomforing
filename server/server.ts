@@ -51,24 +51,19 @@ async function startMedNavDekoratoren(): Promise<void> {
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>
         ) => {
-            //   res.send(appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, 'index.html')));
-            res.status(200);
-            res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+            res.send(appMedNavDekoratoren.getNavdekoratoren(path.resolve(__dirname, '../build', 'index.html')));
         }
     );
 }
 
 async function startMedModiaDekoratoren(): Promise<void> {
-    // const app = await appMedModiaDekoratoren.getModiaDekoratoren();
     node.get(
         ['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>
         ) => {
-            //  res.send(appMedModiaDekoratoren.getModiaDekoratoren());
-            res.status(200);
-            res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+            res.send(appMedModiaDekoratoren.getModiaDekoratoren());
         }
     );
 }
@@ -86,13 +81,6 @@ async function startLabs(): Promise<void> {
 }
 
 function setStaticPath(): void {
-    node.use(
-        express.static(BASEPATH, {
-            etag: false,
-        }),
-        express.static(path.resolve(__dirname, '../build'))
-    );
-
     node.use(
         express.static(BASEPATH, {
             etag: false,
