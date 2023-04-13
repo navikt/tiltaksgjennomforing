@@ -4,10 +4,10 @@
     "private": true,
     "homepage": "/tiltaksgjennomforing",
     "scripts": {
-        "build": "cross-env GIT_COMMIT_HASH=$(git log -n 1 --pretty=format:'%h')",
+        "build": "cross-env GIT_COMMIT_HASH=$(git log -n 1 --pretty=format:'%h') webpack --config webpack.config.js",
         "release": "cross-env GIT_COMMIT_HASH=$(git log -n 1 --pretty=format:'%h') node sentry.js",
         "server": "node server.js --openssl-legacy-provider ",
-        "start": "yarn start --openssl-legacy-provider",
+        "start": "node ../dist/server.js --openssl-legacy-provider",
         "start-ekstern": "cross-env ENABLE_EXTERNAL_MENU=true yarn start",
         "start-intern": "cross-env process.env.ENABLE_INTERNAL_MENU=true yarn start",
         "test": "cross-env CI=true yarn test -w 1",
@@ -16,20 +16,35 @@
         "up": "docker-compose up -d --remove-orphans --build"
     },
     "dependencies": {
+        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^5.4.8",
+        "@navikt/nav-dekoratoren-moduler": "^1.6.9",
+        "axios": "^0.21.1",
+        "express-async-handler": "1.2.0",
+        "express-http-proxy": "1.6.2",
+        "fs-extra": "^8.1.0",
         "helmet": "^3.21.3",
         "http-proxy-middleware": "^2.0.1",
+        "jsdom": "^16.4.0",
         "node-cache": "4.2.0",
         "node-fetch": "2.6.1",
-        "jsdom": "^16.4.0",
-        "fs-extra": "^8.1.0",
-        "express-async-handler": "^1.2.0",
-        "axios": "^0.21.1",
-        "openid-client": "3.7.2",
-        "express-http-proxy": "1.6.2"
+        "openid-client": "^5.4.0"
     },
     "devDependencies": {
+        "@babel/core": "^7.21.4",
+        "@babel/preset-env": "^7.21.4",
+        "@babel/preset-react": "^7.18.6",
+        "@babel/preset-typescript": "^7.21.4",
+        "@types/express": "^4.17.17",
+        "@types/express-http-proxy": "^1.6.3",
+        "@types/fs-extra": "^11.0.1",
+        "@types/jsdom": "^21.1.1",
+        "babel": "^6.23.0",
+        "babel-loader": "^9.1.2",
         "cross-env": "^7.0.3",
-        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^5.0.1"
+        "typescript": "^5.0.4",
+        "webpack": "^5.78.0",
+        "webpack-cli": "^5.0.1",
+        "webpack-node-externals": "^3.0.0"
     },
     "browserslist": [
         ">0.2%",
