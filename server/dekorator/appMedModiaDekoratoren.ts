@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import jsdom from 'jsdom';
-import { ApiError } from '@/types/errors';
+import { ApiError } from '../../src/types/errors';
 import { Response } from 'express-serve-static-core';
 
 const { JSDOM } = jsdom;
