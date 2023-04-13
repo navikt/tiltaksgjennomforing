@@ -5,6 +5,7 @@ import { Express } from 'express';
 import { BaseClient } from 'openid-client';
 import { Request } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
     console.log('api-proxy setup for tokenx');
@@ -63,6 +64,16 @@ function setupPath(app: Express) {
             next();
         }
     });
+
+    app.use(
+        '/tiltaksgjennomforing/stillingstitler',
+        createProxyMiddleware({
+            changeOrigin: true,
+            pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
+            target: process.env.STILLINGSTITLER_URL,
+            proxyTimeout: 10000,
+        })
+    );
 }
 
 export default { tokenxSetup, azureSetup };

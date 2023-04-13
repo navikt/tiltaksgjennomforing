@@ -2,7 +2,7 @@
 "api-gw-url": "https://tiltak-proxy.dev-fss-pub.nais.io"
 "login-url": "/oauth2/login?redirect=/tiltaksgjennomforing"
 "logout-url": "/oauth2/logout"
-"stillingstitler-url": "https://tiltak-stillingstitler.intern.dev.nav.no"
+"stillingstitler-url": "http://tiltak-stillingstitler"
 "api-audience": "dev-fss:arbeidsgiver:tiltak-proxy"
 "proxy-cluster": "dev-fss"
 "aad-redirect-url": "https://tiltaksgjennomforing.ekstern.dev.nav.no/oauth2/callback"
