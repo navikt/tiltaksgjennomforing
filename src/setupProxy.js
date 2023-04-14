@@ -1,5 +1,5 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const lokalProxy = require('../server/lokalproxy');
+const lokalProxy = require('../server/proxy/lokalProxy');
 const fetch = require('node-fetch');
 const { applyNotifikasjonMockMiddleware } = require("@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock");
 
