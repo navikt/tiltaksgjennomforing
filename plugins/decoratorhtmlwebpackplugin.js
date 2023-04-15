@@ -1,5 +1,4 @@
 const jsdom = require('jsdom');
-const fetch = require('node-fetch');
 
 const { JSDOM } = jsdom;
 const url = 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb';
@@ -26,20 +25,20 @@ const decoratorHtmlWebpackPlugin = (enablemenu = false) => {
 };
 
 const addElements = (plugin, documentisfetched, document = {}) => {
-    htmlinsert.forEach(element => {
+    htmlinsert.forEach((element) => {
         plugin.options[element.inject] = documentisfetched ? getElement(document, element.from) : '';
     });
 };
 
-const getHtmlWebpackPlugin = plugins => {
-    return plugins.find(plugin => {
+const getHtmlWebpackPlugin = (plugins) => {
+    return plugins.find((plugin) => {
         if (plugin.constructor.name === 'HtmlWebpackPlugin') {
             return plugin;
         }
     });
 };
 
-const enablebackup = plugin => {
+const enablebackup = (plugin) => {
     console.log('failed to fetch decorator from:' + url);
     addElements(plugin, false);
 };
@@ -49,14 +48,14 @@ const getElement = (document, id) => {
     return document.getElementById(id)[prop];
 };
 
-const getMenu = plugin => {
+const getMenu = (plugin) => {
     fetch(url, { method: 'GET' })
-        .then(response => response.text())
-        .then(data => {
+        .then((response) => response.text())
+        .then((data) => {
             const { document } = new JSDOM(data).window;
             addElements(plugin, true, document);
         })
-        .catch(err => {
+        .catch((err) => {
             console.warn('failed to fetch decorator. cause: ', err);
             enablebackup(plugin);
         });

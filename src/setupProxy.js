@@ -1,7 +1,6 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const lokalProxy = require('../server/lokalproxy');
-const fetch = require('node-fetch');
-const { applyNotifikasjonMockMiddleware } = require("@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock");
+const lokalProxy = require('../server/proxy/lokalproxy');
+const { applyNotifikasjonMockMiddleware } = require('@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 const isLabs = process.env.NAIS_CLUSTER_NAME === 'labs-gcp';
@@ -15,9 +14,7 @@ const envProperties = {
 };
 
 if (!envProperties.LOGOUT_URL || !envProperties.LOGIN_URL) {
-    console.error(
-        'Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, LOGIN_URL.'
-    );
+    console.error('Må sette en variabel for innlogging og en for utlogging: LOGOUT_URL, LOGIN_URL.');
     process.exit(1);
 }
 
@@ -30,26 +27,27 @@ module.exports = function (app) {
                 {
                     tittel: 'Som deltaker',
                     part: 'DELTAKER',
-                    url: '/tiltaksgjennomforing/fakelogin/tokenx'
-                },{
+                    url: '/tiltaksgjennomforing/fakelogin/tokenx',
+                },
+                {
                     tittel: 'Som mentor',
                     part: 'MENTOR',
-                    url: '/tiltaksgjennomforing/fakelogin/tokenx'
+                    url: '/tiltaksgjennomforing/fakelogin/tokenx',
                 },
                 {
                     tittel: 'Som arbeidsgiver',
                     part: 'ARBEIDSGIVER',
-                    url: '/tiltaksgjennomforing/fakelogin/tokenx'
+                    url: '/tiltaksgjennomforing/fakelogin/tokenx',
                 },
                 {
                     tittel: 'Som veileder',
                     part: 'VEILEDER',
-                    url: '/tiltaksgjennomforing/fakelogin/aad'
+                    url: '/tiltaksgjennomforing/fakelogin/aad',
                 },
                 {
                     tittel: 'Som beslutter',
                     part: 'BESLUTTER',
-                    url: '/tiltaksgjennomforing/fakelogin/aad'
+                    url: '/tiltaksgjennomforing/fakelogin/aad',
                 }
             );
         } else {
@@ -59,7 +57,8 @@ module.exports = function (app) {
                         tittel: 'Som deltaker',
                         part: 'DELTAKER',
                         url: envProperties.LOGIN_URL,
-                    },{
+                    },
+                    {
                         tittel: 'Som mentor',
                         part: 'MENTOR',
                         url: envProperties.LOGIN_URL,
@@ -130,7 +129,7 @@ module.exports = function (app) {
     }
 
     if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp' || process.env.NODE_ENV === 'development') {
-        applyNotifikasjonMockMiddleware({app, path: "/tiltaksgjennomforing/notifikasjon-bruker-api"})
+        applyNotifikasjonMockMiddleware({ app, path: '/tiltaksgjennomforing/notifikasjon-bruker-api' });
     }
 
     app.use(

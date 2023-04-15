@@ -1,5 +1,4 @@
 const jsdom = require('jsdom');
-const fetch = require('node-fetch');
 
 const { JSDOM } = jsdom;
 const url = 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb';
