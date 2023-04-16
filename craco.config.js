@@ -2,30 +2,40 @@ const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const { EnvironmentPlugin } = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const modiaDekoratoren = require('./plugins/modia-dekoratoren');
+const navDekoratoren = require('./plugins/nav-dekoratoren');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     webpack: {
-        plugins: [
-            new BundleAnalyzerPlugin({
-                analyzerMode: 'disabled',
-                openAnalyzer: false,
-            }),
-            new EnvironmentPlugin({
-                GIT_COMMIT_HASH: 'local-dev',
-            }),
-        ],
+        plugins: {
+            add: [
+                new BundleAnalyzerPlugin({
+                    analyzerMode: 'disabled',
+                    openAnalyzer: false,
+                }),
+                new EnvironmentPlugin({
+                    GIT_COMMIT_HASH: 'local-dev',
+                }),
+            ],
+        },
         alias: {
             '@': path.resolve(__dirname, 'src/'),
         },
     },
-    plugins: [{ plugin: CracoLessPlugin }],
+    plugins: [
+        { plugin: CracoLessPlugin },
+        { plugin: modiaDekoratoren(process.env.ENABLE_INTERNAL_MENU) },
+        {
+            plugin: navDekoratoren(process.env.ENABLE_EXTERNAL_MENU),
+        },
+    ],
     eslint: {
         enable: true,
         mode: 'extends',
         configure: {
             extends: 'react-app',
             rules: {
-                // Det er en bug i denne sjekken som automatisk feiler på ÆØÅ: https://github.com/yannickcr/eslint-plugin-react/issues/1654
                 'react/jsx-pascal-case': 'off',
             },
         },

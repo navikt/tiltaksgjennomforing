@@ -3,7 +3,15 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const url = 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb';
 
-const navDekoratoren = (enablemenu = false) => {
+function getHtmlWebpackPlugin(plugins) {
+    return plugins.find((plugin) => {
+        if (plugin.constructor.name === 'HtmlWebpackPlugin') {
+            return plugin;
+        }
+    });
+}
+
+function navDekoratoren(enablemenu = false) {
     return {
         overrideWebpackConfig: ({ webpackConfig }) => {
             if (enablemenu) {
@@ -15,14 +23,6 @@ const navDekoratoren = (enablemenu = false) => {
             return webpackConfig;
         },
     };
-};
-
-function getHtmlWebpackPlugin(plugins) {
-    return plugins.find((plugin) => {
-        if (plugin.constructor.name === 'HtmlWebpackPlugin') {
-            return plugin;
-        }
-    });
 }
 
 function getMenu(indexHTML) {
@@ -44,7 +44,6 @@ function addElement(indexHTML, document = {}) {
     indexHTML.options['scripts'] = document.getElementById('scripts')['innerHTML'];
     indexHTML.options['headerWithmenu'] = document.getElementById('header-withmenu')['innerHTML'];
     indexHTML.options['footerWithmenu'] = document.getElementById('footer-withmenu')['innerHTML'];
-    indexHTML.options['megamenuResources'] = document.getElementById('megamenu-resources')['innerHTML'];
 }
 
 module.exports = navDekoratoren;
