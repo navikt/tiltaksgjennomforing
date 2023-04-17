@@ -30,7 +30,7 @@ const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
                     req
                 );
                 proxyReq.setHeader('Authorization', `Bearer ${accessToken}`);
-                restream(proxyReq, req);
+                // restream(proxyReq, req);
             },
             changeOrigin: true,
             pathRewrite: { '/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api' },
@@ -51,7 +51,7 @@ const azureSetup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: a
             onProxyReq: async (proxyReq, req, res) => {
                 const accessToken = await azure.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req);
                 proxyReq.setHeader('Authorization', `Bearer ${accessToken}`);
-                restream(proxyReq, req);
+                // restream(proxyReq, req);
             },
             changeOrigin: true,
             pathRewrite: { '/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api' },
