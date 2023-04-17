@@ -1,4 +1,5 @@
 const proxy = require('express-http-proxy');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const setup = (app) => {
     console.log('Lokal proxy-setup');
@@ -34,20 +35,26 @@ const setup = (app) => {
 
     app.use(
         '/tiltaksgjennomforing/api',
-        proxy(apiUrl, {
-            proxyReqPathResolver: (req) => {
-                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
-            },
-            proxyReqOptDecorator: (proxyReqOpts, req) => {
+        createProxyMiddleware({
+            onProxyReq: async (proxyReq, req, res) => {
                 let cookies = req.headers.cookie.split(';');
                 let cookieWithFakeToken = cookies.filter((c) => {
                     return c.includes('fake');
                 });
                 const accessToken = cookieWithFakeToken[0].split('=')[1];
-                proxyReqOpts.headers.Authorization = `Bearer ${accessToken}`;
+                proxyReq.setHeader('Authorization', `Bearer ${accessToken}`);
 
-                return proxyReqOpts;
+                if (req.body) {
+                    const bodyData = JSON.stringify(req.body);
+                    proxyReq.setHeader('Content-Type', 'application/json');
+                    proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+                    proxyReq.write(bodyData);
+                }
             },
+            changeOrigin: true,
+            pathRewrite: { '/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api' },
+            target: apiUrl,
+            proxyTimeout: 10000,
         })
     );
 };
