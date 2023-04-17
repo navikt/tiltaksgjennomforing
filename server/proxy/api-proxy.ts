@@ -5,6 +5,8 @@ import { BaseClient } from 'openid-client';
 import { Request } from 'express-serve-static-core';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import http from 'http';
+import proxy from 'express-http-proxy';
+import { ParsedQs } from 'qs';
 
 export const restream = (proxyReq: http.ClientRequest, req: Request) => {
     if (req.body) {
@@ -22,6 +24,24 @@ const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
 
     app.use(
         '/tiltaksgjennomforing/api',
+        proxy(process.env.APIGW_URL as string, {
+            proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
+                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
+            },
+            proxyReqOptDecorator: async (options: any, req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
+                const accessToken = await tokenx.getTokenExchangeAccessToken(
+                    tokenxClient,
+                    process.env.API_AUDIENCE,
+                    req
+                );
+                options.headers.Authorization = `Bearer ${accessToken}`;
+                return options;
+            },
+        })
+    );
+
+    /*    app.use(
+        '/tiltaksgjennomforing/api',
         createProxyMiddleware({
             onProxyReq: async (proxyReq, req, res) => {
                 const accessToken = await tokenx.getTokenExchangeAccessToken(
@@ -37,7 +57,7 @@ const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
             target: process.env.APIGW_URL,
             proxyTimeout: 10000,
         })
-    );
+    );*/
 };
 
 const azureSetup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: any): void => {
@@ -46,6 +66,20 @@ const azureSetup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: a
     setupPath(app);
 
     app.use(
+        '/tiltaksgjennomforing/api',
+        proxy(process.env.APIGW_URL as string, {
+            proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
+                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
+            },
+            proxyReqOptDecorator: async (options: any, req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
+                const accessToken = await azure.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req);
+                options.headers.Authorization = `Bearer ${accessToken}`;
+                return options;
+            },
+        })
+    );
+
+    /*    app.use(
         '/tiltaksgjennomforing/api',
         createProxyMiddleware({
             onProxyReq: async (proxyReq, req, res) => {
@@ -58,7 +92,7 @@ const azureSetup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: a
             target: process.env.APIGW_URL,
             proxyTimeout: 10000,
         })
-    );
+    );*/
 };
 
 function setupPath(app: Express) {
