@@ -64,7 +64,14 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                     <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
                                 </BodyShort>
                             )}
-                            <BodyShort size="small">{periode.lonnstilskuddProsent}%</BodyShort>
+                            <BodyShort size="small">
+                                {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' && periode.status !== 'BEHANDLET_I_ARENA' && (
+                                    <>{periode.lonnstilskuddProsent}%</>
+                                )}
+                                {(avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || avtale.tiltakstype === 'SOMMERJOBB') && (
+                                    <>{periode.lonnstilskuddProsent}%</>
+                                )}
+                                </BodyShort>
                             <BodyShort size="small" style={{ minWidth: '4rem' }}>
                                 {formatterPenger(periode.beløp)}
                             </BodyShort>
