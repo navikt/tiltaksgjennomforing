@@ -4,7 +4,6 @@ const { EnvironmentPlugin } = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const modiaDekoratoren = require('./plugins/modia-dekoratoren');
 const navDekoratoren = require('./plugins/nav-dekoratoren');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     webpack: {
