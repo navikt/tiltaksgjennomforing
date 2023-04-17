@@ -6,7 +6,7 @@ import { RequestOptions } from 'http';
 
 const setup = (app: Express) => {
 
-  const apiUrl = 'http://tiltaksgjennomforing-api:8080';
+  const apiUrl = 'http://tiltaksgjennomforing-api-labs:8080';
 
     app.use(
       '/tiltaksgjennomforing/api/kodeverk',

@@ -8,7 +8,7 @@ const cls = BEMHelper('advarsel-banner-testversjon');
 const AdvarselBannerTestversjon = () => {
     return (
         <>
-            {window.location.hostname.includes('labs.nais.io') && (
+            {window.location.hostname.includes('-labs') && (
                 <Alert variant='warning' className={cls.className}>
                     <b>Dette er en testversjon</b>
                     <br />

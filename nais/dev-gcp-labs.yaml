@@ -20,6 +20,8 @@ spec:
         path: /tiltaksgjennomforing/internal/isReady
         initialDelay: 5
     env:
+        - name: MILJO
+          value: dev-gcp-labs
         - name: APIGW_URL
           value: '{{{api-gw-url}}}'
         - name: ISSO_LOGIN_URL

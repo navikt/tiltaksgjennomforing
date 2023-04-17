@@ -6,8 +6,8 @@ export enum Miljø {
 }
 
 export function getMiljø() {
-    switch (process.env.NAIS_CLUSTER_NAME ?? '') {
-        case 'labs-gcp':
+    switch (process.env.MILJO ?? '') {
+        case 'dev-gcp-labs':
             return Miljø.LABS;
         case 'dev-gcp':
             return Miljø.DEV_GCP;
