@@ -9,7 +9,6 @@ import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import loginProvider from './login/loginProvider';
 import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
-import bodyParser from 'body-parser';
 
 const node: Express = express();
 
