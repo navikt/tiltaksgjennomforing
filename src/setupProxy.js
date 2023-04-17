@@ -3,7 +3,7 @@ const lokalProxy = require('../server/proxy/lokalproxy');
 const { applyNotifikasjonMockMiddleware } = require('@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
-const isLabs = process.env.MILJO === 'labs-gcp';
+const isLabs = process.env.MILJO === 'dev-gcp-labs';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
