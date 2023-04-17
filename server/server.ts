@@ -23,10 +23,6 @@ async function startServer(): Promise<void> {
     setupPath.initializePath(node);
     setStaticPath();
 
-    // node.use(bodyParser.json());
-    // node.use(express.json());
-    // node.use(express.urlencoded({ extended: true }));
-
     await loginProvider.setupOauth2Clients(node);
 
     console.log('ferdig med oauth client setup.');
