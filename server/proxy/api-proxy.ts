@@ -7,6 +7,19 @@ import { Request } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
+const setHeaders = (proxyReqOpts: any, req: any, accessToken: any) => {
+    proxyReqOpts.headers.Authorization = `Bearer ${accessToken}`;
+
+    if (req.body) {
+        const bodyData = JSON.stringify(req.body);
+        proxyReqOpts.headers['Content-Type'] = 'application/json';
+        proxyReqOpts.headers['Content-Length'] = Buffer.byteLength(bodyData);
+        req.write(bodyData);
+    }
+
+    return proxyReqOpts;
+};
+
 const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
     console.log('api-proxy setup for tokenx');
 
@@ -18,14 +31,14 @@ const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
             proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
                 return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
             },
-            proxyReqOptDecorator: async (options: any, req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
+            proxyReqOptDecorator: async (proxyReqOpts: any, req: any) => {
                 const accessToken = await tokenx.getTokenExchangeAccessToken(
                     tokenxClient,
                     process.env.API_AUDIENCE,
                     req
                 );
-                options.headers.Authorization = `Bearer ${accessToken}`;
-                return options;
+
+                return setHeaders(proxyReqOpts, req, accessToken);
             },
         })
     );
@@ -42,10 +55,10 @@ const azureSetup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: a
             proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
                 return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
             },
-            proxyReqOptDecorator: async (options: any, req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
+            proxyReqOptDecorator: async (proxyReqOpts: any, req: any) => {
                 const accessToken = await azure.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req);
-                options.headers.Authorization = `Bearer ${accessToken}`;
-                return options;
+
+                return setHeaders(proxyReqOpts, req, accessToken);
             },
         })
     );

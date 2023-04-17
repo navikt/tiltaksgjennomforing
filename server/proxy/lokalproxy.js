@@ -38,14 +38,15 @@ const setup = (app) => {
             proxyReqPathResolver: (req) => {
                 return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
             },
-            proxyReqOptDecorator: (options, req) => {
+            proxyReqOptDecorator: (proxyReqOpts, req) => {
                 let cookies = req.headers.cookie.split(';');
                 let cookieWithFakeToken = cookies.filter((c) => {
                     return c.includes('fake');
                 });
                 const accessToken = cookieWithFakeToken[0].split('=')[1];
-                options.headers.Authorization = `Bearer ${accessToken}`;
-                return options;
+                proxyReqOpts.headers.Authorization = `Bearer ${accessToken}`;
+
+                return proxyReqOpts;
             },
         })
     );
