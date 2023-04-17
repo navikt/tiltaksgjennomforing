@@ -24,7 +24,7 @@ async function startServer(): Promise<void> {
     setStaticPath();
 
     // node.use(bodyParser.json());
-    node.use(express.json());
+    // node.use(express.json());
     node.use(express.urlencoded({ extended: true }));
 
     await loginProvider.setupOauth2Clients(node);
