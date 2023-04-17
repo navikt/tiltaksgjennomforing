@@ -1,11 +1,11 @@
-import proxy from 'express-http-proxy';
 import tokenx from '../login/tokenx';
 import azure from '../login/azure';
 import { Express } from 'express';
 import { BaseClient } from 'openid-client';
 import { Request } from 'express-serve-static-core';
-import { ParsedQs } from 'qs';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import proxy from 'express-http-proxy';
+import { ParsedQs } from 'qs';
 
 const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
     console.log('api-proxy setup for tokenx');

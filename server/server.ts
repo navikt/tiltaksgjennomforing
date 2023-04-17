@@ -9,7 +9,6 @@ import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import loginProvider from './login/loginProvider';
 import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
-import bodyParser from 'body-parser';
 
 const node: Express = express();
 
@@ -22,10 +21,6 @@ const indexPath = path.resolve(__dirname, '../build', 'index.html');
 async function startServer(): Promise<void> {
     setupPath.initializePath(node);
     setStaticPath();
-
-    node.use(bodyParser.json());
-    node.use(express.json());
-    node.use(express.urlencoded({ extended: true }));
 
     await loginProvider.setupOauth2Clients(node);
 
