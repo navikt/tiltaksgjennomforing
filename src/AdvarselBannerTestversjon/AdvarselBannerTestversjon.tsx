@@ -14,7 +14,7 @@ const AdvarselBannerTestversjon = () => {
                     <br />
                     Her kan du bli bedre kjent med digitale avtaler for tiltaksgjennomføring.
                     <br />
-                    Hvis du er veileder i NAV må du bruke arbeidsgiver.nais.adeo.no/tiltaksgjennomforing for å lage en
+                    Hvis du er veileder i NAV må du bruke tiltaksgjennomforing.intern.dev.nav.no/tiltaksgjennomforing for å lage en
                     ekte avtale.
                     <br />
                     Hvis du er arbeidsgiver eller deltaker logger du deg på her:
