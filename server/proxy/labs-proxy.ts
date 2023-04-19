@@ -23,7 +23,7 @@ const setup = (app: Express) => {
     createProxyMiddleware({
       changeOrigin: true,
       pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
-      target: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.intern.dev.nav.no',
+      target: 'http://tiltak-stillingstitler',
       proxyTimeout: 10000,
     })
   );
