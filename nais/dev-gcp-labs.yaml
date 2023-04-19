@@ -51,4 +51,5 @@ spec:
           - host: https://tiltak-fakelogin.ekstern.dev.nav.no
         rules:
           - application: tiltaksgjennomforing-api-labs
+          - application: tiltak-stillingstitler
     {{/if}}
