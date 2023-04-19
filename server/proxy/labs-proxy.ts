@@ -3,6 +3,7 @@ import { Express, NextFunction } from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { RequestOptions } from 'http';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const setup = (app: Express) => {
 
@@ -86,6 +87,16 @@ function setupFakeLoginProvider(app: Express, apiUrl: string) {
         }
         return options;
       },
+    })
+  );
+
+  app.use(
+    '/tiltaksgjennomforing/stillingstitler',
+    createProxyMiddleware({
+      changeOrigin: true,
+      pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
+      target: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.intern.dev.nav.no',
+      proxyTimeout: 10000,
     })
   );
 }
