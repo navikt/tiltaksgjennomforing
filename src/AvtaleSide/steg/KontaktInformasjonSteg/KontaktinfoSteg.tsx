@@ -17,7 +17,6 @@ const KontaktinfoSteg: FunctionComponent = () => {
         'SOMMERJOBB',
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
-        'MENTOR',
     ].includes(avtale.tiltakstype);
     const skalViseRelasjoner = [
         'SOMMERJOBB',
