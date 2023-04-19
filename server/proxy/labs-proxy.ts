@@ -17,6 +17,17 @@ const setup = (app: Express) => {
       },
     })
   );
+
+  app.use(
+    '/tiltaksgjennomforing/stillingstitler',
+    createProxyMiddleware({
+      changeOrigin: true,
+      pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
+      target: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.intern.dev.nav.no',
+      proxyTimeout: 10000,
+    })
+  );
+
   setupFakeLoginProvider(app, apiUrl);
 };
 
@@ -87,16 +98,6 @@ function setupFakeLoginProvider(app: Express, apiUrl: string) {
         }
         return options;
       },
-    })
-  );
-
-  app.use(
-    '/tiltaksgjennomforing/stillingstitler',
-    createProxyMiddleware({
-      changeOrigin: true,
-      pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
-      target: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.intern.dev.nav.no',
-      proxyTimeout: 10000,
     })
   );
 }
