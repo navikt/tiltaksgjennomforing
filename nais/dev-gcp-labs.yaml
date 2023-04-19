@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-    name: tiltaksgjennomforing
+    name: tiltaksgjennomforing-labs
     namespace: arbeidsgiver
     labels:
         team: arbeidsgiver
@@ -20,6 +20,8 @@ spec:
         path: /tiltaksgjennomforing/internal/isReady
         initialDelay: 5
     env:
+        - name: MILJO
+          value: dev-gcp-labs
         - name: APIGW_URL
           value: '{{{api-gw-url}}}'
         - name: ISSO_LOGIN_URL
@@ -46,7 +48,7 @@ spec:
     accessPolicy:
       outbound:
         external:
-          - host: https://tiltak-fakelogin.labs.nais.io
+          - host: https://tiltak-fakelogin.ekstern.dev.nav.no
         rules:
-          - application: tiltaksgjennomforing-api
+          - application: tiltaksgjennomforing-api-labs
     {{/if}}

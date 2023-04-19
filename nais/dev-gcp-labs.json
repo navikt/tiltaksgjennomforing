@@ -1,0 +1,9 @@
+{
+    "ingress": "https://tiltaksgjennomforing-labs.ekstern.dev.nav.no",
+    "api-gw-url": "http://tiltaksgjennomforing-api-labs",
+    "login-url": "/tiltaksgjennomforing/fakelogin/aad",
+    "logout-url": "/tiltaksgjennomforing/fakelogout?domain=ekstern.dev.nav.no",
+    "stillingstitler-url": "https://tiltak-stillingstitler.intern.dev.nav.no",
+    "vault-enabled": false,
+    "labs": true
+}

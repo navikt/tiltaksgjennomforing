@@ -3,9 +3,9 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const setup = (app) => {
     console.log('Lokal proxy-setup');
-    const isLabs = process.env.NAIS_CLUSTER_NAME === 'labs-gcp';
+    const isLabs = process.env.MILJO === 'dev-gcp-labs';
 
-    const apiUrl = isLabs ? 'http://tiltaksgjennomforing-api:8080' : 'http://localhost:8080';
+    const apiUrl = isLabs ? 'http://tiltaksgjennomforing-api-labs:8080' : 'http://localhost:8080';
     if (isLabs) {
         app.use(
             '/tiltaksgjennomforing/api/kodeverk',

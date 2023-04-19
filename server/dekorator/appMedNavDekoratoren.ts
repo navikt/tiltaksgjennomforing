@@ -7,7 +7,7 @@ enum Env {
 }
 
 function getEnv(): Env {
-    return process.env.NAIS_CLUSTER_NAME === 'prod-gcp' ? Env.PROD : Env.DEV;
+    return process.env.MILJO === 'prod-gcp' ? Env.PROD : Env.DEV;
 }
 
 async function getNavdekoratoren(
