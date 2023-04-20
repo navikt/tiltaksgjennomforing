@@ -1,7 +1,5 @@
-import React, { FunctionComponent } from 'react';
-import { BodyShort, Label } from '@navikt/ds-react';
-import BEMHelper from '@/utils/bem';
-import './VisueltDisabledInputFelt.less';
+import { TextField } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 
 interface Props {
     label: string;
@@ -9,13 +7,8 @@ interface Props {
     size?: 'medium' | 'small';
 }
 
-const cls = BEMHelper('visueltDisabledInputFelt');
-
 const VisueltDisabledInputFelt: FunctionComponent<Props> = ({ label, tekst }) => (
-    <div className={cls.className}>
-        <Label className={cls.element('label')}>{label}</Label>
-        <BodyShort className={cls.element('tekstfelt')}>{tekst}</BodyShort>
-    </div>
+        <TextField label={label} value={tekst} readOnly style={{backgroundColor: "#f1f1f1"}} />
 );
 
 export default VisueltDisabledInputFelt;

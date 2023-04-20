@@ -2,10 +2,11 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
-import { Fieldset, TextField } from '@navikt/ds-react';
+import { Fieldset } from '@navikt/ds-react';
 
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 const ArbeidsgiverinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
@@ -27,8 +28,7 @@ const ArbeidsgiverinfoDel = () => {
                             verdi={avtale.gjeldendeInnhold.bedriftNavn}
                             settVerdi={(verdi) => settAvtaleVerdi('bedriftNavn', verdi)}
                         />
-
-                        <TextField label="Virksomhetsnummer" value={avtale.bedriftNr} disabled={true} />
+                        <VisueltDisabledInputFelt label='Virksomhetsnummer' tekst={avtale.bedriftNr} />           
                     </div>
                 </Fieldset>
                 <Fieldset
