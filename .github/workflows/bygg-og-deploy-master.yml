@@ -102,19 +102,18 @@ jobs:
           PRINT_PAYLOAD: true
           VARS: nais/dev-gcp-ekstern.yaml
 
-  deploy-labs-gcp:
-    name: Deploy til labs-gcp
+  deploy-dev-gcp-labs:
+    name: Deploy til dev-gcp (labs)
     runs-on: ubuntu-20.04
     needs: bygg
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v3
-      - name: Deploy til labs-gcp
+      - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: labs-gcp
-          RESOURCE: nais/labs-gcp.yaml
+          CLUSTER: dev-gcp
+          RESOURCE: nais/dev-gcp-labs.yaml
           PRINT_PAYLOAD: true
-          VARS: nais/labs-gcp.json
-          DEPLOY_SERVER: deploy.nais.io:443
+          VARS: nais/dev-gcp-labs.json

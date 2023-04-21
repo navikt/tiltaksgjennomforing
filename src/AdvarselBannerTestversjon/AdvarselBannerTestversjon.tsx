@@ -8,13 +8,13 @@ const cls = BEMHelper('advarsel-banner-testversjon');
 const AdvarselBannerTestversjon = () => {
     return (
         <>
-            {window.location.hostname.includes('labs.nais.io') && (
+            {window.location.hostname.includes('-labs') && (
                 <Alert variant='warning' className={cls.className}>
                     <b>Dette er en testversjon</b>
                     <br />
                     Her kan du bli bedre kjent med digitale avtaler for tiltaksgjennomføring.
                     <br />
-                    Hvis du er veileder i NAV må du bruke arbeidsgiver.nais.adeo.no/tiltaksgjennomforing for å lage en
+                    Hvis du er veileder i NAV må du bruke tiltaksgjennomforing.intern.dev.nav.no/tiltaksgjennomforing for å lage en
                     ekte avtale.
                     <br />
                     Hvis du er arbeidsgiver eller deltaker logger du deg på her:

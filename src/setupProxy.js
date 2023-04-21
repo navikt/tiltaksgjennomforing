@@ -3,7 +3,7 @@ const lokalProxy = require('../server/proxy/lokalproxy');
 const { applyNotifikasjonMockMiddleware } = require('@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
-const isLabs = process.env.NAIS_CLUSTER_NAME === 'labs-gcp';
+const isLabs = process.env.MILJO === 'dev-gcp-labs';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
@@ -124,11 +124,11 @@ module.exports = function (app) {
         res.redirect('/tiltaksgjennomforing');
     });
 
-    if (process.env.NAIS_CLUSTER_NAME !== 'dev-gcp' && process.env.NAIS_CLUSTER_NAME !== 'prod-gcp') {
+    if (process.env.MILJO !== 'dev-gcp' && process.env.MILJO !== 'prod-gcp') {
         lokalProxy.setup(app);
     }
 
-    if (process.env.NAIS_CLUSTER_NAME === 'labs-gcp' || process.env.NODE_ENV === 'development') {
+    if (process.env.MILJO === 'dev-gcp-labs' || process.env.NODE_ENV === 'development') {
         applyNotifikasjonMockMiddleware({ app, path: '/tiltaksgjennomforing/notifikasjon-bruker-api' });
     }
 

@@ -1,4 +1,5 @@
 "ingress": "https://arbeidsgiver.nav.no/tiltaksgjennomforing"
+"miljo": "prod-gcp"
 "api-gw-url": "https://tiltak-proxy.prod-fss-pub.nais.io"
 "login-url": "/tiltaksgjennomforing/oauth2/login"
 "logout-url": "/tiltaksgjennomforing/oauth2/logout"

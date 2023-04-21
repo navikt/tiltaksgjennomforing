@@ -1,9 +1,0 @@
-{
-    "ingress": "https://arbeidsgiver.labs.nais.io/tiltaksgjennomforing",
-    "api-gw-url": "http://tiltaksgjennomforing-api",
-    "login-url": "/tiltaksgjennomforing/fakelogin/aad",
-    "logout-url": "/tiltaksgjennomforing/fakelogout?domain=labs.nais.io",
-    "stillingstitler-url": "https://tiltak-stillingstitler.intern.dev.nav.no",
-    "vault-enabled": false,
-    "labs": true
-}
