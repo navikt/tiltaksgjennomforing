@@ -42,6 +42,8 @@ spec:
           value: '{{{decorator-external-styling}}}'
         - name: STILLINGSTITLER_URL
           value: '{{{stillingstitler-url}}}'
+        - name: ARBEIDSGIVER_DIALOG_URL
+          value: {{{arbeidsgiver-dialog}}}
     {{#if labs}}
     accessPolicy:
       outbound:

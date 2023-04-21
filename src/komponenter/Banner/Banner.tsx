@@ -21,9 +21,10 @@ const Banner: React.FunctionComponent<Props> = (props) => {
         case 'ARBEIDSGIVER':
             return (
                 <Bedriftsmeny
-                    
-                    onOrganisasjonChange={(org) => {
-                        props.byttetOrg && props.byttetOrg(org);
+                    onOrganisasjonChange={(org: Organisasjon) => {
+                        if (props.byttetOrg) {
+                            props.byttetOrg(org);
+                        }
                     }}
                     organisasjoner={innloggetBruker.altinnOrganisasjoner}
                     sidetittel={

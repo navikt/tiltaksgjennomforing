@@ -7,3 +7,4 @@
 "proxy-cluster": "dev-fss"
 "aad-redirect-url": "https://tiltaksgjennomforing.ekstern.dev.nav.no/oauth2/callback"
 "notifikasjon-audience": "dev-gcp:fager:notifikasjon-bruker-api"
+"arbeidsgiver-dialog": "https://navdialog--sit2.sandbox.my.site.com/ArbeidsgiverDialog"

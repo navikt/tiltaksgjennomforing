@@ -7,6 +7,7 @@ import React from 'react';
 import { StegInfo } from '../AvtaleSide';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
+import BrukerDialog from '@/komponenter/brukerdialog/BrukerDialog';
 
 interface Props {
     avtaleSteg: StegInfo[];
@@ -17,7 +18,7 @@ interface Props {
 }
 
 const cls = BEMHelper('avtaleside');
-const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
+const DesktopAvtaleSide: React.FunctionComponent<Props> = (props) => {
     return (
         <>
             <div className={cls.element('desktop')}>
@@ -27,6 +28,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = props => {
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     <div className={cls.element('innhold')}>
                         {props.aktivtSteg.komponent}
+                        <BrukerDialog />
                         <NesteForrige avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     </div>
                 </div>
