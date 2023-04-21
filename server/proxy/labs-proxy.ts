@@ -3,6 +3,7 @@ import { Express, NextFunction } from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { RequestOptions } from 'http';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const setup = (app: Express) => {
 
@@ -16,6 +17,17 @@ const setup = (app: Express) => {
       },
     })
   );
+
+  app.use(
+    '/tiltaksgjennomforing/stillingstitler',
+    createProxyMiddleware({
+      changeOrigin: true,
+      pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
+      target: 'http://tiltak-stillingstitler',
+      proxyTimeout: 10000,
+    })
+  );
+
   setupFakeLoginProvider(app, apiUrl);
 };
 
