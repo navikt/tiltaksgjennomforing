@@ -39,7 +39,7 @@ const BrukerDialog: React.FC = () => {
                     onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                         event.preventDefault();
                         createRipple(event);
-                        redirectBrukerdialog();
+                        setTimeout(() => redirectBrukerdialog(), 400);
                     }}
                 >
                     <div className={cls.element('wrapper')}>

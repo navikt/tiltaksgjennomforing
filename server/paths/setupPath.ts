@@ -1,9 +1,8 @@
 import { getMiljø, Miljø } from './miljø';
 import pathVariables, { PathVariables } from './pathVariables';
-import  { Express } from 'express';
+import { Express } from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
-
 
 const miljo: Miljø = getMiljø();
 
@@ -94,6 +93,12 @@ function initializePath(app: Express): void {
             res.json(process.env.ENABLE_INTERNAL_MENU === 'true');
         }
     );
+
+    app.get('/tiltaksgjennomforing/chat', (req, res) => {
+        res.redirect(
+            `${process.env.ARBEIDSGIVER_DIALOG_URL}/?organisasjonsnummer=${req.query.organisasjonsnummer}&avtalenummer=${req.query.avtalenummer}`
+        );
+    });
 }
 
 export default { initializePath };

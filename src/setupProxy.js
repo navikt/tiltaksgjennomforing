@@ -100,6 +100,14 @@ module.exports = function (app) {
         res.json(process.env.ENABLE_INTERNAL_MENU === 'true');
     });
 
+    app.get('/tiltaksgjennomforing/chat', (req, res) => {
+        const redirectUrl =
+            process.env.ARBEIDSGIVER_DIALOG_URL ?? 'https://navdialog--sit2.sandbox.my.site.com/ArbeidsgiverDialog';
+        res.redirect(
+            `${redirectUrl}/?organisasjonsnummer=${req.query.organisasjonsnummer}&avtalenummer=${req.query.avtalenummer}`
+        );
+    });
+
     app.get('/tiltaksgjennomforing/fakelogin/aad', async (req, res) => {
         const navIdent = req.headers['navident'] || 'Z123456';
         const url = `https://tiltak-fakelogin.ekstern.dev.nav.no/token?iss=aad&aud=fake-aad&NAVident=${navIdent}`;
