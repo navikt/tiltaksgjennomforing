@@ -14,17 +14,16 @@ const OvertaAvtaleModal = (props: Props) => {
     };
 
     return (
-        <>
-            <BekreftelseModal
-                modalIsOpen={props.isOpen}
-                bekreftOnClick={() => bekreftValgtHandling()}
-                lukkModal={() => props.lukkModal()}
-                modalInnhold="Du må huske å oppdatere kontaktinformasjonen til veileder i avtalen."
-                oversiktTekst="Overta avtale"
-                bekreftelseTekst="Overta avtalen"
-                avbrytelseTekst="Lukk"
-            />
-        </>
+        <BekreftelseModal
+            modalIsOpen={props.isOpen}
+            bekreftOnClick={() => bekreftValgtHandling()}
+            lukkModal={() => props.lukkModal()}
+            oversiktTekst="Overta avtale"
+            bekreftelseTekst="Overta avtalen"
+            avbrytelseTekst="Lukk"
+        >
+            Du må huske å oppdatere kontaktinformasjonen til veileder i avtalen.
+        </BekreftelseModal>
     );
 };
 
