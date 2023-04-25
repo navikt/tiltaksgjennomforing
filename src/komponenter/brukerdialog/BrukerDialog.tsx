@@ -5,9 +5,9 @@ import './brukerDialog.less';
 import useBrukerDialog from '@/komponenter/brukerdialog/useBrukerDialog';
 
 const BrukerDialog: React.FC = () => {
-    const cls = BEMHelper('bruker-dialog');
-
     const redirectUrl: string = useBrukerDialog();
+
+    const cls = BEMHelper('bruker-dialog');
     const redirectBrukerdialog = () => window.open(redirectUrl, '_blank');
 
     function createRipple(event: React.MouseEvent<HTMLButtonElement>) {

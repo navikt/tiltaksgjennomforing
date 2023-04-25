@@ -8,6 +8,7 @@ import { StegInfo } from '../AvtaleSide';
 import NesteForrige from '../NesteForrige/NesteForrige';
 import Stegmeny from '../Stegmeny/Stegmeny';
 import BrukerDialog from '@/komponenter/brukerdialog/BrukerDialog';
+import Dialog from '@/komponenter/brukerdialog/Dialog';
 
 interface Props {
     avtaleSteg: StegInfo[];
@@ -28,7 +29,7 @@ const DesktopAvtaleSide: React.FunctionComponent<Props> = (props) => {
                     <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     <div className={cls.element('innhold')}>
                         {props.aktivtSteg.komponent}
-                        <BrukerDialog />
+                        <Dialog />
                         <NesteForrige avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
                     </div>
                 </div>

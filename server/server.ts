@@ -67,12 +67,7 @@ async function startLabs(): Promise<void> {
 }
 
 function setStaticPath(): void {
-    node.use(
-        express.static(BASEPATH, {
-            etag: false,
-        }),
-        express.static(path.resolve(__dirname, '../build'))
-    );
+    node.use(express.static(BASEPATH), express.static(path.resolve(__dirname, '../build')));
     STATIC_PATHS.forEach((staticpath: string): Express => {
         return node.use(
             BASEPATH.concat(staticpath),
