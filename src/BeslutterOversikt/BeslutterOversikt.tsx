@@ -7,29 +7,36 @@ import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { useLaster } from '@/utils/useLaster';
-import { Alert, Button } from '@navikt/ds-react';
-import { FunctionComponent, useCallback, useContext } from 'react';
+import { Pagination } from '@navikt/ds-react';
+import { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import '../AvtaleOversikt/AvtaleOversikt.less';
 import AvtalerBeslutter from './AvtalerBeslutter';
+import { AvtaleMinimalForBeslutter, AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
+import { Status } from '@/types/nettressurs';
 
 const cls = BEMHelper('avtaleoversikt');
 
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-
+    const [pageState, setPageState] = useState(1);
+    const [currentPage, setCurrentPage] = useState<PageableAvtaleMinimalForBeslutter>()
+    const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({ status: Status.IkkeLastet })
     const { filtre } = useFilter();
-    const { kanLasteMer, lasterMer, lastMer, nettressurs } = useLaster(
-        useCallback((skip, limit) => hentAvtalerForInnloggetBeslutter(filtre, skip, limit), [filtre]),
-        50
-    );
+
+    useEffect(() => { 
+        console.log("pagestate yo", pageState)
+        setNettressurs({ status: Status.LasterInn });
+        hentAvtalerForInnloggetBeslutter(filtre, 2, pageState - 1)
+        .then((pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
+            setCurrentPage(pagableAvtale);
+            setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+        })
+    }, [pageState, filtre]);
+
     const layout = useAvtaleOversiktLayout();
 
     return (
         <>
-            <Alert variant="warning">
-                Denne oversikten kan oppleves tregere enn vanlig. Vi jobber med å utbedre dette.
-            </Alert>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
             <BannerNAVAnsatt tekst={'Tilskuddsoversikt'} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
@@ -49,32 +56,17 @@ const BeslutterOversikt: FunctionComponent = () => {
                             innloggetBruker={innloggetBruker}
                             varsler={[]}
                         />
-                        {kanLasteMer && (
-                            <>
-                                <VerticalSpacer rem={3} />
-                                <div style={{ textAlign: 'center' }}>
-                                    <Button
-                                        title="Last inn mer"
-                                        variant="secondary"
-                                        onClick={lastMer}
-                                        loading={lasterMer}
-                                        disabled={lasterMer}
-                                    >
-                                        Last inn flere tilskudd ...
-                                    </Button>
-                                </div>
-                                <VerticalSpacer rem={3} />
-                            </>
+                        <VerticalSpacer rem={2} />
+
+                        {nettressurs.status === Status.Lastet && (
+                            <Pagination
+                                page={pageState}
+                                onPageChange={(x) => setPageState(x)}
+                                count={currentPage!.totalPages}
+                                boundaryCount={1}
+                                siblingCount={1}
+                                />
                         )}
-                        {!kanLasteMer && (
-                            <>
-                                <VerticalSpacer rem={2} />
-                                <div style={{ textAlign: 'center' }}>
-                                    Alle avtaler er lastet
-                                </div>
-                            </>
-                        )}
-                        <VerticalSpacer rem={10} />
                     </section>
                 </div>
             </main>

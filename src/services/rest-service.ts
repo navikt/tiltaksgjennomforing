@@ -19,6 +19,7 @@ import {
     Inkluderingstilskuddsutgift,
     Maal,
     MentorInnhold,
+    PageableAvtaleMinimalForBeslutter,
     Stilling,
     TiltaksType,
     Varighet,
@@ -99,20 +100,22 @@ export const hentAvtalerForInnloggetBruker = async (
 
 export const hentAvtalerForInnloggetBeslutter = async (
     søkekriterier: Filtrering,
-    skip: number = 0,
+    size: number = 2,
+    page: number = 0,
     limit: number = 10000000
-): Promise<AvtaleMinimalForBeslutter[]> => {
+): Promise<PageableAvtaleMinimalForBeslutter> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
     const søkekriterierFiltrert = {
         bedriftNr: søkekriterier.bedrift,
         ...søkekriterier,
         bedrift: undefined,
-        skip,
+        size,
+        page,
         limit,
     };
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
-    const response = await api.get<AvtaleMinimalForBeslutter[]>(`/avtaler/beslutter-liste?${queryParam}`);
-    return response.data;
+    const response = await api.get<PageableAvtaleMinimalForBeslutter>(`/avtaler/beslutter-liste?${queryParam}`);
+    return response.data
 };
 
 export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
