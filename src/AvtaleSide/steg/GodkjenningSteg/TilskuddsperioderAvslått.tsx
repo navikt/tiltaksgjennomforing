@@ -1,26 +1,28 @@
 import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { Accordion, Alert, BodyShort, Heading } from '@navikt/ds-react';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { tilskuddsperiodeAvslagTekst } from '@/messages';
-import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import { Avslagsårsaker, TilskuddsPeriode } from '@/types/avtale';
+import { interleave } from '@/utils/arrayUtils';
 
-const avslåttBegrunnelse = (avslåttTilskuddsperiode: TilskuddsPeriode) => (
-    <div key={avslåttTilskuddsperiode.id}>
-        Tilskuddsperioden ble avslått av {avslåttTilskuddsperiode.avslåttAvNavIdent} den{' '}
-        {formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)} med følgende årsak(er):
+const avslåttBegrunnelse = (avslåttTilskuddsperiode: TilskuddsPeriode) => {
+    const avslagsårsaker = Array.from(avslåttTilskuddsperiode.avslagsårsaker);
+
+    return <div key={avslåttTilskuddsperiode.id} >
+        <b>{formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)}:</b> Avslått av {avslåttTilskuddsperiode.avslåttAvNavIdent}
+        {' '} med følgende årsak{avslagsårsaker.length > 1 ? 'er' : ''}:
         <ul>
-            {Array.from(avslåttTilskuddsperiode.avslagsårsaker).map((årsak: Avslagsårsaker, index: number) => (
+            {avslagsårsaker.map((årsak: Avslagsårsaker, index: number) => (
                 <li key={index}>{tilskuddsperiodeAvslagTekst[årsak]}</li>
             ))}
         </ul>
         med forklaringen: {avslåttTilskuddsperiode.avslagsforklaring}
     </div>
-);
+};
 
 const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
     const { avtale } = useContext(AvtaleContext);
@@ -61,13 +63,14 @@ const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
             <VerticalSpacer rem={2} />
             {gjeldendeAvslåtteTilskuddsperiode ? (
                 <>
-                    {avslåttBegrunnelse(gjeldendeAvslåtteTilskuddsperiode)}
-                    <VerticalSpacer rem={1} />
                     <BodyShort size="small">
                         Gjør du endringer på avtalen vil beslutter kunne godkjenne tilskuddsperioden på nytt. Hvis
                         avtalen allikevel er riktig utfylt kan den sendes tilbake til beslutter uendret.
                     </BodyShort>
-
+                    <VerticalSpacer rem={1} />
+                    <Alert variant='info'>
+                        {avslåttBegrunnelse(gjeldendeAvslåtteTilskuddsperiode)}
+                    </Alert>
                 </>
             ) : (
                 <BodyShort size="small">
@@ -78,12 +81,15 @@ const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
             {avslåtteTilskuddsperioder.length > 0 ?
                 <>
                     <VerticalSpacer rem={1} />
-                    <LesMerPanel
-                        åpneLabel="Vis begrunnelse på tidligere avslåtte tilskuddsperioder"
-                        lukkLabel="Skjul begrunnelse på tidligere avslåtte tilskuddsperioder"
-                    >
-                        {avslåtteTilskuddsperioder.map(avslåttBegrunnelse)}
-                    </LesMerPanel>
+                    <Accordion>
+                        <Accordion.Item>
+                            <Accordion.Header>Vis tidligere avslåtte tilskuddsperioder</Accordion.Header>
+                            <Accordion.Content>{interleave(
+                                avslåtteTilskuddsperioder.map(avslåttBegrunnelse),
+                                avslåtteTilskuddsperioder.slice(0, -1).map((_x, idx) => <VerticalSpacer key={idx} rem={1} />)
+                            )}</Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
                 </>
                 : undefined
             }
