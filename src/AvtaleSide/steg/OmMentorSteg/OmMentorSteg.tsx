@@ -11,6 +11,8 @@ import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { BodyShort } from '@navikt/ds-react';
 import React, { useState, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
+import BEMHelper from '@/utils/bem';
+import './omMentorSteg.less';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -23,20 +25,20 @@ const OmMentorSteg = () => {
             return Number(verdi);
         }
     };
+    const cls = BEMHelper('omMentorSteg');
 
     return (
-        <Innholdsboks utfyller="veileder">
+        <Innholdsboks className={cls.className} utfyller="veileder">
             <SkjemaTittel>Om mentoren</SkjemaTittel>
             <Container fluid={true}>
-                <Row className={''}>
+                <Row className={cls.element('rad')}>
                     <Column md="6">
                         <div className="rad">
                             <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
                         </div>
                     </Column>
                 </Row>
-                <VerticalSpacer rem={1} />
-                <Row className="rad">
+                <Row className={cls.element('rad')}>
                     <Column md="6">
                         <PakrevdInput
                             label="Fornavn"
@@ -52,8 +54,7 @@ const OmMentorSteg = () => {
                         />
                     </Column>
                 </Row>
-                <VerticalSpacer rem={1} />
-                <Row className={''}>
+                <Row className={cls.element('rad')}>
                     <Column md="6">
                         <TelefonnummerInput
                             label="Mobilnummer"
@@ -63,8 +64,7 @@ const OmMentorSteg = () => {
                     </Column>
                 </Row>
             </Container>
-            <VerticalSpacer rem={1} />
-            <Container fluid={true}>
+            <Container fluid={true} className={cls.element('arbeidsoppgaver-mentor')}>
                 <PakrevdTextarea
                     label="Arbeidsoppgaver til mentor"
                     verdi={avtaleContext.avtale.gjeldendeInnhold.mentorOppgaver}
@@ -73,7 +73,6 @@ const OmMentorSteg = () => {
                     feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                 />
             </Container>
-            <VerticalSpacer rem={2} />
             <Container fluid={true}>
                 <Row className="begge__tekst">
                     <Column md="6">

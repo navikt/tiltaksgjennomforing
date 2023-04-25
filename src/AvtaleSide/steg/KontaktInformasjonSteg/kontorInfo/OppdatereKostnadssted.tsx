@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import BEMHelper from '@/utils/bem';
-import './oppdatereKostnadssted.less';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { BodyShort, Heading, Fieldset, TextField, Button } from '@navikt/ds-react';
 import { oppdatereKostnadsstedet } from '@/services/rest-service';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Avtale } from '@/types/avtale';
 import { finnKostnadssted } from '@/utils/kostnadsstedUtils';
+import './oppdatereKostnadssted.less';
 
 export interface Kostnadssted {
     enhet: string;
