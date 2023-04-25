@@ -86,8 +86,11 @@ const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
                             <Accordion.Header>Vis tidligere avslåtte tilskuddsperioder</Accordion.Header>
                             <Accordion.Content>{interleave(
                                 avslåtteTilskuddsperioder.map(avslåttBegrunnelse),
-                                avslåtteTilskuddsperioder.slice(0, -1).map((_x, idx) => <VerticalSpacer key={idx} rem={1} />)
-                            )}</Accordion.Content>
+                                avslåtteTilskuddsperioder.map((_x, idx) => <VerticalSpacer key={idx} rem={1} />)
+                            )
+                                // Fjerner siste spacingen
+                                .slice(0, -1)}
+                            </Accordion.Content>
                         </Accordion.Item>
                     </Accordion>
                 </>
