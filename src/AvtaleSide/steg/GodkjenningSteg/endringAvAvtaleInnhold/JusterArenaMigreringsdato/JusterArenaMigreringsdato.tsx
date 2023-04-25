@@ -47,28 +47,6 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
         ? new Date(avtaleContext.avtale.gjeldendeInnhold.startDato)
         : undefined;
 
-    const modalInnhold = (
-        <div className={cls.className}>
-            <div className={cls.element('navarende-sluttdato')} />
-            <Fieldset legend={<></>} error={feil}>
-                <label className="skjemaelement__label">
-                    Velg første måned avtalen skal behandles i ny løsning og ikke i Arena.
-                </label>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <UNSAFE_MonthPicker.Standalone
-                        onMonthSelect={(dato: any) => onDatoChange(dato)}
-                        dropdownCaption
-                        fromDate={startDatoDate}
-                        toDate={new Date('2023-02-01')}
-                    />
-                </div>
-            </Fieldset>
-            <SlikVilTilskuddsperioderSeUt
-                overskrift="Slik vil tilskuddsperiodene se ut etter at dato for arenamigrering er justert:"
-                tilskuddsperioder={tilskuddsperioder}
-            />
-        </div>
-    );
 
     const lukkModal = () => {
         setModalApen(false);
@@ -114,8 +92,28 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={juster}
                 lukkModal={lukkModal}
-                modalInnhold={modalInnhold}
-            />
+            >
+                <div className={cls.className}>
+                    <div className={cls.element('navarende-sluttdato')} />
+                    <Fieldset legend={<></>} error={feil}>
+                        <label className="skjemaelement__label">
+                            Velg første måned avtalen skal behandles i ny løsning og ikke i Arena.
+                        </label>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <UNSAFE_MonthPicker.Standalone
+                                onMonthSelect={(dato: any) => onDatoChange(dato)}
+                                dropdownCaption
+                                fromDate={startDatoDate}
+                                toDate={new Date('2023-02-01')}
+                            />
+                        </div>
+                    </Fieldset>
+                    <SlikVilTilskuddsperioderSeUt
+                        overskrift="Slik vil tilskuddsperiodene se ut etter at dato for arenamigrering er justert:"
+                        tilskuddsperioder={tilskuddsperioder}
+                    />
+                </div>
+            </BekreftelseModal>
         </>
     );
 };

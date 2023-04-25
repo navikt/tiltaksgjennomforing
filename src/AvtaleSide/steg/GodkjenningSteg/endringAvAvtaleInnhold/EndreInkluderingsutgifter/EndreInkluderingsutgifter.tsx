@@ -40,49 +40,6 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
         setModalApen(false);
     };
 
-    const endreUtgifterInnhold = (
-        <div>
-            <InkluderingstilskuddIngress />
-            <VerticalSpacer rem={2} />
-            <Tilskuddsbeskrivelse åpen={false} />
-            <VerticalSpacer rem={2} />
-
-            <OpprettEnTilskuddsutgift
-                leggTilTilskuddsutgift={leggTilInkluderingstilskuddsutgift}
-                ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyperInngåttAvtale}
-                setIRedigeringsmodus={setIRedigermodus}
-                iRegideringsmodus={iRedigermodus}
-                tilskuddsutgift={inkluderingstilskuddsutgiftListe}
-                totalBeløp={inkluderingstilskuddTotal}
-            />
-            <VerticalSpacer rem={2} />
-
-            <div>
-                <TilskuddsutgiftTabell redigerbar={true}>
-                    {inkluderingstilskuddsutgiftListe.map((tilskuddsutgift, index) => (
-                        <EnTilskuddsutgift
-                            skalKunneSlette={false}
-                            key={index}
-                            tilskuddsutgift={tilskuddsutgift}
-                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) =>
-                                endreInkluderingstilskuddsutgift(index, beløp, type)
-                            }
-                            slett={() => sletteInkluderingstilskuddsutgift(index)}
-                            ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyperInngåttAvtale}
-                            setIRedigeringsmodus={setIRedigermodus}
-                            iRegideringsmodus={iRedigermodus}
-                        />
-                    ))}
-                </TilskuddsutgiftTabell>
-            </div>
-            <VerticalSpacer rem={2} />
-            <div>
-                <Label>Totalt kostnadsoverslag:</Label>
-                <Ingress>{formatterPenger(inkluderingstilskuddTotal)}</Ingress>
-            </div>
-        </div>
-    );
-
     return (
         <>
             <Link
@@ -108,8 +65,49 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreUtgifter}
                 lukkModal={lukkModal}
-                modalInnhold={endreUtgifterInnhold}
-            />
+
+            >
+                <div>
+                    <InkluderingstilskuddIngress />
+                    <VerticalSpacer rem={2} />
+                    <Tilskuddsbeskrivelse åpen={false} />
+                    <VerticalSpacer rem={2} />
+
+                    <OpprettEnTilskuddsutgift
+                        leggTilTilskuddsutgift={leggTilInkluderingstilskuddsutgift}
+                        ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyperInngåttAvtale}
+                        setIRedigeringsmodus={setIRedigermodus}
+                        iRegideringsmodus={iRedigermodus}
+                        tilskuddsutgift={inkluderingstilskuddsutgiftListe}
+                        totalBeløp={inkluderingstilskuddTotal}
+                    />
+                    <VerticalSpacer rem={2} />
+
+                    <div>
+                        <TilskuddsutgiftTabell redigerbar={true}>
+                            {inkluderingstilskuddsutgiftListe.map((tilskuddsutgift, index) => (
+                                <EnTilskuddsutgift
+                                    skalKunneSlette={false}
+                                    key={index}
+                                    tilskuddsutgift={tilskuddsutgift}
+                                    endre={(beløp: number, type: InkluderingstilskuddsutgiftType) =>
+                                        endreInkluderingstilskuddsutgift(index, beløp, type)
+                                    }
+                                    slett={() => sletteInkluderingstilskuddsutgift(index)}
+                                    ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyperInngåttAvtale}
+                                    setIRedigeringsmodus={setIRedigermodus}
+                                    iRegideringsmodus={iRedigermodus}
+                                />
+                            ))}
+                        </TilskuddsutgiftTabell>
+                    </div>
+                    <VerticalSpacer rem={2} />
+                    <div>
+                        <Label>Totalt kostnadsoverslag:</Label>
+                        <Ingress>{formatterPenger(inkluderingstilskuddTotal)}</Ingress>
+                    </div>
+                </div>
+            </BekreftelseModal>
         </>
     );
 };

@@ -37,49 +37,6 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
         setModalApen(false);
     };
 
-    const endreStillingInnhold = (
-        <div className={cls.element('innhold')}>
-            <div className={cls.element('stillingstittel-wrapper')}>
-                <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
-                <StillingsTittelVelger
-                    id="stillinginput"
-                    valgtStilling={valgtStilling}
-                    setValgtStilling={setValgtStilling}
-                />
-            </div>
-            <div className={cls.element('stilling-beskrivelse')}>
-                <PakrevdTextarea
-                    label="Beskriv arbeidsoppgavene som inngår i stillingen"
-                    verdi={arbeidsoppgaver}
-                    settVerdi={(verdi) => setArbeidsoppgaver(verdi)}
-                    maxLengde={500}
-                    feilmelding="arbeidsoppgave er påkrevd"
-                />
-            </div>
-            <div className={cls.element('stilling-input-wrapper')}>
-                <StillingsprosentInput
-                    label="Stillingsprosent"
-                    verdi={stillingsprosent}
-                    settVerdi={(verdi) => setStillingsprosent(verdi)}
-                />
-                <PakrevdInput
-                    size="small"
-                    label="Antall dager per uke"
-                    type="number"
-                    max={7}
-                    verdi={antallDagerPerUke}
-                    settVerdi={(eventVerdi) => {
-                        const verdi = parseInt(eventVerdi, 10);
-                        if (verdi > 0 && verdi < 8) {
-                            setAntallDagerPerUke(verdi);
-                        } else {
-                            setAntallDagerPerUke(undefined);
-                        }
-                    }}
-                />
-            </div>
-        </div>
-    );
 
     const lukkModal = () => {
         const values: StillingOptions = {
@@ -117,8 +74,49 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreStilling}
                 lukkModal={lukkModal}
-                modalInnhold={endreStillingInnhold}
-            />
+            >
+                <div className={cls.element('innhold')}>
+                    <div className={cls.element('stillingstittel-wrapper')}>
+                        <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
+                        <StillingsTittelVelger
+                            id="stillinginput"
+                            valgtStilling={valgtStilling}
+                            setValgtStilling={setValgtStilling}
+                        />
+                    </div>
+                    <div className={cls.element('stilling-beskrivelse')}>
+                        <PakrevdTextarea
+                            label="Beskriv arbeidsoppgavene som inngår i stillingen"
+                            verdi={arbeidsoppgaver}
+                            settVerdi={(verdi) => setArbeidsoppgaver(verdi)}
+                            maxLengde={500}
+                            feilmelding="arbeidsoppgave er påkrevd"
+                        />
+                    </div>
+                    <div className={cls.element('stilling-input-wrapper')}>
+                        <StillingsprosentInput
+                            label="Stillingsprosent"
+                            verdi={stillingsprosent}
+                            settVerdi={(verdi) => setStillingsprosent(verdi)}
+                        />
+                        <PakrevdInput
+                            size="small"
+                            label="Antall dager per uke"
+                            type="number"
+                            max={7}
+                            verdi={antallDagerPerUke}
+                            settVerdi={(eventVerdi) => {
+                                const verdi = parseInt(eventVerdi, 10);
+                                if (verdi > 0 && verdi < 8) {
+                                    setAntallDagerPerUke(verdi);
+                                } else {
+                                    setAntallDagerPerUke(undefined);
+                                }
+                            }}
+                        />
+                    </div>
+                </div>
+            </BekreftelseModal>
         </>
     );
 };
