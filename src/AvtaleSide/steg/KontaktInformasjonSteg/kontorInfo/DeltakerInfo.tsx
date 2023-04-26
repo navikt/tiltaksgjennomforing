@@ -37,36 +37,45 @@ const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
             <div className={cls.element('info-rad')}>
                 <div className={cls.element('info-container')}>
                     <BodyShort size="small">Geografisk enhet</BodyShort>
-                    <Heading size="small">
-                        <HentNavEnhetFraContext enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />
-                    </Heading>
+                    <BodyShort size="small" className={cls.element('info-verdi')}>
+                        <HentNavEnhetFraContext
+                            className={cls.className}
+                            enhetsnr="enhetGeografisk"
+                            enhetsNavn="enhetsnavnGeografisk"
+                        />
+                    </BodyShort>
                 </div>
                 <div className={cls.element('info-container')}>
                     <BodyShort size="small">Oppfølgingsenhet</BodyShort>
-                    <Heading size="small">
-                        <HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
-                    </Heading>
+                    <BodyShort size="small" className={cls.element('info-verdi')}>
+                        <HentNavEnhetFraContext
+                            className={cls.className}
+                            enhetsnr="enhetOppfolging"
+                            enhetsNavn="enhetsnavnOppfolging"
+                        />
+                    </BodyShort>
                 </div>
             </div>
-            {!oppsummeringside && <OppdatereKostnadssted />}
+
             <div className={cls.element('info-rad')}>
                 <div className={cls.element('info-container')}>
                     <BodyShort size="small">Kvalifisering/servicegruppe</BodyShort>
-                    <Heading size="small">
+                    <BodyShort size="small" className={cls.element('info-verdi')}>
                         {kvalifiseringsgruppe ? (
                             hentKvalifiseringsgruppeTekst(kvalifiseringsgruppe)
                         ) : (
                             <em>Ikke oppgitt</em>
                         )}
-                    </Heading>
+                    </BodyShort>
                 </div>
                 <div className={cls.element('info-container')}>
                     <BodyShort size="small">Formidlingsgruppe</BodyShort>
-                    <Heading size="small">
+                    <BodyShort size="small" className={cls.element('info-verdi')}>
                         {formidlingsgruppe ? hentFormidlingsgruppeTekst(formidlingsgruppe) : <em>Ikke oppgitt</em>}
-                    </Heading>
+                    </BodyShort>
                 </div>
             </div>
+            {!oppsummeringside && <OppdatereKostnadssted />}
             {!avtale.avtaleInngått && (
                 <SjekkKvalifiseringsgruppeOppMotTiltakstype
                     tiltakstype={tiltakstype}

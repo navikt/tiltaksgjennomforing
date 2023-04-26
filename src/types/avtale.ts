@@ -160,6 +160,7 @@ export interface Deltakerinfo {
     deltakerEtternavn?: string;
     deltakerTlf?: string;
 }
+
 export interface Veilederinfo {
     veilederFornavn?: string;
     veilederEtternavn?: string;
@@ -191,6 +192,7 @@ export interface Stilling {
 }
 
 export type Stillingstype = 'FAST' | 'MIDLERTIDIG';
+
 export interface Beregningsgrunnlag {
     manedslonn?: number;
     feriepengesats?: number;
@@ -295,6 +297,7 @@ export interface GodkjentPaVegneAvDeltakerGrunner {
     reservert: boolean;
     digitalKompetanse: boolean;
 }
+
 export interface GodkjentPaVegneAvArbeidsgiverGrunner {
     klarerIkkeGiFaTilgang: boolean;
     vetIkkeHvemSomKanGiTilgang: boolean;

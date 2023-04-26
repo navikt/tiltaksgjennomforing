@@ -20,7 +20,7 @@ const VarighetTilbakeTidAlert: React.FC<Props> = ({
 }: Props) => {
     const cls = BEMHelper(className);
     return (
-        <>
+        <div className={cls.element('rad')}>
             {sommerjobbDeltakerOver30VedStartdato && (
                 <Alert variant="warning" className={cls.element('sommerjobb-deltaker-over30-alert')}>
                     Deltaker kan ikke ha fylt 30år før startdatoen. Det vil ikke være mulig å starte opp avtalen.
@@ -40,7 +40,7 @@ const VarighetTilbakeTidAlert: React.FC<Props> = ({
                     )}
                 </>
             )}
-        </>
+        </div>
     );
 };
 export default VarighetTilbakeTidAlert;

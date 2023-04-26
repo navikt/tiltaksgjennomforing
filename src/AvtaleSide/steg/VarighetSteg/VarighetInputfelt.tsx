@@ -6,6 +6,7 @@ import BEMHelper from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 import moment from 'moment/moment';
 import { accurateHumanize } from '@/utils/datoUtils';
+import { Column, Row } from '@/komponenter/NavGrid/Grid';
 
 interface Props {
     className: string;
@@ -26,32 +27,36 @@ const VarighetInputfelt: React.FC<Props> = ({ className }: Props) => {
 
     const cls = BEMHelper(className);
     return (
-        <div className={cls.element('input-wrapper')}>
-            <div className={cls.element('input-container')}>
-                <div className={cls.element('Stillingsprosent-input-container')}>
-                    <StillingsprosentInput
-                        label="Hvilken stillingsprosent skal deltakeren ha?"
-                        verdi={avtale.gjeldendeInnhold.stillingprosent}
+        <div>
+            <Row className={cls.element('rad')}>
+                <Column md="6">
+                    <div className={cls.element('Stillingsprosent-input-container')}>
+                        <StillingsprosentInput
+                            label="stillingsprosent for deltaker"
+                            verdi={avtale.gjeldendeInnhold.stillingprosent}
+                            size="medium"
+                            settVerdi={(verdi) => settAvtaleInnholdVerdi('stillingprosent', verdi)}
+                        />
+                    </div>
+                </Column>
+                <Column md="6">
+                    <PakrevdInput
                         size="medium"
-                        settVerdi={(verdi) => settAvtaleInnholdVerdi('stillingprosent', verdi)}
+                        label="Antall dager per uke"
+                        type="number"
+                        max={7}
+                        verdi={avtale.gjeldendeInnhold.antallDagerPerUke}
+                        settVerdi={(eventVerdi) => {
+                            const verdi = parseInt(eventVerdi, 10);
+                            if (verdi > 0 && verdi < 8) {
+                                settAvtaleInnholdVerdi('antallDagerPerUke', verdi);
+                            } else {
+                                settAvtaleInnholdVerdi('antallDagerPerUke', undefined);
+                            }
+                        }}
                     />
-                </div>
-                <PakrevdInput
-                    size="medium"
-                    label="Antall dager per uke"
-                    type="number"
-                    max={7}
-                    verdi={avtale.gjeldendeInnhold.antallDagerPerUke}
-                    settVerdi={(eventVerdi) => {
-                        const verdi = parseInt(eventVerdi, 10);
-                        if (verdi > 0 && verdi < 8) {
-                            settAvtaleInnholdVerdi('antallDagerPerUke', verdi);
-                        } else {
-                            settAvtaleInnholdVerdi('antallDagerPerUke', undefined);
-                        }
-                    }}
-                />
-            </div>
+                </Column>
+            </Row>
             <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
         </div>
     );

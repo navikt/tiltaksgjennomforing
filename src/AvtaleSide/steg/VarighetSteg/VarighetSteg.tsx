@@ -10,12 +10,12 @@ import 'moment/locale/nb';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import Datovelger from '@/komponenter/datovelger/Datovelger';
 import BEMHelper from '@/utils/bem';
-import './varighetSteg.less';
 import VarighetIngress from '@/AvtaleSide/steg/VarighetSteg/VarighetIngress';
 import VarighetInfoVeileder from '@/AvtaleSide/steg/VarighetSteg/VarighetInfoVeileder';
 import InfoArenaOppryddingAlert from '@/AvtaleSide/steg/VarighetSteg/InfoArenaOppryddingAlert';
 import VarighetTilbakeTidAlert from '@/AvtaleSide/steg/VarighetSteg/VarighetTilbakeTidAlert';
 import VarighetInputfelt from '@/AvtaleSide/steg/VarighetSteg/VarighetInputfelt';
+import './varighetSteg.less';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
