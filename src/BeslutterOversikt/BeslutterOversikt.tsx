@@ -56,7 +56,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                             varsler={[]}
                         />
                         <VerticalSpacer rem={2} />
-                        {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0&& (
+                        {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
                             <Pagination
                                 page={pageNumber}
                                 onPageChange={(x) => {

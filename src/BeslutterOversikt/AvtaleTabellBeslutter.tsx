@@ -28,7 +28,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
             <AvtaleTabellRadHeader
                 className={cls.className}
                 erBeslutter={erBeslutter}
-                innloggetBruker={innloggetBruker}
+                erNavAnsatt={innloggetBruker.erNavAnsatt}
             />
             <div role="list">
                 {avtaler.map((avtale: AvtaleMinimalForBeslutter, index: number) => {

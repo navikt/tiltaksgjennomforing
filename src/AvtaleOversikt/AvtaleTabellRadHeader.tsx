@@ -2,20 +2,19 @@ import React from 'react';
 import classNames from 'classnames';
 import MediaQuery from 'react-responsive';
 import BEMHelper from '@/utils/bem';
-import { InnloggetBruker } from '@/types/innlogget-bruker';
 
 interface Props {
     className: string;
     erBeslutter: boolean;
-    innloggetBruker: InnloggetBruker;
+    erNavAnsatt: boolean;
 }
-const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, innloggetBruker }: Props) => {
+const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavAnsatt }: Props) => {
     const cls = BEMHelper(className);
     return (
         <div className={classNames(cls.element('rad'), cls.element('header'))}>
             <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
             <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
-            {innloggetBruker.erNavAnsatt && <div className={cls.element('veileder')}>Veileder</div>}
+            {erNavAnsatt && <div className={cls.element('veileder')}>Veileder</div>}
             <MediaQuery minWidth={576}>
                 <div className={cls.element('dato')}>
                     {erBeslutter ? (

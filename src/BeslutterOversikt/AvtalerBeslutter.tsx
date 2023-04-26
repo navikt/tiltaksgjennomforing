@@ -24,12 +24,13 @@ export const AvtalerBeslutter: FunctionComponent<Props> = (props) => {
         return <IngenAvtaler />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet) {
         return (
-        <AvtaleTabellBeslutter
-            avtaler={props.avtalelisteRessurs.data}
-            varsler={props.varsler}
-            innloggetBruker={props.innloggetBruker}
-        />);
-
+            <AvtaleTabellBeslutter
+                avtaler={props.avtalelisteRessurs.data}
+                varsler={props.varsler}
+                innloggetBruker={props.innloggetBruker}
+                
+            />
+        )
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
         handterFeil(props.avtalelisteRessurs.error, feilVarsel);
     }
