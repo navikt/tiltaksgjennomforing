@@ -22,7 +22,7 @@ export interface AntallKlarTilgodkjenning {
     antallKlarTilgodkjenning: number;
 }
 
-const hentAvtaleStatus = (avtale: Avtale) => {
+const hentAvtaleStatus = (avtale: Avtale, erNavAnsatt: boolean) => {
     const erGjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
     return (
         <>
@@ -30,7 +30,7 @@ const hentAvtaleStatus = (avtale: Avtale) => {
                 <StatusIkon status={avtale.statusSomEnum} />
             </div>
             <BodyShort className={cls.element('status')}>
-                {erGjeldendeTilskuddsperiodeAvslått
+                {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
                     ? 'Tilskuddsperiode avslått'
                     : avtaleStatusTekst[avtale.statusSomEnum]}
             </BodyShort>
@@ -128,7 +128,7 @@ const AvtaleTabell: FunctionComponent<{
                                                     </BodyShort>
                                                 </div>
                                             </MediaQuery>
-                                            {hentAvtaleStatus(avtale)}
+                                            {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
                                         </div>
                                     </div>
                                 </LinkPanel.Title>
