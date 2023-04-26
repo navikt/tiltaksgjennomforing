@@ -15,6 +15,7 @@ import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutte
 import { Status } from '@/types/nettressurs';
 
 const cls = BEMHelper('avtaleoversikt');
+const clsPagination = BEMHelper('avtaleoversikt-pagination')
 
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -55,8 +56,9 @@ const BeslutterOversikt: FunctionComponent = () => {
                             varsler={[]}
                         />
                         <VerticalSpacer rem={2} />
-                        {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
-                            <Pagination
+                        <div className={clsPagination.className}>
+                            {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
+                                <Pagination
                                 page={pageNumber}
                                 onPageChange={(x) => {
                                     setPageNumber(x)
@@ -66,7 +68,8 @@ const BeslutterOversikt: FunctionComponent = () => {
                                 boundaryCount={1}
                                 siblingCount={1}
                                 />
-                        )}
+                                )}
+                        </div>
                     </section>
                 </div>
             </main>
