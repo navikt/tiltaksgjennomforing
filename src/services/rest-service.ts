@@ -9,7 +9,6 @@ import {
     AlleredeRegistrertAvtale,
     Avslagsårsaker,
     Avtale,
-    AvtaleMinimalForBeslutter,
     Bedriftinfo,
     EndreKontaktInfo,
     EndreOppfølgingOgTilretteleggingInfo,

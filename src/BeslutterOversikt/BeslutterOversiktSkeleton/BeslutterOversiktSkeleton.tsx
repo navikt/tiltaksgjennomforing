@@ -5,6 +5,7 @@ import React, { FunctionComponent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
 import './BeslutterOversiktSkeleton.less';
+import 'react-loading-skeleton/dist/skeleton.css'
 import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 
 const cls = BEMHelper('avtaletabell');
