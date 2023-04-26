@@ -12,7 +12,7 @@ export type Avtale = Annullering &
 
 export interface PageableAvtaleMinimalForBeslutter {
     currentPage: number;
-    avtaler: Array<AvtaleMinimalForBeslutter>;
+    avtaler: AvtaleMinimalForBeslutter[];//Array<AvtaleMinimalForBeslutter>;
     size: number;
     totalItems: number;
     totalPages: number;

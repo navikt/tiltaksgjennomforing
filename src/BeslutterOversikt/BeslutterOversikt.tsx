@@ -8,33 +8,32 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { Pagination } from '@navikt/ds-react';
-import { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import '../AvtaleOversikt/AvtaleOversikt.less';
 import AvtalerBeslutter from './AvtalerBeslutter';
-import { AvtaleMinimalForBeslutter, AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
+import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 
 const cls = BEMHelper('avtaleoversikt');
 
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const [pageState, setPageState] = useState(1);
+    const { filtre, endreFilter } = useFilter();
+    const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : "1"));
     const [currentPage, setCurrentPage] = useState<PageableAvtaleMinimalForBeslutter>()
     const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({ status: Status.IkkeLastet })
-    const { filtre } = useFilter();
 
     useEffect(() => { 
-        console.log("pagestate yo", pageState)
         setNettressurs({ status: Status.LasterInn });
-        hentAvtalerForInnloggetBeslutter(filtre, 2, pageState - 1)
-        .then((pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
+        endreFilter( { page: pageNumber.toString() } )
+        console.log("henter data", pageNumber)
+        hentAvtalerForInnloggetBeslutter(filtre, 10, pageNumber - 1).then((pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
             setCurrentPage(pagableAvtale);
             setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
         })
-    }, [pageState, filtre]);
+    }, [pageNumber, filtre.tilskuddPeriodeStatus, filtre.tiltakstype]);
 
     const layout = useAvtaleOversiktLayout();
-
     return (
         <>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
@@ -57,11 +56,13 @@ const BeslutterOversikt: FunctionComponent = () => {
                             varsler={[]}
                         />
                         <VerticalSpacer rem={2} />
-
-                        {nettressurs.status === Status.Lastet && (
+                        {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0&& (
                             <Pagination
-                                page={pageState}
-                                onPageChange={(x) => setPageState(x)}
+                                page={pageNumber}
+                                onPageChange={(x) => {
+                                    setPageNumber(x)
+                                    //endreFilter( { page: x.toString() } )
+                                }}
                                 count={currentPage!.totalPages}
                                 boundaryCount={1}
                                 siblingCount={1}
