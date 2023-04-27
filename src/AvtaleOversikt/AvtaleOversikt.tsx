@@ -11,7 +11,7 @@ import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths'
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Button, Label } from '@navikt/ds-react';
+import { BodyShort, Button, Label, Pagination } from '@navikt/ds-react';
 import { Accordion } from '@navikt/ds-react';
 import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
@@ -20,19 +20,30 @@ import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFilt
 import { useLaster } from '@/utils/useLaster';
 import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
 import './AvtaleOversikt.less';
+import { Status } from '@/types/nettressurs';
+import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
 
 const cls = BEMHelper('avtaleoversikt');
+const clsPagination = BEMHelper('avtaleoversikt-pagination')
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
-    const { filtre, parseWindowLocationSearch } = useFilter();
+    const { filtre, endreFilter, parseWindowLocationSearch } = useFilter();
+    const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : "1"));
+    const [currentPage, setCurrentPage] = useState<PageableAvtale>()
+    const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet })
 
-    const { kanLasteMer, lasterMer, lastMer, nettressurs } = useLaster(
-        useCallback((skip: number, limit: number) => hentAvtalerForInnloggetBruker(filtre, skip, limit), [filtre]),
-        10
-    );
+    useEffect(() => { 
+        setNettressurs({ status: Status.LasterInn });
+        endreFilter( { page: pageNumber.toString() } );
+        hentAvtalerForInnloggetBruker(filtre, 10, pageNumber - 1).then((pagableAvtale: PageableAvtale) => {
+            setCurrentPage(pagableAvtale);
+            setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+        })
+    }, [pageNumber, filtre.tilskuddPeriodeStatus, filtre.tiltakstype]);
+
 
     useEffect(() => {
         hentUlesteVarsler()
@@ -128,32 +139,22 @@ const AvtaleOversikt: FunctionComponent = () => {
                                 <VerticalSpacer rem={1} />
                             </>
                         )}
+                        <VerticalSpacer rem={2} />
+                        <div className={clsPagination.className}>
+                            {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
+                                <Pagination
+                                    page={pageNumber}
+                                    onPageChange={(x) => {
+                                        setPageNumber(x)
+                                        //endreFilter( { page: x.toString() } )
+                                    }}
+                                    count={currentPage!.totalPages}
+                                    boundaryCount={1}
+                                    siblingCount={1}
+                                />
+                                )}
+                        </div>
                         <LesMerOmLøsningen />
-                        {kanLasteMer && (
-                            <>
-                                <VerticalSpacer rem={3} />
-                                <div style={{ textAlign: 'center' }}>
-                                    <Button
-                                        variant="secondary"
-                                        title="Last inn mer"
-                                        onClick={lastMer}
-                                        loading={lasterMer}
-                                        disabled={lasterMer}
-                                    >
-                                        Last inn flere avtaler ...
-                                    </Button>
-                                </div>
-                                <VerticalSpacer rem={3} />
-                            </>
-                        )}
-                        {!kanLasteMer && (
-                            <>
-                                <VerticalSpacer rem={2} />
-                                <div style={{ textAlign: 'center' }}>
-                                    Alle avtaler er lastet
-                                </div>
-                            </>
-                        )}
                     </section>
                 </div>
             </main>

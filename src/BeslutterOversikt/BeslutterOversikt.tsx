@@ -59,14 +59,14 @@ const BeslutterOversikt: FunctionComponent = () => {
                         <div className={clsPagination.className}>
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
                                 <Pagination
-                                page={pageNumber}
-                                onPageChange={(x) => {
-                                    setPageNumber(x)
-                                    //endreFilter( { page: x.toString() } )
-                                }}
-                                count={currentPage!.totalPages}
-                                boundaryCount={1}
-                                siblingCount={1}
+                                    page={pageNumber}
+                                    onPageChange={(x) => {
+                                        setPageNumber(x)
+                                        //endreFilter( { page: x.toString() } )
+                                    }}
+                                    count={currentPage!.totalPages}
+                                    boundaryCount={1}
+                                    siblingCount={1}
                                 />
                                 )}
                         </div>

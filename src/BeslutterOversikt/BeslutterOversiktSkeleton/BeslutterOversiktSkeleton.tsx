@@ -31,6 +31,20 @@ const BeslutterOversiktSkeleton: FunctionComponent<Props> = (props) => {
                     <VerticalSpacer rem={0.5} />
                     <Skeleton height={68} />
                     <VerticalSpacer rem={1} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={0.5} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={0.5} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={1} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={0.5} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={0.5} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={1} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={1} />
                 </div>
             </MediaQuery>
             <MediaQuery maxWidth={880}>

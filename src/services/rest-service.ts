@@ -18,6 +18,7 @@ import {
     Inkluderingstilskuddsutgift,
     Maal,
     MentorInnhold,
+    PageableAvtale,
     PageableAvtaleMinimalForBeslutter,
     Stilling,
     TiltaksType,
@@ -81,19 +82,21 @@ const removeEmpty = (obj: any) => {
 
 export const hentAvtalerForInnloggetBruker = async (
     søkekriterier: Filtrering,
-    skip: number = 0,
+    size: number = 2,
+    page: number = 0,
     limit: number = 10000000
-): Promise<Avtale[]> => {
+): Promise<PageableAvtale> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
     const søkekriterierFiltrert = {
         bedriftNr: søkekriterier.bedrift,
         ...søkekriterier,
         bedrift: undefined,
-        skip,
+        size,
+        page,
         limit,
     };
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
-    const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
+    const response = await api.get<PageableAvtale>(`/avtaler?${queryParam}`);
     return response.data;
 };
 

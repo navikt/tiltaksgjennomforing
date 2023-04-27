@@ -10,6 +10,14 @@ export type Avtale = Annullering &
     Godkjenninger &
     TilskuddsPerioder & { gjeldendeInnhold: Avtaleinnhold };
 
+export interface PageableAvtale {
+    currentPage: number;
+    avtaler: Avtale[];//Array<AvtaleMinimalForBeslutter>;
+    size: number;
+    totalItems: number;
+    totalPages: number;
+}
+
 export interface PageableAvtaleMinimalForBeslutter {
     currentPage: number;
     avtaler: AvtaleMinimalForBeslutter[];//Array<AvtaleMinimalForBeslutter>;

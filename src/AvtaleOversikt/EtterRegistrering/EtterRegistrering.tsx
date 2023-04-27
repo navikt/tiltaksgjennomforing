@@ -21,9 +21,9 @@ const EtterRegistrering: FunctionComponent = () => {
     const hentAvtaleInfo = async (avtaleNr: number): Promise<void> => {
         setSpinner(true);
         const response = await RestService.hentAvtalerForInnloggetBruker({ avtaleNr });
-        if (response.length === 1) {
+        if (response.avtaler.length === 1) {
             setTimeoutOnFunction(() => {
-                setAvtale(response[0]);
+                setAvtale(response.avtaler[0]);
                 setSpinner(false);
             });
         } else {
