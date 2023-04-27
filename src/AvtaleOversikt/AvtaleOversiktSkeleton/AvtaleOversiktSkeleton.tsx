@@ -6,6 +6,7 @@ import React, { FunctionComponent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
 import './AvtaleOversiktSkeleton.less';
+import AvtaleTabellRadHeader from '../AvtaleTabellRadHeader';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -17,16 +18,11 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
     return (
         <div>
             <MediaQuery minWidth={881}>
-                <div className={classNames(cls.element('header'), cls.element('rad'))}>
-                    <div className={cls.element('deltakerOgBedrift')}>Bedrift</div>
-                    <div className={cls.element('deltakerOgBedrift')}>Deltaker</div>
-                    {props.erNavAnsatt && <div className={cls.element('veileder')}>Veileder</div>}
-                    <MediaQuery minWidth={576}>
-                        <div className={cls.element('opprettet')}>Opprettet</div>
-                    </MediaQuery>
-                    <div className={cls.element('status')}>Status</div>
-                    <div className={cls.element('statusikon')}>&nbsp;</div>
-                </div>
+                <AvtaleTabellRadHeader
+                    className={cls.className}
+                    erBeslutter={false}
+                    erNavAnsatt={props.erNavAnsatt}
+                />
                 <div>
                     <VerticalSpacer rem={1} />
                     <Skeleton height={68} />

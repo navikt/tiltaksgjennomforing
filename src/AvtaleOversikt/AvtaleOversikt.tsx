@@ -141,19 +141,22 @@ const AvtaleOversikt: FunctionComponent = () => {
                         )}
                         <VerticalSpacer rem={2} />
                         <div className={clsPagination.className}>
+                            {nettressurs.status === Status.LasterInn && (
+                                <VerticalSpacer rem={3.8} />
+                            )}
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
                                 <Pagination
                                     page={pageNumber}
                                     onPageChange={(x) => {
                                         setPageNumber(x)
-                                        //endreFilter( { page: x.toString() } )
                                     }}
                                     count={currentPage!.totalPages}
                                     boundaryCount={1}
                                     siblingCount={1}
                                 />
-                                )}
+                            )}
                         </div>
+                        <VerticalSpacer rem={2} />
                         <LesMerOmLøsningen />
                     </section>
                 </div>
