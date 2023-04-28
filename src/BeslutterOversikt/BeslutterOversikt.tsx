@@ -15,22 +15,26 @@ import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutte
 import { Status } from '@/types/nettressurs';
 
 const cls = BEMHelper('avtaleoversikt');
-const clsPagination = BEMHelper('avtaleoversikt-pagination')
+const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { filtre, endreFilter } = useFilter();
-    const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : "1"));
-    const [currentPage, setCurrentPage] = useState<PageableAvtaleMinimalForBeslutter>()
-    const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({ status: Status.IkkeLastet })
+    const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : '1', 10));
+    const [currentPage, setCurrentPage] = useState<PageableAvtaleMinimalForBeslutter>();
+    const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
+        status: Status.IkkeLastet,
+    });
 
-    useEffect(() => { 
+    useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
-        endreFilter( { page: pageNumber.toString() } );
-        hentAvtalerForInnloggetBeslutter(filtre, 10, pageNumber - 1).then((pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
-            setCurrentPage(pagableAvtale);
-            setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-        })
+        endreFilter({ page: pageNumber.toString() });
+        hentAvtalerForInnloggetBeslutter(filtre, 10, pageNumber - 1).then(
+            (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
+                setCurrentPage(pagableAvtale);
+                setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+            }
+        );
     }, [pageNumber, filtre.tilskuddPeriodeStatus, filtre.tiltakstype]);
 
     const layout = useAvtaleOversiktLayout();
@@ -61,14 +65,14 @@ const BeslutterOversikt: FunctionComponent = () => {
                                 <Pagination
                                     page={pageNumber}
                                     onPageChange={(x) => {
-                                        setPageNumber(x)
-                                        //endreFilter( { page: x.toString() } )
+                                        setPageNumber(x);
+                                        // endreFilter( { page: x.toString() } )
                                     }}
                                     count={currentPage!.totalPages}
                                     boundaryCount={1}
                                     siblingCount={1}
                                 />
-                                )}
+                            )}
                         </div>
                     </section>
                 </div>

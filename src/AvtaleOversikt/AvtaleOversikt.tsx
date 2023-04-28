@@ -30,19 +30,27 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter, parseWindowLocationSearch } = useFilter();
-    const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : "1"));
-    const [currentPage, setCurrentPage] = useState<PageableAvtale>()
-    const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet })
+    const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : '1', 10));
+    const [currentPage, setCurrentPage] = useState<PageableAvtale>();
+    const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
 
-    useEffect(() => { 
+    useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
-        endreFilter( { page: pageNumber.toString() } );
+        endreFilter({ page: pageNumber.toString() });
         hentAvtalerForInnloggetBruker(filtre, 10, pageNumber - 1).then((pagableAvtale: PageableAvtale) => {
             setCurrentPage(pagableAvtale);
             setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-        })
-    }, [pageNumber, filtre.avtaleNr, filtre.tiltakstype, filtre.bedriftNr, filtre.deltakerFnr, filtre.veilederNavIdent, filtre.navEnhet, filtre.erUfordelt]);
-
+        });
+    }, [
+        pageNumber,
+        filtre.avtaleNr,
+        filtre.tiltakstype,
+        filtre.bedriftNr,
+        filtre.deltakerFnr,
+        filtre.veilederNavIdent,
+        filtre.navEnhet,
+        filtre.erUfordelt,
+    ]);
 
     useEffect(() => {
         hentUlesteVarsler()
@@ -140,14 +148,12 @@ const AvtaleOversikt: FunctionComponent = () => {
                         )}
                         <VerticalSpacer rem={2} />
                         <div className={clsPagination.className}>
-                            {nettressurs.status === Status.LasterInn && (
-                                <VerticalSpacer rem={3.9} />
-                            )}
+                            {nettressurs.status === Status.LasterInn && <VerticalSpacer rem={3.9} />}
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
                                 <Pagination
                                     page={pageNumber}
                                     onPageChange={(x) => {
-                                        setPageNumber(x)
+                                        setPageNumber(x);
                                     }}
                                     count={currentPage!.totalPages}
                                     boundaryCount={1}
