@@ -11,7 +11,7 @@ interface Props {
 const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
     const { avtale, settAvtaleInnholdVerdier, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
     return (
-        <Row className={cls.element('rad')}>
+        <Row className={cls.element('rad', 'input')}>
             <Column md="6" className={cls.element('valuta-input')}>
                 <ValutaInput
                     className="input"

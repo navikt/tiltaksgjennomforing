@@ -4,7 +4,6 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { avtaleTittel } from '@/messages';
 import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
@@ -12,10 +11,10 @@ import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
+import './AvtaleSide.less';
 
 const cls = BEMHelper('avtaleside');
 
@@ -48,7 +47,7 @@ const AvtaleSide: FunctionComponent = () => {
     const navigate = useNavigate();
     const { stegPath } = useParams<any>();
 
-    const erDesktop = windowSize > 992;
+    const erDesktop = windowSize > 768;
     const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
     const erAvtaleLaast =
         godkjentAvVeileder ||
@@ -91,8 +90,6 @@ const AvtaleSide: FunctionComponent = () => {
                     <div className={cls.element('innhold')}>
                         <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
                         <OppgaveLinje />
-                        <VerticalSpacer rem={1} />
-                        <VerticalSpacer rem={1} />
                         {aktivtSteg.komponent}
                     </div>
                 )}

@@ -1,16 +1,25 @@
-.horisontal-radio-gruppe {
-  &__radio-gruppe {
-    .navds-radio-buttons {
-      display: flex;
-      justify-content: space-between;
+@import (reference) "../../tiltak_variabler.less";
 
-      .radio-panel {
-        &:nth-child(odd), &:nth-child(even) {
-          margin: 0 0.375rem;
+.horisontal-radio-gruppe {
+
+
+
+  @media (min-width: @screen-sm-min) {
+    &__radio-gruppe {
+      .navds-radio-buttons {
+        display: inline-flex;
+        justify-content: space-between;
+
+        .radio-panel {
+          &:nth-child(odd), &:nth-child(even) {
+            margin: 0 0.375rem;
+          }
+
+          &:first-child {
+            margin: 0;
+          }
         }
-        &:first-child {
-          margin: 0;
-        }
+
       }
     }
   }

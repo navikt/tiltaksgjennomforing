@@ -37,7 +37,7 @@ const arbeidstreningSteg: StegInfo[] = [
     },
     {
         komponent: <OppfolgingTilretteleggingSteg />,
-        label: 'Oppfølging og tilrettelegging',
+        label: 'Oppfølging',
         id: 'oppfolging',
     },
     {
@@ -65,7 +65,7 @@ const lonnstilskuddSteg: StegInfo[] = [
     },
     {
         komponent: <OppfolgingTilretteleggingSteg />,
-        label: 'Oppfølging og tilrettelegging',
+        label: 'Oppfølging',
         id: 'oppfolging',
     },
     {
