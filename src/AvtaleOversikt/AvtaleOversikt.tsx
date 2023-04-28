@@ -11,20 +11,19 @@ import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths'
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Button, Label, Pagination } from '@navikt/ds-react';
+import { BodyShort, Label, Pagination } from '@navikt/ds-react';
 import { Accordion } from '@navikt/ds-react';
-import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import Banner from '@/komponenter/Banner/Banner';
 import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
-import { useLaster } from '@/utils/useLaster';
 import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
 import './AvtaleOversikt.less';
 import { Status } from '@/types/nettressurs';
 import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
 
 const cls = BEMHelper('avtaleoversikt');
-const clsPagination = BEMHelper('avtaleoversikt-pagination')
+const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -42,7 +41,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             setCurrentPage(pagableAvtale);
             setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
         })
-    }, [pageNumber, filtre.tilskuddPeriodeStatus, filtre.tiltakstype]);
+    }, [pageNumber, filtre.avtaleNr, filtre.tiltakstype, filtre.bedriftNr, filtre.deltakerFnr, filtre.veilederNavIdent, filtre.navEnhet, filtre.erUfordelt]);
 
 
     useEffect(() => {
@@ -142,7 +141,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         <VerticalSpacer rem={2} />
                         <div className={clsPagination.className}>
                             {nettressurs.status === Status.LasterInn && (
-                                <VerticalSpacer rem={3.8} />
+                                <VerticalSpacer rem={3.9} />
                             )}
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
                                 <Pagination
