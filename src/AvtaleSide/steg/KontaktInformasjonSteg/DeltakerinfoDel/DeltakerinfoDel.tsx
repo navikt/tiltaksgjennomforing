@@ -1,6 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
@@ -14,11 +13,9 @@ const DeltakerinfoDel: FunctionComponent = () => {
         <>
             <div className={cls.element('container')}>
                 <SkjemaTittel>Informasjon om deltakeren</SkjemaTittel>
-                <div className={cls.element('rad', 'single')}>
+                <div className={cls.element('rad')}>
                     <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.deltakerFnr} />
                 </div>
-                <VerticalSpacer rem={1} />
-
                 <div className={cls.element('rad')}>
                     <PakrevdInput
                         label="Fornavn"
@@ -31,7 +28,6 @@ const DeltakerinfoDel: FunctionComponent = () => {
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerEtternavn', verdi)}
                     />
                 </div>
-                <VerticalSpacer rem={1} />
                 <div className={cls.element('rad')}>
                     <TelefonnummerInput
                         label="Mobilnummer"

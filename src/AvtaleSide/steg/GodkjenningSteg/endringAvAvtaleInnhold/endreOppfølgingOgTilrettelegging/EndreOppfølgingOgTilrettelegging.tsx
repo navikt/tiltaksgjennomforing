@@ -90,7 +90,9 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                                 className={cls.element('textareafelt')}
                                 label="Beskriv hvilken tilrettelegging dere har avtalt"
                                 verdi={oppfølgingOgTilretteleggingInfo.tilrettelegging}
-                                settVerdi={(verdi) => settNyOppfølgingOgTilretteleggingInformasjon('tilrettelegging', verdi)}
+                                settVerdi={(verdi) =>
+                                    settNyOppfølgingOgTilretteleggingInformasjon('tilrettelegging', verdi)
+                                }
                                 maxLengde={1000}
                                 feilmelding="Tilrettelegging er påkrevd"
                             />

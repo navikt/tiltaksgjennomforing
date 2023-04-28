@@ -1,39 +1,45 @@
 @import (reference) "../../tiltak_variabler.less";
 
 .innholdsboks, .innholdsboks.godkjenning {
-    margin-bottom: 0.25rem;
-    background-color: white;
-    border-radius: 4px;
+  margin-bottom: 0.25rem;
+  background-color: white;
+  border-radius: 4px;
 
-    &__innhold {
-        padding: 1.25rem;
-    }
+  &__innhold {
+    padding: 1.25rem;
+  }
 
-    &:last-child {
-        margin-bottom: 0;
-    }
+  &:last-child {
+    margin-bottom: 0;
+  }
 
-    .veilederpanel-med-ikon {
-        .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
-            padding: 4.25rem 1rem 2rem 0.75rem;
-        }
+  .veilederpanel-med-ikon {
+    .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+      padding: 4.25rem 1rem 2rem 0.75rem;
     }
-    @media(min-width: 768px){
-        .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
-            padding: 4.25rem 2rem 2rem 2rem;
-        }
+  }
+
+  @media (min-width: @screen-sm-min) {
+    .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+      padding: 4.25rem 2rem 2rem 2rem;
     }
+  }
 }
 
-// Overskriver styling fra NAVs Ekspanderbartpanel for å kunne ha grå padding mellom innholdsboksene.
 .avtaleside__ekspanderbart-panel .ekspanderbartPanel__innhold {
-    padding: 0;
+  padding: 0;
 }
 
 @media (min-width: @screen-sm-min) {
-    .innholdsboks__innhold {
-        padding: 2rem;
-    }
+  .innholdsboks__innhold {
+    padding: 2rem 0.75rem;
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .innholdsboks__innhold {
+    padding: 2rem;
+  }
 }
 
 

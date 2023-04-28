@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
@@ -6,36 +7,25 @@ import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/Vis
 import BEMHelper from '@/utils/bem';
 import { Fieldset } from '@navikt/ds-react';
 
-import { useContext } from 'react';
-
 const ArbeidsgiverinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
     const { avtale, settAvtaleInnholdVerdi: settAvtaleVerdi } = useContext(AvtaleContext);
+
     return (
         <>
             <div className={cls.element('container')}>
-                <div className={cls.element('rad')}>
-                    <SkjemaTittel>Informasjon om arbeidsgiveren</SkjemaTittel>
-                </div>
-                <Fieldset
-                    legend="Informasjon om bedriften"
-                    title="Om bedriften"
-                    className={cls.element('skjemagruppe')}
-                >
+                <SkjemaTittel>Informasjon om arbeidsgiveren</SkjemaTittel>
+                <Fieldset legend="" title="Om bedriften" className={cls.element('skjemagruppe')}>
                     <div className={cls.element('rad')}>
                         <PakrevdInput
                             label="Bedriftens navn"
                             verdi={avtale.gjeldendeInnhold.bedriftNavn}
                             settVerdi={(verdi) => settAvtaleVerdi('bedriftNavn', verdi)}
                         />
-                        <VisueltDisabledInputFelt label='Virksomhetsnummer' tekst={avtale.bedriftNr} />           
+                        <VisueltDisabledInputFelt label="Virksomhetsnummer" tekst={avtale.bedriftNr} />
                     </div>
                 </Fieldset>
-                <Fieldset
-                    legend="Informasjon om kontaktperson"
-                    title="Kontaktperson for avtalen"
-                    className={cls.element('skjemagruppe')}
-                >
+                <Fieldset legend="" title="Kontaktperson for avtalen" className={cls.element('skjemagruppe')}>
                     <div className={cls.element('rad')}>
                         <PakrevdInput
                             label="Fornavn"

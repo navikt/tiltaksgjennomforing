@@ -3,7 +3,6 @@ import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
 import { Button } from '@navikt/ds-react';
@@ -50,7 +49,6 @@ const OppgaveLinje: React.FunctionComponent = () => {
 
     return (
         <>
-            <VerticalSpacer rem={1} />
             <div className={cls.element('meny-wrapper')}>
                 <TilbakeTilOversiktLenke onClick={lagreEndringer} />
                 {visKunHendelseslog && (
@@ -86,7 +84,6 @@ const OppgaveLinje: React.FunctionComponent = () => {
                     </>
                 )}
             </div>
-            <VerticalSpacer rem={1} />
         </>
     );
 };
