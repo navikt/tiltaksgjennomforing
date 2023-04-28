@@ -37,11 +37,23 @@ const InfoVisningTilskuddsperiode: FunctionComponent = () => {
                 <div className={cls.element('infovisning-gruppe')}>
                     <InfoRadBesluttervisning
                         metadata="Geografisk enhet"
-                        info={<HentNavEnhetFraContext enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />}
+                        info={
+                            <HentNavEnhetFraContext
+                                className={cls.className}
+                                enhetsnr="enhetGeografisk"
+                                enhetsNavn="enhetsnavnGeografisk"
+                            />
+                        }
                     />
                     <InfoRadBesluttervisning
                         metadata="Oppfølgingsenhet"
-                        info={<HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />}
+                        info={
+                            <HentNavEnhetFraContext
+                                className={cls.className}
+                                enhetsnr="enhetOppfolging"
+                                enhetsNavn="enhetsnavnOppfolging"
+                            />
+                        }
                     />
                     <div className={cls.element('infovisning-rad')}>
                         <Label>Endre kostnadssted</Label>

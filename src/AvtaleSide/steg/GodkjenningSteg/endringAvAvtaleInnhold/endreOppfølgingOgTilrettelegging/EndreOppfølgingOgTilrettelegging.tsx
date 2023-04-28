@@ -40,41 +40,6 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
         }));
     };
 
-    const endreOpfølgingOgTilretteleggeingInnhold = (
-        <div className={cls.className}>
-            <div className={cls.element('oppfølging')}>
-                <div className={cls.element('tittel')}>
-                    <Heading size="small">Oppfølging</Heading>
-                </div>
-                <div className={cls.element('textareafelt-wrapper')}>
-                    <PakrevdTextarea
-                        className={cls.element('textareafelt')}
-                        label="Beskriv hvilken oppfølging dere har avtalt"
-                        verdi={oppfølgingOgTilretteleggingInfo.oppfolging}
-                        settVerdi={(verdi) => settNyOppfølgingOgTilretteleggingInformasjon('oppfolging', verdi)}
-                        maxLengde={1000}
-                        feilmelding="Oppfølging er påkrevd"
-                    />
-                </div>
-            </div>
-            <div className={cls.element('Tilrettelegging')}>
-                <div className={cls.element('tittel')}>
-                    <Heading size="small">Tilrettelegging</Heading>
-                </div>
-                <div className={cls.element('textareafelt-wrapper')}>
-                    <PakrevdTextarea
-                        className={cls.element('textareafelt')}
-                        label="Beskriv hvilken tilrettelegging dere har avtalt"
-                        verdi={oppfølgingOgTilretteleggingInfo.tilrettelegging}
-                        settVerdi={(verdi) => settNyOppfølgingOgTilretteleggingInformasjon('tilrettelegging', verdi)}
-                        maxLengde={1000}
-                        feilmelding="Tilrettelegging er påkrevd"
-                    />
-                </div>
-            </div>
-        </div>
-    );
-
     return (
         <>
             <Link
@@ -99,8 +64,42 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreOppfølgingOgTilretteleggingInformasjon}
                 lukkModal={() => setModalApen(false)}
-                modalInnhold={endreOpfølgingOgTilretteleggeingInnhold}
-            />
+            >
+                <div className={cls.className}>
+                    <div className={cls.element('oppfølging')}>
+                        <div className={cls.element('tittel')}>
+                            <Heading size="small">Oppfølging</Heading>
+                        </div>
+                        <div className={cls.element('textareafelt-wrapper')}>
+                            <PakrevdTextarea
+                                className={cls.element('textareafelt')}
+                                label="Beskriv hvilken oppfølging dere har avtalt"
+                                verdi={oppfølgingOgTilretteleggingInfo.oppfolging}
+                                settVerdi={(verdi) => settNyOppfølgingOgTilretteleggingInformasjon('oppfolging', verdi)}
+                                maxLengde={1000}
+                                feilmelding="Oppfølging er påkrevd"
+                            />
+                        </div>
+                    </div>
+                    <div className={cls.element('Tilrettelegging')}>
+                        <div className={cls.element('tittel')}>
+                            <Heading size="small">Tilrettelegging</Heading>
+                        </div>
+                        <div className={cls.element('textareafelt-wrapper')}>
+                            <PakrevdTextarea
+                                className={cls.element('textareafelt')}
+                                label="Beskriv hvilken tilrettelegging dere har avtalt"
+                                verdi={oppfølgingOgTilretteleggingInfo.tilrettelegging}
+                                settVerdi={(verdi) =>
+                                    settNyOppfølgingOgTilretteleggingInformasjon('tilrettelegging', verdi)
+                                }
+                                maxLengde={1000}
+                                feilmelding="Tilrettelegging er påkrevd"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </BekreftelseModal>
         </>
     );
 };

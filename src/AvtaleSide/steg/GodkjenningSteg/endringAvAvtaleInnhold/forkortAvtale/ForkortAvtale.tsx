@@ -50,66 +50,6 @@ const ForkortAvtale: FunctionComponent = () => {
         }
     };
 
-    const forkorteTekst: JSX.Element = (
-        <div className={cls.className}>
-            <div className={cls.element('navarende-sluttdato')}>
-                <Label>Nåværende sluttdato for avtalen</Label>
-                <BodyShort size="small">
-                    {formatterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}
-                </BodyShort>
-            </div>
-
-            <Fieldset legend="Velg ny sluttdato for avtalen" error={datoFeil} title="Velg ny sluttdato for avtalen">
-                <DatovelgerForlengOgForkort
-                    datoFelt="sluttDato"
-                    label=""
-                    onChangeHåndtereNyDato={onDatoChange}
-                    minDate={moment(avtaleContext.avtale.gjeldendeInnhold.startDato).format('YYYY-MM-DD')}
-                    maxDate={moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
-                        .subtract(1, 'days')
-                        .format('YYYY-MM-DD')}
-                />
-            </Fieldset>
-            <VerticalSpacer rem={1} />
-            <Fieldset legend="Hvorfor forkortes avtalen?" title="Hvorfor forkortes avtalen?">
-                {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'].map(
-                    (label: string, index: number) => (
-                        <RadioGroup legend="" key={index} value={grunn}>
-                            <Radio
-                                key={label}
-                                name="grunn"
-                                value={label}
-                                checked={label === grunn}
-                                onChange={(event) => {
-                                    setGrunn(event.currentTarget.value);
-                                    setAnnetGrunn(undefined);
-                                }}
-                                role="menuitemradio"
-                            >
-                                {label}
-                            </Radio>
-                        </RadioGroup>
-                    )
-                )}
-            </Fieldset>
-            <VerticalSpacer rem={1} />
-            {grunn === 'Annet' && (
-                <PakrevdTextarea
-                    label=""
-                    verdi={annetGrunn}
-                    placeholder="Begrunnelse (påkrevd)"
-                    settVerdi={(verdi) => setAnnetGrunn(verdi)}
-                    maxLengde={500}
-                    feilmelding="Begrunnelse er påkrevd"
-                />
-            )}
-            <VerticalSpacer rem={2} />
-            <SlikVilTilskuddsperioderSeUt
-                overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forkortes"
-                tilskuddsperioder={tilskuddsperioder}
-            />
-        </div>
-    );
 
     const lukkModal = (): void => {
         setModalApen(false);
@@ -147,8 +87,66 @@ const ForkortAvtale: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={forkort}
                 lukkModal={lukkModal}
-                modalInnhold={forkorteTekst}
-            />
+            >
+                <div className={cls.className}>
+                    <div className={cls.element('navarende-sluttdato')}>
+                        <Label>Nåværende sluttdato for avtalen</Label>
+                        <BodyShort size="small">
+                            {formatterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}
+                        </BodyShort>
+                    </div>
+
+                    <Fieldset legend="Velg ny sluttdato for avtalen" error={datoFeil} title="Velg ny sluttdato for avtalen">
+                        <DatovelgerForlengOgForkort
+                            datoFelt="sluttDato"
+                            label=""
+                            onChangeHåndtereNyDato={onDatoChange}
+                            minDate={moment(avtaleContext.avtale.gjeldendeInnhold.startDato).format('YYYY-MM-DD')}
+                            maxDate={moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
+                                .subtract(1, 'days')
+                                .format('YYYY-MM-DD')}
+                        />
+                    </Fieldset>
+                    <VerticalSpacer rem={1} />
+                    <Fieldset legend="Hvorfor forkortes avtalen?" title="Hvorfor forkortes avtalen?">
+                        {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'].map(
+                            (label: string, index: number) => (
+                                <RadioGroup legend="" key={index} value={grunn}>
+                                    <Radio
+                                        key={label}
+                                        name="grunn"
+                                        value={label}
+                                        checked={label === grunn}
+                                        onChange={(event) => {
+                                            setGrunn(event.currentTarget.value);
+                                            setAnnetGrunn(undefined);
+                                        }}
+                                        role="menuitemradio"
+                                    >
+                                        {label}
+                                    </Radio>
+                                </RadioGroup>
+                            )
+                        )}
+                    </Fieldset>
+                    <VerticalSpacer rem={1} />
+                    {grunn === 'Annet' && (
+                        <PakrevdTextarea
+                            label=""
+                            verdi={annetGrunn}
+                            placeholder="Begrunnelse (påkrevd)"
+                            settVerdi={(verdi) => setAnnetGrunn(verdi)}
+                            maxLengde={500}
+                            feilmelding="Begrunnelse er påkrevd"
+                        />
+                    )}
+                    <VerticalSpacer rem={2} />
+                    <SlikVilTilskuddsperioderSeUt
+                        overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forkortes"
+                        tilskuddsperioder={tilskuddsperioder}
+                    />
+                </div>
+            </BekreftelseModal>
         </>
     );
 };

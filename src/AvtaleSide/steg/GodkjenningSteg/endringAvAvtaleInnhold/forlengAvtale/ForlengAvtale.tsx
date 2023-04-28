@@ -45,31 +45,6 @@ const ForlengAvtale: FunctionComponent = () => {
         }
     };
 
-    const modalInnhold = (
-        <div className={cls.className}>
-            <div className={cls.element('navarende-sluttdato')}>
-                <Label>Nåværende sluttdato for avtalen</Label>
-                <BodyShort size="small">
-                    {formatterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}
-                </BodyShort>
-            </div>
-            <Fieldset legend="sluttdato" error={feil}>
-                <DatovelgerForlengOgForkort
-                    datoFelt="sluttDato"
-                    label="Velg ny sluttdato for avtalen"
-                    onChangeHåndtereNyDato={onDatoChange}
-                    minDate={moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
-                        .add(1, 'days')
-                        .format('YYYY-MM-DD')}
-                />
-            </Fieldset>
-            <VerticalSpacer rem={2} />
-            <SlikVilTilskuddsperioderSeUt
-                overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"
-                tilskuddsperioder={tilskuddsperioder}
-            />
-        </div>
-    );
 
     const lukkModal = () => {
         setModalApen(false);
@@ -108,8 +83,31 @@ const ForlengAvtale: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={forleng}
                 lukkModal={lukkModal}
-                modalInnhold={modalInnhold}
-            />
+            >
+                <div className={cls.className}>
+                    <div className={cls.element('navarende-sluttdato')}>
+                        <Label>Nåværende sluttdato for avtalen</Label>
+                        <BodyShort size="small">
+                            {formatterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}
+                        </BodyShort>
+                    </div>
+                    <Fieldset legend="sluttdato" error={feil}>
+                        <DatovelgerForlengOgForkort
+                            datoFelt="sluttDato"
+                            label="Velg ny sluttdato for avtalen"
+                            onChangeHåndtereNyDato={onDatoChange}
+                            minDate={moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
+                                .add(1, 'days')
+                                .format('YYYY-MM-DD')}
+                        />
+                    </Fieldset>
+                    <VerticalSpacer rem={2} />
+                    <SlikVilTilskuddsperioderSeUt
+                        overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"
+                        tilskuddsperioder={tilskuddsperioder}
+                    />
+                </div>
+            </BekreftelseModal>
         </>
     );
 };

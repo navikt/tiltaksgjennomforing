@@ -65,68 +65,6 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
         }));
     };
 
-    const endreBeregningInnhold = (
-        <div className={cls.className}>
-            <ValutaInput
-                name="manedslonn"
-                size="medium"
-                label="Månedslønn før skatt"
-                value={nyBeregning.manedslonn}
-                onChange={(event: any) => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
-                min={0}
-            />
-            <div className={cls.element('radioPanel')}>
-                <BodyShort size="small" className={cls.element('radioPanel-tittel')}>
-                    Velg sats for feriepenger som arbeidstaker skal ha
-                </BodyShort>
-                <RadioPanelGruppeHorisontal
-                    radios={getAvgiftsatserForRadioValg(FERIE_SATSER)}
-                    name="feriepengesats"
-                    checked={nyBeregning.feriepengesats + ''}
-                    legend=""
-                    onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                        settNyBeregningsverdi('feriepengesats', parseFloat(verdi))
-                    }
-                />
-            </div>
-
-            <ProsentInput
-                name="tjenestepensjon"
-                size="medium"
-                label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
-                min={0}
-                max={30}
-                autoComplete={'off'}
-                value={
-                    nyBeregning.otpSats !== undefined && nyBeregning.otpSats !== null
-                        ? (nyBeregning.otpSats * 100).toFixed(0)
-                        : ''
-                }
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    settNyBeregningsverdi(
-                        'otpSats',
-                        event.target.value === '' ? undefined : parseFloat(event.target.value) / 100
-                    )
-                }
-            />
-            <VerticalSpacer rem={1} />
-            <SelectInput
-                name="arbeidsgiveravgift"
-                size="medium"
-                options={getAvgiftsatserForRadioValg(ARBEIDSGIVER_AVGIFT_SATSER)}
-                label="Sats for arbeidsgiveravgift"
-                children=""
-                value={nyBeregning.arbeidsgiveravgift}
-                onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                    settNyBeregningsverdi('arbeidsgiveravgift', parseFloat(event.target.value))
-                }
-            />
-            <VerticalSpacer rem={1} />
-            <div className={cls.element('panel')}>
-                <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={context.avtale} />
-            </div>
-        </div>
-    );
 
     return (
         <>
@@ -151,8 +89,68 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreBeregning}
                 lukkModal={() => setModalApen(false)}
-                modalInnhold={endreBeregningInnhold}
-            />
+            >
+                <div className={cls.className}>
+                    <ValutaInput
+                        name="manedslonn"
+                        size="medium"
+                        label="Månedslønn før skatt"
+                        value={nyBeregning.manedslonn}
+                        onChange={(event: any) => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
+                        min={0}
+                    />
+                    <div className={cls.element('radioPanel')}>
+                        <BodyShort size="small" className={cls.element('radioPanel-tittel')}>
+                            Velg sats for feriepenger som arbeidstaker skal ha
+                        </BodyShort>
+                        <RadioPanelGruppeHorisontal
+                            radios={getAvgiftsatserForRadioValg(FERIE_SATSER)}
+                            name="feriepengesats"
+                            checked={nyBeregning.feriepengesats + ''}
+                            legend=""
+                            onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
+                                settNyBeregningsverdi('feriepengesats', parseFloat(verdi))
+                            }
+                        />
+                    </div>
+
+                    <ProsentInput
+                        name="tjenestepensjon"
+                        size="medium"
+                        label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
+                        min={0}
+                        max={30}
+                        autoComplete={'off'}
+                        value={
+                            nyBeregning.otpSats !== undefined && nyBeregning.otpSats !== null
+                                ? (nyBeregning.otpSats * 100).toFixed(0)
+                                : ''
+                        }
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                            settNyBeregningsverdi(
+                                'otpSats',
+                                event.target.value === '' ? undefined : parseFloat(event.target.value) / 100
+                            )
+                        }
+                    />
+                    <VerticalSpacer rem={1} />
+                    <SelectInput
+                        name="arbeidsgiveravgift"
+                        size="medium"
+                        options={getAvgiftsatserForRadioValg(ARBEIDSGIVER_AVGIFT_SATSER)}
+                        label="Sats for arbeidsgiveravgift"
+                        children=""
+                        value={nyBeregning.arbeidsgiveravgift}
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                            settNyBeregningsverdi('arbeidsgiveravgift', parseFloat(event.target.value))
+                        }
+                    />
+                    <VerticalSpacer rem={1} />
+                    <div className={cls.element('panel')}>
+                        <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={context.avtale} />
+                    </div>
+                </div>
+            </BekreftelseModal>
         </>
     );
 };

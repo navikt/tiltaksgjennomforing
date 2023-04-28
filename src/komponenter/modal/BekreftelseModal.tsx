@@ -1,7 +1,7 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { Alert,Heading, Modal } from '@navikt/ds-react';
-import React, { CSSProperties, useEffect, useState } from 'react';
+import { Alert, Heading, Modal } from '@navikt/ds-react';
+import React, { CSSProperties, ReactNode, useState } from 'react';
 import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
@@ -12,7 +12,7 @@ interface Props {
     modalIsOpen: boolean;
     bekreftOnClick: () => Promise<any>;
     lukkModal: () => void;
-    modalInnhold: string | JSX.Element;
+    children?: ReactNode;
     oversiktTekst: string;
     bekreftelseTekst: string;
     avbrytelseTekst: string;
@@ -23,12 +23,6 @@ interface Props {
 const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const [feilmelding, setFeilmelding] = useState<string>();
     const [laster, setLaster] = useState<boolean>(false);
-    const [varselInnhold, setVarselInnhold] = useState<string | JSX.Element>(<div />);
-
-
-    useEffect(() => {
-        setVarselInnhold(props.modalInnhold);
-    }, [props.modalInnhold]);
 
     const setModalElement = () => {
         if (document.getElementById('root')) {
@@ -79,7 +73,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                             <div className={cls.element('tittel')}>
                                 <Heading size="medium" id={props.oversiktTekst}>{props.oversiktTekst}</Heading>
                             </div>
-                            <div className={cls.element('varselTekst')}>{varselInnhold}</div>
+                            <div className={cls.element('varselTekst')}>{props.children}</div>
                         </div>
                         <div className={cls.element('knapper')}>
                             <LagreOgAvbrytKnapp

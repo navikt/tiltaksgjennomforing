@@ -44,84 +44,6 @@ const EndreOmMentor: FunctionComponent = () => {
         setModalApen(false);
     };
 
-    const endreOmMentorInnhold = (
-        <div>
-            <Container fluid={true}>
-                <Row className={''}>
-                    <Column md="6">
-                        <div className={'rad'}>
-                            <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
-                        </div>
-                    </Column>
-                </Row>
-                <VerticalSpacer rem={1} />
-                <Row className="rad">
-                    <Column md="6">
-                        <PakrevdInput
-                            label="Fornavn"
-                            verdi={mentorInfo.mentorFornavn}
-                            settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorFornavn: verdi })}
-                        />
-                    </Column>
-                    <Column md="6">
-                        <PakrevdInput
-                            label="Etternavn"
-                            verdi={mentorInfo.mentorEtternavn}
-                            settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorEtternavn: verdi })}
-                        />
-                    </Column>
-                </Row>
-                <VerticalSpacer rem={1} />
-                <Row className={'rad'}>
-                    <Column md="6">
-                        <TelefonnummerInput
-                            label="Mobilnummer"
-                            verdi={mentorInfo.mentorTlf}
-                            settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}
-                        />
-                    </Column>
-                </Row>
-            </Container>
-            <VerticalSpacer rem={1} />
-            <Container fluid={true}>
-                <PakrevdTextarea
-                    label="Arbeidsoppgaver til mentor"
-                    verdi={mentorInfo.mentorOppgaver}
-                    settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorOppgaver: verdi })}
-                    maxLengde={1000}
-                    feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
-                />
-            </Container>
-            <VerticalSpacer rem={2} />
-            <Container fluid={true}>
-                <Row className="begge__tekst">
-                    <Column md="6">
-                        <PakrevdInputValidering
-                            validering={/^\d{0,3}(,5?)?$/}
-                            label="Antall timer med mentor per uke"
-                            verdi={mentorAntallTimerInput}
-                            settVerdi={(verdi) => {
-                                setMentorAntallTimerInput(verdi);
-                                setMentorInfo({
-                                    ...mentorInfo,
-                                    mentorAntallTimer: inputToNumber(verdi),
-                                });
-                            }}
-                        />
-                        <PakrevdInputValidering
-                            validering={/^\d{0,3}$/}
-                            label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
-                            verdi={mentorInfo.mentorTimelonn?.toFixed(0)}
-                            settVerdi={(verdi) =>
-                                setMentorInfo({ ...mentorInfo, mentorTimelonn: inputToNumber(verdi) })
-                            }
-                        />
-                    </Column>
-                </Row>
-            </Container>
-        </div>
-    );
-
     return (
         <>
             <Link
@@ -146,8 +68,83 @@ const EndreOmMentor: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={kallEndreOmMentor}
                 lukkModal={lukkModal}
-                modalInnhold={endreOmMentorInnhold}
-            />
+            >
+                <div>
+                    <Container fluid={true}>
+                        <Row className={''}>
+                            <Column md="6">
+                                <div className={'rad'}>
+                                    <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
+                                </div>
+                            </Column>
+                        </Row>
+                        <VerticalSpacer rem={1} />
+                        <Row className="rad">
+                            <Column md="6">
+                                <PakrevdInput
+                                    label="Fornavn"
+                                    verdi={mentorInfo.mentorFornavn}
+                                    settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorFornavn: verdi })}
+                                />
+                            </Column>
+                            <Column md="6">
+                                <PakrevdInput
+                                    label="Etternavn"
+                                    verdi={mentorInfo.mentorEtternavn}
+                                    settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorEtternavn: verdi })}
+                                />
+                            </Column>
+                        </Row>
+                        <VerticalSpacer rem={1} />
+                        <Row className={'rad'}>
+                            <Column md="6">
+                                <TelefonnummerInput
+                                    label="Mobilnummer"
+                                    verdi={mentorInfo.mentorTlf}
+                                    settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}
+                                />
+                            </Column>
+                        </Row>
+                    </Container>
+                    <VerticalSpacer rem={1} />
+                    <Container fluid={true}>
+                        <PakrevdTextarea
+                            label="Arbeidsoppgaver til mentor"
+                            verdi={mentorInfo.mentorOppgaver}
+                            settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorOppgaver: verdi })}
+                            maxLengde={1000}
+                            feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
+                        />
+                    </Container>
+                    <VerticalSpacer rem={2} />
+                    <Container fluid={true}>
+                        <Row className="begge__tekst">
+                            <Column md="6">
+                                <PakrevdInputValidering
+                                    validering={/^\d{0,3}(,5?)?$/}
+                                    label="Antall timer med mentor per uke"
+                                    verdi={mentorAntallTimerInput}
+                                    settVerdi={(verdi) => {
+                                        setMentorAntallTimerInput(verdi);
+                                        setMentorInfo({
+                                            ...mentorInfo,
+                                            mentorAntallTimer: inputToNumber(verdi),
+                                        });
+                                    }}
+                                />
+                                <PakrevdInputValidering
+                                    validering={/^\d{0,3}$/}
+                                    label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
+                                    verdi={mentorInfo.mentorTimelonn?.toFixed(0)}
+                                    settVerdi={(verdi) =>
+                                        setMentorInfo({ ...mentorInfo, mentorTimelonn: inputToNumber(verdi) })
+                                    }
+                                />
+                            </Column>
+                        </Row>
+                    </Container>
+                </div>
+            </BekreftelseModal>
         </>
     );
 };

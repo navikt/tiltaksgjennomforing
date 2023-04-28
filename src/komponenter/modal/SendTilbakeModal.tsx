@@ -16,7 +16,6 @@ const SendTilbakeModal: FunctionComponent<Props> = (props) => {
             lukkModal={props.lukkModal}
             modalIsOpen={props.isOpen}
             oversiktTekst="Send tilbake til beslutter uendret"
-            modalInnhold={<></>}
             bekreftelseTekst="Send tilbake"
             avbrytelseTekst="Avbryt"
         />

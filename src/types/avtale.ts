@@ -12,7 +12,7 @@ export type Avtale = Annullering &
 
 export interface PageableAvtale {
     currentPage: number;
-    avtaler: Avtale[];//Array<AvtaleMinimalForBeslutter>;
+    avtaler: Avtale[]; //Array<AvtaleMinimalForBeslutter>;
     size: number;
     totalItems: number;
     totalPages: number;
@@ -20,7 +20,7 @@ export interface PageableAvtale {
 
 export interface PageableAvtaleMinimalForBeslutter {
     currentPage: number;
-    avtaler: AvtaleMinimalForBeslutter[];//Array<AvtaleMinimalForBeslutter>;
+    avtaler: AvtaleMinimalForBeslutter[]; // Array<AvtaleMinimalForBeslutter>;
     size: number;
     totalItems: number;
     totalPages: number;
@@ -176,6 +176,7 @@ export interface Deltakerinfo {
     deltakerEtternavn?: string;
     deltakerTlf?: string;
 }
+
 export interface Veilederinfo {
     veilederFornavn?: string;
     veilederEtternavn?: string;
@@ -207,6 +208,7 @@ export interface Stilling {
 }
 
 export type Stillingstype = 'FAST' | 'MIDLERTIDIG';
+
 export interface Beregningsgrunnlag {
     manedslonn?: number;
     feriepengesats?: number;
@@ -311,6 +313,7 @@ export interface GodkjentPaVegneAvDeltakerGrunner {
     reservert: boolean;
     digitalKompetanse: boolean;
 }
+
 export interface GodkjentPaVegneAvArbeidsgiverGrunner {
     klarerIkkeGiFaTilgang: boolean;
     vetIkkeHvemSomKanGiTilgang: boolean;

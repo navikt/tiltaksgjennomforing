@@ -1,6 +1,5 @@
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
-import classNames from 'classnames';
 import { Loader } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -18,11 +17,7 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
     return (
         <div>
             <MediaQuery minWidth={881}>
-                <AvtaleTabellRadHeader
-                    className={cls.className}
-                    erBeslutter={false}
-                    erNavAnsatt={props.erNavAnsatt}
-                />
+                <AvtaleTabellRadHeader className={cls.className} erBeslutter={false} erNavAnsatt={props.erNavAnsatt} />
                 <div>
                     <VerticalSpacer rem={1} />
                     <Skeleton height={68} />
