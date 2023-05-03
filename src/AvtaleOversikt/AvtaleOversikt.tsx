@@ -40,17 +40,9 @@ const AvtaleOversikt: FunctionComponent = () => {
         hentAvtalerForInnloggetBruker(filtre, 10, pageNumber - 1).then((pagableAvtale: PageableAvtale) => {
             setCurrentPage(pagableAvtale);
             setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-        });
-    }, [
-        pageNumber,
-        filtre.avtaleNr,
-        filtre.tiltakstype,
-        filtre.bedriftNr,
-        filtre.deltakerFnr,
-        filtre.veilederNavIdent,
-        filtre.navEnhet,
-        filtre.erUfordelt,
-    ]);
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageNumber, filtre.sorteringskolonne, filtre.avtaleNr, filtre.tiltakstype, filtre.bedriftNr, filtre.deltakerFnr, filtre.veilederNavIdent, filtre.navEnhet, filtre.erUfordelt, filtre.status]);
 
     useEffect(() => {
         hentUlesteVarsler()

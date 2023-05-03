@@ -28,13 +28,12 @@ const BeslutterOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
-        endreFilter({ page: pageNumber.toString() });
-        hentAvtalerForInnloggetBeslutter(filtre, 10, pageNumber - 1).then(
-            (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
-                setCurrentPage(pagableAvtale);
-                setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-            }
-        );
+        endreFilter( { page: pageNumber.toString() } );
+        hentAvtalerForInnloggetBeslutter(filtre, 10, pageNumber - 1).then((pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
+            setCurrentPage(pagableAvtale);
+            setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageNumber, filtre.tilskuddPeriodeStatus, filtre.tiltakstype]);
 
     const layout = useAvtaleOversiktLayout();
