@@ -20,13 +20,18 @@ const EtterRegistrering: FunctionComponent = () => {
 
     const hentAvtaleInfo = async (avtaleNr: number): Promise<void> => {
         setSpinner(true);
-        const response = await RestService.hentAvtalerForInnloggetBruker({ avtaleNr });
-        if (response.avtaler.length === 1) {
-            setTimeoutOnFunction(() => {
-                setAvtale(response.avtaler[0]);
+        try {
+            const response = await RestService.hentAvtaleMedAvtaleNr(avtaleNr);
+            if (response) {
+                setTimeoutOnFunction(() => {
+                    setAvtale(response);
+                    setSpinner(false);
+                });
+            } else {
+                setFeilmelding('Finner ingen avtale på det avtalenummeret');
                 setSpinner(false);
-            });
-        } else {
+            }
+        } catch (error) {
             setFeilmelding('Finner ingen avtale på det avtalenummeret');
             setSpinner(false);
         }

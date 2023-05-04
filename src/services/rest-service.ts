@@ -75,6 +75,11 @@ export const hentAvtale = async (id: string): Promise<Avtale> => {
     return response.data;
 };
 
+export const hentAvtaleMedAvtaleNr = async (avtaleNr: number): Promise<Avtale> => {
+    const response = await api.get<Avtale>(`/avtaler/avtaleNr/${avtaleNr}`);
+    return response.data;
+}
+
 const removeEmpty = (obj: any) => {
     Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
     return obj;
@@ -204,12 +209,12 @@ const opprettAvtalen = async (
     return getResponse.data;
 };
 
-export const mentorGodkjennTaushetserklæring = async (avtale: Avtale): Promise<Avtale> => {
-    const uri = `/avtaler/${avtale.id}/mentorGodkjennTaushetserklæring`;
+export const mentorGodkjennTaushetserklæring = async (avtaleId: string, sistEndret: string): Promise<Avtale> => {
+    const uri = `/avtaler/${avtaleId}/mentorGodkjennTaushetserklæring`;
 
-    await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
+    await api.post(uri, null, { headers: { 'If-Unmodified-Since': sistEndret } });
 
-    return hentAvtale(avtale.id);
+    return hentAvtale(avtaleId);
 };
 
 export const godkjennAvtale = async (avtale: Avtale) => {

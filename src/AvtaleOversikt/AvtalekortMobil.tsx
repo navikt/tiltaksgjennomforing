@@ -3,7 +3,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { avtaleStatusTekst } from '@/messages';
 import { pathTilAvtaleNy } from '@/paths';
-import { Avtale } from '@/types/avtale';
+import { AvtaleMinimalListeVisning } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
@@ -16,7 +16,7 @@ import './AvtalekortMobil.less';
 const cls = BEMHelper('avtalekortMobil');
 
 const AvtalekortMobil: FunctionComponent<{
-    avtaler: Avtale[];
+    avtaler: AvtaleMinimalListeVisning[];
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
@@ -25,7 +25,7 @@ const AvtalekortMobil: FunctionComponent<{
 
     return (
         <>
-            {avtaler.map((avtale: Avtale) => {
+            {avtaler.map((avtale: AvtaleMinimalListeVisning) => {
                 const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                 return (
                     <>
@@ -56,20 +56,20 @@ const AvtalekortMobil: FunctionComponent<{
                                     )}
                                     <div>
                                         <Heading size="small">
-                                            {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
-                                            {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
+                                            {avtale.deltakerFornavn || ''}&nbsp;
+                                            {avtale.deltakerEtternavn || ''}
                                         </Heading>
                                         <VerticalSpacer rem={0.5} />
-                                        <Ingress>{avtale.gjeldendeInnhold.bedriftNavn}</Ingress>
+                                        <Ingress>{avtale.bedriftNavn}</Ingress>
                                         <VerticalSpacer rem={0.5} />
                                         <BodyShort size="small">
                                             Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
                                         </BodyShort>
                                         <div className={cls.element('status')}>
-                                            <StatusIkon status={avtale.statusSomEnum} />
+                                            <StatusIkon status={avtale.status} />
                                             <BodyShort size="small">
                                                 <div className={cls.element('statustekst')}>
-                                                    {avtaleStatusTekst[avtale.statusSomEnum]}
+                                                    {avtaleStatusTekst[avtale.status]}
                                                 </div>
                                             </BodyShort>
                                         </div>
@@ -79,8 +79,9 @@ const AvtalekortMobil: FunctionComponent<{
                         </LinkPanel>
                         <TaushetserklæringModal
                             open={visTaushetserklæringForAvtaleId === avtale.id}
+                            sistEndret={avtale.sistEndret}
                             togglesetTaushetserklæringForMentorAvtale={setVisTaushetserklæringForAvtaleId}
-                            avtale={avtale}
+                            avtaleId={avtale.id}
                         />
                     </>
                 );

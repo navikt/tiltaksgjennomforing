@@ -2,7 +2,7 @@ import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { avtaleStatusTekst } from '@/messages';
 import { pathTilAvtaleNy } from '@/paths';
-import { Avtale } from '@/types/avtale';
+import { AvtaleMinimalListeVisning } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
@@ -17,24 +17,24 @@ import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 
 const cls = BEMHelper('avtaletabell');
 
-const hentAvtaleStatus = (avtale: Avtale, erNavAnsatt: boolean): JSX.Element => {
-    const erGjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
+const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolean): JSX.Element => {
+    const erGjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
     return (
         <>
             <div className={cls.element('statusikon')}>
-                <StatusIkon status={avtale.statusSomEnum} />
+                <StatusIkon status={avtale.status} />
             </div>
             <BodyShort className={cls.element('status')}>
                 {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
                     ? 'Tilskuddsperiode avslått'
-                    : avtaleStatusTekst[avtale.statusSomEnum]}
+                    : avtaleStatusTekst[avtale.status]}
             </BodyShort>
         </>
     );
 };
 
 const AvtaleTabell: FunctionComponent<{
-    avtaler: Avtale[];
+    avtaler: AvtaleMinimalListeVisning[];
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
@@ -50,7 +50,7 @@ const AvtaleTabell: FunctionComponent<{
                 erNavAnsatt={innloggetBruker.erNavAnsatt}
             />
             <div role="list">
-                {avtaler.map((avtale: Avtale, index: number) => {
+                {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
                         <div key={avtale.id} className={cls.element('linkpanel')}>
@@ -93,13 +93,13 @@ const AvtaleTabell: FunctionComponent<{
                                         >
                                             <div className={cls.element('deltakerOgBedrift')}>
                                                 <BodyShort size="small">
-                                                    {avtale.gjeldendeInnhold.bedriftNavn}
+                                                    {avtale.bedriftNavn}
                                                 </BodyShort>
                                             </div>
                                             <div className={cls.element('deltakerOgBedrift')}>
                                                 <BodyShort size="small">
-                                                    {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
-                                                    {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
+                                                    {avtale.deltakerFornavn || ''}&nbsp;
+                                                    {avtale.deltakerEtternavn || ''}
                                                 </BodyShort>
                                             </div>
                                             {innloggetBruker.erNavAnsatt && (
@@ -112,16 +112,16 @@ const AvtaleTabell: FunctionComponent<{
                                             <MediaQuery minWidth={576}>
                                                 <div className={cls.element('dato')}>
                                                     <BodyShort size="small">
-                                                        {avtale.gjeldendeInnhold.startDato &&
-                                                            moment(avtale.gjeldendeInnhold.startDato).format(
+                                                        {avtale.startDato &&
+                                                            moment(avtale.startDato).format(
                                                                 'DD.MM.YYYY'
                                                             )}
                                                     </BodyShort>
                                                 </div>
                                                 <div className={cls.element('dato')}>
                                                     <BodyShort size="small">
-                                                        {avtale.gjeldendeInnhold.sluttDato &&
-                                                            moment(avtale.gjeldendeInnhold.sluttDato).format(
+                                                        {avtale.sluttDato &&
+                                                            moment(avtale.sluttDato).format(
                                                                 'DD.MM.YYYY'
                                                             )}
                                                     </BodyShort>
@@ -134,8 +134,9 @@ const AvtaleTabell: FunctionComponent<{
                             </LinkPanel>
                             <TaushetserklæringModal
                                 open={visTaushetserklæringForAvtaleId === avtale.id}
+                                sistEndret={avtale.sistEndret}
                                 togglesetTaushetserklæringForMentorAvtale={setVisTaushetserklæringForAvtaleId}
-                                avtale={avtale}
+                                avtaleId={avtale.id}
                             />
                         </div>
                     );
