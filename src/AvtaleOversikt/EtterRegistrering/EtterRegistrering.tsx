@@ -79,8 +79,8 @@ const EtterRegistrering: FunctionComponent = () => {
                         <div className={cls.element('input-sok')}>
                             <SøkeInput
                                 label=""
-                                className="etterRegistrering"
-                                maxLength={9}
+                                className="sok"
+                                //maxLength={10}
                                 utførsøk={(søkeord) => {
                                     setSpinner(true);
                                     hentAvtaleInfo(Number(søkeord));
@@ -126,8 +126,8 @@ const EtterRegistrering: FunctionComponent = () => {
                                         label={avtale.godkjentForEtterregistrering ? 'Fjern' : 'Godkjenn'}
                                         suksessmelding={
                                             avtale.godkjentForEtterregistrering
-                                                ? 'Avtalen er godkjent for etterregistrering'
-                                                : 'Fjernet etterregistrering på avtale'
+                                                ? 'Fjernet etterregistrering på avtale'
+                                                : 'Avtalen er godkjent for etterregistrering'
                                         }
                                     />
                                 </div>
