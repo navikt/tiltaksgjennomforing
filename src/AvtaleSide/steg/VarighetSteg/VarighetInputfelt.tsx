@@ -32,7 +32,7 @@ const VarighetInputfelt: React.FC<Props> = ({ className }: Props) => {
                 <Column md="6">
                     <div className={cls.element('Stillingsprosent-input-container')}>
                         <StillingsprosentInput
-                            label="stillingsprosent for deltaker"
+                            label="Stillingsprosent for deltaker"
                             verdi={avtale.gjeldendeInnhold.stillingprosent}
                             size="medium"
                             settVerdi={(verdi) => settAvtaleInnholdVerdi('stillingprosent', verdi)}

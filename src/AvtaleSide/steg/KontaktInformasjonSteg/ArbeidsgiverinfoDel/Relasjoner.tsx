@@ -64,7 +64,7 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                     </div>
                 ) : (
                     <>
-                        <RadioGroup legend="familie relasjoner" className={cls.element('familie-relasjoner')}>
+                        <RadioGroup legend="Familierelasjoner" className={cls.element('familie-relasjoner')}>
                             <div className={cls.element('familie-relasjoner-valg')}>
                                 <RadioPanel
                                     className={cls.element('radioknapp')}
