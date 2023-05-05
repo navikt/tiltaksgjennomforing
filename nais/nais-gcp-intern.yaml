@@ -56,8 +56,8 @@ spec:
       rules:
         - application: tiltak-proxy
           namespace: arbeidsgiver
-          cluster: dev-fss
+          cluster: prod-fss
         - application: tiltak-stillingstitler
           namespace: arbeidsgiver
       external:
-        - host: tiltak-proxy.dev-fss-pub.nais.io
+        - host: tiltak-proxy.prod-fss-pub.nais.io
