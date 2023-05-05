@@ -57,7 +57,9 @@ const AvtaleOversikt: FunctionComponent = () => {
         filtre.bedrift &&
         innloggetBruker.tilganger[filtre.bedrift]?.length > 0;
 
-    const oversiktTekt = 'Tiltaksoversikt';
+    const antalAvtalerTekst = currentPage && (currentPage.totalItems > 1 || currentPage.totalItems == 0) ? ' avtaler' : ' avtale';
+    const oversiktTekt = 'Tiltaksoversikt (' + currentPage?.totalItems + antalAvtalerTekst + ')';
+
     return (
         <>
             <Dokumenttittel tittel={oversiktTekt} />
