@@ -1,66 +1,66 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-    name: tiltaksgjennomforing
-    namespace: arbeidsgiver
-    labels:
-        team: arbeidsgiver
-spec:
-    image: { { image } }
+  name: tiltaksgjennomforing
+  namespace: arbeidsgiver
+  labels:
     team: arbeidsgiver
-    port: 3000
-    ingresses:
-        - '{{{ingress}}}'
-    liveness:
-        path: /tiltaksgjennomforing/internal/isAlive
-        initialDelay: 5
-    readiness:
-        path: /tiltaksgjennomforing/internal/isReady
-        initialDelay: 5
-    env:
-        - name: MILJO
-          value: { { miljo } }
-        - name: APIGW_URL
-          value: '{{{api-gw-url}}}'
-        - name: LOGIN_URL
-          value: '{{{login-url}}}'
-        - name: LOGOUT_URL
-          value: '{{{logout-url}}}'
-        - name: ENABLE_EXTERNAL_MENU
-          value: 'true'
-        - name: NOTIFIKASJON_URL
-          value: 'http://notifikasjon-bruker-api.fager.svc.cluster.local'
-        - name: NOTIFIKASJON_AUDIENCE
-          value: '{{{notifikasjon-audience}}}'
-        - name: DECORATOR_EXTERNAL_URL
-          value: 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb'
-        - name: STILLINGSTITLER_URL
-          value: '{{{stillingstitler-url}}}'
-        - name: API_AUDIENCE
-          value: '{{{api-audience}}}'
-        - name: AAD_REDIRECT_URL
-          value: { { { aad-redirect-url } } }
-    tokenx:
-        enabled: true
-    idporten:
-        clientUri: '{{{ingress}}}'
-        enabled: true
-        sidecar:
-            enabled: true
-            level: Level4
-            locale: nb
-            autoLogin: false
-            errorPath: ''
-    accessPolicy:
-        outbound:
-            rules:
-                - application: tiltak-proxy
-                  namespace: arbeidsgiver
-                  cluster: '{{{proxy-cluster}}}'
-                - application: tiltak-stillingstitler
-                  namespace: arbeidsgiver
-                - application: notifikasjon-bruker-api
-                  namespace: fager
-            external:
-                - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
-                - host: '{{{decorator-host}}}'
+spec:
+  image: {{image}}
+  team: arbeidsgiver
+  port: 3000
+  ingresses:
+    - '{{{ingress}}}'
+  liveness:
+    path: /tiltaksgjennomforing/internal/isAlive
+    initialDelay: 5
+  readiness:
+    path: /tiltaksgjennomforing/internal/isReady
+    initialDelay: 5
+  env:
+    - name: MILJO
+      value: {{miljo}}
+    - name: APIGW_URL
+      value: '{{{api-gw-url}}}'
+    - name: LOGIN_URL
+      value: '{{{login-url}}}'
+    - name: LOGOUT_URL
+      value: '{{{logout-url}}}'
+    - name: ENABLE_EXTERNAL_MENU
+      value: 'true'
+    - name: NOTIFIKASJON_URL
+      value: 'http://notifikasjon-bruker-api.fager.svc.cluster.local'
+    - name: NOTIFIKASJON_AUDIENCE
+      value: '{{{notifikasjon-audience}}}'
+    - name: DECORATOR_EXTERNAL_URL
+      value: 'https://www.nav.no/dekoratoren/?context=arbeidsgiver&redirectToApp=true&level=Level4&language=nb'
+    - name: STILLINGSTITLER_URL
+      value: '{{{stillingstitler-url}}}'
+    - name: API_AUDIENCE
+      value: '{{{api-audience}}}'
+    - name: AAD_REDIRECT_URL
+      value: {{{aad-redirect-url}}}
+  tokenx:
+    enabled: true
+  idporten:
+    clientUri: '{{{ingress}}}'
+    enabled: true
+    sidecar:
+      enabled: true
+      level: Level4
+      locale: nb
+      autoLogin: false
+      errorPath: ""
+  accessPolicy:
+    outbound:
+      rules:
+        - application: tiltak-proxy
+          namespace: arbeidsgiver
+          cluster: '{{{proxy-cluster}}}'
+        - application: tiltak-stillingstitler
+          namespace: arbeidsgiver
+        - application: notifikasjon-bruker-api
+          namespace: fager
+      external:
+        - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
+        - host: '{{{decorator-host}}}'
