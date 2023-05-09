@@ -61,3 +61,4 @@ spec:
           namespace: arbeidsgiver
       external:
         - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
+        - host: '{{{decorator-host}}}'
