@@ -26,13 +26,15 @@ export const useFilter = () => {
         };
     }, [parseWindowLocationSearch]);
 
-    const endreFilter = (endring: Filtrering) => {
-        // Type 'any' fordi Object.keys ikke skjønner at 'k' er en key av Filtrering
-        const nyeFiltre: any = { ...filtre, ...endring };
-        Object.keys(nyeFiltre).forEach((k) => !nyeFiltre[k] && delete nyeFiltre[k]);
-        navigate('?' + new URLSearchParams(nyeFiltre).toString());
-        parseWindowLocationSearch();
-    };
+    const endreFilter = useCallback(
+        (endring: Filtrering) => {
+            const nyeFiltre: any = { ...filtre, ...endring };
+            Object.keys(nyeFiltre).forEach((key: string) => !nyeFiltre[key] && delete nyeFiltre[key]);
+            navigate('?' + new URLSearchParams(nyeFiltre).toString());
+            parseWindowLocationSearch();
+        },
+        [filtre, navigate, parseWindowLocationSearch]
+    );
 
     return { filtre, endreFilter, parseWindowLocationSearch };
 };

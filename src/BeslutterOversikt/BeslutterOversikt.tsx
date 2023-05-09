@@ -35,19 +35,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
             }
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        pageNumber,
-        filtre.sorteringskolonne,
-        filtre.avtaleNr,
-        filtre.tiltakstype,
-        filtre.bedriftNr,
-        filtre.deltakerFnr,
-        filtre.veilederNavIdent,
-        filtre.navEnhet,
-        filtre.erUfordelt,
-        filtre.status,
-    ]);
+    }, [pageNumber, filtre, endreFilter]);
 
     const layout = useAvtaleOversiktLayout();
     return (
