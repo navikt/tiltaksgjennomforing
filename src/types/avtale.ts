@@ -12,7 +12,7 @@ export type Avtale = Annullering &
 
 export interface PageableAvtale {
     currentPage: number;
-    avtaler: AvtaleMinimalListeVisning[]; //Avtale[]; //Array<AvtaleMinimalForBeslutter>;
+    avtaler: AvtaleMinimalListeVisning[];
     size: number;
     totalItems: number;
     totalPages: number;
@@ -37,11 +37,10 @@ export type AvtaleMinimalListeVisning = {
     status: AvtaleStatus;
     tiltakstype: TiltaksType;
     erGodkjentTaushetserklæringAvMentor: boolean;
-    gjeldendeTilskuddsperiodeStatus: TilskuddPeriodeStatus
+    gjeldendeTilskuddsperiodeStatus: TilskuddPeriodeStatus;
     opprettetTidspunkt: string;
     sistEndret: string;
 };
-
 
 export type AvtaleMinimalForBeslutter = {
     antallUbehandlet: string;
@@ -49,10 +48,10 @@ export type AvtaleMinimalForBeslutter = {
     deltakerFnr: string;
     deltakerFornavn: string;
     id: string;
-    startDatoPeriode?: string;
+    startDato: string;
     veilederNavIdent: string;
     bedriftNavn: string;
-    tilskuddsperiodestatus: TilskuddPeriodeStatus;
+    status: TilskuddPeriodeStatus;
 };
 
 export type Avtaleinnhold = {

@@ -78,7 +78,7 @@ export const hentAvtale = async (id: string): Promise<Avtale> => {
 export const hentAvtaleMedAvtaleNr = async (avtaleNr: number): Promise<Avtale> => {
     const response = await api.get<Avtale>(`/avtaler/avtaleNr/${avtaleNr}`);
     return response.data;
-}
+};
 
 const removeEmpty = (obj: any) => {
     Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
@@ -109,7 +109,7 @@ export const hentAvtalerForInnloggetBeslutter = async (
     søkekriterier: Filtrering,
     size: number = 2,
     page: number = 0,
-    limit: number = 10000000
+    sorteringOrder: string = 'ASC'
 ): Promise<PageableAvtaleMinimalForBeslutter> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
     const søkekriterierFiltrert = {
@@ -118,11 +118,12 @@ export const hentAvtalerForInnloggetBeslutter = async (
         bedrift: undefined,
         size,
         page,
-        limit,
+        sorteringOrder,
     };
+
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
     const response = await api.get<PageableAvtaleMinimalForBeslutter>(`/avtaler/beslutter-liste?${queryParam}`);
-    return response.data
+    return response.data;
 };
 
 export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {

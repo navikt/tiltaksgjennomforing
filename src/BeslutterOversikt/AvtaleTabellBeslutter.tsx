@@ -76,16 +76,19 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                             )}
                                             <MediaQuery minWidth={576}>
                                                 {erBeslutter && (
-                                                    <div
-                                                        style={{ minWidth: '10rem' }}
-                                                        className={(cls.element('dato'), cls.element('besluterdato'))}
-                                                    >
-                                                        <BodyShort size="small"> {' - '}</BodyShort>
+                                                    <div className={(cls.element('dato'), cls.element('besluterdato'))}>
+                                                        <BodyShort size="small">
+                                                            {new Date(avtale.startDato).toLocaleDateString('no-NB', {
+                                                                day: 'numeric',
+                                                                month: 'short',
+                                                                year: '2-digit',
+                                                            })}
+                                                        </BodyShort>
                                                     </div>
                                                 )}
                                             </MediaQuery>
                                             <EtikettStatus
-                                                tilskuddsperiodestatus={avtale.tilskuddsperiodestatus}
+                                                tilskuddsperiodestatus={avtale.status}
                                                 antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
                                             />
                                         </div>
