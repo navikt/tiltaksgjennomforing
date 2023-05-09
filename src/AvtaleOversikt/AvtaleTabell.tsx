@@ -21,10 +21,10 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
     const erGjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
     return (
         <>
-            <div className={cls.element('statusikon')}>
+            <div className={cls.element('veileder-statusikon')}>
                 <StatusIkon status={avtale.status} />
             </div>
-            <BodyShort className={cls.element('status')}>
+            <BodyShort className={cls.element('veileder-status')}>
                 {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
                     ? 'Tilskuddsperiode avslått'
                     : avtaleStatusTekst[avtale.status]}
@@ -91,39 +91,46 @@ const AvtaleTabell: FunctionComponent<{
                                                 uthevet: ulestVarsel,
                                             })}
                                         >
-                                            <div className={cls.element('deltakerOgBedrift')}>
-                                                <BodyShort size="small">
-                                                    {avtale.bedriftNavn}
-                                                </BodyShort>
+                                            <div className={cls.element('veileder-deltakerOgBedrift')}>
+                                                <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
                                             </div>
-                                            <div className={cls.element('deltakerOgBedrift')}>
+                                            <div className={cls.element('veileder-deltakerOgBedrift')}>
                                                 <BodyShort size="small">
-                                                    {avtale.deltakerFornavn || ''}&nbsp;
-                                                    {avtale.deltakerEtternavn || ''}
+                                                    {avtale?.deltakerFornavn && avtale?.deltakerEtternavn
+                                                        ? avtale?.deltakerFornavn
+                                                        : '-'}
+                                                    &nbsp;
+                                                    {avtale?.deltakerEtternavn ?? ''}
                                                 </BodyShort>
                                             </div>
                                             {innloggetBruker.erNavAnsatt && (
-                                                <div className={cls.element('veileder')}>
+                                                <div className={cls.element('veileder-veileder')}>
                                                     <BodyShort size="small">
-                                                        {avtale.veilederNavIdent || 'Ufordelt'}
+                                                        {avtale.veilederNavIdent ?? 'Ufordelt'}
                                                     </BodyShort>
                                                 </div>
                                             )}
                                             <MediaQuery minWidth={576}>
-                                                <div className={cls.element('dato')}>
+                                                <div className={cls.element('veileder-dato')}>
                                                     <BodyShort size="small">
-                                                        {avtale.startDato &&
-                                                            moment(avtale.startDato).format(
-                                                                'DD.MM.YYYY'
-                                                            )}
+                                                        {avtale.startDato
+                                                            ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
+                                                                  day: 'numeric',
+                                                                  month: 'short',
+                                                                  year: '2-digit',
+                                                              })
+                                                            : '-'}
                                                     </BodyShort>
                                                 </div>
-                                                <div className={cls.element('dato')}>
+                                                <div className={cls.element('veileder-dato')}>
                                                     <BodyShort size="small">
-                                                        {avtale.sluttDato &&
-                                                            moment(avtale.sluttDato).format(
-                                                                'DD.MM.YYYY'
-                                                            )}
+                                                        {avtale.sluttDato
+                                                            ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {
+                                                                  day: 'numeric',
+                                                                  month: 'short',
+                                                                  year: '2-digit',
+                                                              })
+                                                            : '-'}
                                                     </BodyShort>
                                                 </div>
                                             </MediaQuery>

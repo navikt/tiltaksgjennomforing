@@ -41,32 +41,55 @@
         justify-content: flex-start;
         flex-wrap: nowrap;
         align-items: center;
-    }
-
-    &__deltakerOgBedrift {
-        width: 10rem;
-        margin-right: 1rem;
-    }
-
-    &__veileder {
-        min-width: 8rem;
-        padding-right: 1rem;
-    }
-
-    &__dato, &__besluterdato {
-        min-width: 10rem;
-    }
-
-    &__statusikon {
-        margin-right: 2rem;
-    }
-
-    &__status {
-        width: 8rem;
+        width: 100%;
     }
 
     &__status-rad {
         display: flex;
     }
 
+    &__beslutter {
+        &-veileder {
+            min-width: 8rem;
+            padding-right: 1rem;
+        }
+
+        &-deltakerOgBedrift {
+            width: 10rem;
+            margin-right: 1rem;
+        }
+
+        &-dato {
+            min-width: 10rem;
+        }
+
+        &-status {
+            width: 8rem;
+        }
+    }
+
+    &__veileder {
+        &-veileder {
+            min-width: 8rem;
+        }
+
+        &-deltakerOgBedrift {
+            width: 8.5rem;
+        }
+
+        &-dato {
+            min-width: 6rem;
+        }
+
+        &-statusikon {
+            width: 4rem;
+        }
+
+        &-status {
+            width: 6rem;
+        }
+    }
+
 }
+
+

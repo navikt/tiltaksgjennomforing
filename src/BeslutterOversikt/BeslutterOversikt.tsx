@@ -66,7 +66,6 @@ const BeslutterOversikt: FunctionComponent = () => {
                                     page={pageNumber}
                                     onPageChange={(x) => {
                                         setPageNumber(x);
-                                        // endreFilter( { page: x.toString() } )
                                     }}
                                     count={currentPage!.totalPages}
                                     boundaryCount={1}
