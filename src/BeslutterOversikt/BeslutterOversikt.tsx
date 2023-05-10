@@ -4,15 +4,14 @@ import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { Pagination } from '@navikt/ds-react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import '../AvtaleOversikt/AvtaleOversikt.less';
 import AvtalerBeslutter from './AvtalerBeslutter';
 import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
+import '../AvtaleOversikt/AvtaleOversikt.less';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
