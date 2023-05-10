@@ -32,8 +32,12 @@ const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavA
             <div className={cls.element('veileder-deltakerOgBedrift')}>Deltaker</div>
             {erNavAnsatt && <div className={cls.element('veileder-veileder')}>Veileder</div>}
             <MediaQuery minWidth={576}>
-                <div className={cls.element('veileder-dato')}>Startdato</div>
-                <div className={cls.element('veileder-dato')}>Sluttdato</div>
+                <div className={cls.element('veileder-dato', erNavAnsatt ? '' : 'arbeidsgiver-deltaker')}>
+                    Startdato
+                </div>
+                <div className={cls.element('veileder-dato', erNavAnsatt ? '' : 'arbeidsgiver-deltaker')}>
+                    Sluttdato
+                </div>
             </MediaQuery>
             <div className={cls.element('veileder-statusikon')}>&nbsp;</div>
             <div className={cls.element('veileder-status')}>Status</div>

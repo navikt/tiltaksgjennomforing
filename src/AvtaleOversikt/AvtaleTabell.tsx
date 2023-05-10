@@ -11,8 +11,8 @@ import classNames from 'classnames';
 import { FunctionComponent, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-import './AvtaleTabell.less';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
+import './AvtaleTabell.less';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -110,7 +110,12 @@ const AvtaleTabell: FunctionComponent<{
                                                 </div>
                                             )}
                                             <MediaQuery minWidth={576}>
-                                                <div className={cls.element('veileder-dato')}>
+                                                <div
+                                                    className={cls.element(
+                                                        'veileder-dato',
+                                                        innloggetBruker.erNavAnsatt ? '' : 'arbeidsgiver-deltaker'
+                                                    )}
+                                                >
                                                     <BodyShort size="small">
                                                         {avtale.startDato
                                                             ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
@@ -121,7 +126,12 @@ const AvtaleTabell: FunctionComponent<{
                                                             : '-'}
                                                     </BodyShort>
                                                 </div>
-                                                <div className={cls.element('veileder-dato')}>
+                                                <div
+                                                    className={cls.element(
+                                                        'veileder-dato',
+                                                        innloggetBruker.erNavAnsatt ? '' : 'arbeidsgiver-deltaker'
+                                                    )}
+                                                >
                                                     <BodyShort size="small">
                                                         {avtale.sluttDato
                                                             ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {

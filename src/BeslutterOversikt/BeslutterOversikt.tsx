@@ -59,7 +59,6 @@ const BeslutterOversikt: FunctionComponent = () => {
                             innloggetBruker={innloggetBruker}
                             varsler={[]}
                         />
-                        <VerticalSpacer rem={2} />
                         <div className={clsPagination.className}>
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
                                 <Pagination

@@ -11,8 +11,7 @@ import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths'
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Label, Pagination } from '@navikt/ds-react';
-import { Accordion } from '@navikt/ds-react';
+import { Pagination } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import Banner from '@/komponenter/Banner/Banner';
@@ -21,6 +20,7 @@ import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
 import './AvtaleOversikt.less';
 import { Status } from '@/types/nettressurs';
 import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
+import AvtaleOversiktArbeidsgiverInformasjon from '@/AvtaleOversikt/AvtaleOversiktArbeidsgiverInformasjon';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
@@ -105,42 +105,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         )}
                     <section style={layout.stylingAvTabell}>
                         <Avtaler avtalelisteRessurs={nettressurs} innloggetBruker={innloggetBruker} varsler={varsler} />
-                        <VerticalSpacer rem={1} />
-                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
-                            <>
-                                <Accordion className="accordion">
-                                    <Accordion.Item>
-                                        <Accordion.Header>
-                                            {' '}
-                                            <div>
-                                                <Label size="small">Finner du ikke avtalen du leter etter?</Label>
-                                                <BodyShort size="small">
-                                                    Det kan være flere årsaker til dette. Les hva du kan gjøre.
-                                                </BodyShort>
-                                            </div>
-                                        </Accordion.Header>
-                                        <Accordion.Content>
-                                            <Label size="small">
-                                                Avtalen du leter etter er opprettet på en annen virksomhet
-                                            </Label>
-                                            <BodyShort size="small">
-                                                Det kan være at avtalen du leter etter er opprettet på en annen
-                                                virskomhet. Du kan prøve å bytte virksomhet i virksomhetsvelgeren oppe
-                                                til høyre på skjermen.
-                                            </BodyShort>
-                                            <VerticalSpacer rem={1} />
-                                            <Label size="small">
-                                                Du mangler tilgang til rett avtaletype for den virksomheten du har
-                                                valgt.
-                                            </Label>
-                                            <BodyShort size="small">Da kan du be om tilgang i Altinn.</BodyShort>
-                                        </Accordion.Content>
-                                    </Accordion.Item>
-                                </Accordion>
-                                <VerticalSpacer rem={1} />
-                            </>
-                        )}
-                        <VerticalSpacer rem={2} />
+                        <AvtaleOversiktArbeidsgiverInformasjon rolle={innloggetBruker.rolle} cls={cls} />
                         <div className={clsPagination.className}>
                             {nettressurs.status === Status.LasterInn && <VerticalSpacer rem={3.9} />}
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
