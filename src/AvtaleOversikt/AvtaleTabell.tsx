@@ -8,7 +8,6 @@ import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { BodyShort, LinkPanel } from '@navikt/ds-react';
 import classNames from 'classnames';
-import moment from 'moment';
 import { FunctionComponent, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
