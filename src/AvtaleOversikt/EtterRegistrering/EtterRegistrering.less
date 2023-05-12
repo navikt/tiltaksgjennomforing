@@ -3,7 +3,7 @@
     &__modal {
         width: 16rem;
         padding: 2.5rem 0.5rem 0.5rem;
-        height: 100%;
+        height: calc(100% + 2rem);
         min-height: 14rem;
 
         & > .alertstripe {
@@ -28,14 +28,12 @@
     }
 
     &__avtale-info-wrapper {
-        max-height: 30rem;
-        overflow: hidden;
-        transition: max-height 0.2s;
+        transition: max-height ease-in-out 0.5s;
 
         &--skjule {
             overflow: hidden;
             max-height: 0;
-            transition: max-height 0.2s;
+            transition: max-height ease-in-out 0.5s;
         }
     }
 

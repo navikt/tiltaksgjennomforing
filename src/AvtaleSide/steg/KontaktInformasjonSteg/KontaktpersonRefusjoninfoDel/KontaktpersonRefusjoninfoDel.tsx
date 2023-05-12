@@ -60,7 +60,7 @@ const KontaktpersonRefusjoninfoDel = () => {
             <div className={cls.element('container')}>
                 <div className={cls.element('rad', 'header')}>
                     <SkjemaTittel>Kontaktperson hos arbeidsgiver for refusjon</SkjemaTittel>
-                    <HelpText className={cls.element('helptekst')} title="Hva menes med refusjon kontaktperson?">
+                    <HelpText className={cls.element('helptekst')} title="Hva menes med kontaktperson for refusjon?">
                         For eksempel en regnskapsfører som skal motta varslinger om refusjon
                     </HelpText>
                 </div>
