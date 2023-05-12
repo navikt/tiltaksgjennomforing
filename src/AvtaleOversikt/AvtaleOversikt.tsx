@@ -30,7 +30,6 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
-    const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : '1', 10));
     const [currentPage, setCurrentPage] = useState<PageableAvtale>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
 
@@ -42,10 +41,6 @@ const AvtaleOversikt: FunctionComponent = () => {
             setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
         });
     }, [filtre]);
-
-    useEffect(() => {
-        endreFilter({ page: pageNumber.toString() });
-    }, [pageNumber, endreFilter]);
 
     useEffect(() => {
         hentUlesteVarsler()
@@ -63,6 +58,8 @@ const AvtaleOversikt: FunctionComponent = () => {
     const antalAvtalerTekst =
         currentPage && (currentPage.totalItems > 1 || currentPage.totalItems === 0) ? ' avtaler' : ' avtale';
     const oversiktTekt = 'Tiltaksoversikt (' + currentPage?.totalItems + antalAvtalerTekst + ')';
+
+    const pageNumber = parseInt(filtre.page || '1');
 
     return (
         <>
@@ -116,7 +113,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                                 <Pagination
                                     page={pageNumber}
                                     onPageChange={(x) => {
-                                        setPageNumber(x);
+                                        endreFilter({ page: '' + x });
                                     }}
                                     count={currentPage!.totalPages}
                                     boundaryCount={1}
