@@ -29,7 +29,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
-    const { filtre, endreFilter, parseWindowLocationSearch } = useFilter();
+    const { filtre, endreFilter } = useFilter();
     const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : '1', 10));
     const [currentPage, setCurrentPage] = useState<PageableAvtale>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
@@ -41,7 +41,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             setCurrentPage(pagableAvtale);
             setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
         });
-    }, [filtre, endreFilter]);
+    }, [filtre]);
 
     useEffect(() => {
         endreFilter({ page: pageNumber.toString() });
@@ -69,7 +69,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             <Dokumenttittel tittel={oversiktTekt} />
             <Banner
                 byttetOrg={() => {
-                    parseWindowLocationSearch();
+                    //parseWindowLocationSearch();
                 }}
                 tekst={oversiktTekt}
             />

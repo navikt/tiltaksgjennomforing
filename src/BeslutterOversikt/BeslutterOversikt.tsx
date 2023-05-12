@@ -34,7 +34,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
             }
         );
-    }, [filtre, endreFilter]);
+    }, [filtre]);
 
     useEffect(() => {
         endreFilter({ page: pageNumber.toString() });
