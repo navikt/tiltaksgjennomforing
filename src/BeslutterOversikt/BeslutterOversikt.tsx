@@ -19,7 +19,6 @@ const clsPagination = BEMHelper('avtaleoversikt-pagination');
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { filtre, endreFilter } = useFilter();
-    const [pageNumber, setPageNumber] = useState<number>(parseInt(filtre.page ? filtre.page : '1', 10));
     const [currentPage, setCurrentPage] = useState<PageableAvtaleMinimalForBeslutter>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
         status: Status.IkkeLastet,
@@ -36,9 +35,7 @@ const BeslutterOversikt: FunctionComponent = () => {
         );
     }, [filtre]);
 
-    useEffect(() => {
-        endreFilter({ page: pageNumber.toString() });
-    }, [pageNumber, endreFilter]);
+    const pageNumber = parseInt(filtre.page || '1');
 
     const layout = useAvtaleOversiktLayout();
     return (
@@ -67,7 +64,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                                 <Pagination
                                     page={pageNumber}
                                     onPageChange={(x) => {
-                                        setPageNumber(x);
+                                        endreFilter({ page: '' + x });
                                     }}
                                     count={currentPage!.totalPages}
                                     boundaryCount={1}
