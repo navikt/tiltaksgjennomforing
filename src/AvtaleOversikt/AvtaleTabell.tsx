@@ -32,6 +32,17 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
     );
 };
 
+const lagFulltNavn = (avtale: AvtaleMinimalListeVisning) => {
+    if(avtale?.deltakerFornavn && avtale?.deltakerEtternavn) {
+        return avtale?.deltakerFornavn + ' ' + avtale?.deltakerEtternavn;
+    } else if(avtale?.deltakerFornavn) {
+        return avtale?.deltakerFornavn
+    } else if(avtale?.deltakerEtternavn) {
+        return avtale?.deltakerEtternavn
+    }
+    return '-'
+}
+
 const AvtaleTabell: FunctionComponent<{
     avtaler: AvtaleMinimalListeVisning[];
     varsler: Varsel[];
@@ -95,11 +106,7 @@ const AvtaleTabell: FunctionComponent<{
                                             </div>
                                             <div className={cls.element('veileder-deltakerOgBedrift')}>
                                                 <BodyShort size="small">
-                                                    {avtale?.deltakerFornavn && avtale?.deltakerEtternavn
-                                                        ? avtale?.deltakerFornavn
-                                                        : '-'}
-                                                    &nbsp;
-                                                    {avtale?.deltakerEtternavn ?? ''}
+                                                    {lagFulltNavn(avtale)}
                                                 </BodyShort>
                                             </div>
                                             {innloggetBruker.erNavAnsatt && (
