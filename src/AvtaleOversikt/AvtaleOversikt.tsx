@@ -36,12 +36,16 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
-        endreFilter({ page: pageNumber.toString() });
-        hentAvtalerForInnloggetBruker(filtre, 10, pageNumber - 1).then((pagableAvtale: PageableAvtale) => {
+        const page = parseInt(filtre.page ? filtre.page : '1', 10)
+        hentAvtalerForInnloggetBruker(filtre, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
             setCurrentPage(pagableAvtale);
             setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
         });
-    }, [pageNumber, filtre, endreFilter]);
+    }, [filtre, endreFilter]);
+
+    useEffect(() => {
+        endreFilter({ page: pageNumber.toString() });
+    }, [pageNumber, endreFilter]);
 
     useEffect(() => {
         hentUlesteVarsler()

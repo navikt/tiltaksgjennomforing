@@ -27,14 +27,18 @@ const BeslutterOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
-        endreFilter({ page: pageNumber.toString() });
-        hentAvtalerForInnloggetBeslutter(filtre, 10, pageNumber - 1).then(
+        const page = parseInt(filtre.page ? filtre.page : '1', 10)
+        hentAvtalerForInnloggetBeslutter(filtre, 10, page - 1).then(
             (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
                 setCurrentPage(pagableAvtale);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
             }
         );
-    }, [pageNumber, filtre, endreFilter]);
+    }, [filtre, endreFilter]);
+
+    useEffect(() => {
+        endreFilter({ page: pageNumber.toString() });
+    }, [pageNumber, endreFilter]);
 
     const layout = useAvtaleOversiktLayout();
     return (
