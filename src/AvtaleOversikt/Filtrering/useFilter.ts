@@ -16,7 +16,7 @@ export const useFilter = () => {
             console.log("Sett params");
             setFiltre(newParams);
         }
-    }, [searchParams]);
+    }, [searchParams, setFiltre, filtre]);
 
     // const endreFilter = useCallback(
     //     (endring: Filtrering) => {
@@ -29,7 +29,6 @@ export const useFilter = () => {
     // );
 
     const endreFilter = (endring: Filtrering) => {
-        console.log("Sett filter", filtre, endring);
         // Type 'any' fordi Object.keys ikke skjønner at 'k' er en key av Filtrering
         const nyeFiltre: any = { ...filtre, ...endring };
         Object.keys(nyeFiltre).forEach((k) => !nyeFiltre[k] && delete nyeFiltre[k]);
