@@ -4,8 +4,9 @@ import { Loader } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
-import './AvtaleOversiktSkeleton.less';
-import AvtaleTabellRadHeader from '../AvtaleTabellRadHeader';
+import './BeslutterOversiktSkeleton.less';
+import 'react-loading-skeleton/dist/skeleton.css'
+import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -13,11 +14,15 @@ type Props = {
     erNavAnsatt: boolean;
 };
 
-const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
+const BeslutterOversiktSkeleton: FunctionComponent<Props> = (props) => {
     return (
         <div>
             <MediaQuery minWidth={881}>
-                <AvtaleTabellRadHeader className={cls.className} erBeslutter={false} erNavAnsatt={props.erNavAnsatt} />
+                <AvtaleTabellRadHeader
+                    className={cls.className}
+                    erBeslutter={true}
+                    erNavAnsatt={props.erNavAnsatt}
+                />
                 <div>
                     <VerticalSpacer rem={1} />
                     <Skeleton height={68} />
@@ -35,6 +40,10 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
                     <Skeleton height={68} />
                     <VerticalSpacer rem={0.5} />
                     <Skeleton height={68} />
+                    <VerticalSpacer rem={0.5} />
+                    <Skeleton height={68} />
+                    <VerticalSpacer rem={1} />
+                    <Skeleton height={68} />
                     <VerticalSpacer rem={1} />
                 </div>
             </MediaQuery>
@@ -47,4 +56,4 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
     );
 };
 
-export default AvtaleOversiktSkeleton;
+export default BeslutterOversiktSkeleton;

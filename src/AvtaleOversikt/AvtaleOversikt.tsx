@@ -11,28 +11,36 @@ import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths'
 import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Button, Label } from '@navikt/ds-react';
-import { Accordion } from '@navikt/ds-react';
-import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
+import { Pagination } from '@navikt/ds-react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import Banner from '@/komponenter/Banner/Banner';
 import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
-import { useLaster } from '@/utils/useLaster';
 import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
 import './AvtaleOversikt.less';
+import { Status } from '@/types/nettressurs';
+import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
+import AvtaleOversiktArbeidsgiverInformasjon from '@/AvtaleOversikt/AvtaleOversiktArbeidsgiverInformasjon';
 
 const cls = BEMHelper('avtaleoversikt');
+const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
-    const { filtre, parseWindowLocationSearch } = useFilter();
+    const { filtre, endreFilter } = useFilter();
+    const [currentPage, setCurrentPage] = useState<PageableAvtale>();
+    const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
 
-    const { kanLasteMer, lasterMer, lastMer, nettressurs } = useLaster(
-        useCallback((skip: number, limit: number) => hentAvtalerForInnloggetBruker(filtre, skip, limit), [filtre]),
-        10
-    );
+    useEffect(() => {
+        setNettressurs({ status: Status.LasterInn });
+        const page = parseInt(filtre.page ? filtre.page : '1', 10)
+        hentAvtalerForInnloggetBruker(filtre, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
+            setCurrentPage(pagableAvtale);
+            setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+        });
+    }, [filtre]);
 
     useEffect(() => {
         hentUlesteVarsler()
@@ -47,13 +55,18 @@ const AvtaleOversikt: FunctionComponent = () => {
         filtre.bedrift &&
         innloggetBruker.tilganger[filtre.bedrift]?.length > 0;
 
-    const oversiktTekt = 'Tiltaksoversikt';
+    const antalAvtalerTekst =
+        currentPage && (currentPage.totalItems > 1 || currentPage.totalItems === 0) ? ' avtaler' : ' avtale';
+    const oversiktTekt = 'Tiltaksoversikt (' + currentPage?.totalItems + antalAvtalerTekst + ')';
+
+    const pageNumber = parseInt(filtre.page || '1');
+
     return (
         <>
             <Dokumenttittel tittel={oversiktTekt} />
             <Banner
                 byttetOrg={() => {
-                    parseWindowLocationSearch();
+                    //parseWindowLocationSearch();
                 }}
                 tekst={oversiktTekt}
             />
@@ -93,67 +106,23 @@ const AvtaleOversikt: FunctionComponent = () => {
                         )}
                     <section style={layout.stylingAvTabell}>
                         <Avtaler avtalelisteRessurs={nettressurs} innloggetBruker={innloggetBruker} varsler={varsler} />
-                        <VerticalSpacer rem={1} />
-                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
-                            <>
-                                <Accordion className="accordion">
-                                    <Accordion.Item>
-                                        <Accordion.Header>
-                                            {' '}
-                                            <div>
-                                                <Label size="small">Finner du ikke avtalen du leter etter?</Label>
-                                                <BodyShort size="small">
-                                                    Det kan være flere årsaker til dette. Les hva du kan gjøre.
-                                                </BodyShort>
-                                            </div>
-                                        </Accordion.Header>
-                                        <Accordion.Content>
-                                            <Label size="small">
-                                                Avtalen du leter etter er opprettet på en annen virksomhet
-                                            </Label>
-                                            <BodyShort size="small">
-                                                Det kan være at avtalen du leter etter er opprettet på en annen
-                                                virskomhet. Du kan prøve å bytte virksomhet i virksomhetsvelgeren oppe
-                                                til høyre på skjermen.
-                                            </BodyShort>
-                                            <VerticalSpacer rem={1} />
-                                            <Label size="small">
-                                                Du mangler tilgang til rett avtaletype for den virksomheten du har
-                                                valgt.
-                                            </Label>
-                                            <BodyShort size="small">Da kan du be om tilgang i Altinn.</BodyShort>
-                                        </Accordion.Content>
-                                    </Accordion.Item>
-                                </Accordion>
-                                <VerticalSpacer rem={1} />
-                            </>
-                        )}
+                        <AvtaleOversiktArbeidsgiverInformasjon rolle={innloggetBruker.rolle} cls={cls} />
+                        <div className={clsPagination.className}>
+                            {nettressurs.status === Status.LasterInn && <VerticalSpacer rem={3.9} />}
+                            {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
+                                <Pagination
+                                    page={pageNumber}
+                                    onPageChange={(x) => {
+                                        endreFilter({ page: '' + x });
+                                    }}
+                                    count={currentPage!.totalPages}
+                                    boundaryCount={1}
+                                    siblingCount={1}
+                                />
+                            )}
+                        </div>
+                        <VerticalSpacer rem={2} />
                         <LesMerOmLøsningen />
-                        {kanLasteMer && (
-                            <>
-                                <VerticalSpacer rem={3} />
-                                <div style={{ textAlign: 'center' }}>
-                                    <Button
-                                        variant="secondary"
-                                        title="Last inn mer"
-                                        onClick={lastMer}
-                                        loading={lasterMer}
-                                        disabled={lasterMer}
-                                    >
-                                        Last inn flere avtaler ...
-                                    </Button>
-                                </div>
-                                <VerticalSpacer rem={3} />
-                            </>
-                        )}
-                        {!kanLasteMer && (
-                            <>
-                                <VerticalSpacer rem={2} />
-                                <div style={{ textAlign: 'center' }}>
-                                    Alle avtaler er lastet
-                                </div>
-                            </>
-                        )}
                     </section>
                 </div>
             </main>

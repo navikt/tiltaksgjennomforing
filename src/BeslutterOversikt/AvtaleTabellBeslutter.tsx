@@ -28,7 +28,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
             <AvtaleTabellRadHeader
                 className={cls.className}
                 erBeslutter={erBeslutter}
-                innloggetBruker={innloggetBruker}
+                erNavAnsatt={innloggetBruker.erNavAnsatt}
             />
             <div role="list">
                 {avtaler.map((avtale: AvtaleMinimalForBeslutter, index: number) => {
@@ -58,17 +58,17 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                                 uthevet: ulestVarsel,
                                             })}
                                         >
-                                            <div className={cls.element('deltakerOgBedrift')}>
+                                            <div className={cls.element('beslutter-deltakerOgBedrift')}>
                                                 <BodyShort size="small">{avtale.bedriftNavn}</BodyShort>
                                             </div>
-                                            <div className={cls.element('deltakerOgBedrift')}>
+                                            <div className={cls.element('beslutter-deltakerOgBedrift')}>
                                                 <BodyShort size="small">
                                                     {avtale.deltakerFornavn || ''}&nbsp;
                                                     {avtale.deltakerEtternavn || ''}
                                                 </BodyShort>
                                             </div>
                                             {innloggetBruker.erNavAnsatt && (
-                                                <div className={cls.element('veileder')}>
+                                                <div className={cls.element('beslutter-veileder')}>
                                                     <BodyShort size="small">
                                                         {avtale.veilederNavIdent || 'Ufordelt'}
                                                     </BodyShort>
@@ -76,16 +76,19 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                             )}
                                             <MediaQuery minWidth={576}>
                                                 {erBeslutter && (
-                                                    <div
-                                                        style={{ minWidth: '10rem' }}
-                                                        className={(cls.element('dato'), cls.element('besluterdato'))}
-                                                    >
-                                                        <BodyShort size="small"> {' - '}</BodyShort>
+                                                    <div className={cls.element('beslutter-dato')}>
+                                                        <BodyShort size="small">
+                                                            {new Date(avtale.startDato).toLocaleDateString('no-NB', {
+                                                                day: 'numeric',
+                                                                month: 'short',
+                                                                year: '2-digit',
+                                                            })}
+                                                        </BodyShort>
                                                     </div>
                                                 )}
                                             </MediaQuery>
                                             <EtikettStatus
-                                                tilskuddsperiodestatus={avtale.tilskuddsperiodestatus}
+                                                tilskuddsperiodestatus={avtale.status}
                                                 antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
                                             />
                                         </div>

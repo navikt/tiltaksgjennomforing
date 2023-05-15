@@ -4,32 +4,42 @@ import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { useLaster } from '@/utils/useLaster';
-import { Alert, Button } from '@navikt/ds-react';
-import { FunctionComponent, useCallback, useContext } from 'react';
-import '../AvtaleOversikt/AvtaleOversikt.less';
+import { Pagination } from '@navikt/ds-react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import AvtalerBeslutter from './AvtalerBeslutter';
+import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
+import { Status } from '@/types/nettressurs';
+import '../AvtaleOversikt/AvtaleOversikt.less';
 
 const cls = BEMHelper('avtaleoversikt');
+const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { filtre, endreFilter } = useFilter();
+    const [currentPage, setCurrentPage] = useState<PageableAvtaleMinimalForBeslutter>();
+    const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
+        status: Status.IkkeLastet,
+    });
 
-    const { filtre } = useFilter();
-    const { kanLasteMer, lasterMer, lastMer, nettressurs } = useLaster(
-        useCallback((skip, limit) => hentAvtalerForInnloggetBeslutter(filtre, skip, limit), [filtre]),
-        50
-    );
+    useEffect(() => {
+        setNettressurs({ status: Status.LasterInn });
+        const page = parseInt(filtre.page ? filtre.page : '1', 10)
+        hentAvtalerForInnloggetBeslutter(filtre, 10, page - 1).then(
+            (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
+                setCurrentPage(pagableAvtale);
+                setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+            }
+        );
+    }, [filtre]);
+
+    const pageNumber = parseInt(filtre.page || '1');
+
     const layout = useAvtaleOversiktLayout();
-
     return (
         <>
-            <Alert variant="warning">
-                Denne oversikten kan oppleves tregere enn vanlig. Vi jobber med å utbedre dette.
-            </Alert>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
             <BannerNAVAnsatt tekst={'Tilskuddsoversikt'} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
@@ -49,32 +59,19 @@ const BeslutterOversikt: FunctionComponent = () => {
                             innloggetBruker={innloggetBruker}
                             varsler={[]}
                         />
-                        {kanLasteMer && (
-                            <>
-                                <VerticalSpacer rem={3} />
-                                <div style={{ textAlign: 'center' }}>
-                                    <Button
-                                        title="Last inn mer"
-                                        variant="secondary"
-                                        onClick={lastMer}
-                                        loading={lasterMer}
-                                        disabled={lasterMer}
-                                    >
-                                        Last inn flere tilskudd ...
-                                    </Button>
-                                </div>
-                                <VerticalSpacer rem={3} />
-                            </>
-                        )}
-                        {!kanLasteMer && (
-                            <>
-                                <VerticalSpacer rem={2} />
-                                <div style={{ textAlign: 'center' }}>
-                                    Alle avtaler er lastet
-                                </div>
-                            </>
-                        )}
-                        <VerticalSpacer rem={10} />
+                        <div className={clsPagination.className}>
+                            {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
+                                <Pagination
+                                    page={pageNumber}
+                                    onPageChange={(x) => {
+                                        endreFilter({ page: '' + x });
+                                    }}
+                                    count={currentPage!.totalPages}
+                                    boundaryCount={1}
+                                    siblingCount={1}
+                                />
+                            )}
+                        </div>
                     </section>
                 </div>
             </main>

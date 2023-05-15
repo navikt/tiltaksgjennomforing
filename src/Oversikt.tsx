@@ -9,7 +9,6 @@ const Oversikt: FunctionComponent = () => {
     return (
         <FiltreringProvider>
             {innloggetBruker.rolle === 'BESLUTTER' ? <BeslutterOversikt /> : <AvtaleOversikt />}
-            {/* {innloggetBruker.rolle === 'BESLUTTER' ? <Alert variant='info'>Vi jobber med å rette noen feil i besluttervisningen.</Alert> : <AvtaleOversikt />} */}
         </FiltreringProvider>
     );
 };

@@ -41,43 +41,59 @@
         justify-content: flex-start;
         flex-wrap: nowrap;
         align-items: center;
-    }
-
-    &__deltakerOgBedrift {
-        width: 10rem;
-        margin-right: 1rem;
-    }
-
-    &__veileder {
-        width: 5rem;
-        padding-right: 1rem;
-    }
-
-    &__dato {
-        width: 6rem;
-    }
-
-    &__statusikon {
-        margin-right: 2rem;
-    }
-
-    &__status {
-        width: 8rem;
+        width: 100%;
     }
 
     &__status-rad {
         display: flex;
     }
 
-    &__besluterdato {
-        margin-left: 5rem;
+    &__beslutter {
+        &-veileder {
+            min-width: 8rem;
+            padding-right: 1rem;
+        }
+
+        &-deltakerOgBedrift {
+            width: 10rem;
+            margin-right: 1rem;
+        }
+
+        &-dato {
+            min-width: 10rem;
+        }
+
+        &-status {
+            width: 8rem;
+        }
     }
 
-    &__headerstatus {
-        margin-left: 8.5rem;
+    &__veileder {
+        &-veileder {
+            min-width: 8rem;
+        }
+
+        &-deltakerOgBedrift {
+            width: 8.5rem;
+            word-wrap: break-word;
+        }
+
+        &-dato {
+            min-width: 6rem;
+            &--arbeidsgiver-deltaker {
+                min-width: 9.5rem;
+            }
+        }
+
+        &-statusikon {
+            width: 4rem;
+        }
+
+        &-status {
+            width: 6rem;
+        }
     }
 
-    &__beslutterStatus {
-        margin-left: 5rem;
-    }
 }
+
+
