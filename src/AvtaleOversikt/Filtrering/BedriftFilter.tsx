@@ -19,7 +19,7 @@ export const BedriftFilter: FunctionComponent<PropsWithChildren> = () => {
                     return !validerOrgnr(verdi) ? 'Ugyldig virksomhetsnummer' : undefined;
                 }}
                 placeholder={'Skriv et virksomhetsnummer'}
-                defaultverdi={filtre.bedriftNr}
+                verdi={filtre.bedriftNr}
             />
         </Filter>
     );
