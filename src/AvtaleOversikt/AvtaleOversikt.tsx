@@ -55,23 +55,24 @@ const AvtaleOversikt: FunctionComponent = () => {
         filtre.bedrift &&
         innloggetBruker.tilganger[filtre.bedrift]?.length > 0;
 
-    const antalAvtalerTekst =
-        currentPage && (currentPage.totalItems > 1 || currentPage.totalItems === 0) ? ' avtaler' : ' avtale';
-    const oversiktTekt = 'Tiltaksoversikt (' + currentPage?.totalItems + antalAvtalerTekst + ')';
+    const antallAvtalerSuffiks =
+        currentPage && (currentPage?.totalItems > 1 || currentPage?.totalItems === 0) ? ' avtaler' : ' avtale';
+    const antallAvtalerTekst = currentPage?.totalItems ? `(${currentPage?.totalItems} ${antallAvtalerSuffiks})` : ''
+    const oversiktTekst = `Tiltaksoversikt ${antallAvtalerTekst}`;
 
     const pageNumber = parseInt(filtre.page || '1');
 
     return (
         <>
-            <Dokumenttittel tittel={oversiktTekt} />
+            <Dokumenttittel tittel={oversiktTekst} />
             <Banner
                 byttetOrg={() => {
                     //parseWindowLocationSearch();
                 }}
-                tekst={oversiktTekt}
+                tekst={oversiktTekst}
             />
 
-            <BannerNAVAnsatt tekst={oversiktTekt} />
+            <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 <div
                     style={layout.stylingAvFilterOgTabell}
