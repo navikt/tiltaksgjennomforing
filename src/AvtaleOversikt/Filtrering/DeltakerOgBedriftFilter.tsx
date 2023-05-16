@@ -153,7 +153,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
                     maxLength={aktueltSøk.maxLength}
                     utførsøk={aktueltSøk.utførSøk}
                     valider={aktueltSøk.validering}
-                    defaultverdi={aktueltSøk.søkeinput}
+                    verdi={aktueltSøk.søkeinput}
                     role="searchbox"
                 />
             )}
