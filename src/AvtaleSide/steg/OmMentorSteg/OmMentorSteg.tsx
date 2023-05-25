@@ -9,6 +9,7 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { BodyShort } from '@navikt/ds-react';
+import ValutaInput from '@/komponenter/form/ValutaInput';
 import React, { useState, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
@@ -87,13 +88,25 @@ const OmMentorSteg = () => {
                         />
                     </Column>
                     <Column md="6">
-                        <PakrevdInputValidering
-                            validering={/^\d{0,5}$/}
+                        <ValutaInput
+                            className="input"
+                            name="Timelønn"
+                            size="medium"
                             label="Timelønn*"
-                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn?.toFixed(0)}
-                            settVerdi={(verdi) =>
-                                avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', inputToNumber(verdi))
-                            }
+                            autoComplete={'off'}
+                            value={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                if(/^\d{0,5}(,\d{0,2})?$/.test(event.target.value)){
+                                    console.log("etv", event.target.value)
+                                    //avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', parseFloat(event.target.value))
+                                }}}                                
+                            onBlur={(event) => {
+                                if(/^\d{0,5}(,\d{0,2})?$/.test(event.target.value)){
+                                    avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', parseFloat(event.target.value))
+                                }
+                                }} 
+
+                            min={0}
                         />
                         <VerticalSpacer rem={0.5} />
                         <BodyShort size="small">
