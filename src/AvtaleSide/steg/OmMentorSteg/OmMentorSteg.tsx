@@ -20,6 +20,9 @@ const OmMentorSteg = () => {
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
         avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? ''
     );
+
+    const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
+
     const inputToNumber = (verdi: string | undefined): number | undefined => {
         verdi = verdi?.replace(/,/g, '.');
         if (!isNaN(Number(verdi))) {
@@ -89,6 +92,7 @@ const OmMentorSteg = () => {
                     </Column>
                     <Column md="6">
                         <ValutaInput
+                            min={0}
                             className="input"
                             name="Timelønn"
                             size="medium"
@@ -96,19 +100,21 @@ const OmMentorSteg = () => {
                             autoComplete={'off'}
                             value={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                if(/^\d{0,5}(,\d{0,2})?$/.test(event.target.value)){
-                                    console.log("etv", event.target.value)
-                                    //avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', parseFloat(event.target.value))
-                                }}}                                
+                                settForHøyTimelønn(undefined)
+                            }}                                
                             onBlur={(event) => {
-                                if(/^\d{0,5}(,\d{0,2})?$/.test(event.target.value)){
-                                    avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', parseFloat(event.target.value))
+                                if(/^\d{0,4}(\.\d{0,2})?$/.test(event.target.value)){
+                                    avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', Math.round(parseFloat(event.target.value)))
                                 }
-                                }} 
-
-                            min={0}
+                                else {
+                                        avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', undefined);
+                                        settForHøyTimelønn("Overskrider maks timelønn");
+                                    }
+                                }
+                            }
+                            error={forHøyTimelønn}
                         />
-                        <VerticalSpacer rem={0.5} />
+                        <VerticalSpacer rem={0.75} />
                         <BodyShort size="small">
                             *Inkludert feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
                         </BodyShort>
