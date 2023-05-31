@@ -1,15 +1,15 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
+import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import BEMHelper from '@/utils/bem';
 import { BodyShort, RadioGroup } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
-import StillingsTittelVelger from './StillingsTittelVelger';
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
+import { FunctionComponent, useContext } from 'react';
 import './StillingsSteg.less';
+import StillingsTittelVelger from './StillingsTittelVelger';
 
 const cls = BEMHelper('StillingsSteg');
 
@@ -42,22 +42,20 @@ const StillingSteg: FunctionComponent = () => {
                 <>
                     <BodyShort size="small">Er stillingen fast eller midlertidig</BodyShort>
                     <div>
-                        <RadioGroup legend="" className={cls.element('stillingstype_radio')}>
+                        <RadioGroup legend="" value={avtaleContext.avtale.gjeldendeInnhold.stillingstype} className={cls.element('stillingstype_radio')}>
                             <RadioPanel
                                 onChange={() => avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'FAST' })}
                                 checked={avtaleContext.avtale.gjeldendeInnhold.stillingstype === 'FAST'}
                                 name="stillingstype"
-                                value="fast"
+                                value="FAST"
                             >
                                 Fast
                             </RadioPanel>
                             <RadioPanel
-                                onChange={() =>
-                                    avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'MIDLERTIDIG' })
-                                }
+                                onChange={() => avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'MIDLERTIDIG' })}
                                 checked={avtaleContext.avtale.gjeldendeInnhold.stillingstype === 'MIDLERTIDIG'}
                                 name="stillingstype"
-                                value="midlertidig"
+                                value="MIDLERTIDIG"
                             >
                                 Midlertidig
                             </RadioPanel>
