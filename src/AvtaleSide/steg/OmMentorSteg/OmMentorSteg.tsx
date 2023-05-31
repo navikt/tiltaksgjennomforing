@@ -9,6 +9,7 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { BodyShort } from '@navikt/ds-react';
+import ValutaInput from '@/komponenter/form/ValutaInput';
 import React, { useState, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
@@ -19,6 +20,9 @@ const OmMentorSteg = () => {
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
         avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? ''
     );
+
+    const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
+
     const inputToNumber = (verdi: string | undefined): number | undefined => {
         verdi = verdi?.replace(/,/g, '.');
         if (!isNaN(Number(verdi))) {
@@ -87,15 +91,30 @@ const OmMentorSteg = () => {
                         />
                     </Column>
                     <Column md="6">
-                        <PakrevdInputValidering
-                            validering={/^\d{0,5}$/}
+                        <ValutaInput
+                            min={0}
+                            className="input"
+                            name="Timelønn"
+                            size="medium"
                             label="Timelønn*"
-                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn?.toFixed(0)}
-                            settVerdi={(verdi) =>
-                                avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', inputToNumber(verdi))
+                            autoComplete={'off'}
+                            value={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                settForHøyTimelønn(undefined)
+                            }}                                
+                            onBlur={(event) => {
+                                if(/^\d{0,4}(\.\d{0,2})?$/.test(event.target.value)){
+                                    avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', Math.round(parseFloat(event.target.value)))
+                                }
+                                else {
+                                        avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', undefined);
+                                        settForHøyTimelønn("Overskrider maks timelønn");
+                                    }
+                                }
                             }
+                            error={forHøyTimelønn}
                         />
-                        <VerticalSpacer rem={0.5} />
+                        <VerticalSpacer rem={0.75} />
                         <BodyShort size="small">
                             *Inkludert feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
                         </BodyShort>
