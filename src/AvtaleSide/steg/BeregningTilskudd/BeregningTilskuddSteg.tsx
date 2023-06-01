@@ -38,7 +38,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             {avtale.tiltakstype !== 'SOMMERJOBB' && <KvalifiseringsgruppeSats cls={cls} />}
             {avtale.tiltakstype === 'SOMMERJOBB' && <OppgiLonnstilskuddprosent />}
             <Heading size="small" className={cls.element('lonn-tittel')}>
-                Lønn per måned i faktisk stillingsprosent inkludert faste tillegg
+                Lønn per måned i faktisk stillingsprosent inkludert faste og uregelmessige tillegg
             </Heading>
             <HvaMenesMedDette className={cls.className} />
             <Manedslonn cls={cls} />
