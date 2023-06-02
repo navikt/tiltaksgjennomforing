@@ -15,7 +15,7 @@ const KontaktpersonRefusjoninfoDel = () => {
     const { avtale, settAvtaleInnholdVerdier, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
     const kontaktperson = avtale.gjeldendeInnhold.refusjonKontaktperson;
 
-    const [visEkstraKontaktpersonFelt, setVisEkstraKontaktpersonFelt] = useState(false);
+    const [visEkstraKontaktpersonFelt, setVisEkstraKontaktpersonFelt] = useState(kontaktperson !== null);
     const [feilmelding, setFeilmelding] = useState<string>();
     const kontaktpersonAlleredeDefinert: boolean = useKontaktPersonErAlleredeDefinert({ avtale });
 
@@ -36,7 +36,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                 ønskerVarslingOmRefusjon: false,
             });
         } else {
-            setFeilmelding('Valg om ønsket varsling kan kun endres etter kontakt informasjonen er fylt ut');
+            setFeilmelding('Valg om ønsket varsling kan kun endres etter kontaktinformasjonen er fylt ut');
         }
     };
 
