@@ -21,7 +21,7 @@ const HvaSierRegelverket: FunctionComponent<PropsWithChildren<Props>> = ({ tilta
                 {tiltakstype === 'MENTOR' && (
                     <EksternLenke
                         href={
-                            'https://www.nav.no/nav.no-ressurser/filer/person/arbeid/diverse/krav-vilkar-og-informasjon-mentor.pdf'
+                            'https://www.nav.no/nav.no-ressurser/filer/person/arbeid/diverse/krav-vilkar-og-informasjon-til-tiltaksarrangor-mentor-bm.pdf'
                         }
                     >
                         Krav, vilkår og informasjon
