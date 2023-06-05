@@ -1,7 +1,6 @@
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import { Rolle } from '@/types/innlogget-bruker';
 import { Accordion } from '@navikt/ds-react';
-
 import React from 'react';
 import { StegInfo } from '../AvtaleSide';
 import Dialog from '@/komponenter/brukerdialog/Dialog';
@@ -9,6 +8,7 @@ import Dialog from '@/komponenter/brukerdialog/Dialog';
 interface Props {
     avtaleSteg: StegInfo[];
     rolle: Rolle;
+    avtaleId: string;
 }
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
@@ -27,7 +27,7 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
         <>
             <OppgaveLinje />
             <form>{ekspanderbartPanel}</form>
-            <Dialog />
+            <Dialog id={props.avtaleId} />
         </>
     );
 };
