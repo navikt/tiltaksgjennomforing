@@ -1,101 +1,66 @@
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import EtikettStatus from '@/BeslutterSide/EtikettStatus';
+import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
 import { avtaleStatusTekst } from '@/messages';
 import { pathTilAvtaleNy } from '@/paths';
-import { Avtale } from '@/types/avtale';
-import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
+import { AvtaleMinimalListeVisning } from '@/types/avtale';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { LinkPanel, BodyShort } from '@navikt/ds-react';
+import { BodyShort, LinkPanel } from '@navikt/ds-react';
 import classNames from 'classnames';
-import moment from 'moment';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
-import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 import './AvtaleTabell.less';
 
 const cls = BEMHelper('avtaletabell');
 
-export interface AntallKlarTilgodkjenning {
-    id: string;
-    antallKlarTilgodkjenning: number;
-}
-
-const hentAvtaleStatus = (
-    avtale: Avtale,
-    rolle: Rolle,
-    skalViseAntallUbehandlet: boolean,
-    ubehandletPerioder?: AntallKlarTilgodkjenning
-) => {
-    if (rolle === 'BESLUTTER') {
-        return (
-            <div className={cls.element('beslutterStatus')}>
-                {avtale.gjeldendeTilskuddsperiode && (
-                    <EtikettStatus
-                        tilskuddsperiodestatus={avtale.gjeldendeTilskuddsperiode?.status}
-                        refusjonStatus={avtale.gjeldendeTilskuddsperiode?.refusjonStatus}
-                        antallKlarTilgodkjenning={
-                            skalViseAntallUbehandlet && ubehandletPerioder
-                                ? ubehandletPerioder.antallKlarTilgodkjenning
-                                : undefined
-                        }
-                    />
-                )}
-            </div>
-        );
-    }
+const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolean): JSX.Element => {
+    const erGjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
     return (
         <>
-            <div className={cls.element('statusikon')}>
-                <StatusIkon status={avtale.statusSomEnum} />
+            <div className={cls.element('veileder-statusikon')}>
+                <StatusIkon status={avtale.status} />
             </div>
-            <BodyShort className={cls.element('status')}>{avtaleStatusTekst[avtale.statusSomEnum]}</BodyShort>
+            <BodyShort className={cls.element('veileder-status')}>
+                {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
+                    ? 'Tilskuddsperiode avslått'
+                    : avtaleStatusTekst[avtale.status]}
+            </BodyShort>
         </>
     );
 };
 
+const lagFulltNavn = (avtale: AvtaleMinimalListeVisning) => {
+    if(avtale?.deltakerFornavn && avtale?.deltakerEtternavn) {
+        return avtale?.deltakerFornavn + ' ' + avtale?.deltakerEtternavn;
+    } else if(avtale?.deltakerFornavn) {
+        return avtale?.deltakerFornavn
+    } else if(avtale?.deltakerEtternavn) {
+        return avtale?.deltakerEtternavn
+    }
+    return '-'
+}
+
 const AvtaleTabell: FunctionComponent<{
-    avtaler: Avtale[];
+    avtaler: AvtaleMinimalListeVisning[];
     varsler: Varsel[];
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
-    const { filtre } = useFilter();
     const navigate = useNavigate();
 
-    const erBeslutter: boolean = innloggetBruker.rolle === 'BESLUTTER';
-    const skalViseAntallUbehandlet =
-        erBeslutter && (filtre?.tilskuddPeriodeStatus === undefined || filtre?.tilskuddPeriodeStatus === 'UBEHANDLET');
-    const [antallKlar, setAntallKlar] = useState<AntallKlarTilgodkjenning[] | undefined>(undefined);
-
     const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string>('');
-
-    useEffect(() => {
-        skalViseAntallUbehandlet
-            ? setAntallKlar(
-                  avtaler.map((a) => ({
-                      id: a.id,
-                      antallKlarTilgodkjenning: a.tilskuddPeriode.filter(
-                          (t) =>
-                              (new Date(t.kanBesluttesFom) <= new Date() || t.kanBesluttesFom === '-999999999-01-01') &&
-                              t.status === 'UBEHANDLET'
-                      )?.length,
-                  }))
-              )
-            : setAntallKlar(undefined);
-    }, [avtaler, erBeslutter, filtre?.tilskuddPeriodeStatus, skalViseAntallUbehandlet]);
 
     return (
         <div className={cls.className}>
             <AvtaleTabellRadHeader
                 className={cls.className}
-                erBeslutter={erBeslutter}
-                innloggetBruker={innloggetBruker}
+                erBeslutter={false}
+                erNavAnsatt={innloggetBruker.erNavAnsatt}
             />
             <div role="list">
-                {avtaler.map((avtale: Avtale, index: number) => {
+                {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
                         <div key={avtale.id} className={cls.element('linkpanel')}>
@@ -136,69 +101,65 @@ const AvtaleTabell: FunctionComponent<{
                                                 uthevet: ulestVarsel,
                                             })}
                                         >
-                                            <div className={cls.element('deltakerOgBedrift')}>
-                                                <BodyShort size="small">
-                                                    {avtale.gjeldendeInnhold.bedriftNavn}
-                                                </BodyShort>
+                                            <div className={cls.element('veileder-deltakerOgBedrift')}>
+                                                <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
                                             </div>
-                                            <div className={cls.element('deltakerOgBedrift')}>
+                                            <div className={cls.element('veileder-deltakerOgBedrift')}>
                                                 <BodyShort size="small">
-                                                    {avtale.gjeldendeInnhold.deltakerFornavn || ''}&nbsp;
-                                                    {avtale.gjeldendeInnhold.deltakerEtternavn || ''}
+                                                    {lagFulltNavn(avtale)}
                                                 </BodyShort>
                                             </div>
                                             {innloggetBruker.erNavAnsatt && (
-                                                <div className={cls.element('veileder')}>
+                                                <div className={cls.element('veileder-veileder')}>
                                                     <BodyShort size="small">
-                                                        {avtale.veilederNavIdent || 'Ufordelt'}
+                                                        {avtale.veilederNavIdent ?? 'Ufordelt'}
                                                     </BodyShort>
                                                 </div>
                                             )}
                                             <MediaQuery minWidth={576}>
-                                                {erBeslutter && (
-                                                    <div className={(cls.element('dato'), cls.element('besluterdato'))}>
-                                                        <BodyShort size="small">
-                                                            {moment(avtale.gjeldendeTilskuddsperiode?.startDato).format(
-                                                                'DD.MM.YYYY'
-                                                            )}
-                                                        </BodyShort>
-                                                    </div>
-                                                )}
-                                                {!erBeslutter && (
-                                                    <>
-                                                        <div className={cls.element('dato')}>
-                                                            <BodyShort size="small">
-                                                                {avtale.gjeldendeInnhold.startDato &&
-                                                                    moment(avtale.gjeldendeInnhold.startDato).format(
-                                                                        'DD.MM.YYYY'
-                                                                    )}
-                                                            </BodyShort>
-                                                        </div>
-                                                        <div className={cls.element('dato')}>
-                                                            <BodyShort size="small">
-                                                                {avtale.gjeldendeInnhold.sluttDato &&
-                                                                    moment(avtale.gjeldendeInnhold.sluttDato).format(
-                                                                        'DD.MM.YYYY'
-                                                                    )}
-                                                            </BodyShort>
-                                                        </div>
-                                                    </>
-                                                )}
+                                                <div
+                                                    className={cls.element(
+                                                        'veileder-dato',
+                                                        innloggetBruker.erNavAnsatt ? '' : 'arbeidsgiver-deltaker'
+                                                    )}
+                                                >
+                                                    <BodyShort size="small">
+                                                        {avtale.startDato
+                                                            ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
+                                                                  day: 'numeric',
+                                                                  month: 'short',
+                                                                  year: '2-digit',
+                                                              })
+                                                            : '-'}
+                                                    </BodyShort>
+                                                </div>
+                                                <div
+                                                    className={cls.element(
+                                                        'veileder-dato',
+                                                        innloggetBruker.erNavAnsatt ? '' : 'arbeidsgiver-deltaker'
+                                                    )}
+                                                >
+                                                    <BodyShort size="small">
+                                                        {avtale.sluttDato
+                                                            ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {
+                                                                  day: 'numeric',
+                                                                  month: 'short',
+                                                                  year: '2-digit',
+                                                              })
+                                                            : '-'}
+                                                    </BodyShort>
+                                                </div>
                                             </MediaQuery>
-                                            {hentAvtaleStatus(
-                                                avtale,
-                                                innloggetBruker.rolle,
-                                                skalViseAntallUbehandlet,
-                                                antallKlar ? antallKlar[index] : undefined
-                                            )}
+                                            {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
                                         </div>
                                     </div>
                                 </LinkPanel.Title>
                             </LinkPanel>
                             <TaushetserklæringModal
                                 open={visTaushetserklæringForAvtaleId === avtale.id}
+                                sistEndret={avtale.sistEndret}
                                 togglesetTaushetserklæringForMentorAvtale={setVisTaushetserklæringForAvtaleId}
-                                avtale={avtale}
+                                avtaleId={avtale.id}
                             />
                         </div>
                     );

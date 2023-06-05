@@ -1,11 +1,15 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
+import { BEMWrapper } from '@/utils/bem';
 
-const KvalifiseringsgruppeSats: FunctionComponent = () => {
+interface Props {
+    cls: BEMWrapper;
+}
+
+const KvalifiseringsgruppeSats: FunctionComponent<Props> = ({ cls }: Props) => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
@@ -29,11 +33,12 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
     };
 
     return innloggetBruker.erNavAnsatt ? (
-        <>
+        <div className={cls.element('kvalifiseringsgruppe')}>
             {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ? (
-                <>
-                    <Heading size="small">Tilskuddsprosent</Heading>
-                    <VerticalSpacer rem={1.25} />
+                <div className={cls.element('tilskuddsprosent')}>
+                    <Heading size="small" className={cls.element('tilskuddsprosent-heading')}>
+                        Tilskuddsprosent
+                    </Heading>
                     <ProsentInput
                         name="lonnstilskuddProsent"
                         width="S"
@@ -47,22 +52,19 @@ const KvalifiseringsgruppeSats: FunctionComponent = () => {
                         min={0}
                         max={75}
                     />
-                    <VerticalSpacer rem={1} />
-                </>
+                </div>
             ) : (
-                <>
+                <div className={cls.element('tilskuddsprosent')}>
                     <Heading size="small">Tilskuddsprosent</Heading>
                     <BodyShort size="small">{settLonnstilskuddsprosent()}</BodyShort>
-                    <VerticalSpacer rem={1} />
-                </>
+                </div>
             )}
-        </>
+        </div>
     ) : (
-        <>
+        <div className={cls.element('tilskuddsprosent')}>
             <Heading size="small">Tilskuddsprosent</Heading>
             <BodyShort size="small">{settLonnstilskuddsprosent()}</BodyShort>
-            <VerticalSpacer rem={1} />
-        </>
+        </div>
     );
 };
 export default KvalifiseringsgruppeSats;

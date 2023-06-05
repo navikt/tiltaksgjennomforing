@@ -10,7 +10,7 @@ export const FødselsnummerFilter: FunctionComponent = () => {
     return (
         <Filter tittel="Søk på deltaker">
             <SøkeInput
-                className="sok"
+                className="søk"
                 label="Fødselsnummer"
                 maxLength={11}
                 utførsøk={(søkeord: string) => endreFilter({ deltakerFnr: søkeord })}

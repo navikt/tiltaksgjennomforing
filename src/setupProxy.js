@@ -1,6 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const lokalProxy = require('../server/proxy/lokalproxy');
 const { applyNotifikasjonMockMiddleware } = require('@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock');
+const crypto = require('crypto');
 
 const brukLokalLogin = process.env.NODE_ENV === 'development';
 const isLabs = process.env.MILJO === 'dev-gcp-labs';
@@ -110,7 +111,7 @@ module.exports = function (app) {
 
     app.get('/tiltaksgjennomforing/fakelogin/aad', async (req, res) => {
         const navIdent = req.headers['navident'] || 'Z123456';
-        const url = `https://tiltak-fakelogin.ekstern.dev.nav.no/token?iss=aad&aud=fake-aad&NAVident=${navIdent}`;
+        const url = `https://tiltak-fakelogin.ekstern.dev.nav.no/token?iss=aad&aud=fake-aad&NAVident=${navIdent}`; //&oid=${crypto.randomUUID()}
         const response = await fetch(url);
         const data = await response.text();
         res.cookie('fake-aad-idtoken', data);

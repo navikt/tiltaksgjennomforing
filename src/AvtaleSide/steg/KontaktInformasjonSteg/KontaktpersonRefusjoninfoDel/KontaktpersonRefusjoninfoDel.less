@@ -1,40 +1,67 @@
+@import (reference) "../../../../tiltak_variabler.less";
+
 .kontaktpersonRefusjoninfo {
-    &__container {
-        padding: 0.5rem 0.5rem 2rem 0.5rem;
+  &__container {
+    padding: 0.5rem 0.5rem 2rem 0.5rem;
 
-        .skjemaelement {
-            &__sporsmal {
-                margin-bottom: 0.75rem;
-            }
-        }
+    .skjemaelement {
+      &__sporsmal {
+        margin-bottom: 0.75rem;
+      }
+    }
+  }
+
+  &__skjemagruppe {
+    margin-bottom: 0.5rem;
+  }
+
+  &__buttonSpaceing {
+    margin-top: 0.75rem;
+  }
+
+  &__helptekst {
+    margin-bottom: 1rem;
+  }
+
+  &__rad {
+    display: flex;
+    align-items: flex-start;
+
+    & > .navds-form-field, & > div > .navds-form-field {
+      width: calc(50% - 1rem);
+      margin-bottom: 1rem;
+
+      &:nth-child(1) {
+        margin-right: 1rem;
+      }
     }
 
-    &__skjemagruppe {
-        margin-bottom: 0.5rem;
+    &--header {
+      align-items: center;
     }
 
-    &__buttonSpaceing {
-        margin-top: 0.75rem;
+    .skjemaelement {
+      width: 50%;
+
+      &__sporsmal {
+        margin-bottom: 1.75rem;
+      }
+
+      &:first-child {
+        margin-right: 1.25rem;
+      }
     }
 
-    &__rad {
-        display: flex;
-
-        .skjemaelement {
-            width: 50%;
-
-            &__sporsmal {
-                margin-bottom: 1.75rem;
-            }
-
-            &:first-child {
-                margin-right: 1.25rem;
-            }
-        }
-        &--single {
-            .skjemaelement {
-                width: calc(50% - 0.75rem);
-            }
-        }
+    &--single {
+      .skjemaelement {
+        width: calc(50% - 0.75rem);
+      }
     }
+  }
+  @media (min-width: @screen-sm-min) {
+    &__helptekst {
+      margin-bottom: 1.5rem;
+      margin-left: 0.5rem;
+    }
+  }
 }

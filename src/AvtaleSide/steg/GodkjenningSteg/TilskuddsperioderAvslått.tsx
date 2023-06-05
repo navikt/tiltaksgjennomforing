@@ -1,44 +1,49 @@
 import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { Accordion, Alert, BodyShort, Heading } from '@navikt/ds-react';
 import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { tilskuddsperiodeAvslagTekst } from '@/messages';
-import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import { Avslagsårsaker, TilskuddsPeriode } from '@/types/avtale';
+import { interleave } from '@/utils/arrayUtils';
 
-const TilskuddsperioderAvslått: FunctionComponent = (props) => {
+const avslåttBegrunnelse = (avslåttTilskuddsperiode: TilskuddsPeriode) => {
+    const avslagsårsaker = Array.from(avslåttTilskuddsperiode.avslagsårsaker);
+
+    return <div key={avslåttTilskuddsperiode.id} >
+        <b>{formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)}:</b> Avslått av {avslåttTilskuddsperiode.avslåttAvNavIdent}
+        {' '} med følgende årsak{avslagsårsaker.length > 1 ? 'er' : ''}:
+        <ul>
+            {avslagsårsaker.map((årsak: Avslagsårsaker, index: number) => (
+                <li key={index}>{tilskuddsperiodeAvslagTekst[årsak]}</li>
+            ))}
+        </ul>
+        med forklaringen: {avslåttTilskuddsperiode.avslagsforklaring}
+    </div>
+};
+
+const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
     const { avtale } = useContext(AvtaleContext);
-    const gjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT';
-    const avslåttTilskuddsperiode = avtale.tilskuddPeriode
-        .filter(p => p.status === 'AVSLÅTT')
+    const gjeldendeAvslåtteTilskuddsperiode = avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' ?
+        avtale.gjeldendeTilskuddsperiode : undefined;
+
+    const avslåtteTilskuddsperioder = avtale.tilskuddPeriode
+        // Filtrer vekk gjendelde periode fra listen; denne skal vises på toppen av dialogvinduet hvis den er relevant.
+        .filter(p => p.status === 'AVSLÅTT' && p.id !== gjeldendeAvslåtteTilskuddsperiode?.id)
         .sort((a: TilskuddsPeriode, b: TilskuddsPeriode) => {
-            if(a.avslåttTidspunkt && b.avslåttTidspunkt) {
+            if (a.avslåttTidspunkt && b.avslåttTidspunkt) {
                 const aTime = new Date(a.avslåttTidspunkt).getMilliseconds()
                 const bTime = new Date(b.avslåttTidspunkt).getMilliseconds()
                 return (bTime - aTime);
             }
-            return -1
-        })
-        .find(p => true)
+            return 0
+        });
 
-    if (!avslåttTilskuddsperiode) {
+    if (!gjeldendeAvslåtteTilskuddsperiode && avslåtteTilskuddsperioder.length === 0) {
         return null;
     }
-    const avslåttBegrunnelse = (
-        <>
-            Tilskuddsperioden ble avslått av {avslåttTilskuddsperiode.avslåttAvNavIdent} den{' '}
-            {formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_FORMAT)} med følgende årsak(er):
-            <ul>
-                {Array.from(avslåttTilskuddsperiode.avslagsårsaker).map((årsak: Avslagsårsaker, index: number) => (
-                    <li key={index}>{tilskuddsperiodeAvslagTekst[årsak]}</li>
-                ))}
-            </ul>
-            med forklaringen: {avslåttTilskuddsperiode.avslagsforklaring}
-        </>
-    );
 
     return (
         <Innholdsboks>
@@ -49,38 +54,49 @@ const TilskuddsperioderAvslått: FunctionComponent = (props) => {
                 <VerticalSpacer rem={1} />
                 <div>
                     <Heading size="large">
-                        {gjeldendeTilskuddsperiodeAvslått
+                        {gjeldendeAvslåtteTilskuddsperiode
                             ? 'Tilskuddsperiode avslått av beslutter'
                             : 'Venter på godkjenning fra beslutter'}
                     </Heading>
                 </div>
             </div>
             <VerticalSpacer rem={2} />
-            {gjeldendeTilskuddsperiodeAvslått ? (
+            {gjeldendeAvslåtteTilskuddsperiode ? (
                 <>
-                    {avslåttBegrunnelse}
-                    <VerticalSpacer rem={1} />
                     <BodyShort size="small">
                         Gjør du endringer på avtalen vil beslutter kunne godkjenne tilskuddsperioden på nytt. Hvis
                         avtalen allikevel er riktig utfylt kan den sendes tilbake til beslutter uendret.
                     </BodyShort>
                     <VerticalSpacer rem={1} />
+                    <Alert variant='info'>
+                        {avslåttBegrunnelse(gjeldendeAvslåtteTilskuddsperiode)}
+                    </Alert>
                 </>
             ) : (
-                <>
-                    <BodyShort size="small">
-                        Beslutter har nå muligheten til å godkjenne tilskuddsperioden. Du kan gjøre flere endringer om
-                        det er nødvendig før beslutter godkjenner.
-                    </BodyShort>
-                    <VerticalSpacer rem={1} />
-                    <LesMerPanel
-                        åpneLabel="Vis begrunnelse på tidligere avslått tilskuddsperiode"
-                        lukkLabel="Skjul begrunnelse på tidligere avslått tilskuddsperiode"
-                    >
-                        {avslåttBegrunnelse}
-                    </LesMerPanel>
-                </>
+                <BodyShort size="small">
+                    Beslutter har nå muligheten til å godkjenne tilskuddsperioden. Du kan gjøre flere endringer om
+                    det er nødvendig før beslutter godkjenner.
+                </BodyShort>
             )}
+            {avslåtteTilskuddsperioder.length > 0 ?
+                <>
+                    <VerticalSpacer rem={1} />
+                    <Accordion>
+                        <Accordion.Item>
+                            <Accordion.Header>Vis tidligere avslåtte tilskuddsperioder</Accordion.Header>
+                            <Accordion.Content>{interleave(
+                                avslåtteTilskuddsperioder.map(avslåttBegrunnelse),
+                                avslåtteTilskuddsperioder.map((_x, idx) => <VerticalSpacer key={idx} rem={1} />)
+                            )
+                                // Fjerner siste spacingen
+                                .slice(0, -1)}
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
+                </>
+                : undefined
+            }
+
         </Innholdsboks>
     );
 };

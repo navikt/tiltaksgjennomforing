@@ -9,7 +9,6 @@ import {
     AlleredeRegistrertAvtale,
     Avslagsårsaker,
     Avtale,
-    AvtaleMinimalForBeslutter,
     Bedriftinfo,
     EndreKontaktInfo,
     EndreOppfølgingOgTilretteleggingInfo,
@@ -19,6 +18,8 @@ import {
     Inkluderingstilskuddsutgift,
     Maal,
     MentorInnhold,
+    PageableAvtale,
+    PageableAvtaleMinimalForBeslutter,
     Stilling,
     TiltaksType,
     Varighet,
@@ -74,6 +75,11 @@ export const hentAvtale = async (id: string): Promise<Avtale> => {
     return response.data;
 };
 
+export const hentAvtaleMedAvtaleNr = async (avtaleNr: number): Promise<Avtale> => {
+    const response = await api.get<Avtale>(`/avtaler/avtaleNr/${avtaleNr}`);
+    return response.data;
+};
+
 const removeEmpty = (obj: any) => {
     Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
     return obj;
@@ -81,37 +87,42 @@ const removeEmpty = (obj: any) => {
 
 export const hentAvtalerForInnloggetBruker = async (
     søkekriterier: Filtrering,
-    skip: number = 0,
+    size: number = 2,
+    page: number = 0,
     limit: number = 10000000
-): Promise<Avtale[]> => {
+): Promise<PageableAvtale> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
     const søkekriterierFiltrert = {
         bedriftNr: søkekriterier.bedrift,
         ...søkekriterier,
         bedrift: undefined,
-        skip,
+        size,
+        page,
         limit,
     };
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
-    const response = await api.get<Avtale[]>(`/avtaler?${queryParam}`);
+    const response = await api.get<PageableAvtale>(`/avtaler?${queryParam}`);
     return response.data;
 };
 
 export const hentAvtalerForInnloggetBeslutter = async (
     søkekriterier: Filtrering,
-    skip: number = 0,
-    limit: number = 10000000
-): Promise<AvtaleMinimalForBeslutter[]> => {
+    size: number = 2,
+    page: number = 0,
+    sorteringOrder: string = 'ASC'
+): Promise<PageableAvtaleMinimalForBeslutter> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
     const søkekriterierFiltrert = {
         bedriftNr: søkekriterier.bedrift,
         ...søkekriterier,
         bedrift: undefined,
-        skip,
-        limit,
+        size,
+        page,
+        sorteringOrder,
     };
+
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
-    const response = await api.get<AvtaleMinimalForBeslutter[]>(`/avtaler/beslutter-liste?${queryParam}`);
+    const response = await api.get<PageableAvtaleMinimalForBeslutter>(`/avtaler/beslutter-liste?${queryParam}`);
     return response.data;
 };
 
@@ -199,12 +210,12 @@ const opprettAvtalen = async (
     return getResponse.data;
 };
 
-export const mentorGodkjennTaushetserklæring = async (avtale: Avtale): Promise<Avtale> => {
-    const uri = `/avtaler/${avtale.id}/mentorGodkjennTaushetserklæring`;
+export const mentorGodkjennTaushetserklæring = async (avtaleId: string, sistEndret: string): Promise<Avtale> => {
+    const uri = `/avtaler/${avtaleId}/mentorGodkjennTaushetserklæring`;
 
-    await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
+    await api.post(uri, null, { headers: { 'If-Unmodified-Since': sistEndret } });
 
-    return hentAvtale(avtale.id);
+    return hentAvtale(avtaleId);
 };
 
 export const godkjennAvtale = async (avtale: Avtale) => {

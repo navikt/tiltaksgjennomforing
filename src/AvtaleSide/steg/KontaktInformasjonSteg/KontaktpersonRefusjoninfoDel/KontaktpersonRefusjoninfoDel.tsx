@@ -3,17 +3,21 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 import { Fieldset, Checkbox, Button } from '@navikt/ds-react';
 import { useContext, useState } from 'react';
+import useKontaktPersonErAlleredeDefinert from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktpersonRefusjoninfoDel/useKontaktPersonErAlleredeDefinert';
+import { HelpText } from '@navikt/ds-react';
 import './KontaktpersonRefusjoninfoDel.less';
 
 const KontaktpersonRefusjoninfoDel = () => {
     const cls = BEMHelper('kontaktpersonRefusjoninfo');
     const { avtale, settAvtaleInnholdVerdier, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
+    const kontaktperson = avtale.gjeldendeInnhold.refusjonKontaktperson;
 
-    const [visEkstraKontaktpersonFelt, setVisEkstraKontaktpersonFelt] = useState(false);
+    const [visEkstraKontaktpersonFelt, setVisEkstraKontaktpersonFelt] = useState(kontaktperson !== null);
     const [feilmelding, setFeilmelding] = useState<string>();
+    const kontaktpersonAlleredeDefinert: boolean = useKontaktPersonErAlleredeDefinert({ avtale });
 
     const sjekkeOmVarslingOmRefusjonKanSkrusAv = () => {
         if (!avtale.gjeldendeInnhold.refusjonKontaktperson?.ønskerVarslingOmRefusjon) {
@@ -22,9 +26,9 @@ const KontaktpersonRefusjoninfoDel = () => {
                 ønskerVarslingOmRefusjon: true,
             });
         } else if (
-            avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn &&
-            avtale.gjeldendeInnhold.refusjonKontaktperson.refusjonKontaktpersonEtternavn &&
-            avtale.gjeldendeInnhold.refusjonKontaktperson.refusjonKontaktpersonTlf
+            kontaktperson?.refusjonKontaktpersonFornavn &&
+            kontaktperson.refusjonKontaktpersonEtternavn &&
+            kontaktperson.refusjonKontaktpersonTlf
         ) {
             setFeilmelding(undefined);
             settAvtaleInnholdVerdi('refusjonKontaktperson', {
@@ -32,61 +36,58 @@ const KontaktpersonRefusjoninfoDel = () => {
                 ønskerVarslingOmRefusjon: false,
             });
         } else {
-            setFeilmelding(
-                'Hvis ikke kontaktperson for avtalen ønsker å motta sms varslinger om refusjon må kontaktperson for refusjon fylles ut'
-            );
+            setFeilmelding('Valg om ønsket varsling kan kun endres etter kontaktinformasjonen er fylt ut');
         }
     };
 
     function resetRefusjonKontaktPerson() {
         setVisEkstraKontaktpersonFelt(false);
+        setFeilmelding(undefined);
         settAvtaleInnholdVerdier({
             ...avtale.gjeldendeInnhold,
             refusjonKontaktperson: {},
         });
     }
 
+    function getArbeidsgivernavn() {
+        return avtale.gjeldendeInnhold.arbeidsgiverFornavn || avtale.gjeldendeInnhold.arbeidsgiverEtternavn
+            ? `(${avtale.gjeldendeInnhold.arbeidsgiverFornavn} ${avtale.gjeldendeInnhold.arbeidsgiverEtternavn})`
+            : '';
+    }
+
     return (
         <>
             <div className={cls.element('container')}>
-                <div className={cls.element('rad')}>
+                <div className={cls.element('rad', 'header')}>
                     <SkjemaTittel>Kontaktperson hos arbeidsgiver for refusjon</SkjemaTittel>
+                    <HelpText className={cls.element('helptekst')} title="Hva menes med kontaktperson for refusjon?">
+                        For eksempel en regnskapsfører som skal motta varslinger om refusjon
+                    </HelpText>
                 </div>
-                <Fieldset legend="Kontaktperson for refusjon" title="Kontaktperson for refusjon">
-                    <div style={{ marginBottom: '1rem' }}>
-                        <BodyShort size="small">
-                            For eksempel en regnskapsfører som skal motta varslinger om refusjon
-                        </BodyShort>
-                    </div>
-                    {!visEkstraKontaktpersonFelt &&
-                        (avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length ===
-                            undefined ||
-                            avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length ===
-                                undefined ||
-                            avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length ===
-                                undefined) && (
-                            <div className={cls.element('buttonSpaceing')}>
-                                <Button
-                                    variant="secondary"
-                                    onClick={() => {
-                                        setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt);
-                                        settAvtaleInnholdVerdier({
-                                            ...avtale.gjeldendeInnhold,
-                                            refusjonKontaktperson: { ønskerVarslingOmRefusjon: true },
-                                        });
-                                    }}
-                                >
-                                    + Legg til kontaktperson
-                                </Button>
-                            </div>
-                        )}
+                <Fieldset legend="" title="">
+                    {!visEkstraKontaktpersonFelt && !kontaktpersonAlleredeDefinert && (
+                        <div className={cls.element('buttonSpaceing')}>
+                            <Button
+                                variant="secondary"
+                                onClick={() => {
+                                    setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt);
+                                    settAvtaleInnholdVerdier({
+                                        ...avtale.gjeldendeInnhold,
+                                        refusjonKontaktperson: {
+                                            refusjonKontaktpersonFornavn: '',
+                                            refusjonKontaktpersonEtternavn: '',
+                                            refusjonKontaktpersonTlf: '',
+                                            ønskerVarslingOmRefusjon: true,
+                                        },
+                                    });
+                                }}
+                            >
+                                + Legg til kontaktperson
+                            </Button>
+                        </div>
+                    )}
 
-                    {(avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !==
-                        undefined ||
-                        avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !==
-                            undefined ||
-                        avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== undefined ||
-                        visEkstraKontaktpersonFelt) && (
+                    {(kontaktpersonAlleredeDefinert || visEkstraKontaktpersonFelt) && (
                         <>
                             <div className={cls.element('rad')}>
                                 <PakrevdInput
@@ -95,7 +96,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     settVerdi={(verdi) =>
                                         settAvtaleInnholdVerdi('refusjonKontaktperson', {
                                             ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                            refusjonKontaktpersonFornavn: verdi,
+                                            refusjonKontaktpersonFornavn: verdi ?? '',
                                         })
                                     }
                                 />
@@ -107,7 +108,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     settVerdi={(verdi) =>
                                         settAvtaleInnholdVerdi('refusjonKontaktperson', {
                                             ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                            refusjonKontaktpersonEtternavn: verdi,
+                                            refusjonKontaktpersonEtternavn: verdi ?? '',
                                         })
                                     }
                                 />
@@ -119,7 +120,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     settVerdi={(verdi) =>
                                         settAvtaleInnholdVerdi('refusjonKontaktperson', {
                                             ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                            refusjonKontaktpersonTlf: verdi,
+                                            refusjonKontaktpersonTlf: verdi ?? '',
                                         })
                                     }
                                 />
@@ -129,7 +130,8 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerVarslingOmRefusjon}
                                     onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
                                 >
-                                    Kontaktpersonen for avtalen ønsker også å motta varslinger om refusjon
+                                    Arbeidsgiver for avtalen {getArbeidsgivernavn()} ønsker også å motta varslinger om
+                                    refusjon
                                 </Checkbox>
                             </div>
                             {feilmelding && (

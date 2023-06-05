@@ -10,3 +10,4 @@
 "decorator-internal": "https://internarbeidsflatedecorator.intern.nav.no"
 "decorator-internal-script": "/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js"
 "decorator-internal-styling": "/internarbeidsflatedecorator/v2.1/static/css/main.css"
+"decorator-host": "www.nav.no"

@@ -2047,10 +2047,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@navikt/aksel-icons@^2.8.11":
-  version "2.8.11"
-  resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-2.8.11.tgz#2fc4f058993075693905a0890b551c5276664fe5"
-  integrity sha512-Fs1/fdRtID8s+oCd3eh5HKNgs+eOeOJjo6dya2aPuYCnaIaFEycKObuGsWNdFtPVxpaHF2kVL5PQrZyLXutpmw==
+"@navikt/aksel-icons@^2.8.16":
+  version "2.8.16"
+  resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-2.8.16.tgz#991af8aea9179f6df5e8905e213b8bf1137b2f6b"
+  integrity sha512-RCvI9a8bBl4SE7x/cUMyZEgD/uL7xo8xuCwwtMN6WXXt0cbhLlZjXdn2S+T4J4KFZjZo82DZKhpZLyqEJjqMcw==
 
 "@navikt/arbeidsgiver-notifikasjon-widget@^5.4.8":
   version "5.4.8"
@@ -2080,10 +2080,10 @@
     fuzzysort "^1.1.4"
     history "^4.10.1"
 
-"@navikt/ds-css@^2.4.2":
-  version "2.8.11"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-2.8.11.tgz#69dd0bdb3df9e956d8ac100024f385b6f8a4fbc3"
-  integrity sha512-sR8lOeqTYz3tfuc2NKsHR3p9UUVGTs6no2Ym1wzpetVc5uYkySZq72IgYGtYQsDjh6trBV21OZ2gfoIei4yWjA==
+"@navikt/ds-css@^2.8.16":
+  version "2.8.16"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-2.8.16.tgz#1afa71fea020f105c93ffe9233f867950fa2195d"
+  integrity sha512-NKBn1hip+mZTT+ZMhtLaWfxmYow9kattHDzMcZn9KEgSbnJqTFX7LuoLTCPWEZ09tpwh906qgfRqa2ulwWv+1A==
 
 "@navikt/ds-icons@^0.5.2":
   version "0.5.10"
@@ -2092,19 +2092,19 @@
   dependencies:
     uuid "^8.3.2"
 
-"@navikt/ds-icons@^2.8.11":
-  version "2.8.11"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-2.8.11.tgz#2374f9867f2bf7c62f7e7d6b9fef72706f4c8629"
-  integrity sha512-ejMtwdzDiZbl1YW+GGs1mT9mKrINIuTsdDBEUFE8UVua/Fgtd42K0EBHVE9v2LnHN4MJiigS2sBKudDc3o1zDA==
+"@navikt/ds-icons@^2.8.16":
+  version "2.8.16"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-2.8.16.tgz#b2163b43cd9e767ff5ee4995104b1fe58723c6b5"
+  integrity sha512-VTedmSmoovGCoQSf+xzAoWzbWNNG3BrEnDQVzNnq8ynsbYe55s+XPQTV5z76myMNg+DyLDKcoZe96NQxbpxvIw==
 
-"@navikt/ds-react@^2.4.2":
-  version "2.8.11"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-2.8.11.tgz#0677ce3d515daead23dc6f175d15356fb00b22be"
-  integrity sha512-Z6vMTmKyQxBDIQ9sECCsQbQxTKfvluVhBOqT3m2teBDC3STRPFF6M+yy9rdl7yzTLLeB8FFg5L9ZniZuPFf4Pw==
+"@navikt/ds-react@^2.8.16":
+  version "2.8.16"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-2.8.16.tgz#f731932dfcce5b3f68bf23aaef238ae8fd26a0c4"
+  integrity sha512-UXgWMLwT/1kgXk+UJw9qMp2vDnIP3c6BYUovbuXvbKAHYgjchw0lhTLVTKVtUraN4Yb5O8J1qiXWsdrPjr5mRw==
   dependencies:
     "@floating-ui/react" "0.17.0"
-    "@navikt/aksel-icons" "^2.8.11"
-    "@navikt/ds-icons" "^2.8.11"
+    "@navikt/aksel-icons" "^2.8.16"
+    "@navikt/ds-icons" "^2.8.16"
     "@radix-ui/react-tabs" "1.0.0"
     "@radix-ui/react-toggle-group" "1.0.0"
     clsx "^1.2.1"
@@ -9983,10 +9983,10 @@ react-lifecycles-compat@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-loading-skeleton@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-3.2.0.tgz#c79f1390195bcd8625c30e68454a1b95508a9c74"
-  integrity sha512-kN12x4Ud69jbksr2EdhYywAFeW4bPdvFQ9p3ID1OM/QeFjgwFSmSUY2a6P6uOb5ACzWp3ozY8C+7+04KR6+PHA==
+react-loading-skeleton@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-3.2.1.tgz#9c187bb90541a4736df95c4469776e7ce5a2de11"
+  integrity sha512-e1KwEOuBa1REXWoseELIJXlsqWTCHL5IQnqhVhI33WmnuTK7LK1DXl4mmcOLsWVcwqXeOATU9VFJEjz2ytZSng==
 
 react-modal@3.15.1:
   version "3.15.1"

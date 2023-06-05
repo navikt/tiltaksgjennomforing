@@ -8,7 +8,6 @@ test('Test that <BekreftelseModal> renders correctly', () => {
     };
     const wrapper = shallow(
         <BekreftelseModal
-            modalInnhold="dummy"
             oversiktTekst="dummy"
             bekreftelseTekst="dummy"
             avbrytelseTekst="dummy"

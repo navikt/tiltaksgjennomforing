@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import BEMHelper from '@/utils/bem';
-import './oppdatereKostnadssted.less';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { BodyShort, Heading, Fieldset, TextField, Button } from '@navikt/ds-react';
+import { BodyShort, Fieldset, TextField, Button } from '@navikt/ds-react';
 import { oppdatereKostnadsstedet } from '@/services/rest-service';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Avtale } from '@/types/avtale';
 import { finnKostnadssted } from '@/utils/kostnadsstedUtils';
+import './oppdatereKostnadssted.less';
 
 export interface Kostnadssted {
     enhet: string;
@@ -42,12 +42,11 @@ const OppdatereKostnadssted: FunctionComponent = () => {
 
     return avtale.gjeldendeTilskuddsperiode ? (
         <div className={cls.className}>
-            <Heading size="small">Kostnadssted</Heading>
-            <Fieldset legend="oppdatere kostnadssted" error={Feilmeldinger[feilmelding as Feilkode]}>
+            <Fieldset legend="" error={Feilmeldinger[feilmelding as Feilkode]}>
                 <div className={cls.element('input-wrapper')}>
                     <TextField
                         className={cls.element('textField')}
-                        label="Kostnadssted"
+                        label="Oppdatere kostnadssted"
                         value={nyttKostnadssted.enhet}
                         onChange={(event) =>
                             setNyttKostnadssted((prevState) => ({
@@ -56,10 +55,10 @@ const OppdatereKostnadssted: FunctionComponent = () => {
                                 enhetsnavn: undefined,
                             }))
                         }
-                        size="small"
+                        size="medium"
                     />
                     <div className={cls.element('buttonDiv')}>
-                        <Button size="small" onClick={sendInnNyttKostnadssted}>
+                        <Button size="medium" onClick={sendInnNyttKostnadssted}>
                             Oppdater
                         </Button>
                     </div>

@@ -9,34 +9,40 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { BodyShort } from '@navikt/ds-react';
+import ValutaInput from '@/komponenter/form/ValutaInput';
 import React, { useState, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
+import BEMHelper from '@/utils/bem';
+import './omMentorSteg.less';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
         avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? ''
     );
+
+    const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
+
     const inputToNumber = (verdi: string | undefined): number | undefined => {
         verdi = verdi?.replace(/,/g, '.');
         if (!isNaN(Number(verdi))) {
             return Number(verdi);
         }
     };
+    const cls = BEMHelper('omMentorSteg');
 
     return (
-        <Innholdsboks utfyller="veileder">
+        <Innholdsboks className={cls.className} utfyller="veileder">
             <SkjemaTittel>Om mentoren</SkjemaTittel>
             <Container fluid={true}>
-                <Row className={''}>
+                <Row className={cls.element('rad')}>
                     <Column md="6">
                         <div className="rad">
                             <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
                         </div>
                     </Column>
                 </Row>
-                <VerticalSpacer rem={1} />
-                <Row className="rad">
+                <Row className={cls.element('rad')}>
                     <Column md="6">
                         <PakrevdInput
                             label="Fornavn"
@@ -52,8 +58,7 @@ const OmMentorSteg = () => {
                         />
                     </Column>
                 </Row>
-                <VerticalSpacer rem={1} />
-                <Row className={''}>
+                <Row className={cls.element('rad')}>
                     <Column md="6">
                         <TelefonnummerInput
                             label="Mobilnummer"
@@ -63,8 +68,7 @@ const OmMentorSteg = () => {
                     </Column>
                 </Row>
             </Container>
-            <VerticalSpacer rem={1} />
-            <Container fluid={true}>
+            <Container fluid={true} className={cls.element('arbeidsoppgaver-mentor')}>
                 <PakrevdTextarea
                     label="Arbeidsoppgaver til mentor"
                     verdi={avtaleContext.avtale.gjeldendeInnhold.mentorOppgaver}
@@ -73,7 +77,6 @@ const OmMentorSteg = () => {
                     feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                 />
             </Container>
-            <VerticalSpacer rem={2} />
             <Container fluid={true}>
                 <Row className="begge__tekst">
                     <Column md="6">
@@ -88,15 +91,30 @@ const OmMentorSteg = () => {
                         />
                     </Column>
                     <Column md="6">
-                        <PakrevdInputValidering
-                            validering={/^\d{0,5}$/}
+                        <ValutaInput
+                            min={0}
+                            className="input"
+                            name="Timelønn"
+                            size="medium"
                             label="Timelønn*"
-                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn?.toFixed(0)}
-                            settVerdi={(verdi) =>
-                                avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', inputToNumber(verdi))
+                            autoComplete={'off'}
+                            value={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                settForHøyTimelønn(undefined)
+                            }}                                
+                            onBlur={(event) => {
+                                if(/^\d{0,4}(\.\d{0,2})?$/.test(event.target.value)){
+                                    avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', Math.round(parseFloat(event.target.value)))
+                                }
+                                else {
+                                        avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', undefined);
+                                        settForHøyTimelønn("Overskrider maks timelønn");
+                                    }
+                                }
                             }
+                            error={forHøyTimelønn}
                         />
-                        <VerticalSpacer rem={0.5} />
+                        <VerticalSpacer rem={0.75} />
                         <BodyShort size="small">
                             *Inkludert feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
                         </BodyShort>

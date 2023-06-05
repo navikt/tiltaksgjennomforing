@@ -15,7 +15,7 @@ async function getNavdekoratoren(
     res: Response<any, Record<string, any>, number>
 ): Promise<void> {
     return await injectDecoratorServerSide({
-        env: 'dev',
+        env: getEnv(),
         filePath: indexFilepath,
         chatbot: true,
         context: 'arbeidsgiver',

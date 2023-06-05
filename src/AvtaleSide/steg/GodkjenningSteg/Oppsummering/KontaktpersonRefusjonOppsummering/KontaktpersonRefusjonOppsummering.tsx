@@ -10,9 +10,7 @@ const KontaktpersonRefusjonOppsumering: FunctionComponent = () => {
 
     return (
         <div>
-            {(gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn?.length !== 0 ||
-                gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn?.length !== 0 ||
-                gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf?.length !== 0) && (
+            {gjeldendeInnhold.refusjonKontaktperson && (
                 <AvtaleinfoFeltSjekk
                     navnFelter={[
                         {

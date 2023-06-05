@@ -41,8 +41,17 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
         }
     }, [annullertGrunn]);
 
-    const modalInnhold = (
-        <>
+
+    return (
+        <BekreftelseModal
+            bekreftOnClick={bekreftAnnullerAvtale}
+            lukkModal={props.lukkModal}
+            modalIsOpen={props.isOpen}
+            oversiktTekst="Annuller avtalen"
+            bekreftelseTekst="Annuller avtale"
+            avbrytelseTekst="Behold avtale"
+        >
+
             <div>
                 <p>
                     <Alert variant="info" inline>
@@ -105,19 +114,7 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                     Ved årsak <em>Feilregistrering</em> blir avtalen skjult for alle avtaleparter
                 </Alert>
             )}
-        </>
-    );
-
-    return (
-        <BekreftelseModal
-            bekreftOnClick={bekreftAnnullerAvtale}
-            lukkModal={props.lukkModal}
-            modalIsOpen={props.isOpen}
-            oversiktTekst="Annuller avtalen"
-            modalInnhold={modalInnhold}
-            bekreftelseTekst="Annuller avtale"
-            avbrytelseTekst="Behold avtale"
-        />
+        </BekreftelseModal>
     );
 };
 

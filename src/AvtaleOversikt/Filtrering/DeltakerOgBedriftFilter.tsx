@@ -146,14 +146,14 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             ))}
             {visSøkefelt && (
                 <SøkeInput
-                    className="sok"
+                    className="søk"
                     key={aktivSøketype}
                     label=""
                     placeholder={aktueltSøk.placeholder}
                     maxLength={aktueltSøk.maxLength}
                     utførsøk={aktueltSøk.utførSøk}
                     valider={aktueltSøk.validering}
-                    defaultverdi={aktueltSøk.søkeinput}
+                    verdi={aktueltSøk.søkeinput}
                     role="searchbox"
                 />
             )}

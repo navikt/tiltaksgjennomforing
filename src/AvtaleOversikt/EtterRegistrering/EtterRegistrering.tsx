@@ -20,13 +20,18 @@ const EtterRegistrering: FunctionComponent = () => {
 
     const hentAvtaleInfo = async (avtaleNr: number): Promise<void> => {
         setSpinner(true);
-        const response = await RestService.hentAvtalerForInnloggetBruker({ avtaleNr });
-        if (response.length === 1) {
-            setTimeoutOnFunction(() => {
-                setAvtale(response[0]);
+        try {
+            const response = await RestService.hentAvtaleMedAvtaleNr(avtaleNr);
+            if (response) {
+                setTimeoutOnFunction(() => {
+                    setAvtale(response);
+                    setSpinner(false);
+                });
+            } else {
+                setFeilmelding('Finner ingen avtale på det avtalenummeret');
                 setSpinner(false);
-            });
-        } else {
+            }
+        } catch (error) {
             setFeilmelding('Finner ingen avtale på det avtalenummeret');
             setSpinner(false);
         }
@@ -79,8 +84,8 @@ const EtterRegistrering: FunctionComponent = () => {
                         <div className={cls.element('input-sok')}>
                             <SøkeInput
                                 label=""
-                                className="etterRegistrering"
-                                maxLength={9}
+                                className="sok"
+                                //maxLength={10}
                                 utførsøk={(søkeord) => {
                                     setSpinner(true);
                                     hentAvtaleInfo(Number(søkeord));
@@ -126,8 +131,8 @@ const EtterRegistrering: FunctionComponent = () => {
                                         label={avtale.godkjentForEtterregistrering ? 'Fjern' : 'Godkjenn'}
                                         suksessmelding={
                                             avtale.godkjentForEtterregistrering
-                                                ? 'Avtalen er godkjent for etterregistrering'
-                                                : 'Fjernet etterregistrering på avtale'
+                                                ? 'Fjernet etterregistrering på avtale'
+                                                : 'Avtalen er godkjent for etterregistrering'
                                         }
                                     />
                                 </div>
