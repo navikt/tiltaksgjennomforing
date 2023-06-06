@@ -7,6 +7,7 @@ import { BodyLong, Heading, RadioGroup, ErrorMessage } from '@navikt/ds-react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
+import { inkludereIArbeidslivetLenke } from '@/paths';
 
 interface Props {
     className: string;
@@ -47,7 +48,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                 Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
                 <EksternLenke
                     onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
-                    href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
+                    href={inkludereIArbeidslivetLenke}
                 >
                     hvordan kan NAV hjelpe med inkludering
                 </EksternLenke>

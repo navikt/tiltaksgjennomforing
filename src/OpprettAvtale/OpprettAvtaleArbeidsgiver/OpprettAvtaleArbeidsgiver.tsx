@@ -9,7 +9,7 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import { basename, pathTilInformasjonssideInnlogget, pathTilOpprettAvtaleFullfortArbeidsgiver } from '@/paths';
+import { basename, pathTilInformasjonssideInnlogget, pathTilOpprettAvtaleFullfortArbeidsgiver, inkludereIArbeidslivetLenke } from '@/paths';
 import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -117,7 +117,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         og vite om{' '}
                         <EksternLenke
                             onClick={() => amplitude.logEvent('#tiltak-arbeidsgiver-alle-tiltak-link-apnet')}
-                            href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
+                            href={inkludereIArbeidslivetLenke}
                         >
                             de ulike støtteordningene.
                         </EksternLenke>

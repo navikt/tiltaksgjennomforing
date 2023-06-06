@@ -3,7 +3,7 @@ import amplitude from '@/utils/amplitude';
 import { BodyShort } from '@navikt/ds-react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { basename, pathTilInformasjonssideInnlogget } from '@/paths';
+import { basename, inkludereIArbeidslivetLenke, pathTilInformasjonssideInnlogget } from '@/paths';
 
 const InformasjonsboksTopVeilederOppretterAvtale: React.FC = () => {
     return (
@@ -16,7 +16,7 @@ const InformasjonsboksTopVeilederOppretterAvtale: React.FC = () => {
                 og vite om{' '}
                 <EksternLenke
                     onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-link-apnet')}
-                    href="https://arbeidsgiver.nav.no/veiviserarbeidsgiver/tema/hvordan-kan-nav-hjelpe-med-inkludering"
+                    href={inkludereIArbeidslivetLenke}
                 >
                     de ulike støtteordningene på NAV.no.
                 </EksternLenke>{' '}

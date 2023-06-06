@@ -24,6 +24,8 @@ export const pathTilOpprettAvtaleFullfortArbeidsgiver = (avtaleId: string) =>
 
 export const pathTilOversiktISelvbetjeningProd = `https://arbeidsgiver.nav.no${basename}`;
 
+export const inkludereIArbeidslivetLenke = 'https://www.nav.no/arbeidsgiver/inkludere';
+
 export const pathTilAvtale = (avtaleId: string, rolle: Rolle = 'INGEN_ROLLE'): string =>
     rolle === 'BESLUTTER' ? `${avtaleBase}/${avtaleId}/beslutte/` : `${avtaleBase}/${avtaleId}`;
 
