@@ -3,6 +3,7 @@ import BEMHelper from '@/utils/bem';
 import Chat from './chat-animasjon/Chat';
 import './brukerDialog.less';
 import useBrukerDialog from '@/komponenter/brukerdialog/useBrukerDialog';
+import { Link } from '@navikt/ds-react';
 
 const BrukerDialog: React.FC = () => {
     const redirectUrl: string = useBrukerDialog();
@@ -47,15 +48,15 @@ const BrukerDialog: React.FC = () => {
                             <Chat />
                         </div>
                         <div className={cls.element('tittel')}>
-                            <a
+                            <Link
                                 className={cls.element('tittel-lenke')}
-                                href="https://navdialog--sit2.sandbox.my.site.com/ArbeidsgiverDialog/"
+                                href="#"
                                 onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>
                                     event.preventDefault()
                                 }
                             >
                                 Snakk med oss
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </button>
