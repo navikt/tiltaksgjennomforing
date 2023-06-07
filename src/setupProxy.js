@@ -103,7 +103,7 @@ module.exports = function (app) {
 
     app.get('/tiltaksgjennomforing/chat', (req, res) => {
         const redirectUrl =
-            process.env.ARBEIDSGIVER_DIALOG_URL ?? 'https://navdialog--sit2.sandbox.my.site.com/ArbeidsgiverDialog';
+            process.env.ARBEIDSGIVER_DIALOG_URL;
         res.redirect(
             `${redirectUrl}/?organisasjonsnummer=${req.query.organisasjonsnummer}&avtalenummer=${req.query.avtalenummer}`
         );
