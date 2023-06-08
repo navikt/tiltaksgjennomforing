@@ -1,0 +1,22 @@
+.chat {
+  width: 3rem;
+  height: 3rem;
+  transform: translate3d(0px, 0px, 0px);
+  content-visibility: visible;
+  transition: all 1s ease-in-out;
+
+  &:hover {
+    &__sirkler-bakgrunn {
+      transform: matrix(1, 0, 0, 1, -0.25, 33.75);
+    }
+  }
+
+  &__venstre-sirkel, &__hoyre-sirkel, &__midt-sirkel {
+    color: rgb(255,236,204);
+  }
+
+  &__venstre-sirkel, &__hoyre-sirkel, &__chat-venstre, &__chat-hoyre {
+    transition: all 0.3s ease-in-out;
+    display: block;
+  }
+}

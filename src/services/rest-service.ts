@@ -80,6 +80,11 @@ export const hentAvtaleMedAvtaleNr = async (avtaleNr: number): Promise<Avtale> =
     return response.data;
 };
 
+export const hentAvtaleVisSalesforceDialog = async (id: string): Promise<boolean> => {
+    const response = await api.get<boolean>(`/avtaler/${id}/vis-salesforce-dialog`);
+    return response.data;
+}
+
 const removeEmpty = (obj: any) => {
     Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
     return obj;

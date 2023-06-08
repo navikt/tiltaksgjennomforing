@@ -8,4 +8,5 @@
 "proxy-cluster": "prod-fss"
 "aad-redirect-url": "https://arbeidsgiver.nav.no/tiltaksgjennomforing/oauth2/callback"
 "notifikasjon-audience": "prod-gcp:fager:notifikasjon-bruker-api"
+"arbeidsgiver-dialog": "https://arbeidsgiverdialog.nav.no/s"
 "decorator-host": "www.nav.no"
