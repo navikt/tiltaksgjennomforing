@@ -48,7 +48,7 @@ spec:
     accessPolicy:
       outbound:
         external:
-          - host: https://tiltak-fakelogin.ekstern.dev.nav.no
+          - host: tiltak-fakelogin.ekstern.dev.nav.no
         rules:
           - application: tiltaksgjennomforing-api-labs
           - application: tiltak-stillingstitler
