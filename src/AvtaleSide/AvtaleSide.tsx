@@ -15,6 +15,7 @@ import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
 import './AvtaleSide.less';
+import Dialog from '@/komponenter/brukerdialog/Dialog';
 
 const cls = BEMHelper('avtaleside');
 
@@ -68,7 +69,6 @@ const AvtaleSide: FunctionComponent = () => {
         const getFilterType = () => (!erAvtaleLaast ? stegPath : 'godkjenning');
         setAktivtSteg(avtaleSteg.find((steg) => steg.id === getFilterType()) || avtaleSteg[0]);
     }, [stegPath, avtaleSteg, erAvtaleLaast]);
-
     return aktivtSteg ? (
         <>
             <Dokumenttittel tittel={sideTittel} />
@@ -105,6 +105,7 @@ const AvtaleSide: FunctionComponent = () => {
                 {!erAvtaleLaast && !erDesktop && (
                     <MobilAvtaleSide avtaleId={avtale.id} avtaleSteg={avtaleSteg} rolle={innloggetBruker.rolle} />
                 )}
+                <Dialog id={avtale.id} />
             </div>
         </>
     ) : null;
