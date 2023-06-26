@@ -1,16 +1,15 @@
-import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import { AvtaleContext } from '@/AvtaleProvider';
 import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import BEMHelper from '@/utils/bem';
-import { Tag } from '@navikt/ds-react';
-import { BodyShort, Heading, Label, Popover, RadioGroup } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import './Relasjoner.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { TiltaksType } from '@/types/avtale';
+import BEMHelper from '@/utils/bem';
+import { BodyShort, Heading, Label, Popover, RadioGroup, Tag } from '@navikt/ds-react';
+import { FunctionComponent, useContext, useState } from 'react';
+import './Relasjoner.less';
 
 const cls = BEMHelper('relasjoner');
 
@@ -64,13 +63,13 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                     </div>
                 ) : (
                     <>
-                        <RadioGroup legend="Familierelasjoner" className={cls.element('familie-relasjoner')}>
+                        <RadioGroup legend="Familierelasjoner" value={avtale.gjeldendeInnhold.harFamilietilknytning} className={cls.element('familie-relasjoner')}>
                             <div className={cls.element('familie-relasjoner-valg')}>
                                 <RadioPanel
                                     className={cls.element('radioknapp')}
                                     name="familievalg"
                                     checked={harFamilietilknytning}
-                                    value="ja"
+                                    value={true}
                                     onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
                                 >
                                     Ja
@@ -79,7 +78,7 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                                     className={cls.element('radioknapp')}
                                     name="familievalg"
                                     checked={harFamilietilknytning === false}
-                                    value="nei"
+                                    value={false}
                                     onChange={() => {
                                         settAvtaleVerdier({
                                             familietilknytningForklaring: undefined,
