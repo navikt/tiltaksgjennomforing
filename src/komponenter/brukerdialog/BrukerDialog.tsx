@@ -3,7 +3,7 @@ import BEMHelper from '@/utils/bem';
 import Chat from './chat-animasjon/Chat';
 import './brukerDialog.less';
 import useBrukerDialog from '@/komponenter/brukerdialog/useBrukerDialog';
-import { Link } from '@navikt/ds-react';
+import { Label, Link } from '@navikt/ds-react';
 
 const BrukerDialog: React.FC = () => {
     const redirectUrl: string = useBrukerDialog();
@@ -55,7 +55,8 @@ const BrukerDialog: React.FC = () => {
                                     event.preventDefault()
                                 }
                             >
-                                Snakk med oss
+                                <Label>Ny funksjon</Label>
+                                 Skriv og les meldinger om avtalen her
                             </Link>
                         </div>
                     </div>
