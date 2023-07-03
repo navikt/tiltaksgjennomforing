@@ -28,7 +28,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className} role={'main'}>
             <AvtaleStatus />
-
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     <SkjemaTittel>
