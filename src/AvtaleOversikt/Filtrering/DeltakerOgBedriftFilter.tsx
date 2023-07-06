@@ -15,7 +15,7 @@ const fnrValidering: Validering = (verdi) => (!validerFnr(verdi) ? 'Ugyldig fød
 
 const orgNrValidering: Validering = (verdi) => (!validerOrgnr(verdi) ? 'Ugyldig virksomhetsnummer' : undefined);
 
-type Søketype = 'deltaker' | 'veileder' | 'bedrift' | 'egne' | 'avtaleVedEnhet' | 'ufordelte' | 'avtaleNr';
+type Søketype = 'alle' | 'deltaker' | 'veileder' | 'bedrift' | 'egne' | 'avtaleVedEnhet' | 'ufordelte' | 'avtaleNr';
 
 export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -40,7 +40,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
         if (filtre.avtaleNr !== undefined) {
             return 'avtaleNr';
         }
-        return 'egne';
+        return innloggetBruker.rolle === 'BESLUTTER' ? 'alle' : 'egne';
     };
     const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre());
 
@@ -53,6 +53,13 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
         navEnhet: '',
     };
     const søk: { [k in Søketype]: any } = {
+        alle: {
+            placeholder: '',
+            label: 'Alle',
+            maxLength: 0,
+            validering: () => undefined,
+            utførSøk: () => endreFilter({ ...tomt }),
+        },
         egne: {
             placeholder: '',
             label: 'Tilknyttet meg',
@@ -113,7 +120,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const endreSøketype = (event: FormEvent<HTMLInputElement>) => {
         const nySøketype = event.currentTarget.value as Søketype;
         setAktivSøkeType(nySøketype);
-        if (nySøketype === 'egne' || nySøketype === 'ufordelte' || nySøketype === 'avtaleVedEnhet') {
+        if (['alle', 'egne', 'ufordelte', 'avtaleVedEnhet'].includes(nySøketype)) {
             søk[nySøketype].utførSøk();
         }
     };
@@ -135,7 +142,14 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
 
     return (
         <Filter tittel="Vis avtaler">
-            {Object.entries(søk).map(([key, value]) => (
+            {Object.entries(søk).filter(([key, value]) => {
+                if (innloggetBruker.rolle === 'BESLUTTER') { 
+                    // Beslutter har et redusert sett med filtreringsmuligheter
+                    return ["alle", "bedrift", "avtaleNr", "avtaleVedEnhet"].includes(key);
+                }
+                // Veiledere kan ikke filtrere på "alle"
+                return key !== 'alle';
+            }).map(([key, value]) => (
                 <Fragment key={key}>
                     <RadioGroup legend="" value={aktivSøketype}>
                         <Radio name={'aktivSøketype'} value={key} onChange={endreSøketype} role="radio" size="small">

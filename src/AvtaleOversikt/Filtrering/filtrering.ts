@@ -1,8 +1,7 @@
 import { Avtale, TilskuddPeriodeStatus } from '@/types/avtale';
-import { number } from 'prop-types';
 import React from 'react';
 
-interface FiterOgPagnation {
+interface FilterOgPagination {
     sorteringskolonne?: keyof Avtale;
     tilskuddPeriodeStatus?: TilskuddPeriodeStatus;
     navEnhet?: string;
@@ -10,4 +9,4 @@ interface FiterOgPagnation {
     page?: string;
 }
 
-export type Filtrering = Partial<Avtale> & FiterOgPagnation;
+export type Filtrering = Partial<Avtale> & FilterOgPagination;
