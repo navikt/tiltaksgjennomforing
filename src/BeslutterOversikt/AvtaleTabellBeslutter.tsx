@@ -11,6 +11,8 @@ import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import '../AvtaleOversikt/AvtaleTabell.less';
 import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
+import { tiltakstypeTekst } from '@/messages';
+import { storForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -58,6 +60,9 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                                 uthevet: ulestVarsel,
                                             })}
                                         >
+                                            <div className={cls.element('tiltakstype')}>
+                                                <BodyShort size="small">{storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}</BodyShort>
+                                            </div>
                                             <div className={cls.element('beslutter-deltakerOgBedrift')}>
                                                 <BodyShort size="small">{avtale.bedriftNavn}</BodyShort>
                                             </div>

@@ -52,6 +52,7 @@ export type AvtaleMinimalForBeslutter = {
     veilederNavIdent: string;
     bedriftNavn: string;
     status: TilskuddPeriodeStatus;
+    tiltakstype: TiltaksType;
 };
 
 export type Avtaleinnhold = {

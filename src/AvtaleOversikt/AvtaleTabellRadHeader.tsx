@@ -13,12 +13,13 @@ const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavA
     const cls = BEMHelper(className);
     return erBeslutter ? (
         <div className={classNames(cls.element('rad'), cls.element('header'))}>
+            <div className={cls.element('tiltakstype')}>Tiltakstype</div>
             <div className={cls.element('beslutter-deltakerOgBedrift')}>Bedrift</div>
             <div className={cls.element('beslutter-deltakerOgBedrift')}>Deltaker</div>
             <div className={cls.element('beslutter-veileder')}>Veileder</div>
             <MediaQuery minWidth={576}>
                 <div className={cls.element('beslutter-dato')}>
-                    <div className={cls.element('beslutter-besluterdato')}>
+                    <div>
                         <div>Startdato</div>
                         <div>periode</div>
                     </div>
