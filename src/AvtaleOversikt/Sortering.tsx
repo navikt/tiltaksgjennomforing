@@ -25,6 +25,7 @@ const Sortering: FunctionComponent = (props) => {
 
     leggtilSorteringstype('startDato', 'Startdato');
     leggtilSorteringstype('sistEndret', 'Sist endret');
+    if(rolle === 'BESLUTTER') leggtilSorteringstype('tiltakstype', 'Tiltakstype');
 
     const defaultValg = rolle === 'BESLUTTER' ? 'startDato' : 'sistEndret';
 
