@@ -16,7 +16,7 @@
         "up": "docker-compose up -d --remove-orphans --build"
     },
     "dependencies": {
-        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^5.4.8",
+        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^6.2.2",
         "@navikt/nav-dekoratoren-moduler": "^1.6.9",
         "axios": "^0.21.1",
         "express-async-handler": "1.2.0",
