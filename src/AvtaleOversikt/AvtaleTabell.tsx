@@ -20,11 +20,11 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
     const erGjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
     return (
         <>
-            <Table.DataCell className={cls.element('veileder-statusikon')}>
+            <Table.DataCell>
                 <StatusIkon status={avtale.status} />
             </Table.DataCell>
             <Table.DataCell>
-                <BodyShort className={cls.element('veileder-status')}>
+                <BodyShort size='small'>
                     {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
                         ? 'Tilskuddsperiode avslått'
                         : avtaleStatusTekst[avtale.status]}
@@ -61,7 +61,7 @@ const AvtaleTabell: FunctionComponent<{
                 erBeslutter={false}
                 erNavAnsatt={innloggetBruker.erNavAnsatt}
             />
-            <Table.Body role="list">
+            <Table.Body>
                 {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
@@ -92,15 +92,15 @@ const AvtaleTabell: FunctionComponent<{
                                     }
                                 }}
                             >
-                                <Table.DataCell className={cls.element('veileder-deltakerOgBedrift')}>
+                                <Table.DataCell>
                                     {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                                     <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
                                 </Table.DataCell>
-                                <Table.DataCell className={cls.element('veileder-deltakerOgBedrift')}>
+                                <Table.DataCell>
                                     <BodyShort size="small">{lagFulltNavn(avtale)}</BodyShort>
                                 </Table.DataCell>
                                 {innloggetBruker.erNavAnsatt && (
-                                    <Table.DataCell className={cls.element('veileder-veileder')}>
+                                    <Table.DataCell>
                                         <BodyShort size="small">{avtale.veilederNavIdent ?? 'Ufordelt'}</BodyShort>
                                     </Table.DataCell>
                                 )}

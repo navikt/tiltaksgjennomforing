@@ -6,7 +6,6 @@ import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { Table, BodyShort } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import '../AvtaleOversikt/AvtaleTabell.less';
 import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
@@ -80,12 +79,10 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                 </Table.DataCell>
                             )}
                             <Table.DataCell className={cls.element('siste-celle')}>
-                                <span>
-                                    <EtikettStatus
-                                        tilskuddsperiodestatus={avtale.status}
-                                        antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
-                                    />
-                                </span>
+                                <EtikettStatus size='small'
+                                    tilskuddsperiodestatus={avtale.status}
+                                    antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
+                                />
                             </Table.DataCell>
                             <Table.DataCell>
                                 <ChevronRightIcon title="a11y-title" fontSize="1.75rem" />
