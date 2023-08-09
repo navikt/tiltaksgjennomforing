@@ -12,6 +12,7 @@ import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 import './AvtaleTabell.less';
+import { ChevronRightIcon } from '@navikt/aksel-icons';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -138,6 +139,9 @@ const AvtaleTabell: FunctionComponent<{
                                     </Table.DataCell>
                                 </MediaQuery>
                                 {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
+                                <Table.DataCell>
+                                    <ChevronRightIcon title="a11y-title" fontSize="1.75rem" />
+                                </Table.DataCell>
                             </Table.Row>
                             <TaushetserklæringModal
                                 open={visTaushetserklæringForAvtaleId === avtale.id}

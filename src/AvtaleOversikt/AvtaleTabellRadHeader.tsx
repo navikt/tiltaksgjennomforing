@@ -43,7 +43,8 @@ const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavA
                     Sluttdato
                 </Table.ColumnHeader>
                 <Table.ColumnHeader className={cls.element('veileder-statusikon')}>&nbsp;</Table.ColumnHeader>
-                <Table.ColumnHeader className={cls.element('veileder-status')}>Status</Table.ColumnHeader>
+                    <Table.ColumnHeader className={cls.element('veileder-status')}>Status</Table.ColumnHeader>
+                    <Table.ColumnHeader className={cls.element('beslutter-headerpil')}></Table.ColumnHeader>
             </Table.Row>
         </Table.Header>
     );
