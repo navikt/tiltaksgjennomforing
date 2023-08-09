@@ -28,7 +28,6 @@ export const AvtalerBeslutter: FunctionComponent<Props> = (props) => {
                 avtaler={props.avtalelisteRessurs.data}
                 varsler={props.varsler}
                 innloggetBruker={props.innloggetBruker}
-                
             />
         )
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
