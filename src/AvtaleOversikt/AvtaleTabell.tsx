@@ -93,7 +93,7 @@ const AvtaleTabell: FunctionComponent<{
                                 }}
                             >
                                 <Table.DataCell className={cls.element('veileder-deltakerOgBedrift')}>
-                                    {true && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
+                                    {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                                     <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
                                 </Table.DataCell>
                                 <Table.DataCell className={cls.element('veileder-deltakerOgBedrift')}>
