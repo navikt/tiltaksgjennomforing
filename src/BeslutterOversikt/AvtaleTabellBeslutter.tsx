@@ -79,7 +79,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                 </Table.DataCell>
                             )}
                             <Table.DataCell className={cls.element('siste-celle')}>
-                                <EtikettStatus size='small'
+                                <EtikettStatus
                                     tilskuddsperiodestatus={avtale.status}
                                     antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
                                 />
