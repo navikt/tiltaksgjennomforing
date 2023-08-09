@@ -6,6 +6,9 @@
 
     tbody tr {
         cursor: pointer;
+        & svg {
+            transition: transform .2s,-webkit-transform .2s;
+        }
         &:hover {
             box-shadow: var(--a-shadow-medium);
             & td {
@@ -25,6 +28,10 @@
                     border-right: 1px;
                     border-style: solid;
                 }
+            }
+            & svg {
+                -webkit-transform: translateX(4px);
+                transform: translateX(4px);
             }
         }
     }
