@@ -37,7 +37,6 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                     return (
                         <Table.Row
                             key={avtale.id + index}
-                            className={cls.element('linkpanel')}
                             onClick={(e) => {
                                 navigate({
                                     pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle),
@@ -45,7 +44,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                 });
                             }}
                         >
-                            <Table.DataCell className={cls.element('tiltakstype')}>
+                            <Table.DataCell>
                                 <>
                                     {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                                     <BodyShort size="small">
@@ -53,22 +52,22 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                     </BodyShort>
                                 </>
                             </Table.DataCell>
-                            <Table.DataCell className={cls.element('beslutter-deltakerOgBedrift')}>
+                            <Table.DataCell>
                                 <BodyShort size="small">{avtale.bedriftNavn}</BodyShort>
                             </Table.DataCell>
-                            <Table.DataCell className={cls.element('beslutter-deltakerOgBedrift')}>
+                            <Table.DataCell>
                                 <BodyShort size="small">
                                     {avtale.deltakerFornavn || ''}&nbsp;
                                     {avtale.deltakerEtternavn || ''}
                                 </BodyShort>
                             </Table.DataCell>
                             {innloggetBruker.erNavAnsatt && (
-                                <Table.DataCell className={cls.element('beslutter-veileder')}>
+                                <Table.DataCell>
                                     <BodyShort size="small">{avtale.veilederNavIdent || 'Ufordelt'}</BodyShort>
                                 </Table.DataCell>
                             )}
                             {erBeslutter && (
-                                <Table.DataCell className={cls.element('beslutter-dato')}>
+                                <Table.DataCell>
                                     <BodyShort size="small">
                                         {new Date(avtale.startDato).toLocaleDateString('no-NB', {
                                             day: 'numeric',
@@ -78,14 +77,14 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                     </BodyShort>
                                 </Table.DataCell>
                             )}
-                            <Table.DataCell className={cls.element('siste-celle')}>
+                            <Table.DataCell>
                                 <EtikettStatus
                                     tilskuddsperiodestatus={avtale.status}
                                     antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
                                 />
                             </Table.DataCell>
                             <Table.DataCell>
-                                <ChevronRightIcon title="a11y-title" fontSize="1.75rem" />
+                                <ChevronRightIcon className={cls.element('pil-hoyre')} title="a11y-title" fontSize="1.75rem" />
                             </Table.DataCell>
                         </Table.Row>
                     );

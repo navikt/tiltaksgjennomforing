@@ -140,7 +140,7 @@ const AvtaleTabell: FunctionComponent<{
                                 </MediaQuery>
                                 {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
                                 <Table.DataCell>
-                                    <ChevronRightIcon title="a11y-title" fontSize="1.75rem" />
+                                    <ChevronRightIcon className={cls.element('pil-hoyre')} title="a11y-title" fontSize="1.75rem" />
                                 </Table.DataCell>
                             </Table.Row>
                             <TaushetserklæringModal
