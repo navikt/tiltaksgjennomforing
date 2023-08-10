@@ -1,5 +1,4 @@
 import React from 'react';
-import BEMHelper from '@/utils/bem';
 import { Table } from '@navikt/ds-react';
 
 interface Props {
@@ -9,7 +8,6 @@ interface Props {
 }
 
 const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavAnsatt }: Props) => {
-    const cls = BEMHelper(className);
     return erBeslutter ? (
         <Table.Header>
             <Table.Row>
