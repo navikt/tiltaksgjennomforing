@@ -25,7 +25,7 @@ const BeslutterOversiktSkeleton: FunctionComponent<Props> = (props) => {
                         erNavAnsatt={props.erNavAnsatt}
                     />
                     <Table.Body>
-                        {[1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((idx) => (
                             <Table.Row key={idx}>
                                 <Table.DataCell colSpan={100}>
                                     <Skeleton height={68} />
