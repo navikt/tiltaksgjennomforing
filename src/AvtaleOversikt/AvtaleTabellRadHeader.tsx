@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from '@navikt/ds-react';
 
 interface Props {
-    className: string;
+    className?: string;
     erBeslutter: boolean;
     erNavAnsatt: boolean;
 }

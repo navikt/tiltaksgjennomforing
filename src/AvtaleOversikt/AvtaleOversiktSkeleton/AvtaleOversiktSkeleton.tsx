@@ -15,9 +15,9 @@ type Props = {
 
 const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
     return (
-        <div>
+        <div className={cls.className}>
             <MediaQuery minWidth={881}>
-                <AvtaleTabellRadHeader className={cls.className} erBeslutter={false} erNavAnsatt={props.erNavAnsatt} />
+                <AvtaleTabellRadHeader erBeslutter={false} erNavAnsatt={props.erNavAnsatt} />
                 <div>
                     <VerticalSpacer rem={1} />
                     <Skeleton height={68} />

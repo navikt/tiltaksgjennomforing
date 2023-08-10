@@ -16,10 +16,9 @@ type Props = {
 
 const BeslutterOversiktSkeleton: FunctionComponent<Props> = (props) => {
     return (
-        <div>
+        <div className={cls.className}>
             <MediaQuery minWidth={881}>
                 <AvtaleTabellRadHeader
-                    className={cls.className}
                     erBeslutter={true}
                     erNavAnsatt={props.erNavAnsatt}
                 />
