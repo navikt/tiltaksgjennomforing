@@ -17,7 +17,6 @@ type Props = {
 
 export const AvtalerBeslutter: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
-
     if (props.avtalelisteRessurs.status === Status.LasterInn) {
         return <BeslutterOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet && props.avtalelisteRessurs.data.length === 0) {
@@ -29,7 +28,7 @@ export const AvtalerBeslutter: FunctionComponent<Props> = (props) => {
                 varsler={props.varsler}
                 innloggetBruker={props.innloggetBruker}
             />
-        )
+        );
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
         handterFeil(props.avtalelisteRessurs.error, feilVarsel);
     }
