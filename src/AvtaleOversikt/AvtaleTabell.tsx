@@ -68,11 +68,6 @@ const AvtaleTabell: FunctionComponent<{
                             <Table.Row
                                 id={avtale.id}
                                 key={avtale.id}
-                                className={
-                                    avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor
-                                        ? 'skjulIndikator'
-                                        : ''
-                                }
                                 role="listitem"
                                 aria-labelledby={avtale.id}
                                 onClick={(e) => {
@@ -104,12 +99,7 @@ const AvtaleTabell: FunctionComponent<{
                                     </Table.DataCell>
                                 )}
                                 <MediaQuery minWidth={576}>
-                                    <Table.DataCell
-                                        className={cls.element(
-                                            'veileder-dato',
-                                            innloggetBruker.erNavAnsatt ? '' : 'arbeidsgiver-deltaker'
-                                        )}
-                                    >
+                                    <Table.DataCell>
                                         <BodyShort size="small">
                                             {avtale.startDato
                                                 ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
@@ -120,12 +110,7 @@ const AvtaleTabell: FunctionComponent<{
                                                 : '-'}
                                         </BodyShort>
                                     </Table.DataCell>
-                                    <Table.DataCell
-                                        className={cls.element(
-                                            'veileder-dato',
-                                            innloggetBruker.erNavAnsatt ? '' : 'arbeidsgiver-deltaker'
-                                        )}
-                                    >
+                                    <Table.DataCell>
                                         <BodyShort size="small">
                                             {avtale.sluttDato
                                                 ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {
