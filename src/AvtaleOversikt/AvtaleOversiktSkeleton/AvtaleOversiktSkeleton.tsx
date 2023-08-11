@@ -4,10 +4,9 @@ import React, { FunctionComponent } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
 import './AvtaleOversiktSkeleton.less';
-import '../../AvtaleOversikt/AvtaleTabell.less';
 import AvtaleTabellRadHeader from '../AvtaleTabellRadHeader';
 
-const cls = BEMHelper('avtaletabell');
+const cls = BEMHelper('avtaleoversiktskeleton');
 
 type Props = {
     erNavAnsatt: boolean;
@@ -17,7 +16,7 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
     return (
         <>
             <MediaQuery minWidth={881}>
-                <Table className={cls.className + ' avtaleoversiktskeleton'}>
+                <Table className={cls.className}>
                     <AvtaleTabellRadHeader erBeslutter={false} erNavAnsatt={props.erNavAnsatt} />
                     <Table.Body>
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((idx) => (
@@ -31,7 +30,7 @@ const AvtaleOversiktSkeleton: FunctionComponent<Props> = (props) => {
                 </Table>
             </MediaQuery>
             <MediaQuery maxWidth={880}>
-                <div className="avtaleoversiktskeleton__spinner">
+                <div className={cls.element('spinner')}>
                     <Loader variant="neutral" size="2xlarge" />
                 </div>
             </MediaQuery>
