@@ -27,7 +27,6 @@ const AvtaleTabellBeslutter: FunctionComponent<{
     return (
         <Table className={cls.className}>
             <AvtaleTabellRadHeader
-                className={cls.className}
                 erBeslutter={erBeslutter}
                 erNavAnsatt={innloggetBruker.erNavAnsatt}
             />

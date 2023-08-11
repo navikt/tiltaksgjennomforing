@@ -1,5 +1,7 @@
 import React from 'react';
 import { Table } from '@navikt/ds-react';
+import './AvtaleTabellRadHeader.less';
+import BEMHelper from '@/utils/bem';
 
 interface Props {
     className?: string;
@@ -7,9 +9,12 @@ interface Props {
     erNavAnsatt: boolean;
 }
 
+const cls = BEMHelper('avtaletabellradheader');
+
 const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavAnsatt }: Props) => {
+    const cn = cls.className + (!!className ? ' ' + className : '');
     return erBeslutter ? (
-        <Table.Header>
+        <Table.Header className={cn}>
             <Table.Row>
                 <Table.ColumnHeader>Tiltakstype</Table.ColumnHeader>
                 <Table.ColumnHeader>Bedrift</Table.ColumnHeader>
@@ -21,7 +26,7 @@ const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavA
             </Table.Row>
         </Table.Header>
     ) : (
-        <Table.Header>
+        <Table.Header className={cn}>
             <Table.Row>
                 <Table.ColumnHeader>Bedrift</Table.ColumnHeader>
                 <Table.ColumnHeader>Deltaker</Table.ColumnHeader>
