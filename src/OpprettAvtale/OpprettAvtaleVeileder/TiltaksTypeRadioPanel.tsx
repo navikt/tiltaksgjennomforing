@@ -7,6 +7,7 @@ import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
+import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 
@@ -68,7 +69,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                                 setUgyldigAvtaletype(false);
                             }}
                         >
-                            {tiltakstypeTekst[valg]}
+                            {storForbokstav(tiltakstypeTekst[valg])}
                         </RadioPanel>
                     ))}
                 </RadioGroup>
