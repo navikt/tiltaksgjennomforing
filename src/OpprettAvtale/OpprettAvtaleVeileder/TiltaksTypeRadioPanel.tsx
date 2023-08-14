@@ -1,13 +1,14 @@
-import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import BEMHelper from '@/utils/bem';
-import amplitude from '@/utils/amplitude';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
+import { tiltakstypeTekst } from '@/messages';
+import { inkludereIArbeidslivetLenke } from '@/paths';
 import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
-import { BodyLong, Heading, RadioGroup, ErrorMessage } from '@navikt/ds-react';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
-import { inkludereIArbeidslivetLenke } from '@/paths';
+import amplitude from '@/utils/amplitude';
+import BEMHelper from '@/utils/bem';
+import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
+import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 
 interface Props {
     className: string;
@@ -67,7 +68,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                                 setUgyldigAvtaletype(false);
                             }}
                         >
-                            {valg.replace('_', ' ').toLowerCase()}
+                            {tiltakstypeTekst[valg]}
                         </RadioPanel>
                     ))}
                 </RadioGroup>
