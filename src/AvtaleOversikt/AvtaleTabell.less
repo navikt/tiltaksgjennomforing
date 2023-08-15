@@ -1,24 +1,62 @@
 @import (reference) "../tiltak_variabler.less";
 .avtaletabell {
-    &__linkpanel {
-        margin-bottom: 0.5rem;
+    border-spacing: 0px 10px;
+    border-collapse: separate;
+    margin-top: -10px;
+
+    tbody tr {
+        cursor: pointer;
+        .avtaletabell__pil-hoyre {
+            transition: transform .2s,-webkit-transform .2s;
+        }
+        &:hover {
+            box-shadow: var(--a-shadow-medium);
+            & td {
+                border-top: 1px;
+                border-bottom: 1px;
+                border-left: 0;
+                border-right: 0;
+                border-style: solid;
+                border-color: @navBla;
+                text-decoration: underline;
+                color: @navBla;
+                &:first-child {
+                    border-left: 1px;
+                    border-style: solid;
+                }
+                &:last-child {
+                    border-right: 1px;
+                    border-style: solid;
+                }
+            }
+            .avtaletabell__pil-hoyre  {
+                -webkit-transform: translateX(4px);
+                transform: translateX(4px);
+            }
+        }
     }
 
-    .linkpanel.skjulIndikator span {
-        display: none;
-    }
-
-    &__arbeidsgiver-tekst {
-        margin-top: 2rem;
-    }
-
-    &__header {
-        padding: 1rem;
-        font-weight: bold;
+    td {
         background-color: white;
-        border: 1px solid @navGra40;
-        border-radius: 0.25rem;
-        margin-bottom: 1rem;
+        border-bottom-width: 1px !important; // Overstyr design-css
+    }
+
+    td {
+        border-top: 1px solid @navGraBakgrunn;
+        border-bottom: 1px solid @navGraBakgrunn;
+        border-right: 0;
+        border-left: 0;
+        &:first-child {
+            position: relative;
+            border-left: 1px solid @navGraBakgrunn;
+        }
+        &:last-child {
+            border-right: 1px solid @navGraBakgrunn;
+        }
+        & .navds-tag {
+            width: 100%;
+            white-space: nowrap;
+        }
     }
 
     .ulest-varsel-ikon {
@@ -29,71 +67,8 @@
         height: 16px;
         width: 16px;
         position: absolute;
-        left: -1.55rem;
+        left: -0.5rem;
     }
-
-    .uthevet {
-        font-weight: bold;
-    }
-
-    &__rad {
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-        align-items: center;
-        width: 100%;
-    }
-
-    &__status-rad {
-        display: flex;
-    }
-
-    &__beslutter {
-        &-veileder {
-            min-width: 8rem;
-            padding-right: 1rem;
-        }
-
-        &-deltakerOgBedrift {
-            width: 10rem;
-            margin-right: 1rem;
-        }
-
-        &-dato {
-            min-width: 10rem;
-        }
-
-        &-status {
-            width: 8rem;
-        }
-    }
-
-    &__veileder {
-        &-veileder {
-            min-width: 8rem;
-        }
-
-        &-deltakerOgBedrift {
-            width: 8.5rem;
-            word-wrap: break-word;
-        }
-
-        &-dato {
-            min-width: 6rem;
-            &--arbeidsgiver-deltaker {
-                min-width: 9.5rem;
-            }
-        }
-
-        &-statusikon {
-            width: 4rem;
-        }
-
-        &-status {
-            width: 6rem;
-        }
-    }
-
 }
 
 

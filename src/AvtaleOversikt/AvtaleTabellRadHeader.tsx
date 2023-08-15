@@ -1,47 +1,49 @@
 import React from 'react';
-import classNames from 'classnames';
-import MediaQuery from 'react-responsive';
+import { Table } from '@navikt/ds-react';
+import './AvtaleTabellRadHeader.less';
 import BEMHelper from '@/utils/bem';
 
 interface Props {
-    className: string;
+    className?: string;
     erBeslutter: boolean;
     erNavAnsatt: boolean;
 }
 
+const cls = BEMHelper('avtaletabellradheader');
+
 const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavAnsatt }: Props) => {
-    const cls = BEMHelper(className);
+    const cn = cls.className + (!!className ? ' ' + className : '');
     return erBeslutter ? (
-        <div className={classNames(cls.element('rad'), cls.element('header'))}>
-            <div className={cls.element('beslutter-deltakerOgBedrift')}>Bedrift</div>
-            <div className={cls.element('beslutter-deltakerOgBedrift')}>Deltaker</div>
-            <div className={cls.element('beslutter-veileder')}>Veileder</div>
-            <MediaQuery minWidth={576}>
-                <div className={cls.element('beslutter-dato')}>
-                    <div className={cls.element('beslutter-besluterdato')}>
-                        <div>Startdato</div>
-                        <div>periode</div>
-                    </div>
-                </div>
-            </MediaQuery>
-            <div className={cls.element('beslutter-headerstatus')}>Status</div>
-        </div>
+        <Table.Header className={cn}>
+            <Table.Row>
+                <Table.ColumnHeader>Tiltakstype</Table.ColumnHeader>
+                <Table.ColumnHeader>Bedrift</Table.ColumnHeader>
+                <Table.ColumnHeader>Deltaker</Table.ColumnHeader>
+                <Table.ColumnHeader>Veileder</Table.ColumnHeader>
+                <Table.ColumnHeader>Startdato <br/> periode</Table.ColumnHeader>
+                <Table.ColumnHeader>Status</Table.ColumnHeader>
+                <Table.ColumnHeader></Table.ColumnHeader>
+            </Table.Row>
+        </Table.Header>
     ) : (
-        <div className={classNames(cls.element('rad'), cls.element('header'))}>
-            <div className={cls.element('veileder-deltakerOgBedrift')}>Bedrift</div>
-            <div className={cls.element('veileder-deltakerOgBedrift')}>Deltaker</div>
-            {erNavAnsatt && <div className={cls.element('veileder-veileder')}>Veileder</div>}
-            <MediaQuery minWidth={576}>
-                <div className={cls.element('veileder-dato', erNavAnsatt ? '' : 'arbeidsgiver-deltaker')}>
+        <Table.Header className={cn}>
+            <Table.Row>
+                <Table.ColumnHeader>Bedrift</Table.ColumnHeader>
+                <Table.ColumnHeader>Deltaker</Table.ColumnHeader>
+                {erNavAnsatt && (
+                    <Table.ColumnHeader>Veileder</Table.ColumnHeader>
+                )}
+                <Table.ColumnHeader>
                     Startdato
-                </div>
-                <div className={cls.element('veileder-dato', erNavAnsatt ? '' : 'arbeidsgiver-deltaker')}>
+                </Table.ColumnHeader>
+                <Table.ColumnHeader>
                     Sluttdato
-                </div>
-            </MediaQuery>
-            <div className={cls.element('veileder-statusikon')}>&nbsp;</div>
-            <div className={cls.element('veileder-status')}>Status</div>
-        </div>
+                </Table.ColumnHeader>
+                <Table.ColumnHeader>&nbsp;</Table.ColumnHeader>
+                    <Table.ColumnHeader>Status</Table.ColumnHeader>
+                    <Table.ColumnHeader></Table.ColumnHeader>
+            </Table.Row>
+        </Table.Header>
     );
 };
 export default AvtaleTabellRadHeader;

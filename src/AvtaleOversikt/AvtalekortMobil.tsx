@@ -9,7 +9,7 @@ import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { LinkPanel, Heading, Ingress, BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
-import { FunctionComponent, useState } from 'react';
+import { Fragment, FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AvtalekortMobil.less';
 
@@ -25,10 +25,10 @@ const AvtalekortMobil: FunctionComponent<{
 
     return (
         <>
-            {avtaler.map((avtale: AvtaleMinimalListeVisning) => {
+            {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
                 const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                 return (
-                    <>
+                    <Fragment key={index}>
                         <LinkPanel
                             border={false}
                             key={avtale.id}
@@ -67,10 +67,8 @@ const AvtalekortMobil: FunctionComponent<{
                                         </BodyShort>
                                         <div className={cls.element('status')}>
                                             <StatusIkon status={avtale.status} />
-                                            <BodyShort size="small">
-                                                <div className={cls.element('statustekst')}>
-                                                    {avtaleStatusTekst[avtale.status]}
-                                                </div>
+                                            <BodyShort className={cls.element('statustekst')} size="small">
+                                                {avtaleStatusTekst[avtale.status]}
                                             </BodyShort>
                                         </div>
                                     </div>
@@ -83,7 +81,7 @@ const AvtalekortMobil: FunctionComponent<{
                             togglesetTaushetserklæringForMentorAvtale={setVisTaushetserklæringForAvtaleId}
                             avtaleId={avtale.id}
                         />
-                    </>
+                    </Fragment>
                 );
             })}
         </>

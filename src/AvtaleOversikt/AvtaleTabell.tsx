@@ -6,13 +6,13 @@ import { AvtaleMinimalListeVisning } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, LinkPanel } from '@navikt/ds-react';
-import classNames from 'classnames';
-import { FunctionComponent, useState } from 'react';
+import { BodyShort, Table } from '@navikt/ds-react';
+import { Fragment, FunctionComponent, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 import './AvtaleTabell.less';
+import { ChevronRightIcon } from '@navikt/aksel-icons';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -20,28 +20,30 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
     const erGjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
     return (
         <>
-            <div className={cls.element('veileder-statusikon')}>
+            <Table.DataCell>
                 <StatusIkon status={avtale.status} />
-            </div>
-            <BodyShort className={cls.element('veileder-status')}>
-                {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
-                    ? 'Tilskuddsperiode avslått'
-                    : avtaleStatusTekst[avtale.status]}
-            </BodyShort>
+            </Table.DataCell>
+            <Table.DataCell>
+                <BodyShort size='small'>
+                    {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
+                        ? 'Tilskuddsperiode avslått'
+                        : avtaleStatusTekst[avtale.status]}
+                </BodyShort>
+            </Table.DataCell>
         </>
     );
 };
 
 const lagFulltNavn = (avtale: AvtaleMinimalListeVisning) => {
-    if(avtale?.deltakerFornavn && avtale?.deltakerEtternavn) {
+    if (avtale?.deltakerFornavn && avtale?.deltakerEtternavn) {
         return avtale?.deltakerFornavn + ' ' + avtale?.deltakerEtternavn;
-    } else if(avtale?.deltakerFornavn) {
-        return avtale?.deltakerFornavn
-    } else if(avtale?.deltakerEtternavn) {
-        return avtale?.deltakerEtternavn
+    } else if (avtale?.deltakerFornavn) {
+        return avtale?.deltakerFornavn;
+    } else if (avtale?.deltakerEtternavn) {
+        return avtale?.deltakerEtternavn;
     }
-    return '-'
-}
+    return '-';
+};
 
 const AvtaleTabell: FunctionComponent<{
     avtaler: AvtaleMinimalListeVisning[];
@@ -53,26 +55,19 @@ const AvtaleTabell: FunctionComponent<{
     const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string>('');
 
     return (
-        <div className={cls.className}>
+        <Table className={cls.className}>
             <AvtaleTabellRadHeader
-                className={cls.className}
                 erBeslutter={false}
                 erNavAnsatt={innloggetBruker.erNavAnsatt}
             />
-            <div role="list">
+            <Table.Body>
                 {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
-                        <div key={avtale.id} className={cls.element('linkpanel')}>
-                            <LinkPanel
-                                border={false}
+                        <Fragment key={index}>
+                            <Table.Row
                                 id={avtale.id}
                                 key={avtale.id}
-                                className={
-                                    avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor
-                                        ? 'skjulIndikator'
-                                        : ''
-                                }
                                 role="listitem"
                                 aria-labelledby={avtale.id}
                                 onClick={(e) => {
@@ -91,81 +86,58 @@ const AvtaleTabell: FunctionComponent<{
                                     }
                                 }}
                             >
-                                <LinkPanel.Title>
-                                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                                        {ulestVarsel && (
-                                            <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />
-                                        )}{' '}
-                                        <div
-                                            className={classNames(cls.element('rad'), {
-                                                uthevet: ulestVarsel,
-                                            })}
-                                        >
-                                            <div className={cls.element('veileder-deltakerOgBedrift')}>
-                                                <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
-                                            </div>
-                                            <div className={cls.element('veileder-deltakerOgBedrift')}>
-                                                <BodyShort size="small">
-                                                    {lagFulltNavn(avtale)}
-                                                </BodyShort>
-                                            </div>
-                                            {innloggetBruker.erNavAnsatt && (
-                                                <div className={cls.element('veileder-veileder')}>
-                                                    <BodyShort size="small">
-                                                        {avtale.veilederNavIdent ?? 'Ufordelt'}
-                                                    </BodyShort>
-                                                </div>
-                                            )}
-                                            <MediaQuery minWidth={576}>
-                                                <div
-                                                    className={cls.element(
-                                                        'veileder-dato',
-                                                        innloggetBruker.erNavAnsatt ? '' : 'arbeidsgiver-deltaker'
-                                                    )}
-                                                >
-                                                    <BodyShort size="small">
-                                                        {avtale.startDato
-                                                            ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
-                                                                  day: 'numeric',
-                                                                  month: 'short',
-                                                                  year: '2-digit',
-                                                              })
-                                                            : '-'}
-                                                    </BodyShort>
-                                                </div>
-                                                <div
-                                                    className={cls.element(
-                                                        'veileder-dato',
-                                                        innloggetBruker.erNavAnsatt ? '' : 'arbeidsgiver-deltaker'
-                                                    )}
-                                                >
-                                                    <BodyShort size="small">
-                                                        {avtale.sluttDato
-                                                            ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {
-                                                                  day: 'numeric',
-                                                                  month: 'short',
-                                                                  year: '2-digit',
-                                                              })
-                                                            : '-'}
-                                                    </BodyShort>
-                                                </div>
-                                            </MediaQuery>
-                                            {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
-                                        </div>
-                                    </div>
-                                </LinkPanel.Title>
-                            </LinkPanel>
+                                <Table.DataCell>
+                                    {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
+                                    <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
+                                </Table.DataCell>
+                                <Table.DataCell>
+                                    <BodyShort size="small">{lagFulltNavn(avtale)}</BodyShort>
+                                </Table.DataCell>
+                                {innloggetBruker.erNavAnsatt && (
+                                    <Table.DataCell>
+                                        <BodyShort size="small">{avtale.veilederNavIdent ?? 'Ufordelt'}</BodyShort>
+                                    </Table.DataCell>
+                                )}
+                                <MediaQuery minWidth={576}>
+                                    <Table.DataCell>
+                                        <BodyShort size="small">
+                                            {avtale.startDato
+                                                ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
+                                                      day: 'numeric',
+                                                      month: 'short',
+                                                      year: '2-digit',
+                                                  })
+                                                : '-'}
+                                        </BodyShort>
+                                    </Table.DataCell>
+                                    <Table.DataCell>
+                                        <BodyShort size="small">
+                                            {avtale.sluttDato
+                                                ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {
+                                                      day: 'numeric',
+                                                      month: 'short',
+                                                      year: '2-digit',
+                                                  })
+                                                : '-'}
+                                        </BodyShort>
+                                    </Table.DataCell>
+                                </MediaQuery>
+                                {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
+                                <Table.DataCell>
+                                    <ChevronRightIcon className={cls.element('pil-hoyre')} title="a11y-title" fontSize="1.75rem" />
+                                </Table.DataCell>
+                            </Table.Row>
                             <TaushetserklæringModal
                                 open={visTaushetserklæringForAvtaleId === avtale.id}
                                 sistEndret={avtale.sistEndret}
                                 togglesetTaushetserklæringForMentorAvtale={setVisTaushetserklæringForAvtaleId}
                                 avtaleId={avtale.id}
                             />
-                        </div>
+                        </Fragment>
                     );
                 })}
-            </div>
-        </div>
+            </Table.Body>
+        </Table>
     );
 };
 export default AvtaleTabell;
