@@ -13,7 +13,7 @@ const Arbeidsgiveravgift: React.FC<Props> = ({ cls }: Props) => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
     const arbeidsgiveravgiftAlternativer = (() => {
-        const satser = [0.141, 0.106, 0.079, 0.064, 0.051, 0];
+        const satser = [0, 0.051, 0.064, 0.079, 0.106, 0.141];
         const satserVerdier = [{ label: 'Velg', value: '' }];
         satser.forEach((sats: number) =>
             satserVerdier.push({
