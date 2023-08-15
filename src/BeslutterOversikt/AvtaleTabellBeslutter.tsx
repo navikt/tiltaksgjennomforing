@@ -44,12 +44,10 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                             }}
                         >
                             <Table.DataCell>
-                                <>
-                                    {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
-                                    <BodyShort size="small">
-                                        {storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}
-                                    </BodyShort>
-                                </>
+                                {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
+                                <BodyShort size="small">
+                                    {storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}
+                                </BodyShort>
                             </Table.DataCell>
                             <Table.DataCell>
                                 <BodyShort size="small">{avtale.bedriftNavn}</BodyShort>
