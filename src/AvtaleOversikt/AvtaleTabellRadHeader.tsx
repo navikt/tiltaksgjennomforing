@@ -28,6 +28,7 @@ const AvtaleTabellRadHeader: React.FC<Props> = ({ className, erBeslutter, erNavA
     ) : (
         <Table.Header className={cn}>
             <Table.Row>
+                <Table.ColumnHeader>Tiltakstype</Table.ColumnHeader>
                 <Table.ColumnHeader>Bedrift</Table.ColumnHeader>
                 <Table.ColumnHeader>Deltaker</Table.ColumnHeader>
                 {erNavAnsatt && (

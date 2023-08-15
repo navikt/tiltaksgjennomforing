@@ -1,6 +1,6 @@
 import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { avtaleStatusTekst } from '@/messages';
+import { avtaleStatusTekst, tiltakstypeTekst } from '@/messages';
 import { pathTilAvtaleNy } from '@/paths';
 import { AvtaleMinimalListeVisning } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 import './AvtaleTabell.less';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
+import { storForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -88,6 +89,11 @@ const AvtaleTabell: FunctionComponent<{
                             >
                                 <Table.DataCell>
                                     {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
+                                    <BodyShort size="small">
+                                    {storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}
+                                </BodyShort>
+                                </Table.DataCell>
+                                <Table.DataCell>
                                     <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
                                 </Table.DataCell>
                                 <Table.DataCell>
@@ -100,7 +106,7 @@ const AvtaleTabell: FunctionComponent<{
                                 )}
                                 <MediaQuery minWidth={576}>
                                     <Table.DataCell>
-                                        <BodyShort size="small">
+                                        <BodyShort size="small" className={cls.element('nowrap')}>
                                             {avtale.startDato
                                                 ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
                                                       day: 'numeric',
@@ -111,7 +117,7 @@ const AvtaleTabell: FunctionComponent<{
                                         </BodyShort>
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        <BodyShort size="small">
+                                        <BodyShort size="small" className={cls.element('nowrap')}>
                                             {avtale.sluttDato
                                                 ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {
                                                       day: 'numeric',
