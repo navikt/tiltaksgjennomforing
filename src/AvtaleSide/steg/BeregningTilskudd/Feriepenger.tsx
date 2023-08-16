@@ -11,7 +11,7 @@ interface Props {
 const Feriepenger: React.FC<Props> = ({ cls }: Props) => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
-    const feriepengeAlternativer = [0.12, 0.143, 0.102, 0.125].map((sats: number) => ({
+    const feriepengeAlternativer = [0.102, 0.12, 0.125, 0.143].map((sats: number) => ({
         label: (sats * 100).toFixed(1) + ' %',
         value: sats.toString(),
     }));
