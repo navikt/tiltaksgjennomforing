@@ -2052,10 +2052,10 @@
   resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-2.8.16.tgz#991af8aea9179f6df5e8905e213b8bf1137b2f6b"
   integrity sha512-RCvI9a8bBl4SE7x/cUMyZEgD/uL7xo8xuCwwtMN6WXXt0cbhLlZjXdn2S+T4J4KFZjZo82DZKhpZLyqEJjqMcw==
 
-"@navikt/arbeidsgiver-notifikasjon-widget@^5.4.8":
-  version "5.4.8"
-  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-5.4.8.tgz#9e93c418ad950947805e2c9f940f149749fa1cca"
-  integrity sha512-AmL7FITK0vbAnkZRp2e6CRKIiPl2aGj5A/Y+bxeGIPQg+YLVD2Kh9JCuRSRwnd6lP7nVD193N/lvBgsy1cdcwQ==
+"@navikt/arbeidsgiver-notifikasjon-widget@^6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-6.2.2.tgz#dcdddc97504fbbb5d6a6f97e002f07d3ac733dea"
+  integrity sha512-b9hBc5I8b4C+NfrWqSAI1J3ua+QiGOCe0DLwbCdxJgv7R1T+IOPiwJ7uodDgw246DIqL19nqddUnVZd8ADs+jg==
   dependencies:
     "@apollo/client" "3.6.9"
     graphql "^16.6.0"
