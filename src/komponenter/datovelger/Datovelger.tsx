@@ -1,17 +1,17 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
 import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
-import {FunctionComponent, PropsWithChildren, useContext, useEffect, useState} from 'react';
+import {FunctionComponent, PropsWithChildren, useContext, useState} from 'react';
 import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { AvtaleMinMaxDato } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
-import moment from "moment";
 
 interface Props {
     datoFelt: keyof Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
     label: string;
+    feilmelding: string;
 }
 
-const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChildren<Props>) => {
+const Datovelger: FunctionComponent<Props> = ({ label, datoFelt, feilmelding }: PropsWithChildren<Props>) => {
     const { avtale, settAvtaleInnholdVerdier } = useContext(AvtaleContext);
 
     const fjernTid = (timestamp: string) => timestamp.split('T')[0];
@@ -38,7 +38,7 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
         <div>
             <label className="skjemaelement__label">{label}</label>
             <UNSAFE_DatePicker {...datepickerProps}>
-                <UNSAFE_DatePicker.Input {...inputProps} placeholder="dd.mm.åååå" error={((hasError && !erStartdato)) && "Sluttdato kan ikke være mer enn to år frem fra startdato. "} label="" />
+                <UNSAFE_DatePicker.Input {...inputProps} placeholder="dd.mm.åååå" error={(hasError) && feilmelding} label="" />
             </UNSAFE_DatePicker>
         </div>
     );
