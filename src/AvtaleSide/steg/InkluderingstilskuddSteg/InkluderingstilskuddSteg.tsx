@@ -61,10 +61,10 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
                 <Row className="">
                     <Column md="6">
-                        <Datovelger datoFelt="startDato" label="StartDato" />
+                        <Datovelger datoFelt="startDato" label="StartDato" feilmelding="Startdato kan ikke være så langt frem i tid" />
                     </Column>
                     <Column md="6">
-                        <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
+                        <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" feilmelding="Sluttdato kan ikke være så langt frem i tid" />
                     </Column>
                 </Row>
 

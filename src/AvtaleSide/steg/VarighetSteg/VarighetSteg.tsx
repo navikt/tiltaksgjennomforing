@@ -62,10 +62,10 @@ const VarighetSteg: FunctionComponent = () => {
                             />
                         </Column>
                         <Column md="6">
-                            <Datovelger datoFelt="startDato" label="Startdato" />
+                            <Datovelger datoFelt="startDato" label="Startdato" feilmelding="Startdato kan ikke være mer en to år frem i tid" />
                         </Column>
                         <Column md="6">
-                            <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
+                            <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" feilmelding= "Sluttdato kan ikke være så langt frem i tid" />
                         </Column>
                     </Row>
                     <VarighetTilbakeTidAlert
