@@ -14,6 +14,7 @@ import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 import './AvtaleTabell.less';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
 import { storForbokstav } from '@/utils/stringUtils';
+import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -25,7 +26,7 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
                 <StatusIkon status={avtale.status} />
             </Table.DataCell>
             <Table.DataCell>
-                <BodyShort size='small'>
+                <BodyShort size="small">
                     {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
                         ? 'Tilskuddsperiode avslått'
                         : avtaleStatusTekst[avtale.status]}
@@ -60,6 +61,7 @@ const AvtaleTabell: FunctionComponent<{
             <AvtaleTabellRadHeader
                 erBeslutter={false}
                 erNavAnsatt={innloggetBruker.erNavAnsatt}
+                erVeileder={innloggetBruker.rolle === Avtalerolle.VEILEDER}
             />
             <Table.Body>
                 {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
@@ -87,13 +89,20 @@ const AvtaleTabell: FunctionComponent<{
                                     }
                                 }}
                             >
+                                {innloggetBruker.rolle === Avtalerolle.VEILEDER && (
+                                    <Table.DataCell>
+                                        {ulestVarsel && (
+                                            <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />
+                                        )}
+                                        <BodyShort size="small">
+                                            {storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}
+                                        </BodyShort>
+                                    </Table.DataCell>
+                                )}
                                 <Table.DataCell>
-                                    {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
-                                    <BodyShort size="small">
-                                    {storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}
-                                </BodyShort>
-                                </Table.DataCell>
-                                <Table.DataCell>
+                                    {ulestVarsel && innloggetBruker.rolle !== Avtalerolle.VEILEDER && (
+                                        <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />
+                                    )}
                                     <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
                                 </Table.DataCell>
                                 <Table.DataCell>
@@ -130,7 +139,11 @@ const AvtaleTabell: FunctionComponent<{
                                 </MediaQuery>
                                 {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
                                 <Table.DataCell>
-                                    <ChevronRightIcon className={cls.element('pil-hoyre')} title="a11y-title" fontSize="1.75rem" />
+                                    <ChevronRightIcon
+                                        className={cls.element('pil-hoyre')}
+                                        title="a11y-title"
+                                        fontSize="1.75rem"
+                                    />
                                 </Table.DataCell>
                             </Table.Row>
                             <TaushetserklæringModal
