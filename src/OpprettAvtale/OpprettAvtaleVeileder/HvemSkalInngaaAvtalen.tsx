@@ -56,15 +56,29 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
         <Innholdsboks>
             <Heading size="medium">Hvem skal inngå i avtalen?</Heading>
             <VerticalSpacer rem={1} />
-            <TextField
-                className={cls.element('typo-element')}
-                label="Deltakers fødselsnummer"
-                value={deltakerFnr}
-                size={'small'}
-                onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
-                onBlur={validerDeltakerFnr}
-                error={deltakerFnrFeil}
-            />
+            <div className={cls.element('fnr-rad')}>
+                <TextField
+                    className={cls.element('typo-element')}
+                    label="Deltakers fødselsnummer"
+                    value={deltakerFnr}
+                    size={'small'}
+                    onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
+                    onBlur={validerDeltakerFnr}
+                    error={deltakerFnrFeil}
+                />
+
+                {valgtTiltaksType === 'MENTOR' && (
+                    <TextField
+                        className={cls.element('typo-element')}
+                        label="Mentors fødselsnummer"
+                        value={mentorFnr}
+                        size="small"
+                        onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
+                        onBlur={validerMentorFnr}
+                        error={mentorFnrFeil}
+                    />
+                )}
+            </div>
             <TextField
                 className={cls.element('typo-element')}
                 label="Virksomhetsnummer"
@@ -81,17 +95,6 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                 </BodyShort>
             )}
             <VerticalSpacer rem={1} />
-            {valgtTiltaksType === 'MENTOR' && (
-                <TextField
-                    className={cls.element('typo-element')}
-                    label="Mentors fødselsnummer"
-                    value={mentorFnr}
-                    size="small"
-                    onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
-                    onBlur={validerMentorFnr}
-                    error={mentorFnrFeil}
-                />
-            )}
             <AlleredeOpprettetAvtaleAdvarsel
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
                 setModalIsOpen={setModalIsOpen}
