@@ -70,10 +70,9 @@ const EtterRegistrering: FunctionComponent = () => {
                     setFeilmelding(undefined);
                     setSpinner(false);
                 }}
-                closeButton={true}
                 aria-label="Min modalrute"
             >
-                <Modal.Content>
+                <Modal.Body>
                     <div className={cls.element('modal')}>
                         <Heading size="medium" className={cls.element('header')}>
                             Søk opp avtalenummer for godkjenning av etterregistrering
@@ -146,7 +145,7 @@ const EtterRegistrering: FunctionComponent = () => {
                             </>
                         )}
                     </div>
-                </Modal.Content>
+                </Modal.Body>
             </Modal>
         </div>
     );

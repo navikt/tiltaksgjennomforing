@@ -29,14 +29,13 @@ const VersjonModal: React.FunctionComponent<Props> = (props) => {
         <Modal
             className="versjon__modal"
             aria-label="Versjon modal"
-            closeButton={true}
             open={props.isOpen}
             onClose={() => props.lukkModal()}
         >
-            <Modal.Content>
+            <Modal.Body>
                 <SkjemaTittel>Versjon {props.avtaleInnhold.versjon}</SkjemaTittel>
                 {oppsummeringType[props.tiltakstype]}
-            </Modal.Content>
+            </Modal.Body>
         </Modal>
     );
 };

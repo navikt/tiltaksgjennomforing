@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
-import { DateValidationT, UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
-import { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
+import { DateValidationT, DatePicker, useDatepicker } from '@navikt/ds-react';
+import { FunctionComponent, PropsWithChildren, useContext, useState, useEffect } from 'react';
 import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { AvtaleMinMaxDato } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 
@@ -58,11 +58,17 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
         } 
     };
 
-    const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
+    useEffect (() => {
+        console.log('dsfgsdfgdfsgfds')
+    }, [selectedDate])
+
+    const { datepickerProps, inputProps } = useDatepicker({
         fromDate: new Date(fjernTid(AvtaleMinMaxDato(erStartdato).minDate || '')),
         toDate: new Date(fjernTid(AvtaleMinMaxDato(erStartdato).maxDate || '')),
         inputFormat: 'dd.MM.yyyy',
         defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
+
+        
 
         onDateChange: (dato) => {
             if (erStartdato) {
@@ -77,8 +83,10 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
                 [datoFelt]: formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'),
             });
         },
+
         onValidate: (val) => {
-            console.log('onValidate selected', formatterDatoHvisDefinert(datepickerProps.selected?.toString()));
+            //console.log("VAL", val)
+            //console.log('onValidate selected', formatterDatoHvisDefinert(datepickerProps.onSelect() => val ));
             feilmelding(
                 val,
                 formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),
@@ -86,19 +94,20 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
                 selectedDate
             );
         },
+        
     });
 
     return (
         <div>
             <label className="skjemaelement__label">{label}</label>
-            <UNSAFE_DatePicker {...datepickerProps}>
-                <UNSAFE_DatePicker.Input
+            <DatePicker  {...datepickerProps}>
+                <DatePicker.Input
                     {...inputProps}
                     placeholder="dd.mm.åååå"
                     error={hasError && feilmeldingTekst}
                     label=""
                 />
-            </UNSAFE_DatePicker>
+            </DatePicker>
         </div>
     );
 };

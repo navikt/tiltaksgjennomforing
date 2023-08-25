@@ -45,7 +45,6 @@ const VarselModal: FunctionComponent = () => {
     return (
         <Modal
             open={varselModalApen}
-            closeButton={true}
             aria-label="varselmodal"
             onClose={lukkOgLesVarsler}
             className={cls.element('modal')}

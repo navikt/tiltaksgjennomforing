@@ -23,12 +23,11 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
         <Modal
             className={cls.element('modal')}
             aria-label="Del lenke modal"
-            closeButton={true}
             open={props.isOpen}
             onClose={() => props.lukkModal()}
             aria-modal={props.isOpen}
         >
-            <Modal.Content>
+            <Modal.Body>
                 <Heading size="medium">Del lenke til avtalen</Heading>
                 <VerticalSpacer rem={1} />
                 <Ingress>
@@ -77,7 +76,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
                         </Button>
                     </CopyToClipboard>
                 </div>
-            </Modal.Content>
+            </Modal.Body>
         </Modal>
     );
 };

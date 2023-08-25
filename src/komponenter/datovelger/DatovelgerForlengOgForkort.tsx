@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
-import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
 import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { ISODateString } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
@@ -22,7 +22,7 @@ const DatovelgerForlengOgForkort: FunctionComponent<Props> = ({
 }: PropsWithChildren<Props>) => {
     const { avtale } = useContext(AvtaleContext);
 
-    const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
+    const { datepickerProps, inputProps } = useDatepicker({
         fromDate: new Date(minDate || ''),
         toDate: new Date(maxDate || ''),
         inputFormat: 'dd.MM.yyyy',
@@ -35,9 +35,9 @@ const DatovelgerForlengOgForkort: FunctionComponent<Props> = ({
     return (
         <div>
             <label className="skjemaelement__label">{label}</label>
-            <UNSAFE_DatePicker {...datepickerProps}>
-                <UNSAFE_DatePicker.Input {...inputProps} placeholder="dd.mm.åååå" label="" />
-            </UNSAFE_DatePicker>
+            <DatePicker {...datepickerProps}>
+                <DatePicker.Input {...inputProps} placeholder="dd.mm.åååå" label="" />
+            </DatePicker>
         </div>
     );
 };
