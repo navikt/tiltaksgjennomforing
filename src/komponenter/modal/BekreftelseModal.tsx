@@ -23,18 +23,19 @@ interface Props {
 const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const [feilmelding, setFeilmelding] = useState<string>();
     const [laster, setLaster] = useState<boolean>(false);
-
+/*
     const setModalElement = () => {
         if (document.getElementById('root')) {
             return '#root';
         }
         return 'body';
     };
-
+    */
+/*
     if (typeof window !== 'undefined') {
         Modal.setAppElement!(setModalElement());
     }
-
+*/
     const bekreftKlikk = async () => {
         setFeilmelding(undefined);
         try {
@@ -56,14 +57,13 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Modal
-                style={{ content: props.style }}
+                //style={{ body: props.style }}
                 open={props.modalIsOpen}
                 className={cls.element('modal-container')}
                 aria-label={'bekrefte valgt handling'}
                 onClose={props.lukkModal}
-                closeButton={false}
             >
-                <Modal.Content>
+                <Modal.Body>
                     <div className={cls.element('topIconContainer')}>
                         <VarselTegnForModal width={'80px'} height={'80px'} />
                     </div>
@@ -85,7 +85,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                         </div>
                     </div>
                     {feilmelding && <Alert variant="warning">{feilmelding}</Alert>}
-                </Modal.Content>
+                </Modal.Body>
             </Modal>
         </div>
     );

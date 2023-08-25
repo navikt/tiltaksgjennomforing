@@ -45,14 +45,13 @@ const Varsellogg: FunctionComponent = () => {
             <Modal
                 open={varselLoggModalApen}
                 onClose={() => setVarselLoggModalApen(false)}
-                closeButton={true}
                 aria-label="Varselloggmodal"
                 className={cls.element('modal')}
                 aria-modal={varselLoggModalApen}
                 aria-labelledby="heading"
                 aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
-                <Modal.Content>
+                <Modal.Body>
                     <Heading size="medium" role="heading" id="heading" aria-level={1}>
                         Hendelselogg
                     </Heading>
@@ -74,7 +73,7 @@ const Varsellogg: FunctionComponent = () => {
                     {varsler.status === Status.Feil && (
                         <BodyShort size="small">Klarte ikke hente hendelselogg. Prøv igjen senere.</BodyShort>
                     )}
-                </Modal.Content>
+                </Modal.Body>
             </Modal>
         </>
     );

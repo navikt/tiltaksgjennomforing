@@ -82,16 +82,16 @@ const EndreMaal: FunctionComponent = () => {
 
             <div className={cls.className}>
                 <Modal
-                    style={{ content: { maxWidth: '100%', minHeight: '20rem', minWidth: '40rem' } }}
+                    //style={{ body: { maxWidth: '100%', minHeight: '20rem', minWidth: '40rem' } }}
                     open={modalApen}
                     className="modal__wrapper"
                     aria-label={'bekrefte valgt handling'}
                     onClose={lukkModal}
-                    closeButton={false}
+                    //closeButton={false}
                     aria-modal={true}
                     aria-labelledby="Endre mål"
                 >
-                    <Modal.Content>
+                    <Modal.Body>
                         <div className={cls.element('topIconContainer')}>
                             <VarselTegnForModal width={'80px'} height={'80px'} />
                         </div>
@@ -126,7 +126,7 @@ const EndreMaal: FunctionComponent = () => {
                                 </Button>
                             </div>
                         </div>
-                    </Modal.Content>
+                    </Modal.Body>
                 </Modal>
             </div>
         </>

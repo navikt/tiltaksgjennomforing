@@ -25,11 +25,10 @@ const AltinnVideoModal: React.FunctionComponent<Props> = (props) => {
         <Modal
             className={cls.element('modal')}
             aria-label="Roller og rettigheter"
-            closeButton={true}
             open={props.isOpen}
             onClose={() => props.lukkModal()}
         >
-            <Modal.Content>
+            <Modal.Body>
                 <div className={cls.element('tittel')}>
                     <Heading size="medium">Slik tildeler du roller og rettigheter i Altinn.</Heading>
                 </div>
@@ -57,7 +56,7 @@ const AltinnVideoModal: React.FunctionComponent<Props> = (props) => {
                         Nettleseren din støtter ikke denne videoen.
                     </video>
                 </MediaQuery>
-            </Modal.Content>
+            </Modal.Body>
         </Modal>
     );
 };

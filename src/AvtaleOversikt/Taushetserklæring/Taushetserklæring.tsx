@@ -43,11 +43,10 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
             onClose={() => {
                 togglesetTaushetserklæringForMentorAvtale('');
             }}
-            closeButton={true}
             className={cls.element('modal-container')}
             aria-label="Min modalrute"
         >
-            <Modal.Content>
+            <Modal.Body>
                 <div className={cls.element('modal')}>
                     <div className={cls.element('topIconContainer')}>
                         <VarselTegnForModal width={'80%'} height={'80px'} />
@@ -75,7 +74,7 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                         lagre={godkjennTaushetserklæring}
                     />
                 </div>
-            </Modal.Content>
+            </Modal.Body>
         </Modal>
     );
 };
