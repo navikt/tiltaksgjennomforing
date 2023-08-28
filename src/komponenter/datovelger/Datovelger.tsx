@@ -84,6 +84,7 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
             });
         },
 
+
         onValidate: (val) => {
             //console.log("VAL", val)
             //console.log('onValidate selected', formatterDatoHvisDefinert(datepickerProps.onSelect() => val ));
@@ -100,7 +101,7 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
     return (
         <div>
             <label className="skjemaelement__label">{label}</label>
-            <DatePicker  {...datepickerProps}>
+            <DatePicker   {...datepickerProps}>
                 <DatePicker.Input
                     {...inputProps}
                     placeholder="dd.mm.åååå"
