@@ -5,7 +5,6 @@ import { TiltaksType } from '@/types/avtale';
 import moment, { DurationInputArg2 } from 'moment';
 import { useContext } from 'react';
 
-//import { DaysOfWeekModifier } from 'react-day-picker';
 export declare type ISODateString = string;
 export declare type InputDateString = string;
 export declare type INVALID_DATE_TYPE = 'Invalid date';
@@ -39,6 +38,10 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
         return moment(avtale.gjeldendeInnhold.startDato).add(megde, tidsEnhet).toISOString();
     };
 
+    const startdatoFraAvtalensSluttDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
+        return moment(avtale.gjeldendeInnhold.sluttDato).subtract(megde, tidsEnhet).toISOString();
+    };
+
     const sluttDatoFraDagensDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
         return moment(new Date()).add(megde, tidsEnhet).subtract(1, 'days').toISOString();
     };
@@ -63,9 +66,6 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                     maxDate: SISTE_MULIGE_SOMMERJOBB_SLUTT_DAG,
                 };
             case 'MIDLERTIDIG_LONNSTILSKUDD':
-                if (startDatePicker === true) {
-                    return sjekkMidlertidigLønnstilskuddDato();
-                }
                 return sjekkMidlertidigLønnstilskuddDato();
 
             case 'VARIG_LONNSTILSKUDD':
@@ -108,13 +108,34 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
         }
     };
 
-    const sjekkMuligMinDato = () => {
+    const sjekkMuligMinDato = (mengde? : number | undefined) => {
         if (erVeileder) {
             if (avtale.godkjentForEtterregistrering) {
                 return INGEN_DATO_SPERRE;
-            } else {
+            }
+            if(startDatePicker){
+                if(avtale.gjeldendeInnhold.sluttDato){
+                    if(mengde){
+                        if(startdatoFraAvtalensSluttDato(mengde, 'years') < EN_UKE_SIDEN){
+                            return EN_UKE_SIDEN
+                        }
+                        else {
+                            return startdatoFraAvtalensSluttDato(mengde, 'years');
+                        }
+                    }
+                                            
+                }
                 return EN_UKE_SIDEN;
             }
+
+            else if(avtale.gjeldendeInnhold.startDato){
+                return avtale.gjeldendeInnhold.startDato
+            }
+            /*
+            else {
+                return EN_UKE_SIDEN;
+            }
+            */
         } else {
             return DAGENSDATO;
         }
@@ -128,18 +149,18 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                 : 2;
         if (startDatePicker) {
             return {
-                minDate: sjekkMuligMinDato(),
+                minDate: sjekkMuligMinDato(maksDato),
                 maxDate: sluttDatoFraDagensDato(maksDato, 'years'),
             };
         }
         if (avtale.gjeldendeInnhold.startDato) {
             return {
-                minDate: sjekkMuligMinDato(),
+                minDate: sjekkMuligMinDato(maksDato),
                 maxDate: startdatoPluss(maksDato, 'years'),
             };
         }
         return {
-            minDate: sjekkMuligMinDato(),
+            minDate: sjekkMuligMinDato(maksDato),
             maxDate: sluttDatoFraDagensDato(maksDato, 'years'),
         };
     };
