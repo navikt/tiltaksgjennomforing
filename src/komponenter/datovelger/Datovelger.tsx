@@ -1,9 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Avtaleinnhold } from '@/types/avtale';
-import { UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
-import { FunctionComponent, PropsWithChildren, useContext } from 'react';
-import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { AvtaleMinMaxDato } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
+import { Avtaleinnhold } from '@/types/avtale';
+import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
+import { DateValidationT, UNSAFE_DatePicker, UNSAFE_useDatepicker } from '@navikt/ds-react';
+import { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
 
 interface Props {
     datoFelt: keyof Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
@@ -19,6 +19,9 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
     const { datepickerProps, inputProps } = UNSAFE_useDatepicker({
         fromDate: new Date(fjernTid(AvtaleMinMaxDato(erStartdato).minDate || '')),
         toDate: new Date(fjernTid(AvtaleMinMaxDato(erStartdato).maxDate || '')),
+        onValidate: (val) => {
+            feilmelding(val);
+          },
         inputFormat: 'dd.MM.yyyy',
         defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
 
@@ -29,11 +32,27 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
         },
     });
 
+    const [feil, setFeil] = useState<string | null>(null)
+
+    const feilmelding = (val: DateValidationT) => {
+        console.log(val);
+        
+        if (!erStartdato) {
+            if (val.isAfter) {
+                const grense = formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString());
+                setFeil('Sluttdato kan ikke være etter ' + grense);
+                console.log('Sluttdato kan ikke være etter ' + grense);
+            } else {
+                setFeil(null);
+            }
+        }
+    }
+
     return (
         <div>
             <label className="skjemaelement__label">{label}</label>
             <UNSAFE_DatePicker {...datepickerProps}>
-                <UNSAFE_DatePicker.Input {...inputProps} placeholder="dd.mm.åååå" label="" />
+                <UNSAFE_DatePicker.Input {...inputProps} placeholder="dd.mm.åååå" label="" error={feil} />
             </UNSAFE_DatePicker>
         </div>
     );
