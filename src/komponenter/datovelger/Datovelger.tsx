@@ -18,16 +18,17 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
     const [hasError, setHasError] = useState<boolean>(false);
 
     const [feilmeldingTekst, setFeilmeldingTekst] = useState<string>();
+    const [val, setValidation] = useState<DateValidationT>();
     const [selectedDate, setSelectedDate] = useState<any>();
 
     console.log('selectedDate', selectedDate);
 
-    const feilmelding = (val: DateValidationT | undefined, nedreGrensese: string, øvreGrense: string, valgtStartDato: any) => {
+    const feilmelding = (nedreGrensese: string, øvreGrense: string) => {
+
         let startDato = selectedDate; 
         console.log('startDato', startDato);
         if(val){
             if (!val.isValidDate) {
-                console.log('valgtStartDato', valgtStartDato);
                 if (erStartdato) {
                     if (val.isBefore) {
                         setFeilmeldingTekst('Startdato kan ikke være tidligere enn ' + nedreGrensese);
@@ -53,14 +54,15 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
                 }
             }
             else{
-                setHasError(val.isValidDate);
+                setHasError(false);
             }
         } 
     };
 
     useEffect (() => {
+        feilmelding(formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()) )
         console.log('dsfgsdfgdfsgfds')
-    }, [selectedDate])
+    }, [selectedDate, val])
 
     const { datepickerProps, inputProps } = useDatepicker({
         fromDate: new Date(fjernTid(AvtaleMinMaxDato(erStartdato).minDate || '')),
@@ -72,13 +74,11 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
 
         onDateChange: (dato) => {
             if (erStartdato) {
-                console.log('onDateChange', formatterDatoHvisDefinert(dato?.toDateString()));
-                /*
-                feilmelding(undefined,   formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),
-                formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()),dato )
-                */
+                console.log('erStartdato onDateChange', formatterDatoHvisDefinert(dato?.toDateString()));
                 setSelectedDate(formatterDatoHvisDefinert(dato?.toDateString()));
             }
+            console.log('er sluttdato onDateChange', formatterDatoHvisDefinert(dato?.toDateString()));
+            setSelectedDate(formatterDatoHvisDefinert(dato?.toDateString()));
             settAvtaleInnholdVerdier({
                 [datoFelt]: formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'),
             });
@@ -86,14 +86,15 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
 
 
         onValidate: (val) => {
-            //console.log("VAL", val)
-            //console.log('onValidate selected', formatterDatoHvisDefinert(datepickerProps.onSelect() => val ));
+            console.log('val',val);
+            setValidation(val)
+            /*
             feilmelding(
                 val,
                 formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),
-                formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()),
-                selectedDate
+                formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString())
             );
+            */
         },
         
     });

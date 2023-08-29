@@ -16,7 +16,6 @@ import InfoArenaOppryddingAlert from '@/AvtaleSide/steg/VarighetSteg/InfoArenaOp
 import VarighetTilbakeTidAlert from '@/AvtaleSide/steg/VarighetSteg/VarighetTilbakeTidAlert';
 import VarighetInputfelt from '@/AvtaleSide/steg/VarighetSteg/VarighetInputfelt';
 import './varighetSteg.less';
-import DatovelgerRange from '@/komponenter/datovelgerRange/DatovelgerRange';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -67,9 +66,6 @@ const VarighetSteg: FunctionComponent = () => {
                         </Column>
                         <Column md="6">
                             <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
-                        </Column>
-                        <Column md="12">
-                            <DatovelgerRange/>
                         </Column>
                     </Row>
                     <VarighetTilbakeTidAlert

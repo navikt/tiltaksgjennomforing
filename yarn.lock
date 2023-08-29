@@ -2067,10 +2067,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@navikt/aksel-icons@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-5.0.3.tgz#26013b244ff878d6bd423761a397e752078e3064"
-  integrity sha512-WyGBiz5JTPsxVAug19YyfXfsk5+f1Jj97BQRF0NJja87J7YR+sqbwijjWzZMjX0O2tr7US9rABevGlkbtjrhvw==
+"@navikt/aksel-icons@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-5.2.1.tgz#535985bb4d5495cec982eecb8a857aba764b7995"
+  integrity sha512-ErjEWB8oKQkkxfOEEQzancRpNwgeunEeVaGAekn9A/byxeHZ1kuaaYNZwMIofz362tFGM2rWaLmtxfY64FGBiw==
 
 "@navikt/arbeidsgiver-notifikasjon-widget@^6.3.9":
   version "6.3.9"
@@ -2100,23 +2100,23 @@
     fuzzysort "^1.1.4"
     history "^4.10.1"
 
-"@navikt/ds-css@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-5.0.3.tgz#a346a595fd895d36b26186ede8fba6f67c8af462"
-  integrity sha512-MuclDAsUVgCNVtBS/A7PlapE745IC18udnUkBVdpZNrxGquNZwizWzzq/4QC1SLSEeiUCzEQdpvNJBTm5GPCFw==
+"@navikt/ds-css@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-5.2.1.tgz#32c364033ff71a9cb0fcbc4cdcdeee810b42a8af"
+  integrity sha512-LphHIgAl/d0Bi/k6rlxCW4UW/Mr/GaOLlq7vx8VBV6sNqJ9seZas1EH4HfDULBNr4Ob5HTq3j+G7/hGDECYTCw==
 
 "@navikt/ds-icons@^3.4.3":
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/@navikt/ds-icons/-/ds-icons-3.4.3.tgz#eaa8fc38f6d184806d3405a5efbc9d137c2b8d27"
   integrity sha512-Ys25tnDUzS+AtagMMW4/154OCZy+pTxCv9uiV4YcZUeXMfjnMiRWx1dueyCODb7FF7Jd6TwELd3G6ieQt/rf+w==
 
-"@navikt/ds-react@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-5.0.3.tgz#0a323bc38af95bca37f068b6caea828516fd8de5"
-  integrity sha512-6ouDhMWxPsR/7wRYssRSt1XERc2tQzTffNFEQqiPXeKg8i60IhCp3cbhRN5ZYgaxoLJMhvGk9kgJmUaJytn43Q==
+"@navikt/ds-react@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-5.2.1.tgz#c43b6af3e53f69a4fa47741729610f17535c40d1"
+  integrity sha512-FLwZCNzQ4t0h0rk6k0JvrKaVqAPJvfXHehFixdpUrVokj2XLM8Lyxl1xHPbUviT0MFBprD/A92VzYOpMuOQGQg==
   dependencies:
     "@floating-ui/react" "0.24.1"
-    "@navikt/aksel-icons" "^5.0.3"
+    "@navikt/aksel-icons" "^5.2.1"
     "@radix-ui/react-tabs" "1.0.0"
     "@radix-ui/react-toggle-group" "1.0.0"
     clsx "^1.2.1"

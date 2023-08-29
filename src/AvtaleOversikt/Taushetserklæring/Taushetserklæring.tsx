@@ -24,6 +24,8 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
     sistEndret,
     togglesetTaushetserklæringForMentorAvtale,
 }) => {
+    console.log('open', open);
+
     const cls = BEMHelper('taushetserklæring');
     const navigate = useNavigate();
     const [bekrefterGodkjennerTaushetserklæring, setBekrefterGodkjennerTaushetserklæring] = useState<boolean>(false);
@@ -38,44 +40,53 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
     };
 
     return (
-        <Modal
-            open={open}
-            onClose={() => {
-                togglesetTaushetserklæringForMentorAvtale('');
-            }}
-            className={cls.element('modal-container')}
-            aria-label="Min modalrute"
-        >
-            <Modal.Body>
-                <div className={cls.element('modal')}>
-                    <div className={cls.element('topIconContainer')}>
-                        <VarselTegnForModal width={'80%'} height={'80px'} />
-                    </div>
+        <>
+            <Modal
+                open={open}
+                onClose={() => togglesetTaushetserklæringForMentorAvtale(avtaleId)}
+                header={{
+                    heading: '',
+                    size: 'small',
+                    closeButton: true,
 
-                    <Heading size="medium" className={cls.element('header')}>
-                        Signer taushetserklæring
-                    </Heading>
-                    <p>Som mentor må du signere en taushetserklæring.</p>
-                    <VerticalSpacer rem={2} />
-                    <TausetserklæringTekst />
-                    <BekreftCheckboksPanel
-                        legend=""
-                        key={'Taushetserklæring-BekreftCheckboksPanel' + avtaleId}
-                        className={cls.element('bekreftelse')}
-                        checked={bekrefterGodkjennerTaushetserklæring}
-                        onChange={() => setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)}
-                    >
-                        Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de
-                        lovbestemmelsene som er listet opp over
-                    </BekreftCheckboksPanel>
-                    <LagreKnapp
-                        className={'taushetserklæring__lagreKnapp'}
-                        label={'Signer Taushetserklæring'}
-                        lagre={godkjennTaushetserklæring}
-                    />
-                </div>
-            </Modal.Body>
-        </Modal>
+                }}
+                width="medium"
+                //className={cls.element('modal-container')}
+                aria-label="Min modalrute"
+            >
+                <Modal.Body>
+                    <div className={cls.element('modal')}>
+                        <div className={cls.element('topIconContainer')}>
+                            <VarselTegnForModal width={'80%'} height={'80px'} />
+                        </div>
+
+                        <Heading size="medium" className={cls.element('header')}>
+                            Signer taushetserklæring
+                        </Heading>
+                        <p>Som mentor må du signere en taushetserklæring.</p>
+                        <VerticalSpacer rem={2} />
+                        <TausetserklæringTekst />
+                        <BekreftCheckboksPanel
+                            legend=""
+                            key={'Taushetserklæring-BekreftCheckboksPanel' + avtaleId}
+                            className={cls.element('bekreftelse')}
+                            checked={bekrefterGodkjennerTaushetserklæring}
+                            onChange={() =>
+                                setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)
+                            }
+                        >
+                            Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de
+                            lovbestemmelsene som er listet opp over
+                        </BekreftCheckboksPanel>
+                        <LagreKnapp
+                            className={'taushetserklæring__lagreKnapp'}
+                            label={'Signer Taushetserklæring'}
+                            lagre={godkjennTaushetserklæring}
+                        />
+                    </div>
+                </Modal.Body>
+            </Modal>
+        </>
     );
 };
 export default TaushetserklæringModal;
