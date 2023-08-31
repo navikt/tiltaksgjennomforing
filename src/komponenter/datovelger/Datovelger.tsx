@@ -70,7 +70,9 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
         defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
 
         onDateChange: (dato) => {
+            console.log("dato",dato);
             setSelectedDate(formatterDatoHvisDefinert(dato?.toDateString()));
+            console.log("formatterDatoHvisDefinert", formatterDatoHvisDefinert(dato?.toDateString()))
             settAvtaleInnholdVerdier({
                 [datoFelt]: formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'),
             });
