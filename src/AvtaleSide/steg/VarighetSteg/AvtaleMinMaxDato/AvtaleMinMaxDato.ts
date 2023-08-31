@@ -131,11 +131,6 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
             else if(avtale.gjeldendeInnhold.startDato){
                 return avtale.gjeldendeInnhold.startDato
             }
-            /*
-            else {
-                return EN_UKE_SIDEN;
-            }
-            */
         } else {
             return DAGENSDATO;
         }
