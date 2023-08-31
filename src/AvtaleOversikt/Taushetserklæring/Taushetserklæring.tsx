@@ -24,7 +24,6 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
     sistEndret,
     togglesetTaushetserklæringForMentorAvtale,
 }) => {
-    console.log('open', open);
 
     const cls = BEMHelper('taushetserklæring');
     const navigate = useNavigate();

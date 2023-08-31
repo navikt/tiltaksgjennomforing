@@ -48,7 +48,7 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
                         setFeilmeldingTekst('Sluttdato kan ikke være senere enn ' + øvreGrense);
                         setHasError(val.isAfter);
                     } else {
-                        setFeilmeldingTekst('sluttdato er ikke gyldig dato');
+                        setFeilmeldingTekst('Sluttdato er ikke gyldig dato');
                         setHasError(!val.isValidDate);
                     }
                 }
@@ -60,9 +60,8 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
     };
 
     useEffect (() => {
-        feilmelding(formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()) )
-        console.log('dsfgsdfgdfsgfds')
-    }, [selectedDate, val])
+        feilmelding(formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()));
+    }, /* [selectedDate, val] */)
 
     const { datepickerProps, inputProps } = useDatepicker({
         fromDate: new Date(fjernTid(AvtaleMinMaxDato(erStartdato).minDate || '')),
@@ -70,31 +69,15 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
         inputFormat: 'dd.MM.yyyy',
         defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
 
-        
-
         onDateChange: (dato) => {
-            if (erStartdato) {
-                console.log('erStartdato onDateChange', formatterDatoHvisDefinert(dato?.toDateString()));
-                setSelectedDate(formatterDatoHvisDefinert(dato?.toDateString()));
-            }
-            console.log('er sluttdato onDateChange', formatterDatoHvisDefinert(dato?.toDateString()));
             setSelectedDate(formatterDatoHvisDefinert(dato?.toDateString()));
             settAvtaleInnholdVerdier({
                 [datoFelt]: formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'),
             });
         },
 
-
         onValidate: (val) => {
-            console.log('val',val);
             setValidation(val)
-            /*
-            feilmelding(
-                val,
-                formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),
-                formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString())
-            );
-            */
         },
         
     });
