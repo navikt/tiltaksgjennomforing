@@ -41,17 +41,15 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
         }
     }, [annullertGrunn]);
 
-
     return (
         <BekreftelseModal
             bekreftOnClick={bekreftAnnullerAvtale}
             lukkModal={props.lukkModal}
             modalIsOpen={props.isOpen}
-            oversiktTekst="Annuller avtalen"
+            oversiktTekst="Annuller avtalen a"
             bekreftelseTekst="Annuller avtale"
             avbrytelseTekst="Behold avtale"
         >
-
             <div>
                 <p>
                     <Alert variant="info" inline>

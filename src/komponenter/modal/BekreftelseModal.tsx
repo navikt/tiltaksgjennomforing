@@ -23,7 +23,7 @@ interface Props {
 const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const [feilmelding, setFeilmelding] = useState<string>();
     const [laster, setLaster] = useState<boolean>(false);
-/*
+    /*
     const setModalElement = () => {
         if (document.getElementById('root')) {
             return '#root';
@@ -31,7 +31,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
         return 'body';
     };
     */
-/*
+    /*
     if (typeof window !== 'undefined') {
         Modal.setAppElement!(setModalElement());
     }
@@ -39,9 +39,9 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const bekreftKlikk = async () => {
         setFeilmelding(undefined);
         try {
-            setLaster(true)
+            setLaster(true);
             await props.bekreftOnClick();
-            setLaster(false)
+            setLaster(false);
         } catch (error: any) {
             try {
                 setLaster(false);
@@ -57,7 +57,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Modal
-                //style={{ body: props.style }}
+                style={props.style}
                 open={props.modalIsOpen}
                 className={cls.element('modal-container')}
                 aria-label={'bekrefte valgt handling'}
@@ -71,21 +71,23 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                         <div className={cls.element('knappRad')} />
                         <div className={cls.element('innhold')}>
                             <div className={cls.element('tittel')}>
-                                <Heading size="medium" id={props.oversiktTekst}>{props.oversiktTekst}</Heading>
+                                <Heading size="medium" id={props.oversiktTekst}>
+                                    {props.oversiktTekst}
+                                </Heading>
                             </div>
                             <div className={cls.element('varselTekst')}>{props.children}</div>
-                        </div>
-                        <div className={cls.element('knapper')}>
-                            <LagreOgAvbrytKnapp
-                                disabled={laster}
-                                lagreFunksjon={() => bekreftKlikk()}
-                                lagretekst={props.bekreftelseTekst}
-                                avbryt={() => props.lukkModal()}
-                            />
                         </div>
                     </div>
                     {feilmelding && <Alert variant="warning">{feilmelding}</Alert>}
                 </Modal.Body>
+                <Modal.Footer>
+                    <LagreOgAvbrytKnapp
+                        disabled={laster}
+                        lagreFunksjon={() => bekreftKlikk()}
+                        lagretekst={props.bekreftelseTekst}
+                        avbryt={() => props.lukkModal()}
+                    />
+                </Modal.Footer>
             </Modal>
         </div>
     );

@@ -53,6 +53,9 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
                 </div>
             )}
             <div className={cls.element('container')}>
+                <Button variant={'secondary'} onClick={props.avbryt}>
+                    Avbryt
+                </Button>
                 <Button
                     loading={oppslag.status === Status.LasterInn}
                     disabled={oppslag.status === Status.LasterInn}
@@ -62,7 +65,6 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
                 >
                     {props.lagretekst}
                 </Button>
-                <Button onClick={props.avbryt}>Avbryt</Button>
             </div>
         </div>
     );
