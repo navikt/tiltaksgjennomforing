@@ -1,10 +1,22 @@
 .hvem-skal-inngaa-avtalen-container {
-   
 
     &__typo-element{
         width:15rem;
         margin-bottom: 1rem;
-
     }
+    &__fnr-rad {
+        display: flex;
+        align-items: flex-start;
+        justify-items: start;
+        flex-wrap: wrap;
 
+        > * {
+            flex-shrink: 0;
+
+            &:last-child {
+                margin-right: 0rem;
+            }
+            margin-right: 1rem;
+        }
+    }
 }
