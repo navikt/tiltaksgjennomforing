@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
 import { DateValidationT, DatePicker, useDatepicker } from '@navikt/ds-react';
-import { FunctionComponent, PropsWithChildren, useContext, useState, useEffect } from 'react';
+import { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
 import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { AvtaleMinMaxDato } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 
@@ -16,17 +16,9 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
     const fjernTid = (timestamp: string) => timestamp.split('T')[0];
     const erStartdato = datoFelt === 'startDato';
     const [hasError, setHasError] = useState<boolean>(false);
-
     const [feilmeldingTekst, setFeilmeldingTekst] = useState<string>();
-    const [val, setValidation] = useState<DateValidationT>();
-    const [selectedDate, setSelectedDate] = useState<any>();
 
-    console.log('selectedDate', selectedDate);
-
-    const feilmelding = (nedreGrensese: string, øvreGrense: string) => {
-
-        let startDato = selectedDate; 
-        console.log('startDato', startDato);
+    const feilmelding = (val: DateValidationT | undefined, nedreGrensese: string, øvreGrense: string) => {
         if(val){
             if (!val.isValidDate) {
                 if (erStartdato) {
@@ -59,29 +51,19 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
         } 
     };
 
-    useEffect (() => {
-        feilmelding(formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()));
-    }, /* [selectedDate, val] */)
-
     const { datepickerProps, inputProps } = useDatepicker({
         fromDate: new Date(fjernTid(AvtaleMinMaxDato(erStartdato).minDate || '')),
         toDate: new Date(fjernTid(AvtaleMinMaxDato(erStartdato).maxDate || '')),
         inputFormat: 'dd.MM.yyyy',
         defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
-
         onDateChange: (dato) => {
-            console.log("dato",dato);
-            setSelectedDate(formatterDatoHvisDefinert(dato?.toDateString()));
-            console.log("formatterDatoHvisDefinert", formatterDatoHvisDefinert(dato?.toDateString()))
             settAvtaleInnholdVerdier({
                 [datoFelt]: formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'),
             });
         },
-
         onValidate: (val) => {
-            setValidation(val)
+            feilmelding(val, formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()));
         },
-        
     });
 
     return (
