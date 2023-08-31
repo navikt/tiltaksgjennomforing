@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { TiltaksType } from '@/types/avtale';
-import moment, { DurationInputArg2 } from 'moment';
+import moment, { DurationInputArg2, } from 'moment';
 import { useContext } from 'react';
 
 export declare type ISODateString = string;
@@ -39,9 +39,15 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
     };
 
     const startdatoFraAvtalensSluttDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
-        return moment(avtale.gjeldendeInnhold.sluttDato).subtract(megde, tidsEnhet).toISOString();
+        console.log('før',moment(avtale.gjeldendeInnhold.sluttDato).subtract(megde, tidsEnhet).toISOString());
+        console.log('etter',moment(avtale.gjeldendeInnhold.sluttDato).utc().subtract(megde, tidsEnhet).toISOString());
+        return moment(avtale.gjeldendeInnhold.sluttDato).utc().subtract(megde, tidsEnhet).toISOString();
     };
-
+/*
+    const startdatoFraAvtalensSluttDatoTest = (): any => {
+        return new Date(avtale.gjeldendeInnhold.sluttDato).
+    }
+*/
     const sluttDatoFraDagensDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
         return moment(new Date()).add(megde, tidsEnhet).subtract(1, 'days').toISOString();
     };
@@ -117,6 +123,8 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                 if(avtale.gjeldendeInnhold.sluttDato){
                     if(mengde){
                         if(startdatoFraAvtalensSluttDato(mengde, 'years') < EN_UKE_SIDEN){
+                            console.log("startdato",startdatoFraAvtalensSluttDato(mengde, 'years'))
+                            console.log("En uke siden" , EN_UKE_SIDEN);
                             return EN_UKE_SIDEN
                         }
                         else {
