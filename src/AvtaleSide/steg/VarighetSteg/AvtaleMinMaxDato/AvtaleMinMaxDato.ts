@@ -34,22 +34,17 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
     const { rolle } = useContext(InnloggetBrukerContext);
     const erVeileder = rolle === 'VEILEDER';
 
+
     const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): any => {
-        return moment(avtale.gjeldendeInnhold.startDato).add(megde, tidsEnhet).toISOString();
+        return moment(avtale.gjeldendeInnhold.startDato).subtract(1, 'days').add(megde, tidsEnhet).format("YYYY-MM-DD")
     };
 
     const startdatoFraAvtalensSluttDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
-        console.log('før',moment(avtale.gjeldendeInnhold.sluttDato).subtract(megde, tidsEnhet).toISOString());
-        console.log('etter',moment(avtale.gjeldendeInnhold.sluttDato).utc().subtract(megde, tidsEnhet).toISOString());
-        return moment(avtale.gjeldendeInnhold.sluttDato).utc().subtract(megde, tidsEnhet).toISOString();
+        return moment(avtale.gjeldendeInnhold.sluttDato).add(1, 'days').subtract( megde, tidsEnhet).format("YYYY-MM-DD");
     };
-/*
-    const startdatoFraAvtalensSluttDatoTest = (): any => {
-        return new Date(avtale.gjeldendeInnhold.sluttDato).
-    }
-*/
+
     const sluttDatoFraDagensDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
-        return moment(new Date()).add(megde, tidsEnhet).subtract(1, 'days').toISOString();
+        return moment(new Date()).add(megde, tidsEnhet).subtract(1, 'days').format("YYYY-MM-DD")
     };
 
     const settdatoBegrensningTiltakstype = (tiltakstype: TiltaksType) => {
@@ -123,8 +118,6 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                 if(avtale.gjeldendeInnhold.sluttDato){
                     if(mengde){
                         if(startdatoFraAvtalensSluttDato(mengde, 'years') < EN_UKE_SIDEN){
-                            console.log("startdato",startdatoFraAvtalensSluttDato(mengde, 'years'))
-                            console.log("En uke siden" , EN_UKE_SIDEN);
                             return EN_UKE_SIDEN
                         }
                         else {
