@@ -27,9 +27,11 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
             onClose={() => props.lukkModal()}
             aria-modal={props.isOpen}
         >
-            <Modal.Body>
+            <Modal.Header>
                 <Heading size="medium">Del lenke til avtalen</Heading>
-                <VerticalSpacer rem={1} />
+            </Modal.Header>
+            <Modal.Body>
+                <VerticalSpacer rem={0.5} />
                 <Ingress>
                     Lenke til avtalen kan sendes på SMS hvis telefonnummer er registrert i avtalen. Hvis det er ønskelig
                     å sende lenke til avtalen via andre kanaler, for eksempel aktivitetsplanen eller e-post, er det

@@ -51,11 +51,12 @@ const Varsellogg: FunctionComponent = () => {
                 aria-labelledby="heading"
                 aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
-                <Modal.Body>
-                    <Heading size="medium" role="heading" id="heading" aria-level={1}>
+                <Modal.Header>
+                    <Heading size="medium" level="1">
                         Hendelselogg
                     </Heading>
-                    <VerticalSpacer rem={1} />
+                </Modal.Header>
+                <Modal.Body>
                     {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
                         <>
                             <Alert variant="info">

@@ -45,10 +45,9 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                 header={{
                     heading: '',
                     size: 'small',
-                    closeButton: true,
                 }}
                 width="medium"
-                //className={cls.element('modal-container')}
+                // className={cls.element('modal-container')}
                 aria-label="Min modalrute"
             >
                 <Modal.Body>
