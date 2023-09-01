@@ -7,7 +7,7 @@ import * as RestService from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Alert, Heading, Ingress, Label, Modal, Button } from '@navikt/ds-react';
-import { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import './EtterRegistrering.less';
 
 const EtterRegistrering: FunctionComponent = () => {
@@ -72,11 +72,12 @@ const EtterRegistrering: FunctionComponent = () => {
                 }}
                 aria-label="Min modalrute"
             >
+                <Modal.Header />
                 <Modal.Body>
+                    <Heading size="medium" className={cls.element('header')}>
+                        Søk opp avtalenummer for godkjenning av etterregistrering
+                    </Heading>
                     <div className={cls.element('modal')}>
-                        <Heading size="medium" className={cls.element('header')}>
-                            Søk opp avtalenummer for godkjenning av etterregistrering
-                        </Heading>
                         <Label size="small" className={cls.element('sokfelt-tag')}>
                             Skriv inn avtalenummeret du vil søke på
                         </Label>
@@ -84,7 +85,6 @@ const EtterRegistrering: FunctionComponent = () => {
                             <SøkeInput
                                 label=""
                                 className="sok"
-                                //maxLength={10}
                                 utførsøk={(søkeord) => {
                                     setSpinner(true);
                                     hentAvtaleInfo(Number(søkeord));
