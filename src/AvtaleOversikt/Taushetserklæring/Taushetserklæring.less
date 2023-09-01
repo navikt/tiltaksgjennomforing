@@ -49,7 +49,11 @@
     &__knapper-container {
         display: flex;
         justify-content: flex-end;
-        margin-top: 1rem;
+        flex-direction: column;
+
+        & > :last-child {
+            align-self: end;
+        }
     }
 
     @media (min-width: 768px) {
@@ -63,12 +67,12 @@
         }
 
         &__modal .varsel__innhold {
-            width: 60%;
+            width: 100%;
         }
     }
     @media (min-width: 100px) and (max-width: 767px) {
         &__modal .varsel__innhold {
-            width: 60%;
+            width: 100%;
         }
         &__topIconContainer {
             top: -1.7%;
