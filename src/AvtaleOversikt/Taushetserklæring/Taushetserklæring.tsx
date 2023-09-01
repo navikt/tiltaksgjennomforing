@@ -24,7 +24,6 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
     sistEndret,
     togglesetTaushetserklæringForMentorAvtale,
 }) => {
-
     const cls = BEMHelper('taushetserklæring');
     const navigate = useNavigate();
     const [bekrefterGodkjennerTaushetserklæring, setBekrefterGodkjennerTaushetserklæring] = useState<boolean>(false);
@@ -47,7 +46,6 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                     heading: '',
                     size: 'small',
                     closeButton: true,
-
                 }}
                 width="medium"
                 //className={cls.element('modal-container')}
@@ -77,11 +75,13 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                             Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de
                             lovbestemmelsene som er listet opp over
                         </BekreftCheckboksPanel>
-                        <LagreKnapp
-                            className={'taushetserklæring__lagreKnapp'}
-                            label={'Signer Taushetserklæring'}
-                            lagre={godkjennTaushetserklæring}
-                        />
+                        <div className={cls.element('knapper-container')}>
+                            <LagreKnapp
+                                className={'taushetserklæring__lagreKnapp'}
+                                label={'Signer Taushetserklæring'}
+                                lagre={godkjennTaushetserklæring}
+                            />
+                        </div>
                     </div>
                 </Modal.Body>
             </Modal>
