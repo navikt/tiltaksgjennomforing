@@ -7,7 +7,7 @@ import * as RestService from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Alert, Heading, Ingress, Label, Modal, Button } from '@navikt/ds-react';
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import './EtterRegistrering.less';
 
 const EtterRegistrering: FunctionComponent = () => {
@@ -78,9 +78,6 @@ const EtterRegistrering: FunctionComponent = () => {
                     </Heading>
                 </Modal.Header>
                 <Modal.Body>
-                    <Heading size="medium" className={cls.element('header')}>
-                        Søk opp avtalenummer for godkjenning av etterregistrering
-                    </Heading>
                     <div className={cls.element('modal')}>
                         <Label size="small" className={cls.element('sokfelt-tag')}>
                             Skriv inn avtalenummeret du vil søke på
