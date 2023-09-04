@@ -2052,18 +2052,18 @@
   resolved "https://registry.yarnpkg.com/@navikt/aksel-icons/-/aksel-icons-2.8.16.tgz#991af8aea9179f6df5e8905e213b8bf1137b2f6b"
   integrity sha512-RCvI9a8bBl4SE7x/cUMyZEgD/uL7xo8xuCwwtMN6WXXt0cbhLlZjXdn2S+T4J4KFZjZo82DZKhpZLyqEJjqMcw==
 
-"@navikt/arbeidsgiver-notifikasjon-widget@^6.2.2":
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-6.2.2.tgz#dcdddc97504fbbb5d6a6f97e002f07d3ac733dea"
-  integrity sha512-b9hBc5I8b4C+NfrWqSAI1J3ua+QiGOCe0DLwbCdxJgv7R1T+IOPiwJ7uodDgw246DIqL19nqddUnVZd8ADs+jg==
+"@navikt/arbeidsgiver-notifikasjon-widget@^6.3.9":
+  version "6.3.9"
+  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjon-widget/-/arbeidsgiver-notifikasjon-widget-6.3.9.tgz#901114d7aabc5617ed16a127739f9bde1c7fe941"
+  integrity sha512-49UMswCOJudP5eunEuTM3mlELZpJ7uDGn0CWj6yO90/LR5vnWarfy6t5hhkKsoPDJmQ2lfnmjuswZfpMY2d8Nw==
   dependencies:
     "@apollo/client" "3.6.9"
     graphql "^16.6.0"
 
-"@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock@^5.4.8":
-  version "5.4.8"
-  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock/-/arbeidsgiver-notifikasjoner-brukerapi-mock-5.4.8.tgz#107798604a18ad23334b566a6a198f82cf646e95"
-  integrity sha512-hHY5rIlRd3tpPj+9n1uua4dqqn0k7p1bkiW1PMqYOlRr1S9c651ziz3b0a/3Fwjitjjq74QDdaeFG5P0Q2w8jw==
+"@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock@^6.3.9":
+  version "6.3.9"
+  resolved "https://registry.yarnpkg.com/@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock/-/arbeidsgiver-notifikasjoner-brukerapi-mock-6.3.9.tgz#6256f30dc7199a16c4670a8d4d9b31216b2a9e05"
+  integrity sha512-ee0mEdp79xaB9zO9QSngLv5zLLOTdO7+nF4s4CAXf/AnOoKLxgkpeZtEZTkzNXQsCmD63e0wA4ZI+02qt7ikmA==
   dependencies:
     apollo-server "^3.10.2"
     apollo-server-core "^3.10.2"
