@@ -18,6 +18,7 @@
 
     &__lagreKnapp {
         width: 100%;
+        flex-direction: column;
     }
 
     &__header {
@@ -52,6 +53,9 @@
         display: flex;
         justify-content: flex-end;
         margin-top: 0.75rem;
+        & > .navds-button--medium {
+            align-self: end;
+        }
     }
 
     &__input-sok {

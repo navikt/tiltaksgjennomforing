@@ -1,12 +1,11 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { oppdatereMålInformasjon } from '@/services/rest-service';
 import { Maalkategori } from '@/types/maalkategorier';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
-import { Link, Button } from '@navikt/ds-react';
+import { Link } from '@navikt/ds-react';
 import EtMaal from '../../../MaalSteg/Maal/EtMaal';
 import { useMål } from '../../../MaalSteg/Maal/maalUtils';
 import OpprettMaal from '../../../MaalSteg/Maal/OpprettMaal';
@@ -22,7 +21,7 @@ const EndreMaal: FunctionComponent = () => {
     );
 
     const lagreEndredeMaal = async () => {
-        if(!iRedigersmodus){
+        if (!iRedigersmodus) {
             await oppdatereMålInformasjon(avtaleContext.avtale, målListe);
             await avtaleContext.hentAvtale();
             setModalApen(false);
@@ -79,25 +78,14 @@ const EndreMaal: FunctionComponent = () => {
             <BekreftelseModal
                 avbrytelseTekst="avbryt"
                 bekreftelseTekst="Lagre målendringer"
-                oversiktTekst="Endre Maal"
+                oversiktTekst="Endre Mål"
                 modalIsOpen={modalApen}
                 bekreftOnClick={lagreEndredeMaal}
                 lukkModal={() => setModalApen(false)}
             >
                 <div style={{ maxHeight: '80rem' }} className={cls.element('body')}>
-                    <div className={cls.element('knappRad')} />
                     <div className={cls.element('innhold')}>
                         <div className={cls.element('varselTekst')}>{endreMaalInnnhold}</div>
-                    </div>
-                    <div className={cls.element('knapper')}>
-                        <div>
-                            <LagreKnapp
-                                disabled={iRedigersmodus}
-                                className={cls.element('knapp')}
-                                lagre={() => lagreEndredeMaal()}
-                                label="Lagre målendringer"
-                            />
-                        </div>
                     </div>
                 </div>
             </BekreftelseModal>
