@@ -13,6 +13,8 @@ env:
 
 jobs:
   bygg:
+    permissions:
+      packages: write
     name: Bygg
     runs-on: ubuntu-20.04
     steps:
