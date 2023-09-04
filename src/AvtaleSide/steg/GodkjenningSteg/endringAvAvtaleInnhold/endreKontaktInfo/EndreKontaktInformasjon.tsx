@@ -197,7 +197,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                                     }
                                 />
                                 <TelefonnummerInput
-                                    size="small"
+                                    size={currentSize}
                                     label="Mobilnummer"
                                     verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
                                     settVerdi={(verdi) =>

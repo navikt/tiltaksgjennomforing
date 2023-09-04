@@ -72,7 +72,11 @@ const EtterRegistrering: FunctionComponent = () => {
                 }}
                 aria-label="Min modalrute"
             >
-                <Modal.Header />
+                <Modal.Header>
+                    <Heading size="medium" className={cls.element('header')}>
+                        Søk opp avtalenummer for godkjenning av etterregistrering
+                    </Heading>
+                </Modal.Header>
                 <Modal.Body>
                     <Heading size="medium" className={cls.element('header')}>
                         Søk opp avtalenummer for godkjenning av etterregistrering
@@ -123,7 +127,6 @@ const EtterRegistrering: FunctionComponent = () => {
                                     radInfo="Tiltak:"
                                     radVerdi={tiltakstypeTekst[avtale.tiltakstype]}
                                 />
-
                                 <div className={cls.element('lagreKnapp')}>
                                     <LagreKnapp
                                         lagre={() => AvtaleKanEtterrgistreres()}
@@ -137,7 +140,6 @@ const EtterRegistrering: FunctionComponent = () => {
                                 </div>
                             </div>
                         )}
-
                         {feilmelding && (
                             <>
                                 <VerticalSpacer rem={1} />
