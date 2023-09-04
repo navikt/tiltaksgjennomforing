@@ -142,7 +142,6 @@ class LagreKnapp extends Component<Props, State> {
                     disabled={this.state.spinner || this.props.disabled}
                     id="lagre-knapp"
                 >
-                    {' '}
                     {this.props.label}
                 </Button>
             </>
