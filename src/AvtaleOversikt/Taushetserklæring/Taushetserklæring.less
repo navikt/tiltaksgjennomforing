@@ -1,26 +1,15 @@
 .taushetserklæring {
-    &__modal-container {
-        overflow: visible;
-        display: flex;
-    }
-
     &__modal {
-        width: 16rem;
-        padding: 2.5rem 0.5rem 0.5rem;
-        height: 100%;
-        min-height: 14rem;
-
-        & > .alertstripe {
-            margin-top: 1.5rem;
-        }
+        height: calc(100% - 5rem);
+        position: relative;
     }
 
     &__topIconContainer {
-        position: fixed;
+        position: absolute;
         justify-content: center;
         width: 80px;
-        right: 48%;
-        top: 2.3%;
+        right: 50%;
+        top: -2rem;
         @media (max-height: 710px) {
             display: none;
         }
@@ -56,13 +45,8 @@
     }
 
     @media (min-width: 768px) {
-        &__modal {
-            width: 40rem;
-            padding: 2.5rem;
-        }
         &__panel_modal {
             width: 100%;
-            padding: 0;
         }
 
         &__modal .varsel__innhold {
