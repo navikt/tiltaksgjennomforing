@@ -6,7 +6,7 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { Notes } from '@navikt/ds-icons/cjs';
-import { Link, UNSAFE_MonthPicker, Fieldset } from '@navikt/ds-react';
+import { Link, MonthPicker, Fieldset } from '@navikt/ds-react';
 import moment from 'moment';
 import { FunctionComponent, useContext, useState } from 'react';
 
@@ -100,7 +100,7 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
                             Velg første måned avtalen skal behandles i ny løsning og ikke i Arena.
                         </label>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <UNSAFE_MonthPicker.Standalone
+                            <MonthPicker.Standalone
                                 onMonthSelect={(dato: any) => onDatoChange(dato)}
                                 dropdownCaption
                                 fromDate={startDatoDate}

@@ -41,7 +41,6 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
         }
     }, [annullertGrunn]);
 
-
     return (
         <BekreftelseModal
             bekreftOnClick={bekreftAnnullerAvtale}
@@ -51,7 +50,6 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
             bekreftelseTekst="Annuller avtale"
             avbrytelseTekst="Behold avtale"
         >
-
             <div>
                 <p>
                     <Alert variant="info" inline>

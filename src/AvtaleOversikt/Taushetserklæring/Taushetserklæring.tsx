@@ -40,19 +40,18 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
     return (
         <Modal
             open={open}
-            onClose={() => {
-                togglesetTaushetserklæringForMentorAvtale('');
-            }}
-            closeButton={true}
-            className={cls.element('modal-container')}
+            onClose={() => togglesetTaushetserklæringForMentorAvtale(avtaleId)}
+            width="medium"
             aria-label="Min modalrute"
+            className={cls.element('modal')}
         >
-            <Modal.Content>
+            <Modal.Header>
+                <div className={cls.element('topIconContainer')}>
+                    <VarselTegnForModal width={'80%'} height={'80px'}/>
+                </div>
+            </Modal.Header>
+            <Modal.Body>
                 <div className={cls.element('modal')}>
-                    <div className={cls.element('topIconContainer')}>
-                        <VarselTegnForModal width={'80%'} height={'80px'} />
-                    </div>
-
                     <Heading size="medium" className={cls.element('header')}>
                         Signer taushetserklæring
                     </Heading>
@@ -69,13 +68,15 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                         Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de
                         lovbestemmelsene som er listet opp over
                     </BekreftCheckboksPanel>
-                    <LagreKnapp
-                        className={'taushetserklæring__lagreKnapp'}
-                        label={'Signer Taushetserklæring'}
-                        lagre={godkjennTaushetserklæring}
-                    />
+                    <div className={cls.element('knapper-container')}>
+                        <LagreKnapp
+                            className={'taushetserklæring__lagreKnapp'}
+                            label={'Signer Taushetserklæring'}
+                            lagre={godkjennTaushetserklæring}
+                        />
+                    </div>
                 </div>
-            </Modal.Content>
+            </Modal.Body>
         </Modal>
     );
 };

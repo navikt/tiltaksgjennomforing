@@ -1,12 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { ReactComponent as InfoIkonGul } from '@/assets/ikoner/info-ikon-gul.svg';
-import { Modal, BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import * as RestService from '@/services/rest-service';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { Button } from '@navikt/ds-react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import VarselTabell from '../Varsellogg/VarselTabell';
 import './VarselModal.less';
@@ -45,31 +44,34 @@ const VarselModal: FunctionComponent = () => {
     return (
         <Modal
             open={varselModalApen}
-            closeButton={true}
             aria-label="varselmodal"
             onClose={lukkOgLesVarsler}
             className={cls.element('modal')}
         >
-            <InfoIkonGul height="80px" width="80px" style={{ margin: '-72px auto 1rem auto' }} />
-            <Heading size="medium">{harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}</Heading>
-            <VerticalSpacer rem={1} />
-            <BodyShort size="small">
-                {harOpprettetHendelse
-                    ? 'Tabellen under viser hendelser som har skjedd på avtalen. '
-                    : 'Tabellen under viser hendelser som har skjedd siden sist gang du åpnet avtalen. '}
-                Hendelseloggen finner du igjen under menyen på toppen av avtalen.
-            </BodyShort>
-            <VerticalSpacer rem={2} />
-            <VarselTabell varsler={varsler} />
-            <VerticalSpacer rem={2} />
-            <div>
-                <LagreKnapp lagre={lukkOgLesVarsler} label="Lukk" />
+            <Modal.Header>
+                <InfoIkonGul height="80px" width="80px" style={{ margin: '-100px auto 1rem auto' }} />
+            </Modal.Header>
+            <Modal.Body>
+                <Heading size="medium">{harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}</Heading>
+
+                <BodyShort size="small">
+                    {harOpprettetHendelse
+                        ? 'Tabellen under viser hendelser som har skjedd på avtalen. '
+                        : 'Tabellen under viser hendelser som har skjedd siden sist gang du åpnet avtalen. '}
+                    Hendelseloggen finner du igjen under menyen på toppen av avtalen.
+                </BodyShort>
+                <VerticalSpacer rem={1} />
+                <VarselTabell varsler={varsler} />
+                <VerticalSpacer rem={1} />
+            </Modal.Body>
+            <Modal.Footer>
                 {!harOpprettetHendelse && (
-                    <Button style={{ marginLeft: '1rem' }} variant="secondary" onClick={lukkeOgSeHendelselogg}>
+                    <Button variant="primary" onClick={lukkeOgSeHendelselogg}>
                         Se alle hendelser for denne avtalen
                     </Button>
                 )}
-            </div>
+                <LagreKnapp lagre={lukkOgLesVarsler} label="Lukk" variant="secondary" />
+            </Modal.Footer>
         </Modal>
     );
 };

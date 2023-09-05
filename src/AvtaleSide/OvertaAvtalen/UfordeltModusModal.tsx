@@ -14,9 +14,9 @@ interface Props {
 const UfordeltModusModal = (props: Props) => {
     return (
         <Modal className={cls.element('modal')} open={props.isOpen} onClose={props.lukkModal}>
-            <Modal.Content>
+            <Modal.Body>
                 <FordelAvtaleVeileder />
-            </Modal.Content>
+            </Modal.Body>
         </Modal>
     );
 };

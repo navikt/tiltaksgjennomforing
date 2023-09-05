@@ -51,16 +51,16 @@
   &__topIconContainer {
     display: flex;
     justify-content: center;
-    margin: -3.3rem auto 0 auto;
+    margin: -3.8rem auto 0 2.5rem;
     @media (max-height: 710px) {
       display: none;
     }
   }
 
-  &__knapper {
+  &__modal-container > div:last-child {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    //flex-direction: column;
+    //align-items: center;
     width: calc(100% - 1.5rem);
 
     .knapp {
@@ -73,10 +73,11 @@
   }
 
   @media (min-width: @mobile-breakpoint) {
-    &__knapper {
+    &__modal-container > div:last-child {
+    //.navds-modal__footer{
       display: flex;
-      flex-direction: row;
-      justify-content: center;
+      //flex-direction: column;
+      //justify-content: center;
       align-items: flex-end;
 
       .knapp:not(:last-child) {

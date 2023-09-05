@@ -45,18 +45,18 @@ const Varsellogg: FunctionComponent = () => {
             <Modal
                 open={varselLoggModalApen}
                 onClose={() => setVarselLoggModalApen(false)}
-                closeButton={true}
                 aria-label="Varselloggmodal"
                 className={cls.element('modal')}
                 aria-modal={varselLoggModalApen}
                 aria-labelledby="heading"
                 aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
-                <Modal.Content>
-                    <Heading size="medium" role="heading" id="heading" aria-level={1}>
+                <Modal.Header>
+                    <Heading size="medium" level="1">
                         Hendelselogg
                     </Heading>
-                    <VerticalSpacer rem={1} />
+                </Modal.Header>
+                <Modal.Body>
                     {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
                         <>
                             <Alert variant="info">
@@ -74,7 +74,7 @@ const Varsellogg: FunctionComponent = () => {
                     {varsler.status === Status.Feil && (
                         <BodyShort size="small">Klarte ikke hente hendelselogg. Prøv igjen senere.</BodyShort>
                     )}
-                </Modal.Content>
+                </Modal.Body>
             </Modal>
         </>
     );

@@ -87,14 +87,13 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
             <Modal
                 open={modalApen}
                 onClose={() => setModalApen(false)}
-                closeButton={true}
                 aria-label="Oppdater Oppfølgingsenhet"
                 className={cls.element('modal')}
                 aria-modal={modalApen}
                 aria-labelledby="heading"
                 aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
-                <Modal.Content>{oppdatereOppfølgingsenhetInnhold}</Modal.Content>
+                <Modal.Body>{oppdatereOppfølgingsenhetInnhold}</Modal.Body>
             </Modal>
         </>
     );

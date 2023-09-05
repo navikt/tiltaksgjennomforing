@@ -18,10 +18,7 @@
 
     &__lagreKnapp {
         width: 100%;
-    }
-
-    &__header {
-        margin-bottom: 1rem;
+        flex-direction: column;
     }
 
     &__sokfelt-tag {
@@ -48,7 +45,12 @@
     }
 
     &__lagreKnapp {
+        display: flex;
+        justify-content: flex-end;
         margin-top: 0.75rem;
+        & > .navds-button--medium {
+            align-self: end;
+        }
     }
 
     &__input-sok {
@@ -73,7 +75,6 @@
     @media (min-width: 768px) {
         &__modal {
             width: 40rem;
-            padding: 2.5rem;
         }
         &__panel_modal {
             width: 100%;

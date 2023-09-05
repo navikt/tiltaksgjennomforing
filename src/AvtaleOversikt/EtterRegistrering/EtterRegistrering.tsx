@@ -70,14 +70,15 @@ const EtterRegistrering: FunctionComponent = () => {
                     setFeilmelding(undefined);
                     setSpinner(false);
                 }}
-                closeButton={true}
                 aria-label="Min modalrute"
             >
-                <Modal.Content>
+                <Modal.Header>
+                    <Heading size="medium" className={cls.element('header')}>
+                        Søk opp avtalenummer for godkjenning av etterregistrering
+                    </Heading>
+                </Modal.Header>
+                <Modal.Body>
                     <div className={cls.element('modal')}>
-                        <Heading size="medium" className={cls.element('header')}>
-                            Søk opp avtalenummer for godkjenning av etterregistrering
-                        </Heading>
                         <Label size="small" className={cls.element('sokfelt-tag')}>
                             Skriv inn avtalenummeret du vil søke på
                         </Label>
@@ -85,7 +86,6 @@ const EtterRegistrering: FunctionComponent = () => {
                             <SøkeInput
                                 label=""
                                 className="sok"
-                                //maxLength={10}
                                 utførsøk={(søkeord) => {
                                     setSpinner(true);
                                     hentAvtaleInfo(Number(søkeord));
@@ -124,7 +124,6 @@ const EtterRegistrering: FunctionComponent = () => {
                                     radInfo="Tiltak:"
                                     radVerdi={tiltakstypeTekst[avtale.tiltakstype]}
                                 />
-
                                 <div className={cls.element('lagreKnapp')}>
                                     <LagreKnapp
                                         lagre={() => AvtaleKanEtterrgistreres()}
@@ -138,7 +137,6 @@ const EtterRegistrering: FunctionComponent = () => {
                                 </div>
                             </div>
                         )}
-
                         {feilmelding && (
                             <>
                                 <VerticalSpacer rem={1} />
@@ -146,7 +144,7 @@ const EtterRegistrering: FunctionComponent = () => {
                             </>
                         )}
                     </div>
-                </Modal.Content>
+                </Modal.Body>
             </Modal>
         </div>
     );

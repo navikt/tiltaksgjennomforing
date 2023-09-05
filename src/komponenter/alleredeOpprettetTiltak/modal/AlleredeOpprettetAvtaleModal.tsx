@@ -13,24 +13,24 @@ interface Props {
 const AlleredeOpprettetAvtaleModal: React.FC<PropsWithChildren<Props>> = ({ modalIsOpen, setModalIsOpen, style, children }) => {
     const cls = BEMHelper('alleredeOpprettetAvtaleModal');
 
+    /*
     const setModalElement = (): '#root' | 'body' => {
         if (document.getElementById('root')) return '#root';
         return 'body';
     };
-
+    */
+    /*
     if (typeof window !== 'undefined') {
         Modal.setAppElement(setModalElement());
     }
-
+*/
     return (
         <div className={cls.className}>
             <Modal
-                style={{ content: style }}
                 open={modalIsOpen}
                 className={cls.element('modal-container')}
                 aria-label={'bekrefte valgt handling'}
                 onClose={() => setModalIsOpen(false)}
-                closeButton={true}
             >
                 <div>
                     <div className={cls.element('topIconContainer')}>
