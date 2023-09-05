@@ -47,7 +47,7 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
         >
             <Modal.Header>
                 <div className={cls.element('topIconContainer')}>
-                    <VarselTegnForModal width={'80%'} height={'80px'} />
+                    <VarselTegnForModal width={'80%'} height={'80px'}/>
                 </div>
             </Modal.Header>
             <Modal.Body>
