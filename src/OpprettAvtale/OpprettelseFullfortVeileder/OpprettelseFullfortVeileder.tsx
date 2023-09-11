@@ -1,15 +1,12 @@
 import { BodyShort, Button, Heading, Link } from '@navikt/ds-react';
 import React from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-//import { RouteComponentProps } from 'react-router';
+import { copyTextToClipboard } from '@/utils/copyTextToClipboard';
 import { useNavigate, useParams } from 'react-router-dom';
 import VeilederpanelMedAvsjekkIkon from '@/komponenter/Veilederpanel/VeilederpanelMedAvsjekkIkon';
 import { pathTilKontaktinformasjonSteg, pathTilOversiktISelvbetjeningProd } from '@/paths';
 
 import './OpprettelseFullfortVeileder.less';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-
-
 
 const OpprettelseFullfortVeileder: React.FunctionComponent = () => {
     const { avtaleId } = useParams();
@@ -45,11 +42,12 @@ const OpprettelseFullfortVeileder: React.FunctionComponent = () => {
                 <div className="opprettelseFullfortVeileder__lenke">
                     <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
                 </div>
-                <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
-                    <Button className="opprettelseFullfortVeileder__kopier-knapp">
-                        Kopier lenke
-                    </Button>
-                </CopyToClipboard>
+                <Button
+                    onClick={() => copyTextToClipboard(pathTilOversiktISelvbetjeningProd)}
+                    className="opprettelseFullfortVeileder__kopier-knapp"
+                >
+                    Kopier lenke
+                </Button>
             </div>
         </VeilederpanelMedAvsjekkIkon>
     );
