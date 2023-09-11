@@ -5,13 +5,13 @@ import SelectInput from '@/komponenter/form/SelectInput';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import './EndreTilskuddsberegning.less';
 
 export type EndreBeregning = Pick<
@@ -120,6 +120,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                         label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
                         min={0}
                         max={30}
+                        maxLength={4}
                         autoComplete={'off'}
                         value={
                             nyBeregning.otpSats !== undefined && nyBeregning.otpSats !== null
