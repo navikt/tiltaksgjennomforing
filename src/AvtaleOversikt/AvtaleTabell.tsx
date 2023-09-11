@@ -7,7 +7,7 @@ import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { BodyShort, Table } from '@navikt/ds-react';
-import { Fragment, FunctionComponent, useState } from 'react';
+import React, { Fragment, FunctionComponent, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
@@ -24,7 +24,7 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
                 <StatusIkon status={avtale.status} />
             </Table.DataCell>
             <Table.DataCell>
-                <BodyShort size='small'>
+                <BodyShort size="small">
                     {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
                         ? 'Tilskuddsperiode avslått'
                         : avtaleStatusTekst[avtale.status]}
@@ -52,19 +52,16 @@ const AvtaleTabell: FunctionComponent<{
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const navigate = useNavigate();
 
-    const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string>('');
+    const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string | undefined>(undefined);
 
     return (
-        <Table className={cls.className}>
-            <AvtaleTabellRadHeader
-                erBeslutter={false}
-                erNavAnsatt={innloggetBruker.erNavAnsatt}
-            />
-            <Table.Body>
-                {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
-                    const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
-                    return (
-                        <Fragment key={index}>
+        <>
+            <Table className={cls.className}>
+                <AvtaleTabellRadHeader erBeslutter={false} erNavAnsatt={innloggetBruker.erNavAnsatt} />
+                <Table.Body>
+                    {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
+                        const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
+                        return (
                             <Table.Row
                                 id={avtale.id}
                                 key={avtale.id}
@@ -124,20 +121,30 @@ const AvtaleTabell: FunctionComponent<{
                                 </MediaQuery>
                                 {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
                                 <Table.DataCell>
-                                    <ChevronRightIcon className={cls.element('pil-hoyre')} title="a11y-title" fontSize="1.75rem" />
+                                    <ChevronRightIcon
+                                        className={cls.element('pil-hoyre')}
+                                        title="a11y-title"
+                                        fontSize="1.75rem"
+                                    />
                                 </Table.DataCell>
                             </Table.Row>
-                            <TaushetserklæringModal
-                                open={visTaushetserklæringForAvtaleId === avtale.id}
-                                sistEndret={avtale.sistEndret}
-                                togglesetTaushetserklæringForMentorAvtale={setVisTaushetserklæringForAvtaleId}
-                                avtaleId={avtale.id}
-                            />
-                        </Fragment>
-                    );
-                })}
-            </Table.Body>
-        </Table>
+                        );
+                    })}
+                </Table.Body>
+            </Table>
+            {visTaushetserklæringForAvtaleId &&
+                avtaler
+                    .filter(avtale => avtale.id === visTaushetserklæringForAvtaleId)
+                    .map(avtale => 
+                        <TaushetserklæringModal
+                            key={avtale.id}
+                            open={visTaushetserklæringForAvtaleId === avtale.id}
+                            sistEndret={avtale.sistEndret}
+                            togglesetTaushetserklæringForMentorAvtale={avtaleid => setVisTaushetserklæringForAvtaleId(undefined)}
+                            avtaleId={avtale.id}
+                        />
+                    )}
+        </>
     );
 };
 export default AvtaleTabell;

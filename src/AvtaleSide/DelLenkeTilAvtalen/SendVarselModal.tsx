@@ -6,7 +6,7 @@ import { delAvtaleMedAvtalepart } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
 import { Heading, Ingress, Link, Modal, Button } from '@navikt/ds-react';
 import React, { useContext } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import { copyTextToClipboard } from '@/utils/copyTextToClipboard';
 import './SendVarselModal.less';
 
 interface Props {
@@ -72,11 +72,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
                     <div className={cls.element('lenke')}>
                         <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
                     </div>
-                    <CopyToClipboard text={pathTilOversiktISelvbetjeningProd}>
-                        <Button variant="secondary" size="small" className={cls.element('kopierKnapp')}>
-                            Kopier lenke
-                        </Button>
-                    </CopyToClipboard>
+                    <Button variant="secondary" size="small" className={cls.element('kopierKnapp')} onClick={() => copyTextToClipboard(pathTilOversiktISelvbetjeningProd)}>Kopier lenke</Button>
                 </div>
             </Modal.Body>
         </Modal>
