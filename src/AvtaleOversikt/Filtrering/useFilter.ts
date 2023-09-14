@@ -1,8 +1,8 @@
-import { useContext, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import _ from 'lodash';
+import { useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const toObject = (params: URLSearchParams) => Object.fromEntries(params.entries());
 
@@ -20,15 +20,21 @@ export const useFilter = () => {
     const [filtre, setFiltre] = useContext(FiltreringContext);
     const [searchParams, setSearchParams] = useSearchParams();
 
-    useEffect(() => {
-        const newParams = toObject(searchParams);
-        if (!_.isEqual(newParams, filtre)) {
-            setFiltre(newParams);
-        }
-    }, [searchParams, filtre, setFiltre]);
+    // useEffect(() => {
+    //     const newParams = toObject(searchParams);
+    //     if (!_.isEqual(newParams, filtre)) {
+    //         setFiltre(newParams);
+    //     }
+    // }, [searchParams, filtre, setFiltre]);
 
     const endreFilter = (endring: Filtrering) => {
-        const newSearchParams = new URLSearchParams(searchParams);
+        const newSearchParamsGammel = new URLSearchParams(searchParams);
+        const newSearchParams = new URLSearchParams(localStorage.getItem('filtrering') || '');
+        console.log("newSearchParams er: ", newSearchParams);
+        console.log("newSearchParams med JSON.stringify: ", JSON.stringify(newSearchParams));
+        debugger;
+        
+        
 
         updateOrDeleteKey(newSearchParams, endring, "avtaleNr");
         updateOrDeleteKey(newSearchParams, endring, "veilederNavIdent");
@@ -50,7 +56,18 @@ export const useFilter = () => {
             newSearchParams.set("page", '' + endring.page);
         }
 
-        setSearchParams(newSearchParams);
+
+
+        console.log("Endring er: ", JSON.stringify(endring));
+        
+        console.log("setter ny filtrering", JSON.stringify(toObject(newSearchParams)));
+
+        const newParams = toObject(newSearchParams);
+        debugger;
+        if (!_.isEqual(newParams, filtre)) {
+            localStorage.setItem('filtrering', JSON.stringify(newParams));
+            setFiltre(newParams);
+        }
     };
 
     return { filtre, endreFilter };
