@@ -28,8 +28,10 @@ export const useFilter = () => {
     // }, [searchParams, filtre, setFiltre]);
 
     const endreFilter = (endring: Filtrering) => {
-        const newSearchParamsGammel = new URLSearchParams(searchParams);
-        const newSearchParams = new URLSearchParams(localStorage.getItem('filtrering') || '');
+        //const newSearchParamsGammel = new URLSearchParams(searchParams);
+
+        const newSeachParamsObj = JSON.parse(localStorage.getItem('filtrering') || '{}');
+        const newSearchParams = new URLSearchParams(newSeachParamsObj);
         console.log("newSearchParams er: ", newSearchParams);
         console.log("newSearchParams med JSON.stringify: ", JSON.stringify(newSearchParams));
         debugger;
