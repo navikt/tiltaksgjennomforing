@@ -1,74 +1,66 @@
 import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import _ from 'lodash';
-import { useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 
-const toObject = (params: URLSearchParams) => Object.fromEntries(params.entries());
-
-const updateOrDeleteKey = (params: URLSearchParams, filter: Filtrering, key: keyof Filtrering) => {
-    if (filter.hasOwnProperty(key)) {
-        if (!filter[key]) {
-            params.delete(key);
+const updateOrDeleteKeyFromObject = (filterobject: any, filterEnring: Filtrering, key: keyof Filtrering) => {
+    if (filterEnring.hasOwnProperty(key)) {
+        if (!filterEnring[key]) {
+            delete filterobject[key];
         } else {
-            params.set(key, filter[key] as string);
+            filterobject[key] = filterEnring[key];
         }
     }
-};
+}
 
 export const useFilter = () => {
     const [filtre, setFiltre] = useContext(FiltreringContext);
-    const [searchParams, setSearchParams] = useSearchParams();
 
-    // useEffect(() => {
-    //     const newParams = toObject(searchParams);
-    //     if (!_.isEqual(newParams, filtre)) {
-    //         setFiltre(newParams);
-    //     }
-    // }, [searchParams, filtre, setFiltre]);
+
+    // Dette gjøres for å synce ulike faner i nettleseren
+    useEffect(() => {
+        // Respond to the `storage` event
+        const storageEventHandler = (event: any) => {
+            if (event.key === "filtrering") {
+                const filtre = JSON.parse(event.newValue);
+                setFiltre(filtre);
+            }
+        }
+        // Hook up the event handler
+        window.addEventListener("storage", storageEventHandler);
+        return () => {
+            // Remove the handler when the component unmounts
+            window.removeEventListener("storage", storageEventHandler);
+        };
+    }, []);
+    
 
     const endreFilter = (endring: Filtrering) => {
-        //const newSearchParamsGammel = new URLSearchParams(searchParams);
-
-        const newSeachParamsObj = JSON.parse(localStorage.getItem('filtrering') || '{}');
-        const newSearchParams = new URLSearchParams(newSeachParamsObj);
-        console.log("newSearchParams er: ", newSearchParams);
-        console.log("newSearchParams med JSON.stringify: ", JSON.stringify(newSearchParams));
-        debugger;
+        const obj = JSON.parse(localStorage.getItem('filtrering') || '{}');
         
-        
-
-        updateOrDeleteKey(newSearchParams, endring, "avtaleNr");
-        updateOrDeleteKey(newSearchParams, endring, "veilederNavIdent");
-        updateOrDeleteKey(newSearchParams, endring, "deltakerFnr");
-        updateOrDeleteKey(newSearchParams, endring, "bedriftNr");
-        updateOrDeleteKey(newSearchParams, endring, "navEnhet");
-        updateOrDeleteKey(newSearchParams, endring, "erUfordelt");
-        updateOrDeleteKey(newSearchParams, endring, "status");
-        updateOrDeleteKey(newSearchParams, endring, "sorteringskolonne");
-        updateOrDeleteKey(newSearchParams, endring, "tilskuddPeriodeStatus");
-        updateOrDeleteKey(newSearchParams, endring, "tiltakstype");
+        updateOrDeleteKeyFromObject(obj, endring, "avtaleNr");
+        updateOrDeleteKeyFromObject(obj, endring, "veilederNavIdent");
+        updateOrDeleteKeyFromObject(obj, endring, "deltakerFnr");
+        updateOrDeleteKeyFromObject(obj, endring, "bedriftNr");
+        updateOrDeleteKeyFromObject(obj, endring, "navEnhet");
+        updateOrDeleteKeyFromObject(obj, endring, "erUfordelt");
+        updateOrDeleteKeyFromObject(obj, endring, "status");
+        updateOrDeleteKeyFromObject(obj, endring, "sorteringskolonne");
+        updateOrDeleteKeyFromObject(obj, endring, "tilskuddPeriodeStatus");
+        updateOrDeleteKeyFromObject(obj, endring, "tiltakstype");
 
         // Alle endringer som ikke er en endring i paginering/sortering, bør nullstille pagineringen
         const changedKeys = Object.keys(endring);
         if (changedKeys.filter(k => !['page', 'sorteringskolonne'].includes(k)).length > 0) {
-            newSearchParams.delete("page");
+            delete obj["page"];
         }
         if (endring.hasOwnProperty('page')) {
-            newSearchParams.set("page", '' + endring.page);
+            obj["page"] = endring.page;
         }
 
-
-
-        console.log("Endring er: ", JSON.stringify(endring));
-        
-        console.log("setter ny filtrering", JSON.stringify(toObject(newSearchParams)));
-
-        const newParams = toObject(newSearchParams);
-        debugger;
-        if (!_.isEqual(newParams, filtre)) {
-            localStorage.setItem('filtrering', JSON.stringify(newParams));
-            setFiltre(newParams);
+        if (!_.isEqual(obj, filtre)) {
+            localStorage.setItem('filtrering', JSON.stringify(obj));
+            setFiltre(obj);
         }
     };
 
