@@ -1,5 +1,6 @@
 import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
+import { getJsonObjectFromString } from '@/utils/stringUtils';
 import _ from 'lodash';
 import { useContext, useEffect } from 'react';
 
@@ -22,7 +23,7 @@ export const useFilter = () => {
         // Respond to the `storage` event
         const storageEventHandler = (event: any) => {
             if (event.key === "filtrering") {
-                const filtre = JSON.parse(event.newValue);
+                const filtre = getJsonObjectFromString(event.newValue);
                 setFiltre(filtre);
             }
         }
@@ -36,7 +37,7 @@ export const useFilter = () => {
     
 
     const endreFilter = (endring: Filtrering) => {
-        const obj = JSON.parse(localStorage.getItem('filtrering') || '{}');
+        const obj = getJsonObjectFromString(localStorage.getItem('filtrering'));
         
         updateOrDeleteKeyFromObject(obj, endring, "avtaleNr");
         updateOrDeleteKeyFromObject(obj, endring, "veilederNavIdent");

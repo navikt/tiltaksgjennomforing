@@ -1,4 +1,5 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
+import { getJsonObjectFromString } from '@/utils/stringUtils';
 import React, { FunctionComponent, PropsWithChildren, createContext, useState } from 'react';
 
 export const FiltreringContext = createContext<[Filtrering, React.Dispatch<React.SetStateAction<Filtrering>>]>([
@@ -7,13 +8,9 @@ export const FiltreringContext = createContext<[Filtrering, React.Dispatch<React
 ]);
 
 export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) => {
-    const params: any = {};
     const filterFraLocalStorage = localStorage.getItem('filtrering');
+    const filterObjekt = getJsonObjectFromString(filterFraLocalStorage);
     
-    for (const [k, v] of filterFraLocalStorage ? Object.entries(JSON.parse(filterFraLocalStorage)) : []) {
-        params[k] = v;
-    }
-    
-    const [filtre, setFiltre] = useState<Filtrering>(params);
+    const [filtre, setFiltre] = useState<Filtrering>(filterObjekt);
     return <FiltreringContext.Provider value={[filtre, setFiltre]}>{props.children}</FiltreringContext.Provider>;
 };
