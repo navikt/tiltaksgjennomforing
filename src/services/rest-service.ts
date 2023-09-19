@@ -308,7 +308,6 @@ export const hentInnloggetBruker = async (): Promise<InnloggetBruker> => {
 
 export const hentKontonummerForArbeidsgiver = async (avtaleId: string): Promise<string> => {
     const response = await api.get(`/avtaler/${avtaleId}/kontonummer-arbeidsgiver`);
-    console.log("respons", response)
     return response.data;
 };
 
