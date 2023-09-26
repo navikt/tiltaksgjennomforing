@@ -2,7 +2,6 @@ import React, { createContext, useEffect, useState } from 'react';
 import { hentFeatureToggles } from './services/rest-service';
 
 export enum Feature {
-    //VisningAvKnappHentKontonummerForArbeidsgiver = 'tag.tiltak.viseHentArbeidsgiverKontonummer',
     VisNedetidBanner = 'visNedetidBanner'
 }
 
