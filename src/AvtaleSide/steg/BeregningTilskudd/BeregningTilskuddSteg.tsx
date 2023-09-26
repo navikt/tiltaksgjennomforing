@@ -1,5 +1,4 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import ValutaInput from '@/komponenter/form/ValutaInput';
@@ -26,9 +25,6 @@ const cls = BEMHelper('beregningTilskuddSteg');
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const featureToggleContext = useContext(FeatureToggleContext);
-    const visningAvKnappHentKontonummerForArbeidsgiver =
-        featureToggleContext[Feature.VisningAvKnappHentKontonummerForArbeidsgiver];
 
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
 
@@ -47,9 +43,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <Arbeidsgiveravgift cls={cls} />
             <Row className={cls.element('rad-kontonummer')}>
                 <Column md="12" className={cls.element('kontonummer')}>
-                    <HenteKontonummer
-                        visningAvKnappHentKontonummerForArbeidsgiver={visningAvKnappHentKontonummerForArbeidsgiver}
-                    />
+                    <HenteKontonummer/>
                 </Column>
             </Row>
 
