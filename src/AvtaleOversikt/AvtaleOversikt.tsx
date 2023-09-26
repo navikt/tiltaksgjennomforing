@@ -1,7 +1,6 @@
 import AvtaleOversiktArbeidsgiverInformasjon from '@/AvtaleOversikt/AvtaleOversiktArbeidsgiverInformasjon';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
 import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
-import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
@@ -32,18 +31,9 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
-    const [, setFiltre] = useContext(FiltreringContext);
     const [currentPage, setCurrentPage] = useState<PageableAvtale>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
     const [searchParams, setSearchParams] = useSearchParams();
-
-    // const erCurrentPageFiltreSammeSomFiltre = (currentPage: PageableAvtale, filtre: Filtrering) => {
-    //     return currentPage.sokeParametere.bedrift === filtre.bedrift &&
-    //         currentPage.sokeParametere.status === filtre.status &&
-    //         currentPage.sokeParametere.tiltakstype === filtre.tiltakstype &&
-    //         currentPage.sokeParametere.deltakerFnr === filtre.deltakerFnr &&
-    //         currentPage.sokeParametere.veilederNavIdent === filtre.veilederNavIdent;
-    // }
 
     const [initLast, setInitLast] = useState(true);
     useEffect(() => {
@@ -53,28 +43,20 @@ const AvtaleOversikt: FunctionComponent = () => {
         }
         setNettressurs({ status: Status.LasterInn });
         const page = parseInt(filtre.page ? filtre.page : '1', 10);
-        // hentAvtalerForInnloggetBruker(filtre, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
-        //     setCurrentPage(pagableAvtale);
-        //     setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-        // });
-
-        //er sokId samme som vi skal bruke igjen?
         console.log('currentPage: ', currentPage);
         console.log('filtre:', filtre);
+
+        
         if (searchParams.get('sokId') && !currentPage) {
             console.log('henter avtaler med sokId');
-
             const sokId = searchParams.get('sokId')!;
             hentAvtalerForInnloggetBrukerMedSokId(sokId, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
                 setCurrentPage(pagableAvtale);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
                 setSearchParams({ sokId: pagableAvtale.sokId });
-                // set en global context sak med søkeparams fra sokeId respons
-                //sokeIdcontext.setfiltere(pagableAvtale.sokeParametere);
-                //endreFilter(pagableAvtale.sokeParametere);
+
                 endreFilter(pagableAvtale.sokeParametere);
                 setInitLast(false);
-                //setFiltre(pagableAvtale.sokeParametere);
             });
         } else {
             console.log('henter avtaler med post');
