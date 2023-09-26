@@ -1,3 +1,4 @@
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Nettressurs } from '@/types/nettressurs';
@@ -16,6 +17,8 @@ export interface PageableAvtale {
     size: number;
     totalItems: number;
     totalPages: number;
+    sokId: string;
+    sokeParametere: Filtrering;
 }
 
 export interface PageableAvtaleMinimalForBeslutter {

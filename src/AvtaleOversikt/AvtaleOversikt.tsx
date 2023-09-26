@@ -1,26 +1,28 @@
-import { ReactComponent as PlussIkon } from '@/assets/ikoner/pluss-tegn.svg';
+import AvtaleOversiktArbeidsgiverInformasjon from '@/AvtaleOversikt/AvtaleOversiktArbeidsgiverInformasjon';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
+import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
+import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { ReactComponent as PlussIkon } from '@/assets/ikoner/pluss-tegn.svg';
+import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
-import { hentAvtalerForInnloggetBruker, hentUlesteVarsler } from '@/services/rest-service';
+import { hentAvtalerForInnloggetBrukerMedPost, hentAvtalerForInnloggetBrukerMedSokId, hentUlesteVarsler } from '@/services/rest-service';
+import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
+import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { Pagination } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import Banner from '@/komponenter/Banner/Banner';
-import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
-import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import './AvtaleOversikt.less';
-import { Status } from '@/types/nettressurs';
-import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
-import AvtaleOversiktArbeidsgiverInformasjon from '@/AvtaleOversikt/AvtaleOversiktArbeidsgiverInformasjon';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
@@ -30,16 +32,58 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
+    const [, setFiltre] = useContext(FiltreringContext);
     const [currentPage, setCurrentPage] = useState<PageableAvtale>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
+    const [searchParams, setSearchParams] = useSearchParams();
 
+    // const erCurrentPageFiltreSammeSomFiltre = (currentPage: PageableAvtale, filtre: Filtrering) => {
+    //     return currentPage.sokeParametere.bedrift === filtre.bedrift &&
+    //         currentPage.sokeParametere.status === filtre.status &&
+    //         currentPage.sokeParametere.tiltakstype === filtre.tiltakstype &&
+    //         currentPage.sokeParametere.deltakerFnr === filtre.deltakerFnr &&
+    //         currentPage.sokeParametere.veilederNavIdent === filtre.veilederNavIdent;
+    // }
+
+    const [initLast, setInitLast] = useState(true);
     useEffect(() => {
+        if (!initLast) {
+            setInitLast(true);
+            return;
+        }
         setNettressurs({ status: Status.LasterInn });
-        const page = parseInt(filtre.page ? filtre.page : '1', 10)
-        hentAvtalerForInnloggetBruker(filtre, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
-            setCurrentPage(pagableAvtale);
-            setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-        });
+        const page = parseInt(filtre.page ? filtre.page : '1', 10);
+        // hentAvtalerForInnloggetBruker(filtre, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
+        //     setCurrentPage(pagableAvtale);
+        //     setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+        // });
+
+        //er sokId samme som vi skal bruke igjen?
+        console.log('currentPage: ', currentPage);
+        console.log('filtre:', filtre);
+        if (searchParams.get('sokId') && !currentPage) {
+            console.log('henter avtaler med sokId');
+
+            const sokId = searchParams.get('sokId')!;
+            hentAvtalerForInnloggetBrukerMedSokId(sokId, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
+                setCurrentPage(pagableAvtale);
+                setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+                setSearchParams({ sokId: pagableAvtale.sokId });
+                // set en global context sak med søkeparams fra sokeId respons
+                //sokeIdcontext.setfiltere(pagableAvtale.sokeParametere);
+                //endreFilter(pagableAvtale.sokeParametere);
+                endreFilter(pagableAvtale.sokeParametere);
+                setInitLast(false);
+                //setFiltre(pagableAvtale.sokeParametere);
+            });
+        } else {
+            console.log('henter avtaler med post');
+            hentAvtalerForInnloggetBrukerMedPost(filtre, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
+                setCurrentPage(pagableAvtale);
+                setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+                setSearchParams({ sokId: pagableAvtale.sokId });
+            });
+        }
     }, [filtre]);
 
     useEffect(() => {

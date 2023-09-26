@@ -110,6 +110,45 @@ export const hentAvtalerForInnloggetBruker = async (
     return response.data;
 };
 
+export const hentAvtalerForInnloggetBrukerMedSokId = async (
+    sokId: string,
+    size: number = 2,
+    page: number = 0,
+    limit: number = 10000000
+): Promise<PageableAvtale> => {
+    // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
+    const søkekriterierFiltrert = {
+        size,
+        page,
+        limit,
+        sokId
+    };
+    const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
+    const response = await api.get<PageableAvtale>(`/avtaler/sok?${queryParam}`);
+    return response.data;
+};
+
+
+export const hentAvtalerForInnloggetBrukerMedPost = async (
+    søkekriterier: Filtrering,
+    size: number = 2,
+    page: number = 0,
+    limit: number = 10000000
+): Promise<PageableAvtale> => {
+    // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
+    const søkekriterierFiltrert = {
+        bedriftNr: søkekriterier.bedrift,
+        ...søkekriterier,
+        bedrift: undefined,
+        size,
+        page,
+        limit,
+    };
+    const params = removeEmpty(søkekriterierFiltrert);
+    const response = await api.post<PageableAvtale>(`/avtaler/sok`, params);
+    return response.data;
+};
+
 export const hentAvtalerForInnloggetBeslutter = async (
     søkekriterier: Filtrering,
     size: number = 2,
