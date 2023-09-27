@@ -145,7 +145,8 @@ export const hentAvtalerForInnloggetBrukerMedPost = async (
         limit,
     };
     const params = removeEmpty(søkekriterierFiltrert);
-    const response = await api.post<PageableAvtale>(`/avtaler/sok`, params);
+    const queryParam = new URLSearchParams(removeEmpty({page, size, limit}));
+    const response = await api.post<PageableAvtale>(`/avtaler/sok?${queryParam}`, params);
     return response.data;
 };
 

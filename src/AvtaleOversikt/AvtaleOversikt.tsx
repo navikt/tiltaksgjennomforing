@@ -13,15 +13,21 @@ import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
 import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
-import { hentAvtalerForInnloggetBrukerMedPost, hentAvtalerForInnloggetBrukerMedSokId, hentUlesteVarsler } from '@/services/rest-service';
+import {
+    hentAvtalerForInnloggetBrukerMedPost,
+    hentAvtalerForInnloggetBrukerMedSokId,
+    hentUlesteVarsler,
+} from '@/services/rest-service';
 import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { Pagination } from '@navikt/ds-react';
+import _ from 'lodash';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './AvtaleOversikt.less';
+import { FiltreringContext } from './Filtrering/FiltreringProvider';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
@@ -34,37 +40,42 @@ const AvtaleOversikt: FunctionComponent = () => {
     const [currentPage, setCurrentPage] = useState<PageableAvtale>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
     const [searchParams, setSearchParams] = useSearchParams();
+    const [, , currentPageCtx] = useContext(FiltreringContext);
 
-    const [initLast, setInitLast] = useState(true);
     useEffect(() => {
-        if (!initLast) {
-            setInitLast(true);
-            return;
-        }
+        if (!currentPageCtx) return;
         setNettressurs({ status: Status.LasterInn });
-        const page = parseInt(filtre.page ? filtre.page : '1', 10);
-        console.log('currentPage: ', currentPage);
-        console.log('filtre:', filtre);
+    
 
-        
-        if (searchParams.get('sokId') && !currentPage) {
-            console.log('henter avtaler med sokId');
-            const sokId = searchParams.get('sokId')!;
-            hentAvtalerForInnloggetBrukerMedSokId(sokId, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
+        const filtreUtenPage = _.omit(filtre, 'page');
+        const erfiltreLikeCurrentPage = _.isEqual(currentPageCtx?.sokeParametere, filtreUtenPage);
+        const page = parseInt(filtre.page ? filtre.page : '1');
+
+        if (currentPageCtx && !erfiltreLikeCurrentPage) {
+            
+            setNettressurs({ status: Status.LasterInn });
+
+            hentAvtalerForInnloggetBrukerMedPost(filtre, 3, page - 1).then((pagableAvtale: PageableAvtale) => {
                 setCurrentPage(pagableAvtale);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-                setSearchParams({ sokId: pagableAvtale.sokId });
-
-                endreFilter(pagableAvtale.sokeParametere);
-                setInitLast(false);
+                console.log('setter page: ', page);
+                
+                setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
             });
+        } else if ((page - 1) !== currentPageCtx.currentPage) {
+            console.log(page, currentPageCtx.currentPage);
+            console.log('page minus 1: ', page - 1);
+            
+            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, page - 1).then(
+                (pagableAvtale: PageableAvtale) => {
+                    setCurrentPage(pagableAvtale);
+                    setNettressurs({ status: Status.Lastet, data: pagableAvtale?.avtaler });
+                    setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
+                }
+            );
         } else {
-            console.log('henter avtaler med post');
-            hentAvtalerForInnloggetBrukerMedPost(filtre, 10, page - 1).then((pagableAvtale: PageableAvtale) => {
-                setCurrentPage(pagableAvtale);
-                setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-                setSearchParams({ sokId: pagableAvtale.sokId });
-            });
+            setCurrentPage(currentPageCtx);
+            setNettressurs({ status: Status.Lastet, data: currentPageCtx?.avtaler });
         }
     }, [filtre]);
 
@@ -83,7 +94,7 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const antallAvtalerSuffiks =
         currentPage && (currentPage?.totalItems > 1 || currentPage?.totalItems === 0) ? ' avtaler' : ' avtale';
-    const antallAvtalerTekst = currentPage?.totalItems ? `(${currentPage?.totalItems} ${antallAvtalerSuffiks})` : ''
+    const antallAvtalerTekst = currentPage?.totalItems ? `(${currentPage?.totalItems} ${antallAvtalerSuffiks})` : '';
     const oversiktTekst = `Tiltaksoversikt ${antallAvtalerTekst}`;
 
     const pageNumber = parseInt(filtre.page || '1');
@@ -141,6 +152,8 @@ const AvtaleOversikt: FunctionComponent = () => {
                                     page={pageNumber}
                                     onPageChange={(x) => {
                                         endreFilter({ page: '' + x });
+                                        console.log('endrer filter med page fra pagination: ', x);
+                                        
                                     }}
                                     count={currentPage!.totalPages}
                                     boundaryCount={1}

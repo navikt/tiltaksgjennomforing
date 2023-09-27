@@ -1,11 +1,12 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, RadioGroup, Select } from '@navikt/ds-react';
-import React, { FormEvent, Fragment, FunctionComponent, useContext, useState } from 'react';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import { isNil } from 'lodash';
+import { FormEvent, Fragment, FunctionComponent, useContext, useEffect, useState } from 'react';
 
 type Validering = (verdi: string) => string | undefined;
 
@@ -22,27 +23,39 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const { endreFilter, filtre } = useFilter();
 
     const aktivSøketypeFraFiltre = (): Søketype => {
-        if (filtre.veilederNavIdent !== undefined && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
+        console.log('aktivSøketypeFraFiltre filtre: ', filtre);
+        const hehe = !isNil(filtre.veilederNavIdent);
+        const hehe2 = !isNil(filtre.deltakerFnr);
+        //debugger;
+        
+        if (!isNil(filtre.veilederNavIdent) && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
         }
-        if (filtre.erUfordelt !== undefined) {
+        if (!isNil(filtre.erUfordelt)) {
             return 'ufordelte';
         }
-        if (filtre.deltakerFnr !== undefined) {
+        if (!isNil(filtre.deltakerFnr)) {
             return 'deltaker';
         }
-        if (filtre.navEnhet !== undefined) {
+        if (!isNil(filtre.navEnhet)) {
             return 'avtaleVedEnhet';
         }
-        if (filtre.bedriftNr !== undefined) {
+        if (!isNil(filtre.bedrift)) {
             return 'bedrift';
         }
-        if (filtre.avtaleNr !== undefined) {
+        if (!isNil(filtre.avtaleNr)) {
             return 'avtaleNr';
         }
         return innloggetBruker.rolle === 'BESLUTTER' ? 'alle' : 'egne';
     };
     const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre());
+    console.log('aktivSøketype: ', aktivSøketype);
+
+    useEffect(() => {
+        setAktivSøkeType(aktivSøketypeFraFiltre());
+    }, [filtre])
+    
+    
 
     const tomt = {
         avtaleNr: undefined,
