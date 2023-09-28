@@ -3,8 +3,6 @@ import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import _ from 'lodash';
 import { useContext } from 'react';
 
-const toObject = (params: URLSearchParams) => Object.fromEntries(params.entries());
-
 const updateOrDeleteKeyFromObject = (filterobject: any, filterEnring: Filtrering, key: keyof Filtrering) => {
     if (filterEnring.hasOwnProperty(key)) {
         if (!filterEnring[key]) {
@@ -41,10 +39,7 @@ export const useFilter = () => {
             obj["page"] = endring.page;
         }
         
-        
         if (!_.isEqual(obj, filtre)) {
-           
-            //localStorage.setItem('filtrering', JSON.stringify(obj));
             setFiltre(obj);
         }
     };

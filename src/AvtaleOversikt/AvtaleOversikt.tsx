@@ -37,7 +37,6 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
-    //const [currentPage, setCurrentPage] = useState<PageableAvtale>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
     const [searchParams, setSearchParams] = useSearchParams();
     const [, , currentPageCtx, setCurrentPageCtx] = useContext(FiltreringContext);
@@ -74,9 +73,6 @@ const AvtaleOversikt: FunctionComponent = () => {
                 }
             );
         } else {
-            //console.log('setter current page ctx: ', currentPageCtx);
-            //setCurrentPageCtx(currentPageCtx);
-            //setSearchParams({ sokId: currentPageCtx.sokId, page: '' + (currentPageCtx.currentPage + 1) });
             setNettressurs({ status: Status.Lastet, data: currentPageCtx?.avtaler });
         }
     }, [filtre]);
