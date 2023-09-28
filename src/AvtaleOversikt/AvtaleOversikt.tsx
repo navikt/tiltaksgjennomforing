@@ -37,10 +37,10 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
-    const [currentPage, setCurrentPage] = useState<PageableAvtale>();
+    //const [currentPage, setCurrentPage] = useState<PageableAvtale>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
     const [searchParams, setSearchParams] = useSearchParams();
-    const [, , currentPageCtx] = useContext(FiltreringContext);
+    const [, , currentPageCtx, setCurrentPageCtx] = useContext(FiltreringContext);
 
     useEffect(() => {
         if (!currentPageCtx) return;
@@ -56,7 +56,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             setNettressurs({ status: Status.LasterInn });
 
             hentAvtalerForInnloggetBrukerMedPost(filtre, 3, page - 1).then((pagableAvtale: PageableAvtale) => {
-                setCurrentPage(pagableAvtale);
+                setCurrentPageCtx(pagableAvtale);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
                 console.log('setter page: ', page);
                 
@@ -65,21 +65,23 @@ const AvtaleOversikt: FunctionComponent = () => {
         } else if ((page - 1) !== currentPageCtx.currentPage) {
             console.log(page, currentPageCtx.currentPage);
             console.log('page minus 1: ', page - 1);
-            
+            setNettressurs({ status: Status.LasterInn });
             hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, page - 1).then(
                 (pagableAvtale: PageableAvtale) => {
-                    setCurrentPage(pagableAvtale);
+                    setCurrentPageCtx(pagableAvtale);
                     setNettressurs({ status: Status.Lastet, data: pagableAvtale?.avtaler });
                     setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
                 }
             );
         } else {
-            console.log('setter current page ctx: ', currentPageCtx);
-            setCurrentPage(currentPageCtx);
-            setSearchParams({ sokId: currentPageCtx.sokId, page: '' + (currentPageCtx.currentPage + 1) });
+            //console.log('setter current page ctx: ', currentPageCtx);
+            //setCurrentPageCtx(currentPageCtx);
+            //setSearchParams({ sokId: currentPageCtx.sokId, page: '' + (currentPageCtx.currentPage + 1) });
             setNettressurs({ status: Status.Lastet, data: currentPageCtx?.avtaler });
         }
     }, [filtre]);
+    console.log('nettressurs: ', nettressurs);
+    
 
     useEffect(() => {
         hentUlesteVarsler()
@@ -95,8 +97,8 @@ const AvtaleOversikt: FunctionComponent = () => {
         innloggetBruker.tilganger[filtre.bedrift]?.length > 0;
 
     const antallAvtalerSuffiks =
-        currentPage && (currentPage?.totalItems > 1 || currentPage?.totalItems === 0) ? ' avtaler' : ' avtale';
-    const antallAvtalerTekst = currentPage?.totalItems ? `(${currentPage?.totalItems} ${antallAvtalerSuffiks})` : '';
+        currentPageCtx && (currentPageCtx?.totalItems > 1 || currentPageCtx?.totalItems === 0) ? ' avtaler' : ' avtale';
+    const antallAvtalerTekst = currentPageCtx?.totalItems ? `(${currentPageCtx?.totalItems} ${antallAvtalerSuffiks})` : '';
     const oversiktTekst = `Tiltaksoversikt ${antallAvtalerTekst}`;
 
     const pageNumber = parseInt(filtre.page || '1');
@@ -149,7 +151,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         <AvtaleOversiktArbeidsgiverInformasjon rolle={innloggetBruker.rolle} cls={cls} />
                         <div className={clsPagination.className}>
                             {nettressurs.status === Status.LasterInn && <VerticalSpacer rem={3.9} />}
-                            {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
+                            {pageNumber && nettressurs.status === Status.Lastet && currentPageCtx!.totalPages > 0 && (
                                 <Pagination
                                     page={pageNumber}
                                     onPageChange={(x) => {
@@ -157,7 +159,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                                         console.log('endrer filter med page fra pagination: ', x);
                                         
                                     }}
-                                    count={currentPage!.totalPages}
+                                    count={currentPageCtx!.totalPages}
                                     boundaryCount={1}
                                     siblingCount={1}
                                 />

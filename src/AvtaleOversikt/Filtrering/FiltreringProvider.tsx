@@ -1,19 +1,18 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { hentAvtalerForInnloggetBrukerMedPost, hentAvtalerForInnloggetBrukerMedSokId } from '@/services/rest-service';
-import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
-import { Status } from '@/types/nettressurs';
-import React, { FunctionComponent, PropsWithChildren, createContext, useEffect, useState } from 'react';
+import { PageableAvtale } from '@/types/avtale';
+import { Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, createContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useFilter } from './useFilter';
 
 export const FiltreringContext = createContext<
-    [Filtrering, React.Dispatch<React.SetStateAction<Filtrering>>, PageableAvtale?]
->([{}, () => null]);
+    [Filtrering, Dispatch<SetStateAction<Filtrering>>, PageableAvtale | undefined, Dispatch<SetStateAction<PageableAvtale | undefined>>]
+>([{}, () => null, undefined, () => null]);
 
 export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentPageCtx, setCurrentPageCtx] = useState<PageableAvtale>();
-    const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
+    //const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
     const { endreFilter } = useFilter();
     const params: any = {};
     // for (const [k, v] of new URLSearchParams(window.location.search)) {
@@ -42,6 +41,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         const tekniskPage = searchParams.get('page') ? (parseInt(searchParams.get('page')!) - 1) : 0;
         //const urlPage = searchParams.get('page') ? (parseInt(searchParams.get('page')!)) : 1;
         console.log('gjør søk med tekniskPage: ', tekniskPage);
+        //setNettressurs({ status: Status.LasterInn });
         var resultat;
         if (searchParams.get('sokId')) {
             const sokId = searchParams.get('sokId')!;
@@ -54,7 +54,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         }
         resultat.then((pagableAvtale: PageableAvtale) => {
             setCurrentPageCtx(pagableAvtale);
-            setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+            //setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
             setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
             //pagableAvtale.sokeParametere.page = '' + urlPage;
             setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + ''});
@@ -63,7 +63,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
     }, []);
 
     return (
-        <FiltreringContext.Provider value={[filtre, setFiltre, currentPageCtx]}>
+        <FiltreringContext.Provider value={[filtre, setFiltre, currentPageCtx, setCurrentPageCtx]}>
             {props.children}
         </FiltreringContext.Provider>
     );
