@@ -23,10 +23,6 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const { endreFilter, filtre } = useFilter();
 
     const aktivSøketypeFraFiltre = (): Søketype => {
-        console.log('aktivSøketypeFraFiltre filtre: ', filtre);
-        const hehe = !isNil(filtre.veilederNavIdent);
-        const hehe2 = !isNil(filtre.deltakerFnr);
-        //debugger;
         
         if (!isNil(filtre.veilederNavIdent) && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
@@ -49,7 +45,6 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
         return innloggetBruker.rolle === 'BESLUTTER' ? 'alle' : 'egne';
     };
     const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre());
-    console.log('aktivSøketype: ', aktivSøketype);
 
     useEffect(() => {
         setAktivSøkeType(aktivSøketypeFraFiltre());

@@ -74,7 +74,9 @@ const AvtaleOversikt: FunctionComponent = () => {
                 }
             );
         } else {
+            console.log('setter current page ctx: ', currentPageCtx);
             setCurrentPage(currentPageCtx);
+            setSearchParams({ sokId: currentPageCtx.sokId, page: '' + (currentPageCtx.currentPage + 1) });
             setNettressurs({ status: Status.Lastet, data: currentPageCtx?.avtaler });
         }
     }, [filtre]);
