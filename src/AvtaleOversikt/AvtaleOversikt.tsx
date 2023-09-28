@@ -41,29 +41,32 @@ const AvtaleOversikt: FunctionComponent = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [, , currentPageCtx, setCurrentPageCtx] = useContext(FiltreringContext);
 
+
+
     useEffect(() => {
+        const fjernTommeFelter = (obj: {}) => _.pickBy(obj);
+
         if (!currentPageCtx) return;
+        //if (_.isEqual(currentPageCtx?.sokeParametere, filtre)) return;
         setNettressurs({ status: Status.LasterInn });
     
-
         const filtreUtenPage = _.omit(filtre, 'page');
-        const erfiltreLikeCurrentPage = _.isEqual(currentPageCtx?.sokeParametere, filtreUtenPage);
+        const erfiltreLikeCurrentPage = _.isEqual(fjernTommeFelter(currentPageCtx?.sokeParametere), fjernTommeFelter(filtreUtenPage));
         const page = parseInt(filtre.page ? filtre.page : '1');
 
+        console.log('currentPageCtx?.sokeParametere: ', fjernTommeFelter(currentPageCtx?.sokeParametere));
+        console.log('filtreUtenPage: ', filtreUtenPage);
+        console.log('-------  erfiltreLikeCurrentPage: ------ ', erfiltreLikeCurrentPage);
+        
+        
         if (currentPageCtx && !erfiltreLikeCurrentPage) {
-            
             setNettressurs({ status: Status.LasterInn });
-
             hentAvtalerForInnloggetBrukerMedPost(filtre, 3, page - 1).then((pagableAvtale: PageableAvtale) => {
                 setCurrentPageCtx(pagableAvtale);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-                console.log('setter page: ', page);
-                
                 setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
             });
         } else if ((page - 1) !== currentPageCtx.currentPage) {
-            console.log(page, currentPageCtx.currentPage);
-            console.log('page minus 1: ', page - 1);
             setNettressurs({ status: Status.LasterInn });
             hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, page - 1).then(
                 (pagableAvtale: PageableAvtale) => {
@@ -75,8 +78,8 @@ const AvtaleOversikt: FunctionComponent = () => {
         } else {
             setNettressurs({ status: Status.Lastet, data: currentPageCtx?.avtaler });
         }
-    }, [filtre]);
-    console.log('nettressurs: ', nettressurs);
+
+    }, [filtre, currentPageCtx, setCurrentPageCtx, searchParams, setSearchParams]);
     
 
     useEffect(() => {
@@ -152,7 +155,6 @@ const AvtaleOversikt: FunctionComponent = () => {
                                     page={pageNumber}
                                     onPageChange={(x) => {
                                         endreFilter({ page: '' + x });
-                                        console.log('endrer filter med page fra pagination: ', x);
                                         
                                     }}
                                     count={currentPageCtx!.totalPages}
