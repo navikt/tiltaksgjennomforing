@@ -6,7 +6,7 @@ import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, RadioGroup, Select } from '@navikt/ds-react';
 import { isNil } from 'lodash';
-import { FormEvent, Fragment, FunctionComponent, useContext, useEffect, useState } from 'react';
+import { FormEvent, Fragment, FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 
 type Validering = (verdi: string) => string | undefined;
 
@@ -22,7 +22,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { endreFilter, filtre } = useFilter();
 
-    const aktivSøketypeFraFiltre = (): Søketype => {
+    const aktivSøketypeFraFiltre = useCallback((): Søketype => {
         
         if (!isNil(filtre.veilederNavIdent) && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
@@ -43,12 +43,14 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             return 'avtaleNr';
         }
         return innloggetBruker.rolle === 'BESLUTTER' ? 'alle' : 'egne';
-    };
+    }, [filtre, innloggetBruker]);
+
+    
     const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre());
 
     useEffect(() => {
         setAktivSøkeType(aktivSøketypeFraFiltre());
-    }, [filtre])
+    }, [filtre, aktivSøketypeFraFiltre])
     
     
 

@@ -16,6 +16,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
 
     useEffect(() => {
         // KJØR EN GANG PÅ OPPSTART
+        if (currentPageCtx) return;
 
         const tekniskPage = searchParams.get('page') ? (parseInt(searchParams.get('page')!) - 1) : 0;
         var resultat;
@@ -31,7 +32,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
             setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + ''});
         });
 
-    }, []);
+    }, [filtre, currentPageCtx, searchParams, setSearchParams]);
 
     return (
         <FiltreringContext.Provider value={[filtre, setFiltre, currentPageCtx, setCurrentPageCtx]}>
