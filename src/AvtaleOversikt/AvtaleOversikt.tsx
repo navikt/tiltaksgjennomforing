@@ -45,18 +45,13 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         const fjernTommeFelter = (obj: {}) => _.pickBy(obj);
-
         if (!currentPageCtx) return;
-        //if (_.isEqual(currentPageCtx?.sokeParametere, filtre)) return;
+
         setNettressurs({ status: Status.LasterInn });
     
         const filtreUtenPage = _.omit(filtre, 'page');
         const erfiltreLikeCurrentPage = _.isEqual(fjernTommeFelter(currentPageCtx?.sokeParametere), fjernTommeFelter(filtreUtenPage));
         const page = parseInt(filtre.page ? filtre.page : '1');
-
-        console.log('currentPageCtx?.sokeParametere: ', fjernTommeFelter(currentPageCtx?.sokeParametere));
-        console.log('filtreUtenPage: ', filtreUtenPage);
-        console.log('-------  erfiltreLikeCurrentPage: ------ ', erfiltreLikeCurrentPage);
         
         
         if (currentPageCtx && !erfiltreLikeCurrentPage) {
@@ -76,7 +71,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                 }
             );
         } else {
-            setNettressurs({ status: Status.Lastet, data: currentPageCtx?.avtaler });
+            setNettressurs({ status: Status.Lastet, data: currentPageCtx.avtaler });
         }
 
     }, [filtre, currentPageCtx, setCurrentPageCtx, searchParams, setSearchParams]);

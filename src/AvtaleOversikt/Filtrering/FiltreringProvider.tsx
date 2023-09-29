@@ -19,7 +19,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         if (currentPageCtx) return;
 
         const tekniskPage = searchParams.get('page') ? (parseInt(searchParams.get('page')!) - 1) : 0;
-        var resultat;
+        let resultat;
         if (searchParams.get('sokId')) {
             const sokId = searchParams.get('sokId')!;     
             resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 3, tekniskPage);
