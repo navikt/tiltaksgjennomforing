@@ -32,8 +32,11 @@ const VersjonModal: React.FunctionComponent<Props> = (props) => {
             open={props.isOpen}
             onClose={() => props.lukkModal()}
         >
-            <Modal.Body>
+            <Modal.Header>
                 <SkjemaTittel>Versjon {props.avtaleInnhold.versjon}</SkjemaTittel>
+            </Modal.Header>
+            <Modal.Body>
+           
                 {oppsummeringType[props.tiltakstype]}
             </Modal.Body>
         </Modal>
