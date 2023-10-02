@@ -1,7 +1,8 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { hentAvtalerForInnloggetBrukerMedPost, hentAvtalerForInnloggetBrukerMedSokId } from '@/services/rest-service';
 import { PageableAvtale } from '@/types/avtale';
-import { Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, createContext, useEffect, useState } from 'react';
+import { Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const FiltreringContext = createContext<
@@ -9,6 +10,7 @@ export const FiltreringContext = createContext<
 >([{}, () => null, undefined, () => null]);
 
 export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentPageCtx, setCurrentPageCtx] = useState<PageableAvtale>();
     const params: any = {};
@@ -17,6 +19,8 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
     useEffect(() => {
         // KJØR EN GANG PÅ OPPSTART
         if (currentPageCtx) return;
+        if (innloggetBruker.rolle === 'BESLUTTER') return;
+        if (innloggetBruker.rolle === 'ARBEIDSGIVER' && !filtre.bedriftNr) return;
 
         const tekniskPage = searchParams.get('page') ? (parseInt(searchParams.get('page')!) - 1) : 0;
         let resultat;
@@ -32,7 +36,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
             setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + ''});
         });
 
-    }, [filtre, currentPageCtx, searchParams, setSearchParams]);
+    }, [filtre, currentPageCtx, searchParams, setSearchParams, innloggetBruker.rolle]);
 
     return (
         <FiltreringContext.Provider value={[filtre, setFiltre, currentPageCtx, setCurrentPageCtx]}>

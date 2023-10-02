@@ -87,8 +87,8 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const harTilgangerSomArbeidsgiver =
         innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-        filtre.bedrift &&
-        innloggetBruker.tilganger[filtre.bedrift]?.length > 0;
+        filtre.bedriftNr &&
+        innloggetBruker.tilganger[filtre.bedriftNr]?.length > 0;
 
     const antallAvtalerSuffiks =
         currentPageCtx && (currentPageCtx?.totalItems > 1 || currentPageCtx?.totalItems === 0) ? ' avtaler' : ' avtale';
@@ -101,7 +101,8 @@ const AvtaleOversikt: FunctionComponent = () => {
         <>
             <Dokumenttittel tittel={oversiktTekst} />
             <Banner
-                byttetOrg={() => {
+                byttetOrg={(org) => {
+                    endreFilter({bedriftNr: org.OrganizationNumber})
                     //parseWindowLocationSearch();
                 }}
                 tekst={oversiktTekst}
