@@ -22,6 +22,7 @@ import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
+import { fjernTommeFelterFraObjekt } from '@/utils/stringUtils';
 import { Pagination } from '@navikt/ds-react';
 import _ from 'lodash';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -44,13 +45,12 @@ const AvtaleOversikt: FunctionComponent = () => {
 
 
     useEffect(() => {
-        const fjernTommeFelter = (obj: {}) => _.pickBy(obj);
         if (!currentPageCtx) return;
 
         setNettressurs({ status: Status.LasterInn });
     
         const filtreUtenPage = _.omit(filtre, 'page');
-        const erfiltreLikeCurrentPage = _.isEqual(fjernTommeFelter(currentPageCtx?.sokeParametere), fjernTommeFelter(filtreUtenPage));
+        const erfiltreLikeCurrentPage = _.isEqual(fjernTommeFelterFraObjekt(currentPageCtx?.sokeParametere), fjernTommeFelterFraObjekt(filtreUtenPage));
         const page = parseInt(filtre.page ? filtre.page : '1');
         
         
