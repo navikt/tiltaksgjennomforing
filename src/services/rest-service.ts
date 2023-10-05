@@ -114,29 +114,19 @@ export const hentAvtalerForInnloggetBrukerMedSokId = async (
     sokId: string,
     size: number = 2,
     page: number = 0,
-    limit: number = 10000000
 ): Promise<PageableAvtale> => {
-    // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
-    const søkekriterierFiltrert = {
-        size,
-        page,
-        limit,
-        sokId
-    };
-    const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
+    const queryParam = new URLSearchParams(removeEmpty({ size, page, sokId }));
     const response = await api.get<PageableAvtale>(`/avtaler/sok?${queryParam}`);
     return response.data;
 };
-
 
 export const hentAvtalerForInnloggetBrukerMedPost = async (
     søkekriterier: Filtrering,
     size: number = 2,
     page: number = 0,
-    limit: number = 10000000
 ): Promise<PageableAvtale> => {
     const postBody = removeEmpty(søkekriterier);
-    const queryParam = new URLSearchParams(removeEmpty({ page, size, limit }));
+    const queryParam = new URLSearchParams(removeEmpty({ page, size }));
     const response = await api.post<PageableAvtale>(`/avtaler/sok?${queryParam}`, postBody);
     return response.data;
 };
