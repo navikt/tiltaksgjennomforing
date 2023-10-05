@@ -44,7 +44,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     };
 
     return (
-        <div className={cls.className + (props.className ? ' ' + props.className : undefined)}>
+        <div className={cls.className + (props.className ? ' ' + props.className : '')}>
             <Modal
                 style={props.style}
                 open={props.modalIsOpen}
