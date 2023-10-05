@@ -129,7 +129,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     )}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
                         innloggetBruker.altinnOrganisasjoner.length > 0 &&
-                        innloggetBruker.tilganger[filtre.bedrift!] && (
+                        innloggetBruker.tilganger[filtre.bedriftNr!] && (
                             <aside style={layout.stylingAvFilter}>
                                 {harTilgangerSomArbeidsgiver && (
                                     <div style={{ margin: '0.2rem 0 1rem 0' }}>

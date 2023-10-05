@@ -31,6 +31,15 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
             resultat = hentAvtalerForInnloggetBrukerMedPost(filtre, 3, tekniskPage);
         }
         resultat.then((pagableAvtale: PageableAvtale) => {
+            if (pagableAvtale.sokId === "") {
+                // ugyldig sokId - Utfører blankt søk.
+                hentAvtalerForInnloggetBrukerMedPost(filtre, 3, tekniskPage).then((pagableAvtale: PageableAvtale) => {
+                    setCurrentPageCtx(pagableAvtale);
+                    setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
+                    setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + ''});
+                    return;
+                });
+            }
             setCurrentPageCtx(pagableAvtale);
             setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
             setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + ''});
