@@ -18,6 +18,7 @@ interface Props {
     avbrytelseTekst: string;
     descripedby?: string;
     style?: CSSProperties;
+    className?: string
 }
 
 const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
@@ -43,7 +44,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     };
 
     return (
-        <div className={cls.className}>
+        <div className={cls.className + (props.className ? ' ' + props.className : undefined)}>
             <Modal
                 style={props.style}
                 open={props.modalIsOpen}

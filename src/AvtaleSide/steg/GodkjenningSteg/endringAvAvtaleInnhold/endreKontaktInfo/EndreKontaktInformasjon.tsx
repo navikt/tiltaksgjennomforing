@@ -91,126 +91,125 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreKontaktInformasjon}
                 lukkModal={() => setModalApen(false)}
+                className={cls.className}
             >
-                <div className={cls.className}>
-                    <div className={cls.element('avsnitt')}>
-                        <Heading size="small" className={cls.element('tittel')}>
-                            Informasjon om deltaker
-                        </Heading>
-                        <div className={cls.element('inputfelter')}>
-                            <PakrevdInput
-                                size={currentSize}
-                                label="Fornavn"
-                                verdi={kontaktInfo.deltakerFornavn}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('deltakerFornavn', verdi)}
-                            />
-                            <PakrevdInput
-                                size={currentSize}
-                                label="Etternavn"
-                                verdi={kontaktInfo.deltakerEtternavn}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
-                            />
-                            <TelefonnummerInput
-                                size={currentSize}
-                                label="Mobilnummer "
-                                verdi={kontaktInfo.deltakerTlf}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
-                            />
-                        </div>
+                <div className={cls.element('avsnitt')}>
+                    <Heading size="small" className={cls.element('tittel')}>
+                        Informasjon om deltaker
+                    </Heading>
+                    <div className={cls.element('inputfelter')}>
+                        <PakrevdInput
+                            size={currentSize}
+                            label="Fornavn"
+                            verdi={kontaktInfo.deltakerFornavn}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('deltakerFornavn', verdi)}
+                        />
+                        <PakrevdInput
+                            size={currentSize}
+                            label="Etternavn"
+                            verdi={kontaktInfo.deltakerEtternavn}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
+                        />
+                        <TelefonnummerInput
+                            size={currentSize}
+                            label="Mobilnummer "
+                            verdi={kontaktInfo.deltakerTlf}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
+                        />
                     </div>
-                    <div className={cls.element('avsnitt')}>
-                        <Heading size="small" className={cls.element('tittel')}>
-                            Informasjon om veileder
-                        </Heading>
-                        <div className={cls.element('inputfelter')}>
-                            <PakrevdInput
-                                size={currentSize}
-                                label="Fornavn"
-                                verdi={kontaktInfo.veilederFornavn}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('veilederFornavn', verdi)}
-                            />
-                            <PakrevdInput
-                                size={currentSize}
-                                label="Etternavn"
-                                verdi={kontaktInfo.veilederEtternavn}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
-                            />
-                            <TelefonnummerInput
-                                size={currentSize}
-                                label="Mobilnummer"
-                                verdi={kontaktInfo.veilederTlf}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
-                            />
-                        </div>
-                    </div>
-                    <div className={cls.element('avsnitt')}>
-                        <Heading size="small" className={cls.element('tittel')}>
-                            Kontaktperson for avtalen i bedriften
-                        </Heading>
-                        <div className={cls.element('inputfelter')}>
-                            <PakrevdInput
-                                size={currentSize}
-                                label="Fornavn"
-                                verdi={kontaktInfo.arbeidsgiverFornavn}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverFornavn', verdi)}
-                            />
-                            <PakrevdInput
-                                size={currentSize}
-                                label="Etternavn"
-                                verdi={kontaktInfo.arbeidsgiverEtternavn}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
-                            />
-                            <TelefonnummerInput
-                                size={currentSize}
-                                label="Mobilnummer"
-                                verdi={kontaktInfo.arbeidsgiverTlf}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
-                            />
-                        </div>
-                    </div>
-                    {endreRefusjonInfo && (
-                        <div className={cls.element('avsnitt')}>
-                            <Heading size="small" className={cls.element('tittel')}>
-                                Kontaktperson for refusjon i bedriften
-                            </Heading>
-                            <div className={cls.element('inputfelter')}>
-                                <PakrevdInput
-                                    size={currentSize}
-                                    label="Fornavn"
-                                    verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
-                                    settVerdi={(verdi) =>
-                                        settNyKontaktInformasjon('refusjonKontaktperson', {
-                                            ...kontaktInfo.refusjonKontaktperson,
-                                            refusjonKontaktpersonFornavn: verdi,
-                                        })
-                                    }
-                                />
-                                <PakrevdInput
-                                    size={currentSize}
-                                    label="Etternavn"
-                                    verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
-                                    settVerdi={(verdi) =>
-                                        settNyKontaktInformasjon('refusjonKontaktperson', {
-                                            ...kontaktInfo.refusjonKontaktperson,
-                                            refusjonKontaktpersonEtternavn: verdi,
-                                        })
-                                    }
-                                />
-                                <TelefonnummerInput
-                                    size={currentSize}
-                                    label="Mobilnummer"
-                                    verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
-                                    settVerdi={(verdi) =>
-                                        settNyKontaktInformasjon('refusjonKontaktperson', {
-                                            ...kontaktInfo.refusjonKontaktperson,
-                                            refusjonKontaktpersonTlf: verdi,
-                                        })
-                                    }
-                                />
-                            </div>
-                        </div>
-                    )}
                 </div>
+                <div className={cls.element('avsnitt')}>
+                    <Heading size="small" className={cls.element('tittel')}>
+                        Informasjon om veileder
+                    </Heading>
+                    <div className={cls.element('inputfelter')}>
+                        <PakrevdInput
+                            size={currentSize}
+                            label="Fornavn"
+                            verdi={kontaktInfo.veilederFornavn}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('veilederFornavn', verdi)}
+                        />
+                        <PakrevdInput
+                            size={currentSize}
+                            label="Etternavn"
+                            verdi={kontaktInfo.veilederEtternavn}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
+                        />
+                        <TelefonnummerInput
+                            size={currentSize}
+                            label="Mobilnummer"
+                            verdi={kontaktInfo.veilederTlf}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
+                        />
+                    </div>
+                </div>
+                <div className={cls.element('avsnitt')}>
+                    <Heading size="small" className={cls.element('tittel')}>
+                        Kontaktperson for avtalen i bedriften
+                    </Heading>
+                    <div className={cls.element('inputfelter')}>
+                        <PakrevdInput
+                            size={currentSize}
+                            label="Fornavn"
+                            verdi={kontaktInfo.arbeidsgiverFornavn}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverFornavn', verdi)}
+                        />
+                        <PakrevdInput
+                            size={currentSize}
+                            label="Etternavn"
+                            verdi={kontaktInfo.arbeidsgiverEtternavn}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
+                        />
+                        <TelefonnummerInput
+                            size={currentSize}
+                            label="Mobilnummer"
+                            verdi={kontaktInfo.arbeidsgiverTlf}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
+                        />
+                    </div>
+                </div>
+                {endreRefusjonInfo && (
+                    <div className={cls.element('avsnitt')}>
+                        <Heading size="small" className={cls.element('tittel')}>
+                            Kontaktperson for refusjon i bedriften
+                        </Heading>
+                        <div className={cls.element('inputfelter')}>
+                            <PakrevdInput
+                                size={currentSize}
+                                label="Fornavn"
+                                verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
+                                settVerdi={(verdi) =>
+                                    settNyKontaktInformasjon('refusjonKontaktperson', {
+                                        ...kontaktInfo.refusjonKontaktperson,
+                                        refusjonKontaktpersonFornavn: verdi,
+                                    })
+                                }
+                            />
+                            <PakrevdInput
+                                size={currentSize}
+                                label="Etternavn"
+                                verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
+                                settVerdi={(verdi) =>
+                                    settNyKontaktInformasjon('refusjonKontaktperson', {
+                                        ...kontaktInfo.refusjonKontaktperson,
+                                        refusjonKontaktpersonEtternavn: verdi,
+                                    })
+                                }
+                            />
+                            <TelefonnummerInput
+                                size={currentSize}
+                                label="Mobilnummer"
+                                verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
+                                settVerdi={(verdi) =>
+                                    settNyKontaktInformasjon('refusjonKontaktperson', {
+                                        ...kontaktInfo.refusjonKontaktperson,
+                                        refusjonKontaktpersonTlf: verdi,
+                                    })
+                                }
+                            />
+                        </div>
+                    </div>
+                )}
             </BekreftelseModal>
         </>
     );
