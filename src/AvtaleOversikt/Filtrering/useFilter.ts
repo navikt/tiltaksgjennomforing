@@ -3,12 +3,12 @@ import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import _ from 'lodash';
 import { useContext } from 'react';
 
-const updateOrDeleteKeyFromObject = (filterobject: any, filterEnring: Filtrering, key: keyof Filtrering) => {
-    if (filterEnring.hasOwnProperty(key)) {
-        if (!filterEnring[key]) {
+const updateOrDeleteKeyFromObject = (filterobject: any, filterEndring: Filtrering, key: keyof Filtrering) => {
+    if (filterEndring.hasOwnProperty(key)) {
+        if (!filterEndring[key]) {
             delete filterobject[key];
         } else {
-            filterobject[key] = filterEnring[key];
+            filterobject[key] = filterEndring[key];
         }
     }
 }
