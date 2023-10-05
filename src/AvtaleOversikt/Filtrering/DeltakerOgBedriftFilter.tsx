@@ -36,7 +36,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
         if (!isNil(filtre.navEnhet)) {
             return 'avtaleVedEnhet';
         }
-        if (!isNil(filtre.bedrift)) {
+        if (!isNil(filtre.bedriftNr)) {
             return 'bedrift';
         }
         if (!isNil(filtre.avtaleNr)) {
