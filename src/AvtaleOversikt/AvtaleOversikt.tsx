@@ -52,16 +52,14 @@ const AvtaleOversikt: FunctionComponent = () => {
         const filterPage = parseInt(filtre.page ? filtre.page : '1');
         const sammePage = nettressursCtx.data.currentPage === (filterPage - 1);
 
-        //console.log('sorteringskolonne: ', filtre.sorteringskolonne, 'searchParams.get(sorteringskolonne):', searchParams.get('sorteringskolonne'));
         const urlparamSort = searchParams.get('sorteringskolonne') || null;
         const filterSort = filtre.sorteringskolonne || null;
 
-        const sammeSortering = urlparamSort === filterSort; //(searchParams.get('sorteringskolonne') || 'sistEndret') === (filtre.sorteringskolonne || 'sistEndret');
+        const sammeSortering = urlparamSort === filterSort; 
 
-        const sammeSokId = searchParams.get('sokId') === nettressursCtx.data.sokId;
         console.log('searchParams.get(sokId):', searchParams.get('sokId'), 'nettressursCtx.data.sokId:', nettressursCtx.data.sokId);
         
-        if (sammePage && erFiltreLikeNettressursFiltre && sammeSortering && sammeSokId) return;
+        if (sammePage && erFiltreLikeNettressursFiltre && sammeSortering) return;
         
         setNettressursCtx({ status: Status.LasterInn });
         if (!erFiltreLikeNettressursFiltre) {
@@ -79,9 +77,6 @@ const AvtaleOversikt: FunctionComponent = () => {
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                 }
             );
-        } else if (!sammeSokId) {
-            console.log('erSokIdEndret');
-            
         }
 
     }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams]);
