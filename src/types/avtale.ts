@@ -29,6 +29,16 @@ export interface PageableAvtaleMinimalForBeslutter {
     totalPages: number;
 }
 
+export interface PageableAvtaleMinimal {
+    currentPage: number;
+    avtaler: AvtaleMinimalListeVisning[];
+    size: number;
+    totalItems: number;
+    totalPages: number;
+    sokId: string;
+    sokeParametere: Filtrering;
+}
+
 export type AvtaleMinimalListeVisning = {
     id: string;
     deltakerFornavn: string;
@@ -367,6 +377,7 @@ export type InnholdType =
 export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
 
 export type AvtalelisteRessurs = Nettressurs<AvtaleMinimalListeVisning[]>;
+export type PageableAvtalelisteRessurs = Nettressurs<PageableAvtaleMinimal>;
 export type AvtalelisteMinimalForBeslutterRessurs = Nettressurs<AvtaleMinimalForBeslutter[]>;
 
 export type EndreKontaktInfo = {

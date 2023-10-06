@@ -18,7 +18,7 @@ import {
     hentAvtalerForInnloggetBrukerMedSokId,
     hentUlesteVarsler,
 } from '@/services/rest-service';
-import { AvtalelisteRessurs, PageableAvtale } from '@/types/avtale';
+import { PageableAvtale } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
@@ -38,43 +38,53 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
-    const [nettressurs, setNettressurs] = useState<AvtalelisteRessurs>({ status: Status.IkkeLastet });
     const [searchParams, setSearchParams] = useSearchParams();
-    const [, , currentPageCtx, setCurrentPageCtx] = useContext(FiltreringContext);
-
+    const [, , nettressursCtx, setNettressursCtx] = useContext(FiltreringContext);
 
 
     useEffect(() => {
-        if (!currentPageCtx) return;
+        //console.log('AvtaleOversikt: useEffect');
+        if (nettressursCtx.status !== Status.Lastet) return;
+        
+        const filtreUtenPage = _.omit(filtre, 'page', 'sorteringskolonne');
+        const erFiltreLikeNettressursFiltre = _.isEqual(fjernTommeFelterFraObjekt(nettressursCtx.data.sokeParametere), fjernTommeFelterFraObjekt(filtreUtenPage));
 
-        setNettressurs({ status: Status.LasterInn });
-    
-        const filtreUtenPage = _.omit(filtre, 'page');
-        const erfiltreLikeCurrentPage = _.isEqual(fjernTommeFelterFraObjekt(currentPageCtx?.sokeParametere), fjernTommeFelterFraObjekt(filtreUtenPage));
-        const page = parseInt(filtre.page ? filtre.page : '1');
+        const filterPage = parseInt(filtre.page ? filtre.page : '1');
+        const sammePage = nettressursCtx.data.currentPage === (filterPage - 1);
+
+        //console.log('sorteringskolonne: ', filtre.sorteringskolonne, 'searchParams.get(sorteringskolonne):', searchParams.get('sorteringskolonne'));
+        const urlparamSort = searchParams.get('sorteringskolonne') || null;
+        const filterSort = filtre.sorteringskolonne || null;
+
+        const sammeSortering = urlparamSort === filterSort; //(searchParams.get('sorteringskolonne') || 'sistEndret') === (filtre.sorteringskolonne || 'sistEndret');
+
+        const sammeSokId = searchParams.get('sokId') === nettressursCtx.data.sokId;
+        console.log('searchParams.get(sokId):', searchParams.get('sokId'), 'nettressursCtx.data.sokId:', nettressursCtx.data.sokId);
         
+        if (sammePage && erFiltreLikeNettressursFiltre && sammeSortering && sammeSokId) return;
         
-        if (currentPageCtx && !erfiltreLikeCurrentPage) {
-            setNettressurs({ status: Status.LasterInn });
-            hentAvtalerForInnloggetBrukerMedPost(filtre, 3, page - 1).then((pagableAvtale: PageableAvtale) => {
-                setCurrentPageCtx(pagableAvtale);
-                setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-                setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
+        setNettressursCtx({ status: Status.LasterInn });
+        if (!erFiltreLikeNettressursFiltre) {
+            // Filteret er endret - Nytt POST-søk
+            hentAvtalerForInnloggetBrukerMedPost(filtre, 3, filterPage - 1).then((pagableAvtale: PageableAvtale) => {
+                setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne }));
+                setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
             });
-        } else if ((page - 1) !== currentPageCtx.currentPage) {
-            setNettressurs({ status: Status.LasterInn });
-            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, page - 1).then(
+        } else if (!sammePage || !sammeSortering) {
+            // Page er endret - Nytt GET-søk
+            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, filterPage - 1, filterSort || undefined).then(
                 (pagableAvtale: PageableAvtale) => {
-                    setCurrentPageCtx(pagableAvtale);
-                    setNettressurs({ status: Status.Lastet, data: pagableAvtale?.avtaler });
-                    setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
+
+                    setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne}));
+                    setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                 }
             );
-        } else {
-            setNettressurs({ status: Status.Lastet, data: currentPageCtx.avtaler });
+        } else if (!sammeSokId) {
+            console.log('erSokIdEndret');
+            
         }
 
-    }, [filtre, currentPageCtx, setCurrentPageCtx, searchParams, setSearchParams]);
+    }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams]);
     
 
     useEffect(() => {
@@ -91,8 +101,8 @@ const AvtaleOversikt: FunctionComponent = () => {
         innloggetBruker.tilganger[filtre.bedriftNr]?.length > 0;
 
     const antallAvtalerSuffiks =
-        currentPageCtx && (currentPageCtx?.totalItems > 1 || currentPageCtx?.totalItems === 0) ? ' avtaler' : ' avtale';
-    const antallAvtalerTekst = currentPageCtx?.totalItems ? `(${currentPageCtx?.totalItems} ${antallAvtalerSuffiks})` : '';
+        nettressursCtx.status === Status.Lastet && (nettressursCtx.data.totalItems > 1 || nettressursCtx.data.totalItems === 0) ? ' avtaler' : ' avtale';
+    const antallAvtalerTekst = nettressursCtx.status === Status.Lastet && nettressursCtx.data.totalItems ? `(${nettressursCtx.data.totalItems} ${antallAvtalerSuffiks})` : '';
     const oversiktTekst = `Tiltaksoversikt ${antallAvtalerTekst}`;
 
     const pageNumber = parseInt(filtre.page || '1');
@@ -142,18 +152,18 @@ const AvtaleOversikt: FunctionComponent = () => {
                             </aside>
                         )}
                     <section style={layout.stylingAvTabell}>
-                        <Avtaler avtalelisteRessurs={nettressurs} innloggetBruker={innloggetBruker} varsler={varsler} />
+                        <Avtaler avtalelisteRessurs={nettressursCtx} innloggetBruker={innloggetBruker} varsler={varsler} />
                         <AvtaleOversiktArbeidsgiverInformasjon rolle={innloggetBruker.rolle} cls={cls} />
                         <div className={clsPagination.className}>
-                            {nettressurs.status === Status.LasterInn && <VerticalSpacer rem={3.9} />}
-                            {pageNumber && nettressurs.status === Status.Lastet && currentPageCtx!.totalPages > 0 && (
+                            {nettressursCtx.status === Status.LasterInn && <VerticalSpacer rem={3.9} />}
+                            {pageNumber && nettressursCtx.status === Status.Lastet && nettressursCtx.data.totalPages > 0 && (
                                 <Pagination
                                     page={pageNumber}
                                     onPageChange={(x) => {
                                         endreFilter({ page: '' + x });
                                         
                                     }}
-                                    count={currentPageCtx!.totalPages}
+                                    count={nettressursCtx.data.totalPages}
                                     boundaryCount={1}
                                     siblingCount={1}
                                 />

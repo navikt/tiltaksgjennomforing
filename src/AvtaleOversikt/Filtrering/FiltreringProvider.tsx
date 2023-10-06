@@ -1,32 +1,39 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { hentAvtalerForInnloggetBrukerMedPost, hentAvtalerForInnloggetBrukerMedSokId } from '@/services/rest-service';
-import { PageableAvtale } from '@/types/avtale';
+import { Avtale, PageableAvtale, PageableAvtalelisteRessurs } from '@/types/avtale';
+import { Status } from '@/types/nettressurs';
+import { fjernTommeFelterFraObjekt } from '@/utils/stringUtils';
 import { Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const FiltreringContext = createContext<
-    [Filtrering, Dispatch<SetStateAction<Filtrering>>, PageableAvtale | undefined, Dispatch<SetStateAction<PageableAvtale | undefined>>]
->([{}, () => null, undefined, () => null]);
+    [Filtrering, Dispatch<SetStateAction<Filtrering>>, PageableAvtalelisteRessurs, Dispatch<SetStateAction<PageableAvtalelisteRessurs>>]
+>([{}, () => null, { status: Status.IkkeLastet }, () => null]);
 
 export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [currentPageCtx, setCurrentPageCtx] = useState<PageableAvtale>();
+    // const [currentPageCtx, setCurrentPageCtx] = useState<PageableAvtale>();
+    const [nettressursCtx, setNettressursCtx] = useState<PageableAvtalelisteRessurs>({ status: Status.IkkeLastet });
     const params: any = {};
     const [filtre, setFiltre] = useState<Filtrering>(params);
 
     useEffect(() => {
         // KJØR EN GANG PÅ OPPSTART
-        if (currentPageCtx) return;
+        //console.log('FiltreringProvider: useEffect');
+        
+        if (nettressursCtx.status !== Status.IkkeLastet) return;
         if (innloggetBruker.rolle === 'BESLUTTER') return;
         if (innloggetBruker.rolle === 'ARBEIDSGIVER' && !filtre.bedriftNr) return;
-
+        
         const tekniskPage = searchParams.get('page') ? (parseInt(searchParams.get('page')!) - 1) : 0;
         let resultat;
+        setNettressursCtx({ status: Status.LasterInn });
+        const sorteringskolonne = searchParams.get('sorteringskolonne') as keyof Avtale || '';
         if (searchParams.get('sokId')) {
             const sokId = searchParams.get('sokId')!;     
-            resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 3, tekniskPage);
+            resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 3, tekniskPage, sorteringskolonne);
         } else {
             resultat = hentAvtalerForInnloggetBrukerMedPost(filtre, 3, tekniskPage);
         }
@@ -34,21 +41,22 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
             if (pagableAvtale.sokId === "") {
                 // ugyldig sokId - Utfører blankt søk.
                 hentAvtalerForInnloggetBrukerMedPost(filtre, 3, tekniskPage).then((pagableAvtale: PageableAvtale) => {
-                    setCurrentPageCtx(pagableAvtale);
+                    setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                     setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
                     setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + ''});
                     return;
                 });
             }
-            setCurrentPageCtx(pagableAvtale);
-            setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
-            setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + ''});
+            const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne });
+            setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+            setSearchParams(sokeParams);
+            setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne});
         });
 
-    }, [filtre, currentPageCtx, searchParams, setSearchParams, innloggetBruker.rolle]);
+    }, [filtre, nettressursCtx.status, searchParams, setSearchParams, innloggetBruker.rolle]);
 
     return (
-        <FiltreringContext.Provider value={[filtre, setFiltre, currentPageCtx, setCurrentPageCtx]}>
+        <FiltreringContext.Provider value={[filtre, setFiltre, nettressursCtx, setNettressursCtx]}>
             {props.children}
         </FiltreringContext.Provider>
     );

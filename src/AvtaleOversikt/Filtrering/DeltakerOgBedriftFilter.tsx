@@ -107,7 +107,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             maxLength: 6,
             validering: () => void 0,
             søkeinput: filtre.avtaleNr,
-            utførSøk: (søkeord: number) => endreFilter({ ...tomt, avtaleNr: søkeord }),
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, avtaleNr: parseInt(søkeord) }),
         },
         avtaleVedEnhet: {
             placeholder: '',
