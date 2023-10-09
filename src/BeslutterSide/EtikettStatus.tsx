@@ -27,7 +27,7 @@ const EtikettStatus: FunctionComponent<Props> = (props) => {
             <Tag variant={etikettStatus[props.tilskuddsperiodestatus]} size={props.size}>
                 {props.antallKlarTilgodkjenning && props.antallKlarTilgodkjenning + ' '}
                 {tilskuddsperiodeStatusTekst[props.tilskuddsperiodestatus]}
-                {props.godkjentAv && <> av {props.godkjentAv}</>}
+                {props.tilskuddsperiodestatus === 'GODKJENT' && props.godkjentAv && <> av {props.godkjentAv}</>}
             </Tag>
         );
     }
