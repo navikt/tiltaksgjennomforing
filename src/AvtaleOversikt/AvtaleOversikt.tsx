@@ -43,23 +43,22 @@ const AvtaleOversikt: FunctionComponent = () => {
 
 
     useEffect(() => {
-        //console.log('AvtaleOversikt: useEffect');
         if (nettressursCtx.status !== Status.Lastet) return;
         
         const filtreUtenPage = _.omit(filtre, 'page', 'sorteringskolonne');
         const erFiltreLikeNettressursFiltre = _.isEqual(fjernTommeFelterFraObjekt(nettressursCtx.data.sokeParametere), fjernTommeFelterFraObjekt(filtreUtenPage));
 
         const filterPage = parseInt(filtre.page ? filtre.page : '1');
-        const sammePage = nettressursCtx.data.currentPage === (filterPage - 1);
+        const sammePageIDataOgFilter = nettressursCtx.data.currentPage === (filterPage - 1);
 
         const urlparamSort = searchParams.get('sorteringskolonne') || null;
         const filterSort = filtre.sorteringskolonne || null;
 
-        const sammeSortering = urlparamSort === filterSort; 
-
-        console.log('searchParams.get(sokId):', searchParams.get('sokId'), 'nettressursCtx.data.sokId:', nettressursCtx.data.sokId);
+        const sammeSortering = urlparamSort === filterSort;
+        const sammeSokId = searchParams.get('sokId') === nettressursCtx.data.sokId;
+        const sammePageIUrlOgFilter = searchParams.get('page') === '' + (filterPage);  
         
-        if (sammePage && erFiltreLikeNettressursFiltre && sammeSortering) return;
+        if (sammePageIDataOgFilter && erFiltreLikeNettressursFiltre && sammeSortering && sammeSokId && sammePageIUrlOgFilter) return;        
         
         setNettressursCtx({ status: Status.LasterInn });
         if (!erFiltreLikeNettressursFiltre) {
@@ -68,13 +67,24 @@ const AvtaleOversikt: FunctionComponent = () => {
                 setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne }));
                 setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
             });
-        } else if (!sammePage || !sammeSortering) {
+        } else if (!sammePageIDataOgFilter || !sammeSortering) {
             // Page er endret - Nytt GET-søk
             hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, filterPage - 1, filterSort || undefined).then(
                 (pagableAvtale: PageableAvtale) => {
-
                     setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne}));
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                }
+            );
+        } else if (!sammeSokId || !sammePageIUrlOgFilter) {
+            // sokId eller page endret i en navigering - Nytt GET-søk
+            // vi må da bruke sokId og page fra url, ikke fra filteret
+            // Vi setter heller ingenting i searchParams her, da det er her endringen skjer via en frem/tilbake navigering, vi må derimot sette filter, da endringen ikke kommer herfra, men fra url'en.
+            const sokIdFraUrl = searchParams.get('sokId')!;
+            const pageFraUrl = parseInt(searchParams.get('page') || '1');
+            hentAvtalerForInnloggetBrukerMedSokId(sokIdFraUrl, 3, pageFraUrl - 1, filterSort || undefined).then(
+                (pagableAvtale: PageableAvtale) => {
+                    setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                    endreFilter({ page: '' + (pagableAvtale.currentPage + 1), ...pagableAvtale.sokeParametere});
                 }
             );
         }
