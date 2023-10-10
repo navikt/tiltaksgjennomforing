@@ -19,6 +19,7 @@ export interface PageableAvtale {
     totalPages: number;
     sokId: string;
     sokeParametere: Filtrering;
+    sorteringskolonne: keyof Avtale;
 }
 
 export interface PageableAvtaleMinimalForBeslutter {
@@ -37,6 +38,7 @@ export interface PageableAvtaleMinimal {
     totalPages: number;
     sokId: string;
     sokeParametere: Filtrering;
+    sorteringskolonne: keyof Avtale;
 }
 
 export type AvtaleMinimalListeVisning = {

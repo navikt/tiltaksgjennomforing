@@ -47,10 +47,10 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
                     return;
                 });
             }
-            const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne });
+            const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne });
             setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
             setSearchParams(sokeParams);
-            setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne});
+            setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '',  sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne});
         });
 
     }, [filtre, nettressursCtx.status, searchParams, setSearchParams, innloggetBruker.rolle]);

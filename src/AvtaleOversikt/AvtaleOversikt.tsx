@@ -18,7 +18,7 @@ import {
     hentAvtalerForInnloggetBrukerMedSokId,
     hentUlesteVarsler,
 } from '@/services/rest-service';
-import { PageableAvtale } from '@/types/avtale';
+import { Avtale, PageableAvtale } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
@@ -50,15 +50,15 @@ const AvtaleOversikt: FunctionComponent = () => {
 
         const filterPage = parseInt(filtre.page ? filtre.page : '1');
         const sammePageIDataOgFilter = nettressursCtx.data.currentPage === (filterPage - 1);
-
-        const urlparamSort = searchParams.get('sorteringskolonne') || null;
-        const filterSort = filtre.sorteringskolonne || null;
-
-        const sammeSortering = urlparamSort === filterSort;
+        const sammeSorteringIUrlOgFilter = searchParams.get('sorteringskolonne') === filtre.sorteringskolonne;
         const sammeSokId = searchParams.get('sokId') === nettressursCtx.data.sokId;
-        const sammePageIUrlOgFilter = searchParams.get('page') === '' + (filterPage);  
+        const sammePageIUrlOgFilter = searchParams.get('page') === '' + (filterPage);
+        const sammeSorteringIDataOgFilter = nettressursCtx.data.sorteringskolonne === filtre.sorteringskolonne;
+
+         console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter);
         
-        if (sammePageIDataOgFilter && erFiltreLikeNettressursFiltre && sammeSortering && sammeSokId && sammePageIUrlOgFilter) return;        
+        // Hvis alt er likt i url, filter og data fra backend - ikke gjør noe.
+        if (sammePageIDataOgFilter && erFiltreLikeNettressursFiltre && sammeSorteringIDataOgFilter && sammeSokId && sammePageIUrlOgFilter && sammeSorteringIUrlOgFilter) return;        
         
         setNettressursCtx({ status: Status.LasterInn });
         if (!erFiltreLikeNettressursFiltre) {
@@ -67,29 +67,30 @@ const AvtaleOversikt: FunctionComponent = () => {
                 setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne }));
                 setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
             });
-        } else if (!sammePageIDataOgFilter || !sammeSortering) {
-            // Page er endret - Nytt GET-søk
-            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, filterPage - 1, filterSort || undefined).then(
+        } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter) {
+            // page/sortering er endret - Nytt GET-søk
+            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, filterPage - 1, filtre.sorteringskolonne || undefined).then(
                 (pagableAvtale: PageableAvtale) => {
-                    setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne}));
+                    setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne || pagableAvtale.sorteringskolonne}));
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                 }
             );
-        } else if (!sammeSokId || !sammePageIUrlOgFilter) {
-            // sokId eller page endret i en navigering - Nytt GET-søk
-            // vi må da bruke sokId og page fra url, ikke fra filteret
+        } else if (!sammeSokId || !sammePageIUrlOgFilter || !sammeSorteringIUrlOgFilter) {
+            // sokId/page/sortering endret i en navigering - Nytt GET-søk
+            // vi må da gjøre GET med sokId/page/sortering fra url, ikke fra filteret
             // Vi setter heller ingenting i searchParams her, da det er her endringen skjer via en frem/tilbake navigering, vi må derimot sette filter, da endringen ikke kommer herfra, men fra url'en.
             const sokIdFraUrl = searchParams.get('sokId')!;
             const pageFraUrl = parseInt(searchParams.get('page') || '1');
-            hentAvtalerForInnloggetBrukerMedSokId(sokIdFraUrl, 3, pageFraUrl - 1, filterSort || undefined).then(
+            const sorteringFraUrl = searchParams.get('sorteringskolonne') as keyof Avtale || '';
+            hentAvtalerForInnloggetBrukerMedSokId(sokIdFraUrl, 3, pageFraUrl - 1, sorteringFraUrl || undefined).then(
                 (pagableAvtale: PageableAvtale) => {
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-                    endreFilter({ page: '' + (pagableAvtale.currentPage + 1), ...pagableAvtale.sokeParametere});
+                    endreFilter({ page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, ...pagableAvtale.sokeParametere});
                 }
             );
         }
 
-    }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams]);
+    }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams, endreFilter]);
     
 
     useEffect(() => {
