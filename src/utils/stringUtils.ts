@@ -11,3 +11,11 @@ export const litenForbokstav = (tekst: string) => {
 export const escapeRegExp = (streng: string) => streng.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 export const fjernTommeFelterFraObjekt = (objekt: any) => _.pickBy(objekt);
+
+export const lagObjektAvSearchParams = (searchParams: URLSearchParams) => {
+    const objekt: any = {};
+    searchParams.forEach((value, key) => {
+        objekt[key] = value;
+    });
+    return objekt;
+}
