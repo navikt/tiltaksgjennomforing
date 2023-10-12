@@ -31,11 +31,14 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         let resultat;
         setNettressursCtx({ status: Status.LasterInn });
         const sorteringskolonne = searchParams.get('sorteringskolonne') as keyof Avtale || '';
+        let erGet = false;
         if (searchParams.get('sokId')) {
             const sokId = searchParams.get('sokId')!;     
             resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 3, tekniskPage, sorteringskolonne);
+            erGet = true;
         } else {
             resultat = hentAvtalerForInnloggetBrukerMedPost(filtre, 3, tekniskPage);
+            erGet = false;
         }
         resultat.then((pagableAvtale: PageableAvtale) => {
             if (pagableAvtale.sokId === "") {
@@ -47,9 +50,16 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
                     return;
                 });
             }
-            const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne });
+            if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
+                if (!erGet) {
+                    const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr });
+                    setSearchParams(sokeParams, { replace: true });
+                }
+            } else {
+                const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne });
+                setSearchParams(sokeParams);
+            }
             setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-            setSearchParams(sokeParams);
             setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '',  sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne});
         });
 

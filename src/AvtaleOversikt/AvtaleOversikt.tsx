@@ -56,10 +56,10 @@ const AvtaleOversikt: FunctionComponent = () => {
         const sammeSorteringIDataOgFilter = nettressursCtx.data.sorteringskolonne === filtre.sorteringskolonne;
 
          console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter);
+         console.log('innloggetBruker.rolle:', innloggetBruker.rolle);      
         
         // Hvis alt er likt i url, filter og data fra backend - ikke gjør noe.
         if (sammePageIDataOgFilter && erFiltreLikeNettressursFiltre && sammeSorteringIDataOgFilter && sammeSokId && sammePageIUrlOgFilter && sammeSorteringIUrlOgFilter) return;
-        console.log('kom forbi return');      
         
         setNettressursCtx({ status: Status.LasterInn });
         if (!erFiltreLikeNettressursFiltre) {
@@ -67,7 +67,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             hentAvtalerForInnloggetBrukerMedPost(filtre, 3, filterPage - 1).then((pagableAvtale: PageableAvtale) => {
                 if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
                     // Håndtering valg i bedriftsmyen som arbeidsgiver
-                    setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }), {replace: true});
+                    setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }));
                 } else {
                     setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne }));
                 }
@@ -127,7 +127,13 @@ const AvtaleOversikt: FunctionComponent = () => {
             <Dokumenttittel tittel={oversiktTekst} />
             <Banner
                 byttetOrg={(org) => {
-                    endreFilter({bedriftNr: org.OrganizationNumber})
+                    endreFilter({bedriftNr: org})
+                    console.log('byttetOrg', org);
+                    // sett bedrift og alle eksisterende params i searchparams
+                    //const alleSearchParams = lagObjektAvSearchParams(searchParams);
+                    //setSearchParams({ ...alleSearchParams, bedrift: org.OrganizationNumber });
+                    //setSearchParams({ bedrift: org.OrganizationNumber }, { replace: true });
+                    
                     //parseWindowLocationSearch();
                 }}
                 tekst={oversiktTekst}

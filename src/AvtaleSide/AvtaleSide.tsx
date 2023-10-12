@@ -4,18 +4,17 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
+import Dialog from '@/komponenter/brukerdialog/Dialog';
 import { avtaleTittel } from '@/messages';
 import { pathTilOversikt } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
-import './AvtaleSide.less';
-import Dialog from '@/komponenter/brukerdialog/Dialog';
 
 const cls = BEMHelper('avtaleside');
 
@@ -76,7 +75,7 @@ const AvtaleSide: FunctionComponent = () => {
             <Banner
                 undertittel={'Avtalenummer: ' + avtale.avtaleNr}
                 byttetOrg={(org) => {
-                    if (avtale.bedriftNr !== org.OrganizationNumber) {
+                    if (avtale.bedriftNr !== org) {
                         navigate({
                             pathname: pathTilOversikt,
                             search: window.location.search,
