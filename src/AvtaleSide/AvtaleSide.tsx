@@ -75,10 +75,13 @@ const AvtaleSide: FunctionComponent = () => {
             <Banner
                 undertittel={'Avtalenummer: ' + avtale.avtaleNr}
                 byttetOrg={(org) => {
+                    const searchParams = new URLSearchParams(window.location.search);
+                    searchParams.set('bedrift', org);
+                    searchParams.delete('sokId');
                     if (avtale.bedriftNr !== org) {
                         navigate({
                             pathname: pathTilOversikt,
-                            search: window.location.search,
+                            search: searchParams.toString(),
                         });
                     }
                 }}

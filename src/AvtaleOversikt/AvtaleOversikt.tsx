@@ -77,7 +77,11 @@ const AvtaleOversikt: FunctionComponent = () => {
             // page/sortering er endret - Nytt GET-søk
             hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, filterPage - 1, filtre.sorteringskolonne || undefined).then(
                 (pagableAvtale: PageableAvtale) => {
-                    setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne || pagableAvtale.sorteringskolonne}));
+                    if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
+                        setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne || pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }));
+                    } else {
+                        setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne || pagableAvtale.sorteringskolonne }));
+                    }
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                 }
             );
