@@ -20,9 +20,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
     const [filtre, setFiltre] = useState<Filtrering>(params);
 
     useEffect(() => {
-        // KJØR EN GANG PÅ OPPSTART
-        //console.log('FiltreringProvider: useEffect');
-        
+        // KJØR EN GANG PÅ OPPSTART        
         if (nettressursCtx.status !== Status.IkkeLastet) return;
         if (innloggetBruker.rolle === 'BESLUTTER') return;
         if (innloggetBruker.rolle === 'ARBEIDSGIVER' && !filtre.bedriftNr) return;
