@@ -14,7 +14,6 @@ export const FiltreringContext = createContext<
 export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const [searchParams, setSearchParams] = useSearchParams();
-    // const [currentPageCtx, setCurrentPageCtx] = useState<PageableAvtale>();
     const [nettressursCtx, setNettressursCtx] = useState<PageableAvtalelisteRessurs>({ status: Status.IkkeLastet });
     const params: any = {};
     const [filtre, setFiltre] = useState<Filtrering>(params);
