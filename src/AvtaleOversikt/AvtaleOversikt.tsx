@@ -138,6 +138,8 @@ const AvtaleOversikt: FunctionComponent = () => {
                     //setSearchParams({ ...alleSearchParams, bedrift: org.OrganizationNumber });
                     //setSearchParams({ bedrift: org.OrganizationNumber }, { replace: true });
                     
+
+                    
                     //parseWindowLocationSearch();
                 }}
                 tekst={oversiktTekst}
