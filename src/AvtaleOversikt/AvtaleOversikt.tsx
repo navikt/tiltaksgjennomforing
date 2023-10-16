@@ -55,7 +55,8 @@ const AvtaleOversikt: FunctionComponent = () => {
         const sammePageIUrlOgFilter = searchParams.get('page') === '' + (filterPage);
         const sammeSorteringIDataOgFilter = nettressursCtx.data.sorteringskolonne === filtre.sorteringskolonne;
 
-         console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter);
+        console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter,
+        "\nsammeSokId", sammeSokId);
          console.log('innloggetBruker.rolle:', innloggetBruker.rolle);      
         
         // Hvis alt er likt i url, filter og data fra backend - ikke gjør noe.
@@ -78,9 +79,9 @@ const AvtaleOversikt: FunctionComponent = () => {
             hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, filterPage - 1, filtre.sorteringskolonne || undefined).then(
                 (pagableAvtale: PageableAvtale) => {
                     if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
-                        setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne || pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }));
+                        setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }));
                     } else {
-                        setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne || pagableAvtale.sorteringskolonne }));
+                        setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne }));
                     }
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                 }

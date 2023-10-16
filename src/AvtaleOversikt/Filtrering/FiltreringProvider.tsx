@@ -42,22 +42,23 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
                 // ugyldig sokId - Utfører blankt søk.
                 hentAvtalerForInnloggetBrukerMedPost(filtre, 3, tekniskPage).then((pagableAvtale: PageableAvtale) => {
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-                    setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1) });
-                    setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + ''});
-                    return;
+                    setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne });
+                    setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne });
                 });
-            }
-            if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
-                if (!erGet) {
-                    const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr });
-                    setSearchParams(sokeParams, { replace: true });
-                }
             } else {
-                const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne });
-                setSearchParams(sokeParams);
+                console.log("Går vi videre?!")
+                if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
+                    if (!erGet) {
+                        const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr });
+                        setSearchParams(sokeParams, { replace: true });
+                    }
+                } else {
+                    const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne });
+                    setSearchParams(sokeParams);
+                }
+                setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne });
             }
-            setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-            setFiltre({...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '',  sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne});
         });
 
     }, [filtre, nettressursCtx.status, searchParams, setSearchParams, innloggetBruker.rolle]);
