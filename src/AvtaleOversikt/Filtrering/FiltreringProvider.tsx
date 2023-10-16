@@ -27,14 +27,14 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         const tekniskPage = searchParams.get('page') ? (parseInt(searchParams.get('page')!) - 1) : 0;
         let resultat;
         setNettressursCtx({ status: Status.LasterInn });
-        const sorteringskolonne = searchParams.get('sorteringskolonne') as keyof Avtale || '';
+        const sorteringskolonne = searchParams.get('sorteringskolonne') as keyof Avtale || 'sistEndret';
         let erGet = false;
         if (searchParams.get('sokId')) {
             const sokId = searchParams.get('sokId')!;     
             resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 3, tekniskPage, sorteringskolonne);
             erGet = true;
         } else {
-            resultat = hentAvtalerForInnloggetBrukerMedPost(filtre, 3, 0);
+            resultat = hentAvtalerForInnloggetBrukerMedPost({ sorteringskolonne: sorteringskolonne, ...filtre }, 3, 0);
             erGet = false;
         }
         resultat.then((pagableAvtale: PageableAvtale) => {
