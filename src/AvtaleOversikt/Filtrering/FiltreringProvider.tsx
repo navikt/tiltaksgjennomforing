@@ -34,19 +34,18 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
             resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 3, tekniskPage, sorteringskolonne);
             erGet = true;
         } else {
-            resultat = hentAvtalerForInnloggetBrukerMedPost(filtre, 3, tekniskPage);
+            resultat = hentAvtalerForInnloggetBrukerMedPost(filtre, 3, 0);
             erGet = false;
         }
         resultat.then((pagableAvtale: PageableAvtale) => {
             if (pagableAvtale.sokId === "") {
                 // ugyldig sokId - Utfører blankt søk.
-                hentAvtalerForInnloggetBrukerMedPost(filtre, 3, tekniskPage).then((pagableAvtale: PageableAvtale) => {
+                hentAvtalerForInnloggetBrukerMedPost(filtre, 3, 0).then((pagableAvtale: PageableAvtale) => {
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                     setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne });
                     setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne });
                 });
             } else {
-                console.log("Går vi videre?!")
                 if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
                     if (!erGet) {
                         const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr });
