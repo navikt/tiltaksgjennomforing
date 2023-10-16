@@ -18,7 +18,7 @@ interface Props {
 
 const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const bedriftParam = searchParams.get('bedrift');
 
     const useOrgnrHook2: () => [string | null, (orgnr: string) => void] =

@@ -103,7 +103,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             );
         }
 
-    }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams, endreFilter]);
+    }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams, endreFilter, innloggetBruker.rolle]);
     
 
     useEffect(() => {
