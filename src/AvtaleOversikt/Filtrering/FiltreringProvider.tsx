@@ -48,15 +48,15 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
             } else {
                 if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
                     if (!erGet) {
-                        const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr });
+                        const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr });
                         setSearchParams(sokeParams, { replace: true });
                     }
                 } else {
-                    const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne });
+                    const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne });
                     setSearchParams(sokeParams);
                 }
                 setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-                setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: sorteringskolonne || pagableAvtale.sorteringskolonne });
+                setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne });
             }
         });
 
