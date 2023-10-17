@@ -55,9 +55,9 @@ const AvtaleOversikt: FunctionComponent = () => {
         const sammePageIUrlOgFilter = searchParams.get('page') === '' + (filterPage);
         const sammeSorteringIDataOgFilter = nettressursCtx.data.sorteringskolonne === filtre.sorteringskolonne;
 
-        console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter,
-        "\nsammeSokId", sammeSokId);
-         console.log('innloggetBruker.rolle:', innloggetBruker.rolle);      
+        // console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter,
+        // "\nsammeSokId", sammeSokId);
+        //  console.log('innloggetBruker.rolle:', innloggetBruker.rolle);      
         
         // Hvis alt er likt i url, filter og data fra backend - ikke gjør noe.
         if (sammePageIDataOgFilter && erFiltreLikeNettressursFiltre && sammeSorteringIDataOgFilter && sammeSokId && sammePageIUrlOgFilter && sammeSorteringIUrlOgFilter) return;
@@ -132,13 +132,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             <Dokumenttittel tittel={oversiktTekst} />
             <Banner
                 byttetOrg={(org) => {
-                    endreFilter({bedriftNr: org})
-                    console.log('byttetOrg', org);
-                    // sett bedrift og alle eksisterende params i searchparams
-                    //const alleSearchParams = lagObjektAvSearchParams(searchParams);
-                    //setSearchParams({ ...alleSearchParams, bedrift: org.OrganizationNumber });
-                    //setSearchParams({ bedrift: org.OrganizationNumber }, { replace: true });
-                    //parseWindowLocationSearch();
+                    endreFilter({bedriftNr: org});
                 }}
                 tekst={oversiktTekst}
             />
