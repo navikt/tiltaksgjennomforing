@@ -53,7 +53,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
                     }
                 } else {
                     const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne });
-                    setSearchParams(sokeParams);
+                    setSearchParams(sokeParams, { replace: true });
                 }
                 setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                 setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne });
