@@ -1,29 +1,56 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
-import Bedriftsmeny from '@navikt/bedriftsmeny';
+import Bedriftsmeny, { Organisasjon } from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import { Organisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
 import { Detail, Heading } from '@navikt/ds-react';
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import './Banner.less';
 
 interface Props {
     tekst: string;
-    byttetOrg?: (org: Organisasjon) => void;
+    byttetOrg?: (org: string) => void;
     undertittel?: string;
 }
 
+
+
 const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const [searchParams] = useSearchParams();
+    const bedriftParam = searchParams.get('bedrift');
+
+    const useOrgnrHook2: () => [string | null, (orgnr: string) => void] =
+    useCallback(() => {
+        const currentOrgnr = bedriftParam || null;
+
+        return [
+            currentOrgnr,
+            (orgnr: string) => {
+                if (currentOrgnr !== orgnr) {
+                    if (orgnr === null) {
+                        //push("");
+                    } else {
+                        //push(`?bedrift=${orgnr}`);
+                        if (props.byttetOrg) {
+                            props.byttetOrg(orgnr);
+                        }
+
+                    }
+                }
+            },
+        ];
+    }, [bedriftParam, props]);
 
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
             return (
                 <Bedriftsmeny
+                    orgnrSearchParam={useOrgnrHook2}
                     onOrganisasjonChange={(org: Organisasjon) => {
                         if (props.byttetOrg) {
-                            props.byttetOrg(org);
+                            props.byttetOrg(org.OrganizationNumber);
                         }
                     }}
                     organisasjoner={innloggetBruker.altinnOrganisasjoner}

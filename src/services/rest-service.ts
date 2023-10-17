@@ -110,6 +110,28 @@ export const hentAvtalerForInnloggetBruker = async (
     return response.data;
 };
 
+export const hentAvtalerForInnloggetBrukerMedSokId = async (
+    sokId: string,
+    size: number = 2,
+    page: number = 0,
+    sorteringskolonne: keyof Avtale = 'sistEndret',
+): Promise<PageableAvtale> => {
+    const queryParam = new URLSearchParams(removeEmpty({ size, page, sokId, sorteringskolonne }));
+    const response = await api.get<PageableAvtale>(`/avtaler/sok?${queryParam}`);
+    return response.data;
+};
+
+export const hentAvtalerForInnloggetBrukerMedPost = async (
+    søkekriterier: Filtrering,
+    size: number = 2,
+    page: number = 0,
+): Promise<PageableAvtale> => {
+    const postBody = removeEmpty(søkekriterier);
+    const queryParam = new URLSearchParams(removeEmpty({ page, size, sorteringskolonne: søkekriterier.sorteringskolonne }));
+    const response = await api.post<PageableAvtale>(`/avtaler/sok?${queryParam}`, postBody);
+    return response.data;
+};
+
 export const hentAvtalerForInnloggetBeslutter = async (
     søkekriterier: Filtrering,
     size: number = 2,

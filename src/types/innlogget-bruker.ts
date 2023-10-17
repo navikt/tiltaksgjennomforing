@@ -1,5 +1,5 @@
 import { TiltaksType } from '@/types/avtale';
-import { Organisasjon as AltinnOrganisasjon } from '@navikt/bedriftsmeny/lib/organisasjon';
+import { Organisasjon as AltinnOrganisasjon } from '@navikt/bedriftsmeny';
 
 export interface Innloggingskilde {
     tittel: string;

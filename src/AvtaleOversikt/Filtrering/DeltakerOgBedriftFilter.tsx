@@ -1,11 +1,12 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { SøkeInput } from '@/AvtaleOversikt/Filtrering/SøkeInput';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, RadioGroup, Select } from '@navikt/ds-react';
-import React, { FormEvent, Fragment, FunctionComponent, useContext, useState } from 'react';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import { isNil } from 'lodash';
+import { FormEvent, Fragment, FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 
 type Validering = (verdi: string) => string | undefined;
 
@@ -21,28 +22,37 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { endreFilter, filtre } = useFilter();
 
-    const aktivSøketypeFraFiltre = (): Søketype => {
-        if (filtre.veilederNavIdent !== undefined && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
+    const aktivSøketypeFraFiltre = useCallback((): Søketype => {
+        
+        if (!isNil(filtre.veilederNavIdent) && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
         }
-        if (filtre.erUfordelt !== undefined) {
+        if (!isNil(filtre.erUfordelt)) {
             return 'ufordelte';
         }
-        if (filtre.deltakerFnr !== undefined) {
+        if (!isNil(filtre.deltakerFnr)) {
             return 'deltaker';
         }
-        if (filtre.navEnhet !== undefined) {
+        if (!isNil(filtre.navEnhet)) {
             return 'avtaleVedEnhet';
         }
-        if (filtre.bedriftNr !== undefined) {
+        if (!isNil(filtre.bedriftNr)) {
             return 'bedrift';
         }
-        if (filtre.avtaleNr !== undefined) {
+        if (!isNil(filtre.avtaleNr)) {
             return 'avtaleNr';
         }
         return innloggetBruker.rolle === 'BESLUTTER' ? 'alle' : 'egne';
-    };
+    }, [filtre, innloggetBruker]);
+
+    
     const [aktivSøketype, setAktivSøkeType] = useState<Søketype>(aktivSøketypeFraFiltre());
+
+    useEffect(() => {
+        setAktivSøkeType(aktivSøketypeFraFiltre());
+    }, [filtre, aktivSøketypeFraFiltre])
+    
+    
 
     const tomt = {
         avtaleNr: undefined,
@@ -97,7 +107,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             maxLength: 6,
             validering: () => void 0,
             søkeinput: filtre.avtaleNr,
-            utførSøk: (søkeord: number) => endreFilter({ ...tomt, avtaleNr: søkeord }),
+            utførSøk: (søkeord: string) => endreFilter({ ...tomt, avtaleNr: parseInt(søkeord) }),
         },
         avtaleVedEnhet: {
             placeholder: '',

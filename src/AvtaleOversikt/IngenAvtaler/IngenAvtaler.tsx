@@ -1,16 +1,16 @@
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import BEMHelper from '@/utils/bem';
-import classNames from 'classnames';
 import { BodyShort, Heading, Ingress } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import classNames from 'classnames';
+import { FunctionComponent, useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import './IngenAvtaler.less';
 import IngenAvtalerArbeidsgiver from './arbeidsgiver/IngenAvtalerArbeidsgiver';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 const cls = BEMHelper('ingenAvtaler');
 
@@ -75,7 +75,7 @@ const IngenAvtaler: FunctionComponent = () => {
         case InnloggetPart.deltaker:
             return <IngenAvtalerHvorDuErMed />;
         case InnloggetPart.arbeidsgiver:
-            return <IngenAvtalerArbeidsgiver bedriftNr={filtre.bedrift} tiltakstype={filtre.tiltakstype} />;
+            return <IngenAvtalerArbeidsgiver bedriftNr={filtre.bedriftNr} tiltakstype={filtre.tiltakstype} />;
         case InnloggetPart.mentor:
             return <IngenAvtalerHvorDuErMed />;
         default:

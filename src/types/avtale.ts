@@ -1,3 +1,4 @@
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Nettressurs } from '@/types/nettressurs';
@@ -16,6 +17,9 @@ export interface PageableAvtale {
     size: number;
     totalItems: number;
     totalPages: number;
+    sokId: string;
+    sokeParametere: Filtrering;
+    sorteringskolonne: keyof Avtale;
 }
 
 export interface PageableAvtaleMinimalForBeslutter {
@@ -24,6 +28,17 @@ export interface PageableAvtaleMinimalForBeslutter {
     size: number;
     totalItems: number;
     totalPages: number;
+}
+
+export interface PageableAvtaleMinimal {
+    currentPage: number;
+    avtaler: AvtaleMinimalListeVisning[];
+    size: number;
+    totalItems: number;
+    totalPages: number;
+    sokId: string;
+    sokeParametere: Filtrering;
+    sorteringskolonne: keyof Avtale;
 }
 
 export type AvtaleMinimalListeVisning = {
@@ -364,6 +379,7 @@ export type InnholdType =
 export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
 
 export type AvtalelisteRessurs = Nettressurs<AvtaleMinimalListeVisning[]>;
+export type PageableAvtalelisteRessurs = Nettressurs<PageableAvtaleMinimal>;
 export type AvtalelisteMinimalForBeslutterRessurs = Nettressurs<AvtaleMinimalForBeslutter[]>;
 
 export type EndreKontaktInfo = {
