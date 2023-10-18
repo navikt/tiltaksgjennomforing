@@ -2,11 +2,11 @@ import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { TilskuddPeriodeStatus } from '@/types/avtale';
 import { Radio, RadioGroup } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import { FunctionComponent } from 'react';
+import { useFilterGammel } from './GammelFiltrering/useFilterGammel';
 
 const TilskuddPeriodeStatusFilter: FunctionComponent = () => {
-    const { endreFilter, filtre } = useFilter();
+    const { endreFilter, filtre } = useFilterGammel();
 
     const alleTilskuddPeriodeStatus: OptionProps[] = [
         { value: 'UBEHANDLET', label: 'Ubehandlet' },

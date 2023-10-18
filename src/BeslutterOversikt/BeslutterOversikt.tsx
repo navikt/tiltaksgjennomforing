@@ -1,24 +1,24 @@
 import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import { useFilterGammel } from '@/AvtaleOversikt/Filtrering/GammelFiltrering/useFilterGammel';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
+import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
+import { Status } from '@/types/nettressurs';
 import BEMHelper from '@/utils/bem';
 import { Pagination } from '@navikt/ds-react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import AvtalerBeslutter from './AvtalerBeslutter';
-import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
-import { Status } from '@/types/nettressurs';
 import '../AvtaleOversikt/AvtaleOversikt.less';
+import AvtalerBeslutter from './AvtalerBeslutter';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { filtre, endreFilter } = useFilter();
+    const { filtre, endreFilter } = useFilterGammel();
     const [currentPage, setCurrentPage] = useState<PageableAvtaleMinimalForBeslutter>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
         status: Status.IkkeLastet,

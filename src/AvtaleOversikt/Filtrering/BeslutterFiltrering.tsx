@@ -1,20 +1,20 @@
-import TiltakstypeFilter from '@/AvtaleOversikt/Filtrering/TiltakstypeFilter';
-import React, { FunctionComponent } from 'react';
+import EtterRegistrering from '@/AvtaleOversikt/EtterRegistrering/EtterRegistrering';
 import TilskuddPeriodeStatusFilter from '@/AvtaleOversikt/Filtrering/TilskuddPeriodeStatusFilter';
 import BEMHelper from '@/utils/bem';
-import Sortering from '@/AvtaleOversikt/Sortering';
-import EtterRegistrering from '@/AvtaleOversikt/EtterRegistrering/EtterRegistrering';
-import { DeltakerOgBedriftFilter } from './DeltakerOgBedriftFilter';
+import { FunctionComponent } from 'react';
+import { DeltakerOgBedriftFilterGammel } from './GammelFiltrering/DeltakerOgBedriftFilterGammel';
+import SorteringGammel from './GammelFiltrering/SorteringGammel';
+import TiltakstypeFilterGammel from './GammelFiltrering/TiltakstypeFilterGamel';
 
 const cls = BEMHelper('filtrering');
 const BeslutterFiltrering: FunctionComponent = () => {
     return (
         <div className={cls.className}>
             <EtterRegistrering />
-            <Sortering />
-            <DeltakerOgBedriftFilter />
+            <SorteringGammel />
+            <DeltakerOgBedriftFilterGammel />
             <TilskuddPeriodeStatusFilter />
-            <TiltakstypeFilter erBeslutter={true} />
+            <TiltakstypeFilterGammel erBeslutter={true} />
         </div>
     );
 };
