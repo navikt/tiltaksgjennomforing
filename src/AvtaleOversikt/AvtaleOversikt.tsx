@@ -65,7 +65,7 @@ const AvtaleOversikt: FunctionComponent = () => {
         setNettressursCtx({ status: Status.LasterInn });
         if (!erFiltreLikeNettressursFiltre) {
             // Filteret er endret - Nytt POST-søk
-            hentAvtalerForInnloggetBrukerMedPost(filtre, 3, filterPage - 1).then((pagableAvtale: PageableAvtale) => {
+            hentAvtalerForInnloggetBrukerMedPost(filtre, 10, filterPage - 1).then((pagableAvtale: PageableAvtale) => {
                 if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
                     // Håndtering valg i bedriftsmyen som arbeidsgiver
                     setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }));
@@ -76,7 +76,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             });
         } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter) {
             // page/sortering er endret - Nytt GET-søk
-            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 3, filterPage - 1, filtre.sorteringskolonne || undefined).then(
+            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 10, filterPage - 1, filtre.sorteringskolonne || undefined).then(
                 (pagableAvtale: PageableAvtale) => {
                     if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
                         setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }));

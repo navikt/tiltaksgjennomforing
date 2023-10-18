@@ -31,16 +31,16 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         let erGet = false;
         if (searchParams.get('sokId')) {
             const sokId = searchParams.get('sokId')!;     
-            resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 3, tekniskPage, sorteringskolonne);
+            resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 10, tekniskPage, sorteringskolonne);
             erGet = true;
         } else {
-            resultat = hentAvtalerForInnloggetBrukerMedPost({ sorteringskolonne: sorteringskolonne, ...filtre }, 3, 0);
+            resultat = hentAvtalerForInnloggetBrukerMedPost({ sorteringskolonne: sorteringskolonne, ...filtre }, 10, 0);
             erGet = false;
         }
         resultat.then((pagableAvtale: PageableAvtale) => {
             if (pagableAvtale.sokId === "") {
                 // ugyldig sokId - Utfører blankt søk.
-                hentAvtalerForInnloggetBrukerMedPost(filtre, 3, 0).then((pagableAvtale: PageableAvtale) => {
+                hentAvtalerForInnloggetBrukerMedPost(filtre, 10, 0).then((pagableAvtale: PageableAvtale) => {
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                     setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne });
                     setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne });
