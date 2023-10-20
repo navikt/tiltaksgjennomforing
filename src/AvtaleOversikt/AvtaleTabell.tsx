@@ -5,14 +5,15 @@ import { pathTilAvtaleNy } from '@/paths';
 import { AvtaleMinimalListeVisning } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
+import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Table } from '@navikt/ds-react';
-import React, { Fragment, FunctionComponent, useState } from 'react';
-import MediaQuery from 'react-responsive';
-import { useNavigate } from 'react-router-dom';
-import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
-import './AvtaleTabell.less';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
+import { BodyShort, Table } from '@navikt/ds-react';
+import { FunctionComponent, useState } from 'react';
+import MediaQuery from 'react-responsive';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import './AvtaleTabell.less';
+import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -51,6 +52,7 @@ const AvtaleTabell: FunctionComponent<{
     innloggetBruker: InnloggetBruker;
 }> = ({ avtaler, varsler, innloggetBruker }) => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
     const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string | undefined>(undefined);
 
@@ -76,6 +78,7 @@ const AvtaleTabell: FunctionComponent<{
                                         setVisTaushetserklæringForAvtaleId(avtale.id);
                                         e.preventDefault();
                                     } else {
+                                        amplitude.logEvent('#tiltak-klikket-på-avtale-fra-oversikt', {page: searchParams.get('page')});
                                         navigate({
                                             pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle),
                                             search: window.location.search,
