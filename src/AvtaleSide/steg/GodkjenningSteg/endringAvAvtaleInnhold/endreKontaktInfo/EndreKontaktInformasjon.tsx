@@ -6,7 +6,7 @@ import { oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
-import { Heading, Link } from '@navikt/ds-react';
+import { Checkbox, Heading, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreKontaktInformasjon.less';
 
@@ -49,6 +49,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
             refusjonKontaktpersonFornavn: refusjonKontaktperson?.refusjonKontaktpersonFornavn,
             refusjonKontaktpersonEtternavn: refusjonKontaktperson?.refusjonKontaktpersonEtternavn,
             refusjonKontaktpersonTlf: refusjonKontaktperson?.refusjonKontaktpersonTlf,
+            ønskerVarslingOmRefusjon: refusjonKontaktperson?.ønskerVarslingOmRefusjon
         },
     });
 
@@ -62,11 +63,19 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         key: K,
         verdi: V[K]
     ) => {
-        await setKontaktInfo((prevState) => ({
+        setKontaktInfo((prevState) => ({
             ...prevState,
             [key]: verdi,
         }));
     };
+
+    const settØnskerVarsling = () => {
+        if(kontaktInfo.refusjonKontaktperson.ønskerVarslingOmRefusjon === true) {
+            setKontaktInfo((prevState) => ({...prevState, refusjonKontaktperson: {...prevState.refusjonKontaktperson, ønskerVarslingOmRefusjon: false}}));
+        } else {
+            setKontaktInfo((prevState) => ({...prevState, refusjonKontaktperson: {...prevState.refusjonKontaktperson, ønskerVarslingOmRefusjon: true}}));
+        }
+    }
 
     return (
         <>
@@ -207,6 +216,13 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                                         })
                                     }
                                 />
+                                <Checkbox
+                                    checked={kontaktInfo.refusjonKontaktperson.ønskerVarslingOmRefusjon}
+                                    onChange={() => settØnskerVarsling()}
+                                >
+                                    Arbeidsgiver for avtalen ønsker også å motta varslinger om
+                                    refusjon
+                                </Checkbox>
                             </div>
                         </div>
                     )}
