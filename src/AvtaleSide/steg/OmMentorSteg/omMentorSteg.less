@@ -1,7 +1,25 @@
 .omMentorSteg {
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+
   &__rad {
+    display: flex;
+    align-items: flex-start;
     margin-bottom: 1rem;
+
+    .navds-form-field {
+      width: calc(50% - 1rem);
+
+      &:nth-child(odd) {
+        margin-right: 1rem;
+      }
+    }
   }
+
+  &__textArea {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+  }
+
   &__arbeidsoppgaver-mentor {
     margin: 1rem 0 2rem 0;
   }
