@@ -44,7 +44,13 @@ export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = (props) =
             </>
         );
     } else {
-        return null;
+        return (
+            <>
+                <BodyShort size="small" key={props.key}>
+                    {storForbokstav(props.felt)}: {props.verdi}
+                </BodyShort>
+            </>
+        );
     }
 };
 
