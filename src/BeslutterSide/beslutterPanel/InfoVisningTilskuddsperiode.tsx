@@ -31,7 +31,7 @@ const InfoVisningTilskuddsperiode: FunctionComponent = () => {
                             gjeldendeTilskuddsperiode.startDato,
                             gjeldendeTilskuddsperiode.sluttDato
                         )}
-                        style={{ minHeight: '2.5rem' }}
+                        style={{ minHeight: '2rem' }}
                     />
                 </div>
                 <div className={cls.element('infovisning-gruppe')}>
