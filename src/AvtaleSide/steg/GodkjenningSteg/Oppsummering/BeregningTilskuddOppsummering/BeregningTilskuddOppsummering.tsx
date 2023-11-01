@@ -36,7 +36,7 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
                 props.stillingprosent > 0 &&
                 props.stillingprosent < 100 && (
                     <>
-                        <Label>Lønn ved 100% stilling</Label>
+                        <Label>Lønn ved 100% stilling </Label>
                         {props.manedslonn100pst} kr
                     </>
                 )}
