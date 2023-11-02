@@ -2,11 +2,11 @@ import { AvtaleContext, Context } from '@/AvtaleProvider';
 import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useRef, useState, useEffect } from 'react';
 import EtikettStatus from '../EtikettStatus';
 import BEMHelper from '@/utils/bem';
 import './beslutterTilskuddsperioder.less';
-import { BodyShort, Heading, Button } from '@navikt/ds-react';
+import { BodyShort, Button, Heading } from '@navikt/ds-react';
 import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide';
@@ -23,8 +23,17 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const { enhet, setEnhetFeil, setVisAvslag } = useContext<Periode>(TilskuddsperiodeContext);
     const { gjeldendeTilskuddsperiode } = avtale;
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
+    const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
 
     const cls = BEMHelper('beslutter-tilskuddsperioder');
+    useEffect(() => {
+        if (gjeldendeTilskuddsperiodeRef.current) {
+            gjeldendeTilskuddsperiodeRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+            });
+        }
+    }, []);
 
     if (avtale.tilskuddPeriode.length < 1) return null;
 
@@ -43,7 +52,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         return (
             <>
                 <BodyShort size="small">
-                    Tilskuddsperioden ble avslått av
+                    cc Tilskuddsperioden ble avslått av
                     <span className={cls.element('bold')}>{' ' + periode.avslåttAvNavIdent + ' '}</span> den
                     <span className={cls.element('bold')}>
                         {' ' + formatterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT) + ' '}
@@ -63,7 +72,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Heading size="small" className={cls.element('tittel')}>
-                Tilskudd som skal godkjennes
+                [B] Tilskudd som skal godkjennes
             </Heading>
             <div className={cls.element('container')}>
                 <table className={cls.element('tabell')}>
@@ -100,7 +109,9 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                         <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
+                                        {/*ettikett som sier avslått*/}
                                         <td>
+                                            [E]
                                             <EtikettStatus
                                                 tilskuddsperiodestatus={periode.status}
                                                 refusjonStatus={periode.refusjonStatus}
@@ -119,13 +130,15 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         </tr>
                                     )}
                                     {gjeldende && (
-                                        <tr className={cls.element('knapp-row')}>
+                                        <tr className={cls.element('knapp-row')} ref={gjeldendeTilskuddsperiodeRef}>
                                             <td colSpan={7} className={cls.element('knapp-data')}>
                                                 <>
+                                                    bbb
                                                     {periode.status === 'AVSLÅTT' &&
                                                         hentAvslattInfoTilskuddsperiode(periode)}
                                                     {periode.status === 'UBEHANDLET' && (
                                                         <>
+                                                            bb
                                                             <Button
                                                                 onClick={() => {
                                                                     if (!enhet.match(/\d{4}/)) {
