@@ -8,7 +8,7 @@ import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
 import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import BEMHelper from '@/utils/bem';
-import { Pagination } from '@navikt/ds-react';
+import { Pagination, Select } from '@navikt/ds-react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import '../AvtaleOversikt/AvtaleOversikt.less';
 import AvtalerBeslutter from './AvtalerBeslutter';
@@ -27,7 +27,7 @@ const BeslutterOversikt: FunctionComponent = () => {
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
         const page = parseInt(filtre.page ? filtre.page : '1', 10);
-        hentAvtalerForInnloggetBeslutter(filtre, 10, page - 1).then(
+        hentAvtalerForInnloggetBeslutter(filtre, 2, page - 1).then(
             (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
                 setCurrentPage(pagableAvtale);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
@@ -63,15 +63,27 @@ const BeslutterOversikt: FunctionComponent = () => {
                         />
                         <div className={clsPagination.className}>
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
-                                <Pagination
-                                    page={pageNumber}
-                                    onPageChange={(x) => {
-                                        endreFilter({ page: '' + x });
-                                    }}
-                                    count={currentPage!.totalPages}
-                                    boundaryCount={1}
-                                    siblingCount={1}
-                                />
+                                <>
+                                    <div></div>
+                                    <Pagination
+                                        page={pageNumber}
+                                        onPageChange={(x) => {
+                                            endreFilter({ page: '' + x });
+                                        }}
+                                        count={currentPage!.totalPages}
+                                        boundaryCount={1}
+                                        siblingCount={1}
+                                    />
+                                    <Select label="" onChange={(x) => endreFilter({ page: x.target.value })}>
+                                        {[...Array(currentPage?.totalPages).keys()]
+                                            .map((x) => x + 1)
+                                            .map((x) => (
+                                                <option value={x} key={x} selected={x === pageNumber}>
+                                                    {x}
+                                                </option>
+                                            ))}
+                                    </Select>
+                                </>
                             )}
                         </div>
                     </section>
