@@ -2,19 +2,14 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { AvbrytelseGrunn } from '@/types/avtale';
-import BEMHelper from '@/utils/bem';
-import { Alert, BodyShort } from '@navikt/ds-react';
-import { RadioGroup, Radio } from '@navikt/ds-react';
+import { Alert, BodyShort, RadioGroup, Radio } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import './AnnullerAvtaleModal.less';
 import BekreftelseModal from './BekreftelseModal';
 
 interface Props {
     isOpen: boolean;
     lukkModal: () => void;
 }
-
-const cls = BEMHelper('annuller-avtale-modal');
 
 const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
     const [annetGrunn, setAnnetGrunn] = useState('');
@@ -56,62 +51,59 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                         Annullering brukes for tilfeller der tiltaket aldri ble noe av.
                     </Alert>
                 </p>
-                <BodyShort size="small">
+                <BodyShort size="small" style={{maxWidth: '34rem'}} >
                     Når du annullerer avtalen, blir innholdet låst, og den blir markert som "annullert" i din oversikt.
                     Du kan ikke redigere eller gjenopprette den etterpå.
                 </BodyShort>
-            </div>
-            <VerticalSpacer rem={1} />
-            <div className={cls.element('grunner-og-annet')}>
-                <div role="menu">
-                    <VerticalSpacer rem={1.25} />
-                    <RadioGroup
-                        legend="Valg av grunn for annullering av avtalen"
-                        title="Hvorfor annulleres avtalen?"
-                        error={grunnFeil}
-                    >
-                        {[
-                            'Feilregistrering',
-                            'Begynt i arbeid',
-                            'Fått tilbud om annet tiltak',
-                            'Syk',
-                            'Ikke møtt',
-                            'Annet',
-                        ].map((label) => (
-                            <Radio
-                                key={label}
-                                name="avbrytelsegrunn"
-                                value={label}
-                                checked={annullertGrunn === label}
-                                onChange={(event) => {
-                                    setAnnullertGrunn(event.currentTarget.value);
-                                }}
-                                role="menuitemradio"
-                            >
-                                {label}
-                            </Radio>
-                        ))}
-                    </RadioGroup>
+                <VerticalSpacer rem={1} />
+                    <div role="menu">
+                        <VerticalSpacer rem={1.25} />
+                        <RadioGroup
+                            legend="Valg av grunn for annullering av avtalen"
+                            title="Hvorfor annulleres avtalen?"
+                            error={grunnFeil}
+                        >
+                            {[
+                                'Feilregistrering',
+                                'Begynt i arbeid',
+                                'Fått tilbud om annet tiltak',
+                                'Syk',
+                                'Ikke møtt',
+                                'Annet',
+                            ].map((label) => (
+                                <Radio
+                                    key={label}
+                                    name="avbrytelsegrunn"
+                                    value={label}
+                                    checked={annullertGrunn === label}
+                                    onChange={(event) => {
+                                        setAnnullertGrunn(event.currentTarget.value);
+                                    }}
+                                    role="menuitemradio"
+                                >
+                                    {label}
+                                </Radio>
+                            ))}
+                        </RadioGroup>
+                    <div>
+                        {annullertGrunn === 'Annet' && (
+                            <PakrevdTextarea
+                                label=""
+                                verdi={annetGrunn}
+                                placeholder="Begrunnelse (påkrevd)"
+                                settVerdi={(verdi) => setAnnetGrunn(verdi)}
+                                maxLengde={500}
+                                feilmelding="Begrunnelse er påkrevd"
+                            />
+                        )}
+                    </div>
                 </div>
-                <div>
-                    {annullertGrunn === 'Annet' && (
-                        <PakrevdTextarea
-                            label=""
-                            verdi={annetGrunn}
-                            placeholder="Begrunnelse (påkrevd)"
-                            settVerdi={(verdi) => setAnnetGrunn(verdi)}
-                            maxLengde={500}
-                            feilmelding="Begrunnelse er påkrevd"
-                            className={cls.element('pakrevd-text-area')}
-                        />
-                    )}
-                </div>
+                {annullertGrunn === 'Feilregistrering' && (
+                    <Alert variant="warning" inline>
+                        Ved årsak <em>Feilregistrering</em> blir avtalen skjult for alle avtaleparter
+                    </Alert>
+                )}
             </div>
-            {annullertGrunn === 'Feilregistrering' && (
-                <Alert variant="warning" inline>
-                    Ved årsak <em>Feilregistrering</em> blir avtalen skjult for alle avtaleparter
-                </Alert>
-            )}
         </BekreftelseModal>
     );
 };
