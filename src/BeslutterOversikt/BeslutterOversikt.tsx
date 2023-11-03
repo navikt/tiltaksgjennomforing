@@ -26,7 +26,7 @@ const BeslutterOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
-        const page = parseInt(filtre.page ? filtre.page : '1', 10)
+        const page = parseInt(filtre.page ? filtre.page : '1', 10);
         hentAvtalerForInnloggetBeslutter(filtre, 10, page - 1).then(
             (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
                 setCurrentPage(pagableAvtale);
@@ -41,7 +41,9 @@ const BeslutterOversikt: FunctionComponent = () => {
     return (
         <>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
-            <BannerNAVAnsatt tekst={'Tilskuddsoversikt'} />
+            <BannerNAVAnsatt
+                tekst={`Tilskuddsoversikt ${currentPage ? '(' + currentPage.totalItems.toString() + ' avtaler)' : ''}`}
+            />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 <div
                     style={layout.stylingAvFilterOgTabell}
