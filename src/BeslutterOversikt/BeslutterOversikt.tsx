@@ -63,19 +63,20 @@ const BeslutterOversikt: FunctionComponent = () => {
                         />
                         <div className={clsPagination.className}>
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
-                                <>
-                                    <div></div>
-                                    <Pagination
-                                        page={pageNumber}
-                                        onPageChange={(x) => {
-                                            endreFilter({ page: '' + x });
-                                        }}
-                                        count={currentPage!.totalPages}
-                                        boundaryCount={1}
-                                        siblingCount={1}
-                                    />
+                                <div className={cls.element('divc')}>
+                                    <div className={cls.element('divc2')}>
+                                        <Pagination
+                                            page={pageNumber}
+                                            onPageChange={(x) => {
+                                                endreFilter({ page: '' + x });
+                                            }}
+                                            count={100}
+                                            boundaryCount={1}
+                                            siblingCount={1}
+                                        />
+                                    </div>
                                     <Select label="" onChange={(x) => endreFilter({ page: x.target.value })}>
-                                        {[...Array(currentPage?.totalPages).keys()]
+                                        {[...Array(100).keys()]
                                             .map((x) => x + 1)
                                             .map((x) => (
                                                 <option value={x} key={x} selected={x === pageNumber}>
@@ -83,7 +84,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                                                 </option>
                                             ))}
                                     </Select>
-                                </>
+                                </div>
                             )}
                         </div>
                     </section>
