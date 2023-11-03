@@ -30,7 +30,6 @@ const BeslutterOversikt: FunctionComponent = () => {
         hentAvtalerForInnloggetBeslutter(filtre, 10, page - 1).then(
             (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
                 setCurrentPage(pagableAvtale);
-                console.log(pagableAvtale.avtaler);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
             }
         );
