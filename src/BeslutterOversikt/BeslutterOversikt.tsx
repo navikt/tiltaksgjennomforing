@@ -42,7 +42,7 @@ const BeslutterOversikt: FunctionComponent = () => {
         <>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
             <BannerNAVAnsatt
-                tekst={`Tilskuddsoversikt ${currentPage ? '(' + currentPage?.totalItems.toString() + ' avtaler)' : ''}`}
+                tekst={`Tilskuddsoversikt ${currentPage ? '(' + currentPage.totalItems.toString() + ' avtaler)' : ''}`}
             />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 <div
