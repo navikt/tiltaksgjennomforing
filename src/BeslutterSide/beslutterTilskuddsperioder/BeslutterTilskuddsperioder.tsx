@@ -72,7 +72,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     return (
         <div className={cls.className}>
             <Heading size="small" className={cls.element('tittel')}>
-                [B] Tilskudd som skal godkjennes
+                Tilskudd som skal godkjennes
             </Heading>
             <div className={cls.element('container')}>
                 <table className={cls.element('tabell')}>
@@ -111,7 +111,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
                                         {/*ettikett som sier avslått*/}
                                         <td>
-                                            [E]
                                             <EtikettStatus
                                                 tilskuddsperiodestatus={periode.status}
                                                 refusjonStatus={periode.refusjonStatus}
@@ -133,12 +132,10 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <tr className={cls.element('knapp-row')} ref={gjeldendeTilskuddsperiodeRef}>
                                             <td colSpan={7} className={cls.element('knapp-data')}>
                                                 <>
-                                                    bbb
                                                     {periode.status === 'AVSLÅTT' &&
                                                         hentAvslattInfoTilskuddsperiode(periode)}
                                                     {periode.status === 'UBEHANDLET' && (
                                                         <>
-                                                            bb
                                                             <Button
                                                                 onClick={() => {
                                                                     if (!enhet.match(/\d{4}/)) {
