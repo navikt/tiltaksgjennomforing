@@ -41,7 +41,9 @@ const BeslutterOversikt: FunctionComponent = () => {
     return (
         <>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
-            <BannerNAVAnsatt tekst={`Tilskuddsoversikt (${currentPage?.totalItems.toString()} avtaler)`} />
+            <BannerNAVAnsatt
+                tekst={`Tilskuddsoversikt ${currentPage ? '(' + currentPage?.totalItems.toString() + ' avtaler)' : ''}`}
+            />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
                 <div
                     style={layout.stylingAvFilterOgTabell}

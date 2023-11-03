@@ -52,7 +52,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         return (
             <>
                 <BodyShort size="small">
-                    cc Tilskuddsperioden ble avslått av
+                    Tilskuddsperioden ble avslått av
                     <span className={cls.element('bold')}>{' ' + periode.avslåttAvNavIdent + ' '}</span> den
                     <span className={cls.element('bold')}>
                         {' ' + formatterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT) + ' '}
@@ -109,7 +109,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                         <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
-                                        {/*ettikett som sier avslått*/}
                                         <td>
                                             <EtikettStatus
                                                 tilskuddsperiodestatus={periode.status}
