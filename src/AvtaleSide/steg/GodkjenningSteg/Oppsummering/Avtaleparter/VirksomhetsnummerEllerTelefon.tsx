@@ -27,14 +27,6 @@ export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = (props) =
                 </BodyShort>
             </>
         );
-    } else if (props.felt === 'virksomhetsnummer') {
-        return (
-            <>
-                <BodyShort size="small" key={props.key}>
-                    {storForbokstav(props.felt)}: {props.verdi}
-                </BodyShort>
-            </>
-        );
     } else if (props.felt === 'ønskerVarslingOmRefusjon') {
         return (
             <>
@@ -44,7 +36,13 @@ export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = (props) =
             </>
         );
     } else {
-        return null;
+        return (
+            <>
+                <BodyShort size="small" key={props.key}>
+                    {storForbokstav(props.felt)}: {props.verdi}
+                </BodyShort>
+            </>
+        );
     }
 };
 

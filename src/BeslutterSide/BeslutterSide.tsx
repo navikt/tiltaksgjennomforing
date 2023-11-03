@@ -101,7 +101,7 @@ const BeslutterSide: FunctionComponent = () => {
                         </Accordion>
                     </div>
                     {visVersjon && (
-                        <div className={cls.element('avtale-wrapper')}>
+                        <div className={cls.element('avtale-versjon-wrapper')}>
                             <Suspense fallback={null}>
                                 <VersjoneringKomponent avtale={avtale} rolle={innloggetBruker.rolle} />
                             </Suspense>

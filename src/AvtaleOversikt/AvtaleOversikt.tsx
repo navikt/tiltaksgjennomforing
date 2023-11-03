@@ -22,7 +22,7 @@ import { Avtale, PageableAvtale } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { fjernTommeFelterFraObjekt } from '@/utils/stringUtils';
+import { fjernTommeFelterFraObjekt, litenForbokstav } from '@/utils/stringUtils';
 import { Pagination } from '@navikt/ds-react';
 import _ from 'lodash';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -135,6 +135,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     endreFilter({bedriftNr: org});
                 }}
                 tekst={oversiktTekst}
+                undertittel={`Logget inn som ${litenForbokstav(innloggetBruker.rolle)}`}
             />
 
             <BannerNAVAnsatt tekst={oversiktTekst} />

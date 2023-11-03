@@ -13,16 +13,28 @@
         align-items: center;
     }
 
-    &__head-wrapper, &__avtale-wrapper {
+    &__head-wrapper, &__avtale-wrapper, &__avtale-versjon-wrapper {
         width: 100%;
         max-width: @container-desktop;
     }
 
+    &__avtale-wrapper, &__avtale-versjon-wrapper {
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+    }
+
     &__avtale-wrapper {
+        >.accordion {
+            border: none;
+        }
         &:last-child {
             margin-bottom: 4rem;
         }
         margin-bottom: 1rem;
+    }
+
+    &__avtale-versjon-wrapper {
+        margin-bottom: 4rem;
+        border-radius: 4px;
     }
 
     &__hoved-tittel {
