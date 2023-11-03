@@ -97,123 +97,122 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 bekreftOnClick={endreKontaktInformasjon}
                 lukkModal={() => setModalApen(false)}
             >
-                <div className={cls.element('container')}>
-                    <Heading size="small" className={cls.element('tittel')}>
-                        Informasjon om deltaker
-                    </Heading>
-                    <div className={cls.element('rad')}>
-                        <PakrevdInput
-                            label="Fornavn"
-                            verdi={kontaktInfo.deltakerFornavn}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('deltakerFornavn', verdi)}
-                        />
-                        <PakrevdInput
-                            label="Etternavn"
-                            verdi={kontaktInfo.deltakerEtternavn}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
-                        />
-                    </div>
-                    <div className={cls.element('rad')}>
-                        <TelefonnummerInput
-                            label="Mobilnummer "
-                            verdi={kontaktInfo.deltakerTlf}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
-                        />
-                    </div>     
-                    <Heading size="small" className={cls.element('tittel')}>
-                        Informasjon om veileder
-                    </Heading>
-                    <div className={cls.element('rad')}>
-                        <PakrevdInput
-                            label="Fornavn"
-                            verdi={kontaktInfo.veilederFornavn}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('veilederFornavn', verdi)}
-                        />
-                        <PakrevdInput
-                            label="Etternavn"
-                            verdi={kontaktInfo.veilederEtternavn}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
-                        />
-                    </div>
-                    <div className={cls.element('rad')}>
-                            <TelefonnummerInput
-                                label="Mobilnummer"
-                                verdi={kontaktInfo.veilederTlf}
-                                settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
-                            />
-                    </div>
-                    <Heading size="small" className={cls.element('tittel')}>
-                        Kontaktperson for avtalen i bedriften
-                    </Heading>
-                    <div className={cls.element('rad')}>
-                        <PakrevdInput
-                            label="Fornavn"
-                            verdi={kontaktInfo.arbeidsgiverFornavn}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverFornavn', verdi)}
-                        />
-                        <PakrevdInput
-                            label="Etternavn"
-                            verdi={kontaktInfo.arbeidsgiverEtternavn}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
-                        />
-                        </div>
-                        <div className={cls.element('rad')}>
+                
+                <Heading size="small" className={cls.element('tittel')}>
+                    Informasjon om deltaker
+                </Heading>
+                <div className={cls.element('rad')}>
+                    <PakrevdInput
+                        label="Fornavn"
+                        verdi={kontaktInfo.deltakerFornavn}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('deltakerFornavn', verdi)}
+                    />
+                    <PakrevdInput
+                        label="Etternavn"
+                        verdi={kontaktInfo.deltakerEtternavn}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
+                    />
+                </div>
+                <div className={cls.element('rad')}>
+                    <TelefonnummerInput
+                        label="Mobilnummer "
+                        verdi={kontaktInfo.deltakerTlf}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
+                    />
+                </div>     
+                <Heading size="small" className={cls.element('tittel')}>
+                    Informasjon om veileder
+                </Heading>
+                <div className={cls.element('rad')}>
+                    <PakrevdInput
+                        label="Fornavn"
+                        verdi={kontaktInfo.veilederFornavn}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('veilederFornavn', verdi)}
+                    />
+                    <PakrevdInput
+                        label="Etternavn"
+                        verdi={kontaktInfo.veilederEtternavn}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
+                    />
+                </div>
+                <div className={cls.element('rad')}>
                         <TelefonnummerInput
                             label="Mobilnummer"
-                            verdi={kontaktInfo.arbeidsgiverTlf}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
+                            verdi={kontaktInfo.veilederTlf}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
                         />
-                    </div>
-                    
-                    {endreRefusjonInfo && (
-                        <div className={cls.element('avsnitt')}>
-                            <Heading size="small" className={cls.element('tittel')}>
-                                Kontaktperson for refusjon i bedriften
-                            </Heading>
-                            <div className={cls.element('rad')}>
-                                <PakrevdInput
-                                    label="Fornavn"
-                                    verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
-                                    settVerdi={(verdi) =>
-                                        settNyKontaktInformasjon('refusjonKontaktperson', {
-                                            ...kontaktInfo.refusjonKontaktperson,
-                                            refusjonKontaktpersonFornavn: verdi,
-                                        })
-                                    }
-                                />
-                                <PakrevdInput
-                                    label="Etternavn"
-                                    verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
-                                    settVerdi={(verdi) =>
-                                        settNyKontaktInformasjon('refusjonKontaktperson', {
-                                            ...kontaktInfo.refusjonKontaktperson,
-                                            refusjonKontaktpersonEtternavn: verdi,
-                                        })
-                                    }
-                                />
-                            </div>
-                            <div className={cls.element('rad')}>
-                                <TelefonnummerInput
-                                    label="Mobilnummer"
-                                    verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
-                                    settVerdi={(verdi) =>
-                                        settNyKontaktInformasjon('refusjonKontaktperson', {
-                                            ...kontaktInfo.refusjonKontaktperson,
-                                            refusjonKontaktpersonTlf: verdi,
-                                        })
-                                    }
-                                />
-                            </div>
-                                <Checkbox
-                                    checked={kontaktInfo.refusjonKontaktperson.ønskerVarslingOmRefusjon}
-                                    onChange={() => settØnskerVarsling()}
-                                >
-                                    Arbeidsgiver for avtalen ønsker også å motta varslinger om
-                                    refusjon
-                                </Checkbox>
-                        </div>
-                    )}
                 </div>
+                <Heading size="small" className={cls.element('tittel')}>
+                    Kontaktperson for avtalen i bedriften
+                </Heading>
+                <div className={cls.element('rad')}>
+                    <PakrevdInput
+                        label="Fornavn"
+                        verdi={kontaktInfo.arbeidsgiverFornavn}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverFornavn', verdi)}
+                    />
+                    <PakrevdInput
+                        label="Etternavn"
+                        verdi={kontaktInfo.arbeidsgiverEtternavn}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
+                    />
+                    </div>
+                    <div className={cls.element('rad')}>
+                    <TelefonnummerInput
+                        label="Mobilnummer"
+                        verdi={kontaktInfo.arbeidsgiverTlf}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
+                    />
+                </div>
+                
+                {endreRefusjonInfo && (
+                    <div className={cls.element('avsnitt')}>
+                        <Heading size="small" className={cls.element('tittel')}>
+                            Kontaktperson for refusjon i bedriften
+                        </Heading>
+                        <div className={cls.element('rad')}>
+                            <PakrevdInput
+                                label="Fornavn"
+                                verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
+                                settVerdi={(verdi) =>
+                                    settNyKontaktInformasjon('refusjonKontaktperson', {
+                                        ...kontaktInfo.refusjonKontaktperson,
+                                        refusjonKontaktpersonFornavn: verdi,
+                                    })
+                                }
+                            />
+                            <PakrevdInput
+                                label="Etternavn"
+                                verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
+                                settVerdi={(verdi) =>
+                                    settNyKontaktInformasjon('refusjonKontaktperson', {
+                                        ...kontaktInfo.refusjonKontaktperson,
+                                        refusjonKontaktpersonEtternavn: verdi,
+                                    })
+                                }
+                            />
+                        </div>
+                        <div className={cls.element('rad')}>
+                            <TelefonnummerInput
+                                label="Mobilnummer"
+                                verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
+                                settVerdi={(verdi) =>
+                                    settNyKontaktInformasjon('refusjonKontaktperson', {
+                                        ...kontaktInfo.refusjonKontaktperson,
+                                        refusjonKontaktpersonTlf: verdi,
+                                    })
+                                }
+                            />
+                        </div>
+                            <Checkbox
+                                checked={kontaktInfo.refusjonKontaktperson.ønskerVarslingOmRefusjon}
+                                onChange={() => settØnskerVarsling()}
+                            >
+                                Arbeidsgiver for avtalen ønsker også å motta varslinger om
+                                refusjon
+                            </Checkbox>
+                    </div>
+                )}
             </BekreftelseModal>
         </>
     );
