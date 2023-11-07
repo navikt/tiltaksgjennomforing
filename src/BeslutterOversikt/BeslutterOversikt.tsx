@@ -63,7 +63,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                         />
                         <div className={clsPagination.className}>
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
-                                <div className={cls.element('pagination-container')}>
+                                <>
                                     <Pagination
                                         page={pageNumber}
                                         onPageChange={(x) => {
@@ -74,7 +74,11 @@ const BeslutterOversikt: FunctionComponent = () => {
                                         siblingCount={1}
                                         className={clsPagination.element('pagination')}
                                     />
-                                    <Select label="" onChange={(x) => endreFilter({ page: x.target.value })}>
+                                    <Select
+                                        label=""
+                                        className={clsPagination.element('page-select')}
+                                        onChange={(x) => endreFilter({ page: x.target.value })}
+                                    >
                                         {[...Array(currentPage!.totalPages).keys()]
                                             .map((x) => x + 1)
                                             .map((x) => (
@@ -83,7 +87,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                                                 </option>
                                             ))}
                                     </Select>
-                                </div>
+                                </>
                             )}
                         </div>
                     </section>

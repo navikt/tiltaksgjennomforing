@@ -25,24 +25,24 @@
         }
     }
 
-    &__pagination-container {
-        display: flex;
-        align-items: flex-end;
-        justify-content: flex-end; 
-        width: 100%;
-    }
 }
 
 .avtaleoversikt-pagination {
-    display: flex;
-    align-items: center;
     margin-top: 2rem;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
+
+    &__page-select {
+        grid-column: 3;
+        grid-row: 1;
+        display: inline-block;
+    }
 
     &__pagination {
+        grid-column: 2;
+        width: 100%;
+        grid-row: 1;
         display: flex;
         justify-content: center;
-        width: 90%;
-
     }
 }
