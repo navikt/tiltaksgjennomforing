@@ -27,7 +27,7 @@ const BeslutterOversikt: FunctionComponent = () => {
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
         const page = parseInt(filtre.page ? filtre.page : '1', 10);
-        hentAvtalerForInnloggetBeslutter(filtre, 2, page - 1).then(
+        hentAvtalerForInnloggetBeslutter(filtre, 10, page - 1).then(
             (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
                 setCurrentPage(pagableAvtale);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
@@ -69,13 +69,13 @@ const BeslutterOversikt: FunctionComponent = () => {
                                         onPageChange={(x) => {
                                             endreFilter({ page: '' + x });
                                         }}
-                                        count={100}
+                                        count={currentPage!.totalPages}
                                         boundaryCount={1}
                                         siblingCount={1}
                                         className={clsPagination.element('pagination')}
                                     />
                                     <Select label="" onChange={(x) => endreFilter({ page: x.target.value })}>
-                                        {[...Array(100).keys()]
+                                        {[...Array(currentPage!.totalPages)]
                                             .map((x) => x + 1)
                                             .map((x) => (
                                                 <option value={x} key={x} selected={x === pageNumber}>
