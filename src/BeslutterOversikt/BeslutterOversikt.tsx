@@ -75,7 +75,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                                         className={clsPagination.element('pagination')}
                                     />
                                     <Select label="" onChange={(x) => endreFilter({ page: x.target.value })}>
-                                        {[...Array(currentPage!.totalPages)]
+                                        {[...Array(currentPage!.totalPages).keys()]
                                             .map((x) => x + 1)
                                             .map((x) => (
                                                 <option value={x} key={x} selected={x === pageNumber}>
