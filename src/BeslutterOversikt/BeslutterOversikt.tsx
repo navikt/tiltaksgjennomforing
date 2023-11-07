@@ -63,18 +63,17 @@ const BeslutterOversikt: FunctionComponent = () => {
                         />
                         <div className={clsPagination.className}>
                             {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
-                                <div className={cls.element('divc')}>
-                                    <div className={cls.element('divc2')}>
-                                        <Pagination
-                                            page={pageNumber}
-                                            onPageChange={(x) => {
-                                                endreFilter({ page: '' + x });
-                                            }}
-                                            count={100}
-                                            boundaryCount={1}
-                                            siblingCount={1}
-                                        />
-                                    </div>
+                                <div className={cls.element('pagination-container')}>
+                                    <Pagination
+                                        page={pageNumber}
+                                        onPageChange={(x) => {
+                                            endreFilter({ page: '' + x });
+                                        }}
+                                        count={100}
+                                        boundaryCount={1}
+                                        siblingCount={1}
+                                        className={clsPagination.element('pagination')}
+                                    />
                                     <Select label="" onChange={(x) => endreFilter({ page: x.target.value })}>
                                         {[...Array(100).keys()]
                                             .map((x) => x + 1)
