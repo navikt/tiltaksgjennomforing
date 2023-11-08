@@ -23,7 +23,7 @@ const BeslutterOversikt: FunctionComponent = () => {
     const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
         status: Status.IkkeLastet,
     });
-
+    
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
         const page = parseInt(filtre.page ? filtre.page : '1', 10);
