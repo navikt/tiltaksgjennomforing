@@ -23,7 +23,7 @@ import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { fjernTommeFelterFraObjekt, litenForbokstav } from '@/utils/stringUtils';
-import { Pagination } from '@navikt/ds-react';
+import {Pagination, Select} from '@navikt/ds-react';
 import _ from 'lodash';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -44,7 +44,7 @@ const AvtaleOversikt: FunctionComponent = () => {
 
     useEffect(() => {
         if (nettressursCtx.status !== Status.Lastet) return;
-        
+
         const filtreUtenPage = _.omit(filtre, 'page', 'sorteringskolonne');
         const erFiltreLikeNettressursFiltre = _.isEqual(fjernTommeFelterFraObjekt(nettressursCtx.data.sokeParametere), fjernTommeFelterFraObjekt(filtreUtenPage));
 
@@ -57,11 +57,11 @@ const AvtaleOversikt: FunctionComponent = () => {
 
         // console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter,
         // "\nsammeSokId", sammeSokId);
-        //  console.log('innloggetBruker.rolle:', innloggetBruker.rolle);      
-        
+        //  console.log('innloggetBruker.rolle:', innloggetBruker.rolle);
+
         // Hvis alt er likt i url, filter og data fra backend - ikke gjør noe.
         if (sammePageIDataOgFilter && erFiltreLikeNettressursFiltre && sammeSorteringIDataOgFilter && sammeSokId && sammePageIUrlOgFilter && sammeSorteringIUrlOgFilter) return;
-        
+
         setNettressursCtx({ status: Status.LasterInn });
         if (!erFiltreLikeNettressursFiltre) {
             // Filteret er endret - Nytt POST-søk
@@ -97,7 +97,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                 (pagableAvtale: PageableAvtale) => {
                     // const eksisterendeSearchParams = lagObjektAvSearchParams(searchParams);
                     // if (eksisterendeSearchParams.bedrift) setSearchParams({...eksisterendeSearchParams, bedrift: pagableAvtale.sokeParametere.bedriftNr});
-                    
+
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
                     endreFilter({ page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, ...pagableAvtale.sokeParametere});
                 }
@@ -105,7 +105,7 @@ const AvtaleOversikt: FunctionComponent = () => {
         }
 
     }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams, endreFilter, innloggetBruker.rolle]);
-    
+
 
     useEffect(() => {
         hentUlesteVarsler()
@@ -177,16 +177,31 @@ const AvtaleOversikt: FunctionComponent = () => {
                         <div className={clsPagination.className}>
                             {nettressursCtx.status === Status.LasterInn && <VerticalSpacer rem={3.9} />}
                             {pageNumber && nettressursCtx.status === Status.Lastet && nettressursCtx.data.totalPages > 0 && (
-                                <Pagination
-                                    page={pageNumber}
-                                    onPageChange={(x) => {
-                                        endreFilter({ page: '' + x });
-                                        
-                                    }}
-                                    count={nettressursCtx.data.totalPages}
-                                    boundaryCount={1}
-                                    siblingCount={1}
-                                />
+                                <>
+                                    <Pagination
+                                        page={pageNumber}
+                                        onPageChange={(x) => {
+                                            endreFilter({ page: '' + x });
+                                        }}
+                                        count={nettressursCtx.data.totalPages}
+                                        boundaryCount={1}
+                                        siblingCount={1}
+                                        className={clsPagination.element('pagination')}
+                                    />
+                                    <Select
+                                        label=""
+                                        className={clsPagination.element('page-select')}
+                                        onChange={(x) => endreFilter({ page: x.target.value })}
+                                    >
+                                        {[...Array(nettressursCtx.data.totalPages).keys()]
+                                            .map((x) => x + 1)
+                                            .map((x) => (
+                                                <option value={x} key={x} selected={x === pageNumber}>
+                                                    {x}
+                                                </option>
+                                            ))}
+                                    </Select>
+                                </>
                             )}
                         </div>
                         <VerticalSpacer rem={2} />
