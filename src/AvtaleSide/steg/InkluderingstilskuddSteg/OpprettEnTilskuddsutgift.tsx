@@ -4,7 +4,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
-import { Heading, Button, Select } from '@navikt/ds-react';
+import { Button, Heading, Select } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 
 type Props = {
@@ -24,7 +24,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
     const [beløpFeil, setBeløpFeil] = useState<string | undefined>();
     const [typeFeil, setTypeFeil] = useState<string | undefined>();
 
-    const ÅRLIG_MAX_BELØP = 136700;
+    const ÅRLIG_MAX_BELØP = 143900;
     const gjenståendeMaxBeløp = ÅRLIG_MAX_BELØP - props.totalBeløp;
 
     const leggTil = async () => {

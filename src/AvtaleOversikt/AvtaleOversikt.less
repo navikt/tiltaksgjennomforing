@@ -27,8 +27,20 @@
 }
 
 .avtaleoversikt-pagination {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
+
+    &__page-select {
+        grid-column: 3;
+        grid-row: 1;
+        display: inline-block;
+    }
+
+    &__pagination {
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        justify-content: center;
+    }
 }
