@@ -1,11 +1,12 @@
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { tilskuddsperiodeStatusTekst } from '@/messages';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { formatterPenger } from '@/utils/PengeUtils';
 import BEMHelper from '@/utils/bem';
 import { NORSK_DATO_OG_TID_FORMAT, formatterDatoHvisDefinert, formatterPeriode } from '@/utils/datoUtils';
 import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react';
-import { CSSProperties, FunctionComponent } from 'react';
+import { CSSProperties, FunctionComponent, useContext } from 'react';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import './TilskuddsperiodeInfoModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
@@ -18,6 +19,8 @@ type Props = {
 };
 
 const TilskuddsperiodeInfoModal: FunctionComponent<Props> = props => {
+    const innloggetBruker = useContext(InnloggetBrukerContext);
+
     const cls = BEMHelper('tilskuddsperiodeInfoModal');
     return (
         <div className={cls.className}>
@@ -49,8 +52,12 @@ const TilskuddsperiodeInfoModal: FunctionComponent<Props> = props => {
                                 <BodyShort size="small">Tilskuddsprosent: {props.tilskuddsperiode.lonnstilskuddProsent}%</BodyShort>
                                 <BodyShort size="small">Beløp: {formatterPenger(props.tilskuddsperiode.beløp)}</BodyShort>
                                 <BodyShort size="small">Status: {tilskuddsperiodeStatusTekst[props.tilskuddsperiode.status]}</BodyShort>
-                                <BodyShort size="small">Godkjent av beslutter ident: {props.tilskuddsperiode.godkjentAvNavIdent}</BodyShort>
-                                <BodyShort size="small">Godkjent av beslutter tidspunkt: {formatterDatoHvisDefinert(props.tilskuddsperiode.godkjentTidspunkt, NORSK_DATO_OG_TID_FORMAT)}</BodyShort>
+                                {innloggetBruker.erNavAnsatt && (
+                                    <>
+                                    <BodyShort size="small">Godkjent av beslutter ident: {props.tilskuddsperiode.godkjentAvNavIdent}</BodyShort>
+                                    <BodyShort size="small">Godkjent av beslutter tidspunkt: {formatterDatoHvisDefinert(props.tilskuddsperiode.godkjentTidspunkt, NORSK_DATO_OG_TID_FORMAT)}</BodyShort>
+                                    </>
+                                )}
                                 <BodyShort size="small">Refusjonsstatus: {props.tilskuddsperiode.refusjonStatus || 'Ingen'}</BodyShort>
                                 </div>
                         </div>
