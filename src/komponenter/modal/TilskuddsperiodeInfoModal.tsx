@@ -20,7 +20,7 @@ type Props = {
 
 const TilskuddsperiodeInfoModal: FunctionComponent<Props> = props => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-
+    const erBehadletIArena = props.tilskuddsperiode.status === 'BEHANDLET_I_ARENA';
     const cls = BEMHelper('tilskuddsperiodeInfoModal');
     return (
         <div className={cls.className}>
@@ -49,17 +49,19 @@ const TilskuddsperiodeInfoModal: FunctionComponent<Props> = props => {
                             <div className={cls.element('varselTekst')}>
                                 <BodyShort size="small">Løpenummer: {props.tilskuddsperiode.løpenummer}</BodyShort>
                                 <BodyShort size="small">Periode: {formatterPeriode(props.tilskuddsperiode.startDato, props.tilskuddsperiode.sluttDato)}</BodyShort>
-                                <BodyShort size="small">Tilskuddsprosent: {props.tilskuddsperiode.lonnstilskuddProsent}%</BodyShort>
+                                {!erBehadletIArena && (<BodyShort size="small">Tilskuddsprosent: {props.tilskuddsperiode.lonnstilskuddProsent}%</BodyShort>)}
                                 <BodyShort size="small">Beløp: {formatterPenger(props.tilskuddsperiode.beløp)}</BodyShort>
                                 <BodyShort size="small">Status: {tilskuddsperiodeStatusTekst[props.tilskuddsperiode.status]}</BodyShort>
-                                {innloggetBruker.erNavAnsatt && (
+                                {innloggetBruker.erNavAnsatt && !erBehadletIArena && (
                                     <>
                                     <BodyShort size="small">Godkjent av beslutter ident: {props.tilskuddsperiode.godkjentAvNavIdent}</BodyShort>
                                     <BodyShort size="small">Godkjent av beslutter tidspunkt: {formatterDatoHvisDefinert(props.tilskuddsperiode.godkjentTidspunkt, NORSK_DATO_OG_TID_FORMAT)}</BodyShort>
                                     </>
                                 )}
-                                <BodyShort size="small">Refusjonsstatus: {props.tilskuddsperiode.refusjonStatus || 'Ingen'}</BodyShort>
-                                </div>
+                                {!erBehadletIArena && (
+                                    <BodyShort size="small">Refusjonsstatus: {props.tilskuddsperiode.refusjonStatus || 'Ingen'}</BodyShort>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </Modal.Body>
