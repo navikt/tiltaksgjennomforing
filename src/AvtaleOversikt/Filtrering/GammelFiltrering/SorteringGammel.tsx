@@ -4,7 +4,7 @@ import { Select } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import { useFilterGammel } from './useFilterGammel';
 
-type Sorteringsverdi = keyof Avtale | keyof Avtaleinnhold | keyof TilskuddsPeriode;
+export type Sorteringsverdi = keyof Avtale | keyof Avtaleinnhold | keyof TilskuddsPeriode;
 
 const options: Array<{ verdi: Sorteringsverdi; tekst: string }> = [
     { verdi: 'opprettetTidspunkt', tekst: 'Opprettet' },
@@ -25,7 +25,8 @@ const SorteringGammel: FunctionComponent = (props) => {
 
     leggtilSorteringstype('startDato', 'Startdato');
     leggtilSorteringstype('sistEndret', 'Sist endret');
-    if(rolle === 'BESLUTTER') leggtilSorteringstype('tiltakstype', 'Tiltakstype');
+    leggtilSorteringstype('veilederNavIdent', 'Veileder');
+    if (rolle === 'BESLUTTER') leggtilSorteringstype('tiltakstype', 'Tiltakstype');
 
     const defaultValg = rolle === 'BESLUTTER' ? 'startDato' : 'sistEndret';
 
@@ -35,6 +36,7 @@ const SorteringGammel: FunctionComponent = (props) => {
             value={filtre.sorteringskolonne || defaultValg}
             onChange={(event) => {
                 const nySorteringskolonne = event.target.value as keyof Avtale;
+                console.log('nySorteringskolonne', nySorteringskolonne);
                 endreFilter({ sorteringskolonne: nySorteringskolonne });
             }}
         >

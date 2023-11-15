@@ -22,7 +22,10 @@ export const useFilterGammel = () => {
 
     useEffect(() => {
         const newParams = toObject(searchParams);
+        // console.log('newParams og filtre', newParams, filtre);
+
         if (!_.isEqual(newParams, filtre)) {
+            // console.log('endring params', newParams);
             setFiltre(newParams);
         }
     }, [searchParams, filtre, setFiltre]);
@@ -30,25 +33,27 @@ export const useFilterGammel = () => {
     const endreFilter = (endring: Filtrering) => {
         const newSearchParams = new URLSearchParams(searchParams);
 
-        updateOrDeleteKey(newSearchParams, endring, "avtaleNr");
-        updateOrDeleteKey(newSearchParams, endring, "veilederNavIdent");
-        updateOrDeleteKey(newSearchParams, endring, "deltakerFnr");
-        updateOrDeleteKey(newSearchParams, endring, "bedriftNr");
-        updateOrDeleteKey(newSearchParams, endring, "navEnhet");
-        updateOrDeleteKey(newSearchParams, endring, "erUfordelt");
-        updateOrDeleteKey(newSearchParams, endring, "status");
-        updateOrDeleteKey(newSearchParams, endring, "sorteringskolonne");
-        updateOrDeleteKey(newSearchParams, endring, "tilskuddPeriodeStatus");
-        updateOrDeleteKey(newSearchParams, endring, "tiltakstype");
+        updateOrDeleteKey(newSearchParams, endring, 'avtaleNr');
+        updateOrDeleteKey(newSearchParams, endring, 'veilederNavIdent');
+        updateOrDeleteKey(newSearchParams, endring, 'deltakerFnr');
+        updateOrDeleteKey(newSearchParams, endring, 'bedriftNr');
+        updateOrDeleteKey(newSearchParams, endring, 'navEnhet');
+        updateOrDeleteKey(newSearchParams, endring, 'erUfordelt');
+        updateOrDeleteKey(newSearchParams, endring, 'status');
+        updateOrDeleteKey(newSearchParams, endring, 'sorteringskolonne');
+        updateOrDeleteKey(newSearchParams, endring, 'tilskuddPeriodeStatus');
+        updateOrDeleteKey(newSearchParams, endring, 'tiltakstype');
+        updateOrDeleteKey(newSearchParams, endring, 'sorteringOrder');
 
         // Alle endringer som ikke er en endring i paginering/sortering, bør nullstille pagineringen
         const changedKeys = Object.keys(endring);
-        if (changedKeys.filter(k => !['page', 'sorteringskolonne'].includes(k)).length > 0) {
-            newSearchParams.delete("page");
+        if (changedKeys.filter((k) => !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k)).length > 0) {
+            newSearchParams.delete('page');
         }
         if (endring.hasOwnProperty('page')) {
-            newSearchParams.set("page", '' + endring.page);
+            newSearchParams.set('page', '' + endring.page);
         }
+        console.log('newSearchParams', newSearchParams.toString());
 
         setSearchParams(newSearchParams);
     };

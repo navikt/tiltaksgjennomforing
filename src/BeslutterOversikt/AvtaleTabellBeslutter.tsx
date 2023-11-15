@@ -26,10 +26,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
 
     return (
         <Table className={cls.className}>
-            <AvtaleTabellRadHeader
-                erBeslutter={erBeslutter}
-                erNavAnsatt={innloggetBruker.erNavAnsatt}
-            />
+            <AvtaleTabellRadHeader erBeslutter={erBeslutter} erNavAnsatt={innloggetBruker.erNavAnsatt} />
             <Table.Body>
                 {avtaler.map((avtale: AvtaleMinimalForBeslutter, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
@@ -37,6 +34,8 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                         <Table.Row
                             key={avtale.id + index}
                             onClick={(e) => {
+                                console.log('Klikket på rad ', avtale.id);
+                                console.log('Klikket på rad ', pathTilAvtaleNy(avtale.id, innloggetBruker.rolle));
                                 navigate({
                                     pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle),
                                     search: window.location.search,
@@ -81,7 +80,11 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                 />
                             </Table.DataCell>
                             <Table.DataCell>
-                                <ChevronRightIcon className={cls.element('pil-hoyre')} title="a11y-title" fontSize="1.75rem" />
+                                <ChevronRightIcon
+                                    className={cls.element('pil-hoyre')}
+                                    title="a11y-title"
+                                    fontSize="1.75rem"
+                                />
                             </Table.DataCell>
                         </Table.Row>
                     );

@@ -25,7 +25,7 @@ const Sortering: FunctionComponent = (props) => {
 
     leggtilSorteringstype('startDato', 'Startdato');
     leggtilSorteringstype('sistEndret', 'Sist endret');
-    if(rolle === 'BESLUTTER') leggtilSorteringstype('tiltakstype', 'Tiltakstype');
+    if (rolle === 'BESLUTTER') leggtilSorteringstype('tiltakstype', 'Tiltakstype');
 
     const defaultValg = rolle === 'BESLUTTER' ? 'startDato' : 'sistEndret';
 
@@ -35,6 +35,7 @@ const Sortering: FunctionComponent = (props) => {
             value={filtre.sorteringskolonne || defaultValg}
             onChange={(event) => {
                 const nySorteringskolonne = event.target.value as keyof Avtale;
+                console.log('nySorteringskolonne', nySorteringskolonne);
                 endreFilter({ sorteringskolonne: nySorteringskolonne });
             }}
         >

@@ -20,6 +20,7 @@ export interface PageableAvtale {
     sokId: string;
     sokeParametere: Filtrering;
     sorteringskolonne: keyof Avtale;
+    sorteringOrder: 'ASC' | 'DESC';
 }
 
 export interface PageableAvtaleMinimalForBeslutter {

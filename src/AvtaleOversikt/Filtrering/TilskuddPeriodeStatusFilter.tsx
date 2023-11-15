@@ -9,7 +9,7 @@ const TilskuddPeriodeStatusFilter: FunctionComponent = () => {
     const { endreFilter, filtre } = useFilterGammel();
 
     const alleTilskuddPeriodeStatus: OptionProps[] = [
-        { value: 'UBEHANDLET', label: 'Ubehandlet' },
+        { value: 'UBEHANDLET', label: 'Uabehandlet' },
         { value: 'GODKJENT', label: 'Godkjent' },
         { value: 'AVSLÅTT', label: 'Avslått' },
     ];

@@ -23,10 +23,11 @@ const BeslutterOversikt: FunctionComponent = () => {
     const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
         status: Status.IkkeLastet,
     });
-    
+
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
         const page = parseInt(filtre.page ? filtre.page : '1', 10);
+        console.log('filter', filtre);
         hentAvtalerForInnloggetBeslutter(filtre, 10, page - 1).then(
             (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
                 setCurrentPage(pagableAvtale);
@@ -35,7 +36,7 @@ const BeslutterOversikt: FunctionComponent = () => {
         );
     }, [filtre]);
 
-    const pageNumber = parseInt(filtre.page || '1');
+    const pageNumber = parseInt(filtre.page || '1', 10);
 
     const layout = useAvtaleOversiktLayout();
     return (

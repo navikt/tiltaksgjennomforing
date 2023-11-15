@@ -83,7 +83,7 @@ export const hentAvtaleMedAvtaleNr = async (avtaleNr: number): Promise<Avtale> =
 export const hentAvtaleVisSalesforceDialog = async (id: string): Promise<boolean> => {
     const response = await api.get<boolean>(`/avtaler/${id}/vis-salesforce-dialog`);
     return response.data;
-}
+};
 
 const removeEmpty = (obj: any) => {
     Object.keys(obj).forEach((k) => !obj[k] && delete obj[k]);
@@ -115,9 +115,12 @@ export const hentAvtalerForInnloggetBrukerMedSokId = async (
     size: number = 2,
     page: number = 0,
     sorteringskolonne: keyof Avtale = 'sistEndret',
+    sorteringOrder?: string
 ): Promise<PageableAvtale> => {
-    const queryParam = new URLSearchParams(removeEmpty({ size, page, sokId, sorteringskolonne }));
+    const queryParam = new URLSearchParams(removeEmpty({ size, page, sokId, sorteringskolonne, sorteringOrder }));
+    console.log('queryParam get', queryParam);
     const response = await api.get<PageableAvtale>(`/avtaler/sok?${queryParam}`);
+    console.log('GET response.data', response.data);
     return response.data;
 };
 
@@ -125,31 +128,43 @@ export const hentAvtalerForInnloggetBrukerMedPost = async (
     søkekriterier: Filtrering,
     size: number = 2,
     page: number = 0,
+    sorteringOrder: 'ASC' | 'DESC' = 'ASC'
 ): Promise<PageableAvtale> => {
     const postBody = removeEmpty(søkekriterier);
-    const queryParam = new URLSearchParams(removeEmpty({ page, size, sorteringskolonne: søkekriterier.sorteringskolonne }));
+    const queryParam = new URLSearchParams(
+        removeEmpty({
+            page,
+            size,
+            sorteringskolonne: søkekriterier.sorteringskolonne,
+            sorteringOrder,
+        })
+    );
     const response = await api.post<PageableAvtale>(`/avtaler/sok?${queryParam}`, postBody);
+    console.log('POST response.data', response.data);
     return response.data;
 };
 
 export const hentAvtalerForInnloggetBeslutter = async (
     søkekriterier: Filtrering,
     size: number = 2,
-    page: number = 0,
-    sorteringOrder: string = 'ASC'
+    page: number = 0
 ): Promise<PageableAvtaleMinimalForBeslutter> => {
     // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr'
+    console.log('søkekriterier', søkekriterier);
     const søkekriterierFiltrert = {
         bedriftNr: søkekriterier.bedrift,
         ...søkekriterier,
         bedrift: undefined,
         size,
         page,
-        sorteringOrder,
+        sorteringOrder: søkekriterier.sorteringOrder,
     };
 
+    console.log('søkekriterierFiltrert', søkekriterierFiltrert);
     const queryParam = new URLSearchParams(removeEmpty(søkekriterierFiltrert));
+    console.log('queryParam', queryParam);
     const response = await api.get<PageableAvtaleMinimalForBeslutter>(`/avtaler/beslutter-liste?${queryParam}`);
+    console.log(response.data);
     return response.data;
 };
 
