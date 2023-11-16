@@ -56,6 +56,8 @@ const AvtaleOversikt: FunctionComponent = () => {
         const sammeSokId = searchParams.get('sokId') === nettressursCtx.data.sokId;
         const sammePageIUrlOgFilter = searchParams.get('page') === '' + filterPage;
         const sammeSorteringIDataOgFilter = nettressursCtx.data.sorteringskolonne === filtre.sorteringskolonne;
+        const sammeSorteringOrderIDataOgFilter = nettressursCtx.data.sorteringOrder === filtre.sorteringOrder;
+        const sammeSorteringOrderIUrlOgFilter = searchParams.get('sorteringOrder') === filtre.sorteringOrder;
 
         // console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter,
         // "\nsammeSokId", sammeSokId);
@@ -68,7 +70,9 @@ const AvtaleOversikt: FunctionComponent = () => {
             sammeSorteringIDataOgFilter &&
             sammeSokId &&
             sammePageIUrlOgFilter &&
-            sammeSorteringIUrlOgFilter
+            sammeSorteringIUrlOgFilter &&
+            sammeSorteringOrderIDataOgFilter &&
+            sammeSorteringOrderIUrlOgFilter
         ) {
             return;
         }
@@ -100,7 +104,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                 }
                 setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
             });
-        } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter) {
+        } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter || !sammeSorteringOrderIDataOgFilter) {
             // page/sortering er endret - Nytt GET-søk
             hentAvtalerForInnloggetBrukerMedSokId(
                 searchParams.get('sokId')!,
@@ -131,7 +135,12 @@ const AvtaleOversikt: FunctionComponent = () => {
                 }
                 setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
             });
-        } else if (!sammeSokId || !sammePageIUrlOgFilter || !sammeSorteringIUrlOgFilter) {
+        } else if (
+            !sammeSokId ||
+            !sammePageIUrlOgFilter ||
+            !sammeSorteringIUrlOgFilter ||
+            !sammeSorteringOrderIUrlOgFilter
+        ) {
             // sokId/page/sortering endret i en navigering - Nytt GET-søk
             // vi må da gjøre GET med sokId/page/sortering fra url, ikke fra filteret
             // Vi setter heller ingenting i searchParams her, da det er her endringen skjer via en frem/tilbake navigering, vi må derimot sette filter, da endringen ikke kommer herfra, men fra url'en.
@@ -141,7 +150,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             const sorteringOrderFraUrl = searchParams.get('sorteringOrder') || 'ASC';
             hentAvtalerForInnloggetBrukerMedSokId(
                 sokIdFraUrl,
-                3,
+                10,
                 pageFraUrl - 1,
                 sorteringFraUrl || undefined,
                 sorteringOrderFraUrl
@@ -153,6 +162,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                 endreFilter({
                     page: '' + (pagableAvtale.currentPage + 1),
                     sorteringskolonne: pagableAvtale.sorteringskolonne,
+                    sorteringOrder: pagableAvtale.sorteringOrder,
                     ...pagableAvtale.sokeParametere,
                 });
             });
