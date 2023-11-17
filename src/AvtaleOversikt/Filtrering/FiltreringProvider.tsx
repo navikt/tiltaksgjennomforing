@@ -23,18 +23,19 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         if (nettressursCtx.status !== Status.IkkeLastet) return;
         if (innloggetBruker.rolle === 'BESLUTTER') return;
         if (innloggetBruker.rolle === 'ARBEIDSGIVER' && !filtre.bedriftNr) return;
-        
-        const tekniskPage = searchParams.get('page') ? (parseInt(searchParams.get('page')!) - 1) : 0;
+
+        const tekniskPage = searchParams.get('page') ? parseInt(searchParams.get('page')!, 10) - 1 : 0;
         let resultat;
         setNettressursCtx({ status: Status.LasterInn });
         const sorteringskolonne = searchParams.get('sorteringskolonne') as keyof Avtale || 'sistEndret';
+        const sorteringOrder = searchParams.get('sorteringOrder') || 'ASC';
         let erGet = false;
         if (searchParams.get('sokId')) {
-            const sokId = searchParams.get('sokId')!;     
-            resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 10, tekniskPage, sorteringskolonne);
+            const sokId = searchParams.get('sokId')!;
+            resultat = hentAvtalerForInnloggetBrukerMedSokId(sokId, 10, tekniskPage, sorteringskolonne, sorteringOrder);
             erGet = true;
         } else {
-            resultat = hentAvtalerForInnloggetBrukerMedPost({ sorteringskolonne: sorteringskolonne, ...filtre }, 10, 0);
+            resultat = hentAvtalerForInnloggetBrukerMedPost({sorteringOrder: sorteringOrder, sorteringskolonne: sorteringskolonne, ...filtre }, 10, 0);
             erGet = false;
         }
         resultat.then((pagableAvtale: PageableAvtale) => {
@@ -42,21 +43,32 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
                 // ugyldig sokId - Utfører blankt søk.
                 hentAvtalerForInnloggetBrukerMedPost(filtre, 10, 0).then((pagableAvtale: PageableAvtale) => {
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-                    setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne });
-                    setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne });
+                    setSearchParams({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, sorteringOrder: pagableAvtale.sorteringOrder });
+                    setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne, sorteringOrder: pagableAvtale.sorteringOrder });
                 });
             } else {
                 if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
                     if (!erGet) {
-                        const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr });
+                        const sokeParams = fjernTommeFelterFraObjekt({
+                            sokId: pagableAvtale.sokId,
+                            page: '' + (pagableAvtale.currentPage + 1),
+                            sorteringskolonne: pagableAvtale.sorteringskolonne,
+                            sorteringOrder: pagableAvtale.sorteringOrder,
+                            bedrift: pagableAvtale.sokeParametere.bedriftNr,
+                        });
                         setSearchParams(sokeParams, { replace: true });
                     }
                 } else {
-                    const sokeParams = fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne });
+                    const sokeParams = fjernTommeFelterFraObjekt({
+                        sokId: pagableAvtale.sokId,
+                        page: '' + (pagableAvtale.currentPage + 1),
+                        sorteringskolonne: pagableAvtale.sorteringskolonne,
+                        sorteringOrder: pagableAvtale.sorteringOrder,
+                    });
                     setSearchParams(sokeParams, { replace: true });
                 }
                 setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-                setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne });
+                setFiltre({ ...pagableAvtale.sokeParametere, page: (pagableAvtale.currentPage + 1) + '', sorteringskolonne: pagableAvtale.sorteringskolonne, sorteringOrder: pagableAvtale.sorteringOrder });
             }
         });
 

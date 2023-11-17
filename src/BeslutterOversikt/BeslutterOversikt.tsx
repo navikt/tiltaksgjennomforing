@@ -35,7 +35,7 @@ const BeslutterOversikt: FunctionComponent = () => {
         );
     }, [filtre]);
 
-    const pageNumber = parseInt(filtre.page || '1');
+    const pageNumber = parseInt(filtre.page || '1', 10);
 
     const layout = useAvtaleOversiktLayout();
     return (

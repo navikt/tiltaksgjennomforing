@@ -7,6 +7,7 @@ interface FilterOgPagination {
     navEnhet?: string;
     bedrift?: string; // Bedriftsmenyen bruker queryparameter som heter 'bedrift', så må konvertere den til 'bedriftNr
     page?: string;
+    sorteringOrder?: string;
 }
 
 export type Filtrering = Partial<Avtale> & FilterOgPagination;
