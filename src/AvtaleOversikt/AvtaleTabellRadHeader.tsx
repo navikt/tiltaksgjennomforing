@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from '@navikt/ds-react';
 import './AvtaleTabellRadHeader.less';
 import BEMHelper from '@/utils/bem';
-import SortingValg from '@/AvtaleOversikt/Filtrering/SortingValg';
+import SorteringOrderValg from '@/AvtaleOversikt/Filtrering/SorteringOrderValg';
 import { AvtaleMinimalForBeslutter } from '@/types/avtale';
 
 interface Props {
@@ -17,34 +17,41 @@ const AvtaleTabellRadHeader: React.FC<Props> = ({ erBeslutter, erNavAnsatt }: Pr
         <Table.Header className={cls.className}>
             <Table.Row>
                 <Table.ColumnHeader>
-                    <SortingValg label={'Tiltakstype'} sorteringsverdi={'tiltakstype'} />
+                    <SorteringOrderValg label={'Tiltakstype'} sorteringsverdi={'tiltakstype'} />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader>
-                    <SortingValg label={'Bedrift'} sorteringsverdi={'bedriftNavn'} />
+                    <SorteringOrderValg label={'Bedrift'} sorteringsverdi={'bedriftNavn'} />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader>
-                    <SortingValg label={'Deltaker'} sorteringsverdi={'deltakerFornavn'} />
+                    <SorteringOrderValg label={'Deltaker'} sorteringsverdi={'deltakerFornavn'} />
                 </Table.ColumnHeader>
-                {(erNavAnsatt || erBeslutter) && <Table.ColumnHeader>Veileder</Table.ColumnHeader>}
-                {erBeslutter ? (
+                {erNavAnsatt && (
                     <Table.ColumnHeader>
-                        <SortingValg label={'Startdato'} sorteringsverdi={'startDato'} />
+                        <SorteringOrderValg label={'Veileder'} sorteringsverdi={'veilederNavIdent'} />
                     </Table.ColumnHeader>
+                )}
+                {erBeslutter ? (
+                    <>
+                        <Table.ColumnHeader>Veileder</Table.ColumnHeader>
+                        <Table.ColumnHeader>
+                            <SorteringOrderValg label={'Startdato'} sorteringsverdi={'startDato'} />
+                        </Table.ColumnHeader>
+                    </>
                 ) : (
                     <>
                         <Table.ColumnHeader>
-                            <SortingValg label={'Startdato'} sorteringsverdi={'startDato'} />
+                            <SorteringOrderValg label={'Startdato'} sorteringsverdi={'startDato'} />
                         </Table.ColumnHeader>
                         <Table.ColumnHeader>
-                            <SortingValg label={'Sluttdato'} sorteringsverdi={'sluttDato'} />
+                            <SorteringOrderValg label={'Sluttdato'} sorteringsverdi={'sluttDato'} />
                         </Table.ColumnHeader>
                         <Table.ColumnHeader>&nbsp;</Table.ColumnHeader>
                     </>
                 )}
                 <Table.ColumnHeader>
-                    <SortingValg label={'Status'} sorteringsverdi={'status'} />
+                    <SorteringOrderValg label={'Status'} sorteringsverdi={'status'} />
                 </Table.ColumnHeader>
-                <Table.ColumnHeader></Table.ColumnHeader>
+                <Table.ColumnHeader />
             </Table.Row>
         </Table.Header>
     );

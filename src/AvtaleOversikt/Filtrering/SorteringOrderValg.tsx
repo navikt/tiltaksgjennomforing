@@ -13,8 +13,8 @@ interface Props {
 
 const cls = BEMHelper('avtaletabellradheader');
 
-const SortingValg: FunctionComponent<Props> = ({ label, sorteringsverdi }) => {
-    const { endreFilter, filtre } = useFilter();
+const SorteringOrderValg: FunctionComponent<Props> = ({ label, sorteringsverdi }) => {
+    const { endreFilter, filtre } = useFilter(); //TODO: Trenger man useFilter og useFilterGammel?
 
     return (
         <div className={cls.element('label-container')}>
@@ -41,4 +41,4 @@ const SortingValg: FunctionComponent<Props> = ({ label, sorteringsverdi }) => {
         </div>
     );
 };
-export default SortingValg;
+export default SorteringOrderValg;
