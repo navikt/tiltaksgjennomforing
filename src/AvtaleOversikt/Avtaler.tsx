@@ -16,6 +16,7 @@ type Props = {
     innloggetBruker: InnloggetBruker;
     varsler: Varsel[];
 };
+const harIngenAltinnTilganger = (innloggetBruker: InnloggetBruker) => Object.entries(innloggetBruker.tilganger).length === 0;
 
 export const Avtaler: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
@@ -25,7 +26,10 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
         return <AvtaleOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet && props.avtalelisteRessurs.data.avtaler.length === 0) {
         return <IngenAvtaler />;
-    } else if (props.avtalelisteRessurs.status === Status.Lastet) {
+    } else if (props.innloggetBruker.rolle === "ARBEIDSGIVER" && harIngenAltinnTilganger(props.innloggetBruker)) {
+        return <IngenAvtaler />;
+    }
+     else if (props.avtalelisteRessurs.status === Status.Lastet) {
         return layout.erNokPlassTilTabell ? (
             <AvtaleTabell
                 avtaler={props.avtalelisteRessurs.data.avtaler}
