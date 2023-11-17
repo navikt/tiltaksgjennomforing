@@ -25,7 +25,7 @@ const Sortering: FunctionComponent = (props) => {
 
     leggtilSorteringstype('startDato', 'Startdato');
     leggtilSorteringstype('sistEndret', 'Sist endret');
-    if(rolle === 'BESLUTTER') leggtilSorteringstype('tiltakstype', 'Tiltakstype');
+    leggtilSorteringstype('tiltakstype', 'Tiltakstype'); // Veiledere ska også ha tiltakstype
 
     const defaultValg = rolle === 'BESLUTTER' ? 'startDato' : 'sistEndret';
 
