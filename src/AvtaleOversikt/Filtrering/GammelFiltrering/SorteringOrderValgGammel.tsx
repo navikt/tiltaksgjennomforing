@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { ReactComponent as TriangleUp } from '@/assets/ikoner/triangleUp.svg';
 import { ReactComponent as TriangleDown } from '@/assets/ikoner/triangleDown.svg';
 import BEMHelper from '@/utils/bem';
+import { useFilterGammel } from '@/AvtaleOversikt/Filtrering/GammelFiltrering/useFilterGammel';
 import { Avtale } from '@/types/avtale';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 interface Props {
     label: string | React.ReactNode;
@@ -12,8 +12,8 @@ interface Props {
 
 const cls = BEMHelper('avtaletabellradheader');
 
-const SorteringOrderValg: FunctionComponent<Props> = ({ label, sorteringsverdi }) => {
-    const { endreFilter, filtre } = useFilter();
+const SorteringOrderValgGammel: FunctionComponent<Props> = ({ label, sorteringsverdi }) => {
+    const { endreFilter, filtre } = useFilterGammel();
 
     return (
         <div className={cls.element('label-container')}>
@@ -40,4 +40,4 @@ const SorteringOrderValg: FunctionComponent<Props> = ({ label, sorteringsverdi }
         </div>
     );
 };
-export default SorteringOrderValg;
+export default SorteringOrderValgGammel;
