@@ -24,8 +24,10 @@ const Sortering: FunctionComponent = (props) => {
     };
 
     leggtilSorteringstype('startDato', 'Startdato');
+    leggtilSorteringstype('sluttDato', 'Sluttdato');
     leggtilSorteringstype('sistEndret', 'Sist endret');
     leggtilSorteringstype('tiltakstype', 'Tiltakstype'); // Veiledere ska også ha tiltakstype
+    leggtilSorteringstype('veilederNavIdent', 'Veileder');
 
     const defaultValg = rolle === 'BESLUTTER' ? 'startDato' : 'sistEndret';
 
