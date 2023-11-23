@@ -16,6 +16,7 @@ import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/O
 import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -76,7 +77,10 @@ const BeslutterSide: FunctionComponent = () => {
                 <VerticalSpacer rem={2} />
                 <div className={cls.element('innhold')}>
                     <div className={cls.element('head-wrapper')}>
-                        <TilbakeTilOversiktLenke />
+                        <div className={cls.element('head-meny-wrapper')}>
+                            <TilbakeTilOversiktLenke />
+                            <Varsellogg />
+                        </div>
                         <Heading size="large" className={cls.element('hoved-tittel')}>
                             Tilskudd om {tiltakstypeTekst[avtale.tiltakstype]}
                         </Heading>
