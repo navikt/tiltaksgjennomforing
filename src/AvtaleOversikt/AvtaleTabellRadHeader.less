@@ -6,6 +6,27 @@
     align-items: center;
   }
 
+  &__sortering {
+    &--asc,
+    &--asc-selected {
+      bottom: 0.1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &--desc,
+    &--desc-selected {
+      top: 0.1rem;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    &--asc-selected,
+    &--desc-selected {
+      opacity: 0.5;
+    }
+  }
+
   th {
     background-color: white;
     border-bottom-width: 1px !important; // Overstyr design-css

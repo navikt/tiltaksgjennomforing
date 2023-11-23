@@ -20,7 +20,12 @@ const SorteringOrderValg: FunctionComponent<Props> = ({ label, sorteringsverdi }
             {label}
             <TriangleUp
                 style={{ marginLeft: '0.5rem' }}
-                className={cls.element('sortering')}
+                className={cls.element(
+                    'sortering',
+                    filtre.sorteringOrder === 'ASC' && filtre.sorteringskolonne === sorteringsverdi
+                        ? 'asc-selected'
+                        : 'asc'
+                )}
                 onClick={() => {
                     endreFilter({
                         sorteringskolonne: sorteringsverdi as keyof Avtale,
@@ -29,7 +34,12 @@ const SorteringOrderValg: FunctionComponent<Props> = ({ label, sorteringsverdi }
                 }}
             />
             <TriangleDown
-                className={cls.element('sortering')}
+                className={cls.element(
+                    'sortering',
+                    filtre.sorteringOrder === 'DESC' && filtre.sorteringskolonne === sorteringsverdi
+                        ? 'desc-selected'
+                        : 'desc'
+                )}
                 onClick={() => {
                     endreFilter({
                         sorteringskolonne: sorteringsverdi as keyof Avtale,
