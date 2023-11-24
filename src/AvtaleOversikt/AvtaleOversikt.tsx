@@ -45,22 +45,35 @@ const AvtaleOversikt: FunctionComponent = () => {
     useEffect(() => {
         if (nettressursCtx.status !== Status.Lastet) return;
 
-        const filtreUtenPage = _.omit(filtre, 'page', 'sorteringskolonne');
+        const filtreUtenPage = _.omit(filtre, 'page', 'sorteringskolonne', 'sorteringOrder');
         const erFiltreLikeNettressursFiltre = _.isEqual(fjernTommeFelterFraObjekt(nettressursCtx.data.sokeParametere), fjernTommeFelterFraObjekt(filtreUtenPage));
 
-        const filterPage = parseInt(filtre.page ? filtre.page : '1');
+        const filterPage = parseInt(filtre.page ? filtre.page : '1', 10);
         const sammePageIDataOgFilter = nettressursCtx.data.currentPage === (filterPage - 1);
         const sammeSorteringIUrlOgFilter = searchParams.get('sorteringskolonne') === filtre.sorteringskolonne;
         const sammeSokId = searchParams.get('sokId') === nettressursCtx.data.sokId;
         const sammePageIUrlOgFilter = searchParams.get('page') === '' + (filterPage);
         const sammeSorteringIDataOgFilter = nettressursCtx.data.sorteringskolonne === filtre.sorteringskolonne;
+        const sammeSorteringOrderIDataOgFilter = nettressursCtx.data.sorteringOrder === filtre.sorteringOrder;
+        const sammeSorteringOrderIUrlOgFilter = searchParams.get('sorteringOrder') === filtre.sorteringOrder;
 
         // console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter,
         // "\nsammeSokId", sammeSokId);
         //  console.log('innloggetBruker.rolle:', innloggetBruker.rolle);
 
         // Hvis alt er likt i url, filter og data fra backend - ikke gjør noe.
-        if (sammePageIDataOgFilter && erFiltreLikeNettressursFiltre && sammeSorteringIDataOgFilter && sammeSokId && sammePageIUrlOgFilter && sammeSorteringIUrlOgFilter) return;
+        if (
+            sammePageIDataOgFilter &&
+            erFiltreLikeNettressursFiltre &&
+            sammeSorteringIDataOgFilter &&
+            sammeSokId &&
+            sammePageIUrlOgFilter &&
+            sammeSorteringIUrlOgFilter &&
+            sammeSorteringOrderIDataOgFilter &&
+            sammeSorteringOrderIUrlOgFilter
+        ) {
+            return;
+        }
 
         setNettressursCtx({ status: Status.LasterInn });
         if (!erFiltreLikeNettressursFiltre) {
@@ -68,38 +81,51 @@ const AvtaleOversikt: FunctionComponent = () => {
             hentAvtalerForInnloggetBrukerMedPost(filtre, 10, filterPage - 1).then((pagableAvtale: PageableAvtale) => {
                 if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
                     // Håndtering valg i bedriftsmyen som arbeidsgiver
-                    setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }));
+                    setSearchParams(
+                        fjernTommeFelterFraObjekt({sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr, sorteringOrder: filtre.sorteringOrder})
+                    );
                 } else {
-                    setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne }));
+                    setSearchParams(
+                        fjernTommeFelterFraObjekt({sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: filtre.sorteringskolonne, sorteringOrder: filtre.sorteringOrder})
+                    );
                 }
                 setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
             });
-        } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter) {
+        } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter || !sammeSorteringOrderIDataOgFilter) {
             // page/sortering er endret - Nytt GET-søk
-            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 10, filterPage - 1, filtre.sorteringskolonne || undefined).then(
+            hentAvtalerForInnloggetBrukerMedSokId(searchParams.get('sokId')!, 10, filterPage - 1, filtre.sorteringskolonne || undefined, filtre.sorteringOrder).then(
                 (pagableAvtale: PageableAvtale) => {
-                    if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
-                        setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr }));
-                    } else {
-                        setSearchParams(fjernTommeFelterFraObjekt({ sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne }));
-                    }
-                    setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
+                    setSearchParams(
+                        fjernTommeFelterFraObjekt({sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, bedrift: pagableAvtale.sokeParametere.bedriftNr, sorteringOrder: filtre.sorteringOrder})
+                    );
+                } else {
+                    setSearchParams(
+                        fjernTommeFelterFraObjekt({sokId: pagableAvtale.sokId, page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, sorteringOrder: filtre.sorteringOrder})
+                    );
                 }
-            );
-        } else if (!sammeSokId || !sammePageIUrlOgFilter || !sammeSorteringIUrlOgFilter) {
+                setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+            });
+        } else if (!sammeSokId || !sammePageIUrlOgFilter || !sammeSorteringIUrlOgFilter || !sammeSorteringOrderIUrlOgFilter) {
             // sokId/page/sortering endret i en navigering - Nytt GET-søk
             // vi må da gjøre GET med sokId/page/sortering fra url, ikke fra filteret
             // Vi setter heller ingenting i searchParams her, da det er her endringen skjer via en frem/tilbake navigering, vi må derimot sette filter, da endringen ikke kommer herfra, men fra url'en.
             const sokIdFraUrl = searchParams.get('sokId')!;
             const pageFraUrl = parseInt(searchParams.get('page') || '1');
             const sorteringFraUrl = searchParams.get('sorteringskolonne') as keyof Avtale || '';
-            hentAvtalerForInnloggetBrukerMedSokId(sokIdFraUrl, 3, pageFraUrl - 1, sorteringFraUrl || undefined).then(
+            const sorteringOrderFraUrl = searchParams.get('sorteringOrder') || 'ASC';
+            hentAvtalerForInnloggetBrukerMedSokId(sokIdFraUrl, 10, pageFraUrl - 1, sorteringFraUrl || undefined, sorteringOrderFraUrl).then(
                 (pagableAvtale: PageableAvtale) => {
                     // const eksisterendeSearchParams = lagObjektAvSearchParams(searchParams);
                     // if (eksisterendeSearchParams.bedrift) setSearchParams({...eksisterendeSearchParams, bedrift: pagableAvtale.sokeParametere.bedriftNr});
 
                     setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-                    endreFilter({ page: '' + (pagableAvtale.currentPage + 1), sorteringskolonne: pagableAvtale.sorteringskolonne, ...pagableAvtale.sokeParametere});
+                    endreFilter({
+                        page: '' + (pagableAvtale.currentPage + 1),
+                        sorteringskolonne: pagableAvtale.sorteringskolonne,
+                        sorteringOrder: pagableAvtale.sorteringOrder,
+                        ...pagableAvtale.sokeParametere,
+                    });
                 }
             );
         }

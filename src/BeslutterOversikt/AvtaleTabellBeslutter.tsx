@@ -8,10 +8,10 @@ import { Table, BodyShort } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../AvtaleOversikt/AvtaleTabell.less';
-import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 import { tiltakstypeTekst } from '@/messages';
 import { storForbokstav } from '@/utils/stringUtils';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
+import AvtaleTabellBeslutterHeader from '@/BeslutterOversikt/AvtaleTabellBeslutterHeader';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -26,10 +26,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
 
     return (
         <Table className={cls.className}>
-            <AvtaleTabellRadHeader
-                erBeslutter={erBeslutter}
-                erNavAnsatt={innloggetBruker.erNavAnsatt}
-            />
+            <AvtaleTabellBeslutterHeader />
             <Table.Body>
                 {avtaler.map((avtale: AvtaleMinimalForBeslutter, index: number) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
@@ -81,7 +78,11 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                 />
                             </Table.DataCell>
                             <Table.DataCell>
-                                <ChevronRightIcon className={cls.element('pil-hoyre')} title="a11y-title" fontSize="1.75rem" />
+                                <ChevronRightIcon
+                                    className={cls.element('pil-hoyre')}
+                                    title="a11y-title"
+                                    fontSize="1.75rem"
+                                />
                             </Table.DataCell>
                         </Table.Row>
                     );

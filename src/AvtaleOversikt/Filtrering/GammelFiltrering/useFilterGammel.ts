@@ -40,10 +40,11 @@ export const useFilterGammel = () => {
         updateOrDeleteKey(newSearchParams, endring, "sorteringskolonne");
         updateOrDeleteKey(newSearchParams, endring, "tilskuddPeriodeStatus");
         updateOrDeleteKey(newSearchParams, endring, "tiltakstype");
+        updateOrDeleteKey(newSearchParams, endring, "sorteringOrder");
 
         // Alle endringer som ikke er en endring i paginering/sortering, bør nullstille pagineringen
         const changedKeys = Object.keys(endring);
-        if (changedKeys.filter(k => !['page', 'sorteringskolonne'].includes(k)).length > 0) {
+        if (changedKeys.filter((k) => !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k)).length > 0) {
             newSearchParams.delete("page");
         }
         if (endring.hasOwnProperty('page')) {

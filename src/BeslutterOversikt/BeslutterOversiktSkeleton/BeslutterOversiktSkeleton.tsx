@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
 import './BeslutterOversiktSkeleton.less';
 import 'react-loading-skeleton/dist/skeleton.css';
-import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
+import AvtaleTabellBeslutterHeader from "@/BeslutterOversikt/AvtaleTabellBeslutterHeader";
 
 const cls = BEMHelper('avtaleoversiktskeleton');
 
@@ -18,10 +18,7 @@ const BeslutterOversiktSkeleton: FunctionComponent<Props> = (props) => {
         <>
             <MediaQuery minWidth={881}>
                 <Table className={cls.className}>
-                    <AvtaleTabellRadHeader
-                        erBeslutter={true}
-                        erNavAnsatt={props.erNavAnsatt}
-                    />
+                    <AvtaleTabellBeslutterHeader />
                     <Table.Body>
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((idx) => (
                             <Table.Row key={idx}>

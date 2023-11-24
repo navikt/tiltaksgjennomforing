@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from '@navikt/ds-react';
 import './AvtaleTabellRadHeader.less';
 import BEMHelper from '@/utils/bem';
+import SorteringOrderValg from '@/AvtaleOversikt/Filtrering/SorteringOrderValg';
 
 interface Props {
     erBeslutter: boolean;
@@ -14,26 +15,44 @@ const AvtaleTabellRadHeader: React.FC<Props> = ({erBeslutter, erNavAnsatt}: Prop
     return (
         <Table.Header className={cls.className}>
             <Table.Row>
-                <Table.ColumnHeader>Tiltakstype</Table.ColumnHeader>
-                <Table.ColumnHeader>Bedrift</Table.ColumnHeader>
-                <Table.ColumnHeader>Deltaker</Table.ColumnHeader>
-                {(erNavAnsatt || erBeslutter) && (
-                    <Table.ColumnHeader>Veileder</Table.ColumnHeader>
+                <Table.ColumnHeader>
+                    <SorteringOrderValg label={'Tiltakstype'} sorteringsverdi={'tiltakstype'} />
+                </Table.ColumnHeader>
+                <Table.ColumnHeader>
+                    <SorteringOrderValg label={'Bedrift'} sorteringsverdi={'bedriftNavn'} />
+                </Table.ColumnHeader>
+                <Table.ColumnHeader>
+                    <SorteringOrderValg label={'Deltaker'} sorteringsverdi={'deltakerFornavn'} />
+                </Table.ColumnHeader>
+                {erNavAnsatt && (
+                    <Table.ColumnHeader>
+                        <SorteringOrderValg label={'Veileder'} sorteringsverdi={'veilederNavIdent'} />
+                    </Table.ColumnHeader>
                 )}
                 {erBeslutter ? (
-                    <Table.ColumnHeader>Startdato<br/> periode</Table.ColumnHeader>
+                    <>
+                        <Table.ColumnHeader>Veileder</Table.ColumnHeader>
+                        <Table.ColumnHeader>
+                            <SorteringOrderValg label={'Startdato'} sorteringsverdi={'startDato'} />
+                        </Table.ColumnHeader>
+                    </>
                 ) : (
                     <>
-                        <Table.ColumnHeader>Startdato</Table.ColumnHeader>
-                        <Table.ColumnHeader>Sluttdato</Table.ColumnHeader>
-                        <Table.ColumnHeader>&nbsp;</Table.ColumnHeader> 
+                        <Table.ColumnHeader>
+                            <SorteringOrderValg label={'Startdato'} sorteringsverdi={'startDato'} />
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>
+                            <SorteringOrderValg label={'Sluttdato'} sorteringsverdi={'sluttDato'} />
+                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>&nbsp;</Table.ColumnHeader>
                     </>
                 )}
-                <Table.ColumnHeader>Status</Table.ColumnHeader>
-                <Table.ColumnHeader></Table.ColumnHeader>
-              
+                <Table.ColumnHeader>
+                    <SorteringOrderValg label={'Status'} sorteringsverdi={'status'} />
+                </Table.ColumnHeader>
+                <Table.ColumnHeader />
             </Table.Row>
         </Table.Header>
-    )
+    );
 };
 export default AvtaleTabellRadHeader;
