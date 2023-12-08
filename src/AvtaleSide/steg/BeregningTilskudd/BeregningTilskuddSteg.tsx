@@ -48,6 +48,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             </Row>
 
             <VerticalSpacer rem={2} />
+            {avtale.gjeldendeInnhold.manedslonn} {/* endres med en gang */}
             <UtregningPanel {...avtale.gjeldendeInnhold} tiltakstype={avtale.tiltakstype} />
             <VerticalSpacer rem={1.25} />
             {innloggetBruker.erNavAnsatt &&
@@ -65,7 +66,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <VerticalSpacer rem={2} />
             <VisningTilskuddsperioder />
             <VerticalSpacer rem={2} />
-            <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+            <LagreKnapp lagre={lagreAvtale} label={'[L] Lagre'} suksessmelding={'Avtale lagret'} />
         </Innholdsboks>
     );
 };

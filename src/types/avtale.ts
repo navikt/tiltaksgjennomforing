@@ -292,6 +292,7 @@ export interface TilskuddsPeriode {
     aktiv: boolean;
     enhet?: string;
     enhetsnavn?: string;
+    arbeidsgiveravgiftEkstre?: number;
 }
 
 export interface Kontonummer {

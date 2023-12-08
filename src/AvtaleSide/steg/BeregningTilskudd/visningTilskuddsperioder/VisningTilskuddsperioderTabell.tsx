@@ -25,6 +25,8 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
     const cls = BEMHelper(className);
     return (
         <div className={cls.element('tabell')}>
+            {avtale.gjeldendeInnhold.manedslonn}
+
             <div className={cls.element('tabell-ingress')}>
                 <Label>Tilskudd for periode</Label>
                 {innloggetBruker.erNavAnsatt && <Label>Status</Label>}
@@ -77,7 +79,9 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                             </BodyShort>
                         </div>
                     );
-                })}
+                })
+
+            }
             <InfoRundtTilskuddsperioder
                 className={cls.className}
                 gjeldendeInnholdStartdato={avtale.gjeldendeInnhold.startDato}

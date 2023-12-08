@@ -1,6 +1,6 @@
 import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { oppdateretilskuddsBeregningDryRun } from '@/services/rest-service';
+import {lagreAvtale, oppdateretilskuddsBeregningDryRun} from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 

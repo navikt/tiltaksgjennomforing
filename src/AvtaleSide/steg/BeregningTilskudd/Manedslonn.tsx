@@ -9,7 +9,8 @@ interface Props {
 }
 
 const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
-    const { avtale, settAvtaleInnholdVerdier, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+    const { avtale, settAvtaleInnholdVerdier, settOgKalkulerBeregningsverdier, lagreAvtale } =
+        useContext(AvtaleContext);
     return (
         <Row className={cls.element('rad', 'input')}>
             <Column md="6" className={cls.element('valuta-input')}>
@@ -23,7 +24,12 @@ const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         settAvtaleInnholdVerdier({ manedslonn: parseFloat(event.target.value) });
                     }}
-                    onBlur={(event) => settOgKalkulerBeregningsverdier({ manedslonn: parseFloat(event.target.value) })}
+                    onBlur={(event) => {
+                        lagreAvtale();
+                        settOgKalkulerBeregningsverdier({
+                            manedslonn: parseFloat(event.target.value),
+                        });
+                    }}
                     min={0}
                 />
             </Column>

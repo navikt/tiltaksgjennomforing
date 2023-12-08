@@ -37,7 +37,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
         <Accordion className="accordion">
             <Accordion.Item defaultOpen>
                 <Accordion.Header>
-                    <Label>Tilskudd for en måned</Label>
+                    <Label>[1] Tilskudd for en måned</Label>
                 </Accordion.Header>
                 <Accordion.Content>
                     <div className={cls.element('wrapper')}>
@@ -95,6 +95,27 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                         />
                         <Utregningsrad
                             labelTekst="Sum tilskudd for en måned"
+                            tekstType="element"
+                            verdi={`Inntil ${formatterPenger(props.sumLonnstilskudd || 0)}`}
+                        />
+                        <Utregningsrad
+                            labelTekst={`Ekstra arbeidsgiveravgift fom`}
+                            midtrekkeTekst={
+                                props.datoForRedusertProsent
+                                    ? formatterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)
+                                    : null
+                            }
+                            labelIkon={<GraphRefusjonAvLonnIkon />}
+                            ikkePenger
+                            verdiOperator={<ProsentTegn />}
+                            verdi={
+                                props.lonnstilskuddProsent
+                                    ? regnUtRedusertProsent(props.lonnstilskuddProsent)
+                                    : 0
+                            }
+                        />
+                        <Utregningsrad
+                            labelTekst="Ekstra arbeidsgiveravgift på 5%"
                             tekstType="element"
                             verdi={`Inntil ${formatterPenger(props.sumLonnstilskudd || 0)}`}
                         />

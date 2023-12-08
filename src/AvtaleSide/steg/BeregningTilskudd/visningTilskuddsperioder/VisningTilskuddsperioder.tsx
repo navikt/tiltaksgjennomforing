@@ -17,6 +17,7 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
 
     return (
         <div className={cls.className}>
+            Visning {avtale.gjeldendeInnhold.manedslonn}
             <Accordion className={'accordion'}>
                 <Accordion.Item defaultOpen>
                     <Accordion.Header>Oversikt over tilskudd i perioder</Accordion.Header>
