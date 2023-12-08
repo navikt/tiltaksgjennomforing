@@ -126,7 +126,7 @@ export const hentAvtalerForInnloggetBrukerMedPost = async (
     søkekriterier: Filtrering,
     size: number = 2,
     page: number = 0,
-    sorteringOrder: string = 'ASC'
+    sorteringOrder: string = 'DESC'
 ): Promise<PageableAvtale> => {
     const postBody = removeEmpty(søkekriterier);
     const queryParam = new URLSearchParams(removeEmpty({page, size, sorteringskolonne: søkekriterier.sorteringskolonne, sorteringOrder }));
