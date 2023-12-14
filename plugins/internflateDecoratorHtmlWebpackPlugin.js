@@ -1,6 +1,3 @@
-const jsdom = require('jsdom');
-
-const { JSDOM } = jsdom;
 const styles =
     '<link rel="stylesheet" href="https://navikt.github.io/internarbeidsflatedecorator/v2.1/static/css/main.css">';
 const scripts =
