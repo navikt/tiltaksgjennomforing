@@ -12,7 +12,7 @@ const cls = BEMHelper('mål');
 const MaalOppsummering: FunctionComponent<MaalListe> = (props) => {
     const maalListe = props.maal.map((maal) => (
         <div key={maal.id} className={cls.className}>
-            <Heading size="small" className={cls.element('label')}>
+            <Heading level='3' size="small" className={cls.element('label')}>
                 <FormattedMessage id={maal.kategori} />
             </Heading>
             <BodyShort size="small" className={cls.element('beskrivelse')}>

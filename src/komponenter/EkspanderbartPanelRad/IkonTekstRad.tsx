@@ -18,7 +18,7 @@ const IkonTekstRad: React.FunctionComponent<PropsWithChildren<Props>> = (props) 
     const { svgIkon, headerTekst, classname, children } = props;
     let header = null;
     if (headerTekst?.headingType) {
-        header = <Heading size={headerTekst.headingType}>{headerTekst.tekst}</Heading>;
+        header = <Heading level='3' size={headerTekst.headingType}>{headerTekst.tekst}</Heading>;
     } else if (headerTekst) {
         header = <Label>{headerTekst?.tekst}</Label>;
     }

@@ -54,7 +54,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
 
     return (
         <div>
-            <Heading size="medium">Legg til utgift</Heading>
+            <Heading level='2' size="medium">Legg til utgift</Heading>
             <VerticalSpacer rem={2} />
 
             {leggertilTilskuddsutgift ? (

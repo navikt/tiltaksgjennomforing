@@ -108,7 +108,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
                 <Innholdsboks>
-                    <Heading size="medium">Før du oppretter en avtale</Heading>
+                    <Heading level='2' size="medium">Før du oppretter en avtale</Heading>
                     <BodyShort size="small">
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                         <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
@@ -124,7 +124,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </BodyShort>
                 </Innholdsboks>
                 <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Heading size="medium" className={cls.element('innholdstittel')}>
+                    <Heading level="2" size="medium" className={cls.element('innholdstittel')}>
                         Velg type avtale
                     </Heading>
                     <VerticalSpacer rem={1} />
@@ -153,7 +153,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
                 </Innholdsboks>
                 <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Heading size="medium" className={cls.element('innholdstittel')}>
+                    <Heading level='2' size="medium" className={cls.element('innholdstittel')}>
                         Hvem skal inngå i avtalen
                     </Heading>
                     <VerticalSpacer rem={1} />

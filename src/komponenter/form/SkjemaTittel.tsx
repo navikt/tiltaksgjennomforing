@@ -5,7 +5,7 @@ import './SkjemaTittel.less';
 const SkjemaTittel: React.FunctionComponent<PropsWithChildren> = (props) => {
     const { children, ...other } = props;
     return (
-        <Heading size="medium" className="skjema-tittel" {...other}>
+        <Heading size="medium" level="2" className="skjema-tittel" {...other}>
             {children}
         </Heading>
     );

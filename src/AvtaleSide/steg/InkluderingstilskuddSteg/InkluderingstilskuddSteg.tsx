@@ -51,7 +51,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
     return (
         <>
             <Innholdsboks utfyller="arbeidsgiver">
-                <Heading size="medium">Inkluderingstilskudd</Heading>
+                <Heading level='2' size="medium">Inkluderingstilskudd</Heading>
                 <VerticalSpacer rem={1} />
                 <InkluderingstilskuddIngress />
                 <VerticalSpacer rem={2} />

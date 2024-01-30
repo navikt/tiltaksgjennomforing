@@ -52,7 +52,7 @@ const Varsellogg: FunctionComponent = () => {
                 aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
                 <Modal.Header>
-                    <Heading size="medium" level="1">
+                    <Heading size="medium" level="2">
                         Hendelselogg
                     </Heading>
                 </Modal.Header>

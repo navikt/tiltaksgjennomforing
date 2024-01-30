@@ -45,7 +45,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     ];
     return (
         <Innholdsboks className={cls.element('valg-tiltakstype-container')}>
-            <Heading size="medium">Velg type avtale</Heading>
+            <Heading level="2" size="medium">Velg type avtale</Heading>
             <BodyLong size="small" className={cls.element('valg-tiltakstype-tekst')}>
                 Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
                 <EksternLenke

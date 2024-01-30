@@ -7,7 +7,7 @@ import HvaManglerOppsummering from '../HvaManglerOppsummering';
 const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = (props) => {
     return (
         <div>
-            <Heading size="small">Relasjoner</Heading>
+            <Heading level="2" size="small">Relasjoner</Heading>
             <BodyShort size="small">
                 Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?
             </BodyShort>

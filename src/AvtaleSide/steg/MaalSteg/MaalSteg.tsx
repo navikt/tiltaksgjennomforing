@@ -28,7 +28,7 @@ const MaalSteg: FunctionComponent = () => {
     };
 
     return (
-        <div role="main">
+        <>
             <Innholdsboks utfyller="veileder">
                 <OpprettMaal
                     iRedigermodus={iRedigermodus}
@@ -50,7 +50,7 @@ const MaalSteg: FunctionComponent = () => {
                     ledigeMålkategorier={ledigeMålkategorier}
                 />
             ))}
-        </div>
+        </>
     );
 };
 

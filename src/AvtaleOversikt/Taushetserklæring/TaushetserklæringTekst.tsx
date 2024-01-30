@@ -7,7 +7,7 @@ const TausetserklæringTekst = () => {
     const cls = BEMHelper('taushetserklæring');
     return (
         <div style={{ padding: '0.5rem' }}>
-            <Heading size="medium">Taushetsplikt for avtale</Heading>
+            <Heading level='2' size="medium">Taushetsplikt for avtale</Heading>
             <p>
                 Forvaltningsloven, arbeids- og velferdsforvaltningsloven og lov om sosiale tjenester i arbeids- og
                 velferdsforvaltningen inneholder strenge regler om taushetsplikt. Det skal bevares taushet om alle
@@ -40,7 +40,7 @@ const TausetserklæringTekst = () => {
                 straffeansvar etter straffeloven §§ 209 og 210.
             </p>
             <div style={{ padding: '1rem', lineHeight: '0.5rem', fontSize: '0.9rem' }}>
-                <Heading size="medium">Hva sier regelverket?</Heading>
+                <Heading level='2' size="medium">Hva sier regelverket?</Heading>
                 <div className={cls.element('lenker')}>
                     <EksternLenke
                         className={cls.element('lenke')}

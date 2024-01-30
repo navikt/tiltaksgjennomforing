@@ -28,7 +28,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
     const ikkeGodkjentAvNoen = !avtale.godkjentAvDeltaker && !avtale.godkjentAvArbeidsgiver;
 
     return (
-        <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
+        <Innholdsboks  className={cls.className} ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
             {((avtale.tiltakstype !== 'SOMMERJOBB' && !avtale.godkjentAvDeltaker) ||

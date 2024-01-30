@@ -12,7 +12,7 @@ interface Props {
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
     const ekspanderbartPanel = props.avtaleSteg.map((steg) => (
-        <div className="avtaleside__ekspanderbart-panel" key={steg.id}>
+        <div role="main" className="avtaleside__ekspanderbart-panel" key={steg.id}>
             <Accordion className="accordion">
                 <Accordion.Item>
                     <Accordion.Header>{steg.label}</Accordion.Header>

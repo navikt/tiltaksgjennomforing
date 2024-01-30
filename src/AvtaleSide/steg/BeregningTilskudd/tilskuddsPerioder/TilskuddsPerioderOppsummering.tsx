@@ -13,7 +13,7 @@ const TilskuddsPerioderOppsummering = () => {
 
     return (
         <>
-            <Heading size="small">Tilskuddsperioder</Heading>
+            <Heading level='2' size="small">Tilskuddsperioder</Heading>
             <VerticalSpacer rem={1} />
             <VisningTilskuddsperioder />
         </>

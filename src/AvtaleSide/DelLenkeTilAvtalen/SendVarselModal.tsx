@@ -28,7 +28,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
             aria-modal={props.isOpen}
         >
             <Modal.Header>
-                <Heading size="medium">Del lenke til avtalen</Heading>
+                <Heading level='2' size="medium">Del lenke til avtalen</Heading>
             </Modal.Header>
             <Modal.Body>
                 <VerticalSpacer rem={0.5} />
@@ -40,7 +40,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
 
                 <VerticalSpacer rem={2} />
 
-                <Heading size="small">Send lenke på SMS</Heading>
+                <Heading level='2' size="small">Send lenke på SMS</Heading>
                 <VerticalSpacer rem={0.5} />
                 <LagreKnapp
                     label="Send til arbeidsgiveren"
@@ -67,7 +67,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
 
                 <VerticalSpacer rem={2} />
 
-                <Heading size="small">Send lenke manuelt</Heading>
+                <Heading level='2' size="small">Send lenke manuelt</Heading>
                 <div className={cls.element('lenkedeling')}>
                     <div className={cls.element('lenke')}>
                         <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
