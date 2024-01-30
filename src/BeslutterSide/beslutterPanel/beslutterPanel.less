@@ -62,7 +62,23 @@
   &__input-wrapper {
     display: flex;
     margin-left: 1rem;
+    align-items: center;
+  }
+  
+  &__input input {
     width: 5rem;
+  }
+  
+  &__input-meta {
+    margin-left: 0.5rem;
+  }
+  
+  &__infovisning-rad--start {
+    align-items: flex-start;
+    
+    > .navds-label:first-of-type {
+      margin-top: 0.25rem;
+    }
   }
 
   @media(min-width: @container-tablet) {

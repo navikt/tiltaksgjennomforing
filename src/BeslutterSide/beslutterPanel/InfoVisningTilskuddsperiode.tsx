@@ -55,7 +55,7 @@ const InfoVisningTilskuddsperiode: FunctionComponent = () => {
                             />
                         }
                     />
-                    <div className={cls.element('infovisning-rad')}>
+                    <div className={cls.element('infovisning-rad', 'start')}>
                         <Label>Endre kostnadssted</Label>
                         <TilskuddsperiodeEndreKostnadssted />
                     </div>

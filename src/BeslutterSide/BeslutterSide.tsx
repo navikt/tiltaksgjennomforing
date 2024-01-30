@@ -22,10 +22,10 @@ const cls = BEMHelper('beslutter-side');
 export interface Periode {
     visAvslag: boolean;
     setVisAvslag: Dispatch<SetStateAction<boolean>>;
-    enhet: string;
-    setEnhet: Dispatch<SetStateAction<string>>;
-    enhetFeil: string | undefined;
-    setEnhetFeil: Dispatch<SetStateAction<string | undefined>>;
+    enhet?: string;
+    setEnhet: Dispatch<SetStateAction<string | undefined>>;
+    visEnhetFeil: boolean;
+    setVisEnhetFeil: Dispatch<SetStateAction<boolean>>;
 }
 
 export const TilskuddsperiodeContext = React.createContext<Periode>({} as Periode);
@@ -36,12 +36,12 @@ const BeslutterSide: FunctionComponent = () => {
     const { gjeldendeTilskuddsperiode, enhetOppfolging, enhetGeografisk } = avtale;
     const [visAvslag, setVisAvslag] = useState(false);
     const defaultEnhet = gjeldendeTilskuddsperiode?.enhet || enhetOppfolging || enhetGeografisk || '';
-    const [enhet, setEnhet] = useState(
+    const [enhet, setEnhet] = useState<string | undefined>(
         gjeldendeTilskuddsperiode && gjeldendeTilskuddsperiode?.løpenummer > 1
             ? avtale.tilskuddPeriode[gjeldendeTilskuddsperiode?.løpenummer - 1].enhet ?? defaultEnhet
             : defaultEnhet
     );
-    const [enhetFeil, setEnhetFeil] = useState<string | undefined>(undefined);
+    const [visEnhetFeil, setVisEnhetFeil] = useState<boolean>(false);
     const [, setClsName] = useState<string>();
     const [visVersjon, setVisVersjon] = useState(false);
 
@@ -53,12 +53,12 @@ const BeslutterSide: FunctionComponent = () => {
     };
 
     const context: Periode = {
-        visAvslag: visAvslag,
-        setVisAvslag: setVisAvslag,
-        enhet: enhet,
-        setEnhet: setEnhet,
-        enhetFeil: enhetFeil,
-        setEnhetFeil: setEnhetFeil,
+        visAvslag,
+        setVisAvslag,
+        enhet,
+        setEnhet,
+        visEnhetFeil,
+        setVisEnhetFeil,
     };
 
     const oppsummeringType: { [key in TiltaksType]: JSX.Element } = {

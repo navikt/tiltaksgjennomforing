@@ -1,10 +1,12 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
-import { basename } from '@/paths';
+import useSWR from 'swr';
+
 import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { AvtaleVersjon } from '@/types/avtale';
-import useSWR from 'swr';
+import { Enhet } from '@/types/enhet';
+import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
+import { basename } from '@/paths';
 
 const api = axios.create({
     baseURL: '/tiltaksgjennomforing/api',
@@ -42,3 +44,7 @@ export const useHentVersjoner = (avtaleId: string) => {
     const { data } = useSWR<AvtaleVersjon[]>(`/avtaler/${avtaleId}/versjoner`, swrConfig);
     return data!; // nosonar
 };
+
+export const useHentEnhet = (enhetsnummer?: string) => {
+    return useSWR<Enhet>(enhetsnummer ? `/enheter/${enhetsnummer}` : undefined, { ...swrConfig,  suspense: false, shouldRetryOnError: false });
+}
