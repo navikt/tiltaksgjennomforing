@@ -71,7 +71,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
 
     return (
         <div className={cls.className}>
-            <Heading size="small" className={cls.element('tittel')}>
+            <Heading level='2' size="small" className={cls.element('tittel')}>
                 Tilskudd som skal godkjennes
             </Heading>
             <div className={cls.element('container')}>

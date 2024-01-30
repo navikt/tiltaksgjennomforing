@@ -34,7 +34,7 @@ const OpprettMaal: FunctionComponent<Props> = (props) => {
 
     return (
         <div>
-            <Heading size="medium">Opprett mål</Heading>
+            <Heading level="2" size="medium">Opprett mål</Heading>
             <VerticalSpacer rem={2} />
 
             {leggertilMål ? (

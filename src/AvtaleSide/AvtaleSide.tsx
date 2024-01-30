@@ -87,7 +87,7 @@ const AvtaleSide: FunctionComponent = () => {
                 }}
                 tekst={sideTittel}
             />
-            <div className="avtaleside">
+            <div className="avtaleside" role="main">
                 {erAvtaleLaast && (
                     <div className={cls.element('innhold')}>
                         <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />

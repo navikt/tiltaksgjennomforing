@@ -78,7 +78,7 @@ const EtMaal: FunctionComponent<Props> = (props) => {
                 </>
             ) : (
                 <div>
-                    <Heading size="small">{messages[props.maal.kategori]}</Heading>
+                    <Heading level="3" size="small">{messages[props.maal.kategori]}</Heading>
                     <VerticalSpacer rem={1} />
                     <BodyShort size="small">Beskrivelse av mål</BodyShort>
                     <VerticalSpacer rem={1} />

@@ -38,7 +38,7 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
 
     return (
         <div className={cls.className}>
-            <Heading size="small" className={cls.element('heading')}>
+            <Heading level="2" size="small" className={cls.element('heading')}>
                 Relasjoner
             </Heading>
             <div className={cls.element('info-ingress')}>

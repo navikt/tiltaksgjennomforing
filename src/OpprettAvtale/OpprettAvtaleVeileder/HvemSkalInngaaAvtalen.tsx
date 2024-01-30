@@ -54,7 +54,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
 
     return (
         <Innholdsboks>
-            <Heading size="medium">Hvem skal inngå i avtalen?</Heading>
+            <Heading level="2" size="medium">Hvem skal inngå i avtalen?</Heading>
             <VerticalSpacer rem={1} />
             <div className={cls.element('fnr-rad')}>
                 <TextField

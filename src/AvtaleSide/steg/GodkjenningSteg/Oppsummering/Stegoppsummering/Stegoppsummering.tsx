@@ -15,7 +15,7 @@ const Stegoppsummering: React.FunctionComponent<PropsWithChildren<Props>> = ({ t
     <div className={cls.className}>
         <div className={cls.element('header')}>
             {ikon}
-            <Heading size="medium" className={cls.element('tittel')}>
+            <Heading level="2" size="medium" className={cls.element('tittel')}>
                 {tittel}
             </Heading>
         </div>

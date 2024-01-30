@@ -52,7 +52,7 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
             </Modal.Header>
             <Modal.Body>
                 <div className={cls.element('modal')}>
-                    <Heading size="medium" className={cls.element('header')}>
+                    <Heading level='2' size="medium" className={cls.element('header')}>
                         Signer taushetserklæring
                     </Heading>
                     <p>Som mentor må du signere en taushetserklæring.</p>

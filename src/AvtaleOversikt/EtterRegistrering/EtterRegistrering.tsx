@@ -73,7 +73,7 @@ const EtterRegistrering: FunctionComponent = () => {
                 aria-label="Min modalrute"
             >
                 <Modal.Header>
-                    <Heading size="medium" className={cls.element('header')}>
+                    <Heading level='2' size="medium" className={cls.element('header')}>
                         Søk opp avtalenummer for godkjenning av etterregistrering
                     </Heading>
                 </Modal.Header>

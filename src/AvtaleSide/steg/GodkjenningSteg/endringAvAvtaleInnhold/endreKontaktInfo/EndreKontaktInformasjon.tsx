@@ -98,7 +98,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 lukkModal={() => setModalApen(false)}
             >
                 
-                <Heading size="small" className={cls.element('tittel')}>
+                <Heading level='3' size="small" className={cls.element('tittel')}>
                     Informasjon om deltaker
                 </Heading>
                 <div className={cls.element('rad')}>
@@ -120,7 +120,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
                     />
                 </div>     
-                <Heading size="small" className={cls.element('tittel')}>
+                <Heading level='3' size="small" className={cls.element('tittel')}>
                     Informasjon om veileder
                 </Heading>
                 <div className={cls.element('rad')}>
@@ -142,7 +142,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                             settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
                         />
                 </div>
-                <Heading size="small" className={cls.element('tittel')}>
+                <Heading level='3' size="small" className={cls.element('tittel')}>
                     Kontaktperson for avtalen i bedriften
                 </Heading>
                 <div className={cls.element('rad')}>

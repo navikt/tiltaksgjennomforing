@@ -40,7 +40,7 @@ const IngenAvtalerHvorDuErMed = () => {
     return (
         <Innholdsboks>
             <div className={cls.element('tekst')}>
-                <Heading size="large">Ingen avtaler</Heading>
+                <Heading level='2' size="medium">Ingen avtaler</Heading>
                 <VerticalSpacer rem={1} />
                 <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
             </div>
