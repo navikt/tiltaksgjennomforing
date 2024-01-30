@@ -7,7 +7,6 @@ metadata:
     team: arbeidsgiver
 spec:
   image: {{image}}
-  team: arbeidsgiver
   port: 3000
   ingresses:
     - '{{{ingress}}}'
