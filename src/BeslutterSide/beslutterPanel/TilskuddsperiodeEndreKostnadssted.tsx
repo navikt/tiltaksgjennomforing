@@ -3,7 +3,6 @@ import Skeleton from 'react-loading-skeleton';
 
 import BEMHelper from '@/utils/bem';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide';
 import { useHentEnhet } from '@/services/use-rest';
@@ -54,11 +53,10 @@ const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
                         setVisEnhetFeil(false);
                     }}
                 />
-                <span className={cls.element('input-meta')}>
+                <span className={cls.element('input-meta')} title={data?.navn}>
                     {isValidating && (<Skeleton width="5rem" />)}
                     {!isValidating && data && !error && data.navn}
                 </span>
-                <VerticalSpacer rem={1} />
             </div>
         </>
     );

@@ -26,6 +26,12 @@
     display: flex;
     align-items: center;
     margin-top: 1rem;
+    flex-wrap: wrap;
+    
+    & > .navds-label {
+      flex-shrink: 0;
+      margin-right: 0.5rem;
+    }
 
     & > p:nth-child(1) {
       min-width: 9rem;
@@ -33,6 +39,12 @@
     & > p:nth-child(2) {
       min-width: 8rem;
     }
+  }
+
+  &__infovisning-rad--input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   &__avslagtext-subingress {
@@ -61,24 +73,15 @@
 
   &__input-wrapper {
     display: flex;
-    margin-left: 1rem;
-    align-items: center;
+  }
+
+  &__input-meta {
+    margin-left: 0.5rem;
+    align-self: center;
   }
   
   &__input input {
     width: 5rem;
-  }
-  
-  &__input-meta {
-    margin-left: 0.5rem;
-  }
-  
-  &__infovisning-rad--start {
-    align-items: flex-start;
-    
-    > .navds-label:first-of-type {
-      margin-top: 0.25rem;
-    }
   }
 
   @media(min-width: @container-tablet) {
@@ -86,16 +89,34 @@
       margin-bottom: 0;
     }
 
+    &__infovisning-rad {
+      flex-wrap: nowrap;
+    }
+
     &__grid-container {
       flex-direction: row;
       grid-gap: 7rem;
     }
 
+    &__input-wrapper {
+      align-items: flex-start;
+    }
+
     &__infovisning-rad {
       flex-direction: row;
+
       .navds-form-field {
         gap: 0;
         grid-gap: 0;
+      }
+    }
+
+    &__infovisning-rad--input {
+      flex-direction: row;
+      min-height: 3.5rem;
+
+      > .navds-label:first-of-type {
+        margin-top: 0.25rem;
       }
     }
   }
