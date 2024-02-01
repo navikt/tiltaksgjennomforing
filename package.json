@@ -64,7 +64,7 @@
         "react-router-dom": "^6.10.0",
         "react-scripts": "5.0.1",
         "react-select": "^5.7.2",
-        "swr": "^1.1.1",
+        "swr": "^2.2.4",
         "typescript": "^4.4.2",
         "url-search-params-polyfill": "^8.1.1",
         "web-vitals": "^2.1.0"

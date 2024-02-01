@@ -20,7 +20,7 @@ interface Props {
 
 const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const { avtale, godkjennTilskudd } = useContext<Context>(AvtaleContext);
-    const { enhet, setEnhetFeil, setVisAvslag } = useContext<Periode>(TilskuddsperiodeContext);
+    const { enhet, setVisEnhetFeil, setVisAvslag } = useContext<Periode>(TilskuddsperiodeContext);
     const { gjeldendeTilskuddsperiode } = avtale;
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
     const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
@@ -137,11 +137,11 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                                         <>
                                                             <Button
                                                                 onClick={() => {
-                                                                    if (!enhet.match(/\d{4}/)) {
-                                                                        setEnhetFeil('Enhet må bestå av 4 siffer');
-                                                                        return;
+                                                                    if (enhet) {
+                                                                        setGodkjennModalÅpen(true);
+                                                                    } else {
+                                                                        setVisEnhetFeil(true);
                                                                     }
-                                                                    setGodkjennModalÅpen(true);
                                                                 }}
                                                             >
                                                                 Godkjenn tilskuddsperiode
@@ -168,8 +168,10 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
             <TilskuddsperiodeVisAvslag />
             <BekreftelseModal
                 bekreftOnClick={async () => {
-                    await godkjennTilskudd(enhet);
-                    setGodkjennModalÅpen(false);
+                    if (enhet) {
+                        await godkjennTilskudd(enhet);
+                        setGodkjennModalÅpen(false);
+                    }
                 }}
                 modalIsOpen={godkjennModalÅpen}
                 oversiktTekst="Godkjenn tilskuddsperiode"
