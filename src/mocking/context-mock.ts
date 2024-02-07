@@ -76,7 +76,8 @@ const avtaleInnhold: Avtale | Avtaleinnhold = {
     godkjentForEtterregistrering: false,
     inkluderingstilskuddsutgift: [],
     inkluderingstilskuddBegrunnelse: '',
-    inkluderingstilskuddTotalBeløp: 0
+    inkluderingstilskuddTotalBeløp: 0,
+    inkluderingstilskuddSats: 149_100,
 };
 
 export const contextMock: Partial<Context> = {

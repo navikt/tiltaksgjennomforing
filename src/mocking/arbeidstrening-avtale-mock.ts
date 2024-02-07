@@ -73,7 +73,8 @@ const arbeidstreningAvtaleMock: Avtale = {
         stillingprosent: 99,
         inkluderingstilskuddsutgift: [],
         inkluderingstilskuddBegrunnelse: '',
-        inkluderingstilskuddTotalBeløp: 0
+        inkluderingstilskuddTotalBeløp: 0,
+        inkluderingstilskuddSats: 149_100
     },
 
     tilskuddPeriode: tilskuddsPeriode,

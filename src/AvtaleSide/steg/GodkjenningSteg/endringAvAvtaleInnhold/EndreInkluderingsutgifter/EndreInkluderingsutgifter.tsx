@@ -80,6 +80,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                         iRegideringsmodus={iRedigermodus}
                         tilskuddsutgift={inkluderingstilskuddsutgiftListe}
                         totalBeløp={inkluderingstilskuddTotal}
+                        inkluderingstilskuddSats={avtale.gjeldendeInnhold.inkluderingstilskuddSats}
                     />
                     <VerticalSpacer rem={2} />
 

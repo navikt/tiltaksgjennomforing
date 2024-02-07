@@ -410,6 +410,7 @@ export interface InkluderingsInnhold {
     inkluderingstilskuddsutgift: Inkluderingstilskuddsutgift[];
     inkluderingstilskuddBegrunnelse: string;
     inkluderingstilskuddTotalBeløp: number;
+    inkluderingstilskuddSats: number;
 }
 
 export interface Inkluderingstilskuddsutgift {

@@ -64,6 +64,7 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     inkluderingstilskuddsutgift: '',
     inkluderingstilskuddBegrunnelse: 'Begrunnelse for inkluderingstilskudd',
     inkluderingstilskuddTotalBeløp: 'Totalbeløp for inkluderingstilskudd',
+    inkluderingstilskuddSats: 'Årlig gjeldende inkluderingstilskuddsats',
 };
 
 export const inkluderingstilskuddForklaringTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {

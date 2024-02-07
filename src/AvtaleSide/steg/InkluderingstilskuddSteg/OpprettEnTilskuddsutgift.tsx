@@ -14,9 +14,19 @@ type Props = {
     leggTilTilskuddsutgift: (beløp: number, type: InkluderingstilskuddsutgiftType) => void;
     ledigeInkluderingstilskuddtyper: InkluderingstilskuddsutgiftType[];
     totalBeløp: number;
+    inkluderingstilskuddSats: number;
 };
 
 const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
+    const {
+        iRegideringsmodus,
+        inkluderingstilskuddSats,
+        ledigeInkluderingstilskuddtyper,
+        leggTilTilskuddsutgift,
+        setIRedigeringsmodus,
+        totalBeløp,
+    } = props;
+    
     const [leggertilTilskuddsutgift, setLeggertilTilskuddsutgift] = useState(false);
 
     const [beløp, setBeløp] = useState<number | undefined>();
@@ -24,8 +34,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
     const [beløpFeil, setBeløpFeil] = useState<string | undefined>();
     const [typeFeil, setTypeFeil] = useState<string | undefined>();
 
-    const ÅRLIG_MAX_BELØP = 143900;
-    const gjenståendeMaxBeløp = ÅRLIG_MAX_BELØP - props.totalBeløp;
+    const gjenståendeMaxBeløp = inkluderingstilskuddSats - totalBeløp;
 
     const leggTil = async () => {
         if (!type) {
@@ -40,14 +49,16 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
             return;
         }
         if (beløp > gjenståendeMaxBeløp) {
-            setBeløpFeil(`Det totale beløpet overskrider det maksimale beløpet på ${formatterPenger(ÅRLIG_MAX_BELØP)}`);
+            setBeløpFeil(
+                `Det totale beløpet overskrider det maksimale beløpet på ${formatterPenger(inkluderingstilskuddSats)}`
+            );
             return;
         } else {
             setBeløp(undefined);
         }
-        props.leggTilTilskuddsutgift(beløp, type);
+        leggTilTilskuddsutgift(beløp, type);
         setLeggertilTilskuddsutgift(false);
-        props.setIRedigeringsmodus(false);
+        setIRedigeringsmodus(false);
         setBeløp(undefined);
         setType(undefined);
     };
@@ -68,7 +79,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                         label="Hva skal tilskuddet dekke?"
                     >
                         <option value="">Velg type utgift</option>
-                        {props.ledigeInkluderingstilskuddtyper.map((currentType: InkluderingstilskuddsutgiftType) => (
+                        {ledigeInkluderingstilskuddtyper.map((currentType: InkluderingstilskuddsutgiftType) => (
                             <option key={currentType} value={currentType}>
                                 {inkluderingstilskuddtypeTekst[currentType]}
                             </option>
@@ -97,7 +108,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                             variant="tertiary"
                             style={{ marginLeft: '1rem' }}
                             onClick={() => {
-                                props.setIRedigeringsmodus(false);
+                                setIRedigeringsmodus(false);
                                 setLeggertilTilskuddsutgift(false);
                             }}
                         >
@@ -108,9 +119,9 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
             ) : (
                 <Button
                     variant="secondary"
-                    disabled={props.iRegideringsmodus}
+                    disabled={iRegideringsmodus}
                     onClick={() => {
-                        props.setIRedigeringsmodus(true);
+                        setIRedigeringsmodus(true);
                         setLeggertilTilskuddsutgift(true);
                     }}
                 >
