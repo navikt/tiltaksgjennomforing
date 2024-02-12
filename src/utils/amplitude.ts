@@ -5,13 +5,16 @@ const erProd =
 const apiKey = erProd ? 'a8243d37808422b4c768d31c88a22ef4' : '6ed1f00aabc6ced4fd6fcb7fcdc01b30';
 
 const instance = amplitude.getInstance();
-instance.init(apiKey, '', {
-    apiEndpoint: 'amplitude.nav.no/collect',
-    saveEvents: false,
-    includeUtm: true,
-    batchEvents: false,
-    includeReferrer: true,
-});
+
+if (window.location.hostname !== 'localhost') {
+    instance.init(apiKey, '', {
+        apiEndpoint: 'amplitude.nav.no/collect',
+        saveEvents: false,
+        includeUtm: true,
+        batchEvents: false,
+        includeReferrer: true,
+    });
+}
 
 export default instance;
 

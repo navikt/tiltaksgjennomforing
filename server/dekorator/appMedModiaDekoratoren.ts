@@ -39,19 +39,24 @@ async function getHTMLDocument(indexFilepath: string): Promise<string> {
 }
 
 function setInnHTML(document: Document): Document {
-    const style = `<link rel="stylesheet" href="${process.env.DECORATOR_INTERNAL_STYLING ?? styleAddress}">`;
-    const script = `<script src="${process.env.DECORATOR_INTERNAL_SCRIPT ?? scriptAddress}"></script>`;
+    const style = document.createElement('link');
+    style.href = process.env.DECORATOR_INTERNAL_STYLING ?? styleAddress;
+    style.rel = 'stylesheet';
+    
+    const script = document.createElement('script');
+    script.src = process.env.DECORATOR_INTERNAL_SCRIPT ?? scriptAddress;
 
-    insertHTML(document, 'styles', style);
-    insertHTML(document, 'scripts', script);
+    insertHTML(document, style);
+    insertHTML(document, script);
 
     return document;
 }
 
-function insertHTML(document: Document, id: string, htmlElement: string): void {
-    const element = document.getElementById(id);
-    if (element) {
-        element.innerHTML = htmlElement;
+function insertHTML(document: Document, htmlElement: Node): void {
+    const head = document.getElementsByTagName('head')[0];
+    if (head) {
+        const title = head.getElementsByTagName('title')[0];
+        title.after(htmlElement);
     }
 }
 

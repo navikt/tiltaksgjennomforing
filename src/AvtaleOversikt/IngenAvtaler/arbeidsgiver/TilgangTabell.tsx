@@ -1,5 +1,5 @@
-import { ReactComponent as ErrorIkon } from '@/assets/ikoner/error.svg';
-import { ReactComponent as SuccessIkon } from '@/assets/ikoner/success.svg';
+import ErrorIkon from '@/assets/ikoner/error.svg?react';
+import SuccessIkon from '@/assets/ikoner/success.svg?react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { useAsyncError } from '@/komponenter/useError';
 import { tiltakstypeTekst } from '@/messages';

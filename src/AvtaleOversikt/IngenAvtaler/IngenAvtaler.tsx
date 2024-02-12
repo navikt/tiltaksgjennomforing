@@ -1,7 +1,7 @@
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import InfoIkon from '@/assets/ikoner/info.svg?react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';

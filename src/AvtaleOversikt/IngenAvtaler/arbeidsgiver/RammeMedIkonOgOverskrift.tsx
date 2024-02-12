@@ -1,4 +1,4 @@
-import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import InfoIkon from '@/assets/ikoner/info.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Heading } from '@navikt/ds-react';
 import React, {FunctionComponent, PropsWithChildren} from 'react';

@@ -23,7 +23,7 @@ const props: EnvProps = {
 };
 
 export const BASEPATH: string = '/tiltaksgjennomforing';
-export const STATIC_PATHS: string[] = ['/static', '/index.css', '/asset-manifest.json'];
+export const STATIC_PATHS: string[] = ['/assets', '/favicon.ico', '/manifest.json'];
 
 function initializePath(app: Express): void {
     app.get(

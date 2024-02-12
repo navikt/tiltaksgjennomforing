@@ -1,5 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { ReactComponent as InfoIkonGul } from '@/assets/ikoner/info-ikon-gul.svg';
+import InfoIkonGul from '@/assets/ikoner/info-ikon-gul.svg?react';
 import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';

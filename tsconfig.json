@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "types": ["vite-plugin-svgr/client"],
     "sourceMap": true,
     "inlineSources": true,
     "sourceRoot": "/",
@@ -30,7 +31,6 @@
   ],
   "exclude": [
     "server.js",
-    "src/whitelist.js",
-    "src/setupProxy.js"
+    "src/whitelist.js"
   ]
 }

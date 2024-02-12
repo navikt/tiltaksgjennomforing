@@ -1,4 +1,4 @@
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/Avbryte-avtale.svg';
+import AvbruttIkon from '@/assets/ikoner/Avbryte-avtale.svg?react';
 import AnnullerAvtaleModal from '@/komponenter/modal/AnnullerAvtaleModal';
 import { Link } from '@navikt/ds-react';
 import React, { useState } from 'react';

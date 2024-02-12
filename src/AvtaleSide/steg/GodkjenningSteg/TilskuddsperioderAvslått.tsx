@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Accordion, Alert, BodyShort, Heading } from '@navikt/ds-react';
-import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
+import ProblemIkon from '@/assets/ikoner/varsel.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
 import { tilskuddsperiodeAvslagTekst } from '@/messages';

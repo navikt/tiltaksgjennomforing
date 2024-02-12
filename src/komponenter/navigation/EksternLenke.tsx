@@ -1,4 +1,4 @@
-import { ReactComponent as TilEkstern } from '@/assets/ikoner/ekstern-lenke.svg';
+import TilEkstern from '@/assets/ikoner/ekstern-lenke.svg?react';
 import amplitude from '@/utils/amplitude';
 import { Link } from '@navikt/ds-react';
 import React, {PropsWithChildren} from 'react';
@@ -22,7 +22,7 @@ const EksternLenke: React.FunctionComponent<PropsWithChildren<EksternLenkeProps>
         <>
             <Link target="_blank" onClick={onClick} href={props.href}>
                 {props.children}
-                <TilEkstern focusable="false" className="ekstern-lenke-icon" />
+                <TilEkstern className="ekstern-lenke-icon" />
             </Link>
         </>
     );

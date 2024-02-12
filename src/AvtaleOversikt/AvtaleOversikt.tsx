@@ -6,7 +6,7 @@ import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { ReactComponent as PlussIkon } from '@/assets/ikoner/pluss-tegn.svg';
+import PlussIkon from '@/assets/ikoner/pluss-tegn.svg?react';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';

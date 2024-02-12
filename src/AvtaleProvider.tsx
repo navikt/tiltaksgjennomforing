@@ -24,7 +24,6 @@ export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
         avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder
     );
     return noenHarGodkjent && !avtale.erAvtaleInngått;
-    // return Boolean(avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver) && !avtale.godkjentAvVeileder;
 };
 
 export interface TemporaryLagring {

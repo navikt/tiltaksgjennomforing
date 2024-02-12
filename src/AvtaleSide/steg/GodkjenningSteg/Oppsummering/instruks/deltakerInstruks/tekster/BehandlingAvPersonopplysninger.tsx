@@ -1,6 +1,6 @@
 import React from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { ReactComponent as Passport } from '@/assets/ikoner/passport.svg';
+import Passport from '@/assets/ikoner/passport.svg?react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { TiltaksType } from '@/types/avtale';
 

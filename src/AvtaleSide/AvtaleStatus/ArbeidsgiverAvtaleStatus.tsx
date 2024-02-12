@@ -1,6 +1,6 @@
-import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
-import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
+import PabegyntIkon from '@/assets/ikoner/pabegynt.svg?react';
+import AvbruttIkon from '@/assets/ikoner/stop.svg?react';
+import VarselIkon from '@/assets/ikoner/varsel.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';

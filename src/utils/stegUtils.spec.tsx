@@ -1,3 +1,5 @@
+import { expect, test } from 'vitest'
+
 import hentAvtaleSteg from './hentAvtaleSteg';
 
 test('test riktig antall steg for arbeidstrening', () => {

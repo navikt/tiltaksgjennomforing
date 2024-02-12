@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactComponent as UtklippstavleIkon } from './utklippstavlen.svg';
+import UtklippstavleIkon from './utklippstavlen.svg?react';
 import VeilederpanelMedIkon from './VeilederpanelMedIkon';
 
 const VeilederpanelMedUtklippstavleIkon = (props: { children?: React.ReactNode }) => (

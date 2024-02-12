@@ -1,4 +1,4 @@
-import { ReactComponent as Info } from '@/assets/ikoner/info.svg';
+import Info from '@/assets/ikoner/info.svg?react';
 import { pathTilInformasjonssideInnloggetNy } from '@/paths';
 import BEMHelper from '@/utils/bem';
 import { LinkPanel, BodyShort } from '@navikt/ds-react';

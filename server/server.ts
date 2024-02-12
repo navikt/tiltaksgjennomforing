@@ -14,9 +14,19 @@ const node: Express = express();
 
 // security
 node.disable('x-powered-by');
-node.use(helmet());
+node.use(
+    helmet({ 
+        contentSecurityPolicy: {
+            directives: {
+                'default-src': ['\'self\'', '*.nav.no'],
+                'img-src': ['\'self\'', '*.nav.no'],
+                'script-src': ['\'self\'', '*.nav.no', '*.adeo.no'],
+            },
+        },
+    })
+);
 
-const indexPath = path.resolve(__dirname, '../build', 'index.html');
+const indexPath = path.resolve(__dirname, '../dist', 'index.html');
 
 async function startServer(): Promise<void> {
     setupPath.initializePath(node);
@@ -61,17 +71,17 @@ async function startLabs(): Promise<void> {
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>
         ) => {
-            res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+            res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
         }
     );
 }
 
 function setStaticPath(): void {
-    node.use(express.static(BASEPATH), express.static(path.resolve(__dirname, '../build')));
+    node.use(express.static(BASEPATH), express.static(path.resolve(__dirname, '../dist')));
     STATIC_PATHS.forEach((staticpath: string): Express => {
         return node.use(
             BASEPATH.concat(staticpath),
-            express.static(path.resolve(__dirname, '../build', '.'.concat(staticpath)))
+            express.static(path.resolve(__dirname, '../dist', '.'.concat(staticpath)))
         );
     });
 }

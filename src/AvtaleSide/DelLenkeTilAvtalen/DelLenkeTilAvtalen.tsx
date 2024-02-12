@@ -1,4 +1,4 @@
-import { ReactComponent as ShareIkon } from '@/assets/ikoner/del-lenke.svg';
+import ShareIkon from '@/assets/ikoner/del-lenke.svg?react';
 import SendVarselModal from '@/AvtaleSide/DelLenkeTilAvtalen/SendVarselModal';
 import { Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';

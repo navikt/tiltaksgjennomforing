@@ -1,4 +1,4 @@
-import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
+import Koffert from '@/assets/ikoner/koffert.svg?react';
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { useAsyncError } from '@/komponenter/useError';

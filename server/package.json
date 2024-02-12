@@ -22,7 +22,7 @@
         "express-async-handler": "1.2.0",
         "express-http-proxy": "1.6.2",
         "fs-extra": "^8.1.0",
-        "helmet": "^3.21.3",
+        "helmet": "^7.1.0",
         "http-proxy-middleware": "^2.0.1",
         "jsdom": "^16.4.0",
         "node-cache": "4.2.0",

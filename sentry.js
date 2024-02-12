@@ -1,8 +1,9 @@
 //https://medium.com/@vshab/create-react-app-and-sentry-cde1f15cbaa
-const SentryCli = require('@sentry/cli');
+import SentryCli from '@sentry/cli';
+import { execSync } from 'node:child_process';
 
 async function createReleaseAndUpload() {
-    const release = process.env.GIT_COMMIT_HASH;
+    const release = execSync('git log -n 1 --pretty=format:\'%h\'').toString();
     if (!release) {
         console.warn('GIT_COMMIT_HASH is not set');
         return;
@@ -14,8 +15,8 @@ async function createReleaseAndUpload() {
 
         console.log('Uploading source maps');
         await cli.releases.uploadSourceMaps(release, {
-            include: ['build/static/js'],
-            urlPrefix: '~/tiltaksgjennomforing/static/js',
+            include: ['dist/assets'],
+            urlPrefix: '~/tiltaksgjennomforing/assets',
             rewrite: false,
         });
         console.log('Finalizing release');

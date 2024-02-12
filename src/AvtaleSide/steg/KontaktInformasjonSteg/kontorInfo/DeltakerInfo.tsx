@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import './deltakerInfo.less';
 import BEMHelper from '@/utils/bem';
-import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
+import NavIkon from '@/assets/ikoner/navikon.svg?react';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 import OppdatereKostnadssted from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { AvtaleContext } from '@/AvtaleProvider';

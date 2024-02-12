@@ -1,4 +1,4 @@
-import { ReactComponent as MentorIkon } from '@/assets/ikoner/mentor.svg';
+import MentorIkon from '@/assets/ikoner/mentor.svg?react';
 import TausetserklæringTekst from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';

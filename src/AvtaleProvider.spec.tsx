@@ -1,16 +1,7 @@
-import { shallow } from 'enzyme';
-import React from 'react';
-import AvtaleProvider, { AvtaleContext, Context, noenHarGodkjentMenIkkeInngått } from './AvtaleProvider';
-import arbeidstreningAvtaleMock from './mocking/arbeidstrening-avtale-mock';
+import { expect, test } from 'vitest'
 
-test('Test at AvtaleContext  ', () => {
-    const wrapper = shallow(
-        <AvtaleContext.Provider value={{ avtale: arbeidstreningAvtaleMock } as Context}>
-            <AvtaleProvider />
-        </AvtaleContext.Provider>
-    );
-    expect(wrapper).toHaveLength(1);
-});
+import { noenHarGodkjentMenIkkeInngått } from './AvtaleProvider';
+import arbeidstreningAvtaleMock from './mocking/arbeidstrening-avtale-mock';
 
 test('Godkjent av ingen', () => {
     const avtale = arbeidstreningAvtaleMock;

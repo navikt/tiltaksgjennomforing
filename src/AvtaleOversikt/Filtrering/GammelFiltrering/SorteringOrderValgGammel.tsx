@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { ReactComponent as TriangleUp } from '@/assets/ikoner/triangleUp.svg';
-import { ReactComponent as TriangleDown } from '@/assets/ikoner/triangleDown.svg';
+import TriangleUp from '@/assets/ikoner/triangleUp.svg?react';
+import TriangleDown from '@/assets/ikoner/triangleDown.svg?react';
 import BEMHelper from '@/utils/bem';
 import { useFilterGammel } from '@/AvtaleOversikt/Filtrering/GammelFiltrering/useFilterGammel';
 import { Avtale } from '@/types/avtale';

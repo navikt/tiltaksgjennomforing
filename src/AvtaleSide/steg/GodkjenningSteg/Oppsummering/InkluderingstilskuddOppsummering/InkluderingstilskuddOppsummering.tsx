@@ -1,4 +1,4 @@
-import { ReactComponent as KalkulatorIkon } from '@/assets/ikoner/kalkulator.svg';
+import KalkulatorIkon from '@/assets/ikoner/kalkulator.svg?react';
 import EnTilskuddsutgiftOppsummering from '@/AvtaleSide/steg/InkluderingstilskuddSteg/EnTilskuddsutgiftOppsummering';
 import '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddSteg.less';
 import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/TilskuddsutgiftTabell';
