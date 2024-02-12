@@ -7,8 +7,7 @@ import { ParsedQs } from 'qs';
 import { IncomingMessage, RequestOptions } from 'http';
 
 const setup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: BaseClient) => {
-
-  app.use(
+    app.use(
         '/modiacontextholder/api/decorator',
         proxy(process.env.APIGW_URL as string, {
             proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {

@@ -3,7 +3,7 @@ import SentryCli from '@sentry/cli';
 import { execSync } from 'node:child_process';
 
 async function createReleaseAndUpload() {
-    const release = execSync('git log -n 1 --pretty=format:\'%h\'').toString();
+    const release = execSync("git log -n 1 --pretty=format:'%h'").toString();
     if (!release) {
         console.warn('GIT_COMMIT_HASH is not set');
         return;

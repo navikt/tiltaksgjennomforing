@@ -18,20 +18,20 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v3
-      - name: Server yarn install
+      - name: Server install
         working-directory: ./server
-        run: yarn install
-      - name: Server yarn build
+        run: npm ci
+      - name: Server build
         working-directory: ./server
-        run: yarn build
-      - name: Frontend yarn install
-        run: yarn install --frozen-lockfile
+        run: npm run build
+      - name: Install
+        run: npm ci
       - name: Kjør tester
-        run: yarn test
-      - name: Frontend yarn build
-        run: yarn build
-      - name: Sett opp sentry release
-        run: yarn run release
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Sentry release
+        run: npm run release
       - name: Bygg, tag og push Docker-image
         run: |
           echo ${GITHUB_TOKEN} | docker login ghcr.io -u ${GITHUB_REPOSITORY} --password-stdin

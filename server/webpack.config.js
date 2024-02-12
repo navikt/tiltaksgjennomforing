@@ -2,7 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'server.ts'),
+    entry: path.resolve(__dirname, 'src', 'server.ts'),
     target: 'node',
     externalsPresets: { node: true },
     output: {
@@ -10,7 +10,6 @@ module.exports = {
         filename: 'server.js',
     },
     mode: 'production',
-    devtool: 'source-map',
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
     },

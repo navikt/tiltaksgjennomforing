@@ -15,12 +15,12 @@ const node: Express = express();
 // security
 node.disable('x-powered-by');
 node.use(
-    helmet({ 
+    helmet({
         contentSecurityPolicy: {
             directives: {
-                'default-src': ['\'self\'', '*.nav.no'],
-                'img-src': ['\'self\'', '*.nav.no'],
-                'script-src': ['\'self\'', '*.nav.no', '*.adeo.no'],
+                'default-src': ["'self'", '*.nav.no'],
+                'img-src': ["'self'", '*.nav.no'],
+                'script-src': ["'self'", '*.nav.no', '*.adeo.no'],
             },
         },
     })

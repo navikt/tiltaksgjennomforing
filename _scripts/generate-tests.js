@@ -1,7 +1,7 @@
 const glob = require('glob');
 const path = require('path');
 const fs = require('fs');
-const createSimpleTest = componentName => {
+const createSimpleTest = (componentName) => {
     return `
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -12,24 +12,24 @@ test('Test that <${componentName}> renders correctly', () => {
     expect(wrapper).toHaveLength(1);
 });`;
 };
-const ensureFileExists = filePath => {
+const ensureFileExists = (filePath) => {
     if (!fs.existsSync(filePath)) {
         console.log('Creating an new file: ' + relativeFilePath(filePath));
         fs.closeSync(fs.openSync(filePath, 'w'));
     }
 };
-const relativeFilePath = absFilePath => {
+const relativeFilePath = (absFilePath) => {
     const rootDir = path.join(__dirname, '..');
     return absFilePath.replace(rootDir, '');
 };
 const pathToTest = path.join(__dirname, '..', 'src/**/*.tsx');
 
-glob(pathToTest, function(er, files) {
+glob(pathToTest, function (er, files) {
     if (er) {
         console.error(er);
         process.exit(1);
     }
-    files.forEach(filePath => {
+    files.forEach((filePath) => {
         if (filePath.slice(-8) !== 'spec.tsx') {
             const specFilePath = filePath.replace('tsx', 'spec.tsx');
             ensureFileExists(specFilePath);
