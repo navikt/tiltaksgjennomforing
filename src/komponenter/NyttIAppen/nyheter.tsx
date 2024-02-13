@@ -8,28 +8,27 @@ const nyheter = [
         dato: tilDato(15, 1, 2024),
         tittel: 'Varsling av deltakere endret',
         innhold: (
-            <>
-                <p>
-                    Deltaker vil nå bli automatisk varslet på min side på nav.no i form av oppgaver og beskjeder i tilegg til sms ved følgende hendelser:
+            <p>
+                Deltaker vil nå bli automatisk varslet på min side på nav.no i form av oppgaver og beskjeder i tilegg
+                til sms ved følgende hendelser:
+                <ul>
                     <li>Når arbeidsgiver godkjenner (oppgave om å godkjenne)</li>
                     <li>Når avtalen er inngått (beskjed)</li>
                     <li>Når avtalen blir forlenget (beskjed)</li>
                     <li>Når avtalen blir forkortet (beskjed)</li>
-                </p>
-            </>
-        )
+                </ul>
+            </p>
+        ),
     },
     {
         dato: tilDato(7, 10, 2022),
         tittel: 'Tiltaksgjennomføring har fått ny URL',
         innhold: (
-            <>
                 <p>
-                    URL-en er oppdatert i Modia-dekoratøren, men hvis du har lagret Tiltaksgjennomføring som bokmerke må du huske å oppdatere denne.
-                    Den gamle URL-en fungerer ikke lenger.
+                    URL-en er oppdatert i Modia-dekoratøren, men hvis du har lagret Tiltaksgjennomføring som bokmerke må
+                    du huske å oppdatere denne. Den gamle URL-en fungerer ikke lenger.
                 </p>
-            </>
-        )
+        ),
     },
     {
         dato: tilDato(1, 9, 2022),
