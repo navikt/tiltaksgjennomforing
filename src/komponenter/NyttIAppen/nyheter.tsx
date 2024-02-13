@@ -1,10 +1,24 @@
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import React from 'react';
 
 const tilDato = (dag: number, måned: number, år: number, timer: number = 0, minutter: number = 0) =>
     new Date(år, måned - 1, dag, timer, minutter);
 
 const nyheter = [
+    {
+        dato: tilDato(15, 1, 2024),
+        tittel: 'Varsling av deltakere endret',
+        innhold: (
+            <>
+                <p>
+                    Deltaker vil nå bli automatisk varslet på min side på nav.no i form av oppgaver og beskjeder i tilegg til sms ved følgende hendelser:
+                    <li>Når arbeidsgiver godkjenner (oppgave om å godkjenne)</li>
+                    <li>Når avtalen er inngått (beskjed)</li>
+                    <li>Når avtalen blir forlenget (beskjed)</li>
+                    <li>Når avtalen blir forkortet (beskjed)</li>
+                </p>
+            </>
+        )
+    },
     {
         dato: tilDato(7, 10, 2022),
         tittel: 'Tiltaksgjennomføring har fått ny URL',
