@@ -21,8 +21,8 @@ const cspMiddleware = (): Handler => {
         }
         res.setHeader('Content-Security-Policy', csp);
         next();
-    }
-}
+    };
+};
 
 const node: Express = express();
 node.disable('x-powered-by');

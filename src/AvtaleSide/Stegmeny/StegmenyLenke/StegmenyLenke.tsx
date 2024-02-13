@@ -13,7 +13,7 @@ interface Props {
     id: string;
 }
 
-const StegmenyLenke: FunctionComponent<Props> = props => {
+const StegmenyLenke: FunctionComponent<Props> = (props) => {
     const Ikon = props.ferdig ? StegFullfortIkon : StegIkkeFullfortIkon;
     const avtaleContext = useContext(AvtaleContext);
 

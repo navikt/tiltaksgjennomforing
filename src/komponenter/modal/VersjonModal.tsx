@@ -35,10 +35,7 @@ const VersjonModal: React.FunctionComponent<Props> = (props) => {
             <Modal.Header>
                 <SkjemaTittel>Versjon {props.avtaleInnhold.versjon}</SkjemaTittel>
             </Modal.Header>
-            <Modal.Body>
-           
-                {oppsummeringType[props.tiltakstype]}
-            </Modal.Body>
+            <Modal.Body>{oppsummeringType[props.tiltakstype]}</Modal.Body>
         </Modal>
     );
 };

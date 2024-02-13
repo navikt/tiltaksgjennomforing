@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState ,PropsWithChildren} from 'react';
+import React, { useState, PropsWithChildren } from 'react';
 import { Collapse } from 'react-collapse';
 import InfoToggler from './InfoToggler/InfoToggler';
 import './LesMerPanel.less';
@@ -11,8 +11,13 @@ interface Props {
     onÅpne?: () => void;
 }
 
-const LesMerPanel: React.FunctionComponent<PropsWithChildren<Props>> =
-    ({ åpneLabel, lukkLabel, children, className, onÅpne }) => {
+const LesMerPanel: React.FunctionComponent<PropsWithChildren<Props>> = ({
+    åpneLabel,
+    lukkLabel,
+    children,
+    className,
+    onÅpne,
+}) => {
     const [åpen, setÅpenState] = useState<boolean>(false);
 
     const setÅpen = (skalÅpnes: boolean) => {

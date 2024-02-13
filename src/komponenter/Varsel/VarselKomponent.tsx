@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Close } from '@navikt/ds-icons';
 import * as React from 'react';
 import './Varsel.less';
-import {PropsWithChildren} from "react";
+import { PropsWithChildren } from 'react';
 
 interface Props {
     timeout?: number;

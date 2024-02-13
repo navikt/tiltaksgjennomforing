@@ -12,6 +12,7 @@ Kjør container
 Åpnes i browser: [http://localhost:3000/tiltaksgjennomforing](http://localhost:3000/tiltaksgjennomforing)
 
 ## Installere
+
 Før du kjører `install` så må du sette opp autentisering mot @navikt.
 
 `@navikt` pakker publiseres nå kun i GitHub Packages registry'et.

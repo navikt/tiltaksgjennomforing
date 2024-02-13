@@ -1,4 +1,4 @@
-@import (reference) "../tiltak_variabler.less";
+@import (reference) '../tiltak_variabler.less';
 .avtaletabell {
     border-spacing: 0px 10px;
     border-collapse: separate;
@@ -7,7 +7,9 @@
     tbody tr {
         cursor: pointer;
         .avtaletabell__pil-hoyre {
-            transition: transform .2s,-webkit-transform .2s;
+            transition:
+                transform 0.2s,
+                -webkit-transform 0.2s;
         }
         &:hover {
             box-shadow: var(--a-shadow-medium);
@@ -29,7 +31,7 @@
                     border-style: solid;
                 }
             }
-            .avtaletabell__pil-hoyre  {
+            .avtaletabell__pil-hoyre {
                 -webkit-transform: translateX(4px);
                 transform: translateX(4px);
             }

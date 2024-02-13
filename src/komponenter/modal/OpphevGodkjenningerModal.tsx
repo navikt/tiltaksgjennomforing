@@ -17,8 +17,8 @@ const OpphevGodkjenningerModal: FunctionComponent<Props> = (props) => {
             bekreftelseTekst="Ja, opphev godkjenninger"
             avbrytelseTekst="avbryt"
         >
-            En eller flere parter i avtalen har godkjent. Du er nå i ferd med å endre innholdet de har godkjent, og deres
-            godkjenninger vil bli opphevet. De må da logge seg inn og godkjenne på nytt.
+            En eller flere parter i avtalen har godkjent. Du er nå i ferd med å endre innholdet de har godkjent, og
+            deres godkjenninger vil bli opphevet. De må da logge seg inn og godkjenne på nytt.
             <p>Er du sikker på at du vil fortsette?</p>
         </BekreftelseModal>
     );

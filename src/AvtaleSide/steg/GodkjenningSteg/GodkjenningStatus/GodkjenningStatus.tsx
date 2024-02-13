@@ -12,7 +12,9 @@ interface Props {
 const GodkjenningStatus: React.FunctionComponent<Props> = (props) => {
     return (
         <div className="godkjenningstatus">
-            <Heading level='3' size="small">Hvem har godkjent?</Heading>
+            <Heading level="3" size="small">
+                Hvem har godkjent?
+            </Heading>
             <VerticalSpacer rem={0.5} />
             <div className="godkjenningstatus__rader">
                 <GodkjenningRad

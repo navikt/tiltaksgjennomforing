@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { hentFeatureToggles } from './services/rest-service';
 
 export enum Feature {
-    VisNedetidBanner = 'visNedetidBanner'
+    VisNedetidBanner = 'visNedetidBanner',
 }
 
 export const alleFeatures = Object.values(Feature);

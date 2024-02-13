@@ -28,7 +28,7 @@ const GodkjenningVeileder: FunctionComponent = () => {
     const ikkeGodkjentAvNoen = !avtale.godkjentAvDeltaker && !avtale.godkjentAvArbeidsgiver;
 
     return (
-        <Innholdsboks  className={cls.className} ariaLabel={'Godkjenn avtalen'}>
+        <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
             {((avtale.tiltakstype !== 'SOMMERJOBB' && !avtale.godkjentAvDeltaker) ||
@@ -38,13 +38,13 @@ const GodkjenningVeileder: FunctionComponent = () => {
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {(avtale.tiltakstype === 'SOMMERJOBB') && kunGodkjentAvDeltaker && (
+            {avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvDeltaker && (
                 <GodkjennPaVegneAvArbeidsgiver
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />
             )}
-            {(avtale.tiltakstype === 'SOMMERJOBB') && ikkeGodkjentAvNoen && (
+            {avtale.tiltakstype === 'SOMMERJOBB' && ikkeGodkjentAvNoen && (
                 <GodkjennPaVegneAvBeggeParter
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}

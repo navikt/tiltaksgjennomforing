@@ -25,7 +25,7 @@ const client = async (): Promise<BaseClient> => {
             client_id: tokenxConfig.clientID as string,
             token_endpoint_auth_method: tokenxConfig.tokenEndpointAuthMethod,
         },
-        { keys: [jwk] }
+        { keys: [jwk] },
     );
 };
 
@@ -47,7 +47,7 @@ const getTokenExchangeAccessToken = async (tokenxClient: any, audience: any, req
             audience: audience,
             subject_token: bearerToken,
         },
-        additionalClaims
+        additionalClaims,
     );
 
     return backendTokenSet.access_token;

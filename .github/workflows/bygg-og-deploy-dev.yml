@@ -31,12 +31,16 @@ jobs:
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Typescript
+        run: npm run ts
+      - name: Prettier
+        run: npm run prettier
       - name: Kjør tester
         run: npm run test
+      - name: Build
+        run: npm run build
       - name: Server build
         working-directory: ./server
-        run: npm run build
-      - name: Build
         run: npm run build
       - name: Sentry release
         run: npm run release

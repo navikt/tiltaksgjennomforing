@@ -26,7 +26,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
         setIRedigeringsmodus,
         totalBeløp,
     } = props;
-    
+
     const [leggertilTilskuddsutgift, setLeggertilTilskuddsutgift] = useState(false);
 
     const [beløp, setBeløp] = useState<number | undefined>();
@@ -50,7 +50,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
         }
         if (beløp > gjenståendeMaxBeløp) {
             setBeløpFeil(
-                `Det totale beløpet overskrider det maksimale beløpet på ${formatterPenger(inkluderingstilskuddSats)}`
+                `Det totale beløpet overskrider det maksimale beløpet på ${formatterPenger(inkluderingstilskuddSats)}`,
             );
             return;
         } else {
@@ -65,7 +65,9 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
 
     return (
         <div>
-            <Heading level='2' size="medium">Legg til utgift</Heading>
+            <Heading level="2" size="medium">
+                Legg til utgift
+            </Heading>
             <VerticalSpacer rem={2} />
 
             {leggertilTilskuddsutgift ? (

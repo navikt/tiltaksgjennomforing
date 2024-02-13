@@ -1,101 +1,101 @@
-@import (reference) "../../tiltak_variabler.less";
+@import (reference) '../../tiltak_variabler.less';
 
 @mobile-breakpoint: 768px;
 @button-height: 46px;
 
 .bekreftelseModal {
-  &__modal-container {
-    padding: 1rem 1rem;
-    max-width: @screen-lg;
-    min-width: 26rem;
-    overflow: visible;
-  }
-
-  &__body {
-    max-height: calc(100vh - 150px);
-    display: flex;
-    flex-direction: column;
-    padding: 0 0 1rem 0;
-
-    .innhold {
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  &__innhold {
-    margin: 1.5rem 0 2rem 0;
-  }
-
-  &__tittel {
-    text-align: center;
-    padding: 0 1rem 1rem 1rem;
-  }
-
-  &__varselTekst {
-    padding: 0 0.5rem;
-  }
-
-  &__knapp {
-    &:nth-child(1) {
-      margin-right: 1rem;
-    }
-  }
-
-  &__knappRad {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 0.5rem;
-  }
-
-  &__topIconContainer {
-    display: flex;
-    justify-content: center;
-    margin: -3.8rem auto 0 2.5rem;
-    @media (max-height: 710px) {
-      display: none;
-    }
-  }
-
-  &__modal-container > div:last-child {
-    display: flex;
-    width: calc(100% - 1.5rem);
-
-    .knapp {
-      overflow: hidden;
-    }
-
-    .knapp:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-
-  @media (min-width: @mobile-breakpoint) {
-    &__modal-container > div:last-child {
-      display: flex;
-      align-items: flex-end;
-
-      .knapp:not(:last-child) {
-        margin-bottom: 0;
-        margin-right: 1rem;
-      }
-    }
-    
     &__modal-container {
-      min-width: 26rem;
+        padding: 1rem 1rem;
+        max-width: @screen-lg;
+        min-width: 26rem;
+        overflow: visible;
     }
-    
+
+    &__body {
+        max-height: calc(100vh - 150px);
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 1rem 0;
+
+        .innhold {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    &__innhold {
+        margin: 1.5rem 0 2rem 0;
+    }
+
+    &__tittel {
+        text-align: center;
+        padding: 0 1rem 1rem 1rem;
+    }
+
     &__varselTekst {
-      padding: 0 1.5rem;
+        padding: 0 0.5rem;
     }
-  }
+
+    &__knapp {
+        &:nth-child(1) {
+            margin-right: 1rem;
+        }
+    }
+
+    &__knappRad {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 0.5rem;
+    }
+
+    &__topIconContainer {
+        display: flex;
+        justify-content: center;
+        margin: -3.8rem auto 0 2.5rem;
+        @media (max-height: 710px) {
+            display: none;
+        }
+    }
+
+    &__modal-container > div:last-child {
+        display: flex;
+        width: calc(100% - 1.5rem);
+
+        .knapp {
+            overflow: hidden;
+        }
+
+        .knapp:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+
+    @media (min-width: @mobile-breakpoint) {
+        &__modal-container > div:last-child {
+            display: flex;
+            align-items: flex-end;
+
+            .knapp:not(:last-child) {
+                margin-bottom: 0;
+                margin-right: 1rem;
+            }
+        }
+
+        &__modal-container {
+            min-width: 26rem;
+        }
+
+        &__varselTekst {
+            padding: 0 1.5rem;
+        }
+    }
 }
 
 .ReactModal__Content,
 .ReactModal__Content--after-open,
 .modal {
-  @media (min-height: 710px) {
-    &__wrapper {
-      overflow: visible;
+    @media (min-height: 710px) {
+        &__wrapper {
+            overflow: visible;
+        }
     }
-  }
 }

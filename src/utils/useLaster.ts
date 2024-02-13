@@ -3,7 +3,7 @@ import { Nettressurs, Status } from '@/types/nettressurs';
 
 export const useLaster: (
     lasteFunksjon: (skip: number, limit: number) => Promise<any[]>,
-    pagesize: number
+    pagesize: number,
 ) => {
     kanLasteMer: boolean;
     lasterMer: boolean;

@@ -152,7 +152,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Kostnadssted blir satt lik oppfølgingsenhet ved avtaleinngåelse, trengs derfor ikke settes.',
     MANGLER_AD_GRUPPE_BESLUTTER:
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
-    'MANGLER_VEILEDER_PÅ_AVTALE': 'Avtalen trenger en veileder før du kan godkjenne',
+    MANGLER_VEILEDER_PÅ_AVTALE: 'Avtalen trenger en veileder før du kan godkjenne',
     KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
     KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
     KVALIFISERINGSGRUPPE_IKKE_RETTIGHET:
@@ -174,10 +174,14 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_ENDRE_INKLUDERINGSTILSKUDD_TOM_LISTE: 'Du må ha minst ett tilskudd',
     MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING: 'Veileder må godkjenne avtalen etter deltaker, mentor og arbeidsgiver.',
     DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER: 'Deltager og mentor kan ikke ha det samme fødselsnummeret',
-    AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON: 'Avtalen inneholder tilskuddsperiode(er) med godkjente refusjon(er). Avtalen kan derfor ikke annulleres.',
+    AVTALE_INNEHOLDER_TILSKUDDSPERIODE_MED_GODKJENT_REFUSJON:
+        'Avtalen inneholder tilskuddsperiode(er) med godkjente refusjon(er). Avtalen kan derfor ikke annulleres.',
     MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt',
     SLUTTDATO_GRENSE_NÅDD: 'Maksimal sluttdato er overskredet. Makismal sluttdato er 31.12.2089',
-    VARIG_LONNSTILSKUDD_TILSKUDDSPERIODE_MIDLERTIDIG_AVSKURDD: 'Godkjenning av tilskuddsperioder for varig lønnstilskudd er midlertideig avskrudd. Det jobbes med å rette en feil ifbm. med reduksjon av tilskuddsprosent. Dette vil bli fikset i løpet av kort tid.',
-    KAN_IKKE_ENDRE_ARENA_MIGRERINGSDATO_INNGAATT_AVTALE: 'Avtalen er inngått. Arena-migreringsdato kan derfor ikke endres. Annuller og opprett avtalen på nytt.',
-    KAN_IKKE_FORKORTE_FOR_UTBETALT_TILSKUDDSPERIODE: 'Avtalen kan ikke forkortes til før en tilskuddsperiode som er godkjent av arbeidsgiver.',
+    VARIG_LONNSTILSKUDD_TILSKUDDSPERIODE_MIDLERTIDIG_AVSKURDD:
+        'Godkjenning av tilskuddsperioder for varig lønnstilskudd er midlertideig avskrudd. Det jobbes med å rette en feil ifbm. med reduksjon av tilskuddsprosent. Dette vil bli fikset i løpet av kort tid.',
+    KAN_IKKE_ENDRE_ARENA_MIGRERINGSDATO_INNGAATT_AVTALE:
+        'Avtalen er inngått. Arena-migreringsdato kan derfor ikke endres. Annuller og opprett avtalen på nytt.',
+    KAN_IKKE_FORKORTE_FOR_UTBETALT_TILSKUDDSPERIODE:
+        'Avtalen kan ikke forkortes til før en tilskuddsperiode som er godkjent av arbeidsgiver.',
 };

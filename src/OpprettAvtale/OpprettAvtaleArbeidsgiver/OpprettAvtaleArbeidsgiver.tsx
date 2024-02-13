@@ -9,7 +9,12 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import { basename, pathTilInformasjonssideInnlogget, pathTilOpprettAvtaleFullfortArbeidsgiver, inkludereIArbeidslivetLenke } from '@/paths';
+import {
+    basename,
+    pathTilInformasjonssideInnlogget,
+    pathTilOpprettAvtaleFullfortArbeidsgiver,
+    inkludereIArbeidslivetLenke,
+} from '@/paths';
 import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -37,11 +42,11 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
-        validatorer('Deltaker', mentorFnr)
+        validatorer('Deltaker', mentorFnr),
     );
     const [mentorFnrFeil, setMentorFnrFeil, validerMentorFnr] = useValidering(
         mentorFnr,
-        validatorer('Mentor', deltakerFnr)
+        validatorer('Mentor', deltakerFnr),
     );
 
     const setFeilmelding = (melding: Feilkode) => {
@@ -77,7 +82,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         mentorFnr,
                         valgtBedriftNr,
                         valgtTiltaksType,
-                        Avtalerolle.ARBEIDSGIVER
+                        Avtalerolle.ARBEIDSGIVER,
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
                     navigate(pathTilOpprettAvtaleFullfortArbeidsgiver(mentorAvtale.id));
@@ -99,7 +104,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
 
     const valgtBedriftNr = new URLSearchParams(window.location.search).get('bedrift')!;
     const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(
-        (org) => org.OrganizationNumber === valgtBedriftNr
+        (org) => org.OrganizationNumber === valgtBedriftNr,
     )?.Name;
 
     return (
@@ -108,7 +113,9 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
                 <Innholdsboks>
-                    <Heading level='2' size="medium">Før du oppretter en avtale</Heading>
+                    <Heading level="2" size="medium">
+                        Før du oppretter en avtale
+                    </Heading>
                     <BodyShort size="small">
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                         <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
@@ -153,7 +160,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
                 </Innholdsboks>
                 <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Heading level='2' size="medium" className={cls.element('innholdstittel')}>
+                    <Heading level="2" size="medium" className={cls.element('innholdstittel')}>
                         Hvem skal inngå i avtalen
                     </Heading>
                     <VerticalSpacer rem={1} />

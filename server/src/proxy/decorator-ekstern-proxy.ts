@@ -10,10 +10,10 @@ const setup = (app: Express): void => {
         '/dekoratoren/api/auth',
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
+            res: Response<any, Record<string, any>, number>,
         ): void => {
             res.json({ authenticated: true, name: '' });
-        }
+        },
     );
 
     app.use(
@@ -21,10 +21,10 @@ const setup = (app: Express): void => {
         asyncHandler(
             async (
                 req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-                res: Response<any, Record<string, any>, number>
+                res: Response<any, Record<string, any>, number>,
             ) => {
                 const response = await axios.get(
-                    `${process.env.DECORATOR_EXTERNAL_URL}/env?context=arbeidsgiver&feedback=false`
+                    `${process.env.DECORATOR_EXTERNAL_URL}/env?context=arbeidsgiver&feedback=false`,
                 );
                 res.json({
                     ...response.data,
@@ -32,8 +32,8 @@ const setup = (app: Express): void => {
                     APP_URL: '/dekoratoren',
                     LOGOUT_URL: '/logout',
                 });
-            }
-        )
+            },
+        ),
     );
 
     app.use('/dekoratoren', createProxyMiddleware({ target: 'https://www.nav.no', changeOrigin: true }));

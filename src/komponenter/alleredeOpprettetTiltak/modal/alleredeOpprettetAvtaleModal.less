@@ -1,44 +1,44 @@
-@import (reference) "../../../tiltak_variabler.less";
+@import (reference) '../../../tiltak_variabler.less';
 
 .alleredeOpprettetAvtaleModal {
-  &__modal-container {
-    padding: 1rem 1rem;
-    max-width: @screen-lg;
-    min-width: 20rem;
-    overflow: visible;
-  }
-  &__tittel {
-    margin: 0.25rem 0.75rem 1rem 1.75rem;
-    text-align: center;
-  }
-
-  &__ingress {
-    padding: 0 0.75rem 0.75rem 1.75rem;
-    & > p {
-      display: flex;
-      justify-content: center;
+    &__modal-container {
+        padding: 1rem 1rem;
+        max-width: @screen-lg;
+        min-width: 20rem;
+        overflow: visible;
     }
-  }
-
-  &__body {
-    margin-top: 0.75rem;
-    overflow-y: auto;
-    max-height: calc(100vh - 150px);
-    display: flex;
-    flex-direction: column;
-    padding: 0 0 1rem 0;
-
-    .innhold {
-      margin-bottom: 1.5rem;
+    &__tittel {
+        margin: 0.25rem 0.75rem 1rem 1.75rem;
+        text-align: center;
     }
-  }
 
-  &__topIconContainer {
-    display: flex;
-    justify-content: center;
-    margin: -3.3rem auto 0 auto;
-    @media (max-height: 710px) {
-      display: none;
+    &__ingress {
+        padding: 0 0.75rem 0.75rem 1.75rem;
+        & > p {
+            display: flex;
+            justify-content: center;
+        }
     }
-  }
+
+    &__body {
+        margin-top: 0.75rem;
+        overflow-y: auto;
+        max-height: calc(100vh - 150px);
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 1rem 0;
+
+        .innhold {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    &__topIconContainer {
+        display: flex;
+        justify-content: center;
+        margin: -3.3rem auto 0 auto;
+        @media (max-height: 710px) {
+            display: none;
+        }
+    }
 }

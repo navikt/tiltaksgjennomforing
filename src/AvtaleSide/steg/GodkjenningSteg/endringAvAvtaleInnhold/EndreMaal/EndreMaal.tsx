@@ -17,7 +17,7 @@ const EndreMaal: FunctionComponent = () => {
     const [iRedigersmodus, setIRedigersmodus] = useState(false);
 
     const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(
-        avtaleContext.avtale.gjeldendeInnhold.maal
+        avtaleContext.avtale.gjeldendeInnhold.maal,
     );
 
     const lagreEndredeMaal = async () => {

@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, test } from 'vitest';
 
 import { noenHarGodkjentMenIkkeInngått } from './AvtaleProvider';
 import arbeidstreningAvtaleMock from './mocking/arbeidstrening-avtale-mock';

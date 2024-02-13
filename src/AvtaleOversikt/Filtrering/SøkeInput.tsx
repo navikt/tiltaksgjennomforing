@@ -24,7 +24,9 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
     // verdi-prop endrer seg, men komponenten vil ikke være fullstendig "managed" av verdien.
     // Dette gjør vi for at søkeinput skal kunne oppdateres av eksterne endringer feks når man navigerer
     // frem og tilbake i browser-historikk.
-    useEffect(() => { setSøkeord(props.verdi || '') }, [props.verdi]);
+    useEffect(() => {
+        setSøkeord(props.verdi || '');
+    }, [props.verdi]);
 
     const utførSøk = (): void => (valider() ? props.utførsøk(søkeord) : void 0);
 

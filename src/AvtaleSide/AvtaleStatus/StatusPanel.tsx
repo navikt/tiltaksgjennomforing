@@ -15,9 +15,13 @@ const StatusPanel: React.FunctionComponent<{
                 <Ikon style={{ height: '40px', width: '40px' }} />
                 <VerticalSpacer rem={1} />
                 {header.length > 36 ? (
-                    <Heading level="2" size="medium">{header}</Heading>
+                    <Heading level="2" size="medium">
+                        {header}
+                    </Heading>
                 ) : (
-                    <Heading level="2" size="large">{header}</Heading>
+                    <Heading level="2" size="large">
+                        {header}
+                    </Heading>
                 )}
             </div>
 

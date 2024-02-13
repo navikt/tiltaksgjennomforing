@@ -74,7 +74,7 @@ export const inkluderingstilskuddtypeTekst: { [key in Inkluderingstilskuddsutgif
     ARBEIDSHJELPEMIDLER: 'd. Arbeidshjelpemidler',
     PROGRAMVARE: 'e. Programvare',
     FORSIKRING_LISENS_SERTIFISERING: 'f. Forsikring, lisenser og sertifisering',
-    OPPLÆRING: 'g. Opplæring'
+    OPPLÆRING: 'g. Opplæring',
 };
 
 export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
@@ -105,13 +105,13 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
     AVSLÅTT: 'Avslått',
     UBEHANDLET: 'Ubehandlet',
     ANNULLERT: 'Annullert',
-    BEHANDLET_I_ARENA: 'Behandlet i Arena'
+    BEHANDLET_I_ARENA: 'Behandlet i Arena',
 };
 
 export const tilskuddsperiodeRefusjonStatusText: { [key in TilskuddPeriodeRefusjonStatus]: string } = {
     SENDT_KRAV: 'Refusjon godkjent',
-    UTBETALT: 'Utbetalt'
-}
+    UTBETALT: 'Utbetalt',
+};
 
 export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
     ANNULLERT: 'Annullert',

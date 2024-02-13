@@ -5,17 +5,16 @@ import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk'
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
-import {InnloggetBrukerContext} from "@/InnloggingBoundary/InnloggingBoundary";
-import KontaktpersonRefusjonOppsumering
-    from "@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering";
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
 }
 
-const Avtaleparter: FunctionComponent<Props> = props => {
-    const {avtale} = useContext(AvtaleContext);
-    const {rolle} = useContext(InnloggetBrukerContext);
+const Avtaleparter: FunctionComponent<Props> = (props) => {
+    const { avtale } = useContext(AvtaleContext);
+    const { rolle } = useContext(InnloggetBrukerContext);
     const gjeldendeInnhold = props.avtaleinnhold;
     const erLåst = Boolean(avtale.godkjentAvVeileder);
     return (
@@ -26,20 +25,25 @@ const Avtaleparter: FunctionComponent<Props> = props => {
                         { felt: 'fornavn', verdi: gjeldendeInnhold.deltakerFornavn },
                         { felt: 'etternavn', verdi: gjeldendeInnhold.deltakerEtternavn },
                     ]}
-                    tilleggFelter={rolle !== 'MENTOR' ? [
-                        {
-                            felt: 'fødselsnummer',
-                            verdi: avtale.deltakerFnr,
-                        },{
-                            felt: 'telefon',
-                            verdi: gjeldendeInnhold.deltakerTlf,
-                        }
-                    ]:[
-                        {
-                            felt: 'telefon',
-                            verdi: gjeldendeInnhold.deltakerTlf,
-                        }
-                    ]}
+                    tilleggFelter={
+                        rolle !== 'MENTOR'
+                            ? [
+                                  {
+                                      felt: 'fødselsnummer',
+                                      verdi: avtale.deltakerFnr,
+                                  },
+                                  {
+                                      felt: 'telefon',
+                                      verdi: gjeldendeInnhold.deltakerTlf,
+                                  },
+                              ]
+                            : [
+                                  {
+                                      felt: 'telefon',
+                                      verdi: gjeldendeInnhold.deltakerTlf,
+                                  },
+                              ]
+                    }
                     overskrift="Deltaker"
                     borderFarge="farge-gronn"
                     skjulHvaMangler={erLåst}
@@ -85,9 +89,7 @@ const Avtaleparter: FunctionComponent<Props> = props => {
                     borderFarge="farge-lysblaa"
                     skjulHvaMangler={erLåst}
                 />
-                {avtale.gjeldendeInnhold.refusjonKontaktperson && (
-                    <KontaktpersonRefusjonOppsumering/>
-                )}
+                {avtale.gjeldendeInnhold.refusjonKontaktperson && <KontaktpersonRefusjonOppsumering />}
             </div>
         </Stegoppsummering>
     );

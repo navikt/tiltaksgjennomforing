@@ -56,7 +56,7 @@ const BrukerDialog: React.FC = () => {
                                 }
                             >
                                 <Label>Ny funksjon</Label>
-                                 Skriv og les meldinger om avtalen her
+                                Skriv og les meldinger om avtalen her
                             </Link>
                         </div>
                     </div>

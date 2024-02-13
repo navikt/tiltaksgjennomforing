@@ -34,7 +34,7 @@ const Nytt: FunctionComponent<Props> = (props: PropsWithChildren<Props>) => {
 
     const [antallUlesteNyheter, antallUlesteVedSidelast, markerSomLest] = useAntallUlesteNyheter(
         nyheter,
-        onFørsteBesøk
+        onFørsteBesøk,
     );
 
     const toggleNyheter = (): void => {

@@ -11,7 +11,7 @@ interface Props {
 const BehandlingAvPersonopplysninger: React.FC<Props> = ({ tiltakstype }) => {
     if (
         !['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'MENTOR', 'INKLUDERINGSTILSKUDD'].includes(
-            tiltakstype
+            tiltakstype,
         )
     ) {
         return null;

@@ -11,7 +11,7 @@ const MaalSteg: FunctionComponent = () => {
     const [iRedigermodus, setIRedigermodus] = useState(false);
 
     const { målListe, leggTilMål, ledigeMålkategorier, endreMål, sletteMål } = useMål(
-        avtaleContext.avtale.gjeldendeInnhold.maal
+        avtaleContext.avtale.gjeldendeInnhold.maal,
     );
 
     const nyttMål = (beskrivelse: string, kategori: Maalkategori) => {

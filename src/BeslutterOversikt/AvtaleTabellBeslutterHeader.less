@@ -1,31 +1,31 @@
-@import (reference) "../tiltak_variabler.less";
+@import (reference) '../tiltak_variabler.less';
 .avtaletabellbeslutterheader {
-  &__label-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    &__label-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-  th {
-    background-color: white;
-    border-bottom-width: 1px !important; // Overstyr design-css
-    text-align: center;
-    font-size: var(--a-font-size-medium);
-    border-top: 1px;
-    border-bottom: 1px;
-    border-style: solid;
-    border-left: 0;
-    border-right: 0;
-    border-color: @navGra40;
-    &:first-child {
-      border-left: 1px solid @navGra40;
-      border-top-left-radius: 0.25rem;
-      border-bottom-left-radius: 0.25rem;
+    th {
+        background-color: white;
+        border-bottom-width: 1px !important; // Overstyr design-css
+        text-align: center;
+        font-size: var(--a-font-size-medium);
+        border-top: 1px;
+        border-bottom: 1px;
+        border-style: solid;
+        border-left: 0;
+        border-right: 0;
+        border-color: @navGra40;
+        &:first-child {
+            border-left: 1px solid @navGra40;
+            border-top-left-radius: 0.25rem;
+            border-bottom-left-radius: 0.25rem;
+        }
+        &:last-child {
+            border-right: 1px solid @navGra40;
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+        }
     }
-    &:last-child {
-      border-right: 1px solid @navGra40;
-      border-top-right-radius: 0.25rem;
-      border-bottom-right-radius: 0.25rem;
-    }
-  }
 }

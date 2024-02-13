@@ -9,7 +9,13 @@ interface Props {
 }
 
 const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
-    if (!(tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD' || tiltakstype === 'SOMMERJOBB')) {
+    if (
+        !(
+            tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+            tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+            tiltakstype === 'SOMMERJOBB'
+        )
+    ) {
         return null;
     }
     return (
@@ -18,8 +24,8 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
             headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
         >
             <p>
-                Godkjent tilskuddsperiode er styrende i henhold til økonomisk
-                forpliktelse fra NAV og kan avvike fra avtalt periode for tiltaksgjennomføringen.
+                Godkjent tilskuddsperiode er styrende i henhold til økonomisk forpliktelse fra NAV og kan avvike fra
+                avtalt periode for tiltaksgjennomføringen.
             </p>
             <p>
                 Når tiltaket er over, vil NAV sende dere et ferdig utregnet forslag til refusjon. Refusjonen regnes ut
@@ -29,8 +35,8 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
                 blir brukt riktig.
             </p>
             <p>
-                Endringer i lønn etterbetales ikke, og vil først kunne gjelde for tilskuddsperioder
-                som ikke allerede er godkjente ved tidspunktet for endringen.
+                Endringer i lønn etterbetales ikke, og vil først kunne gjelde for tilskuddsperioder som ikke allerede er
+                godkjente ved tidspunktet for endringen.
             </p>
             <p>
                 For å behandle refusjonen må du logge deg inn i refusjonsløsningen:

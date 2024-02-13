@@ -52,7 +52,9 @@ const VarselModal: FunctionComponent = () => {
                 <InfoIkonGul height="80px" width="80px" style={{ margin: '-100px auto 1rem auto' }} />
             </Modal.Header>
             <Modal.Body>
-                <Heading level='1' size="medium">{harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}</Heading>
+                <Heading level="1" size="medium">
+                    {harOpprettetHendelse ? 'Hendelselogg' : 'Nye hendelser'}
+                </Heading>
 
                 <BodyShort size="small">
                     {harOpprettetHendelse

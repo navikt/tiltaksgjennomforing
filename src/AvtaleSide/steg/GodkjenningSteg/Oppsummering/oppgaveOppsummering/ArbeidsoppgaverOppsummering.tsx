@@ -5,7 +5,7 @@ import React, { FunctionComponent } from 'react';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import OppgaverIkon from './OppgaverIkon';
 
-const ArbeidsoppgaverOppsummering: FunctionComponent<Stilling> = props => (
+const ArbeidsoppgaverOppsummering: FunctionComponent<Stilling> = (props) => (
     <Stegoppsummering ikon={<OppgaverIkon />} tittel="Arbeidsoppgaver">
         <SjekkOmVerdiEksisterer
             verdi={props.arbeidsoppgaver}

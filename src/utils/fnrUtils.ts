@@ -108,7 +108,7 @@ const fnrOnChangeValidering = (event: ChangeEvent<HTMLInputElement>): boolean =>
 export const setFnrBrukerOnChange = (
     event: ChangeEvent<HTMLInputElement>,
     setFnr: Dispatch<SetStateAction<string>>,
-    setFnrFeil: Dispatch<SetStateAction<string | undefined>>
+    setFnrFeil: Dispatch<SetStateAction<string | undefined>>,
 ) => {
     if (fnrOnChangeValidering(event)) {
         setFnr(event.target.value.replace(/\D/g, ''));

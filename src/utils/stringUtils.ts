@@ -1,6 +1,6 @@
 import _ from 'lodash';
 export const storForbokstav = (tekst: string) => {
-    return tekst ? tekst.toLowerCase().replace(/\b\w/, v => v.toUpperCase()) : tekst;
+    return tekst ? tekst.toLowerCase().replace(/\b\w/, (v) => v.toUpperCase()) : tekst;
 };
 
 export const litenForbokstav = (tekst: string) => {
@@ -18,4 +18,4 @@ export const lagObjektAvSearchParams = (searchParams: URLSearchParams) => {
         objekt[key] = value;
     });
     return objekt;
-}
+};

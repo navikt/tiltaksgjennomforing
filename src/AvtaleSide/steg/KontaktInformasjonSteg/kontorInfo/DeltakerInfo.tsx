@@ -32,7 +32,9 @@ const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
         <div className={cls.className}>
             <div className={cls.element('ingress', oppsummeringside ? 'oppsummering' : '')}>
                 {ikon()}
-                <Heading level="2" size="medium">Om deltakeren</Heading>
+                <Heading level="2" size="medium">
+                    Om deltakeren
+                </Heading>
             </div>
             <div className={cls.element('info-rad')}>
                 <div className={cls.element('info-container')}>

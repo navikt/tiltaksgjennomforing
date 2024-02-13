@@ -45,7 +45,6 @@ const ForlengAvtale: FunctionComponent = () => {
         }
     };
 
-
     const lukkModal = () => {
         setModalApen(false);
         setTilskuddsperioder([]);

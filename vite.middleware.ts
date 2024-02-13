@@ -100,8 +100,8 @@ export default () => ({
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(
                 JSON.stringify(
-                    process.env.ENABLE_EXTERNAL_MENU !== 'true' && process.env.ENABLE_INTERNAL_MENU !== 'true'
-                )
+                    process.env.ENABLE_EXTERNAL_MENU !== 'true' && process.env.ENABLE_INTERNAL_MENU !== 'true',
+                ),
             );
         });
     },

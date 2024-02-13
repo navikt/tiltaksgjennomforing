@@ -2,12 +2,11 @@ import React from 'react';
 import { Table } from '@navikt/ds-react';
 import './AvtaleTabellBeslutterHeader.less';
 import BEMHelper from '@/utils/bem';
-import SorteringOrderValgGammel from "@/AvtaleOversikt/Filtrering/GammelFiltrering/SorteringOrderValgGammel";
-
+import SorteringOrderValgGammel from '@/AvtaleOversikt/Filtrering/GammelFiltrering/SorteringOrderValgGammel';
 
 const cls = BEMHelper('avtaletabellbeslutterheader');
 
-const AvtaleTabellBeslutterHeader: React.FC= () => {
+const AvtaleTabellBeslutterHeader: React.FC = () => {
     return (
         <Table.Header className={cls.className}>
             <Table.Row>

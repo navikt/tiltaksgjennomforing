@@ -1,6 +1,6 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import React, {FunctionComponent, PropsWithChildren} from 'react';
+import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { SøkeInput } from './SøkeInput';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 

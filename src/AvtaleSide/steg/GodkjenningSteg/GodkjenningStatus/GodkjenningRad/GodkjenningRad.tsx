@@ -28,10 +28,7 @@ const GodkjenningRad: React.FunctionComponent<Props> = (props: Props) => {
             <BodyShort size="small">{navn}</BodyShort>
             <div className="godkjenningsrad__status">
                 <Label>{godkjentStatus}</Label>
-                <Ikon
-                    title="Godkjenningsgrad"
-                    className="godkjenningsrad__godkjenningIkon"
-                />
+                <Ikon title="Godkjenningsgrad" className="godkjenningsrad__godkjenningIkon" />
             </div>
         </div>
     );

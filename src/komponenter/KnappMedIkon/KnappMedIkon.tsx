@@ -24,7 +24,7 @@ const ikoner = {
 
 const KnappMedIkon = (props: Props) => {
     const Ikon = ikoner[props.ikonType];
-    
+
     return (
         <button
             disabled={props.disabled}
@@ -40,6 +40,6 @@ const KnappMedIkon = (props: Props) => {
             </BodyShort>
         </button>
     );
-}
+};
 
 export default KnappMedIkon;

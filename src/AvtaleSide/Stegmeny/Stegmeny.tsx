@@ -12,7 +12,7 @@ interface Props {
 
 const Stegmeny: FunctionComponent<Props> = (props: Props) => {
     const { avtale } = useContext(AvtaleContext);
-    const stegLenker = props.steg.map(steg => (
+    const stegLenker = props.steg.map((steg) => (
         <StegmenyLenke
             id={steg.id}
             label={steg.label}

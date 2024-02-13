@@ -8,7 +8,7 @@ import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/internt';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import NAVSPA from '@navikt/navspa';
-import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from 'react';
+import React, { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import Innloggingslinje from './Innloggingslinje';

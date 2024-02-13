@@ -27,7 +27,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
         resettListe,
     } = useTilskuddsutgift(
         avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
-        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp
+        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
     );
     const [iRedigermodus, setIRedigermodus] = useState(false);
 
@@ -65,7 +65,6 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 modalIsOpen={modalApen}
                 bekreftOnClick={endreUtgifter}
                 lukkModal={lukkModal}
-
             >
                 <div>
                     <InkluderingstilskuddIngress />

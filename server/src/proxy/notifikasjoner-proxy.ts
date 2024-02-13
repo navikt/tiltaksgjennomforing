@@ -23,19 +23,19 @@ const setup = (app: Express, tokenxClient: BaseClient): void => {
             },
             proxyReqOptDecorator: async (
                 options: RequestOptions,
-                req: Request<{}, any, any, ParsedQs, Record<string, any>>
+                req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             ) => {
                 if (options.headers) {
                     const accessToken = await tokenx.getTokenExchangeAccessToken(
                         tokenxClient,
                         process.env.NOTIFIKASJON_AUDIENCE,
-                        req
+                        req,
                     );
                     options.headers.Authorization = `Bearer ${accessToken}`;
                 }
                 return options;
             },
-        })
+        }),
     );
 };
 export default { setup };

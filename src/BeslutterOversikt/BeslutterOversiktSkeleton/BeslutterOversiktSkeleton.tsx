@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import MediaQuery from 'react-responsive';
 import './BeslutterOversiktSkeleton.less';
 import 'react-loading-skeleton/dist/skeleton.css';
-import AvtaleTabellBeslutterHeader from "@/BeslutterOversikt/AvtaleTabellBeslutterHeader";
+import AvtaleTabellBeslutterHeader from '@/BeslutterOversikt/AvtaleTabellBeslutterHeader';
 
 const cls = BEMHelper('avtaleoversiktskeleton');
 

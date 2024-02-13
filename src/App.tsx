@@ -65,14 +65,12 @@ class App extends React.Component {
                                                                 element={<OpprettAvtaleArbeidsgiver />}
                                                             />
                                                             <Route
-                                                                path={pathTilOpprettAvtaleFullfortVeileder(
-                                                                    ':avtaleId'
-                                                                )}
+                                                                path={pathTilOpprettAvtaleFullfortVeileder(':avtaleId')}
                                                                 element={<OpprettelseFullfortVeileder />}
                                                             />
                                                             <Route
                                                                 path={pathTilOpprettAvtaleFullfortArbeidsgiver(
-                                                                    ':avtaleId'
+                                                                    ':avtaleId',
                                                                 )}
                                                                 element={<OpprettelseFullfortArbeidsgiver />}
                                                             />
@@ -111,7 +109,7 @@ class App extends React.Component {
                                                                                 <Route
                                                                                     path={pathTilStegIAvtale(
                                                                                         ':avtaleId',
-                                                                                        ':stegPath'
+                                                                                        ':stegPath',
                                                                                     )}
                                                                                     element={<AvtaleSide />}
                                                                                 />

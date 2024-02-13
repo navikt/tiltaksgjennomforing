@@ -35,7 +35,7 @@ const AlleredeOpprettetAvtale: React.FC<Props> = ({ alleredeRegistrertAvtale }) 
                                 <AlleredeOpprettetAvtaleDetaljer innhold={avtale} />
                             </div>
                         );
-                    }
+                    },
                 )}
             </div>
         </div>
