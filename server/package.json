@@ -3,7 +3,6 @@
     "version": "0.1.0",
     "private": true,
     "homepage": "/tiltaksgjennomforing",
-    "type": "module",
     "scripts": {
         "build": "esbuild src/server.ts --bundle --platform=node --outfile=dist/server.js --packages=external",
         "start": "node ../dist/server.js --openssl-legacy-provider",
@@ -26,6 +25,7 @@
         "@types/express-http-proxy": "^1.6.3",
         "@types/fs-extra": "^11.0.1",
         "@types/jsdom": "^21.1.1",
+        "cross-env": "^7.0.3",
         "esbuild": "^0.20.0",
         "typescript": "^5.0.4"
     }
