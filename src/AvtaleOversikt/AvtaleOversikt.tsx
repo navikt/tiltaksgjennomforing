@@ -24,7 +24,8 @@ import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { fjernTommeFelterFraObjekt, litenForbokstav } from '@/utils/stringUtils';
 import { Pagination, Select } from '@navikt/ds-react';
-import _ from 'lodash';
+import isEqual from 'lodash.isequal';
+import omit from 'lodash.omit';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './AvtaleOversikt.less';
@@ -44,8 +45,8 @@ const AvtaleOversikt: FunctionComponent = () => {
     useEffect(() => {
         if (nettressursCtx.status !== Status.Lastet) return;
 
-        const filtreUtenPage = _.omit(filtre, 'page', 'sorteringskolonne', 'sorteringOrder');
-        const erFiltreLikeNettressursFiltre = _.isEqual(
+        const filtreUtenPage = omit(filtre, 'page', 'sorteringskolonne', 'sorteringOrder');
+        const erFiltreLikeNettressursFiltre = isEqual(
             fjernTommeFelterFraObjekt(nettressursCtx.data.sokeParametere),
             fjernTommeFelterFraObjekt(filtreUtenPage),
         );

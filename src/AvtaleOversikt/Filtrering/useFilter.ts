@@ -1,6 +1,6 @@
 import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import _ from 'lodash';
+import isEqual from 'lodash.isequal';
 import { useContext } from 'react';
 
 const updateOrDeleteKeyFromObject = (filterobject: any, filterEndring: Filtrering, key: keyof Filtrering) => {
@@ -40,7 +40,7 @@ export const useFilter = () => {
             obj['page'] = endring.page;
         }
 
-        if (!_.isEqual(obj, filtre)) {
+        if (!isEqual(obj, filtre)) {
             setFiltre(obj);
         }
     };

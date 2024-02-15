@@ -1,5 +1,5 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import _ from 'lodash';
+import isEqual from 'lodash.isequal';
 import { useContext, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiltreringContextGammel } from './FiltreringProviderGammel';
@@ -22,7 +22,7 @@ export const useFilterGammel = () => {
 
     useEffect(() => {
         const newParams = toObject(searchParams);
-        if (!_.isEqual(newParams, filtre)) {
+        if (!isEqual(newParams, filtre)) {
             setFiltre(newParams);
         }
     }, [searchParams, filtre, setFiltre]);

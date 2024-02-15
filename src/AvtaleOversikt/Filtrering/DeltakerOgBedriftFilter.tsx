@@ -5,7 +5,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, RadioGroup, Select } from '@navikt/ds-react';
-import { isNil } from 'lodash';
+import isNil from 'lodash.isnil';
 import { FormEvent, Fragment, FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 
 type Validering = (verdi: string) => string | undefined;

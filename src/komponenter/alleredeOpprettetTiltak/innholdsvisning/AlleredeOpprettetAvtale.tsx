@@ -5,7 +5,7 @@ import './alleredeOpprettetAvtale.less';
 import { BodyShort } from '@navikt/ds-react';
 import { visPeriodeForTiltak } from '@/utils/datoUtils';
 import { tiltakstypeTekst } from '@/messages';
-import _ from 'lodash';
+import sortBy from 'lodash.sortby';
 import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
 import AlleredeOpprettetAvtaleDetaljer from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/AlleredeOpprettetAvtaleDetaljer';
 
@@ -19,7 +19,7 @@ const AlleredeOpprettetAvtale: React.FC<Props> = ({ alleredeRegistrertAvtale }) 
     return (
         <div className={cls.className}>
             <div className={cls.element('info')}>
-                {_.sortBy(alleredeRegistrertAvtale, ['startDato', 'status']).map(
+                {sortBy(alleredeRegistrertAvtale, ['startDato', 'status']).map(
                     (avtale: AlleredeRegistrertAvtale, index: number) => {
                         return (
                             <div key={index} className={cls.element('avtale')}>

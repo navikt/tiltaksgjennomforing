@@ -4,7 +4,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, RadioGroup, Select } from '@navikt/ds-react';
-import { isNil } from 'lodash';
+import isNil from 'lodash.isnil';
 import { FormEvent, Fragment, FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import { useFilterGammel } from './useFilterGammel';
 
@@ -23,7 +23,7 @@ export const DeltakerOgBedriftFilterGammel: FunctionComponent = () => {
     const { endreFilter, filtre } = useFilterGammel();
 
     const aktivSøketypeFraFiltre = useCallback((): Søketype => {
-        if (!isNil(filtre.veilederNavIdent) && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
+        if (!filtre.veilederNavIdent && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
         }
         if (!isNil(filtre.erUfordelt)) {
