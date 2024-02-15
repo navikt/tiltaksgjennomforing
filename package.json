@@ -6,6 +6,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
+        "checknpm": "echo \"$npm_execpath\" | grep -q \"npm-cli\\.js$\" || (echo '⚠️ Bruk npm ellers får du sparken! ⚠️' && echo && exit 1)",
+        "preinstall": "$npm_execpath --silent run checknpm",
+        "prepare": "husky install",
         "prettier": "prettier -c .",
         "prettier:fix": "prettier -w .",
         "release": "node sentry.js",
@@ -13,8 +16,7 @@
         "svgo": "sh ./svgo.sh",
         "test": "vitest --environment=jsdom --run",
         "ts": "tsc -b",
-        "up": "docker-compose up -d --remove-orphans --build",
-        "prepare": "husky install"
+        "up": "docker-compose up -d --remove-orphans --build"
     },
     "dependencies": {
         "@navikt/arbeidsgiver-notifikasjon-widget": "^6.4.2",
