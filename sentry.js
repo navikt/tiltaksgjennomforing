@@ -15,7 +15,7 @@ async function createReleaseAndUpload() {
 
         console.log('Uploading source maps');
         await cli.releases.uploadSourceMaps(release, {
-            include: ['dist/assets'],
+            include: ['dist/client/assets'],
             urlPrefix: '~/tiltaksgjennomforing/assets',
             rewrite: false,
         });
