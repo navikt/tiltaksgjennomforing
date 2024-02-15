@@ -12,6 +12,7 @@ export default defineConfig({
     base: '/tiltaksgjennomforing',
     build: {
         sourcemap: true,
+        outDir: 'dist/client',
     },
     define: {
         GIT_COMMIT_HASH: JSON.stringify(GIT_COMMIT_HASH),

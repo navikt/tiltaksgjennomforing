@@ -4,8 +4,9 @@
     "private": true,
     "homepage": "/tiltaksgjennomforing",
     "scripts": {
-        "build": "esbuild src/server.ts --bundle --platform=node --outfile=dist/server.js --packages=external",
-        "start": "node ../dist/server.js --openssl-legacy-provider",
+        "build": "esbuild src/server.ts --bundle --platform=node --outfile=../dist/server/index.cjs --packages=external",
+        "postbuild": "cp -r node_modules ../dist/server",
+        "start": "node ../dist/server/index.cjs --openssl-legacy-provider",
         "start-ekstern": "cross-env ENABLE_EXTERNAL_MENU=true npm start",
         "start-intern": "cross-env process.env.ENABLE_INTERNAL_MENU=true npm start"
     },

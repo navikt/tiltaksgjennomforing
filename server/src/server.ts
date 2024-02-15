@@ -1,9 +1,9 @@
-import { Request, Response } from 'express-serve-static-core';
+import { Request, Response, Handler } from 'express-serve-static-core';
 import path from 'path';
 import express, { Express } from 'express';
 import helmet from 'helmet';
 import { ParsedQs } from 'qs';
-import { buildCspHeader } from "@navikt/nav-dekoratoren-moduler/ssr";
+import { buildCspHeader } from '@navikt/nav-dekoratoren-moduler/ssr';
 
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
@@ -11,8 +11,23 @@ import loginProvider from './login/loginProvider';
 import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
 import { getEnv } from './paths/miljo';
 
+const indexPath = path.resolve(__dirname, '../client', 'index.html');
+
+const cspMiddleware = (): Handler => {
+    let csp: string;
+    return async (_, res, next) => {
+        if (!csp) {
+            csp = await buildCspHeader({}, { env: getEnv() });
+        }
+        res.setHeader('Content-Security-Policy', csp);
+        next();
+    }
+}
+
 const node: Express = express();
-const indexPath = path.resolve(__dirname, '../dist', 'index.html');
+node.disable('x-powered-by');
+node.use(helmet({ contentSecurityPolicy: false }));
+node.use(cspMiddleware());
 
 async function startServer(): Promise<void> {
     setupPath.initializePath(node);
@@ -30,15 +45,7 @@ async function startServer(): Promise<void> {
         await startLabs();
     }
 
-    const csp = await buildCspHeader({}, { env: getEnv() });
-
     const port = process.env.PORT || 3000;
-    node.disable('x-powered-by');
-    node.use(helmet({ contentSecurityPolicy: false }));
-    node.use((_, res, next) => {
-        res.setHeader("Content-Security-Policy", csp);
-        next();
-    });
     node.listen(port, () => console.log('server listening on port', port));
 }
 
@@ -46,7 +53,7 @@ async function startMedNavDekoratoren(): Promise<void> {
     node.get(
         ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedNavDekoratoren.getNavdekoratoren(indexPath, res)
+            appMedNavDekoratoren.getNavdekoratoren(indexPath, res),
     );
 }
 
@@ -54,7 +61,7 @@ async function startMedModiaDekoratoren(): Promise<void> {
     node.get(
         ['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, res)
+            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, res),
     );
 }
 
@@ -63,19 +70,19 @@ async function startLabs(): Promise<void> {
         ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
+            res: Response<any, Record<string, any>, number>,
         ) => {
-            res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
-        }
+            res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
+        },
     );
 }
 
 function setStaticPath(): void {
-    node.use(express.static(BASEPATH), express.static(path.resolve(__dirname, '../dist')));
+    node.use(express.static(BASEPATH), express.static(path.resolve(__dirname, '../client')));
     STATIC_PATHS.forEach((staticpath: string): Express => {
         return node.use(
             BASEPATH.concat(staticpath),
-            express.static(path.resolve(__dirname, '../dist', '.'.concat(staticpath)))
+            express.static(path.resolve(__dirname, '../client', '.'.concat(staticpath))),
         );
     });
 }
