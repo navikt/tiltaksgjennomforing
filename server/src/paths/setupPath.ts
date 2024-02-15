@@ -1,10 +1,10 @@
-import { getMiljø, Miljø } from './miljø';
+import { getMiljo, Miljo } from './miljo';
 import pathVariables, { PathVariables } from './pathVariables';
 import { Express } from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 
-const miljo: Miljø = getMiljø();
+const miljo: Miljo = getMiljo();
 
 export interface EnvProps {
     APIGW_URL: string | undefined;
@@ -50,7 +50,7 @@ function initializePath(app: Express): void {
         ) => {
             const innloggingskilder: PathVariables[] = [];
 
-            if (miljo === Miljø.LABS) {
+            if (miljo === Miljo.LABS) {
                 innloggingskilder.push(...pathVariables.labsInnloggingskilder);
             } else {
                 if (!process.env.INTERN_INGRESS) {

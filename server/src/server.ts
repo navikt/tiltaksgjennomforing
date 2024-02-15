@@ -1,31 +1,17 @@
-'use strict';
-
 import { Request, Response } from 'express-serve-static-core';
 import path from 'path';
 import express, { Express } from 'express';
 import helmet from 'helmet';
 import { ParsedQs } from 'qs';
-import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
+import { buildCspHeader } from "@navikt/nav-dekoratoren-moduler/ssr";
+
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
+import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import loginProvider from './login/loginProvider';
 import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
+import { getEnv } from './paths/miljo';
 
 const node: Express = express();
-
-// security
-node.disable('x-powered-by');
-node.use(
-    helmet({
-        contentSecurityPolicy: {
-            directives: {
-                'default-src': ["'self'", '*.nav.no'],
-                'img-src': ["'self'", '*.nav.no'],
-                'script-src': ["'self'", '*.nav.no', '*.adeo.no'],
-            },
-        },
-    })
-);
-
 const indexPath = path.resolve(__dirname, '../dist', 'index.html');
 
 async function startServer(): Promise<void> {
@@ -44,7 +30,15 @@ async function startServer(): Promise<void> {
         await startLabs();
     }
 
+    const csp = await buildCspHeader({}, { env: getEnv() });
+
     const port = process.env.PORT || 3000;
+    node.disable('x-powered-by');
+    node.use(helmet({ contentSecurityPolicy: false }));
+    node.use((_, res, next) => {
+        res.setHeader("Content-Security-Policy", csp);
+        next();
+    });
     node.listen(port, () => console.log('server listening on port', port));
 }
 

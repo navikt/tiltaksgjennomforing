@@ -1,13 +1,7 @@
 # Tiltaksgjennomføring
 
 Starte via Yarn med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-api også kjører lokalt).
-`yarn start`
-
-Starte med mocket backend
-`yarn run mock`
-
-Starte med ordinær backend
-`yarn run server`
+`npm run start`
 
 Bygg image
 `docker build -t tiltaksgjennomforing .`
@@ -17,14 +11,12 @@ Kjør container
 
 Åpnes i browser: [http://localhost:3000/tiltaksgjennomforing](http://localhost:3000/tiltaksgjennomforing)
 
-### Testing
+## Installere
+Før du kjører `install` så må du sette opp autentisering mot @navikt.
 
-Vi bruker jest for å teste. `yarn test` kjører testene og setter dem i watch modus.
+`@navikt` pakker publiseres nå kun i GitHub Packages registry'et.
+For å kunne installere nyere versjoner må pakker fra @navikt-orgen scopes til GitHub Packages.
 
-Enkle regler for testing her:
-
--   Alle `.tsx`-filer skal ha en tilsvarende `spec.tsx`-fil. Disse filene skal inneholde en komponent
-    som default export. Andre funksjoner exporteres utenom for å testes i egen tester.
--   Kun lag en rendertest per `spec.tsx`-fil om du har behov for å teste at variasjoner rendrer riktig
-    kan det godt være at du har lagt deg på feil abstraksonsnivå. Logikk bør wrappes i funksjoner og testes
-    i egne tester i `spec.tsx`-fila.
+1. Opprett et [PAT på github](https://github.com/settings/tokens) med `read:package` scope
+2. Kjør `npm login --registry=https://npm.pkg.github.com --auth-type=legacy` (bruk PAT fra forrige steg som passord ved login)
+3. Legg til `@navikt:registry=https://npm.pkg.github.com` i `.npmrc`.

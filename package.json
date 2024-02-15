@@ -20,7 +20,6 @@
         "@navikt/ds-css": "^5.18.1",
         "@navikt/ds-icons": "^3.4.3",
         "@navikt/ds-react": "^5.18.1",
-        "@navikt/nav-dekoratoren-moduler": "^1.6.9",
         "@navikt/navspa": "^6.0.1",
         "amplitude-js": "^8.21.9",
         "axios": "^1.6.7",

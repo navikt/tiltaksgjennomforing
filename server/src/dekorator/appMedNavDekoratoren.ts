@@ -1,14 +1,7 @@
 import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
 import { Response } from 'express-serve-static-core';
 
-enum Env {
-    PROD = 'prod',
-    DEV = 'dev',
-}
-
-function getEnv(): Env {
-    return process.env.MILJO === 'prod-gcp' ? Env.PROD : Env.DEV;
-}
+import { getEnv } from '../paths/miljo'; 
 
 async function getNavdekoratoren(
     indexFilepath: string,
@@ -17,11 +10,13 @@ async function getNavdekoratoren(
     return await injectDecoratorServerSide({
         env: getEnv(),
         filePath: indexFilepath,
-        chatbot: true,
-        context: 'arbeidsgiver',
-        redirectToApp: true,
-        level: 'Level4',
-        language: 'nb',
+        params: {
+            context: 'arbeidsgiver',
+            chatbot: true,
+            redirectToApp: true,
+            level: 'Level4',
+            language: 'nb',
+        }
     })
         .then((html) => {
             res.send(html);
