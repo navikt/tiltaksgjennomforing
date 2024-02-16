@@ -38,9 +38,8 @@ if (process.env.ENABLE_EXTERNAL_MENU) {
                 useDefaults: true,
                 directives: {
                     'default-src': ["'self'", '*.nav.no'],
-                    'script-src': ["'self'", '*.nav.no', "'unsafe-inline'"],
-                    'style-src': ["'self'", '*.nav.no', "'unsafe-inline'"],
-                    'script-src-elem': ["'self'", '*.nav.no', '*.adeo.no'],
+                    'script-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
+                    'style-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
                     'font-src': ["'self'", '*.nav.no'],
                     'img-src': ["'self'", '*.nav.no'],
                 },
