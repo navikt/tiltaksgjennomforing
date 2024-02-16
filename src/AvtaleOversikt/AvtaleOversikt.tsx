@@ -267,11 +267,12 @@ const AvtaleOversikt: FunctionComponent = () => {
                                             label=""
                                             className={clsPagination.element('page-select')}
                                             onChange={(x) => endreFilter({ page: x.target.value })}
+                                            value={pageNumber}
                                         >
                                             {[...Array(nettressursCtx.data.totalPages).keys()]
                                                 .map((x) => x + 1)
                                                 .map((x) => (
-                                                    <option value={x} key={x} selected={x === pageNumber}>
+                                                    <option value={x} key={x}>
                                                         {x}
                                                     </option>
                                                 ))}

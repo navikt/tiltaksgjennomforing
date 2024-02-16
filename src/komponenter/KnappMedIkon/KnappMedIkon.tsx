@@ -1,10 +1,11 @@
-import avbruttIkon from '@/assets/ikoner/stop.svg?react';
 import classNames from 'classnames';
-import * as React from 'react';
 import { BodyShort } from '@navikt/ds-react';
+
+import AvbruttIkon from '@/assets/ikoner/stop.svg?react';
+
 import './KnappMedIkon.less';
-import redigerIkon from './rediger-penn.svg?react';
-import slettIkon from './soppeldunk.svg?react';
+import RedigerIkon from './rediger-penn.svg?react';
+import SlettIkon from './soppeldunk.svg?react';
 
 type IkonType = 'blyant' | 'soppelkasse' | 'avbrutt';
 
@@ -16,27 +17,23 @@ interface Props {
     disabled?: boolean;
 }
 
-const ikoner = {
-    blyant: redigerIkon,
-    soppelkasse: slettIkon,
-    avbrutt: avbruttIkon,
-};
-
 const KnappMedIkon = (props: Props) => {
-    const Ikon = ikoner[props.ikonType];
+    const { disabled, backgroundColor, ikonType, onClick, label } = props;
 
     return (
         <button
-            disabled={props.disabled}
+            disabled={disabled}
             type="button"
-            onClick={props.onClick}
+            onClick={onClick}
             className={classNames('knapp-med-ikon', {
-                'knapp-med-ikon__backgroundColor': props.backgroundColor !== null,
+                'knapp-med-ikon__backgroundColor': backgroundColor !== null,
             })}
         >
-            <Ikon title={props.ikonType} />
+            {ikonType === 'soppelkasse' && <SlettIkon title="Slett" />}
+            {ikonType === 'blyant' && <RedigerIkon title="Rediger" />}
+            {ikonType === 'avbrutt' && <AvbruttIkon title="Avbryt" />}
             <BodyShort size="small" className="knapp-med-ikon__label">
-                {props.label}
+                {label}
             </BodyShort>
         </button>
     );

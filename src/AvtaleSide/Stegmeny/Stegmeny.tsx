@@ -12,12 +12,11 @@ interface Props {
 
 const Stegmeny: FunctionComponent<Props> = (props: Props) => {
     const { avtale } = useContext(AvtaleContext);
-    const stegLenker = props.steg.map((steg) => (
+    const stegLenker = props.steg.map((steg, i) => (
         <StegmenyLenke
             id={steg.id}
             label={steg.label}
             aktiv={props.aktivtSteg === steg}
-            ferdig={false}
             url={pathTilStegIAvtale(avtale.id, steg.id)}
             key={steg.id}
         />
