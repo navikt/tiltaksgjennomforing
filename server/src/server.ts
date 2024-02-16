@@ -40,7 +40,7 @@ if (process.env.ENABLE_EXTERNAL_MENU) {
                     'default-src': ["'self'", '*.nav.no'],
                     'script-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
                     'style-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
-                    'font-src': ["'self'", '*.nav.no'],
+                    'font-src': ["'self'", '*.nav.no', 'data:'],
                     'img-src': ["'self'", '*.nav.no'],
                 },
             },
