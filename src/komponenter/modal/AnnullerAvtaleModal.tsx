@@ -51,40 +51,40 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                         Annullering brukes for tilfeller der tiltaket aldri ble noe av.
                     </Alert>
                 </p>
-                <BodyShort size="small" style={{maxWidth: '34rem'}} >
+                <BodyShort size="small" style={{ maxWidth: '34rem' }}>
                     Når du annullerer avtalen, blir innholdet låst, og den blir markert som "annullert" i din oversikt.
                     Du kan ikke redigere eller gjenopprette den etterpå.
                 </BodyShort>
                 <VerticalSpacer rem={1} />
-                    <div role="menu">
-                        <VerticalSpacer rem={1.25} />
-                        <RadioGroup
-                            legend="Valg av grunn for annullering av avtalen"
-                            title="Hvorfor annulleres avtalen?"
-                            error={grunnFeil}
-                        >
-                            {[
-                                'Feilregistrering',
-                                'Begynt i arbeid',
-                                'Fått tilbud om annet tiltak',
-                                'Syk',
-                                'Ikke møtt',
-                                'Annet',
-                            ].map((label) => (
-                                <Radio
-                                    key={label}
-                                    name="avbrytelsegrunn"
-                                    value={label}
-                                    checked={annullertGrunn === label}
-                                    onChange={(event) => {
-                                        setAnnullertGrunn(event.currentTarget.value);
-                                    }}
-                                    role="menuitemradio"
-                                >
-                                    {label}
-                                </Radio>
-                            ))}
-                        </RadioGroup>
+                <div role="menu">
+                    <VerticalSpacer rem={1.25} />
+                    <RadioGroup
+                        legend="Valg av grunn for annullering av avtalen"
+                        title="Hvorfor annulleres avtalen?"
+                        error={grunnFeil}
+                    >
+                        {[
+                            'Feilregistrering',
+                            'Begynt i arbeid',
+                            'Fått tilbud om annet tiltak',
+                            'Syk',
+                            'Ikke møtt',
+                            'Annet',
+                        ].map((label) => (
+                            <Radio
+                                key={label}
+                                name="avbrytelsegrunn"
+                                value={label}
+                                checked={annullertGrunn === label}
+                                onChange={(event) => {
+                                    setAnnullertGrunn(event.currentTarget.value);
+                                }}
+                                role="menuitemradio"
+                            >
+                                {label}
+                            </Radio>
+                        ))}
+                    </RadioGroup>
                     <div>
                         {annullertGrunn === 'Annet' && (
                             <PakrevdTextarea

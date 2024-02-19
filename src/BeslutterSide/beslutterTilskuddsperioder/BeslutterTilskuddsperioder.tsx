@@ -71,7 +71,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
 
     return (
         <div className={cls.className}>
-            <Heading level='2' size="small" className={cls.element('tittel')}>
+            <Heading level="2" size="small" className={cls.element('tittel')}>
                 Tilskudd som skal godkjennes
             </Heading>
             <div className={cls.element('container')}>
@@ -96,7 +96,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         key={index}
                                         className={cls.element(
                                             'tilskuddsperiode-rad',
-                                            settStylingForTabellrad(periode)
+                                            settStylingForTabellrad(periode),
                                         )}
                                     >
                                         <td>{periode.løpenummer}</td>

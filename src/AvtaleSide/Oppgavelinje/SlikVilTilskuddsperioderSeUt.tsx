@@ -9,7 +9,7 @@ interface Props {
     tilskuddsperioder: TilskuddsPeriode[];
 }
 
-const SlikVilTilskuddsperioderSeUt: FunctionComponent<Props> = props => {
+const SlikVilTilskuddsperioderSeUt: FunctionComponent<Props> = (props) => {
     if (props.tilskuddsperioder.length === 0) {
         return null;
     }

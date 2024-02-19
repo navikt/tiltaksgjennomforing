@@ -36,7 +36,7 @@ export const endrePathAlleredeOpprettet = (
     pathnameList: string[],
     path: Path,
     alleredeOpprettet: AlleredeOpprettetInfo,
-    setAlleredeOpprettet: Dispatch<SetStateAction<AlleredeOpprettetInfo>>
+    setAlleredeOpprettet: Dispatch<SetStateAction<AlleredeOpprettetInfo>>,
 ) => {
     if (pathnameList.includes(path)) {
         if (alleredeOpprettet.steg !== path) {
@@ -85,7 +85,7 @@ export const fetchdata = async ({
             tiltakstype,
             id,
             startDato ?? null,
-            sluttDato ?? null
+            sluttDato ?? null,
         );
     if (listeAvtalerDeltakerAlleredeRegistrert.length > 0) {
         setAlleredeRegistrertAvtale({

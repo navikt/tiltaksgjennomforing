@@ -76,7 +76,9 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     </BodyShort>
                 </div>
                 <VerticalSpacer rem={2} />
-                <Heading level='2' size="medium">Logg inn</Heading>
+                <Heading level="2" size="medium">
+                    Logg inn
+                </Heading>
                 <VerticalSpacer rem={2} />
                 <div className={'innloggingsside__loginKnapper'}>{logginnknapper}</div>
             </div>

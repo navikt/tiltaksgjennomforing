@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { BodyShort, Heading, Tag } from '@navikt/ds-react';
 
 import { messages } from '@/messages';
-import Stegoppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Stegoppsummering/Stegoppsummering'
+import Stegoppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Stegoppsummering/Stegoppsummering';
 
 import MaalIkon from './MaalIkon';
 import './MaalOppsummering.less';
@@ -14,7 +14,7 @@ const cls = BEMHelper('mål');
 const MaalOppsummering: FunctionComponent<MaalListe> = (props) => {
     const maalListe = props.maal.map((maal) => (
         <div key={maal.id} className={cls.className}>
-            <Heading level='3' size="small" className={cls.element('label')}>
+            <Heading level="3" size="small" className={cls.element('label')}>
                 {messages[maal.kategori]}
             </Heading>
             <BodyShort size="small" className={cls.element('beskrivelse')}>

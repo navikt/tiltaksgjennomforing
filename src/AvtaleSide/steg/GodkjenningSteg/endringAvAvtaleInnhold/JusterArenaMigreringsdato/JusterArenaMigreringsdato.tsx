@@ -47,7 +47,6 @@ const JusterArenaMigreringsdato: FunctionComponent = () => {
         ? new Date(avtaleContext.avtale.gjeldendeInnhold.startDato)
         : undefined;
 
-
     const lukkModal = () => {
         setModalApen(false);
         setTilskuddsperioder([]);

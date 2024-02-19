@@ -55,7 +55,7 @@ const StillingsTittelVelger: FunctionComponent<Props> = (props) => {
         return txtfragments.reduce(
             (arr: any, element: any, index: number) =>
                 matches && matches[index] ? [...arr, element, <b key={index}>{matches[index]}</b>] : [...arr, element],
-            []
+            [],
         );
     };
 

@@ -26,11 +26,11 @@ const useInnlogget = (): Innlogget => {
 
     useEffect(() => {
         hentInnloggetBruker()
-            .then(response => {
+            .then((response) => {
                 setInnloggetBruker(response);
                 amplitude.setUserProperties({ rolle: response.rolle });
             })
-            .catch(error => {
+            .catch((error) => {
                 if (error instanceof AutentiseringError || error instanceof FeilkodeError) {
                     setUinnlogget(true);
                 } else if (error instanceof ApiError) {
@@ -39,9 +39,7 @@ const useInnlogget = (): Innlogget => {
                     throwError(error);
                 }
             });
-        hentInnloggingskilder()
-            .then(setInnloggingskilder)
-            .catch(throwError);
+        hentInnloggingskilder().then(setInnloggingskilder).catch(throwError);
     }, [throwError]);
 
     return { innloggetBruker, uinnlogget, innloggingskilder, feilmelding };

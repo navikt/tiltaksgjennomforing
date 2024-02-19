@@ -1,4 +1,4 @@
-@import (reference) "../tiltak_variabler.less";
+@import (reference) '../tiltak_variabler.less';
 
 .beslutter-side {
     background-color: white;
@@ -13,17 +13,22 @@
         align-items: center;
     }
 
-    &__head-wrapper, &__avtale-wrapper, &__avtale-versjon-wrapper {
+    &__head-wrapper,
+    &__avtale-wrapper,
+    &__avtale-versjon-wrapper {
         width: 100%;
         max-width: @container-desktop;
     }
 
-    &__avtale-wrapper, &__avtale-versjon-wrapper {
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+    &__avtale-wrapper,
+    &__avtale-versjon-wrapper {
+        box-shadow:
+            0 4px 6px -1px rgb(0 0 0 / 10%),
+            0 2px 4px -1px rgb(0 0 0 / 6%);
     }
 
     &__avtale-wrapper {
-        >.accordion {
+        > .accordion {
             border: none;
         }
         &:last-child {
@@ -38,7 +43,7 @@
     }
 
     &__hoved-tittel {
-     margin: 1rem 0;
+        margin: 1rem 0;
     }
 
     &__wrapper {
@@ -51,5 +56,6 @@
         opacity: 0.3;
     }
 
-    @media(min-width: @container-tablet) {}
+    @media (min-width: @container-tablet) {
+    }
 }

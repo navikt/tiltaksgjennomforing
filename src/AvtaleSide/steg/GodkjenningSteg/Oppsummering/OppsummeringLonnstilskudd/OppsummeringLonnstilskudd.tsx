@@ -14,7 +14,7 @@ interface Props {
     avtaleinnhold: Avtaleinnhold;
 }
 
-const OppsummeringLonnstilskudd: FunctionComponent<Props> = props => (
+const OppsummeringLonnstilskudd: FunctionComponent<Props> = (props) => (
     <>
         <DeltakerInfo oppsummeringside={true} />
         <Avtaleparter avtaleinnhold={props.avtaleinnhold} />

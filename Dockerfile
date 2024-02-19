@@ -10,4 +10,4 @@ COPY ./dist .
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
-CMD ["node dist/server/index.cjs"]
+CMD ["node server/index.cjs"]

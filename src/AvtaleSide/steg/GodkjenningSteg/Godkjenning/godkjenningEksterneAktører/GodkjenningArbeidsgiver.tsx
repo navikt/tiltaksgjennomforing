@@ -13,7 +13,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
     const { avtale, godkjenn } = useContext(AvtaleContext);
     const cls = BEMHelper('godkjenning');
     const erLønnstilskuddEllerSommerjobb = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
-        avtale.tiltakstype
+        avtale.tiltakstype,
     );
 
     const [bekreftetArbeidsAvtale, setBekreftetArbeidsAvtale] = useState<boolean>(false);
@@ -37,7 +37,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
         const felterSomIkkeErFyltUt = avtale.felterSomIkkeErFyltUt;
         if (felterSomIkkeErFyltUt.length === 1 && felterSomIkkeErFyltUt[0] === 'lonnstilskuddProsent') {
             throw new UfullstendigError(
-                'Før du kan godkjenne må veileder sette lønnstilskuddprosent. Avtalen er tilgjengelig for veileder nå.'
+                'Før du kan godkjenne må veileder sette lønnstilskuddprosent. Avtalen er tilgjengelig for veileder nå.',
             );
         }
     };

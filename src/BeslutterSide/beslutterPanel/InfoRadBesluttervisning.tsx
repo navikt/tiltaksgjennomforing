@@ -13,9 +13,7 @@ const InfoRadBesluttervisning: FunctionComponent<Props> = ({ metadata, info, sty
     return (
         <div className={cls.element('infovisning-rad')} style={style}>
             <Label>{metadata}</Label>
-            <BodyShort size="small">
-                {info}
-            </BodyShort>
+            <BodyShort size="small">{info}</BodyShort>
         </div>
     );
 };

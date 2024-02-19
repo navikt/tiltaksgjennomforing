@@ -1,5 +1,3 @@
-import StegFullfortIkon from '@/assets/ikoner/check.svg?react';
-import StegIkkeFullfortIkon from '@/assets/ikoner/steg-ikke-fullfort.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import React, { FunctionComponent, useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,13 +6,11 @@ import './StegmenyLenke.less';
 interface Props {
     label: string;
     aktiv: boolean;
-    ferdig: boolean;
     url: string;
     id: string;
 }
 
-const StegmenyLenke: FunctionComponent<Props> = props => {
-    const Ikon = props.ferdig ? StegFullfortIkon : StegIkkeFullfortIkon;
+const StegmenyLenke: FunctionComponent<Props> = (props) => {
     const avtaleContext = useContext(AvtaleContext);
 
     let className = 'stegmenylenke';
@@ -31,7 +27,6 @@ const StegmenyLenke: FunctionComponent<Props> = props => {
             id={props.id}
             aria-labelledby={props.id}
         >
-            <Ikon className="hidden" title="status" />
             <span className="stegmenylenke__label">{props.label}</span>
         </Link>
     );

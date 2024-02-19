@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest';
 
 import { maalkategorier } from '@/types/maalkategorier';
 import { Maal } from '@/types/avtale';

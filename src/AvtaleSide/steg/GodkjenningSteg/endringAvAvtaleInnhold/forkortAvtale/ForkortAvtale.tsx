@@ -50,7 +50,6 @@ const ForkortAvtale: FunctionComponent = () => {
         }
     };
 
-
     const lukkModal = (): void => {
         setModalApen(false);
         setTilskuddsperioder([]);
@@ -96,7 +95,11 @@ const ForkortAvtale: FunctionComponent = () => {
                         </BodyShort>
                     </div>
 
-                    <Fieldset legend="Velg ny sluttdato for avtalen" error={datoFeil} title="Velg ny sluttdato for avtalen">
+                    <Fieldset
+                        legend="Velg ny sluttdato for avtalen"
+                        error={datoFeil}
+                        title="Velg ny sluttdato for avtalen"
+                    >
                         <DatovelgerForlengOgForkort
                             datoFelt="sluttDato"
                             label=""
@@ -109,25 +112,30 @@ const ForkortAvtale: FunctionComponent = () => {
                     </Fieldset>
                     <VerticalSpacer rem={1} />
                     <Fieldset legend="Hvorfor forkortes avtalen?" title="Hvorfor forkortes avtalen?">
-                        {['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'].map(
-                            (label: string, index: number) => (
-                                <RadioGroup legend="" key={index} value={grunn}>
-                                    <Radio
-                                        key={label}
-                                        name="grunn"
-                                        value={label}
-                                        checked={label === grunn}
-                                        onChange={(event) => {
-                                            setGrunn(event.currentTarget.value);
-                                            setAnnetGrunn(undefined);
-                                        }}
-                                        role="menuitemradio"
-                                    >
-                                        {label}
-                                    </Radio>
-                                </RadioGroup>
-                            )
-                        )}
+                        {[
+                            'Begynt i arbeid',
+                            'Fått tilbud om annet tiltak',
+                            'Syk',
+                            'Ikke møtt',
+                            'Fullført',
+                            'Annet',
+                        ].map((label: string, index: number) => (
+                            <RadioGroup legend="" key={index} value={grunn}>
+                                <Radio
+                                    key={label}
+                                    name="grunn"
+                                    value={label}
+                                    checked={label === grunn}
+                                    onChange={(event) => {
+                                        setGrunn(event.currentTarget.value);
+                                        setAnnetGrunn(undefined);
+                                    }}
+                                    role="menuitemradio"
+                                >
+                                    {label}
+                                </Radio>
+                            </RadioGroup>
+                        ))}
                     </Fieldset>
                     <VerticalSpacer rem={1} />
                     {grunn === 'Annet' && (

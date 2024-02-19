@@ -14,7 +14,7 @@ const setup = (app: Express) => {
             proxyReqPathResolver: (req) => {
                 return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
             },
-        })
+        }),
     );
 
     app.use(
@@ -24,7 +24,7 @@ const setup = (app: Express) => {
             pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
             target: 'http://tiltak-stillingstitler',
             proxyTimeout: 10000,
-        })
+        }),
     );
 
     setupFakeLoginProvider(app, apiUrl);
@@ -60,7 +60,7 @@ function setupFakeLoginProvider(app: Express, apiUrl: string) {
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             res: Response<any, Record<string, any>, number>,
-            next: NextFunction
+            next: NextFunction,
         ) => {
             if (req.headers.cookie) {
                 const cookies = req.headers.cookie.split(';');
@@ -75,7 +75,7 @@ function setupFakeLoginProvider(app: Express, apiUrl: string) {
             } else {
                 res.status(401).send();
             }
-        }
+        },
     );
 
     app.use(
@@ -97,7 +97,7 @@ function setupFakeLoginProvider(app: Express, apiUrl: string) {
                 }
                 return options;
             },
-        })
+        }),
     );
 }
 

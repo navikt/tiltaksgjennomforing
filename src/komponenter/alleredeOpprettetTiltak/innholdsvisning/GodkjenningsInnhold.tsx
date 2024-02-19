@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, { PropsWithChildren } from 'react';
 import AlleredeOpprettetAvtale from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/AlleredeOpprettetAvtale';
 import BEMHelper from '@/utils/bem';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';

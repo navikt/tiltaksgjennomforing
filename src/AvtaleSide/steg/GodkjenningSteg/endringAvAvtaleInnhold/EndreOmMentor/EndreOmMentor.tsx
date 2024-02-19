@@ -32,7 +32,7 @@ const EndreOmMentor: FunctionComponent = () => {
         mentorTimelonn: avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn,
     });
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
-        mentorInfo.mentorAntallTimer?.toString().replace(/\./g, ',') ?? ''
+        mentorInfo.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
     );
 
     const lukkModal = () => {
@@ -74,7 +74,10 @@ const EndreOmMentor: FunctionComponent = () => {
                         <Row className={''}>
                             <Column md="6">
                                 <div className={'rad'}>
-                                    <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
+                                    <VisueltDisabledInputFelt
+                                        label="Fødselsnummer"
+                                        tekst={avtaleContext.avtale.mentorFnr}
+                                    />
                                 </div>
                             </Column>
                         </Row>

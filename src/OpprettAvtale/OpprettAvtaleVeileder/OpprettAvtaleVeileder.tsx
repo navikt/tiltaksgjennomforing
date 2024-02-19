@@ -57,11 +57,11 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
-        validatorer('Deltaker', mentorFnr)
+        validatorer('Deltaker', mentorFnr),
     );
     const [mentorFnrFeil, setMentorFnrFeil, validerMentorFnr] = useValidering(
         mentorFnr,
-        validatorer('Mentor', deltakerFnr)
+        validatorer('Mentor', deltakerFnr),
     );
 
     const [bedriftNrFeil, setBedriftNrFeil, validerBedriftNr] = useValidering(bedriftNr, [
@@ -99,7 +99,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                         `Det oppstod en uventet feil ved henting av virksomhetsnummer ${
                             bedriftNr ? bedriftNr : ''
                         } med feilmelding: `,
-                        error
+                        error,
                     );
                 });
         } else {
@@ -139,7 +139,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                         mentorFnr,
                         bedriftNr,
                         valgtTiltaksType,
-                        Avtalerolle.VEILEDER
+                        Avtalerolle.VEILEDER,
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
                     navigate(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
@@ -151,7 +151,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 deltakerFnr,
                 bedriftNr,
                 valgtTiltaksType,
-                valgtRyddeAvtale.includes('valgtRyddeAvtale')
+                valgtRyddeAvtale.includes('valgtRyddeAvtale'),
             );
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             navigate(pathTilOpprettAvtaleFullfortVeileder(avtale.id));

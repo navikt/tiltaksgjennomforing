@@ -12,13 +12,13 @@ const Oversikt: FunctionComponent = () => {
             <FiltreringProviderGammel>
                 <BeslutterOversikt />
             </FiltreringProviderGammel>
-        )
+        );
     } else {
         return (
             <FiltreringProvider>
                 <AvtaleOversikt />
             </FiltreringProvider>
-        )
+        );
     }
 };
 

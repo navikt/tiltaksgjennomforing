@@ -25,7 +25,10 @@ const SendTilbakeTilBeslutterUendret = () => {
             </div>
             {sendTilbakeModalIsOpen && (
                 <div aria-hidden={!sendTilbakeModalIsOpen}>
-                    <SendTilbakeModal isOpen={sendTilbakeModalIsOpen} lukkModal={() => setSendTilbakeModalIsOpen(false)} />
+                    <SendTilbakeModal
+                        isOpen={sendTilbakeModalIsOpen}
+                        lukkModal={() => setSendTilbakeModalIsOpen(false)}
+                    />
                 </div>
             )}
         </>

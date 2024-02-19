@@ -16,7 +16,7 @@ const ByttTilBeslutter: FunctionComponent = () => {
     return (
         <div className={cls.className}>
             <div className={cls.element('container')}>
-                <Button size='small' variant="secondary" onClick={onClick}>
+                <Button size="small" variant="secondary" onClick={onClick}>
                     Bytt til visning for beslutter
                 </Button>
             </div>

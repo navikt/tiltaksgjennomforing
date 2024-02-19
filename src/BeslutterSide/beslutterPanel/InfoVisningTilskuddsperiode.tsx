@@ -29,7 +29,7 @@ const InfoVisningTilskuddsperiode: FunctionComponent = () => {
                         metadata="Periode"
                         info={formatterPeriode(
                             gjeldendeTilskuddsperiode.startDato,
-                            gjeldendeTilskuddsperiode.sluttDato
+                            gjeldendeTilskuddsperiode.sluttDato,
                         )}
                         style={{ minHeight: '2rem' }}
                     />

@@ -1,4 +1,4 @@
-import React, {CSSProperties, Dispatch, PropsWithChildren, SetStateAction} from 'react';
+import React, { CSSProperties, Dispatch, PropsWithChildren, SetStateAction } from 'react';
 import { Modal } from '@navikt/ds-react';
 import VarselTegnForModal from '@/komponenter/modal/VarselTegnForModal';
 import BEMHelper from '@/utils/bem';
@@ -10,7 +10,12 @@ interface Props {
     style?: CSSProperties;
 }
 
-const AlleredeOpprettetAvtaleModal: React.FC<PropsWithChildren<Props>> = ({ modalIsOpen, setModalIsOpen, style, children }) => {
+const AlleredeOpprettetAvtaleModal: React.FC<PropsWithChildren<Props>> = ({
+    modalIsOpen,
+    setModalIsOpen,
+    style,
+    children,
+}) => {
     const cls = BEMHelper('alleredeOpprettetAvtaleModal');
 
     /*

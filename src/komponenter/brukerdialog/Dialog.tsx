@@ -12,7 +12,7 @@ const Dialog: React.FC<Props> = (props) => {
     const [visningAvSalesforceDialog, setVisningAvSalesforceDialog] = useState<boolean>(false);
     useEffect(() => {
         hentAvtaleVisSalesforceDialog(props.id).then((response) => {
-            setVisningAvSalesforceDialog(response)
+            setVisningAvSalesforceDialog(response);
         });
     }, [props.id]);
 

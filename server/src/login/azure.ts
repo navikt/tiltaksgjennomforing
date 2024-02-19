@@ -21,7 +21,7 @@ const client = async (): Promise<BaseClient> => {
             token_endpoint_auth_signing_alg: azureConfig.tokenEndpointAuthSigningAlg,
             redirect_uris: [azureConfig.redirectUri as string],
         },
-        jwk
+        jwk,
     );
 };
 
@@ -53,7 +53,7 @@ const getOnBehalfOfAccessToken = async (azureClient: any, azureEndpointToken: an
             clientAssertionPayload: {
                 aud: [azureEndpointToken],
             },
-        }
+        },
     );
     return backendTokenSet.access_token;
 };

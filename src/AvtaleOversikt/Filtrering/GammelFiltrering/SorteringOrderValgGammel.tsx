@@ -24,7 +24,7 @@ const SorteringOrderValgGammel: FunctionComponent<Props> = ({ label, sorteringsv
                     'sortering',
                     filtre.sorteringOrder === 'ASC' && filtre.sorteringskolonne === sorteringsverdi
                         ? 'asc-selected'
-                        : 'asc'
+                        : 'asc',
                 )}
                 onClick={() => {
                     endreFilter({
@@ -38,7 +38,7 @@ const SorteringOrderValgGammel: FunctionComponent<Props> = ({ label, sorteringsv
                     'sortering',
                     filtre.sorteringOrder === 'DESC' && filtre.sorteringskolonne === sorteringsverdi
                         ? 'desc-selected'
-                        : 'desc'
+                        : 'desc',
                 )}
                 onClick={() => {
                     endreFilter({

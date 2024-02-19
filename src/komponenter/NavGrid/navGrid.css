@@ -21,7 +21,7 @@ GRID
 }
 .container::before,
 .container::after {
-    content: " ";
+    content: ' ';
     display: table;
 }
 .container::after {
@@ -53,7 +53,7 @@ GRID
 }
 .container-fluid::before,
 .container-fluid::after {
-    content: " ";
+    content: ' ';
     display: table;
 }
 .container-fluid::after {
@@ -68,7 +68,7 @@ GRID
 }
 .row::before,
 .row::after {
-    content: " ";
+    content: ' ';
     display: table;
 }
 .row::after {

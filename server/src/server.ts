@@ -13,21 +13,40 @@ import { getEnv } from './paths/miljo';
 
 const indexPath = path.resolve(__dirname, '../client', 'index.html');
 
-const cspMiddleware = (): Handler => {
+const eksternCspMiddleware = (): Handler => {
     let csp: string;
+
     return async (_, res, next) => {
         if (!csp) {
             csp = await buildCspHeader({}, { env: getEnv() });
         }
         res.setHeader('Content-Security-Policy', csp);
         next();
-    }
-}
+    };
+};
 
 const node: Express = express();
 node.disable('x-powered-by');
-node.use(helmet({ contentSecurityPolicy: false }));
-node.use(cspMiddleware());
+
+if (process.env.ENABLE_EXTERNAL_MENU) {
+    node.use(helmet({ contentSecurityPolicy: false }));
+    node.use(eksternCspMiddleware());
+} else {
+    node.use(
+        helmet({
+            contentSecurityPolicy: {
+                useDefaults: true,
+                directives: {
+                    'default-src': ["'self'", '*.nav.no'],
+                    'script-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
+                    'style-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
+                    'font-src': ["'self'", '*.nav.no', 'data:'],
+                    'img-src': ["'self'", '*.nav.no'],
+                },
+            },
+        }),
+    );
+}
 
 async function startServer(): Promise<void> {
     setupPath.initializePath(node);
