@@ -14,15 +14,12 @@ interface Props {
     undertittel?: string;
 }
 
-
-
 const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const [searchParams] = useSearchParams();
     const bedriftParam = searchParams.get('bedrift');
 
-    const useOrgnrHook2: () => [string | null, (orgnr: string) => void] =
-    useCallback(() => {
+    const useOrgnrHook2: () => [string | null, (orgnr: string) => void] = useCallback(() => {
         const currentOrgnr = bedriftParam || null;
 
         return [
@@ -36,7 +33,6 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                         if (props.byttetOrg) {
                             props.byttetOrg(orgnr);
                         }
-
                     }
                 }
             },

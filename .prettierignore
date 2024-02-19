@@ -1,7 +1,8 @@
 # Ignore files:
-build
-tsconfig.json
-tsconfig.base.json
-tslint.json
-package-lock.json
+*.yaml
 .github
+dist
+package-lock.json
+tsconfig.base.json
+tsconfig.json
+tslint.json

@@ -12,7 +12,7 @@ import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
 import { LogReturn } from 'amplitude-js';
-import React, {FunctionComponent, PropsWithChildren, useContext, useState} from 'react';
+import React, { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
@@ -21,7 +21,7 @@ import { handterFeil } from './utils/apiFeilUtils';
 
 export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
     const noenHarGodkjent = Boolean(
-        avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder
+        avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder,
     );
     return noenHarGodkjent && !avtale.erAvtaleInngått;
 };
@@ -34,7 +34,7 @@ export interface TemporaryLagring {
 
 export type SettAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
     felt: K,
-    verdi: T[K]
+    verdi: T[K],
 ) => void;
 
 export type SettFlereAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
@@ -51,7 +51,7 @@ export interface Context {
     godkjennPaVegneAvDeltaker: (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => Promise<void>;
     godkjennPaVegneAvArbeidsgiver: (paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner) => Promise<void>;
     godkjennPaVegneAvDeltakerOgArbeidsgiver: (
-        paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner
+        paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
     ) => Promise<void>;
     ulagredeEndringer: boolean;
     hentAvtale: (avtaleId?: string) => Promise<void>;
@@ -131,7 +131,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
 
     const settAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
         felt: K,
-        verdi: T[K]
+        verdi: T[K],
     ): Avtale | undefined => {
         if (noenHarGodkjentMenIkkeInngått(avtale)) {
             setOpphevGodkjenningerModalIsOpen(true);
@@ -251,7 +251,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         await hentAvtale(avtale.id);
     };
     const godkjennPaVegneAvDeltakerOgArbeidsgiver = async (
-        paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner
+        paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
     ): Promise<void> => {
         await RestService.godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver(avtale, paVegneGrunn);
         sendToAmplitude('#tiltak-avtale-godkjent-pavegneav-deltaker-og-ag');

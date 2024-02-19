@@ -11,11 +11,11 @@ const nyheter = [
         innhold: (
             <>
                 <p>
-                    URL-en er oppdatert i Modia-dekoratøren, men hvis du har lagret Tiltaksgjennomføring som bokmerke må du huske å oppdatere denne.
-                    Den gamle URL-en fungerer ikke lenger.
+                    URL-en er oppdatert i Modia-dekoratøren, men hvis du har lagret Tiltaksgjennomføring som bokmerke må
+                    du huske å oppdatere denne. Den gamle URL-en fungerer ikke lenger.
                 </p>
             </>
-        )
+        ),
     },
     {
         dato: tilDato(1, 9, 2022),

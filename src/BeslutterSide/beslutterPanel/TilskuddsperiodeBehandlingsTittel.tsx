@@ -16,12 +16,14 @@ const TilskuddsperiodeBehandlingsTittel: FunctionComponent = () => {
         GODKJENT: 'Tilskuddsperiode er godkjent',
         UBEHANDLET: 'Tilskuddsperiode som skal godkjennes',
         ANNULLERT: 'Tilskuddsperiode er annullert',
-        BEHANDLET_I_ARENA: 'Tilskuddsperiode er behandlet i Arena'
+        BEHANDLET_I_ARENA: 'Tilskuddsperiode er behandlet i Arena',
     };
 
     return (
         <div className={cls.element('tittel')}>
-            <Heading level='2' size="small">{tittel[avtale.gjeldendeTilskuddsperiode.status]}</Heading>
+            <Heading level="2" size="small">
+                {tittel[avtale.gjeldendeTilskuddsperiode.status]}
+            </Heading>
             <BodyShort size="small">{formatterDato(avtale.opprettetTidspunkt, NORSK_DATO_FORMAT)}</BodyShort>
         </div>
     );

@@ -18,20 +18,35 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v3
-      - name: Server yarn install
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Install
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Server install
         working-directory: ./server
-        run: yarn install
-      - name: Server yarn build
-        working-directory: ./server
-        run: yarn build
-      - name: Frontend yarn install
-        run: yarn install --frozen-lockfile
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Typescript
+        run: npm run ts
+      - name: Prettier
+        run: npm run prettier
       - name: Kjør tester
-        run: yarn test
-      - name: Frontend yarn build
-        run: yarn build
-      - name: Sett opp sentry release
-        run: yarn run release
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Server build
+        working-directory: ./server
+        run: npm run build
+      - name: Sentry release
+        run: npm run release
+      - name: Remove source maps
+        run: |
+          rm dist/client/assets/*.map
       - name: Bygg, tag og push Docker-image
         run: |
           echo ${GITHUB_TOKEN} | docker login ghcr.io -u ${GITHUB_REPOSITORY} --password-stdin

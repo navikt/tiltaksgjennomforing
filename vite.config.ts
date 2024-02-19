@@ -6,12 +6,13 @@ import { execSync } from 'node:child_process';
 
 import middlewarePlugin from './vite.middleware';
 
-const GIT_COMMIT_HASH = execSync('git log -n 1 --pretty=format:\'%h\'').toString();
+const GIT_COMMIT_HASH = execSync("git log -n 1 --pretty=format:'%h'").toString();
 
 export default defineConfig({
     base: '/tiltaksgjennomforing',
     build: {
         sourcemap: true,
+        outDir: 'dist/client',
     },
     define: {
         GIT_COMMIT_HASH: JSON.stringify(GIT_COMMIT_HASH),
@@ -20,7 +21,7 @@ export default defineConfig({
         alias: {
             '@': path.resolve(__dirname, '/src'),
         },
-    },   
+    },
     plugins: [react(), svgr(), middlewarePlugin()],
     server: {
         open: true,
@@ -34,7 +35,7 @@ export default defineConfig({
                 configure: (proxy) => {
                     proxy.on('proxyReq', (proxyReq, req, res) => {
                         const cookies = req.headers?.cookie?.split(';');
-                        const cookieWithFakeToken = cookies?.filter(c => c.includes('fake'));
+                        const cookieWithFakeToken = cookies?.filter((c) => c.includes('fake'));
                         if (!cookieWithFakeToken?.length) {
                             res.writeHead(401);
                             res.end();

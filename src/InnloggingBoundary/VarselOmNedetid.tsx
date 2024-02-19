@@ -9,7 +9,7 @@ export const VarselOmNedetid: FunctionComponent = () => {
 
     useEffect(() => {
         hentFeatureTogglesVarianter([Feature.VisNedetidBanner])
-            .then(varianter => {
+            .then((varianter) => {
                 setVariant(varianter[Feature.VisNedetidBanner]);
             })
             .catch(() => void 0);

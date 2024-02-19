@@ -13,10 +13,8 @@ export default () => ({
     name: 'configure-server',
     configureServer(server: ViteDevServer) {
         const { middlewares } = server;
-        
-        server.
-        
-        middlewares.use('/tiltaksgjennomforing/innloggingskilder' , (_, res) => {
+
+        server.middlewares.use('/tiltaksgjennomforing/innloggingskilder', (_, res) => {
             const innloggingskilder = [
                 {
                     tittel: 'Som deltaker',
@@ -77,9 +75,9 @@ export default () => ({
             const searchParams = new URLSearchParams(req.url);
             const orgNr = searchParams.get('organisasjonsnummer');
             const avtaleNr = searchParams.get('avtalenummer');
-    
+
             res.writeHead(302, {
-                Location: `${redirectUrl}/?organisasjonsnummer=${orgNr}&avtalenummer=${avtaleNr}`
+                Location: `${redirectUrl}/?organisasjonsnummer=${orgNr}&avtalenummer=${avtaleNr}`,
             });
             res.end();
         });
@@ -92,7 +90,7 @@ export default () => ({
         middlewares.use('/tiltaksgjennomforing/fakelogout', async (_, res) => {
             res.setHeader('set-cookie', [
                 'fake-tokenx-idtoken=; max-age=0; path=/',
-                'fake-aad-idtoken=; max-age=0; path=/'
+                'fake-aad-idtoken=; max-age=0; path=/',
             ]);
             res.writeHead(302, { Location: '/tiltaksgjennomforing' });
             res.end();
@@ -102,8 +100,8 @@ export default () => ({
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(
                 JSON.stringify(
-                    process.env.ENABLE_EXTERNAL_MENU !== 'true' && process.env.ENABLE_INTERNAL_MENU !== 'true'
-                )
+                    process.env.ENABLE_EXTERNAL_MENU !== 'true' && process.env.ENABLE_INTERNAL_MENU !== 'true',
+                ),
             );
         });
     },

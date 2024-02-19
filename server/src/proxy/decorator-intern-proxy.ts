@@ -7,19 +7,18 @@ import { ParsedQs } from 'qs';
 import { IncomingMessage, RequestOptions } from 'http';
 
 const setup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: BaseClient) => {
-
-  app.use(
+    app.use(
         '/modiacontextholder/api/decorator',
         proxy(process.env.APIGW_URL as string, {
             proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
                 return req.originalUrl.replace(
                     '/modiacontextholder/api/decorator',
-                    '/tiltaksgjennomforing-api/innlogget-bruker'
+                    '/tiltaksgjennomforing-api/innlogget-bruker',
                 );
             },
             proxyReqOptDecorator: async (
                 options: RequestOptions,
-                req: Request<{}, any, any, ParsedQs, Record<string, any>>
+                req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             ) => {
                 const accessToken = await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req);
                 if (options?.headers) {
@@ -34,7 +33,7 @@ const setup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: BaseCl
                 const data = JSON.parse(proxyResData.toString('utf8'));
                 return JSON.stringify({ ...data, ident: data.identifikator || '' });
             },
-        })
+        }),
     );
 
     app.use('/internarbeidsflatedecorator', (req, res) => {

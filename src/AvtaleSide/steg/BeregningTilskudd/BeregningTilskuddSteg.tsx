@@ -43,7 +43,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <Arbeidsgiveravgift cls={cls} />
             <Row className={cls.element('rad-kontonummer')}>
                 <Column md="12" className={cls.element('kontonummer')}>
-                    <HenteKontonummer/>
+                    <HenteKontonummer />
                 </Column>
             </Row>
 

@@ -55,14 +55,18 @@ const KvalifiseringsgruppeSats: FunctionComponent<Props> = ({ cls }: Props) => {
                 </div>
             ) : (
                 <div className={cls.element('tilskuddsprosent')}>
-                    <Heading level="2" size="small">Tilskuddsprosent</Heading>
+                    <Heading level="2" size="small">
+                        Tilskuddsprosent
+                    </Heading>
                     <BodyShort size="small">{settLonnstilskuddsprosent()}</BodyShort>
                 </div>
             )}
         </div>
     ) : (
         <div className={cls.element('tilskuddsprosent')}>
-            <Heading level="2" size="small">Tilskuddsprosent</Heading>
+            <Heading level="2" size="small">
+                Tilskuddsprosent
+            </Heading>
             <BodyShort size="small">{settLonnstilskuddsprosent()}</BodyShort>
         </div>
     );

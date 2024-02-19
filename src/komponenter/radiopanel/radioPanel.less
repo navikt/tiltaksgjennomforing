@@ -1,42 +1,47 @@
-.radio-panel, radio-panel__active, radio-panel__non-active {
-  background-color: #fff;
-  border: 1px solid #6a6a6a;
-  border-radius: 0.25rem;
-  display: block;
-  padding: 0.25rem 1rem 0.25rem 1rem;
-  position: relative;
-  font-family: "Source Sans Pro", Arial, sans-serif;
-  font-size: 1rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  width: 100%;
+.radio-panel,
+radio-panel__active,
+radio-panel__non-active {
+    background-color: #fff;
+    border: 1px solid #6a6a6a;
+    border-radius: 0.25rem;
+    display: block;
+    padding: 0.25rem 1rem 0.25rem 1rem;
+    position: relative;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    font-weight: 400;
+    width: 100%;
 
-  &:nth-child(odd) {
-    margin-right: 1rem;
-  }
+    &:nth-child(odd) {
+        margin-right: 1rem;
+    }
 
-  &:hover {
-    border: 1px solid #0067c5;
-    box-shadow: #a0a0a0 0 2px 1px 0;
-    cursor: pointer;
-  }
+    &:hover {
+        border: 1px solid #0067c5;
+        box-shadow: #a0a0a0 0 2px 1px 0;
+        cursor: pointer;
+    }
 
-  &__active {
-    background-color: #cce1ff;
-    border: 1px solid transparent;
-  }
+    &__active {
+        background-color: #cce1ff;
+        border: 1px solid transparent;
+    }
 
-  &:focus-visible {
-    outline:  rgba(0, 52, 125, 1)  solid 1px;
-  }
+    &:focus-visible {
+        outline: rgba(0, 52, 125, 1) solid 1px;
+    }
 
-  .navds-radio__input:checked + .navds-radio__label::before {
-    border: 2px solid #0067c5;
-    box-shadow: 0 0 0 3px #fff inset, 0 0 0 12px #0067c5 inset;
-    border-radius: 50%;
-  }
+    .navds-radio__input:checked + .navds-radio__label::before {
+        border: 2px solid #0067c5;
+        box-shadow:
+            0 0 0 3px #fff inset,
+            0 0 0 12px #0067c5 inset;
+        border-radius: 50%;
+    }
 
-  .navds-checkbox__label, .navds-radio__label {
-    outline: none !important;
-  }
+    .navds-checkbox__label,
+    .navds-radio__label {
+        outline: none !important;
+    }
 }

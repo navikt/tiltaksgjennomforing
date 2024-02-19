@@ -3,7 +3,7 @@ import SentryCli from '@sentry/cli';
 import { execSync } from 'node:child_process';
 
 async function createReleaseAndUpload() {
-    const release = execSync('git log -n 1 --pretty=format:\'%h\'').toString();
+    const release = execSync("git log -n 1 --pretty=format:'%h'").toString();
     if (!release) {
         console.warn('GIT_COMMIT_HASH is not set');
         return;
@@ -15,7 +15,7 @@ async function createReleaseAndUpload() {
 
         console.log('Uploading source maps');
         await cli.releases.uploadSourceMaps(release, {
-            include: ['dist/assets'],
+            include: ['dist/client/assets'],
             urlPrefix: '~/tiltaksgjennomforing/assets',
             rewrite: false,
         });

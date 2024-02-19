@@ -41,7 +41,7 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
         }
         if (!arbeidsgiverInformert) {
             return setFeilArbeidsgiverInformert(
-                'Arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.'
+                'Arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.',
             );
         } else {
             setFeilArbeidsgiverInformert(undefined);

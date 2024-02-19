@@ -22,12 +22,12 @@ const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
                 const accessToken = await tokenx.getTokenExchangeAccessToken(
                     tokenxClient,
                     process.env.API_AUDIENCE,
-                    req
+                    req,
                 );
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;
             },
-        })
+        }),
     );
 };
 
@@ -47,7 +47,7 @@ const azureSetup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: a
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;
             },
-        })
+        }),
     );
 };
 
@@ -72,7 +72,7 @@ function setupPath(app: Express) {
             pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
             target: process.env.STILLINGSTITLER_URL,
             proxyTimeout: 10000,
-        })
+        }),
     );
 }
 

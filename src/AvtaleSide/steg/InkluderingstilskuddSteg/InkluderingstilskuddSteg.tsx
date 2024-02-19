@@ -30,13 +30,13 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
         sletteInkluderingstilskuddsutgift,
     } = useTilskuddsutgift(
         avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
-        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp
+        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
     );
 
     const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) =>
         settAvtaleInnholdVerdier(
             { inkluderingstilskuddsutgift: endreInkluderingstilskuddsutgift(index, beløp, type) },
-            true
+            true,
         );
 
     const slett = (index: number) =>
@@ -45,13 +45,15 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
     const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) =>
         settAvtaleInnholdVerdier(
             { inkluderingstilskuddsutgift: leggTilInkluderingstilskuddsutgift(beløp, type) },
-            true
+            true,
         );
 
     return (
         <>
             <Innholdsboks utfyller="arbeidsgiver">
-                <Heading level='2' size="medium">Inkluderingstilskudd</Heading>
+                <Heading level="2" size="medium">
+                    Inkluderingstilskudd
+                </Heading>
                 <VerticalSpacer rem={1} />
                 <InkluderingstilskuddIngress />
                 <VerticalSpacer rem={2} />

@@ -71,7 +71,7 @@ class Column extends React.Component {
         return React.createElement(
             'div',
             Object.assign({ className: cls(className, xs, sm, md, lg) }, props),
-            children
+            children,
         );
     }
 }

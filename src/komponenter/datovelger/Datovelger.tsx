@@ -19,7 +19,7 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
     const [feilmeldingTekst, setFeilmeldingTekst] = useState<string>();
 
     const feilmelding = (val: DateValidationT | undefined, nedreGrensese: string, øvreGrense: string) => {
-        if(val){
+        if (val) {
             if (!val.isValidDate) {
                 if (erStartdato) {
                     if (val.isBefore) {
@@ -44,11 +44,10 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
                         setHasError(!val.isValidDate);
                     }
                 }
-            }
-            else{
+            } else {
                 setHasError(false);
             }
-        } 
+        }
     };
 
     const { datepickerProps, inputProps } = useDatepicker({
@@ -62,14 +61,18 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
             });
         },
         onValidate: (val) => {
-            feilmelding(val, formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()));
+            feilmelding(
+                val,
+                formatterDatoHvisDefinert(datepickerProps.fromDate?.toDateString()),
+                formatterDatoHvisDefinert(datepickerProps.toDate?.toDateString()),
+            );
         },
     });
 
     return (
         <div>
             <label className="skjemaelement__label">{label}</label>
-            <DatePicker   {...datepickerProps}>
+            <DatePicker {...datepickerProps}>
                 <DatePicker.Input
                     {...inputProps}
                     placeholder="dd.mm.åååå"

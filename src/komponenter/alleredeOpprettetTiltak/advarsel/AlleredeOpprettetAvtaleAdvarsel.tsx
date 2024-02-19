@@ -21,11 +21,11 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
         (avtale) =>
             sjekkStatus(avtale, 'MANGLER_GODKJENNING') ||
             sjekkStatus(avtale, 'MANGLER_SIGNATUR') ||
-            sjekkStatus(avtale, 'PÅBEGYNT')
+            sjekkStatus(avtale, 'PÅBEGYNT'),
     );
 
     const avtalerSomErIverksatt = alleredeRegistrertAvtale.filter(
-        ({ status }) => status === 'KLAR_FOR_OPPSTART' || status === 'GJENNOMFØRES'
+        ({ status }) => status === 'KLAR_FOR_OPPSTART' || status === 'GJENNOMFØRES',
     );
 
     if (avtalerSomIkkeErIverksatt.length <= 0 && avtalerSomErIverksatt.length <= 0) return null;

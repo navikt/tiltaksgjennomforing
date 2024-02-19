@@ -1,4 +1,4 @@
-import { getMiljø, Miljø } from '../paths/miljø';
+import { getMiljo, Miljo } from '../paths/miljo';
 import labsProxy from '../proxy/labs-proxy';
 import { BaseClient } from 'openid-client';
 import azure from './azure';
@@ -9,9 +9,9 @@ import notifikasjonProxy from '../proxy/notifikasjoner-proxy';
 import decoratorEksternProxy from '../proxy/decorator-ekstern-proxy';
 import { Express } from 'express';
 
-const miljo: Miljø = getMiljø();
+const miljo: Miljo = getMiljo();
 const setupOauth2Clients = async (server: Express) => {
-    if (miljo === Miljø.DEV_GCP || miljo === Miljø.PROD_GCP) {
+    if (miljo === Miljo.DEV_GCP || miljo === Miljo.PROD_GCP) {
         if (process.env.INTERN_INGRESS) {
             return await initLoginAndProxyForInternal(server);
         }

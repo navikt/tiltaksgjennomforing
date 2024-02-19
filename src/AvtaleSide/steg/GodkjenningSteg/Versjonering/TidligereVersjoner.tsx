@@ -10,7 +10,7 @@ import './TidligereVersjoner.less';
 const cls = BEMHelper('tidligereVersjoner');
 
 const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; tiltakstype: TiltaksType }> = (
-    props
+    props,
 ) => {
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);

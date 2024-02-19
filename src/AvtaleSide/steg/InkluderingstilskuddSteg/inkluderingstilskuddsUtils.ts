@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export const useTilskuddsutgift = (
     initiellInkluderingstilskuddutgiftListe: Inkluderingstilskuddsutgift[],
-    inkluderingstilskuddTotalBeløp: number
+    inkluderingstilskuddTotalBeløp: number,
 ) => {
     const [inkluderingstilskuddsutgiftListe, setInkluderingstilskuddsutgiftListe] = useState<
         Inkluderingstilskuddsutgift[]
@@ -11,7 +11,7 @@ export const useTilskuddsutgift = (
     const [inkluderingstilskuddTotal, setInkluderingstilskuddTotal] = useState<number>(inkluderingstilskuddTotalBeløp);
 
     const resettListe = (liste: Inkluderingstilskuddsutgift[]) => setInkluderingstilskuddsutgiftListe(liste);
-    
+
     const oppdatereTotalSummen = (initiellInkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]) => {
         let utgifterTotalsum = 0;
         initiellInkluderingstilskuddutgifter.forEach((utgift) => (utgifterTotalsum += utgift.beløp));
@@ -34,11 +34,9 @@ export const useTilskuddsutgift = (
         return nyInkluderingstilskuddsutgiftListe;
     };
 
-    const ledigeInkluderingstilskuddstyper = finnLedigeInkluderingstilskuddstyper(
-        inkluderingstilskuddsutgiftListe
-    );
+    const ledigeInkluderingstilskuddstyper = finnLedigeInkluderingstilskuddstyper(inkluderingstilskuddsutgiftListe);
     const ledigeInkluderingstilskuddstyperInngåttAvtale = finnLedigeInkluderingstilskuddstyperInngåttAvtale(
-        inkluderingstilskuddsutgiftListe
+        inkluderingstilskuddsutgiftListe,
     );
 
     const sletteInkluderingstilskuddsutgift = (index: number) => {
@@ -57,12 +55,12 @@ export const useTilskuddsutgift = (
         leggTilInkluderingstilskuddsutgift,
         endreInkluderingstilskuddsutgift,
         sletteInkluderingstilskuddsutgift,
-        resettListe
+        resettListe,
     };
 };
 
 const finnLedigeInkluderingstilskuddstyperInngåttAvtale = (
-    brukteTyper: Inkluderingstilskuddsutgift[]
+    brukteTyper: Inkluderingstilskuddsutgift[],
 ): InkluderingstilskuddsutgiftType[] => {
     // Typer som er lagt til i tidligere versjoner kan brukes på nytt 1 gang.
     const alleTyper = [
@@ -85,7 +83,7 @@ const finnLedigeInkluderingstilskuddstyperInngåttAvtale = (
 };
 
 const finnLedigeInkluderingstilskuddstyper = (
-    brukteTyper: Inkluderingstilskuddsutgift[]
+    brukteTyper: Inkluderingstilskuddsutgift[],
 ): InkluderingstilskuddsutgiftType[] => {
     // Typer kan kun brukes 1 gang.
     const valgteTyper = (): InkluderingstilskuddsutgiftType[] => {
@@ -98,7 +96,7 @@ const finnLedigeInkluderingstilskuddstyper = (
         'ARBEIDSHJELPEMIDLER',
         'PROGRAMVARE',
         'OPPLÆRING',
-        'FORSIKRING_LISENS_SERTIFISERING'
+        'FORSIKRING_LISENS_SERTIFISERING',
     ] as const;
     return typer.filter((type) => !valgteTyper().includes(type));
 };

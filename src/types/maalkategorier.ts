@@ -7,4 +7,4 @@ export const maalkategorier = [
     'ANNET',
 ] as const;
 
-export type Maalkategori = typeof maalkategorier[number];
+export type Maalkategori = (typeof maalkategorier)[number];

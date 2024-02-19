@@ -29,10 +29,10 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
 
     const settNyOppfølgingOgTilretteleggingInformasjon = async <
         K extends keyof EndreOppfølgingOgTilretteleggingInfo,
-        V extends EndreOppfølgingOgTilretteleggingInfo
+        V extends EndreOppfølgingOgTilretteleggingInfo,
     >(
         key: K,
-        verdi: V[K]
+        verdi: V[K],
     ) => {
         await setOppfølgingOgTilretteleggingInfo((prevState) => ({
             ...prevState,
@@ -68,7 +68,9 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                 <div className={cls.className}>
                     <div className={cls.element('oppfølging')}>
                         <div className={cls.element('tittel')}>
-                            <Heading level='3' size="small">Oppfølging</Heading>
+                            <Heading level="3" size="small">
+                                Oppfølging
+                            </Heading>
                         </div>
                         <div className={cls.element('textareafelt-wrapper')}>
                             <PakrevdTextarea
@@ -83,7 +85,9 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                     </div>
                     <div className={cls.element('Tilrettelegging')}>
                         <div className={cls.element('tittel')}>
-                            <Heading level='3' size="small">Tilrettelegging</Heading>
+                            <Heading level="3" size="small">
+                                Tilrettelegging
+                            </Heading>
                         </div>
                         <div className={cls.element('textareafelt-wrapper')}>
                             <PakrevdTextarea

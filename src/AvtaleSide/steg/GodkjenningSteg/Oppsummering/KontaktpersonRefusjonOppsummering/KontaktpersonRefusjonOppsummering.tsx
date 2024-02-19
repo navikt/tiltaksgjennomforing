@@ -24,7 +24,10 @@ const KontaktpersonRefusjonOppsumering: FunctionComponent = () => {
                     ]}
                     tilleggFelter={[
                         { felt: 'telefon', verdi: gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf },
-                        { felt: 'ønskerVarslingOmRefusjon', verdi: gjeldendeInnhold.refusjonKontaktperson?.ønskerVarslingOmRefusjon ? 'Ja': 'Nei' }
+                        {
+                            felt: 'ønskerVarslingOmRefusjon',
+                            verdi: gjeldendeInnhold.refusjonKontaktperson?.ønskerVarslingOmRefusjon ? 'Ja' : 'Nei',
+                        },
                     ]}
                     overskrift={'Kontaktperson hos arbeidsgiver for refusjon'}
                     borderFarge="farge-graa"

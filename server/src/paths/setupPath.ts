@@ -1,10 +1,10 @@
-import { getMiljø, Miljø } from './miljø';
+import { getMiljo, Miljo } from './miljo';
 import pathVariables, { PathVariables } from './pathVariables';
 import { Express } from 'express';
 import { Request, Response } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 
-const miljo: Miljø = getMiljø();
+const miljo: Miljo = getMiljo();
 
 export interface EnvProps {
     APIGW_URL: string | undefined;
@@ -30,27 +30,27 @@ function initializePath(app: Express): void {
         '/tiltaksgjennomforing/internal/isAlive',
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
-        ): Response<any, Record<string, any>, number> => res.sendStatus(200)
+            res: Response<any, Record<string, any>, number>,
+        ): Response<any, Record<string, any>, number> => res.sendStatus(200),
     );
 
     app.get(
         '/tiltaksgjennomforing/internal/isReady',
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
-        ): Response<any, Record<string, any>, number> => res.sendStatus(200)
+            res: Response<any, Record<string, any>, number>,
+        ): Response<any, Record<string, any>, number> => res.sendStatus(200),
     );
 
     app.get(
         '/tiltaksgjennomforing/innloggingskilder',
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
+            res: Response<any, Record<string, any>, number>,
         ) => {
             const innloggingskilder: PathVariables[] = [];
 
-            if (miljo === Miljø.LABS) {
+            if (miljo === Miljo.LABS) {
                 innloggingskilder.push(...pathVariables.labsInnloggingskilder);
             } else {
                 if (!process.env.INTERN_INGRESS) {
@@ -61,42 +61,42 @@ function initializePath(app: Express): void {
                 }
             }
             res.json(innloggingskilder);
-        }
+        },
     );
 
     app.get(
         '/tiltaksgjennomforing/logout',
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
+            res: Response<any, Record<string, any>, number>,
         ): void => {
             res.redirect(props.LOGOUT_URL as string);
-        }
+        },
     );
 
     app.get(
         '/tiltaksgjennomforing/skal-backupmeny-brukes',
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
+            res: Response<any, Record<string, any>, number>,
         ): void => {
             res.json(process.env.ENABLE_EXTERNAL_MENU !== 'true' && process.env.ENABLE_INTERNAL_MENU !== 'true');
-        }
+        },
     );
 
     app.get(
         '/tiltaksgjennomforing/brukavInternflate',
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
+            res: Response<any, Record<string, any>, number>,
         ): void => {
             res.json(process.env.ENABLE_INTERNAL_MENU === 'true');
-        }
+        },
     );
 
     app.get('/tiltaksgjennomforing/chat', (req, res) => {
         res.redirect(
-            `${process.env.ARBEIDSGIVER_DIALOG_URL}/?organisasjonsnummer=${req.query.organisasjonsnummer}&avtalenummer=${req.query.avtalenummer}`
+            `${process.env.ARBEIDSGIVER_DIALOG_URL}/?organisasjonsnummer=${req.query.organisasjonsnummer}&avtalenummer=${req.query.avtalenummer}`,
         );
     });
 }

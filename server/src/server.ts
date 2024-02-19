@@ -1,32 +1,52 @@
-'use strict';
-
-import { Request, Response } from 'express-serve-static-core';
+import { Request, Response, Handler } from 'express-serve-static-core';
 import path from 'path';
 import express, { Express } from 'express';
 import helmet from 'helmet';
 import { ParsedQs } from 'qs';
-import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
+import { buildCspHeader } from '@navikt/nav-dekoratoren-moduler/ssr';
+
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
+import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import loginProvider from './login/loginProvider';
 import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
+import { getEnv } from './paths/miljo';
+
+const indexPath = path.resolve(__dirname, '../client', 'index.html');
+
+const eksternCspMiddleware = (): Handler => {
+    let csp: string;
+
+    return async (_, res, next) => {
+        if (!csp) {
+            csp = await buildCspHeader({}, { env: getEnv() });
+        }
+        res.setHeader('Content-Security-Policy', csp);
+        next();
+    };
+};
 
 const node: Express = express();
-
-// security
 node.disable('x-powered-by');
-node.use(
-    helmet({ 
-        contentSecurityPolicy: {
-            directives: {
-                'default-src': ['\'self\'', '*.nav.no'],
-                'img-src': ['\'self\'', '*.nav.no'],
-                'script-src': ['\'self\'', '*.nav.no', '*.adeo.no'],
-            },
-        },
-    })
-);
 
-const indexPath = path.resolve(__dirname, '../dist', 'index.html');
+if (process.env.ENABLE_EXTERNAL_MENU) {
+    node.use(helmet({ contentSecurityPolicy: false }));
+    node.use(eksternCspMiddleware());
+} else {
+    node.use(
+        helmet({
+            contentSecurityPolicy: {
+                useDefaults: true,
+                directives: {
+                    'default-src': ["'self'", '*.nav.no'],
+                    'script-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
+                    'style-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
+                    'font-src': ["'self'", '*.nav.no', 'data:'],
+                    'img-src': ["'self'", '*.nav.no'],
+                },
+            },
+        }),
+    );
+}
 
 async function startServer(): Promise<void> {
     setupPath.initializePath(node);
@@ -52,7 +72,7 @@ async function startMedNavDekoratoren(): Promise<void> {
     node.get(
         ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedNavDekoratoren.getNavdekoratoren(indexPath, res)
+            appMedNavDekoratoren.getNavdekoratoren(indexPath, res),
     );
 }
 
@@ -60,7 +80,7 @@ async function startMedModiaDekoratoren(): Promise<void> {
     node.get(
         ['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, res)
+            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, res),
     );
 }
 
@@ -69,19 +89,19 @@ async function startLabs(): Promise<void> {
         ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (
             req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>
+            res: Response<any, Record<string, any>, number>,
         ) => {
-            res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
-        }
+            res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
+        },
     );
 }
 
 function setStaticPath(): void {
-    node.use(express.static(BASEPATH), express.static(path.resolve(__dirname, '../dist')));
+    node.use(express.static(BASEPATH), express.static(path.resolve(__dirname, '../client')));
     STATIC_PATHS.forEach((staticpath: string): Express => {
         return node.use(
             BASEPATH.concat(staticpath),
-            express.static(path.resolve(__dirname, '../dist', '.'.concat(staticpath)))
+            express.static(path.resolve(__dirname, '../client', '.'.concat(staticpath))),
         );
     });
 }

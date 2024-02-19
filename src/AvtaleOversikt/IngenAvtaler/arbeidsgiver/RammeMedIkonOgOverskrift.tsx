@@ -1,14 +1,14 @@
 import InfoIkon from '@/assets/ikoner/info.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Heading } from '@navikt/ds-react';
-import React, {FunctionComponent, PropsWithChildren} from 'react';
+import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 interface Props {
     overskrift: string;
 }
 
-const RammeMedIkonOgOverskrift: FunctionComponent<PropsWithChildren<Props>> = props => {
+const RammeMedIkonOgOverskrift: FunctionComponent<PropsWithChildren<Props>> = (props) => {
     const boksenSkalHaMyePadding = useMediaQuery({ minWidth: '55rem' });
 
     return (

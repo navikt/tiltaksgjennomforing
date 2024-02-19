@@ -42,7 +42,11 @@ const StillingSteg: FunctionComponent = () => {
                 <>
                     <BodyShort size="small">Er stillingen fast eller midlertidig</BodyShort>
                     <div>
-                        <RadioGroup legend="" value={avtaleContext.avtale.gjeldendeInnhold.stillingstype} className={cls.element('stillingstype_radio')}>
+                        <RadioGroup
+                            legend=""
+                            value={avtaleContext.avtale.gjeldendeInnhold.stillingstype}
+                            className={cls.element('stillingstype_radio')}
+                        >
                             <RadioPanel
                                 onChange={() => avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'FAST' })}
                                 checked={avtaleContext.avtale.gjeldendeInnhold.stillingstype === 'FAST'}
@@ -52,7 +56,9 @@ const StillingSteg: FunctionComponent = () => {
                                 Fast
                             </RadioPanel>
                             <RadioPanel
-                                onChange={() => avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'MIDLERTIDIG' })}
+                                onChange={() =>
+                                    avtaleContext.settAvtaleInnholdVerdier({ stillingstype: 'MIDLERTIDIG' })
+                                }
                                 checked={avtaleContext.avtale.gjeldendeInnhold.stillingstype === 'MIDLERTIDIG'}
                                 name="stillingstype"
                                 value="MIDLERTIDIG"

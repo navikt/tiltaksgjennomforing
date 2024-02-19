@@ -46,7 +46,7 @@ export const SjekkOmGyldigFormidlingsgruppe: FunctionComponent<Props> = (props) 
                         Formidlingsgruppe.IKKE_SERVICEBEHOV,
                     ],
                     'Formidlingsgruppe',
-                    hentFormidlingsgruppeTekst
+                    hentFormidlingsgruppeTekst,
                 )}
             </Alert>
         );

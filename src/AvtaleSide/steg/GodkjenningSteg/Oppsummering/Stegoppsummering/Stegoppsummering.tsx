@@ -2,7 +2,7 @@ import * as React from 'react';
 import './Stegoppsummering.less';
 import BEMHelper from '@/utils/bem';
 import { Heading } from '@navikt/ds-react';
-import {PropsWithChildren} from "react";
+import { PropsWithChildren } from 'react';
 
 const cls = BEMHelper('stegoppsummering');
 

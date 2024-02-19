@@ -24,7 +24,7 @@ const SorteringOrderValg: FunctionComponent<Props> = ({ label, sorteringsverdi }
                     'sortering',
                     filtre.sorteringOrder === 'ASC' && filtre.sorteringskolonne === sorteringsverdi
                         ? 'asc-selected'
-                        : 'asc'
+                        : 'asc',
                 )}
                 onClick={() => {
                     endreFilter({
@@ -38,7 +38,7 @@ const SorteringOrderValg: FunctionComponent<Props> = ({ label, sorteringsverdi }
                     'sortering',
                     filtre.sorteringOrder === 'DESC' && filtre.sorteringskolonne === sorteringsverdi
                         ? 'desc-selected'
-                        : 'desc'
+                        : 'desc',
                 )}
                 onClick={() => {
                     endreFilter({

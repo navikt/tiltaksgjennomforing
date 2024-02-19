@@ -5,12 +5,9 @@ RUN npm config set unsafe-perm=true
 
 WORKDIR /app
 
-COPY ./dist ./dist
-
-COPY ./server/dist ./server
-COPY ./server/node_modules ./server/node_modules
+COPY ./dist .
 
 EXPOSE 3000
 
 ENTRYPOINT ["sh", "-c"]
-CMD ["node server/server.js"]
+CMD ["node server/index.cjs"]

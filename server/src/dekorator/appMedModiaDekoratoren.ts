@@ -1,6 +1,5 @@
-import fs from 'fs-extra';
+import fs from 'node:fs';
 import jsdom from 'jsdom';
-import { ApiError } from '../../src/types/errors';
 import { Response } from 'express-serve-static-core';
 
 const { JSDOM } = jsdom;
@@ -20,7 +19,7 @@ async function getModiaDekoratoren(indexpath: string, res: Response<any, Record<
         console.log('current updated document: ', updatedDocument.documentElement.outerHTML);
         res.send(`<!DOCTYPE html>${updatedDocument.documentElement.outerHTML}`);
     } else {
-        throw new ApiError('Feilet med oppdatering av index.html.');
+        throw new Error('Feilet med oppdatering av index.html.');
     }
 }
 
@@ -35,14 +34,14 @@ async function getHTMLDocument(indexFilepath: string): Promise<string> {
     if (typeof index === 'string') {
         return index;
     }
-    throw new ApiError('Greide ikke lese index.html fra disc.');
+    throw new Error('Greide ikke lese index.html fra disc.');
 }
 
 function setInnHTML(document: Document): Document {
     const style = document.createElement('link');
     style.href = process.env.DECORATOR_INTERNAL_STYLING ?? styleAddress;
     style.rel = 'stylesheet';
-    
+
     const script = document.createElement('script');
     script.src = process.env.DECORATOR_INTERNAL_SCRIPT ?? scriptAddress;
 
