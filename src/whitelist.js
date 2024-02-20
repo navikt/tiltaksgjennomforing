@@ -7,7 +7,7 @@ const whitelistPaths = [
     'bjelle-varsler',
     'hendelselogg',
     'be-om-altinn-rettighet-urler',
-    'kodeverk'
+    'kodeverk',
 ];
 
 if (process.env.NODE_ENV === 'development') {
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const whitelist = {};
-whitelistPaths.forEach(url => {
+whitelistPaths.forEach((url) => {
     const fraUrl = '^/tiltaksgjennomforing/api/' + url;
     const tilUrl = '/tiltaksgjennomforing-api/' + url;
     whitelist[fraUrl] = tilUrl;

@@ -1,4 +1,4 @@
-import { ReactComponent as CancelIkon } from '@/assets/ikoner/cancel.svg';
+import CancelIkon from '@/assets/ikoner/cancel.svg?react';
 import SendTilbakeModal from '@/komponenter/modal/SendTilbakeModal';
 import { Link } from '@navikt/ds-react';
 import React, { useState } from 'react';
@@ -25,7 +25,10 @@ const SendTilbakeTilBeslutterUendret = () => {
             </div>
             {sendTilbakeModalIsOpen && (
                 <div aria-hidden={!sendTilbakeModalIsOpen}>
-                    <SendTilbakeModal isOpen={sendTilbakeModalIsOpen} lukkModal={() => setSendTilbakeModalIsOpen(false)} />
+                    <SendTilbakeModal
+                        isOpen={sendTilbakeModalIsOpen}
+                        lukkModal={() => setSendTilbakeModalIsOpen(false)}
+                    />
                 </div>
             )}
         </>

@@ -11,7 +11,8 @@ interface Props {
 
 const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
     const { avtale, settAvtaleInnholdVerdier, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
-    const erHøyManedslønn = (avtale.gjeldendeInnhold.manedslonn !== undefined && avtale.gjeldendeInnhold.manedslonn > 99999);
+    const erHøyManedslønn =
+        avtale.gjeldendeInnhold.manedslonn !== undefined && avtale.gjeldendeInnhold.manedslonn > 99999;
 
     return (
         <Row className={cls.element('rad', 'input')}>
@@ -29,11 +30,11 @@ const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
                     onBlur={(event) => settOgKalkulerBeregningsverdier({ manedslonn: parseFloat(event.target.value) })}
                     min={0}
                 />
-                {erHøyManedslønn &&
+                {erHøyManedslønn && (
                     <Alert variant="warning" className={cls.element('alert')}>
                         Er du sikker på at dette er riktig månedslønn?
                     </Alert>
-                }
+                )}
             </Column>
         </Row>
     );

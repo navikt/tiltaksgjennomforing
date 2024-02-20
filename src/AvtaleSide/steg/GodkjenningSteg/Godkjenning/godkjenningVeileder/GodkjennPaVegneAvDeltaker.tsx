@@ -40,7 +40,7 @@ const GodkjennPaVegneAvDeltaker: FunctionComponent<Props> = (props) => {
     const [deltakerInformert, setDeltakerInformert] = useState<boolean>(false);
     const [feilDeltakerInformert, setFeilDeltakerInformert] = useState<string>();
     const [godkjennPaVegne, setGodkjennPaVegne] = useState<string[]>(
-        props.skalGodkjennesPaVegne ? ['godkjennPaVegne'] : ['']
+        props.skalGodkjennesPaVegne ? ['godkjennPaVegne'] : [''],
     );
     const [bekreftAtDeltakerErInformert, setBekreftAtDeltakerErInformert] = useState<string[]>(['']);
 

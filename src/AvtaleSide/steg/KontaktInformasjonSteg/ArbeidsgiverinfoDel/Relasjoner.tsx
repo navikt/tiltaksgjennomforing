@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { ReactComponent as PenFillIkon } from '@/assets/ikoner/pencil-fill.svg';
+import PenFillIkon from '@/assets/ikoner/pencil-fill.svg?react';
 import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
@@ -63,7 +63,11 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                     </div>
                 ) : (
                     <>
-                        <RadioGroup legend="Familierelasjoner" value={avtale.gjeldendeInnhold.harFamilietilknytning} className={cls.element('familie-relasjoner')}>
+                        <RadioGroup
+                            legend="Familierelasjoner"
+                            value={avtale.gjeldendeInnhold.harFamilietilknytning}
+                            className={cls.element('familie-relasjoner')}
+                        >
                             <div className={cls.element('familie-relasjoner-valg')}>
                                 <RadioPanel
                                     className={cls.element('radioknapp')}

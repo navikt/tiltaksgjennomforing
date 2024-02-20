@@ -1,8 +1,8 @@
-import { ReactComponent as Altinn } from '@/assets/ikoner/altinn.svg';
-import { ReactComponent as DigitalAvtale } from '@/assets/ikoner/digitalAvtale.svg';
-import { ReactComponent as DynamiskAvtale } from '@/assets/ikoner/dynamiskAvtale.svg';
-import { ReactComponent as Historikk } from '@/assets/ikoner/historikk.svg';
-import { ReactComponent as Keyboard } from '@/assets/ikoner/keyboard.svg';
+import Altinn from '@/assets/ikoner/altinn.svg?react';
+import DigitalAvtale from '@/assets/ikoner/digitalAvtale.svg?react';
+import DynamiskAvtale from '@/assets/ikoner/dynamiskAvtale.svg?react';
+import Historikk from '@/assets/ikoner/historikk.svg?react';
+import Keyboard from '@/assets/ikoner/keyboard.svg?react';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '@/komponenter/Banner/Banner';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';

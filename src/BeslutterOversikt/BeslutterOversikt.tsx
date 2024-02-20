@@ -23,7 +23,7 @@ const BeslutterOversikt: FunctionComponent = () => {
     const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
         status: Status.IkkeLastet,
     });
-    
+
     useEffect(() => {
         setNettressurs({ status: Status.LasterInn });
         const page = parseInt(filtre.page ? filtre.page : '1', 10);
@@ -31,7 +31,7 @@ const BeslutterOversikt: FunctionComponent = () => {
             (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
                 setCurrentPage(pagableAvtale);
                 setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
-            }
+            },
         );
     }, [filtre]);
 

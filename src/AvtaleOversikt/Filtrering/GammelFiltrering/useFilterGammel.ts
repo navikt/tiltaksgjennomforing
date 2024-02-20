@@ -1,5 +1,5 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import _ from 'lodash';
+import isEqual from 'lodash.isequal';
 import { useContext, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiltreringContextGammel } from './FiltreringProviderGammel';
@@ -22,7 +22,7 @@ export const useFilterGammel = () => {
 
     useEffect(() => {
         const newParams = toObject(searchParams);
-        if (!_.isEqual(newParams, filtre)) {
+        if (!isEqual(newParams, filtre)) {
             setFiltre(newParams);
         }
     }, [searchParams, filtre, setFiltre]);
@@ -30,25 +30,25 @@ export const useFilterGammel = () => {
     const endreFilter = (endring: Filtrering) => {
         const newSearchParams = new URLSearchParams(searchParams);
 
-        updateOrDeleteKey(newSearchParams, endring, "avtaleNr");
-        updateOrDeleteKey(newSearchParams, endring, "veilederNavIdent");
-        updateOrDeleteKey(newSearchParams, endring, "deltakerFnr");
-        updateOrDeleteKey(newSearchParams, endring, "bedriftNr");
-        updateOrDeleteKey(newSearchParams, endring, "navEnhet");
-        updateOrDeleteKey(newSearchParams, endring, "erUfordelt");
-        updateOrDeleteKey(newSearchParams, endring, "status");
-        updateOrDeleteKey(newSearchParams, endring, "sorteringskolonne");
-        updateOrDeleteKey(newSearchParams, endring, "tilskuddPeriodeStatus");
-        updateOrDeleteKey(newSearchParams, endring, "tiltakstype");
-        updateOrDeleteKey(newSearchParams, endring, "sorteringOrder");
+        updateOrDeleteKey(newSearchParams, endring, 'avtaleNr');
+        updateOrDeleteKey(newSearchParams, endring, 'veilederNavIdent');
+        updateOrDeleteKey(newSearchParams, endring, 'deltakerFnr');
+        updateOrDeleteKey(newSearchParams, endring, 'bedriftNr');
+        updateOrDeleteKey(newSearchParams, endring, 'navEnhet');
+        updateOrDeleteKey(newSearchParams, endring, 'erUfordelt');
+        updateOrDeleteKey(newSearchParams, endring, 'status');
+        updateOrDeleteKey(newSearchParams, endring, 'sorteringskolonne');
+        updateOrDeleteKey(newSearchParams, endring, 'tilskuddPeriodeStatus');
+        updateOrDeleteKey(newSearchParams, endring, 'tiltakstype');
+        updateOrDeleteKey(newSearchParams, endring, 'sorteringOrder');
 
         // Alle endringer som ikke er en endring i paginering/sortering, bør nullstille pagineringen
         const changedKeys = Object.keys(endring);
         if (changedKeys.filter((k) => !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k)).length > 0) {
-            newSearchParams.delete("page");
+            newSearchParams.delete('page');
         }
         if (endring.hasOwnProperty('page')) {
-            newSearchParams.set("page", '' + endring.page);
+            newSearchParams.set('page', '' + endring.page);
         }
 
         setSearchParams(newSearchParams);

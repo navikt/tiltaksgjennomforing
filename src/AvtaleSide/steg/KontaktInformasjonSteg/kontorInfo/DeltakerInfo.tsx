@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import './deltakerInfo.less';
 import BEMHelper from '@/utils/bem';
-import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
+import NavIkon from '@/assets/ikoner/navikon.svg?react';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 import OppdatereKostnadssted from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { AvtaleContext } from '@/AvtaleProvider';
@@ -32,7 +32,9 @@ const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
         <div className={cls.className}>
             <div className={cls.element('ingress', oppsummeringside ? 'oppsummering' : '')}>
                 {ikon()}
-                <Heading level="2" size="medium">Om deltakeren</Heading>
+                <Heading level="2" size="medium">
+                    Om deltakeren
+                </Heading>
             </div>
             <div className={cls.element('info-rad')}>
                 <div className={cls.element('info-container')}>

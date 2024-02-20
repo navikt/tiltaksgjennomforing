@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { ReactComponent as TriangleUp } from '@/assets/ikoner/triangleUp.svg';
-import { ReactComponent as TriangleDown } from '@/assets/ikoner/triangleDown.svg';
+import TriangleUp from '@/assets/ikoner/triangleUp.svg?react';
+import TriangleDown from '@/assets/ikoner/triangleDown.svg?react';
 import BEMHelper from '@/utils/bem';
 import { useFilterGammel } from '@/AvtaleOversikt/Filtrering/GammelFiltrering/useFilterGammel';
 import { Avtale } from '@/types/avtale';
@@ -24,7 +24,7 @@ const SorteringOrderValgGammel: FunctionComponent<Props> = ({ label, sorteringsv
                     'sortering',
                     filtre.sorteringOrder === 'ASC' && filtre.sorteringskolonne === sorteringsverdi
                         ? 'asc-selected'
-                        : 'asc'
+                        : 'asc',
                 )}
                 onClick={() => {
                     endreFilter({
@@ -38,7 +38,7 @@ const SorteringOrderValgGammel: FunctionComponent<Props> = ({ label, sorteringsv
                     'sortering',
                     filtre.sorteringOrder === 'DESC' && filtre.sorteringskolonne === sorteringsverdi
                         ? 'desc-selected'
-                        : 'desc'
+                        : 'desc',
                 )}
                 onClick={() => {
                     endreFilter({

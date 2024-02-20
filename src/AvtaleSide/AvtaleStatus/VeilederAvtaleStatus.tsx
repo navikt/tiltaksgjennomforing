@@ -1,7 +1,7 @@
-import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
-import { ReactComponent as VarselIkon } from '@/assets/ikoner/varsel.svg';
+import CheckIkon from '@/assets/ikoner/check.svg?react';
+import PabegyntIkon from '@/assets/ikoner/pabegynt.svg?react';
+import AvbruttIkon from '@/assets/ikoner/stop.svg?react';
+import VarselIkon from '@/assets/ikoner/varsel.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
@@ -21,7 +21,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
         avtale.godkjentAvVeileder &&
         !avtale.erAnnullertEllerAvbrutt &&
         avtale.tilskuddPeriode.find(
-            (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer
+            (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
         ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
 
@@ -129,7 +129,9 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
             }
         }
         case 'KLAR_FOR_OPPSTART':
-            return (avtale.tiltakstype === 'SOMMERJOBB' || avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') ? (
+            return avtale.tiltakstype === 'SOMMERJOBB' ||
+                avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+                avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ? (
                 <StatusPanel
                     ikon={CheckIkon}
                     header="Avtalen er ferdig utfylt og godkjent"
@@ -141,8 +143,8 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
-                                Du skal ikke registrere tiltaksgjennomføringen i Arena. Avtalen
-                                journalføres automatisk i Gosys.
+                                Du skal ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk
+                                i Gosys.
                             </BodyShort>
                         </>
                     }

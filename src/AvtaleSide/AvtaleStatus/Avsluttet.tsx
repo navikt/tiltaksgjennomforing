@@ -1,4 +1,4 @@
-import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
+import InaktivIkon from '@/assets/ikoner/inaktiv.svg?react';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import { Avtale } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';

@@ -13,7 +13,7 @@ type Props = {
     tilskuddsperioder: TilskuddsPeriode[];
 };
 
-const TilskuddsPerioderVeileder: FunctionComponent<Props> = props => {
+const TilskuddsPerioderVeileder: FunctionComponent<Props> = (props) => {
     const detErOpprettetTilskuddsPerioder = props.tilskuddsperioder.length > 0;
 
     return detErOpprettetTilskuddsPerioder ? (
@@ -29,7 +29,7 @@ const TilskuddsPerioderVeileder: FunctionComponent<Props> = props => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.tilskuddsperioder.map(periode => {
+                    {props.tilskuddsperioder.map((periode) => {
                         return (
                             <tr key={periode.id}>
                                 <td>{periode.løpenummer}</td>
@@ -38,7 +38,9 @@ const TilskuddsPerioderVeileder: FunctionComponent<Props> = props => {
                                 </td>
                                 <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
                                 <td>{formatterPenger(periode.beløp)}</td>
-                                <td><EtikettStatus tilskuddsperiodestatus={periode.status} size="small" /></td>
+                                <td>
+                                    <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
+                                </td>
                             </tr>
                         );
                     })}

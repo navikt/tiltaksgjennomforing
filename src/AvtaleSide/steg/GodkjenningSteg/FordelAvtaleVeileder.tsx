@@ -1,5 +1,5 @@
-import { ReactComponent as GodkjentIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
+import GodkjentIkon from '@/assets/ikoner/check.svg?react';
+import PabegyntIkon from '@/assets/ikoner/pabegynt.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';

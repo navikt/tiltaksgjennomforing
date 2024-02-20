@@ -26,9 +26,7 @@ const OpprettelseFullfortArbeidsgiver: React.FunctionComponent = () => {
                     </BodyShort>
                 </VeilederpanelMedAvsjekkIkon>
                 <VerticalSpacer rem={2} />
-                <LenkeKnapp path={pathTilKontaktinformasjonSteg(avtaleId!)}>
-                    Gå til avtalen
-                </LenkeKnapp>
+                <LenkeKnapp path={pathTilKontaktinformasjonSteg(avtaleId!)}>Gå til avtalen</LenkeKnapp>
                 <VerticalSpacer rem={1} />
                 <TilbakeTilOversiktLenke />
             </div>

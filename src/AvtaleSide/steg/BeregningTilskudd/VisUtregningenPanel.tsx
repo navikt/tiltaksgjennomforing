@@ -1,9 +1,9 @@
-import { ReactComponent as ArbeidsgiveravgiftIkon } from '@/assets/ikoner/arbeidsgiveravgift.svg';
-import { ReactComponent as FeriepengerIkon } from '@/assets/ikoner/feriepenger.svg';
-import { ReactComponent as GraphRefusjonAvLonnIkon } from '@/assets/ikoner/graphRefusjonAvLønn.svg';
-import { ReactComponent as ManedsLonnIkon } from '@/assets/ikoner/manedsLonn.svg';
-import { ReactComponent as ObligTjenestepensjonIkon } from '@/assets/ikoner/obligTjenestepensjon.svg';
-import { ReactComponent as StillingProsentIkon } from '@/assets/ikoner/stillingsprosent.svg';
+import ArbeidsgiveravgiftIkon from '@/assets/ikoner/arbeidsgiveravgift.svg?react';
+import FeriepengerIkon from '@/assets/ikoner/feriepenger.svg?react';
+import GraphRefusjonAvLonnIkon from '@/assets/ikoner/graphRefusjonAvLønn.svg?react';
+import ManedsLonnIkon from '@/assets/ikoner/manedsLonn.svg?react';
+import ObligTjenestepensjonIkon from '@/assets/ikoner/obligTjenestepensjon.svg?react';
+import StillingProsentIkon from '@/assets/ikoner/stillingsprosent.svg?react';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { visSatsMedEttDesimal, visTalletEller0 } from '@/utils/lonnstilskuddUtregningUtils';

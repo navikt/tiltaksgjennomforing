@@ -37,7 +37,6 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
         setModalApen(false);
     };
 
-
     const lukkModal = () => {
         const values: StillingOptions = {
             konseptId: avtaleContext.avtale.gjeldendeInnhold.stillingKonseptId || 0,

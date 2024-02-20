@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactComponent as KalkulatorIkon } from '@/assets/ikoner/kalkulator.svg';
+import KalkulatorIkon from '@/assets/ikoner/kalkulator.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { BodyShort, Label } from '@navikt/ds-react';
 import './InfoBoks.less';

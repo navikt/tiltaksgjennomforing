@@ -12,19 +12,19 @@ const getFeilmelding = (verdi?: string, enhet?: string) => {
         return 'Enhet må bestå av 4 siffer';
     }
     if (!enhet) {
-        return "Ukjent enhet";
+        return 'Ukjent enhet';
     }
-    return "En feil oppstod";
-}
+    return 'En feil oppstod';
+};
 
 const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const { gjeldendeTilskuddsperiode } = avtale;
     const { enhet, visEnhetFeil, setVisEnhetFeil, setEnhet } = useContext(TilskuddsperiodeContext);
 
-    const [ verdi, setVerdi ] = useState(enhet);
+    const [verdi, setVerdi] = useState(enhet);
     const cls = BEMHelper('beslutter-panel');
-    
+
     const { data, error, isValidating } = useHentEnhet(verdi?.match(/^\d{4}$/) ? verdi : undefined);
 
     useEffect(() => {
@@ -54,7 +54,7 @@ const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
                     }}
                 />
                 <span className={cls.element('input-meta')} title={data?.navn}>
-                    {isValidating && (<Skeleton width="5rem" />)}
+                    {isValidating && <Skeleton width="5rem" />}
                     {!isValidating && data && !error && data.navn}
                 </span>
             </div>

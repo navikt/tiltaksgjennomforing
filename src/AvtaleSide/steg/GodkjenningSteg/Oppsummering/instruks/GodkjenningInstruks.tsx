@@ -11,7 +11,7 @@ const GodkjenningInstruks: FunctionComponent = () => {
 
     const erLåst = avtaleContext.avtale.godkjentAvVeileder !== null;
     const tiltakstype = avtaleContext.avtale.tiltakstype;
-    
+
     switch (rolle) {
         case 'DELTAKER':
             return <DeltakerInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;

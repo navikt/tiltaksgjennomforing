@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReactComponent as AvsjekkIkon } from './avsjekk-sirkel.svg';
+import AvsjekkIkon from './avsjekk-sirkel.svg?react';
 import VeilederpanelMedIkon from './VeilederpanelMedIkon';
 
 const VeilederpanelMedAvsjekkIkon = (props: { children?: React.ReactNode }) => (

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const VisueltDisabledInputFelt: FunctionComponent<Props> = ({ label, tekst }) => (
-        <TextField label={label} value={tekst} readOnly style={{backgroundColor: "#f1f1f1"}} />
+    <TextField label={label} value={tekst} readOnly style={{ backgroundColor: '#f1f1f1' }} />
 );
 
 export default VisueltDisabledInputFelt;

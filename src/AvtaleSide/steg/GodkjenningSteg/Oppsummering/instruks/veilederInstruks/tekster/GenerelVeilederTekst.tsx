@@ -8,7 +8,12 @@ interface Props {
 }
 
 const GenerelVeilederTekst: FunctionComponent<Props> = (props) => {
-    if (props.tiltakstype === 'SOMMERJOBB' || props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || props.tiltakstype === 'VARIG_LONNSTILSKUDD') return null;
+    if (
+        props.tiltakstype === 'SOMMERJOBB' ||
+        props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+        props.tiltakstype === 'VARIG_LONNSTILSKUDD'
+    )
+        return null;
     const cls = BEMHelper('instruks');
     return (
         <ul>

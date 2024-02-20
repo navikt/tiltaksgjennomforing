@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import amplitude from '@/utils/amplitude';
-import React, {FunctionComponent, PropsWithChildren, useContext, useEffect, useState} from 'react';
+import React, { FunctionComponent, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const AvtaleFetcher: FunctionComponent<PropsWithChildren> = (props) => {

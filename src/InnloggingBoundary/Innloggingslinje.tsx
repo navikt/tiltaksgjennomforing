@@ -1,4 +1,4 @@
-import { ReactComponent as NavIkon } from '@/assets/ikoner/navikon.svg';
+import NavIkon from '@/assets/ikoner/navikon.svg?react';
 import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';

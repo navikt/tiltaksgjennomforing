@@ -1,7 +1,7 @@
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import { ReactComponent as InfoIkon } from '@/assets/ikoner/info.svg';
+import InfoIkon from '@/assets/ikoner/info.svg?react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
@@ -40,7 +40,9 @@ const IngenAvtalerHvorDuErMed = () => {
     return (
         <Innholdsboks>
             <div className={cls.element('tekst')}>
-                <Heading level='2' size="medium">Ingen avtaler</Heading>
+                <Heading level="2" size="medium">
+                    Ingen avtaler
+                </Heading>
                 <VerticalSpacer rem={1} />
                 <Ingress>Det har ikke blitt opprettet noen avtaler hvor du er med enda.</Ingress>
             </div>

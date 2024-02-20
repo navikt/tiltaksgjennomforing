@@ -1,7 +1,7 @@
 import { avtaleFelterBokmal } from '@/messages';
 import { Avtaleinnhold } from '@/types/avtale';
 import { storForbokstav } from '@/utils/stringUtils';
-import React, {FunctionComponent, PropsWithChildren} from 'react';
+import React, { FunctionComponent, PropsWithChildren } from 'react';
 import { Tag } from '@navikt/ds-react';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 
 const HvaManglerOppsummering: FunctionComponent<PropsWithChildren<Props>> = (props) => {
     const tommeFelter = Object.keys(props.avhengigFelter).filter(
-        (key) => !props.avhengigFelter[key as keyof Avtaleinnhold]
+        (key) => !props.avhengigFelter[key as keyof Avtaleinnhold],
     );
 
     const manglerTekst =

@@ -11,7 +11,7 @@ interface Props {
 
 const cls = BEMHelper('avtaletabellradheader');
 
-const AvtaleTabellRadHeader: React.FC<Props> = ({erBeslutter, erNavAnsatt}: Props) => {
+const AvtaleTabellRadHeader: React.FC<Props> = ({ erBeslutter, erNavAnsatt }: Props) => {
     return (
         <Table.Header className={cls.className}>
             <Table.Row>

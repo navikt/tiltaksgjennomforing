@@ -54,7 +54,7 @@ const AvtaleTabell: FunctionComponent<{
     const navigate = useNavigate();
 
     const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string | undefined>(
-        undefined
+        undefined,
     );
 
     return (

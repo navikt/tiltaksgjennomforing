@@ -2,7 +2,7 @@ import React from 'react';
 import BEMHelper from '@/utils/bem';
 import classnames from 'classnames';
 import { BodyShort } from '@navikt/ds-react';
-import { ReactComponent as UtfyllingsIkon } from '@/assets/ikoner/pen.svg';
+import UtfyllingsIkon from '@/assets/ikoner/pen.svg?react';
 import './UtfyllerBanner.less';
 
 type Utfyller = 'arbeidsgiver' | 'veileder' | 'veileder_og_arbeidsgiver' | undefined;

@@ -1,12 +1,12 @@
-import * as chai from 'chai';
-import { finnLedigeMaalkategorier } from './maal-utils';
+import { describe, expect, test } from 'vitest';
+
 import { maalkategorier } from '@/types/maalkategorier';
 import { Maal } from '@/types/avtale';
 
-const expect = chai.expect;
+import { finnLedigeMaalkategorier } from './maal-utils';
 
 describe('Test av maal-utils', () => {
-    it('Skal fjerne brukte målkategorier', () => {
+    test('Skal fjerne brukte målkategorier', () => {
         const brukteKategorier: Maal[] = [
             {
                 beskrivelse: '',
@@ -25,7 +25,7 @@ describe('Test av maal-utils', () => {
         expect(ledigeMaalkategorier).to.have.length(maalkategorier.length - 2);
     });
 
-    it('Skal ikke fjerne Annet-kategorien', () => {
+    test('Skal ikke fjerne Annet-kategorien', () => {
         const ledigeMaalkategorier = finnLedigeMaalkategorier([
             {
                 beskrivelse: '',

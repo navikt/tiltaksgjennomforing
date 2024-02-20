@@ -1,9 +1,9 @@
-import { ReactComponent as CheckIkon } from '@/assets/ikoner/check.svg';
-import { ReactComponent as GjennomforesIkon } from '@/assets/ikoner/gjennomfores.svg';
-import { ReactComponent as InaktivIkon } from '@/assets/ikoner/inaktiv.svg';
-import { ReactComponent as PabegyntIkon } from '@/assets/ikoner/pabegynt.svg';
-import { ReactComponent as AvbruttIkon } from '@/assets/ikoner/stop.svg';
-import { ReactComponent as ProblemIkon } from '@/assets/ikoner/varsel.svg';
+import CheckIkon from '@/assets/ikoner/check.svg?react';
+import GjennomforesIkon from '@/assets/ikoner/gjennomfores.svg?react';
+import InaktivIkon from '@/assets/ikoner/inaktiv.svg?react';
+import PabegyntIkon from '@/assets/ikoner/pabegynt.svg?react';
+import AvbruttIkon from '@/assets/ikoner/stop.svg?react';
+import ProblemIkon from '@/assets/ikoner/varsel.svg?react';
 import { AvtaleStatus } from '@/types/avtale';
 import { Rolle } from '@/types/innlogget-bruker';
 import React, { CSSProperties, FunctionComponent } from 'react';

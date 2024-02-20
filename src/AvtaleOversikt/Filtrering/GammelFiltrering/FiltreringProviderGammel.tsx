@@ -12,5 +12,9 @@ export const FiltreringProviderGammel: FunctionComponent<PropsWithChildren> = (p
         params[k] = v;
     }
     const [filtre, setFiltre] = useState<Filtrering>(params);
-    return <FiltreringContextGammel.Provider value={[filtre, setFiltre]}>{props.children}</FiltreringContextGammel.Provider>;
+    return (
+        <FiltreringContextGammel.Provider value={[filtre, setFiltre]}>
+            {props.children}
+        </FiltreringContextGammel.Provider>
+    );
 };

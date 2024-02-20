@@ -19,7 +19,7 @@ interface Props {
     kvalifiseringsgruppe: string;
 }
 
-export const SjekkKvalifiseringsgruppeOppMotTiltakstype:FunctionComponent<Props> = (props) => {
+export const SjekkKvalifiseringsgruppeOppMotTiltakstype: FunctionComponent<Props> = (props) => {
     const { tiltakstype, kvalifiseringsgruppe } = props;
     if (
         ((tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'SOMMERJOBB') &&
@@ -56,9 +56,8 @@ const hentFeilMeldingForUgyldingKvalifiseringsgruppe = (kode: string): React.Rea
             <>
                 Kandidat er registrert med servicegruppe
                 <em>{' ' + tekst + '. '}</em>
-                Denne gruppen kvalifiserer ikke til dette tiltaket.
-                Sjekk at innsatsbehovet stemmer.
-                Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.
+                Denne gruppen kvalifiserer ikke til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så
+                gi beskjed til arbeidsgiver og annuller avtale.
             </>
         );
     }
@@ -74,13 +73,13 @@ const hentListeMedGyldigeGrupperForTiltak = (tiltakstype: string) => {
                 Kvalifiseringsgruppe.VARIG_TILPASSET_INNSATS,
             ],
             'Kvalifiseringsgruppe/Servicegruppe',
-            hentKvalifiseringsgruppeTekst
+            hentKvalifiseringsgruppeTekst,
         );
     } else if (tiltakstype === 'VARIG_LONNSTILSKUDD') {
         return genererGyldigListeMedlemmer(
             [Kvalifiseringsgruppe.VARIG_TILPASSET_INNSATS],
             'Kvalifiseringsgruppe/Servicegruppe',
-            hentKvalifiseringsgruppeTekst
+            hentKvalifiseringsgruppeTekst,
         );
     }
     return null;
@@ -89,7 +88,7 @@ const hentListeMedGyldigeGrupperForTiltak = (tiltakstype: string) => {
 export const genererGyldigListeMedlemmer = (
     medlemsliste: string[],
     gruppeTypeTekst: string,
-    callbackHenttekst: (key: string) => string
+    callbackHenttekst: (key: string) => string,
 ): React.ReactNode => (
     <>
         {gruppeTypeTekst} tillatt:

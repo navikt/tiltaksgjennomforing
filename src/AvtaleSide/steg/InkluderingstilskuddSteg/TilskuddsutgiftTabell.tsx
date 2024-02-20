@@ -1,4 +1,4 @@
-import React, {FunctionComponent, PropsWithChildren} from 'react';
+import React, { FunctionComponent, PropsWithChildren } from 'react';
 
 type Props = {
     redigerbar: boolean;

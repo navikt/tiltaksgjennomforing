@@ -11,7 +11,7 @@ import LonnstilskuddVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsum
 const cls = BEMHelper('instruks');
 
 const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = (
-    props: PropsWithChildren<{ tiltakstype: TiltaksType }>
+    props: PropsWithChildren<{ tiltakstype: TiltaksType }>,
 ) => (
     <VeilederpanelMedUtklippstavle>
         <div className={cls.element('subheader')}>
@@ -19,7 +19,7 @@ const VeilederInstruks: FunctionComponent<{ tiltakstype: TiltaksType }> = (
         </div>
         <SommerjobbVeilederTekst tiltakstype={props.tiltakstype} />
         <GenerelVeilederTekst tiltakstype={props.tiltakstype} />
-        <LonnstilskuddVeilederTekst tiltakstype={props.tiltakstype}/>
+        <LonnstilskuddVeilederTekst tiltakstype={props.tiltakstype} />
     </VeilederpanelMedUtklippstavle>
 );
 
