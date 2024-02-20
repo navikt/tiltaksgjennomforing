@@ -15,8 +15,8 @@ interface Props {
     deltakerFnr: string;
     setDeltakerFnr: Dispatch<SetStateAction<string>>;
     deltakerFnrFeil: string | undefined;
-    samtykkeFraForesatte: boolean | undefined;
-    setSamtykkeFraForesatte: Dispatch<SetStateAction<boolean | undefined>>;
+    harSamtykkeFraForesatte: boolean | undefined;
+    setHarSamtykkeFraForesatte: Dispatch<SetStateAction<boolean | undefined>>;
     setDeltakerFnrFeil: Dispatch<SetStateAction<string | undefined>>;
     validerDeltakerFnr: () => boolean;
     bedriftNr: string;
@@ -38,8 +38,8 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
     deltakerFnr,
     setDeltakerFnr,
     deltakerFnrFeil,
-    samtykkeFraForesatte,
-    setSamtykkeFraForesatte,
+    harSamtykkeFraForesatte,
+    setHarSamtykkeFraForesatte,
     setDeltakerFnrFeil,
     validerDeltakerFnr,
     bedriftNr,
@@ -89,7 +89,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                 )}
             </div>
             <div>
-                {samtykkeFraForesatte === false && samtykkeFraForesatte !== undefined && (
+                {harSamtykkeFraForesatte === false && harSamtykkeFraForesatte !== undefined && (
                     <>
                         <EksternLenke href={'https://www.nav.no/samtykke-foresatte'}>
                             Samtykke fra foresatte {''}
@@ -97,7 +97,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                         <VerticalSpacer rem={2} />
                         <LagreKnapp
                             lagre={() => {
-                                setSamtykkeFraForesatte(true);
+                                setHarSamtykkeFraForesatte(true);
                                 setDeltakerFnrFeil(undefined);
                             }}
                             label={'Samtykke fra foresatte har blitt sendt.'}
