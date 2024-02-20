@@ -44,6 +44,7 @@ type ValgtRyddeAvtale = 'valgtRyddeAvtale' | '';
 
 const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [deltakerFnr, setDeltakerFnr] = useState<string>('');
+    const [harSamtykkeFraForesatte, setHarHarSamtykkeFraForesatte] = useState<boolean | undefined>();
     const [mentorFnr, setMentorFnr] = useState<string>('');
     const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState<boolean>(false);
     const [bedriftNr, setBedriftNr] = useState<string>('');
@@ -131,8 +132,9 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
         if (!validerMentorFnr()) {
             feilMentorFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
         }
-        if (erUnder18(deltakerFnr)) {
-            feilDeltakerFNR = Feilmeldinger.SOMMERJOBB_IKKE_GAMMEL_NOK_UNDER_18;
+        if (erUnder18(deltakerFnr) && (harSamtykkeFraForesatte != true || harSamtykkeFraForesatte === undefined)) {
+            feilDeltakerFNR = Feilmeldinger.SOMMERJOBB_IKKE_GAMMEL_NOK_UNDER_18_SAMTYKKE_FRA_FORESATTE;
+            setHarHarSamtykkeFraForesatte(false);
         }
 
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
@@ -209,6 +211,8 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 setDeltakerFnr={setDeltakerFnr}
                 deltakerFnrFeil={deltakerFnrFeil}
                 setDeltakerFnrFeil={setDeltakerFnrFeil}
+                samtykkeFraForesatte={harSamtykkeFraForesatte}
+                setSamtykkeFraForesatte={setHarHarSamtykkeFraForesatte}
                 validerDeltakerFnr={validerDeltakerFnr}
                 bedriftNr={bedriftNr}
                 orgnrOnChange={orgnrOnChange}

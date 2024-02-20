@@ -8,11 +8,15 @@ import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api
 import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
 import BEMHelper from '@/utils/bem';
 import './HvemSkalInngaaAvtalen.less';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 interface Props {
     deltakerFnr: string;
     setDeltakerFnr: Dispatch<SetStateAction<string>>;
     deltakerFnrFeil: string | undefined;
+    samtykkeFraForesatte: boolean | undefined;
+    setSamtykkeFraForesatte: Dispatch<SetStateAction<boolean | undefined>>;
     setDeltakerFnrFeil: Dispatch<SetStateAction<string | undefined>>;
     validerDeltakerFnr: () => boolean;
     bedriftNr: string;
@@ -34,6 +38,8 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
     deltakerFnr,
     setDeltakerFnr,
     deltakerFnrFeil,
+    samtykkeFraForesatte,
+    setSamtykkeFraForesatte,
     setDeltakerFnrFeil,
     validerDeltakerFnr,
     bedriftNr,
@@ -69,6 +75,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                     error={deltakerFnrFeil}
                 />
 
+                <VerticalSpacer rem={1} />
                 {valgtTiltaksType === 'MENTOR' && (
                     <TextField
                         className={cls.element('typo-element')}
@@ -79,6 +86,24 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                         onBlur={validerMentorFnr}
                         error={mentorFnrFeil}
                     />
+                )}
+            </div>
+            <div>
+                {samtykkeFraForesatte === false && samtykkeFraForesatte !== undefined && (
+                    <>
+                        <EksternLenke href={'https://www.nav.no/samtykke-foresatte'}>
+                            Samtykke fra foresatte {''}
+                        </EksternLenke>
+                        <VerticalSpacer rem={2} />
+                        <LagreKnapp
+                            lagre={() => {
+                                setSamtykkeFraForesatte(true);
+                                setDeltakerFnrFeil(undefined);
+                            }}
+                            label={'Samtykke fra foresatte har blitt sendt.'}
+                        />
+                        <VerticalSpacer rem={2} />
+                    </>
                 )}
             </div>
             <TextField
