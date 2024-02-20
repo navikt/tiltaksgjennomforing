@@ -21,7 +21,7 @@ import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { validatorer, validerFnr } from '@/utils/fnrUtils';
+import { validatorer, validerFnr, erUnder18 } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Alert, Heading } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -131,6 +131,10 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
         if (!validerMentorFnr()) {
             feilMentorFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
         }
+        if (erUnder18(deltakerFnr)) {
+            feilDeltakerFNR = Feilmeldinger.SOMMERJOBB_IKKE_GAMMEL_NOK_UNDER_18;
+        }
+
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             if (valgtTiltaksType === 'MENTOR') {
                 if (deltakerFnr !== mentorFnr && feilMentorFNR.length === 0) {
