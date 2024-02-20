@@ -14,8 +14,9 @@ const nyheter = [
                 <ul>
                     <li>Når arbeidsgiver godkjenner (oppgave om å godkjenne)</li>
                     <li>Når avtalen er inngått (beskjed)</li>
-                    <li>Når avtalen blir forlenget (beskjed)</li>
-                    <li>Når avtalen blir forkortet (beskjed)</li>
+                    <li>Hvis avtalen blir forlenget (beskjed)</li>
+                    <li>Hvis avtalen blir forkortet (beskjed)</li>
+                    <li>Hvis avtalen blir annullert (beskjed)</li>
                 </ul>
             </p>
         ),
