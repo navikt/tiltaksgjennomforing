@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { TiltaksType } from '@/types/avtale';
-import { BodyShort, Heading, TextField } from '@navikt/ds-react';
-import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
+import { Alert, BodyShort, Heading, TextField } from '@navikt/ds-react';
+import { erUnder18, setFnrBrukerOnChange } from '@/utils/fnrUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
@@ -15,8 +15,6 @@ interface Props {
     deltakerFnr: string;
     setDeltakerFnr: Dispatch<SetStateAction<string>>;
     deltakerFnrFeil: string | undefined;
-    harSamtykkeFraForesatte: boolean | undefined;
-    setHarSamtykkeFraForesatte: Dispatch<SetStateAction<boolean | undefined>>;
     setDeltakerFnrFeil: Dispatch<SetStateAction<string | undefined>>;
     validerDeltakerFnr: () => boolean;
     bedriftNr: string;
@@ -38,8 +36,6 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
     deltakerFnr,
     setDeltakerFnr,
     deltakerFnrFeil,
-    harSamtykkeFraForesatte,
-    setHarSamtykkeFraForesatte,
     setDeltakerFnrFeil,
     validerDeltakerFnr,
     bedriftNr,
@@ -89,20 +85,17 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                 )}
             </div>
             <div>
-                {harSamtykkeFraForesatte === false && harSamtykkeFraForesatte !== undefined && (
+                {erUnder18(deltakerFnr) && (
                     <>
-                        <EksternLenke href={'https://www.nav.no/samtykke-foresatte'}>
-                            Samtykke fra foresatte {''}
-                        </EksternLenke>
-                        <VerticalSpacer rem={2} />
-                        <LagreKnapp
-                            lagre={() => {
-                                setHarSamtykkeFraForesatte(true);
-                                setDeltakerFnrFeil(undefined);
-                            }}
-                            label={'Samtykke fra foresatte har blitt sendt.'}
-                        />
-                        <VerticalSpacer rem={2} />
+                        <Alert variant="warning">
+                            Denne deltakeren er under 18 år. Det må derfor innhente samtykke fra foresatte på at
+                            deltakeren kan delta i arbeidsrettet tiltak.
+                            <VerticalSpacer rem={1} />
+                            <EksternLenke href={'https://www.nav.no/samtykke-foresatte'}>
+                                Samtykke fra foresatte {''}
+                            </EksternLenke>
+                        </Alert>
+                        <VerticalSpacer rem={1} />
                     </>
                 )}
             </div>

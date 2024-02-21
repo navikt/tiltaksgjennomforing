@@ -44,7 +44,6 @@ export type Feilkode =
     | 'SOMMERJOBB_FOR_SENT'
     | 'SOMMERJOBB_FOR_LANG_VARIGHET'
     | 'SOMMERJOBB_IKKE_GAMMEL_NOK'
-    | 'SOMMERJOBB_IKKE_GAMMEL_NOK_UNDER_18_SAMTYKKE_FRA_FORESATTE'
     | 'SOMMERJOBB_FOR_GAMMEL'
     | 'SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO'
     | 'DELTAKER_67_AAR'
@@ -135,8 +134,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     SOMMERJOBB_FOR_LANG_VARIGHET: 'Sommerjobb kan ikke vare lenger enn 4 uker',
     SOMMERJOBB_IKKE_GAMMEL_NOK: 'Deltaker må være fylt 16 år',
     SOMMERJOBB_FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
-    SOMMERJOBB_IKKE_GAMMEL_NOK_UNDER_18_SAMTYKKE_FRA_FORESATTE:
-        'Denne deltakeren er under 18 år. Det må derfor innhente samtykke fra foresatte på at deltakeren kan delta i arbeidsrettet tiltak.',
     SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO: 'Deltaker kan ikke ha fylt 30 år før startdatoen til dette tiltaket',
     DELTAKER_67_AAR: 'Deltaker må være under 67 år ved sluttdatoen av tiltaket',
     DELTAKER_72_AAR: 'Deltaker må være under 72 år ved sluttdatoen av tiltaket',

@@ -21,7 +21,7 @@ import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { validatorer, validerFnr, erUnder18 } from '@/utils/fnrUtils';
+import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Alert, Heading } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -44,7 +44,6 @@ type ValgtRyddeAvtale = 'valgtRyddeAvtale' | '';
 
 const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [deltakerFnr, setDeltakerFnr] = useState<string>('');
-    const [harSamtykkeFraForesatte, setHarSamtykkeFraForesatte] = useState<boolean | undefined>();
     const [mentorFnr, setMentorFnr] = useState<string>('');
     const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState<boolean>(false);
     const [bedriftNr, setBedriftNr] = useState<string>('');
@@ -132,11 +131,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
         if (!validerMentorFnr()) {
             feilMentorFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
         }
-        if (erUnder18(deltakerFnr) && (harSamtykkeFraForesatte != true || harSamtykkeFraForesatte === undefined)) {
-            feilDeltakerFNR = Feilmeldinger.SOMMERJOBB_IKKE_GAMMEL_NOK_UNDER_18_SAMTYKKE_FRA_FORESATTE;
-            setHarSamtykkeFraForesatte(false);
-        }
-
         if (feilBedriftNr.length === 0 && feilDeltakerFNR.length === 0 && valgtTiltaksType) {
             if (valgtTiltaksType === 'MENTOR') {
                 if (deltakerFnr !== mentorFnr && feilMentorFNR.length === 0) {
@@ -211,8 +205,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 setDeltakerFnr={setDeltakerFnr}
                 deltakerFnrFeil={deltakerFnrFeil}
                 setDeltakerFnrFeil={setDeltakerFnrFeil}
-                harSamtykkeFraForesatte={harSamtykkeFraForesatte}
-                setHarSamtykkeFraForesatte={setHarSamtykkeFraForesatte}
                 validerDeltakerFnr={validerDeltakerFnr}
                 bedriftNr={bedriftNr}
                 orgnrOnChange={orgnrOnChange}
