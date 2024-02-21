@@ -8,7 +8,6 @@ import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api
 import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
 import BEMHelper from '@/utils/bem';
 import './HvemSkalInngaaAvtalen.less';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 interface Props {
@@ -71,7 +70,6 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                     error={deltakerFnrFeil}
                 />
 
-                <VerticalSpacer rem={1} />
                 {valgtTiltaksType === 'MENTOR' && (
                     <TextField
                         className={cls.element('typo-element')}
