@@ -25,10 +25,10 @@ const nyheter = [
         dato: tilDato(7, 10, 2022),
         tittel: 'Tiltaksgjennomføring har fått ny URL',
         innhold: (
-                <p>
-                    URL-en er oppdatert i Modia-dekoratøren, men hvis du har lagret Tiltaksgjennomføring som bokmerke må
-                    du huske å oppdatere denne. Den gamle URL-en fungerer ikke lenger.
-                </p>
+            <p>
+                URL-en er oppdatert i Modia-dekoratøren, men hvis du har lagret Tiltaksgjennomføring som bokmerke må du
+                huske å oppdatere denne. Den gamle URL-en fungerer ikke lenger.
+            </p>
         ),
     },
     {
