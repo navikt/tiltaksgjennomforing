@@ -415,7 +415,7 @@ export const avslåTilskuddsperiode = async (
 ) => {
     const uri = `/avtaler/${avtaleId}/avslag-tilskuddsperiode`;
     await api.post(uri, {
-        avslagsårsaker,
+        avslagsårsaker: Array.from(avslagsårsaker),
         avslagsforklaring,
     });
 };
