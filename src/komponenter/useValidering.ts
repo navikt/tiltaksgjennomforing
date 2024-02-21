@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 
 type UseValidering = <T>(
     verdi: T,
-    validatorer: Array<(verdi: T) => string | undefined>
+    validatorer: Array<(verdi: T) => string | undefined>,
 ) => [string | undefined, Dispatch<SetStateAction<string | undefined>>, () => boolean];
 
 const useValidering: UseValidering = (verdi, validatorer) => {

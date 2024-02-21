@@ -47,12 +47,12 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
         >
             <Modal.Header>
                 <div className={cls.element('topIconContainer')}>
-                    <VarselTegnForModal width={'80%'} height={'80px'}/>
+                    <VarselTegnForModal width={'80%'} height={'80px'} />
                 </div>
             </Modal.Header>
             <Modal.Body>
                 <div className={cls.element('modal')}>
-                    <Heading level='2' size="medium" className={cls.element('header')}>
+                    <Heading level="2" size="medium" className={cls.element('header')}>
                         Signer taushetserklæring
                     </Heading>
                     <p>Som mentor må du signere en taushetserklæring.</p>

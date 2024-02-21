@@ -1,4 +1,4 @@
-import { ReactComponent as BurgerMenyIkon } from '@/assets/ikoner/burgermeny.svg';
+import BurgerMenyIkon from '@/assets/ikoner/burgermeny.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentVarsellogg } from '@/services/rest-service';

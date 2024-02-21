@@ -2,7 +2,6 @@
 !node_modules
 !server
 !build
-!src/setupProxy.js
 !src/whitelist.js
 !server.js
 !dist

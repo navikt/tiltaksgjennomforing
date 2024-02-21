@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/react';
 export const handterFeil = (
     error: Error,
     visFeilmelding: (feilmelding: string) => void,
-    fallbackMelding: string = 'Det har skjedd en uventet feil'
+    fallbackMelding: string = 'Det har skjedd en uventet feil',
 ) => {
     switch (error?.constructor) {
         case FeilkodeError:

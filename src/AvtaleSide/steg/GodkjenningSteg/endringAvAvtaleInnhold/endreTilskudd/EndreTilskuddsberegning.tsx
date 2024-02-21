@@ -57,14 +57,13 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
 
     const settNyBeregningsverdi = async <K extends keyof EndreBeregning, V extends EndreBeregning>(
         key: K,
-        verdi: V[K]
+        verdi: V[K],
     ) => {
         await setNyBeregning((prevState) => ({
             ...prevState,
             [key]: verdi,
         }));
     };
-
 
     return (
         <>
@@ -130,7 +129,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                             settNyBeregningsverdi(
                                 'otpSats',
-                                event.target.value === '' ? undefined : parseFloat(event.target.value) / 100
+                                event.target.value === '' ? undefined : parseFloat(event.target.value) / 100,
                             )
                         }
                     />

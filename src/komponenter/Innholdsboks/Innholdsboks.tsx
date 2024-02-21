@@ -2,7 +2,7 @@ import * as React from 'react';
 import './Innholdsboks.less';
 import classnames from 'classnames';
 import UtfyllerBanner from './UfyllerBanner/UfyllerBanner';
-import {PropsWithChildren} from "react";
+import { PropsWithChildren } from 'react';
 
 type Utfyller = 'arbeidsgiver' | 'veileder' | 'veileder_og_arbeidsgiver' | undefined;
 

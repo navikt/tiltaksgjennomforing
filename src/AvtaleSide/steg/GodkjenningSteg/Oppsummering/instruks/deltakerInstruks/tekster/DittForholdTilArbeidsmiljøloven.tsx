@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { ReactComponent as RettighetsHammerIkon } from '@/assets/ikoner/lov.svg';
+import RettighetsHammerIkon from '@/assets/ikoner/lov.svg?react';
 import { TiltaksType } from '@/types/avtale';
 
 interface Props {

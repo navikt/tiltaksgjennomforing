@@ -19,7 +19,7 @@ const Arbeidsgiveravgift: React.FC<Props> = ({ cls }: Props) => {
             satserVerdier.push({
                 label: (sats * 100).toFixed(1) + ' %',
                 value: sats.toString(),
-            })
+            }),
         );
         return satserVerdier;
     })();

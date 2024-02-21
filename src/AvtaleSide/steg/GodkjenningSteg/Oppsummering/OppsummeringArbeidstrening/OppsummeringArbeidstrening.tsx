@@ -12,7 +12,7 @@ interface Props {
     avtaleinnhold: Avtaleinnhold;
 }
 
-const OppsummeringArbeidstrening: FunctionComponent<Props> = props => (
+const OppsummeringArbeidstrening: FunctionComponent<Props> = (props) => (
     <>
         <DeltakerInfo oppsummeringside={true} />
         <Avtaleparter avtaleinnhold={props.avtaleinnhold} />

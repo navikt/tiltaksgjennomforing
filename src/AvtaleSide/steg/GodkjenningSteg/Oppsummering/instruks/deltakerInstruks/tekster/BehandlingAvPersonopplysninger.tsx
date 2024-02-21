@@ -1,6 +1,6 @@
 import React from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { ReactComponent as Passport } from '@/assets/ikoner/passport.svg';
+import Passport from '@/assets/ikoner/passport.svg?react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { TiltaksType } from '@/types/avtale';
 
@@ -11,7 +11,7 @@ interface Props {
 const BehandlingAvPersonopplysninger: React.FC<Props> = ({ tiltakstype }) => {
     if (
         !['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'MENTOR', 'INKLUDERINGSTILSKUDD'].includes(
-            tiltakstype
+            tiltakstype,
         )
     ) {
         return null;

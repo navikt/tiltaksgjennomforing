@@ -6,7 +6,7 @@ import { Table } from '@navikt/ds-react';
 import moment from 'moment';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 
-import {FunctionComponent, PropsWithChildren, useState} from 'react';
+import { FunctionComponent, PropsWithChildren, useState } from 'react';
 
 type Props = {
     varsler: Varsel[];
@@ -21,9 +21,12 @@ const formaterTid = (tidspunkt: string) => {
     }
 };
 
-const UtgråetTekst: FunctionComponent<PropsWithChildren<{ grå: boolean; title?: string }>> =
-    ({ children, grå, title }) => (
-    <span title={title} style={{ color: grå ? 'grey' : undefined , whiteSpace:"pre-wrap"}}>
+const UtgråetTekst: FunctionComponent<PropsWithChildren<{ grå: boolean; title?: string }>> = ({
+    children,
+    grå,
+    title,
+}) => (
+    <span title={title} style={{ color: grå ? 'grey' : undefined, whiteSpace: 'pre-wrap' }}>
         {children}
     </span>
 );
@@ -103,7 +106,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                             {storForbokstav(
                                                 varsel.utførtAvIdentifikator !== null
                                                     ? varsel.utførtAvIdentifikator
-                                                    : varsel.utførtAv
+                                                    : varsel.utførtAv,
                                             )}
                                         </UtgråetTekst>
                                     ) : (

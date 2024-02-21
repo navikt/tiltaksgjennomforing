@@ -1,4 +1,4 @@
-import { ReactComponent as StillingIkon } from '@/assets/ikoner/toolbox.svg';
+import StillingIkon from '@/assets/ikoner/toolbox.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { stillingstype } from '@/messages';
 import { Stilling } from '@/types/avtale';

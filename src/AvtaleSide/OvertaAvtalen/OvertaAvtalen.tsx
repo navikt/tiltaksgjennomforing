@@ -1,4 +1,4 @@
-import { ReactComponent as OvertaAvtalenSVG } from '@/assets/ikoner/overtaAvtalen.svg';
+import OvertaAvtalenSVG from '@/assets/ikoner/overtaAvtalen.svg?react';
 import OvertaAvtaleModal from '@/AvtaleSide/OvertaAvtalen/OvertaAvtaleModal';
 import UfordeltModusModal from '@/AvtaleSide/OvertaAvtalen/UfordeltModusModal';
 import BEMHelper from '@/utils/bem';

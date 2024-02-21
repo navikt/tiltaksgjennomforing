@@ -71,7 +71,7 @@ const GodkjennPaVegneAvBeggeParter: FunctionComponent<Props> = (props) => {
 
         if (!erInformert.includes('erInformert')) {
             return setFeilErInformert(
-                'Deltaker og arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.'
+                'Deltaker og arbeidsgiver må være informert om kravene og godkjenne innholdet i avtalen.',
             );
         } else {
             setFeilErInformert(undefined);

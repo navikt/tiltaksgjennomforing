@@ -45,7 +45,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
             refusjonKontaktpersonFornavn: refusjonKontaktperson?.refusjonKontaktpersonFornavn,
             refusjonKontaktpersonEtternavn: refusjonKontaktperson?.refusjonKontaktpersonEtternavn,
             refusjonKontaktpersonTlf: refusjonKontaktperson?.refusjonKontaktpersonTlf,
-            ønskerVarslingOmRefusjon: refusjonKontaktperson?.ønskerVarslingOmRefusjon
+            ønskerVarslingOmRefusjon: refusjonKontaktperson?.ønskerVarslingOmRefusjon,
         },
     });
 
@@ -57,7 +57,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
 
     const settNyKontaktInformasjon = async <K extends keyof EndreKontaktInfo, V extends EndreKontaktInfo>(
         key: K,
-        verdi: V[K]
+        verdi: V[K],
     ) => {
         setKontaktInfo((prevState) => ({
             ...prevState,
@@ -66,12 +66,18 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
     };
 
     const settØnskerVarsling = () => {
-        if(kontaktInfo.refusjonKontaktperson.ønskerVarslingOmRefusjon === true) {
-            setKontaktInfo((prevState) => ({...prevState, refusjonKontaktperson: {...prevState.refusjonKontaktperson, ønskerVarslingOmRefusjon: false}}));
+        if (kontaktInfo.refusjonKontaktperson.ønskerVarslingOmRefusjon === true) {
+            setKontaktInfo((prevState) => ({
+                ...prevState,
+                refusjonKontaktperson: { ...prevState.refusjonKontaktperson, ønskerVarslingOmRefusjon: false },
+            }));
         } else {
-            setKontaktInfo((prevState) => ({...prevState, refusjonKontaktperson: {...prevState.refusjonKontaktperson, ønskerVarslingOmRefusjon: true}}));
+            setKontaktInfo((prevState) => ({
+                ...prevState,
+                refusjonKontaktperson: { ...prevState.refusjonKontaktperson, ønskerVarslingOmRefusjon: true },
+            }));
         }
-    }
+    };
 
     return (
         <>
@@ -97,8 +103,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 bekreftOnClick={endreKontaktInformasjon}
                 lukkModal={() => setModalApen(false)}
             >
-                
-                <Heading level='3' size="small" className={cls.element('tittel')}>
+                <Heading level="3" size="small" className={cls.element('tittel')}>
                     Informasjon om deltaker
                 </Heading>
                 <div className={cls.element('rad')}>
@@ -119,8 +124,8 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.deltakerTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
                     />
-                </div>     
-                <Heading level='3' size="small" className={cls.element('tittel')}>
+                </div>
+                <Heading level="3" size="small" className={cls.element('tittel')}>
                     Informasjon om veileder
                 </Heading>
                 <div className={cls.element('rad')}>
@@ -136,13 +141,13 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     />
                 </div>
                 <div className={cls.element('rad')}>
-                        <TelefonnummerInput
-                            label="Mobilnummer"
-                            verdi={kontaktInfo.veilederTlf}
-                            settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
-                        />
+                    <TelefonnummerInput
+                        label="Mobilnummer"
+                        verdi={kontaktInfo.veilederTlf}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
+                    />
                 </div>
-                <Heading level='3' size="small" className={cls.element('tittel')}>
+                <Heading level="3" size="small" className={cls.element('tittel')}>
                     Kontaktperson for avtalen i bedriften
                 </Heading>
                 <div className={cls.element('rad')}>
@@ -156,15 +161,15 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.arbeidsgiverEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
                     />
-                    </div>
-                    <div className={cls.element('rad')}>
+                </div>
+                <div className={cls.element('rad')}>
                     <TelefonnummerInput
                         label="Mobilnummer"
                         verdi={kontaktInfo.arbeidsgiverTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
                     />
                 </div>
-                
+
                 {endreRefusjonInfo && (
                     <div className={cls.element('avsnitt')}>
                         <Heading size="small" className={cls.element('tittel')}>
@@ -204,13 +209,12 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                                 }
                             />
                         </div>
-                            <Checkbox
-                                checked={kontaktInfo.refusjonKontaktperson.ønskerVarslingOmRefusjon}
-                                onChange={() => settØnskerVarsling()}
-                            >
-                                Arbeidsgiver for avtalen ønsker også å motta varslinger om
-                                refusjon
-                            </Checkbox>
+                        <Checkbox
+                            checked={kontaktInfo.refusjonKontaktperson.ønskerVarslingOmRefusjon}
+                            onChange={() => settØnskerVarsling()}
+                        >
+                            Arbeidsgiver for avtalen ønsker også å motta varslinger om refusjon
+                        </Checkbox>
                     </div>
                 )}
             </BekreftelseModal>

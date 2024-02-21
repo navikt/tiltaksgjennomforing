@@ -61,7 +61,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                         <div className={cls.element('knappRad')} />
                         <div className={cls.element('innhold')}>
                             <div className={cls.element('tittel')}>
-                                <Heading level='2' size="medium" id={props.oversiktTekst}>
+                                <Heading level="2" size="medium" id={props.oversiktTekst}>
                                     {props.oversiktTekst}
                                 </Heading>
                             </div>

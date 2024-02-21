@@ -20,7 +20,7 @@ api.interceptors.response.use(
         if (error.response?.status === 401 || error.response?.status === 403) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
-                window.location.pathname.replace(basename, '') + window.location.search
+                window.location.pathname.replace(basename, '') + window.location.search,
             );
             throw new AutentiseringError('Er ikke logget inn.');
         }
@@ -28,7 +28,7 @@ api.interceptors.response.use(
             throw new FeilkodeError(error.response?.headers.feilkode);
         }
         throw new ApiError('Feil ved kontakt mot baksystem.');
-    }
+    },
 );
 
 axiosRetry(api, { retries: 3 });
@@ -46,5 +46,9 @@ export const useHentVersjoner = (avtaleId: string) => {
 };
 
 export const useHentEnhet = (enhetsnummer?: string) => {
-    return useSWR<Enhet>(enhetsnummer ? `/enheter/${enhetsnummer}` : undefined, { ...swrConfig,  suspense: false, shouldRetryOnError: false });
-}
+    return useSWR<Enhet>(enhetsnummer ? `/enheter/${enhetsnummer}` : undefined, {
+        ...swrConfig,
+        suspense: false,
+        shouldRetryOnError: false,
+    });
+};

@@ -37,6 +37,5 @@ const LonnstilskuddVeilederTekst: FunctionComponent<Props> = (props) => {
         );
     }
     return null;
-    
 };
 export default LonnstilskuddVeilederTekst;

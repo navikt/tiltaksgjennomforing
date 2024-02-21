@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 export const SIDE_FOER_INNLOGGING = 'side-foer-innlogging';
 export const INNLOGGET_PART = 'innlogget-part';
 
-type RedirectEtterLoginProps = & {children? : React.ReactNode} 
+type RedirectEtterLoginProps = { children?: React.ReactNode };
 
 const RedirectEtterLogin: FunctionComponent<RedirectEtterLoginProps> = (props) => {
-    const navigation = useNavigate()
+    const navigation = useNavigate();
     const redirectTilSideFoerInnlogging = () => {
         const sideFoerInnlogging = sessionStorage.getItem(SIDE_FOER_INNLOGGING);
         if (typeof sideFoerInnlogging === 'string') {
@@ -19,7 +19,7 @@ const RedirectEtterLogin: FunctionComponent<RedirectEtterLoginProps> = (props) =
     };
     //eslint-disable-next-line
     useEffect(redirectTilSideFoerInnlogging, []);
-        return <>{props.children}</>;
+    return <>{props.children}</>;
 };
 
-export default (RedirectEtterLogin);
+export default RedirectEtterLogin;

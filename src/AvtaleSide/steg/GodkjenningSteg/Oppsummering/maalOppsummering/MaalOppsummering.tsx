@@ -2,8 +2,10 @@ import { MaalListe } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import React, { FunctionComponent } from 'react';
 import { BodyShort, Heading, Tag } from '@navikt/ds-react';
-import { FormattedMessage } from 'react-intl';
-import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+
+import { messages } from '@/messages';
+import Stegoppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Stegoppsummering/Stegoppsummering';
+
 import MaalIkon from './MaalIkon';
 import './MaalOppsummering.less';
 
@@ -12,8 +14,8 @@ const cls = BEMHelper('mål');
 const MaalOppsummering: FunctionComponent<MaalListe> = (props) => {
     const maalListe = props.maal.map((maal) => (
         <div key={maal.id} className={cls.className}>
-            <Heading level='3' size="small" className={cls.element('label')}>
-                <FormattedMessage id={maal.kategori} />
+            <Heading level="3" size="small" className={cls.element('label')}>
+                {messages[maal.kategori]}
             </Heading>
             <BodyShort size="small" className={cls.element('beskrivelse')}>
                 {maal.beskrivelse}

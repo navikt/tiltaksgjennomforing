@@ -12,14 +12,14 @@ type Props = {
     tiltakstype?: TiltaksType;
 };
 
-const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
+const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = (props) => {
     const { tilganger, altinnOrganisasjoner } = useContext(InnloggetBrukerContext);
 
     if (!props.bedriftNr) {
         return <DuManglerRettigheterIAltinn />;
     }
 
-    const valgtBedrift = altinnOrganisasjoner.find(o => o.OrganizationNumber === props.bedriftNr)!;
+    const valgtBedrift = altinnOrganisasjoner.find((o) => o.OrganizationNumber === props.bedriftNr)!;
     const bedriftNavnOgNummer = `${valgtBedrift.Name} (${valgtBedrift.OrganizationNumber})`;
 
     const fellesProps = { bedriftNr: props.bedriftNr, tilganger, bedriftNavnOgNummer };
@@ -49,7 +49,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = props => {
                 <BoksMedTekstOgTilgangstabell
                     {...fellesProps}
                     overskrift={`Du mangler tilgang til ${storForbokstav(
-                        tiltakstypeTekst[props.tiltakstype]
+                        tiltakstypeTekst[props.tiltakstype],
                     )} i ${bedriftNavnOgNummer}`}
                     visTekst={false}
                 />

@@ -1,4 +1,4 @@
-import { ReactComponent as Koffert } from '@/assets/ikoner/koffert.svg';
+import Koffert from '@/assets/ikoner/koffert.svg?react';
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { useAsyncError } from '@/komponenter/useError';
@@ -76,7 +76,9 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     </BodyShort>
                 </div>
                 <VerticalSpacer rem={2} />
-                <Heading level='2' size="medium">Logg inn</Heading>
+                <Heading level="2" size="medium">
+                    Logg inn
+                </Heading>
                 <VerticalSpacer rem={2} />
                 <div className={'innloggingsside__loginKnapper'}>{logginnknapper}</div>
             </div>
