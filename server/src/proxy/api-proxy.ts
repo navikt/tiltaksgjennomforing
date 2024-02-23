@@ -61,11 +61,12 @@ function setupPath(app: Express) {
         console.log('apiProxy /tiltaksgjennomforing/api');
         if (whitelistPaths.includes(req.originalUrl)) {
             next();
-        }
-        if (!req.headers['authorization']) {
-            res.status(401).send();
         } else {
-            next();
+            if (!req.headers['authorization']) {
+                res.status(401).send();
+            } else {
+                next();
+            }
         }
     });
 
