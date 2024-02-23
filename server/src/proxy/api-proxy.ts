@@ -1,11 +1,12 @@
-import tokenx from '../login/tokenx';
-import azure from '../login/azure';
 import { Express } from 'express';
-import { BaseClient } from 'openid-client';
+import proxy from 'express-http-proxy';
 import { Request } from 'express-serve-static-core';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import proxy from 'express-http-proxy';
+import { BaseClient } from 'openid-client';
 import { ParsedQs } from 'qs';
+import azure from '../login/azure';
+import tokenx from '../login/tokenx';
+import { whitelistPaths } from '../paths/whitelistPaths';
 
 const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
     console.log('api-proxy setup for tokenx');
@@ -58,6 +59,9 @@ function setupPath(app: Express) {
 
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
+        if (whitelistPaths.includes(req.path)) {
+            next();
+        }
         if (!req.headers['authorization']) {
             res.status(401).send();
         } else {
