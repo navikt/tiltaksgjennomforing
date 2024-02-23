@@ -59,7 +59,7 @@ function setupPath(app: Express) {
 
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
-        if (whitelistPaths.includes(req.url)) {
+        if (whitelistPaths.includes(req.originalUrl)) {
             next();
         }
         if (!req.headers['authorization']) {
