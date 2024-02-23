@@ -58,6 +58,11 @@ function setupPath(app: Express) {
 
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
+        console.log('path', req.path);
+        console.log('url', req.url);
+        console.log('originalUrl', req.originalUrl);
+        console.log('baseUrl', req.baseUrl);
+
         if (whitelistPaths.includes(req.path)) {
             next();
         } else {
