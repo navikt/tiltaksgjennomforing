@@ -1,8 +1,8 @@
-const paths = ['/feature'];
+export const whitelistPaths = ['/feature', '/variant'];
 
-const whitelistPaths: Array<string> = [];
-paths.forEach((path) => {
-    whitelistPaths.push((path = '/tiltaksgjennomforing/api' + path));
-});
+// const whitelistPaths: Array<string> = [];
+// paths.forEach((path) => {
+//     whitelistPaths.push((path = '/tiltaksgjennomforing/api' + path));
+// });
 
-export default whitelistPaths;
+// export default whitelistPaths;
