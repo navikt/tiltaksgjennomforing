@@ -8,9 +8,11 @@ const nyheter = [
         dato: tilDato(15, 1, 2024),
         tittel: 'Varsling av deltakere endret',
         innhold: (
-            <p>
-                Deltaker vil nå bli automatisk varslet på min side på nav.no i form av oppgaver og beskjeder i tilegg
-                til sms ved følgende hendelser:
+            <>
+                <p>
+                    Deltaker vil nå bli automatisk varslet på min side på nav.no i form av oppgaver og beskjeder i
+                    tilegg til sms ved følgende hendelser:
+                </p>
                 <ul>
                     <li>Når arbeidsgiver godkjenner (oppgave om å godkjenne)</li>
                     <li>Når avtalen er inngått (beskjed)</li>
@@ -18,7 +20,7 @@ const nyheter = [
                     <li>Hvis avtalen blir forkortet (beskjed)</li>
                     <li>Hvis avtalen blir annullert (beskjed)</li>
                 </ul>
-            </p>
+            </>
         ),
     },
     {
