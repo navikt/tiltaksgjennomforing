@@ -6,8 +6,7 @@ import { BaseClient } from 'openid-client';
 import { ParsedQs } from 'qs';
 import azure from '../login/azure';
 import tokenx from '../login/tokenx';
-import { whitelistPaths } from '../paths/whitelistPaths';
-
+import whitelistPaths from '../paths/whitelistPaths';
 const tokenxSetup = (app: Express, tokenxClient: BaseClient): void => {
     console.log('api-proxy setup for tokenx');
 
