@@ -3,8 +3,8 @@ import BEMHelper from '@/utils/bem';
 import { Alert, Heading, Modal } from '@navikt/ds-react';
 import React, { CSSProperties, ReactNode, useState } from 'react';
 import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
-import './bekreftelseModal.less';
 import VarselTegnForModal from './VarselTegnForModal';
+import './bekreftelseModal.less';
 
 const cls = BEMHelper('bekreftelseModal');
 
@@ -41,6 +41,11 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
             }
         }
     };
+
+    // Ønsker ikke at modaler skal rendres med evt nettverkskall med mindre de blir åpnet
+    if (!props.modalIsOpen) {
+        return null;
+    }
 
     return (
         <div className={cls.className}>
