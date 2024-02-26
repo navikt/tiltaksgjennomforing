@@ -2,7 +2,7 @@ import { Feature } from '@/FeatureToggleProvider';
 import { hentFeatureTogglesVarianter } from '@/services/rest-service';
 import { Variant } from '@/types/unleash-variant';
 import { Alert } from '@navikt/ds-react';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 
 export const VarselOmNedetid: FunctionComponent = () => {
     const [variant, setVariant] = useState<Variant>();
@@ -14,6 +14,14 @@ export const VarselOmNedetid: FunctionComponent = () => {
             })
             .catch(() => void 0);
     }, []);
+
+    //MIDLIEERTIDIG BANNER FOR NEDETID PÅ BACKEND:
+    return (
+        <Alert variant="warning">
+            Vi jobber for øyeblikket med vedlikehold. Tjenesten vil være helt eller delevis utilgjengelig i en kort
+            periode.
+        </Alert>
+    );
 
     if (variant && variant.enabled) {
         return (
