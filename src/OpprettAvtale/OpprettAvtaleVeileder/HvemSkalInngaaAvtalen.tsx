@@ -86,7 +86,7 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                 {erUnder18(deltakerFnr) && (
                     <>
                         <Alert variant="warning">
-                            Denne deltakeren er under 18 år. Det må derfor innhente samtykke fra foresatte på at
+                            Denne deltakeren er under 18 år. Det må derfor innhentes samtykke fra foresatte på at
                             deltakeren kan delta i arbeidsrettet tiltak.
                             <VerticalSpacer rem={1} />
                             <EksternLenke href={'https://www.nav.no/samtykke-foresatte'}>
