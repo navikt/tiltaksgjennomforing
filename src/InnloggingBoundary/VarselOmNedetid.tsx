@@ -15,10 +15,10 @@ export const VarselOmNedetid: FunctionComponent = () => {
             .catch(() => void 0);
     }, []);
 
-    //MIDLIEERTIDIG BANNER FOR NEDETID PÅ BACKEND:
+    //MIDLERTIDIG BANNER FOR NEDETID PÅ BACKEND:
     return (
         <Alert variant="warning">
-            Vi jobber for øyeblikket med vedlikehold. Tjenesten vil være helt eller delevis utilgjengelig i en kort
+            Vi jobber for øyeblikket med vedlikehold. Tjenesten vil være helt eller delvis utilgjengelig i en kort
             periode.
         </Alert>
     );
