@@ -1,4 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import moment from 'moment/moment';
 
 /** Beregner gyldighet av fødselsnr med utgangspunkt i mod11.
  * @link https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
@@ -114,6 +115,11 @@ export const setFnrBrukerOnChange = (
         setFnr(event.target.value.replace(/\D/g, ''));
         setFnrFeil(undefined);
     }
+};
+export const erUnder18 = (fnr: string): boolean => {
+    const idag = moment();
+    const bursdagDatoMoment = moment(genererFnrdatostringFraFnr(fnr).isoDatostring);
+    return idag.diff(bursdagDatoMoment, 'years') < 18;
 };
 
 export { validerFnr, genererFnrdatostringFraFnr };

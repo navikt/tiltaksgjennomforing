@@ -1,13 +1,14 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { TiltaksType } from '@/types/avtale';
-import { BodyShort, Heading, TextField } from '@navikt/ds-react';
-import { setFnrBrukerOnChange } from '@/utils/fnrUtils';
+import { Alert, BodyShort, Heading, TextField } from '@navikt/ds-react';
+import { erUnder18, setFnrBrukerOnChange } from '@/utils/fnrUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
 import BEMHelper from '@/utils/bem';
 import './HvemSkalInngaaAvtalen.less';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 interface Props {
     deltakerFnr: string;
@@ -79,6 +80,21 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
                         onBlur={validerMentorFnr}
                         error={mentorFnrFeil}
                     />
+                )}
+            </div>
+            <div>
+                {erUnder18(deltakerFnr) && (
+                    <>
+                        <Alert variant="warning">
+                            Denne deltakeren er under 18 år. Det må derfor innhentes samtykke fra foresatte på at
+                            deltakeren kan delta i arbeidsrettet tiltak.
+                            <VerticalSpacer rem={1} />
+                            <EksternLenke href={'https://www.nav.no/samtykke-foresatte'}>
+                                Samtykke fra foresatte {''}
+                            </EksternLenke>
+                        </Alert>
+                        <VerticalSpacer rem={1} />
+                    </>
                 )}
             </div>
             <TextField
