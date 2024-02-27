@@ -23,13 +23,13 @@ export const VarselOmNedetid: FunctionComponent = () => {
         </Alert>
     );
 
-    if (variant && variant.enabled) {
-        return (
-            <Alert variant="warning">
-                {variant.payload?.value || 'Vi opplever for tiden ustabilitet med løsningen for tiltaksgjennomføring'}
-            </Alert>
-        );
-    } else {
-        return null;
-    }
+    // if (variant && variant.enabled) {
+    //     return (
+    //         <Alert variant="warning">
+    //             {variant.payload?.value || 'Vi opplever for tiden ustabilitet med løsningen for tiltaksgjennomføring'}
+    //         </Alert>
+    //     );
+    // } else {
+    //     return null;
+    // }
 };
