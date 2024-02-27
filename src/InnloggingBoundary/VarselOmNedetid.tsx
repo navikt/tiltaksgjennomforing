@@ -15,21 +15,13 @@ export const VarselOmNedetid: FunctionComponent = () => {
             .catch(() => void 0);
     }, []);
 
-    //MIDLERTIDIG BANNER FOR NEDETID PÅ BACKEND:
-    return (
-        <Alert variant="warning">
-            Vi jobber for øyeblikket med vedlikehold. Tjenesten vil være helt eller delvis utilgjengelig i en kort
-            periode.
-        </Alert>
-    );
-
-    // if (variant && variant.enabled) {
-    //     return (
-    //         <Alert variant="warning">
-    //             {variant.payload?.value || 'Vi opplever for tiden ustabilitet med løsningen for tiltaksgjennomføring'}
-    //         </Alert>
-    //     );
-    // } else {
-    //     return null;
-    // }
+    if (variant && variant.enabled) {
+        return (
+            <Alert variant="warning">
+                {variant.payload?.value || 'Vi opplever for tiden ustabilitet med løsningen for tiltaksgjennomføring'}
+            </Alert>
+        );
+    } else {
+        return null;
+    }
 };
