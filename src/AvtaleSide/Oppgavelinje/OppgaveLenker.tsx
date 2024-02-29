@@ -16,7 +16,6 @@ import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnh
 import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/EndreMaal';
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
-import JusterArenaMigreringsdato from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/JusterArenaMigreringsdato/JusterArenaMigreringsdato';
 import './OppgaveLenker.css';
 
 const OppgaveLenker: React.FunctionComponent = () => {
@@ -45,7 +44,6 @@ const OppgaveLenker: React.FunctionComponent = () => {
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
             <AnnullerAvtalen />
             <DelLenkeTilAvtalen />
-            {harØkonomi && avtale.godkjentAvVeileder === null && <JusterArenaMigreringsdato />}
 
             {avtale.godkjentAvVeileder !== null && (
                 <>

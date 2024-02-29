@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment/moment';
 import { Alert, BodyShort } from '@navikt/ds-react';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 
@@ -35,16 +34,14 @@ const InfoArenaOppryddingAlert: React.FC<Props> = ({
         <Alert variant="warning" className={cls.element('info-arena-opprydding-alert')}>
             <div className={cls.element('info-arena-opprydding-container')}>
                 <div className={cls.element('info-arena-opprydding-avsnitt')}>
-                    <BodyShort size="small">
-                        Du har oppgitt startdato som er før 01.02.2023 uten å huke av for at avtalen skal overføres fra
-                        arena. Dette vil dermed bli behandlet som en ny avtale, som aldri har vært behandlet i Arena
-                        før, med tilsagn/tilskuddsperioder fra {formatterDato(startDato!, NORSK_DATO_FORMAT)}.
-                    </BodyShort>
+                    <BodyShort size="small">Du har oppgitt en startdato som er før 01.02.2023</BodyShort>
                 </div>
                 <div className={cls.element('info-arena-opprydding-avsnitt')}>
                     <BodyShort size="small">
-                        Hvis dette er en avtale som tidligere har vært behandlet i Arena, må du annullere denne og
-                        opprette en ny, hvor du huker av for at avtalen skal overføres fra Arena.
+                        Du må sjekke om det er utbetalt refusjon i Arena før 01.02.2023 for å forhindre dobbel
+                        utbetaling av tilskudd. Dersom det allerede er refundert tilskudd, må startdato i avtalen
+                        tidligst være dagen etter siste refunderte tilskuddsperiode. Hvis det ligger en avsluttet avtale
+                        fra tidligere så anbefales det at du gjenåpner («forleng avtale») istedenfor å opprette en ny.
                     </BodyShort>
                 </div>
             </div>
