@@ -2,9 +2,7 @@ import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/Tilbak
 import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
 import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
@@ -25,7 +23,6 @@ import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Alert, Heading } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
-import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useNavigate } from 'react-router-dom';
 import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
@@ -40,8 +37,6 @@ export enum Avtalerolle {
     BESLUTTER = 'BESLUTTER',
 }
 
-type ValgtRyddeAvtale = 'valgtRyddeAvtale' | '';
-
 const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [deltakerFnr, setDeltakerFnr] = useState<string>('');
     const [mentorFnr, setMentorFnr] = useState<string>('');
@@ -51,7 +46,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
-    const [valgtRyddeAvtale, setValgtRyddeAvtale] = useState<ValgtRyddeAvtale[]>(['']);
 
     const navigate = useNavigate();
 
@@ -147,12 +141,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 }
                 return;
             }
-            const avtale = await opprettAvtaleSomVeileder(
-                deltakerFnr,
-                bedriftNr,
-                valgtTiltaksType,
-                valgtRyddeAvtale.includes('valgtRyddeAvtale'),
-            );
+            const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             navigate(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
             return;
@@ -220,29 +209,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale}
                 setModalIsOpen={setModalIsOpen}
             />
-            {(valgtTiltaksType === 'MIDLERTIDIG_LONNSTILSKUDD' || valgtTiltaksType === 'VARIG_LONNSTILSKUDD') && (
-                <div>
-                    <VerticalSpacer rem={1} />
-                    <Innholdsboks>
-                        <Alert variant="info">
-                            <Heading spacing size="small" level="3">
-                                Migrering av avtaler fra Arena
-                            </Heading>
-                            Det er fortsatt mulighet for å opprette en avtale fra Arena som ikke finnes i
-                            avtaleløsningen. Huk av for at det er en avtale som skulle vært overført fra Arena sånn at
-                            tilskuddsperioder før første februar 2023 blir merket at de allerede er behandlet i Arena.
-                        </Alert>
-                        <VerticalSpacer rem={1} />
-                        <CheckboxGroup
-                            legend=""
-                            onChange={(value: any[]) => setValgtRyddeAvtale(value)}
-                            value={valgtRyddeAvtale}
-                        >
-                            <Checkbox value="valgtRyddeAvtale">Avtalen skal overføres fra Arena</Checkbox>
-                        </CheckboxGroup>
-                    </Innholdsboks>
-                </div>
-            )}
 
             <div className={cls.element('knappRad')}>
                 <LagreKnapp

@@ -191,9 +191,8 @@ export const opprettAvtaleSomVeileder = async (
     deltakerFnr: string,
     bedriftNr: string,
     tiltakstype: TiltaksType,
-    ryddeavtale?: boolean,
 ): Promise<Avtale> => {
-    return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype, ryddeavtale);
+    return opprettAvtalen('/avtaler', deltakerFnr, bedriftNr, tiltakstype);
 };
 
 export const opprettAvtaleSomArbeidsgiver = async (
@@ -227,11 +226,8 @@ const opprettAvtalen = async (
     deltakerFnr: string,
     bedriftNr: string,
     tiltakstype: TiltaksType,
-    ryddeavtale?: boolean,
 ): Promise<Avtale> => {
-    const ryddeavtaleParam = { ryddeavtale };
-    const queryParam = new URLSearchParams(removeEmpty(ryddeavtaleParam));
-    const postResponse = await api.post(`${url}?${queryParam}`, {
+    const postResponse = await api.post(`${url}`, {
         deltakerFnr,
         bedriftNr,
         tiltakstype,
