@@ -1,4 +1,6 @@
 import moment from 'moment';
+import 'moment/dist/locale/nb';
+moment.locale('nb');
 
 export const datoIkkeTilbakeITid = (dato: Date) => {
     return moment().isSameOrBefore(dato, 'date');

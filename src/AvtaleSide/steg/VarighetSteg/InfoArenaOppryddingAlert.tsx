@@ -1,8 +1,8 @@
-import React from 'react';
-import moment from 'moment/moment';
-import { Alert, BodyShort } from '@navikt/ds-react';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
+import { Alert, BodyShort } from '@navikt/ds-react';
+import moment from 'moment';
+import React from 'react';
 
 interface Props {
     tiltakstype: TiltaksType;

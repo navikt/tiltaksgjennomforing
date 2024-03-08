@@ -1,20 +1,20 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import InfoArenaOppryddingAlert from '@/AvtaleSide/steg/VarighetSteg/InfoArenaOppryddingAlert';
+import VarighetInfoVeileder from '@/AvtaleSide/steg/VarighetSteg/VarighetInfoVeileder';
+import VarighetIngress from '@/AvtaleSide/steg/VarighetSteg/VarighetIngress';
+import VarighetInputfelt from '@/AvtaleSide/steg/VarighetSteg/VarighetInputfelt';
+import VarighetTilbakeTidAlert from '@/AvtaleSide/steg/VarighetSteg/VarighetTilbakeTidAlert';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
-import { genererFnrdatostringFraFnr, VellykketGenerertIsoDatoString } from '@/utils/fnrUtils';
-import moment from 'moment';
-import 'moment/locale/nb';
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import Datovelger from '@/komponenter/datovelger/Datovelger';
+import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import BEMHelper from '@/utils/bem';
-import VarighetIngress from '@/AvtaleSide/steg/VarighetSteg/VarighetIngress';
-import VarighetInfoVeileder from '@/AvtaleSide/steg/VarighetSteg/VarighetInfoVeileder';
-import InfoArenaOppryddingAlert from '@/AvtaleSide/steg/VarighetSteg/InfoArenaOppryddingAlert';
-import VarighetTilbakeTidAlert from '@/AvtaleSide/steg/VarighetSteg/VarighetTilbakeTidAlert';
-import VarighetInputfelt from '@/AvtaleSide/steg/VarighetSteg/VarighetInputfelt';
+import { VellykketGenerertIsoDatoString, genererFnrdatostringFraFnr } from '@/utils/fnrUtils';
+import moment from 'moment';
+import 'moment/dist/locale/nb';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './varighetSteg.less';
 
 const VarighetSteg: FunctionComponent = () => {
