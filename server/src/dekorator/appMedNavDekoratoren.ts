@@ -10,9 +10,9 @@ async function getNavdekoratoren(
 ): Promise<void> {
     let innloggetPart = req.cookies['innlogget-part'];
     if (['DELTAKER'].includes(innloggetPart)) {
-        innloggetPart = 'PRIVATPERSON';
+        innloggetPart = 'privatperson';
     } else {
-        innloggetPart = 'ARBEIDSGIVER';
+        innloggetPart = 'arbeidsgiver';
     }
     return await injectDecoratorServerSide({
         env: getEnv(),
