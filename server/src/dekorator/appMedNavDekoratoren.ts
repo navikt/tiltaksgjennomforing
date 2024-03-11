@@ -2,7 +2,6 @@ import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
 import { Request, Response } from 'express-serve-static-core';
 
 import { getEnv } from '../paths/miljo';
-import { ParsedQs } from 'qs';
 
 async function getNavdekoratoren(
     indexFilepath: string,
