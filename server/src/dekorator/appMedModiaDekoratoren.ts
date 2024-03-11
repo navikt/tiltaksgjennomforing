@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import jsdom from 'jsdom';
-import { Response } from 'express-serve-static-core';
+import { Request, Response } from 'express-serve-static-core';
+import { ParsedQs } from 'qs';
 
 const { JSDOM } = jsdom;
 
@@ -9,7 +10,11 @@ const scriptAddress: string =
 const styleAddress: string =
     'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
 
-async function getModiaDekoratoren(indexpath: string, res: Response<any, Record<string, any>, number>): Promise<void> {
+async function getModiaDekoratoren(
+    indexpath: string,
+    req: Request<{}, any, any, ParsedQs, Record<string, any>>,
+    res: Response<any, Record<string, any>, number>,
+): Promise<void> {
     const index: string = await getHTMLDocument(indexpath);
 
     const { document } = new JSDOM(index).window;

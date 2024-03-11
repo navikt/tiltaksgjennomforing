@@ -4,6 +4,7 @@ import express, { Express } from 'express';
 import helmet from 'helmet';
 import { ParsedQs } from 'qs';
 import { buildCspHeader } from '@navikt/nav-dekoratoren-moduler/ssr';
+import cookieParser from 'cookie-parser';
 
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
@@ -26,6 +27,7 @@ const eksternCspMiddleware = (): Handler => {
 };
 
 const node: Express = express();
+node.use(cookieParser());
 node.disable('x-powered-by');
 
 if (process.env.ENABLE_EXTERNAL_MENU) {
@@ -71,8 +73,8 @@ async function startServer(): Promise<void> {
 async function startMedNavDekoratoren(): Promise<void> {
     node.get(
         ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedNavDekoratoren.getNavdekoratoren(indexPath, res),
+        (req: Request<any, Record<string, any>, number>, res: Response<any, Record<string, any>, number>) =>
+            appMedNavDekoratoren.getNavdekoratoren(indexPath, req, res),
     );
 }
 
@@ -80,7 +82,7 @@ async function startMedModiaDekoratoren(): Promise<void> {
     node.get(
         ['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
         (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, res),
+            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, req, res),
     );
 }
 
