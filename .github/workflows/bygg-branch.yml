@@ -1,0 +1,34 @@
+name: Bygg branch
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
+
+jobs:
+  build:
+    name: Bygg branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v4
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Install
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Server install
+        working-directory: ./server
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Typescript
+        run: npm run ts
+      - name: Prettier
+        run: npm run prettier
+      - name: Kjør tester
+        run: npm run test
