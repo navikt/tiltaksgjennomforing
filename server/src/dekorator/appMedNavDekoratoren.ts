@@ -8,12 +8,12 @@ async function getNavdekoratoren(
     req: Request,
     res: Response<any, Record<string, any>, number>,
 ): Promise<void> {
-    const contextBaserPåInnloggetPart = req.cookies['innlogget-part'] === 'DELTAKER' ? 'privatperson' : 'arbeidsgiver';
+    const contextBasertPåInnloggetPart = req.cookies['innlogget-part'] === 'DELTAKER' ? 'privatperson' : 'arbeidsgiver';
     return await injectDecoratorServerSide({
         env: getEnv(),
         filePath: indexFilepath,
         params: {
-            context: contextBaserPåInnloggetPart,
+            context: contextBasertPåInnloggetPart,
             chatbot: true,
             redirectToApp: true,
             level: 'Level4',
