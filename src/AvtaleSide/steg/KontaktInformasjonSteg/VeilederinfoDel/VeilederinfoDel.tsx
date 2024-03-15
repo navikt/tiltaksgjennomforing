@@ -5,15 +5,18 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
 import React, { useContext } from 'react';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const VeilederinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
     const avtaleContext = useContext(AvtaleContext);
+    const { navn } = useContext(InnloggetBrukerContext);
 
     return (
         <>
             <div className={cls.element('container')}>
                 <SkjemaTittel>Kontaktperson i NAV</SkjemaTittel>
+                <SkjemaTittel>Veileder navn: {navn}</SkjemaTittel>
                 <div className={cls.element('rad')}>
                     <PakrevdInput
                         label="Fornavn"
