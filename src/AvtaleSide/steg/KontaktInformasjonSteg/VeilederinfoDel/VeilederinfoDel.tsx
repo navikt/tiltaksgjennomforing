@@ -16,7 +16,7 @@ const VeilederinfoDel = () => {
         <>
             <div className={cls.element('container')}>
                 <SkjemaTittel>Kontaktperson i NAV</SkjemaTittel>
-                <SkjemaTittel>Veileder navn: {navn}</SkjemaTittel>
+                {navn && <SkjemaTittel>Veileder navn: {navn}</SkjemaTittel>}
                 <div className={cls.element('rad')}>
                     <PakrevdInput
                         label="Fornavn"
