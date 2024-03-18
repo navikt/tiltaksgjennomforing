@@ -62,7 +62,8 @@ export default () => ({
 
         middlewares.use('/tiltaksgjennomforing/fakelogin/aad', async (req, res) => {
             const navIdent = req.headers['navident'] || 'Z123456';
-            const url = `https://tiltak-fakelogin.ekstern.dev.nav.no/token?iss=aad&aud=fake-aad&NAVident=${navIdent}`;
+            const name: string = 'Simonsen,Simon';
+            const url = `https://tiltak-fakelogin.ekstern.dev.nav.no/token?iss=aad&aud=fake-aad&NAVident=${navIdent}&name=${name}`;
             const response = await axios.get(url);
 
             res.setHeader('set-cookie', `fake-aad-idtoken=${response.data};path=/`);
