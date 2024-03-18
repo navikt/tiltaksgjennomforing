@@ -11,7 +11,7 @@ import { Alert } from '@navikt/ds-react';
 const VeilederinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
     const { avtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
-    const { navn, rolle, identifikator } = useContext(InnloggetBrukerContext);
+    const { rolle, identifikator } = useContext(InnloggetBrukerContext);
 
     return (
         <>
