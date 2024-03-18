@@ -19,7 +19,6 @@ export type Rolle = 'DELTAKER' | 'ARBEIDSGIVER' | 'VEILEDER' | 'MENTOR' | 'BESLU
 export interface InnloggetBruker {
     identifikator: string;
     erNavAnsatt: boolean;
-    navn?: string; // veileder navn
     altinnOrganisasjoner: AltinnOrganisasjon[];
     rolle: Rolle;
     tilganger: Tilganger;
