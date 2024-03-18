@@ -19,16 +19,7 @@ const VeilederinfoDel = () => {
                 <SkjemaTittel>Kontaktperson i NAV</SkjemaTittel>
                 {rolle === 'VEILEDER' && (
                     <>
-                        {avtale.veilederNavIdent && avtale.veilederNavIdent === identifikator && (
-                            <p>
-                                Eier av avtalen er{' '}
-                                <b>
-                                    <u>{identifikator}</u>
-                                </b>
-                                .
-                            </p>
-                        )}
-                        {avtale.veilederNavIdent?.trim().length > 0 && avtale.veilederNavIdent !== identifikator && (
+                        {avtale.veilederNavIdent && (
                             <p>
                                 Eier av avtalen er{' '}
                                 <b>
