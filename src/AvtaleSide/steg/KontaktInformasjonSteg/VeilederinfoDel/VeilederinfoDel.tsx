@@ -10,13 +10,15 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 const VeilederinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
     const avtaleContext = useContext(AvtaleContext);
-    const { navn } = useContext(InnloggetBrukerContext);
+    const { navn, rolle } = useContext(InnloggetBrukerContext);
 
     return (
         <>
             <div className={cls.element('container')}>
                 <SkjemaTittel>Kontaktperson i NAV</SkjemaTittel>
-                {navn && navn.trim().length !== 0 && <SkjemaTittel>Veileder navn: {navn}</SkjemaTittel>}
+                {rolle === 'VEILEDER' && navn?.trim().length !== 0 && (
+                    <SkjemaTittel>Veileder navn: {navn}</SkjemaTittel>
+                )}
                 <div className={cls.element('rad')}>
                     <PakrevdInput
                         label="Fornavn"
