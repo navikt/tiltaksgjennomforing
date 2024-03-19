@@ -10,11 +10,11 @@ export const setupRoutes = async (server: Express) => {
     const miljo: Miljo = getMiljo();
 
     if (miljo === Miljo.DEV_GCP || miljo === Miljo.PROD_GCP) {
-        apiProxy.azureSetup(server);
-
         if (process.env.INTERN_INGRESS) {
+            apiProxy.azureSetup(server);
             decoratorInternProxy.setup(server);
         } else {
+            apiProxy.tokenxSetup(server);
             notifikasjonProxy.setup(server);
             decoratorEksternProxy.setup(server);
         }
