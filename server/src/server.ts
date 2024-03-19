@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 
 import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
-import loginProvider from './login/loginProvider';
+import { setupRoutes } from './routes';
 import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
 import { getEnv } from './paths/miljo';
 
@@ -54,7 +54,7 @@ async function startServer(): Promise<void> {
     setupPath.initializePath(node);
     setStaticPath();
 
-    await loginProvider.setupOauth2Clients(node);
+    setupRoutes(node);
 
     console.log('ferdig med oauth client setup.');
 

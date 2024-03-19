@@ -1,12 +1,11 @@
 import proxy from 'express-http-proxy';
-import onbehalfof from '../login/azure';
-import { BaseClient } from 'openid-client';
 import { Express, Response } from 'express';
 import { Request } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { IncomingMessage, RequestOptions } from 'http';
+import { requestOboToken } from '../auth';
 
-const setup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: BaseClient) => {
+const setup = (app: Express) => {
     app.use(
         '/modiacontextholder/api/decorator',
         proxy(process.env.APIGW_URL as string, {
@@ -20,7 +19,7 @@ const setup = (app: Express, azureClient: BaseClient, azureTokenEndpoint: BaseCl
                 options: RequestOptions,
                 req: Request<{}, any, any, ParsedQs, Record<string, any>>,
             ) => {
-                const accessToken = await onbehalfof.getOnBehalfOfAccessToken(azureClient, azureTokenEndpoint, req);
+                const accessToken = await requestOboToken(process.env.API_SCOPE!, req);
                 if (options?.headers) {
                     options.headers.Authorization = `Bearer ${accessToken}`;
                     let cookies = options.headers.cookie;
