@@ -18,6 +18,7 @@ export const setupRoutes = async (server: Express) => {
             notifikasjonProxy.setup(server);
             decoratorEksternProxy.setup(server);
         }
+    } else {
+        labsProxy.setup(server);
     }
-    labsProxy.setup(server);
 };
