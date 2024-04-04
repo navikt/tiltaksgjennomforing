@@ -13,7 +13,12 @@ interface Props {
 
 const UfordeltModusModal = (props: Props) => {
     return (
-        <Modal className={cls.element('modal')} open={props.isOpen} onClose={props.lukkModal}>
+        <Modal
+            aria-label="Overta avtale -modal"
+            className={cls.element('modal')}
+            onClose={props.lukkModal}
+            open={props.isOpen}
+        >
             <Modal.Body>
                 <FordelAvtaleVeileder />
             </Modal.Body>

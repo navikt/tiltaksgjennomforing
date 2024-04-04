@@ -36,6 +36,6 @@ const setup = (app: Express): void => {
         ),
     );
 
-    app.use('/dekoratoren', createProxyMiddleware({ target: 'https://www.nav.no', changeOrigin: true }));
+    app.use('/dekoratoren', createProxyMiddleware({ target: 'https://www.nav.no/dekoratoren', changeOrigin: true }));
 };
 export default { setup };

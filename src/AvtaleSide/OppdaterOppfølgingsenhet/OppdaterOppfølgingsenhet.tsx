@@ -2,14 +2,11 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import React, { FunctionComponent, useState, useContext } from 'react';
 import './OppdaterOppfølgingsenhet.less';
 import BEMHelper from '@/utils/bem';
-import { AvtaleMetadata } from '@/types/avtale';
 import { BodyShort, Heading, Link, Modal, Loader } from '@navikt/ds-react';
 import { oppdaterOppfølgingsEnhet } from '@/services/rest-service';
 import { Button } from '@navikt/ds-react';
 import { Notes } from '@navikt/ds-icons/cjs';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-
-export type OppdaterOppfølgingEnhet = Pick<AvtaleMetadata, 'enhetOppfolging' | 'enhetsnavnOppfolging'>;
 
 const OppdaterOppfølgingsenhet: FunctionComponent = () => {
     const cls = BEMHelper('oppdaterOppfølgingsenhet');
@@ -46,7 +43,7 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
                     </div>
                 ) : (
                     <>
-                        {enhetOppfolging === null && laster === false ? (
+                        {enhetOppfolging === null && !laster ? (
                             <BodyShort size="small"> Finner ikke oppfølgningsenhet for denne avtalen.</BodyShort>
                         ) : (
                             <div>
@@ -90,7 +87,6 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
                 aria-label="Oppdater Oppfølgingsenhet"
                 className={cls.element('modal')}
                 aria-modal={modalApen}
-                aria-labelledby="heading"
                 aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
                 <Modal.Body>{oppdatereOppfølgingsenhetInnhold}</Modal.Body>

@@ -33,7 +33,6 @@ const setup = (app: Express, audience: string) => {
         '/tiltaksgjennomforing/stillingstitler',
         createProxyMiddleware({
             changeOrigin: true,
-            pathRewrite: { '^/tiltaksgjennomforing/stillingstitler': '/' },
             target: process.env.STILLINGSTITLER_URL,
             proxyTimeout: 10000,
         }),

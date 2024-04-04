@@ -48,7 +48,6 @@ const Varsellogg: FunctionComponent = () => {
                 aria-label="Varselloggmodal"
                 className={cls.element('modal')}
                 aria-modal={varselLoggModalApen}
-                aria-labelledby="heading"
                 aria-describedby="varsellogg for endringsaktiviteter i applikasjonen"
             >
                 <Modal.Header>
