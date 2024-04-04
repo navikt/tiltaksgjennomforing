@@ -21,9 +21,9 @@
     "dependencies": {
         "@navikt/arbeidsgiver-notifikasjon-widget": "^6.4.2",
         "@navikt/bedriftsmeny": "^6.13.0",
-        "@navikt/ds-css": "^5.18.1",
+        "@navikt/ds-css": "^6.3.6",
         "@navikt/ds-icons": "^3.4.3",
-        "@navikt/ds-react": "^5.18.1",
+        "@navikt/ds-react": "^6.3.6",
         "@navikt/navspa": "^6.0.1",
         "amplitude-js": "^8.21.9",
         "axios": "^1.6.7",
@@ -42,7 +42,7 @@
         "react-cookie": "^7.0.2",
         "react-dom": "^18.2.0",
         "react-loading-skeleton": "^3.4.0",
-        "react-responsive": "^9.0.2",
+        "react-responsive": "^10.0.0",
         "react-router-dom": "^6.22.0",
         "react-select": "^5.8.0",
         "swr": "^2.2.4"
