@@ -12,9 +12,6 @@ export const FordelAvtaleVeileder: FunctionComponent = () => {
     return (
         <Innholdsboks>
             <div style={{ textAlign: 'center' }}>
-                <VerticalSpacer rem={1} />
-                <Heading size="medium">Avtalen er ufordelt</Heading>
-                <VerticalSpacer rem={1} />
                 <BodyShort size="small">
                     Avtalen er opprettet av arbeidsgiver. Den er ikke tildelt en veileder ennå.
                 </BodyShort>

@@ -14,8 +14,10 @@ interface Props {
 const UfordeltModusModal = (props: Props) => {
     return (
         <Modal
-            aria-label="Overta avtale -modal"
+            aria-label="Modal for å overta avtale"
             className={cls.element('modal')}
+            closeOnBackdropClick
+            header={{ heading: 'Avtalen er ufordelt' }}
             onClose={props.lukkModal}
             open={props.isOpen}
         >
