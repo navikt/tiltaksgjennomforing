@@ -7,7 +7,7 @@ import useValidering from '@/komponenter/useValidering';
 import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
 import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
 import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
-import { pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
+import { pathTilKontaktinformasjonSteg, pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
 import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
@@ -143,7 +143,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             }
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-            navigate(pathTilOpprettAvtaleFullfortVeileder(avtale.id));
+            navigate(pathTilKontaktinformasjonSteg(avtale.id));
             return;
         }
 

@@ -18,7 +18,7 @@ import Slettemerk from './komponenter/Slettemerk';
 import { NotifikasjonWidgetProvider } from './NotifikasjonWidgetProvider';
 import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
 import OpprettAvtaleVeileder from './OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import OpprettelseFullfortVeileder from './OpprettAvtale/OpprettelseFullfortVeileder/OpprettelseFullfortVeileder';
+
 import {
     basename,
     pathTilAvtale,
@@ -63,10 +63,6 @@ class App extends React.Component {
                                                             <Route
                                                                 path={pathTilOpprettAvtaleArbeidsgiver}
                                                                 element={<OpprettAvtaleArbeidsgiver />}
-                                                            />
-                                                            <Route
-                                                                path={pathTilOpprettAvtaleFullfortVeileder(':avtaleId')}
-                                                                element={<OpprettelseFullfortVeileder />}
                                                             />
                                                             <Route
                                                                 path={pathTilOpprettAvtaleFullfortArbeidsgiver(
