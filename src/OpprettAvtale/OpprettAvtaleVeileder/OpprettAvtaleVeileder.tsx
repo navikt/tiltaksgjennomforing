@@ -7,7 +7,7 @@ import useValidering from '@/komponenter/useValidering';
 import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
 import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
 import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
-import { pathTilKontaktinformasjonSteg, pathTilOpprettAvtaleFullfortVeileder } from '@/paths';
+import { pathTilKontaktinformasjonSteg } from '@/paths';
 import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
@@ -136,7 +136,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                         Avtalerolle.VEILEDER,
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                    navigate(pathTilOpprettAvtaleFullfortVeileder(mentorAvtale.id));
+                    navigate(pathTilKontaktinformasjonSteg(mentorAvtale.id));
                     return;
                 }
                 return;

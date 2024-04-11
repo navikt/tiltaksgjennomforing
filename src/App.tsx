@@ -1,6 +1,5 @@
 import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import AlleredeOpprettetAvtaleProvider from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
-import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 import Oversikt from '@/Oversikt';
 import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -26,8 +25,6 @@ import {
     pathTilInformasjonssideUinnlogget,
     pathTilOpprettAvtale,
     pathTilOpprettAvtaleArbeidsgiver,
-    pathTilOpprettAvtaleFullfortArbeidsgiver,
-    pathTilOpprettAvtaleFullfortVeileder,
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
@@ -63,12 +60,6 @@ class App extends React.Component {
                                                             <Route
                                                                 path={pathTilOpprettAvtaleArbeidsgiver}
                                                                 element={<OpprettAvtaleArbeidsgiver />}
-                                                            />
-                                                            <Route
-                                                                path={pathTilOpprettAvtaleFullfortArbeidsgiver(
-                                                                    ':avtaleId',
-                                                                )}
-                                                                element={<OpprettelseFullfortArbeidsgiver />}
                                                             />
                                                         </Routes>
                                                         <Routes>

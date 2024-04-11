@@ -12,8 +12,8 @@ import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtale
 import {
     basename,
     pathTilInformasjonssideInnlogget,
-    pathTilOpprettAvtaleFullfortArbeidsgiver,
     inkludereIArbeidslivetLenke,
+    pathTilKontaktinformasjonSteg,
 } from '@/paths';
 import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
@@ -85,7 +85,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         Avtalerolle.ARBEIDSGIVER,
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                    navigate(pathTilOpprettAvtaleFullfortArbeidsgiver(mentorAvtale.id));
+                    navigate(pathTilKontaktinformasjonSteg(mentorAvtale.id));
                     return;
                 }
                 return;
@@ -93,7 +93,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             navigate({
-                pathname: pathTilOpprettAvtaleFullfortArbeidsgiver(avtale.id),
+                pathname: pathTilKontaktinformasjonSteg(avtale.id),
                 search: window.location.search,
             });
             return;
