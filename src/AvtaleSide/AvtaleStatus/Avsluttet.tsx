@@ -1,4 +1,3 @@
-import InaktivIkon from '@/assets/ikoner/inaktiv.svg?react';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import { Avtale } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
@@ -12,7 +11,6 @@ interface Props {
 const Avsluttet: FunctionComponent<Props> = ({ avtale }) => {
     return (
         <StatusPanel
-            ikon={InaktivIkon}
             header="Tiltaket er avsluttet"
             body={
                 <BodyShort size="small">

@@ -1,4 +1,3 @@
-import CheckIkon from '@/assets/ikoner/check.svg?react';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import { Avtale } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
@@ -12,7 +11,6 @@ interface Props {
 const KlarForOppstart: FunctionComponent<Props> = ({ avtale }) => {
     return (
         <StatusPanel
-            ikon={CheckIkon}
             header="Avtalen er ferdig utfylt og godkjent"
             body={
                 <BodyShort size="small">

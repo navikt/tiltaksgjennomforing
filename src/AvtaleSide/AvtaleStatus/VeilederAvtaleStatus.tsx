@@ -1,12 +1,7 @@
-import CheckIkon from '@/assets/ikoner/check.svg?react';
-import PabegyntIkon from '@/assets/ikoner/pabegynt.svg?react';
-import AvbruttIkon from '@/assets/ikoner/stop.svg?react';
-import VarselIkon from '@/assets/ikoner/varsel.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -32,8 +27,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
     if (avtale.erUfordelt) {
         return (
             <StatusPanel
-                ikon={PabegyntIkon}
-                header="Avtalen er ufordelt"
+                header="Avtalen er ikke fordelt til en veileder i NAV enda"
                 body={
                     <div style={{ textAlign: 'center' }}>
                         <BodyShort size="small">
@@ -55,7 +49,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    ikon={AvbruttIkon}
                     header="Tiltaket er annullert"
                     body={
                         <BodyShort size="small">
@@ -68,7 +61,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
         case 'AVBRUTT':
             return (
                 <StatusPanel
-                    ikon={AvbruttIkon}
                     header="Tiltaket er avbrutt"
                     body={
                         <BodyShort size="small">
@@ -78,18 +70,16 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                 />
             );
         case 'PÅBEGYNT':
-            return <StatusPanel ikon={PabegyntIkon} header="Du må fylle ut avtalen" />;
+            return <StatusPanel header="Du må fylle ut avtalen" />;
         case 'MANGLER_GODKJENNING': {
             if (avtale.godkjentAvVeileder) {
                 return (
                     <StatusPanel
-                        ikon={VarselIkon}
                         header="Venter på godkjenning fra beslutter"
                         body={
                             <>
                                 <BodyShort size="small">Venter på godkjenning fra beslutter.</BodyShort>
                                 <VerticalSpacer rem={2} />
-                                <GodkjenningStatus avtale={avtale} />
                             </>
                         }
                     />
@@ -97,7 +87,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
             } else if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver) {
                 return (
                     <StatusPanel
-                        ikon={VarselIkon}
                         header="Du kan godkjenne"
                         body={
                             <>
@@ -105,7 +94,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                                     Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
                                 </BodyShort>
                                 <VerticalSpacer rem={2} />
-                                <GodkjenningStatus avtale={avtale} />
                             </>
                         }
                     />
@@ -113,7 +101,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
             } else {
                 return (
                     <StatusPanel
-                        ikon={VarselIkon}
                         header="Venter på godkjenning"
                         body={
                             <>
@@ -121,7 +108,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                                     Deltaker og arbeidsgiver må ha godkjent avtalen før du kan godkjenne.
                                 </BodyShort>
                                 <VerticalSpacer rem={2} />
-                                <GodkjenningStatus avtale={avtale} />
                             </>
                         }
                     />
@@ -133,7 +119,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                 avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
                 avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ? (
                 <StatusPanel
-                    ikon={CheckIkon}
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
@@ -151,7 +136,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                 />
             ) : (
                 <StatusPanel
-                    ikon={CheckIkon}
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>

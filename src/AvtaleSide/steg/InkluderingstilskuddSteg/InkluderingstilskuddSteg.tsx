@@ -18,6 +18,7 @@ import Tilskuddsbeskrivelse from './Tilskuddsbeskrivelse';
 import TilskuddsutgiftTabell from './TilskuddsutgiftTabell';
 import Datovelger from '@/komponenter/datovelger/Datovelger';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
+import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 
 const InkluderingstilskuddSteg: FunctionComponent = () => {
     const cls = BEMHelper('inkluderingstilskudd');
@@ -50,7 +51,8 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
 
     return (
         <>
-            <Innholdsboks utfyller="arbeidsgiver">
+            <AvtaleStatus />
+            <Innholdsboks>
                 <Heading level="2" size="medium">
                     Inkluderingstilskudd
                 </Heading>

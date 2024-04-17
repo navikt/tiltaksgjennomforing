@@ -9,6 +9,7 @@ import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
 import './kontaktinfo.less';
 import KontaktpersonRefusjoninfoDel from './KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
+import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 
 const KontaktinfoSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -27,20 +28,23 @@ const KontaktinfoSteg: FunctionComponent = () => {
     ].includes(avtale.tiltakstype);
 
     return (
-        <Innholdsboks>
-            <DeltakerInfo oppsummeringside={false} />
-            <DeltakerinfoDel />
-            <ArbeidsgiverinfoDel />
-            {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
-            {skalViseRelasjoner && <Relasjoner tiltakstype={avtale.tiltakstype} />}
-            <VeilederinfoDel />
-            <LagreKnapp
-                className="kontaktinfo-steg__lagre-knapp"
-                lagre={lagreAvtale}
-                label={'Lagre'}
-                suksessmelding={'Avtale lagret'}
-            />
-        </Innholdsboks>
+        <>
+            <AvtaleStatus />
+            <Innholdsboks>
+                <DeltakerInfo oppsummeringside={false} />
+                <DeltakerinfoDel />
+                <ArbeidsgiverinfoDel />
+                {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
+                {skalViseRelasjoner && <Relasjoner tiltakstype={avtale.tiltakstype} />}
+                <VeilederinfoDel />
+                <LagreKnapp
+                    className="kontaktinfo-steg__lagre-knapp"
+                    lagre={lagreAvtale}
+                    label={'Lagre'}
+                    suksessmelding={'Avtale lagret'}
+                />
+            </Innholdsboks>
+        </>
     );
 };
 
