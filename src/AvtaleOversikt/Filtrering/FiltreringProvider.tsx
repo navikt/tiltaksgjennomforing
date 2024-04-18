@@ -38,6 +38,12 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         if (innloggetBruker.rolle === 'BESLUTTER') return;
         if (innloggetBruker.rolle === 'ARBEIDSGIVER' && !filtre.bedriftNr) return;
 
+        const bedriftNr = filtre.bedriftNr
+            ? filtre.bedriftNr
+            : searchParams.get('bedrift') || searchParams.get('bedriftNr')
+              ? searchParams.get('bedrift') || searchParams.get('bedriftNr')
+              : null;
+        const bedriftNrISøkekriterier = bedriftNr && bedriftNr.trim().length === 9 ? { bedriftNr: bedriftNr } : {};
         const tekniskPage = searchParams.get('page') ? parseInt(searchParams.get('page')!, 10) - 1 : 0;
         let resultat;
         setNettressursCtx({ status: Status.LasterInn });
@@ -50,7 +56,12 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
             erGet = true;
         } else {
             resultat = hentAvtalerForInnloggetBrukerMedPost(
-                { sorteringOrder: sorteringOrder, sorteringskolonne: sorteringskolonne, ...filtre },
+                {
+                    sorteringOrder: sorteringOrder,
+                    sorteringskolonne: sorteringskolonne,
+                    ...filtre,
+                    ...bedriftNrISøkekriterier,
+                },
                 10,
                 0,
             );
