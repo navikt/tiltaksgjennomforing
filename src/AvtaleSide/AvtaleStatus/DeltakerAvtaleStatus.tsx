@@ -15,10 +15,10 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    header="Tiltaket er annullert"
+                    header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert tiltaket {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
+                            Veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
                             {avtale.annullertGrunn}.
                         </BodyShort>
                     }
@@ -27,21 +27,24 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
         case 'AVBRUTT':
             return (
                 <StatusPanel
-                    header="Tiltaket er avbrutt"
+                    header="Avtalen er avbrutt"
                     body={
-                        <BodyShort size="small">Veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.</BodyShort>
+                        <BodyShort size="small">
+                            Veileder har avbrutt avtalen {formatterDato(avtale.avbruttDato!)}. Årsak:{' '}
+                            {avtale.avbruttGrunn}.
+                        </BodyShort>
                     }
                 />
             );
         case 'PÅBEGYNT':
             return (
                 <StatusPanel
-                    header="Utfylling av avtale påbegynt"
+                    header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder"
                     body={
                         <BodyShort size="small">
-                            Innholdet i avtalen fylles ut av arbeidsgiveren og veilederen. Hvis du er uenig i innholdet
-                            eller har spørsmål til avtalen, må du kontakte veilederen din via aktivitetsplanen før du
-                            godkjenner. Du kan godkjenne avtalen når alt er fylt ut.
+                            Du kan godkjenne avtalen når alt er fylt ut. <br />
+                            Hvis du er uenig i innholdet eller har spørsmål om avtalen, må du kontakte veileder før du
+                            godkjenner.
                         </BodyShort>
                     }
                 />
@@ -49,23 +52,23 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
         case 'MANGLER_GODKJENNING':
             return avtale.godkjentAvDeltaker ? (
                 <StatusPanel
-                    header="Vent til de andre har godkjent"
+                    header="Venter på godkjenning av avtalen fra arbeidsgiver og NAV"
                     body={
                         <>
-                            <BodyShort size="small">
-                                Du har godkjent avtalen. Venter nå på godkjenning fra NAV.
-                            </BodyShort>
+                            <BodyShort size="small">Du har godkjent avtalen.</BodyShort>
                             <VerticalSpacer rem={2} />
                         </>
                     }
                 />
             ) : (
                 <StatusPanel
-                    header="Du kan godkjenne"
+                    header="Du kan godkjenne avtalen"
                     body={
                         <>
                             <BodyShort size="small">
-                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
+                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig. Hvis du
+                                er uenig i innholdet eller har spørsmål om avtalen, må du kontakte veileder før du
+                                godkjenner.
                             </BodyShort>
                             <VerticalSpacer rem={2} />
                         </>

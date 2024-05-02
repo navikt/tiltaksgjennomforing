@@ -30,10 +30,23 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
             <AvtaleStatus />
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
-                    <SkjemaTittel>
-                        {avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-                    </SkjemaTittel>
-                    {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
+                    {innloggetBruker.rolle === 'DELTAKER' || innloggetBruker.rolle === 'MENTOR' ? (
+                        <>
+                            {avtale.avtaleInngått && (
+                                <>
+                                    <SkjemaTittel>Oppsummering av inngått avtale</SkjemaTittel>
+                                    {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
+                                </>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <SkjemaTittel>
+                                {avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
+                            </SkjemaTittel>
+                            {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
+                        </>
+                    )}
                 </div>
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
             </Innholdsboks>

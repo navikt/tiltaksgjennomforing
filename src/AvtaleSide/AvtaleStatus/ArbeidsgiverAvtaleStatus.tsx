@@ -15,12 +15,7 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
         return (
             <StatusPanel
                 header={'Avtalen er ikke fordelt til en veileder i NAV enda'}
-                body={
-                    <BodyShort size="small">
-                        Du kan likevel begynne å fylle ut avtalen. Når avtalen har blitt tildelt en veileder kan alle
-                        parter godkjenne avtalen.
-                    </BodyShort>
-                }
+                body={<BodyShort size="small">Du kan begynne å fylle ut avtalen.</BodyShort>}
             />
         );
     }
@@ -29,10 +24,11 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    header={'Tiltaket er annullert'}
+                    header={'Avtalen er annullert'}
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert tiltaket {formatterDato(avtale.annullertTidspunkt!)}.
+                            Veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
+                            {avtale.annullertGrunn}.
                         </BodyShort>
                     }
                 />
@@ -40,33 +36,33 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
         case 'AVBRUTT':
             return (
                 <StatusPanel
-                    header={'Tiltaket er avbrutt'}
-                    body={<BodyShort size="small">Veileder har avbrutt tiltaket</BodyShort>}
+                    header={'Avtalen er avbrutt'}
+                    body={
+                        <BodyShort size="small">Veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.</BodyShort>
+                    }
                 />
             );
         case 'PÅBEGYNT':
             return (
                 <StatusPanel
-                    header={'Utfylling av avtalen er påbegynt'}
-                    body={<BodyShort size="small">Du kan b</BodyShort>}
+                    header={'Innholdet i avtalen fylles ut av arbeidsgiver og veileder'}
+                    body={<BodyShort size="small"> </BodyShort>}
                 />
             );
         case 'MANGLER_GODKJENNING':
             return avtale.godkjentAvArbeidsgiver ? (
                 <StatusPanel
-                    header="Vent til de andre har godkjent"
+                    header="Venter på godkjenning av avtalen fra de andre partene"
                     body={
                         <>
-                            <BodyShort size="small">
-                                Du har godkjent avtalen. Venter nå på godkjenning fra NAV.
-                            </BodyShort>
+                            <BodyShort size="small">Du har godkjent.</BodyShort>
                             <VerticalSpacer rem={2} />
                         </>
                     }
                 />
             ) : (
                 <StatusPanel
-                    header="Du kan godkjenne"
+                    header="Du kan godkjenne avtalen"
                     body={
                         <>
                             <BodyShort size="small">

@@ -7,10 +7,12 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
+import moment from 'moment';
 import React, { FunctionComponent, useContext } from 'react';
 
 const VeilederAvtaleStatus: FunctionComponent = () => {
     const { avtale, overtaAvtale } = useContext(AvtaleContext);
+    const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
 
     const skalViseAvslåttTilskuddsperiode =
         avtale.godkjentAvVeileder &&
@@ -30,9 +32,7 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                 header="Avtalen er ikke fordelt til en veileder i NAV enda"
                 body={
                     <div style={{ textAlign: 'center' }}>
-                        <BodyShort size="small">
-                            Avtalen er opprettet av arbeidsgiver. Den er ikke tildelt en veileder ennå.
-                        </BodyShort>
+                        <BodyShort size="small">Avtalen er opprettet av arbeidsgiver.</BodyShort>
                         <VerticalSpacer rem={1.5} />
                         <LagreKnapp
                             lagre={() => overtaAvtale()}
@@ -49,11 +49,11 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    header="Tiltaket er annullert"
+                    header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Du eller en annen veileder har annullert tiltaket{' '}
-                            {formatterDato(avtale.annullertTidspunkt!)}. Årsak: {avtale.annullertGrunn}.
+                            Du eller en annen veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}
+                            . Årsak: {avtale.annullertGrunn}.
                         </BodyShort>
                     }
                 />
@@ -61,29 +61,19 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
         case 'AVBRUTT':
             return (
                 <StatusPanel
-                    header="Tiltaket er avbrutt"
+                    header="Avtalen er avbrutt"
                     body={
                         <BodyShort size="small">
-                            Du eller en annen veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.
+                            Du eller en annen veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.
                         </BodyShort>
                     }
                 />
             );
         case 'PÅBEGYNT':
-            return <StatusPanel header="Du må fylle ut avtalen" />;
+            return <StatusPanel header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder" />;
         case 'MANGLER_GODKJENNING': {
             if (avtale.godkjentAvVeileder) {
-                return (
-                    <StatusPanel
-                        header="Venter på godkjenning fra beslutter"
-                        body={
-                            <>
-                                <BodyShort size="small">Venter på godkjenning fra beslutter.</BodyShort>
-                                <VerticalSpacer rem={2} />
-                            </>
-                        }
-                    />
-                );
+                return <StatusPanel header="Venter på godkjenning av tilskuddsperioder fra beslutter" />;
             } else if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver) {
                 return (
                     <StatusPanel
@@ -98,14 +88,47 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                         }
                     />
                 );
-            } else {
+            } else if (avtale.godkjentAvDeltaker) {
                 return (
                     <StatusPanel
-                        header="Venter på godkjenning"
+                        header="Venter på godkjenning av avtalen fra arbeidsgiver"
                         body={
                             <>
                                 <BodyShort size="small">
-                                    Deltaker og arbeidsgiver må ha godkjent avtalen før du kan godkjenne.
+                                    Avtalen må godkjennes av arbeidsgiver. Arbeidsgiver fikk en automatisk varsling på
+                                    Min side Arbeidsgiver når avtalen ble opprettet.
+                                </BodyShort>
+                                <VerticalSpacer rem={2} />
+                            </>
+                        }
+                    />
+                );
+            } else if (avtale.godkjentAvArbeidsgiver) {
+                return (
+                    <StatusPanel
+                        header="Venter på godkjenning av avtalen fra deltaker"
+                        body={
+                            <>
+                                <BodyShort size="small">
+                                    Avtalen må godkjennes av deltaker. Arbeidsgiver fikk en automatisk varsling på Min
+                                    side Arbeidsgiver når avtalen ble opprettet og deltaker fikk en varsling på min side
+                                    Personbruker om å godkjenne avtalen for {dagerSidenDeltakerFikkVarsling} dager
+                                    siden.
+                                </BodyShort>
+                                <VerticalSpacer rem={2} />
+                            </>
+                        }
+                    />
+                );
+            } else {
+                return (
+                    <StatusPanel
+                        header="Venter på godkjenning av avtalen fra de andre partene"
+                        body={
+                            <>
+                                <BodyShort size="small">
+                                    Avtalen må godkjennes av arbeidsgiver og deltaker. Arbeidsgiver fikk en automatisk
+                                    varsling på Min side Arbeidsgiver når avtalen ble opprettet.
                                 </BodyShort>
                                 <VerticalSpacer rem={2} />
                             </>
@@ -128,8 +151,10 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
-                                Du skal ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk
-                                i Gosys.
+                                Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får nå
+                                et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
+                                refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du skal
+                                ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk i Gosys.
                             </BodyShort>
                         </>
                     }
@@ -145,7 +170,10 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
-                                Du må fullføre registreringen i Arena. Avtalen journalføres automatisk i Gosys.
+                                Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får nå
+                                et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
+                                refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du må
+                                fullføre registreringen i Arena. Avtalen journalføres automatisk i Gosys.
                             </BodyShort>
                         </>
                     }

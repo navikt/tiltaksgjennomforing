@@ -15,10 +15,10 @@ const MentorAvtaleStatus: FunctionComponent = () => {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    header="Tiltaket er annullert"
+                    header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert tiltaket {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
+                            Veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
                             {avtale.annullertGrunn}.
                         </BodyShort>
                     }
@@ -27,20 +27,19 @@ const MentorAvtaleStatus: FunctionComponent = () => {
         case 'AVBRUTT':
             return (
                 <StatusPanel
-                    header="Tiltaket er avbrutt"
+                    header="Avtalen er avbrutt"
                     body={
-                        <BodyShort size="small">Veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.</BodyShort>
+                        <BodyShort size="small">Veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.</BodyShort>
                     }
                 />
             );
         case 'PÅBEGYNT':
             return (
                 <StatusPanel
-                    header="Utfylling av avtale påbegynt"
+                    header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder"
                     body={
                         <BodyShort size="small">
-                            Innholdet i avtalen fylles ut av arbeidsgiveren og veilederen. Hvis du er uenig i innholdet
-                            eller har spørsmål til avtalen, må du kontakte NAV.
+                            Hvis du har spørsmål om avtalen, må du kontakte arbeidsgiver.
                         </BodyShort>
                     }
                 />
@@ -48,12 +47,11 @@ const MentorAvtaleStatus: FunctionComponent = () => {
         case 'MANGLER_GODKJENNING':
             return (
                 <StatusPanel
-                    header="Vent til de andre har godkjent"
+                    header="Venter på godkjenning av avtalen fra de andre partene"
                     body={
                         <>
                             <BodyShort size="small">
-                                Du har signert taushetserklæring. Venter nå på godkjenning fra deltaker, arbeidsgiver og
-                                NAV.
+                                Hvis du har spørsmål om avtalen, må du kontakte arbeidsgiver.
                             </BodyShort>
                             <VerticalSpacer rem={2} />
                         </>

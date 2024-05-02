@@ -2,6 +2,10 @@ import React from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Heading } from '@navikt/ds-react';
+import './StatusPanel.less';
+import BEMHelper from '@/utils/bem';
+
+const cls = BEMHelper('statusPanel');
 
 const StatusPanel: React.FunctionComponent<{
     header: string;
@@ -9,7 +13,7 @@ const StatusPanel: React.FunctionComponent<{
 }> = ({ header, body }) => {
     return (
         <Innholdsboks ariaLabel={header}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <div className={cls.className}>
                 {header.length > 36 ? (
                     <Heading level="2" size="medium">
                         {header}
@@ -19,10 +23,9 @@ const StatusPanel: React.FunctionComponent<{
                         {header}
                     </Heading>
                 )}
+                <VerticalSpacer rem={1} />
+                {body}
             </div>
-
-            <VerticalSpacer rem={1} />
-            {body}
         </Innholdsboks>
     );
 };
