@@ -1,0 +1,51 @@
+import { Meta, Story } from '@storybook/blocks';
+
+import * as MentorAvtaleStatuser from './AvtaleStatuserMentor.stories';
+
+<Meta title="Avtale Status Meldinger/Mentor" />
+
+# Status meldinger deltaker får men han går på tiltak
+
+De forskjellige statusene er 
+
+## ANNULLERT
+
+Avtallen har blitt annullert
+
+<Story of={MentorAvtaleStatuser.Annullert} />
+
+## AVBRUTT
+
+Avtalen er blitt avbrutt
+
+<Story of={MentorAvtaleStatuser.Avbrutt} />
+
+## PÅBEGYNT
+
+avtale er påbegynt
+
+<Story of={MentorAvtaleStatuser.Påbegynt} />
+
+## MANGLER_GODKJENNING 
+
+Avtale er godkjent av deltaker men mangler godkjenning fra arbeidsgiver
+
+<Story of={MentorAvtaleStatuser.ManglerGodkjenning} />
+
+## KLAR_FOR_OPPSTART
+
+Avtale er KlarForOppstart
+
+<Story of={MentorAvtaleStatuser.KlarForOppstart} />
+
+## GJENNOMFØRES
+
+Avtalen Gjennomføres
+
+<Story of={MentorAvtaleStatuser.Gjennomføres} />
+
+## AVSLUTTET
+
+Avtalen er avsluttet
+
+<Story of={MentorAvtaleStatuser.Avsluttet} />

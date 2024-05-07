@@ -1,0 +1,63 @@
+import { Meta, Story } from '@storybook/blocks';
+
+import * as ArbeidsgiverAvtaleStatuser from './AvtaleStatuserArbeidsgiver.stories';
+
+<Meta title="Avtale Status Meldinger/Arbeidsgiver" />
+
+# Status meldinger deltaker får men han går på tiltak
+
+De forskjellige statusene er 
+
+## UFORDELT
+
+Avtallen er ufordelt
+
+<Story of={ArbeidsgiverAvtaleStatuser.ErUfordelt} />
+
+## ANNULLERT
+
+Avtallen har blitt annullert
+
+<Story of={ArbeidsgiverAvtaleStatuser.Annullert} />
+
+## AVBRUTT
+
+Avtalen er blitt avbrutt
+
+<Story of={ArbeidsgiverAvtaleStatuser.Avbrutt} />
+
+## PÅBEGYNT
+
+avtale er påbegynt
+
+<Story of={ArbeidsgiverAvtaleStatuser.Påbegynt} />
+
+## MANGLER_GODKJENNING 
+
+Avtale er godkjent av arbeidsgiver men mangler godkjenning fra deltaker eller veileder
+
+<Story of={ArbeidsgiverAvtaleStatuser.ManglerGodkjenningArbeidsgiverHarGodkjent} />
+
+## MANGLER_GODKJENNING
+
+Avtale er ikke godkjent av deltaker
+
+<Story of={ArbeidsgiverAvtaleStatuser.ManglerGodkjenningArbeidsgiverHarIkkeGodkjent} />
+
+## KLAR_FOR_OPPSTART
+
+Avtale er KlarForOppstart
+
+<Story of={ArbeidsgiverAvtaleStatuser.KlarForOppstart} />
+
+## GJENNOMFØRES
+
+Avtalen Gjennomføres
+
+<Story of={ArbeidsgiverAvtaleStatuser.Gjennomføres} />
+
+## AVSLUTTET
+
+Avtalen er avsluttet
+
+<Story of={ArbeidsgiverAvtaleStatuser.Avsluttet} />

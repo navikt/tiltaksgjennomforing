@@ -1,0 +1,60 @@
+.innholdsboks,
+.innholdsboks.godkjenning {
+    margin-bottom: 0.25rem;
+    background-color: #fff;
+    border-radius: 4px;
+}
+.innholdsboks__innhold,
+.innholdsboks.godkjenning__innhold {
+    padding: 1.25rem;
+}
+.innholdsboks:last-child,
+.innholdsboks.godkjenning:last-child {
+    margin-bottom: 0;
+}
+.innholdsboks .veilederpanel-med-ikon .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat,
+.innholdsboks.godkjenning
+    .veilederpanel-med-ikon
+    .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+    padding: 4.25rem 1rem 2rem 0.75rem;
+}
+@media (min-width: 768px) {
+    .innholdsboks .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat,
+    .innholdsboks.godkjenning .nav-veilederpanel.nav-veilederpanel--kompakt.nav-veilederpanel--plakat {
+        padding: 4.25rem 2rem 2rem;
+    }
+}
+.avtaleside__ekspanderbart-panel .ekspanderbartPanel__innhold {
+    padding: 0;
+}
+@media (min-width: 768px) {
+    .innholdsboks__innhold {
+        padding: 2rem 0.75rem;
+    }
+}
+@media (min-width: 992px) {
+    .innholdsboks__innhold {
+        padding: 2rem;
+    }
+}
+.utfyllerBanner {
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+    border-radius: 4px 4px 0 0;
+}
+.utfyllerBanner__arbeidsgiver {
+    background-color: #cce1ff;
+}
+.utfyllerBanner__veileder {
+    background-color: #e0d8e9;
+}
+.utfyllerBanner__begge {
+    background-color: #ffe9cc;
+}
+.utfyllerBanner__fyllesUtAvTekst {
+    padding-left: 1rem;
+}
+.utfyllerBanner__utfyllingsIkon {
+    margin-left: 2rem;
+}
