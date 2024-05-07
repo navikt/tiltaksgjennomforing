@@ -8,6 +8,7 @@
 /coverage
 # production
 /server/dist
+/storybook-static
 /dist
 # misc
 .DS_Store
@@ -15,6 +16,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+
 .idea/
 .vscode
 

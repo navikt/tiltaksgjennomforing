@@ -5,13 +5,33 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Avtale, Avtaleinnhold } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
 import React, { FunctionComponent, useContext } from 'react';
 
-const VeilederAvtaleStatus: FunctionComponent = () => {
-    const { avtale, overtaAvtale } = useContext(AvtaleContext);
+interface Props {
+    avtale: Pick<
+        Avtale,
+        | 'erUfordelt'
+        | 'statusSomEnum'
+        | 'annullertTidspunkt'
+        | 'tiltakstype'
+        | 'tilskuddPeriode'
+        | 'godkjentAvDeltaker'
+        | 'godkjentAvArbeidsgiver'
+        | 'godkjentAvVeileder'
+        | 'gjeldendeTilskuddsperiode'
+        | 'avtaleInngått'
+        | 'erAnnullertEllerAvbrutt'
+        | 'annullertGrunn'
+        | 'avbruttGrunn'
+    > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
+}
+
+const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
+    const { overtaAvtale } = useContext(AvtaleContext);
     const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
 
     const skalViseAvslåttTilskuddsperiode =
@@ -180,9 +200,14 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                 />
             );
         case 'GJENNOMFØRES':
-            return <Gjennomføres avtale={avtale} />;
+            return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
         case 'AVSLUTTET':
-            return <Avsluttet avtale={avtale} />;
+            return (
+                <Avsluttet
+                    startDato={avtale.gjeldendeInnhold.startDato}
+                    sluttDato={avtale.gjeldendeInnhold.sluttDato}
+                />
+            );
     }
 
     return null;

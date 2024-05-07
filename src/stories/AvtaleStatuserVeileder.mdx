@@ -1,0 +1,75 @@
+import { Meta, Story } from '@storybook/blocks';
+
+import * as VeilederAvtaleStatuser from './AvtaleStatuserVeileder.stories';
+
+<Meta title="Avtale Status Meldinger/Veileder" />
+
+# Status meldinger deltaker får men han går på tiltak
+
+De forskjellige statusene er
+
+## UFORDELT
+
+Avtallen er ufordelt
+
+<Story of={VeilederAvtaleStatuser.ErUfordelt} />
+
+## ANNULLERT
+
+Avtallen har blitt annullert
+
+<Story of={VeilederAvtaleStatuser.Annullert} />
+
+## AVBRUTT
+
+Avtalen er blitt avbrutt
+
+<Story of={VeilederAvtaleStatuser.Avbrutt} />
+
+## PÅBEGYNT
+
+avtale er påbegynt
+
+<Story of={VeilederAvtaleStatuser.Påbegynt} />
+
+## MANGLER_GODKJENNING
+
+Avtale er godkjent av veileder men mangler godkjenning fra beslutter
+
+<Story of={VeilederAvtaleStatuser.ManglerGodkjenningVeilederHarGodkjent} />
+
+## MANGLER_GODKJENNING
+
+Avtale er ikke godkjent av deltaker
+
+<Story of={VeilederAvtaleStatuser.ManglerGodkjenningDeltakerOgArbeidsgiverHarGodkjent} />
+
+## MANGLER_GODKJENNING
+
+Avtale er godkjent av deltaker men mangler godkjenning fra arbeidsgiver
+
+<Story of={VeilederAvtaleStatuser.ManglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent} />
+
+## KLAR_FOR_OPPSTART
+
+Avtale er Klar For Oppstart Utenfor Arena
+
+<Story of={VeilederAvtaleStatuser.KlarForOppstartUteforArena} />
+
+## KLAR_FOR_OPPSTART
+
+Avtale er Klar For Oppstart i Arena
+
+<Story of={VeilederAvtaleStatuser.KlarForOppstartArena} />
+
+## GJENNOMFØRES
+
+Avtalen Gjennomføres
+
+<Story of={VeilederAvtaleStatuser.Gjennomføres} />
+
+## AVSLUTTET
+
+Avtalen er avsluttet
+
+<Story of={VeilederAvtaleStatuser.Avsluttet} />

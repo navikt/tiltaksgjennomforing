@@ -4,13 +4,25 @@ import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Avtale, Avtaleinnhold } from '@/types/avtale';
 import { formatterDato } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 
-const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
-    const { avtale } = useContext(AvtaleContext);
+interface Props {
+    avtale: Pick<
+        Avtale,
+        | 'erUfordelt'
+        | 'statusSomEnum'
+        | 'annullertTidspunkt'
+        | 'godkjentAvArbeidsgiver'
+        | 'avtaleInngått'
+        | 'annullertGrunn'
+        | 'avbruttGrunn'
+    > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
+}
 
+const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
     if (avtale.erUfordelt) {
         return (
             <StatusPanel
@@ -74,13 +86,19 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
                 />
             );
         case 'KLAR_FOR_OPPSTART':
-            return <KlarForOppstart avtale={avtale} />;
+            return (
+                <KlarForOppstart avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />
+            );
         case 'GJENNOMFØRES':
-            return <Gjennomføres avtale={avtale} />;
+            return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
         case 'AVSLUTTET':
-            return <Avsluttet avtale={avtale} />;
+            return (
+                <Avsluttet
+                    startDato={avtale.gjeldendeInnhold.startDato}
+                    sluttDato={avtale.gjeldendeInnhold.sluttDato}
+                />
+            );
     }
-
     return null;
 };
 
