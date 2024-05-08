@@ -5,7 +5,7 @@ import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale, Avtaleinnhold } from '@/types/avtale';
-import { formatterDato } from '@/utils/datoUtils';
+import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
@@ -16,6 +16,8 @@ interface Props {
         | 'statusSomEnum'
         | 'annullertTidspunkt'
         | 'godkjentAvArbeidsgiver'
+        | 'godkjentAvDeltaker'
+        | 'godkjentAvVeileder'
         | 'avtaleInngått'
         | 'annullertGrunn'
         | 'avbruttGrunn'
@@ -39,8 +41,8 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     header={'Avtalen er annullert'}
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
-                            {avtale.annullertGrunn}.
+                            Veileder har annullert avtalen {formatterDatoHvisDefinert(avtale.annullertTidspunkt!)}.
+                            Årsak: {avtale.annullertGrunn}.
                         </BodyShort>
                     }
                 />
@@ -55,24 +57,9 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                 />
             );
         case 'PÅBEGYNT':
-            return (
-                <StatusPanel
-                    header={'Innholdet i avtalen fylles ut av arbeidsgiver og veileder'}
-                    body={<BodyShort size="small"> </BodyShort>}
-                />
-            );
-        case 'MANGLER_GODKJENNING':
-            return avtale.godkjentAvArbeidsgiver ? (
-                <StatusPanel
-                    header="Venter på godkjenning av avtalen fra de andre partene"
-                    body={
-                        <>
-                            <BodyShort size="small">Du har godkjent.</BodyShort>
-                            <VerticalSpacer rem={2} />
-                        </>
-                    }
-                />
-            ) : (
+            return <StatusPanel header={'Innholdet i avtalen fylles ut av arbeidsgiver og veileder'} />;
+        case 'MANGLER_GODKJENNING': {
+            return !avtale.godkjentAvArbeidsgiver ? (
                 <StatusPanel
                     header="Du kan godkjenne avtalen"
                     body={
@@ -84,7 +71,32 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                         </>
                     }
                 />
+            ) : (
+                <>
+                    {avtale.godkjentAvDeltaker ? (
+                        <StatusPanel
+                            header="Venter på godkjenning av avtalen fra NAV"
+                            body={
+                                <>
+                                    <BodyShort size="small">Du har godkjent.</BodyShort>
+                                    <VerticalSpacer rem={2} />
+                                </>
+                            }
+                        />
+                    ) : (
+                        <StatusPanel
+                            header="Venter på godkjenning av avtalen fra deltaker og NAV"
+                            body={
+                                <>
+                                    <BodyShort size="small">Du har godkjent.</BodyShort>
+                                    <VerticalSpacer rem={2} />
+                                </>
+                            }
+                        />
+                    )}
+                </>
             );
+        }
         case 'KLAR_FOR_OPPSTART':
             return (
                 <KlarForOppstart avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />

@@ -4,60 +4,74 @@ import * as ArbeidsgiverAvtaleStatuser from './AvtaleStatuserArbeidsgiver.storie
 
 <Meta title="Avtale Status Meldinger/Arbeidsgiver" />
 
-# Status meldinger deltaker får men han går på tiltak
+# Status meldinger arbeidsgiveren får under tiltak pågår
 
-De forskjellige statusene er
+De forskjellige statusene er UFORDELT, ANNULLERT, AVBRUTT, PÅBEGYNT, MANGLER GODKJENNING, KLAR FOR OPPSTART, GJENNOMFØRES og AVSLUTTET
 
 ## UFORDELT
 
-Avtallen er ufordelt
+Avtallen er ufordelt.
+Dette skjer når arbeidsgiver har opprettet en avtale men avtalen har enda ikke blitt tilknyttet en veileder
 
 <Story of={ArbeidsgiverAvtaleStatuser.ErUfordelt} />
 
 ## ANNULLERT
 
-Avtallen har blitt annullert
+Avtallen har blitt annullert av en veileder
 
 <Story of={ArbeidsgiverAvtaleStatuser.Annullert} />
 
 ## AVBRUTT
 
-Avtalen er blitt avbrutt
+Avtalen er blitt avbrutt av en veileder
 
 <Story of={ArbeidsgiverAvtaleStatuser.Avbrutt} />
 
 ## PÅBEGYNT
 
-avtale er påbegynt
+Avtale er påbegynt
+Dette skjer når en avtale har blitt tilknyttet en veileder
 
 <Story of={ArbeidsgiverAvtaleStatuser.Påbegynt} />
 
-## MANGLER_GODKJENNING
+## MANGLER GODKJENNING
 
-Avtale er godkjent av arbeidsgiver men mangler godkjenning fra deltaker eller veileder
-
-<Story of={ArbeidsgiverAvtaleStatuser.ManglerGodkjenningArbeidsgiverHarGodkjent} />
-
-## MANGLER_GODKJENNING
-
-Avtale er ikke godkjent av deltaker
+Avtalen er ferdig fylt ut og mangler godkjenninger.
+Statusen når arbeidsgiver ikke har godkjent.
 
 <Story of={ArbeidsgiverAvtaleStatuser.ManglerGodkjenningArbeidsgiverHarIkkeGodkjent} />
 
-## KLAR_FOR_OPPSTART
+## MANGLER GODKJENNING
 
-Avtale er KlarForOppstart
+Avtalen er ferdig fylt ut og mangler godkjenninger.
+Avtale er godkjent av arbeidsgiver men mangler godkjenning fra deltaker eller veileder
+
+<Story of={ArbeidsgiverAvtaleStatuser.ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV} />
+
+## MANGLER GODKJENNING
+
+Avtalen er ferdig fylt ut og mangler godkjenninger.
+Avtale er godkjent av arbeidsgiver og deltaker men mangler godkjenning fra veileder
+
+<Story of={ArbeidsgiverAvtaleStatuser.ManglerGodkjenningFraVeilederArbeidsgiverOgDeltakerHarGodkjent} />
+
+## KLAR FOR OPPSTART
+
+Avtale er Klar for oppstart.
+Alle partene har godkjent avtalen og tiltaket kan begynne når avtalens startdato har kommet.  
 
 <Story of={ArbeidsgiverAvtaleStatuser.KlarForOppstart} />
 
 ## GJENNOMFØRES
 
-Avtalen Gjennomføres
+Avtalen gjennomføres
+Alle partene har godkjent avtalen og tiltaket gjennomføres. 
 
 <Story of={ArbeidsgiverAvtaleStatuser.Gjennomføres} />
 
 ## AVSLUTTET
 
 Avtalen er avsluttet
+Tiltaket har gått sin gang fra startDato til sluttDato
 
 <Story of={ArbeidsgiverAvtaleStatuser.Avsluttet} />

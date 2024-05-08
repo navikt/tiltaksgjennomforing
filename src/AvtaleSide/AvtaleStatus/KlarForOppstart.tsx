@@ -12,11 +12,7 @@ const KlarForOppstart: FunctionComponent<Props> = ({ avtaleInngått, startDato }
     return (
         <StatusPanel
             header="Avtalen er ferdig utfylt og godkjent av NAV"
-            body={
-                <BodyShort size="small">
-                    Tiltaket starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
-                </BodyShort>
-            }
+            body={<BodyShort size="small">Tiltaket starter {formatterDato(startDato!, NORSK_DATO_FORMAT)}.</BodyShort>}
         />
     );
 };

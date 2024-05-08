@@ -19,12 +19,14 @@ const erUfordelt = {
     statusSomEnum: 'ANNULLERT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
     },
 };
 
@@ -38,12 +40,14 @@ const annullert = {
     statusSomEnum: 'ANNULLERT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
     },
 };
 
@@ -57,12 +61,14 @@ const avbrutt = {
     statusSomEnum: 'AVBRUTT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
     },
 };
 
@@ -76,12 +82,14 @@ const påbegynt = {
     statusSomEnum: 'PÅBEGYNT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
     },
 };
 
@@ -90,36 +98,19 @@ export const Påbegynt: Story = {
     args: { avtale: påbegynt },
 };
 
-const manglerGodkjenningArbeidsgiverHarGodkjent = {
-    erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
-    annullertTidspunkt: '',
-    godkjentAvArbeidsgiver: '2024-05-03T12:26:24.40876',
-    avtaleInngått: '',
-    annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
-    gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
-    },
-};
-
-export const ManglerGodkjenningArbeidsgiverHarGodkjent: Story = {
-    name: 'Mangler Godkjenning Arbeidisgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
-    args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjent },
-};
-
 const manglerGodkjenningArbeidsgiverHarIkkeGodkjent = {
     erUfordelt: false,
     statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
+    godkjentAvDeltaker: '',
+    godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
     },
 };
 
@@ -128,17 +119,61 @@ export const ManglerGodkjenningArbeidsgiverHarIkkeGodkjent: Story = {
     args: { avtale: manglerGodkjenningArbeidsgiverHarIkkeGodkjent },
 };
 
+const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV = {
+    erUfordelt: false,
+    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    annullertTidspunkt: '',
+    godkjentAvArbeidsgiver: '2024-05-03T12:26:24.40876',
+    godkjentAvDeltaker: '',
+    godkjentAvVeileder: '',
+    avtaleInngått: '',
+    annullertGrunn: 'annulert grunn',
+    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    gjeldendeInnhold: {
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
+    },
+};
+
+export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV: Story = {
+    name: 'Mangler Godkjenning Arbeidisgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV },
+};
+
+const manglerGodkjenningFraVeilederArbeidsgiverOgDeltakerHarGodkjent = {
+    erUfordelt: false,
+    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    annullertTidspunkt: '',
+    godkjentAvArbeidsgiver: '2024-05-03T12:26:24.40876',
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvVeileder: '2021-08-01',
+    avtaleInngått: '',
+    annullertGrunn: 'annulert grunn',
+    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    gjeldendeInnhold: {
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
+    },
+};
+
+export const ManglerGodkjenningFraVeilederArbeidsgiverOgDeltakerHarGodkjent: Story = {
+    name: 'Mangler Godkjenning Arbeidisgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    args: { avtale: manglerGodkjenningFraVeilederArbeidsgiverOgDeltakerHarGodkjent },
+};
+
 const klarForOppstart = {
     erUfordelt: false,
     statusSomEnum: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
     },
 };
 
@@ -152,12 +187,14 @@ const gjennomføres = {
     statusSomEnum: 'GJENNOMFØRES' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
-    avtaleInngått: '2021-08-01',
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvVeileder: '2021-08-01',
+    avtaleInngått: '2024-04-21',
     annullertGrunn: 'annulert grunn',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
     },
 };
 
@@ -171,12 +208,14 @@ const avsluttet = {
     statusSomEnum: 'AVSLUTTET' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
+    godkjentAvDeltaker: '',
+    godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
     },
 };
 
