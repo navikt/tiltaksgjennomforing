@@ -11,7 +11,7 @@ const ArbeidsoppgaverSteg: FunctionComponent = (props) => {
     const avtaleContext = useContext(AvtaleContext);
 
     return (
-        <Innholdsboks utfyller="arbeidsgiver">
+        <Innholdsboks>
             <SkjemaTittel>Hvilke arbeidsoppgaver skal utføres?</SkjemaTittel>
             <BodyShort size="small">
                 Her skal du beskrive hvilke arbeidsoppgaver som deltakeren skal utføre hos dere under arbeidstreningen.

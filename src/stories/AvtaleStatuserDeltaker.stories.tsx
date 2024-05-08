@@ -20,6 +20,7 @@ const annullert = {
     godkjentAvDeltaker: '20-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
@@ -38,6 +39,7 @@ const avbrutt = {
     godkjentAvDeltaker: '20-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
@@ -56,6 +58,7 @@ const påbegynt = {
     godkjentAvDeltaker: '20-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
@@ -74,6 +77,7 @@ const manglerGodkjenningDeltakerHarGodkjent = {
     godkjentAvDeltaker: '2024-05-03T12:26:24.40876',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
@@ -92,6 +96,7 @@ const manglerGodkjenningDeltakerHarIkkeGodkjent = {
     godkjentAvDeltaker: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
@@ -110,6 +115,7 @@ const klarForOppstart = {
     godkjentAvDeltaker: '',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
@@ -128,6 +134,7 @@ const gjennomføres = {
     godkjentAvDeltaker: '',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
@@ -146,6 +153,7 @@ const avsluttet = {
     godkjentAvDeltaker: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
     avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',

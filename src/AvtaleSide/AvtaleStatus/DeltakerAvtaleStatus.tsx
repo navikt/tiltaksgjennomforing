@@ -17,6 +17,7 @@ interface Props {
         | 'godkjentAvDeltaker'
         | 'avtaleInngått'
         | 'annullertGrunn'
+        | 'avbruttDato'
         | 'avbruttGrunn'
     > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
 }
