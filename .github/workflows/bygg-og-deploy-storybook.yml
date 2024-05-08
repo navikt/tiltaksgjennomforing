@@ -1,0 +1,53 @@
+name: Bygg og deploy storybook
+
+on:
+  push:
+    branches:
+      - 'master'
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      id-token: write 
+    name: Bygg og deploy
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v4
+      - name: Konfigurer Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Frontend npm install
+        run: npm ci
+      - name: Frontend - test, lint og build
+        run: npm run build-storybook
+      - name: Push docker image to GAR
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: arbeidsgiver
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          dockerfile: StorybookDockerfile
+
+  deploy-dev:
+    name: Deploy til dev-gcp
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v4
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/nais-dev-gcp-storybook.yml
+          VAR: image=${{ needs.build.outputs.image }}
