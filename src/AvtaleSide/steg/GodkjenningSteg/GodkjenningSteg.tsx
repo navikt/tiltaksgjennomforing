@@ -31,14 +31,12 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
                     {innloggetBruker.rolle === 'DELTAKER' || innloggetBruker.rolle === 'MENTOR' ? (
-                        <>
-                            {avtale.avtaleInngått && (
-                                <>
-                                    <SkjemaTittel>Oppsummering av inngått avtale</SkjemaTittel>
-                                    {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
-                                </>
-                            )}
-                        </>
+                        avtale.avtaleInngått && (
+                            <>
+                                <SkjemaTittel>Oppsummering av inngått avtale</SkjemaTittel>
+                                {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
+                            </>
+                        )
                     ) : (
                         <>
                             <SkjemaTittel>
