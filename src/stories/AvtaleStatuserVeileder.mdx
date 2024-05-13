@@ -6,65 +6,80 @@ import * as VeilederAvtaleStatuser from './AvtaleStatuserVeileder.stories';
 
 # Status meldinger deltaker får men han går på tiltak
 
-De forskjellige statusene er
+De forskjellige statusene er UFORDELT, ANNULLERT, AVBRUTT, PÅBEGYNT, MANGLER GODKJENNING, KLAR FOR OPPSTART, GJENNOMFØRES og AVSLUTTET
 
 ## UFORDELT
 
 Avtallen er ufordelt
+Dette skjer når arbeidsgiver har opprettet en avtale men avtalen har enda ikke blitt tilknyttet en veileder
 
 <Story of={VeilederAvtaleStatuser.ErUfordelt} />
 
 ## ANNULLERT
 
-Avtallen har blitt annullert
+Avtallen har blitt annullert av en veileder
 
 <Story of={VeilederAvtaleStatuser.Annullert} />
 
 ## AVBRUTT
 
-Avtalen er blitt avbrutt
+Avtalen er blitt avbrutt av en veileder
 
 <Story of={VeilederAvtaleStatuser.Avbrutt} />
 
 ## PÅBEGYNT
 
-avtale er påbegynt
+Avtale er påbegynt 
+Dette skjer når en avtale har blitt tilknyttet en veileder
 
 <Story of={VeilederAvtaleStatuser.Påbegynt} />
 
-## MANGLER_GODKJENNING
+## MANGLER GODKJENNING
 
 Avtale er godkjent av veileder men mangler godkjenning fra beslutter
 
 <Story of={VeilederAvtaleStatuser.ManglerGodkjenningVeilederHarGodkjent} />
 
-## MANGLER_GODKJENNING
+## MANGLER GODKJENNING
 
-Avtale er ikke godkjent av deltaker
+Avtale er godkjent av arbeidsgiver og deltaker men ikke Veileder
 
 <Story of={VeilederAvtaleStatuser.ManglerGodkjenningDeltakerOgArbeidsgiverHarGodkjent} />
 
-## MANGLER_GODKJENNING
+## MANGLER GODKJENNING
 
 Avtale er godkjent av deltaker men mangler godkjenning fra arbeidsgiver
 
+<Story of={VeilederAvtaleStatuser.ManglerGodkjenningDeltakerHarGodkjent} />
+
+## MANGLER GODKJENNING
+
+Avtale er godkjent av arbeidsgiver men mangler godkjenning fra deltaker
+
+<Story of={VeilederAvtaleStatuser.ManglerGodkjenningArbeidsgiverHarGodkjent} />
+
+## MANGLER GODKJENNING
+
+Avtale er mangler godkjenning av arbeidsgiver og deltaker
+
 <Story of={VeilederAvtaleStatuser.ManglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent} />
 
-## KLAR_FOR_OPPSTART
+## KLAR FOR OPPSTART
 
-Avtale er Klar For Oppstart Utenfor Arena
-
+Avtale er klar for oppstart Utenfor Arena
+Vil gjelde Arbeidstrening, Mentor og Inkluderingstilskudd siden disse er fortsatt i Arena
 <Story of={VeilederAvtaleStatuser.KlarForOppstartUteforArena} />
 
 ## KLAR_FOR_OPPSTART
 
-Avtale er Klar For Oppstart i Arena
+Avtale er klar For oppstart i Arena
+Vil gjelde Sommerjobb, Midlertidig Lønnstilskudd og Varig Lønnstilskudd siden disse er ute av Arena
 
 <Story of={VeilederAvtaleStatuser.KlarForOppstartArena} />
 
 ## GJENNOMFØRES
 
-Avtalen Gjennomføres
+Avtalen gjennomføres
 
 <Story of={VeilederAvtaleStatuser.Gjennomføres} />
 

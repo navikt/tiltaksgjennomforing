@@ -132,7 +132,7 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                                 <BodyShort size="small">
                                     Avtalen må godkjennes av deltaker. Arbeidsgiver fikk en automatisk varsling på Min
                                     side Arbeidsgiver når avtalen ble opprettet og deltaker fikk en varsling på min side
-                                    Personbruker om å godkjenne avtalen for {dagerSidenDeltakerFikkVarsling} dager
+                                    Personbruker om å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager
                                     siden.
                                 </BodyShort>
                                 <VerticalSpacer rem={2} />
