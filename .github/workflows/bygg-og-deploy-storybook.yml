@@ -49,5 +49,5 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: .nais/nais-dev-gcp-storybook.yml
+          RESOURCE: .nais/nais-dev-gcp-storybook.yaml
           VAR: image=${{ needs.build.outputs.image }}
