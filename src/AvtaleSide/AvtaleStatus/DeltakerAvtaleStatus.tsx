@@ -65,25 +65,16 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             return avtale.godkjentAvDeltaker ? (
                 <StatusPanel
                     header="Venter på godkjenning av avtalen fra arbeidsgiver og NAV"
-                    body={
-                        <>
-                            <BodyShort size="small">Du har godkjent avtalen.</BodyShort>
-                            <VerticalSpacer rem={2} />
-                        </>
-                    }
+                    body={<BodyShort size="small">Du har godkjent avtalen.</BodyShort>}
                 />
             ) : (
                 <StatusPanel
                     header="Du kan godkjenne avtalen"
                     body={
-                        <>
-                            <BodyShort size="small">
-                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig. Hvis du
-                                er uenig i innholdet eller har spørsmål om avtalen, må du kontakte veileder før du
-                                godkjenner.
-                            </BodyShort>
-                            <VerticalSpacer rem={2} />
-                        </>
+                        <BodyShort size="small">
+                            Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig. Hvis du er
+                            uenig i innholdet eller har spørsmål om avtalen, må du kontakte veileder før du godkjenner.
+                        </BodyShort>
                     }
                 />
             );

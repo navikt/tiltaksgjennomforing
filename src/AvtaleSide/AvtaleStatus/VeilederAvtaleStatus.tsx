@@ -99,12 +99,9 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     <StatusPanel
                         header="Du kan godkjenne"
                         body={
-                            <>
-                                <BodyShort size="small">
-                                    Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                                </BodyShort>
-                                <VerticalSpacer rem={2} />
-                            </>
+                            <BodyShort size="small">
+                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
+                            </BodyShort>
                         }
                     />
                 );
@@ -113,13 +110,10 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     <StatusPanel
                         header="Venter på godkjenning av avtalen fra arbeidsgiver"
                         body={
-                            <>
-                                <BodyShort size="small">
-                                    Avtalen må godkjennes av arbeidsgiver. Arbeidsgiver fikk en automatisk varsling på
-                                    Min side Arbeidsgiver når avtalen ble opprettet.
-                                </BodyShort>
-                                <VerticalSpacer rem={2} />
-                            </>
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av arbeidsgiver. Arbeidsgiver fikk en automatisk varsling på Min
+                                side Arbeidsgiver når avtalen ble opprettet.
+                            </BodyShort>
                         }
                     />
                 );
@@ -128,15 +122,10 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     <StatusPanel
                         header="Venter på godkjenning av avtalen fra deltaker"
                         body={
-                            <>
-                                <BodyShort size="small">
-                                    Avtalen må godkjennes av deltaker. Arbeidsgiver fikk en automatisk varsling på Min
-                                    side Arbeidsgiver når avtalen ble opprettet og deltaker fikk en varsling på min side
-                                    Personbruker om å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager
-                                    siden.
-                                </BodyShort>
-                                <VerticalSpacer rem={2} />
-                            </>
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side Personbruker om
+                                å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden.
+                            </BodyShort>
                         }
                     />
                 );
@@ -145,13 +134,11 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     <StatusPanel
                         header="Venter på godkjenning av avtalen fra de andre partene"
                         body={
-                            <>
-                                <BodyShort size="small">
-                                    Avtalen må godkjennes av arbeidsgiver og deltaker. Arbeidsgiver fikk en automatisk
-                                    varsling på Min side Arbeidsgiver når avtalen ble opprettet.
-                                </BodyShort>
-                                <VerticalSpacer rem={2} />
-                            </>
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av arbeidsgiver og deltaker. Arbeidsgiver fikk en automatisk
+                                varsling på Min side Arbeidsgiver når avtalen ble opprettet, og deltaker fikk en
+                                varsling på min side Personbruker om å godkjenne avtalen for 4 dager siden.
+                            </BodyShort>
                         }
                     />
                 );

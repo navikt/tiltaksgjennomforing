@@ -54,12 +54,9 @@ const MentorAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                 <StatusPanel
                     header="Venter på godkjenning av avtalen fra de andre partene"
                     body={
-                        <>
-                            <BodyShort size="small">
-                                Hvis du har spørsmål om avtalen, må du kontakte arbeidsgiver.
-                            </BodyShort>
-                            <VerticalSpacer rem={2} />
-                        </>
+                        <BodyShort size="small">
+                            Hvis du har spørsmål om avtalen, må du kontakte arbeidsgiver.
+                        </BodyShort>
                     }
                 />
             );

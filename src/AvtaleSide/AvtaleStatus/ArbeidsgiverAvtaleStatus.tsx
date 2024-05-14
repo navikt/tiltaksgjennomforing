@@ -63,12 +63,9 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                 <StatusPanel
                     header="Du kan godkjenne avtalen"
                     body={
-                        <>
-                            <BodyShort size="small">
-                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                            </BodyShort>
-                            <VerticalSpacer rem={2} />
-                        </>
+                        <BodyShort size="small">
+                            Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
+                        </BodyShort>
                     }
                 />
             ) : (

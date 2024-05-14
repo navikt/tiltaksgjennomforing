@@ -14,15 +14,9 @@ const StatusPanel: React.FunctionComponent<{
     return (
         <Innholdsboks ariaLabel={header} style={{ backgroundColor: '#FFECCC' }}>
             <div className={cls.className}>
-                {header.length > 36 ? (
-                    <Heading level="2" size="medium">
-                        {header}
-                    </Heading>
-                ) : (
-                    <Heading level="2" size="large">
-                        {header}
-                    </Heading>
-                )}
+                <Heading level="2" size="large">
+                    {header}
+                </Heading>
                 <VerticalSpacer rem={1} />
                 {body}
             </div>
