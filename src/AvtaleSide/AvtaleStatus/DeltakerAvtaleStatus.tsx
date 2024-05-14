@@ -1,29 +1,36 @@
-import PabegyntIkon from '@/assets/ikoner/pabegynt.svg?react';
-import AvbruttIkon from '@/assets/ikoner/stop.svg?react';
-import VarselIkon from '@/assets/ikoner/varsel.svg?react';
-import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Avtale, Avtaleinnhold } from '@/types/avtale';
 import { formatterDato } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 
-const DeltakerAvtaleStatus: FunctionComponent = () => {
-    const { avtale } = useContext(AvtaleContext);
+interface Props {
+    avtale: Pick<
+        Avtale,
+        | 'statusSomEnum'
+        | 'annullertTidspunkt'
+        | 'godkjentAvDeltaker'
+        | 'godkjentAvDeltaker'
+        | 'avtaleInngått'
+        | 'annullertGrunn'
+        | 'avbruttDato'
+        | 'avbruttGrunn'
+    > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
+}
 
+const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
     switch (avtale.statusSomEnum) {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    ikon={AvbruttIkon}
-                    header="Tiltaket er annullert"
+                    header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert tiltaket {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
+                            Veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
                             {avtale.annullertGrunn}.
                         </BodyShort>
                     }
@@ -32,23 +39,24 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
         case 'AVBRUTT':
             return (
                 <StatusPanel
-                    ikon={AvbruttIkon}
-                    header="Tiltaket er avbrutt"
+                    header="Avtalen er avbrutt"
                     body={
-                        <BodyShort size="small">Veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.</BodyShort>
+                        <BodyShort size="small">
+                            Veileder har avbrutt avtalen {formatterDato(avtale.avbruttDato!)}. Årsak:{' '}
+                            {avtale.avbruttGrunn}.
+                        </BodyShort>
                     }
                 />
             );
         case 'PÅBEGYNT':
             return (
                 <StatusPanel
-                    ikon={PabegyntIkon}
-                    header="Utfylling av avtale påbegynt"
+                    header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder"
                     body={
                         <BodyShort size="small">
-                            Innholdet i avtalen fylles ut av arbeidsgiveren og veilederen. Hvis du er uenig i innholdet
-                            eller har spørsmål til avtalen, må du kontakte veilederen din via aktivitetsplanen før du
-                            godkjenner. Du kan godkjenne avtalen når alt er fylt ut.
+                            Du kan godkjenne avtalen når alt er fylt ut. <br />
+                            Hvis du er uenig i innholdet eller har spørsmål om avtalen, må du kontakte veileder før du
+                            godkjenner.
                         </BodyShort>
                     }
                 />
@@ -56,39 +64,33 @@ const DeltakerAvtaleStatus: FunctionComponent = () => {
         case 'MANGLER_GODKJENNING':
             return avtale.godkjentAvDeltaker ? (
                 <StatusPanel
-                    ikon={VarselIkon}
-                    header="Vent til de andre har godkjent"
-                    body={
-                        <>
-                            <BodyShort size="small">
-                                Du har godkjent avtalen. Venter nå på godkjenning fra NAV.
-                            </BodyShort>
-                            <VerticalSpacer rem={2} />
-                            <GodkjenningStatus avtale={avtale} />
-                        </>
-                    }
+                    header="Venter på godkjenning av avtalen fra arbeidsgiver og NAV"
+                    body={<BodyShort size="small">Du har godkjent avtalen.</BodyShort>}
                 />
             ) : (
                 <StatusPanel
-                    ikon={VarselIkon}
-                    header="Du kan godkjenne"
+                    header="Du kan godkjenne avtalen"
                     body={
-                        <>
-                            <BodyShort size="small">
-                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                            </BodyShort>
-                            <VerticalSpacer rem={2} />
-                            <GodkjenningStatus avtale={avtale} />
-                        </>
+                        <BodyShort size="small">
+                            Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig. Hvis du er
+                            uenig i innholdet eller har spørsmål om avtalen, må du kontakte veileder før du godkjenner.
+                        </BodyShort>
                     }
                 />
             );
         case 'KLAR_FOR_OPPSTART':
-            return <KlarForOppstart avtale={avtale} />;
+            return (
+                <KlarForOppstart avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />
+            );
         case 'GJENNOMFØRES':
-            return <Gjennomføres avtale={avtale} />;
+            return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
         case 'AVSLUTTET':
-            return <Avsluttet avtale={avtale} />;
+            return (
+                <Avsluttet
+                    startDato={avtale.gjeldendeInnhold.startDato}
+                    sluttDato={avtale.gjeldendeInnhold.sluttDato}
+                />
+            );
     }
 
     return null;

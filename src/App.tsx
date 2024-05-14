@@ -1,6 +1,5 @@
 import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import AlleredeOpprettetAvtaleProvider from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
-import OpprettelseFullfortArbeidsgiver from '@/OpprettAvtale/OpprettelseFullfortArbeidsgiver/OpprettelseFullfortArbeidsgiver';
 import Oversikt from '@/Oversikt';
 import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -18,7 +17,7 @@ import Slettemerk from './komponenter/Slettemerk';
 import { NotifikasjonWidgetProvider } from './NotifikasjonWidgetProvider';
 import OpprettAvtaleArbeidsgiver from './OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
 import OpprettAvtaleVeileder from './OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import OpprettelseFullfortVeileder from './OpprettAvtale/OpprettelseFullfortVeileder/OpprettelseFullfortVeileder';
+
 import {
     basename,
     pathTilAvtale,
@@ -26,8 +25,6 @@ import {
     pathTilInformasjonssideUinnlogget,
     pathTilOpprettAvtale,
     pathTilOpprettAvtaleArbeidsgiver,
-    pathTilOpprettAvtaleFullfortArbeidsgiver,
-    pathTilOpprettAvtaleFullfortVeileder,
     pathTilStegIAvtale,
 } from './paths';
 import RedirectEtterLogin from './RedirectEtterLogin';
@@ -63,16 +60,6 @@ class App extends React.Component {
                                                             <Route
                                                                 path={pathTilOpprettAvtaleArbeidsgiver}
                                                                 element={<OpprettAvtaleArbeidsgiver />}
-                                                            />
-                                                            <Route
-                                                                path={pathTilOpprettAvtaleFullfortVeileder(':avtaleId')}
-                                                                element={<OpprettelseFullfortVeileder />}
-                                                            />
-                                                            <Route
-                                                                path={pathTilOpprettAvtaleFullfortArbeidsgiver(
-                                                                    ':avtaleId',
-                                                                )}
-                                                                element={<OpprettelseFullfortArbeidsgiver />}
                                                             />
                                                         </Routes>
                                                         <Routes>

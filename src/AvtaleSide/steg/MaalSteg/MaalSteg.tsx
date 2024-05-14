@@ -5,6 +5,7 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import EtMaal from './Maal/EtMaal';
 import { useMål } from './Maal/maalUtils';
 import OpprettMaal from './Maal/OpprettMaal';
+import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 
 const MaalSteg: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -29,7 +30,8 @@ const MaalSteg: FunctionComponent = () => {
 
     return (
         <>
-            <Innholdsboks utfyller="veileder">
+            <AvtaleStatus />
+            <Innholdsboks>
                 <OpprettMaal
                     iRedigermodus={iRedigermodus}
                     setIRedigermodus={setIRedigermodus}

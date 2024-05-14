@@ -1,6 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AnnullerAvtalen from '@/AvtaleSide/AnnullerAvtalen/AnnullerAvtalen';
-import DelLenkeTilAvtalen from '@/AvtaleSide/DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import OvertaAvtalen from '@/AvtaleSide/OvertaAvtalen/OvertaAvtalen';
 import EndreInkluderingsutgifter from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreInkluderingsutgifter/EndreInkluderingsutgifter';
 import EndreOmMentor from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreOmMentor/EndreOmMentor';
@@ -43,7 +42,6 @@ const OppgaveLenker: React.FunctionComponent = () => {
         <div className="modelLenker">
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
             <AnnullerAvtalen />
-            <DelLenkeTilAvtalen />
 
             {avtale.godkjentAvVeileder !== null && (
                 <>

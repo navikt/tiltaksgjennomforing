@@ -1,25 +1,18 @@
-import CheckIkon from '@/assets/ikoner/check.svg?react';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import { Avtale } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
-    avtale: Avtale;
+    avtaleInngått?: string;
+    startDato?: string;
 }
 
-const KlarForOppstart: FunctionComponent<Props> = ({ avtale }) => {
+const KlarForOppstart: FunctionComponent<Props> = ({ avtaleInngått, startDato }) => {
     return (
         <StatusPanel
-            ikon={CheckIkon}
-            header="Avtalen er ferdig utfylt og godkjent"
-            body={
-                <BodyShort size="small">
-                    Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket starter{' '}
-                    {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
-                </BodyShort>
-            }
+            header="Avtalen er ferdig utfylt og godkjent av NAV"
+            body={<BodyShort size="small">Tiltaket starter {formatterDato(startDato!, NORSK_DATO_FORMAT)}.</BodyShort>}
         />
     );
 };

@@ -1,7 +1,0 @@
-*
-!node_modules
-!server
-!build
-!src/whitelist.js
-!server.js
-!dist

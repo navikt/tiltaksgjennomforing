@@ -1,21 +1,38 @@
-import CheckIkon from '@/assets/ikoner/check.svg?react';
-import PabegyntIkon from '@/assets/ikoner/pabegynt.svg?react';
-import AvbruttIkon from '@/assets/ikoner/stop.svg?react';
-import VarselIkon from '@/assets/ikoner/varsel.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Avtale, Avtaleinnhold } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
+import moment from 'moment';
 import React, { FunctionComponent, useContext } from 'react';
 
-const VeilederAvtaleStatus: FunctionComponent = () => {
-    const { avtale, overtaAvtale } = useContext(AvtaleContext);
+interface Props {
+    avtale: Pick<
+        Avtale,
+        | 'erUfordelt'
+        | 'statusSomEnum'
+        | 'annullertTidspunkt'
+        | 'tiltakstype'
+        | 'tilskuddPeriode'
+        | 'godkjentAvDeltaker'
+        | 'godkjentAvArbeidsgiver'
+        | 'godkjentAvVeileder'
+        | 'gjeldendeTilskuddsperiode'
+        | 'avtaleInngått'
+        | 'erAnnullertEllerAvbrutt'
+        | 'annullertGrunn'
+        | 'avbruttGrunn'
+    > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
+}
+
+const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
+    const { overtaAvtale } = useContext(AvtaleContext);
+    const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
 
     const skalViseAvslåttTilskuddsperiode =
         avtale.godkjentAvVeileder &&
@@ -32,13 +49,10 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
     if (avtale.erUfordelt) {
         return (
             <StatusPanel
-                ikon={PabegyntIkon}
-                header="Avtalen er ufordelt"
+                header="Avtalen er ikke fordelt til en veileder i NAV enda"
                 body={
                     <div style={{ textAlign: 'center' }}>
-                        <BodyShort size="small">
-                            Avtalen er opprettet av arbeidsgiver. Den er ikke tildelt en veileder ennå.
-                        </BodyShort>
+                        <BodyShort size="small">Avtalen er opprettet av arbeidsgiver.</BodyShort>
                         <VerticalSpacer rem={1.5} />
                         <LagreKnapp
                             lagre={() => overtaAvtale()}
@@ -55,12 +69,11 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    ikon={AvbruttIkon}
-                    header="Tiltaket er annullert"
+                    header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Du eller en annen veileder har annullert tiltaket{' '}
-                            {formatterDato(avtale.annullertTidspunkt!)}. Årsak: {avtale.annullertGrunn}.
+                            Du eller en annen veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}
+                            . Årsak: {avtale.annullertGrunn}.
                         </BodyShort>
                     }
                 />
@@ -68,61 +81,64 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
         case 'AVBRUTT':
             return (
                 <StatusPanel
-                    ikon={AvbruttIkon}
-                    header="Tiltaket er avbrutt"
+                    header="Avtalen er avbrutt"
                     body={
                         <BodyShort size="small">
-                            Du eller en annen veileder har avbrutt tiltaket. Årsak: {avtale.avbruttGrunn}.
+                            Du eller en annen veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.
                         </BodyShort>
                     }
                 />
             );
         case 'PÅBEGYNT':
-            return <StatusPanel ikon={PabegyntIkon} header="Du må fylle ut avtalen" />;
+            return <StatusPanel header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder" />;
         case 'MANGLER_GODKJENNING': {
             if (avtale.godkjentAvVeileder) {
-                return (
-                    <StatusPanel
-                        ikon={VarselIkon}
-                        header="Venter på godkjenning fra beslutter"
-                        body={
-                            <>
-                                <BodyShort size="small">Venter på godkjenning fra beslutter.</BodyShort>
-                                <VerticalSpacer rem={2} />
-                                <GodkjenningStatus avtale={avtale} />
-                            </>
-                        }
-                    />
-                );
+                return <StatusPanel header="Venter på godkjenning av tilskuddsperioder fra beslutter" />;
             } else if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver) {
                 return (
                     <StatusPanel
-                        ikon={VarselIkon}
                         header="Du kan godkjenne"
                         body={
-                            <>
-                                <BodyShort size="small">
-                                    Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                                </BodyShort>
-                                <VerticalSpacer rem={2} />
-                                <GodkjenningStatus avtale={avtale} />
-                            </>
+                            <BodyShort size="small">
+                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
+                            </BodyShort>
+                        }
+                    />
+                );
+            } else if (avtale.godkjentAvDeltaker) {
+                return (
+                    <StatusPanel
+                        header="Venter på godkjenning av avtalen fra arbeidsgiver"
+                        body={
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av arbeidsgiver. Arbeidsgiver fikk en automatisk varsling på Min
+                                side Arbeidsgiver når avtalen ble opprettet.
+                            </BodyShort>
+                        }
+                    />
+                );
+            } else if (avtale.godkjentAvArbeidsgiver) {
+                return (
+                    <StatusPanel
+                        header="Venter på godkjenning av avtalen fra deltaker"
+                        body={
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side Personbruker om
+                                å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden.
+                            </BodyShort>
                         }
                     />
                 );
             } else {
                 return (
                     <StatusPanel
-                        ikon={VarselIkon}
-                        header="Venter på godkjenning"
+                        header="Venter på godkjenning av avtalen fra de andre partene"
                         body={
-                            <>
-                                <BodyShort size="small">
-                                    Deltaker og arbeidsgiver må ha godkjent avtalen før du kan godkjenne.
-                                </BodyShort>
-                                <VerticalSpacer rem={2} />
-                                <GodkjenningStatus avtale={avtale} />
-                            </>
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av arbeidsgiver og deltaker. Arbeidsgiver fikk en automatisk
+                                varsling på Min side Arbeidsgiver når avtalen ble opprettet, og deltaker fikk en
+                                varsling på min side Personbruker om å godkjenne avtalen for 4 dager siden.
+                            </BodyShort>
                         }
                     />
                 );
@@ -133,7 +149,6 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                 avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
                 avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ? (
                 <StatusPanel
-                    ikon={CheckIkon}
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
@@ -143,15 +158,16 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
-                                Du skal ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk
-                                i Gosys.
+                                Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får nå
+                                et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
+                                refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du skal
+                                ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk i Gosys.
                             </BodyShort>
                         </>
                     }
                 />
             ) : (
                 <StatusPanel
-                    ikon={CheckIkon}
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
@@ -161,16 +177,24 @@ const VeilederAvtaleStatus: FunctionComponent = () => {
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
-                                Du må fullføre registreringen i Arena. Avtalen journalføres automatisk i Gosys.
+                                Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får nå
+                                et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
+                                refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du må
+                                fullføre registreringen i Arena. Avtalen journalføres automatisk i Gosys.
                             </BodyShort>
                         </>
                     }
                 />
             );
         case 'GJENNOMFØRES':
-            return <Gjennomføres avtale={avtale} />;
+            return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
         case 'AVSLUTTET':
-            return <Avsluttet avtale={avtale} />;
+            return (
+                <Avsluttet
+                    startDato={avtale.gjeldendeInnhold.startDato}
+                    sluttDato={avtale.gjeldendeInnhold.sluttDato}
+                />
+            );
     }
 
     return null;

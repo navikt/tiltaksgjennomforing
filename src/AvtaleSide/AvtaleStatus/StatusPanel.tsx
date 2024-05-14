@@ -1,32 +1,25 @@
-import React, { SVGProps } from 'react';
+import React from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Heading } from '@navikt/ds-react';
+import './StatusPanel.less';
+import BEMHelper from '@/utils/bem';
+
+const cls = BEMHelper('statusPanel');
 
 const StatusPanel: React.FunctionComponent<{
-    ikon: React.ComponentType<SVGProps<any>>;
     header: string;
     body?: JSX.Element;
-}> = ({ ikon, header, body }) => {
-    const Ikon = ikon;
+}> = ({ header, body }) => {
     return (
-        <Innholdsboks ariaLabel={header}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <Ikon style={{ height: '40px', width: '40px' }} />
+        <Innholdsboks ariaLabel={header} style={{ backgroundColor: '#FFECCC' }}>
+            <div className={cls.className}>
+                <Heading level="2" size="large">
+                    {header}
+                </Heading>
                 <VerticalSpacer rem={1} />
-                {header.length > 36 ? (
-                    <Heading level="2" size="medium">
-                        {header}
-                    </Heading>
-                ) : (
-                    <Heading level="2" size="large">
-                        {header}
-                    </Heading>
-                )}
+                {body}
             </div>
-
-            <VerticalSpacer rem={1} />
-            {body}
         </Innholdsboks>
     );
 };

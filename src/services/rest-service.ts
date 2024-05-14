@@ -364,10 +364,6 @@ export const hentFeatureTogglesVarianter = async (featureToggles: Feature[]): Pr
     return response.data;
 };
 
-export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
-    await api.post(`/avtaler/${avtaleId}/del-med-avtalepart`, JSON.stringify(rolle));
-};
-
 export const oppdatereKostnadsstedet = async (avtaleId: string, kostnadssted: Kostnadssted): Promise<Avtale> => {
     const response = await api.post(`avtaler/${avtaleId}/endre-kostnadssted`, JSON.stringify(kostnadssted));
     return response.data;

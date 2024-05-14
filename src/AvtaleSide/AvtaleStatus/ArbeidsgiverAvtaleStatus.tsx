@@ -1,31 +1,35 @@
-import PabegyntIkon from '@/assets/ikoner/pabegynt.svg?react';
-import AvbruttIkon from '@/assets/ikoner/stop.svg?react';
-import VarselIkon from '@/assets/ikoner/varsel.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import GodkjenningStatus from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningStatus/GodkjenningStatus';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formatterDato } from '@/utils/datoUtils';
+import { Avtale, Avtaleinnhold } from '@/types/avtale';
+import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 
-const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
-    const { avtale } = useContext(AvtaleContext);
+interface Props {
+    avtale: Pick<
+        Avtale,
+        | 'erUfordelt'
+        | 'statusSomEnum'
+        | 'annullertTidspunkt'
+        | 'godkjentAvArbeidsgiver'
+        | 'godkjentAvDeltaker'
+        | 'godkjentAvVeileder'
+        | 'avtaleInngått'
+        | 'annullertGrunn'
+        | 'avbruttGrunn'
+    > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
+}
 
+const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
     if (avtale.erUfordelt) {
         return (
             <StatusPanel
-                ikon={PabegyntIkon}
                 header={'Avtalen er ikke fordelt til en veileder i NAV enda'}
-                body={
-                    <BodyShort size="small">
-                        Du kan likevel begynne å fylle ut avtalen. Når avtalen har blitt tildelt en veileder kan alle
-                        parter godkjenne avtalen.
-                    </BodyShort>
-                }
+                body={<BodyShort size="small">Du kan begynne å fylle ut avtalen.</BodyShort>}
             />
         );
     }
@@ -34,11 +38,11 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    ikon={AvbruttIkon}
-                    header={'Tiltaket er annullert'}
+                    header={'Avtalen er annullert'}
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert tiltaket {formatterDato(avtale.annullertTidspunkt!)}.
+                            Veileder har annullert avtalen {formatterDatoHvisDefinert(avtale.annullertTidspunkt!)}.
+                            Årsak: {avtale.annullertGrunn}.
                         </BodyShort>
                     }
                 />
@@ -46,51 +50,64 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent = () => {
         case 'AVBRUTT':
             return (
                 <StatusPanel
-                    ikon={AvbruttIkon}
-                    header={'Tiltaket er avbrutt'}
-                    body={<BodyShort size="small">Veileder har avbrutt tiltaket</BodyShort>}
+                    header={'Avtalen er avbrutt'}
+                    body={
+                        <BodyShort size="small">Veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.</BodyShort>
+                    }
                 />
             );
         case 'PÅBEGYNT':
-            return <StatusPanel ikon={PabegyntIkon} header="Du må fylle ut avtalen" />;
-        case 'MANGLER_GODKJENNING':
-            return avtale.godkjentAvArbeidsgiver ? (
+            return <StatusPanel header={'Innholdet i avtalen fylles ut av arbeidsgiver og veileder'} />;
+        case 'MANGLER_GODKJENNING': {
+            return !avtale.godkjentAvArbeidsgiver ? (
                 <StatusPanel
-                    ikon={VarselIkon}
-                    header="Vent til de andre har godkjent"
+                    header="Du kan godkjenne avtalen"
                     body={
-                        <>
-                            <BodyShort size="small">
-                                Du har godkjent avtalen. Venter nå på godkjenning fra NAV.
-                            </BodyShort>
-                            <VerticalSpacer rem={2} />
-                            <GodkjenningStatus avtale={avtale} />
-                        </>
+                        <BodyShort size="small">
+                            Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
+                        </BodyShort>
                     }
                 />
             ) : (
-                <StatusPanel
-                    ikon={VarselIkon}
-                    header="Du kan godkjenne"
-                    body={
-                        <>
-                            <BodyShort size="small">
-                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                            </BodyShort>
-                            <VerticalSpacer rem={2} />
-                            <GodkjenningStatus avtale={avtale} />
-                        </>
-                    }
+                <>
+                    {avtale.godkjentAvDeltaker ? (
+                        <StatusPanel
+                            header="Venter på godkjenning av avtalen fra NAV"
+                            body={
+                                <>
+                                    <BodyShort size="small">Du har godkjent.</BodyShort>
+                                    <VerticalSpacer rem={2} />
+                                </>
+                            }
+                        />
+                    ) : (
+                        <StatusPanel
+                            header="Venter på godkjenning av avtalen fra deltaker og NAV"
+                            body={
+                                <>
+                                    <BodyShort size="small">Du har godkjent.</BodyShort>
+                                    <VerticalSpacer rem={2} />
+                                </>
+                            }
+                        />
+                    )}
+                </>
+            );
+        }
+        case 'KLAR_FOR_OPPSTART':
+            return (
+                <KlarForOppstart avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />
+            );
+        case 'GJENNOMFØRES':
+            return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
+        case 'AVSLUTTET':
+            return (
+                <Avsluttet
+                    startDato={avtale.gjeldendeInnhold.startDato}
+                    sluttDato={avtale.gjeldendeInnhold.sluttDato}
                 />
             );
-        case 'KLAR_FOR_OPPSTART':
-            return <KlarForOppstart avtale={avtale} />;
-        case 'GJENNOMFØRES':
-            return <Gjennomføres avtale={avtale} />;
-        case 'AVSLUTTET':
-            return <Avsluttet avtale={avtale} />;
     }
-
     return null;
 };
 

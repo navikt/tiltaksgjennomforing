@@ -16,6 +16,7 @@ import moment from 'moment';
 import 'moment/dist/locale/nb';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './varighetSteg.less';
+import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -41,7 +42,8 @@ const VarighetSteg: FunctionComponent = () => {
 
     return (
         <div className={cls.className}>
-            <Innholdsboks utfyller="veileder_og_arbeidsgiver">
+            <AvtaleStatus />
+            <Innholdsboks>
                 <Container fluid={true}>
                     <Row className={cls.element('rad')}>
                         <Column md="12">
