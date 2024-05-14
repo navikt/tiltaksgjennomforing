@@ -12,7 +12,7 @@ const StatusPanel: React.FunctionComponent<{
     body?: JSX.Element;
 }> = ({ header, body }) => {
     return (
-        <Innholdsboks ariaLabel={header}>
+        <Innholdsboks ariaLabel={header} style={{ backgroundColor: '#FFECCC' }}>
             <div className={cls.className}>
                 {header.length > 36 ? (
                     <Heading level="2" size="medium">
