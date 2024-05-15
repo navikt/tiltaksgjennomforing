@@ -31,6 +31,7 @@ jobs:
         id: docker-build-push
         with:
           team: arbeidsgiver
+          image_suffix: storybook
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           dockerfile: StorybookDockerfile
