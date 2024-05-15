@@ -16,6 +16,7 @@ import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import './OppgaveLenker.css';
+import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -42,7 +43,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
         <div className="modelLenker">
             <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
             <AnnullerAvtalen />
-
+            {avtale.tiltakstype === 'MENTOR' && <DelLenkeTilAvtalen />}
             {avtale.godkjentAvVeileder !== null && (
                 <>
                     <EndreKontaktInformasjon />
