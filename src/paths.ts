@@ -16,6 +16,14 @@ export const pathTilOpprettAvtale = '/opprett-avtale';
 
 export const pathTilOpprettAvtaleArbeidsgiver = '/opprett-avtale-arbeidsgiver';
 
+export const pathTilOpprettAvtaleFullfortVeileder = (avtaleId: string) =>
+    `/opprett-avtale-fullfort-veileder/${avtaleId}`;
+
+export const pathTilOpprettAvtaleFullfortArbeidsgiver = (avtaleId: string) =>
+    `/opprett-avtale-fullfort-arbeidsgiver/${avtaleId}`;
+
+export const pathTilOversiktISelvbetjeningProd = `https://arbeidsgiver.nav.no${basename}`;
+
 export const inkludereIArbeidslivetLenke = 'https://www.nav.no/arbeidsgiver/inkludere';
 
 export const pathTilAvtale = (avtaleId: string, rolle: Rolle = 'INGEN_ROLLE'): string =>

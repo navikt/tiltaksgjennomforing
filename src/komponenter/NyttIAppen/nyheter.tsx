@@ -5,6 +5,21 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(15, 5, 2024),
+        tittel: 'Vi har gjordt det enklere å se statusene på avtalen og fjernet muligheten til å sende sms manuelt',
+        innhold: (
+            <>
+                <p>Lagt til ny statusvisning som gjør det lettere å se statusene mens man er i avtalen.</p>
+                <p>Vi har også fjernet mulighet for å manuelt sende sms til deltaker og arbeidsgiver.</p>
+                <ul>
+                    <li>Arbeidsgiver får automatisk varsling på Min side Arbeidsgiver</li>
+                    <li>Deltaker får automatisk varsling på Min side Personbruker</li>
+                    <li>Det vil fortsatt være mulig å sende sms til mentor i en mentor avtale</li>
+                </ul>
+            </>
+        ),
+    },
+    {
         dato: tilDato(15, 1, 2024),
         tittel: 'Varsling av deltakere endret',
         innhold: (
