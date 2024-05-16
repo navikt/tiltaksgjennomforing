@@ -197,10 +197,7 @@ const Informasjonsside: FunctionComponent = () => {
                                 <li>Når avtalen er opprettet (oppgave om å godkjenne på min side arbeidsgiver)</li>
                                 <li>Arbeidsgivers godkjenning blir opphevet av veileder (oppgave + sms)</li>
                                 <li>Når avtalen er inngått (beskjed på min side arbeidsgiver + sms)</li>
-                                <li>
-                                    Alle endringer fra en veileder på en inngått avtale (kun oppgave på min side
-                                    arbeidsgiver)
-                                </li>
+                                <li>Alle endringer på en inngått avtale (beskjed på min side arbeidsgiver)</li>
                             </ul>
                             <Heading size="xsmall">Veileder:</Heading>
                             Veileder får automatisk sms ved følgende hendelser:
