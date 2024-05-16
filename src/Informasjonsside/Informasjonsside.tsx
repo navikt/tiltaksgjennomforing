@@ -1,9 +1,9 @@
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Altinn from '@/assets/ikoner/altinn.svg?react';
 import DigitalAvtale from '@/assets/ikoner/digitalAvtale.svg?react';
 import DynamiskAvtale from '@/assets/ikoner/dynamiskAvtale.svg?react';
 import Historikk from '@/assets/ikoner/historikk.svg?react';
 import Keyboard from '@/assets/ikoner/keyboard.svg?react';
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import Banner from '@/komponenter/Banner/Banner';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -11,8 +11,8 @@ import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { pathTilInformasjonssideInnlogget } from '@/paths';
 import BEMHelper from '@/utils/bem';
-import { Link, BodyShort, Label, Heading } from '@navikt/ds-react';
-import React, { FunctionComponent, useState } from 'react';
+import { BodyShort, Heading, Label, Link } from '@navikt/ds-react';
+import { FunctionComponent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './informasjonsside.less';
 
@@ -161,6 +161,54 @@ const Informasjonsside: FunctionComponent = () => {
                             Hvis det gjøres endringer i avtalen underveis i tiltaket, lagrer NAV den forrige, godkjente
                             versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan alle tre
                             parter se utviklingen og vurdere måloppnåelse i etterkant.
+                        </IkonTekstRad>
+                        <IkonTekstRad
+                            classname={cls.element('info')}
+                            svgIkon={
+                                <DigitalAvtale
+                                    role="presentation"
+                                    focusable="false"
+                                    className={cls.element('SubIkon')}
+                                />
+                            }
+                            headerTekst={{
+                                tekst: 'Varslinger',
+                                headingType: 'small',
+                            }}
+                        >
+                            Vi sender varslinger til deltakere, arbeidsgivere og veileder på ulike plattformer.
+                            <VerticalSpacer rem={1} />
+                            <Heading size="xsmall">Deltaker:</Heading>
+                            Når arbeidsgiver har godkjent avtalen vil det automatisk sendes varsling til deltaker i form
+                            av en oppgave på min side på nav.no, i tillegg til en sms. I tillegg sendes det beskjeder om
+                            ulike hendelser. Deltaker får varslinger på min side og sms ved følgende hendelser:
+                            <ul>
+                                <li>Når arbeidsgiver godkjenner (oppgave)</li>
+                                <li>Når avtalen er inngått (beskjed)</li>
+                                <li>Hvis avtalen blir forlenget (beskjed)</li>
+                                <li>Hvis avtalen blir forkortet (beskjed)</li>
+                                <li>Hvis avtalen blir annullert (beskjed)</li>
+                            </ul>
+                            <Heading size="xsmall">Arbeidsgiver:</Heading>
+                            Arbeidsgiver vil automatisk få varsling om at det er opprettet en avtale på min side
+                            arbeidsgiver. På dette tidspunktet går det ikke ut noen sms. Arbeidsgiver får varslinger på
+                            min side arbeidsgiver og sms ved følgende hendelser:
+                            <ul>
+                                <li>Når avtalen er opprettet (oppgave om å godkjenne på min side arbeidsgiver)</li>
+                                <li>Arbeidsgivers godkjenning blir opphevet av veileder (oppgave + sms)</li>
+                                <li>Når avtalen er inngått (beskjed på min side arbeidsgiver + sms)</li>
+                                <li>
+                                    Alle endringer fra en veileder på en inngått avtale (kun oppgave på min side
+                                    arbeidsgiver)
+                                </li>
+                            </ul>
+                            <Heading size="xsmall">Veileder:</Heading>
+                            Veileder får automatisk sms ved følgende hendelser:
+                            <ul>
+                                <li>Deltaker godkjenner avtale</li>
+                                <li>Arbeidsgiver godkjenner avtalen</li>
+                                <li>Arbeidsgiver har opphevet deltakers godkjenning</li>
+                            </ul>
                         </IkonTekstRad>
                     </div>
                 </div>
