@@ -7,7 +7,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale, Avtaleinnhold } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Link } from '@navikt/ds-react';
 import moment from 'moment';
 import React, { FunctionComponent, useContext } from 'react';
 
@@ -90,7 +90,26 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                 />
             );
         case 'PÅBEGYNT':
-            return <StatusPanel header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder" />;
+            return (
+                <StatusPanel
+                    header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder"
+                    body={
+                        <>
+                            <BodyShort size="small">
+                                Avtalen er nå tilgjengelig for arbeidsgiver på Min Side Arbeidsgiver.
+                            </BodyShort>
+                            <BodyShort size="small">
+                                Det sendes foreløpig ikke en automatisk SMS, men du kan dele denne lenken med
+                                arbeidsgiver <strong>https://arbeidsgiver.nav.no/tiltaksgjennomforing</strong>
+                            </BodyShort>
+                            <VerticalSpacer rem={1} />
+                            <BodyShort size="small">
+                                Deltaker får en automatisk SMS når arbeidsgiver har godkjent avtalen.
+                            </BodyShort>
+                        </>
+                    }
+                />
+            );
         case 'MANGLER_GODKJENNING': {
             if (avtale.godkjentAvVeileder) {
                 return <StatusPanel header="Venter på godkjenning av tilskuddsperioder fra beslutter" />;
