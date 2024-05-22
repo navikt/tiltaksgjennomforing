@@ -43,14 +43,16 @@ const Informasjonsside: FunctionComponent = () => {
             <BodyShort size="small">
                 {' '}
                 Når deltakeren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
-                avtale. Deltakeren og arbeidsgiveren vil få tilsendt en lenke fra NAV når avtalen er klar og de kan
-                logge inn.
+                avtale. Avtalen vil være tilgjengelig for arbeidsgiveren på Min side - arbeidsgiver og for deltakeren på
+                Min side. Arbeidsgiveren vil ikke få en automatisk SMS foreløpig.
             </BodyShort>
+
             <VerticalSpacer rem={1} />
             <Label>Arbeidsgiveren oppretter en avtale</Label>
             <BodyShort size="small">
                 Arbeidsgiveren kan også opprette en avtale selv. Når avtalen er opprettet kan arbeidsgiveren begynne å
-                fylle ut avtalen.
+                fylle ut avtalen. NAV vil få en automatisk beskjed om å vurdere avtalen og ta kontakt med
+                arbeidsgiveren.
             </BodyShort>
         </IkonTekstRad>
     );
@@ -176,35 +178,38 @@ const Informasjonsside: FunctionComponent = () => {
                                 headingType: 'small',
                             }}
                         >
-                            Vi sender varslinger til deltakere, arbeidsgivere og veileder på ulike plattformer.
+                            Vi sender varslinger til deltakeren, arbeidsgiveren og NAV på ulike plattformer.
                             <VerticalSpacer rem={1} />
                             <Heading size="xsmall">Deltaker:</Heading>
-                            Når arbeidsgiver har godkjent avtalen vil det automatisk sendes varsling til deltaker i form
-                            av en oppgave på min side på nav.no, i tillegg til en sms. I tillegg sendes det beskjeder om
-                            ulike hendelser. Deltaker får varslinger på min side og sms ved følgende hendelser:
+                            Når arbeidsgiveren har godkjent avtalen vil det sendes varsling til deltakeren automatisk i
+                            form av en oppgave på Min side, i tillegg til en SMS.
+                            <VerticalSpacer rem={1} />
+                            Deltakeren får også varslinger på Min side og SMS ved følgende hendelser:
                             <ul>
-                                <li>Når arbeidsgiver godkjenner (oppgave)</li>
-                                <li>Når avtalen er inngått (beskjed)</li>
-                                <li>Hvis avtalen blir forlenget (beskjed)</li>
-                                <li>Hvis avtalen blir forkortet (beskjed)</li>
-                                <li>Hvis avtalen blir annullert (beskjed)</li>
+                                <li>Når arbeidsgiver godkjenner</li>
+                                <li>Når avtalen er inngått</li>
+                                <li>Hvis avtalen blir forlenget</li>
+                                <li>Hvis avtalen blir forkortet</li>
+                                <li>Hvis avtalen blir annullert</li>
                             </ul>
                             <Heading size="xsmall">Arbeidsgiver:</Heading>
-                            Arbeidsgiver vil automatisk få varsling om at det er opprettet en avtale på min side
-                            arbeidsgiver. På dette tidspunktet går det ikke ut noen sms. Arbeidsgiver får varslinger på
-                            min side arbeidsgiver og sms ved følgende hendelser:
+                            Arbeidsgiveren vil få varsling automatisk om at det er opprettet en avtale på Min side -
+                            arbeidsgiver. Arbeidsgiveren varsles ikke på SMS på dette tidspunktet fordi telefonnummeret
+                            til arbeidsgiveren ikke ennå er oppgitt.
+                            <VerticalSpacer rem={1} />
+                            Arbeidsgiveren får varslinger på Min side - arbeidsgiver (og SMS) ved følgende hendelser:
                             <ul>
-                                <li>Når avtalen er opprettet (oppgave om å godkjenne på min side arbeidsgiver)</li>
-                                <li>Arbeidsgivers godkjenning blir opphevet av veileder (oppgave + sms)</li>
-                                <li>Når avtalen er inngått (beskjed på min side arbeidsgiver + sms)</li>
-                                <li>Alle endringer på en inngått avtale (beskjed på min side arbeidsgiver)</li>
+                                <li>Når avtalen er opprettet</li>
+                                <li>Når avtalen er inngått (SMS)</li>
+                                <li>Alle endringer på en inngått avtale</li>
+                                <li>Arbeidsgivers godkjenning blir opphevet av veileder (SMS)</li>
                             </ul>
                             <Heading size="xsmall">Veileder:</Heading>
-                            Veileder får automatisk sms ved følgende hendelser:
+                            Veileder får automatisk SMS ved følgende hendelser:
                             <ul>
-                                <li>Deltaker godkjenner avtale</li>
-                                <li>Arbeidsgiver godkjenner avtalen</li>
-                                <li>Arbeidsgiver har opphevet deltakers godkjenning</li>
+                                <li>Deltakeren godkjenner avtale</li>
+                                <li>Arbeidsgiveren godkjenner avtalen</li>
+                                <li>Arbeidsgiveren har opphevet deltakerens godkjenning</li>
                             </ul>
                         </IkonTekstRad>
                     </div>
