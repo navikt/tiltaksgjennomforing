@@ -61,6 +61,8 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
         }
     }
 
+    console.log('varsler', props.varsler);
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
             {finnesMinstEnSomSkjules && (
@@ -97,11 +99,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                     </div>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell" aria-labelledby="utført_av">
-                                    {[
-                                        'TILSKUDDSPERIODE_GODKJENT',
-                                        'TILSKUDDSPERIODE_AVSLATT',
-                                        'GODKJENT_FOR_ETTERREGISTRERING',
-                                    ].includes(varsel.hendelseType) ? (
+                                    {varsel.mottaker === 'VEILEDER' || 'BESLUTTER' ? (
                                         <UtgråetTekst grå={varsel.skjules}>
                                             {storForbokstav(
                                                 varsel.utførtAvIdentifikator !== null
