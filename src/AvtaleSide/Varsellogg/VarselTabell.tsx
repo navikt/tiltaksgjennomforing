@@ -99,7 +99,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                     </div>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell" aria-labelledby="utført_av">
-                                    {varsel.mottaker === 'VEILEDER' || 'BESLUTTER' ? (
+                                    {varsel.mottaker === 'VEILEDER' || varsel.mottaker === 'BESLUTTER' ? (
                                         <UtgråetTekst grå={varsel.skjules}>
                                             {storForbokstav(
                                                 varsel.utførtAvIdentifikator !== null
