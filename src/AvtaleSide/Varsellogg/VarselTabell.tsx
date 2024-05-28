@@ -97,11 +97,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                     </div>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell" aria-labelledby="utført_av">
-                                    {[
-                                        'TILSKUDDSPERIODE_GODKJENT',
-                                        'TILSKUDDSPERIODE_AVSLATT',
-                                        'GODKJENT_FOR_ETTERREGISTRERING',
-                                    ].includes(varsel.hendelseType) ? (
+                                    {varsel.mottaker === 'VEILEDER' || varsel.mottaker === 'BESLUTTER' ? (
                                         <UtgråetTekst grå={varsel.skjules}>
                                             {storForbokstav(
                                                 varsel.utførtAvIdentifikator !== null
