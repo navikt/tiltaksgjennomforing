@@ -61,8 +61,6 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
         }
     }
 
-    console.log('varsler', props.varsler);
-
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
             {finnesMinstEnSomSkjules && (
