@@ -16,6 +16,7 @@ import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/O
 import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import OppsummeringVTAO from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringVTAO/OppsummeringVtao';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -68,6 +69,7 @@ const BeslutterSide: FunctionComponent = () => {
         MENTOR: <OppsummeringMentor avtaleinnhold={avtale.gjeldendeInnhold} />,
         INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
         SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
+        VTAO: <OppsummeringVTAO avtaleinnhold={avtale.gjeldendeInnhold} />,
     };
 
     return (
