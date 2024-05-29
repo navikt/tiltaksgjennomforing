@@ -28,6 +28,8 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
         INKLUDERINGSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_11',
         ARBEIDSTRENING: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap3',
         MENTOR: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap5',
+        //TODO legge til riktig lenke for VTAO
+        VTAO: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap5',
     };
     return (
         <>

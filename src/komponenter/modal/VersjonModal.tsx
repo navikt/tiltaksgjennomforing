@@ -2,6 +2,7 @@ import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsum
 import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
+import OppsummeringVTAO from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringVTAO/OppsummeringVtao';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import { Modal } from '@navikt/ds-react';
@@ -23,6 +24,7 @@ const VersjonModal: React.FunctionComponent<Props> = (props) => {
         MENTOR: <OppsummeringMentor avtaleinnhold={props.avtaleInnhold} />,
         INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={props.avtaleInnhold} />,
         SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
+        VTAO: <OppsummeringVTAO avtaleinnhold={props.avtaleInnhold} />,
     };
 
     return (
