@@ -3,6 +3,7 @@ import { hentFeatureToggles } from './services/rest-service';
 
 export enum Feature {
     VisNedetidBanner = 'visNedetidBanner',
+    VtaoTiltakToggle = 'vtaoTiltakToggle',
 }
 
 export const alleFeatures = Object.values(Feature);

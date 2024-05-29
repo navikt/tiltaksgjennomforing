@@ -137,7 +137,8 @@ export type TiltaksType =
     | 'VARIG_LONNSTILSKUDD'
     | 'MENTOR'
     | 'INKLUDERINGSTILSKUDD'
-    | 'SOMMERJOBB';
+    | 'SOMMERJOBB'
+    | 'VTAO';
 
 export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'BEHANDLET_I_ARENA';
 export type TilskuddPeriodeRefusjonStatus = 'UTBETALT' | 'SENDT_KRAV';
