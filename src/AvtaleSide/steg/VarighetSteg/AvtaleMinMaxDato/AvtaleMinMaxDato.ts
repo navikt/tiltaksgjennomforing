@@ -103,6 +103,8 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                         maxDate: sluttDatoFraDagensDato(1, 'years'),
                     };
                 }
+            case 'VTAO':
+                return datoDefaultVerdi();
         }
     };
 
