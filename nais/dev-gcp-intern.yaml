@@ -1,7 +1,7 @@
 "ingress": "https://tiltaksgjennomforing.intern.dev.nav.no"
 "miljo": "dev-gcp"
 "api-gw-url": "https://tiltak-proxy.dev-fss-pub.nais.io"
-"login-url": "/oauth2/login?redirect=/tiltaksgjennomforing"
+"login-url": "/oauth2/login"
 "logout-url": "/oauth2/logout"
 "stillingstitler-url": "http://tiltak-stillingstitler"
 "api-scope": "api://dev-fss.arbeidsgiver.tiltak-proxy/.default"
