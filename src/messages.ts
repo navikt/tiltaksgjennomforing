@@ -94,7 +94,7 @@ export const avtaleTittel: { [key in TiltaksType]: string } = {
     MENTOR: 'Avtale om tilskudd til mentor',
     INKLUDERINGSTILSKUDD: 'Avtale om inkluderingstilskudd',
     SOMMERJOBB: 'Avtale om sommerjobb',
-    VTAO: 'Avtale om vtao',
+    VTAO: 'Avtale om varig tilrettelagt arbeid i ordinær virksomhet',
 };
 
 export const stillingstype: { [key in Stillingstype]: string } = {

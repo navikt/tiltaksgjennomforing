@@ -137,7 +137,7 @@ const inkluderingTilskuddSteg: StegInfo[] = [
     },
 ];
 
-const vetoSteg: StegInfo[] = [
+const vtaoSteg: StegInfo[] = [
     {
         komponent: <KontaktinfoSteg />,
         label: 'Kontaktinformasjon',
@@ -158,7 +158,7 @@ const hentAvtaleSteg = {
     MENTOR_INNSYN: mentorInnsynSteg,
     INKLUDERINGSTILSKUDD: inkluderingTilskuddSteg,
     SOMMERJOBB: lonnstilskuddSteg,
-    VTAO: vetoSteg,
+    VTAO: vtaoSteg,
 };
 
 export default hentAvtaleSteg;
