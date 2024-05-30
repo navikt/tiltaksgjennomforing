@@ -9,7 +9,9 @@ import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
-import { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction, useContext } from 'react';
+
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 interface Props {
     className: string;
@@ -25,7 +27,8 @@ type Tiltaksvalg =
     | 'VARIG_LONNSTILSKUDD'
     | 'MENTOR'
     | 'INKLUDERINGSTILSKUDD'
-    | 'SOMMERJOBB';
+    | 'SOMMERJOBB'
+    | 'VTAO';
 
 const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     valgtTiltaksType,
@@ -35,6 +38,10 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     className,
 }) => {
     const cls = BEMHelper(className);
+
+    const contex = useContext(FeatureToggleContext);
+    const variant = contex[Feature.VtaoTiltakToggle];
+
     const tiltakvalg: Tiltaksvalg[] = [
         'ARBEIDSTRENING',
         'MIDLERTIDIG_LONNSTILSKUDD',
@@ -42,7 +49,14 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
         'MENTOR',
         'INKLUDERINGSTILSKUDD',
         'SOMMERJOBB',
-    ];
+        'VTAO',
+    ].filter((tiltak) => {
+        if (tiltak === 'VTAO') {
+            return variant;
+        }
+        return true;
+    }) as Tiltaksvalg[];
+
     return (
         <Innholdsboks className={cls.element('valg-tiltakstype-container')}>
             <Heading level="2" size="medium">
