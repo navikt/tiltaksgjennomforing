@@ -2,6 +2,11 @@ import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/De
 import { Avtaleinnhold } from '@/types/avtale';
 import { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
+import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
+import VarighetOppsummering from '../varighet/VarighetOppsummering';
+import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
+import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
+import StillingsOppsummeringLonnstilskudd from '../StillingsOppsummeringLonnstilskudd/StillingsOppsummeringLonnstilskudd';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -11,6 +16,11 @@ const OppsummeringVTAO: FunctionComponent<Props> = (props) => (
     <>
         <DeltakerInfo oppsummeringside={true} />
         <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
+        <StillingsOppsummeringLonnstilskudd {...props.avtaleinnhold} />
+        <VarighetOppsummering {...props.avtaleinnhold} />
+        <OppfolgingOppsummering {...props.avtaleinnhold} />
+        <Tilrettelegging {...props.avtaleinnhold} />
+        <BeregningTilskuddOppsummering {...props.avtaleinnhold} />
     </>
 );
 

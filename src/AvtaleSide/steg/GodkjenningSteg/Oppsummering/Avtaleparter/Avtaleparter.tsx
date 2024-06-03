@@ -74,6 +74,23 @@ const Avtaleparter: FunctionComponent<Props> = (props) => {
                     borderFarge="farge-graa"
                     skjulHvaMangler={erLåst}
                 />
+                {avtale.tiltakstype === 'VTAO' && (
+                    <AvtaleinfoFeltSjekk
+                        navnFelter={[
+                            { felt: 'fornavn', verdi: gjeldendeInnhold.veilederFornavn },
+                            { felt: 'etternavn', verdi: gjeldendeInnhold.veilederEtternavn },
+                        ]}
+                        tilleggFelter={[
+                            {
+                                felt: 'telefon',
+                                verdi: gjeldendeInnhold.veilederTlf,
+                            },
+                        ]}
+                        overskrift="Fadder"
+                        borderFarge="farge-lysraad"
+                        skjulHvaMangler={erLåst}
+                    />
+                )}
                 <AvtaleinfoFeltSjekk
                     navnFelter={[
                         { felt: 'fornavn', verdi: gjeldendeInnhold.veilederFornavn },

@@ -15,6 +15,7 @@ import FadderinfoDel from '@/AvtaleSide/steg/KontaktInformasjonSteg/FadderinfoDe
 const KontaktinfoSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
 
+    const skalViseFadderKontaktInformasjon = ['VTAO'].includes(avtale.tiltakstype);
     const skalViseKontaktpersonForRefusjon = [
         'SOMMERJOBB',
         'MIDLERTIDIG_LONNSTILSKUDD',
