@@ -10,6 +10,7 @@ import './kontaktinfo.less';
 import KontaktpersonRefusjoninfoDel from './KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
+import FadderinfoDel from '@/AvtaleSide/steg/KontaktInformasjonSteg/FadderinfoDel/FadderinfoDel';
 
 const KontaktinfoSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -36,6 +37,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
                 <ArbeidsgiverinfoDel />
                 {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
                 {skalViseRelasjoner && <Relasjoner tiltakstype={avtale.tiltakstype} />}
+                <FadderinfoDel />
                 <VeilederinfoDel />
                 <LagreKnapp
                     className="kontaktinfo-steg__lagre-knapp"
