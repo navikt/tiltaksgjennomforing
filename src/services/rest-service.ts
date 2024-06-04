@@ -157,7 +157,6 @@ export const hentAvtalerForInnloggetBeslutter = async (
 };
 
 export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
-    console.log('Avtale', avtale);
     if (avtale.godkjentAvDeltaker || avtale.godkjentAvArbeidsgiver || avtale.godkjentAvVeileder) {
         if (
             window.confirm(
