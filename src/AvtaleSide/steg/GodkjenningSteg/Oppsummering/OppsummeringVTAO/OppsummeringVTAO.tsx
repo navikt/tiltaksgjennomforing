@@ -5,8 +5,6 @@ import Avtaleparter from '../Avtaleparter/Avtaleparter';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
-import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
-import StillingsOppsummeringLonnstilskudd from '../StillingsOppsummeringLonnstilskudd/StillingsOppsummeringLonnstilskudd';
 import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
 
 interface Props {

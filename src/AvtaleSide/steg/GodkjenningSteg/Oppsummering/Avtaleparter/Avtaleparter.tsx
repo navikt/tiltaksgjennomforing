@@ -77,13 +77,13 @@ const Avtaleparter: FunctionComponent<Props> = (props) => {
                 {avtale.tiltakstype === 'VTAO' && (
                     <AvtaleinfoFeltSjekk
                         navnFelter={[
-                            { felt: 'fornavn', verdi: gjeldendeInnhold.veilederFornavn },
-                            { felt: 'etternavn', verdi: gjeldendeInnhold.veilederEtternavn },
+                            { felt: 'fornavn', verdi: gjeldendeInnhold.vtao?.fadderFornavn },
+                            { felt: 'etternavn', verdi: gjeldendeInnhold.vtao?.fadderEtternavn },
                         ]}
                         tilleggFelter={[
                             {
                                 felt: 'telefon',
-                                verdi: gjeldendeInnhold.veilederTlf,
+                                verdi: gjeldendeInnhold.vtao?.fadderTlf,
                             },
                         ]}
                         overskrift="Fadder"
