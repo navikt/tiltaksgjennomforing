@@ -19,6 +19,8 @@ const StillingSteg: FunctionComponent = () => {
 
     const { valgtStilling, setValgtStilling } = useStillingFraContext();
 
+    console.log('valgtStilling', valgtStilling);
+
     return (
         <>
             <AvtaleStatus />

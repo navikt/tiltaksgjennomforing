@@ -7,6 +7,7 @@ import VarighetOppsummering from '../varighet/VarighetOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import StillingsOppsummeringLonnstilskudd from '../StillingsOppsummeringLonnstilskudd/StillingsOppsummeringLonnstilskudd';
+import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -16,11 +17,10 @@ const OppsummeringVTAO: FunctionComponent<Props> = (props) => (
     <>
         <DeltakerInfo oppsummeringside={true} />
         <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
-        <StillingsOppsummeringLonnstilskudd {...props.avtaleinnhold} />
+        <StillingsOppsummering {...props.avtaleinnhold} />
         <VarighetOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
-        <BeregningTilskuddOppsummering {...props.avtaleinnhold} />
     </>
 );
 
