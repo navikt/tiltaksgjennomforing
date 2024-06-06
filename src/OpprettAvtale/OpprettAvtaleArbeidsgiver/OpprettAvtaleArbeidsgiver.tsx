@@ -141,20 +141,23 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <div>
                         <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
-                            {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
-                                <RadioPanel
-                                    key={index}
-                                    name="tiltakstype"
-                                    value={tiltakType}
-                                    checked={valgtTiltaksType === tiltakType}
-                                    onChange={() => {
-                                        setTiltaksType(tiltakType);
-                                        setUyldigAvtaletype(false);
-                                    }}
-                                >
-                                    {storForbokstav(tiltakstypeTekst[tiltakType])}
-                                </RadioPanel>
-                            ))}
+                            {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
+                                console.log(tiltakType);
+                                return (
+                                    <RadioPanel
+                                        key={index}
+                                        name="tiltakstype"
+                                        value={tiltakType}
+                                        checked={valgtTiltaksType === tiltakType}
+                                        onChange={() => {
+                                            setTiltaksType(tiltakType);
+                                            setUyldigAvtaletype(false);
+                                        }}
+                                    >
+                                        {storForbokstav(tiltakstypeTekst[tiltakType])}
+                                    </RadioPanel>
+                                );
+                            })}
                         </RadioGroup>
                     </div>
                     {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}

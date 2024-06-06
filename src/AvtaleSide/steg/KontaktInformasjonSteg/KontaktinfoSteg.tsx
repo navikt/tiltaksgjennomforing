@@ -27,6 +27,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
         'VARIG_LONNSTILSKUDD',
         'INKLUDERINGSTILSKUDD',
         'MENTOR',
+        'VTAO',
     ].includes(avtale.tiltakstype);
 
     return (
@@ -38,7 +39,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
                 <ArbeidsgiverinfoDel />
                 {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
                 {skalViseRelasjoner && <Relasjoner tiltakstype={avtale.tiltakstype} />}
-                <FadderinfoDel />
+                {skalViseFadderKontaktInformasjon && <FadderinfoDel />}
                 <VeilederinfoDel />
                 <LagreKnapp
                     className="kontaktinfo-steg__lagre-knapp"
