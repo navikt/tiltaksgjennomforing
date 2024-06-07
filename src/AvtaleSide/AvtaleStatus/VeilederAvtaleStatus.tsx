@@ -142,8 +142,8 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                         header="Venter på godkjenning av avtalen fra deltaker"
                         body={
                             <BodyShort size="small">
-                                Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side Personbruker om
-                                å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden.
+                                Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side på NAV.no om å
+                                godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden.
                             </BodyShort>
                         }
                     />
@@ -196,10 +196,8 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
-                                Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får nå
-                                et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
-                                refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du må
-                                fullføre registreringen i Arena. Avtalen journalføres automatisk i Gosys.
+                                Alle parter har nå godkjent avtalen. Du må fullføre registreringen i Arena. Avtalen
+                                journalføres automatisk i Gosys.
                             </BodyShort>
                         </>
                     }
