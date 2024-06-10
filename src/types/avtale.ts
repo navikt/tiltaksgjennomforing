@@ -404,6 +404,7 @@ export type EndreKontaktInfo = {
     veilederFornavn?: string;
     veilederEtternavn?: string;
     veilederTlf?: string;
+    vtao?: VTAO;
     refusjonKontaktperson: RefusjonKontaktperson;
 };
 
