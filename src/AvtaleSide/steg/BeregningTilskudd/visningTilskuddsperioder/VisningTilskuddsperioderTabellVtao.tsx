@@ -17,7 +17,7 @@ interface Properties {
     className: string;
 }
 
-const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Properties) => {
+const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }: Properties) => {
     const [visAllePerioder, setVisAllePerioder] = useState(false);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
@@ -88,4 +88,4 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
         </div>
     );
 };
-export default VisningTilskuddsperioderTabell;
+export default VisningTilskuddsperioderTabellVtao;
