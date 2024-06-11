@@ -13,8 +13,7 @@ const VisningTilskuddsperioderVtao: FunctionComponent = () => {
     return (
         <div className={cls.className}>
             <Label>
-                Oversikt over tilskudd fra
-                {avtale.gjeldendeInnhold.startDato} - {avtale.gjeldendeInnhold.sluttDato}
+                Oversikt over tilskudd fra {avtale.gjeldendeInnhold.startDato} - {avtale.gjeldendeInnhold.sluttDato}
             </Label>
             <BodyShort size="small">(2024 - satser)</BodyShort>
             <VerticalSpacer rem={2} />
