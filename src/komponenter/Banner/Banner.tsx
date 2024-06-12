@@ -1,5 +1,6 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
+import '@navikt/arbeidsgiver-notifikasjon-widget/lib/esm/index.css';
 import Bedriftsmeny, { Organisasjon } from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Detail, Heading } from '@navikt/ds-react';
