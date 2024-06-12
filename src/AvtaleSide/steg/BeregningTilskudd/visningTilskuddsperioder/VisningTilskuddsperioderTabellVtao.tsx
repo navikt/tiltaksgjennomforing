@@ -23,22 +23,16 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
     const { avtale } = useContext(AvtaleContext);
     const { startIndexVisning, sluttIndexVisning } = getIndexVisningForTilskuddsperiode(avtale, visAllePerioder);
     const cls = BEMHelper(className);
-    console.log('avtale', avtale);
     return (
         <div className={cls.element('tabell')}>
             <div className={cls.element('tabell-ingress')}>
-                <Label>Tilskudd for perioderrr</Label>
+                <Label>Tilskudd for perioder</Label>
                 {innloggetBruker.erNavAnsatt && <Label>Status</Label>}
-                <Label>Tilskuddsprosent</Label>
                 <Label>Inntil</Label>
             </div>
             {avtale.tilskuddPeriode
                 .filter((p: TilskuddsPeriode) => p.aktiv)
                 .map((periode: TilskuddsPeriode, index: number) => {
-                    const nyProsent: boolean =
-                        index > 0
-                            ? avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !== periode.lonnstilskuddProsent
-                            : false;
                     if (index < startIndexVisning || index > sluttIndexVisning) {
                         return null;
                     } else if (index !== 0 && (index === startIndexVisning || index === sluttIndexVisning)) {
@@ -49,13 +43,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                         );
                     }
                     return (
-                        <div
-                            key={index}
-                            className={cls.element('tabell-innslag')}
-                            style={{
-                                borderTop: nyProsent ? '2px solid gray' : 'undefined',
-                            }}
-                        >
+                        <div key={index} className={cls.element('tabell-innslag')}>
                             <BodyShort size="small">
                                 {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
                                 {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
@@ -65,12 +53,6 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                                     <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
                                 </BodyShort>
                             )}
-                            <BodyShort size="small">
-                                {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' &&
-                                    periode.status !== 'BEHANDLET_I_ARENA' && <>{periode.lonnstilskuddProsent}%</>}
-                                {(avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                                    avtale.tiltakstype === 'SOMMERJOBB') && <>{periode.lonnstilskuddProsent}%</>}
-                            </BodyShort>
                             <BodyShort size="small" style={{ minWidth: '4rem' }}>
                                 {formatterPenger(periode.beløp)}
                             </BodyShort>
