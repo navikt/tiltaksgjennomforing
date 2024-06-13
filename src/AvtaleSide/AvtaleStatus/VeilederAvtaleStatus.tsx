@@ -22,6 +22,7 @@ interface Props {
         | 'godkjentAvDeltaker'
         | 'godkjentAvArbeidsgiver'
         | 'godkjentAvVeileder'
+        | 'erGodkjentTaushetserklæringAvMentor'
         | 'gjeldendeTilskuddsperiode'
         | 'avtaleInngått'
         | 'erAnnullertEllerAvbrutt'
@@ -114,7 +115,17 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             if (avtale.godkjentAvVeileder) {
                 return <StatusPanel header="Venter på godkjenning av tilskuddsperioder fra beslutter" />;
             } else if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver) {
-                return (
+                return avtale.tiltakstype === 'MENTOR' ? (
+                    <StatusPanel
+                        header="Venter på signering av avtalen fra mentor"
+                        body={
+                            <BodyShort size="small">
+                                Mentor må signere taushetserklæringen før du kan godkjenne avtalen side Arbeidsgiver når
+                                avtalen ble opprettet.
+                            </BodyShort>
+                        }
+                    />
+                ) : (
                     <StatusPanel
                         header="Du kan godkjenne"
                         body={
@@ -125,7 +136,18 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     />
                 );
             } else if (avtale.godkjentAvDeltaker) {
-                return (
+                return avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor ? (
+                    <StatusPanel
+                        header="Venter på godkjenning av avtalen fra arbeidsgiver og signering av taushetserklæring fra mentor"
+                        body={
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av arbeidsgiver. Arbeidsgiver fikk en automatisk varsling på Min
+                                side Arbeidsgiver når avtalen ble opprettet. Mentor må signere taushetserklæringen før
+                                du kan godkjenne avtalen.
+                            </BodyShort>
+                        }
+                    />
+                ) : (
                     <StatusPanel
                         header="Venter på godkjenning av avtalen fra arbeidsgiver"
                         body={
@@ -137,7 +159,18 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     />
                 );
             } else if (avtale.godkjentAvArbeidsgiver) {
-                return (
+                return avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor ? (
+                    <StatusPanel
+                        header="Venter på godkjenning av avtalen fra deltaker og signering av taushetserklæring fra mentor"
+                        body={
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av deltaker Deltaker fikk en varsling på min side Personbruker om
+                                å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden. Mentor må signere
+                                taushetserklæringen før du kan godkjenne avtalen.{' '}
+                            </BodyShort>
+                        }
+                    />
+                ) : (
                     <StatusPanel
                         header="Venter på godkjenning av avtalen fra deltaker"
                         body={
@@ -149,7 +182,18 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     />
                 );
             } else {
-                return (
+                return avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor ? (
+                    <StatusPanel
+                        header="Venter på godkjenning av avtalen fra de andre partene"
+                        body={
+                            <BodyShort size="small">
+                                Avtalen må godkjennes av arbeidsgiver og deltaker. Arbeidsgiver fikk en automatisk
+                                varsling på Min side Arbeidsgiver når avtalen ble opprettet. Deltaker vil få en varsling
+                                etter at arbeidsgiver har godkjent avtalen. Mentor må signere taushetserklæringen.
+                            </BodyShort>
+                        }
+                    />
+                ) : (
                     <StatusPanel
                         header="Venter på godkjenning av avtalen fra de andre partene"
                         body={
