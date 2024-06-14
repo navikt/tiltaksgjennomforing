@@ -117,11 +117,10 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             } else if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver) {
                 return avtale.tiltakstype === 'MENTOR' ? (
                     <StatusPanel
-                        header="Venter på signering av avtalen fra mentor"
+                        header="Venter på signering av mentor"
                         body={
                             <BodyShort size="small">
-                                Mentor må signere taushetserklæringen før du kan godkjenne avtalen side Arbeidsgiver når
-                                avtalen ble opprettet.
+                                Mentor må signere taushetserklæringen før du kan godkjenne avtalen.
                             </BodyShort>
                         }
                     />
@@ -138,7 +137,7 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             } else if (avtale.godkjentAvDeltaker) {
                 return avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor ? (
                     <StatusPanel
-                        header="Venter på godkjenning av avtalen fra arbeidsgiver og signering av taushetserklæring fra mentor"
+                        header="Venter på godkjenning av avtalen fra arbeidsgiver og signering av mentor"
                         body={
                             <BodyShort size="small">
                                 Avtalen må godkjennes av arbeidsgiver. Arbeidsgiver fikk en automatisk varsling på Min
@@ -161,7 +160,7 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             } else if (avtale.godkjentAvArbeidsgiver) {
                 return avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor ? (
                     <StatusPanel
-                        header="Venter på godkjenning av avtalen fra deltaker og signering av taushetserklæring fra mentor"
+                        header="Venter på godkjenning av avtalen fra deltaker og signering av mentor"
                         body={
                             <BodyShort size="small">
                                 Avtalen må godkjennes av deltaker Deltaker fikk en varsling på min side Personbruker om
