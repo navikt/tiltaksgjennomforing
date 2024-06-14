@@ -8,6 +8,7 @@ import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visn
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { AvtaleContext } from '@/AvtaleProvider';
+import moment from 'moment';
 import {
     antallAktiveTilskuddsperioder,
     getIndexVisningForTilskuddsperiode,
@@ -29,7 +30,13 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                 <Label>Tilskudd for perioder</Label>
                 {innloggetBruker.erNavAnsatt && <Label>Status</Label>}
                 <Label>Inntil</Label>
+                <Label>
+                    Ubetalt
+                    <br />
+                    refusjon
+                </Label>
             </div>
+
             {avtale.tilskuddPeriode
                 .filter((p: TilskuddsPeriode) => p.aktiv)
                 .map((periode: TilskuddsPeriode, index: number) => {
@@ -55,6 +62,9 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                             )}
                             <BodyShort size="small" style={{ minWidth: '4rem' }}>
                                 {formatterPenger(periode.beløp)}
+                            </BodyShort>
+                            <BodyShort size="small" style={{ minWidth: '4rem' }}>
+                                {formatterDato(periode.sluttDato, 'MMM YYYY')}
                             </BodyShort>
                         </div>
                     );
