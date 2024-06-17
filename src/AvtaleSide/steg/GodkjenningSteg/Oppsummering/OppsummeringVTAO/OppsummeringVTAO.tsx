@@ -8,6 +8,9 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import StillingsOppsummering from '../StillingsOppsummering/StillingsOppsummering';
 import RelasjonerOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/RelasjonerOppsummering/RelasjonerOppsummering';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Label } from '@navikt/ds-react';
+import SjekkOmVerdiEksisterer from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
+import { stillingstype } from '@/messages';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -20,6 +23,12 @@ const OppsummeringVTAO: FunctionComponent<Props> = (props) => (
         <RelasjonerOppsummering {...props.avtaleinnhold} />
         <VerticalSpacer rem={2.5} />
         <StillingsOppsummering {...props.avtaleinnhold} />
+        <Label>Stillingstype</Label>
+        <SjekkOmVerdiEksisterer
+            verdi={props.avtaleinnhold.stillingstype}
+            formatertVerdi={stillingstype[props.avtaleinnhold.stillingstype!]}
+        />
+        <VerticalSpacer rem={2.5} />
         <VarighetOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
