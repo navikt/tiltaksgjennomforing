@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { storForbokstav } from '@/utils/stringUtils';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -39,6 +40,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
+    const contex = useContext(FeatureToggleContext);
+    const variant = contex[Feature.VtaoTiltakToggle];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -142,7 +145,10 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <div>
                         <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
                             {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
-                                console.log(tiltakType);
+                                // Ikke vis VTAO dersom feature toggle er avslått
+                                if (tiltakType === 'VTAO' && !variant) {
+                                    return null;
+                                }
                                 return (
                                     <RadioPanel
                                         key={index}
