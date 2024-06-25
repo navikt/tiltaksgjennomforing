@@ -115,7 +115,7 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             if (avtale.godkjentAvVeileder) {
                 return <StatusPanel header="Venter på godkjenning av tilskuddsperioder fra beslutter" />;
             } else if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver) {
-                return avtale.tiltakstype === 'MENTOR' ? (
+                return avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor ? (
                     <StatusPanel
                         header="Venter på signering av mentor"
                         body={
