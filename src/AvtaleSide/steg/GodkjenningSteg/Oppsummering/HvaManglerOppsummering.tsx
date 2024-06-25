@@ -8,10 +8,14 @@ type Props = {
     avhengigFelter: Partial<Avtaleinnhold>;
 };
 
+const isNil = (x: any) => x === null || x === undefined;
+const erTomTekst = (x: any) => typeof x === 'string' && x.trim() === '';
+
 const HvaManglerOppsummering: FunctionComponent<PropsWithChildren<Props>> = (props) => {
-    const tommeFelter = Object.keys(props.avhengigFelter).filter(
-        (key) => !props.avhengigFelter[key as keyof Avtaleinnhold],
-    );
+    const tommeFelter = Object.keys(props.avhengigFelter).filter((key) => {
+        const feltverdi = props.avhengigFelter[key as keyof Avtaleinnhold];
+        return isNil(feltverdi) || erTomTekst(feltverdi);
+    });
 
     const manglerTekst =
         tommeFelter
@@ -20,7 +24,13 @@ const HvaManglerOppsummering: FunctionComponent<PropsWithChildren<Props>> = (pro
             })
             .join(', ') + ' er ikke fylt ut';
 
-    return tommeFelter.length ? <Tag variant="warning">{storForbokstav(manglerTekst)}</Tag> : <>{props.children}</>;
+    return tommeFelter.length ? (
+        <div>
+            <Tag variant="warning">{storForbokstav(manglerTekst)}</Tag>
+        </div>
+    ) : (
+        <>{props.children}</>
+    );
 };
 
 export default HvaManglerOppsummering;

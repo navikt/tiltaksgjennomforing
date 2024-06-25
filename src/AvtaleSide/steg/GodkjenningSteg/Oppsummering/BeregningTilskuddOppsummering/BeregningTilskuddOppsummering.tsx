@@ -18,9 +18,8 @@ const BeregningTilskuddOppsummering: FunctionComponent<Beregningsgrunnlag & Kont
             <Label>Utregning</Label>
             <HvaManglerOppsummering
                 avhengigFelter={{
-                    // I dette tilfellet skal 0 være en gyldig verdi på arbeidsgiveravgift og otp-sats.
-                    arbeidsgiveravgift: props.arbeidsgiveravgift === 0 ? 1 : props.arbeidsgiveravgift,
-                    otpSats: props.otpSats === 0 ? 1 : props.otpSats,
+                    arbeidsgiveravgift: props.arbeidsgiveravgift,
+                    otpSats: props.otpSats,
                     feriepengesats: props.feriepengesats,
                     lonnstilskuddProsent: props.lonnstilskuddProsent,
                     manedslonn: props.manedslonn,
