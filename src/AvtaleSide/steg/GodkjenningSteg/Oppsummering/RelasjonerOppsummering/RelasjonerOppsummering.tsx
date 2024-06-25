@@ -15,7 +15,7 @@ const RelasjonerOppsummering: FunctionComponent<RelasjonerInfo> = (props) => {
             </BodyShort>
             <HvaManglerOppsummering
                 avhengigFelter={{
-                    harFamilietilknytning: props.harFamilietilknytning !== null,
+                    harFamilietilknytning: props.harFamilietilknytning,
                     familietilknytningForklaring: props.harFamilietilknytning
                         ? props.familietilknytningForklaring
                         : 'true',
