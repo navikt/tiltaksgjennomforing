@@ -21,7 +21,7 @@
         "up": "docker-compose up -d --remove-orphans --build"
     },
     "dependencies": {
-        "@navikt/arbeidsgiver-notifikasjon-widget": "^6.4.2",
+        "@navikt/arbeidsgiver-notifikasjon-widget": "^6.5.9",
         "@navikt/bedriftsmeny": "^6.13.0",
         "@navikt/ds-css": "^6.3.6",
         "@navikt/ds-icons": "^3.4.3",
