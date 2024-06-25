@@ -23,7 +23,6 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
     const { avtale } = useContext(AvtaleContext);
     const { startIndexVisning, sluttIndexVisning } = getIndexVisningForTilskuddsperiode(avtale, visAllePerioder);
     const cls = BEMHelper(className);
-    console.log('avtale', avtale);
     return (
         <div className={cls.element('tabell')}>
             <div className={cls.element('tabell-ingress')}>
