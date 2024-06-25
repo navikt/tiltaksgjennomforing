@@ -20,7 +20,7 @@ export type EndreBeregning = Pick<
 >;
 
 const ARBEIDSGIVER_AVGIFT_SATSER: ArbeidsAvgiftSats[] = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
-const FERIE_SATSER: FerieSatser[] = [0.12, 0.143, 0.102, 0.125];
+const FERIE_SATSER: FerieSatser[] = [0, 0.12, 0.143, 0.102, 0.125];
 
 function getAvgiftsatserForRadioValg(satser: number[]): Array<{ label: string; value: string }> {
     return satser.map((sats: number) => ({
