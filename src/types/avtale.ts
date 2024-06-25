@@ -274,7 +274,7 @@ export interface TilskuddsPerioder {
 export type Avslagsårsaker = 'FEIL_I_FAKTA' | 'FEIL_I_REGELFORSTÅELSE' | 'ANNET' | 'FEIL_I_PROSENTSATS';
 
 export type ArbeidsAvgiftSats = 0.141 | 0.106 | 0.064 | 0.051 | 0.079 | 0;
-export type FerieSatser = 0.12 | 0.143 | 0.102 | 0.125;
+export type FerieSatser = 0 | 0.12 | 0.143 | 0.102 | 0.125;
 
 export interface TilskuddsPeriode {
     beløp: number;

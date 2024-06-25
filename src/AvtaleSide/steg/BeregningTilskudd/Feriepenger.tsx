@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { BodyShort, Label } from '@navikt/ds-react';
-import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
+import SelectInput from '@/komponenter/form/SelectInput';
+import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 
 interface Props {
     cls: BEMWrapper;
@@ -11,24 +11,27 @@ interface Props {
 const Feriepenger: React.FC<Props> = ({ cls }: Props) => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
-    const feriepengeAlternativer = [0.102, 0.12, 0.125, 0.143].map((sats: number) => ({
-        label: (sats * 100).toFixed(1) + ' %',
-        value: sats.toString(),
-    }));
+    const feriepengeAlternativer = [{ label: 'Velg', value: '' }].concat(
+        [0, 0.102, 0.12, 0.125, 0.143].map((sats: number) => ({
+            label: (sats * 100).toFixed(1) + ' %',
+            value: sats.toString(),
+        })),
+    );
 
     return (
         <Row className={cls.element('rad')}>
-            <Column md="12" className={cls.element('feriepenger')}>
-                <Label size="small">Feriepenger</Label>
-                <BodyShort size="small">Velg sats for feriepenger som arbeidstaker skal ha</BodyShort>
-                <RadioPanelGruppeHorisontal
-                    radios={feriepengeAlternativer}
+            <Column md="8" className={cls.element('feriepenger')}>
+                <SelectInput
+                    label="Sats for feriepenger"
                     name="feriepengesats"
-                    checked={avtale.gjeldendeInnhold.feriepengesats + ''}
-                    legend=""
-                    onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) => {
-                        settOgKalkulerBeregningsverdier({ feriepengesats: parseFloat(verdi) });
+                    size="medium"
+                    options={feriepengeAlternativer}
+                    value={avtale.gjeldendeInnhold.feriepengesats + ''}
+                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                        console.log('event.target.value', event.target.value);
+                        settOgKalkulerBeregningsverdier({ feriepengesats: parseFloatIfFloatable(event.target.value) });
                     }}
+                    children=""
                 />
             </Column>
         </Row>
