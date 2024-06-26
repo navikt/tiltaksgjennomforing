@@ -1,10 +1,11 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
+import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { TextFieldProps } from '@navikt/ds-react';
 import React, { PropsWithChildren } from 'react';
 
 export const formaterValuta = (value: any): string => {
-    const numericValue = parseFloat(value);
-    if (!numericValue) {
+    const numericValue = parseFloatIfFloatable(value);
+    if (numericValue === undefined) {
         return '';
     }
     const formatter = new Intl.NumberFormat('no', {

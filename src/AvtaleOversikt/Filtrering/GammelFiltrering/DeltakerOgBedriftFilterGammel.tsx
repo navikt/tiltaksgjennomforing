@@ -4,7 +4,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, RadioGroup, Select } from '@navikt/ds-react';
-import isNil from 'lodash.isnil';
+import { erNil } from '@/utils/predicates';
 import { FormEvent, Fragment, FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 import { useFilterGammel } from './useFilterGammel';
 
@@ -26,19 +26,19 @@ export const DeltakerOgBedriftFilterGammel: FunctionComponent = () => {
         if (!filtre.veilederNavIdent && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
         }
-        if (!isNil(filtre.erUfordelt)) {
+        if (!erNil(filtre.erUfordelt)) {
             return 'ufordelte';
         }
-        if (!isNil(filtre.deltakerFnr)) {
+        if (!erNil(filtre.deltakerFnr)) {
             return 'deltaker';
         }
-        if (!isNil(filtre.navEnhet)) {
+        if (!erNil(filtre.navEnhet)) {
             return 'avtaleVedEnhet';
         }
-        if (!isNil(filtre.bedriftNr)) {
+        if (!erNil(filtre.bedriftNr)) {
             return 'bedrift';
         }
-        if (!isNil(filtre.avtaleNr)) {
+        if (!erNil(filtre.avtaleNr)) {
             return 'avtaleNr';
         }
         return innloggetBruker.rolle === 'BESLUTTER' ? 'alle' : 'egne';
