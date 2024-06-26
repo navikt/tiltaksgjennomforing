@@ -1,5 +1,6 @@
 import { toNumberOnFocus } from '@/komponenter/form/utils/form-utils';
 import useValidering from '@/komponenter/useValidering';
+import { erNil } from '@/utils/predicates';
 import { TextField, TextFieldProps } from '@navikt/ds-react';
 import React, { PropsWithChildren } from 'react';
 
@@ -72,7 +73,7 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
             ref={inputRef}
             error={feil}
             onBlur={onBlur}
-            value={tallVerdi || ''}
+            value={erNil(tallVerdi) ? '' : tallVerdi}
             maxLength={maxLength}
             max={max}
             onChange={onChangeOverride}
