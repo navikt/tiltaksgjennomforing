@@ -10,7 +10,7 @@ export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
     const { endreFilter, filtre } = useFilter();
     const contex = useContext(FeatureToggleContext);
-    const variant = contex[Feature.VtaoTiltakToggle];
+    const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
 
     const alleTiltakstyperBeslutter: OptionProps[] = [
         { value: '', label: 'Alle' },
@@ -27,7 +27,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
         { value: 'MENTOR', label: 'Mentor' },
         { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
-        variant ? { value: 'VTAO', label: 'VTA-oppfølging' } : null,
+        vtaoAktivert ? { value: 'VTAO', label: 'VTA-oppfølging' } : null,
     ].filter((x) => x !== null) as OptionProps[];
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;

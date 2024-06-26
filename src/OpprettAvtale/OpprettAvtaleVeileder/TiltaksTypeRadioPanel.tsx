@@ -40,7 +40,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     const cls = BEMHelper(className);
 
     const contex = useContext(FeatureToggleContext);
-    const variant = contex[Feature.VtaoTiltakToggle];
+    const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
 
     const tiltakvalg: Tiltaksvalg[] = [
         'ARBEIDSTRENING',
@@ -52,7 +52,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
         'VTAO',
     ].filter((tiltak) => {
         if (tiltak === 'VTAO') {
-            return variant;
+            return vtaoAktivert;
         }
         return true;
     }) as Tiltaksvalg[];

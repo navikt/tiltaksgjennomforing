@@ -41,7 +41,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
     const contex = useContext(FeatureToggleContext);
-    const variant = contex[Feature.VtaoTiltakToggle];
+    const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -146,7 +146,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
                             {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
                                 // Ikke vis VTAO dersom feature toggle er avslått
-                                if (tiltakType === 'VTAO' && !variant) {
+                                if (tiltakType === 'VTAO' && !vtaoAktivert) {
                                     return null;
                                 }
                                 return (
