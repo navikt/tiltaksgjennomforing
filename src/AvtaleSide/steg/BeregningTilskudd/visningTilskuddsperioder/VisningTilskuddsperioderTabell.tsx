@@ -26,7 +26,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
     return (
         <div className={cls.element('tabell')}>
             <div className={cls.element('tabell-ingress')}>
-                <Label>Tilskudd for periode</Label>
+                <Label>Tilskudd for perioder</Label>
                 {innloggetBruker.erNavAnsatt && <Label>Status</Label>}
                 <Label>Tilskuddsprosent</Label>
                 <Label>Inntil</Label>
@@ -83,6 +83,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                 antallAktiveTilskuddsperioder={antallAktiveTilskuddsperioder(avtale)}
                 setVisAllePerioder={setVisAllePerioder}
                 visAllePerioder={visAllePerioder}
+                tiltakstype={avtale.tiltakstype}
             />
         </div>
     );

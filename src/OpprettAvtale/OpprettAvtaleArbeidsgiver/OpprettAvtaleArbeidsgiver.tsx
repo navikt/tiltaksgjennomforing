@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { storForbokstav } from '@/utils/stringUtils';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -39,6 +40,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
+    const contex = useContext(FeatureToggleContext);
+    const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -141,20 +144,26 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <div>
                         <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
-                            {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => (
-                                <RadioPanel
-                                    key={index}
-                                    name="tiltakstype"
-                                    value={tiltakType}
-                                    checked={valgtTiltaksType === tiltakType}
-                                    onChange={() => {
-                                        setTiltaksType(tiltakType);
-                                        setUyldigAvtaletype(false);
-                                    }}
-                                >
-                                    {storForbokstav(tiltakstypeTekst[tiltakType])}
-                                </RadioPanel>
-                            ))}
+                            {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
+                                // Ikke vis VTAO dersom feature toggle er avslått
+                                if (tiltakType === 'VTAO' && !vtaoAktivert) {
+                                    return null;
+                                }
+                                return (
+                                    <RadioPanel
+                                        key={index}
+                                        name="tiltakstype"
+                                        value={tiltakType}
+                                        checked={valgtTiltaksType === tiltakType}
+                                        onChange={() => {
+                                            setTiltaksType(tiltakType);
+                                            setUyldigAvtaletype(false);
+                                        }}
+                                    >
+                                        {storForbokstav(tiltakstypeTekst[tiltakType])}
+                                    </RadioPanel>
+                                );
+                            })}
                         </RadioGroup>
                     </div>
                     {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}

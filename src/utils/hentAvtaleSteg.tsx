@@ -1,10 +1,12 @@
 import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 import BeregningTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningTilskuddSteg';
+import BeregningVTAOTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningVTAOTilskuddSteg';
 import GodkjenningSteg from '@/AvtaleSide/steg/GodkjenningSteg/GodkjenningSteg';
 import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
+import OppsummeringVTAO from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringVTAO/OppsummeringVTAO';
 import InkluderingstilskuddSteg from '@/AvtaleSide/steg/InkluderingstilskuddSteg/InkluderingstilskuddSteg';
 import KontaktinfoSteg from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktinfoSteg';
 import MaalSteg from '@/AvtaleSide/steg/MaalSteg/MaalSteg';
@@ -144,7 +146,27 @@ const vtaoSteg: StegInfo[] = [
         id: 'kontaktinformasjon',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringInkluderingstilskudd} />,
+        komponent: <VarighetSteg />,
+        label: 'Varighet',
+        id: 'varighet',
+    },
+    {
+        komponent: <StillingSteg />,
+        label: 'Stilling',
+        id: 'stilling',
+    },
+    {
+        komponent: <OppfolgingTilretteleggingSteg />,
+        label: 'Oppfølging og tilrettelegging',
+        id: 'oppfolging',
+    },
+    {
+        komponent: <BeregningVTAOTilskuddSteg />,
+        label: 'Beregning av tilskudd',
+        id: 'beregningtilskudd',
+    },
+    {
+        komponent: <GodkjenningSteg oppsummering={OppsummeringVTAO} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },

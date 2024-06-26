@@ -41,7 +41,8 @@ const StillingSteg: FunctionComponent = () => {
                     feilmelding="Beskrivelse av arbeidsoppgavene er påkrevd"
                 />
                 {(avtaleContext.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                    avtaleContext.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') && (
+                    avtaleContext.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+                    avtaleContext.avtale.tiltakstype == 'VTAO') && (
                     <>
                         <BodyShort size="small">Er stillingen fast eller midlertidig</BodyShort>
                         <div>

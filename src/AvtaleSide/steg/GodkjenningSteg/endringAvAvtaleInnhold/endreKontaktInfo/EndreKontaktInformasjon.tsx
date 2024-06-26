@@ -3,16 +3,19 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { oppdatereKontaktInformasjon } from '@/services/rest-service';
-import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
+import { EndreKontaktInfo, TiltaksType, VTAO } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
 import { Checkbox, Heading, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreKontaktInformasjon.less';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const EndreKontaktInformasjon: FunctionComponent = () => {
     const cls = BEMHelper('endreKontaktInformasjon');
-    const context = useContext(AvtaleContext);
+    const { avtale, hentAvtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
+    const vtao = avtale.gjeldendeInnhold.vtao;
+
     const {
         deltakerFornavn,
         deltakerEtternavn,
@@ -24,10 +27,10 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         arbeidsgiverEtternavn,
         arbeidsgiverTlf,
         refusjonKontaktperson,
-    } = context.avtale.gjeldendeInnhold;
+    } = avtale.gjeldendeInnhold;
     const [modalApen, setModalApen] = useState(false);
 
-    const type: TiltaksType = context.avtale.tiltakstype;
+    const type: TiltaksType = avtale.tiltakstype;
     const endreRefusjonInfo: boolean =
         type === 'MIDLERTIDIG_LONNSTILSKUDD' || type === 'VARIG_LONNSTILSKUDD' || type === 'SOMMERJOBB';
 
@@ -41,6 +44,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         arbeidsgiverFornavn: arbeidsgiverFornavn,
         arbeidsgiverEtternavn: arbeidsgiverEtternavn,
         arbeidsgiverTlf: arbeidsgiverTlf,
+        vtao: vtao,
         refusjonKontaktperson: {
             refusjonKontaktpersonFornavn: refusjonKontaktperson?.refusjonKontaktpersonFornavn,
             refusjonKontaktpersonEtternavn: refusjonKontaktperson?.refusjonKontaktpersonEtternavn,
@@ -50,9 +54,9 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
     });
 
     const endreKontaktInformasjon = async (): Promise<void> => {
-        await oppdatereKontaktInformasjon(context.avtale, kontaktInfo);
+        await oppdatereKontaktInformasjon(avtale, kontaktInfo);
         setModalApen(false);
-        await context.hentAvtale(context.avtale.id);
+        await hentAvtale(avtale.id);
     };
 
     const settNyKontaktInformasjon = async <K extends keyof EndreKontaktInfo, V extends EndreKontaktInfo>(
@@ -169,7 +173,40 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
                     />
                 </div>
-
+                {avtale.tiltakstype === 'VTAO' && (
+                    <>
+                        <Heading level="3" size="small" className={cls.element('tittel')}>
+                            Informasjon om fadder
+                        </Heading>
+                        <div className={cls.element('rad')}>
+                            <PakrevdInput
+                                label="Fornavn"
+                                verdi={kontaktInfo.vtao?.fadderFornavn}
+                                settVerdi={(verdi) =>
+                                    settNyKontaktInformasjon('vtao', { ...vtao, fadderFornavn: verdi })
+                                }
+                            />
+                            <PakrevdInput
+                                label="Etternavn"
+                                verdi={kontaktInfo.vtao?.fadderEtternavn}
+                                settVerdi={(verdi) =>
+                                    settNyKontaktInformasjon('vtao', {
+                                        ...vtao,
+                                        fadderEtternavn: verdi,
+                                    })
+                                }
+                            />
+                        </div>
+                        <VerticalSpacer rem={1} />
+                        <div className={cls.element('rad')}>
+                            <TelefonnummerInput
+                                label="Mobilnummer"
+                                verdi={kontaktInfo.vtao?.fadderTlf}
+                                settVerdi={(verdi) => settNyKontaktInformasjon('vtao', { ...vtao, fadderTlf: verdi })}
+                            />
+                        </div>
+                    </>
+                )}
                 {endreRefusjonInfo && (
                     <div className={cls.element('avsnitt')}>
                         <Heading size="small" className={cls.element('tittel')}>

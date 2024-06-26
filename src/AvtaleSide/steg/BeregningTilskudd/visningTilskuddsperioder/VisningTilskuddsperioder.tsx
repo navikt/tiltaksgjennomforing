@@ -6,6 +6,7 @@ import './visningTilskuddsperioder.less';
 import MeldingArbeidsgiverSokRefusjon from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/MeldingArbeidsgiverSokRefusjon';
 import VisningTilskuddsperioderTabell from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabell';
 import InfoRundtRedusertProsentsats from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtRedusertProsentsats';
+import VisningTilskuddsperioderTabellVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabellVtao';
 
 const VisningTilskuddsperioder: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -31,7 +32,12 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                                 </BodyShort>
                                 <InfoRundtRedusertProsentsats className={cls.className} />
                             </div>
-                            <VisningTilskuddsperioderTabell className={cls.className} />
+                            {avtale.tiltakstype == 'VTAO' ? (
+                                <VisningTilskuddsperioderTabellVtao className={cls.className} />
+                            ) : (
+                                <VisningTilskuddsperioderTabell className={cls.className} />
+                            )}
+
                             <MeldingArbeidsgiverSokRefusjon
                                 className={cls.className}
                                 sluttdato={avtale.tilskuddPeriode[0].sluttDato}
