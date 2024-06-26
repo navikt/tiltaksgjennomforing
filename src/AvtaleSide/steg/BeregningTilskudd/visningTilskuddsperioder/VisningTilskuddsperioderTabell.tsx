@@ -83,6 +83,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                 antallAktiveTilskuddsperioder={antallAktiveTilskuddsperioder(avtale)}
                 setVisAllePerioder={setVisAllePerioder}
                 visAllePerioder={visAllePerioder}
+                tiltakstype={avtale.tiltakstype}
             />
         </div>
     );
