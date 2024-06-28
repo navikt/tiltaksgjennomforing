@@ -16,11 +16,11 @@ const KvalifiseringsgruppeSats: FunctionComponent<Props> = ({ cls }: Props) => {
     const settTekstTilLonntilskuddProsent = () => {
         switch (avtale.tiltakstype) {
             case 'VARIG_LONNSTILSKUDD':
-                return <p>Her kan NAV sette en sats.</p>;
+                return <>Her kan NAV sette en sats.</>;
             case 'MIDLERTIDIG_LONNSTILSKUDD':
-                return <p>Her kan NAV sette en sats på 40% eller 60%</p>;
+                return <>Her kan NAV sette en sats på 40% eller 60%</>;
             case 'SOMMERJOBB':
-                return <p>Her kan NAV sette en sats på 50% eller 75%</p>;
+                return <>Her kan NAV sette en sats på 50% eller 75%</>;
             default:
                 return null;
         }
