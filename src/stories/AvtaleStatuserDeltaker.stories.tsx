@@ -75,6 +75,8 @@ const manglerGodkjenningDeltakerHarGodkjent = {
     statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '2024-05-03T12:26:24.40876',
+    godkjentAvArbeidsgiver: '',
+    godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
@@ -85,9 +87,21 @@ const manglerGodkjenningDeltakerHarGodkjent = {
     },
 };
 
-export const ManglerGodkjenningDeltakerHarGodkjent: Story = {
-    name: 'Mangler Godkjenning Deltaker har godkjent men manger godkjenning av Arbeidsgiver og Veileder',
-    args: { avtale: manglerGodkjenningDeltakerHarGodkjent },
+export const ManglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiver: Story = {
+    name: 'Mangler Godkjenning: Deltaker har godkjent men manger godkjenning av Arbeidsgiver',
+    args: { avtale: { ...manglerGodkjenningDeltakerHarGodkjent, godkjentAvVeileder: '2021-08-01' } },
+};
+
+export const ManglerGodkjenningDeltakerHarGodkjentMenIkkeVeileder: Story = {
+    name: 'Mangler Godkjenning: Deltaker har godkjent men manger godkjenning av Veileder',
+    args: { avtale: { ...manglerGodkjenningDeltakerHarGodkjent, godkjentAvArbeidsgiver: '2021-08-01' } },
+};
+
+export const ManglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgVeileder: Story = {
+    name: 'Mangler Godkjenning: Deltaker har godkjent men manger godkjenning av Arbeidsgiver og Veileder',
+    args: {
+        avtale: manglerGodkjenningDeltakerHarGodkjent,
+    },
 };
 
 const manglerGodkjenningDeltakerHarIkkeGodkjent = {
