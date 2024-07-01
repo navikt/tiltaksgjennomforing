@@ -69,29 +69,20 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     }
                 />
             ) : (
-                <>
-                    {avtale.godkjentAvDeltaker ? (
-                        <StatusPanel
-                            header="Venter på godkjenning av avtalen fra NAV"
-                            body={
-                                <>
-                                    <BodyShort size="small">Du har godkjent.</BodyShort>
-                                    <VerticalSpacer rem={2} />
-                                </>
-                            }
-                        />
-                    ) : (
-                        <StatusPanel
-                            header="Venter på godkjenning av avtalen fra deltaker og NAV"
-                            body={
-                                <>
-                                    <BodyShort size="small">Du har godkjent.</BodyShort>
-                                    <VerticalSpacer rem={2} />
-                                </>
-                            }
-                        />
-                    )}
-                </>
+                <StatusPanel
+                    header={
+                        'Venter på godkjenning av avtalen fra ' +
+                        [!avtale.godkjentAvDeltaker && 'deltaker', !avtale.godkjentAvVeileder && 'NAV']
+                            .filter((x) => x)
+                            .join(' og ')
+                    }
+                    body={
+                        <>
+                            <BodyShort size="small">Du har godkjent.</BodyShort>
+                            <VerticalSpacer rem={2} />
+                        </>
+                    }
+                />
             );
         }
         case 'KLAR_FOR_OPPSTART':
