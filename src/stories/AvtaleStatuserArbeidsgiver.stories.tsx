@@ -135,30 +135,29 @@ const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV = {
     },
 };
 
-export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV: Story = {
-    name: 'Mangler Godkjenning Arbeidisgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
-    args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV },
-};
-
-const manglerGodkjenningFraVeilederArbeidsgiverOgDeltakerHarGodkjent = {
-    erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
-    annullertTidspunkt: '',
-    godkjentAvArbeidsgiver: '2024-05-03T12:26:24.40876',
-    godkjentAvDeltaker: '2021-08-01',
-    godkjentAvVeileder: '2021-08-01',
-    avtaleInngått: '',
-    annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
-    gjeldendeInnhold: {
-        startDato: '2024-05-01',
-        sluttDato: '2025-04-30',
+export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltaker: Story = {
+    name: 'Mangler Godkjenning Arbeidsgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    args: {
+        avtale: {
+            ...manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV,
+            godkjentAvVeileder: '2024-05-03T12:26:24.40876',
+        },
     },
 };
 
-export const ManglerGodkjenningFraVeilederArbeidsgiverOgDeltakerHarGodkjent: Story = {
-    name: 'Mangler Godkjenning Arbeidisgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
-    args: { avtale: manglerGodkjenningFraVeilederArbeidsgiverOgDeltakerHarGodkjent },
+export const ManglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeVeileder: Story = {
+    name: 'Mangler Godkjenning Arbeidsgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    args: {
+        avtale: {
+            ...manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV,
+            godkjentAvDeltaker: '2024-05-03T12:26:24.40876',
+        },
+    },
+};
+
+export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgVeileder: Story = {
+    name: 'Mangler Godkjenning Arbeidsgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV },
 };
 
 const klarForOppstart = {
