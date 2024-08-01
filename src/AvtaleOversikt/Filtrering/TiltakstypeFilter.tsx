@@ -17,7 +17,8 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
-    ];
+        vtaoAktivert ? { value: 'VTAO', label: 'VTA-oppfølging' } : null,
+    ].filter((x) => x !== null) as OptionProps[];
 
     const alleTiltakstyper: OptionProps[] = [
         { value: '', label: 'Alle' },

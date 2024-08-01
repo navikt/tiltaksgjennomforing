@@ -4,6 +4,7 @@ import BEMHelper from '@/utils/bem';
 import { FunctionComponent } from 'react';
 import { DeltakerOgBedriftFilterGammel } from './GammelFiltrering/DeltakerOgBedriftFilterGammel';
 import TiltakstypeFilterGammel from './GammelFiltrering/TiltakstypeFilterGamel';
+import TiltakstypeFilter from '@/AvtaleOversikt/Filtrering/TiltakstypeFilter';
 
 const cls = BEMHelper('filtrering');
 const BeslutterFiltrering: FunctionComponent = () => {
@@ -12,7 +13,7 @@ const BeslutterFiltrering: FunctionComponent = () => {
             <EtterRegistrering />
             <DeltakerOgBedriftFilterGammel />
             <TilskuddPeriodeStatusFilter />
-            <TiltakstypeFilterGammel erBeslutter={true} />
+            <TiltakstypeFilter erBeslutter={true} />
         </div>
     );
 };
