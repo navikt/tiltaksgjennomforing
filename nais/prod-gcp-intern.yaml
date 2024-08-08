@@ -5,7 +5,7 @@
 "logout-url": "/oauth2/logout"
 "stillingstitler-url": "http://tiltak-stillingstitler"
 "tiltak-proxy-api-scope": "api://prod-fss.arbeidsgiver.tiltak-proxy/.default"
-"modiacontextholder-api-scope": "api://prod-fss.personoversikt.modiacontextholder/.default"
+"modiacontextholder-api-scope": "api://prod-gcp.personoversikt.modiacontextholder/.default"
 "proxy-cluster": "prod-fss"
 "aad-redirect-url": "https://tiltaksgjennomforing.intern.nav.no/oauth2/callback"
 "decorator-internal": "https://internarbeidsflatedecorator.intern.nav.no"
