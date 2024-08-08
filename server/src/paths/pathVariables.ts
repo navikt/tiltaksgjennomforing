@@ -49,7 +49,7 @@ export const getInnloggingskilderInternBrukerFlate = (props: EnvProps): PathVari
     ];
 };
 
-const getInnloggingskilderEksternBrukerFlate = (props: EnvProps): PathVariables[] => {
+export const getInnloggingskilderEksternBrukerFlate = (props: EnvProps): PathVariables[] => {
     return [
         {
             tittel: 'Som deltaker',
@@ -67,9 +67,4 @@ const getInnloggingskilderEksternBrukerFlate = (props: EnvProps): PathVariables[
             url: props.LOGIN_URL as string,
         },
     ];
-};
-export default {
-    labsInnloggingskilder,
-    getInnloggingskilderInternBrukerFlate,
-    getInnloggingskilderEksternBrukerFlate,
 };

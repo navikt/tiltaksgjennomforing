@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import jsdom from 'jsdom';
-import { Request, Response } from 'express-serve-static-core';
-import { ParsedQs } from 'qs';
+import { Request, Response } from 'express';
 
 const { JSDOM } = jsdom;
 
@@ -10,11 +9,7 @@ const scriptAddress: string =
 const styleAddress: string =
     'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
 
-async function getModiaDekoratoren(
-    indexpath: string,
-    req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-    res: Response<any, Record<string, any>, number>,
-): Promise<void> {
+export async function getModiaDekoratoren(indexpath: string, _: Request, res: Response) {
     const index: string = await getHTMLDocument(indexpath);
 
     const { document } = new JSDOM(index).window;
@@ -28,7 +23,7 @@ async function getModiaDekoratoren(
     }
 }
 
-async function getHTMLDocument(indexFilepath: string): Promise<string> {
+async function getHTMLDocument(indexFilepath: string) {
     const fsPromises = fs.promises;
 
     const index = await fsPromises
@@ -42,7 +37,7 @@ async function getHTMLDocument(indexFilepath: string): Promise<string> {
     throw new Error('Greide ikke lese index.html fra disc.');
 }
 
-function setInnHTML(document: Document): Document {
+function setInnHTML(document: Document) {
     const style = document.createElement('link');
     style.href = process.env.DECORATOR_INTERNAL_STYLING ?? styleAddress;
     style.rel = 'stylesheet';
@@ -63,5 +58,3 @@ function insertHTML(document: Document, htmlElement: Node): void {
         title.after(htmlElement);
     }
 }
-
-export default { getModiaDekoratoren };

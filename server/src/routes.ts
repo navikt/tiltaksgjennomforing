@@ -1,10 +1,11 @@
-import { getMiljo, Miljo } from './paths/miljo';
-import labsProxy from './proxy/labs-proxy';
-import apiProxy from './proxy/api-proxy';
-import decoratorInternProxy from './proxy/decorator-intern-proxy';
-import notifikasjonProxy from './proxy/notifikasjoner-proxy';
-import decoratorEksternProxy from './proxy/decorator-ekstern-proxy';
 import { Express } from 'express';
+
+import { getMiljo, Miljo } from './paths/miljo';
+import * as labsProxy from './proxy/labs-proxy';
+import * as apiProxy from './proxy/api-proxy';
+import * as decoratorInternProxy from './proxy/decorator-intern-proxy';
+import * as notifikasjonProxy from './proxy/notifikasjoner-proxy';
+import * as decoratorEksternProxy from './proxy/decorator-ekstern-proxy';
 
 export const setupRoutes = async (server: Express) => {
     const miljo: Miljo = getMiljo();

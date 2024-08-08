@@ -1,16 +1,14 @@
-import { Request, Response, Handler } from 'express-serve-static-core';
-import path from 'path';
-import express, { Express } from 'express';
-import helmet from 'helmet';
-import { ParsedQs } from 'qs';
-import { buildCspHeader } from '@navikt/nav-dekoratoren-moduler/ssr';
 import cookieParser from 'cookie-parser';
+import express, { Express, Handler } from 'express';
+import helmet from 'helmet';
+import path from 'path';
+import { buildCspHeader } from '@navikt/nav-dekoratoren-moduler/ssr';
 
-import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
-import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
-import { setupRoutes } from './routes';
-import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
+import * as appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
+import * as appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
+import { initializePath, BASEPATH, STATIC_PATHS } from './paths/setupPath';
 import { getEnv } from './paths/miljo';
+import { setupRoutes } from './routes';
 
 const indexPath = path.resolve(__dirname, '../client', 'index.html');
 
@@ -51,7 +49,7 @@ if (process.env.ENABLE_EXTERNAL_MENU) {
 }
 
 async function startServer(): Promise<void> {
-    setupPath.initializePath(node);
+    initializePath(node);
     setStaticPath();
 
     setupRoutes(node);
@@ -71,31 +69,21 @@ async function startServer(): Promise<void> {
 }
 
 async function startMedNavDekoratoren(): Promise<void> {
-    node.get(
-        ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (req: Request<any, Record<string, any>, number>, res: Response<any, Record<string, any>, number>) =>
-            appMedNavDekoratoren.getNavdekoratoren(indexPath, req, res),
+    node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
+        appMedNavDekoratoren.getNavdekoratoren(indexPath, req, res),
     );
 }
 
 async function startMedModiaDekoratoren(): Promise<void> {
-    node.get(
-        ['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, req, res),
+    node.get(['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
+        appMedModiaDekoratoren.getModiaDekoratoren(indexPath, req, res),
     );
 }
 
 async function startLabs(): Promise<void> {
-    node.get(
-        ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>,
-        ) => {
-            res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
-        },
-    );
+    node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (_, res) => {
+        res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
+    });
 }
 
 function setStaticPath(): void {

@@ -1,8 +1,12 @@
-import { getMiljo, Miljo } from './miljo';
-import pathVariables, { PathVariables } from './pathVariables';
 import { Express } from 'express';
-import { Request, Response } from 'express-serve-static-core';
-import { ParsedQs } from 'qs';
+
+import { getMiljo, Miljo } from './miljo';
+import {
+    PathVariables,
+    labsInnloggingskilder,
+    getInnloggingskilderEksternBrukerFlate,
+    getInnloggingskilderInternBrukerFlate,
+} from './pathVariables';
 
 const miljo: Miljo = getMiljo();
 
@@ -25,74 +29,38 @@ const props: EnvProps = {
 export const BASEPATH: string = '/tiltaksgjennomforing';
 export const STATIC_PATHS: string[] = ['/assets', '/favicon.ico', '/manifest.json'];
 
-function initializePath(app: Express): void {
-    app.get(
-        '/tiltaksgjennomforing/internal/isAlive',
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>,
-        ): Response<any, Record<string, any>, number> => res.sendStatus(200),
-    );
+export function initializePath(app: Express): void {
+    app.get('/tiltaksgjennomforing/internal/isAlive', (_, res) => res.sendStatus(200));
 
-    app.get(
-        '/tiltaksgjennomforing/internal/isReady',
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>,
-        ): Response<any, Record<string, any>, number> => res.sendStatus(200),
-    );
+    app.get('/tiltaksgjennomforing/internal/isReady', (_, res) => res.sendStatus(200));
 
-    app.get(
-        '/tiltaksgjennomforing/innloggingskilder',
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>,
-        ) => {
-            const innloggingskilder: PathVariables[] = [];
+    app.get('/tiltaksgjennomforing/innloggingskilder', (_, res) => {
+        const innloggingskilder: PathVariables[] = [];
 
-            if (miljo === Miljo.LABS) {
-                innloggingskilder.push(...pathVariables.labsInnloggingskilder);
-            } else {
-                if (!process.env.INTERN_INGRESS) {
-                    innloggingskilder.push(...pathVariables.getInnloggingskilderEksternBrukerFlate(props));
-                }
-                if (process.env.INTERN_INGRESS) {
-                    innloggingskilder.push(...pathVariables.getInnloggingskilderInternBrukerFlate(props));
-                }
+        if (miljo === Miljo.LABS) {
+            innloggingskilder.push(...labsInnloggingskilder);
+        } else {
+            if (!process.env.INTERN_INGRESS) {
+                innloggingskilder.push(...getInnloggingskilderEksternBrukerFlate(props));
             }
-            res.json(innloggingskilder);
-        },
-    );
+            if (process.env.INTERN_INGRESS) {
+                innloggingskilder.push(...getInnloggingskilderInternBrukerFlate(props));
+            }
+        }
+        res.json(innloggingskilder);
+    });
 
-    app.get(
-        '/tiltaksgjennomforing/logout',
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>,
-        ): void => {
-            res.redirect(props.LOGOUT_URL as string);
-        },
-    );
+    app.get('/tiltaksgjennomforing/logout', (_, res) => {
+        res.redirect(props.LOGOUT_URL as string);
+    });
 
-    app.get(
-        '/tiltaksgjennomforing/skal-backupmeny-brukes',
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>,
-        ): void => {
-            res.json(process.env.ENABLE_EXTERNAL_MENU !== 'true' && process.env.ENABLE_INTERNAL_MENU !== 'true');
-        },
-    );
+    app.get('/tiltaksgjennomforing/skal-backupmeny-brukes', (_, res) => {
+        res.json(process.env.ENABLE_EXTERNAL_MENU !== 'true' && process.env.ENABLE_INTERNAL_MENU !== 'true');
+    });
 
-    app.get(
-        '/tiltaksgjennomforing/brukavInternflate',
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>,
-        ): void => {
-            res.json(process.env.ENABLE_INTERNAL_MENU === 'true');
-        },
-    );
+    app.get('/tiltaksgjennomforing/brukavInternflate', (_, res) => {
+        res.json(process.env.ENABLE_INTERNAL_MENU === 'true');
+    });
 
     app.get('/tiltaksgjennomforing/chat', (req, res) => {
         res.redirect(
@@ -100,5 +68,3 @@ function initializePath(app: Express): void {
         );
     });
 }
-
-export default { initializePath };
