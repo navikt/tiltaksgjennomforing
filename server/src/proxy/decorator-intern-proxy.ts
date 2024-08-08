@@ -40,7 +40,6 @@ const setup = (app: Express) => {
         async (req, _, next) => {
             const accessToken = await requestOboToken(process.env.MODIACONTEXTHOLDER_API_SCOPE, req);
             req.headers.authorization = `Bearer ${accessToken}`;
-            req.headers.cookie = 'innlogget-part=VEILEDER; ' + req.headers.cookie;
             next();
         },
         createProxyMiddleware({
