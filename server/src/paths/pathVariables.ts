@@ -1,4 +1,4 @@
-import { EnvProps } from './setupPath';
+import { LOGIN_URL } from '../config';
 
 export interface PathVariables {
     tittel: string;
@@ -34,42 +34,33 @@ export const labsInnloggingskilder: PathVariables[] = [
     },
 ];
 
-export const getInnloggingskilderInternBrukerFlate = (props: EnvProps): PathVariables[] => {
-    return [
-        {
-            tittel: 'Som veileder',
-            part: 'VEILEDER',
-            url: props.LOGIN_URL as string,
-        },
-        {
-            tittel: 'Som beslutter',
-            part: 'BESLUTTER',
-            url: props.LOGIN_URL as string,
-        },
-    ];
-};
+export const innloggingskilderInternBrukerFlate: PathVariables[] = [
+    {
+        tittel: 'Som veileder',
+        part: 'VEILEDER',
+        url: LOGIN_URL,
+    },
+    {
+        tittel: 'Som beslutter',
+        part: 'BESLUTTER',
+        url: LOGIN_URL,
+    },
+];
 
-const getInnloggingskilderEksternBrukerFlate = (props: EnvProps): PathVariables[] => {
-    return [
-        {
-            tittel: 'Som deltaker',
-            part: 'DELTAKER',
-            url: props.LOGIN_URL as string,
-        },
-        {
-            tittel: 'Som mentor',
-            part: 'MENTOR',
-            url: props.LOGIN_URL as string,
-        },
-        {
-            tittel: 'Som arbeidsgiver',
-            part: 'ARBEIDSGIVER',
-            url: props.LOGIN_URL as string,
-        },
-    ];
-};
-export default {
-    labsInnloggingskilder,
-    getInnloggingskilderInternBrukerFlate,
-    getInnloggingskilderEksternBrukerFlate,
-};
+export const innloggingskilderEksternBrukerFlate: PathVariables[] = [
+    {
+        tittel: 'Som deltaker',
+        part: 'DELTAKER',
+        url: LOGIN_URL,
+    },
+    {
+        tittel: 'Som mentor',
+        part: 'MENTOR',
+        url: LOGIN_URL,
+    },
+    {
+        tittel: 'Som arbeidsgiver',
+        part: 'ARBEIDSGIVER',
+        url: LOGIN_URL,
+    },
+];

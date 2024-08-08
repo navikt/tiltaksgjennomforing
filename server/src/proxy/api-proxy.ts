@@ -1,56 +1,65 @@
-import { requestOboToken } from '../auth';
 import { Express } from 'express';
-import { Request } from 'express-serve-static-core';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import proxy from 'express-http-proxy';
-import { ParsedQs } from 'qs';
 
-const tokenxSetup = (app: Express): void => {
+import { API_AUDIENCE, TILTAK_PROXY_API_SCOPE, STILLINGSTITLER_URL, APIGW_URL } from '../config';
+import { requestOboToken } from '../auth';
+
+export function tokenxSetup(app: Express) {
     console.log('api-proxy setup for tokenx');
-    setup(app, process.env.API_AUDIENCE!);
-};
+    setup(app, API_AUDIENCE);
+}
 
-const azureSetup = (app: Express): void => {
+export function azureSetup(app: Express) {
     console.log('api-proxy setup for azure');
-    setup(app, process.env.TILTAK_PROXY_API_SCOPE);
-};
+    setup(app, TILTAK_PROXY_API_SCOPE);
+}
 
-const setup = (app: Express, audience: string) => {
-    app.use('/tiltaksgjennomforing/api/internal', (req, res) => {
-        res.status(401).send();
-    });
-
-    app.use('/tiltaksgjennomforing/api', (req, res, next) => {
-        console.log('apiProxy /tiltaksgjennomforing/api');
-        if (!req.headers['authorization']) {
-            res.status(401).send();
-        } else {
-            next();
-        }
-    });
-
+export function setup(app: Express, audience: string) {
     app.use(
         '/tiltaksgjennomforing/stillingstitler',
         createProxyMiddleware({
             changeOrigin: true,
-            target: process.env.STILLINGSTITLER_URL,
+            target: STILLINGSTITLER_URL,
             proxyTimeout: 10000,
+        }),
+    );
+
+    app.use('/tiltaksgjennomforing/api/internal', (_, res) => {
+        res.status(401).send();
+    });
+
+    app.use(
+        '/tiltaksgjennomforing/api/kodeverk',
+        createProxyMiddleware({
+            target: `${APIGW_URL}/tiltaksgjennomforing-api/kodeverk`,
+            ignorePath: true,
+            changeOrigin: true,
         }),
     );
 
     app.use(
         '/tiltaksgjennomforing/api',
-        proxy(process.env.APIGW_URL as string, {
-            proxyReqPathResolver: (req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
-                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
-            },
-            proxyReqOptDecorator: async (options: any, req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
+        (req, res, next) => {
+            console.log('apiProxy /tiltaksgjennomforing/api');
+            if (!req.headers.authorization) {
+                res.sendStatus(401);
+            } else {
+                next();
+            }
+        },
+        async (req, res, next) => {
+            try {
                 const accessToken = await requestOboToken(audience, req);
-                options.headers.Authorization = `Bearer ${accessToken}`;
-                return options;
-            },
+                req.headers.authorization = `Bearer ${accessToken}`;
+                next();
+            } catch (e) {
+                console.error(e);
+                res.sendStatus(500);
+            }
+        },
+        createProxyMiddleware({
+            target: `${APIGW_URL}/tiltaksgjennomforing-api`,
+            changeOrigin: true,
         }),
     );
-};
-
-export default { tokenxSetup, azureSetup };
+}

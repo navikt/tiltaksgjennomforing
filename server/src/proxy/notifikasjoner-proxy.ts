@@ -1,13 +1,12 @@
 import { Express, NextFunction } from 'express';
-import proxy from 'express-http-proxy';
-import { requestOboToken } from '../auth';
-import { Request } from 'express-serve-static-core';
-import { ParsedQs } from 'qs';
-import { RequestOptions } from 'http';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
-const setup = (app: Express): void => {
+import { NOTIFIKASJON_AUDIENCE, NOTIFIKASJON_URL } from '../config';
+import { requestOboToken } from '../auth';
+
+export const setup = (app: Express): void => {
     app.use('/tiltaksgjennomforing/notifikasjon-bruker-api', (req, res, next: NextFunction) => {
-        if (!req.headers['authorization']) {
+        if (!req.headers.authorization) {
             res.status(401).send();
         } else {
             next();
@@ -16,21 +15,20 @@ const setup = (app: Express): void => {
 
     app.use(
         '/tiltaksgjennomforing/notifikasjon-bruker-api',
-        proxy(process.env.NOTIFIKASJON_URL as string, {
-            proxyReqPathResolver: (): string => {
-                return '/api/graphql';
-            },
-            proxyReqOptDecorator: async (
-                options: RequestOptions,
-                req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            ) => {
-                if (options.headers) {
-                    const accessToken = await requestOboToken(process.env.NOTIFIKASJON_AUDIENCE!, req);
-                    options.headers.Authorization = `Bearer ${accessToken}`;
-                }
-                return options;
-            },
+        async (req, res, next) => {
+            try {
+                const accessToken = await requestOboToken(NOTIFIKASJON_AUDIENCE, req);
+                req.headers.authorization = `Bearer ${accessToken}`;
+                next();
+            } catch (e) {
+                console.error(e);
+                res.sendStatus(500);
+            }
+        },
+        createProxyMiddleware({
+            target: `${NOTIFIKASJON_URL}/api/graphql`,
+            changeOrigin: true,
+            ignorePath: true,
         }),
     );
 };
-export default { setup };
