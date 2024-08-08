@@ -12,7 +12,7 @@ const tokenxSetup = (app: Express): void => {
 
 const azureSetup = (app: Express): void => {
     console.log('api-proxy setup for azure');
-    setup(app, process.env.API_SCOPE!);
+    setup(app, process.env.TILTAK_PROXY_API_SCOPE);
 };
 
 const setup = (app: Express, audience: string) => {

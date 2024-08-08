@@ -35,8 +35,10 @@ spec:
       value: '{{{decorator-internal-styling}}}'
     - name: STILLINGSTITLER_URL
       value: http://tiltak-stillingstitler
-    - name: API_SCOPE
-      value: '{{{api-scope}}}'
+    - name: TILTAK_PROXY_API_SCOPE
+      value: '{{{tiltak-proxy-api-scope}}}'
+    - name: MODIACONTEXTHOLDER_API_SCOPE
+      value: '{{{modiacontextholder-api-scope}}}'
     - name: INTERN_INGRESS
       value: 'true'
     - name: AAD_REDIRECT_URL
@@ -60,5 +62,7 @@ spec:
           namespace: arbeidsgiver
         - application: nav-dekoratoren
           namespace: personbruker
+        - application: modiacontextholder
+          namespace: personoversikt
       external:
         - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
