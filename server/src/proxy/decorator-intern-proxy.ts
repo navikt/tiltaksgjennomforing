@@ -10,6 +10,7 @@ export function setup(app: Express) {
             const accessToken = await requestOboToken(process.env.MODIACONTEXTHOLDER_API_SCOPE, req);
             req.headers.authorization = `Bearer ${accessToken}`;
             req.headers.cookie = 'innlogget-part=VEILEDER; ' + req.headers.cookie;
+            console.log('header', req.headers);
             next();
         },
         createProxyMiddleware({
@@ -19,6 +20,7 @@ export function setup(app: Express) {
             on: {
                 proxyRes: responseInterceptor(async (responseBuffer) => {
                     const data = JSON.parse(responseBuffer.toString('utf8'));
+                    console.log('proxyRes', data);
                     return JSON.stringify({ ...data, ident: data.identifikator || '' });
                 }),
             },
