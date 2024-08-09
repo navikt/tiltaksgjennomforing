@@ -1,6 +1,10 @@
-name: Bygg og deploy branch
+name: Bygg og deploy
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
 
 jobs:
   build:
@@ -40,7 +44,7 @@ jobs:
         run: npm run build
       - name: Sentry release
         run: npm run release
-      - name: Remove source maps
+      - name: Fjerne source maps
         run: |
           rm dist/client/assets/*.map
       - name: Push docker image to GAR
@@ -61,14 +65,14 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v4
-      - name: Deploy til dev-gcp intern
+      - name: Deploy til prod-gcp intern
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-gcp-intern.yaml
           VARS: nais/dev-gcp-intern.yaml
           VAR: image=${{ needs.build.outputs.image }}
-          
+
   deploy-dev-gcp-ekstern:
     name: Deploy til dev-gcp ekstern
     runs-on: ubuntu-latest
@@ -86,7 +90,7 @@ jobs:
           RESOURCE: nais/nais-gcp-ekstern.yaml
           VARS: nais/dev-gcp-ekstern.yaml
           VAR: image=${{ needs.build.outputs.image }}
-          
+
   deploy-dev-gcp-labs:
     name: Deploy til dev-gcp (labs)
     runs-on: ubuntu-latest
@@ -104,3 +108,41 @@ jobs:
           RESOURCE: nais/dev-gcp-labs.yaml
           VARS: nais/dev-gcp-labs.json
           VAR: image=${{ needs.build.outputs.image }}
+
+  deploy-prod-gcp-intern:
+    name: Deploy til prod-gcp intern
+    if: github.ref == 'refs/heads/master'
+    needs: [build, deploy-dev-gcp-intern, deploy-dev-gcp-ekstern, deploy-dev-gcp-labs]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v4
+      - name: Deploy til prod-gcp intern
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: nais/nais-gcp-intern.yaml
+          VARS: nais/prod-gcp-intern.yaml
+          VAR: image=${{ needs.build.outputs.image }}
+
+  deploy-prod-gcp-ekstern:
+    name: Deploy til prod-gcp ekstern
+    if: github.ref == 'refs/heads/master'
+    needs: [build, deploy-dev-gcp-intern, deploy-dev-gcp-ekstern, deploy-dev-gcp-labs]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      -   name: Sjekk ut kode
+          uses: actions/checkout@v4
+      -   name: Deploy til prod-gcp ekstern
+          uses: nais/deploy/actions/deploy@v2
+          env:
+            CLUSTER: prod-gcp
+            RESOURCE: nais/nais-gcp-ekstern.yaml
+            VARS: nais/prod-gcp-ekstern.yaml
+            VAR: image=${{ needs.build.outputs.image }}
