@@ -5,6 +5,12 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import { ParsedQs } from 'qs';
 import { requestOboToken } from '../auth';
 
+const publicPaths = [
+    '/tiltaksgjennomforing/api/kodeverk',
+    '/tiltaksgjennomforing/api/kodeverk/statuser',
+    '/tiltaksgjennomforing/api/kodeverk/tiltakstyper',
+];
+
 const tokenxSetup = (app: Express): void => {
     console.log('api-proxy setup for tokenx');
     setup(app, process.env.API_AUDIENCE!);
@@ -22,10 +28,7 @@ const setup = (app: Express, audience: string) => {
 
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
-        if (req.path === '/tiltaksgjennomforing/api/kodeverk') {
-            next();
-        }
-        if (!req.headers['authorization']) {
+        if (!req.headers['authorization'] && !publicPaths.includes(req.path)) {
             res.status(401).send();
         } else {
             next();
