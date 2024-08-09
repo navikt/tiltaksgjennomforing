@@ -24,10 +24,11 @@ const setup = (app: Express, audience: string) => {
 
     app.use(
         '/tiltaksgjennomforing/api/kodeverk',
-        proxy(process.env.APIGW_URL, {
-            proxyReqPathResolver: (req) => {
-                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
-            },
+        createProxyMiddleware({
+            changeOrigin: true,
+            target: process.env.APIGW_URL,
+            proxyTimeout: 10000,
+            pathRewrite: { '/tiltaksgjennomforing/api': '/tiltaksgjennomforing-api' },
         }),
     );
 
