@@ -1,9 +1,9 @@
-import { requestOboToken } from '../auth';
 import { Express } from 'express';
+import proxy from 'express-http-proxy';
 import { Request } from 'express-serve-static-core';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import proxy from 'express-http-proxy';
 import { ParsedQs } from 'qs';
+import { requestOboToken } from '../auth';
 
 const tokenxSetup = (app: Express): void => {
     console.log('api-proxy setup for tokenx');
@@ -18,6 +18,11 @@ const azureSetup = (app: Express): void => {
 const setup = (app: Express, audience: string) => {
     app.use('/tiltaksgjennomforing/api/internal', (req, res) => {
         res.status(401).send();
+    });
+
+    app.use('/tiltaksgjennomforing/api/kodeverk', (req, res, next) => {
+        console.log('api/kodeverk');
+        next();
     });
 
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
