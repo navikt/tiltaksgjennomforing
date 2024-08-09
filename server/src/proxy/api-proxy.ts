@@ -5,11 +5,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import { ParsedQs } from 'qs';
 import { requestOboToken } from '../auth';
 
-const publicPaths = [
-    '/tiltaksgjennomforing/api/kodeverk',
-    '/tiltaksgjennomforing/api/kodeverk/statuser',
-    '/tiltaksgjennomforing/api/kodeverk/tiltakstyper',
-];
+const publicPaths = ['/kodeverk', '/kodeverk/statuser', '/kodeverk/tiltakstyper'];
 
 const tokenxSetup = (app: Express): void => {
     console.log('api-proxy setup for tokenx');
