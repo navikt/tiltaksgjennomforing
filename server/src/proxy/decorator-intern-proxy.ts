@@ -18,10 +18,11 @@ export function setup(app: Express) {
             changeOrigin: true,
             selfHandleResponse: true,
             on: {
+                proxyReq: (proxyReq, req) => {
+                    console.log(proxyReq.host, req.url, req.headers);
+                },
                 proxyRes: responseInterceptor(async (responseBuffer) => {
-                    console.log(responseBuffer.toString('utf8'));
                     const data = JSON.parse(responseBuffer.toString('utf8'));
-                    console.log('proxyRes', data);
                     return JSON.stringify({ ...data, ident: data.identifikator || '' });
                 }),
             },
