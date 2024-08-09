@@ -21,6 +21,7 @@ export const setup = (app: Express): void => {
         },
         createProxyMiddleware({
             target: `${process.env.NOTIFIKASJON_URL}/api/graphql`,
+            changeOrigin: true,
         }),
     );
 };

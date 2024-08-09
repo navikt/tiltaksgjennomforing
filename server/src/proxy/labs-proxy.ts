@@ -8,6 +8,7 @@ export const setup = (app: Express) => {
         '/tiltaksgjennomforing/api/kodeverk',
         createProxyMiddleware({
             target: `${apiUrl}/tiltaksgjennomforing-api/kodeverk`,
+            changeOrigin: true,
         }),
     );
 
@@ -77,6 +78,7 @@ function setupFakeLoginProvider(app: Express, apiUrl: string) {
         },
         createProxyMiddleware({
             target: `${apiUrl}/tiltaksgjennomforing-api`,
+            changeOrigin: true,
         }),
     );
 }

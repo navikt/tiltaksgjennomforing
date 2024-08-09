@@ -16,6 +16,7 @@ export function setup(app: Express) {
         createProxyMiddleware({
             target: `${process.env.APIGW_URL}/tiltaksgjennomforing-api/innlogget-bruker`,
             selfHandleResponse: true,
+            changeOrigin: true,
             on: {
                 proxyReq: (proxyReq, req) => {
                     console.log(proxyReq.host, req.url, req.headers);
