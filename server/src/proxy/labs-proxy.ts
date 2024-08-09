@@ -52,9 +52,7 @@ function setupFakeLoginProvider(app: Express, apiUrl: string) {
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         if (req.headers.cookie) {
             const cookies = req.headers.cookie.split(';');
-            const cookieWithFakeToken = cookies.filter((c) => {
-                return c.includes('fake');
-            });
+            const cookieWithFakeToken = cookies.filter((c) => c.includes('fake'));
             if (cookieWithFakeToken.length === 0) {
                 res.status(401).send();
             } else {

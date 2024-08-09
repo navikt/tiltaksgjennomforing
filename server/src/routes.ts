@@ -7,7 +7,7 @@ import * as decoratorInternProxy from './proxy/decorator-intern-proxy';
 import * as notifikasjonProxy from './proxy/notifikasjoner-proxy';
 import * as decoratorEksternProxy from './proxy/decorator-ekstern-proxy';
 
-export const setupRoutes = async (server: Express) => {
+export function setupRoutes(server: Express) {
     const miljo: Miljo = getMiljo();
 
     if (miljo === Miljo.DEV_GCP || miljo === Miljo.PROD_GCP) {
@@ -22,4 +22,4 @@ export const setupRoutes = async (server: Express) => {
     } else {
         labsProxy.setup(server);
     }
-};
+}

@@ -5,7 +5,7 @@ import { requestOboToken } from '../auth';
 
 export function tokenxSetup(app: Express) {
     console.log('api-proxy setup for tokenx');
-    setup(app, process.env.API_AUDIENCE!);
+    setup(app, process.env.API_AUDIENCE);
 }
 
 export function azureSetup(app: Express) {
@@ -31,7 +31,7 @@ export function setup(app: Express, audience: string) {
         '/tiltaksgjennomforing/api',
         (req, res, next) => {
             console.log('apiProxy /tiltaksgjennomforing/api');
-            if (!req.headers['authorization']) {
+            if (!req.headers.authorization) {
                 res.status(401).send();
             } else {
                 next();
