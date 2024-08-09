@@ -44,7 +44,6 @@ export function setup(app: Express, audience: string) {
         },
         createProxyMiddleware({
             target: `${process.env.APIGW_URL}/tiltaksgjennomforing-api`,
-            changeOrigin: true,
         }),
     );
 }
