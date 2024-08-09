@@ -28,6 +28,7 @@ const setup = (app: Express, audience: string) => {
 
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
+        console.log('path:', req.path, 'url:', req.url);
         if (!req.headers['authorization'] && !publicPaths.includes(req.path)) {
             res.status(401).send();
         } else {
