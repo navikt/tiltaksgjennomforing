@@ -48,6 +48,7 @@ const setup = (app: Express, audience: string) => {
                 return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
             },
             proxyReqOptDecorator: async (options: any, req: Request<{}, any, any, ParsedQs, Record<string, any>>) => {
+                if (publicPaths.includes(req.path)) return options;
                 const accessToken = await requestOboToken(audience, req);
                 options.headers.Authorization = `Bearer ${accessToken}`;
                 return options;
