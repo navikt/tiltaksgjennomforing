@@ -22,6 +22,15 @@ const setup = (app: Express, audience: string) => {
         res.status(401).send();
     });
 
+    app.use(
+        '/tiltaksgjennomforing/api/kodeverk',
+        proxy(process.env.APIGW_URL, {
+            proxyReqPathResolver: (req) => {
+                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
+            },
+        }),
+    );
+
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
         console.log('path:', req.path, 'url:', req.url);
@@ -38,15 +47,6 @@ const setup = (app: Express, audience: string) => {
             changeOrigin: true,
             target: process.env.STILLINGSTITLER_URL,
             proxyTimeout: 10000,
-        }),
-    );
-
-    app.use(
-        '/tiltaksgjennomforing/api/kodeverk',
-        proxy(process.env.APIGW_URL, {
-            proxyReqPathResolver: (req) => {
-                return req.originalUrl.replace('/tiltaksgjennomforing/api', '/tiltaksgjennomforing-api');
-            },
         }),
     );
 
