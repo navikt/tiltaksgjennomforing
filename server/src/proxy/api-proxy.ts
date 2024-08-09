@@ -20,13 +20,11 @@ const setup = (app: Express, audience: string) => {
         res.status(401).send();
     });
 
-    app.use('/tiltaksgjennomforing/api/kodeverk', (req, res, next) => {
-        console.log('api/kodeverk');
-        next();
-    });
-
     app.use('/tiltaksgjennomforing/api', (req, res, next) => {
         console.log('apiProxy /tiltaksgjennomforing/api');
+        if (req.path === '/tiltaksgjennomforing/api/kodeverk') {
+            next();
+        }
         if (!req.headers['authorization']) {
             res.status(401).send();
         } else {
