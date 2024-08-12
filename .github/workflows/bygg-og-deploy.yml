@@ -65,7 +65,7 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v4
-      - name: Deploy til prod-gcp intern
+      - name: Deploy til dev-gcp intern
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
