@@ -136,6 +136,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                                     {periode.status === 'UBEHANDLET' && (
                                                         <>
                                                             <Button
+                                                                disabled={!enhet}
                                                                 onClick={() => {
                                                                     if (enhet) {
                                                                         setGodkjennModalÅpen(true);
