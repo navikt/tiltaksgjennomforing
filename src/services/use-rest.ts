@@ -50,5 +50,6 @@ export const useHentEnhet = (enhetsnummer?: string) => {
         ...swrConfig,
         suspense: false,
         shouldRetryOnError: false,
+        revalidateOnFocus: false,
     });
 };
