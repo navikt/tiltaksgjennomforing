@@ -439,7 +439,7 @@ export interface AlleredeRegistrertAvtale {
     bedriftNr: string;
     veilederNavIdent: string;
     status: AvtaleStatus;
-    opprettetAvArbeidsgiver: boolean;
+    opphav: 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
     startDato: string;
     sluttDato: string;
     godkjentAvVeileder: string;
