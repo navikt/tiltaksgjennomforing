@@ -6,6 +6,7 @@ import { Expand } from '@navikt/ds-icons';
 import { formatterDato } from '@/utils/datoUtils';
 import { avtaleStatusTekst } from '@/messages';
 import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
+import { storForbokstav } from '@/utils/stringUtils';
 
 interface Props {
     innhold: AlleredeRegistrertAvtale;
@@ -47,11 +48,7 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ innhold }) => {
             </Link>
             <div className={cls.element('detalje-innhold-wrapper', seDetaljer ? 'open' : 'close')}>
                 <div className={cls.element('detalje-innhold')}>
-                    <RadInfo
-                        label={'Opprettet av:'}
-                        info={innhold.opprettetAvArbeidsgiver ? 'Arbeidsgiver' : 'Veileder'}
-                        infoNotBold={true}
-                    />
+                    <RadInfo label={'Opprettet av:'} info={storForbokstav(innhold.opphav)} infoNotBold={true} />
                     <RadInfo
                         label={'Veileder ident:'}
                         info={innhold.veilederNavIdent ? innhold.veilederNavIdent : 'ikke satt'}
