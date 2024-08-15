@@ -47,7 +47,7 @@ export function initializePath(app: Express): void {
     });
 
     app.get('/tiltaksgjennomforing/skal-backupmeny-brukes', (_, res) => {
-        res.json(ENABLE_EXTERNAL_MENU && ENABLE_INTERNAL_MENU);
+        res.json(!ENABLE_EXTERNAL_MENU && !ENABLE_INTERNAL_MENU);
     });
 
     app.get('/tiltaksgjennomforing/brukavInternflate', (_, res) => {
