@@ -1,7 +1,13 @@
 import * as oasis from '@navikt/oasis';
 import { IncomingMessage } from 'http';
 
+import { IS_LOCALHOST } from './config';
+
 export const requestOboToken = async (audience: string, req: IncomingMessage) => {
+    if (IS_LOCALHOST) {
+        return 'mock-token';
+    }
+
     const token = oasis.getToken(req);
     if (!token) {
         // TODO: handle missing token

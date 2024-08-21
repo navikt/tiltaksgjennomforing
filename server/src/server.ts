@@ -1,16 +1,14 @@
-import { Request, Response, Handler } from 'express-serve-static-core';
-import path from 'path';
-import express, { Express } from 'express';
-import helmet from 'helmet';
-import { ParsedQs } from 'qs';
-import { buildCspHeader } from '@navikt/nav-dekoratoren-moduler/ssr';
 import cookieParser from 'cookie-parser';
+import express, { Express, Handler } from 'express';
+import helmet from 'helmet';
+import path from 'path';
+import { buildCspHeader } from '@navikt/nav-dekoratoren-moduler/ssr';
 
-import appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
-import appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
+import { ENV, PORT, ENABLE_EXTERNAL_MENU, ENABLE_INTERNAL_MENU } from './config';
+import * as appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
+import * as appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
+import { initializePath, BASEPATH, STATIC_PATHS } from './paths/setupPath';
 import { setupRoutes } from './routes';
-import setupPath, { BASEPATH, STATIC_PATHS } from './paths/setupPath';
-import { getEnv } from './paths/miljo';
 
 const indexPath = path.resolve(__dirname, '../client', 'index.html');
 
@@ -19,7 +17,7 @@ const eksternCspMiddleware = (): Handler => {
 
     return async (_, res, next) => {
         if (!csp) {
-            csp = await buildCspHeader({}, { env: getEnv() });
+            csp = await buildCspHeader({}, { env: ENV });
         }
         res.setHeader('Content-Security-Policy', csp);
         next();
@@ -30,7 +28,7 @@ const node: Express = express();
 node.use(cookieParser());
 node.disable('x-powered-by');
 
-if (process.env.ENABLE_EXTERNAL_MENU) {
+if (ENABLE_EXTERNAL_MENU) {
     node.use(helmet({ contentSecurityPolicy: false }));
     node.use(eksternCspMiddleware());
 } else {
@@ -51,61 +49,50 @@ if (process.env.ENABLE_EXTERNAL_MENU) {
 }
 
 async function startServer(): Promise<void> {
-    setupPath.initializePath(node);
+    initializePath(node);
     setStaticPath();
 
     setupRoutes(node);
 
     console.log('ferdig med oauth client setup.');
 
-    if (process.env.ENABLE_EXTERNAL_MENU) {
+    if (ENABLE_EXTERNAL_MENU) {
         await startMedNavDekoratoren();
-    } else if (process.env.ENABLE_INTERNAL_MENU) {
+    } else if (ENABLE_INTERNAL_MENU) {
         await startMedModiaDekoratoren();
     } else {
         await startLabs();
     }
 
-    const port = process.env.PORT || 3000;
-    node.listen(port, () => console.log('server listening on port', port));
+    node.listen(PORT, () => console.log('server listening on port', PORT));
 }
 
-async function startMedNavDekoratoren(): Promise<void> {
-    node.get(
-        ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (req: Request<any, Record<string, any>, number>, res: Response<any, Record<string, any>, number>) =>
-            appMedNavDekoratoren.getNavdekoratoren(indexPath, req, res),
+async function startMedNavDekoratoren() {
+    node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
+        appMedNavDekoratoren.getNavdekoratoren(indexPath, req, res),
     );
 }
 
-async function startMedModiaDekoratoren(): Promise<void> {
-    node.get(
-        ['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (req: Request<{}, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>, number>) =>
-            appMedModiaDekoratoren.getModiaDekoratoren(indexPath, req, res),
+async function startMedModiaDekoratoren() {
+    node.get(['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
+        appMedModiaDekoratoren.getModiaDekoratoren(indexPath, req, res),
     );
 }
 
-async function startLabs(): Promise<void> {
-    node.get(
-        ['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'],
-        (
-            req: Request<{}, any, any, ParsedQs, Record<string, any>>,
-            res: Response<any, Record<string, any>, number>,
-        ) => {
-            res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
-        },
-    );
+async function startLabs() {
+    node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (_, res) => {
+        res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
+    });
 }
 
 function setStaticPath(): void {
     node.use(express.static(BASEPATH), express.static(path.resolve(__dirname, '../client')));
-    STATIC_PATHS.forEach((staticpath: string): Express => {
-        return node.use(
+    STATIC_PATHS.forEach((staticpath: string) =>
+        node.use(
             BASEPATH.concat(staticpath),
             express.static(path.resolve(__dirname, '../client', '.'.concat(staticpath))),
-        );
-    });
+        ),
+    );
 }
 
 startServer()
