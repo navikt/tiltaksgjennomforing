@@ -1,9 +1,10 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { hentFeatureToggles } from './services/rest-service';
 
 export enum Feature {
     VisNedetidBanner = 'visNedetidBanner',
     VtaoTiltakToggle = 'vtaoTiltakToggle',
+    VisHvemHarGodkjent = 'visHvemHarGodkjent',
 }
 
 export const alleFeatures = Object.values(Feature);

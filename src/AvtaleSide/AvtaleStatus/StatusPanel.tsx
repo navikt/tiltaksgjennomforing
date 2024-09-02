@@ -1,9 +1,10 @@
-import React from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Heading } from '@navikt/ds-react';
-import './StatusPanel.less';
 import BEMHelper from '@/utils/bem';
+import { Heading } from '@navikt/ds-react';
+import React from 'react';
+import HvemHarGodkjentModal from './HvemHarGodkjentModal';
+import './StatusPanel.less';
 
 const cls = BEMHelper('statusPanel');
 
@@ -19,6 +20,7 @@ const StatusPanel: React.FunctionComponent<{
                 </Heading>
                 <VerticalSpacer rem={1} />
                 {body}
+                <HvemHarGodkjentModal />
             </div>
         </Innholdsboks>
     );
