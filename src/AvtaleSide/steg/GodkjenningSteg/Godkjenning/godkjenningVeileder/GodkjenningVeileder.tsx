@@ -23,29 +23,39 @@ const GodkjenningVeileder: FunctionComponent = () => {
     const [skalGodkjennesPaVegne, setSkalGodkjennesPaVegne] = useState<boolean>(false);
     const [godkjenningsModalIsOpen, setGodkjenningsModalIsOpen] = useState<boolean>(false);
 
-    const kunGodkjentAvDeltaker = avtale.godkjentAvDeltaker && !avtale.godkjentAvArbeidsgiver;
-    const kunGodkjentAvArbeidsgiver = avtale.godkjentAvArbeidsgiver && !avtale.godkjentAvDeltaker;
-    const ikkeGodkjentAvNoen = !avtale.godkjentAvDeltaker && !avtale.godkjentAvArbeidsgiver;
+    const isKunGodkjentAvDeltaker = avtale.godkjentAvDeltaker && !avtale.godkjentAvArbeidsgiver;
+    const isKunGodkjentAvArbeidsgiver = avtale.godkjentAvArbeidsgiver && !avtale.godkjentAvDeltaker;
+    const isIkkeGodkjentAvNoen = !avtale.godkjentAvDeltaker && !avtale.godkjentAvArbeidsgiver;
+    const isSommerjobbEllerOpphavArena = avtale.tiltakstype === 'SOMMERJOBB' || avtale.opphav === 'ARENA';
 
     return (
         <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
-            {((avtale.tiltakstype !== 'SOMMERJOBB' && !avtale.godkjentAvDeltaker) ||
-                (avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvArbeidsgiver)) && (
+            {isSommerjobbEllerOpphavArena && (
+                <>
+                    {isKunGodkjentAvArbeidsgiver && (
+                        <GodkjennPaVegneAvDeltaker
+                            skalGodkjennesPaVegne={skalGodkjennesPaVegne}
+                            setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
+                        />
+                    )}
+                    {isKunGodkjentAvDeltaker && (
+                        <GodkjennPaVegneAvArbeidsgiver
+                            skalGodkjennesPaVegne={skalGodkjennesPaVegne}
+                            setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
+                        />
+                    )}
+                    {isIkkeGodkjentAvNoen && (
+                        <GodkjennPaVegneAvBeggeParter
+                            skalGodkjennesPaVegne={skalGodkjennesPaVegne}
+                            setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
+                        />
+                    )}
+                </>
+            )}
+            {!isSommerjobbEllerOpphavArena && !avtale.godkjentAvDeltaker && (
                 <GodkjennPaVegneAvDeltaker
-                    skalGodkjennesPaVegne={skalGodkjennesPaVegne}
-                    setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
-                />
-            )}
-            {avtale.tiltakstype === 'SOMMERJOBB' && kunGodkjentAvDeltaker && (
-                <GodkjennPaVegneAvArbeidsgiver
-                    skalGodkjennesPaVegne={skalGodkjennesPaVegne}
-                    setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
-                />
-            )}
-            {avtale.tiltakstype === 'SOMMERJOBB' && ikkeGodkjentAvNoen && (
-                <GodkjennPaVegneAvBeggeParter
                     skalGodkjennesPaVegne={skalGodkjennesPaVegne}
                     setSkalGodkjennesPaVegne={setSkalGodkjennesPaVegne}
                 />

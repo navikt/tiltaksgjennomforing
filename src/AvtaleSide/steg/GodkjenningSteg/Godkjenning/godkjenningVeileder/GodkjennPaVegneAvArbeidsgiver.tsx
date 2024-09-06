@@ -68,28 +68,24 @@ const GodkjennPaVegneAvArbeidsgiver: FunctionComponent<Props> = (props) => {
                 <>
                     <div className={cls.element('checkbox-wrapper')}>
                         <CheckboxGroup legend="Grunn til godkjenning på vegne av arbeidsgiver" error={feilmeldingGrunn}>
-                            {avtale.tiltakstype === 'SOMMERJOBB' && (
-                                <>
-                                    <Checkbox
-                                        checked={klarerIkkeGiFaTilgang}
-                                        onChange={(event) => setKlarerIkkeGiFaTilgang(event.currentTarget.checked)}
-                                    >
-                                        klarer ikke få eller gi tilgang
-                                    </Checkbox>
-                                    <Checkbox
-                                        checked={vetIkkeHvemSomKanGiTilgang}
-                                        onChange={(event) => setVetIkkeHvemSomKanGiTilgang(event.currentTarget.checked)}
-                                    >
-                                        vet ikke hvem som kan gi tilgang
-                                    </Checkbox>
-                                    <Checkbox
-                                        checked={farIkkeTilgangPersonvern}
-                                        onChange={(event) => setFarIkkeTilgangPersonvern(event.currentTarget.checked)}
-                                    >
-                                        får ikke tilgang på grunn av personvern
-                                    </Checkbox>
-                                </>
-                            )}
+                            <Checkbox
+                                checked={klarerIkkeGiFaTilgang}
+                                onChange={(event) => setKlarerIkkeGiFaTilgang(event.currentTarget.checked)}
+                            >
+                                klarer ikke få eller gi tilgang
+                            </Checkbox>
+                            <Checkbox
+                                checked={vetIkkeHvemSomKanGiTilgang}
+                                onChange={(event) => setVetIkkeHvemSomKanGiTilgang(event.currentTarget.checked)}
+                            >
+                                vet ikke hvem som kan gi tilgang
+                            </Checkbox>
+                            <Checkbox
+                                checked={farIkkeTilgangPersonvern}
+                                onChange={(event) => setFarIkkeTilgangPersonvern(event.currentTarget.checked)}
+                            >
+                                får ikke tilgang på grunn av personvern
+                            </Checkbox>
                         </CheckboxGroup>
                     </div>
                     <CheckboxGroup
