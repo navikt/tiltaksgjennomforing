@@ -164,6 +164,8 @@ export type AvtaleStatus =
     | 'GJENNOMFØRES'
     | 'AVSLUTTET';
 
+export type Avtaleopphav = 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
+
 export interface AvtaleMetadata {
     id: string;
     avtaleNr: number;
@@ -181,6 +183,7 @@ export interface AvtaleMetadata {
     kvalifiseringsgruppe: Kvalifiseringsgruppe;
     formidlingsgruppe: Formidlingsgruppe;
     godkjentForEtterregistrering: boolean;
+    opphav: Avtaleopphav;
 }
 
 export interface RefusjonKontaktperson {
@@ -439,7 +442,7 @@ export interface AlleredeRegistrertAvtale {
     bedriftNr: string;
     veilederNavIdent: string;
     status: AvtaleStatus;
-    opphav: 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
+    opphav: Avtaleopphav;
     startDato: string;
     sluttDato: string;
     godkjentAvVeileder: string;

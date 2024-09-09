@@ -17,43 +17,41 @@ const GodkjennPåVegneAvArbeidsgiverCheckboxer: FunctionComponent<Props> = (prop
     return (
         <div style={{ marginTop: '0.5rem' }}>
             <Fieldset legend="Godkjenn på vegne av arbeidsgiver valg" error={props.feilmeldingGrunn}>
-                {props.tiltakstype === 'SOMMERJOBB' && (
-                    <CheckboxGroup legend="" onChange={(value: any[]) => setGrunnlag(value)} value={grunnlag}>
-                        <Checkbox
-                            value="klarerIkkeGiFaTilgang"
-                            onChange={(event) =>
-                                props.setGodkjentPåVegneAvGrunner({
-                                    ...props.godkjentPåVegneAvGrunner,
-                                    klarerIkkeGiFaTilgang: event.currentTarget.checked,
-                                })
-                            }
-                        >
-                            klarer ikke få eller gi tilgang
-                        </Checkbox>
-                        <Checkbox
-                            value="vetIkkeHvemSomKanGiTilgang"
-                            onChange={(event) =>
-                                props.setGodkjentPåVegneAvGrunner({
-                                    ...props.godkjentPåVegneAvGrunner,
-                                    vetIkkeHvemSomKanGiTilgang: event.currentTarget.checked,
-                                })
-                            }
-                        >
-                            vet ikke hvem som kan gi tilgang
-                        </Checkbox>
-                        <Checkbox
-                            value="farIkkeTilgangPersonvern"
-                            onChange={(event) =>
-                                props.setGodkjentPåVegneAvGrunner({
-                                    ...props.godkjentPåVegneAvGrunner,
-                                    farIkkeTilgangPersonvern: event.currentTarget.checked,
-                                })
-                            }
-                        >
-                            får ikke tilgang på grunn av personvern
-                        </Checkbox>
-                    </CheckboxGroup>
-                )}
+                <CheckboxGroup legend="" onChange={(value: any[]) => setGrunnlag(value)} value={grunnlag}>
+                    <Checkbox
+                        value="klarerIkkeGiFaTilgang"
+                        onChange={(event) =>
+                            props.setGodkjentPåVegneAvGrunner({
+                                ...props.godkjentPåVegneAvGrunner,
+                                klarerIkkeGiFaTilgang: event.currentTarget.checked,
+                            })
+                        }
+                    >
+                        klarer ikke få eller gi tilgang
+                    </Checkbox>
+                    <Checkbox
+                        value="vetIkkeHvemSomKanGiTilgang"
+                        onChange={(event) =>
+                            props.setGodkjentPåVegneAvGrunner({
+                                ...props.godkjentPåVegneAvGrunner,
+                                vetIkkeHvemSomKanGiTilgang: event.currentTarget.checked,
+                            })
+                        }
+                    >
+                        vet ikke hvem som kan gi tilgang
+                    </Checkbox>
+                    <Checkbox
+                        value="farIkkeTilgangPersonvern"
+                        onChange={(event) =>
+                            props.setGodkjentPåVegneAvGrunner({
+                                ...props.godkjentPåVegneAvGrunner,
+                                farIkkeTilgangPersonvern: event.currentTarget.checked,
+                            })
+                        }
+                    >
+                        får ikke tilgang på grunn av personvern
+                    </Checkbox>
+                </CheckboxGroup>
             </Fieldset>
         </div>
     );
