@@ -16,6 +16,61 @@ interface Props {
     avtale: Avtale;
 }
 
+type AvtalepartStatus =
+    | 'VENTER_PÅ_BESLUTTER'
+    | 'VENTER_PÅ_MENTOR'
+    | 'VENTER_PÅ_VEILEDER'
+    | 'VENTER_PÅ_ARBEIDSGIVER_OG_MENTOR'
+    | 'VENTER_PÅ_ARBEIDSGIVER_ARENA'
+    | 'VENTER_PÅ_ARBEIDSGIVER'
+    | 'VENTER_PÅ_DELTAKER_OG_MENTOR'
+    | 'VENTER_PÅ_DELTAKER_ARENA'
+    | 'VENTER_PÅ_DELTAKER'
+    | 'VENTER_PÅ_ARBEIDSGIVER_DELTAKER_OG_MENTOR'
+    | 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER'
+    | 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER_ARENA';
+
+const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
+    const isVenterPaMentor = avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor;
+    const isArena = avtale.opphav === 'ARENA';
+
+    if (avtale.godkjentAvVeileder) {
+        return 'VENTER_PÅ_BESLUTTER';
+    }
+    if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver && isVenterPaMentor) {
+        return 'VENTER_PÅ_MENTOR';
+    }
+    if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver) {
+        return 'VENTER_PÅ_VEILEDER';
+    }
+    if (avtale.godkjentAvDeltaker && isVenterPaMentor) {
+        return 'VENTER_PÅ_ARBEIDSGIVER_OG_MENTOR';
+    }
+    if (avtale.godkjentAvDeltaker && isArena) {
+        return 'VENTER_PÅ_ARBEIDSGIVER_ARENA';
+    }
+    if (avtale.godkjentAvDeltaker) {
+        return 'VENTER_PÅ_ARBEIDSGIVER';
+    }
+    if (avtale.godkjentAvArbeidsgiver && isVenterPaMentor) {
+        return 'VENTER_PÅ_DELTAKER_OG_MENTOR';
+    }
+    if (avtale.godkjentAvArbeidsgiver && isArena) {
+        return 'VENTER_PÅ_DELTAKER_ARENA';
+    }
+    if (avtale.godkjentAvArbeidsgiver) {
+        return 'VENTER_PÅ_DELTAKER';
+    }
+    if (isVenterPaMentor) {
+        return 'VENTER_PÅ_ARBEIDSGIVER_DELTAKER_OG_MENTOR';
+    }
+    if (isArena) {
+        return 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER_ARENA';
+    }
+
+    return 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER';
+};
+
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
@@ -141,30 +196,32 @@ function VeilederAvtaleStatus(props: Props) {
             );
         }
         case 'MANGLER_GODKJENNING': {
-            if (avtale.godkjentAvVeileder) {
-                return <StatusPanel header="Venter på godkjenning av tilskuddsperioder fra beslutter" />;
-            } else if (avtale.godkjentAvDeltaker && avtale.godkjentAvArbeidsgiver) {
-                return avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor ? (
-                    <StatusPanel
-                        header="Venter på signering av mentor"
-                        body={
-                            <BodyShort size="small">
-                                Mentor må signere taushetserklæringen før du kan godkjenne avtalen.
-                            </BodyShort>
-                        }
-                    />
-                ) : (
-                    <StatusPanel
-                        header="Du kan godkjenne"
-                        body={
-                            <BodyShort size="small">
-                                Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
-                            </BodyShort>
-                        }
-                    />
-                );
-            } else if (avtale.godkjentAvDeltaker) {
-                if (avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor) {
+            switch (getAvtalepartStatus(avtale)) {
+                case 'VENTER_PÅ_BESLUTTER':
+                    return <StatusPanel header="Venter på godkjenning av tilskuddsperioder fra beslutter" />;
+                case 'VENTER_PÅ_MENTOR':
+                    return (
+                        <StatusPanel
+                            header="Venter på signering av mentor"
+                            body={
+                                <BodyShort size="small">
+                                    Mentor må signere taushetserklæringen før du kan godkjenne avtalen.
+                                </BodyShort>
+                            }
+                        />
+                    );
+                case 'VENTER_PÅ_VEILEDER':
+                    return (
+                        <StatusPanel
+                            header="Du kan godkjenne"
+                            body={
+                                <BodyShort size="small">
+                                    Før du godkjenner avtalen må du sjekke at alt er i orden og innholdet er riktig.
+                                </BodyShort>
+                            }
+                        />
+                    );
+                case 'VENTER_PÅ_ARBEIDSGIVER_OG_MENTOR':
                     return (
                         <StatusPanel
                             header="Venter på godkjenning av avtalen fra arbeidsgiver og signering av mentor"
@@ -177,9 +234,7 @@ function VeilederAvtaleStatus(props: Props) {
                             }
                         />
                     );
-                }
-
-                if (avtale.opphav === 'ARENA') {
+                case 'VENTER_PÅ_ARBEIDSGIVER_ARENA':
                     return (
                         <StatusPanel
                             header="Venter på godkjenning av avtalen fra arbeidsgiver"
@@ -194,21 +249,19 @@ function VeilederAvtaleStatus(props: Props) {
                             }
                         />
                     );
-                }
-
-                return (
-                    <StatusPanel
-                        header="Venter på godkjenning av avtalen fra arbeidsgiver"
-                        body={
-                            <BodyShort size="small">
-                                Avtalen må godkjennes av arbeidsgiver. Arbeidsgiver fikk en automatisk varsling på Min
-                                side Arbeidsgiver når avtalen ble opprettet.
-                            </BodyShort>
-                        }
-                    />
-                );
-            } else if (avtale.godkjentAvArbeidsgiver) {
-                if (avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor) {
+                case 'VENTER_PÅ_ARBEIDSGIVER':
+                    return (
+                        <StatusPanel
+                            header="Venter på godkjenning av avtalen fra arbeidsgiver"
+                            body={
+                                <BodyShort size="small">
+                                    Avtalen må godkjennes av arbeidsgiver. Arbeidsgiver fikk en automatisk varsling på
+                                    Min side Arbeidsgiver når avtalen ble opprettet.
+                                </BodyShort>
+                            }
+                        />
+                    );
+                case 'VENTER_PÅ_DELTAKER_OG_MENTOR':
                     return (
                         <StatusPanel
                             header="Venter på godkjenning av avtalen fra deltaker og signering av mentor"
@@ -221,9 +274,7 @@ function VeilederAvtaleStatus(props: Props) {
                             }
                         />
                     );
-                }
-
-                if (avtale.opphav === 'ARENA') {
+                case 'VENTER_PÅ_DELTAKER_ARENA':
                     return (
                         <StatusPanel
                             header="Venter på godkjenning av avtalen fra deltaker"
@@ -238,21 +289,19 @@ function VeilederAvtaleStatus(props: Props) {
                             }
                         />
                     );
-                }
-
-                return (
-                    <StatusPanel
-                        header="Venter på godkjenning av avtalen fra deltaker"
-                        body={
-                            <BodyShort size="small">
-                                Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side på NAV.no om å
-                                godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden.
-                            </BodyShort>
-                        }
-                    />
-                );
-            } else {
-                if (avtale.tiltakstype === 'MENTOR' && !avtale.erGodkjentTaushetserklæringAvMentor) {
+                case 'VENTER_PÅ_DELTAKER':
+                    return (
+                        <StatusPanel
+                            header="Venter på godkjenning av avtalen fra deltaker"
+                            body={
+                                <BodyShort size="small">
+                                    Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side på NAV.no
+                                    om å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden.
+                                </BodyShort>
+                            }
+                        />
+                    );
+                case 'VENTER_PÅ_ARBEIDSGIVER_DELTAKER_OG_MENTOR':
                     return (
                         <StatusPanel
                             header="Venter på godkjenning av avtalen fra de andre partene"
@@ -266,9 +315,7 @@ function VeilederAvtaleStatus(props: Props) {
                             }
                         />
                     );
-                }
-
-                if (avtale.opphav === 'ARENA') {
+                case 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER_ARENA':
                     return (
                         <StatusPanel
                             header="Avtalen må godkjennes"
@@ -283,26 +330,23 @@ function VeilederAvtaleStatus(props: Props) {
                             }
                         />
                     );
-                }
-
-                return (
-                    <StatusPanel
-                        header="Venter på godkjenning av avtalen fra de andre partene"
-                        body={
-                            <BodyShort size="small">
-                                Avtalen må godkjennes av arbeidsgiver og deltaker. Arbeidsgiver fikk en automatisk
-                                varsling på Min side Arbeidsgiver når avtalen ble opprettet. Deltaker vil få en varsling
-                                etter at arbeidsgiver har godkjent avtalen.
-                            </BodyShort>
-                        }
-                    />
-                );
+                case 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER':
+                    return (
+                        <StatusPanel
+                            header="Venter på godkjenning av avtalen fra de andre partene"
+                            body={
+                                <BodyShort size="small">
+                                    Avtalen må godkjennes av arbeidsgiver og deltaker. Arbeidsgiver fikk en automatisk
+                                    varsling på Min side Arbeidsgiver når avtalen ble opprettet. Deltaker vil få en
+                                    varsling etter at arbeidsgiver har godkjent avtalen.
+                                </BodyShort>
+                            }
+                        />
+                    );
             }
         }
         case 'KLAR_FOR_OPPSTART':
-            return avtale.tiltakstype === 'SOMMERJOBB' ||
-                avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ? (
+            return ['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtale.tiltakstype) ? (
                 <StatusPanel
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
