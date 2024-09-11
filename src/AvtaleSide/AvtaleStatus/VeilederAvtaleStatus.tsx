@@ -1,6 +1,6 @@
 import { BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
@@ -9,21 +9,22 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtale } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { Avtale } from '@/types/avtale';
 
 interface Props {
     avtale: Avtale;
 }
 
-const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
+function VeilederAvtaleStatus(props: Props) {
+    const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
     const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
 
     const skalViseAvslåttTilskuddsperiode =
         avtale.godkjentAvVeileder &&
         !avtale.erAnnullertEllerAvbrutt &&
-        avtale.tilskuddPeriode.find(
+        avtale.tilskuddPeriode?.find(
             (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
         ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
@@ -350,6 +351,6 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
     }
 
     return null;
-};
+}
 
 export default VeilederAvtaleStatus;
