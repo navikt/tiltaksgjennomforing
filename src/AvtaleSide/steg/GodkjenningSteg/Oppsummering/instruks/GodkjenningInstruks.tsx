@@ -20,7 +20,7 @@ const GodkjenningInstruks: FunctionComponent = () => {
         case 'ARBEIDSGIVER':
             return <ArbeidsgiverInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
         case 'VEILEDER':
-            return <VeilederInstruks tiltakstype={tiltakstype} />;
+            return <VeilederInstruks avtale={avtaleContext.avtale} />;
         default:
             return null;
     }
