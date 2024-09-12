@@ -41,6 +41,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
 
     const contex = useContext(FeatureToggleContext);
     const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
+    const arbeidsTreningReadOnly = contex[Feature.ArbeidstreningReadOnly];
 
     const tiltakvalg: Tiltaksvalg[] = [
         'ARBEIDSTRENING',
@@ -53,6 +54,9 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     ].filter((tiltak) => {
         if (tiltak === 'VTAO') {
             return vtaoAktivert;
+        }
+        if (tiltak === 'ARBEIDSTRENING') {
+            return !arbeidsTreningReadOnly;
         }
         return true;
     }) as Tiltaksvalg[];
