@@ -2,7 +2,7 @@
     margin: 1rem 0;
 }
 
-.modelLenker-disabled a {
+.modelLenker-readonly a {
     margin: 1rem 0;
     pointer-events: none;
     cursor: default;

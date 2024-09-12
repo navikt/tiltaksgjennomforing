@@ -38,10 +38,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'ARBEIDSTRENING';
     const featureToggleContex = useContext(FeatureToggleContext);
     const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
-    const menyCss = arbeidstreningReadOnly && erArbeidstrening ? 'modelLenker-disabled' : 'modelLenker';
-
-    console.log('arbeidstreningReadOnly', arbeidstreningReadOnly);
-    console.log(erArbeidstrening);
+    const menyCss = arbeidstreningReadOnly && erArbeidstrening ? 'modelLenker-readonly' : 'modelLenker';
 
     if (!erVeileder) {
         return <Varsellogg />;
