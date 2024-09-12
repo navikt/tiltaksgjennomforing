@@ -14,14 +14,14 @@ interface Props {
 const Innholdsboks: React.FunctionComponent<PropsWithChildren<Props>> = (props) => {
     const { avtale } = useContext(AvtaleContext);
     const featureToggleContex = useContext(FeatureToggleContext);
-    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
-    const readOnlyCss = avtale?.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadOnly ? 'is-readonly' : '';
+    const arbeidstreningReadOnly =
+        avtale?.tiltakstype === 'ARBEIDSTRENING' && featureToggleContex[Feature.ArbeidstreningReadOnly]
+            ? 'is-readonly'
+            : '';
 
-    console.log('arbeidstreningReadOnly', arbeidstreningReadOnly);
-    console.log('readOnlyCss', readOnlyCss);
     return (
         <div className={classnames('innholdsboks', props.className)} style={props.style}>
-            <div className={classnames('innholdsboks__innhold', readOnlyCss)}>{props.children}</div>
+            <div className={classnames('innholdsboks__innhold', arbeidstreningReadOnly)}>{props.children}</div>
         </div>
     );
 };

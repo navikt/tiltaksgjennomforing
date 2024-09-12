@@ -55,8 +55,8 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
         if (tiltak === 'VTAO') {
             return vtaoAktivert;
         }
-        if (tiltak === 'ARBEIDSTRENING') {
-            return !arbeidsTreningReadOnly;
+        if (tiltak === 'ARBEIDSTRENING' && arbeidsTreningReadOnly) {
+            return false;
         }
         return true;
     }) as Tiltaksvalg[];
