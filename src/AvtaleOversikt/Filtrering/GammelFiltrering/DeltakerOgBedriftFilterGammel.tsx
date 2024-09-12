@@ -23,7 +23,7 @@ export const DeltakerOgBedriftFilterGammel: FunctionComponent = () => {
     const { endreFilter, filtre } = useFilterGammel();
 
     const aktivSøketypeFraFiltre = useCallback((): Søketype => {
-        if (!filtre.veilederNavIdent && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
+        if (!erNil(filtre.veilederNavIdent) && filtre.veilederNavIdent !== innloggetBruker.identifikator) {
             return 'veileder';
         }
         if (!erNil(filtre.erUfordelt)) {
