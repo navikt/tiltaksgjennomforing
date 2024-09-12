@@ -69,7 +69,7 @@ const OppgaveLinje: React.FunctionComponent = () => {
                             aria-controls={'menyvalg'}
                             aria-haspopup="menu"
                         >
-                            Meny
+                            Meny a
                         </Button>
                         <Popover
                             placement="bottom-end"

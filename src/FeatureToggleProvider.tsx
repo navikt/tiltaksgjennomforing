@@ -5,6 +5,7 @@ export enum Feature {
     VisNedetidBanner = 'visNedetidBanner',
     VtaoTiltakToggle = 'vtaoTiltakToggle',
     VisHvemHarGodkjent = 'visHvemHarGodkjent',
+    ArbeidstreningReadOnly = 'arbeidstrening-read-only',
 }
 
 export const alleFeatures = Object.values(Feature);
