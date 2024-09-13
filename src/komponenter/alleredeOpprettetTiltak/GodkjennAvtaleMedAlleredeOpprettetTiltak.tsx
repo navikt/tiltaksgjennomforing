@@ -1,31 +1,31 @@
-import React, { Dispatch, SetStateAction, useContext } from 'react';
+import React from 'react';
+
 import AlleredeOpprettetAvtaleModal from '@/komponenter/alleredeOpprettetTiltak/modal/AlleredeOpprettetAvtaleModal';
-import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import GodkjenningsInnhold from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/GodkjenningsInnhold';
-import { godkjennAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { Button } from '@navikt/ds-react';
+import BEMHelper from '@/utils/bem';
+import LagreOgAvbrytKnapp from '@/komponenter/lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
+import { AlleredeRegistrertAvtale } from '@/types/avtale';
 
 interface Props {
-    godkjenn: () => Promise<void>;
-    modalIsOpen: boolean;
-    setModalIsOpen: Dispatch<SetStateAction<boolean>>;
+    alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
+    onLagre: () => Promise<void>;
+    onLukk: () => void;
+    isApen: boolean;
 }
 
-const GodkjennAvtaleMedAlleredeOpprettetTiltak: React.FC<Props> = ({ godkjenn, setModalIsOpen, modalIsOpen }) => {
-    const { alleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
+const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
+    const { alleredeRegistrertAvtale, isApen, onLagre, onLukk } = props;
+
+    const cls = BEMHelper('godkjenn-alleredeOpprettet');
 
     return (
-        <AlleredeOpprettetAvtaleModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
-            <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginLeft: '-3.5rem' }}>
-                    <LagreKnapp lagre={() => godkjennAvtale({ godkjenn, setModalIsOpen })} label="Godkjenn avtale" />
-                    <Button variant="secondary" onClick={() => setModalIsOpen(false)}>
-                        Avbryt
-                    </Button>
+        <AlleredeOpprettetAvtaleModal isApen={isApen} onLukk={onLukk}>
+            <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale}>
+                <div className={cls.element('knapp-container')}>
+                    <LagreOgAvbrytKnapp lagreFunksjon={onLagre} avbryt={onLukk} lagretekst="Godkjenn avtale" />
                 </div>
             </GodkjenningsInnhold>
         </AlleredeOpprettetAvtaleModal>
     );
 };
-export default GodkjennAvtaleMedAlleredeOpprettetTiltak;
+export default GodkjennMedAlleredeOpprettetTiltak;

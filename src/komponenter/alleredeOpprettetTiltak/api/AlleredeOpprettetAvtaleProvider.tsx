@@ -1,7 +1,11 @@
-import React, { Dispatch, PropsWithChildren, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import { useLocation } from 'react-router-dom';
-import { endrePathAlleredeOpprettet, Path } from '@/komponenter/alleredeOpprettetTiltak/api/alleredeUtils';
+
+enum Path {
+    OPPRETT = 'opprett-avtale',
+    GODKJENN = 'godkjenning',
+}
 
 export interface Context {
     alleredeRegistrertAvtale: AlleredeOpprettetInfo;
@@ -24,6 +28,21 @@ export const AlleredeOpprettetAvtaleContext = React.createContext<Context>({
     alleredeRegistrertAvtale: initAlleredeOpprettetInfo,
 } as Context);
 
+export const useAlleredeOpprettetAvtale = () => useContext(AlleredeOpprettetAvtaleContext);
+
+const endrePathAlleredeOpprettet = (
+    pathnameList: string[],
+    path: Path,
+    alleredeOpprettet: AlleredeOpprettetInfo,
+    setAlleredeOpprettet: Dispatch<SetStateAction<AlleredeOpprettetInfo>>,
+) => {
+    if (pathnameList.includes(path)) {
+        if (alleredeOpprettet.steg !== path) {
+            setAlleredeOpprettet({ avtaler: [], deltaker: '', steg: path });
+        }
+    }
+};
+
 const AlleredeOpprettetAvtaleProvider = ({ children, history }: PropsWithChildren<any>) => {
     const [alleredeOpprettet, setAlleredeOpprettet] = useState<AlleredeOpprettetInfo>(initAlleredeOpprettetInfo);
 
@@ -45,4 +64,5 @@ const AlleredeOpprettetAvtaleProvider = ({ children, history }: PropsWithChildre
         <AlleredeOpprettetAvtaleContext.Provider value={context}>{children}</AlleredeOpprettetAvtaleContext.Provider>
     );
 };
+
 export default AlleredeOpprettetAvtaleProvider;
