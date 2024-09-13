@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { BodyShort } from '@navikt/ds-react';
+
 import BEMHelper from '@/utils/bem';
 import { TiltaksType } from '@/types/avtale';
 
@@ -7,14 +8,9 @@ interface Props {
     tiltakstype: TiltaksType;
 }
 
-const GenerelVeilederTekst: FunctionComponent<Props> = (props) => {
-    if (
-        props.tiltakstype === 'SOMMERJOBB' ||
-        props.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-        props.tiltakstype === 'VARIG_LONNSTILSKUDD'
-    )
-        return null;
+const GenerelVeilederTekst = (props: Props) => {
     const cls = BEMHelper('instruks');
+
     return (
         <ul>
             <li className={cls.element('list-element')}>
@@ -32,4 +28,5 @@ const GenerelVeilederTekst: FunctionComponent<Props> = (props) => {
         </ul>
     );
 };
+
 export default GenerelVeilederTekst;
