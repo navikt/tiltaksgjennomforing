@@ -42,7 +42,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const navigate = useNavigate();
     const contex = useContext(FeatureToggleContext);
     const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
-    const arbeidsTreningReadOnly = contex[Feature.ArbeidstreningReadOnly];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
