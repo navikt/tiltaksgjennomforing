@@ -1,9 +1,7 @@
 import * as React from 'react';
 import './Innholdsboks.less';
 import classnames from 'classnames';
-import { PropsWithChildren, useContext } from 'react';
-import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { PropsWithChildren } from 'react';
 
 interface Props {
     className?: string;
@@ -11,19 +9,10 @@ interface Props {
     style?: React.CSSProperties;
 }
 
-const Innholdsboks: React.FunctionComponent<PropsWithChildren<Props>> = (props) => {
-    const { avtale } = useContext(AvtaleContext);
-    const featureToggleContex = useContext(FeatureToggleContext);
-    const arbeidstreningReadOnly =
-        avtale?.tiltakstype === 'ARBEIDSTRENING' && featureToggleContex[Feature.ArbeidstreningReadOnly]
-            ? 'is-readonly'
-            : '';
-
-    return (
-        <div className={classnames('innholdsboks', props.className)} style={props.style}>
-            <div className={classnames('innholdsboks__innhold', arbeidstreningReadOnly)}>{props.children}</div>
-        </div>
-    );
-};
+const Innholdsboks: React.FunctionComponent<PropsWithChildren<Props>> = (props) => (
+    <div className={classnames('innholdsboks', props.className)} style={props.style}>
+        <div className="innholdsboks__innhold">{props.children}</div>
+    </div>
+);
 
 export default Innholdsboks;

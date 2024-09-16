@@ -17,7 +17,6 @@ import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAv
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import './OppgaveLenker.css';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
-import { hentFeatureToggles } from '@/services/rest-service';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 const OppgaveLenker: React.FunctionComponent = () => {
@@ -38,36 +37,36 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'ARBEIDSTRENING';
     const featureToggleContex = useContext(FeatureToggleContext);
     const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
-    const menyCss = arbeidstreningReadOnly && erArbeidstrening ? 'modelLenker-readonly' : 'modelLenker';
 
     if (!erVeileder) {
         return <Varsellogg />;
     }
-
     return (
-        <div>
-            <div className={menyCss}>
-                <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
-                <AnnullerAvtalen />
-                {avtale.tiltakstype === 'MENTOR' && <DelLenkeTilAvtalen />}
-                {avtale.godkjentAvVeileder !== null && (
-                    <>
-                        <EndreKontaktInformasjon />
-                        {erArbeidstrening && <EndreMaal />}
-                        <ForkortAvtale />
-                        <ForlengAvtale />
-                        {skalViseStillingsbeskrivelse && <EndreStillingbeskrivelse />}
-                        <EndreOppfølgingOgTilrettelegging />
-                        {harØkonomi && <EndreTilskuddsberegning />}
-                        {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
-                        {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
-                        {<OppdaterOppfølgingEnhet />}
-                    </>
-                )}
-                {avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' && <SendTilbakeTilBeslutterUendret />}
-            </div>
+        <>
+            {!arbeidstreningReadOnly && (
+                <div className={'modelLenker'}>
+                    <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
+                    <AnnullerAvtalen />
+                    {avtale.tiltakstype === 'MENTOR' && <DelLenkeTilAvtalen />}
+                    {avtale.godkjentAvVeileder !== null && (
+                        <>
+                            <EndreKontaktInformasjon />
+                            {erArbeidstrening && <EndreMaal />}
+                            <ForkortAvtale />
+                            <ForlengAvtale />
+                            {skalViseStillingsbeskrivelse && <EndreStillingbeskrivelse />}
+                            <EndreOppfølgingOgTilrettelegging />
+                            {harØkonomi && <EndreTilskuddsberegning />}
+                            {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
+                            {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
+                            {<OppdaterOppfølgingEnhet />}
+                        </>
+                    )}
+                    {avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' && <SendTilbakeTilBeslutterUendret />}
+                </div>
+            )}
             <Varsellogg />
-        </div>
+        </>
     );
 };
 
