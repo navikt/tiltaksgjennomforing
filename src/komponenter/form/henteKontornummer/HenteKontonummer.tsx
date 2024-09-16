@@ -32,12 +32,13 @@ const HenteKontonummer: React.FC = () => {
             </div>
             <div className={cls.element('kontonummer-hente-knapp')}>
                 <LagreKnapp
-                    label="Hent kontonummer fra Altinn"
                     lagre={async () => {
                         const arbeidsgiverKontonummer = await hentKontonummerForArbeidsgiver(avtale.id);
                         settAvtaleInnholdVerdier({ arbeidsgiverKontonummer });
                     }}
-                />
+                >
+                    Hent kontonummer fra Altinn
+                </LagreKnapp>
             </div>
         </div>
     );

@@ -20,7 +20,7 @@ const Slettemerk: FunctionComponent = () => {
         <>
             <VerticalSpacer rem={2} />
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <LagreKnapp label="Slettemerk avtale" lagre={slettemerk} />
+                <LagreKnapp lagre={slettemerk}>Slettemerk avtale</LagreKnapp>
                 <VerticalSpacer rem={2} />
                 {suksess && (
                     <>

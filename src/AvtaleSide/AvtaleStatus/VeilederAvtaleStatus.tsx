@@ -111,11 +111,9 @@ function VeilederAvtaleStatus(props: Props) {
                             </>
                         )}
                         <VerticalSpacer rem={1.5} />
-                        <LagreKnapp
-                            lagre={() => overtaAvtale()}
-                            label="Overta avtale"
-                            suksessmelding="Avtale tildelt"
-                        />
+                        <LagreKnapp lagre={() => overtaAvtale()} suksessmelding="Avtale tildelt">
+                            Overta avtale
+                        </LagreKnapp>
                     </div>
                 }
             />
