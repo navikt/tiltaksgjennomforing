@@ -44,6 +44,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const contex = useContext(FeatureToggleContext);
     const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
     const arbeidstreningReadOnly = contex[Feature.ArbeidstreningReadOnly];
+    const visVarsel = useContext(FeilVarselContext);
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -61,7 +62,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     };
 
     if (arbeidstreningReadOnly) {
-        const visVarsel = useContext(FeilVarselContext);
         visVarsel(
             'Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår. Forsøk igjen om et par timer.',
         );
