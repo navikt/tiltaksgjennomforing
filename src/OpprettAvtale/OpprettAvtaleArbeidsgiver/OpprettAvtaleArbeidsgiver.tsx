@@ -167,6 +167,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                             setTiltaksType(tiltakType);
                                             setUyldigAvtaletype(false);
                                         }}
+                                        disabled={arbeidstreningReadOnly && tiltakType === 'ARBEIDSTRENING'}
                                     >
                                         {storForbokstav(tiltakstypeTekst[tiltakType])}
                                     </RadioPanel>

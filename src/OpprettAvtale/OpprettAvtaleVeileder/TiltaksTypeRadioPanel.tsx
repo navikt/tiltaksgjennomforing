@@ -41,7 +41,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
 
     const contex = useContext(FeatureToggleContext);
     const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
-    const arbeidsTreningReadOnly = contex[Feature.ArbeidstreningReadOnly];
+    const arbeidstreningReadOnly = contex[Feature.ArbeidstreningReadOnly];
 
     const tiltakvalg: Tiltaksvalg[] = [
         'ARBEIDSTRENING',
@@ -85,7 +85,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                                 setTiltaksType(valg);
                                 setUgyldigAvtaletype(false);
                             }}
-                            disabled={arbeidsTreningReadOnly && valg === 'ARBEIDSTRENING'}
+                            disabled={arbeidstreningReadOnly && valg === 'ARBEIDSTRENING'}
                         >
                             {storForbokstav(tiltakstypeTekst[valg])}
                         </RadioPanel>
