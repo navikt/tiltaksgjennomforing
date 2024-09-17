@@ -7,13 +7,15 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale, Avtaleinnhold } from '@/types/avtale';
 import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 interface Props {
     avtale: Pick<
         Avtale,
         | 'erUfordelt'
         | 'statusSomEnum'
+        | 'tiltakstype'
         | 'annullertTidspunkt'
         | 'godkjentAvArbeidsgiver'
         | 'godkjentAvDeltaker'
@@ -25,6 +27,23 @@ interface Props {
 }
 
 const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
+    const featureToggleContex = useContext(FeatureToggleContext);
+    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
+
+    if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadOnly) {
+        return (
+            <StatusPanel
+                header="noe om arbeidstrening er avslått nå"
+                body={
+                    <div style={{ textAlign: 'center' }}>
+                        <BodyShort size="small">noe om arbeidstrening er avslått nå</BodyShort>
+                        <VerticalSpacer rem={1.5} />
+                    </div>
+                }
+            />
+        );
+    }
+
     if (avtale.erUfordelt) {
         return (
             <StatusPanel
