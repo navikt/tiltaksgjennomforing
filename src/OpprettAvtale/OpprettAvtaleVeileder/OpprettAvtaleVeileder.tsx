@@ -188,7 +188,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
 
     return (
         <div className={cls.className}>
-            <Dokumenttittel tittel="Opprett avtale a" />
+            <Dokumenttittel tittel="Opprett avtale" />
             <Heading size="large" className={cls.element('innholdstittel')}>
                 Opprett avtale
             </Heading>

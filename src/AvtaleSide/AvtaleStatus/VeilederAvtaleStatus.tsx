@@ -75,18 +75,9 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
-    const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
-
-    const skalViseAvslåttTilskuddsperiode =
-        avtale.godkjentAvVeileder &&
-        !avtale.erAnnullertEllerAvbrutt &&
-        avtale.tilskuddPeriode.find(
-            (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
-        ) &&
-        avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
-
     const featureToggleContex = useContext(FeatureToggleContext);
     const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
+    const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
 
     if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadOnly) {
         return (
@@ -104,6 +95,14 @@ function VeilederAvtaleStatus(props: Props) {
             />
         );
     }
+
+    const skalViseAvslåttTilskuddsperiode =
+        avtale.godkjentAvVeileder &&
+        !avtale.erAnnullertEllerAvbrutt &&
+        avtale.tilskuddPeriode.find(
+            (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
+        ) &&
+        avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
 
     if (skalViseAvslåttTilskuddsperiode) {
         return <TilskuddsperioderAvslått />;

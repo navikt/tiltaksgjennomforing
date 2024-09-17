@@ -22,6 +22,8 @@ import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const featureToggleContex = useContext(FeatureToggleContext);
+    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
 
     const harØkonomi =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
@@ -35,8 +37,6 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'ARBEIDSTRENING';
-    const featureToggleContex = useContext(FeatureToggleContext);
-    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
 
     if (!erVeileder) {
         return <Varsellogg />;

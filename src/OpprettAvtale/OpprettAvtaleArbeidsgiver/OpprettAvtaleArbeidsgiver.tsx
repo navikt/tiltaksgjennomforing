@@ -118,8 +118,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(
         (org) => org.OrganizationNumber === valgtBedriftNr,
     )?.Name;
-    //Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår. Forsøk
-    //                             igjen om et par timer.
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
