@@ -1,6 +1,8 @@
 import VeilederAvtaleStatus from '@/AvtaleSide/AvtaleStatus/VeilederAvtaleStatus';
 import { Meta, StoryObj } from '@storybook/react';
-import { AvbrytelseGrunn, AvtaleStatus, TilskuddPeriodeStatus, TiltaksType } from '@/types/avtale';
+
+import { Avtale } from '@/types/avtale';
+import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
 const meta = {
     title: 'Tiltaksgjennomforing/Statuser/Veileder',
@@ -14,11 +16,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const erUfordelt = {
+const erUfordelt: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: true,
-    statusSomEnum: 'ANNULLERT' as AvtaleStatus,
+    statusSomEnum: 'ANNULLERT',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -35,7 +38,7 @@ const erUfordelt = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -59,7 +62,7 @@ const erUfordelt = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -67,8 +70,9 @@ const erUfordelt = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -79,11 +83,12 @@ export const ErUfordelt: Story = {
     args: { avtale: erUfordelt },
 };
 
-const annullert = {
+const annullert: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'ANNULLERT' as AvtaleStatus,
+    statusSomEnum: 'ANNULLERT',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -100,7 +105,7 @@ const annullert = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -124,7 +129,7 @@ const annullert = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -132,8 +137,9 @@ const annullert = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -144,11 +150,12 @@ export const Annullert: Story = {
     args: { avtale: annullert },
 };
 
-const avbrutt = {
+const avbrutt: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'AVBRUTT' as AvtaleStatus,
+    statusSomEnum: 'AVBRUTT',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -165,7 +172,7 @@ const avbrutt = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -189,7 +196,7 @@ const avbrutt = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -197,8 +204,9 @@ const avbrutt = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -209,11 +217,12 @@ export const Avbrutt: Story = {
     args: { avtale: avbrutt },
 };
 
-const påbegynt = {
+const påbegynt: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'PÅBEGYNT' as AvtaleStatus,
+    statusSomEnum: 'PÅBEGYNT',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -230,7 +239,7 @@ const påbegynt = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -254,7 +263,7 @@ const påbegynt = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -262,8 +271,9 @@ const påbegynt = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -274,11 +284,12 @@ export const Påbegynt: Story = {
     args: { avtale: påbegynt },
 };
 
-const manglerGodkjenningVeilederHarGodkjent = {
+const manglerGodkjenningVeilederHarGodkjent: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -295,7 +306,7 @@ const manglerGodkjenningVeilederHarGodkjent = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -319,7 +330,7 @@ const manglerGodkjenningVeilederHarGodkjent = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -327,8 +338,9 @@ const manglerGodkjenningVeilederHarGodkjent = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -339,11 +351,12 @@ export const ManglerGodkjenningVeilederHarGodkjent: Story = {
     args: { avtale: manglerGodkjenningVeilederHarGodkjent },
 };
 
-const manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor = {
+const manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MENTOR' as TiltaksType,
+    tiltakstype: 'MENTOR',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -360,7 +373,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -385,7 +398,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -393,8 +406,9 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -405,11 +419,12 @@ export const ManglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor: S
     args: { avtale: manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor },
 };
 
-const manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent = {
+const manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -426,7 +441,7 @@ const manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -451,7 +466,7 @@ const manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -459,8 +474,9 @@ const manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -471,11 +487,12 @@ export const ManglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent: Story 
     args: { avtale: manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent },
 };
 
-const manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor = {
+const manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MENTOR' as TiltaksType,
+    tiltakstype: 'MENTOR',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -492,7 +509,7 @@ const manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -517,7 +534,7 @@ const manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -525,8 +542,9 @@ const manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -537,11 +555,12 @@ export const ManglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor: S
     args: { avtale: manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor },
 };
 
-const manglerGodkjenningDeltakerHarGodkjent = {
+const manglerGodkjenningDeltakerHarGodkjent: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -558,7 +577,7 @@ const manglerGodkjenningDeltakerHarGodkjent = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -582,7 +601,7 @@ const manglerGodkjenningDeltakerHarGodkjent = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -590,8 +609,9 @@ const manglerGodkjenningDeltakerHarGodkjent = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -602,11 +622,12 @@ export const ManglerGodkjenningDeltakerHarGodkjent: Story = {
     args: { avtale: manglerGodkjenningDeltakerHarGodkjent },
 };
 
-const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor = {
+const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MENTOR' as TiltaksType,
+    tiltakstype: 'MENTOR',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -623,7 +644,7 @@ const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -648,7 +669,7 @@ const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -656,8 +677,9 @@ const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -668,11 +690,12 @@ export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor: S
     args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor },
 };
 
-const manglerGodkjenningArbeidsgiverHarGodkjent = {
+const manglerGodkjenningArbeidsgiverHarGodkjent: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -689,7 +712,7 @@ const manglerGodkjenningArbeidsgiverHarGodkjent = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -713,7 +736,7 @@ const manglerGodkjenningArbeidsgiverHarGodkjent = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -721,8 +744,9 @@ const manglerGodkjenningArbeidsgiverHarGodkjent = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -733,11 +757,12 @@ export const ManglerGodkjenningArbeidsgiverHarGodkjent: Story = {
     args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjent },
 };
 
-const manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent = {
+const manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MENTOR' as TiltaksType,
+    tiltakstype: 'MENTOR',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -754,7 +779,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -779,7 +804,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -787,8 +812,9 @@ const manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -799,11 +825,12 @@ export const ManglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent: St
     args: { avtale: manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent },
 };
 
-const manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent = {
+const manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -820,7 +847,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -844,7 +871,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -852,8 +879,9 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -864,11 +892,12 @@ export const ManglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent: Story = {
     args: { avtale: manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent },
 };
 
-const klarForOppstartUteforArena = {
+const klarForOppstartUteforArena: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
+    statusSomEnum: 'KLAR_FOR_OPPSTART',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -885,7 +914,7 @@ const klarForOppstartUteforArena = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -909,7 +938,7 @@ const klarForOppstartUteforArena = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -917,8 +946,9 @@ const klarForOppstartUteforArena = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -929,11 +959,12 @@ export const KlarForOppstartUteforArena: Story = {
     args: { avtale: klarForOppstartUteforArena },
 };
 
-const klarForOppstartArena = {
+const klarForOppstartArena: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
+    statusSomEnum: 'KLAR_FOR_OPPSTART',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'INKLUDERINGSTILSKUDD' as TiltaksType,
+    tiltakstype: 'INKLUDERINGSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -950,7 +981,7 @@ const klarForOppstartArena = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -974,7 +1005,7 @@ const klarForOppstartArena = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -982,8 +1013,9 @@ const klarForOppstartArena = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -994,11 +1026,12 @@ export const KlarForOppstartArena: Story = {
     args: { avtale: klarForOppstartArena },
 };
 
-const gjennomføres = {
+const gjennomføres: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'GJENNOMFØRES' as AvtaleStatus,
+    statusSomEnum: 'GJENNOMFØRES',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -1015,7 +1048,7 @@ const gjennomføres = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -1039,7 +1072,7 @@ const gjennomføres = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -1047,8 +1080,9 @@ const gjennomføres = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -1059,11 +1093,12 @@ export const Gjennomføres: Story = {
     args: { avtale: gjennomføres },
 };
 
-const avsluttet = {
+const avsluttet: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'AVSLUTTET' as AvtaleStatus,
+    statusSomEnum: 'AVSLUTTET',
     annullertTidspunkt: '2021-08-01',
-    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD' as TiltaksType,
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
         {
             beløp: 23324,
@@ -1080,7 +1115,7 @@ const avsluttet = {
             avslåttAvNavIdent: undefined,
             avslåttTidspunkt: undefined,
             løpenummer: 1,
-            status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+            status: 'UBEHANDLET',
             refusjonStatus: undefined,
             aktiv: true,
             kanBesluttesFom: '-999999999-01-01',
@@ -1104,7 +1139,7 @@ const avsluttet = {
         avslåttAvNavIdent: undefined,
         avslåttTidspunkt: undefined,
         løpenummer: 1,
-        status: 'UBEHANDLET' as TilskuddPeriodeStatus,
+        status: 'UBEHANDLET',
         refusjonStatus: undefined,
         aktiv: true,
         kanBesluttesFom: '-999999999-01-01',
@@ -1112,8 +1147,9 @@ const avsluttet = {
     avtaleInngått: '2021-08-01',
     erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },

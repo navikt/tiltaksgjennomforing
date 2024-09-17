@@ -1,14 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { BodyShort } from '@navikt/ds-react';
-import { TiltaksType } from '@/types/avtale';
+
 import BEMHelper from '@/utils/bem';
 
-interface Props {
-    tiltakstype: TiltaksType;
-}
-
-const SommerjobbVeilederTekst: FunctionComponent<Props> = (props) => {
-    if (props.tiltakstype !== 'SOMMERJOBB') return null;
+const SommerjobbVeilederTekst = () => {
     const cls = BEMHelper('instruks');
 
     return (

@@ -160,6 +160,8 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtal
             return 'oppfølging/tilrettelegging endret av veileder';
         case 'ENDRE_OM_MENTOR':
             return 'om mentor endret av veileder';
+        case 'ENDRET_AV_ARENA':
+            return 'dato og arbeidstid synkronisert med fagsystem (Arena)';
         case 'ANNULLERE':
             return '';
     }

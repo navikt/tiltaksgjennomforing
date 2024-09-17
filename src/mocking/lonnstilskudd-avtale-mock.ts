@@ -1,6 +1,6 @@
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Avtale } from '@/types/avtale';
+import { Avtale, Avtaleopphav } from '@/types/avtale';
 
 const lonnstilskuddAvtaleMock: Avtale = {
     id: '1',
