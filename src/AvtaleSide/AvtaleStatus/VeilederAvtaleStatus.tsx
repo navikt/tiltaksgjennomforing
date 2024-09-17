@@ -10,6 +10,7 @@ import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { BodyShort, Link } from '@navikt/ds-react';
 import moment from 'moment';
 import React, { FunctionComponent, useContext } from 'react';
+import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 
 interface Props {
     avtale: Pick<
@@ -42,6 +43,23 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
         ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
+
+    const featureToggleContex = useContext(FeatureToggleContext);
+    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
+
+    if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadOnly) {
+        return (
+            <StatusPanel
+                header="noe om arbeidstrening er avslått nå"
+                body={
+                    <div style={{ textAlign: 'center' }}>
+                        <BodyShort size="small">noe om arbeidstrening er avslått nå</BodyShort>
+                        <VerticalSpacer rem={1.5} />
+                    </div>
+                }
+            />
+        );
+    }
 
     if (skalViseAvslåttTilskuddsperiode) {
         return <TilskuddsperioderAvslått />;
