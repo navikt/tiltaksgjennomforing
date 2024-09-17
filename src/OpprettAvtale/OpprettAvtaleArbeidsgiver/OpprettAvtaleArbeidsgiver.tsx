@@ -30,6 +30,7 @@ import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { storForbokstav } from '@/utils/stringUtils';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -42,6 +43,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const navigate = useNavigate();
     const contex = useContext(FeatureToggleContext);
     const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
+    const arbeidstreningReadOnly = contex[Feature.ArbeidstreningReadOnly];
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -57,6 +59,13 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             setDeltakerFnrFeil(Feilmeldinger.SOMMERJOBB_FOR_GAMMEL);
         }
     };
+
+    if (arbeidstreningReadOnly) {
+        const visVarsel = useContext(FeilVarselContext);
+        visVarsel(
+            'Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår. Forsøk igjen om et par timer.',
+        );
+    }
 
     const opprettAvtaleKlikk = async () => {
         let valgtAvtaleType = false;
@@ -109,7 +118,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(
         (org) => org.OrganizationNumber === valgtBedriftNr,
     )?.Name;
-
+    //Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår. Forsøk
+    //                             igjen om et par timer.
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />

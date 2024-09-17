@@ -33,10 +33,10 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
     if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadOnly) {
         return (
             <StatusPanel
-                header="noe om arbeidstrening er avslått nå"
+                header="Teknisk oppgradering av fagsystem"
                 body={
                     <div style={{ textAlign: 'center' }}>
-                        <BodyShort size="small">noe om arbeidstrening er avslått nå</BodyShort>
+                        <BodyShort size="small">Forsøk igjen om et par timer.</BodyShort>
                         <VerticalSpacer rem={1.5} />
                     </div>
                 }

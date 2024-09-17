@@ -11,6 +11,7 @@ import { BodyShort, Link } from '@navikt/ds-react';
 import moment from 'moment';
 import React, { FunctionComponent, useContext } from 'react';
 import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 
 interface Props {
     avtale: Pick<
@@ -50,10 +51,13 @@ const VeilederAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
     if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadOnly) {
         return (
             <StatusPanel
-                header="noe om arbeidstrening er avslått nå"
+                header="Oppgradering av fagsystemet"
                 body={
                     <div style={{ textAlign: 'center' }}>
-                        <BodyShort size="small">noe om arbeidstrening er avslått nå</BodyShort>
+                        <BodyShort size="small">
+                            Migrering fra Arena pågår. Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk
+                            igjen om et par timer.
+                        </BodyShort>
                         <VerticalSpacer rem={1.5} />
                     </div>
                 }

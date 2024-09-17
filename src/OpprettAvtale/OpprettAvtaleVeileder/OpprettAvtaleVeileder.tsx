@@ -26,6 +26,7 @@ import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 
 import { useNavigate } from 'react-router-dom';
 import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -66,6 +67,11 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             if (!validerOrgnr(verdi)) return 'Ugyldig virksomhetsnummer';
         },
     ]);
+
+    const visVarsel = useContext(FeilVarselContext);
+    visVarsel(
+        'Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår. Forsøk igjen om et par timer.',
+    );
 
     const orgnrOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const verdi = event.target.value.replace(/\D/g, '');
@@ -177,7 +183,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
 
     return (
         <div className={cls.className}>
-            <Dokumenttittel tittel="Opprett avtale" />
+            <Dokumenttittel tittel="Opprett avtale a" />
             <Heading size="large" className={cls.element('innholdstittel')}>
                 Opprett avtale
             </Heading>
