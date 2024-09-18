@@ -1,4 +1,3 @@
-import { Feature } from '@/FeatureToggleProvider';
 import { hentFeatureTogglesVarianter } from '@/services/rest-service';
 import { Variant } from '@/types/unleash-variant';
 import { Alert } from '@navikt/ds-react';
@@ -8,9 +7,9 @@ export const VarselOmNedetid: FunctionComponent = () => {
     const [variant, setVariant] = useState<Variant>();
 
     useEffect(() => {
-        hentFeatureTogglesVarianter([Feature.VisNedetidBanner])
+        hentFeatureTogglesVarianter(['visNedetidBanner'])
             .then((varianter) => {
-                setVariant(varianter[Feature.VisNedetidBanner]);
+                setVariant(varianter['visNedetidBanner']);
             })
             .catch(() => void 0);
     }, []);

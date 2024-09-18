@@ -27,7 +27,7 @@ import { useNavigate } from 'react-router-dom';
 import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
 import { FeilVarselContext } from '@/FeilVarselProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -48,8 +48,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
-    const contex = useContext(FeatureToggleContext);
-    const arbeidstreningReadOnly = contex[Feature.ArbeidstreningReadOnly];
+    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
     const visVarsel = useContext(FeilVarselContext);
 
     const navigate = useNavigate();
@@ -72,7 +71,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
         },
     ]);
 
-    if (arbeidstreningReadOnly) {
+    if (arbeidstreningReadonly) {
         visVarsel(
             'Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår. Forsøk igjen om et par timer.',
         );

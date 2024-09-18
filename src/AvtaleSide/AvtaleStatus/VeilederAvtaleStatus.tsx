@@ -11,7 +11,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
     avtale: Avtale;
@@ -75,22 +75,18 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
-    const featureToggleContex = useContext(FeatureToggleContext);
-    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
+    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
     const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
 
-    if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadOnly) {
+    if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
         return (
             <StatusPanel
                 header="Oppgradering av fagsystemet"
                 body={
-                    <div style={{ textAlign: 'center' }}>
-                        <BodyShort size="small">
-                            Migrering fra Arena pågår. Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk
-                            igjen om et par timer.
-                        </BodyShort>
-                        <VerticalSpacer rem={1.5} />
-                    </div>
+                    <BodyShort size="small" align="center">
+                        Migrering fra Arena pågår. Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk igjen
+                        om et par timer.
+                    </BodyShort>
                 }
             />
         );

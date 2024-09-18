@@ -17,13 +17,12 @@ import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAv
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import './OppgaveLenker.css';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const featureToggleContex = useContext(FeatureToggleContext);
-    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
+    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
 
     const harØkonomi =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
@@ -43,7 +42,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
     }
     return (
         <>
-            {!arbeidstreningReadOnly && (
+            {!arbeidstreningReadonly && (
                 <div className={'modelLenker'}>
                     <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
                     <AnnullerAvtalen />

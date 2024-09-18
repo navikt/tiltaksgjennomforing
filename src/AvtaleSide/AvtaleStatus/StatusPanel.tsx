@@ -7,11 +7,17 @@ import HvemHarGodkjentModal from './HvemHarGodkjentModal';
 import './StatusPanel.less';
 
 const cls = BEMHelper('statusPanel');
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
-const StatusPanel: React.FunctionComponent<{
+interface Props {
     header: string;
-    body?: JSX.Element;
-}> = ({ header, body }) => {
+    body?: React.ReactNode;
+}
+
+const StatusPanel = (props: Props) => {
+    const { header, body } = props;
+    const { visHvemHarGodkjent } = useFeatureToggles();
+
     return (
         <Innholdsboks ariaLabel={header} style={{ backgroundColor: '#FFECCC' }}>
             <div className={cls.className}>
@@ -20,7 +26,12 @@ const StatusPanel: React.FunctionComponent<{
                 </Heading>
                 <VerticalSpacer rem={1} />
                 {body}
-                <HvemHarGodkjentModal />
+                {visHvemHarGodkjent && (
+                    <>
+                        <VerticalSpacer rem={1} />
+                        <HvemHarGodkjentModal />
+                    </>
+                )}
             </div>
         </Innholdsboks>
     );

@@ -11,7 +11,7 @@ import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, Suspense, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -22,12 +22,12 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-
-    const featureToggleContex = useContext(FeatureToggleContext);
-    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
+    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
 
     const skalViseGodkjenning =
-        !avtale.avbrutt && (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
+        !(arbeidstreningReadonly && avtale.tiltakstype === 'ARBEIDSTRENING') &&
+        !avtale.avbrutt &&
+        (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
     return (
         <div className={cls.className}>
@@ -52,10 +52,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                 </div>
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
             </Innholdsboks>
-
-            {!(arbeidstreningReadOnly && avtale.tiltakstype === 'ARBEIDSTRENING') && skalViseGodkjenning && (
-                <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />
-            )}
+            {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {avtale.tilskuddPeriode.length > 0 && (
                 <Innholdsboks>
                     <TilskuddsPerioderOppsummering />

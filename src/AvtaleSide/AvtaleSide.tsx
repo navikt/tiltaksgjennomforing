@@ -15,7 +15,7 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('avtaleside');
 
@@ -50,9 +50,7 @@ const AvtaleSide: FunctionComponent = () => {
 
     const erDesktop = windowSize > 768;
     const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
-
-    const featureToggleContex = useContext(FeatureToggleContext);
-    const arbeidstreningReadOnly = featureToggleContex[Feature.ArbeidstreningReadOnly];
+    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
 
     const erAvtaleLaast =
         godkjentAvVeileder ||
@@ -60,7 +58,7 @@ const AvtaleSide: FunctionComponent = () => {
         avtale.annullertTidspunkt ||
         innloggetBruker.rolle === 'DELTAKER' ||
         innloggetBruker.rolle === 'MENTOR' ||
-        (arbeidstreningReadOnly && avtale.tiltakstype === 'ARBEIDSTRENING');
+        (arbeidstreningReadonly && avtale.tiltakstype === 'ARBEIDSTRENING');
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);

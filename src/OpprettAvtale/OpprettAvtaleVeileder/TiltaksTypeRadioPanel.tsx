@@ -9,9 +9,9 @@ import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
-import { Dispatch, FunctionComponent, SetStateAction, useContext } from 'react';
+import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
     className: string;
@@ -39,9 +39,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
 }) => {
     const cls = BEMHelper(className);
 
-    const contex = useContext(FeatureToggleContext);
-    const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
-    const arbeidstreningReadOnly = contex[Feature.ArbeidstreningReadOnly];
+    const { 'arbeidstrening-readonly': arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
 
     const tiltakvalg: Tiltaksvalg[] = [
         'ARBEIDSTRENING',
@@ -53,7 +51,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
         'VTAO',
     ].filter((tiltak) => {
         if (tiltak === 'VTAO') {
-            return vtaoAktivert;
+            return vtaoTiltakToggle;
         }
         return true;
     }) as Tiltaksvalg[];
@@ -85,7 +83,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                                 setTiltaksType(valg);
                                 setUgyldigAvtaletype(false);
                             }}
-                            disabled={arbeidstreningReadOnly && valg === 'ARBEIDSTRENING'}
+                            disabled={arbeidstreningReadonly && valg === 'ARBEIDSTRENING'}
                         >
                             {storForbokstav(tiltakstypeTekst[valg])}
                         </RadioPanel>

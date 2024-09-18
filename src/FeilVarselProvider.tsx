@@ -8,27 +8,19 @@ export const FeilVarselContext = createContext<(feilmelding?: string) => void>((
 export const FeilVarselProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [feilVarsel, setFeilVarsel] = useState<string | undefined>(undefined);
 
-    const AlertWithCloseButton = ({
-        children,
-        variant,
-    }: {
-        children?: React.ReactNode;
-        variant: AlertProps['variant'];
-    }) => {
-        const [show, setShow] = React.useState(true);
-        const lukkVarselModal = () => {
-            setFeilVarsel(undefined);
-            setShow(false);
-        };
-        return show ? (
-            <Alert variant={variant} closeButton onClose={() => lukkVarselModal()}>
-                {children || 'Content'}
-            </Alert>
-        ) : null;
-    };
     return (
         <>
-            {feilVarsel && <AlertWithCloseButton variant="warning">{feilVarsel}</AlertWithCloseButton>}
+            {feilVarsel && (
+                <Alert
+                    variant="warning"
+                    closeButton
+                    onClose={() => {
+                        setFeilVarsel(undefined);
+                    }}
+                >
+                    {feilVarsel}
+                </Alert>
+            )}
             <FeilVarselContext.Provider value={setFeilVarsel}>{props.children}</FeilVarselContext.Provider>
         </>
     );
