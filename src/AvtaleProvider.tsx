@@ -69,6 +69,7 @@ export interface Context {
 }
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
+export const useAvtale = () => useContext(AvtaleContext);
 
 const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const throwError = useAsyncError();
