@@ -1,30 +1,28 @@
-import { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
 import { hentFeatureToggles } from './services/rest-service';
 
-export enum Feature {
-    VisNedetidBanner = 'visNedetidBanner',
-    VtaoTiltakToggle = 'vtaoTiltakToggle',
-    VisHvemHarGodkjent = 'visHvemHarGodkjent',
-}
+const InitialState = {
+    visNedetidBanner: false,
+    vtaoTiltakToggle: false,
+    visHvemHarGodkjent: false,
+    arbeidstreningReadonly: false,
+} as const;
 
-export const alleFeatures = Object.values(Feature);
+export type Feature = keyof typeof InitialState;
 
-export interface FeatureToggles {
-    [toggles: string]: boolean;
-}
+export type FeatureToggles = Record<Feature, boolean>;
 
-export const FeatureToggleContext = createContext<FeatureToggles>({});
+const FeatureToggleContext = createContext<FeatureToggles>(InitialState);
 
-export const FeatureToggleProvider = (props: any) => {
-    const [featureToggles, setFeatureToggles] = useState<FeatureToggles>({});
+export const useFeatureToggles = () => useContext(FeatureToggleContext);
 
-    const hentToggles = () => {
-        hentFeatureToggles(alleFeatures).then(setFeatureToggles);
-    };
+export const FeatureToggleProvider = (props: React.PropsWithChildren) => {
+    const [featureToggles, setFeatureToggles] = useState<FeatureToggles>(InitialState);
 
     useEffect(() => {
-        hentToggles();
-    }, []);
+        hentFeatureToggles(Object.keys(InitialState) as Feature[]).then(setFeatureToggles);
+    }, [setFeatureToggles]);
 
     return <FeatureToggleContext.Provider value={featureToggles}>{props.children}</FeatureToggleContext.Provider>;
 };

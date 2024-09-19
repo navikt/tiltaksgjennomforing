@@ -9,6 +9,7 @@ export interface Properties {
     value: any;
     checked?: boolean | undefined;
     onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+    disabled?: boolean | undefined;
 }
 
 const RadioPanel: React.FC<PropsWithChildren<Properties>> = ({
@@ -18,6 +19,7 @@ const RadioPanel: React.FC<PropsWithChildren<Properties>> = ({
     checked,
     onChange,
     children,
+    disabled,
 }: PropsWithChildren<Properties>) => {
     const cls = BEMHelper('radio-panel');
 
@@ -27,6 +29,7 @@ const RadioPanel: React.FC<PropsWithChildren<Properties>> = ({
             name={name}
             checked={checked}
             onChange={onChange}
+            disabled={disabled}
             className={cls.className + ' ' + cls.element(checked ? 'active' : 'non-active') + ' ' + className}
         >
             {children}

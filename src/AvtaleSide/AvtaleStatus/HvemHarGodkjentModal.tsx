@@ -1,7 +1,6 @@
 import CheckIkon from '@/assets/ikoner/check.svg?react';
 import VarselIkon from '@/assets/ikoner/varsel.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
 import { TiltaksType } from '@/types/avtale';
 import { formatterDato } from '@/utils/datoUtils';
 import { BodyLong, BodyShort, Button, Label, Modal } from '@navikt/ds-react';
@@ -13,9 +12,6 @@ type Props = {};
 const HvemHarGodkjentModal: FunctionComponent<Props> = (props) => {
     const [modalOpen, setModalOpen] = useState(false);
     const avtaleContext = useContext(AvtaleContext);
-    const featureToggles = useContext(FeatureToggleContext);
-
-    if (!featureToggles[Feature.VisHvemHarGodkjent]) return null;
 
     return (
         <div>

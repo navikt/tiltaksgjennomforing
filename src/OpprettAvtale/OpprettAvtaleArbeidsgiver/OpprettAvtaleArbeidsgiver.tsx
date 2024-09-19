@@ -29,7 +29,8 @@ import { useNavigate } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { storForbokstav } from '@/utils/stringUtils';
-import { Feature, FeatureToggleContext } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { FeilVarselContext } from '@/FeilVarselProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -40,8 +41,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
-    const contex = useContext(FeatureToggleContext);
-    const vtaoAktivert = contex[Feature.VtaoTiltakToggle];
+    const { arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
+    const visVarsel = useContext(FeilVarselContext);
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -109,12 +110,20 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(
         (org) => org.OrganizationNumber === valgtBedriftNr,
     )?.Name;
-
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
+                {arbeidstreningReadonly && (
+                    <>
+                        <Alert variant={'warning'}>
+                            Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår.
+                            Forsøk igjen om et par timer.
+                        </Alert>
+                        <VerticalSpacer rem={1} />
+                    </>
+                )}
                 <Innholdsboks>
                     <Heading level="2" size="medium">
                         Før du oppretter en avtale
@@ -144,26 +153,25 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <div>
                         <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
-                            {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType: TiltaksType, index: number) => {
-                                // Ikke vis VTAO dersom feature toggle er avslått
-                                if (tiltakType === 'VTAO' && !vtaoAktivert) {
-                                    return null;
-                                }
-                                return (
-                                    <RadioPanel
-                                        key={index}
-                                        name="tiltakstype"
-                                        value={tiltakType}
-                                        checked={valgtTiltaksType === tiltakType}
-                                        onChange={() => {
-                                            setTiltaksType(tiltakType);
-                                            setUyldigAvtaletype(false);
-                                        }}
-                                    >
-                                        {storForbokstav(tiltakstypeTekst[tiltakType])}
-                                    </RadioPanel>
-                                );
-                            })}
+                            {innloggetBruker.tilganger[valgtBedriftNr]
+                                .filter((tiltakType) => tiltakType !== 'VTAO' && vtaoTiltakToggle)
+                                .map((tiltakType) => {
+                                    return (
+                                        <RadioPanel
+                                            key={tiltakType}
+                                            name="tiltakstype"
+                                            value={tiltakType}
+                                            checked={valgtTiltaksType === tiltakType}
+                                            onChange={() => {
+                                                setTiltaksType(tiltakType);
+                                                setUyldigAvtaletype(false);
+                                            }}
+                                            disabled={arbeidstreningReadonly && tiltakType === 'ARBEIDSTRENING'}
+                                        >
+                                            {storForbokstav(tiltakstypeTekst[tiltakType])}
+                                        </RadioPanel>
+                                    );
+                                })}
                         </RadioGroup>
                     </div>
                     {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}

@@ -4,27 +4,35 @@ import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtale, Avtaleinnhold } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
-    avtale: Pick<
-        Avtale,
-        | 'erUfordelt'
-        | 'statusSomEnum'
-        | 'annullertTidspunkt'
-        | 'godkjentAvArbeidsgiver'
-        | 'godkjentAvDeltaker'
-        | 'godkjentAvVeileder'
-        | 'avtaleInngått'
-        | 'annullertGrunn'
-        | 'avbruttGrunn'
-    > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
+    avtale: Avtale;
 }
 
 const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
+    const { arbeidstreningReadonly } = useFeatureToggles();
+
+    if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
+        return (
+            <StatusPanel
+                header="Teknisk oppgradering av fagsystem"
+                body={
+                    <>
+                        <BodyShort size="small" align="center">
+                            Forsøk igjen om et par timer.
+                        </BodyShort>
+                        <VerticalSpacer rem={1.5} />
+                    </>
+                }
+            />
+        );
+    }
+
     if (avtale.erUfordelt) {
         return (
             <StatusPanel

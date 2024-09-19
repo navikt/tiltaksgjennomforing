@@ -1,6 +1,7 @@
 import ArbeidsgiverAvtaleStatus from '@/AvtaleSide/AvtaleStatus/ArbeidsgiverAvtaleStatus';
 import { Meta, StoryObj } from '@storybook/react';
-import { AvbrytelseGrunn, AvtaleStatus } from '@/types/avtale';
+import { AvbrytelseGrunn, Avtale, AvtaleStatus } from '@/types/avtale';
+import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
 const meta = {
     title: 'Tiltaksgjennomforing/Statuser/Arbeidsgiver',
@@ -14,17 +15,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const erUfordelt = {
+const erUfordelt: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: true,
-    statusSomEnum: 'ANNULLERT' as AvtaleStatus,
+    statusSomEnum: 'ANNULLERT',
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
     godkjentAvDeltaker: '2021-08-01',
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
@@ -35,17 +38,19 @@ export const ErUfordelt: Story = {
     args: { avtale: erUfordelt },
 };
 
-const annullert = {
+const annullert: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'ANNULLERT' as AvtaleStatus,
+    statusSomEnum: 'ANNULLERT',
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
     godkjentAvDeltaker: '2021-08-01',
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
@@ -56,17 +61,19 @@ export const Annullert: Story = {
     args: { avtale: annullert },
 };
 
-const avbrutt = {
+const avbrutt: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'AVBRUTT' as AvtaleStatus,
+    statusSomEnum: 'AVBRUTT',
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
     godkjentAvDeltaker: '2021-08-01',
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
@@ -77,17 +84,19 @@ export const Avbrutt: Story = {
     args: { avtale: avbrutt },
 };
 
-const påbegynt = {
+const påbegynt: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'PÅBEGYNT' as AvtaleStatus,
+    statusSomEnum: 'PÅBEGYNT',
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
     godkjentAvDeltaker: '2021-08-01',
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
@@ -98,17 +107,19 @@ export const Påbegynt: Story = {
     args: { avtale: påbegynt },
 };
 
-const manglerGodkjenningArbeidsgiverHarIkkeGodkjent = {
+const manglerGodkjenningArbeidsgiverHarIkkeGodkjent: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '',
     godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
@@ -119,17 +130,19 @@ export const ManglerGodkjenningArbeidsgiverHarIkkeGodkjent: Story = {
     args: { avtale: manglerGodkjenningArbeidsgiverHarIkkeGodkjent },
 };
 
-const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV = {
+const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    statusSomEnum: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '2024-05-03T12:26:24.40876',
     godkjentAvDeltaker: '',
     godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
@@ -160,17 +173,19 @@ export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgVeileder:
     args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV },
 };
 
-const klarForOppstart = {
+const klarForOppstart: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
+    statusSomEnum: 'KLAR_FOR_OPPSTART',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '2021-08-01',
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
@@ -181,17 +196,19 @@ export const KlarForOppstart: Story = {
     args: { avtale: klarForOppstart },
 };
 
-const gjennomføres = {
+const gjennomføres: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'GJENNOMFØRES' as AvtaleStatus,
+    statusSomEnum: 'GJENNOMFØRES',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '2021-08-01',
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2024-04-21',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
@@ -202,17 +219,19 @@ export const Gjennomføres: Story = {
     args: { avtale: gjennomføres },
 };
 
-const avsluttet = {
+const avsluttet: Avtale = {
+    ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'AVSLUTTET' as AvtaleStatus,
+    statusSomEnum: 'AVSLUTTET',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '',
     godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
+    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
         sluttDato: '2025-04-30',
     },
