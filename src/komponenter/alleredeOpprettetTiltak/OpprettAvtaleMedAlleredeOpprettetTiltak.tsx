@@ -1,26 +1,24 @@
-import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
-import { AlleredeRegistrertAvtale } from '@/types/avtale';
-import AlleredeOpprettetAvtaleModal from '@/komponenter/alleredeOpprettetTiltak/modal/AlleredeOpprettetAvtaleModal';
+import React from 'react';
 import { Heading } from '@navikt/ds-react';
+
 import AlleredeOpprettetAvtale from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/AlleredeOpprettetAvtale';
+import AlleredeOpprettetAvtaleModal from '@/komponenter/alleredeOpprettetTiltak/modal/AlleredeOpprettetAvtaleModal';
 import BEMHelper from '@/utils/bem';
+import { AlleredeRegistrertAvtale } from '@/types/avtale';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
-    modalIsOpen: boolean;
-    setModalIsOpen: Dispatch<SetStateAction<boolean>>;
-    style?: CSSProperties;
+    onLukk: () => void;
+    isApen: boolean;
 }
 
-const OpprettAvtaleMedAlleredeOpprettetTiltak: React.FC<Props> = ({
-    alleredeRegistrertAvtale,
-    setModalIsOpen,
-    modalIsOpen,
-}) => {
+const OpprettAvtaleMedAlleredeOpprettetTiltak: React.FC<Props> = (props: Props) => {
+    const { alleredeRegistrertAvtale, isApen, onLukk } = props;
+
     const cls = BEMHelper('alleredeOpprettetAvtaleModal');
 
     return (
-        <AlleredeOpprettetAvtaleModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
+        <AlleredeOpprettetAvtaleModal isApen={isApen} onLukk={onLukk}>
             <div className={cls.element('body')}>
                 <div className={cls.element('tittel')}>
                     <Heading size="medium" id="Allerede registrerte tiltak for deltaker">

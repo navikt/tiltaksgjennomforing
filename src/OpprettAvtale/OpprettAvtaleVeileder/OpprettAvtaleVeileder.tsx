@@ -227,16 +227,15 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 <LagreKnapp
                     lagre={opprettAvtaleKlikk}
                     setFeilmelding={setFeilmelding}
-                    label={'Opprett avtale'}
                     className="opprett-avtale__knapp"
+                    label="Opprett avtale"
                 />
-
                 <TilbakeTilOversiktLenke />
             </div>
             <OpprettAvtaleMedAlleredeOpprettetTiltak
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
-                modalIsOpen={modalIsOpen}
-                setModalIsOpen={setModalIsOpen}
+                isApen={modalIsOpen}
+                onLukk={() => setModalIsOpen(false)}
             />
         </div>
     );
