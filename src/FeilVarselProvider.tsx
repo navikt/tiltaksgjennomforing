@@ -1,5 +1,5 @@
 import React, { createContext, FunctionComponent, PropsWithChildren, useState } from 'react';
-import { Alert, AlertProps } from '@navikt/ds-react';
+import VarselKomponent from './komponenter/Varsel/VarselKomponent';
 
 export const FeilVarselContext = createContext<(feilmelding?: string) => void>(() => {
     // Skal sette feilVarsel-state til undefined, men tilgjengelig først inne i FeilVarselProvider
@@ -11,15 +11,9 @@ export const FeilVarselProvider: FunctionComponent<PropsWithChildren> = (props) 
     return (
         <>
             {feilVarsel && (
-                <Alert
-                    variant="warning"
-                    closeButton
-                    onClose={() => {
-                        setFeilVarsel(undefined);
-                    }}
-                >
+                <VarselKomponent kanLukkes={true} type="warning" onLukkVarsel={() => setFeilVarsel(undefined)}>
                     {feilVarsel}
-                </Alert>
+                </VarselKomponent>
             )}
             <FeilVarselContext.Provider value={setFeilVarsel}>{props.children}</FeilVarselContext.Provider>
         </>
