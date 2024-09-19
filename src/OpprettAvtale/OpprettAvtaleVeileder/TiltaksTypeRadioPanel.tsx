@@ -39,7 +39,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
 }) => {
     const cls = BEMHelper(className);
 
-    const { arbeidstreningReadOnly: arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
+    const { arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
 
     const tiltakvalg: Tiltaksvalg[] = [
         'ARBEIDSTRENING',

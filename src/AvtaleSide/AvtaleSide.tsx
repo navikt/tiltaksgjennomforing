@@ -50,7 +50,7 @@ const AvtaleSide: FunctionComponent = () => {
 
     const erDesktop = windowSize > 768;
     const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
-    const { arbeidstreningReadOnly: arbeidstreningReadonly } = useFeatureToggles();
+    const { arbeidstreningReadonly } = useFeatureToggles();
 
     const erAvtaleLaast =
         godkjentAvVeileder ||

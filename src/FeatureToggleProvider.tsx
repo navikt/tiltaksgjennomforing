@@ -6,7 +6,7 @@ const InitialState = {
     visNedetidBanner: false,
     vtaoTiltakToggle: false,
     visHvemHarGodkjent: false,
-    arbeidstreningReadOnly: false,
+    arbeidstreningReadonly: false,
 } as const;
 
 export type Feature = keyof typeof InitialState;

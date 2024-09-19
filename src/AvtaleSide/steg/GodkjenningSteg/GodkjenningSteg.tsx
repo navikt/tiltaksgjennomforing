@@ -22,7 +22,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const { arbeidstreningReadOnly: arbeidstreningReadonly } = useFeatureToggles();
+    const { arbeidstreningReadonly } = useFeatureToggles();
 
     const skalViseGodkjenning =
         !(arbeidstreningReadonly && avtale.tiltakstype === 'ARBEIDSTRENING') &&

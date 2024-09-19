@@ -41,7 +41,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
-    const { arbeidstreningReadOnly: arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
+    const { arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
     const visVarsel = useContext(FeilVarselContext);
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
@@ -116,13 +116,13 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
                 {arbeidstreningReadonly && (
-                    <div>
+                    <>
                         <Alert variant={'warning'}>
                             Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår.
                             Forsøk igjen om et par timer.
                         </Alert>
                         <VerticalSpacer rem={1} />
-                    </div>
+                    </>
                 )}
                 <Innholdsboks>
                     <Heading level="2" size="medium">

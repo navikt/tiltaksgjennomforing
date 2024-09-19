@@ -49,7 +49,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
-    const { arbeidstreningReadOnly: arbeidstreningReadonly } = useFeatureToggles();
+    const { arbeidstreningReadonly } = useFeatureToggles();
     const visVarsel = useContext(FeilVarselContext);
 
     const navigate = useNavigate();
@@ -187,13 +187,13 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 Opprett avtale
             </Heading>
             {arbeidstreningReadonly && (
-                <div>
+                <>
                     <Alert variant={'warning'}>
                         Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår.
                         Forsøk igjen om et par timer.
                     </Alert>
                     <VerticalSpacer rem={1} />
-                </div>
+                </>
             )}
             <InformasjonsboksTopVeilederOppretterAvtale />
             <TiltaksTypeRadioPanel
