@@ -22,7 +22,7 @@ import { useFeatureToggles } from '@/FeatureToggleProvider';
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
+    const { arbeidstreningReadOnly: arbeidstreningReadonly } = useFeatureToggles();
 
     const harØkonomi =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||

@@ -15,7 +15,7 @@ interface Props {
 }
 
 const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
-    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
+    const { arbeidstreningReadOnly: arbeidstreningReadonly } = useFeatureToggles();
 
     if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
         return (

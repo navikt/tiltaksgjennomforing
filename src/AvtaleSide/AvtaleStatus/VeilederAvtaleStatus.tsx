@@ -75,7 +75,7 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
-    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
+    const { arbeidstreningReadOnly: arbeidstreningReadonly } = useFeatureToggles();
     const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
 
     if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {

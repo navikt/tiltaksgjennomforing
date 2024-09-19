@@ -28,6 +28,7 @@ import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -48,7 +49,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
-    const { 'arbeidstrening-readonly': arbeidstreningReadonly } = useFeatureToggles();
+    const { arbeidstreningReadOnly: arbeidstreningReadonly } = useFeatureToggles();
     const visVarsel = useContext(FeilVarselContext);
 
     const navigate = useNavigate();
@@ -191,6 +192,15 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             <Heading size="large" className={cls.element('innholdstittel')}>
                 Opprett avtale
             </Heading>
+            {arbeidstreningReadonly && (
+                <div>
+                    <Alert variant={'warning'}>
+                        Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår.
+                        Forsøk igjen om et par timer.
+                    </Alert>
+                    <VerticalSpacer rem={1} />
+                </div>
+            )}
             <InformasjonsboksTopVeilederOppretterAvtale />
             <TiltaksTypeRadioPanel
                 className={cls.className}
@@ -219,7 +229,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale}
                 setModalIsOpen={setModalIsOpen}
             />
-
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
                     lagre={opprettAvtaleKlikk}
