@@ -59,12 +59,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         }
     };
 
-    if (arbeidstreningReadonly) {
-        visVarsel(
-            'Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår. Forsøk igjen om et par timer.',
-        );
-    }
-
     const opprettAvtaleKlikk = async () => {
         let valgtAvtaleType = false;
         let feilDeltakerFNR = '';
@@ -121,19 +115,19 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <Dokumenttittel tittel="Opprett avtale" />
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
+                {arbeidstreningReadonly && (
+                    <div>
+                        <Alert variant={'warning'}>
+                            Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår.
+                            Forsøk igjen om et par timer.
+                        </Alert>
+                        <VerticalSpacer rem={1} />
+                    </div>
+                )}
                 <Innholdsboks>
                     <Heading level="2" size="medium">
                         Før du oppretter en avtale
                     </Heading>
-                    {arbeidstreningReadonly && (
-                        <div>
-                            <Alert variant={'warning'}>
-                                Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering
-                                pågår. Forsøk igjen om et par timer.
-                            </Alert>
-                            <VerticalSpacer rem={1} />
-                        </div>
-                    )}
                     <BodyShort size="small">
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                         <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>

@@ -72,12 +72,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
         },
     ]);
 
-    if (arbeidstreningReadonly) {
-        visVarsel(
-            'Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår. Forsøk igjen om et par timer.',
-        );
-    }
-
     const orgnrOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const verdi = event.target.value.replace(/\D/g, '');
         if (/^\d{0,9}$/.test(verdi)) {
