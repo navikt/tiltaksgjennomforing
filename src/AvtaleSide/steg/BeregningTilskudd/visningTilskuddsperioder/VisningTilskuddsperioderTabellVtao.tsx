@@ -32,11 +32,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                 <Label>Tilskudd for perioder</Label>
                 {innloggetBruker.erNavAnsatt && <Label>Status</Label>}
                 <Label>Inntil</Label>
-                <Label>
-                    Ubetalt
-                    <br />
-                    refusjon
-                </Label>
+                <Label>Utbetales</Label>
             </div>
             {avtale.tilskuddPeriode
                 .filter((p: TilskuddsPeriode) => p.aktiv)

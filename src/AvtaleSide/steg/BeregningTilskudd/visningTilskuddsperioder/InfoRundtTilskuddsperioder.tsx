@@ -32,10 +32,15 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
             <div className={cls.element('tabell-innslag')}>
                 {tiltakstype === 'VTAO' ? (
                     <>
-                        {/* TODO: Vi må kanskje gå over fra måneder til år når man er over 12 måneder?  */}
                         Avtalen varer i{' '}
-                        {moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'months')}{' '}
-                        {'måneder.'}
+                        {moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'months') > 0
+                            ? moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'months') < 12
+                                ? moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'months') +
+                                  ' måneder.'
+                                : moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'years') +
+                                  ' år.'
+                            : moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'days') +
+                              ' dager.'}
                         <br />
                         Det tilsvarer en refusjon til arbeisgiver på ca {formatterPenger(6808 * 12)} i året og totalt{' '}
                         {formatterPenger(antallAktiveTilskuddsperioder * 6808)} kr for hele perioden .
