@@ -27,7 +27,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
         { value: 'MENTOR', label: 'Mentor' },
         { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
-        vtaoTiltakToggle ? { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet(VTA-O)' } : null,
+        vtaoTiltakToggle ? { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' } : null,
     ].filter((x) => x !== null) as OptionProps[];
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
