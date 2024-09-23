@@ -58,7 +58,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                                     {periode.beløp !== null ? formatterPenger(periode.beløp) : '-'}
                                 </BodyShort>
                                 <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                                    {formatterDato(periode.sluttDato, 'MMM YYYY')}
+                                    {formatterDato(moment(periode.sluttDato).add(3, 'days').toString(), 'DD MMM YYYY')}
                                 </BodyShort>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                             {sistePeriode.beløp !== null ? formatterPenger(sistePeriode.beløp) : '-'}
                         </BodyShort>
                         <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                            {formatterDato(sistePeriode.sluttDato, 'MMM YYYY')}
+                            {formatterDato(moment(sistePeriode.sluttDato).add(3, 'days').toString(), 'DD MMM YYYY')}
                         </BodyShort>
                     </div>
                 </div>
