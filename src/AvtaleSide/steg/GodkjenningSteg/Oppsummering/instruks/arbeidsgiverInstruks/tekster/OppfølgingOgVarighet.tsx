@@ -9,8 +9,8 @@ interface Props {
     eksternLenke: string;
 }
 
-const OppfLgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLenke }) => {
-    if (!['MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'MENTOR', 'INKLUDERINGSTILSKUDD'].includes(tiltakstype)) {
+const OppfolgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLenke }) => {
+    if (!['MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'MENTOR', 'INKLUDERINGSTILSKUDD', 'VTAO'].includes(tiltakstype)) {
         return null;
     }
     return (
@@ -24,7 +24,14 @@ const OppfLgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLen
                 deltakers behov. Tilskuddet reguleres av{' '}
                 <EksternLenke href={eksternLenke}>forskrift for arbeidsmarkedstiltak</EksternLenke>
             </p>
+            {tiltakstype === 'VTAO' && (
+                <p>
+                    Arbeidsgiver er forpliktet til å rapportere etter nærmere avtale (minst en gang i året). Rapporten
+                    skal inneholde dokumentasjon om deltakerens utvikling i arbeidsforholdet og hvilke tilpasninger som
+                    er gjort for å øke deltakerens mestringsnivå.
+                </p>
+            )}
         </IkonTekstRad>
     );
 };
-export default OppfLgingOgVarighet;
+export default OppfolgingOgVarighet;

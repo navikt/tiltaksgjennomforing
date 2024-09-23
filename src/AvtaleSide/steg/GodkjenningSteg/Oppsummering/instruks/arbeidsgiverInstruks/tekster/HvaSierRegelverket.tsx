@@ -27,6 +27,12 @@ const HvaSierRegelverket: FunctionComponent<PropsWithChildren<Props>> = ({ tilta
                         Krav, vilkår og informasjon
                     </EksternLenke>
                 )}
+                {tiltakstype === 'VTAO' && (
+                    <>
+                        <p>Deltakeren er ansatt og dere skal følge arbeidsmiljølovens bestemmelser</p>
+                        <p>Les mer om arbeidsmiljøloven her</p>
+                    </>
+                )}
                 <EksternLenke href={href}>Forskrift om arbeidsmarkedstiltak (tiltaksforskriften)</EksternLenke>
                 {tiltakstype !== 'MENTOR' && tiltakstype !== 'INKLUDERINGSTILSKUDD' && (
                     <EksternLenke href={'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_10'}>

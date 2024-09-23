@@ -5,7 +5,7 @@ import BEMHelper from '@/utils/bem';
 import { BodyShort, Label } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import '../instruks.less';
-import OppfLgingOgVarighet from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/OppfølgingOgVarighet';
+import OppfolgingOgVarighet from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/OppfølgingOgVarighet';
 import ArbeidsmiljLoven from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Arbeidsmiljøloven';
 import YrkesskadeforsikringOgSkadeerstatning from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/YrkesskadeforsikringOgSkadeerstatning';
 import FolketrygdlovenEgenmeldingOgSykmelding from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/FolketrygdlovenEgenmeldingOgSykmelding';
@@ -39,7 +39,10 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                         <Label>Som arbeidsgiver må du</Label>
                     </div>
                     <VerticalSpacer rem={2} />
-                    <OppfLgingOgVarighet tiltakstype={tiltakstype} eksternLenke={oppfolgingLenker[props.tiltakstype]} />
+                    <OppfolgingOgVarighet
+                        tiltakstype={tiltakstype}
+                        eksternLenke={oppfolgingLenker[props.tiltakstype]}
+                    />
                     <ArbeidsmiljLoven tiltakstype={tiltakstype} />
                     <YrkesskadeforsikringOgSkadeerstatning tiltakstype={tiltakstype} />
                     <FolketrygdlovenEgenmeldingOgSykmelding tiltakstype={tiltakstype} />
