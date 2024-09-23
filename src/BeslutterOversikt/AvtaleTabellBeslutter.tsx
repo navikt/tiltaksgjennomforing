@@ -43,7 +43,6 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                             <Table.DataCell>
                                 {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                                 <BodyShort size="small">
-                                    jhbhjk
                                     {storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}
                                 </BodyShort>
                             </Table.DataCell>
