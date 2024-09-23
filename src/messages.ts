@@ -84,7 +84,7 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     MENTOR: 'mentor',
     INKLUDERINGSTILSKUDD: 'inkluderingstilskudd',
     SOMMERJOBB: 'sommerjobb',
-    VTAO: 'vtao',
+    VTAO: 'VTA-O',
 };
 
 export const avtaleTittel: { [key in TiltaksType]: string } = {

@@ -88,9 +88,7 @@ const AvtaleTabell: FunctionComponent<{
                             >
                                 <Table.DataCell>
                                     {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
-                                    <BodyShort size="small">
-                                        {storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}
-                                    </BodyShort>
+                                    <BodyShort>{storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}</BodyShort>
                                 </Table.DataCell>
                                 <Table.DataCell>
                                     <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>

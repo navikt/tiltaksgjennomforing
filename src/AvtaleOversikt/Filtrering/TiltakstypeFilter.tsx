@@ -4,7 +4,7 @@ import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { TiltaksType } from '@/types/avtale';
 import { Radio, RadioGroup } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
@@ -16,6 +16,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
+        { value: 'VTAO', label: 'VTA-O' },
     ];
 
     const alleTiltakstyper: OptionProps[] = [
@@ -26,7 +27,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
         { value: 'MENTOR', label: 'Mentor' },
         { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
-        vtaoTiltakToggle ? { value: 'VTAO', label: 'VTA-oppfølging' } : null,
+        vtaoTiltakToggle ? { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet(VTA-O)' } : null,
     ].filter((x) => x !== null) as OptionProps[];
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
