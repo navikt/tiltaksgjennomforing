@@ -30,12 +30,18 @@ const TilskuddperiodeBokser: FunctionComponent = () => {
                                     </Label>
                                 </Accordion.Header>
                                 <Accordion.Content>
-                                    {' '}
+                                    {avtale.tiltakstype === 'VTAO'} ? (
+                                    <BodyShort size="small">
+                                        Dagsatsen får du ved å dele "sum tilskudd for en måned" på snitt antall dager i
+                                        en måned (365,25 / 12 = 30,4375) og ganger med antall dager i perioden.
+                                    </BodyShort>
+                                    ) : (
                                     <BodyShort size="small">
                                         Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum
                                         tilskudd for en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375)
                                         og ganger med antall dager i perioden.
                                     </BodyShort>
+                                    )
                                     <VerticalSpacer rem={2} />
                                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                         <BodyShort size="small">
