@@ -34,11 +34,10 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
                     av departementet. Avtale- og refusjonsløsningen vil automatisk oppdateres når det kommer nye satser.
                 </p>
                 <p>
-                    Refusjonen behandles automatisk, utbetaling og kvittering kan ses i refusjonsløsningen og via Min
-                    Side Arbeidsgiver{' '}
-                    <Link href={'https://tiltak-refusjon.nav.no'}> https://tiltak-refusjon.nav.no</Link>. For å bruke
-                    løsningen må du ha tilgangen “inntektsmelding” iva Altinn. Vi kan kontrollere om pengene som blir
-                    utbetalt blir brukt riktig.
+                    Refusjonen behandles automatisk, utbetaling og kvittering kan ses i refusjonsløsningen (
+                    <Link href={'https://tiltak-refusjon.nav.no'}> https://tiltak-refusjon.nav.no</Link>) og via Min
+                    Side Arbeidsgiver. For å bruke løsningen må du ha tilgangen “inntektsmelding” via Altinn. Vi kan
+                    kontrollere om pengene som blir utbetalt blir brukt riktig.
                 </p>
             </IkonTekstRad>
         );

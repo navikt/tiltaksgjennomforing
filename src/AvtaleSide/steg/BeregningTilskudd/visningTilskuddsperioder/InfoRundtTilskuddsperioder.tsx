@@ -42,7 +42,7 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
                             : moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'days') +
                               ' dager.'}
                         <br />
-                        Det tilsvarer en refusjon til arbeisgiver på ca {formatterPenger(6808 * 12)} i året og totalt{' '}
+                        Det tilsvarer en refusjon til arbeidsgiver på ca {formatterPenger(6808 * 12)} i året og totalt{' '}
                         {formatterPenger(antallAktiveTilskuddsperioder * 6808)} kr for hele perioden .
                     </>
                 ) : (
