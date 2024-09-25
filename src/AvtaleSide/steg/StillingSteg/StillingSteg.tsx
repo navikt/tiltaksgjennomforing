@@ -75,10 +75,11 @@ const StillingSteg: FunctionComponent = () => {
                 )}
                 <LagreKnapp
                     lagre={avtaleContext.lagreAvtale}
-                    label={'Lagre'}
                     suksessmelding={'Avtale lagret'}
                     className={cls.element('lagre-knapp')}
-                />
+                >
+                    Lagre
+                </LagreKnapp>
             </Innholdsboks>
         </>
     );

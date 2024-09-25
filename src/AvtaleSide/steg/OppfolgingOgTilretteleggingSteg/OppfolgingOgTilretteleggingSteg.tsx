@@ -40,7 +40,9 @@ const OppfolgingOgTilretteleggingSteg = () => {
                     maxLengde={1000}
                     feilmelding="Beskrivelse av tilrettelegging er påkrevd"
                 />
-                <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+                <LagreKnapp lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'}>
+                    Lagre
+                </LagreKnapp>
             </Innholdsboks>
         </>
     );

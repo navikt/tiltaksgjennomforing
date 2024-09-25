@@ -228,8 +228,9 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                     lagre={opprettAvtaleKlikk}
                     setFeilmelding={setFeilmelding}
                     className="opprett-avtale__knapp"
-                    label="Opprett avtale"
-                />
+                >
+                    Opprett avtale
+                </LagreKnapp>
                 <TilbakeTilOversiktLenke />
             </div>
             <OpprettAvtaleMedAlleredeOpprettetTiltak

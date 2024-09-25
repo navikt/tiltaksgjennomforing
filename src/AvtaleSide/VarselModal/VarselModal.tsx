@@ -72,7 +72,9 @@ const VarselModal: FunctionComponent = () => {
                         Se alle hendelser for denne avtalen
                     </Button>
                 )}
-                <LagreKnapp lagre={lukkOgLesVarsler} label="Lukk" variant="secondary" />
+                <LagreKnapp lagre={lukkOgLesVarsler} variant="secondary">
+                    Lukk
+                </LagreKnapp>
             </Modal.Footer>
         </Modal>
     );

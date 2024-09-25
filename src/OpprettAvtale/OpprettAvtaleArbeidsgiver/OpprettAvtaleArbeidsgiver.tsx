@@ -242,9 +242,10 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <LagreKnapp
                         lagre={opprettAvtaleKlikk}
                         setFeilmelding={setFeilmelding}
-                        label={'Opprett avtale'}
                         className="opprett-avtale__knapp"
-                    />
+                    >
+                        Opprett avtale
+                    </LagreKnapp>
                     <TilbakeTilOversiktLenke />
                 </div>
             </div>

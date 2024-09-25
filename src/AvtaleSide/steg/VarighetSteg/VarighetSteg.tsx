@@ -79,11 +79,12 @@ const VarighetSteg: FunctionComponent = () => {
                     />
                     <VarighetInputfelt className={cls.className} />
                     <LagreKnapp
-                        label={'Lagre'}
                         lagre={lagreAvtale}
                         suksessmelding={'Avtale lagret'}
                         className={cls.element('lagre-knapp')}
-                    />
+                    >
+                        Lagre
+                    </LagreKnapp>
                 </Container>
             </Innholdsboks>
         </div>
