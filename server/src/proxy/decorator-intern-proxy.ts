@@ -54,6 +54,6 @@ export function setup(app: Express) {
     );
 
     app.use('/internarbeidsflatedecorator', (req, res) => {
-        res.redirect(DECORATOR_INTERNAL + req.originalUrl);
+        res.redirect(DECORATOR_INTERNAL + req.originalUrl.replace('/internarbeidsflatedecorator', ''));
     });
 }
