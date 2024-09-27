@@ -33,6 +33,10 @@ export function setup(app: Express) {
         }),
     );
 
+    app.use('/modiacontextholder/api/context', async (req, res, next) => {
+        res.sendStatus(200);
+    });
+
     app.use(
         '/modiacontextholder/redirect',
         async (req, res, next) => {

@@ -13,9 +13,6 @@ const decoratorconfig = (): DecoratorProps => {
         environment: 'local',
         urlFormat: 'LOCAL',
         proxy: '/modiacontextholder',
-        // toggles: {
-        //     visVeileder: true,
-        // },
     };
 };
 
