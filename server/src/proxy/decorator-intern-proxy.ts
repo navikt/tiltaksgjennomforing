@@ -5,7 +5,6 @@ import { APIGW_URL, MODIACONTEXTHOLDER_API_SCOPE, DECORATOR_INTERNAL, TILTAK_PRO
 import { requestOboToken } from '../auth';
 
 export function setup(app: Express) {
-    console.log('intern proxy');
     app.use(
         '/modiacontextholder/api/decorator',
         async (req, res, next) => {

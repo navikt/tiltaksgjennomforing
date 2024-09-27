@@ -10,7 +10,7 @@ const decoratorconfig = (): DecoratorProps => {
         showHotkeys: false,
         environment: 'local',
         urlFormat: 'LOCAL',
-        proxy: '/internarbeidsflatedecorator',
+        proxy: '/modiacontextholder',
         // toggles: {
         //     visVeileder: true,
         // },
