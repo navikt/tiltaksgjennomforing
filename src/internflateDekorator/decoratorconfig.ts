@@ -5,6 +5,8 @@ const decoratorconfig = (): DecoratorProps => {
         appName: 'Tiltaksgjennomføring',
         onEnhetChanged: () => {},
         onFnrChanged: () => {},
+        fetchActiveEnhetOnMount: false,
+        fetchActiveUserOnMount: false,
         showEnheter: false,
         showSearchArea: false,
         showHotkeys: false,
