@@ -66,12 +66,19 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             return avtale.godkjentAvDeltaker ? (
                 <StatusPanel
                     header={
-                        'Venter på godkjenning av avtalen fra ' +
-                        [!avtale.godkjentAvArbeidsgiver && 'arbeidsgiver', !avtale.godkjentAvVeileder && 'NAV']
-                            .filter((x) => x)
-                            .join(' og ')
+                        `Venter på godkjenning av avtalen fra ` +
+                        (avtale.godkjentAvVeileder
+                            ? 'NAV'
+                            : [!avtale.godkjentAvDeltaker && 'deltaker', !avtale.godkjentAvVeileder && 'NAV']
+                                  .filter((x) => x)
+                                  .join(' og '))
                     }
-                    body={<BodyShort size="small">Du har godkjent avtalen.</BodyShort>}
+                    body={
+                        <>
+                            <BodyShort size="small">Du har godkjent.</BodyShort>
+                            <VerticalSpacer rem={2} />
+                        </>
+                    }
                 />
             ) : (
                 <StatusPanel
