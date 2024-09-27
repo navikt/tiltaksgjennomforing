@@ -8,6 +8,6 @@
 "modiacontextholder-api-scope": "api://prod-gcp.personoversikt.modiacontextholder/.default"
 "proxy-cluster": "prod-fss"
 "aad-redirect-url": "https://tiltaksgjennomforing.intern.nav.no/oauth2/callback"
-"decorator-internal": "https://cdn.nav.no/personoversikt"
+"decorator-internal": "https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist"
 "decorator-internal-script": "/internarbeidsflate-decorator-v3/prod/latest/dist/bundle.js"
 "decorator-internal-styling": "/internarbeidsflate-decorator-v3/prod/latest/dist/index.css"

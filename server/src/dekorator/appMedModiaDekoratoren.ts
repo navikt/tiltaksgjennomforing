@@ -2,8 +2,6 @@ import fs from 'node:fs';
 import jsdom from 'jsdom';
 import { Request, Response } from 'express';
 
-import { DECORATOR_INTERNAL_STYLING, DECORATOR_INTERNAL_SCRIPT } from '../config';
-
 const { JSDOM } = jsdom;
 
 const scriptAddress: string = 'internarbeidsflatedecorator/bundle.js';
@@ -37,11 +35,11 @@ async function getHTMLDocument(indexFilepath: string) {
 
 function setInnHTML(document: Document) {
     const style = document.createElement('link');
-    style.href = DECORATOR_INTERNAL_STYLING ?? styleAddress;
+    style.href = styleAddress;
     style.rel = 'stylesheet';
 
     const script = document.createElement('script');
-    script.src = DECORATOR_INTERNAL_SCRIPT ?? scriptAddress;
+    script.src = scriptAddress;
 
     insertHTML(document, style);
     insertHTML(document, script);
