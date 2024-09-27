@@ -2,11 +2,17 @@ import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 
 const decoratorconfig = (): DecoratorProps => {
     return {
-        appname: 'Tiltaksgjennomføring',
-        useProxy: true,
-        toggles: {
-            visVeileder: true,
-        },
+        appName: 'Tiltaksgjennomføring',
+        onEnhetChanged: () => {},
+        onFnrChanged: () => {},
+        showEnheter: false,
+        showSearchArea: false,
+        showHotkeys: false,
+        environment: 'local',
+        urlFormat: 'LOCAL',
+        // toggles: {
+        //     visVeileder: true,
+        // },
     };
 };
 

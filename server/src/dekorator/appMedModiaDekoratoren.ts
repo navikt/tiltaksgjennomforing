@@ -6,19 +6,15 @@ import { DECORATOR_INTERNAL_STYLING, DECORATOR_INTERNAL_SCRIPT } from '../config
 
 const { JSDOM } = jsdom;
 
-const scriptAddress: string =
-    'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/js/head.v2.min.js';
-const styleAddress: string =
-    'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
+const scriptAddress: string = 'internarbeidsflatedecorator/bundle.js';
+const styleAddress: string = 'internarbeidsflatedecorator/index.css';
 
 export async function getModiaDekoratoren(indexpath: string, _: Request, res: Response) {
     const index: string = await getHTMLDocument(indexpath);
 
     const { document } = new JSDOM(index).window;
     if (document) {
-        console.log('document is defined');
         const updatedDocument = setInnHTML(document);
-        console.log('current updated document: ', updatedDocument.documentElement.outerHTML);
         res.send(`<!DOCTYPE html>${updatedDocument.documentElement.outerHTML}`);
     } else {
         throw new Error('Feilet med oppdatering av index.html.');

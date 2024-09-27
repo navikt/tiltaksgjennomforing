@@ -16,7 +16,7 @@ import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
 
 const dekoratorConfig = decoratorconfig();
-const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
+const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflate-decorator-v3');
 
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
