@@ -6,9 +6,6 @@ declare global {
             API_AUDIENCE: string;
             ARBEIDSGIVER_DIALOG_URL: string;
             DECORATOR_EXTERNAL_URL: string;
-            DECORATOR_INTERNAL: string;
-            DECORATOR_INTERNAL_SCRIPT: string;
-            DECORATOR_INTERNAL_STYLING: string;
             ENABLE_EXTERNAL_MENU: string;
             ENABLE_INTERNAL_MENU: string;
             INTERN_INGRESS: string;

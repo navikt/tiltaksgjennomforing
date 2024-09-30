@@ -27,8 +27,6 @@ export const ARBEIDSGIVER_DIALOG_URL =
     MILJO !== Miljo.LOCALHOST ? process.env.ARBEIDSGIVER_DIALOG_URL : 'http://localhost:8080';
 export const DECORATOR_EXTERNAL_URL =
     MILJO !== Miljo.LOCALHOST ? process.env.DECORATOR_EXTERNAL_URL : 'http://localhost:8080';
-export const DECORATOR_INTERNAL =
-    MILJO !== Miljo.LOCALHOST ? process.env.DECORATOR_INTERNAL : 'https://internarbeidsflatedecorator.intern.nav.no';
 export const DECORATOR_INTERNAL_SCRIPT =
     ENV === Env.PROD
         ? 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist/bundle.js'
