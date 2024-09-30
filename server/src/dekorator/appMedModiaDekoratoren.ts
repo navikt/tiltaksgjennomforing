@@ -1,11 +1,9 @@
 import fs from 'node:fs';
 import jsdom from 'jsdom';
 import { Request, Response } from 'express';
+import { DECORATOR_INTERNAL_SCRIPT, DECORATOR_INTERNAL_STYLING } from '../config';
 
 const { JSDOM } = jsdom;
-
-const scriptAddress: string = 'internarbeidsflatedecorator/bundle.js';
-const styleAddress: string = 'internarbeidsflatedecorator/index.css';
 
 export async function getModiaDekoratoren(indexpath: string, _: Request, res: Response) {
     const index: string = await getHTMLDocument(indexpath);
@@ -35,11 +33,11 @@ async function getHTMLDocument(indexFilepath: string) {
 
 function setInnHTML(document: Document) {
     const style = document.createElement('link');
-    style.href = styleAddress;
+    style.href = DECORATOR_INTERNAL_STYLING;
     style.rel = 'stylesheet';
 
     const script = document.createElement('script');
-    script.src = scriptAddress;
+    script.src = DECORATOR_INTERNAL_SCRIPT;
 
     insertHTML(document, style);
     insertHTML(document, script);

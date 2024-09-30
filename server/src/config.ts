@@ -30,13 +30,13 @@ export const DECORATOR_EXTERNAL_URL =
 export const DECORATOR_INTERNAL =
     MILJO !== Miljo.LOCALHOST ? process.env.DECORATOR_INTERNAL : 'https://internarbeidsflatedecorator.intern.nav.no';
 export const DECORATOR_INTERNAL_SCRIPT =
-    MILJO !== Miljo.LOCALHOST
-        ? process.env.DECORATOR_INTERNAL_SCRIPT
-        : 'https://internarbeidsflatedecorator-q0.dev.adeo.no/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js';
+    ENV !== Env.PROD
+        ? 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist/bundle.js'
+        : 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/bundle.js';
 export const DECORATOR_INTERNAL_STYLING =
-    MILJO !== Miljo.LOCALHOST
-        ? process.env.DECORATOR_INTERNAL_STYLING
-        : 'https://internarbeidsflatedecorator-q0.dev.adeo.no/internarbeidsflatedecorator/v2.1/static/js/head.v2.min.js';
+    ENV !== Env.PROD
+        ? 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist/index.css'
+        : 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/index.css';
 export const ENABLE_EXTERNAL_MENU = process.env.ENABLE_EXTERNAL_MENU === 'true';
 export const ENABLE_INTERNAL_MENU = process.env.ENABLE_INTERNAL_MENU === 'true';
 export const INTERN_INGRESS = process.env.INTERN_INGRESS === 'true';
