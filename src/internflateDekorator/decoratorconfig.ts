@@ -11,7 +11,7 @@ const decoratorconfig = (): DecoratorProps => {
         showSearchArea: false,
         showHotkeys: false,
         environment: 'q2',
-        urlFormat: 'ANSATT',
+        urlFormat: 'NAV_NO',
         proxy: '/modiacontextholder',
     };
 };
