@@ -37,7 +37,7 @@ if (ENABLE_EXTERNAL_MENU) {
             contentSecurityPolicy: {
                 useDefaults: true,
                 directives: {
-                    'default-src': ["'self'", 'ws:', 'wss:', '*.nav.no'],
+                    'default-src': ["'self'", 'wss:', '*.nav.no'],
                     'script-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
                     'style-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
                     'font-src': ["'self'", '*.nav.no', 'data:'],
