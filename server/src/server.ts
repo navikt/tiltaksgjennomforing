@@ -9,6 +9,7 @@ import * as appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import * as appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import { initializePath, BASEPATH, STATIC_PATHS } from './paths/setupPath';
 import { setupRoutes } from './routes';
+import { env } from 'process';
 
 const indexPath = path.resolve(__dirname, '../client', 'index.html');
 
@@ -37,7 +38,7 @@ if (ENABLE_EXTERNAL_MENU) {
             contentSecurityPolicy: {
                 useDefaults: true,
                 directives: {
-                    'default-src': ["'self'", '*.nav.no'],
+                    'default-src': ["'self'", ENV === 'dev' ? '*.intern.dev.nav.no' : '*.nav.no'],
                     'script-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
                     'style-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
                     'font-src': ["'self'", '*.nav.no', 'data:'],
