@@ -25,7 +25,6 @@ export function setup(app: Express) {
             changeOrigin: true,
             on: {
                 proxyRes: responseInterceptor(async (responseBuffer) => {
-                    console.log('interceptor', responseBuffer.toString('utf8'));
                     const data = JSON.parse(responseBuffer.toString('utf8'));
                     return JSON.stringify({
                         ...data,
