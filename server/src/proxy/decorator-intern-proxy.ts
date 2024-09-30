@@ -6,45 +6,7 @@ import { requestOboToken } from '../auth';
 
 export function setup(app: Express) {
     app.use(
-        '/modiacontextholder/api/decorator',
-        async (req, res, next) => {
-            try {
-                const accessToken = await requestOboToken(TILTAK_PROXY_API_SCOPE, req);
-                req.headers.authorization = `Bearer ${accessToken}`;
-                req.headers.cookie = 'innlogget-part=VEILEDER; ' + req.headers.cookie;
-                next();
-            } catch (e) {
-                console.error(e);
-                res.sendStatus(500);
-            }
-        },
-        createProxyMiddleware({
-            target: `${APIGW_URL}/tiltaksgjennomforing-api/innlogget-bruker`,
-            ignorePath: true,
-            selfHandleResponse: true,
-            changeOrigin: true,
-            on: {
-                proxyRes: responseInterceptor(async (responseBuffer) => {
-                    const data = JSON.parse(responseBuffer.toString('utf8'));
-                    return JSON.stringify({
-                        ...data,
-                        enheter: data.navEnheter?.map(({ verdi, navn }: any) => ({
-                            enhetId: verdi,
-                            navn,
-                        })),
-                        ident: data.identifikator || '',
-                    });
-                }),
-            },
-        }),
-    );
-
-    app.use('/modiacontextholder/api/context', async (req, res, next) => {
-        res.sendStatus(200);
-    });
-
-    app.use(
-        '/modiacontextholder/redirect',
+        '/modiacontextholder',
         async (req, res, next) => {
             try {
                 const accessToken = await requestOboToken(MODIACONTEXTHOLDER_API_SCOPE, req);
@@ -56,9 +18,66 @@ export function setup(app: Express) {
             }
         },
         createProxyMiddleware({
-            target: 'http://modiacontextholder.personoversikt/modiacontextholder/redirect',
+            target: 'http://modiacontextholder.personoversikt/modiacontextholder',
             followRedirects: false,
             changeOrigin: true,
         }),
     );
+
+    // app.use(
+    //     '/modiacontextholder/api/decorator',
+    //     async (req, res, next) => {
+    //         try {
+    //             const accessToken = await requestOboToken(TILTAK_PROXY_API_SCOPE, req);
+    //             req.headers.authorization = `Bearer ${accessToken}`;
+    //             req.headers.cookie = 'innlogget-part=VEILEDER; ' + req.headers.cookie;
+    //             next();
+    //         } catch (e) {
+    //             console.error(e);
+    //             res.sendStatus(500);
+    //         }
+    //     },
+    //     createProxyMiddleware({
+    //         target: `${APIGW_URL}/tiltaksgjennomforing-api/innlogget-bruker`,
+    //         ignorePath: true,
+    //         selfHandleResponse: true,
+    //         changeOrigin: true,
+    //         on: {
+    //             proxyRes: responseInterceptor(async (responseBuffer) => {
+    //                 const data = JSON.parse(responseBuffer.toString('utf8'));
+    //                 return JSON.stringify({
+    //                     ...data,
+    //                     enheter: data.navEnheter?.map(({ verdi, navn }: any) => ({
+    //                         enhetId: verdi,
+    //                         navn,
+    //                     })),
+    //                     ident: data.identifikator || '',
+    //                 });
+    //             }),
+    //         },
+    //     }),
+    // );
+
+    // app.use('/modiacontextholder/api/context', async (req, res, next) => {
+    //     res.sendStatus(200);
+    // });
+
+    // app.use(
+    //     '/modiacontextholder/redirect',
+    //     async (req, res, next) => {
+    //         try {
+    //             const accessToken = await requestOboToken(MODIACONTEXTHOLDER_API_SCOPE, req);
+    //             req.headers.authorization = `Bearer ${accessToken}`;
+    //             next();
+    //         } catch (e) {
+    //             console.error(e);
+    //             res.sendStatus(500);
+    //         }
+    //     },
+    //     createProxyMiddleware({
+    //         target: 'http://modiacontextholder.personoversikt/modiacontextholder/redirect',
+    //         followRedirects: false,
+    //         changeOrigin: true,
+    //     }),
+    // );
 }
