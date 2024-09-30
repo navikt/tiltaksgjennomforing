@@ -3,8 +3,8 @@ export const miljo = () => {
         case 'arbeidsgiver.nav.no':
         case 'tiltaksgjennomforing.intern.nav.no':
             return 'prod';
-        case 'tiltaksgjennomforing.dev.intern.nav.no':
-        case 'tiltaksgjennomforing.dev.ekstern.nav.no':
+        case 'tiltaksgjennomforing.intern.dev.nav.no':
+        case 'tiltaksgjennomforing.ekstern.dev.nav.no':
             return 'dev';
         default:
             return 'local';
