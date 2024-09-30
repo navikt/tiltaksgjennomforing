@@ -10,8 +10,8 @@ const decoratorconfig = (): DecoratorProps => {
         showEnheter: false,
         showSearchArea: false,
         showHotkeys: false,
-        environment: 'local',
-        urlFormat: 'LOCAL',
+        environment: 'q2',
+        urlFormat: 'ANSATT',
         proxy: '/modiacontextholder',
     };
 };
