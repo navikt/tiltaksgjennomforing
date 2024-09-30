@@ -1,4 +1,5 @@
 import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
+import { miljo } from '@/utils/utils';
 
 const decoratorconfig = (): DecoratorProps => {
     return {
@@ -10,7 +11,7 @@ const decoratorconfig = (): DecoratorProps => {
         showEnheter: false,
         showSearchArea: false,
         showHotkeys: false,
-        environment: 'q2',
+        environment: miljo() === 'prod' ? 'prod' : 'q2',
         urlFormat: 'NAV_NO',
         proxy: '/modiacontextholder',
     };
