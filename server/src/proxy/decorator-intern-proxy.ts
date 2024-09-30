@@ -27,7 +27,14 @@ export function setup(app: Express) {
                 proxyRes: responseInterceptor(async (responseBuffer) => {
                     console.log('interceptor', responseBuffer.toString('utf8'));
                     const data = JSON.parse(responseBuffer.toString('utf8'));
-                    return JSON.stringify({ ...data, ident: data.identifikator || '' });
+                    return JSON.stringify({
+                        ...data,
+                        enheter: data.navEnheter?.map(({ verdi, navn }: any) => ({
+                            enhetId: verdi,
+                            navn,
+                        })),
+                        ident: data.identifikator || '',
+                    });
                 }),
             },
         }),
