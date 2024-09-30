@@ -50,7 +50,6 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     body={
                         <BodyShort size="small">
                             Veileder har annullert avtalen {formatterDatoHvisDefinert(avtale.annullertTidspunkt!)}.
-                            Årsak: {avtale.annullertGrunn}.
                         </BodyShort>
                     }
                 />
