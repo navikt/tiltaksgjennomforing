@@ -1,3 +1,5 @@
+// OBS: Innholder i denne filen er kopiert fra https://github.com/navikt/internarbeidsflatedecorator
+
 export interface DecoratorProps {
     enhet?: string | undefined; // Konfigurasjon av enhet-kontekst
     accessToken?: string | undefined; // Manuell innsending av JWT, settes som Authorization-header. Om null sendes cookies vha credentials: 'include'
