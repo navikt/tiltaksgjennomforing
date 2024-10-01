@@ -28,7 +28,6 @@ const Feriepenger: React.FC<Props> = ({ cls }: Props) => {
                     options={feriepengeAlternativer}
                     value={avtale.gjeldendeInnhold.feriepengesats + ''}
                     onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                        console.log('event.target.value', event.target.value);
                         settOgKalkulerBeregningsverdier({ feriepengesats: parseFloatIfFloatable(event.target.value) });
                     }}
                     children=""

@@ -1,24 +1,16 @@
 import fs from 'node:fs';
 import jsdom from 'jsdom';
 import { Request, Response } from 'express';
-
-import { DECORATOR_INTERNAL_STYLING, DECORATOR_INTERNAL_SCRIPT } from '../config';
+import { DECORATOR_INTERNAL_SCRIPT, DECORATOR_INTERNAL_STYLING } from '../config';
 
 const { JSDOM } = jsdom;
-
-const scriptAddress: string =
-    'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/js/head.v2.min.js';
-const styleAddress: string =
-    'https://internarbeidsflatedecorator.nais.adeo.no/internarbeidsflatedecorator/v2/static/css/main.css';
 
 export async function getModiaDekoratoren(indexpath: string, _: Request, res: Response) {
     const index: string = await getHTMLDocument(indexpath);
 
     const { document } = new JSDOM(index).window;
     if (document) {
-        console.log('document is defined');
         const updatedDocument = setInnHTML(document);
-        console.log('current updated document: ', updatedDocument.documentElement.outerHTML);
         res.send(`<!DOCTYPE html>${updatedDocument.documentElement.outerHTML}`);
     } else {
         throw new Error('Feilet med oppdatering av index.html.');
@@ -41,11 +33,11 @@ async function getHTMLDocument(indexFilepath: string) {
 
 function setInnHTML(document: Document) {
     const style = document.createElement('link');
-    style.href = DECORATOR_INTERNAL_STYLING ?? styleAddress;
+    style.href = DECORATOR_INTERNAL_STYLING;
     style.rel = 'stylesheet';
 
     const script = document.createElement('script');
-    script.src = DECORATOR_INTERNAL_SCRIPT ?? scriptAddress;
+    script.src = DECORATOR_INTERNAL_SCRIPT;
 
     insertHTML(document, style);
     insertHTML(document, script);

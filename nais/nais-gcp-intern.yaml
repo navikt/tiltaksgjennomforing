@@ -27,12 +27,6 @@ spec:
       value: '{{{logout-url}}}'
     - name: ENABLE_INTERNAL_MENU
       value: 'true'
-    - name: DECORATOR_INTERNAL
-      value: '{{{decorator-internal}}}'
-    - name: DECORATOR_INTERNAL_SCRIPT
-      value: '{{{decorator-internal-script}}}'
-    - name: DECORATOR_INTERNAL_STYLING
-      value: '{{{decorator-internal-styling}}}'
     - name: STILLINGSTITLER_URL
       value: http://tiltak-stillingstitler
     - name: TILTAK_PROXY_API_SCOPE
