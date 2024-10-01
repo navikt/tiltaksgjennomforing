@@ -26,7 +26,6 @@ const HvemHarGodkjentModal: FunctionComponent<Props> = (props) => {
                 header={{ heading: 'Hvem har godkjent?' }}
             >
                 <Modal.Body>
-                    <div></div>
                     <div className="godkjenningstatus">
                         <div className="godkjenningstatus__rader">
                             <GodkjenningRad
