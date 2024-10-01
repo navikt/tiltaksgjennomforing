@@ -82,7 +82,6 @@ function VeilederAvtaleStatus(props: Props) {
             if (moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days') > 0) {
                 return `${moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days')} dager siden.`;
             }
-            console.log(formaterTid(avtale.godkjentAvArbeidsgiver));
             return `${formaterTid(avtale.godkjentAvArbeidsgiver)}`;
         }
     };

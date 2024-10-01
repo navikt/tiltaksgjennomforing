@@ -60,10 +60,6 @@ const AvtaleOversikt: FunctionComponent = () => {
         const sammeSorteringOrderIDataOgFilter = nettressursCtx.data.sorteringOrder === filtre.sorteringOrder;
         const sammeSorteringOrderIUrlOgFilter = searchParams.get('sorteringOrder') === filtre.sorteringOrder;
 
-        // console.log('\nsorteringIData:', nettressursCtx.data.sorteringskolonne, '\nsorteringFilter:', filtre.sorteringskolonne, '\nsorteringUrl:', searchParams.get('sorteringskolonne'), '\nsammeSorteringIUrlOgFilter:', sammeSorteringIUrlOgFilter,
-        // "\nsammeSokId", sammeSokId);
-        //  console.log('innloggetBruker.rolle:', innloggetBruker.rolle);
-
         // Hvis alt er likt i url, filter og data fra backend - ikke gjør noe.
         if (
             sammePageIDataOgFilter &&
