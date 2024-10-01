@@ -69,7 +69,7 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                         `Venter på godkjenning av avtalen fra ` +
                         (avtale.godkjentAvVeileder
                             ? 'NAV'
-                            : [!avtale.godkjentAvDeltaker && 'deltaker', !avtale.godkjentAvVeileder && 'NAV']
+                            : [!avtale.godkjentAvArbeidsgiver && 'arbeidsgiver', !avtale.godkjentAvVeileder && 'NAV']
                                   .filter((x) => x)
                                   .join(' og '))
                     }
