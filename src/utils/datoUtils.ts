@@ -65,3 +65,12 @@ export const formatterDatoHvisDefinert = (dato?: string, format: string = NORSK_
     }
     return formatterDato(dato, format);
 };
+
+export const formaterTid = (tidspunkt: string) => {
+    const antallTimerSiden = moment(moment()).diff(tidspunkt, 'hours');
+    if (antallTimerSiden > 12) {
+        return formatterDato(tidspunkt);
+    } else {
+        return moment(tidspunkt).fromNow();
+    }
+};

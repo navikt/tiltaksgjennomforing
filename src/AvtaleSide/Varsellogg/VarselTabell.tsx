@@ -1,6 +1,6 @@
 import HendelseIkon from '@/komponenter/HendelseIkon';
 import { Varsel } from '@/types/varsel';
-import { formatterDato } from '@/utils/datoUtils';
+import { formaterTid, formatterDato } from '@/utils/datoUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { Table } from '@navikt/ds-react';
 import moment from 'moment';
@@ -10,15 +10,6 @@ import { FunctionComponent, PropsWithChildren, useState } from 'react';
 
 type Props = {
     varsler: Varsel[];
-};
-
-const formaterTid = (tidspunkt: string) => {
-    const antallTimerSiden = moment(moment()).diff(tidspunkt, 'hours');
-    if (antallTimerSiden > 12) {
-        return formatterDato(tidspunkt);
-    } else {
-        return moment(tidspunkt).fromNow();
-    }
 };
 
 const UtgråetTekst: FunctionComponent<PropsWithChildren<{ grå: boolean; title?: string }>> = ({

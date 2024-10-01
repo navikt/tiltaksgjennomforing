@@ -9,7 +9,7 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterTid, formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
 
@@ -76,7 +76,15 @@ function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
     const { arbeidstreningReadonly } = useFeatureToggles();
-    const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
+
+    const tidSidenDeltakerFikkVarsling = () => {
+        if (avtale.godkjentAvArbeidsgiver !== undefined) {
+            if (moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days') > 0) {
+                return `${moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days')} dager siden.`;
+            }
+            return `${formaterTid(avtale.godkjentAvArbeidsgiver)}`;
+        }
+    };
 
     if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
         return (
@@ -284,8 +292,8 @@ function VeilederAvtaleStatus(props: Props) {
                             body={
                                 <BodyShort size="small">
                                     Avtalen må godkjennes av deltaker Deltaker fikk en varsling på min side Personbruker
-                                    om å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden. Mentor må
-                                    signere taushetserklæringen før du kan godkjenne avtalen.
+                                    om å godkjenne avtalen for {tidSidenDeltakerFikkVarsling()} Mentor må signere
+                                    taushetserklæringen før du kan godkjenne avtalen.
                                 </BodyShort>
                             }
                         />
@@ -312,7 +320,7 @@ function VeilederAvtaleStatus(props: Props) {
                             body={
                                 <BodyShort size="small">
                                     Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side på NAV.no
-                                    om å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden.
+                                    om å godkjenne avtalen for {tidSidenDeltakerFikkVarsling()}
                                 </BodyShort>
                             }
                         />
