@@ -6,7 +6,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
+import TilskuddsperioderReturnert from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderReturnert';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formaterTid, formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
@@ -100,7 +100,7 @@ function VeilederAvtaleStatus(props: Props) {
         );
     }
 
-    const skalViseAvslåttTilskuddsperiode =
+    const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
         !avtale.erAnnullertEllerAvbrutt &&
         avtale.tilskuddPeriode.find(
@@ -108,8 +108,8 @@ function VeilederAvtaleStatus(props: Props) {
         ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
 
-    if (skalViseAvslåttTilskuddsperiode) {
-        return <TilskuddsperioderAvslått />;
+    if (skalViseReturnertTilskuddsperiode) {
+        return <TilskuddsperioderReturnert />;
     }
 
     if (avtale.erUfordelt) {

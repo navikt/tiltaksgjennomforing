@@ -1,5 +1,5 @@
 import {
-    Avslagsårsaker,
+    Returårsaker,
     Avtaleinnhold,
     AvtaleStatus,
     AvtaleVersjon,
@@ -104,7 +104,7 @@ export const stillingstype: { [key in Stillingstype]: string } = {
 
 export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: string } = {
     GODKJENT: 'Godkjent',
-    AVSLÅTT: 'Avslått',
+    AVSLÅTT: 'Returnert',
     UBEHANDLET: 'Ubehandlet',
     ANNULLERT: 'Annullert',
     BEHANDLET_I_ARENA: 'Behandlet i Arena',
@@ -126,7 +126,7 @@ export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
     AVSLUTTET: 'Avsluttet',
 };
 
-export const tilskuddsperiodeAvslagTekst: { [key in Avslagsårsaker]: string } = {
+export const tilskuddsperiodeReturÅrsakTekst: { [key in Returårsaker]: string } = {
     FEIL_I_FAKTA: 'Feil i fakta',
     FEIL_I_REGELFORSTÅELSE: 'Feil i regelforståelse',
     FEIL_I_PROSENTSATS: 'Feil i prosentsats',

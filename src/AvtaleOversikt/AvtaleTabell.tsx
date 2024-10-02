@@ -18,7 +18,7 @@ import { storForbokstav } from '@/utils/stringUtils';
 const cls = BEMHelper('avtaletabell');
 
 const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolean): JSX.Element => {
-    const erGjeldendeTilskuddsperiodeAvslått = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
+    const erGjeldendeTilskuddsperiodeReturnert = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
     return (
         <>
             <Table.DataCell>
@@ -26,8 +26,8 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
             </Table.DataCell>
             <Table.DataCell>
                 <BodyShort size="small">
-                    {erGjeldendeTilskuddsperiodeAvslått && erNavAnsatt
-                        ? 'Tilskuddsperiode avslått'
+                    {erGjeldendeTilskuddsperiodeReturnert && erNavAnsatt
+                        ? 'Tilskuddsperiode returnert'
                         : avtaleStatusTekst[avtale.status]}
                 </BodyShort>
             </Table.DataCell>

@@ -1,7 +1,7 @@
 import { Context } from '@/AvtaleProvider';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Avslagsårsaker, Avtale } from '@/types/avtale';
+import { Returårsaker, Avtale } from '@/types/avtale';
 import { Avtaleinnhold } from './../types/avtale';
 
 const avtaleInnhold: Avtale | Avtaleinnhold = {
@@ -43,7 +43,7 @@ const avtaleInnhold: Avtale | Avtaleinnhold = {
             sluttDato: '',
             godkjentTidspunkt: '',
             status: 'UBEHANDLET',
-            avslagsårsaker: new Set<Avslagsårsaker>(),
+            avslagsårsaker: new Set<Returårsaker>(),
             lonnstilskuddProsent: 60,
             kanBesluttesFom: '2021-01-01',
             aktiv: true,
@@ -95,7 +95,7 @@ export const contextMock: Partial<Context> = {
     endretSteg: () => Promise.resolve(),
     godkjenn: () => Promise.resolve(),
     godkjennTilskudd: () => Promise.resolve(),
-    avslåTilskudd: () => Promise.resolve(),
+    returnerTilskuddsperiode: () => Promise.resolve(),
     godkjennPaVegneAvDeltaker: () => Promise.resolve(),
     godkjennPaVegneAvArbeidsgiver: () => Promise.resolve(),
     godkjennPaVegneAvDeltakerOgArbeidsgiver: () => Promise.resolve(),
