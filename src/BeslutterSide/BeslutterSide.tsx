@@ -21,8 +21,8 @@ import OppsummeringVTAO from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Opp
 const cls = BEMHelper('beslutter-side');
 
 export interface Periode {
-    visAvslag: boolean;
-    setVisAvslag: Dispatch<SetStateAction<boolean>>;
+    visReturModal: boolean;
+    setVisReturModal: Dispatch<SetStateAction<boolean>>;
     enhet?: string;
     setEnhet: Dispatch<SetStateAction<string | undefined>>;
     visEnhetFeil: boolean;
@@ -35,7 +35,7 @@ const BeslutterSide: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
     const { gjeldendeTilskuddsperiode, enhetOppfolging, enhetGeografisk } = avtale;
-    const [visAvslag, setVisAvslag] = useState(false);
+    const [visReturModal, setVisReturModal] = useState(false);
     const defaultEnhet = gjeldendeTilskuddsperiode?.enhet || enhetOppfolging || enhetGeografisk || '';
     const [enhet, setEnhet] = useState<string | undefined>(
         gjeldendeTilskuddsperiode && gjeldendeTilskuddsperiode?.løpenummer > 1
@@ -54,8 +54,8 @@ const BeslutterSide: FunctionComponent = () => {
     };
 
     const context: Periode = {
-        visAvslag,
-        setVisAvslag,
+        visReturModal,
+        setVisReturModal,
         enhet,
         setEnhet,
         visEnhetFeil,

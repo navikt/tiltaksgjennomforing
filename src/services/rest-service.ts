@@ -7,7 +7,7 @@ import { basename } from '@/paths';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import {
     AlleredeRegistrertAvtale,
-    Avslagsårsaker,
+    Returårsaker,
     Avtale,
     Bedriftinfo,
     EndreKontaktInfo,
@@ -397,9 +397,9 @@ export const setOmAvtalenKanEtterregistreres = async (avtaleId: string): Promise
     return response.data;
 };
 
-export const avslåTilskuddsperiode = async (
+export const returnerTilskuddsperiode = async (
     avtaleId: string,
-    avslagsårsaker: Set<Avslagsårsaker>,
+    avslagsårsaker: Set<Returårsaker>,
     avslagsforklaring: string,
 ) => {
     const uri = `/avtaler/${avtaleId}/avslag-tilskuddsperiode`;

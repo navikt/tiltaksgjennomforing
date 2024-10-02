@@ -10,9 +10,9 @@ import { BodyShort, Button, Heading } from '@navikt/ds-react';
 import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide';
-import { Avslagsårsaker, TilskuddsPeriode } from '@/types/avtale';
-import { tilskuddsperiodeAvslagTekst } from '@/messages';
-import TilskuddsperiodeVisAvslag from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
+import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
+import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
+import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
 
 interface Props {
     startAnimering: () => void;
@@ -20,7 +20,7 @@ interface Props {
 
 const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const { avtale, godkjennTilskudd } = useContext<Context>(AvtaleContext);
-    const { enhet, setVisEnhetFeil, setVisAvslag } = useContext<Periode>(TilskuddsperiodeContext);
+    const { enhet, setVisEnhetFeil, setVisReturModal: setVisAvslag } = useContext<Periode>(TilskuddsperiodeContext);
     const { gjeldendeTilskuddsperiode } = avtale;
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
     const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
@@ -43,23 +43,23 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         return '';
     };
 
-    const hentAvslagsArsaker = (periode: TilskuddsPeriode): string =>
+    const hentReturÅrsaker = (periode: TilskuddsPeriode): string =>
         new Array(Object.values(periode.avslagsårsaker))
-            .map((e) => e.map((o) => tilskuddsperiodeAvslagTekst[o?.toString().trim() as Avslagsårsaker]).join(', '))
+            .map((e) => e.map((o) => tilskuddsperiodeReturÅrsakTekst[o?.toString().trim() as Returårsaker]).join(', '))
             .join(', ');
 
     const hentAvslattInfoTilskuddsperiode = (periode: TilskuddsPeriode): JSX.Element => {
         return (
             <>
                 <BodyShort size="small">
-                    Tilskuddsperioden ble avslått av
+                    Tilskuddsperioden ble returnert av
                     <span className={cls.element('bold')}>{' ' + periode.avslåttAvNavIdent + ' '}</span> den
                     <span className={cls.element('bold')}>
                         {' ' + formatterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT) + ' '}
                     </span>
                     med følgende årsak(er):
                     <span className={cls.element('bold')}>
-                        {' ' + hentAvslagsArsaker(periode) + ' '}
+                        {' ' + hentReturÅrsaker(periode) + ' '}
                         {''}
                     </span>
                     med forklaringen:
@@ -152,7 +152,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                                                 variant="secondary"
                                                                 onClick={() => setVisAvslag(true)}
                                                             >
-                                                                Avslå med forklaring
+                                                                Send i retur med forklaring
                                                             </Button>
                                                         </>
                                                     )}
@@ -166,7 +166,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                     </tbody>
                 </table>
             </div>
-            <TilskuddsperiodeVisAvslag />
+            <TilskuddsperiodeReturModal tiltakstype={avtale.tiltakstype} />
             <BekreftelseModal
                 bekreftOnClick={async () => {
                     if (enhet) {

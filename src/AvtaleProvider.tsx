@@ -1,6 +1,6 @@
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import {
-    Avslagsårsaker,
+    Returårsaker,
     Avtale,
     Beregningsgrunnlag,
     GodkjentPaVegneAvArbeidsgiverGrunner,
@@ -47,7 +47,7 @@ export interface Context {
     endretSteg: () => void;
     godkjenn: () => Promise<void>;
     godkjennTilskudd: (enhet: string) => Promise<void>;
-    avslåTilskudd: (avslagsårsaker: Set<Avslagsårsaker>, avslagsforklaring: string) => Promise<void>;
+    returnerTilskuddsperiode: (returårsaker: Set<Returårsaker>, returforklaring: string) => Promise<void>;
     godkjennPaVegneAvDeltaker: (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => Promise<void>;
     godkjennPaVegneAvArbeidsgiver: (paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner) => Promise<void>;
     godkjennPaVegneAvDeltakerOgArbeidsgiver: (
@@ -235,8 +235,11 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         await hentAvtale(avtale.id);
     };
 
-    const avslåTilskudd = async (avslagsårsaker: Set<Avslagsårsaker>, avslagsforklaring: string): Promise<void> => {
-        await RestService.avslåTilskuddsperiode(avtale.id, avslagsårsaker, avslagsforklaring);
+    const returnerTilskuddsperiode = async (
+        returårsaker: Set<Returårsaker>,
+        returforklaring: string,
+    ): Promise<void> => {
+        await RestService.returnerTilskuddsperiode(avtale.id, returårsaker, returforklaring);
         sendToAmplitude('#tiltak-tilskudd-avslag');
         await hentAvtale(avtale.id);
     };
@@ -282,7 +285,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         godkjennPaVegneAvArbeidsgiver,
         godkjennPaVegneAvDeltakerOgArbeidsgiver,
         godkjennTilskudd,
-        avslåTilskudd,
+        returnerTilskuddsperiode,
         ulagredeEndringer,
         mellomLagring,
         setMellomLagring,

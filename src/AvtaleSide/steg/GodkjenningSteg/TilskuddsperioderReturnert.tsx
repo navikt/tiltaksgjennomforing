@@ -5,8 +5,8 @@ import { Accordion, Alert, BodyShort, Heading } from '@navikt/ds-react';
 import ProblemIkon from '@/assets/ikoner/varsel.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
-import { tilskuddsperiodeAvslagTekst } from '@/messages';
-import { Avslagsårsaker, TilskuddsPeriode } from '@/types/avtale';
+import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
+import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { interleave } from '@/utils/arrayUtils';
 
 const avslåttBegrunnelse = (avslåttTilskuddsperiode: TilskuddsPeriode) => {
@@ -14,11 +14,11 @@ const avslåttBegrunnelse = (avslåttTilskuddsperiode: TilskuddsPeriode) => {
 
     return (
         <div key={avslåttTilskuddsperiode.id}>
-            <b>{formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)}:</b> Avslått av{' '}
+            <b>{formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)}:</b> Returnert av{' '}
             {avslåttTilskuddsperiode.avslåttAvNavIdent} med følgende årsak{avslagsårsaker.length > 1 ? 'er' : ''}:
             <ul>
-                {avslagsårsaker.map((årsak: Avslagsårsaker, index: number) => (
-                    <li key={index}>{tilskuddsperiodeAvslagTekst[årsak]}</li>
+                {avslagsårsaker.map((årsak: Returårsaker, index: number) => (
+                    <li key={index}>{tilskuddsperiodeReturÅrsakTekst[årsak]}</li>
                 ))}
             </ul>
             med forklaringen: {avslåttTilskuddsperiode.avslagsforklaring}
@@ -26,14 +26,14 @@ const avslåttBegrunnelse = (avslåttTilskuddsperiode: TilskuddsPeriode) => {
     );
 };
 
-const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
+const TilskuddsperioderReturnert: FunctionComponent = (_props) => {
     const { avtale } = useContext(AvtaleContext);
-    const gjeldendeAvslåtteTilskuddsperiode =
+    const gjeldendeReturnerteTilskuddsperiode =
         avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' ? avtale.gjeldendeTilskuddsperiode : undefined;
 
-    const avslåtteTilskuddsperioder = avtale.tilskuddPeriode
+    const returnerteTilskuddsperioder = avtale.tilskuddPeriode
         // Filtrer vekk gjendelde periode fra listen; denne skal vises på toppen av dialogvinduet hvis den er relevant.
-        .filter((p) => p.status === 'AVSLÅTT' && p.id !== gjeldendeAvslåtteTilskuddsperiode?.id)
+        .filter((p) => p.status === 'AVSLÅTT' && p.id !== gjeldendeReturnerteTilskuddsperiode?.id)
         .sort((a: TilskuddsPeriode, b: TilskuddsPeriode) => {
             if (a.avslåttTidspunkt && b.avslåttTidspunkt) {
                 const aTime = new Date(a.avslåttTidspunkt).getMilliseconds();
@@ -43,7 +43,7 @@ const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
             return 0;
         });
 
-    if (!gjeldendeAvslåtteTilskuddsperiode && avslåtteTilskuddsperioder.length === 0) {
+    if (!gjeldendeReturnerteTilskuddsperiode && returnerteTilskuddsperioder.length === 0) {
         return null;
     }
 
@@ -56,21 +56,21 @@ const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
                 <VerticalSpacer rem={1} />
                 <div>
                     <Heading size="large">
-                        {gjeldendeAvslåtteTilskuddsperiode
-                            ? 'Tilskuddsperiode avslått av beslutter'
+                        {gjeldendeReturnerteTilskuddsperiode
+                            ? 'Tilskuddsperiode returnert av beslutter'
                             : 'Venter på godkjenning fra beslutter'}
                     </Heading>
                 </div>
             </div>
             <VerticalSpacer rem={2} />
-            {gjeldendeAvslåtteTilskuddsperiode ? (
+            {gjeldendeReturnerteTilskuddsperiode ? (
                 <>
                     <BodyShort size="small">
                         Gjør du endringer på avtalen vil beslutter kunne godkjenne tilskuddsperioden på nytt. Hvis
                         avtalen allikevel er riktig utfylt kan den sendes tilbake til beslutter uendret.
                     </BodyShort>
                     <VerticalSpacer rem={1} />
-                    <Alert variant="info">{avslåttBegrunnelse(gjeldendeAvslåtteTilskuddsperiode)}</Alert>
+                    <Alert variant="info">{avslåttBegrunnelse(gjeldendeReturnerteTilskuddsperiode)}</Alert>
                 </>
             ) : (
                 <BodyShort size="small">
@@ -78,16 +78,16 @@ const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
                     er nødvendig før beslutter godkjenner.
                 </BodyShort>
             )}
-            {avslåtteTilskuddsperioder.length > 0 ? (
+            {returnerteTilskuddsperioder.length > 0 ? (
                 <>
                     <VerticalSpacer rem={1} />
                     <Accordion>
                         <Accordion.Item>
-                            <Accordion.Header>Vis tidligere avslåtte tilskuddsperioder</Accordion.Header>
+                            <Accordion.Header>Vis tidligere returnerte tilskuddsperioder</Accordion.Header>
                             <Accordion.Content>
                                 {interleave(
-                                    avslåtteTilskuddsperioder.map(avslåttBegrunnelse),
-                                    avslåtteTilskuddsperioder.map((_x, idx) => <VerticalSpacer key={idx} rem={1} />),
+                                    returnerteTilskuddsperioder.map(avslåttBegrunnelse),
+                                    returnerteTilskuddsperioder.map((_x, idx) => <VerticalSpacer key={idx} rem={1} />),
                                 )
                                     // Fjerner siste spacingen
                                     .slice(0, -1)}
@@ -100,4 +100,4 @@ const TilskuddsperioderAvslått: FunctionComponent = (_props) => {
     );
 };
 
-export default TilskuddsperioderAvslått;
+export default TilskuddsperioderReturnert;
