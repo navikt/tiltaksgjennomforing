@@ -8,6 +8,8 @@ const decoratorconfig = (): DecoratorProps => {
         onFnrChanged: () => {},
         fetchActiveEnhetOnMount: false,
         fetchActiveUserOnMount: false,
+        fnrSyncMode: 'writeOnly',
+        enhetSyncMode: 'writeOnly',
         showEnheter: false,
         showSearchArea: false,
         showHotkeys: false,
