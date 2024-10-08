@@ -44,11 +44,7 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                             ) : (
                                 <VisningTilskuddsperioderTabell className={cls.className} />
                             )}
-
-                            <MeldingArbeidsgiverSokRefusjon
-                                className={cls.className}
-                                sluttdato={avtale.tilskuddPeriode[0].sluttDato}
-                            />
+                            <MeldingArbeidsgiverSokRefusjon className={cls.className} avtale={avtale} />
                         </div>
                     </Accordion.Content>
                 </Accordion.Item>

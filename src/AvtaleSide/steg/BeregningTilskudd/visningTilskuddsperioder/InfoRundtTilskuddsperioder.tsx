@@ -2,8 +2,6 @@ import React from 'react';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { Button } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
-import moment from 'moment';
-import { formatterPenger } from '@/utils/PengeUtils';
 
 interface Props {
     className: string;
@@ -12,7 +10,6 @@ interface Props {
     antallAktiveTilskuddsperioder: number;
     setVisAllePerioder: (value: React.SetStateAction<boolean>) => void;
     visAllePerioder: boolean;
-    tiltakstype: string;
 }
 
 const InfoRundtTilskuddsperioder: React.FC<Props> = ({
@@ -22,7 +19,6 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
     antallAktiveTilskuddsperioder,
     setVisAllePerioder,
     visAllePerioder,
-    tiltakstype,
 }: Props) => {
     if (!(gjeldendeInnholdStartdato && gjeldendeInnholdSluttdato)) return null;
 
@@ -30,28 +26,9 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
     return (
         <>
             <div className={cls.element('tabell-innslag')}>
-                {tiltakstype === 'VTAO' ? (
-                    <>
-                        Avtalen varer i{' '}
-                        {moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'months') > 0
-                            ? moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'months') < 12
-                                ? moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'months') +
-                                  ' måneder.'
-                                : moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'years') +
-                                  ' år.'
-                            : moment(gjeldendeInnholdSluttdato).diff(moment(gjeldendeInnholdStartdato), 'days') +
-                              ' dager.'}
-                        <br />
-                        Det tilsvarer en refusjon til arbeidsgiver på ca {formatterPenger(6808 * 12)} i året og totalt{' '}
-                        {formatterPenger(antallAktiveTilskuddsperioder * 6808)} kr for hele perioden .
-                    </>
-                ) : (
-                    <>
-                        Avtalen varer fra {formatterDato(gjeldendeInnholdStartdato, NORSK_DATO_FORMAT)} til{' '}
-                        {formatterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
-                        {antallAktiveTilskuddsperioder} tilskuddsperioder.
-                    </>
-                )}
+                Avtalen varer fra {formatterDato(gjeldendeInnholdStartdato, NORSK_DATO_FORMAT)} til{' '}
+                {formatterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
+                {antallAktiveTilskuddsperioder} tilskuddsperioder.
             </div>
             {!visAllePerioder && (
                 <Button size="small" onClick={() => setVisAllePerioder(true)}>

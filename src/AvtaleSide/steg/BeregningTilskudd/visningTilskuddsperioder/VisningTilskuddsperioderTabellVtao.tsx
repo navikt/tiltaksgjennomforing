@@ -91,7 +91,6 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                 antallAktiveTilskuddsperioder={antallAktiveTilskuddsperioder(avtale)}
                 setVisAllePerioder={setVisAllePerioder}
                 visAllePerioder={visAllePerioder}
-                tiltakstype={avtale.tiltakstype}
             />
         </div>
     );
