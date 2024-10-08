@@ -80,10 +80,7 @@ const BeslutterSide: FunctionComponent = () => {
                     <div className={cls.element('head-wrapper')}>
                         <TilbakeTilOversiktLenke />
                         <Heading size="large" className={cls.element('hoved-tittel')}>
-                            Tilskudd om{' '}
-                            {avtale.tiltakstype === 'VTAO'
-                                ? 'varig tilrettelagt arbeid i ordinær virksomhet'
-                                : tiltakstypeTekst[avtale.tiltakstype]}
+                            Tilskudd om {tiltakstypeTekst[avtale.tiltakstype]}
                         </Heading>
                     </div>
                     <div className={cls.element('wrapper')}>
