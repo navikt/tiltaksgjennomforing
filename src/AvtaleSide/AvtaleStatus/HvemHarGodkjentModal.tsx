@@ -26,29 +26,27 @@ const HvemHarGodkjentModal: FunctionComponent<Props> = (props) => {
                 header={{ heading: 'Hvem har godkjent?' }}
             >
                 <Modal.Body>
-                    <BodyLong>
-                        <div className="godkjenningstatus">
-                            <div className="godkjenningstatus__rader">
+                    <div className="godkjenningstatus">
+                        <div className="godkjenningstatus__rader">
+                            <GodkjenningRad
+                                godkjentAvtale={avtaleContext.avtale.godkjentAvDeltaker}
+                                navn={`${avtaleContext.avtale.gjeldendeInnhold.deltakerFornavn} ${avtaleContext.avtale.gjeldendeInnhold.deltakerEtternavn}`}
+                            />
+                            {avtaleContext.avtale.tiltakstype === 'MENTOR' && (
                                 <GodkjenningRad
-                                    godkjentAvtale={avtaleContext.avtale.godkjentAvDeltaker}
-                                    navn={`${avtaleContext.avtale.gjeldendeInnhold.deltakerFornavn} ${avtaleContext.avtale.gjeldendeInnhold.deltakerEtternavn}`}
+                                    godkjentAvtale={avtaleContext.avtale.godkjentAvMentor}
+                                    navn={`${avtaleContext.avtale.gjeldendeInnhold.mentorFornavn} ${avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}`}
+                                    tiltakstype="MENTOR"
                                 />
-                                {avtaleContext.avtale.tiltakstype === 'MENTOR' && (
-                                    <GodkjenningRad
-                                        godkjentAvtale={avtaleContext.avtale.godkjentAvMentor}
-                                        navn={`${avtaleContext.avtale.gjeldendeInnhold.mentorFornavn} ${avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}`}
-                                        tiltakstype="MENTOR"
-                                    />
-                                )}
+                            )}
 
-                                <GodkjenningRad
-                                    godkjentAvtale={avtaleContext.avtale.godkjentAvArbeidsgiver}
-                                    navn={avtaleContext.avtale.gjeldendeInnhold.bedriftNavn}
-                                />
-                                <GodkjenningRad godkjentAvtale={avtaleContext.avtale.avtaleInngått} navn="NAV" />
-                            </div>
+                            <GodkjenningRad
+                                godkjentAvtale={avtaleContext.avtale.godkjentAvArbeidsgiver}
+                                navn={avtaleContext.avtale.gjeldendeInnhold.bedriftNavn}
+                            />
+                            <GodkjenningRad godkjentAvtale={avtaleContext.avtale.avtaleInngått} navn="NAV" />
                         </div>
-                    </BodyLong>
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button type="button" onClick={() => setModalOpen(false)}>

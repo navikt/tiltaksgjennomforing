@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { BodyShort } from '@navikt/ds-react';
 import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
-import { tilskuddsperiodeAvslagTekst } from '@/messages';
+import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import { AvtaleContext } from '@/AvtaleProvider';
 
 const TilskuddsperiodeStatus: FunctionComponent = () => {
@@ -20,12 +20,12 @@ const TilskuddsperiodeStatus: FunctionComponent = () => {
             )}
             {gjeldendeTilskuddsperiode.status === 'AVSLÅTT' && (
                 <BodyShort size="small">
-                    Tilskuddsperioden ble avslått av <b>{gjeldendeTilskuddsperiode.avslåttAvNavIdent}</b> den{' '}
+                    Tilskuddsperioden ble returnert av <b>{gjeldendeTilskuddsperiode.avslåttAvNavIdent}</b> den{' '}
                     {formatterDato(gjeldendeTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)} med følgende
                     årsak(er):
                     <ul>
                         {Array.from(gjeldendeTilskuddsperiode.avslagsårsaker).map((årsak, index) => (
-                            <li key={index}>{tilskuddsperiodeAvslagTekst[årsak]}</li>
+                            <li key={index}>{tilskuddsperiodeReturÅrsakTekst[årsak]}</li>
                         ))}
                     </ul>
                     med forklaringen: {gjeldendeTilskuddsperiode.avslagsforklaring}

@@ -154,7 +154,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <div>
                         <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
                             {innloggetBruker.tilganger[valgtBedriftNr]
-                                .filter((tiltakType) => tiltakType !== 'VTAO' || vtaoTiltakToggle)
+                                .filter((tiltakType) => (tiltakType === 'VTAO' ? vtaoTiltakToggle : true))
                                 .map((tiltakType) => {
                                     return (
                                         <RadioPanel

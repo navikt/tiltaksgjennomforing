@@ -6,10 +6,10 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import TilskuddsperioderAvslått from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderAvslått';
+import TilskuddsperioderReturnert from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderReturnert';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterTid, formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
 
@@ -76,7 +76,15 @@ function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
     const { arbeidstreningReadonly } = useFeatureToggles();
-    const dagerSidenDeltakerFikkVarsling = moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days');
+
+    const tidSidenDeltakerFikkVarsling = () => {
+        if (avtale.godkjentAvArbeidsgiver !== undefined) {
+            if (moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days') > 0) {
+                return `${moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days')} dager siden.`;
+            }
+            return `${formaterTid(avtale.godkjentAvArbeidsgiver)}`;
+        }
+    };
 
     if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
         return (
@@ -92,7 +100,7 @@ function VeilederAvtaleStatus(props: Props) {
         );
     }
 
-    const skalViseAvslåttTilskuddsperiode =
+    const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
         !avtale.erAnnullertEllerAvbrutt &&
         avtale.tilskuddPeriode.find(
@@ -100,8 +108,8 @@ function VeilederAvtaleStatus(props: Props) {
         ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
 
-    if (skalViseAvslåttTilskuddsperiode) {
-        return <TilskuddsperioderAvslått />;
+    if (skalViseReturnertTilskuddsperiode) {
+        return <TilskuddsperioderReturnert />;
     }
 
     if (avtale.erUfordelt) {
@@ -284,8 +292,8 @@ function VeilederAvtaleStatus(props: Props) {
                             body={
                                 <BodyShort size="small">
                                     Avtalen må godkjennes av deltaker Deltaker fikk en varsling på min side Personbruker
-                                    om å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden. Mentor må
-                                    signere taushetserklæringen før du kan godkjenne avtalen.
+                                    om å godkjenne avtalen for {tidSidenDeltakerFikkVarsling()} Mentor må signere
+                                    taushetserklæringen før du kan godkjenne avtalen.
                                 </BodyShort>
                             }
                         />
@@ -312,7 +320,7 @@ function VeilederAvtaleStatus(props: Props) {
                             body={
                                 <BodyShort size="small">
                                     Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side på NAV.no
-                                    om å godkjenne avtalen for {-dagerSidenDeltakerFikkVarsling} dager siden.
+                                    om å godkjenne avtalen for {tidSidenDeltakerFikkVarsling()}
                                 </BodyShort>
                             }
                         />

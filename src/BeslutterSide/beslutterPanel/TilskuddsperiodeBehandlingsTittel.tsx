@@ -12,7 +12,7 @@ const TilskuddsperiodeBehandlingsTittel: FunctionComponent = () => {
     if (!avtale.gjeldendeTilskuddsperiode) return null;
 
     const tittel: { [key in TilskuddPeriodeStatus]: string } = {
-        AVSLÅTT: 'Tilskuddsperiode er avslått',
+        AVSLÅTT: 'Tilskuddsperiode er returnert',
         GODKJENT: 'Tilskuddsperiode er godkjent',
         UBEHANDLET: 'Tilskuddsperiode som skal godkjennes',
         ANNULLERT: 'Tilskuddsperiode er annullert',

@@ -2,6 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
@@ -11,7 +12,6 @@ import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, Suspense, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -26,7 +26,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
 
     const skalViseGodkjenning =
         !(arbeidstreningReadonly && avtale.tiltakstype === 'ARBEIDSTRENING') &&
-        !avtale.avbrutt &&
+        !avtale.erAnnullertEllerAvbrutt &&
         (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
     return (

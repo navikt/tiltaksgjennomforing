@@ -1,6 +1,6 @@
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Avslagsårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
+import { Returårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
 
 const maalListe: Maal[] = [
     {
@@ -24,7 +24,7 @@ const tilskuddsPeriode: TilskuddsPeriode[] = [
         sluttDato: '',
         status: 'UBEHANDLET',
         godkjentTidspunkt: '',
-        avslagsårsaker: new Set<Avslagsårsaker>(),
+        avslagsårsaker: new Set<Returårsaker>(),
         lonnstilskuddProsent: 60,
         kanBesluttesFom: '2021-01-01',
         aktiv: true,
