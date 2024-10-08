@@ -8,7 +8,7 @@ import { Table, BodyShort } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../AvtaleOversikt/AvtaleTabell.less';
-import { tiltakstypeTekst } from '@/messages';
+import { tiltakstypeTekstKort } from '@/messages';
 import { storForbokstav } from '@/utils/stringUtils';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
 import AvtaleTabellBeslutterHeader from '@/BeslutterOversikt/AvtaleTabellBeslutterHeader';
@@ -43,7 +43,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                             <Table.DataCell>
                                 {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                                 <BodyShort size="small">
-                                    {storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}
+                                    {storForbokstav(tiltakstypeTekstKort[avtale.tiltakstype])}
                                 </BodyShort>
                             </Table.DataCell>
                             <Table.DataCell>

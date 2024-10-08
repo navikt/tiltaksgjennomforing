@@ -1,6 +1,6 @@
 import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
 import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { avtaleStatusTekst, tiltakstypeTekst } from '@/messages';
+import { avtaleStatusTekst, tiltakstypeTekstKort } from '@/messages';
 import { pathTilAvtaleNy } from '@/paths';
 import { AvtaleMinimalListeVisning } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
@@ -88,7 +88,7 @@ const AvtaleTabell: FunctionComponent<{
                             >
                                 <Table.DataCell>
                                     {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
-                                    <BodyShort>{storForbokstav(tiltakstypeTekst[avtale.tiltakstype])}</BodyShort>
+                                    <BodyShort>{storForbokstav(tiltakstypeTekstKort[avtale.tiltakstype])}</BodyShort>
                                 </Table.DataCell>
                                 <Table.DataCell>
                                     <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>

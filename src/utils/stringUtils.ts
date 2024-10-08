@@ -1,11 +1,7 @@
 import pickBy from 'lodash.pickby';
+
 export const storForbokstav = (tekst: string) => {
-    console.log(tekst);
-    if (tekst === 'VTA-O') {
-        return tekst;
-    } else {
-        return tekst ? tekst.toLowerCase().replace(/\b\w/, (v) => v.toUpperCase()) : tekst;
-    }
+    return tekst ? tekst.replace(/\b\w/, (v) => v.toUpperCase()) : tekst;
 };
 
 export const litenForbokstav = (tekst: string) => {

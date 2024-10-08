@@ -84,8 +84,10 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     MENTOR: 'mentor',
     INKLUDERINGSTILSKUDD: 'inkluderingstilskudd',
     SOMMERJOBB: 'sommerjobb',
-    VTAO: 'VTA-O',
+    VTAO: 'varig tilrettelagt arbeid i ordinær virksomhet',
 };
+
+export const tiltakstypeTekstKort: { [key in TiltaksType]: string } = { ...tiltakstypeTekst, VTAO: 'VTA-O' };
 
 export const avtaleTittel: { [key in TiltaksType]: string } = {
     ARBEIDSTRENING: 'Avtale om arbeidstrening',

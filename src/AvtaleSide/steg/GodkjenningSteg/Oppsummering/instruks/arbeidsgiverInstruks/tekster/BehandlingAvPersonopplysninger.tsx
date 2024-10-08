@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { FileTextIcon } from '@navikt/aksel-icons';
+import { Passport } from '@navikt/ds-icons';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 const BehandlingAvPersonopplysninger: FunctionComponent = () => {
     return (
         <IkonTekstRad
-            svgIkon={<FileTextIcon width="2.25rem" height="2.25rem" />}
+            svgIkon={<Passport width="2.25rem" height="2.25rem" />}
             headerTekst={{ tekst: 'Behandling av personopplysninger', headingType: 'small' }}
         >
             <p>

@@ -85,9 +85,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                             }}
                             disabled={arbeidstreningReadonly && valg === 'ARBEIDSTRENING'}
                         >
-                            {valg === 'VTAO'
-                                ? 'Varig tilrettelagt arbeid i ordinær virksomhet'
-                                : storForbokstav(tiltakstypeTekst[valg])}
+                            {storForbokstav(tiltakstypeTekst[valg])}
                         </RadioPanel>
                     ))}
                 </RadioGroup>

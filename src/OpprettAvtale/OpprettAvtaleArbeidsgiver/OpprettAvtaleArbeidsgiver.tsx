@@ -30,7 +30,6 @@ import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { storForbokstav } from '@/utils/stringUtils';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
-import { FeilVarselContext } from '@/FeilVarselProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -42,7 +41,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
     const { arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
-    const visVarsel = useContext(FeilVarselContext);
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -204,7 +202,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         label="Opprettes på bedrift"
                         description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                         value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
-                        disabled={true}
+                        readOnly={true}
                     />
                     <VerticalSpacer rem={1} />
                     {valgtTiltaksType === 'MENTOR' && (
