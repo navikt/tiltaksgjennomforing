@@ -8,8 +8,24 @@ interface Props {
     tiltakstype: TiltaksType;
 }
 
+const visArbeidsmiljoLovTest = (tiltakstype: TiltaksType) => {
+    const tiltakstyper: TiltaksType[] = [
+        'MIDLERTIDIG_LONNSTILSKUDD',
+        'VARIG_LONNSTILSKUDD',
+        'ARBEIDSTRENING',
+        'SOMMERJOBB',
+        'VTAO',
+    ];
+    return tiltakstyper.includes(tiltakstype);
+};
+
+const deltakerenErAnsatt = (tiltakstype: TiltaksType) => {
+    const tiltakstyper: TiltaksType[] = ['VARIG_LONNSTILSKUDD', 'MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'VTAO'];
+    return tiltakstyper.includes(tiltakstype);
+};
+
 const Arbeidsmiljøloven: FunctionComponent<Props> = ({ tiltakstype }) => {
-    if (!['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'ARBEIDSTRENING', 'SOMMERJOBB'].includes(tiltakstype)) {
+    if (!visArbeidsmiljoLovTest(tiltakstype)) {
         return null;
     }
 
@@ -25,9 +41,7 @@ const Arbeidsmiljøloven: FunctionComponent<Props> = ({ tiltakstype }) => {
                     arbeidstid, vern mot diskriminering og straff ved overtredelse av lovens bestemmelser.
                 </p>
             )}
-            {(tiltakstype === 'VARIG_LONNSTILSKUDD' ||
-                tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                tiltakstype === 'SOMMERJOBB') && (
+            {deltakerenErAnsatt(tiltakstype) && (
                 <p>Deltakeren er ansatt og dere skal følge arbeidsmiljølovens bestemmelser.</p>
             )}
             <p>

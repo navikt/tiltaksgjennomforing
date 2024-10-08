@@ -17,12 +17,6 @@ const HvaSierRegelverket: FunctionComponent<PropsWithChildren<Props>> = ({ tilta
             svgIkon={<Law width="2.25rem" height="2.25rem" />}
             headerTekst={{ tekst: 'Hva sier regelverket?', headingType: 'small' }}
         >
-            {tiltakstype === 'VTAO' && (
-                <>
-                    <p>Deltakeren er ansatt og dere skal følge arbeidsmiljølovens bestemmelser</p>
-                    <p>Les mer om arbeidsmiljøloven her</p>
-                </>
-            )}
             <div className={cls.element('kravomrefusjonlinker')}>
                 {tiltakstype === 'MENTOR' && (
                     <EksternLenke
