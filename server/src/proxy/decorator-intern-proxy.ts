@@ -18,7 +18,7 @@ export function setup(app: Express) {
             }
         },
         createProxyMiddleware({
-            target: 'http://modiacontextholder.personoversikt/modiacontextholder',
+            target: 'http://modiacontextholder.personoversikt',
             followRedirects: false,
             changeOrigin: true,
         }),
