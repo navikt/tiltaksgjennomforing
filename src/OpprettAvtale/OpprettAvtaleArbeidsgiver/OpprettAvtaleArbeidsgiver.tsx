@@ -202,7 +202,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         label="Opprettes på bedrift"
                         description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                         value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
-                        disabled={true}
+                        readOnly={true}
                     />
                     <VerticalSpacer rem={1} />
                     {valgtTiltaksType === 'MENTOR' && (
