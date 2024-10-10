@@ -8,7 +8,7 @@ interface Props {
     tiltakstype: TiltaksType;
 }
 
-const visArbeidsmiljoLovTest = (tiltakstype: TiltaksType) => {
+const visArbeidsmiljoLov = (tiltakstype: TiltaksType) => {
     const tiltakstyper: TiltaksType[] = [
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
@@ -25,7 +25,7 @@ const deltakerenErAnsatt = (tiltakstype: TiltaksType) => {
 };
 
 const Arbeidsmiljøloven: FunctionComponent<Props> = ({ tiltakstype }) => {
-    if (!visArbeidsmiljoLovTest(tiltakstype)) {
+    if (!visArbeidsmiljoLov(tiltakstype)) {
         return null;
     }
 
