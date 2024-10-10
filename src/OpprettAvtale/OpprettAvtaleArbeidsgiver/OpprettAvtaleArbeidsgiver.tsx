@@ -166,9 +166,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                             }}
                                             disabled={arbeidstreningReadonly && tiltakType === 'ARBEIDSTRENING'}
                                         >
-                                            {tiltakType === 'VTAO'
-                                                ? 'Varig tilrettelagt arbeid i ordinær virksomhet'
-                                                : storForbokstav(tiltakstypeTekst[tiltakType])}
+                                            storForbokstav(tiltakstypeTekst[tiltakType])
                                         </RadioPanel>
                                     );
                                 })}
