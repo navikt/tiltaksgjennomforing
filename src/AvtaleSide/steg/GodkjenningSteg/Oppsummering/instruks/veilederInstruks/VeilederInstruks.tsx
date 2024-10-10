@@ -11,6 +11,7 @@ import GenerelVeilederTekst from './tekster/GenerelVeilederTekst';
 import LonnstilskuddVeilederTekst from './tekster/LonnstilskuddVeilederTekst';
 import SommerjobbVeilederTekst from './tekster/SommerjobbVeilederTekst';
 import ArbeidstreningVeilederTekst from './tekster/ArbeidstreningVeilederTekst';
+import VTAOVeilederTekst from './tekster/VTAOVeilederTekst';
 
 const cls = BEMHelper('instruks');
 
@@ -50,6 +51,14 @@ const VeilederInstruks = (props: Props) => {
                     <Label>Hva skjer videre:</Label>
                 </div>
                 <ArbeidstreningVeilederTekst tiltakstype={tiltakstype} opphav={opphav} />
+            </VeilederpanelMedUtklippstavle>
+        );
+    }
+
+    if (tiltakstype === 'VTAO') {
+        return (
+            <VeilederpanelMedUtklippstavle>
+                <VTAOVeilederTekst tiltakstype={tiltakstype} />
             </VeilederpanelMedUtklippstavle>
         );
     }

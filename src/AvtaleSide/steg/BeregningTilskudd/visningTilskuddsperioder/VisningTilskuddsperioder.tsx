@@ -25,11 +25,18 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                         <div className={cls.element('container')}>
                             <div className={cls.element('header')}>
                                 <Label>Utregning</Label>
-                                <BodyShort size="small">
-                                    Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum
-                                    tilskudd for en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og
-                                    ganger med antall dager i perioden.
-                                </BodyShort>
+                                {avtale.tiltakstype === 'VTAO' ? (
+                                    <BodyShort size="small">
+                                        Dagsatsen får du ved å dele "sum tilskudd for en måned" på snitt antall dager i
+                                        en måned (365,25 / 12 = 30,4375) og ganger med antall dager i perioden.
+                                    </BodyShort>
+                                ) : (
+                                    <BodyShort size="small">
+                                        Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum
+                                        tilskudd for en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375)
+                                        og ganger med antall dager i perioden.
+                                    </BodyShort>
+                                )}
                                 <InfoRundtRedusertProsentsats className={cls.className} />
                             </div>
                             {avtale.tiltakstype == 'VTAO' ? (
@@ -37,11 +44,7 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                             ) : (
                                 <VisningTilskuddsperioderTabell className={cls.className} />
                             )}
-
-                            <MeldingArbeidsgiverSokRefusjon
-                                className={cls.className}
-                                sluttdato={avtale.tilskuddPeriode[0].sluttDato}
-                            />
+                            <MeldingArbeidsgiverSokRefusjon className={cls.className} avtale={avtale} />
                         </div>
                     </Accordion.Content>
                 </Accordion.Item>

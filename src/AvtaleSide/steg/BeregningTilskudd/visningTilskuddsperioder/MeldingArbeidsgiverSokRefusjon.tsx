@@ -3,15 +3,22 @@ import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { Avtale } from '@/types/avtale';
 
 interface Props {
     className: string;
-    sluttdato: string;
+    avtale: Avtale;
 }
 
-const MeldingArbeidsgiverSokRefusjon: React.FC<Props> = ({ className, sluttdato }: Props) => {
+const erAutomatiskUtbetalingAvRefusjon = (avtale: Avtale) => {
+    return avtale.tiltakstype === 'VTAO';
+};
+
+const MeldingArbeidsgiverSokRefusjon: React.FC<Props> = ({ className, avtale }: Props) => {
     const { rolle } = useContext(InnloggetBrukerContext);
+    const sluttdato = avtale.tilskuddPeriode[0].sluttDato;
     if (rolle !== 'ARBEIDSGIVER') return null;
+    if (erAutomatiskUtbetalingAvRefusjon(avtale)) return null;
 
     const cls = BEMHelper(className);
 
