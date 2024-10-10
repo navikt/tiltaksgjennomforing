@@ -14,7 +14,7 @@ const VTAOVeilederTekst: FunctionComponent<Props> = (props) => {
             <ul>
                 <li className={cls.element('list-element')}>
                     <BodyShort size="small">
-                        Etter at du har godkjent avtalen, må avtalen og de første tilskuddsperiodene godkjennes av
+                        Etter at du har godkjent avtalen, må avtalen og den første tilskuddsperioden godkjennes av
                         beslutter. Det er først da avtalen er endelig godkjent.
                     </BodyShort>
                 </li>
