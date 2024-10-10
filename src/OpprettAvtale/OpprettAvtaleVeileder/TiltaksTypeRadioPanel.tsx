@@ -7,7 +7,7 @@ import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
-import { kunStorForbokstav } from '@/utils/stringUtils';
+import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 
@@ -85,7 +85,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                             }}
                             disabled={arbeidstreningReadonly && valg === 'ARBEIDSTRENING'}
                         >
-                            {kunStorForbokstav(tiltakstypeTekst[valg])}
+                            {storForbokstav(tiltakstypeTekst[valg])}
                         </RadioPanel>
                     ))}
                 </RadioGroup>
