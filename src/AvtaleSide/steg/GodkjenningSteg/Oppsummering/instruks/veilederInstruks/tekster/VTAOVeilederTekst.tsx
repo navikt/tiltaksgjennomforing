@@ -20,8 +20,8 @@ const VTAOVeilederTekst: FunctionComponent<Props> = (props) => {
                 </li>
                 <li className={cls.element('list-element')}>
                     <BodyShort size="small">
-                        Arena skal ikke lenger benyttes til registrering av avtale, tilsagn eller refusjon for
-                        lønnstilskudd.
+                        Arena skal ikke lenger benyttes til registrering av avtale, tilsagn eller refusjon for varig
+                        tilrettelagt arbeid i ordinær virksomhet.
                     </BodyShort>
                 </li>
                 <li className={cls.element('list-element')}>
