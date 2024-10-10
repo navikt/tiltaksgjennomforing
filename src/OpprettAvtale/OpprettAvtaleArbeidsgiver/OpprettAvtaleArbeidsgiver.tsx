@@ -166,7 +166,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                             }}
                                             disabled={arbeidstreningReadonly && tiltakType === 'ARBEIDSTRENING'}
                                         >
-                                            storForbokstav(tiltakstypeTekst[tiltakType])
+                                            {storForbokstav(tiltakstypeTekst[tiltakType])}
                                         </RadioPanel>
                                     );
                                 })}
