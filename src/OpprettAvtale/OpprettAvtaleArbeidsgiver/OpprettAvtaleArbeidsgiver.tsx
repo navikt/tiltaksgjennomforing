@@ -28,7 +28,7 @@ import React, { FunctionComponent, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
-import { storForbokstav } from '@/utils/stringUtils';
+import { kunStorForbokstav } from '@/utils/stringUtils';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
@@ -166,7 +166,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                             }}
                                             disabled={arbeidstreningReadonly && tiltakType === 'ARBEIDSTRENING'}
                                         >
-                                            {storForbokstav(tiltakstypeTekst[tiltakType])}
+                                            {kunStorForbokstav(tiltakstypeTekst[tiltakType])}
                                         </RadioPanel>
                                     );
                                 })}

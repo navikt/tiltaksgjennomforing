@@ -7,13 +7,13 @@ import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { BodyShort, Table } from '@navikt/ds-react';
-import React, { Fragment, FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 import './AvtaleTabell.less';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
-import { storForbokstav } from '@/utils/stringUtils';
+import { kunStorForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -89,7 +89,7 @@ const AvtaleTabell: FunctionComponent<{
                                 <Table.DataCell>
                                     {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
                                     <BodyShort size="small">
-                                        {storForbokstav(tiltakstypeTekstKort[avtale.tiltakstype])}
+                                        {kunStorForbokstav(tiltakstypeTekstKort[avtale.tiltakstype])}
                                     </BodyShort>
                                 </Table.DataCell>
                                 <Table.DataCell>
