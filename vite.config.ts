@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import { defineConfig } from 'vite';
 import { execSync } from 'node:child_process';
+import { configDefaults } from 'vitest/config';
 
 import middlewarePlugin from './vite.middleware';
 
@@ -23,6 +24,9 @@ export default defineConfig({
         },
     },
     plugins: [react(), svgr(), middlewarePlugin()],
+    test: {
+        exclude: [...configDefaults.exclude, './playwright/**'],
+    },
     server: {
         open: true,
         port: 3000,

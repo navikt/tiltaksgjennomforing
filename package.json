@@ -15,6 +15,9 @@
         "start": "vite",
         "svgo": "sh ./svgo.sh",
         "test": "vitest --environment=jsdom --run",
+        "playwright": "docker-compose -f playwright.docker-compose.yml up",
+        "playwright:ci": "playwright test",
+        "playwright:debug": "playwright test --ui",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "ts": "tsc -b",
@@ -52,6 +55,7 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
+        "@playwright/test": "^1.48.0",
         "@sentry/cli": "^2.28.5",
         "@sentry/react": "^7.100.1",
         "@storybook/addon-essentials": "^8.0.9",
@@ -71,7 +75,7 @@
         "@types/lodash.omit": "^4.5.9",
         "@types/lodash.pickby": "^4.6.9",
         "@types/lodash.sortby": "^4.7.9",
-        "@types/node": "^20.11.17",
+        "@types/node": "^20.16.11",
         "@types/react": "^18.2.55",
         "@types/react-collapse": "^5.0.4",
         "@types/react-dom": "^18.2.19",

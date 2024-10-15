@@ -1,0 +1,14 @@
+services:
+  tiltaksgjennomforing-playwright:
+    image: mcr.microsoft.com/playwright:v1.48.0
+    command: npx playwright test --update-snapshots
+    environment:
+      - DOCKER=1
+    volumes:
+      - ${PWD}:/tiltaksgjennomforing
+    working_dir: /tiltaksgjennomforing
+# Un-comment to throttle container (mimic CI)
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '1'
