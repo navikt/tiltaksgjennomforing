@@ -5,7 +5,7 @@
     "sourceMap": true,
     "inlineSources": true,
     "sourceRoot": "/",
-    "target": "es5",
+    "target": "ESNext",
     "lib": [
       "dom",
       "dom.iterable",
