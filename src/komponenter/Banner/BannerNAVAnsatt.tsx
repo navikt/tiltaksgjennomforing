@@ -16,19 +16,27 @@ interface Props {
     undertittel?: string;
 }
 
-const formatertDato = (sistEndret: string) => {
-    const sistEndretPlussTolvUker = moment(sistEndret).startOf('day').add(12, 'weeks');
-    const dager = sistEndretPlussTolvUker.diff(moment(), 'days');
-    if (dager === 0) {
+const TOLV_UKER_I_DAGER = 7 * 12;
+const START_DATO_FOR_RYDDING = moment('2024-11-28').endOf('day');
+
+const formaterSlettetidspunkt = (sistEndret: string) => {
+    const sistEndretPlussTolvUker = moment(sistEndret).endOf('day').add(TOLV_UKER_I_DAGER, 'days');
+    const slettetidspunkt = START_DATO_FOR_RYDDING.isAfter(sistEndretPlussTolvUker)
+        ? START_DATO_FOR_RYDDING
+        : sistEndretPlussTolvUker;
+
+    const antallDager = slettetidspunkt.diff(moment(), 'days');
+
+    if (antallDager === 0) {
         return `kl. 23:59 i dag`;
     }
-    if (dager === 1) {
+    if (antallDager === 1) {
         return `24 timer`;
     }
-    if (dager < 14) {
-        return `${dager} dager`;
+    if (antallDager < 14) {
+        return `${antallDager} dager`;
     }
-    return `den ${sistEndretPlussTolvUker.format('DD.MM.YYYY')}`;
+    return `den ${slettetidspunkt.format('DD.MM.YYYY')}`;
 };
 
 const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
@@ -66,8 +74,8 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
             </div>
             {isRyddejobbEnabled && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale?.statusSomEnum) && (
                 <Alert variant="info">
-                    Avtalen vil automatisk utløpe dersom den ikke blir inngått eller endret innen{' '}
-                    {formatertDato(avtale.sistEndret)}.
+                    Avtalen vil automatisk slettes dersom den ikke blir inngått eller endret innen{' '}
+                    {formaterSlettetidspunkt(avtale.sistEndret)}.
                 </Alert>
             )}
         </>
