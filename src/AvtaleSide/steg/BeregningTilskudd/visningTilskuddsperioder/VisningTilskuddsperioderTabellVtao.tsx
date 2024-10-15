@@ -32,11 +32,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                 <Label>Tilskudd for perioder</Label>
                 {innloggetBruker.erNavAnsatt && <Label>Status</Label>}
                 <Label>Inntil</Label>
-                <Label>
-                    Ubetalt
-                    <br />
-                    refusjon
-                </Label>
+                <Label>Utbetales</Label>
             </div>
             {avtale.tilskuddPeriode
                 .filter((p: TilskuddsPeriode) => p.aktiv)
@@ -55,10 +51,10 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                                     </BodyShort>
                                 )}
                                 <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                                    {formatterPenger(periode.beløp)}
+                                    {periode.beløp !== null ? formatterPenger(periode.beløp) : '-'}
                                 </BodyShort>
                                 <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                                    {formatterDato(periode.sluttDato, 'MMM YYYY')}
+                                    {formatterDato(moment(periode.sluttDato).add(3, 'days').toString(), 'DD MMM YYYY')}
                                 </BodyShort>
                             </div>
                         </div>
@@ -80,10 +76,10 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                             </BodyShort>
                         )}
                         <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                            {formatterPenger(sistePeriode.beløp)}
+                            {sistePeriode.beløp !== null ? formatterPenger(sistePeriode.beløp) : '-'}
                         </BodyShort>
                         <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                            {formatterDato(sistePeriode.sluttDato, 'MMM YYYY')}
+                            {formatterDato(moment(sistePeriode.sluttDato).add(3, 'days').toString(), 'DD MMM YYYY')}
                         </BodyShort>
                     </div>
                 </div>
@@ -95,7 +91,6 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                 antallAktiveTilskuddsperioder={antallAktiveTilskuddsperioder(avtale)}
                 setVisAllePerioder={setVisAllePerioder}
                 visAllePerioder={visAllePerioder}
-                tiltakstype={avtale.tiltakstype}
             />
         </div>
     );

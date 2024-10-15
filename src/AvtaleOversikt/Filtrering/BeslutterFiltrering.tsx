@@ -3,7 +3,7 @@ import TilskuddPeriodeStatusFilter from '@/AvtaleOversikt/Filtrering/TilskuddPer
 import BEMHelper from '@/utils/bem';
 import { FunctionComponent } from 'react';
 import { DeltakerOgBedriftFilterGammel } from './GammelFiltrering/DeltakerOgBedriftFilterGammel';
-import TiltakstypeFilterGammel from './GammelFiltrering/TiltakstypeFilterGamel';
+import TiltakstypeFilterGammel from './GammelFiltrering/TiltakstypeFilterGammel';
 
 const cls = BEMHelper('filtrering');
 const BeslutterFiltrering: FunctionComponent = () => {

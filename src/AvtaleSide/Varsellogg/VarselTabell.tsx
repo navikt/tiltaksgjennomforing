@@ -3,7 +3,6 @@ import { Varsel } from '@/types/varsel';
 import { formaterTid, formatterDato } from '@/utils/datoUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { Table } from '@navikt/ds-react';
-import moment from 'moment';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 
 import { FunctionComponent, PropsWithChildren, useState } from 'react';

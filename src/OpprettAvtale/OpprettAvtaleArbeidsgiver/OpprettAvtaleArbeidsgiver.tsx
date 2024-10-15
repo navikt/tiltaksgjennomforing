@@ -30,7 +30,6 @@ import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { storForbokstav } from '@/utils/stringUtils';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
-import { FeilVarselContext } from '@/FeilVarselProvider';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -42,7 +41,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
     const { arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
-    const visVarsel = useContext(FeilVarselContext);
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,

@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
-import { Accordion, BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import './visningTilskuddsperioder.less';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';

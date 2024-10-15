@@ -13,10 +13,34 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
         !(
             tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
             tiltakstype === 'VARIG_LONNSTILSKUDD' ||
-            tiltakstype === 'SOMMERJOBB'
+            tiltakstype === 'SOMMERJOBB' ||
+            tiltakstype === 'VTAO'
         )
     ) {
         return null;
+    }
+    if (tiltakstype === 'VTAO') {
+        return (
+            <IkonTekstRad
+                svgIkon={<Money width="2.25rem" height="2.25rem" />}
+                headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
+            >
+                <p>
+                    Godkjent tilskuddsperiode er styrende i henhold til økonomisk forpliktelse fra NAV og kan avvike fra
+                    avtalt periode for tiltaksgjennomføringen.
+                </p>
+                <p>
+                    Tilskudd for varig tilrettelagt arbeid i ordinær virksomhet baseres på en fast sats som settes årlig
+                    av departementet. Avtale- og refusjonsløsningen vil automatisk oppdateres når det kommer nye satser.
+                </p>
+                <p>
+                    Refusjonen behandles automatisk, utbetaling og kvittering kan ses i refusjonsløsningen (
+                    <Link href={'https://tiltak-refusjon.nav.no'}> https://tiltak-refusjon.nav.no</Link>) og via Min
+                    Side Arbeidsgiver. For å bruke løsningen må du ha tilgangen “inntektsmelding” via Altinn. Vi kan
+                    kontrollere om pengene som blir utbetalt blir brukt riktig.
+                </p>
+            </IkonTekstRad>
+        );
     }
     return (
         <IkonTekstRad

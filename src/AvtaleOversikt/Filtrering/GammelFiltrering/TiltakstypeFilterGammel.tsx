@@ -4,17 +4,20 @@ import { TiltaksType } from '@/types/avtale';
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useFilterGammel } from './useFilterGammel';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilterGammel: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
     const { endreFilter, filtre } = useFilterGammel();
+    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const alleTiltakstyperBeslutter: OptionProps[] = [
         { value: '', label: 'Alle' },
         { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
-    ];
+        vtaoTiltakToggle ? { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' } : null,
+    ].filter((x) => x !== null) as OptionProps[];
 
     const alleTiltakstyper: OptionProps[] = [
         { value: '', label: 'Alle' },
@@ -24,7 +27,8 @@ const TiltakstypeFilterGammel: FunctionComponent<FiltreringMedBeslutterProps> = 
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
         { value: 'MENTOR', label: 'Mentor' },
         { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
-    ];
+        vtaoTiltakToggle ? { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' } : null,
+    ].filter((x) => x !== null) as OptionProps[];
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
 
