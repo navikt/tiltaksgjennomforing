@@ -41,7 +41,7 @@ const formaterSlettetidspunkt = (sistEndret: string) => {
 
 const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
     const { avtale } = useAvtale();
-    const { 'pabegynt-avtale-rydde-jobb': isRyddejobbEnabled } = useFeatureToggles();
+    const { pabegyntAvtaleRyddeJobb } = useFeatureToggles();
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
     return innloggetBruker.erNavAnsatt ? (
@@ -72,7 +72,7 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
                     </div>
                 </div>
             </div>
-            {isRyddejobbEnabled && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale?.statusSomEnum) && (
+            {pabegyntAvtaleRyddeJobb && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale?.statusSomEnum) && (
                 <Alert variant="info">
                     Avtalen vil automatisk slettes dersom den ikke blir inngått eller endret innen{' '}
                     {formaterSlettetidspunkt(avtale.sistEndret)}.
