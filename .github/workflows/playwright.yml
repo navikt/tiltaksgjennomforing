@@ -1,0 +1,42 @@
+name: Playwright - Labs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * 1-5'
+
+jobs:
+  build:
+    name: Playwright
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v4
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Install
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - uses: actions/cache@v3
+        id: playwright-cache
+        with:
+          path: |
+            ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+      - run: npx playwright install-deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+      - name: Kjør tester
+        run: npm run playwright:ci
+      - name: Publiser artifact
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.artifactName }}
+          path: |
+            test-results

@@ -15,6 +15,9 @@
         "start": "vite",
         "svgo": "sh ./svgo.sh",
         "test": "vitest --environment=jsdom --run",
+        "playwright": "docker-compose -f playwright.docker-compose.yml up",
+        "playwright:ci": "playwright test",
+        "playwright:debug": "playwright test --ui",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "ts": "tsc -b",
@@ -47,6 +50,7 @@
         "zod": "^3.24.2"
     },
     "devDependencies": {
+        "@playwright/test": "^1.48.0",
         "@sentry/cli": "^2.43.0",
         "@sentry/react": "^9.10.1",
         "@storybook/addon-essentials": "^8.6.11",
