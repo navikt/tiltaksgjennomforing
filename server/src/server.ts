@@ -9,6 +9,7 @@ import * as appMedModiaDekoratoren from './dekorator/appMedModiaDekoratoren';
 import * as appMedNavDekoratoren from './dekorator/appMedNavDekoratoren';
 import { initializePath, BASEPATH, STATIC_PATHS } from './paths/setupPath';
 import { setupRoutes } from './routes';
+import compression from 'compression';
 
 const indexPath = path.resolve(__dirname, '../client', 'index.html');
 
@@ -26,6 +27,7 @@ const eksternCspMiddleware = (): Handler => {
 
 const node: Express = express();
 node.use(cookieParser());
+node.use(compression());
 node.disable('x-powered-by');
 
 if (ENABLE_EXTERNAL_MENU) {
