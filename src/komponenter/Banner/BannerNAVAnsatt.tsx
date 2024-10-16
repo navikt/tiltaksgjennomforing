@@ -17,12 +17,12 @@ interface Props {
 }
 
 const TOLV_UKER_I_DAGER = 7 * 12;
-const START_DATO_FOR_RYDDING = moment('2024-11-28').endOf('day');
+const STARTDATO_FOR_RYDDING = moment('2024-11-28').endOf('day');
 
 const formaterSlettetidspunkt = (sistEndret: string) => {
     const sistEndretPlussTolvUker = moment(sistEndret).endOf('day').add(TOLV_UKER_I_DAGER, 'days');
-    const slettetidspunkt = START_DATO_FOR_RYDDING.isAfter(sistEndretPlussTolvUker)
-        ? START_DATO_FOR_RYDDING
+    const slettetidspunkt = STARTDATO_FOR_RYDDING.isAfter(sistEndretPlussTolvUker)
+        ? STARTDATO_FOR_RYDDING
         : sistEndretPlussTolvUker;
 
     const antallDager = slettetidspunkt.diff(moment(), 'days');
