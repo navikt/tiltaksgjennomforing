@@ -34,7 +34,7 @@ const GodkjenningMentor: FunctionComponent = () => {
             />
             <VerticalSpacer rem={1.5} />
 
-            <LagreKnapp lagre={godkjennAvtalen} label="Godkjenn avtalen" />
+            <LagreKnapp lagre={godkjennAvtalen}>Godkjenn avtalen</LagreKnapp>
         </Innholdsboks>
     );
 };

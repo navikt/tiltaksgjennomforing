@@ -16,7 +16,9 @@ export const FordelAvtaleVeileder: FunctionComponent = () => {
                     Avtalen er opprettet av arbeidsgiver. Den er ikke tildelt en veileder ennå.
                 </BodyShort>
                 <VerticalSpacer rem={1.5} />
-                <LagreKnapp lagre={() => overtaAvtale()} label="Overta avtale" suksessmelding="Avtale tildelt" />
+                <LagreKnapp lagre={() => overtaAvtale()} suksessmelding="Avtale tildelt">
+                    Overta avtale
+                </LagreKnapp>
                 <VerticalSpacer rem={1.5} />
 
                 <div style={{ borderBottom: '1px solid #c6c2bf' }} />
