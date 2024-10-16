@@ -53,14 +53,16 @@ test.describe('Arbeidstrening', () => {
         });
 
         test('Kontaktinformasjon', async () => {
+            await page.getByLabel('Fornavn').nth(0).fill('David');
+            await page.getByLabel('Etternavn').nth(0).fill('Deltaker');
             await page.getByLabel('Mobilnummer').nth(0).fill('99887766');
 
-            await page.getByLabel('Fornavn').nth(1).fill('David');
-            await page.getByLabel('Etternavn').nth(1).fill('Deltaker');
+            await page.getByLabel('Fornavn').nth(1).fill('Anna');
+            await page.getByLabel('Etternavn').nth(1).fill('Arbeidsgiver');
             await page.getByLabel('Mobilnummer').nth(1).fill('99776655');
 
-            await page.getByLabel('Fornavn').nth(2).fill('Anna');
-            await page.getByLabel('Etternavn').nth(2).fill('Arbeidsgiver');
+            await page.getByLabel('Fornavn').nth(2).fill('Konrad');
+            await page.getByLabel('Etternavn').nth(2).fill('Kontaktperson');
             await page.getByLabel('Mobilnummer').nth(2).fill('99665544');
 
             await expect(page).toHaveScreenshot({ fullPage: true });
