@@ -27,7 +27,7 @@ const eksternCspMiddleware = (): Handler => {
 
 const node: Express = express();
 node.use(cookieParser());
-//node.use(compression());
+node.use(compression());
 node.disable('x-powered-by');
 
 if (ENABLE_EXTERNAL_MENU) {
