@@ -5,6 +5,19 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(17, 10, 2024),
+        tittel: 'Automatisk sletting av avtaler som ikke er inngått',
+        innhold: (
+            <>
+                <p>
+                    I avtaleløsningen er det innført automatisk sletting av opprettede avtaler om arbeidsmarkedstiltak,
+                    som ikke blir inngått eller endret innen 12 uker.
+                </p>
+                <p>Du vil få informasjon om estimert tidspunkt for sletting i de aktuelle avtalene.</p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(15, 5, 2024),
         tittel: 'Vi har gjordt det enklere å se statusene på avtalen og fjernet muligheten til å sende sms manuelt',
         innhold: (
