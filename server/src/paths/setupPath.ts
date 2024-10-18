@@ -19,9 +19,13 @@ export const BASEPATH: string = '/tiltaksgjennomforing';
 export const STATIC_PATHS: string[] = ['/assets', '/favicon.ico', '/manifest.json'];
 
 export function initializePath(app: Express): void {
-    app.get('/tiltaksgjennomforing/internal/isAlive', (_, res) => res.sendStatus(200));
+    app.get('/tiltaksgjennomforing/internal/isAlive', (_, res) => {
+        res.sendStatus(200);
+    });
 
-    app.get('/tiltaksgjennomforing/internal/isReady', (_, res) => res.sendStatus(200));
+    app.get('/tiltaksgjennomforing/internal/isReady', (_, res) => {
+        res.sendStatus(200);
+    });
 
     app.get('/tiltaksgjennomforing/innloggingskilder', (_, res) => {
         const innloggingskilder: PathVariables[] = [];
