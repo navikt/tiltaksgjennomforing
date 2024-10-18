@@ -34,7 +34,7 @@ const TiltakstypeFilterGammel: FunctionComponent<FiltreringMedBeslutterProps> = 
 
     return (
         <Filter tittel="Tiltakstype">
-            <RadioGroup legend="" size="small" value={filtre.tiltakstype || ('' && filtre.tiltakstype === undefined)}>
+            <RadioGroup legend="" size="small" value={filtre.tiltakstype || ''}>
                 {tiltakstyper.map((tiltakstype: OptionProps, index: number) => (
                     <Radio
                         key={index}
