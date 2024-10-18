@@ -23,12 +23,7 @@ const StatusFilter: FunctionComponent = () => {
 
     return (
         <Filter tittel="Status">
-            <RadioGroup
-                legend=""
-                style={{ marginBottom: '0' }}
-                size="small"
-                value={filtre.status || ('' && filtre.status === undefined)}
-            >
+            <RadioGroup legend="" style={{ marginBottom: '0' }} size="small" value={filtre.status || ''}>
                 {alleStatuser.map((soketype: SokeType, index: number) => (
                     <Radio
                         key={index}
