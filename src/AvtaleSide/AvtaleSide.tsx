@@ -6,7 +6,7 @@ import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import Dialog from '@/komponenter/brukerdialog/Dialog';
 import { avtaleTittel } from '@/messages';
-import { pathTilOversikt } from '@/paths';
+import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
@@ -46,7 +46,7 @@ const AvtaleSide: FunctionComponent = () => {
     let avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
     if (innloggetBruker.rolle === 'MENTOR') avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
     const navigate = useNavigate();
-    const { stegPath } = useParams<any>();
+    const { steg } = useParams<any>();
 
     const erDesktop = windowSize > 768;
     const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
@@ -69,9 +69,9 @@ const AvtaleSide: FunctionComponent = () => {
     });
 
     useEffect(() => {
-        const getFilterType = () => (!erAvtaleLaast ? stegPath : 'godkjenning');
+        const getFilterType = () => (!erAvtaleLaast ? steg : 'godkjenning');
         setAktivtSteg(avtaleSteg.find((steg) => steg.id === getFilterType()) || avtaleSteg[0]);
-    }, [stegPath, avtaleSteg, erAvtaleLaast]);
+    }, [steg, avtaleSteg, erAvtaleLaast]);
     return aktivtSteg ? (
         <>
             <Dokumenttittel tittel={sideTittel} />
@@ -84,7 +84,7 @@ const AvtaleSide: FunctionComponent = () => {
                     searchParams.delete('sokId');
                     if (avtale.bedriftNr !== org) {
                         navigate({
-                            pathname: pathTilOversikt,
+                            pathname: Path.OVERSIKT,
                             search: searchParams.toString(),
                         });
                     }

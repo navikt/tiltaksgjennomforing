@@ -1,6 +1,7 @@
 import { useContext } from 'react';
+
 import { AvtaleContext } from '@/AvtaleProvider';
-import { basename } from '@/paths';
+import { basename } from '@/Router';
 
 const useBrukerDialog = () => {
     const { avtale } = useContext(AvtaleContext);

@@ -1,10 +1,19 @@
-import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
-import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import axios from 'axios';
+import axiosRetry from 'axios-retry';
+import { mutate } from 'swr';
+
+import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import { basename } from '@/paths';
+import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
+import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
+import { Hendelse } from '@/types/hendelse';
+import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
+import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
+import { Variants } from '@/types/unleash-variant';
+import { Varsel } from '@/types/varsel';
+import { basename } from '@/Router';
 import {
     AlleredeRegistrertAvtale,
     Returårsaker,
@@ -24,16 +33,6 @@ import {
     TiltaksType,
     Varighet,
 } from '@/types/avtale';
-import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
-import { Hendelse } from '@/types/hendelse';
-import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
-import { Variants } from '@/types/unleash-variant';
-import { Varsel } from '@/types/varsel';
-import axios from 'axios';
-import axiosRetry from 'axios-retry';
-import { mutate } from 'swr';
-
-export const API_URL = '/tiltaksgjennomforing/api';
 
 const api = axios.create({
     baseURL: '/tiltaksgjennomforing/api',
@@ -72,6 +71,9 @@ const featureToggleVariantPath = (features: Feature[]): string => {
 
 export const hentAvtale = async (id: string): Promise<Avtale> => {
     const response = await api.get<Avtale>(`/avtaler/${id}`);
+    if (response.status === 404) {
+        throw new Error('Fant ikke avtale');
+    }
     return response.data;
 };
 

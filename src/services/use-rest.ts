@@ -6,7 +6,7 @@ import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
 import { AvtaleVersjon } from '@/types/avtale';
 import { Enhet } from '@/types/enhet';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
-import { basename } from '@/paths';
+import { basename } from '@/Router';
 
 const api = axios.create({
     baseURL: '/tiltaksgjennomforing/api',

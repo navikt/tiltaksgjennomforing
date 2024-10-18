@@ -18,6 +18,7 @@ import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
+import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 
 export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
     const noenHarGodkjent = Boolean(
@@ -121,7 +122,9 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const annullerAvtale = async (annullerGrunn: string): Promise<void> => {
         await RestService.annullerAvtale(avtale, annullerGrunn);
         sendToAmplitude('#tiltak-avtale-annullert');
-        await hentAvtale();
+        if (annullerGrunn !== 'Feilregistrering') {
+            await hentAvtale();
+        }
     };
 
     const overtaAvtale = async (): Promise<void> => {

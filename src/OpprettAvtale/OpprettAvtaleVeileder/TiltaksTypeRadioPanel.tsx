@@ -2,7 +2,6 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { tiltakstypeTekst } from '@/messages';
-import { inkludereIArbeidslivetLenke } from '@/paths';
 import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
 import amplitude from '@/utils/amplitude';
@@ -65,7 +64,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                 Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
                 <EksternLenke
                     onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
-                    href={inkludereIArbeidslivetLenke}
+                    href="https://www.nav.no/arbeidsgiver/inkludere"
                 >
                     hvordan kan NAV hjelpe med inkludering
                 </EksternLenke>

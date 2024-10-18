@@ -1,35 +1,36 @@
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Pagination, Select } from '@navikt/ds-react';
+import omit from 'lodash.omit';
+import isEqual from 'lodash.isequal';
+
+import './AvtaleOversikt.less';
+import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
 import AvtaleOversiktArbeidsgiverInformasjon from '@/AvtaleOversikt/AvtaleOversiktArbeidsgiverInformasjon';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
-import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
-import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
-import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import PlussIkon from '@/assets/ikoner/pluss-tegn.svg?react';
+import BEMHelper from '@/utils/bem';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
-import { pathTilOpprettAvtale, pathTilOpprettAvtaleArbeidsgiver } from '@/paths';
+import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
+import PlussIkon from '@/assets/ikoner/pluss-tegn.svg?react';
+import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
+import { Avtale, PageableAvtale } from '@/types/avtale';
+import { FiltreringContext } from './Filtrering/FiltreringProvider';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { Path } from '@/Router';
+import { Status } from '@/types/nettressurs';
+import { Varsel } from '@/types/varsel';
+import { fjernTommeFelterFraObjekt, litenForbokstav } from '@/utils/stringUtils';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import {
     hentAvtalerForInnloggetBrukerMedPost,
     hentAvtalerForInnloggetBrukerMedSokId,
     hentUlesteVarsler,
 } from '@/services/rest-service';
-import { Avtale, PageableAvtale } from '@/types/avtale';
-import { Status } from '@/types/nettressurs';
-import { Varsel } from '@/types/varsel';
-import BEMHelper from '@/utils/bem';
-import { fjernTommeFelterFraObjekt, litenForbokstav } from '@/utils/stringUtils';
-import { Pagination, Select } from '@navikt/ds-react';
-import isEqual from 'lodash.isequal';
-import omit from 'lodash.omit';
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import './AvtaleOversikt.less';
-import { FiltreringContext } from './Filtrering/FiltreringProvider';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
@@ -215,7 +216,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     {innloggetBruker.rolle === 'VEILEDER' && (
                         <aside style={layout.stylingAvFilter}>
                             <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                <LenkeKnapp path={pathTilOpprettAvtale} icon={<PlussIkon />}>
+                                <LenkeKnapp path={Path.OPPRETT_AVTALE} icon={<PlussIkon />}>
                                     Opprett ny avtale
                                 </LenkeKnapp>
                             </div>
@@ -228,7 +229,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                             <aside style={layout.stylingAvFilter}>
                                 {harTilgangerSomArbeidsgiver && (
                                     <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                        <LenkeKnapp path={pathTilOpprettAvtaleArbeidsgiver} icon={<PlussIkon />}>
+                                        <LenkeKnapp path={Path.OPPRETT_AVTALE_ARBEIDSGIVER} icon={<PlussIkon />}>
                                             Opprett ny avtale
                                         </LenkeKnapp>
                                     </div>

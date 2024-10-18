@@ -1,22 +1,23 @@
 import React from 'react';
-import amplitude from '@/utils/amplitude';
 import { BodyShort } from '@navikt/ds-react';
+
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { basename, inkludereIArbeidslivetLenke, pathTilInformasjonssideInnlogget } from '@/paths';
+import amplitude from '@/utils/amplitude';
+import { basename, Path } from '@/Router';
 
 const InformasjonsboksTopVeilederOppretterAvtale: React.FC = () => {
     return (
         <Innholdsboks>
             <BodyShort size="small">
                 Er det første gang du skal opprette en avtale bør du lese gjennom {''}
-                <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
+                <EksternLenke href={`${basename}${Path.INFORMASJONSSIDE}`}>
                     introduksjon til hvordan løsningen fungerer {''}
                 </EksternLenke>
                 og vite om{' '}
                 <EksternLenke
                     onClick={() => amplitude.logEvent('#tiltak-veileder-alle-tiltak-link-apnet')}
-                    href={inkludereIArbeidslivetLenke}
+                    href="https://www.nav.no/arbeidsgiver/inkludere"
                 >
                     de ulike støtteordningene på NAV.no.
                 </EksternLenke>{' '}

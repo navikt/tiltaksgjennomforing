@@ -1,18 +1,19 @@
-import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
-import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { avtaleStatusTekst, tiltakstypeTekstKort } from '@/messages';
-import { pathTilAvtaleNy } from '@/paths';
-import { AvtaleMinimalListeVisning } from '@/types/avtale';
-import { InnloggetBruker } from '@/types/innlogget-bruker';
-import { Varsel } from '@/types/varsel';
-import BEMHelper from '@/utils/bem';
-import { BodyShort, Table } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
+import { useNavigate, generatePath } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
-import { useNavigate } from 'react-router-dom';
-import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
+
 import './AvtaleTabell.less';
+import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
+import BEMHelper from '@/utils/bem';
+import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
+import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
+import { AvtaleMinimalListeVisning } from '@/types/avtale';
+import { BodyShort, Table } from '@navikt/ds-react';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
+import { Path } from '@/Router';
+import { Varsel } from '@/types/varsel';
+import { avtaleStatusTekst, tiltakstypeTekstKort } from '@/messages';
 import { kunStorForbokstav } from '@/utils/stringUtils';
 
 const cls = BEMHelper('avtaletabell');
@@ -80,7 +81,7 @@ const AvtaleTabell: FunctionComponent<{
                                         e.preventDefault();
                                     } else {
                                         navigate({
-                                            pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle),
+                                            pathname: generatePath(Path.AVTALE, { avtaleId: avtale.id }),
                                             search: window.location.search,
                                         });
                                     }

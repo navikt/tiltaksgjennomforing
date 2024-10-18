@@ -1,10 +1,11 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { pathTilStegIAvtale } from '@/paths';
-import { Next, Back } from '@navikt/ds-icons';
 import React, { FunctionComponent, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { StegInfo } from '../AvtaleSide';
+import { Link, generatePath } from 'react-router-dom';
+import { Next, Back } from '@navikt/ds-icons';
+
 import './NesteForrige.less';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { Path } from '@/Router';
+import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 
 export interface Props {
     avtaleSteg: StegInfo[];
@@ -38,7 +39,10 @@ const NesteForrige: FunctionComponent<Props> = (props) => {
             {forrigeSteg && (
                 <Link
                     to={{
-                        pathname: pathTilStegIAvtale(avtaleContext.avtale.id, forrigeSteg.id),
+                        pathname: generatePath(Path.AVTALE_STEG, {
+                            avtaleId: avtaleContext.avtale.id,
+                            steg: forrigeSteg.id,
+                        }),
                         search: window.location.search,
                     }}
                     onClick={avtaleContext.endretSteg}
@@ -54,7 +58,10 @@ const NesteForrige: FunctionComponent<Props> = (props) => {
             {nesteSteg && (
                 <Link
                     to={{
-                        pathname: pathTilStegIAvtale(avtaleContext.avtale.id, nesteSteg.id),
+                        pathname: generatePath(Path.AVTALE_STEG, {
+                            avtaleId: avtaleContext.avtale.id,
+                            steg: nesteSteg.id,
+                        }),
                         search: window.location.search,
                     }}
                     className="nesteforrige__nesteknapp lenke"

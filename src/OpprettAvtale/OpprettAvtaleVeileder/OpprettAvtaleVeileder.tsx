@@ -1,34 +1,35 @@
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
-import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
+import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Alert, Heading } from '@navikt/ds-react';
+import { useNavigate, generatePath } from 'react-router-dom';
+
+import './OpprettAvtale.less';
+import './opprettAvtaleVeileder.less';
+import BEMHelper from '@/utils/bem';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import useValidering from '@/komponenter/useValidering';
 import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
 import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
+import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
+import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
-import { pathTilKontaktinformasjonSteg } from '@/paths';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import amplitude from '@/utils/amplitude';
+import useValidering from '@/komponenter/useValidering';
+import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
+import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
+import { FeilVarselContext } from '@/FeilVarselProvider';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { Path } from '@/Router';
+import { handterFeil } from '@/utils/apiFeilUtils';
 import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
     opprettMentorAvtale,
     sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
 } from '@/services/rest-service';
-import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-import amplitude from '@/utils/amplitude';
-import { handterFeil } from '@/utils/apiFeilUtils';
-import BEMHelper from '@/utils/bem';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Alert, Heading } from '@navikt/ds-react';
-import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './OpprettAvtale.less';
-import './opprettAvtaleVeileder.less';
-import { FeilVarselContext } from '@/FeilVarselProvider';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -141,14 +142,14 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                         Avtalerolle.VEILEDER,
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                    navigate(pathTilKontaktinformasjonSteg(mentorAvtale.id));
+                    navigate(generatePath(Path.AVTALE_STEG, { avtaleId: mentorAvtale.id, steg: 'kontaktinformasjon' }));
                     return;
                 }
                 return;
             }
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-            navigate(pathTilKontaktinformasjonSteg(avtale.id));
+            navigate(generatePath(Path.AVTALE_STEG, { avtaleId: avtale.id, steg: 'kontaktinformasjon' }));
             return;
         }
 

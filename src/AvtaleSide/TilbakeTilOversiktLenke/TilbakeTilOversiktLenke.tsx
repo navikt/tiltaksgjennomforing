@@ -1,4 +1,4 @@
-import { pathTilOversikt } from '@/paths';
+import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
 import { Back } from '@navikt/ds-icons';
 import { FunctionComponent } from 'react';
@@ -14,7 +14,7 @@ const TilbakeTilOversiktLenke: FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('tilbaketiloversikt');
     return (
         <Link
-            to={{ pathname: pathTilOversikt, search: window.location.search }}
+            to={{ pathname: Path.OVERSIKT, search: window.location.search }}
             className={cls.element('lenke')}
             onClick={props.onClick}
             role="menuitem"

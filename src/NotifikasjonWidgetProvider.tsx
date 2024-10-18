@@ -1,7 +1,8 @@
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { basename } from '@/paths';
-import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget';
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
+
+import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { basename } from '@/Router';
 
 const miljo = (() => {
     switch (window.location.hostname) {

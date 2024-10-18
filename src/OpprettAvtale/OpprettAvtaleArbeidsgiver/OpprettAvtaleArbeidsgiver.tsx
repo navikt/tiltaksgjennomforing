@@ -1,35 +1,30 @@
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import React, { FunctionComponent, useContext, useState } from 'react';
+import { useNavigate, generatePath } from 'react-router-dom';
+import { Alert, RadioGroup, BodyShort, Heading, Label, ErrorMessage, TextField } from '@navikt/ds-react';
+
+import './OpprettAvtaleArbeidsgiver.less';
+import BEMHelper from '@/utils/bem';
 import Banner from '@/komponenter/Banner/Banner';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import useValidering from '@/komponenter/useValidering';
-import { tiltakstypeTekst } from '@/messages';
-import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import {
-    basename,
-    pathTilInformasjonssideInnlogget,
-    inkludereIArbeidslivetLenke,
-    pathTilKontaktinformasjonSteg,
-} from '@/paths';
-import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-import amplitude from '@/utils/amplitude';
-import BEMHelper from '@/utils/bem';
-import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
-import { validerOrgnr } from '@/utils/orgnrUtils';
-import { Alert, RadioGroup } from '@navikt/ds-react';
-import { BodyShort, Heading, Label, ErrorMessage, TextField } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './OpprettAvtaleArbeidsgiver.less';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import amplitude from '@/utils/amplitude';
+import useValidering from '@/komponenter/useValidering';
+import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { Path, basename } from '@/Router';
+import { TiltaksType } from '@/types/avtale';
+import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
+import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { storForbokstav } from '@/utils/stringUtils';
+import { tiltakstypeTekst } from '@/messages';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { validerOrgnr } from '@/utils/orgnrUtils';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -87,7 +82,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         Avtalerolle.ARBEIDSGIVER,
                     );
                     amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
-                    navigate(pathTilKontaktinformasjonSteg(mentorAvtale.id));
+                    navigate(generatePath(Path.AVTALE_STEG, { avtaleId: mentorAvtale.id, steg: 'kontaktinformasjon' }));
                     return;
                 }
                 return;
@@ -95,7 +90,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
             amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             navigate({
-                pathname: pathTilKontaktinformasjonSteg(avtale.id),
+                pathname: generatePath(Path.AVTALE_STEG, { avtaleId: avtale.id, steg: 'kontaktinformasjon' }),
                 search: window.location.search,
             });
             return;
@@ -128,13 +123,13 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </Heading>
                     <BodyShort size="small">
                         Er det første gang du skal opprette en avtale bør du lese gjennom {''}
-                        <EksternLenke href={`${basename}${pathTilInformasjonssideInnlogget}`}>
+                        <EksternLenke href={`${basename}${Path.INFORMASJONSSIDE}`}>
                             introduksjon til hvordan løsningen fungerer {''}
                         </EksternLenke>
                         og vite om{' '}
                         <EksternLenke
                             onClick={() => amplitude.logEvent('#tiltak-arbeidsgiver-alle-tiltak-link-apnet')}
-                            href={inkludereIArbeidslivetLenke}
+                            href="https://www.nav.no/arbeidsgiver/inkludere"
                         >
                             de ulike støtteordningene.
                         </EksternLenke>
