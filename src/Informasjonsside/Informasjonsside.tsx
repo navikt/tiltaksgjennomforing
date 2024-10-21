@@ -125,7 +125,7 @@ const Informasjonsside: FunctionComponent = () => {
                                 </Link>
                             </span>
                             <span className={cls.element('lenke')}>
-                                <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                                <EksternLenke href="https://info.altinn.no/hjelp/profil/enkelttjenester-og-roller/">
                                     Finn informasjon om roller og rettigheter på Altinn.no
                                 </EksternLenke>
                             </span>
