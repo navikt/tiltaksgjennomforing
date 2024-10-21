@@ -44,9 +44,10 @@ const KontaktinfoSteg: FunctionComponent = () => {
                 <LagreKnapp
                     className="kontaktinfo-steg__lagre-knapp"
                     lagre={lagreAvtale}
-                    label={'Lagre'}
                     suksessmelding={'Avtale lagret'}
-                />
+                >
+                    Lagre
+                </LagreKnapp>
             </Innholdsboks>
         </>
     );

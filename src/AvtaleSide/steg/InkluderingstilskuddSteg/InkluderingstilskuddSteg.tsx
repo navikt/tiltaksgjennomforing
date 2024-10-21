@@ -121,7 +121,9 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                     />
                 </div>
                 <VerticalSpacer rem={2} />
-                <LagreKnapp lagre={lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
+                    Lagre
+                </LagreKnapp>
             </Innholdsboks>
         </>
     );

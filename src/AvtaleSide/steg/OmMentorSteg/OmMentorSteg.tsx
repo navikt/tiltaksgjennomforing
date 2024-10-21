@@ -109,7 +109,9 @@ const OmMentorSteg = () => {
                     </BodyShort>
                 </div>
                 <VerticalSpacer rem={2} />
-                <LagreKnapp lagre={avtaleContext.lagreAvtale} label={'Lagre'} suksessmelding={'Avtale lagret'} />
+                <LagreKnapp lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'}>
+                    Lagre
+                </LagreKnapp>
             </Innholdsboks>
         </>
     );

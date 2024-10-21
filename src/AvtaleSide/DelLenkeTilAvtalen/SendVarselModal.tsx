@@ -51,11 +51,12 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
                 </Heading>
                 <VerticalSpacer rem={1} />
                 <LagreKnapp
-                    label="Send til mentor"
                     lagre={() => delAvtaleMedAvtalepart(avtale.id, 'MENTOR')}
                     suksessmelding="SMS sendt til mentor"
                     variant={'primary'}
-                />
+                >
+                    Send til mentor
+                </LagreKnapp>
                 <VerticalSpacer rem={1.5} />
 
                 <Heading level="2" size="small">

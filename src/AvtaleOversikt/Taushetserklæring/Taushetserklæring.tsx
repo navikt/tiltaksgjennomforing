@@ -69,11 +69,9 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
                         lovbestemmelsene som er listet opp over
                     </BekreftCheckboksPanel>
                     <div className={cls.element('knapper-container')}>
-                        <LagreKnapp
-                            className={'taushetserklæring__lagreKnapp'}
-                            label={'Signer Taushetserklæring'}
-                            lagre={godkjennTaushetserklæring}
-                        />
+                        <LagreKnapp className={'taushetserklæring__lagreKnapp'} lagre={godkjennTaushetserklæring}>
+                            Signer Taushetserklæring
+                        </LagreKnapp>
                     </div>
                 </div>
             </Modal.Body>

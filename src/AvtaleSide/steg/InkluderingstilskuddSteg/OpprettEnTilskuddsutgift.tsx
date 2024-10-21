@@ -103,9 +103,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>
-                        {/* <Hovedknapp onClick={leggTil}>Legg til utgift</Hovedknapp> */}
-                        <LagreKnapp label="Legg til utgift" lagre={leggTil} />
-
+                        <LagreKnapp lagre={leggTil}>Legg til utgift</LagreKnapp>
                         <Button
                             variant="tertiary"
                             style={{ marginLeft: '1rem' }}
