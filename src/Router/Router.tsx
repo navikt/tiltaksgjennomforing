@@ -7,7 +7,7 @@ import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import AvtaleProvider from '@/AvtaleProvider';
 import AvtaleSide from '@/AvtaleSide/AvtaleSide';
 import BeslutterSide from '@/BeslutterSide/BeslutterSide';
-import IkkeFunnet404 from '@/IkkeFunnet404';
+import IkkeFunnet404 from '@/Router/IkkeFunnet404';
 import Informasjonsside from '@/Informasjonsside/Informasjonsside';
 import InnloggingBoundary from '@/InnloggingBoundary/InnloggingBoundary';
 import OpprettAvtaleArbeidsgiver from '@/OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
@@ -19,6 +19,8 @@ import { FeatureToggleProvider } from '@/FeatureToggleProvider';
 import { FeilVarselProvider } from '@/FeilVarselProvider';
 import { NotifikasjonWidgetProvider } from '@/NotifikasjonWidgetProvider';
 import { VarselOmNedetid } from '@/InnloggingBoundary/VarselOmNedetid';
+import ErrorBoundary from '@/komponenter/ErrorBoundary';
+import AvtaleRouteError from '@/Router/AvtaleRouteError';
 
 export const basename = '/tiltaksgjennomforing';
 
@@ -40,21 +42,23 @@ const router = createBrowserRouter(
         {
             path: Path.OVERSIKT,
             element: (
-                <>
+                <ErrorBoundary>
                     <AdvarselBannerTestversjon />
                     <VarselOmNedetid />
                     <Outlet />
-                </>
+                </ErrorBoundary>
             ),
-            errorElement: <IkkeFunnet404 />,
             children: [
+                {
+                    path: '/*',
+                    element: <IkkeFunnet404 />,
+                },
                 {
                     path: Path.OFFENTLIG_INFORMASJONSSIDE,
                     element: <Informasjonsside />,
                 },
                 {
                     path: Path.OVERSIKT,
-                    errorElement: <IkkeFunnet404 />,
                     element: (
                         <FeilVarselProvider>
                             <InnloggingBoundary>
@@ -96,7 +100,7 @@ const router = createBrowserRouter(
                                     </AvtaleFetcher>
                                 </AvtaleProvider>
                             ),
-                            errorElement: <IkkeFunnet404 />,
+                            errorElement: <AvtaleRouteError />,
                             children: [
                                 {
                                     path: Path.AVTALE,

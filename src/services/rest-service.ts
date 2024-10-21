@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { mutate } from 'swr';
 
-import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
+import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError } from '@/types/errors';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
@@ -55,6 +55,9 @@ api.interceptors.response.use(
         if (error.response?.status === 400 && error.response?.headers.feilkode) {
             throw new FeilkodeError(error.response?.headers.feilkode);
         }
+        if (error.response?.status === 404) {
+            throw new IkkeFunnetError('Fant ikke ressursen.');
+        }
         throw new ApiError('Feil ved kontakt mot baksystem.');
     },
 );
@@ -71,9 +74,6 @@ const featureToggleVariantPath = (features: Feature[]): string => {
 
 export const hentAvtale = async (id: string): Promise<Avtale> => {
     const response = await api.get<Avtale>(`/avtaler/${id}`);
-    if (response.status === 404) {
-        throw new Error('Fant ikke avtale');
-    }
     return response.data;
 };
 

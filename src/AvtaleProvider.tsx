@@ -12,13 +12,12 @@ import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
 import { LogReturn } from 'amplitude-js';
-import React, { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
+import React, { FunctionComponent, PropsWithChildren, useContext, useState, useCallback } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
-import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 
 export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
     const noenHarGodkjent = Boolean(
@@ -116,8 +115,10 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
 
     const oppdatereAvtaleContext = (oppdatertAvtale: Avtale): void => setAvtale(oppdatertAvtale);
 
-    const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
-        RestService.hentAvtale(avtaleId).then(setAvtale);
+    const hentAvtale = useCallback(
+        (avtaleId: string = avtale.id): Promise<void> => RestService.hentAvtale(avtaleId).then(setAvtale),
+        [RestService.hentAvtale],
+    );
 
     const annullerAvtale = async (annullerGrunn: string): Promise<void> => {
         await RestService.annullerAvtale(avtale, annullerGrunn);
