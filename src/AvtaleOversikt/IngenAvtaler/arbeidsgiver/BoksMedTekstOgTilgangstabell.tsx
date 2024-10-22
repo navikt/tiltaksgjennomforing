@@ -32,7 +32,7 @@ const BoksMedTekstOgTilgangstabell: FunctionComponent<Props> = (props) => {
             <VerticalSpacer rem={0.5} />
             <BodyShort size="small">
                 Hvis du mangler tilgang kan du be om tilgang i Altinn.{' '}
-                <EksternLenke href="https://www.altinn.no/hjelp/profil/roller-og-rettigheter/">
+                <EksternLenke href="https://info.altinn.no/hjelp/profil/enkelttjenester-og-roller/">
                     Les mer om roller og rettigheter i Altinn her
                 </EksternLenke>
             </BodyShort>
