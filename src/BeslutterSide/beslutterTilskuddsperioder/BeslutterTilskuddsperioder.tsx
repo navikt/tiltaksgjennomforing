@@ -13,6 +13,7 @@ import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide'
 import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
+import moment from 'moment';
 
 interface Props {
     startAnimering: () => void;
@@ -90,6 +91,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                     <tbody>
                         {avtale.tilskuddPeriode.map((periode, index) => {
                             const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
+                            const kanBesluttes = moment().isSameOrAfter(moment(periode.kanBesluttesFom));
                             return (
                                 <React.Fragment key={index}>
                                     <tr
@@ -136,7 +138,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                                     {periode.status === 'UBEHANDLET' && (
                                                         <>
                                                             <Button
-                                                                disabled={!enhet}
+                                                                disabled={!enhet || !kanBesluttes}
                                                                 onClick={() => {
                                                                     if (enhet) {
                                                                         setGodkjennModalÅpen(true);
