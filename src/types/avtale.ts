@@ -295,6 +295,7 @@ export interface TilskuddsPeriode {
     status: TilskuddPeriodeStatus;
     lonnstilskuddProsent: number;
     kanBesluttesFom: string;
+    kanBehandles: boolean;
     aktiv: boolean;
     enhet?: string;
     enhetsnavn?: string;
