@@ -22,13 +22,7 @@ export const AvtalerBeslutter: FunctionComponent<Props> = (props) => {
     } else if (props.avtalelisteRessurs.status === Status.Lastet && props.avtalelisteRessurs.data.length === 0) {
         return <IngenAvtaler />;
     } else if (props.avtalelisteRessurs.status === Status.Lastet) {
-        return (
-            <AvtaleTabellBeslutter
-                avtaler={props.avtalelisteRessurs.data}
-                varsler={props.varsler}
-                innloggetBruker={props.innloggetBruker}
-            />
-        );
+        return <AvtaleTabellBeslutter avtaler={props.avtalelisteRessurs.data} varsler={props.varsler} />;
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
         handterFeil(props.avtalelisteRessurs.error, feilVarsel);
     }

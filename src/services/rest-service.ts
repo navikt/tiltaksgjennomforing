@@ -1,10 +1,19 @@
-import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
-import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import axios from 'axios';
+import axiosRetry from 'axios-retry';
+import { mutate } from 'swr';
+
+import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError } from '@/types/errors';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import { basename } from '@/paths';
+import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
+import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
+import { Hendelse } from '@/types/hendelse';
+import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
+import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
+import { Variants } from '@/types/unleash-variant';
+import { Varsel } from '@/types/varsel';
+import { basename } from '@/Router';
 import {
     AlleredeRegistrertAvtale,
     Returårsaker,
@@ -24,16 +33,6 @@ import {
     TiltaksType,
     Varighet,
 } from '@/types/avtale';
-import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
-import { Hendelse } from '@/types/hendelse';
-import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
-import { Variants } from '@/types/unleash-variant';
-import { Varsel } from '@/types/varsel';
-import axios from 'axios';
-import axiosRetry from 'axios-retry';
-import { mutate } from 'swr';
-
-export const API_URL = '/tiltaksgjennomforing/api';
 
 const api = axios.create({
     baseURL: '/tiltaksgjennomforing/api',
@@ -55,6 +54,9 @@ api.interceptors.response.use(
         }
         if (error.response?.status === 400 && error.response?.headers.feilkode) {
             throw new FeilkodeError(error.response?.headers.feilkode);
+        }
+        if (error.response?.status === 404) {
+            throw new IkkeFunnetError('Fant ikke ressursen.');
         }
         throw new ApiError('Feil ved kontakt mot baksystem.');
     },
@@ -287,7 +289,7 @@ export const opphevGodkjenninger = async (avtaleId: string) => {
 
 export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => {
     const uri = `/avtaler/${avtale.id}/annuller`;
-    await api.post(
+    const response = await api.post<Avtale>(
         uri,
         { annullertGrunn },
         {
@@ -296,6 +298,7 @@ export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => 
             },
         },
     );
+    return response.data;
 };
 
 export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (

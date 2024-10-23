@@ -1,24 +1,25 @@
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import Altinn from '@/assets/ikoner/altinn.svg?react';
-import DigitalAvtale from '@/assets/ikoner/digitalAvtale.svg?react';
-import DynamiskAvtale from '@/assets/ikoner/dynamiskAvtale.svg?react';
-import Historikk from '@/assets/ikoner/historikk.svg?react';
-import Keyboard from '@/assets/ikoner/keyboard.svg?react';
-import Banner from '@/komponenter/Banner/Banner';
-import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import { pathTilInformasjonssideInnlogget } from '@/paths';
-import BEMHelper from '@/utils/bem';
-import { BodyShort, Heading, Label, Link } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { BodyShort, Heading, Label, Link } from '@navikt/ds-react';
+
 import './informasjonsside.less';
+import Altinn from '@/assets/ikoner/altinn.svg?react';
+import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
+import BEMHelper from '@/utils/bem';
+import Banner from '@/komponenter/Banner/Banner';
+import DigitalAvtale from '@/assets/ikoner/digitalAvtale.svg?react';
+import DynamiskAvtale from '@/assets/ikoner/dynamiskAvtale.svg?react';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import Historikk from '@/assets/ikoner/historikk.svg?react';
+import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
+import Keyboard from '@/assets/ikoner/keyboard.svg?react';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { Path } from '@/Router';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
-    if (pathName === pathTilInformasjonssideInnlogget) {
+    if (pathName === Path.INFORMASJONSSIDE) {
         return <TilbakeTilOversiktLenke />;
     } else {
         return <TilbakeTilOversiktLenke tekst={'Tilbake'} />;

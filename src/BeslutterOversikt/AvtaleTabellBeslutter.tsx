@@ -1,28 +1,28 @@
-import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { pathTilAvtaleNy } from '@/paths';
-import { AvtaleMinimalForBeslutter } from '@/types/avtale';
-import { InnloggetBruker } from '@/types/innlogget-bruker';
-import { Varsel } from '@/types/varsel';
-import BEMHelper from '@/utils/bem';
-import { Table, BodyShort } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router-dom';
+import { Table, BodyShort } from '@navikt/ds-react';
+
 import '../AvtaleOversikt/AvtaleTabell.less';
-import { tiltakstypeTekstKort } from '@/messages';
-import { kunStorForbokstav } from '@/utils/stringUtils';
-import { ChevronRightIcon } from '@navikt/aksel-icons';
 import AvtaleTabellBeslutterHeader from '@/BeslutterOversikt/AvtaleTabellBeslutterHeader';
+import BEMHelper from '@/utils/bem';
+import EtikettStatus from '@/BeslutterSide/EtikettStatus';
+import { AvtaleMinimalForBeslutter } from '@/types/avtale';
+import { ChevronRightIcon } from '@navikt/aksel-icons';
+import { Path } from '@/Router';
+import { Varsel } from '@/types/varsel';
+import { kunStorForbokstav } from '@/utils/stringUtils';
+import { tiltakstypeTekstKort } from '@/messages';
 
 const cls = BEMHelper('avtaletabell');
 
-const AvtaleTabellBeslutter: FunctionComponent<{
+interface Props {
     avtaler: AvtaleMinimalForBeslutter[];
     varsler: Varsel[];
-    innloggetBruker: InnloggetBruker;
-}> = ({ avtaler, varsler, innloggetBruker }) => {
-    const navigate = useNavigate();
+}
 
-    const erBeslutter: boolean = true;
+const AvtaleTabellBeslutter = (props: Props) => {
+    const { avtaler, varsler } = props;
+    const navigate = useNavigate();
 
     return (
         <Table className={cls.className}>
@@ -35,7 +35,7 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                             key={avtale.id + index}
                             onClick={(e) => {
                                 navigate({
-                                    pathname: pathTilAvtaleNy(avtale.id, innloggetBruker.rolle),
+                                    pathname: generatePath(Path.AVTALE_BESLUTTER, { avtaleId: avtale.id }),
                                     search: window.location.search,
                                 });
                             }}
@@ -55,22 +55,18 @@ const AvtaleTabellBeslutter: FunctionComponent<{
                                     {avtale.deltakerEtternavn || ''}
                                 </BodyShort>
                             </Table.DataCell>
-                            {innloggetBruker.erNavAnsatt && (
-                                <Table.DataCell>
-                                    <BodyShort size="small">{avtale.veilederNavIdent || 'Ufordelt'}</BodyShort>
-                                </Table.DataCell>
-                            )}
-                            {erBeslutter && (
-                                <Table.DataCell>
-                                    <BodyShort size="small">
-                                        {new Date(avtale.startDato).toLocaleDateString('no-NB', {
-                                            day: 'numeric',
-                                            month: 'short',
-                                            year: '2-digit',
-                                        })}
-                                    </BodyShort>
-                                </Table.DataCell>
-                            )}
+                            <Table.DataCell>
+                                <BodyShort size="small">{avtale.veilederNavIdent || 'Ufordelt'}</BodyShort>
+                            </Table.DataCell>
+                            <Table.DataCell>
+                                <BodyShort size="small">
+                                    {new Date(avtale.startDato).toLocaleDateString('no-NB', {
+                                        day: 'numeric',
+                                        month: 'short',
+                                        year: '2-digit',
+                                    })}
+                                </BodyShort>
+                            </Table.DataCell>
                             <Table.DataCell>
                                 <EtikettStatus
                                     tilskuddsperiodestatus={avtale.status}

@@ -1,21 +1,22 @@
-import Koffert from '@/assets/ikoner/koffert.svg?react';
-import { FeilVarselContext } from '@/FeilVarselProvider';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { useAsyncError } from '@/komponenter/useError';
-import { pathTilInformasjonssideUinnlogget } from '@/paths';
-import { INNLOGGET_PART } from '@/RedirectEtterLogin';
-import { hentInnloggetBruker } from '@/services/rest-service';
-import { AutentiseringError, FeilkodeError } from '@/types/errors';
-import { Innloggingskilde } from '@/types/innlogget-bruker';
-import { handterFeil } from '@/utils/apiFeilUtils';
-import BEMHelper from '@/utils/bem';
-import { Next } from '@navikt/ds-icons';
-import { Ingress, Heading, BodyShort, Button } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
+import { Ingress, Heading, BodyShort, Button } from '@navikt/ds-react';
+
 import './Innloggingsside.less';
+import BEMHelper from '@/utils/bem';
+import Koffert from '@/assets/ikoner/koffert.svg?react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { AutentiseringError, FeilkodeError } from '@/types/errors';
+import { FeilVarselContext } from '@/FeilVarselProvider';
+import { INNLOGGET_PART } from '@/RedirectEtterLogin';
+import { Innloggingskilde } from '@/types/innlogget-bruker';
+import { Next } from '@navikt/ds-icons';
+import { Path } from '@/Router';
+import { handterFeil } from '@/utils/apiFeilUtils';
+import { hentInnloggetBruker } from '@/services/rest-service';
+import { useAsyncError } from '@/komponenter/useError';
 
 const cls = BEMHelper('innloggingsside');
 
@@ -69,7 +70,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     </Ingress>
                     <VerticalSpacer rem={2} />
                     <BodyShort size="small">
-                        <Link to={pathTilInformasjonssideUinnlogget} className="lenke">
+                        <Link to={Path.INFORMASJONSSIDE} className="lenke">
                             Her kan du lese mer om hvordan løsningen fungerer
                             <Next style={{ display: 'inline-block' }} />
                         </Link>

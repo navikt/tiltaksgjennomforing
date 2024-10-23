@@ -1,17 +1,18 @@
-import TaushetserklæringModal from '@/AvtaleOversikt/Taushetserklæring/Taushetserklæring';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import { avtaleStatusTekst } from '@/messages';
-import { pathTilAvtaleNy } from '@/paths';
-import { AvtaleMinimalListeVisning } from '@/types/avtale';
-import { InnloggetBruker } from '@/types/innlogget-bruker';
-import { Varsel } from '@/types/varsel';
-import BEMHelper from '@/utils/bem';
+import { Fragment, FunctionComponent, useState } from 'react';
+import { useNavigate, generatePath } from 'react-router-dom';
 import { LinkPanel, Heading, Ingress, BodyShort } from '@navikt/ds-react';
 import moment from 'moment';
-import { Fragment, FunctionComponent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import './AvtalekortMobil.less';
+import BEMHelper from '@/utils/bem';
+import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
+import TaushetserklæringModal from '@/AvtaleOversikt/Taushetserklæring/Taushetserklæring';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { AvtaleMinimalListeVisning } from '@/types/avtale';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
+import { Path } from '@/Router';
+import { Varsel } from '@/types/varsel';
+import { avtaleStatusTekst } from '@/messages';
 
 const cls = BEMHelper('avtalekortMobil');
 
@@ -43,7 +44,7 @@ const AvtalekortMobil: FunctionComponent<{
                                     e.preventDefault();
                                 } else {
                                     navigate({
-                                        pathname: pathTilAvtaleNy(avtale.id),
+                                        pathname: generatePath(Path.AVTALE, { avtaleId: avtale.id }),
                                         search: window.location.search,
                                     });
                                 }

@@ -1,9 +1,11 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { pathTilStegIAvtale } from '@/paths';
 import React, { FunctionComponent, useContext } from 'react';
-import { StegInfo } from '../AvtaleSide';
+import { generatePath } from 'react-router-dom';
+
 import './Stegmeny.less';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { Path } from '@/Router';
+import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 
 interface Props {
     steg: StegInfo[];
@@ -17,7 +19,7 @@ const Stegmeny: FunctionComponent<Props> = (props: Props) => {
             id={steg.id}
             label={steg.label}
             aktiv={props.aktivtSteg === steg}
-            url={pathTilStegIAvtale(avtale.id, steg.id)}
+            url={generatePath(Path.AVTALE_STEG, { avtaleId: avtale.id, steg: steg.id })}
             key={steg.id}
         />
     ));

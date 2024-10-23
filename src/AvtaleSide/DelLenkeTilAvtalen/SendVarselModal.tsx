@@ -1,10 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { pathTilOversiktISelvbetjeningProd } from '@/paths';
 import { delAvtaleMedAvtalepart } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
-import { Heading, Link, Modal, Button, BodyLong, List } from '@navikt/ds-react';
+import { Heading, Link, Modal, Button, List } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import { copyTextToClipboard } from '@/utils/copyTextToClipboard';
 import './SendVarselModal.less';
@@ -64,13 +63,15 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
                 </Heading>
                 <div className={cls.element('lenkedeling')}>
                     <div className={cls.element('lenke')}>
-                        <Link href={pathTilOversiktISelvbetjeningProd}>{pathTilOversiktISelvbetjeningProd}</Link>
+                        <Link href="https://arbeidsgiver.nav.no/tiltaksgjennomforing">
+                            https://arbeidsgiver.nav.no/tiltaksgjennomforing
+                        </Link>
                     </div>
                     <Button
                         variant="secondary"
                         size="small"
                         className={cls.element('kopierKnapp')}
-                        onClick={() => copyTextToClipboard(pathTilOversiktISelvbetjeningProd)}
+                        onClick={() => copyTextToClipboard('https://arbeidsgiver.nav.no/tiltaksgjennomforing')}
                     >
                         Kopier lenke
                     </Button>

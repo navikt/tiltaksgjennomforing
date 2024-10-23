@@ -119,9 +119,9 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         RestService.hentAvtale(avtaleId).then(setAvtale);
 
     const annullerAvtale = async (annullerGrunn: string): Promise<void> => {
-        await RestService.annullerAvtale(avtale, annullerGrunn);
+        const annullertAvtale = await RestService.annullerAvtale(avtale, annullerGrunn);
         sendToAmplitude('#tiltak-avtale-annullert');
-        await hentAvtale();
+        setAvtale(annullertAvtale);
     };
 
     const overtaAvtale = async (): Promise<void> => {

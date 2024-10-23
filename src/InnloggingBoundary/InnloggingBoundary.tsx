@@ -27,6 +27,8 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     navEnheter: [],
 });
 
+export const useInnloggetBruker = () => React.useContext(InnloggetBrukerContext);
+
 const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
     const [brukmeny, setbrukmeny] = useState<boolean>();
     const [brukBackupmeny, setBrukBackupmeny] = useState<boolean>();
