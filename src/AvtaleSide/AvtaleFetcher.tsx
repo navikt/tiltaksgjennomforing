@@ -1,4 +1,4 @@
-import React, { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
+import React, { FunctionComponent, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAvtale } from '@/AvtaleProvider';
@@ -12,6 +12,7 @@ const AvtaleFetcher: FunctionComponent<PropsWithChildren> = (props) => {
     const [laster, setLaster] = useState<boolean>(true);
     const { avtaleId } = useParams<any>();
     const { hentAvtale } = useAvtale();
+    const ref = useRef<string>();
     const throwError = useAsyncError();
 
     useEffect(() => {
@@ -26,8 +27,11 @@ const AvtaleFetcher: FunctionComponent<PropsWithChildren> = (props) => {
                 throwError(error);
             }
         };
-        run();
-    }, [avtaleId, hentAvtale, setLaster, throwError]);
+        if (avtaleId !== ref.current) {
+            run();
+        }
+        ref.current = avtaleId;
+    }, [avtaleId, ref, hentAvtale, setLaster, throwError]);
 
     if (laster) {
         return (

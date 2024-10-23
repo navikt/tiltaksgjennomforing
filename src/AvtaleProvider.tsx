@@ -12,7 +12,7 @@ import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
 import amplitude from '@/utils/amplitude';
 import { LogReturn } from 'amplitude-js';
-import React, { FunctionComponent, PropsWithChildren, useContext, useState, useCallback } from 'react';
+import React, { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
@@ -115,17 +115,13 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
 
     const oppdatereAvtaleContext = (oppdatertAvtale: Avtale): void => setAvtale(oppdatertAvtale);
 
-    const hentAvtale = useCallback(
-        (avtaleId: string = avtale.id): Promise<void> => RestService.hentAvtale(avtaleId).then(setAvtale),
-        [RestService.hentAvtale],
-    );
+    const hentAvtale = (avtaleId: string = avtale.id): Promise<void> =>
+        RestService.hentAvtale(avtaleId).then(setAvtale);
 
     const annullerAvtale = async (annullerGrunn: string): Promise<void> => {
-        await RestService.annullerAvtale(avtale, annullerGrunn);
+        const annullertAvtale = await RestService.annullerAvtale(avtale, annullerGrunn);
         sendToAmplitude('#tiltak-avtale-annullert');
-        if (annullerGrunn !== 'Feilregistrering') {
-            await hentAvtale();
-        }
+        setAvtale(annullertAvtale);
     };
 
     const overtaAvtale = async (): Promise<void> => {

@@ -26,7 +26,6 @@ export const basename = '/tiltaksgjennomforing';
 
 export enum Path {
     OVERSIKT = '/',
-    OFFENTLIG_INFORMASJONSSIDE = '/offentlig/informasjonsside',
     INFORMASJONSSIDE = '/informasjonsside',
     OPPRETT_AVTALE = '/opprett-avtale',
     OPPRETT_AVTALE_ARBEIDSGIVER = '/opprett-avtale-arbeidsgiver',
@@ -54,7 +53,7 @@ const router = createBrowserRouter(
                     element: <IkkeFunnet404 />,
                 },
                 {
-                    path: Path.OFFENTLIG_INFORMASJONSSIDE,
+                    path: Path.INFORMASJONSSIDE,
                     element: <Informasjonsside />,
                 },
                 {
@@ -78,10 +77,6 @@ const router = createBrowserRouter(
                         {
                             path: Path.OVERSIKT,
                             element: <Oversikt />,
-                        },
-                        {
-                            path: Path.INFORMASJONSSIDE,
-                            element: <Informasjonsside />,
                         },
                         {
                             path: Path.OPPRETT_AVTALE,

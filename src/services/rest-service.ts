@@ -289,7 +289,7 @@ export const opphevGodkjenninger = async (avtaleId: string) => {
 
 export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => {
     const uri = `/avtaler/${avtale.id}/annuller`;
-    await api.post(
+    const response = await api.post<Avtale>(
         uri,
         { annullertGrunn },
         {
@@ -298,6 +298,7 @@ export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => 
             },
         },
     );
+    return response.data;
 };
 
 export const sjekkOmDeltakerAlleredeErRegistrertPaaTiltak = async (

@@ -70,7 +70,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     </Ingress>
                     <VerticalSpacer rem={2} />
                     <BodyShort size="small">
-                        <Link to={Path.OFFENTLIG_INFORMASJONSSIDE} className="lenke">
+                        <Link to={Path.INFORMASJONSSIDE} className="lenke">
                             Her kan du lese mer om hvordan løsningen fungerer
                             <Next style={{ display: 'inline-block' }} />
                         </Link>
