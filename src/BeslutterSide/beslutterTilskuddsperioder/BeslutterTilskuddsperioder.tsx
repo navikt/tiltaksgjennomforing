@@ -57,10 +57,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                     {' ' + formatterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT) + ' '}
                 </span>
                 med følgende årsak(er):
-                <span className={cls.element('bold')}>
-                    {' ' + hentReturÅrsaker(periode) + ' '}
-                    {''}
-                </span>
+                <span className={cls.element('bold')}>{' ' + hentReturÅrsaker(periode) + ' '}</span>
                 med forklaringen:
                 <span className={cls.element('bold')}>{' ' + periode.avslagsforklaring}</span>
             </BodyShort>
