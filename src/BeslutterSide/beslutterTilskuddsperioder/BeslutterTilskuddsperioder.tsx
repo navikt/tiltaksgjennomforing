@@ -50,22 +50,17 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
 
     const hentAvslattInfoTilskuddsperiode = (periode: TilskuddsPeriode): JSX.Element => {
         return (
-            <>
-                <BodyShort size="small">
-                    Tilskuddsperioden ble returnert av
-                    <span className={cls.element('bold')}>{' ' + periode.avslåttAvNavIdent + ' '}</span> den
-                    <span className={cls.element('bold')}>
-                        {' ' + formatterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT) + ' '}
-                    </span>
-                    med følgende årsak(er):
-                    <span className={cls.element('bold')}>
-                        {' ' + hentReturÅrsaker(periode) + ' '}
-                        {''}
-                    </span>
-                    med forklaringen:
-                    <span className={cls.element('bold')}>{' ' + periode.avslagsforklaring}</span>
-                </BodyShort>
-            </>
+            <BodyShort size="small">
+                Tilskuddsperioden ble returnert av
+                <span className={cls.element('bold')}>{' ' + periode.avslåttAvNavIdent + ' '}</span> den
+                <span className={cls.element('bold')}>
+                    {' ' + formatterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT) + ' '}
+                </span>
+                med følgende årsak(er):
+                <span className={cls.element('bold')}>{' ' + hentReturÅrsaker(periode) + ' '}</span>
+                med forklaringen:
+                <span className={cls.element('bold')}>{' ' + periode.avslagsforklaring}</span>
+            </BodyShort>
         );
     };
 
@@ -88,12 +83,11 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {avtale.tilskuddPeriode.map((periode, index) => {
+                        {avtale.tilskuddPeriode.map((periode) => {
                             const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
                             return (
-                                <React.Fragment key={index}>
+                                <React.Fragment key={periode.id}>
                                     <tr
-                                        key={index}
                                         className={cls.element(
                                             'tilskuddsperiode-rad',
                                             settStylingForTabellrad(periode),
@@ -136,7 +130,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                                     {periode.status === 'UBEHANDLET' && (
                                                         <>
                                                             <Button
-                                                                disabled={!enhet}
+                                                                disabled={!enhet || !periode.kanBehandles}
                                                                 onClick={() => {
                                                                     if (enhet) {
                                                                         setGodkjennModalÅpen(true);

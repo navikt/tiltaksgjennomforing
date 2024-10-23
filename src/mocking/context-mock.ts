@@ -46,6 +46,7 @@ const avtaleInnhold: Avtale | Avtaleinnhold = {
             avslagsårsaker: new Set<Returårsaker>(),
             lonnstilskuddProsent: 60,
             kanBesluttesFom: '2021-01-01',
+            kanBehandles: true,
             aktiv: true,
         },
     ],
