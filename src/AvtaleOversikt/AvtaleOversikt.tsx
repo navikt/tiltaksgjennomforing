@@ -1,7 +1,6 @@
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Pagination, Select } from '@navikt/ds-react';
-import omit from 'lodash.omit';
+import { omit, Pagination, Select } from '@navikt/ds-react';
 import isEqual from 'lodash.isequal';
 
 import './AvtaleOversikt.less';
@@ -24,13 +23,14 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { Path } from '@/Router';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
-import { fjernTommeFelterFraObjekt, litenForbokstav } from '@/utils/stringUtils';
+import { litenForbokstav } from '@/utils/stringUtils';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import {
     hentAvtalerForInnloggetBrukerMedPost,
     hentAvtalerForInnloggetBrukerMedSokId,
     hentUlesteVarsler,
 } from '@/services/rest-service';
+import { fjernTommeFelterFraObjekt } from '@/utils/utils';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
@@ -46,7 +46,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     useEffect(() => {
         if (nettressursCtx.status !== Status.Lastet) return;
 
-        const filtreUtenPage = omit(filtre, 'page', 'sorteringskolonne', 'sorteringOrder');
+        const filtreUtenPage = omit(filtre, ['page', 'sorteringskolonne', 'sorteringOrder']);
         const erFiltreLikeNettressursFiltre = isEqual(
             fjernTommeFelterFraObjekt(nettressursCtx.data.sokeParametere),
             fjernTommeFelterFraObjekt(filtreUtenPage),

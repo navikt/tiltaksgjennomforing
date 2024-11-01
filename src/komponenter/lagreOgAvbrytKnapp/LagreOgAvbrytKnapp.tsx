@@ -1,7 +1,6 @@
 import { Nettressurs, Status } from '@/types/nettressurs';
 import { handterFeil } from '@/utils/apiFeilUtils';
-import { Alert } from '@navikt/ds-react';
-import omit from 'lodash.omit';
+import { Alert, omit } from '@navikt/ds-react';
 import { Button, ButtonProps } from '@navikt/ds-react';
 import { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import BEMHelper from '@/utils/bem';
@@ -19,7 +18,7 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     const [feilmelding, setFeilmelding] = useState('');
 
     // Fjerner ikke-standard knapp-props før de spreades inn i KnappBase.
-    const knappBaseProps: ButtonProps = omit(props, ['lagreFunksjon', 'avbryt', 'lagreTekst']);
+    const knappBaseProps: ButtonProps = omit(props, ['lagreFunksjon', 'avbryt', 'lagretekst']);
 
     const feilRef = useRef<HTMLDivElement>(null);
 

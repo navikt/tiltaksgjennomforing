@@ -3,7 +3,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import { hentAvtalerForInnloggetBrukerMedPost, hentAvtalerForInnloggetBrukerMedSokId } from '@/services/rest-service';
 import { Avtale, PageableAvtale, PageableAvtalelisteRessurs } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
-import { fjernTommeFelterFraObjekt } from '@/utils/stringUtils';
+import { fjernTommeFelterFraObjekt } from '@/utils/utils';
 import {
     Dispatch,
     FunctionComponent,
