@@ -7,7 +7,7 @@ import VerticalSpacer from '../layout/VerticalSpacer';
 import nyheter from '../NyttIAppen/nyheter';
 import Nytt from '../NyttIAppen/Nytt';
 import './Banner.less';
-import moment from 'moment/moment';
+import moment from 'moment';
 import { useAvtale } from '@/AvtaleProvider';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
 
