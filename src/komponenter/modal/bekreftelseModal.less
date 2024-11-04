@@ -4,6 +4,17 @@
 @button-height: 46px;
 
 .bekreftelseModal {
+    .navds-modal__header {
+        padding-bottom: 0;
+        padding-top: var(--a-spacing-2);
+    }
+
+    &__varsel {
+        position: absolute;
+        left: calc(50% - 40px);
+        top: -40px;
+    }
+
     &__modal-container {
         padding: 1rem 1rem;
         max-width: @screen-lg;
@@ -45,15 +56,6 @@
         display: flex;
         justify-content: flex-end;
         margin-bottom: 0.5rem;
-    }
-
-    &__topIconContainer {
-        display: flex;
-        justify-content: center;
-        margin: -3.8rem auto 0 2.5rem;
-        @media (max-height: 710px) {
-            display: none;
-        }
     }
 
     &__modal-container > div:last-child {

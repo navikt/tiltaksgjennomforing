@@ -1,7 +1,7 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { Alert, Heading, Modal } from '@navikt/ds-react';
-import React, { CSSProperties, ReactNode, useState } from 'react';
+import React, { CSSProperties, ReactNode, useRef, useState } from 'react';
 import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import VarselTegnForModal from './VarselTegnForModal';
 import './bekreftelseModal.less';
@@ -46,10 +46,12 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     if (!props.modalIsOpen) {
         return null;
     }
+    const ref = useRef<HTMLDialogElement>(null);
 
     return (
         <div className={cls.className}>
             <Modal
+                ref={ref}
                 style={props.style}
                 open={props.modalIsOpen}
                 className={cls.element('modal-container')}
@@ -57,9 +59,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                 onClose={props.lukkModal}
             >
                 <Modal.Header>
-                    <div className={cls.element('topIconContainer')}>
-                        <VarselTegnForModal width={'80px'} height={'80px'} />
-                    </div>
+                    <VarselTegnForModal className={cls.element('varsel')} width={'80px'} height={'80px'} />
                 </Modal.Header>
                 <Modal.Body>
                     <div className={cls.element('body')}>
@@ -73,14 +73,20 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                             <div className={cls.element('varselTekst')}>{props.children}</div>
                         </div>
                     </div>
-                    {feilmelding && <Alert variant="warning">{feilmelding}</Alert>}
+                    {feilmelding && (
+                        <Alert variant="warning" size="small">
+                            {feilmelding}
+                        </Alert>
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
                     <LagreOgAvbrytKnapp
                         disabled={laster}
                         lagreFunksjon={() => bekreftKlikk()}
                         lagretekst={props.bekreftelseTekst}
-                        avbryt={() => props.lukkModal()}
+                        avbryt={() => {
+                            ref.current?.close();
+                        }}
                     />
                 </Modal.Footer>
             </Modal>

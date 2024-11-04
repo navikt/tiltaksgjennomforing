@@ -1,8 +1,7 @@
-import React from 'react';
-
-const VarselTegnForModal = ({ width, height }: { width: string; height: string }) => {
+const VarselTegnForModal = ({ width, height, className }: { width: string; height: string; className?: string }) => {
     return (
         <svg
+            className={className ?? ''}
             xmlns="https://www.w3.org/2000/svg"
             role="presentation"
             focusable="false"

@@ -1,10 +1,7 @@
-import React from 'react';
-
-import AlleredeOpprettetAvtaleModal from '@/komponenter/alleredeOpprettetTiltak/modal/AlleredeOpprettetAvtaleModal';
-import GodkjenningsInnhold from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/GodkjenningsInnhold';
-import BEMHelper from '@/utils/bem';
-import LagreOgAvbrytKnapp from '@/komponenter/lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
+import InfoModal from '@/komponenter/modal/InfoModal';
+import { Alert, Heading } from '@navikt/ds-react';
+import AlleredeOpprettetAvtale from './innholdsvisning/AlleredeOpprettetAvtale';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
@@ -16,16 +13,17 @@ interface Props {
 const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
     const { alleredeRegistrertAvtale, isApen, onLagre, onLukk } = props;
 
-    const cls = BEMHelper('godkjenn-alleredeOpprettet');
-
     return (
-        <AlleredeOpprettetAvtaleModal isApen={isApen} onLukk={onLukk}>
-            <GodkjenningsInnhold alleredeRegistrertAvtale={alleredeRegistrertAvtale}>
-                <div className={cls.element('knapp-container')}>
-                    <LagreOgAvbrytKnapp lagreFunksjon={onLagre} avbryt={onLukk} lagretekst="Godkjenn avtale" />
-                </div>
-            </GodkjenningsInnhold>
-        </AlleredeOpprettetAvtaleModal>
+        <InfoModal width="medium" open={isApen} confirmText="Godkjenn avtale" onConfirm={onLagre} onClose={onLukk}>
+            <Heading size="medium" spacing id="Allerede registrerte tiltak for deltaker">
+                Godkjenning av avtale
+            </Heading>
+            <Alert variant="info" size="small">
+                Du er i ferd med å godkjenne en avtale som har overlappende tidsrom, og/eller har påbegynte avtale(r) på
+                deltaker sitt fødselsnummer.
+            </Alert>
+            <AlleredeOpprettetAvtale alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
+        </InfoModal>
     );
 };
 export default GodkjennMedAlleredeOpprettetTiltak;

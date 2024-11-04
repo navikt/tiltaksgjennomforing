@@ -1,15 +1,14 @@
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import VarselTegnForModal from '@/komponenter/modal/VarselTegnForModal';
 import { mentorGodkjennTaushetserklæring } from '@/services/rest-service';
 import { UfullstendigError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
-import { Modal, Heading } from '@navikt/ds-react';
+import { Heading, BodyShort } from '@navikt/ds-react';
 import BekreftCheckboksPanel from '@/komponenter/BekreftCheckboksPanel/BekreftCheckboksPanel';
 import React, { FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router';
 import './Taushetserklæring.less';
-import TausetserklæringTekst from './TaushetserklæringTekst';
+import TaushetserklæringTekst from './TaushetserklæringTekst';
+import InfoModal from '@/komponenter/modal/InfoModal';
 
 interface TaushetserklæringProps {
     open: boolean;
@@ -38,44 +37,29 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
     };
 
     return (
-        <Modal
-            open={open}
-            onClose={() => togglesetTaushetserklæringForMentorAvtale(avtaleId)}
+        <InfoModal
             width="medium"
-            aria-label="Min modalrute"
-            className={cls.element('modal')}
+            open={open}
+            confirmText="Signér taushetserklæring"
+            onConfirm={godkjennTaushetserklæring}
+            onClose={() => togglesetTaushetserklæringForMentorAvtale('')}
         >
-            <Modal.Header>
-                <div className={cls.element('topIconContainer')}>
-                    <VarselTegnForModal width={'80%'} height={'80px'} />
-                </div>
-            </Modal.Header>
-            <Modal.Body>
-                <div className={cls.element('modal')}>
-                    <Heading level="2" size="medium" className={cls.element('header')}>
-                        Signer taushetserklæring
-                    </Heading>
-                    <p>Som mentor må du signere en taushetserklæring.</p>
-                    <VerticalSpacer rem={2} />
-                    <TausetserklæringTekst />
-                    <BekreftCheckboksPanel
-                        legend=""
-                        key={'Taushetserklæring-BekreftCheckboksPanel' + avtaleId}
-                        className={cls.element('bekreftelse')}
-                        checked={bekrefterGodkjennerTaushetserklæring}
-                        onChange={() => setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)}
-                    >
-                        Jeg bekrefter å ha lest og forstått min taushetsplikt og har gjort meg kjent med de
-                        lovbestemmelsene som er listet opp over
-                    </BekreftCheckboksPanel>
-                    <div className={cls.element('knapper-container')}>
-                        <LagreKnapp className={'taushetserklæring__lagreKnapp'} lagre={godkjennTaushetserklæring}>
-                            Signer Taushetserklæring
-                        </LagreKnapp>
-                    </div>
-                </div>
-            </Modal.Body>
-        </Modal>
+            <Heading level="1" size="medium" className={cls.element('header')}>
+                Signér taushetserklæring
+            </Heading>
+            <BodyShort size="small">Som mentor må du signere en taushetserklæring.</BodyShort>
+            <VerticalSpacer rem={2} />
+            <TaushetserklæringTekst />
+            <BekreftCheckboksPanel
+                legend=""
+                size="small"
+                key={'Taushetserklæring-BekreftCheckboksPanel' + avtaleId}
+                checked={bekrefterGodkjennerTaushetserklæring}
+                onChange={() => setBekrefterGodkjennerTaushetserklæring(!bekrefterGodkjennerTaushetserklæring)}
+            >
+                Jeg bekrefter at jeg har lest og forstått taushetsplikten min, og de aktuelle lovbestemmelsene
+            </BekreftCheckboksPanel>
+        </InfoModal>
     );
 };
 export default TaushetserklæringModal;
