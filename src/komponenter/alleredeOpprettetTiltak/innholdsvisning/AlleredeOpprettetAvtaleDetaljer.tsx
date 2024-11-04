@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import BEMHelper from '@/utils/bem';
+import { BEMWrapper } from '@/utils/bem';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
-import { Link } from '@navikt/ds-react';
+import { BodyShort, Link } from '@navikt/ds-react';
 import { Expand } from '@navikt/ds-icons';
 import { formatterDato } from '@/utils/datoUtils';
 import { avtaleStatusTekst } from '@/messages';
@@ -9,11 +9,11 @@ import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadIn
 import { storForbokstav } from '@/utils/stringUtils';
 
 interface Props {
+    cls: BEMWrapper;
     innhold: AlleredeRegistrertAvtale;
 }
 
-const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ innhold }) => {
-    const cls = BEMHelper('alleredeOpprettetAvtale');
+const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ cls, innhold }) => {
     const [seDetaljer, setSeDetaljer] = useState<boolean>(false);
 
     const settGodkjentAvBeslutter = () => {
@@ -31,21 +31,21 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ innhold }) => {
 
     return (
         <div className={cls.element('avtale-detaljer')}>
-            <Link
-                className={cls.element('lenke-detaljer')}
-                href={'/se-alle-detaljer'}
-                onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
-                    event.preventDefault();
-                    setSeDetaljer(!seDetaljer);
-                }}
-            >
-                <div className={cls.element('lenke-detaljer-wrapper')}>
+            <BodyShort size="small">
+                <Link
+                    className={cls.element('lenke-detaljer')}
+                    href={'/se-alle-detaljer'}
+                    onClick={(event) => {
+                        event.preventDefault();
+                        setSeDetaljer(!seDetaljer);
+                    }}
+                >
                     <span>Detaljer</span>
                     <span className={cls.element('chevron-detaljer', seDetaljer ? 'open' : 'close')}>
                         <Expand />
                     </span>
-                </div>
-            </Link>
+                </Link>
+            </BodyShort>
             <div className={cls.element('detalje-innhold-wrapper', seDetaljer ? 'open' : 'close')}>
                 <div className={cls.element('detalje-innhold')}>
                     <RadInfo label={'Opprettet av:'} info={storForbokstav(innhold.opphav)} infoNotBold={true} />

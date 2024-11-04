@@ -5,9 +5,10 @@ import { Button, ButtonProps } from '@navikt/ds-react';
 import { FunctionComponent, HTMLAttributes, useEffect, useRef, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './lagreOgAvbrytKnapp.less';
+import classNames from 'classnames';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-    lagreFunksjon: () => Promise<any>;
+    lagreFunksjon: () => void;
     avbryt: () => void;
     lagretekst: string;
 }
@@ -41,10 +42,10 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     }, [oppslag.status]);
 
     return (
-        <div className={cls.className}>
+        <div className={classNames(props.className, cls.className)}>
             {oppslag.status === Status.Feil && (
                 <div className={cls.element('alert')}>
-                    <Alert variant="warning">
+                    <Alert size="small" variant="warning">
                         <div ref={feilRef} aria-live="polite">
                             {feilmelding}
                         </div>
