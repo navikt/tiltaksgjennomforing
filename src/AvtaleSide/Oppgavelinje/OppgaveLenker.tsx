@@ -42,7 +42,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
     }
     return (
         <>
-            {!arbeidstreningReadonly && (
+            {(!erArbeidstrening || (erArbeidstrening && !arbeidstreningReadonly)) && (
                 <div className={'modelLenker'}>
                     <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
                     <AnnullerAvtalen />
