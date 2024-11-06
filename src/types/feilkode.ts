@@ -66,7 +66,8 @@ export type Feilkode =
     | 'KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
     | 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET'
     | 'FORMIDLINGSGRUPPE_IKKE_RETTIGHET'
-    | 'HENTING_AV_INNSATS_BEHOV_FEILET'
+    | 'HENTING_AV_INNSATSBEHOV_FEILET'
+    | 'FANT_IKKE_INNSATSBEHOV'
     | 'FORTIDLIG_STARTDATO'
     | 'KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT'
     | 'AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE'
@@ -159,7 +160,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.',
     FORMIDLINGSGRUPPE_IKKE_RETTIGHET:
         'Deltakeren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette tiltaket.',
-    HENTING_AV_INNSATS_BEHOV_FEILET: 'Feil ved henting av innsatsbehov',
+    HENTING_AV_INNSATSBEHOV_FEILET: 'Feil ved henting av innsatsbehov',
+    FANT_IKKE_INNSATSBEHOV: 'Innsatsbehov for deltakeren ble ikke funnet',
     FORTIDLIG_STARTDATO: 'Startdatoen for avtalen er mer enn 7 dager tilbake i tid og må derfor åpnes av NAV',
     KAN_IKKE_MERKES_FOR_ETTERREGISTRERING_AVTALE_GODKJENT:
         'Kan ikke endre etterregistrering etter at avtalen er godkjent.',
