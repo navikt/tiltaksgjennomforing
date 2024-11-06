@@ -120,60 +120,67 @@ function GodkjennPaVegneAvFlereParter() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
-                <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
-                <GodkjenningInstruks />
-                {isKanGodkjennesPaVegneAv && (
-                    <div className={cls.element('godkjenn-pa-vegne-av')}>
-                        <Checkbox {...register('isSkalGodkjennesPaVegne')}>
-                            {isKunGodkjentAvDeltaker && <>Jeg skal godkjenne på vegne av arbeidsgiver</>}
-                            {isKunGodkjentAvArbeidsgiver && <>Jeg skal godkjenne på vegne av deltakeren</>}
-                            {isIkkeGodkjentAvNoen && <>Jeg skal godkjenne på vegne av deltakeren og arbeidsgiveren</>}
-                        </Checkbox>
-                        {watch('isSkalGodkjennesPaVegne') && (
-                            <CheckboxGroup
-                                legend="Bekreftelse på at kravene og innholdet i avtalen er informert om"
-                                className={cls.element('skjema-gruppe')}
-                                error={formState.errors.isInformert?.message}
-                            >
-                                <Checkbox value={true} {...register('isInformert')}>
-                                    {isKunGodkjentAvArbeidsgiver && (
-                                        <>Deltakeren er informert om kravene og godkjenner innholdet i avtalen.</>
-                                    )}
-                                    {isKunGodkjentAvDeltaker && (
-                                        <>Arbeidsgiveren er informert om kravene og godkjenner innholdet i avtalen.</>
-                                    )}
-                                    {isIkkeGodkjentAvNoen && (
-                                        <>
-                                            Deltakeren og arbeidsgiveren er informert om kravene og godkjenner innholdet
-                                            i avtalen.
-                                        </>
-                                    )}
-                                </Checkbox>
-                            </CheckboxGroup>
-                        )}
-                    </div>
-                )}
-                {harFamilietilknytning && (
-                    <>
-                        <Alert variant="warning">
-                            OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
-                        </Alert>
-                        <VerticalSpacer rem={1} />
-                    </>
-                )}
-                <LagreKnapp className={cls.element('lagreKnapp')} type="submit" {...lagreKnappProps}>
-                    Godkjenn avtalen
-                </LagreKnapp>
-                <GodkjennAvtaleMedAlleredeOpprettetTiltak
-                    alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
-                    isApen={isGodkjenningsModalApen}
-                    onLagre={onLagre}
-                    onLukk={() => setGodkjenningsModalApen(false)}
-                />
-            </Innholdsboks>
-        </form>
+        <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
+                    <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
+                    <GodkjenningInstruks />
+                    {isKanGodkjennesPaVegneAv && (
+                        <div className={cls.element('godkjenn-pa-vegne-av')}>
+                            <Checkbox {...register('isSkalGodkjennesPaVegne')}>
+                                {isKunGodkjentAvDeltaker && <>Jeg skal godkjenne på vegne av arbeidsgiver</>}
+                                {isKunGodkjentAvArbeidsgiver && <>Jeg skal godkjenne på vegne av deltakeren</>}
+                                {isIkkeGodkjentAvNoen && (
+                                    <>Jeg skal godkjenne på vegne av deltakeren og arbeidsgiveren</>
+                                )}
+                            </Checkbox>
+                            {watch('isSkalGodkjennesPaVegne') && (
+                                <CheckboxGroup
+                                    legend="Bekreftelse på at kravene og innholdet i avtalen er informert om"
+                                    className={cls.element('skjema-gruppe')}
+                                    error={formState.errors.isInformert?.message}
+                                >
+                                    <Checkbox value={true} {...register('isInformert')}>
+                                        {isKunGodkjentAvArbeidsgiver && (
+                                            <>Deltakeren er informert om kravene og godkjenner innholdet i avtalen.</>
+                                        )}
+                                        {isKunGodkjentAvDeltaker && (
+                                            <>
+                                                Arbeidsgiveren er informert om kravene og godkjenner innholdet i
+                                                avtalen.
+                                            </>
+                                        )}
+                                        {isIkkeGodkjentAvNoen && (
+                                            <>
+                                                Deltakeren og arbeidsgiveren er informert om kravene og godkjenner
+                                                innholdet i avtalen.
+                                            </>
+                                        )}
+                                    </Checkbox>
+                                </CheckboxGroup>
+                            )}
+                        </div>
+                    )}
+                    {harFamilietilknytning && (
+                        <>
+                            <Alert variant="warning">
+                                OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
+                            </Alert>
+                            <VerticalSpacer rem={1} />
+                        </>
+                    )}
+                    <LagreKnapp className={cls.element('lagreKnapp')} type="submit" {...lagreKnappProps}>
+                        Godkjenn avtalen
+                    </LagreKnapp>
+                </Innholdsboks>
+            </form>
+            <GodkjennAvtaleMedAlleredeOpprettetTiltak
+                alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
+                isApen={isGodkjenningsModalApen}
+                onLagre={onLagre}
+                onLukk={() => setGodkjenningsModalApen(false)}
+            />
+        </>
     );
 }
 
