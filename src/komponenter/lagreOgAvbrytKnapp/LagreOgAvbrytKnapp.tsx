@@ -52,10 +52,11 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
                 </div>
             )}
             <div className={cls.element('container')}>
-                <Button variant={'secondary'} onClick={props.avbryt}>
+                <Button variant={'secondary'} type="button" onClick={props.avbryt}>
                     Avbryt
                 </Button>
                 <Button
+                    type="submit"
                     loading={oppslag.status === Status.LasterInn}
                     disabled={oppslag.status === Status.LasterInn}
                     onClick={onClick}

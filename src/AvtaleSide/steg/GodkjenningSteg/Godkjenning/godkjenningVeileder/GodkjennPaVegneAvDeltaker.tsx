@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as z from 'zod';
-import { Alert, Button, Checkbox, CheckboxGroup } from '@navikt/ds-react';
+import { Alert, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -14,7 +14,6 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-service';
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
-import LagreKnappVarsel from '@/komponenter/LagreKnapp/LagreKnappVarsel';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -91,65 +90,70 @@ function GodkjennPaVegneAvDeltaker() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
-                <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
-                <GodkjenningInstruks />
-                {isKanGodkjennesPaVegneAv && (
-                    <div className={cls.element('godkjenn-pa-vegne-av')}>
-                        <Checkbox {...register('isSkalGodkjennesPaVegne')}>
-                            Jeg skal godkjenne på vegne av deltakeren
-                        </Checkbox>
-                        {watch('isSkalGodkjennesPaVegne') && (
-                            <>
-                                <div className={cls.element('checkbox-wrapper')}>
+        <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
+                    <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
+                    <GodkjenningInstruks />
+                    {isKanGodkjennesPaVegneAv && (
+                        <div className={cls.element('godkjenn-pa-vegne-av')}>
+                            <Checkbox {...register('isSkalGodkjennesPaVegne')}>
+                                Jeg skal godkjenne på vegne av deltakeren
+                            </Checkbox>
+                            {watch('isSkalGodkjennesPaVegne') && (
+                                <>
+                                    <div className={cls.element('checkbox-wrapper')}>
+                                        <CheckboxGroup
+                                            legend="Godkjenn på vegne av deltaker valg"
+                                            error={formState.errors.godkjentPaVegneAvGrunner?.message}
+                                        >
+                                            <Checkbox {...register('godkjentPaVegneAvGrunner')} value="ikkeBankId">
+                                                har ikke BankID
+                                            </Checkbox>
+                                            <Checkbox {...register('godkjentPaVegneAvGrunner')} value="reservert">
+                                                har reservert seg mot digitale tjenester
+                                            </Checkbox>
+                                            <Checkbox
+                                                {...register('godkjentPaVegneAvGrunner')}
+                                                value="digitalKompetanse"
+                                            >
+                                                mangler digital kompetanse
+                                            </Checkbox>
+                                        </CheckboxGroup>
+                                    </div>
                                     <CheckboxGroup
-                                        legend="Godkjenn på vegne av deltaker valg"
-                                        error={formState.errors.godkjentPaVegneAvGrunner?.message}
+                                        legend="Bekreftelse på at kravene og innholdet i avtalen er informert om"
+                                        className={cls.element('skjema-gruppe')}
+                                        error={formState.errors.isInformert?.message}
                                     >
-                                        <Checkbox {...register('godkjentPaVegneAvGrunner')} value="ikkeBankId">
-                                            har ikke BankID
-                                        </Checkbox>
-                                        <Checkbox {...register('godkjentPaVegneAvGrunner')} value="reservert">
-                                            har reservert seg mot digitale tjenester
-                                        </Checkbox>
-                                        <Checkbox {...register('godkjentPaVegneAvGrunner')} value="digitalKompetanse">
-                                            mangler digital kompetanse
+                                        <Checkbox value={true} {...register('isInformert')}>
+                                            Deltakeren er informert om kravene og godkjenner innholdet i avtalen.
                                         </Checkbox>
                                     </CheckboxGroup>
-                                </div>
-                                <CheckboxGroup
-                                    legend="Bekreftelse på at kravene og innholdet i avtalen er informert om"
-                                    className={cls.element('skjema-gruppe')}
-                                    error={formState.errors.isInformert?.message}
-                                >
-                                    <Checkbox value={true} {...register('isInformert')}>
-                                        Deltakeren er informert om kravene og godkjenner innholdet i avtalen.
-                                    </Checkbox>
-                                </CheckboxGroup>
-                            </>
-                        )}
-                    </div>
-                )}
-                {harFamilietilknytning && (
-                    <>
-                        <Alert variant="warning">
-                            OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
-                        </Alert>
-                        <VerticalSpacer rem={1} />
-                    </>
-                )}
-                <LagreKnapp type="submit" className={cls.element('lagreKnapp')} {...lagreKnappProps}>
-                    Godkjenn avtalen
-                </LagreKnapp>
-                <GodkjennAvtaleMedAlleredeOpprettetTiltak
-                    alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
-                    isApen={isGodkjenningsModalApen}
-                    onLagre={onLagre}
-                    onLukk={() => setGodkjenningsModalApen(false)}
-                />
-            </Innholdsboks>
-        </form>
+                                </>
+                            )}
+                        </div>
+                    )}
+                    {harFamilietilknytning && (
+                        <>
+                            <Alert variant="warning">
+                                OBS! Det er oppgitt at deltaker har en relasjon med arbeidsgiver
+                            </Alert>
+                            <VerticalSpacer rem={1} />
+                        </>
+                    )}
+                    <LagreKnapp type="submit" className={cls.element('lagreKnapp')} {...lagreKnappProps}>
+                        Godkjenn avtalen
+                    </LagreKnapp>
+                </Innholdsboks>
+            </form>
+            <GodkjennAvtaleMedAlleredeOpprettetTiltak
+                alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
+                isApen={isGodkjenningsModalApen}
+                onLagre={onLagre}
+                onLukk={() => setGodkjenningsModalApen(false)}
+            />
+        </>
     );
 }
 
