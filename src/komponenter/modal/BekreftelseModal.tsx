@@ -43,11 +43,6 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
         }
     };
 
-    // Ønsker ikke at modaler skal rendres med evt nettverkskall med mindre de blir åpnet
-    if (!props.modalIsOpen) {
-        return null;
-    }
-
     return (
         <div className={cls.className}>
             <Modal
