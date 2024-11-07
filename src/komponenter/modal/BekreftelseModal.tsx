@@ -23,6 +23,7 @@ interface Props {
 const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const [feilmelding, setFeilmelding] = useState<string>();
     const [laster, setLaster] = useState<boolean>(false);
+    const ref = useRef<HTMLDialogElement>(null);
 
     const bekreftKlikk = async () => {
         setFeilmelding(undefined);
@@ -46,7 +47,6 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     if (!props.modalIsOpen) {
         return null;
     }
-    const ref = useRef<HTMLDialogElement>(null);
 
     return (
         <div className={cls.className}>
