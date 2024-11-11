@@ -13,7 +13,6 @@ const StatusFilter: FunctionComponent = () => {
     const alleStatuser: SokeType[] = [
         '',
         'PÅBEGYNT',
-        'MANGLER_GODKJENNING',
         'KLAR_FOR_OPPSTART',
         'GJENNOMFØRES',
         'AVSLUTTET',
@@ -35,7 +34,13 @@ const StatusFilter: FunctionComponent = () => {
                         }}
                         role="radio"
                     >
-                        {soketype === '' ? 'Alle' : avtaleStatusTekst[soketype]}
+                        {soketype === '' && <>Alle</>}
+                        {soketype === 'PÅBEGYNT' && <>Påbegynt/Mangler godkjenning</>}
+                        {soketype === 'KLAR_FOR_OPPSTART' && <>Klar for oppstart</>}
+                        {soketype === 'GJENNOMFØRES' && <>Gjennomføres</>}
+                        {soketype === 'AVSLUTTET' && <>Avsluttet</>}
+                        {soketype === 'AVBRUTT' && <>Avbrutt</>}
+                        {soketype === 'ANNULLERT' && <>Annullert</>}
                     </Radio>
                 ))}
             </RadioGroup>
