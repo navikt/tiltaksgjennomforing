@@ -1,13 +1,9 @@
-FROM navikt/node-express:18
-
-# Workaround: får tilfeldige feil ved npm install uten neste linje
-RUN npm config set unsafe-perm=true 
-
-WORKDIR /app
+FROM gcr.io/distroless/nodejs22-debian12
 
 COPY ./dist .
+COPY ./server /server
+COPY package.json package.json
 
-EXPOSE 3000
+ENV NODE_EXTRA_CA_CERTS /etc/ssl/ca-bundle.pem
 
-ENTRYPOINT ["sh", "-c"]
-CMD ["node server/index.cjs"]
+CMD ["server/index.cjs"]
