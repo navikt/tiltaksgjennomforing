@@ -72,7 +72,7 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
                     </div>
                 </div>
             </div>
-            {pabegyntAvtaleRyddeJobb && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale?.statusSomEnum) && (
+            {pabegyntAvtaleRyddeJobb && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale?.status) && (
                 <Alert variant="info">
                     Avtalen vil automatisk slettes dersom den ikke blir inngått eller endret innen{' '}
                     {formaterSlettetidspunkt(avtale.sistEndret)}.

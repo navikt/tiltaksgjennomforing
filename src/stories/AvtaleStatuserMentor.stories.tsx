@@ -15,7 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const annullert = {
-    statusSomEnum: 'ANNULLERT' as AvtaleStatus,
+    status: 'ANNULLERT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
@@ -32,7 +32,7 @@ export const Annullert: Story = {
 };
 
 const avbrutt = {
-    statusSomEnum: 'AVBRUTT' as AvtaleStatus,
+    status: 'AVBRUTT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
@@ -49,7 +49,7 @@ export const Avbrutt: Story = {
 };
 
 const påbegynt = {
-    statusSomEnum: 'PÅBEGYNT' as AvtaleStatus,
+    status: 'PÅBEGYNT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
@@ -66,7 +66,7 @@ export const Påbegynt: Story = {
 };
 
 const manglerGodkjenning = {
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    status: 'MANGLER_GODKJENNING' as AvtaleStatus,
     annullertTidspunkt: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
@@ -83,7 +83,7 @@ export const ManglerGodkjenning: Story = {
 };
 
 const klarForOppstart = {
-    statusSomEnum: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
+    status: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
     annullertTidspunkt: '',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
@@ -100,7 +100,7 @@ export const KlarForOppstart: Story = {
 };
 
 const gjennomføres = {
-    statusSomEnum: 'GJENNOMFØRES' as AvtaleStatus,
+    status: 'GJENNOMFØRES' as AvtaleStatus,
     annullertTidspunkt: '',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
@@ -117,7 +117,7 @@ export const Gjennomføres: Story = {
 };
 
 const avsluttet = {
-    statusSomEnum: 'AVSLUTTET' as AvtaleStatus,
+    status: 'AVSLUTTET' as AvtaleStatus,
     annullertTidspunkt: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',

@@ -40,7 +40,6 @@ const arbeidstreningAvtaleMock: Avtale = {
     godkjentAvArbeidsgiver: undefined,
     godkjentAvVeileder: undefined,
     erGodkjentTaushetserklæringAvMentor: undefined,
-    status: 'PÅBEGYNT',
     avbrutt: false,
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,
@@ -88,7 +87,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     avbruttDato: '',
     avbruttGrunn: '',
     erUfordelt: false,
-    statusSomEnum: 'GJENNOMFØRES',
+    status: 'GJENNOMFØRES',
 
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,

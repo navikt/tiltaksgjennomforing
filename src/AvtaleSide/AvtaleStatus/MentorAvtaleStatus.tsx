@@ -9,14 +9,13 @@ import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
-    avtale: Pick<
-        Avtale,
-        'statusSomEnum' | 'annullertTidspunkt' | 'avtaleInngått' | 'annullertGrunn' | 'avbruttGrunn'
-    > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
+    avtale: Pick<Avtale, 'status' | 'annullertTidspunkt' | 'avtaleInngått' | 'annullertGrunn' | 'avbruttGrunn'> & {
+        gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
+    };
 }
 
 const MentorAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
-    switch (avtale.statusSomEnum) {
+    switch (avtale.status) {
         case 'ANNULLERT':
             return (
                 <StatusPanel

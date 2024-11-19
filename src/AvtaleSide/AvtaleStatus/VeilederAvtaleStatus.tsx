@@ -144,7 +144,7 @@ function VeilederAvtaleStatus(props: Props) {
         );
     }
 
-    switch (avtale.statusSomEnum) {
+    switch (avtale.status) {
         case 'ANNULLERT':
             return (
                 <StatusPanel

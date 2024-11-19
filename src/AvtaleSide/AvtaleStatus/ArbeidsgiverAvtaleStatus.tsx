@@ -1,4 +1,3 @@
-import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
@@ -42,7 +41,7 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
         );
     }
 
-    switch (avtale.statusSomEnum) {
+    switch (avtale.status) {
         case 'ANNULLERT':
             return (
                 <StatusPanel

@@ -15,7 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const annullert = {
-    statusSomEnum: 'ANNULLERT' as AvtaleStatus,
+    status: 'ANNULLERT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvDeltaker: '20-08-01',
     avtaleInngått: '2021-08-01',
@@ -34,7 +34,7 @@ export const Annullert: Story = {
 };
 
 const avbrutt = {
-    statusSomEnum: 'AVBRUTT' as AvtaleStatus,
+    status: 'AVBRUTT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvDeltaker: '20-08-01',
     avtaleInngått: '2021-08-01',
@@ -53,7 +53,7 @@ export const Avbrutt: Story = {
 };
 
 const påbegynt = {
-    statusSomEnum: 'PÅBEGYNT' as AvtaleStatus,
+    status: 'PÅBEGYNT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvDeltaker: '20-08-01',
     avtaleInngått: '2021-08-01',
@@ -72,7 +72,7 @@ export const Påbegynt: Story = {
 };
 
 const manglerGodkjenningDeltakerHarGodkjent = {
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    status: 'MANGLER_GODKJENNING' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '2024-05-03T12:26:24.40876',
     godkjentAvArbeidsgiver: '',
@@ -105,7 +105,7 @@ export const ManglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgVeileder:
 };
 
 const manglerGodkjenningDeltakerHarIkkeGodkjent = {
-    statusSomEnum: 'MANGLER_GODKJENNING' as AvtaleStatus,
+    status: 'MANGLER_GODKJENNING' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '',
     avtaleInngått: '',
@@ -124,7 +124,7 @@ export const ManglerGodkjenningDeltakerHarIkkeGodkjent: Story = {
 };
 
 const klarForOppstart = {
-    statusSomEnum: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
+    status: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '',
     avtaleInngått: '2021-08-01',
@@ -143,7 +143,7 @@ export const KlarForOppstart: Story = {
 };
 
 const gjennomføres = {
-    statusSomEnum: 'GJENNOMFØRES' as AvtaleStatus,
+    status: 'GJENNOMFØRES' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '',
     avtaleInngått: '2021-08-01',
@@ -162,7 +162,7 @@ export const Gjennomføres: Story = {
 };
 
 const avsluttet = {
-    statusSomEnum: 'AVSLUTTET' as AvtaleStatus,
+    status: 'AVSLUTTET' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '',
     avtaleInngått: '',
