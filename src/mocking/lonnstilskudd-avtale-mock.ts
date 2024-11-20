@@ -10,7 +10,6 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentAvDeltaker: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvVeileder: '',
-    status: 'PÅBEGYNT',
     avbrutt: false,
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,
@@ -77,7 +76,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
 
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     erUfordelt: false,
-    statusSomEnum: 'GJENNOMFØRES',
+    status: 'GJENNOMFØRES',
 
     felterSomIkkeErFyltUt: [],
     avtaleNr: 1,

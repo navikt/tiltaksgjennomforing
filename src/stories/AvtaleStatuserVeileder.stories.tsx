@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 const erUfordelt: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: true,
-    statusSomEnum: 'ANNULLERT',
+    status: 'ANNULLERT',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -88,7 +88,7 @@ export const ErUfordelt: Story = {
 const annullert: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'ANNULLERT',
+    status: 'ANNULLERT',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -157,7 +157,7 @@ export const Annullert: Story = {
 const avbrutt: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'AVBRUTT',
+    status: 'AVBRUTT',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -226,7 +226,7 @@ export const Avbrutt: Story = {
 const påbegynt: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'PÅBEGYNT',
+    status: 'PÅBEGYNT',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -295,7 +295,7 @@ export const Påbegynt: Story = {
 const manglerGodkjenningVeilederHarGodkjent: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -364,7 +364,7 @@ export const ManglerGodkjenningVeilederHarGodkjent: Story = {
 const manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MENTOR',
     tilskuddPeriode: [
@@ -434,7 +434,7 @@ export const ManglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor: S
 const manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -504,7 +504,7 @@ export const ManglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent: Story 
 const manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MENTOR',
     tilskuddPeriode: [
@@ -574,7 +574,7 @@ export const ManglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor: S
 const manglerGodkjenningDeltakerHarGodkjent: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -643,7 +643,7 @@ export const ManglerGodkjenningDeltakerHarGodkjent: Story = {
 const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MENTOR',
     tilskuddPeriode: [
@@ -713,7 +713,7 @@ export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor: S
 const manglerGodkjenningArbeidsgiverHarGodkjent: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -782,7 +782,7 @@ export const ManglerGodkjenningArbeidsgiverHarGodkjent: Story = {
 const manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MENTOR',
     tilskuddPeriode: [
@@ -852,7 +852,7 @@ export const ManglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent: St
 const manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -921,7 +921,7 @@ export const ManglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent: Story = {
 const klarForOppstartUteforArena: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'KLAR_FOR_OPPSTART',
+    status: 'KLAR_FOR_OPPSTART',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -990,7 +990,7 @@ export const KlarForOppstartUteforArena: Story = {
 const klarForOppstartArena: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'KLAR_FOR_OPPSTART',
+    status: 'KLAR_FOR_OPPSTART',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'INKLUDERINGSTILSKUDD',
     tilskuddPeriode: [
@@ -1059,7 +1059,7 @@ export const KlarForOppstartArena: Story = {
 const gjennomføres: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'GJENNOMFØRES',
+    status: 'GJENNOMFØRES',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [
@@ -1128,7 +1128,7 @@ export const Gjennomføres: Story = {
 const avsluttet: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'AVSLUTTET',
+    status: 'AVSLUTTET',
     annullertTidspunkt: '2021-08-01',
     tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
     tilskuddPeriode: [

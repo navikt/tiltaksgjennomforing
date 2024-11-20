@@ -338,7 +338,6 @@ export interface Godkjenninger {
     erGodkjentTaushetserklæringAvMentor?: boolean;
     avtaleInngått?: string;
     status: AvtaleStatus;
-    statusSomEnum: AvtaleStatus;
     godkjentPaVegneAv: boolean;
     godkjentPaVegneGrunn?: GodkjentPaVegneAvDeltakerGrunner;
     felterSomIkkeErFyltUt: Array<keyof Avtaleinnhold>;

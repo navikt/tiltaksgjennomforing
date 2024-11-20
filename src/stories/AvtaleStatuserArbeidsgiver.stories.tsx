@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 const erUfordelt: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: true,
-    statusSomEnum: 'ANNULLERT',
+    status: 'ANNULLERT',
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
     godkjentAvDeltaker: '2021-08-01',
@@ -41,7 +41,7 @@ export const ErUfordelt: Story = {
 const annullert: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'ANNULLERT',
+    status: 'ANNULLERT',
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
     godkjentAvDeltaker: '2021-08-01',
@@ -64,7 +64,7 @@ export const Annullert: Story = {
 const avbrutt: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'AVBRUTT',
+    status: 'AVBRUTT',
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
     godkjentAvDeltaker: '2021-08-01',
@@ -87,7 +87,7 @@ export const Avbrutt: Story = {
 const påbegynt: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'PÅBEGYNT',
+    status: 'PÅBEGYNT',
     annullertTidspunkt: '2021-08-01',
     godkjentAvArbeidsgiver: '20-08-01',
     godkjentAvDeltaker: '2021-08-01',
@@ -110,7 +110,7 @@ export const Påbegynt: Story = {
 const manglerGodkjenningArbeidsgiverHarIkkeGodkjent: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '',
@@ -133,7 +133,7 @@ export const ManglerGodkjenningArbeidsgiverHarIkkeGodkjent: Story = {
 const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'MANGLER_GODKJENNING',
+    status: 'MANGLER_GODKJENNING',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '2024-05-03T12:26:24.40876',
     godkjentAvDeltaker: '',
@@ -176,7 +176,7 @@ export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgVeileder:
 const klarForOppstart: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'KLAR_FOR_OPPSTART',
+    status: 'KLAR_FOR_OPPSTART',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '2021-08-01',
@@ -199,7 +199,7 @@ export const KlarForOppstart: Story = {
 const gjennomføres: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'GJENNOMFØRES',
+    status: 'GJENNOMFØRES',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '2021-08-01',
@@ -222,7 +222,7 @@ export const Gjennomføres: Story = {
 const avsluttet: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
-    statusSomEnum: 'AVSLUTTET',
+    status: 'AVSLUTTET',
     annullertTidspunkt: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvDeltaker: '',

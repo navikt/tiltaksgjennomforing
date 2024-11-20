@@ -11,7 +11,7 @@ import React, { FunctionComponent } from 'react';
 interface Props {
     avtale: Pick<
         Avtale,
-        | 'statusSomEnum'
+        | 'status'
         | 'annullertTidspunkt'
         | 'godkjentAvDeltaker'
         | 'godkjentAvArbeidsgiver'
@@ -24,7 +24,7 @@ interface Props {
 }
 
 const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
-    switch (avtale.statusSomEnum) {
+    switch (avtale.status) {
         case 'ANNULLERT':
             return (
                 <StatusPanel
