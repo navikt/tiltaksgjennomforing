@@ -1,17 +1,18 @@
-import React, { useContext, useState } from 'react';
-import { BodyShort, Label } from '@navikt/ds-react';
-import { TilskuddsPeriode } from '@/types/avtale';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formatterPenger } from '@/utils/PengeUtils';
-import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
-import BEMHelper from '@/utils/bem';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { AvtaleContext } from '@/AvtaleProvider';
+import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
 import {
     antallAktiveTilskuddsperioder,
     getIndexVisningForTilskuddsperiode,
 } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
+import EtikettStatus from '@/BeslutterSide/EtikettStatus';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import TilskuddsperiodeInfoModal from '@/komponenter/modal/TilskuddsperiodeInfoModal';
+import { TilskuddsPeriode } from '@/types/avtale';
+import { formatterPenger } from '@/utils/PengeUtils';
+import BEMHelper from '@/utils/bem';
+import { NORSK_DATO_FORMAT, formatterDato } from '@/utils/datoUtils';
+import { BodyShort, Label } from '@navikt/ds-react';
+import React, { useContext, useState } from 'react';
 
 interface Properties {
     className: string;
@@ -22,8 +23,11 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
     const { startIndexVisning, sluttIndexVisning } = getIndexVisningForTilskuddsperiode(avtale, visAllePerioder);
+    const [periodeInfoModalOpen, setPeriodeInfoModalOpen] = useState(false);
+    const [infoPeriode, setInfoPeriode] = useState<TilskuddsPeriode | null>(null);
     const cls = BEMHelper(className);
     return (
+        <>
         <div className={cls.element('tabell')}>
             <div className={cls.element('tabell-ingress')}>
                 <Label>Tilskudd for perioder</Label>
@@ -34,10 +38,9 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
             {avtale.tilskuddPeriode
                 .filter((p: TilskuddsPeriode) => p.aktiv)
                 .map((periode: TilskuddsPeriode, index: number) => {
-                    const nyProsent: boolean =
-                        index > 0
-                            ? avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !== periode.lonnstilskuddProsent
-                            : false;
+                    const nyProsent =
+                        index > 0 &&
+                        avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !== periode.lonnstilskuddProsent;
                     if (index < startIndexVisning || index > sluttIndexVisning) {
                         return null;
                     } else if (index !== 0 && (index === startIndexVisning || index === sluttIndexVisning)) {
@@ -53,6 +56,11 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                             className={cls.element('tabell-innslag')}
                             style={{
                                 borderTop: nyProsent ? '2px solid gray' : 'undefined',
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => {
+                                setInfoPeriode(periode);
+                                setPeriodeInfoModalOpen(true);
                             }}
                         >
                             <BodyShort size="small">
@@ -85,6 +93,14 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                 visAllePerioder={visAllePerioder}
             />
         </div>
+        {infoPeriode && (
+                <TilskuddsperiodeInfoModal
+                    modalIsOpen={periodeInfoModalOpen}
+                    lukkModal={() => setPeriodeInfoModalOpen(false)}
+                    tilskuddsperiode={infoPeriode}
+                />
+            )}
+        </>
     );
 };
 export default VisningTilskuddsperioderTabell;
