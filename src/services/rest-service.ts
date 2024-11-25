@@ -1,7 +1,6 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { mutate } from 'swr';
-
 import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError } from '@/types/errors';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
@@ -392,6 +391,15 @@ export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigh
 export const godkjennTilskuddsperiode = async (avtaleId: string, enhet: string) => {
     const uri = `/avtaler/${avtaleId}/godkjenn-tilskuddsperiode`;
     await api.post(uri, { enhet });
+};
+
+export const godkjennFlereTilskuddsperioder = async (
+    avtaleId: string,
+    enhet: string,
+    tilskuddsperioderIder: string[],
+) => {
+    const uri = `/avtaler/${avtaleId}/godkjenn-flere-tilskuddsperioder`;
+    await api.post(uri, { enhet, tilskuddsperioderIder });
 };
 
 export const setOmAvtalenKanEtterregistreres = async (avtaleId: string): Promise<Avtale> => {

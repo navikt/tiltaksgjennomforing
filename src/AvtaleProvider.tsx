@@ -47,6 +47,7 @@ export interface Context {
     endretSteg: () => void;
     godkjenn: () => Promise<void>;
     godkjennTilskudd: (enhet: string) => Promise<void>;
+    godkjennFlereTilskudd: (enhet: string, perioder: string[]) => Promise<void>;
     returnerTilskuddsperiode: (returårsaker: Set<Returårsaker>, returforklaring: string) => Promise<void>;
     godkjennPaVegneAvDeltaker: (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => Promise<void>;
     godkjennPaVegneAvArbeidsgiver: (paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner) => Promise<void>;
@@ -235,6 +236,12 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         await hentAvtale(avtale.id);
     };
 
+    const godkjennFlereTilskudd = async (enhet: string, tilskuddsperioderIder: string[]): Promise<void> => {
+        await RestService.godkjennFlereTilskuddsperioder(avtale.id, enhet, tilskuddsperioderIder);
+        sendToAmplitude('#tiltak-tilskudd-godkjent-flere');
+        await hentAvtale(avtale.id);
+    };
+
     const returnerTilskuddsperiode = async (
         returårsaker: Set<Returårsaker>,
         returforklaring: string,
@@ -285,6 +292,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         godkjennPaVegneAvArbeidsgiver,
         godkjennPaVegneAvDeltakerOgArbeidsgiver,
         godkjennTilskudd,
+        godkjennFlereTilskudd,
         returnerTilskuddsperiode,
         ulagredeEndringer,
         mellomLagring,

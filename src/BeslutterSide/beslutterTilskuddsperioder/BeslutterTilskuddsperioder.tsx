@@ -19,13 +19,15 @@ interface Props {
 }
 
 const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
-    const { avtale, godkjennTilskudd } = useContext<Context>(AvtaleContext);
+    const { avtale, godkjennTilskudd, godkjennFlereTilskudd } = useContext<Context>(AvtaleContext);
     const { enhet, setVisEnhetFeil, setVisReturModal: setVisAvslag } = useContext<Periode>(TilskuddsperiodeContext);
     const { gjeldendeTilskuddsperiode } = avtale;
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
     const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
+    const [valgtTilskuddsperiodeStartdato, setValgtTilskuddsperiodeStartdato] = useState<string>('');
 
     const cls = BEMHelper('beslutter-tilskuddsperioder');
+
     useEffect(() => {
         if (gjeldendeTilskuddsperiodeRef.current) {
             gjeldendeTilskuddsperiodeRef.current.scrollIntoView({
@@ -34,6 +36,8 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
             });
         }
     }, []);
+
+    useEffect(() => {}, [valgtTilskuddsperiodeStartdato]);
 
     if (avtale.tilskuddPeriode.length < 1) return null;
 
@@ -64,6 +68,24 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         );
     };
 
+    const flereTilskuddsperioder = () => {
+        if (gjeldendeTilskuddsperiode !== undefined) {
+            return gjeldendeTilskuddsperiode?.startDato < valgtTilskuddsperiodeStartdato;
+        }
+    };
+
+    const valgtTilskuddsperiode = async (enhet: string) => {
+        const tilskuddsperioderIder = avtale.tilskuddPeriode
+            .filter((tilskuddsperiode) => tilskuddsperiode.startDato <= valgtTilskuddsperiodeStartdato)
+            .map((tilskuddsperiode) => tilskuddsperiode.id);
+        if (tilskuddsperioderIder.length > 1) {
+            return await godkjennFlereTilskudd(enhet, tilskuddsperioderIder);
+        }
+        return await godkjennTilskudd(enhet);
+    };
+
+    console.log('avtale tilskuddPeriode', avtale.tilskuddPeriode);
+
     return (
         <div className={cls.className}>
             <Heading level="2" size="small" className={cls.element('tittel')}>
@@ -84,7 +106,9 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                     </thead>
                     <tbody>
                         {avtale.tilskuddPeriode.map((periode) => {
-                            const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
+                            //const gjeldende = true;
+                            //const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
+                            const gjeldende = periode.kanBehandles;
                             return (
                                 <React.Fragment key={periode.id}>
                                     <tr
@@ -133,6 +157,9 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                                                 disabled={!enhet || !periode.kanBehandles}
                                                                 onClick={() => {
                                                                     if (enhet) {
+                                                                        setValgtTilskuddsperiodeStartdato(
+                                                                            periode.startDato,
+                                                                        );
                                                                         setGodkjennModalÅpen(true);
                                                                     } else {
                                                                         setVisEnhetFeil(true);
@@ -161,10 +188,13 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                 </table>
             </div>
             <TilskuddsperiodeReturModal tiltakstype={avtale.tiltakstype} />
+            <Button></Button>
             <BekreftelseModal
                 bekreftOnClick={async () => {
                     if (enhet) {
-                        await godkjennTilskudd(enhet);
+                        if (flereTilskuddsperioder()) {
+                            await valgtTilskuddsperiode(enhet);
+                        }
                         setGodkjennModalÅpen(false);
                     }
                 }}
@@ -174,7 +204,8 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                 avbrytelseTekst="Avbryt"
                 lukkModal={() => setGodkjennModalÅpen(false)}
             >
-                Du kan ikke gjøre endringer etter at du har godkjent tilskuddsperioden.
+                Du kan ikke gjøre endringer etter at du har godkjent{' '}
+                {flereTilskuddsperioder() ? ' tilskuddsperiodene' : ' tilskuddsperioden.'}
             </BekreftelseModal>
         </div>
     );
