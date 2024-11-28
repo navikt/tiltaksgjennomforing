@@ -50,7 +50,7 @@ const VeilederInstruks = (props: Props) => {
                 <div className={cls.element('subheader')}>
                     <Label>Hva skjer videre:</Label>
                 </div>
-                <ArbeidstreningVeilederTekst tiltakstype={tiltakstype} opphav={opphav} />
+                <ArbeidstreningVeilederTekst />
             </VeilederpanelMedUtklippstavle>
         );
     }
