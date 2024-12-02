@@ -13,7 +13,6 @@ import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide'
 import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
-import { set } from 'zod';
 import moment from 'moment';
 
 interface Props {
@@ -27,29 +26,17 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
     const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
 
-    const [viseFremITid, setViseFremITid] = useState<number>(0);
-    const [viseTilbakeITid, setViseTilbakeITid] = useState<number>(0);
-
-    //const [tilskudsperiodeListe, setTilskuddsperiodeListe] = useState<TilskuddsPeriode[]>([]);
+    //const [viseTilbakeITid, setViseTilbakeITid] = useState<number>(0);
+    //const [viseFremITid, setViseFremITid] = useState<number>(0);
+    const [firstStartdato, setFirstStartdato] = useState<any>('');
+    const [lastStartdato, setLastStartdato] = useState<any>('');
 
     const cls = BEMHelper('beslutter-tilskuddsperioder');
+
     useEffect(() => {
-        if (gjeldendeTilskuddsperiodeRef.current) {
-            gjeldendeTilskuddsperiodeRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-            });
-        }
+        loadingFilter();
     }, []);
-    /*
-    useEffect(() => {
-        setTilskuddsperiodeListe(avtale.tilskuddPeriode.filter((tilskuddPeriode) => tilskuddPeriode.kanBehandles));
-    }, [])
-/*
-    useEffect(() => {
-        setTilskuddsperiodeListe(avtale.tilskuddPeriode.filter((tilskuddPeriode) => tilskuddPeriode.kanBehandles));
-    }, [tilskudsperiodeListe])
-*/
+
     if (avtale.tilskuddPeriode.length < 1) return null;
 
     const settStylingForTabellrad = (periode: TilskuddsPeriode): string => {
@@ -79,27 +66,44 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         );
     };
 
-    console.log('viseFremITid', viseFremITid);
-    console.log('viseTilbakeITid', viseTilbakeITid);
+    const loadingFilter = () => {
+        let filter;
+        if (!gjeldendeTilskuddsperiode) return [];
 
-    /*
-    const tilskuddTilbakeITid = () => {
-        const seksMånderTilbake = (tilskudsperiodeListe[0].løpenummer - 6 < 1) ? 1 : (tilskudsperiodeListe[0].løpenummer - 6)
-        const leggtilTilskuddTilbakeITid = (avtale.tilskuddPeriode.filter((periode) => periode.løpenummer >= seksMånderTilbake && periode.løpenummer < tilskudsperiodeListe[0].løpenummer))
-        setTilskuddsperiodeListe([...leggtilTilskuddTilbakeITid, ...tilskudsperiodeListe])
-        console.log("tilskuddTilbakeITid")
-    }
-*/
+        const gjeldendeStartDato = moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD');
 
-    /*
-    const tilskuddFremITid = () => {
-        const seksMånderFrem = gjeldendeTilskuddsperiode ? gjeldendeTilskuddsperiode?.løpenummer + 6 : 0
-        console.log("tilskuddFremITid")
-        const leggtilTilskuddTilbakeITid = (avtale.tilskuddPeriode.filter((periode) => periode.løpenummer <= seksMånderFrem))
-        setTilskuddsperiodeListe([...tilskudsperiodeListe, ...leggtilTilskuddTilbakeITid])
-    }
-*/
-    //  console.log("tilskudsperiodeListe", tilskudsperiodeListe)
+        const datoSeksMånederFremITid = moment(new Date()).add(6, 'months').format('YYYY-MM-DD');
+        const godkjentlist = avtale.tilskuddPeriode.filter((tilskuddPeriode) => tilskuddPeriode.status === 'GODKJENT');
+        if (godkjentlist.length > 0) {
+            const sisteGodkjente = godkjentlist[godkjentlist.length - 1].startDato;
+            filter = avtale.tilskuddPeriode.filter(
+                (tilskuddPeriode) =>
+                    moment(tilskuddPeriode.startDato).add(1, 'months').format('YYYY-MM-DD') >=
+                        moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD') &&
+                    tilskuddPeriode.startDato <= moment(sisteGodkjente).add(6, 'months').format('YYYY-MM-DD'),
+            );
+            setFirstStartdato(moment(filter[0].startDato).format('YYYY-MM-DD'));
+            setLastStartdato(filter[filter.length - 1].startDato);
+            return filter;
+        }
+        setFirstStartdato(moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD'));
+        setLastStartdato(moment(gjeldendeTilskuddsperiode.startDato).add(6, 'months').format('YYYY-MM-DD'));
+        filter = avtale.tilskuddPeriode.filter(
+            (tilskuddPeriode) =>
+                moment(tilskuddPeriode.startDato).add(6, 'months').format('YYYY-MM-DD') >=
+                    moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD') &&
+                tilskuddPeriode.startDato <= datoSeksMånederFremITid,
+        );
+        return filter;
+    };
+
+    const currentFilter = () => {
+        if (!gjeldendeTilskuddsperiode) return [];
+        return avtale.tilskuddPeriode.filter(
+            (tilskuddPeriode) =>
+                tilskuddPeriode.startDato >= firstStartdato && tilskuddPeriode.startDato <= lastStartdato,
+        );
+    };
 
     return (
         <div className={cls.className}>
@@ -120,99 +124,101 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {gjeldendeTilskuddsperiode != undefined &&
-                            avtale.tilskuddPeriode
-                                .filter(
-                                    (tilskuddPeriode) =>
-                                        tilskuddPeriode.startDato <= gjeldendeTilskuddsperiode.startDato,
-                                )
-                                .map((periode) => {
-                                    const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
-                                    return (
-                                        <React.Fragment key={periode.id}>
-                                            <tr
-                                                className={cls.element(
-                                                    'tilskuddsperiode-rad',
-                                                    settStylingForTabellrad(periode),
-                                                )}
+                        {currentFilter().map((periode) => {
+                            const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
+                            return (
+                                <React.Fragment key={periode.id}>
+                                    <tr
+                                        className={cls.element(
+                                            'tilskuddsperiode-rad',
+                                            settStylingForTabellrad(periode),
+                                        )}
+                                    >
+                                        <td>{periode.løpenummer}</td>
+                                        <td
+                                            aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}
+                                        >
+                                            {formatterPeriode(periode.startDato, periode.sluttDato, 'DD.MM.YY')}
+                                        </td>
+                                        <td>{formatterPenger(periode.beløp)}</td>
+                                        <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
+                                        <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
+                                        <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
+                                        <td>
+                                            <EtikettStatus
+                                                tilskuddsperiodestatus={periode.status}
+                                                refusjonStatus={periode.refusjonStatus}
+                                                godkjentAv={periode.godkjentAvNavIdent}
+                                            />
+                                        </td>
+                                    </tr>
+                                    {!gjeldende && periode.status === 'AVSLÅTT' && (
+                                        <tr className={cls.element('knapp-row')}>
+                                            <td
+                                                colSpan={7}
+                                                className={cls.element('knapp-data', settStylingForTabellrad(periode))}
                                             >
-                                                <td>{periode.løpenummer}</td>
-                                                <td
-                                                    aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}
-                                                >
-                                                    {formatterPeriode(periode.startDato, periode.sluttDato, 'DD.MM.YY')}
-                                                </td>
-                                                <td>{formatterPenger(periode.beløp)}</td>
-                                                <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
-                                                <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
-                                                <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
-                                                <td>
-                                                    <EtikettStatus
-                                                        tilskuddsperiodestatus={periode.status}
-                                                        refusjonStatus={periode.refusjonStatus}
-                                                        godkjentAv={periode.godkjentAvNavIdent}
-                                                    />
-                                                </td>
-                                            </tr>
-                                            {!gjeldende && periode.status === 'AVSLÅTT' && (
-                                                <tr className={cls.element('knapp-row')}>
-                                                    <td
-                                                        colSpan={7}
-                                                        className={cls.element(
-                                                            'knapp-data',
-                                                            settStylingForTabellrad(periode),
-                                                        )}
-                                                    >
-                                                        {hentAvslattInfoTilskuddsperiode(periode)}
-                                                    </td>
-                                                </tr>
-                                            )}
-                                            {gjeldende && (
-                                                <tr
-                                                    className={cls.element('knapp-row')}
-                                                    ref={gjeldendeTilskuddsperiodeRef}
-                                                >
-                                                    <td colSpan={7} className={cls.element('knapp-data')}>
+                                                {hentAvslattInfoTilskuddsperiode(periode)}
+                                            </td>
+                                        </tr>
+                                    )}
+                                    {gjeldende && (
+                                        <tr className={cls.element('knapp-row')} ref={gjeldendeTilskuddsperiodeRef}>
+                                            <td colSpan={7} className={cls.element('knapp-data')}>
+                                                <>
+                                                    {periode.status === 'AVSLÅTT' &&
+                                                        hentAvslattInfoTilskuddsperiode(periode)}
+                                                    {periode.status === 'UBEHANDLET' && (
                                                         <>
-                                                            {periode.status === 'AVSLÅTT' &&
-                                                                hentAvslattInfoTilskuddsperiode(periode)}
-                                                            {periode.status === 'UBEHANDLET' && (
-                                                                <>
-                                                                    <Button
-                                                                        disabled={!enhet || !periode.kanBehandles}
-                                                                        onClick={() => {
-                                                                            if (enhet) {
-                                                                                setGodkjennModalÅpen(true);
-                                                                            } else {
-                                                                                setVisEnhetFeil(true);
-                                                                            }
-                                                                        }}
-                                                                    >
-                                                                        Godkjenn tilskuddsperiode
-                                                                    </Button>
-                                                                    <HorizontalSpacer rem={1} />
-                                                                    <Button
-                                                                        variant="secondary"
-                                                                        onClick={() => setVisAvslag(true)}
-                                                                    >
-                                                                        Send i retur med forklaring
-                                                                    </Button>
-                                                                </>
-                                                            )}
+                                                            <Button
+                                                                disabled={!enhet || !periode.kanBehandles}
+                                                                onClick={() => {
+                                                                    if (enhet) {
+                                                                        setGodkjennModalÅpen(true);
+                                                                    } else {
+                                                                        setVisEnhetFeil(true);
+                                                                    }
+                                                                }}
+                                                            >
+                                                                Godkjenn tilskuddsperiode
+                                                            </Button>
+                                                            <HorizontalSpacer rem={1} />
+                                                            <Button
+                                                                variant="secondary"
+                                                                onClick={() => setVisAvslag(true)}
+                                                            >
+                                                                Send i retur med forklaring
+                                                            </Button>
                                                         </>
-                                                    </td>
-                                                </tr>
-                                            )}
-                                        </React.Fragment>
-                                    );
-                                })}
+                                                    )}
+                                                </>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </React.Fragment>
+                            );
+                        })}
                     </tbody>
                 </table>
                 <div style={{ display: 'flex', justifyContent: 'space-around', gap: '30px' }}>
-                    <Button variant="secondary" onClick={() => setViseTilbakeITid(viseTilbakeITid + 3)}>
+                    <Button
+                        variant="secondary"
+                        onClick={() => {
+                            currentFilter();
+                            //setViseTilbakeITid(viseTilbakeITid + 3)
+                            setFirstStartdato(moment(firstStartdato).subtract(3, 'months').format('YYYY-MM-DD'));
+                        }}
+                    >
                         Se tilskudd tilbake i tid
                     </Button>
-                    <Button variant="secondary" onClick={() => setViseFremITid(viseFremITid + 3)}>
+                    <Button
+                        variant="secondary"
+                        onClick={() => {
+                            //setViseFremITid(viseFremITid + 3)
+                            setLastStartdato(moment(lastStartdato).add(3, 'months').format('YYYY-MM-DD'));
+                            currentFilter();
+                        }}
+                    >
                         Se tilskudd frem i tid
                     </Button>
                 </div>
@@ -222,7 +228,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                 bekreftOnClick={async () => {
                     if (enhet) {
                         await godkjennTilskudd(enhet);
-                        //setTilskuddsperiodeListe(avtale.tilskuddPeriode.filter((tilskuddPeriode) => tilskuddPeriode.kanBehandles));
                         setGodkjennModalÅpen(false);
                     }
                 }}
