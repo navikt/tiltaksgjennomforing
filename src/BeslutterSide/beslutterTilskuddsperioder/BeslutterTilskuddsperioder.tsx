@@ -26,8 +26,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
     const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
 
-    //const [viseTilbakeITid, setViseTilbakeITid] = useState<number>(0);
-    //const [viseFremITid, setViseFremITid] = useState<number>(0);
     const [firstStartdato, setFirstStartdato] = useState<any>('');
     const [lastStartdato, setLastStartdato] = useState<any>('');
 
@@ -69,29 +67,25 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const loadingFilter = () => {
         let filter;
         if (!gjeldendeTilskuddsperiode) return [];
-
         const gjeldendeStartDato = moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD');
-
         const datoSeksMånederFremITid = moment(new Date()).add(6, 'months').format('YYYY-MM-DD');
         const godkjentlist = avtale.tilskuddPeriode.filter((tilskuddPeriode) => tilskuddPeriode.status === 'GODKJENT');
         if (godkjentlist.length > 0) {
             const sisteGodkjente = godkjentlist[godkjentlist.length - 1].startDato;
             filter = avtale.tilskuddPeriode.filter(
                 (tilskuddPeriode) =>
-                    moment(tilskuddPeriode.startDato).add(1, 'months').format('YYYY-MM-DD') >=
-                        moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD') &&
+                    moment(tilskuddPeriode.startDato).add(1, 'months').format('YYYY-MM-DD') >= gjeldendeStartDato &&
                     tilskuddPeriode.startDato <= moment(sisteGodkjente).add(6, 'months').format('YYYY-MM-DD'),
             );
             setFirstStartdato(moment(filter[0].startDato).format('YYYY-MM-DD'));
             setLastStartdato(filter[filter.length - 1].startDato);
             return filter;
         }
-        setFirstStartdato(moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD'));
+        setFirstStartdato(gjeldendeStartDato);
         setLastStartdato(moment(gjeldendeTilskuddsperiode.startDato).add(6, 'months').format('YYYY-MM-DD'));
         filter = avtale.tilskuddPeriode.filter(
             (tilskuddPeriode) =>
-                moment(tilskuddPeriode.startDato).add(6, 'months').format('YYYY-MM-DD') >=
-                    moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD') &&
+                moment(tilskuddPeriode.startDato).add(6, 'months').format('YYYY-MM-DD') >= gjeldendeStartDato &&
                 tilskuddPeriode.startDato <= datoSeksMånederFremITid,
         );
         return filter;
@@ -205,7 +199,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                         variant="secondary"
                         onClick={() => {
                             currentFilter();
-                            //setViseTilbakeITid(viseTilbakeITid + 3)
                             setFirstStartdato(moment(firstStartdato).subtract(3, 'months').format('YYYY-MM-DD'));
                         }}
                     >
@@ -214,7 +207,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                     <Button
                         variant="secondary"
                         onClick={() => {
-                            //setViseFremITid(viseFremITid + 3)
                             setLastStartdato(moment(lastStartdato).add(3, 'months').format('YYYY-MM-DD'));
                             currentFilter();
                         }}
