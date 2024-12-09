@@ -18,6 +18,7 @@ import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInn
 import './OppgaveLenker.css';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import OppfølgingGjennomført from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/OppfølgingGjennomført/OppfølgingGjennomført';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -58,7 +59,8 @@ const OppgaveLenker: React.FunctionComponent = () => {
                             {harØkonomi && <EndreTilskuddsberegning />}
                             {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
                             {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
-                            {<OppdaterOppfølgingEnhet />}
+                            {avtale.tiltakstype === 'VTAO' && <OppfølgingGjennomført />}
+                            <OppdaterOppfølgingEnhet />
                         </>
                     )}
                     {avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' && <SendTilbakeTilBeslutterUendret />}

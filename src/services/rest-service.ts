@@ -410,6 +410,7 @@ export const returnerTilskuddsperiode = async (
         avslagsårsaker: Array.from(avslagsårsaker),
         avslagsforklaring,
     });
+    console.log('retur');
 };
 
 export const slettemerkAvtale = async (avtaleId: string) => {

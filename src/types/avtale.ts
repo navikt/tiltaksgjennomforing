@@ -57,6 +57,7 @@ export type AvtaleMinimalListeVisning = {
     gjeldendeTilskuddsperiodeStatus: TilskuddPeriodeStatus;
     opprettetTidspunkt: string;
     sistEndret: string;
+    tilskuddPeriode: TilskuddsPeriode[];
 };
 
 export type AvtaleMinimalForBeslutter = {
@@ -142,7 +143,13 @@ export type TiltaksType =
     | 'SOMMERJOBB'
     | 'VTAO';
 
-export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'BEHANDLET_I_ARENA';
+export type TilskuddPeriodeStatus =
+    | 'UBEHANDLET'
+    | 'GODKJENT'
+    | 'AVSLÅTT'
+    | 'ANNULLERT'
+    | 'BEHANDLET_I_ARENA'
+    | 'OPPFØLGING_KREVES';
 export type TilskuddPeriodeRefusjonStatus = 'UTBETALT' | 'SENDT_KRAV';
 export type AvbrytelseGrunn =
     | 'Feilregistrering'
@@ -162,7 +169,8 @@ export type AvtaleStatus =
     | 'MANGLER_GODKJENNING'
     | 'KLAR_FOR_OPPSTART'
     | 'GJENNOMFØRES'
-    | 'AVSLUTTET';
+    | 'AVSLUTTET'
+    | 'OPPFØLGING_KREVES';
 
 export type Avtaleopphav = 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
 
