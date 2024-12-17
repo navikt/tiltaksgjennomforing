@@ -174,7 +174,6 @@ export interface AvtaleMetadata {
     tiltakstype: TiltaksType;
     erUfordelt: boolean;
     erAvtaleInngått: boolean;
-    erRyddeAvtale: boolean;
     enhetGeografisk?: string;
     enhetsnavnGeografisk?: string;
     enhetOppfolging?: string;
