@@ -26,6 +26,7 @@ export type Feilkode =
     | 'ENHET_ER_JURIDISK'
     | 'ENHET_ER_ORGLEDD'
     | 'ENHET_FINNES_IKKE'
+    | 'ENHET_ER_SLETTET'
     | 'IKKE_TILGANG_TIL_DELTAKER'
     | 'KAN_IKKE_GODKJENNE_AVTALE_KODE6'
     | 'KAN_IKKE_OPPRETTE_AVTALE_KODE6'
@@ -113,6 +114,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_ER_JURIDISK: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke den juridiske enheten.',
     ENHET_ER_ORGLEDD: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke organisasjonsleddet.',
     ENHET_FINNES_IKKE: 'Finnes ikke i Enhetsregisteret.',
+    ENHET_ER_SLETTET: 'Enheten er slettet',
     IKKE_TILGANG_TIL_DELTAKER: 'Du har ikke tilgang til deltaker',
     ALTINN_FEIL: 'Feil ved oppslag mot altinn',
     GOSYS_FEIL: '',
