@@ -1,5 +1,5 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
-import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
+import { parseFloatIfFloatable } from '@/utils';
 import { TextFieldProps } from '@navikt/ds-react';
 import React, { PropsWithChildren } from 'react';
 

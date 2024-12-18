@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { BodyShort, Tag } from '@navikt/ds-react';
 const SjekkOmVerdiEksisterer: FunctionComponent<{
-    verdi?: string;
+    verdi?: string | number;
     formatertVerdi?: JSX.Element | string;
     clsName?: string;
     label?: string;

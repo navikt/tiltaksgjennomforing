@@ -11,6 +11,7 @@ import { DialogDots } from '@navikt/ds-icons/cjs';
 import { Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreStillingbeskrivelse.less';
+import AntallDagerInput from '@/AvtaleSide/steg/VarighetSteg/AntallDagerInput';
 
 const EndreStillingbeskrivelse: FunctionComponent = () => {
     const cls = BEMHelper('endreStillingbeskrivelse');
@@ -98,20 +99,10 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                             verdi={stillingsprosent}
                             settVerdi={(verdi) => setStillingsprosent(verdi)}
                         />
-                        <PakrevdInput
-                            size="small"
+                        <AntallDagerInput
                             label="Antall dager per uke"
-                            type="number"
-                            max={7}
                             verdi={antallDagerPerUke}
-                            settVerdi={(eventVerdi) => {
-                                const verdi = parseInt(eventVerdi, 10);
-                                if (verdi > 0 && verdi < 8) {
-                                    setAntallDagerPerUke(verdi);
-                                } else {
-                                    setAntallDagerPerUke(undefined);
-                                }
-                            }}
+                            settVerdi={(verdi) => setAntallDagerPerUke(verdi)}
                         />
                     </div>
                 </div>
