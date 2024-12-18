@@ -7,7 +7,7 @@ const SjekkOmVerdiEksisterer: FunctionComponent<{
     label?: string;
     ariaLabel?: string;
 }> = (props) => {
-    if (props.verdi) {
+    if (props.verdi || props.verdi === 0) {
         return (
             <BodyShort size="small" aria-label={props.ariaLabel}>
                 {props.label} {props.formatertVerdi ? props.formatertVerdi : props.verdi}
