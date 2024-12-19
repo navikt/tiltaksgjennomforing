@@ -1,6 +1,6 @@
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift } from '@/types/avtale';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formatterPenger } from '@/utils/PengeUtils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
@@ -15,7 +15,7 @@ const EnTilskuddsutgiftOppsummering: FunctionComponent<Props> = (props) => {
                 <BodyShort size="small">{inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}</BodyShort>
             </td>
             <td>
-                <BodyShort size="small">{formaterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
+                <BodyShort size="small">{formatterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
             </td>
         </tr>
     );

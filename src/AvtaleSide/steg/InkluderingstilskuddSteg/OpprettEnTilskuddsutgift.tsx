@@ -3,7 +3,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formatterPenger } from '@/utils/PengeUtils';
 import { Button, Heading, Select } from '@navikt/ds-react';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 
@@ -50,7 +50,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
         }
         if (beløp > gjenståendeMaxBeløp) {
             setBeløpFeil(
-                `Det totale beløpet overskrider det maksimale beløpet på ${formaterPenger(inkluderingstilskuddSats)}`,
+                `Det totale beløpet overskrider det maksimale beløpet på ${formatterPenger(inkluderingstilskuddSats)}`,
             );
             return;
         } else {

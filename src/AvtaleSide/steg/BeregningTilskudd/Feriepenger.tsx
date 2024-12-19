@@ -3,7 +3,7 @@ import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 import SelectInput from '@/komponenter/form/SelectInput';
-import { parseFloatIfFloatable } from '@/utils';
+import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 
 interface Props {
     cls: BEMWrapper;

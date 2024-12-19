@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import SelectInput from '@/komponenter/form/SelectInput';
-import { parseFloatIfFloatable } from '@/utils';
+import { parseFloatIfFloatable } from '@/utils/lonnstilskuddUtregningUtils';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 

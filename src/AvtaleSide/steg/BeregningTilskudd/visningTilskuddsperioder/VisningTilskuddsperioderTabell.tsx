@@ -3,7 +3,7 @@ import { BodyShort, Label } from '@navikt/ds-react';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formatterPenger } from '@/utils/PengeUtils';
 import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -71,7 +71,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                     avtale.tiltakstype === 'SOMMERJOBB') && <>{periode.lonnstilskuddProsent}%</>}
                             </BodyShort>
                             <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                                {formaterPenger(periode.beløp)}
+                                {formatterPenger(periode.beløp)}
                             </BodyShort>
                         </div>
                     );

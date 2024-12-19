@@ -5,7 +5,7 @@ import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/Ti
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InkluderingsInnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formatterPenger } from '@/utils/PengeUtils';
 import { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
@@ -32,7 +32,7 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
                     <div className={cls.element('kostnadsoverslag-container')}>
                         <VisueltDisabledInputFelt
                             label="Totalt kostnadsoverslag"
-                            tekst={formaterPenger(props.inkluderingstilskuddTotalBeløp)}
+                            tekst={formatterPenger(props.inkluderingstilskuddTotalBeløp)}
                         />
                     </div>
                 </div>

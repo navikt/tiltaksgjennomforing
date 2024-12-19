@@ -8,7 +8,6 @@ import React, { FunctionComponent, useContext } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import VarighetIkon from './VarighetIkon';
-import { formaterNorskeTall } from '@/utils';
 
 const formaterDato = (dato: string): string => {
     return moment(dato).format('DD.MM.YYYY');
@@ -26,6 +25,8 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({
 }) => {
     const avtaleContext = useContext(AvtaleContext);
 
+    const stillingProsent = stillingprosent ? stillingprosent.toString() + '%' : '';
+
     return (
         <Stegoppsummering ikon={<VarighetIkon />} tittel="Dato og arbeidstid">
             <Container fluid={true}>
@@ -42,20 +43,14 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({
                     {avtaleContext.avtale?.tiltakstype !== 'MENTOR' && (
                         <Column md="4" sm="12" xs="12">
                             <Label>Stillingsprosent</Label>
-                            <SjekkOmVerdiEksisterer
-                                verdi={stillingprosent}
-                                formatertVerdi={`${formaterNorskeTall(stillingprosent)} %`}
-                            />
+                            <SjekkOmVerdiEksisterer verdi={stillingProsent} />
                         </Column>
                     )}
                 </Row>
                 <Row className={''}>
                     <Column md="4" sm="12" xs="12">
                         <Label>Antall dager per uke</Label>
-                        <SjekkOmVerdiEksisterer
-                            verdi={antallDagerPerUke}
-                            formatertVerdi={formaterNorskeTall(antallDagerPerUke?.toString())}
-                        />
+                        <SjekkOmVerdiEksisterer verdi={antallDagerPerUke?.toString()} />
                     </Column>
                 </Row>
             </Container>

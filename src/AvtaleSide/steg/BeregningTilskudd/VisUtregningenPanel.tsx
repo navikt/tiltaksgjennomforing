@@ -6,7 +6,7 @@ import ObligTjenestepensjonIkon from '@/assets/ikoner/obligTjenestepensjon.svg?r
 import StillingProsentIkon from '@/assets/ikoner/stillingsprosent.svg?react';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { formaterNorskeTall, visTalletEller0 } from '@/utils';
+import { visSatsMedEttDesimal, visTalletEller0 } from '@/utils/lonnstilskuddUtregningUtils';
 import classNames from 'classnames';
 import { Accordion, Label } from '@navikt/ds-react';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
@@ -33,7 +33,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                                 </div>
                             </Column>
                             <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
-                                {formaterNorskeTall(props.stillingprosent)} %
+                                {visTalletEller0(props.stillingprosent)} %
                             </Column>
                         </Row>
                         <Row className={cls.element('rad')}>
@@ -47,7 +47,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                                 </div>
                             </Column>
                             <Column md="6" sm="6" xs="6" className={cls.element('column__siste')}>
-                                <div> {formaterNorskeTall(props.manedslonn)} kr</div>
+                                <div> {visTalletEller0(props.manedslonn)} kr</div>
                             </Column>
                         </Row>
                         <Row className={cls.element('rad')}>
@@ -58,7 +58,7 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                                 <div>Feriepenger</div>
                             </Column>
                             <Column md="3" sm="3" xs="3">
-                                ({formaterNorskeTall(props.feriepengesats)}%)
+                                ({visSatsMedEttDesimal(props.feriepengesats)}%)
                             </Column>
                             <Column md="1" sm="1" xs="1">
                                 +
@@ -95,13 +95,13 @@ const VisUtregningenPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                                 <div>
                                     Arbeidsgiveravgift{' '}
                                     <MediaQuery maxWidth={699}>
-                                        ({formaterNorskeTall(props.arbeidsgiveravgift)}%)
+                                        ({visSatsMedEttDesimal(props.arbeidsgiveravgift)}%)
                                     </MediaQuery>
                                 </div>
                             </Column>
                             <Column md="3" sm="3" xs="3">
                                 <MediaQuery minWidth={700}>
-                                    ({formaterNorskeTall(props.arbeidsgiveravgift)}%)
+                                    ({visSatsMedEttDesimal(props.arbeidsgiveravgift)}%)
                                 </MediaQuery>
                             </Column>
                             <Column md="1" sm="1" xs="1">

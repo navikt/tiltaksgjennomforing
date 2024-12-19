@@ -5,7 +5,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formatterPenger } from '@/utils/PengeUtils';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { BodyShort, Heading, Ingress } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
@@ -117,7 +117,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <div className={cls.element('kostnadsoverslag-container')}>
                     <VisueltDisabledInputFelt
                         label="Totalt kostnadsoverslag"
-                        tekst={formaterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
+                        tekst={formatterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
                     />
                 </div>
                 <VerticalSpacer rem={2} />

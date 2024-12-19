@@ -1,66 +1,43 @@
-import React from 'react';
-import * as z from 'zod';
+import useValidering from '@/komponenter/useValidering';
 import { TextField } from '@navikt/ds-react';
-import { useController, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import { formaterNorskeTallFraInput, parseNorskeTallFraInput } from '@/utils';
 
 interface Props {
     label: string;
     verdi?: number;
-    settVerdi: (verdi?: number) => void;
+    settVerdi: (verdi: number) => void;
     size?: 'medium' | 'small';
 }
 
-const schema = z.object({
-    stillingsprosent: z.preprocess(
-        parseNorskeTallFraInput,
-        z
-            .number({
-                invalid_type_error: 'Stillingsprosent være et tall',
-                required_error: 'Stillingsprosent er påkrevd',
-            })
-            .min(0.1, 'Stillingsprosent må være større enn 0')
-            .max(100, 'Stillingsprosent må være mindre enn eller lik 100'),
-    ),
-});
-
-type Schema = { stillingsprosent: string };
-
-function StillingsprosentInput(props: Props) {
-    const { settVerdi, verdi } = props;
-
-    const { formState, control } = useForm<Schema>({
-        mode: 'onBlur',
-        resolver: zodResolver(schema),
-    });
-
-    const { field } = useController({
-        control,
-        name: 'stillingsprosent',
-        defaultValue: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
-    });
-
-    const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        const stillingsprosent = e.target.value;
-        field.onChange(stillingsprosent);
-
-        const { success, data } = schema.safeParse({ stillingsprosent });
-        settVerdi(success ? data?.stillingsprosent : undefined);
-    };
+const StillingsprosentInput = (props: Props) => {
+    const [feil, setFeil, validerStillingsprosent] = useValidering(props.verdi, [
+        (verdi) => {
+            if (!verdi) {
+                return 'Stillingsprosent er påkrevd';
+            }
+        },
+        (verdi) => {
+            if (verdi! <= 0 || verdi! > 100) {
+                return 'Stillingsprosent må være mellom 1 og 100';
+            }
+        },
+    ]);
 
     return (
         <TextField
-            {...field}
-            error={formState.errors.stillingsprosent?.message}
+            error={feil}
             label={props.label}
-            onChange={onChange}
+            value={props.verdi || ''}
+            onChange={(event) => {
+                const verdi = event.target.value;
+                if (/^\d{0,3}$/.test(verdi)) {
+                    props.settVerdi(Number(verdi));
+                    setFeil(undefined);
+                }
+            }}
+            onBlur={validerStillingsprosent}
             size={props.size}
-            type="tel"
-            value={formaterNorskeTallFraInput(field.value)}
         />
     );
-}
+};
 
 export default StillingsprosentInput;

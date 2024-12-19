@@ -1,7 +1,8 @@
-import { formaterNorskeTall, formaterPenger } from '@/utils';
+import { visSatsMedEttDesimal } from '@/utils/lonnstilskuddUtregningUtils';
 import { BodyShort, Label, Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, ReactNode } from 'react';
 import BEMHelper from '../../../utils/bem';
+import { formatterPenger } from '../../../utils/PengeUtils';
 import './UtregningPanel.less';
 
 interface Props {
@@ -31,13 +32,13 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
     const setLabelSats = (sats?: number) =>
         sats !== undefined && sats !== null ? (
             <BodyShort size="small" className={cls.element('label-sats')}>
-                ({formaterNorskeTall(sats * 100)}%)
+                ({visSatsMedEttDesimal(sats)}%)
             </BodyShort>
         ) : null;
 
     const parseVerdi = (verdi: string | number) => {
         const verdiSomNumber = parseInt(verdi.toString(), 10);
-        return !isNaN(verdiSomNumber) && !props.ikkePenger ? formaterPenger(verdiSomNumber) : verdi;
+        return !isNaN(verdiSomNumber) && !props.ikkePenger ? formatterPenger(verdiSomNumber) : verdi;
     };
 
     return (
