@@ -21,12 +21,12 @@ const schema = z.object({
                 invalid_type_error: 'Stillingsprosent være et tall',
                 required_error: 'Stillingsprosent er påkrevd',
             })
-            .min(0, 'Stillingsprosent må være større enn 0')
+            .min(0.1, 'Stillingsprosent må være større enn 0')
             .max(100, 'Stillingsprosent må være mindre enn eller lik 100'),
     ),
 });
 
-type Schema = z.infer<typeof schema>;
+type Schema = { stillingsprosent: string };
 
 function StillingsprosentInput(props: Props) {
     const { settVerdi, verdi } = props;
@@ -39,7 +39,7 @@ function StillingsprosentInput(props: Props) {
     const { field } = useController({
         control,
         name: 'stillingsprosent',
-        defaultValue: verdi,
+        defaultValue: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
     });
 
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {

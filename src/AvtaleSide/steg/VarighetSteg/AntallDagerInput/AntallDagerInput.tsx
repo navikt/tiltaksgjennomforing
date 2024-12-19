@@ -21,12 +21,12 @@ const schema = z.object({
                 invalid_type_error: 'Antall dager være et tall',
                 required_error: 'Antall dager er påkrevd',
             })
-            .min(0, 'Antall dager må være større enn 0')
+            .min(0.1, 'Antall dager må være større enn 0')
             .max(7, 'Antall dager må være mindre enn eller lik 7'),
     ),
 });
 
-type Schema = z.infer<typeof schema>;
+type Schema = { antallDagerPerUke: string };
 
 function AntallDagerInput(props: Props) {
     const { settVerdi, verdi } = props;
@@ -39,7 +39,7 @@ function AntallDagerInput(props: Props) {
     const { field } = useController({
         control,
         name: 'antallDagerPerUke',
-        defaultValue: verdi,
+        defaultValue: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
     });
 
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
