@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import SelectInput from '@/komponenter/form/SelectInput';
-import { parseFloatIfFloatable } from '@/utils';
+import { formaterNorskeTall, parseFloatIfFloatable } from '@/utils';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 
@@ -17,7 +17,7 @@ const Arbeidsgiveravgift: React.FC<Props> = ({ cls }: Props) => {
         const satserVerdier = [{ label: 'Velg', value: '' }];
         satser.forEach((sats: number) =>
             satserVerdier.push({
-                label: (sats * 100).toFixed(1) + ' %',
+                label: formaterNorskeTall(sats * 100) + ' %',
                 value: sats.toString(),
             }),
         );

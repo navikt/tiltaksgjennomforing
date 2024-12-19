@@ -1,10 +1,14 @@
 const numberFormat = new Intl.NumberFormat('nb-NO', { style: 'decimal', maximumFractionDigits: 2 });
 
-export const formaterNorskeTall = <T>(value: T): string | T =>
-    typeof value === 'number' && !Number.isNaN(value) ? numberFormat.format(Number(value)) : value;
+export const formaterNorskeTall = (value: string | number | undefined): string | undefined => {
+    if (value === undefined) {
+        return undefined;
+    }
+    return !Number.isNaN(Number(value)) ? numberFormat.format(Number(value)) : String(value);
+};
 
-export const formaterNorskeTallFraInput = <T>(value: T): string | T =>
-    typeof value === 'string' ? String(value).replace('.', ',') : value;
+export const formaterNorskeTallFraInput = (value: string | number | undefined): string =>
+    typeof value === 'string' ? String(value).replace('.', ',') : String(value ?? '');
 
 export const parseNorskeTallFraInput = <T>(value: T): number | undefined =>
     typeof value === 'string' && value !== ''
