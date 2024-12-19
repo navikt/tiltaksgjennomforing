@@ -3,6 +3,7 @@ import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
+import { formaterNorskeTall } from '@/utils';
 
 interface Props {
     cls: BEMWrapper;
@@ -22,7 +23,7 @@ const ObligatoriskTjenestepensjon: React.FC<Props> = ({ cls }: Props) => {
                     autoComplete={'off'}
                     value={
                         avtale.gjeldendeInnhold.otpSats !== undefined && avtale.gjeldendeInnhold.otpSats !== null
-                            ? (avtale.gjeldendeInnhold.otpSats * 100).toFixed(2)
+                            ? formaterNorskeTall(avtale.gjeldendeInnhold.otpSats * 100)
                             : ''
                     }
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

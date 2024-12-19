@@ -21,6 +21,7 @@ const schema = z.object({
                 invalid_type_error: 'Antall dager være et tall',
                 required_error: 'Antall dager er påkrevd',
             })
+            .multipleOf(0.01, 'Antall dager kan maks ha 2 desimaler')
             .min(0.1, 'Antall dager må være større enn 0')
             .max(7, 'Antall dager må være mindre enn eller lik 7'),
     ),
@@ -39,7 +40,7 @@ function AntallDagerInput(props: Props) {
     const { field } = useController({
         control,
         name: 'antallDagerPerUke',
-        defaultValue: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
+        defaultValue: formaterNorskeTallFraInput(verdi),
     });
 
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {

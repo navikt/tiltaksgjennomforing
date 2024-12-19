@@ -1,5 +1,5 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
-import { formatterProsent } from '@/utils/formatterProsent';
+import { formaterProsent } from '@/utils/formaterProsent';
 import React, { PropsWithChildren } from 'react';
 import { TextFieldProps } from '@navikt/ds-react';
 
@@ -25,12 +25,12 @@ const ProsentInput: React.FunctionComponent<InputProps> = (props: PropsWithChild
         },
         (v: any) => {
             if (v && min && v < min) {
-                return 'Må være over ' + formatterProsent(min);
+                return 'Må være over ' + formaterProsent(min);
             }
         },
         (v: any) => {
             if (v && max && v > max) {
-                return 'Må være under ' + formatterProsent(max);
+                return 'Må være under ' + formaterProsent(max);
             }
         },
     ];
@@ -41,7 +41,7 @@ const ProsentInput: React.FunctionComponent<InputProps> = (props: PropsWithChild
             step={step}
             validatorer={validatorer}
             maxLength={3}
-            toFormatted={formatterProsent}
+            toFormatted={formaterProsent}
             max={max}
             min={min}
             {...other}

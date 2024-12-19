@@ -21,6 +21,7 @@ const schema = z.object({
                 invalid_type_error: 'Stillingsprosent være et tall',
                 required_error: 'Stillingsprosent er påkrevd',
             })
+            .multipleOf(0.01, 'Stillingsprosent kan maks ha 2 desimaler')
             .min(0.1, 'Stillingsprosent må være større enn 0')
             .max(100, 'Stillingsprosent må være mindre enn eller lik 100'),
     ),

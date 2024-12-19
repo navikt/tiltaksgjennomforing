@@ -3,7 +3,7 @@ import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 import SelectInput from '@/komponenter/form/SelectInput';
-import { parseFloatIfFloatable } from '@/utils';
+import { formaterNorskeTall, parseFloatIfFloatable } from '@/utils';
 
 interface Props {
     cls: BEMWrapper;
@@ -13,7 +13,7 @@ const Feriepenger: React.FC<Props> = ({ cls }: Props) => {
 
     const feriepengeAlternativer = [{ label: 'Velg', value: '' }].concat(
         [0, 0.102, 0.12, 0.125, 0.143].map((sats: number) => ({
-            label: (sats * 100).toFixed(1) + ' %',
+            label: formaterNorskeTall(sats * 100) + ' %',
             value: sats.toString(),
         })),
     );

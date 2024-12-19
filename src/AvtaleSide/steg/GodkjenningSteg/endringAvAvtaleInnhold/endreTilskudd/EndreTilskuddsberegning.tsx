@@ -13,6 +13,7 @@ import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreTilskuddsberegning.less';
+import { formaterNorskeTall } from '@/utils';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag & Varighet,
@@ -123,7 +124,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                         autoComplete={'off'}
                         value={
                             nyBeregning.otpSats !== undefined && nyBeregning.otpSats !== null
-                                ? (nyBeregning.otpSats * 100).toFixed(0)
+                                ? formaterNorskeTall(nyBeregning.otpSats * 100)
                                 : ''
                         }
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
