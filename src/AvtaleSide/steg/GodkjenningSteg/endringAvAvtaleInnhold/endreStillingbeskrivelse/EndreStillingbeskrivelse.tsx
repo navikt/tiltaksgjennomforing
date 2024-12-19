@@ -3,7 +3,6 @@ import StillingsTittelVelger, { StillingOptions } from '@/AvtaleSide/steg/Stilli
 import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
 import BEMHelper from '@/utils/bem';
