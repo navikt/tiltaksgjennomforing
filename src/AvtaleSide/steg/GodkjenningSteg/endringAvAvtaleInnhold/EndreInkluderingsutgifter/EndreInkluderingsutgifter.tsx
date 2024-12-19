@@ -6,7 +6,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { endreInkluderingstilskudd } from '@/services/rest-service';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
-import { formatterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils/PengeUtils';
 import { Task } from '@navikt/ds-icons/cjs';
 import { Ingress, Label, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
@@ -104,7 +104,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                     <VerticalSpacer rem={2} />
                     <div>
                         <Label>Totalt kostnadsoverslag:</Label>
-                        <Ingress>{formatterPenger(inkluderingstilskuddTotal)}</Ingress>
+                        <Ingress>{formaterPenger(inkluderingstilskuddTotal)}</Ingress>
                     </div>
                 </div>
             </BekreftelseModal>

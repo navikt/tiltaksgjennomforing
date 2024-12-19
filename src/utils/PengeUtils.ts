@@ -1,4 +1,4 @@
-export const formatterPenger = (penger: number) =>
+export const formaterPenger = (penger: number) =>
     `${new Intl.NumberFormat('nb-NO', {
         style: 'decimal',
         maximumFractionDigits: 2,

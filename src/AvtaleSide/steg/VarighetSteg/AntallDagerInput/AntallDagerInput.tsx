@@ -14,21 +14,21 @@ interface Props {
 }
 
 const schema = z.object({
-    stillingsprosent: z.preprocess(
+    antallDagerPerUke: z.preprocess(
         parseNorskeTallFraInput,
         z
             .number({
-                invalid_type_error: 'Stillingsprosent være et tall',
-                required_error: 'Stillingsprosent er påkrevd',
+                invalid_type_error: 'Antall dager være et tall',
+                required_error: 'Antall dager er påkrevd',
             })
-            .min(0.1, 'Stillingsprosent må være større enn 0')
-            .max(100, 'Stillingsprosent må være mindre enn eller lik 100'),
+            .min(0.1, 'Antall dager må være større enn 0')
+            .max(7, 'Antall dager må være mindre enn eller lik 7'),
     ),
 });
 
-type Schema = { stillingsprosent: string };
+type Schema = { antallDagerPerUke: string };
 
-function StillingsprosentInput(props: Props) {
+function AntallDagerInput(props: Props) {
     const { settVerdi, verdi } = props;
 
     const { formState, control } = useForm<Schema>({
@@ -38,22 +38,22 @@ function StillingsprosentInput(props: Props) {
 
     const { field } = useController({
         control,
-        name: 'stillingsprosent',
+        name: 'antallDagerPerUke',
         defaultValue: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
     });
 
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        const stillingsprosent = e.target.value;
-        field.onChange(stillingsprosent);
+        const antallDagerPerUke = e.target.value;
+        field.onChange(antallDagerPerUke);
 
-        const { success, data } = schema.safeParse({ stillingsprosent });
-        settVerdi(success ? data?.stillingsprosent : undefined);
+        const { success, data } = schema.safeParse({ antallDagerPerUke });
+        settVerdi(success ? data?.antallDagerPerUke : undefined);
     };
 
     return (
         <TextField
             {...field}
-            error={formState.errors.stillingsprosent?.message}
+            error={formState.errors.antallDagerPerUke?.message}
             label={props.label}
             onChange={onChange}
             size={props.size}
@@ -63,4 +63,4 @@ function StillingsprosentInput(props: Props) {
     );
 }
 
-export default StillingsprosentInput;
+export default AntallDagerInput;
