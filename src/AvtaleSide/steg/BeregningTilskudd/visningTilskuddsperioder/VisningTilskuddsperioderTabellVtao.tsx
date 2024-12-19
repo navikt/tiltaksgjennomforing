@@ -3,7 +3,7 @@ import { BodyShort, Label } from '@navikt/ds-react';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formatterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils/PengeUtils';
 import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -51,7 +51,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                                     </BodyShort>
                                 )}
                                 <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                                    {periode.beløp !== null ? formatterPenger(periode.beløp) : '-'}
+                                    {periode.beløp !== null ? formaterPenger(periode.beløp) : '-'}
                                 </BodyShort>
                                 <BodyShort size="small" style={{ minWidth: '4rem' }}>
                                     {formatterDato(moment(periode.sluttDato).add(3, 'days').toString(), 'DD MMM YYYY')}
@@ -76,7 +76,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                             </BodyShort>
                         )}
                         <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                            {sistePeriode.beløp !== null ? formatterPenger(sistePeriode.beløp) : '-'}
+                            {sistePeriode.beløp !== null ? formaterPenger(sistePeriode.beløp) : '-'}
                         </BodyShort>
                         <BodyShort size="small" style={{ minWidth: '4rem' }}>
                             {formatterDato(moment(sistePeriode.sluttDato).add(3, 'days').toString(), 'DD MMM YYYY')}

@@ -3,6 +3,7 @@ import KalkulatorIkon from '@/assets/ikoner/kalkulator.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { BodyShort, Label } from '@navikt/ds-react';
 import './InfoBoks.less';
+import { formaterNorskeTall } from '@/utils';
 
 interface InfoBoksProps {
     timerIUka: number;
@@ -17,9 +18,9 @@ const InfoBoks = (props: InfoBoksProps) => (
             <Label className="infoboks__dette-tilsvarer">Dette tilsvarer ca:</Label>
             <VerticalSpacer rem={0.5} />
             <BodyShort size="small">
-                <span className="infoboks__bold">{props.timerIUka ? props.timerIUka : 0}</span>
+                <span className="infoboks__bold">{props.timerIUka ? formaterNorskeTall(props.timerIUka) : 0}</span>
                 &nbsp; timer eller &nbsp;
-                <span className="infoboks__bold">{props.dagerIUka ? props.dagerIUka : 0}</span>
+                <span className="infoboks__bold">{props.dagerIUka ? formaterNorskeTall(props.dagerIUka) : 0}</span>
                 &nbsp;
                 {props.dagerIUka <= 1 ? 'arbeidsdag' : 'arbeidsdager'} per uke
             </BodyShort>
