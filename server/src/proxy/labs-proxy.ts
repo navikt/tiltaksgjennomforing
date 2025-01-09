@@ -53,6 +53,7 @@ export const setup = (app: Express) => {
             target: `${apiUrl}/tiltaksgjennomforing-api/kodeverk`,
             ignorePath: true,
             changeOrigin: true,
+            proxyTimeout: 2000,
         }),
     );
 
