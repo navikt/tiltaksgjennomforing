@@ -70,18 +70,21 @@ async function startServer(): Promise<void> {
 }
 
 async function startMedNavDekoratoren() {
+    console.log('Starter med nav-dekoratør...');
     node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
         appMedNavDekoratoren.getNavdekoratoren(indexPath, req, res),
     );
 }
 
 async function startMedModiaDekoratoren() {
+    console.log('Starter med modia-dekoratør...');
     node.get(['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
         appMedModiaDekoratoren.getModiaDekoratoren(indexPath, req, res),
     );
 }
 
 async function startLabs() {
+    console.log('Starter i labs-modus...');
     node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (_, res) => {
         res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
     });
