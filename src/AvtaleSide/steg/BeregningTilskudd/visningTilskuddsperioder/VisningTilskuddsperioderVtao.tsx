@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { Label } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import './visningTilskuddsperioder.less';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -15,7 +15,6 @@ const VisningTilskuddsperioderVtao: FunctionComponent = () => {
             <Label>
                 Oversikt over tilskudd fra {avtale.gjeldendeInnhold.startDato} - {avtale.gjeldendeInnhold.sluttDato}
             </Label>
-            <BodyShort size="small">(2024 - satser)</BodyShort>
             <VerticalSpacer rem={2} />
             <div className={cls.element('container')}>
                 <div className={cls.element('header')}>
