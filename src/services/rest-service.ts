@@ -579,3 +579,8 @@ export const justerArenaMigreringsdatoDryRun = async (avtale: Avtale, migrerings
     const response = await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato/dry-run`, { migreringsdato });
     return response.data;
 };
+export const hentVtaoSats = async (forDato?: string): Promise<{ aar: number; belop: number }> => {
+    const queryParams = new URLSearchParams(removeEmpty({ forDato }));
+    const response = await api.get(`/satser/vtao?${queryParams}`);
+    return response.data;
+};

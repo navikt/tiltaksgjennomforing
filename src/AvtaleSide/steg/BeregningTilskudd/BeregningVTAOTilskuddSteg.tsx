@@ -1,26 +1,36 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { BodyShort, Heading, TextField } from '@navikt/ds-react';
-import { FunctionComponent, useContext } from 'react';
-import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
+import { BodyShort, Heading } from '@navikt/ds-react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import HenteKontonummer from '@/komponenter/form/henteKontornummer/HenteKontonummer';
 import './BeregningTilskuddSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import VisningTilskuddsperioderVtao from './visningTilskuddsperioder/VisningTilskuddsperioderVtao';
+import { hentVtaoSats } from '@/services/rest-service';
+import { formaterPenger } from '@/utils/PengeUtils';
+import { format } from 'date-fns';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
-const BeregningTilskuddSteg: FunctionComponent = () => {
-    const innloggetBruker = useContext(InnloggetBrukerContext);
-
+const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
+
+    const [sats, setSats] = useState<{ aar: number; belop: number }>({ aar: NaN, belop: NaN });
+
+    const satsBelop = isNaN(sats.belop) ? '...' : formaterPenger(sats.belop);
+    const satsAar = isNaN(sats.aar) ? '...' : sats.aar;
+
+    useEffect(() => {
+        hentVtaoSats(format(new Date(avtale.opprettetTidspunkt), 'yyyy-MM-dd')).then((data) => {
+            setSats(data);
+        });
+    }, [avtale]);
 
     return (
         <>
@@ -31,19 +41,19 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     Hvor mye dekker tilskuddet?
                 </Heading>
                 <BodyShort size="small">
-                    Arbeidsgiveren får et tilskudd fra NAV for varig tilrettelagt arbeid. Tilskuddssatsen er 6 808
-                    kroner per måned. Satsen settes årlig av departementet og avtale- og refusjonsløsningen vil
-                    automatisk oppdateres når det kommer nye satser.
+                    Arbeidsgiveren får et tilskudd fra NAV for varig tilrettelagt arbeid. Tilskuddssatsen er {satsBelop}{' '}
+                    per måned. Satsen settes årlig av departementet og avtale- og refusjonsløsningen vil automatisk
+                    oppdateres når det kommer nye satser.
                 </BodyShort>
                 <VerticalSpacer rem={2} />
                 <div className={cls.element('rad')}>
                     <VisueltDisabledInputFelt
                         label="Månedlig tilskuddssats"
-                        description="Sats for 2024"
-                        tekst={'6808 kr'}
+                        description={`Sats for ${satsAar}`}
+                        tekst={satsBelop}
                     />
                 </div>
-                <VisningTilskuddsperioderVtao></VisningTilskuddsperioderVtao>
+                <VisningTilskuddsperioderVtao />
                 <Row className={cls.element('rad-kontonummer')}>
                     <Column md="12" className={cls.element('kontonummer')}>
                         <HenteKontonummer />
@@ -58,4 +68,4 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
     );
 };
 
-export default BeregningTilskuddSteg;
+export default BeregningVTAOTilskuddSteg;

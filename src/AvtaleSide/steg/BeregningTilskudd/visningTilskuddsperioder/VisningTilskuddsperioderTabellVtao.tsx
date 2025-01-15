@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
@@ -25,6 +25,10 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
     const { startIndexVisning, sluttIndexVisning } = getIndexVisningForTilskuddsperiode(avtale, visAllePerioder);
     const cls = BEMHelper(className);
     const sistePeriode = avtale.tilskuddPeriode.at(antallAktiveTilskuddsperioder(avtale) - 1);
+    const sistePeriodeAar = sistePeriode ? moment(sistePeriode?.startDato).year() : undefined;
+    const sistePeriodeErITidligereAar = sistePeriodeAar
+        ? sistePeriodeAar < moment(avtale.opprettetTidspunkt).year()
+        : false;
 
     return (
         <div className={cls.element('tabell')}>
@@ -38,13 +42,22 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                 .filter((p: TilskuddsPeriode) => p.aktiv)
                 .slice(startIndexVisning, sluttIndexVisning)
                 .map((periode: TilskuddsPeriode, index: number) => {
+                    const periodeAar = moment(periode.startDato).year();
+                    const erITidligereAar = periodeAar < moment(avtale.opprettetTidspunkt).year();
                     return (
                         <div>
                             <div key={index} className={cls.element('tabell-innslag')}>
-                                <BodyShort size="small">
-                                    {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
-                                    {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
-                                </BodyShort>
+                                <div>
+                                    <BodyShort size="small">
+                                        {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
+                                        {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
+                                    </BodyShort>
+                                    {erITidligereAar && (
+                                        <BodyShort size="small" textColor="subtle">
+                                            Sats for {periodeAar}
+                                        </BodyShort>
+                                    )}
+                                </div>
                                 {innloggetBruker.erNavAnsatt && (
                                     <BodyShort>
                                         <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
@@ -66,10 +79,17 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                         ...
                     </div>
                     <div className={cls.element('tabell-innslag')}>
-                        <BodyShort size="small">
-                            {formatterDato(sistePeriode.startDato, NORSK_DATO_FORMAT)} -{' '}
-                            {formatterDato(sistePeriode.sluttDato, NORSK_DATO_FORMAT)}
-                        </BodyShort>
+                        <div>
+                            <BodyShort size="small">
+                                {formatterDato(sistePeriode.startDato, NORSK_DATO_FORMAT)} -{' '}
+                                {formatterDato(sistePeriode.sluttDato, NORSK_DATO_FORMAT)}
+                            </BodyShort>
+                            {sistePeriodeErITidligereAar && (
+                                <BodyShort size="small" textColor="subtle">
+                                    Sats for {sistePeriodeAar}
+                                </BodyShort>
+                            )}
+                        </div>
                         {innloggetBruker.erNavAnsatt && (
                             <BodyShort>
                                 <EtikettStatus tilskuddsperiodestatus={sistePeriode.status} size="small" />
