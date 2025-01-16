@@ -1,21 +1,17 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Varighet } from '@/types/avtale';
-import moment from 'moment';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Label } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import VarighetIkon from './VarighetIkon';
 import { formaterNorskeTall } from '@/utils';
-
-const formaterDato = (dato: string): string => {
-    return moment(dato).format('DD.MM.YYYY');
-};
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 
 const harDato = (dato?: string): string => {
-    return dato ? formaterDato(dato).toString() : '';
+    return dato ? formaterDato(dato, NORSK_DATO_FORMAT).toString() : '';
 };
 
 const VarighetOppsummering: FunctionComponent<Varighet> = ({

@@ -1,12 +1,12 @@
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Alert, BodyShort } from '@navikt/ds-react';
-import moment from 'moment';
+import { isBefore } from 'date-fns';
 import React from 'react';
 
 interface Props {
     tiltakstype: TiltaksType;
-    startDato: string | undefined;
+    startDato: string;
     erRyddeAvtale: boolean;
     erNavAnsatt: boolean;
     className: string;
@@ -21,7 +21,7 @@ const InfoArenaOppryddingAlert: React.FC<Props> = ({
 }: Props) => {
     const skalViseAlert =
         ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(tiltakstype) &&
-        moment(startDato).isBefore('2023-02-01') &&
+        isBefore(startDato, '2023-02-01') &&
         !erRyddeAvtale &&
         erNavAnsatt;
 

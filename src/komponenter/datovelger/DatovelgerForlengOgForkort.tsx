@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
 import { DatePicker, useDatepicker } from '@navikt/ds-react';
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
-import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
+import { formaterDatoHvisDefinert } from '@/utils/datoUtils';
 import { ISODateString } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
 
 interface Props {
@@ -28,7 +28,7 @@ const DatovelgerForlengOgForkort: FunctionComponent<Props> = ({
         inputFormat: 'dd.MM.yyyy',
         defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
         onDateChange: (dato) => {
-            onChangeHåndtereNyDato(formatterDatoHvisDefinert(dato?.toDateString(), 'YYYY-MM-DD'));
+            onChangeHåndtereNyDato(formaterDatoHvisDefinert(dato?.toDateString(), 'yyyy-MM-dd'));
         },
     });
 

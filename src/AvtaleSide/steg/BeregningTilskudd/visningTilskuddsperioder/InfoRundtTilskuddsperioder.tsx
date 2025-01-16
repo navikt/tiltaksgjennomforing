@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { Button } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 
@@ -26,8 +26,8 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
     return (
         <>
             <div className={cls.element('tabell-innslag')}>
-                Avtalen varer fra {formatterDato(gjeldendeInnholdStartdato, NORSK_DATO_FORMAT)} til{' '}
-                {formatterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
+                Avtalen varer fra {formaterDato(gjeldendeInnholdStartdato, NORSK_DATO_FORMAT)} til{' '}
+                {formaterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
                 {antallAktiveTilskuddsperioder} tilskuddsperioder.
             </div>
             {!visAllePerioder && (

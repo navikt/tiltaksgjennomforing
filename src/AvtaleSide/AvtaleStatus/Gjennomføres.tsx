@@ -1,7 +1,7 @@
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 interface Props {
     avtaleInngått?: string;
@@ -14,8 +14,8 @@ const Gjennomføres: FunctionComponent<Props> = ({ avtaleInngått, startDato }) 
             header="Tiltaket gjennomføres"
             body={
                 <BodyShort size="small">
-                    Avtale ble inngått {formatterDato(avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket startet{' '}
-                    {formatterDato(startDato!, NORSK_DATO_FORMAT)}.
+                    Avtale ble inngått {formaterDato(avtaleInngått!, NORSK_DATO_FORMAT_FULL)}. Tiltaket startet{' '}
+                    {formaterDato(startDato!, NORSK_DATO_FORMAT_FULL)}.
                 </BodyShort>
             }
         />

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react';
-import { formatterPeriode } from '@/utils/datoUtils';
+import { formaterPeriode } from '@/utils/datoUtils';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 import { Label } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
@@ -27,10 +27,7 @@ const InfoVisningTilskuddsperiode: FunctionComponent = () => {
                     <InfoRadBesluttervisning metadata="Arbeidsgiver" info={avtale.gjeldendeInnhold.bedriftNavn} />
                     <InfoRadBesluttervisning
                         metadata="Periode"
-                        info={formatterPeriode(
-                            gjeldendeTilskuddsperiode.startDato,
-                            gjeldendeTilskuddsperiode.sluttDato,
-                        )}
+                        info={formaterPeriode(gjeldendeTilskuddsperiode.startDato, gjeldendeTilskuddsperiode.sluttDato)}
                         style={{ minHeight: '2rem' }}
                     />
                 </div>

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { TilskuddsPeriode } from '@/types/avtale';
-import { formaterDatoNy, formaterPeriodeNy, NORSK_DATO_FORMAT_NY } from '@/utils/datoUtils';
+import { formaterDato, formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import { formaterPenger } from '@/utils/PengeUtils';
 import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
@@ -38,9 +38,7 @@ const tilskuddsperiodeRad = ({
     return (
         <div key={key} className={cls.element('tabell-innslag')}>
             <div>
-                <BodyShort size="small">
-                    {formaterPeriodeNy(periode.startDato, periode.sluttDato, NORSK_DATO_FORMAT_NY)}
-                </BodyShort>
+                <BodyShort size="small">{formaterPeriode(periode.startDato, periode.sluttDato)}</BodyShort>
                 {erITidligereAar && (
                     <BodyShort size="small" textColor="subtle">
                         Sats for {periodeAar}
@@ -56,7 +54,7 @@ const tilskuddsperiodeRad = ({
                 {periode.beløp !== null ? formaterPenger(periode.beløp) : '-'}
             </BodyShort>
             <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                {formaterDatoNy(addDays(new Date(periode.sluttDato), 3).toString(), 'dd MMM yyyy')}
+                {formaterDato(addDays(new Date(periode.sluttDato), 3).toString(), 'dd MMM yyyy')}
             </BodyShort>
         </div>
     );

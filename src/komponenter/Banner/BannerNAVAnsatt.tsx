@@ -7,9 +7,10 @@ import VerticalSpacer from '../layout/VerticalSpacer';
 import nyheter from '../NyttIAppen/nyheter';
 import Nytt from '../NyttIAppen/Nytt';
 import './Banner.less';
-import moment from 'moment';
 import { useAvtale } from '@/AvtaleProvider';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { addDays, max, differenceInDays, endOfDay } from 'date-fns';
+import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 
 interface Props {
     tekst: string;
@@ -17,15 +18,13 @@ interface Props {
 }
 
 const TOLV_UKER_I_DAGER = 7 * 12;
-const STARTDATO_FOR_RYDDING = moment('2024-11-28').endOf('day');
+const STARTDATO_FOR_RYDDING = endOfDay(new Date('2024-11-28'));
 
 const formaterSlettetidspunkt = (sistEndret: string) => {
-    const sistEndretPlussTolvUker = moment(sistEndret).endOf('day').add(TOLV_UKER_I_DAGER, 'days');
-    const slettetidspunkt = STARTDATO_FOR_RYDDING.isAfter(sistEndretPlussTolvUker)
-        ? STARTDATO_FOR_RYDDING
-        : sistEndretPlussTolvUker;
+    const sistEndretPlussTolvUker = addDays(endOfDay(sistEndret), TOLV_UKER_I_DAGER);
+    const slettetidspunkt = max([STARTDATO_FOR_RYDDING, sistEndretPlussTolvUker]);
 
-    const antallDager = slettetidspunkt.diff(moment(), 'days');
+    const antallDager = Math.abs(differenceInDays(new Date(), slettetidspunkt));
 
     if (antallDager === 0) {
         return `kl. 23:59 i dag`;
@@ -36,7 +35,7 @@ const formaterSlettetidspunkt = (sistEndret: string) => {
     if (antallDager < 14) {
         return `${antallDager} dager`;
     }
-    return `den ${slettetidspunkt.format('DD.MM.YYYY')}`;
+    return `den ${formaterDato(slettetidspunkt, NORSK_DATO_FORMAT_FULL)}`;
 };
 
 const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
@@ -44,7 +43,7 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
     const { pabegyntAvtaleRyddeJobb } = useFeatureToggles();
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    return innloggetBruker.erNavAnsatt ? (
+    return innloggetBruker.erNavAnsatt && avtale ? (
         <>
             <div className="banner-veileder-container">
                 <div className="banner-veileder" role="banner">
@@ -72,7 +71,7 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
                     </div>
                 </div>
             </div>
-            {pabegyntAvtaleRyddeJobb && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale?.status) && (
+            {pabegyntAvtaleRyddeJobb && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale.status) && (
                 <Alert variant="info">
                     Avtalen vil automatisk slettes dersom den ikke blir inngått eller endret innen{' '}
                     {formaterSlettetidspunkt(avtale.sistEndret)}.

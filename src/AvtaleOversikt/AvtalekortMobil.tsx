@@ -1,7 +1,6 @@
 import { Fragment, FunctionComponent, useState } from 'react';
 import { useNavigate, generatePath } from 'react-router-dom';
 import { LinkPanel, Heading, Ingress, BodyShort } from '@navikt/ds-react';
-import moment from 'moment';
 
 import './AvtalekortMobil.less';
 import BEMHelper from '@/utils/bem';
@@ -13,6 +12,7 @@ import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Path } from '@/Router';
 import { Varsel } from '@/types/varsel';
 import { avtaleStatusTekst } from '@/messages';
+import { formaterDatoHvisDefinert } from '@/utils/datoUtils';
 
 const cls = BEMHelper('avtalekortMobil');
 
@@ -64,7 +64,8 @@ const AvtalekortMobil: FunctionComponent<{
                                         <Ingress>{avtale.bedriftNavn}</Ingress>
                                         <VerticalSpacer rem={0.5} />
                                         <BodyShort size="small">
-                                            Opprettet {moment(avtale.opprettetTidspunkt).format('DD.MM.YYYY')}
+                                            Startdato {formaterDatoHvisDefinert(avtale.startDato)}, sluttdato{' '}
+                                            {formaterDatoHvisDefinert(avtale.sluttDato)}
                                         </BodyShort>
                                         <div className={cls.element('status')}>
                                             <StatusIkon status={avtale.status} />

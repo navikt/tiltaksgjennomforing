@@ -6,10 +6,10 @@ import { Nettressurs, Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { Alert, BodyShort, Heading, Link, Loader, Modal } from '@navikt/ds-react';
-import moment from 'moment';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './Varsellogg.less';
 import VarselTabell from './VarselTabell';
+import { isBefore } from 'date-fns';
 
 const cls = BEMHelper('varsellogg');
 
@@ -56,7 +56,7 @@ const Varsellogg: FunctionComponent = () => {
                     </Heading>
                 </Modal.Header>
                 <Modal.Body>
-                    {moment(avtaleContext.avtale.opprettetTidspunkt).isBefore('2020-09-10') && (
+                    {isBefore(avtaleContext.avtale.opprettetTidspunkt, '2020-09-10') && (
                         <>
                             <Alert variant="info">
                                 Denne avtalen ble opprettet før hendelsesloggen ble innført og vil være mangelfull.

@@ -12,11 +12,10 @@ import Datovelger from '@/komponenter/datovelger/Datovelger';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import BEMHelper from '@/utils/bem';
 import { VellykketGenerertIsoDatoString, genererFnrdatostringFraFnr } from '@/utils/fnrUtils';
-import moment from 'moment';
-import 'moment/dist/locale/nb';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './varighetSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
+import { addYears, differenceInDays } from 'date-fns';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -32,7 +31,7 @@ const VarighetSteg: FunctionComponent = () => {
         if (tiltakstype === 'SOMMERJOBB' && startDato) {
             const isoDato: VellykketGenerertIsoDatoString = genererFnrdatostringFraFnr(deltakerFnr);
             if (isoDato.vellykketgenerering) {
-                if (moment(startDato).diff(moment(isoDato.isoDatostring).add(30, 'years').format('YYYY-MM-DD')) >= 0) {
+                if (differenceInDays(startDato, addYears(isoDato.isoDatostring, 30)) >= 0) {
                     return setSommerjobbDeltakerOver30VedStartdato(true);
                 }
                 return setSommerjobbDeltakerOver30VedStartdato(false);
@@ -55,13 +54,15 @@ const VarighetSteg: FunctionComponent = () => {
                     <VarighetInfoVeileder erNavAnsatt={innloggetBruker.erNavAnsatt} className={cls.className} />
                     <Row className={cls.element('rad')}>
                         <Column md="12">
-                            <InfoArenaOppryddingAlert
-                                tiltakstype={tiltakstype}
-                                startDato={startDato}
-                                erRyddeAvtale={erRyddeAvtale}
-                                erNavAnsatt={innloggetBruker.erNavAnsatt}
-                                className={cls.className}
-                            />
+                            {startDato !== undefined && (
+                                <InfoArenaOppryddingAlert
+                                    tiltakstype={tiltakstype}
+                                    startDato={startDato}
+                                    erRyddeAvtale={erRyddeAvtale}
+                                    erNavAnsatt={innloggetBruker.erNavAnsatt}
+                                    className={cls.className}
+                                />
+                            )}
                         </Column>
                         <Column md="6">
                             <Datovelger datoFelt="startDato" label="Startdato" />
