@@ -1,4 +1,4 @@
-name: Bygg og deploy
+name: Bygg og deploy KUN FOR LABS TEST
 # KUN FOR TESTING og DEBUGGING
 on:
   workflow_dispatch:
