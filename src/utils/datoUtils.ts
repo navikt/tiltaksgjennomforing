@@ -1,6 +1,8 @@
 import moment from 'moment';
 import 'moment/dist/locale/nb';
 moment.locale('nb');
+import { format } from 'date-fns';
+import { nb } from 'date-fns/locale';
 
 export const datoIkkeTilbakeITid = (dato: Date) => {
     return moment().isSameOrBefore(dato, 'date');
@@ -31,9 +33,26 @@ export const accurateHumanize = (duration: moment.Duration, accuracy: number = 2
         .join(', ');
 };
 
+/**
+ * @deprecated
+ */
 export const NORSK_DATO_OG_TID_FORMAT = 'DD.MM.YYYY HH:mm';
+/**
+ * @deprecated
+ */
 export const NORSK_DATO_FORMAT = 'DD.MM.YYYY';
+/**
+ * For bruk når man formaterer med date-fns (ikke moment)
+ */
+export const NORSK_DATO_FORMAT_NY = 'dd.MM.yyyy';
 
+/**
+ * Formater en dato gitt en formateringsstring.
+ *
+ * Bør fases ut til fordel for `formaterDatoNy`
+ *
+ * @deprecated
+ */
 export const formatterDato = (dato: string, format: string = NORSK_DATO_OG_TID_FORMAT) => {
     try {
         if (dato === '-999999999-01-01') return '';
@@ -44,6 +63,37 @@ export const formatterDato = (dato: string, format: string = NORSK_DATO_OG_TID_F
     }
 };
 
+/**
+ * Formater en dato gitt en formateringsstring.
+ *
+ * Bruker date-fns, og ikke moment.
+ */
+export const formaterDatoNy = (dato: string, formatString: string = NORSK_DATO_OG_TID_FORMAT) => {
+    try {
+        if (dato === '-999999999-01-01') return '';
+        const formatertDato = format(dato, formatString, { locale: nb });
+        return !formatertDato.includes('NaN') ? formatertDato : dato;
+    } catch (e) {
+        return dato;
+    }
+};
+
+/**
+ * Formater en (tilskudds)periode gitt en formateringsstring.
+ *
+ * Bruker date-fns, og ikke moment.
+ */
+export const formaterPeriodeNy = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
+    return formaterDatoNy(fra, format) + ' – ' + formaterDatoNy(til, format);
+};
+
+/**
+ * Formater en (tilskudds)periode gitt en formateringsstring.
+ *
+ * Bør fases ut til fordel for `formaterPeriodeNy`.
+ *
+ * @deprecated
+ */
 export const formatterPeriode = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
     return formatterDato(fra, format) + ' – ' + formatterDato(til, format);
 };
