@@ -1,0 +1,74 @@
+name: Bygg og deploy
+# KUN FOR TESTING og DEBUGGING
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'labs-test'
+
+jobs:
+  build:
+    name: Bygg
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v4
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Install
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Server install
+        working-directory: ./server
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Typescript
+        run: npm run ts
+      - name: Prettier
+        run: npm run prettier
+      - name: Kjør tester
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Server build
+        working-directory: ./server
+        run: npm run build
+      - name: Sentry release
+        run: npm run release
+      - name: Fjerne source maps
+        run: |
+          rm dist/client/assets/*.map
+      - name: Push docker image to GAR
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: arbeidsgiver
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
+  deploy-dev-gcp-labs:
+    name: Deploy til dev-gcp (labs)
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Sjekk ut kode
+        uses: actions/checkout@v4
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: nais/dev-gcp-labs.yaml
+          VARS: nais/dev-gcp-labs.json
+          VAR: image=${{ needs.build.outputs.image }}
