@@ -3,9 +3,9 @@ import VersjonModal from '@/komponenter/modal/VersjonModal';
 import { innholdTypeTekst } from '@/messages';
 import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import moment from 'moment';
 import { BodyShort, Label, LinkPanel, Heading } from '@navikt/ds-react';
 import './TidligereVersjoner.less';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 
 const cls = BEMHelper('tidligereVersjoner');
 
@@ -37,7 +37,7 @@ const TidligereVersjoner: React.FunctionComponent<{ versjoner: AvtaleVersjon[]; 
                         </Label>
                         <BodyShort size="small">
                             {avtaleVersjon.ikrafttredelsestidspunkt &&
-                                moment(avtaleVersjon.ikrafttredelsestidspunkt).format('DD.MM.YYYY')}
+                                formaterDato(avtaleVersjon.ikrafttredelsestidspunkt, NORSK_DATO_FORMAT)}
                         </BodyShort>
                     </div>
                 </LinkPanel.Title>

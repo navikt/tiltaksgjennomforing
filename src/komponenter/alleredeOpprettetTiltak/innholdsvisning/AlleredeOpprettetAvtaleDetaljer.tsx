@@ -3,7 +3,7 @@ import { BEMWrapper } from '@/utils/bem';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import { BodyShort, Link } from '@navikt/ds-react';
 import { Expand } from '@navikt/ds-icons';
-import { formatterDato } from '@/utils/datoUtils';
+import { formaterDato } from '@/utils/datoUtils';
 import { avtaleStatusTekst } from '@/messages';
 import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
 import { storForbokstav } from '@/utils/stringUtils';
@@ -19,7 +19,7 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ cls, innhold }) => {
     const settGodkjentAvBeslutter = () => {
         if (['VARIG_LONNSTILSKUDD', 'MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(innhold.tiltakstype)) {
             const info = innhold.godkjentAvBeslutter
-                ? formatterDato(innhold.godkjentAvBeslutter, 'DD.MM.YY')
+                ? formaterDato(innhold.godkjentAvBeslutter, 'dd.MM.yy')
                 : 'ikke godkjent';
             return <RadInfo label={'Godkjent av beslutter:'} info={info} infoNotBold={true} />;
         }
@@ -27,7 +27,7 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ cls, innhold }) => {
     };
 
     const settDatoInfo = (datoString: string | null, backupTxt: string): string =>
-        datoString ? formatterDato(datoString, 'DD.MM.YY') : backupTxt;
+        datoString ? formaterDato(datoString, 'dd.MM.yy') : backupTxt;
 
     return (
         <div className={cls.element('avtale-detaljer')}>
@@ -63,7 +63,7 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ cls, innhold }) => {
                     />
                     {settGodkjentAvBeslutter()}
                     <RadInfo label={'Avtale status'} info={avtaleStatusTekst[innhold.status]} />
-                    <RadInfo label={'Avtale Inngått:'} info={settDatoInfo(innhold.avtaleInngått, 'ikke inngått')} />
+                    <RadInfo label={'Avtale inngått:'} info={settDatoInfo(innhold.avtaleInngått, 'ikke inngått')} />
                 </div>
             </div>
         </div>

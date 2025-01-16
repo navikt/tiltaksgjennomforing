@@ -571,14 +571,6 @@ export const endreOmMentor = async (avtale: Avtale, mentorInnhold: MentorInnhold
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
-export const justerArenaMigreringsdato = async (avtale: Avtale, migreringsdato: string): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato`, { migreringsdato });
-    await mutate(`/avtaler/${avtale.id}/versjoner`);
-};
-export const justerArenaMigreringsdatoDryRun = async (avtale: Avtale, migreringsdato: string): Promise<Avtale> => {
-    const response = await api.post(`/avtaler/${avtale.id}/juster-arena-migreringsdato/dry-run`, { migreringsdato });
-    return response.data;
-};
 export const hentVtaoSats = async (forDato?: string): Promise<{ aar: number; belop: number }> => {
     const queryParams = new URLSearchParams(removeEmpty({ forDato }));
     const response = await api.get(`/satser/vtao?${queryParams}`);

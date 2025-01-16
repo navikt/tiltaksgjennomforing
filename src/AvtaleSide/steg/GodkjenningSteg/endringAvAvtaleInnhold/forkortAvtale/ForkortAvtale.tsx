@@ -7,13 +7,13 @@ import { forkortAvtale, forkortAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
-import moment from 'moment';
 import { BodyShort, Fieldset, Label, Link, Radio, RadioGroup } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import './forkortAvtale.less';
+import { addDays, format } from 'date-fns';
 
 const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -24,6 +24,9 @@ const ForkortAvtale: FunctionComponent = () => {
     const [datoFeil, setDatoFeil] = useState<string>();
     const [grunn, setGrunn] = useState<string>('');
     const [annetGrunn, setAnnetGrunn] = useState<string>();
+    // Hvis man skal forkorte, kan vi gå ut fra at start og sluttdato alltid er satt
+    const naavaerendeDato = avtaleContext.avtale.gjeldendeInnhold.sluttDato!;
+    const startDato = avtaleContext.avtale.gjeldendeInnhold.startDato!;
 
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
@@ -90,9 +93,7 @@ const ForkortAvtale: FunctionComponent = () => {
                 <div className={cls.className}>
                     <div className={cls.element('navarende-sluttdato')}>
                         <Label>Nåværende sluttdato for avtalen</Label>
-                        <BodyShort size="small">
-                            {formatterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}
-                        </BodyShort>
+                        <BodyShort size="small">{formaterDato(naavaerendeDato, NORSK_DATO_FORMAT)}</BodyShort>
                     </div>
 
                     <Fieldset
@@ -104,10 +105,8 @@ const ForkortAvtale: FunctionComponent = () => {
                             datoFelt="sluttDato"
                             label=""
                             onChangeHåndtereNyDato={onDatoChange}
-                            minDate={moment(avtaleContext.avtale.gjeldendeInnhold.startDato).format('YYYY-MM-DD')}
-                            maxDate={moment(avtaleContext.avtale.gjeldendeInnhold.sluttDato)
-                                .subtract(1, 'days')
-                                .format('YYYY-MM-DD')}
+                            minDate={formaterDato(startDato, 'yyyy-MM-dd')}
+                            maxDate={format(addDays(naavaerendeDato, -1), 'yyyy-MM-dd')}
                         />
                     </Fieldset>
                     <VerticalSpacer rem={1} />

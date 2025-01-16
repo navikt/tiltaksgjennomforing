@@ -49,8 +49,8 @@ export type AvtaleMinimalListeVisning = {
     deltakerEtternavn: string;
     bedriftNavn: string;
     veilederNavIdent: string;
-    startDato: string;
-    sluttDato: string;
+    startDato: string | null;
+    sluttDato: string | null;
     status: AvtaleStatus;
     tiltakstype: TiltaksType;
     erGodkjentTaushetserklæringAvMentor: boolean;

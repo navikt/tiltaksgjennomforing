@@ -1,126 +1,89 @@
-import moment from 'moment';
-import 'moment/dist/locale/nb';
-moment.locale('nb');
-import { format } from 'date-fns';
+import { differenceInDays, format, isBefore, formatDistanceToNowStrict, Duration, intervalToDuration } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
-export const datoIkkeTilbakeITid = (dato: Date) => {
-    return moment().isSameOrBefore(dato, 'date');
-};
-const units: Array<{ unit: moment.unitOfTime.Base; key: moment.RelativeTimeKey }> = [
-    { unit: 'y', key: 'yy' },
-    { unit: 'M', key: 'MM' },
-    { unit: 'd', key: 'dd' },
-    { unit: 'h', key: 'hh' },
-    { unit: 'm', key: 'mm' },
-    { unit: 's', key: 'ss' },
+const units: Array<{ unit: keyof Duration; single: string; plural: string }> = [
+    { unit: 'years', single: 'år', plural: 'år' },
+    { unit: 'months', single: 'måned', plural: 'måneder' },
+    { unit: 'days', single: 'dag', plural: 'dager' },
 ];
-export const accurateHumanize = (duration: moment.Duration, accuracy: number = 2): string => {
-    let beginFilter = false;
-    let componentCount = 0;
+
+export const formaterVarighet = (dato1: Date | string, dato2: Date | string): string => {
+    const duration = intervalToDuration({ start: dato1, end: dato2 });
     return units
-        .map(({ unit, key }) => ({ value: duration.get(unit), key }))
-        .filter(({ value, key }) => {
-            if (beginFilter === false) {
-                if (value === 0) return false;
-                beginFilter = true;
-            }
-            componentCount++;
-            return value !== 0 && componentCount <= accuracy;
+        .filter(({ unit }) => duration[unit] !== undefined)
+        .map(({ unit, single, plural }) => {
+            const value = duration[unit] || 0;
+            if (value === 1) {
+                return `${value} ${single}`;
+            } else return `${value} ${plural}`;
         })
-        .map(({ value, key }) => ({ value, key: value === 1 ? key[0] : key }))
-        .map(({ value, key }) => moment.localeData().relativeTime(value, true, key as moment.RelativeTimeKey, true))
         .join(', ');
 };
 
 /**
- * @deprecated
+ * Eksempel:
+ * `format(new Date('2025-01-10', NORSK_DATO_OG_TID_FORMAT_FULL, {locale: nb}))` => '10. januar 2025 kl. 01:00'
  */
-export const NORSK_DATO_OG_TID_FORMAT = 'DD.MM.YYYY HH:mm';
+export const NORSK_DATO_OG_TID_FORMAT_FULL = 'PPPp';
+
 /**
- * @deprecated
+ * Eksempel:
+ * `format(new Date('2025-01-10', NORSK_DATO_FORMAT, {locale: nb}))` => '10.01.2025'
  */
-export const NORSK_DATO_FORMAT = 'DD.MM.YYYY';
+export const NORSK_DATO_FORMAT = 'dd.MM.yyyy';
+
 /**
- * For bruk når man formaterer med date-fns (ikke moment)
+ * Eksempel:
+ * `format(new Date('2025-01-10', NORSK_DATO_FORMAT_FULL, {locale: nb}))` => '10. januar 2025'
  */
-export const NORSK_DATO_FORMAT_NY = 'dd.MM.yyyy';
+export const NORSK_DATO_FORMAT_FULL = 'PPP';
 
 /**
  * Formater en dato gitt en formateringsstring.
- *
- * Bør fases ut til fordel for `formaterDatoNy`
- *
- * @deprecated
  */
-export const formatterDato = (dato: string, format: string = NORSK_DATO_OG_TID_FORMAT) => {
+export const formaterDato = (dato: Date | string, formatString: string = NORSK_DATO_OG_TID_FORMAT_FULL) => {
     try {
         if (dato === '-999999999-01-01') return '';
-        const formattertDato = moment(dato).format(format);
-        return !formattertDato.includes('NaN') ? formattertDato : dato;
+        return format(dato, formatString, { locale: nb });
     } catch (e) {
-        return dato;
-    }
-};
-
-/**
- * Formater en dato gitt en formateringsstring.
- *
- * Bruker date-fns, og ikke moment.
- */
-export const formaterDatoNy = (dato: string, formatString: string = NORSK_DATO_OG_TID_FORMAT) => {
-    try {
-        if (dato === '-999999999-01-01') return '';
-        const formatertDato = format(dato, formatString, { locale: nb });
-        return !formatertDato.includes('NaN') ? formatertDato : dato;
-    } catch (e) {
-        return dato;
+        return 'Ugyldig dato';
     }
 };
 
 /**
  * Formater en (tilskudds)periode gitt en formateringsstring.
- *
- * Bruker date-fns, og ikke moment.
  */
-export const formaterPeriodeNy = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
-    return formaterDatoNy(fra, format) + ' – ' + formaterDatoNy(til, format);
+export const formaterPeriode = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
+    return formaterDato(fra, format) + ' – ' + formaterDato(til, format);
 };
 
-/**
- * Formater en (tilskudds)periode gitt en formateringsstring.
- *
- * Bør fases ut til fordel for `formaterPeriodeNy`.
- *
- * @deprecated
- */
-export const formatterPeriode = (fra: string, til: string, format: string = NORSK_DATO_FORMAT) => {
-    return formatterDato(fra, format) + ' – ' + formatterDato(til, format);
+export const erDatoTilbakeITid = (dato?: string) => {
+    const now = new Date();
+    return differenceInDays(dato!, now) < 0 && isBefore(dato!, now);
 };
-
-export const erDatoTilbakeITid = (dato?: string) => moment(dato).diff(moment(), 'days') < 0;
 
 export const visPeriodeForTiltak = (fra?: string, til?: string): string => {
-    if (fra && til) return formatterPeriode(fra, til, 'DD.MM.YY');
-    if (fra && !til) return formatterDato(fra, 'DD.MM.YY') + ' - sluttdato ikke satt';
-    if (!fra && til) return 'startdato ikke satt - ' + formatterDato(til, 'DD.MM.YY');
+    if (fra && til) return formaterPeriode(fra, til, 'dd.MM.yy');
+    if (fra && !til) return formaterDato(fra, 'dd.MM.yy') + ' - sluttdato ikke satt';
+    if (!fra && til) return 'startdato ikke satt - ' + formaterDato(til, 'dd.MM.yy');
     return 'ikke satt';
 };
 
-export const formatterDatoHvisDefinert = (dato?: string, format: string = NORSK_DATO_FORMAT) => {
-    if (!dato) return '';
-    const formattertDato = formatterDato(dato, format);
-    if (formattertDato === 'Invalid date') {
+export const formaterDatoHvisDefinert = (dato?: string | null, format: string = NORSK_DATO_FORMAT) => {
+    if (!dato) return '-';
+    const formatertDato = formaterDato(dato, format);
+    if (formatertDato === 'Ugyldig dato') {
         return dato;
     }
-    return formatterDato(dato, format);
+    return formatertDato;
 };
 
-export const formaterTid = (tidspunkt: string) => {
-    const antallTimerSiden = moment(moment()).diff(tidspunkt, 'hours');
-    if (antallTimerSiden > 12) {
-        return formatterDato(tidspunkt);
-    } else {
-        return moment(tidspunkt).fromNow();
-    }
+/**
+ * Eksempler:
+ * `tidSidenTidspunkt(addDays(new Date(), -5))` => '5 dager'
+ * `tidSidenTidspunkt(addHours(new Date(), -5))` => '5 timer'
+ * `tidSidenTidspunkt(addYears(new Date(), -5))` => '5 år'
+ */
+export const tidSidenTidspunkt = (tidspunkt: string) => {
+    return formatDistanceToNowStrict(tidspunkt, { locale: nb });
 };

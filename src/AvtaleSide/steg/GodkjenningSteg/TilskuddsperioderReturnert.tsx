@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Accordion, Alert, BodyShort, Heading } from '@navikt/ds-react';
 import ProblemIkon from '@/assets/ikoner/varsel.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formatterDato, NORSK_DATO_OG_TID_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_OG_TID_FORMAT_FULL } from '@/utils/datoUtils';
 import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { interleave } from '@/utils/arrayUtils';
@@ -14,8 +14,8 @@ const avslåttBegrunnelse = (avslåttTilskuddsperiode: TilskuddsPeriode) => {
 
     return (
         <div key={avslåttTilskuddsperiode.id}>
-            <b>{formatterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT)}:</b> Returnert av{' '}
-            {avslåttTilskuddsperiode.avslåttAvNavIdent} med følgende årsak{avslagsårsaker.length > 1 ? 'er' : ''}:
+            <b>{formaterDato(avslåttTilskuddsperiode.avslåttTidspunkt!, NORSK_DATO_OG_TID_FORMAT_FULL)}:</b> Returnert
+            av {avslåttTilskuddsperiode.avslåttAvNavIdent} med følgende årsak{avslagsårsaker.length > 1 ? 'er' : ''}:
             <ul>
                 {avslagsårsaker.map((årsak: Returårsaker, index: number) => (
                     <li key={index}>{tilskuddsperiodeReturÅrsakTekst[årsak]}</li>
@@ -32,7 +32,7 @@ const TilskuddsperioderReturnert: FunctionComponent = (_props) => {
         avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' ? avtale.gjeldendeTilskuddsperiode : undefined;
 
     const returnerteTilskuddsperioder = avtale.tilskuddPeriode
-        // Filtrer vekk gjendelde periode fra listen; denne skal vises på toppen av dialogvinduet hvis den er relevant.
+        // Filtrer vekk gjeldende periode fra listen; denne skal vises på toppen av dialogvinduet hvis den er relevant.
         .filter((p) => p.status === 'AVSLÅTT' && p.id !== gjeldendeReturnerteTilskuddsperiode?.id)
         .sort((a: TilskuddsPeriode, b: TilskuddsPeriode) => {
             if (a.avslåttTidspunkt && b.avslåttTidspunkt) {

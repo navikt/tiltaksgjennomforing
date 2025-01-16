@@ -4,7 +4,7 @@ import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale } from '@/types/avtale';
-import { formatterDatoHvisDefinert } from '@/utils/datoUtils';
+import { formaterDato } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
@@ -48,7 +48,7 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     header={'Avtalen er annullert'}
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert avtalen {formatterDatoHvisDefinert(avtale.annullertTidspunkt!)}.
+                            Veileder har annullert avtalen {formaterDato(avtale.annullertTidspunkt!)}.
                         </BodyShort>
                     }
                 />
@@ -94,9 +94,7 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
             );
         }
         case 'KLAR_FOR_OPPSTART':
-            return (
-                <KlarForOppstart avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />
-            );
+            return <KlarForOppstart startDato={avtale.gjeldendeInnhold.startDato!} />;
         case 'GJENNOMFØRES':
             return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
         case 'AVSLUTTET':

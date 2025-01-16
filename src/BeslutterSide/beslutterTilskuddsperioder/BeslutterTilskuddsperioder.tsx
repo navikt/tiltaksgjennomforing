@@ -1,5 +1,5 @@
 import { AvtaleContext, Context } from '@/AvtaleProvider';
-import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT_FULL, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formaterPenger } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext, useRef, useState, useEffect } from 'react';
@@ -54,7 +54,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                 Tilskuddsperioden ble returnert av
                 <span className={cls.element('bold')}>{' ' + periode.avslåttAvNavIdent + ' '}</span> den
                 <span className={cls.element('bold')}>
-                    {' ' + formatterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT) + ' '}
+                    {' ' + formaterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT_FULL) + ' '}
                 </span>
                 med følgende årsak(er):
                 <span className={cls.element('bold')}>{' ' + hentReturÅrsaker(periode) + ' '}</span>
@@ -97,11 +97,11 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td
                                             aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}
                                         >
-                                            {formatterPeriode(periode.startDato, periode.sluttDato, 'DD.MM.YY')}
+                                            {formaterPeriode(periode.startDato, periode.sluttDato, 'dd.MM.yy')}
                                         </td>
                                         <td>{formaterPenger(periode.beløp)}</td>
                                         <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
-                                        <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
+                                        <td>{formaterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
                                         <td>
                                             <EtikettStatus

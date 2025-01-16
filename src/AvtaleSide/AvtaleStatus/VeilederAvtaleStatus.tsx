@@ -1,5 +1,4 @@
 import { BodyShort } from '@navikt/ds-react';
-import moment from 'moment';
 import React, { useContext } from 'react';
 
 import { AvtaleContext } from '@/AvtaleProvider';
@@ -9,7 +8,7 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import TilskuddsperioderReturnert from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderReturnert';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formaterTid, formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { tidSidenTidspunkt, formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
 
@@ -77,15 +76,6 @@ function VeilederAvtaleStatus(props: Props) {
     const { overtaAvtale } = useContext(AvtaleContext);
     const { arbeidstreningReadonly } = useFeatureToggles();
 
-    const tidSidenDeltakerFikkVarsling = () => {
-        if (avtale.godkjentAvArbeidsgiver !== undefined) {
-            if (moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days') > 0) {
-                return `${moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days')} dager siden.`;
-            }
-            return `${formaterTid(avtale.godkjentAvArbeidsgiver)}`;
-        }
-    };
-
     if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
         return (
             <StatusPanel
@@ -150,10 +140,13 @@ function VeilederAvtaleStatus(props: Props) {
                 <StatusPanel
                     header="Avtalen er annullert"
                     body={
-                        <BodyShort size="small">
-                            Du eller en annen veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}
-                            . Årsak: {avtale.annullertGrunn}.
-                        </BodyShort>
+                        <>
+                            <BodyShort size="small">
+                                Du eller en annen veileder har annullert avtalen{' '}
+                                {formaterDato(avtale.annullertTidspunkt!)}.
+                            </BodyShort>
+                            <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
+                        </>
                     }
                 />
             );
@@ -289,9 +282,14 @@ function VeilederAvtaleStatus(props: Props) {
                             header="Venter på godkjenning av avtalen fra deltaker og signering av mentor"
                             body={
                                 <BodyShort size="small">
-                                    Avtalen må godkjennes av deltaker Deltaker fikk en varsling på min side Personbruker
-                                    om å godkjenne avtalen for {tidSidenDeltakerFikkVarsling()} Mentor må signere
-                                    taushetserklæringen før du kan godkjenne avtalen.
+                                    Avtalen må godkjennes av deltaker.{' '}
+                                    {avtale.godkjentAvArbeidsgiver && (
+                                        <>
+                                            Deltaker fikk en varsling på min side Personbruker om å godkjenne avtalen
+                                            for {tidSidenTidspunkt(avtale.godkjentAvArbeidsgiver)} siden.
+                                        </>
+                                    )}{' '}
+                                    Mentor må signere taushetserklæringen før du kan godkjenne avtalen.
                                 </BodyShort>
                             }
                         />
@@ -317,8 +315,13 @@ function VeilederAvtaleStatus(props: Props) {
                             header="Venter på godkjenning av avtalen fra deltaker"
                             body={
                                 <BodyShort size="small">
-                                    Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side på NAV.no
-                                    om å godkjenne avtalen for {tidSidenDeltakerFikkVarsling()}
+                                    Avtalen må godkjennes av deltaker.
+                                    {avtale.godkjentAvArbeidsgiver && (
+                                        <>
+                                            Deltaker fikk en varsling på min side på NAV.no om å godkjenne avtalen for{' '}
+                                            {tidSidenTidspunkt(avtale.godkjentAvArbeidsgiver)} siden
+                                        </>
+                                    )}
                                 </BodyShort>
                             }
                         />
@@ -374,8 +377,9 @@ function VeilederAvtaleStatus(props: Props) {
                     body={
                         <>
                             <BodyShort size="small">
-                                Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
-                                starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
+                                Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.
+                                Tiltaket starter{' '}
+                                {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
@@ -393,8 +397,9 @@ function VeilederAvtaleStatus(props: Props) {
                     body={
                         <>
                             <BodyShort size="small">
-                                Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
-                                starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
+                                Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.{' '}
+                                Tiltaket starter{' '}
+                                {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
