@@ -1,5 +1,4 @@
 import video from '@/assets/media/roller-rettigheter.mp4';
-import { trackVideo } from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { Heading, Modal } from '@navikt/ds-react';
 import React from 'react';
@@ -33,25 +32,13 @@ const AltinnVideoModal: React.FunctionComponent<Props> = (props) => {
                     <Heading size="medium">Slik tildeler du roller og rettigheter i Altinn.</Heading>
                 </div>
                 <MediaQuery minWidth={576}>
-                    <video
-                        width="700"
-                        height="450"
-                        controls={true}
-                        onTimeUpdate={trackVideo}
-                        aria-label={videoInstruks}
-                    >
+                    <video width="700" height="450" controls={true} aria-label={videoInstruks}>
                         <source src={video} type="video/mp4" />
                         Nettleseren din støtter ikke denne videoen.
                     </video>
                 </MediaQuery>
                 <MediaQuery maxWidth={575}>
-                    <video
-                        width="300"
-                        height="300"
-                        controls={true}
-                        onTimeUpdate={trackVideo}
-                        aria-label={videoInstruks}
-                    >
+                    <video width="300" height="300" controls={true} aria-label={videoInstruks}>
                         <source src={video} type="video/mp4" />
                         Nettleseren din støtter ikke denne videoen.
                     </video>
