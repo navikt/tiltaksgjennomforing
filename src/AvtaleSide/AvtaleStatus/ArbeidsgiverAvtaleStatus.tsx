@@ -7,31 +7,12 @@ import { Avtale } from '@/types/avtale';
 import { formaterDato } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
     avtale: Avtale;
 }
 
 const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
-    const { arbeidstreningReadonly } = useFeatureToggles();
-
-    if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
-        return (
-            <StatusPanel
-                header="Teknisk oppgradering av fagsystem"
-                body={
-                    <>
-                        <BodyShort size="small" align="center">
-                            Forsøk igjen om et par timer.
-                        </BodyShort>
-                        <VerticalSpacer rem={1.5} />
-                    </>
-                }
-            />
-        );
-    }
-
     if (avtale.erUfordelt) {
         return (
             <StatusPanel

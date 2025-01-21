@@ -10,7 +10,6 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { tidSidenTidspunkt, formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
     avtale: Avtale;
@@ -74,21 +73,6 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
-    const { arbeidstreningReadonly } = useFeatureToggles();
-
-    if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
-        return (
-            <StatusPanel
-                header="Oppgradering av fagsystemet"
-                body={
-                    <BodyShort size="small" align="center">
-                        Migrering fra Arena pågår. Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk igjen
-                        om et par timer.
-                    </BodyShort>
-                }
-            />
-        );
-    }
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
