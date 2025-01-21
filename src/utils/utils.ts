@@ -25,3 +25,17 @@ export const fjernTommeFelterFraObjekt = <T extends object>(objekt: T): Pick<T, 
     });
     return copy as Pick<T, RemoveUndefined<T>>;
 };
+
+export const sortBy = <T extends object, K extends keyof T>(objekter: T[], felter: K[]): T[] => {
+    const kopi = [...objekter];
+    kopi.sort((a, b) => {
+        felter.forEach((felt) => {
+            const cmp = a[felt] > b[felt] ? 1 : a[felt] < b[felt] ? -1 : 0;
+            if (cmp !== 0) {
+                return cmp;
+            }
+        });
+        return 0;
+    });
+    return kopi;
+};
