@@ -1,6 +1,6 @@
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { omit, Pagination, Select } from '@navikt/ds-react';
+import { Alert, omit, Pagination, Select } from '@navikt/ds-react';
 import isEqual from 'lodash.isequal';
 
 import './AvtaleOversikt.less';
@@ -206,6 +206,12 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
+                {innloggetBruker.rolle !== 'DELTAKER' && (
+                    <Alert variant={'warning'}>
+                        Onsdag 22. januar fra klokken 21.00 til torsdag kl. 13.00 vil det ikke være mulig å
+                        registrere/oppdatere avtaler om arbeidstrening. Årsaken er overføring av data fra Arena.
+                    </Alert>
+                )}
                 <div
                     style={layout.stylingAvFilterOgTabell}
                     className={cls.element('filter-og-tabell')}

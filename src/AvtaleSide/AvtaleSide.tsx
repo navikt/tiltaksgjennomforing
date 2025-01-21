@@ -16,6 +16,8 @@ import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { Alert } from '@navikt/ds-react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('avtaleside');
 
@@ -91,27 +93,37 @@ const AvtaleSide: FunctionComponent = () => {
                 }}
                 tekst={sideTittel}
             />
+
             <div className="avtaleside" role="main">
-                {erAvtaleLaast && (
-                    <div className={cls.element('innhold')}>
-                        <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
-                        <OppgaveLinje />
-                        {aktivtSteg.komponent}
-                    </div>
-                )}
-                {!erAvtaleLaast && erDesktop && (
-                    <DesktopAvtaleSide
-                        sidetittel={sideTittel}
-                        avtaleSteg={avtaleSteg}
-                        aktivtSteg={aktivtSteg}
-                        rolle={innloggetBruker.rolle}
-                        avtale={avtale}
-                    />
-                )}
-                {!erAvtaleLaast && !erDesktop && (
-                    <MobilAvtaleSide avtaleId={avtale.id} avtaleSteg={avtaleSteg} rolle={innloggetBruker.rolle} />
-                )}
-                <Dialog id={avtale.id} />
+                <div className={cls.element('innhold')}>
+                    {innloggetBruker.rolle !== 'DELTAKER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
+                        <Alert variant={'warning'}>
+                            Onsdag 22. januar fra klokken 21.00 til torsdag kl. 13.00 vil det ikke være mulig å
+                            registrere/oppdatere avtaler om arbeidstrening. Årsaken er overføring av data fra Arena.
+                        </Alert>
+                    )}
+                    <VerticalSpacer rem={1} />
+                    {erAvtaleLaast && (
+                        <div className={cls.element('innhold')}>
+                            <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
+                            <OppgaveLinje />
+                            {aktivtSteg.komponent}
+                        </div>
+                    )}
+                    {!erAvtaleLaast && erDesktop && (
+                        <DesktopAvtaleSide
+                            sidetittel={sideTittel}
+                            avtaleSteg={avtaleSteg}
+                            aktivtSteg={aktivtSteg}
+                            rolle={innloggetBruker.rolle}
+                            avtale={avtale}
+                        />
+                    )}
+                    {!erAvtaleLaast && !erDesktop && (
+                        <MobilAvtaleSide avtaleId={avtale.id} avtaleSteg={avtaleSteg} rolle={innloggetBruker.rolle} />
+                    )}
+                    <Dialog id={avtale.id} />
+                </div>
             </div>
         </>
     ) : null;
