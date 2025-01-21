@@ -13,7 +13,6 @@ import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOppre
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import amplitude from '@/utils/amplitude';
 import useValidering from '@/komponenter/useValidering';
 import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
@@ -139,14 +138,12 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                         valgtTiltaksType,
                         Avtalerolle.VEILEDER,
                     );
-                    amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
                     navigate(generatePath(Path.AVTALE_STEG, { avtaleId: mentorAvtale.id, steg: 'kontaktinformasjon' }));
                     return;
                 }
                 return;
             }
             const avtale = await opprettAvtaleSomVeileder(deltakerFnr, bedriftNr, valgtTiltaksType);
-            amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
             navigate(generatePath(Path.AVTALE_STEG, { avtaleId: avtale.id, steg: 'kontaktinformasjon' }));
             return;
         }

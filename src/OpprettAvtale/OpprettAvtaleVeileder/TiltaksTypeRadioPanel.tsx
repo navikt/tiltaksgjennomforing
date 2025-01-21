@@ -4,7 +4,6 @@ import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { tiltakstypeTekst } from '@/messages';
 import { TiltaksType } from '@/types/avtale';
 import { Feilmeldinger } from '@/types/feilkode';
-import amplitude from '@/utils/amplitude';
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
@@ -38,10 +37,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
             </Heading>
             <BodyLong size="small" className={cls.element('valg-tiltakstype-tekst')}>
                 Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
-                <EksternLenke
-                    onClick={() => amplitude.logEvent('#tiltak-veileder-hvordan-kan-nav-hjelpe-med-inkludering-apnet')}
-                    href="https://www.nav.no/arbeidsgiver/inkludere"
-                >
+                <EksternLenke href="https://www.nav.no/arbeidsgiver/inkludere">
                     hvordan kan NAV hjelpe med inkludering
                 </EksternLenke>
             </BodyLong>

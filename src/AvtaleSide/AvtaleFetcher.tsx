@@ -2,7 +2,6 @@ import React, { FunctionComponent, PropsWithChildren, useEffect, useRef, useStat
 import { useParams } from 'react-router-dom';
 
 import { useAvtale } from '@/AvtaleProvider';
-import amplitude from '@/utils/amplitude';
 import { useAsyncError } from '@/komponenter/useError';
 import { Loader } from '@navikt/ds-react';
 
@@ -21,9 +20,7 @@ const AvtaleFetcher: FunctionComponent<PropsWithChildren> = (props) => {
             try {
                 await hentAvtale(avtaleId);
                 setLaster(false);
-                amplitude.logEvent('#tiltak-avtale-lastet');
             } catch (error) {
-                amplitude.logEvent('#tiltak-avtale-lastet-feilet');
                 throwError(error);
             }
         };

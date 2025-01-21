@@ -1,6 +1,5 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import amplitude from 'amplitude-js';
 import { Heading, Detail, Alert } from '@navikt/ds-react';
 import React, { useContext } from 'react';
 import VerticalSpacer from '../layout/VerticalSpacer';
@@ -68,7 +67,6 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
 
                     <div>
                         <Nytt
-                            onÅpneNyheter={() => amplitude.logEvent('#tiltak-nyheter-apnet')}
                             åpneVedFørsteBesøk={true}
                             nyheter={nyheter}
                             tittel="Nytt i tiltaksgjennomføring"
