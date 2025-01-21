@@ -5,9 +5,9 @@ import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { formaterDato, NORSK_DATO_FORMAT_FULL, NORSK_DATO_OG_TID_FORMAT_FULL } from '@/utils/datoUtils';
 import { erNil } from '@/utils/predicates';
+import { sortBy } from '@/utils/utils';
 import { Neutral } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
-import sortBy from 'lodash.sortby';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 
 const FortsettTiltak: FunctionComponent = () => {
