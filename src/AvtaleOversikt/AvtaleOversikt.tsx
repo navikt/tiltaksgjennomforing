@@ -31,6 +31,7 @@ import {
     hentUlesteVarsler,
 } from '@/services/rest-service';
 import { fjernTommeFelterFraObjekt } from '@/utils/utils';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
@@ -42,6 +43,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const { filtre, endreFilter } = useFilter();
     const [searchParams, setSearchParams] = useSearchParams();
     const [, , nettressursCtx, setNettressursCtx] = useContext(FiltreringContext);
+    const { arbeidstreningReadonly } = useFeatureToggles();
 
     useEffect(() => {
         if (nettressursCtx.status !== Status.Lastet) return;
@@ -206,17 +208,28 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                {innloggetBruker.rolle === 'VEILEDER' && (
+                {innloggetBruker.rolle === 'VEILEDER' && arbeidstreningReadonly && (
                     <Alert variant={'warning'}>
-                        Onsdag 22. januar fra klokken 21.00 til torsdag kl. 13.00 vil det ikke være mulig å
+                        Onsdag 22. januar fra klokken 21.00 til fredag kl. 13.00 vil det ikke være mulig å
                         registrere/oppdatere avtaler om arbeidstrening. Årsaken er overføring av data fra Arena.
+                        <br />
+                        Det vil fortsatt være mulig å gjøre endringer på arbeidstrening i Arena frem til torsdag kl.
+                        21.00.
                     </Alert>
                 )}
-                {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                {innloggetBruker.rolle === 'ARBEIDSGIVER' && arbeidstreningReadonly && (
                     <Alert variant={'warning'}>
                         Vi gjør tekniske oppdateringer i systemene våre og det kan forekomme endringer for de som har
-                        avtaler om arbeidstrening. Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder
-                        eller NKS på telefonen: <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
+                        avtaler om arbeidstrening.
+                    </Alert>
+                )}
+                {innloggetBruker.rolle === 'ARBEIDSGIVER' && !arbeidstreningReadonly && (
+                    <Alert variant={'warning'}>
+                        Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for de som
+                        har avtaler om arbeidstrening.
+                        <br />
+                        Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på telefonen:{' '}
+                        <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
                     </Alert>
                 )}
                 <div

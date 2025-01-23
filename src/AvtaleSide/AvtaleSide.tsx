@@ -95,26 +95,45 @@ const AvtaleSide: FunctionComponent = () => {
             />
 
             <div className="avtaleside" role="main">
-                <div className={cls.element('innhold')}>
-                    {innloggetBruker.rolle === 'VEILEDER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
-                        <>
-                            <VerticalSpacer rem={1} />
-                            <Alert variant={'warning'}>
-                                Onsdag 22. januar fra klokken 21.00 til torsdag kl. 13.00 vil det ikke være mulig å
-                                registrere/oppdatere avtaler om arbeidstrening. Årsaken er overføring av data fra Arena.
-                            </Alert>
-                        </>
-                    )}
-                    {innloggetBruker.rolle === 'ARBEIDSGIVER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
-                        <>
-                            <VerticalSpacer rem={1} />
-                            <Alert variant={'warning'}>
-                                Vi gjør tekniske oppdateringer i systemene våre og det kan forekomme endringer for de
-                                som har avtaler om arbeidstrening. Hvis dere opplever at noe ikke stemmer, så ta kontakt
-                                med veileder eller NKS på telefonen: <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
-                            </Alert>
-                        </>
-                    )}
+                <div>
+                    <VerticalSpacer rem={1} />
+                    {innloggetBruker.rolle === 'VEILEDER' &&
+                        avtale.tiltakstype === 'ARBEIDSTRENING' &&
+                        arbeidstreningReadonly && (
+                            <div className={cls.element('innhold')}>
+                                <Alert variant={'warning'}>
+                                    Onsdag 22. januar fra klokken 21.00 til fredag kl. 13.00 vil det ikke være mulig å
+                                    registrere/oppdatere avtaler om arbeidstrening. Årsaken er overføring av data fra
+                                    Arena.
+                                    <br />
+                                    Det vil fortsatt være mulig å gjøre endringer på arbeidstrening i Arena frem til
+                                    torsdag kl. 21.00.
+                                </Alert>
+                            </div>
+                        )}
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
+                        avtale.tiltakstype === 'ARBEIDSTRENING' &&
+                        arbeidstreningReadonly && (
+                            <div className={cls.element('innhold')}>
+                                <Alert variant={'warning'}>
+                                    Vi gjør tekniske oppdateringer i systemene våre og det kan forekomme endringer for
+                                    de som har avtaler om arbeidstrening.
+                                </Alert>
+                            </div>
+                        )}
+                    {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
+                        avtale.tiltakstype === 'ARBEIDSTRENING' &&
+                        !arbeidstreningReadonly && (
+                            <div className={cls.element('innhold')}>
+                                <Alert variant={'warning'}>
+                                    Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer
+                                    for de som har avtaler om arbeidstrening.
+                                    <br />
+                                    Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på
+                                    telefonen: <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
+                                </Alert>
+                            </div>
+                        )}
                     <VerticalSpacer rem={1} />
                     {erAvtaleLaast && (
                         <div className={cls.element('innhold')}>

@@ -111,8 +111,11 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                 {arbeidstreningReadonly && (
                     <>
                         <Alert variant={'warning'}>
-                            Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår.
-                            Forsøk igjen om et par timer.
+                            Vi gjør tekniske oppdateringer i systemene våre og det vil derfor midlertidig ikke være
+                            mulig å registrere nye arbeidstreningsavtaler.
+                            <br />
+                            Forventet ferdigstillelse er fredag 24. januar kl. 13:00. Vi beklager ulempene dette
+                            medfører.
                         </Alert>
                         <VerticalSpacer rem={1} />
                     </>

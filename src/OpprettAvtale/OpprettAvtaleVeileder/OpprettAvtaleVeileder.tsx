@@ -1,4 +1,4 @@
-import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Alert, Heading } from '@navikt/ds-react';
 import { useNavigate, generatePath } from 'react-router-dom';
 
@@ -190,8 +190,8 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             {arbeidstreningReadonly && (
                 <>
                     <Alert variant={'warning'}>
-                        Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår.
-                        Forsøk igjen om et par timer.
+                        Vi overfører data fra Arena og det vil derfor midlertidig ikke være mulig å registrere nye
+                        arbeidstreningsavtaler. Forventet ferdigstillelse er fredag 24. januar kl. 13:00.
                     </Alert>
                     <VerticalSpacer rem={1} />
                 </>
