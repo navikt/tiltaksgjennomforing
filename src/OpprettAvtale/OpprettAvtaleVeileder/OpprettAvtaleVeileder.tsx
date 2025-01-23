@@ -50,8 +50,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
-    const { arbeidstreningReadonly } = useFeatureToggles();
-    const visVarsel = useContext(FeilVarselContext);
 
     const navigate = useNavigate();
 
@@ -187,15 +185,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             <Heading size="large" className={cls.element('innholdstittel')}>
                 Opprett avtale
             </Heading>
-            {arbeidstreningReadonly && (
-                <>
-                    <Alert variant={'warning'}>
-                        Vi overfører data fra Arena og det vil derfor midlertidig ikke være mulig å registrere nye
-                        arbeidstreningsavtaler. Forventet ferdigstillelse er fredag 24. januar kl. 13:00.
-                    </Alert>
-                    <VerticalSpacer rem={1} />
-                </>
-            )}
             <InformasjonsboksTopVeilederOppretterAvtale />
             <TiltaksTypeRadioPanel
                 className={cls.className}
