@@ -95,6 +95,18 @@ const AvtaleSide: FunctionComponent = () => {
             <div className="avtaleside" role="main">
                 {erAvtaleLaast && (
                     <div className={cls.element('innhold')}>
+                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
+                            <>
+                                <Alert variant={'warning'}>
+                                    Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer
+                                    for de som har avtaler om arbeidstrening.
+                                    <br />
+                                    Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på
+                                    telefonen: <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
+                                </Alert>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
                         <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
                         <OppgaveLinje />
                         {aktivtSteg.komponent}

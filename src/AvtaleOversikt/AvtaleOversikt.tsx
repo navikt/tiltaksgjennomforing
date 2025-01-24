@@ -207,6 +207,15 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
+                {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                    <Alert variant={'warning'}>
+                        Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for de som
+                        har avtaler om arbeidstrening.
+                        <br />
+                        Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på telefonen:{' '}
+                        <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
+                    </Alert>
+                )}
                 <div
                     style={layout.stylingAvFilterOgTabell}
                     className={cls.element('filter-og-tabell')}
