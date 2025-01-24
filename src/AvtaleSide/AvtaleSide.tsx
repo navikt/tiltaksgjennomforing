@@ -93,10 +93,11 @@ const AvtaleSide: FunctionComponent = () => {
             />
 
             <div className="avtaleside" role="main">
-                {erAvtaleLaast && (
-                    <div className={cls.element('innhold')}>
+                {
+                    <div className={erAvtaleLaast ? cls.element('innhold') : cls.element('')}>
                         {innloggetBruker.rolle === 'ARBEIDSGIVER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
                             <>
+                                <VerticalSpacer rem={1} />
                                 <Alert variant={'warning'}>
                                     Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer
                                     for de som har avtaler om arbeidstrening.
@@ -107,24 +108,43 @@ const AvtaleSide: FunctionComponent = () => {
                                 <VerticalSpacer rem={1} />
                             </>
                         )}
-                        <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
-                        <OppgaveLinje />
-                        {aktivtSteg.komponent}
+                        {innloggetBruker.rolle === 'VEILEDER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Alert variant={'warning'}>
+                                    På grunn av overføring av data på arbeidstrening fra Arena, så kan det forekomme
+                                    endringer i Tiltaksgjennomføring. Avtaler som ikke er fullført i Arena kan ha blitt
+                                    annullert som følge av migreringen og må derfor opprettes på nytt.
+                                </Alert>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
+                        {erAvtaleLaast && (
+                            <div className={cls.element('innhold')}>
+                                <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
+                                <OppgaveLinje />
+                                {aktivtSteg.komponent}
+                            </div>
+                        )}
+                        {!erAvtaleLaast && erDesktop && (
+                            <DesktopAvtaleSide
+                                sidetittel={sideTittel}
+                                avtaleSteg={avtaleSteg}
+                                aktivtSteg={aktivtSteg}
+                                rolle={innloggetBruker.rolle}
+                                avtale={avtale}
+                            />
+                        )}
+                        {!erAvtaleLaast && !erDesktop && (
+                            <MobilAvtaleSide
+                                avtaleId={avtale.id}
+                                avtaleSteg={avtaleSteg}
+                                rolle={innloggetBruker.rolle}
+                            />
+                        )}
+                        <Dialog id={avtale.id} />
                     </div>
-                )}
-                {!erAvtaleLaast && erDesktop && (
-                    <DesktopAvtaleSide
-                        sidetittel={sideTittel}
-                        avtaleSteg={avtaleSteg}
-                        aktivtSteg={aktivtSteg}
-                        rolle={innloggetBruker.rolle}
-                        avtale={avtale}
-                    />
-                )}
-                {!erAvtaleLaast && !erDesktop && (
-                    <MobilAvtaleSide avtaleId={avtale.id} avtaleSteg={avtaleSteg} rolle={innloggetBruker.rolle} />
-                )}
-                <Dialog id={avtale.id} />
+                }
             </div>
         </>
     ) : null;
