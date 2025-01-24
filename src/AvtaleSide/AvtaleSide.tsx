@@ -52,15 +52,13 @@ const AvtaleSide: FunctionComponent = () => {
 
     const erDesktop = windowSize > 768;
     const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
-    const { arbeidstreningReadonly } = useFeatureToggles();
 
     const erAvtaleLaast =
         godkjentAvVeileder ||
         avtale.avbrutt ||
         avtale.annullertTidspunkt ||
         innloggetBruker.rolle === 'DELTAKER' ||
-        innloggetBruker.rolle === 'MENTOR' ||
-        (arbeidstreningReadonly && avtale.tiltakstype === 'ARBEIDSTRENING');
+        innloggetBruker.rolle === 'MENTOR';
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);
@@ -95,36 +93,11 @@ const AvtaleSide: FunctionComponent = () => {
             />
 
             <div className="avtaleside" role="main">
-                <div>
-                    <VerticalSpacer rem={1} />
-                    {innloggetBruker.rolle === 'VEILEDER' &&
-                        avtale.tiltakstype === 'ARBEIDSTRENING' &&
-                        arbeidstreningReadonly && (
-                            <div className={cls.element('innhold')}>
-                                <Alert variant={'warning'}>
-                                    Onsdag 22. januar fra klokken 21.00 til fredag kl. 13.00 vil det ikke være mulig å
-                                    registrere/oppdatere avtaler om arbeidstrening. Årsaken er overføring av data fra
-                                    Arena.
-                                    <br />
-                                    Det vil fortsatt være mulig å gjøre endringer på arbeidstrening i Arena frem til
-                                    torsdag kl. 21.00.
-                                </Alert>
-                            </div>
-                        )}
-                    {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-                        avtale.tiltakstype === 'ARBEIDSTRENING' &&
-                        arbeidstreningReadonly && (
-                            <div className={cls.element('innhold')}>
-                                <Alert variant={'warning'}>
-                                    Vi gjør tekniske oppdateringer i systemene våre og det kan forekomme endringer for
-                                    de som har avtaler om arbeidstrening.
-                                </Alert>
-                            </div>
-                        )}
-                    {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-                        avtale.tiltakstype === 'ARBEIDSTRENING' &&
-                        !arbeidstreningReadonly && (
-                            <div className={cls.element('innhold')}>
+                {
+                    <div className={erAvtaleLaast ? cls.element('innhold') : cls.element('')}>
+                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
+                            <>
+                                <VerticalSpacer rem={1} />
                                 <Alert variant={'warning'}>
                                     Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer
                                     for de som har avtaler om arbeidstrening.
@@ -132,30 +105,46 @@ const AvtaleSide: FunctionComponent = () => {
                                     Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på
                                     telefonen: <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
                                 </Alert>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
+                        {innloggetBruker.rolle === 'VEILEDER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Alert variant={'warning'}>
+                                    På grunn av overføring av data på arbeidstrening fra Arena, så kan det forekomme
+                                    endringer i Tiltaksgjennomføring. Avtaler som ikke er fullført i Arena kan ha blitt
+                                    annullert som følge av migreringen og må derfor opprettes på nytt.
+                                </Alert>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
+                        {erAvtaleLaast && (
+                            <div className={cls.element('innhold')}>
+                                <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
+                                <OppgaveLinje />
+                                {aktivtSteg.komponent}
                             </div>
                         )}
-                    <VerticalSpacer rem={1} />
-                    {erAvtaleLaast && (
-                        <div className={cls.element('innhold')}>
-                            <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
-                            <OppgaveLinje />
-                            {aktivtSteg.komponent}
-                        </div>
-                    )}
-                    {!erAvtaleLaast && erDesktop && (
-                        <DesktopAvtaleSide
-                            sidetittel={sideTittel}
-                            avtaleSteg={avtaleSteg}
-                            aktivtSteg={aktivtSteg}
-                            rolle={innloggetBruker.rolle}
-                            avtale={avtale}
-                        />
-                    )}
-                    {!erAvtaleLaast && !erDesktop && (
-                        <MobilAvtaleSide avtaleId={avtale.id} avtaleSteg={avtaleSteg} rolle={innloggetBruker.rolle} />
-                    )}
-                    <Dialog id={avtale.id} />
-                </div>
+                        {!erAvtaleLaast && erDesktop && (
+                            <DesktopAvtaleSide
+                                sidetittel={sideTittel}
+                                avtaleSteg={avtaleSteg}
+                                aktivtSteg={aktivtSteg}
+                                rolle={innloggetBruker.rolle}
+                                avtale={avtale}
+                            />
+                        )}
+                        {!erAvtaleLaast && !erDesktop && (
+                            <MobilAvtaleSide
+                                avtaleId={avtale.id}
+                                avtaleSteg={avtaleSteg}
+                                rolle={innloggetBruker.rolle}
+                            />
+                        )}
+                        <Dialog id={avtale.id} />
+                    </div>
+                }
             </div>
         </>
     ) : null;

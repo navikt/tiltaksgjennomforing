@@ -6,7 +6,6 @@ const InitialState = {
     visNedetidBanner: false,
     vtaoTiltakToggle: false,
     visHvemHarGodkjent: false,
-    arbeidstreningReadonly: false,
     pabegyntAvtaleRyddeJobb: false,
 } as const;
 

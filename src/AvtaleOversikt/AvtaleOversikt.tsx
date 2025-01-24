@@ -43,7 +43,6 @@ const AvtaleOversikt: FunctionComponent = () => {
     const { filtre, endreFilter } = useFilter();
     const [searchParams, setSearchParams] = useSearchParams();
     const [, , nettressursCtx, setNettressursCtx] = useContext(FiltreringContext);
-    const { arbeidstreningReadonly } = useFeatureToggles();
 
     useEffect(() => {
         if (nettressursCtx.status !== Status.Lastet) return;
@@ -208,28 +207,20 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                {innloggetBruker.rolle === 'VEILEDER' && arbeidstreningReadonly && (
-                    <Alert variant={'warning'}>
-                        Onsdag 22. januar fra klokken 21.00 til fredag kl. 13.00 vil det ikke være mulig å
-                        registrere/oppdatere avtaler om arbeidstrening. Årsaken er overføring av data fra Arena.
-                        <br />
-                        Det vil fortsatt være mulig å gjøre endringer på arbeidstrening i Arena frem til torsdag kl.
-                        21.00.
-                    </Alert>
-                )}
-                {innloggetBruker.rolle === 'ARBEIDSGIVER' && arbeidstreningReadonly && (
-                    <Alert variant={'warning'}>
-                        Vi gjør tekniske oppdateringer i systemene våre og det kan forekomme endringer for de som har
-                        avtaler om arbeidstrening.
-                    </Alert>
-                )}
-                {innloggetBruker.rolle === 'ARBEIDSGIVER' && !arbeidstreningReadonly && (
+                {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
                     <Alert variant={'warning'}>
                         Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for de som
                         har avtaler om arbeidstrening.
                         <br />
                         Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på telefonen:{' '}
                         <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
+                    </Alert>
+                )}
+                {innloggetBruker.rolle === 'VEILEDER' && (
+                    <Alert variant={'warning'}>
+                        På grunn av overføring av data på arbeidstrening fra Arena, så kan det forekomme endringer i
+                        Tiltaksgjennomføring. Avtaler som ikke er fullført i Arena kan ha blitt annullert som følge av
+                        migreringen og må derfor opprettes på nytt.
                     </Alert>
                 )}
                 <div

@@ -35,7 +35,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
-    const { arbeidstreningReadonly, vtaoTiltakToggle } = useFeatureToggles();
+    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -108,18 +108,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <Dokumenttittel tittel="Opprett avtale" />
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
-                {arbeidstreningReadonly && (
-                    <>
-                        <Alert variant={'warning'}>
-                            Vi gjør tekniske oppdateringer i systemene våre og det vil derfor midlertidig ikke være
-                            mulig å registrere nye arbeidstreningsavtaler.
-                            <br />
-                            Forventet ferdigstillelse er fredag 24. januar kl. 13:00. Vi beklager ulempene dette
-                            medfører.
-                        </Alert>
-                        <VerticalSpacer rem={1} />
-                    </>
-                )}
                 <Innholdsboks>
                     <Heading level="2" size="medium">
                         Før du oppretter en avtale
@@ -162,7 +150,6 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                                 setTiltaksType(tiltakType);
                                                 setUyldigAvtaletype(false);
                                             }}
-                                            disabled={arbeidstreningReadonly && tiltakType === 'ARBEIDSTRENING'}
                                         >
                                             {storForbokstav(tiltakstypeTekst[tiltakType])}
                                         </RadioPanel>
